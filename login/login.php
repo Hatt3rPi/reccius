@@ -2,7 +2,7 @@
 session_start();
 
 // Incluir el archivo de conexión a la base de datos
-require_once "/home/gestio10/procedimientos_almacenados/config_ayun.php";
+require_once "/home/gestio10/procedimientos_almacenados/config_reccius.php";
 
 // Función para escapar valores de cadenas de caracteres
 function escape($value) {
