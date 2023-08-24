@@ -10,8 +10,9 @@ body {
 }
 
 header {
-    background-color: #ffffff;
-    height: 78px;
+    background-color: #2E3A45;
+    color: #FFFFFF;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,6 +21,7 @@ header {
     top: 0;
     width: 100%;
     z-index: 1000;
+    
 }
 
 .logo-title-container {
@@ -122,10 +124,11 @@ header input[type="search"] {
     padding: 0 15px;
     outline: none;
 }
-.logo-title-search-container {
+.header_estatico {
     display: flex;
-    align-items: center;
-}
+    justify-content: space-between; /* Alinea los elementos a ambos extremos */
+    align-items: center; /* Centra los elementos verticalmente */
+  }
 
 .minimalist-form {
     background-color: #f5f5f5;
@@ -205,6 +208,8 @@ header input[type="search"] {
   .container_login input[type="submit"]:hover {
     background-color: #1c4a3d;
   }
+
+
   .dropdown {
     position: relative;
     display: inline-block;
@@ -233,3 +238,36 @@ header input[type="search"] {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+.user-info {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+    margin-right: 20px; /* Añade un margen a la derecha para separarlo del borde */
+  }
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #fff; /* Añade un borde para darle un toque elegante */
+  }
+  .username, .user-role {
+    color: #000000; /* Utiliza un color que contraste bien con el fondo del header */
+    margin-right: 10px;
+    font-size: 16px; /* Ajusta el tamaño de la fuente según tus necesidades */
+  }
+  
+  .username {
+    font-weight: bold; /* Haz que el nombre de usuario sea negrita para destacarlo */
+  }
+  .dropbtn {
+    background-color: #f2f2f2; /* Gris claro */
+    border: none; /* Sin bordes */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno para que se vea bien */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar por encima */
+  }
+  
+  /* Cambia el estilo al pasar el cursor por encima del botón */
+  .dropbtn:hover {
+    background-color: #e6e6e6; /* Un gris un poco más oscuro para el hover */
+  }
