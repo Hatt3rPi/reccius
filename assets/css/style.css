@@ -52,7 +52,7 @@ header {
 .logo-title-container {
     display: flex;
     align-items: center;
-    margin-left: 00px;
+    margin-left: 0px;
     
 }
 
@@ -82,7 +82,7 @@ header h1 {
     padding: 0px;
     position: fixed;
     height: calc(100% - 60px);
-    padding-bottom: 100px;
+    padding-bottom: 0px;
 
 }
 
@@ -306,7 +306,7 @@ body {
     background: #333;
     overflow: auto;
     transition: max-height 0.3s;
-    max-height: 100px;
+    max-height: 0px;
 }
 .smenu a {
     display: block;
