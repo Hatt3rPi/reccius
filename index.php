@@ -40,15 +40,17 @@ if ($_SESSION['rol'] === 'administrador') {
     </head>
 <body>
     <header>
-        <div class="logo-title-search-container">
+        <div class="header_estatico">
             <div class="logo-title-container">
-                <img src="./assets/img/logo_reccius_medicina_especializada.png" alt="Logo" href="https://gestionipn.cl/reccius/index.php" class="logo"/>
-                <h1>Ayün Plantkeeper</h1>
+                <img src="./assets/img/logo_reccius_medicina_especializada-1.png" alt="Logo" href="https://gestionipn.cl/reccius/index.php" class="logo"/>
             </div>
             <div class="user-info">
                 <img src="./assets/img/perfil.png" alt="Foto de perfil" class="profile-pic">
                 <div class="dropdown">
-                    <button class="dropbtn">Nombre de Usuario (Rol)</button>
+                    <button class="dropbtn">
+                        <span class="username">Nombre de Usuario</span><br> 
+                        <span class="user-role">Rol</span>
+                    </button>
                     <div class="dropdown-content">
                         <a href="#">Perfil</a>
                         <a href="#">Configuración</a>
