@@ -61,16 +61,34 @@ if ($_SESSION['rol'] === 'administrador') {
     
     <div class="container_fas">
         <aside class="sidebar">
-
-            <ul>
-                <li><a href="principal.php" class="">Principal</a></li>
-                <li><a href="plantkeeper/plantkeeper.php" class="">Plantkeeper</a></li>
-                <li><a href="plantkeeper/plantas.php" class="">Plantas</a></li>
-                <li><a href="plantkeeper/zonas.php" class="">Zonas</a></li>
-                <li><a href="plantkeeper/recolectores.php" class="">Recolectores</a></li>
-                <li><a href="plantkeeper/sensores.php" class="">Sensores</a></li>
-                <li><a href="plantkeeper/relaciones.php" class="">Relaciones</a></li>
-                <li><a href="plantkeeper/metricas.php" class="">Métricas</a></li>
+            <ul id="sidebarList">
+                <li><a class="" style="pointer-events: none;"> </a></li>
+                <li class="item" id="usuarios">
+                    <a href="#usuarios" class="btn_lateral"><i class="fa fa-user"></i> Usuarios y Roles</a>
+                    <div class="smenu">
+                        <a href="">Crear Usuario</a>
+                        <a href="">Asignar Roles</a>
+                    </div>
+                </li>
+                <li class="item" id="rec_magistrales">
+                    <a href="#rec_magistrales" class="btn_lateral"><i class="fa fa-envelope"></i> Recetas Magistrales</a>
+                    <div class="smenu">
+                        <a href="">Ingreso</a>
+                        <a href="">Salida</a>
+                        <a href="">Búsqueda</a>
+                        <a href="">Trazabilidad</a>
+                        <a href="">Conciliación</a>
+                    </div>
+                </li>
+                <li class="item" id="calidad">
+                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
+                    <div class="smenu">
+                        <a href="">Paso 1</a>
+                        <a href="">Paso 2</a>
+                        <a href="">Paso 3</a>
+                        <a href="">Paso 4</a>
+                    </div>
+                </li>
             </ul>
         </aside>
         <main class="content">
