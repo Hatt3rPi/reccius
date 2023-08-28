@@ -4,11 +4,7 @@ if (!isset($_SESSION['usuario']) or !isset($_SESSION['csrf_token'])) {
     header("Location: .\login\login.php");
     exit();
 }
-if ($_SESSION['rol'] === 'administrador') {
-    echo 'usuario: Administrador'
-} elseif ($_SESSION['rol'] === 'vendedor') {
-    echo 'usuario: Vendedor'
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -48,8 +44,8 @@ if ($_SESSION['rol'] === 'administrador') {
                 <img src="./assets/img/perfil.png" alt="Foto de perfil" class="profile-pic">
                 <div class="dropdown">
                     <button class="dropbtn">
-                        <span class="username">Nombre de Usuario</span><br> 
-                        <span class="user-role">Rol</span>
+                        <span class="username" ><?php echo htmlspecialchars($_SESSION["nombre"]); ?></span><br> 
+                        <span class="user-role" style="font-style: italic;"><?php echo htmlspecialchars($_SESSION["rol"]); ?></span>
                     </button>
                     <div class="dropdown-content">
                         <a href="#">Perfil</a>

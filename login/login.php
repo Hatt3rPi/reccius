@@ -34,7 +34,7 @@ if (isset($_POST['login'])) {
     $password = mysqli_real_escape_string($link, $_POST['password']);
     
     // Consulta preparada para buscar el usuario en la base de datos
-    $stmt = mysqli_prepare($link, "SELECT a.usuario, a.contrasena, b.nombre FROM usuarios as a left join roles as b on a.rol_id=b.id WHERE a.usuario = ?");
+    $stmt = mysqli_prepare($link, "SELECT a.usuario, a.contrasena, b.nombre as rol, a.nombre, a.correo FROM usuarios as a left join roles as b on a.rol_id=b.id WHERE a.usuario = ?");
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -45,7 +45,9 @@ if (isset($_POST['login'])) {
         // Generar un token CSRF y establecer la sesión
         $csrfToken = generateCSRFToken();
         $_SESSION['usuario'] = escape($usuario['usuario']);
-        $_SESSION['rol'] = escape($usuario['nombre']);
+        $_SESSION['rol'] = escape($usuario['rol']);
+        $_SESSION['nombre'] = escape($usuario['nombre']);
+        $_SESSION['correo'] = escape($usuario['correo']);
         $_SESSION['csrf_token'] = $csrfToken;
 
         // Redirigir al usuario a la página principal
