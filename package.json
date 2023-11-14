@@ -1,0 +1,22 @@
+{
+  "name": "reccius",
+  "version": "1.0.0",
+  "description": "backend de reccius",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hatt3rPi/reccius.git"
+  },
+  "author": "Luciano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hatt3rPi/reccius/issues"
+  },
+  "homepage": "https://github.com/Hatt3rPi/reccius#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
