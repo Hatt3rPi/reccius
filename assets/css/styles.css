@@ -1,0 +1,57 @@
+/* Aquí van los estilos CSS */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .login-form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .login-form button {
+    padding: 10px;
+    background-color: #5e4ad9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .login-form button:hover {
+    background-color: #473cbd;
+  }
+  .login-header {
+    text-align: center;
+  }
+  
+  .login-header .logo {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    max-width: 400px; /* o el tamaño que prefieras */
+    height: auto; /* mantiene la proporción del logo */
+  }
+  .separator {
+    border: none;
+    height: 1px;
+    background-color: #ddd; /* Color de la línea */
+    margin: 10px 0; /* Espacio por encima y debajo de la línea */
+  }
+  
