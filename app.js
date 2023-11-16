@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/reccius/node.js', (req, res) => {
+app.get('/reccius', (req, res) => {
   res.send('Hello World!')
 })
 
