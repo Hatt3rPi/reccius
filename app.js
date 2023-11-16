@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 // Requerir el módulo de conexión a la base de datos que has creado
-const pool = require('./database'); // Asegúrate de que la ruta es correcta
+const pool = require('./src/database/database'); // Asegúrate de que la ruta es correcta
 
 // Definir una ruta GET para probar la conexión a la base de datos
 app.get('/testdb', (req, res) => {
