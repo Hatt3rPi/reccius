@@ -2,8 +2,16 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Middleware para procesar JSON y formularios
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Requerir el módulo de conexión a la base de datos que has creado
-const pool = require('./src/database/database'); // Asegúrate de que la ruta es correcta
+// Asegúrate de que la ruta es correcta
+const pool = require('./src/database/database'); 
+
+// Rutas
+const testRoute = require('./src/routers/router.test'); // Asegúrate de que este archivo exporte un router de Express
 
 // Definir una ruta GET para probar la conexión a la base de datos
 app.get('/testdb', (req, res) => {
@@ -19,10 +27,8 @@ app.get('/testdb', (req, res) => {
   });
 });
 
-// Ruta original
-app.get('/reccius', (req, res) => {
-  res.send('Hello World!');
-});
+// Usar las rutas definidas en router.test.js
+app.use('/api', testRoute);
 
 // Iniciar el servidor Express
 app.listen(port, () => {

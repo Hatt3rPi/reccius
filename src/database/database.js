@@ -10,4 +10,5 @@ const pool = mysql.createPool({
   // Asegúrate de agregar cualquier otro parámetro de configuración que necesites.
 });
 
+
 module.exports = pool;
