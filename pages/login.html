@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Iniciar Sesión - Reccius</title>
 <style>
-  /* Aquí van los estilos CSS */
   :root {
-    --opacity-background: 0.5; /* Puedes cambiar este valor para ajustar la transparencia */
+    --opacity-background: 0.5;
   }
 
   body {
@@ -15,7 +14,7 @@
     margin: 0;
     height: 100vh;
     overflow: hidden;
-    position: relative; /* Necesario para el pseudo-elemento */
+    position: relative;
   }
 
   body::before {
@@ -28,13 +27,13 @@
     background-image: url('../assets/images/fondo_login.png');
     background-size: cover;
     background-position: center;
-    filter: blur(8px); /* Aquí aplicamos el blur */
-    opacity: var(--opacity-background); /* Usamos la variable para la opacidad */
+    filter: blur(8px);
+    opacity: var(--opacity-background);
     z-index: -1;
   }
 
   .login-container {
-    background-color: rgba(255, 255, 255, 1); /* Contenedor completamente claro */
+    background-color: rgba(255, 255, 255, 1);
     padding: 60px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -42,7 +41,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1; /* Asegura que el contenedor esté sobre el fondo */
+    z-index: 1;
+  }
+
+  @media (max-width: 600px) {
+    .login-container {
+      width: 90%;
+      padding: 30px;
+    }
   }
 
   .login-form {
@@ -51,19 +57,19 @@
   }
 
   .login-form label {
-    margin-bottom: 5px;
+    margin-bottom: 0.3125rem; /* 5px */
     font-weight: bold;
   }
 
   .login-form input {
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 0.625rem; /* 10px */
+    margin-bottom: 0.625rem; /* 10px */
     border: 1px solid #ddd;
     border-radius: 5px;
   }
 
   .login-form button {
-    padding: 10px;
+    padding: 0.625rem; /* 10px */
     background-color: #5e4ad9;
     color: white;
     border: none;
@@ -85,33 +91,35 @@
   }
 
   .logo {
-    max-width: 300px; /* o el tamaño que prefieras */
-    height: auto; /* mantiene la proporción del logo */
+    max-width: 300px;
+    height: auto;
   }
 
   .separator {
     border: none;
     height: 1px;
-    background-color: #ddd; /* Color de la línea */
-    margin: 10px 0; /* Espacio por encima y debajo de la línea */
+    background-color: #ddd;
+    margin: 10px 0;
   }
 
 </style>
 </head>
 <body>
   <div class="login-container">
-    <div class="login-header">
-      <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo de Reccius" class="logo" />
+    <header class="login-header">
+      <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo de Reccius Medicina Especializada" class="logo" />
       <br><hr class="separator"><br>
       <h2>Iniciar Sesión</h2>
-    </div>
-    <form class="login-form" action="procesar-login.php" method="POST">
+      <br><br>
+    </header>
+    <form class="login-form" action="../index.html" method="POST">
       <label for="username">Ingrese su usuario o correo</label>
-      <input type="text" name="username" placeholder="correo@reccius.cl" required>
+      <input type="text" id="username" name="username" placeholder="correo@reccius.cl" required>
       <label for="password">Ingrese su contraseña</label>
-      <input type="password" name="password" placeholder="contraseña" required>
+      <input type="password" id="password" name="password" placeholder="contraseña" required>
       <button type="submit">Login</button>
-      <p class="forgot-password">¿Olvidaste tu contraseña? <a href="forgot-password.html">Recuperar</a></p>
+      <br><hr class="separator"><br>
+      <p class="forgot-password">¿Olvidaste tu contraseña? <a href="../forgot-password.html">Recuperar</a></p>
     </form>
   </div>
 </body>
