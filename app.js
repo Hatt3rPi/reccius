@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const dataRoutes = require('./src/routers/router.base'); // Asegúrate de que la ruta al archivo es correcta
+
+// Middleware para procesar JSON y formularios
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Usar las rutas definidas en routes.js
+app.use(dataRoutes);
 
 // Ruta '/reccius/node.js'
 app.get('/reccius/node.js', (req, res) => {
