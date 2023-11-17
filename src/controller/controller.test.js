@@ -4,7 +4,7 @@ const mysql = require("mysql")
 
 // Ahora 'getData' es una constante que almacena la función
 const getData = (req, res) => {
-  pool.query('SELECT * FROM usuarios', (error, results) => {
+  pool.query('SELECT * FROM `roles`', (error, results) => {
     if (error) {
       return res.status(500).json({ error });
     }
