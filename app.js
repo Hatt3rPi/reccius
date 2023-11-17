@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //
 
-const testRouter = apitest;
+const apitest = testRouter;
 // Middleware para utilizar las rutas definidas en userRoutes.js
 app.use('/api', apitest);
 
