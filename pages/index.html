@@ -42,7 +42,7 @@
                     <div class="dropdown-content">
                         <a href="#">Perfil</a>
                         <a href="#">Configuración</a>
-                        <a href="#">Cerrar Sesión</a>
+                        <a href="logout.php">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -88,3 +88,18 @@
     <script src="../assets/js/scripts.js"></script>
 </body>
 </html>
+<script>
+    function fetchUserInfo() {
+        fetch('get_user_info.php')
+            .then(response => response.json())
+            .then(data => {
+                if(data.usuario) {
+                    document.querySelector('.username').textContent = data.usuario;
+                    document.querySelector('.user-role').textContent = '(' + data.rol + ')';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    fetchUserInfo();
+</script>
