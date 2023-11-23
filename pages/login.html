@@ -88,6 +88,15 @@
             background-color: #ddd;
             margin: 10px 0;
         }
+        .error-message {
+        color: #ff0000; /* Rojo */
+        background-color: #ffecec; /* Fondo rojo claro */
+        border: 1px solid #ff0000;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 20px 0;
+        text-align: center;
+    }
     </style>
 </head>
 <body>
@@ -104,11 +113,24 @@
             <input type="password" id="password" name="password" placeholder="contraseña" required>
             <button type="submit" name="login">Login</button>
             <hr class="separator">
-            <?php if (isset($_GET['error'])): ?>
-            <p class="error-message">Usuario o contraseña incorrectos.</p>
-            <?php endif; ?>
+            <div id="error-message" class="error-message" style="display: none;">
+              Usuario o contraseña incorrectos.
+            </div>
             <p class="forgot-password">¿Olvidaste tu contraseña? <a href="../forgot-password.html">Recuperar</a></p>
         </form>
     </div>
 </body>
 </html>
+<script>
+  // Función para obtener los parámetros de la URL
+  function getQueryParam(param) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+  }
+
+  // Comprobar si el parámetro 'error' está en la URL
+  if (getQueryParam('error') !== null) {
+      // Mostrar el mensaje de error
+      document.getElementById('error-message').style.display = 'block';
+  }
+</script>
