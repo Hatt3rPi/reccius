@@ -67,28 +67,39 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
 
 if (isset($_POST['modificarPerfil'])) {
     $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
-    $passwordActual = filter_input(INPUT_POST, 'passwordActual', FILTER_SANITIZE_STRING);
-    $nuevaPassword = filter_input(INPUT_POST, 'nuevaPassword', FILTER_SANITIZE_STRING);
-    $confirmarPassword = filter_input(INPUT_POST, 'confirmarPassword', FILTER_SANITIZE_STRING);
 
-    if (empty($usuario) || empty($passwordActual) || empty($nuevaPassword) || empty($confirmarPassword)) {
-        echo "Todos los campos son obligatorios.";
-        exit;
+    // Variables para verificar si se realizará alguna operación
+    $cambiarContrasena = !empty($_POST['passwordActual']) && !empty($_POST['nuevaPassword']) && !empty($_POST['confirmarPassword']);
+    $cambiarFoto = isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK;
+
+    // Procesar cambio de contraseña si se proporcionaron los campos necesarios
+    if ($cambiarContrasena) {
+        $passwordActual = filter_input(INPUT_POST, 'passwordActual', FILTER_SANITIZE_STRING);
+        $nuevaPassword = filter_input(INPUT_POST, 'nuevaPassword', FILTER_SANITIZE_STRING);
+        $confirmarPassword = filter_input(INPUT_POST, 'confirmarPassword', FILTER_SANITIZE_STRING);
+
+        if ($nuevaPassword === $confirmarPassword) {
+            echo cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword);
+        } else {
+            echo "Las contraseñas no coinciden.";
+            exit;
+        }
     }
 
-    if ($nuevaPassword === $confirmarPassword) {
-        echo cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword);
-    } else {
-        echo "Las contraseñas no coinciden.";
-        exit;
-    }
-
-    if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK) {
+    // Procesar cambio de foto de perfil si se proporcionó un archivo
+    if ($cambiarFoto) {
         echo cambiarFotoPerfil($link, $usuario, $_FILES['fotoPerfil']);
+    }
+
+    // Verificar si se realizó alguna operación
+    if (!$cambiarContrasena && !$cambiarFoto) {
+        echo "No se ha proporcionado información para actualizar.";
+        exit;
     }
 
     // Redirigir o manejar la respuesta como necesites
     // header("Location: /path/to/success_page.php");
     exit();
 }
+
 ?>
