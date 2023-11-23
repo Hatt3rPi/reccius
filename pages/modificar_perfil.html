@@ -36,3 +36,39 @@
     </script>
 </body>
 </html>
+<script>
+    document.getElementById('formPerfil').addEventListener('submit', function(event) {
+        var password = document.getElementById('nuevaPassword').value;
+        var confirmPassword = document.getElementById('confirmarPassword').value;
+
+        // Validar que las contraseñas coincidan
+        if (password !== confirmPassword) {
+            alert('Las contraseñas no coinciden.');
+            event.preventDefault(); // Prevenir el envío del formulario
+            return false;
+        }
+
+        // Validar el tamaño y tipo de la foto de perfil, si se ha seleccionado una
+        var fotoPerfil = document.getElementById('fotoPerfil').files[0];
+        if (fotoPerfil) {
+            // Tamaño máximo del archivo en bytes (ejemplo: 5MB)
+            var maxTamano = 5 * 1024 * 1024;
+            if (fotoPerfil.size > maxTamano) {
+                alert('La foto de perfil es demasiado grande. El tamaño máximo permitido es de 5MB.');
+                event.preventDefault();
+                return false;
+            }
+
+            // Validar el tipo de archivo
+            var tipoPermitido = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            if (!tipoPermitido.exec(fotoPerfil.name)) {
+                alert('El formato de la foto de perfil no es válido. Solo se permiten archivos JPG, JPEG, PNG y GIF.');
+                event.preventDefault();
+                return false;
+            }
+        }
+
+        // Si todo está correcto, permite que el formulario se envíe
+        return true;
+    });
+</script>
