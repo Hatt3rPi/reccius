@@ -41,7 +41,7 @@
                     </button>
                     <div class="dropdown-content">
                         <a href="#">Perfil</a>
-                        <a href="#">Configuración</a>
+                        <a id="configuracion" href="#">Configuración</a>
                         <a href="#">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -56,8 +56,8 @@
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral"><i class="fa fa-user"></i> Usuarios y Roles</a>
                     <div class="smenu">
-                        <a href="">Crear Usuario</a>
-                        <a href="">Asignar Roles</a>
+                        <a id="crear-usuario" href="#">Crear Usuario</a>
+                        <a id="asignar-roles" href="#">Asignar Roles</a>
                     </div>
                 </li>
                 <li class="item" id="rec_magistrales">
@@ -82,9 +82,11 @@
             </ul>
         </aside>
         <main class="content">
-            <!-- El contenido se cargará dinámicamente aquí -->
+            <div id="dynamic-content">
+                <!-- El contenido se cargará dinámicamente aquí -->
+            </div>
         </main>
     </div>
-    <script src="../assets/js/scripts.js"></script>
+    <script src="../scripts.js"></script>
 </body>
 </html>
