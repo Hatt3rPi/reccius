@@ -4,98 +4,83 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Asumiendo que la conexión a la base de datos está en $link
 
+function validarFortalezaPassword($password) {
+    // Aquí puedes agregar las reglas que consideres para validar la contraseña
+    return strlen($password) >= 8; // Ejemplo: longitud mínima de 8 caracteres
+}
+
+function validarFormatoPassword($password) {
+    // Validar formato de la contraseña
+    return preg_match('/[a-zA-Z].*[0-9]|[0-9].*[a-zA-Z]/', $password) &&
+           preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password);
+}
+
 function cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword) {
-    // Validar la fortaleza de la nueva contraseña
-    if (!validarFortalezaPassword($nuevaPassword)) {
-        return "La nueva contraseña no cumple con los requisitos de seguridad.";
+    if (!validarFortalezaPassword($nuevaPassword) || !validarFormatoPassword($nuevaPassword)) {
+        return "La nueva contraseña no cumple con los requisitos de seguridad y formato.";
     }
 
-    // Verificar la contraseña actual
     $stmt = mysqli_prepare($link, "SELECT contrasena FROM usuarios WHERE usuario = ?");
     mysqli_stmt_bind_param($stmt, "s", $usuario);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $fila = mysqli_fetch_assoc($result);
 
-    if ($fila) {
-        $contrasenaHash = $fila['contrasena'];
-        if (password_verify($passwordActual, $contrasenaHash)) {
-            // Cambiar la contraseña
-            $nuevaPasswordHash = password_hash($nuevaPassword, PASSWORD_DEFAULT);
-
-            $stmt = mysqli_prepare($link, "UPDATE usuarios SET contrasena = ? WHERE usuario = ?");
-            mysqli_stmt_bind_param($stmt, "ss", $nuevaPasswordHash, $usuario);
-            $exito = mysqli_stmt_execute($stmt);
-
-            if ($exito) {
-                return "La contraseña ha sido actualizada con éxito.";
-            } else {
-                return "Error al actualizar la contraseña.";
-            }
-        } else {
-            return "La contraseña actual no es correcta.";
-        }
-    } else {
-        return "Usuario no encontrado.";
+    if ($fila && password_verify($passwordActual, $fila['contrasena'])) {
+        $nuevaPasswordHash = password_hash($nuevaPassword, PASSWORD_DEFAULT);
+        $stmt = mysqli_prepare($link, "UPDATE usuarios SET contrasena = ? WHERE usuario = ?");
+        mysqli_stmt_bind_param($stmt, "ss", $nuevaPasswordHash, $usuario);
+        $exito = mysqli_stmt_execute($stmt);
+        return $exito ? "La contraseña ha sido actualizada con éxito." : "Error al actualizar la contraseña.";
     }
-}
 
-function validarFortalezaPassword($password) {
-    // Aquí puedes agregar las reglas que consideres para validar la contraseña
-    return strlen($password) >= 8; // Ejemplo: longitud mínima de 8 caracteres
+    return $fila ? "La contraseña actual no es correcta." : "Usuario no encontrado.";
 }
 
 function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
-    // Verificar y guardar la foto de perfil
     if ($fotoPerfil['error'] === UPLOAD_ERR_OK) {
-        $directorioDestino = "../../../uploads/perfiles/"; // Ajusta esta ruta
+        $directorioDestino = "../../../uploads/perfiles/";
         $nombreArchivo = $directorioDestino . basename($fotoPerfil['name']);
         $tipoArchivo = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
+        $check = getimagesize($fotoPerfil['tmp_name']);
 
-        // Verificar si el archivo es realmente una imagen
-        if (getimagesize($fotoPerfil['tmp_name']) === false) {
-            return "El archivo no es una imagen.";
+        if (!$check || !in_array($tipoArchivo, ['jpg', 'png', 'jpeg', 'gif'])) {
+            return "El archivo no es una imagen válida o no tiene un formato permitido.";
         }
 
-        // Verificar el tamaño del archivo
         if ($fotoPerfil["size"] > 5000000) { // 5MB
             return "El archivo es demasiado grande.";
         }
 
-        // Permitir ciertos formatos de archivo
-        if (!in_array($tipoArchivo, ['jpg', 'png', 'jpeg', 'gif'])) {
-            return "Solo se permiten archivos JPG, JPEG, PNG y GIF.";
-        }
-
         if (move_uploaded_file($fotoPerfil['tmp_name'], $nombreArchivo)) {
-            // Actualizar la referencia en la base de datos
             $stmt = mysqli_prepare($link, "UPDATE usuarios SET foto_perfil = ? WHERE usuario = ?");
             mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo, $usuario);
             $exito = mysqli_stmt_execute($stmt);
-
-            if ($exito) {
-                return "La foto de perfil ha sido actualizada con éxito.";
-            } else {
-                return "Error al actualizar la foto de perfil en la base de datos.";
-            }
-        } else {
-            return "Hubo un error al subir el archivo.";
+            return $exito ? "La foto de perfil ha sido actualizada con éxito." : "Error al actualizar la foto de perfil en la base de datos.";
         }
-    } else {
-        return "Error al subir el archivo: " . $fotoPerfil['error'];
+
+        return "Hubo un error al subir el archivo.";
     }
+
+    return "Error al subir el archivo: " . $fotoPerfil['error'];
 }
 
 if (isset($_POST['modificarPerfil'])) {
-    $usuario = $_SESSION['usuario']; // Asumiendo que el nombre de usuario está almacenado en la sesión
-    $passwordActual = $_POST['passwordActual'];
-    $nuevaPassword = $_POST['nuevaPassword'];
-    $confirmarPassword = $_POST['confirmarPassword'];
+    $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
+    $passwordActual = filter_input(INPUT_POST, 'passwordActual', FILTER_SANITIZE_STRING);
+    $nuevaPassword = filter_input(INPUT_POST, 'nuevaPassword', FILTER_SANITIZE_STRING);
+    $confirmarPassword = filter_input(INPUT_POST, 'confirmarPassword', FILTER_SANITIZE_STRING);
+
+    if (empty($usuario) || empty($passwordActual) || empty($nuevaPassword) || empty($confirmarPassword)) {
+        echo "Todos los campos son obligatorios.";
+        exit;
+    }
 
     if ($nuevaPassword === $confirmarPassword) {
         echo cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword);
     } else {
         echo "Las contraseñas no coinciden.";
+        exit;
     }
 
     if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK) {
