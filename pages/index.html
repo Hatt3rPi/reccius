@@ -90,7 +90,7 @@
 </html>
 <script>
     function fetchUserInfo() {
-        fetch('./backend/login/get_user_info.php')
+        fetch('./backend/login/obtener_usuario.php')
             .then(response => response.json())
             .then(data => {
                 if(data.usuario) {
