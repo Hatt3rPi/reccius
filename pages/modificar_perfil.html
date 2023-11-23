@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Perfil</title>
+    <!-- Añade aquí tus estilos o referencias a CSS -->
+</head>
+<body>
+    <h2>Modificar Perfil</h2>
+    <form id="formPerfil" action="pages/backend/usuario/modificar_perfil.php" method="POST" enctype="multipart/form-data">
+        <!-- Cambio de Contraseña -->
+        <div>
+            <label for="passwordActual">Contraseña Actual:</label>
+            <input type="password" id="passwordActual" name="passwordActual" required>
+        </div>
+        <div>
+            <label for="nuevaPassword">Nueva Contraseña:</label>
+            <input type="password" id="nuevaPassword" name="nuevaPassword" required>
+        </div>
+        <div>
+            <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
+            <input type="password" id="confirmarPassword" name="confirmarPassword" required>
+        </div>
+
+        <!-- Cargar Nueva Foto de Perfil -->
+        <div>
+            <label for="fotoPerfil">Foto de Perfil:</label>
+            <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+        </div>
+
+        <button type="submit" name="modificarPerfil">Modificar Perfil</button>
+    </form>
+
+    <script>
+        // Aquí puedes añadir JavaScript si es necesario
+    </script>
+</body>
+</html>
