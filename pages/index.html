@@ -40,9 +40,9 @@
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
                     </button>
                     <div class="dropdown-content">
-                        <a href="#">Perfil</a>
-                        <a id="configuracion" href="#">Configuración</a>
-                        <a href="#">Cerrar Sesión</a>
+
+                        <a id="configuracion" href="modificar_perfil.html">Modificar Perfil</a>
+                        <a href="./backend/login/logout.php">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -90,3 +90,18 @@
     <script src="../scripts.js"></script>
 </body>
 </html>
+<script>
+    function fetchUserInfo() {
+        fetch('./backend/usuario/obtener_usuario.php')
+            .then(response => response.json())
+            .then(data => {
+                if(data.usuario) {
+                    document.querySelector('.username').textContent = data.nombre;
+                    document.querySelector('.user-role').textContent = '(' + data.rol + ')';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    fetchUserInfo();
+</script>

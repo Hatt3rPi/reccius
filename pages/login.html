@@ -1,126 +1,136 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iniciar Sesión - Reccius</title>
-<style>
-  :root {
-    --opacity-background: 0.5;
-  }
-
-  body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-  }
-
-  body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../assets/images/fondo_login.png');
-    background-size: cover;
-    background-position: center;
-    filter: blur(8px);
-    opacity: var(--opacity-background);
-    z-index: -1;
-  }
-
-  .login-container {
-    background-color: rgba(255, 255, 255, 1);
-    padding: 60px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-  }
-
-  @media (max-width: 600px) {
-    .login-container {
-      width: 90%;
-      padding: 30px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Reccius</title>
+    <style>
+        :root {
+            --opacity-background: 0.5;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../assets/images/fondo_login.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            opacity: var(--opacity-background);
+            z-index: -1;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 1);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        @media (max-width: 600px) {
+            .login-container {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .login-form label {
+            margin-bottom: 0.3125rem; /* 5px */
+            font-weight: bold;
+        }
+        .login-form input {
+            padding: 0.625rem; /* 10px */
+            margin-bottom: 0.625rem; /* 10px */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-form button {
+            padding: 0.625rem; /* 10px */
+            background-color: #5e4ad9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #473cbd;
+        }
+        .login-header {
+            text-align: center;
+        }
+        .login-header .logo {
+            display: block;
+            margin: 0 auto;
+        }
+        .logo {
+            max-width: 300px;
+            height: auto;
+        }
+        .separator {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 10px 0;
+        }
+        .error-message {
+        color: #ff0000; /* Rojo */
+        background-color: #ffecec; /* Fondo rojo claro */
+        border: 1px solid #ff0000;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 20px 0;
+        text-align: center;
     }
-  }
-
-  .login-form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .login-form label {
-    margin-bottom: 0.3125rem; /* 5px */
-    font-weight: bold;
-  }
-
-  .login-form input {
-    padding: 0.625rem; /* 10px */
-    margin-bottom: 0.625rem; /* 10px */
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-
-  .login-form button {
-    padding: 0.625rem; /* 10px */
-    background-color: #5e4ad9;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .login-form button:hover {
-    background-color: #473cbd;
-  }
-
-  .login-header {
-    text-align: center;
-  }
-
-  .login-header .logo {
-    display: block;
-    margin: 0 auto;
-  }
-
-  .logo {
-    max-width: 300px;
-    height: auto;
-  }
-
-  .separator {
-    border: none;
-    height: 1px;
-    background-color: #ddd;
-    margin: 10px 0;
-  }
-
-</style>
+    </style>
 </head>
 <body>
-  <div class="login-container">
-    <header class="login-header">
-      <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo de Reccius Medicina Especializada" class="logo" />
-      <br><hr class="separator"><br>
-      <h2>Iniciar Sesión</h2>
-      <br><br>
-    </header>
-    <form class="login-form" action="../index.html" method="POST">
-      <label for="username">Ingrese su usuario o correo</label>
-      <input type="text" id="username" name="username" placeholder="correo@reccius.cl" required>
-      <label for="password">Ingrese su contraseña</label>
-      <input type="password" id="password" name="password" placeholder="contraseña" required>
-      <button type="submit">Login</button>
-      <br><hr class="separator"><br>
-      <p class="forgot-password">¿Olvidaste tu contraseña? <a href="../forgot-password.html">Recuperar</a></p>
-    </form>
-  </div>
+    <div class="login-container">
+        <header class="login-header">
+            <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo de Reccius Medicina Especializada" class="logo" />
+            <hr class="separator">
+            <h2>Iniciar Sesión</h2>
+        </header>
+        <form class="login-form" action="./backend/login/login.php" method="POST">
+            <label for="username">Ingrese su usuario o correo</label>
+            <input type="text" id="username" name="username" placeholder="correo@reccius.cl" required>
+            <label for="password">Ingrese su contraseña</label>
+            <input type="password" id="password" name="password" placeholder="contraseña" required>
+            <button type="submit" name="login">Login</button>
+            <hr class="separator">
+            <div id="error-message" class="error-message" style="display: none;">
+              Usuario o contraseña incorrectos.
+            </div>
+            <p class="forgot-password">¿Olvidaste tu contraseña? <a href="../forgot-password.html">Recuperar</a></p>
+        </form>
+    </div>
 </body>
 </html>
+<script>
+  // Función para obtener los parámetros de la URL
+  function getQueryParam(param) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+  }
+
+  // Comprobar si el parámetro 'error' está en la URL
+  if (getQueryParam('error') !== null) {
+      // Mostrar el mensaje de error
+      document.getElementById('error-message').style.display = 'block';
+  }
+</script>
