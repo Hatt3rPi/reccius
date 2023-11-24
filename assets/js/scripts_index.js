@@ -1,3 +1,22 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarList = document.getElementById("sidebarList");
+
+    sidebarList.addEventListener("click", function(event) {
+        const targetElement = event.target;
+
+        if (targetElement.classList.contains("btn_lateral")) {
+            const smenu = targetElement.nextElementSibling;
+
+            if (smenu && smenu.classList.contains("smenu")) {
+                if (smenu.style.maxHeight && smenu.style.maxHeight !== "0px") {
+                    smenu.style.maxHeight = "0px";
+                } else {
+                    smenu.style.maxHeight = smenu.scrollHeight + "px";
+                }
+            }
+        }
+    });
+});
 $(document).ready(function() {
     $('#crear-usuario').click(function(event) {
         event.preventDefault(); // Esto previene la navegación estándar
@@ -16,6 +35,6 @@ $(document).ready(function() {
     $('#configuracion').click(function(event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('configuracion.html');
+        $('#dynamic-content').load('modificar_perfil.html');
     });
 });

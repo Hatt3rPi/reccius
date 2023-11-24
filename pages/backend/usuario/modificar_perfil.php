@@ -38,32 +38,41 @@ function cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword) {
 }
 
 function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
-    if ($fotoPerfil['error'] === UPLOAD_ERR_OK) {
-        $directorioDestino = "../../../uploads/perfiles/";
-        $nombreArchivo = $directorioDestino . basename($fotoPerfil['name']);
-        $tipoArchivo = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
-        $check = getimagesize($fotoPerfil['tmp_name']);
-
-        if (!$check || !in_array($tipoArchivo, ['jpg', 'png', 'jpeg', 'gif'])) {
-            return "El archivo no es una imagen válida o no tiene un formato permitido.";
-        }
-
-        if ($fotoPerfil["size"] > 5000000) { // 5MB
-            return "El archivo es demasiado grande.";
-        }
-
-        if (move_uploaded_file($fotoPerfil['tmp_name'], $nombreArchivo)) {
-            $stmt = mysqli_prepare($link, "UPDATE usuarios SET foto_perfil = ? WHERE usuario = ?");
-            mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo, $usuario);
-            $exito = mysqli_stmt_execute($stmt);
-            return $exito ? "La foto de perfil ha sido actualizada con éxito." : "Error al actualizar la foto de perfil en la base de datos.";
-        }
-
-        return "Hubo un error al subir el archivo.";
+    if ($fotoPerfil['error'] !== UPLOAD_ERR_OK) {
+        return "Error al subir el archivo: " . $fotoPerfil['error'];
     }
 
-    return "Error al subir el archivo: " . $fotoPerfil['error'];
+    $directorioDestino = "../../../uploads/perfiles/";
+    if (!is_writable($directorioDestino)) {
+        return "Error: El directorio de destino no es escribible.";
+    }
+
+    $nombreArchivo = $directorioDestino . basename($fotoPerfil['name']);
+    $tipoArchivo = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
+    $check = getimagesize($fotoPerfil['tmp_name']);
+
+    if (!$check || !in_array($tipoArchivo, ['jpg', 'png', 'jpeg', 'gif'])) {
+        return "El archivo no es una imagen válida o no tiene un formato permitido.";
+    }
+
+    if ($fotoPerfil["size"] > 5000000) { // 5MB
+        return "El archivo es demasiado grande.";
+    }
+
+    if (!move_uploaded_file($fotoPerfil['tmp_name'], $nombreArchivo)) {
+        return "Hubo un error al mover el archivo al directorio de destino.";
+    }
+
+    $stmt = mysqli_prepare($link, "UPDATE usuarios SET foto_perfil = ? WHERE usuario = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo, $usuario);
+    $exito = mysqli_stmt_execute($stmt);
+    if (!$exito) {
+        return "Error al actualizar la foto de perfil en la base de datos.";
+    }
+
+    return "La foto de perfil ha sido actualizada con éxito.";
 }
+
 
 if (isset($_POST['modificarPerfil'])) {
     $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
