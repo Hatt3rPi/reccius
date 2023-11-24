@@ -24,7 +24,7 @@ if (isset($_POST['login'])) {
     $username = escape($_POST['username']);
     $password = escape($_POST['password']);
     
-    $stmt = mysqli_prepare($link, "SELECT a.usuario, a.contrasena, b.nombre as rol, a.nombre, a.correo, a.foto_perfil FROM usuarios as a left join roles as b on a.rol_id=b.id WHERE a.usuario = ?");
+    $stmt = mysqli_prepare($link, "SELECT a.usuario, a.contrasena, b.nombre as rol, a.nombre, a.correo FROM usuarios as a left join roles as b on a.rol_id=b.id WHERE a.usuario = ?");
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -37,7 +37,6 @@ if (isset($_POST['login'])) {
         $_SESSION['nombre'] = escape($usuario['nombre']);
         $_SESSION['correo'] = escape($usuario['correo']);
         $_SESSION['csrf_token'] = $csrfToken;
-        $_SESSION['foto_perfil']=escape($usuario['foto_perfil']);
 
         header("Location: ../../index.html");
         exit();
