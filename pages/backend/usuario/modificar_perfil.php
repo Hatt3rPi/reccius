@@ -51,7 +51,7 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
     $nombreArchivoTemporal = $fotoPerfil['tmp_name'];
     $tipoArchivo = strtolower(pathinfo($fotoPerfil['name'], PATHINFO_EXTENSION));
     $nombreArchivo = $directorioDestino . "perfil_" . $usuario . ".png";
-
+    $nombreArchivo_n = "perfil_" . $usuario . ".png";
     if ($fotoPerfil["size"] > 5000000) { // 5MB
         return "El archivo es demasiado grande.";
     }
@@ -96,7 +96,7 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
 
     // Actualizar la ruta de la imagen en la base de datos
     $stmt = mysqli_prepare($link, "UPDATE usuarios SET foto_perfil = ? WHERE usuario = ?");
-    mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo, $usuario);
+    mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo_n, $usuario);
     if (!mysqli_stmt_execute($stmt)) {
         return "Error al actualizar la foto de perfil en la base de datos.";
     }
