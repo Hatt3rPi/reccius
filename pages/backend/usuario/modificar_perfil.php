@@ -41,10 +41,9 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
     if ($fotoPerfil['error'] !== UPLOAD_ERR_OK) {
         return "Error al subir el archivo: " . $fotoPerfil['error'];
     }
-
-    $directorioDestino = "../../../uploads/perfiles/";
+    $directorioDestino = "../../../assets/uploads/perfiles/";
     if (!is_writable($directorioDestino)) {
-        return "Error: El directorio de destino no es escribible.";
+        return "Error: El directorio de destino no es escribible.".$directorioDestino;
     }
 
     $nombreArchivo = $directorioDestino . basename($fotoPerfil['name']);
