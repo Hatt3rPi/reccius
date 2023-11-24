@@ -36,7 +36,7 @@
                 <input type="search" placeholder="Buscar...">
             </div>
             <div class="user-info">
-                <img src="../assets/images/perfil.png" alt="Foto de perfil" class="profile-pic">
+                <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
                 <div class="dropdown">
                     <button class="dropbtn">
                         Felipe Abarca<br> 
@@ -89,21 +89,32 @@
             </div>
         </main>
     </div>
-    <script src="../scripts.js"></script>
+    <script src="../assets/js/scripts_index.js"></script>
 </body>
 </html>
 <script>
-    function fetchUserInfo() {
-        fetch('./backend/usuario/obtener_usuario.php')
-            .then(response => response.json())
-            .then(data => {
-                if(data.usuario) {
-                    document.querySelector('.username').textContent = data.nombre;
-                    document.querySelector('.user-role').textContent = '(' + data.rol + ')';
+function fetchUserInfo() {
+    fetch('./backend/usuario/obtener_usuario.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data.usuario) {
+                document.querySelector('.username').textContent = data.nombre;
+                document.querySelector('.user-role').textContent = '(' + data.rol + ')';
+                // Actualiza la imagen de perfil
+                const fotoPerfil = document.querySelector('.foto-perfil');
+                if (data.foto_perfil && data.foto_perfil.trim() !== "") {
+                    // Construye la ruta completa a la imagen de perfil
+                    fotoPerfil.src = "../assets/uploads/perfiles/" + data.foto_perfil;
+                } else {
+                    // Usa la imagen genérica si no hay foto de perfil
+                    fotoPerfil.src = "../assets/images/perfil.png";
                 }
-            })
-            .catch(error => console.error('Error:', error));
-    }
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
 
     fetchUserInfo();
 </script>
