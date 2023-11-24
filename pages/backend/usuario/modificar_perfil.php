@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+$usuario=$_SESSION['usuario'];
 // Asumiendo que la conexión a la base de datos está en $link
 
 function validarFortalezaPassword($password) {
@@ -16,6 +16,7 @@ function validarFormatoPassword($password) {
 }
 
 function cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword) {
+    
     if (!validarFortalezaPassword($nuevaPassword) || !validarFormatoPassword($nuevaPassword)) {
         return "La nueva contraseña no cumple con los requisitos de seguridad y formato.";
     }
