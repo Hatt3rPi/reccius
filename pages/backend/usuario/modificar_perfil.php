@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-$usuario=$_SESSION['usuario'];
+
 // Asumiendo que la conexión a la base de datos está en $link
 
 function validarFortalezaPassword($password) {
@@ -107,7 +107,8 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
 
 
 if (isset($_POST['modificarPerfil'])) {
-    $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
+    $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : $_SESSION['usuario'];
+
 
     // Variables para verificar si se realizará alguna operación
     $cambiarContrasena = !empty($_POST['passwordActual']) && !empty($_POST['nuevaPassword']) && !empty($_POST['confirmarPassword']);
