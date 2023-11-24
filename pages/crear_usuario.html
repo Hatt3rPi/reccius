@@ -26,7 +26,7 @@
                 <select class="form-control" id="rol" name="rol">
                     <?php
 
-                    include 'pages/backend/roles/roles.php'; // Asegúrate de que la ruta es correcta
+                    include 'backend/roles/roles.php'; // Asegúrate de que la ruta es correcta
                     $roles = getRoles();
                     foreach ($roles as $rol) {
                         echo "<option value='" . $rol['id'] . "'>" . htmlspecialchars($rol['nombre']) . "</option>";
