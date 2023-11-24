@@ -41,36 +41,68 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
     if ($fotoPerfil['error'] !== UPLOAD_ERR_OK) {
         return "Error al subir el archivo: " . $fotoPerfil['error'];
     }
+
     $directorioDestino = "../../../assets/uploads/perfiles/";
-    if (!is_writable($directorioDestino)) {
-        return "Error: El directorio de destino no es escribible.".$directorioDestino;
+    if (!is_writable($directorioDestino) || !is_dir($directorioDestino)) {
+        return "Error: El directorio de destino no es escribible o no existe. " . $directorioDestino;
     }
 
-    $nombreArchivo = $directorioDestino . basename($fotoPerfil['name']);
-    $tipoArchivo = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
-    $check = getimagesize($fotoPerfil['tmp_name']);
-
-    if (!$check || !in_array($tipoArchivo, ['jpg', 'png', 'jpeg', 'gif'])) {
-        return "El archivo no es una imagen válida o no tiene un formato permitido.";
-    }
+    $nombreArchivoTemporal = $fotoPerfil['tmp_name'];
+    $tipoArchivo = strtolower(pathinfo($fotoPerfil['name'], PATHINFO_EXTENSION));
+    $nombreArchivo = $directorioDestino . "perfil_" . $usuario . ".png";
 
     if ($fotoPerfil["size"] > 5000000) { // 5MB
         return "El archivo es demasiado grande.";
     }
 
-    if (!move_uploaded_file($fotoPerfil['tmp_name'], $nombreArchivo)) {
-        return "Hubo un error al mover el archivo al directorio de destino.";
+    $check = getimagesize($nombreArchivoTemporal);
+    if (!$check || !in_array($tipoArchivo, ['jpg', 'png', 'jpeg', 'gif'])) {
+        return "El archivo no es una imagen válida o no tiene un formato permitido.";
     }
 
+    // Crear una imagen desde el archivo original
+    switch ($tipoArchivo) {
+        case 'jpg':
+        case 'jpeg':
+            $imagenOriginal = imagecreatefromjpeg($nombreArchivoTemporal);
+            break;
+        case 'png':
+            $imagenOriginal = imagecreatefrompng($nombreArchivoTemporal);
+            break;
+        case 'gif':
+            $imagenOriginal = imagecreatefromgif($nombreArchivoTemporal);
+            break;
+        default:
+            return "Formato de archivo no soportado.";
+    }
+
+    if (!$imagenOriginal) {
+        return "Error al procesar el archivo de imagen.";
+    }
+
+    // Redimensionar la imagen
+    $imagenRedimensionada = imagecreatetruecolor(40, 40);
+    imagecopyresampled($imagenRedimensionada, $imagenOriginal, 0, 0, 0, 0, 40, 40, $check[0], $check[1]);
+
+    // Guardar la imagen redimensionada como PNG
+    if (!imagepng($imagenRedimensionada, $nombreArchivo)) {
+        return "Hubo un error al guardar la imagen redimensionada.";
+    }
+
+    // Liberar recursos de imagen
+    imagedestroy($imagenOriginal);
+    imagedestroy($imagenRedimensionada);
+
+    // Actualizar la ruta de la imagen en la base de datos
     $stmt = mysqli_prepare($link, "UPDATE usuarios SET foto_perfil = ? WHERE usuario = ?");
     mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo, $usuario);
-    $exito = mysqli_stmt_execute($stmt);
-    if (!$exito) {
+    if (!mysqli_stmt_execute($stmt)) {
         return "Error al actualizar la foto de perfil en la base de datos.";
     }
 
     return "La foto de perfil ha sido actualizada con éxito.";
 }
+
 
 
 if (isset($_POST['modificarPerfil'])) {
