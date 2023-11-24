@@ -37,7 +37,7 @@
             document.getElementById('usuario').value = usuario;
         });
         document.addEventListener('DOMContentLoaded', function() {
-    fetch('backend/roles/roles.php')
+    fetch('/backend/roles/roles.php')
     .then(response => response.json())
     .then(data => {
         const selectRol = document.getElementById('rol');
