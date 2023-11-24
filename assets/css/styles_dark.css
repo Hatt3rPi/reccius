@@ -344,5 +344,5 @@ body {
   border-radius: 50%; /* Hace que la imagen sea circular */
   margin-right: 10px;
   border: 2px solid #fff; /* Añade un borde para darle un toque elegante */
-  object-fit: cover; /* Asegura que la imagen cubra completamente el círculo */
+  /*object-fit: cover;  Asegura que la imagen cubra completamente el círculo */
 }
