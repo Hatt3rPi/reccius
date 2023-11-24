@@ -24,14 +24,7 @@
             <div class="form-group">
                 <label for="rol">Rol:</label>
                 <select class="form-control" id="rol" name="rol">
-                    <?php
-
-                    include 'backend/roles/roles.php'; // Asegúrate de que la ruta es correcta
-                    $roles = getRoles();
-                    foreach ($roles as $rol) {
-                        echo "<option value='" . $rol['id'] . "'>" . htmlspecialchars($rol['nombre']) . "</option>";
-                    }
-                    ?>
+                    <!-- Las opciones se cargarán mediante JavaScript -->
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Crear Usuario</button>
@@ -43,6 +36,20 @@
             var usuario = correo.split('@')[0];
             document.getElementById('usuario').value = usuario;
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    fetch('backend/roles/roles.php')
+    .then(response => response.json())
+    .then(data => {
+        const selectRol = document.getElementById('rol');
+        data.forEach(rol => {
+            let option = new Option(rol.nombre, rol.id);
+            selectRol.add(option);
+        });
+    })
+    .catch(error => {
+        console.error('Error al cargar los roles:', error);
+    });
+});
     </script>
 </body>
 </html>
