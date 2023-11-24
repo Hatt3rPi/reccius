@@ -17,10 +17,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+function inicializarFormularioCrearUsuario() {
+    // Cargar los roles disponibles
+    fetch('backend/roles/roles.php')
+        .then(response => response.json())
+        .then(data => {
+            const selectRol = document.getElementById('rol');
+            data.forEach(rol => {
+                let opcion = new Option(rol.nombre, rol.id);
+                selectRol.add(opcion);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar los roles:', error);
+        });
+}
 $(document).ready(function() {
     $('#crear-usuario').click(function(event) {
-        event.preventDefault(); // Esto previene la navegación estándar
-        $('#dynamic-content').load('crear_usuario.html'); // Esto carga el contenido de crear_usuario.html en el div
+        event.preventDefault(); 
+        $('#dynamic-content').load('crear_usuario.html', function() {
+            // Llamar a la función de inicialización después de cargar el formulario
+            inicializarFormularioCrearUsuario();
+        });
     });
 });
 

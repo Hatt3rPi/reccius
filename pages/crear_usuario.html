@@ -22,6 +22,10 @@
                 <input type="text" class="form-control" id="usuario" name="usuario" readonly>
             </div>
             <div class="form-group">
+                <label for="usuario">Empresa:</label>
+                <input type="text" class="form-control" id="usuario" name="usuario">
+            </div>
+            <div class="form-group">
                 <label for="rol">Rol:</label>
                 <select class="form-control" id="rol" name="rol">
                     <!-- Las opciones se cargarán mediante JavaScript -->
@@ -36,20 +40,6 @@
             var usuario = correo.split('@')[0];
             document.getElementById('usuario').value = usuario;
         });
-        document.addEventListener('DOMContentLoaded', function() {
-    fetch('/backend/roles/roles.php')
-    .then(response => response.json())
-    .then(data => {
-        const selectRol = document.getElementById('rol');
-        data.forEach(rol => {
-            let option = new Option(rol.nombre, rol.id);
-            selectRol.add(option);
-        });
-    })
-    .catch(error => {
-        console.error('Error al cargar los roles:', error);
-    });
-});
     </script>
 </body>
 </html>
