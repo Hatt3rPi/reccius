@@ -9,32 +9,32 @@
     <div class="container">
         <h2>Formulario para Crear Usuario</h2>
         <form id="formCrearUsuario">
-            <div class="form-group">
-                <label for="nombreUsuario">Nombre Completo:</label>
-                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
-            </div>
+            <!-- ...otros campos... -->
             <div class="form-group">
                 <label for="correoElectronico">Correo Institucional:</label>
                 <input type="email" class="form-control" id="correoElectronico" name="correoElectronico" required>
             </div>
             <div class="form-group">
-                <label for="contrasena">Nombre usuario:</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                <label for="usuario">Nombre usuario:</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" readonly>
             </div>
             <div class="form-group">
                 <label for="rol">Rol:</label>
                 <select class="form-control" id="rol" name="rol">
                     <option value="administrador">Administrador</option>
-                    <option value="usuario">Usuario Calidad</option>
-                    <option value="usuario">Usuario Supervisor</option>
-                    <option value="usuario">Usuario </option>
-                    <option value="invitado">Invitado</option>
-                    <!-- Agrega más roles según sea necesario -->
+                    <option value="usuario_calidad">Usuario Calidad</option>
+                    <option value="usuario_recetario">Usuario Recetario Magistral</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Crear Usuario</button>
         </form>
     </div>
-    <!-- Asegúrate de incluir los archivos JavaScript necesarios aquí -->
+    <script>
+        document.getElementById('correoElectronico').addEventListener('input', function() {
+            var correo = this.value;
+            var usuario = correo.split('@')[0];
+            document.getElementById('usuario').value = usuario;
+        });
+    </script>
 </body>
 </html>
