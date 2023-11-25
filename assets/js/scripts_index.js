@@ -42,20 +42,39 @@ $(document).ready(function () {
     });
 });
 
-
-const routes = [
-    { id: "configuracion", toLoad: "modificar_perfil.html" },
-    { id: "crear_especificaciones_producto", toLoad: "crear_especificaciones_producto.html" },
-    { id: "asignar-roles", toLoad: "asignar_roles.html" },
-    { id: "preparacion_solicitud", toLoad: "preparacion_solicitud.html" }]
-
-for (i in routes) {
-    const { id, toLoad } = routes[i]
-    $(document).ready(function () {
-        $(`#${id}`).click(function (event) {
-            event.preventDefault(); // Prevenir la navegación predeterminada
-            // Cargar el formulario de configuración dentro del div #dynamic-content
-            $('#dynamic-content').load(toLoad);
-        });
+$(document).ready(function () {
+    $('#asignar-roles').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de asignación de roles dentro del div #dynamic-content
+        $('#dynamic-content').load('asignar_roles.html');
     });
-};
+});
+$(document).ready(function () {
+    $('#configuracion').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('modificar_perfil.html');
+    });
+});
+$(document).ready(function () {
+    $('#crear_especificaciones_producto').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('crear_especificaciones_producto.html');
+    });
+});
+$(document).ready(function () {
+    $('#preparacion_solicitud').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('preparacion_solicitud.html');
+    });
+});
+$(document).ready(function () {
+    $('#preparacion_solicitud').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#testing').load('testing.html');
+    });
+});
+
