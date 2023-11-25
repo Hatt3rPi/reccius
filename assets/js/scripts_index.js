@@ -63,3 +63,10 @@ $(document).ready(function() {
         $('#dynamic-content').load('crear_especificaciones_producto.html');
     });
 });
+$(document).ready(function() {
+    $('#preparacion_solicitud').click(function(event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('preparacion_solicitud.html');
+    });
+});
