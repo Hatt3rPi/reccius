@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const sidebarList = document.getElementById("sidebarList");
 
-    sidebarList.addEventListener("click", function(event) {
+    sidebarList.addEventListener("click", function (event) {
         const targetElement = event.target;
 
         if (targetElement.classList.contains("btn_lateral")) {
@@ -32,41 +32,30 @@ function inicializarFormularioCrearUsuario() {
             console.error('Error al cargar los roles:', error);
         });
 }
-$(document).ready(function() {
-    $('#crear-usuario').click(function(event) {
-        event.preventDefault(); 
-        $('#dynamic-content').load('crear_usuario.html', function() {
+$(document).ready(function () {
+    $('#crear-usuario').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').load('crear_usuario.html', function () {
             // Llamar a la función de inicialización después de cargar el formulario
             inicializarFormularioCrearUsuario();
         });
     });
 });
 
-$(document).ready(function() {
-    $('#asignar-roles').click(function(event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        // Cargar el formulario de asignación de roles dentro del div #dynamic-content
-        $('#dynamic-content').load('asignar_roles.html');
+
+const routes = [
+    { id: "configuracion", toLoad: "modificar_perfil.html" },
+    { id: "crear_especificaciones_producto", toLoad: "crear_especificaciones_producto.html" },
+    { id: "asignar-roles", toLoad: "asignar_roles.html" },
+    { id: "preparacion_solicitud", toLoad: "preparacion_solicitud.html" }]
+
+for (i in routes) {
+    const { id, toLoad } = routes[i]
+    $(document).ready(function () {
+        $(`#${id}`).click(function (event) {
+            event.preventDefault(); // Prevenir la navegación predeterminada
+            // Cargar el formulario de configuración dentro del div #dynamic-content
+            $('#dynamic-content').load(toLoad);
+        });
     });
-});
-$(document).ready(function() {
-    $('#configuracion').click(function(event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('modificar_perfil.html');
-    });
-});
-$(document).ready(function() {
-    $('#crear_especificaciones_producto').click(function(event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('crear_especificaciones_producto.html');
-    });
-});
-$(document).ready(function() {
-    $('#preparacion_solicitud').click(function(event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('preparacion_solicitud.html');
-    });
-});
+};
