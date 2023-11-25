@@ -56,3 +56,10 @@ $(document).ready(function() {
         $('#dynamic-content').load('modificar_perfil.html');
     });
 });
+$(document).ready(function() {
+    $('#crear_especificaciones_producto').click(function(event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('crear_especificaciones_producto.html');
+    });
+});

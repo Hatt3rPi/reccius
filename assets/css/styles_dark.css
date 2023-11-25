@@ -84,7 +84,7 @@ header h1 {
   position: fixed;
   height: calc(100% - 60px);
   padding-bottom: 0px;
-      
+  font-family: Arial, sans-serif;    
 }
 
 .sidebar ul {
@@ -346,3 +346,4 @@ body {
   border: 2px solid #fff; /* Añade un borde para darle un toque elegante */
   /*object-fit: cover;  Asegura que la imagen cubra completamente el círculo */
 }
+
