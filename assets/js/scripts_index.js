@@ -84,7 +84,7 @@ $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#testing').load('testing.html');
+        $('#testing').load('preparacion_solicitud.html');
     });
 });
 
