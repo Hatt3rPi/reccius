@@ -66,10 +66,19 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('preparacion_solicitud.html');
+        $('#dynamic-content').load('preparacion_solicitud.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+        });
     });
 });
+
 $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
