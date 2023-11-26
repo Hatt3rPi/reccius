@@ -188,12 +188,12 @@ button:hover {
     font-size: 16px; /* Tamaño del texto */
 }
 
-#cancel {
+#cancel1 {
     background-color: #e7ddde; /* Rojo */
     color: rgb(5, 0, 0); /* Texto blanco */
 }
 
-#continue {
+#continue1 {
     background-color: rgb(63, 40, 167); /* Verde */
     color: white; /* Texto blanco */
 }
