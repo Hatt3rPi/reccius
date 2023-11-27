@@ -85,7 +85,7 @@ form {
 }
 
 input[type="text"]:disabled {
-    color: #6c757d;
+    color: #000000;
     /* Color del texto para campos deshabilitados */
 }
 
