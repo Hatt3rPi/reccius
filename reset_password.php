@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
     if (mysqli_stmt_execute($update)) {
         $success = 'Tu contraseña ha sido restablecida exitosamente.';
     } else {
-        $error = 'Error al restablecer tu contraseña.';
+        $error = 'Error al restablecer tu contraseña: ' . mysqli_error($link);
     }
 
     mysqli_stmt_close($update);
