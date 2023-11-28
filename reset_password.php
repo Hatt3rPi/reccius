@@ -2,7 +2,6 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-// Función para validar y limpiar datos
 function limpiarDato($dato) {
     $dato = trim($dato);
     $dato = stripslashes($dato);
@@ -16,6 +15,7 @@ $mostrarFormulario = false;
 
 if (isset($_GET['token']) && !empty($_GET['token'])) {
     $token = limpiarDato($_GET['token']);
+    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
     if (!$link) {
         die("Conexión fallida: " . mysqli_connect_error());
@@ -27,9 +27,8 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     $resultado = mysqli_stmt_get_result($stmt);
 
     if ($fila = mysqli_fetch_assoc($resultado)) {
-        // Token válido y no ha expirado
         $mostrarFormulario = true;
-        $usuario_id = $fila['usuario_id']; // Guardar el id de usuario para su uso posterior
+        $usuario_id = $fila['usuario_id'];
     } else {
         $error = 'El enlace de restablecimiento no es válido o ha expirado.';
     }
@@ -40,25 +39,24 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     $error = 'Solicitud no válida.';
 }
 
-// Procesar el formulario de restablecimiento de contraseña
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'], $_POST['usuario_id'])) {
     $nuevaContrasena = limpiarDato($_POST['nuevaContrasena']);
-    // Aquí deberías agregar validación de la contraseña (por ejemplo, longitud mínima)
+    $usuario_id = limpiarDato($_POST['usuario_id']);
 
+    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     if (!$link) {
         die("Conexión fallida: " . mysqli_connect_error());
     }
 
-    // Actualizar la contraseña del usuario
-    // Asegúrate de usar password_hash para almacenar la contraseña de manera segura
     $contrasenaHash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
     $update = mysqli_prepare($link, "UPDATE usuarios SET contrasena = ? WHERE id = ?");
     mysqli_stmt_bind_param($update, "si", $contrasenaHash, $usuario_id);
 
     if (mysqli_stmt_execute($update)) {
         $success = 'Tu contraseña ha sido restablecida exitosamente.';
+        // Opcionalmente, invalidar el token aquí
     } else {
-        $error = 'Error al restablecer tu contraseña: ' . mysqli_error($link);
+        $error = 'Error al restablecer tu contraseña: ' . mysqli_stmt_error($update);
     }
 
     mysqli_stmt_close($update);
@@ -84,7 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
     <?php else: ?>
 
         <?php if ($mostrarFormulario): ?>
-            <form action="reset_password.php?token=<?php echo htmlspecialchars($token); ?>" method="post">
+            <form action="reset_password.php" method="post">
+                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
                 <label for="nuevaContrasena">Nueva Contraseña:</label>
                 <input type="password" id="nuevaContrasena" name="nuevaContrasena" required>
                 <button type="submit" name="reset_password">Restablecer Contraseña</button>
