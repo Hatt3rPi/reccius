@@ -84,6 +84,17 @@ form {
 
 }
 
+.form-group input[type="email"]:enabled {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    /* Fondo para campos deshabilitados */
+
+}
+
+
 input[type="text"]:disabled {
     color: #000000;
     /* Color del texto para campos deshabilitados */

@@ -2,172 +2,46 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Análisis Físico-Químicos</title>
-    <!-- CSS de Bootstrap 4 -->
+    <title>Formulario para Crear Usuario</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .container {
-            max-width: 1200px; /* O el ancho máximo que prefieras */
-            margin: auto;
-        }
-
-        #analysis-table {
-            margin-top: 20px; /* Espacio arriba de la tabla */
-            margin-bottom: 20px; /* Espacio debajo de la tabla para el botón */
-        }
-
-        #analysis-table .thead-dark th {
-            background-color: #007bff; /* Color de fondo azul para encabezados */
-            color: white; /* Texto blanco para los encabezados */
-        }
-
-        .btn-primary {
-            background-color: #007bff; /* Color azul para el botón */
-            border: none; /* Sin borde */
-            padding: 10px 20px; /* Relleno para hacer el botón más grande */
-            margin-top: 10px; /* Espacio arriba del botón */
-            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
-        }
-
-        /* Puedes agregar más estilos personalizados según necesites */
-    </style>
+    <!-- Coloca aquí tus estilos o la referencia a tu archivo CSS -->
+    <link rel="stylesheet" href="../assets/css/calidad.css">
 </head>
 <body>
 
-    <h1>Hola Mundo</h1>
+<div class="form-container">
+    <h1>Formulario para Crear Usuario</h1>
+    <form>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo Institucional:</label>
+            <input type="email" class="form-control" id="correo" placeholder="Ingrese su correo">
+        </div>
+        <div class="form-group">
+            <label for="usuario">Usuario:</label>
+            <input type="text" class="form-control" id="usuario" placeholder="Ingrese su usuario">
+        </div>
+        <div class="form-group">
+            <label for="empresa">Empresa:</label>
+            <input type="text" class="form-control" id="empresa" placeholder="Ingrese la empresa">
+        </div>
+        <div class="form-group">
+            <label for="rol">Rol:</label>
+            <select class="form-control" id="rol">
+                <option value="administrador">Administrador</option>
+                <option value="usuario">Usuario</option>
+                <option value="invitado">Invitado</option>
+                <!-- Añadir más opciones según sea necesario -->
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Usuario</button>
+    </form>
+</div>
 
-    <div class="container mt-4">
-        <h2>IV. Análisis Físico-Químicos:</h2>
-        <table class="table table-striped table-bordered" id="analysis-table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Análisis</th>
-                    <th>Metodología</th>
-                    <th>Criterio de Aceptación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Apariencia</td>
-                    <td>interno</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing...</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="modifyRow(this)">Modificar</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow(this)">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Identificación</td>
-                    <td>USP</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing...</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="modifyRow(this)">Modificar</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow(this)">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Valoración</td>
-                    <td>USP</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing...</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="modifyRow(this)">Modificar</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow(this)">Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>pH</td>
-                    <td>USP</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing...</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="modifyRow(this)">Modificar</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow(this)">Eliminar</button>
-                    </td>
-                </tr>
-                <!-- Repetir filas según sea necesario -->
-            </tbody>
-            
-        </table>
-        <button type="button" id="addAnalysisBtn" class="btn btn-primary">Agregar Análisis</button>
-
-    </div>
-
-    <!-- JS de jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- JS de Bootstrap 4 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- JS de DataTables -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-       $(document).ready(function() {
-    var table = $('#analysis-table').DataTable({
-        // Otras opciones de inicialización de DataTables
-    });
-
-    $('#addAnalysisBtn').on('click', function() {
-        // Aquí se debería implementar una lógica para recoger los valores de los inputs o un formulario
-        // Por ahora, vamos a agregar valores estáticos como ejemplo
-        
-        // Obtén el índice de la nueva fila
-        const rowIndex = table.data().count() + 1;
-
-        // Añade una nueva fila con datos de ejemplo
-        table.row.add([
-            'Nuevo Análisis ' + rowIndex, // Columna Análisis
-            'Metodología ' + rowIndex, // Columna Metodología
-            'Criterio de Aceptación ' + rowIndex, // Columna Criterio de Aceptación
-            '<button type="button" class="btn btn-primary btn-sm" onclick="modifyRow(this)">Modificar</button> ' +
-            '<button type="button" class="btn btn-danger btn-sm" onclick="deleteRow(this)">Eliminar</button>'
-        ]).draw(false); // 'false' es para redibujar la tabla sin perder la paginación actual
-
-        // En un caso real, aquí deberías limpiar o cerrar tu modal o formulario
-    });
-});
-
-
-        $(document).ready(function() {
-            // Inicializa DataTables en la tabla
-            $('#analysis-table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-                }
-            });
-        });
-    </script>
-    <SCRipt>    
-    function modifyRow(button) {
-    // Aquí tu lógica para modificar la fila
-    console.log("Modificar fila", button.closest('tr'));
-}
-
-function deleteRow(button) {
-    var row = button.closest('tr');
-    $('#analysis-table').DataTable().row(row).remove().draw();
-}
-
-    
-    
-    </SCRipt>
-    <script>
-        $(document).ready(function() {
-    // Inicializa DataTables
-    var table = $('#analysis-table').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-        },
-        "columnDefs": [
-            { "orderable": false, "targets": 3 } // Deshabilita el ordenamiento para la columna de acciones
-        ]
-    });
-
-    // Lógica para agregar filas, si es necesario
-    $('#add-row').on('click', function() {
-        // Aquí tu lógica para agregar una nueva fila
-        console.log("Agregar nueva fila");
-    });
-});
-
-    </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
