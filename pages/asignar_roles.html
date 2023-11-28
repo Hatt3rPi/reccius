@@ -1,54 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Crear Usuario</title>
-    <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
-</head>
-<body>
-    <!-- Contenido de asignar_roles.html -->
-<div class="container mt-4">
-    <h2>Asignar Rol y Permisos a Usuario</h2>
-    <form id="formAsignarRoles">
-        <div class="form-group">
-            <label for="rol">Rol:</label>
-            <select class="select-style" id="rol" name="rol" style="width: 100%;">
-                <!-- Las opciones se cargarán mediante JavaScript -->
-            </select>
-        </div>
-        <div class="form-group">
-            <h3>Permisos:</h3>
-            <!-- Asumiendo que tienes 20 páginas, generamos las casillas para cada una -->
-            <!-- Este es un ejemplo para las primeras 3 páginas -->
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="permisoInicio" name="permisos[inicio]">
-                <label class="form-check-label" for="permisoInicio">PAGINA 1</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="permisoPaginaVenta" name="permisos[pagina_venta]">
-                <label class="form-check-label" for="permisoPaginaVenta">PAGINA 2 </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="permisoPaginaEntrega" name="permisos[pagina_entrega]">
-                <label class="form-check-label" for="permisoPaginaEntrega">PAGINA 3</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="permisoInicio" name="permisos[inicio]">
-                <label class="form-check-label" for="permisoInicio">PAGINA 4</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="permisoPaginaVenta" name="permisos[pagina_venta]">
-                <label class="form-check-label" for="permisoPaginaVenta">PAGINA 5</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="permisoPaginaEntrega" name="permisos[pagina_entrega]">
-                <label class="form-check-label" for="permisoPaginaEntrega">PAGINA 6</label>
-            </div>
-            <!-- Repite los divs anteriores para cada página o permiso necesario -->
-        </div>
-        <button type="submit" class="btn btn-primary">Asignar Permisos</button>
-    </form>
-</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Permisos</title>
+    <!-- Incluir Bootstrap para estilos -->
+    <link rel="stylesheet" href="../assets/css/calidad.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container mt-5">
+            <h2>Asignación de Rol y Permisos</h2>
+            <form>
+                <div class="form-group">
+                    <label for="rolSelect">Rol:</label>
+                    <select class="form-control" id="rolSelect" name="rol">
+                        <option value="administrador">Administrador</option>
+                        <option value="usuario">Usuario Calidad</option>
+                        <option value="usuario">Usuario Supervisor</option>
+                        <option value="usuario">Usuario </option>
+                        <option value="invitado">Invitado</option>
+                        <!-- Agrega más roles según sea necesario -->
+                    </select>
+                </div>
+                <h3>Permisos</h3>
+                <div class="form-group form-check">
+                    <!-- Repetir esto para cada página con una casilla de verificación -->
+                    <input type="checkbox" class="form-check-input" id="inicio" name="permisos[inicio]" value="1">
+                    <label class="form-check-label" for="inicio">Inicio</label>
+                </div>
+                <!-- Continuar con el resto de páginas -->
+                <!-- Ejemplo con algunas páginas -->
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="pagina_venta" name="permisos[pagina_venta]"
+                        value="1">
+                    <label class="form-check-label" for="pagina_venta">Página de Venta</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="pagina_entrega" name="permisos[pagina_entrega]"
+                        value="1">
+                    <label class="form-check-label" for="pagina_entrega">Página de Entrega</label>
+                </div>
+                <!-- Añadir más controles para otras páginas siguiendo el mismo patrón -->
+
+                <!-- Botón de envío -->
+                <button type="submit" class="btn btn-primary">Asignar Permisos</button>
+            </form>
+            <hr style="height: 100px;color: brown;">
+        </div> 
+    </div>
+   
+    <!-- Opcional: Incluir jQuery y Bootstrap JS para funcionalidad de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
+
+</html>s
