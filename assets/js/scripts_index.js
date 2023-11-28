@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function inicializarFormularioCrearUsuario() {
     // Cargar los roles disponibles
-    fetch('backend/roles/roles.php')
+    fetch('../backend/roles/roles.php')
         .then(response => response.json())
         .then(data => {
             const selectRol = document.getElementById('rol');
