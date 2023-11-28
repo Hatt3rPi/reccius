@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_stmt_num_rows($stmt) > 0) {
             echo "Error: El usuario ya existe.";
         } else {
-            $insert = mysqli_prepare($link, "INSERT INTO usuarios (nombreUsuario, correoElectronico, usuario, rol) VALUES (?, ?, ?, ?)");
+            $insert = mysqli_prepare($link, "INSERT INTO usuarios (nombre, correo, usuario, rol_id) VALUES (?, ?, ?, ?)");
             mysqli_stmt_bind_param($insert, "ssss", $nombreUsuario, $correoElectronico, $usuario, $rol);
             
             if (mysqli_stmt_execute($insert)) {
