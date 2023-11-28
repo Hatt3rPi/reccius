@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+include "../email/envia_correo.php"; // Asegúrate de que esta ruta es correcta
 
 function limpiarDato($dato) {
     $dato = trim($dato);
@@ -16,16 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $correoElectronico = limpiarDato($_POST['correoElectronico']);
         $usuario = limpiarDato($_POST['usuario']);
         $rol = limpiarDato($_POST['rol']);
-
-        // Crear conexión
-        $link = mysqli_connect("localhost", "tu_usuario", "tu_contraseña", "nombre_de_tu_base_de_datos");
-
-        // Verificar la conexión
         if (!$link) {
             die("Conexión fallida: " . mysqli_connect_error());
         }
 
-        // Verificar si el usuario ya existe
         $stmt = mysqli_prepare($link, "SELECT id FROM usuarios WHERE usuario = ?");
         mysqli_stmt_bind_param($stmt, "s", $usuario);
         mysqli_stmt_execute($stmt);
@@ -34,11 +29,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_stmt_num_rows($stmt) > 0) {
             echo "Error: El usuario ya existe.";
         } else {
-            // Insertar el nuevo usuario
             $insert = mysqli_prepare($link, "INSERT INTO usuarios (nombreUsuario, correoElectronico, usuario, rol) VALUES (?, ?, ?, ?)");
             mysqli_stmt_bind_param($insert, "ssss", $nombreUsuario, $correoElectronico, $usuario, $rol);
+            
             if (mysqli_stmt_execute($insert)) {
-                echo "Usuario creado exitosamente";
+                $last_id = mysqli_insert_id($link);
+                $token = bin2hex(random_bytes(32));
+
+                $insertToken = mysqli_prepare($link, "INSERT INTO tokens_reset (usuario_id, token, fecha_expiracion) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 1 HOUR))");
+                mysqli_stmt_bind_param($insertToken, "is", $last_id, $token);
+                mysqli_stmt_execute($insertToken);
+                mysqli_stmt_close($insertToken);
+
+                $enlaceReset = 'https://customware.cl/reccius/reset_password.php?token=' . $token;
+                $asunto = 'Restablecer tu contraseña';
+                $cuerpo = 'Por favor, haz clic en este enlace para restablecer tu contraseña: ' . $enlaceReset;
+
+                if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
+                    echo 'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.';
+                } else {
+                    echo 'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.';
+                }
             } else {
                 echo "Error al crear usuario: " . mysqli_error($link);
             }
