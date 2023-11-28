@@ -67,7 +67,7 @@ form {
 
 /* Para mostrar la flecha hacia abajo personalizada */
 .select-style {
-    background-image: url('./images/down-arrow.png');
+    background-image: url('../images/down-arrow.png');
     background-repeat: no-repeat;
     background-position: right 10px center; /* Ajusta como sea necesario */
     background-size: 12px; /* Ajusta el tamaño de tu imagen de flecha según sea necesario */
