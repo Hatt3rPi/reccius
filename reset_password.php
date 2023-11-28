@@ -16,7 +16,6 @@ $mostrarFormulario = false;
 
 if (isset($_GET['token']) && !empty($_GET['token'])) {
     $token = limpiarDato($_GET['token']);
-    $link = mysqli_connect("localhost", "tu_usuario", "tu_contraseña", "nombre_de_tu_base_de_datos");
 
     if (!$link) {
         die("Conexión fallida: " . mysqli_connect_error());
