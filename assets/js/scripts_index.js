@@ -19,19 +19,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function inicializarFormularioCrearUsuario() {
     // Cargar los roles disponibles
-    fetch('../backend/roles/roles.php')
-        .then(response => response.json())
+    fetch('../backend/roles/roles.php') // Asegúrate de que la ruta es correcta
+        .then(response => {
+            if (!response.ok) {
+                // Si la respuesta no es exitosa, lanza un error
+                throw new Error('La solicitud a roles.php falló: ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
             const selectRol = document.getElementById('rol');
+            if (!selectRol) {
+                // Si no se encuentra el elemento select, lanza un error
+                throw new Error('Elemento select con ID "rol" no encontrado.');
+            }
             data.forEach(rol => {
                 let opcion = new Option(rol.nombre, rol.id);
                 selectRol.add(opcion);
             });
         })
         .catch(error => {
+            // Maneja cualquier error que ocurra en la solicitud o procesamiento de la respuesta
             console.error('Error al cargar los roles:', error);
         });
 }
+
 $(document).ready(function () {
     $('#crear-usuario').click(function (event) {
         event.preventDefault();
