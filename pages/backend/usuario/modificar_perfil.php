@@ -2,20 +2,14 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-function limpiarDato($dato) {
-    global $link;
-    return mysqli_real_escape_string($link, $dato);
-}
-
 function validarFortalezaPassword($password) {
-    // Aquí puedes agregar las reglas que consideres para validar la contraseña
-    return strlen($password) >= 8; // Ejemplo: longitud mínima de 8 caracteres
+    // Agrega aquí tus propias reglas de validación de contraseña
+    return strlen($password) >= 8;
 }
 
 function validarFormatoPassword($password) {
-    // Validar formato de la contraseña
-    return preg_match('/[a-zA-Z].*[0-9]|[0-9].*[a-zA-Z]/', $password) &&
-           preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password);
+    // Agrega aquí tus propias reglas de validación de formato de contraseña
+    return preg_match('/[a-zA-Z].*[0-9]|[0-9].*[a-zA-Z]/', $password);
 }
 
 function cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword) {
@@ -37,7 +31,7 @@ function cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword) {
         return $exito ? "La contraseña ha sido actualizada con éxito." : "Error al actualizar la contraseña.";
     }
 
-    return $fila ? "La contraseña actual no es correcta." : "Usuario no encontrado.";
+    return "La contraseña actual no es correcta o el usuario no fue encontrado.";
 }
 
 function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
@@ -105,49 +99,45 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
 
     return "La foto de perfil ha sido actualizada con éxito.";
 }
-
 if (isset($_POST['modificarPerfil'])) {
-    $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : $_SESSION['usuario'];
+    $usuario = $_SESSION['usuario'] ?? $_POST['usuario'];
+    $mensajeError = "";
 
-    $cambiarContrasena = isset($_POST['passwordActual'], $_POST['nuevaPassword'], $_POST['confirmarPassword']);
-    $cambiarFoto = isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK;
-
-    $mensajeError = "No se ha proporcionado información para actualizar.";
-
-    if ($cambiarContrasena) {
+    // Cambio de contraseña
+    if (!empty($_POST['passwordActual']) && !empty($_POST['nuevaPassword']) && !empty($_POST['confirmarPassword'])) {
         $passwordActual = $_POST['passwordActual'];
         $nuevaPassword = $_POST['nuevaPassword'];
         $confirmarPassword = $_POST['confirmarPassword'];
 
         if ($nuevaPassword === $confirmarPassword) {
             $resultadoCambio = cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword);
-            if ($resultadoCambio === "La contraseña ha sido actualizada con éxito.") {
-                $mensajeError = "";
-            } else {
-                echo $resultadoCambio;
+            if ($resultadoCambio !== "La contraseña ha sido actualizada con éxito.") {
+                $mensajeError .= $resultadoCambio;
             }
         } else {
-            echo "Las contraseñas no coinciden.";
-            exit;
+            $mensajeError .= "Las contraseñas no coinciden. ";
         }
+    } else {
+        $mensajeError .= "Información de contraseña no proporcionada. ";
     }
 
-    if ($cambiarFoto) {
+    // Cambio de foto de perfil
+    if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK) {
         $resultadoCambioFoto = cambiarFotoPerfil($link, $usuario, $_FILES['fotoPerfil']);
-        if ($resultadoCambioFoto === "La foto de perfil ha sido actualizada con éxito.") {
-            $mensajeError = "";
-        } else {
-            echo $resultadoCambioFoto;
+        if ($resultadoCambioFoto !== "La foto de perfil ha sido actualizada con éxito.") {
+            $mensajeError .= $resultadoCambioFoto;
         }
+    } else {
+        $mensajeError .= "Archivo de foto de perfil no proporcionado. ";
     }
 
     if ($mensajeError) {
-        echo $mensajeError;
-        exit;
+        echo trim($mensajeError);
+    } else {
+        echo "Perfil actualizado con éxito.";
     }
 
-    // Redirigir o manejar la respuesta como necesites
-     header("Location: ../../index.html");
     exit;
+    //header("Location: ../../index.html");
 }
 ?>
