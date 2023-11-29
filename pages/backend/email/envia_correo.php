@@ -30,6 +30,7 @@ function enviarCorreo($destinatario, $nombreDestinatario, $asunto, $cuerpo, $alt
         $mail->Password = SMTP_PASS;
         $mail->SMTPSecure = SMTP_SECURE;
         $mail->Port = SMTP_PORT;
+        $mail->CharSet = 'UTF-8';
 
         $mail->setFrom(SMTP_USER, 'Reccius - No responder');
         $mail->addAddress($destinatario, $nombreDestinatario);
