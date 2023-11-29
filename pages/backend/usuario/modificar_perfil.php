@@ -2,7 +2,10 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-// Asumiendo que la conexión a la base de datos está en $link
+function limpiarDato($dato) {
+    global $link;
+    return mysqli_real_escape_string($link, $dato);
+}
 
 function validarFortalezaPassword($password) {
     // Aquí puedes agregar las reglas que consideres para validar la contraseña
@@ -16,7 +19,6 @@ function validarFormatoPassword($password) {
 }
 
 function cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword) {
-    
     if (!validarFortalezaPassword($nuevaPassword) || !validarFormatoPassword($nuevaPassword)) {
         return "La nueva contraseña no cumple con los requisitos de seguridad y formato.";
     }
@@ -104,44 +106,48 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
     return "La foto de perfil ha sido actualizada con éxito.";
 }
 
-
-
 if (isset($_POST['modificarPerfil'])) {
     $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : $_SESSION['usuario'];
 
-
-    // Variables para verificar si se realizará alguna operación
-    $cambiarContrasena = !empty($_POST['passwordActual']) && !empty($_POST['nuevaPassword']) && !empty($_POST['confirmarPassword']);
+    $cambiarContrasena = isset($_POST['passwordActual'], $_POST['nuevaPassword'], $_POST['confirmarPassword']);
     $cambiarFoto = isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK;
 
-    // Procesar cambio de contraseña si se proporcionaron los campos necesarios
+    $mensajeError = "No se ha proporcionado información para actualizar.";
+
     if ($cambiarContrasena) {
-        $passwordActual = filter_input(INPUT_POST, 'passwordActual', FILTER_SANITIZE_STRING);
-        $nuevaPassword = filter_input(INPUT_POST, 'nuevaPassword', FILTER_SANITIZE_STRING);
-        $confirmarPassword = filter_input(INPUT_POST, 'confirmarPassword', FILTER_SANITIZE_STRING);
+        $passwordActual = $_POST['passwordActual'];
+        $nuevaPassword = $_POST['nuevaPassword'];
+        $confirmarPassword = $_POST['confirmarPassword'];
 
         if ($nuevaPassword === $confirmarPassword) {
-            echo cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword);
+            $resultadoCambio = cambiarPassword($link, $usuario, $passwordActual, $nuevaPassword);
+            if ($resultadoCambio === "La contraseña ha sido actualizada con éxito.") {
+                $mensajeError = "";
+            } else {
+                echo $resultadoCambio;
+            }
         } else {
             echo "Las contraseñas no coinciden.";
             exit;
         }
     }
 
-    // Procesar cambio de foto de perfil si se proporcionó un archivo
     if ($cambiarFoto) {
-        echo cambiarFotoPerfil($link, $usuario, $_FILES['fotoPerfil']);
+        $resultadoCambioFoto = cambiarFotoPerfil($link, $usuario, $_FILES['fotoPerfil']);
+        if ($resultadoCambioFoto === "La foto de perfil ha sido actualizada con éxito.") {
+            $mensajeError = "";
+        } else {
+            echo $resultadoCambioFoto;
+        }
     }
 
-    // Verificar si se realizó alguna operación
-    if (!$cambiarContrasena && !$cambiarFoto) {
-        echo "No se ha proporcionado información para actualizar.";
+    if ($mensajeError) {
+        echo $mensajeError;
         exit;
     }
 
     // Redirigir o manejar la respuesta como necesites
-    // header("Location: /path/to/success_page.php");
-    exit();
+     header("Location: ../../index.html");
+    exit;
 }
-
 ?>
