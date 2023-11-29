@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña - Reccius</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5; /* Puedes cambiar esto según tu diseño */
+        }
+        .forgot-password-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .forgot-password-container h2 {
+            margin-bottom: 20px;
+        }
+        .forgot-password-form input,
+        .forgot-password-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .forgot-password-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .forgot-password-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="forgot-password-container">
+        <h2>Restablecer Contraseña</h2>
+        <form class="forgot-password-form" action="/pages/backend/usuario/restablece-contraseña.php" method="POST">
+            <input type="email" id="email" name="email" placeholder="Introduce tu correo electrónico" required>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
