@@ -12,8 +12,9 @@ function limpiarDato($dato) {
 $error = '';
 $success = '';
 $mostrarFormulario = false;
+$usuario_id = null;
 
-if (isset($_GET['token']) && !empty($_GET['token'])) {
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['token']) && !empty($_GET['token'])) {
     $token = limpiarDato($_GET['token']);
     $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -39,9 +40,9 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
     $error = 'Solicitud no válida.';
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'], $_POST['usuario_id'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
     $nuevaContrasena = limpiarDato($_POST['nuevaContrasena']);
-    $usuario_id = limpiarDato($_POST['usuario_id']);
+    $usuario_id = limpiarDato($_POST['usuario_id']) ?? null; // Obtener usuario_id del campo oculto
 
     $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     if (!$link) {
