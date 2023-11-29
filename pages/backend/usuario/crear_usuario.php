@@ -48,9 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
                     echo 'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.';
                     header("Location: ../../index.html");
+                    exit();
                 } else {
                     echo 'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.';
                     header("Location: ../../index.html");
+                    exit();
                 }
             } else {
                 echo "Error al crear usuario: " . mysqli_error($link);
