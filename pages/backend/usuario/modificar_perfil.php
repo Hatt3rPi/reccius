@@ -48,7 +48,7 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
     $tipoArchivo = strtolower(pathinfo($fotoPerfil['name'], PATHINFO_EXTENSION));
     $nombreArchivo = $directorioDestino . "perfil_" . $usuario . ".png";
     $nombreArchivo_n = "perfil_" . $usuario . ".png";
-    if ($fotoPerfil["size"] > 5000000) { // 5MB
+    if ($fotoPerfil["size"] > 10000000) { // 5MB
         return "El archivo es demasiado grande.";
     }
 
