@@ -76,8 +76,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <a href="#rec_magistrales" class="btn_lateral"><i class="fa fa-envelope"></i> Recetas Magistrales</a>
                     <div class="smenu">
                         <a id="crear_especificaciones_producto" href="#">Crear especificaciones de producto</a>
-                        <a id="preparacion_solicitud" href="#">Solicitar analisis</a>
-                        <a href="#">TEST</a>
+                        <a id="preparacion_solicitud" href="#">Solicitar analisis 1</a>
+                        <a id="preparacion_analisis" href="#">Solicitar analisis 2</a>
                         <a href="">Trazabilidad</a> 
                         <a href="">Conciliación</a>
                     </div>

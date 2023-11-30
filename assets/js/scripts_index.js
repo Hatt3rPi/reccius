@@ -100,3 +100,10 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('#preparacion_analisis').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#testing').load('preparacion_analisis.html');
+    });
+});

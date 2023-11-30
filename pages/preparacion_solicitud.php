@@ -21,7 +21,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <body>
     <div class="form-container">
-        <h1>PREPARAR SOLICITUD</h1>
+        <h1>SOLICITAR ANÁLISIS (1/2)  - Preparación solicitud</h1>
         <form>
             <fieldset>
                 <legend>I. Especificaciones del producto:</legend>
