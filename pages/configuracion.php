@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +17,7 @@
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
 </head>
 <body>
-<!-- Contenido de configuracion.html -->
+<!-- Contenido de configuracion.php -->
 <div class="container mt-4">
     <h2>Configuración del Usuario</h2>
     <form id="formConfiguracion">

@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -31,7 +42,7 @@
     <header>
         <div class="header_estatico">
             <div class="logo-title-container">
-                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.html" class="logo"/>
+                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" class="logo"/>
             </div>
             <div class="user-info">
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
@@ -42,8 +53,8 @@
                     </button>
                     <div class="dropdown-content">
 
-                        <a id="configuracion" href="modificar_perfil.html">Modificar Perfil</a>
-                        <a href="./backend/login/logout.php">Cerrar Sesión</a>
+                        <a id="configuracion" href="modificar_perfil.php">Modificar Perfil</a>
+                        <a href="./backend/login/logoutBE.php">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -93,7 +104,7 @@
 </html>
 <script>
 function fetchUserInfo() {
-    fetch('./backend/usuario/obtener_usuario.php')
+    fetch('./backend/usuario/obtener_usuarioBE.php')
         .then(response => response.json())
         .then(data => {
             if(data.usuario) {

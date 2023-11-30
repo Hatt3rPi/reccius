@@ -14,7 +14,7 @@ function generateCSRFToken() {
 }
 
 if (isset($_SESSION['usuario'])) {
-    header("Location: ../../index.html");
+    header("Location: ../../index.php");
     exit();
 } else {
     $csrfToken = generateCSRFToken();
@@ -40,7 +40,7 @@ if (isset($_POST['login'])) {
         $_SESSION['csrf_token'] = $csrfToken;
         $_SESSION['foto_perfil'] = escape($usuario['foto_perfil']);
 
-        header("Location: ../../index.html");
+        header("Location: ../../index.php");
         exit();
     } else {
         header("Location: ../../login.html?error=invalid_credentials");

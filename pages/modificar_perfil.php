@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +18,7 @@
 </head>
 <body>
     <h2>Modificar Perfil</h2>
-    <form id="formPerfil" action="backend/usuario/modificar_perfil.php" method="POST" enctype="multipart/form-data">
+    <form id="formPerfil" action="backend/usuario/modificar_perfilBE.php" method="POST" enctype="multipart/form-data">
         
         <!-- Sección de Cambio de Contraseña -->
         <fieldset>

@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,7 +24,7 @@
     <div class="container">
         <div class="form-container">
             <h2>Formulario para Crear Usuario</h2>
-            <form id="formCrearUsuario" action="backend/usuario/crear_usuario.php" method="POST">
+            <form id="formCrearUsuario" action="backend/usuario/crear_usuarioBE.php" method="POST">
                 <div class="form-group">
                     <label for="nombreUsuario">Nombre:</label>
                     <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required style="width: 100%;">

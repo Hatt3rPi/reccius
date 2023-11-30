@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 function inicializarFormularioCrearUsuario() {
     // Cargar los roles disponibles
-    fetch('../pages/backend/roles/roles.php') // Asegúrate de que la ruta es correcta
+    fetch('../pages/backend/roles/rolesBE.php') // Asegúrate de que la ruta es correcta
         .then(response => {
             if (!response.ok) {
                 // Si la respuesta no es exitosa, lanza un error
-                throw new Error('La solicitud a roles.php falló: ' + response.statusText);
+                throw new Error('La solicitud a rolesBE.php falló: ' + response.statusText);
             }
             return response.json();
         })
@@ -47,7 +47,7 @@ function inicializarFormularioCrearUsuario() {
 $(document).ready(function () {
     $('#crear-usuario').click(function (event) {
         event.preventDefault();
-        $('#dynamic-content').load('crear_usuario.html', function () {
+        $('#dynamic-content').load('crear_usuario.php', function () {
             // Llamar a la función de inicialización después de cargar el formulario
             inicializarFormularioCrearUsuario();
         });
@@ -58,14 +58,14 @@ $(document).ready(function () {
     $('#asignar-roles').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
-        $('#dynamic-content').load('asignar_roles.html');
+        $('#dynamic-content').load('asignar_roles.php');
     });
 });
 $(document).ready(function () {
     $('#configuracion').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('modificar_perfil.html');
+        $('#dynamic-content').load('modificar_perfil.php');
     });
 });
 $(document).ready(function () {
@@ -73,7 +73,7 @@ $(document).ready(function () {
         event.preventDefault(); // Prevenir la navegación predeterminada
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('crear_especificaciones_producto.html');
+        $('#dynamic-content').load('crear_especificaciones_producto.php');
     });
 });
 $(document).ready(function () {
@@ -82,7 +82,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('preparacion_solicitud.html', function (response, status, xhr) {
+        $('#dynamic-content').load('preparacion_solicitud.php', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
@@ -96,7 +96,7 @@ $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#testing').load('preparacion_solicitud.html');
+        $('#testing').load('preparacion_solicitud.php');
     });
 });
 

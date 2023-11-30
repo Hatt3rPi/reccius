@@ -137,7 +137,7 @@ if (isset($_POST['modificarPerfil'])) {
         echo "Perfil actualizado con éxito.";
     }
 
-    header("Location: ../../index.html");
+    header("Location: ../../index.php");
     exit();
 }
 ?>

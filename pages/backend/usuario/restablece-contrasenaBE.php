@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-include "../email/envia_correo.php";
+include "../email/envia_correoBE.php";
 
 function limpiarDato($dato) {
     $dato = trim($dato);
