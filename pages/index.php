@@ -78,7 +78,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a id="crear_especificaciones_producto" href="#">Crear especificaciones de producto</a>
                         <a id="preparacion_solicitud" href="#">Solicitar analisis 1</a>
                         <a id="preparacion_analisis" href="#">Solicitar analisis 2</a>
-                        <a href="">Trazabilidad</a> 
+                        <a id="acta_liberacion" href="">Acta liberacion o rechazo</a> 
                         <a href="">Conciliación</a>
                     </div>
                 </li>

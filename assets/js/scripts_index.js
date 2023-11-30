@@ -100,13 +100,7 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $('#preparacion_analisis').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#testing').load('preparacion_analisis.html');
-    });
-});
+
 $(document).ready(function () {
     $('#preparacion_analisis').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
@@ -114,6 +108,22 @@ $(document).ready(function () {
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#dynamic-content').load('preparacion_analisis.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#acta_liberacion').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('acta_liberacion.html', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
