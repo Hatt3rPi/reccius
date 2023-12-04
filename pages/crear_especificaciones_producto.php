@@ -23,7 +23,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Estilos CSS de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
-
+<STYle>
+        .form-group input[type="date"] {
+        width: 80%; /* Ajusta el ancho al de su contenedor */
+        padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+        margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
+        display: inline-block; /* Asegura que se comporten como bloques pero en línea */
+        border: 1px solid #ccc; /* Borde gris claro, puedes cambiarlo por el color que prefieras */
+        border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
+        box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
+    }
+</STYle>
 
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
