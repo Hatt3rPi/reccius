@@ -31,7 +31,17 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
     <!-- Estilos CSS de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
-
+<STYle>
+        .form-group input[type="date"] {
+        width: 80%; /* Ajusta el ancho al de su contenedor */
+        padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+        margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
+        display: inline-block; /* Asegura que se comporten como bloques pero en línea */
+        border: 1px solid #ccc; /* Borde gris claro, puedes cambiarlo por el color que prefieras */
+        border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
+        box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
+    }
+</STYle>
 
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -51,7 +61,12 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <input type="text" placeholder="Producto Terminado" >
+                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;">
+                            <option value="Menvase">Material Envase y Empaque</option>
+                            <option value="Mprima">Materia Prima</option>
+                            <option value="Pterminado">Producto Terminado</option>
+                            <option value="Insumo">Insumo</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Producto:</label>
@@ -81,7 +96,7 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="text" placeholder="dd/mm/aaaa">
+                        <input type="date" placeholder="dd/mm/aaaa">
                     </div>
                     <div class="form-group">
                         <label>Versión:</label>
