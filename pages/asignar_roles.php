@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -50,6 +61,7 @@
                 <!-- Botón de envío -->
                 <button type="submit" class="btn btn-primary">Asignar Permisos</button>
             </form>
+            <hr style="height: 100px;color: brown;">
         </div> 
     </div>
    
@@ -58,4 +70,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
-</html>s
+</html>
