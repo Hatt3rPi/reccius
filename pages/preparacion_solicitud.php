@@ -63,7 +63,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="form-group">
                         <label>Fecha Elaboracion:</label>
-                        <input type="text" placeholder="06-07-2023" >
+                        <input type="date" placeholder="06-07-2023" >
                     </div>
                 </div>
                 <div class="form-row">
@@ -73,7 +73,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input type="text" placeholder="06-07-2023" >
+                        <input type="date" placeholder="06-07-2023" >
                     </div>
                 </div>
             </fieldset>
@@ -89,7 +89,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="form-group">
                         <label>Fecha Solicitud:</label>
-                        <input type="text" placeholder="06-07-2023">
+                        <input type="date" placeholder="06-07-2023">
                     </div>
                 </div>
                 <div class="form-row">
@@ -99,7 +99,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="form-group">
                         <label>Fecha Cotización:</label>
-                        <input type="text" placeholder="06-07-2023">
+                        <input type="date" placeholder="06-07-2023">
                     </div>
                 </div>
                 <div class="form-row">
@@ -120,7 +120,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Entrega Estimada:</label>
-                        <input type="text" placeholder="06-07-2023">
+                        <input type="date" placeholder="06-07-2023">
                     </div>
                     <div class="form-group">
                         <label>N* Documento:</label>

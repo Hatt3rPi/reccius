@@ -54,6 +54,15 @@
             float: right;
             margin-top: 0.5em;
         }
+        .form-group input[type="date"] {
+    width: 80%; /* Ajusta el ancho al de su contenedor */
+    padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+    margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
+    display: inline-block; /* Asegura que se comporten como bloques pero en línea */
+    border: 1px solid #ccc; /* Borde gris claro, puedes cambiarlo por el color que prefieras */
+    border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
+    box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
+}
         </style>
         
 
@@ -106,7 +115,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="text" placeholder="dd/mm/aaaa">
+                        <input type="date" placeholder="dd/mm/aaaa" >
                     </div>
                     <div class="form-group">
                         <label>Versión:</label>

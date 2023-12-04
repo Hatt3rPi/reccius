@@ -78,7 +78,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="text" placeholder="dd/mm/aaaa">
+                        <input type="date" placeholder="dd/mm/aaaa">
                     </div>
                     <div class="form-group">
                         <label>Versión:</label>
