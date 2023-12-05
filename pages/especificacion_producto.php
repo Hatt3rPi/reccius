@@ -23,6 +23,9 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
 <head>
     <meta charset="UTF-8">
     <title>Crear Usuario</title>
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <link rel="stylesheet" href="../assets/css/calidad.css">
     <!-- CSS de Bootstrap 4 -->
@@ -188,22 +191,5 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
 
 </html>
 <script>
-    $(document).ready(function() {
-        // Cargar la tabla DataTables
-        $("#contenedor_analisisFQ").load("pages/backend/calidad/datatables_analisis.html", function() {
-            // Inicializar DataTables aquí si es necesario
-            var tabla = $('#tablaAnalisisFQ').DataTable();
-
-            // Manejar clic en el botón para agregar una nueva fila
-            $('#boton_agrega_analisisFQ').on('click', function() {
-                // Agregar nueva fila
-                tabla.row.add([
-                    '', // Número de fila vacío o valor por defecto
-                    '<input type="text" name="analisis[]">', // Campo Análisis
-                    '<input type="text" name="metodologia[]">', // Campo Metodología
-                    '<input type="text" name="criterio[]">' // Campo Criterio de Aceptación
-                ]).draw(false);
-            });
-        });
-    });
+    
 </script>

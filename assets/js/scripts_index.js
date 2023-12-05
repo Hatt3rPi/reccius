@@ -73,6 +73,22 @@ $(document).ready(function () {
         event.preventDefault(); // Prevenir la navegación predeterminada
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
         // Cargar el formulario de configuración dentro del div #dynamic-content
+        $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function() {
+            // Inicializar DataTables aquí si es necesario
+            var tabla = $('#tablaAnalisisFQ').DataTable();
+
+            // Manejar clic en el botón para agregar una nueva fila
+            $('#boton_agrega_analisisFQ').on('click', function() {
+                // Agregar nueva fila
+                tabla.row.add([
+                    '', // Número de fila vacío o valor por defecto
+                    '<input type="text" name="analisis[]">', // Campo Análisis
+                    '<input type="text" name="metodologia[]">', // Campo Metodología
+                    '<input type="text" name="criterio[]">' // Campo Criterio de Aceptación
+                ]).draw(false);
+            });
+        });
+
         $('#dynamic-content').load('especificacion_producto.php?nuevo=true');
     });
 });
