@@ -69,7 +69,7 @@ $(document).ready(function () {
     });
 });
 $(document).ready(function () {
-    $('#crear_especificaciones_producto').click(function (event) {
+    $('#especificacion_producto').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
         // Cargar el formulario de configuración dentro del div #dynamic-content
