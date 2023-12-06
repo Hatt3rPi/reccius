@@ -104,24 +104,10 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
             <br>
             <h2>Análisis Físico-Químicos:</h2>
             <div id="contenedor_analisisFQ">
-                <!-- Aquí se incluirá la tabla desde tablas.php -->
+                <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
             </div>
             <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
-            <table class="analysis-table" id="tablaanalisisFQ">
-                <thead>
-                    <tr>
-                        <th>#</th> <!-- correlativo de análisis -->
-                        <th>Análisis</th>
-                        <th>Metodología</th>
-                        <th>Criterio de Aceptación</th>
-                    </tr>
-                </thead>
-            </table>
-            <button type="button" onclick="addAnalysis()">Agregar Análisis</button>
-
-
-            <!-- Fin de la sección de Análisis Físico-Químicos -->
-
+            
             <br>
             <br>
             <h2>Análisis Microbiológicos:</h2>
@@ -193,11 +179,28 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                         tabla.row.add([
-                            '', 
-                            '<input type="text" name="analisis[]">',
-                            '<input type="text" name="metodologia[]">',
-                            '<input type="text" name="criterio[]">'
-                        ]).draw(false);
+                        '',
+                        '<select name="analisis[]">' + 
+                            '<option value="Apariencia">Apariencia</option>' +
+                            '<option value="Identificación">Identificación</option>' +
+                            '<option value="Valoración">Valoración</option>' +
+                            '<option value="Contenido">Contenido</option>' +
+                            '<option value="pH">pH</option>' +
+                            '<option value="Densidad">Densidad</option>' +
+                            '<option value="Osmolaridad">Osmolaridad</option>' +
+                            '<option value="Límite de Oxalato">Límite de Oxalato</option>' +
+                            '<option value="Volumen extraíble">Volumen extraíble</option>' +
+                            '<option value="Material Sub particulado">Material Sub particulado</option>' +
+                            '<option value="Material Particulado">Material Particulado</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<select name="metodologia[]">' +
+                            '<option value="Interno">Interno</option>' +
+                            '<option value="USP">USP</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<input type="text" name="criterio[]">'
+                    ]).draw(false);
                     } else {
                         console.error('Error: La tabla no está inicializada.');
                         alert('Error al cargar la tabla. Por favor, intente de nuevo.');
