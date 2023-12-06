@@ -198,7 +198,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<textarea rows="4" cols="50" name="criterio[]">',
+                        '<textarea rows="4" cols="50" name="criterio[]"></textarea>',
                         '<button type="button" name="eliminar[]">Eliminar</button>'
                         
                     ]).draw(false);
