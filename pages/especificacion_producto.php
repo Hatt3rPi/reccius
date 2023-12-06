@@ -162,10 +162,13 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
         var esNuevo = <?php echo json_encode($esNuevo); ?>;
         if (esNuevo) {
             var tablaFQ = new DataTable('#analisisFQ', {
-                        "paging": false,  // Desactiva la paginación
-                        "info": false,    // Oculta el texto "Showing 1 to X of X entries"
-                        "searching": false,  // Desactiva la búsqueda
-                        "lengthChange": false, // Oculta el selector "Show X entries"
+                    "paging": false,  // Desactiva la paginación
+                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
+                    "searching": false,  // Desactiva la búsqueda
+                    "lengthChange": false, // Oculta el selector "Show X entries"
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                    },
                     columns: [
                         { title: 'Análisis' },
                         { title: 'Metodología' },
