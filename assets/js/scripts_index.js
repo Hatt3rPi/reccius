@@ -68,42 +68,15 @@ $(document).ready(function () {
         $('#dynamic-content').load('modificar_perfil.php');
     });
 });
+
 $(document).ready(function () {
     $('#especificacion_producto').click(function (event) {
         event.preventDefault();
         console.log('El enlace de solicitud de análisis fue clickeado.');
         
-        $('#dynamic-content').load('especificacion_producto.php?nuevo=true');
-        console.log('Tabla inicia carga');
-        
-        $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function() {
-            if (status == "error") {
-                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
-                alert("Error al cargar la tabla. Revise la consola para más detalles.");
-                return;
-            }
-            try {
-                // Intentar inicializar DataTables
-                var tabla = $('#analisisFQ').DataTable();
-
-                $('#boton_agrega_analisisFQ').on('click', function() {
-                    // Verificar si la tabla se cargó correctamente antes de agregar filas
-                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-                        tabla.row.add([
-                            '', 
-                            '<input type="text" name="analisis[]">',
-                            '<input type="text" name="metodologia[]">',
-                            '<input type="text" name="criterio[]">'
-                        ]).draw(false);
-                    } else {
-                        console.error('Error: La tabla no está inicializada.');
-                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
-                    }
-                });
-            } catch (error) {
-                console.error('Error al inicializar la tabla: ', error);
-                alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
-            }
+        $('#dynamic-content').load('especificacion_producto.php?nuevo=true', function () {
+            // Llamar a la función de inicialización después de cargar el formulario
+            carga_tablaFQ();
         });
         
         console.log('Proceso finalizado');

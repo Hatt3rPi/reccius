@@ -178,5 +178,36 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
 
 </html>
 <script>
-    
+    function carga_tablaFQ() {
+        $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
+            if (status == "error") {
+                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
+                alert("Error al cargar la tabla. Revise la consola para más detalles.");
+                return;
+            }
+            try {
+                // Intentar inicializar DataTables
+                var tabla = $('#analisisFQ').DataTable();
+
+                $('#boton_agrega_analisisFQ').on('click', function() {
+                    // Verificar si la tabla se cargó correctamente antes de agregar filas
+                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                        tabla.row.add([
+                            '', 
+                            '<input type="text" name="analisis[]">',
+                            '<input type="text" name="metodologia[]">',
+                            '<input type="text" name="criterio[]">'
+                        ]).draw(false);
+                    } else {
+                        console.error('Error: La tabla no está inicializada.');
+                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
+                    }
+                });
+            } catch (error) {
+                console.error('Error al inicializar la tabla: ', error);
+                alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
+            }
+        });
+    }
+
 </script>
