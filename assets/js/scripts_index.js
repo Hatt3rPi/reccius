@@ -101,7 +101,7 @@ $(document).ready(function () {
             }
         });
         
-        console.log('Tabla cargada');
+        console.log('Proceso finalizado');
     });
 });
 
