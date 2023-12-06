@@ -8,13 +8,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     exit;
 }
 
-if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
-    // Mostrar formulario para nueva especificación
-    // ...
-} else {
-    // Lógica para mostrar/editar una especificación existente
-    // ...
-}
+$esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
 
 ?>
 <!DOCTYPE html>
@@ -104,6 +98,7 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
             <br>
             <h2>Análisis Físico-Químicos:</h2>
             <div id="contenedor_analisisFQ">
+                <table id="analisisFQ" class="display" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
             </div>
             <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
@@ -165,22 +160,22 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
 </html>
 <script>
     function carga_tablaFQ() {
-        $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
-            if (status == "error") {
-                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
-                alert("Error al cargar la tabla. Revise la consola para más detalles.");
-                return;
-            }
-            try {
-                // Intentar inicializar DataTables
-                var tabla = $('#analisisFQ').DataTable();
-
+        var esNuevo = <?php echo json_encode($esNuevo); ?>;
+        if (esNuevo) {
+            var tablaFQ = new DataTable('#analisisFQ', {
+                    columns: [
+                        { title: 'Análisis' },
+                        { title: 'Metodología' },
+                        { title: 'Criterio aceptación' }
+                    ]
+                });
                 $('#boton_agrega_analisisFQ').on('click', function() {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-                        tabla.row.add([
+                        tablaFQ.row.add([
                         '',
                         '<select name="analisis[]">' + 
+                            '<option value="">Selecciona un análisis</option>' +
                             '<option value="Apariencia">Apariencia</option>' +
                             '<option value="Identificación">Identificación</option>' +
                             '<option value="Valoración">Valoración</option>' +
@@ -195,6 +190,7 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
                             '<option value="Otro">Otro</option>' +
                         '</select>',
                         '<select name="metodologia[]">' +
+                            '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
@@ -206,11 +202,24 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
                         alert('Error al cargar la tabla. Por favor, intente de nuevo.');
                     }
                 });
+            $("#boton_agrega_analisisFQ").show();
+        }
+        else {
+            $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
+            if (status == "error") {
+                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
+                alert("Error al cargar la tabla. Revise la consola para más detalles.");
+                return;
+            }
+            try {
+                // Intentar inicializar DataTables
+                var tabla = $('#analisisFQ').DataTable();
             } catch (error) {
                 console.error('Error al inicializar la tabla: ', error);
                 alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
             }
         });
+        }
     }
 
 </script>
