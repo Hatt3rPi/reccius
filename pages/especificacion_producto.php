@@ -98,7 +98,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
             <br>
             <h2>Análisis Físico-Químicos:</h2>
             <div id="contenedor_analisisFQ">
-                <table id="analisisFQ" class="display" width="100%"></table>
+                <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
             </div>
             <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
@@ -109,7 +109,6 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
             <table class="analysis-table" id="analisisMB">
                 <thead>
                     <tr>
-                        <th>#</th> <!-- correlativo de análisis -->
                         <th>Análisis</th>
                         <th>Metodología</th>
                         <th>Criterio de Aceptación</th>
@@ -163,10 +162,15 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
         var esNuevo = <?php echo json_encode($esNuevo); ?>;
         if (esNuevo) {
             var tablaFQ = new DataTable('#analisisFQ', {
+                        "paging": false,  // Desactiva la paginación
+                        "info": false,    // Oculta el texto "Showing 1 to X of X entries"
+                        "searching": false,  // Desactiva la búsqueda
+                        "lengthChange": false, // Oculta el selector "Show X entries"
                     columns: [
                         { title: 'Análisis' },
                         { title: 'Metodología' },
-                        { title: 'Criterio aceptación' }
+                        { title: 'Criterio aceptación' }, 
+                        { title: 'Acciones' }
                     ]
                 });
                 $('#boton_agrega_analisisFQ').on('click', function() {
@@ -195,7 +199,9 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<input type="text" name="criterio[]">'
+                        '<input type="text" name="criterio[]">',
+                        '<button type="button" name="eliminar[]">Eliminar</button>'
+                        
                     ]).draw(false);
                     } else {
                         console.error('Error: La tabla no está inicializada.');
