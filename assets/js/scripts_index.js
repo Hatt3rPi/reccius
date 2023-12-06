@@ -73,6 +73,9 @@ $(document).ready(function () {
         event.preventDefault(); // Prevenir la navegación predeterminada
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
         // Cargar el formulario de configuración dentro del div #dynamic-content
+        console.log('carga página');
+        $('#dynamic-content').load('especificacion_producto.php?nuevo=true');
+        console.log('Tabla inicia carga');
         $("#contenedor_analisisFQ").load("../pages/backend/calidad/datatables_analisis.html", function() {
             // Inicializar DataTables aquí si es necesario
             var tabla = $('#tablaAnalisisFQ').DataTable();
@@ -89,7 +92,6 @@ $(document).ready(function () {
             });
         });
         console.log('Tabla cargada');
-        $('#dynamic-content').load('especificacion_producto.php?nuevo=true');
     });
 });
 $(document).ready(function () {
