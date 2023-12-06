@@ -76,7 +76,7 @@ $(document).ready(function () {
         $('#dynamic-content').load('especificacion_producto.php?nuevo=true');
         console.log('Tabla inicia carga');
         
-        $("#contenedor_analisisFQ").load("../pages/backend/calidad/datatables_analisis.html", function() {
+        $("#contenedor_analisisFQ").load("/backend/calidad/datatables_analisis.html", function() {
             try {
                 // Intentar inicializar DataTables
                 var tabla = $('#analisisFQ').DataTable();
