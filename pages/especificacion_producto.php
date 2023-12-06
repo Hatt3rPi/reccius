@@ -177,7 +177,6 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                         tablaFQ.row.add([
-                        '',
                         '<select name="analisis[]">' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Apariencia">Apariencia</option>' +
@@ -199,7 +198,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<input type="text" name="criterio[]">',
+                        '<textarea rows="4" cols="50" name="criterio[]">',
                         '<button type="button" name="eliminar[]">Eliminar</button>'
                         
                     ]).draw(false);
