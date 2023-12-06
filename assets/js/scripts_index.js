@@ -76,7 +76,12 @@ $(document).ready(function () {
         $('#dynamic-content').load('especificacion_producto.php?nuevo=true');
         console.log('Tabla inicia carga');
         
-        $("#contenedor_analisisFQ").load("/backend/calidad/datatables_analisis.html", function() {
+        $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function() {
+            if (status == "error") {
+                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
+                alert("Error al cargar la tabla. Revise la consola para más detalles.");
+                return;
+            }
             try {
                 // Intentar inicializar DataTables
                 var tabla = $('#analisisFQ').DataTable();
