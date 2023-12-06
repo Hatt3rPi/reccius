@@ -120,7 +120,7 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
                 <!-- Aquí se incluirá la tabla desde tablas.php -->
             </div>
             <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
-            <table class="analysis-table" id="analisisFQ">
+            <table class="analysis-table" id="tablaanalisisFQ">
                 <thead>
                     <tr>
                         <th>#</th> <!-- correlativo de análisis -->

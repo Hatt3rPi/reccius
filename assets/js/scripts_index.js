@@ -70,30 +70,41 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
     $('#especificacion_producto').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        console.log('carga página');
+        event.preventDefault();
+        console.log('El enlace de solicitud de análisis fue clickeado.');
+        
         $('#dynamic-content').load('especificacion_producto.php?nuevo=true');
         console.log('Tabla inicia carga');
+        
         $("#contenedor_analisisFQ").load("../pages/backend/calidad/datatables_analisis.html", function() {
-            // Inicializar DataTables aquí si es necesario
-            var tabla = $('#tablaAnalisisFQ').DataTable();
+            try {
+                // Intentar inicializar DataTables
+                var tabla = $('#analisisFQ').DataTable();
 
-            // Manejar clic en el botón para agregar una nueva fila
-            $('#boton_agrega_analisisFQ').on('click', function() {
-                // Agregar nueva fila
-                tabla.row.add([
-                    '', // Número de fila vacío o valor por defecto
-                    '<input type="text" name="analisis[]">', // Campo Análisis
-                    '<input type="text" name="metodologia[]">', // Campo Metodología
-                    '<input type="text" name="criterio[]">' // Campo Criterio de Aceptación
-                ]).draw(false);
-            });
+                $('#boton_agrega_analisisFQ').on('click', function() {
+                    // Verificar si la tabla se cargó correctamente antes de agregar filas
+                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                        tabla.row.add([
+                            '', 
+                            '<input type="text" name="analisis[]">',
+                            '<input type="text" name="metodologia[]">',
+                            '<input type="text" name="criterio[]">'
+                        ]).draw(false);
+                    } else {
+                        console.error('Error: La tabla no está inicializada.');
+                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
+                    }
+                });
+            } catch (error) {
+                console.error('Error al inicializar la tabla: ', error);
+                alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
+            }
         });
+        
         console.log('Tabla cargada');
     });
 });
+
 $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
