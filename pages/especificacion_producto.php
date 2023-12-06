@@ -23,16 +23,7 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
 <head>
     <meta charset="UTF-8">
     <title>Crear Usuario</title>
-    <!-- Incluir jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
-    <link rel="stylesheet" href="../assets/css/calidad.css">
-    <!-- CSS de Bootstrap 4 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Estilos CSS de DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+    
 
 <STYle>
         .form-group input[type="date"] {
@@ -45,13 +36,9 @@ if (isset($_GET['nuevo']) && $_GET['nuevo'] == 'true') {
         box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
     }
 </STYle>
-
-    <!-- JS de DataTables -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <!-- JS de DataTables con soporte para Bootstrap 4 -->
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
+    <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
+    <!-- CSS personalizado específico para esta página -->
+    <link rel="stylesheet" href="../assets/css/calidad.css">
 </head>
 
 <body>
