@@ -1,4 +1,9 @@
 <?php
+//Mejoras: Formato debería seleccionarse de lista desplegable
+//Elaborato por
+//versión por defecto debería ser 1
+//que es el número de documento? 
+
 session_start();
 
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
@@ -9,7 +14,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 
 $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,6 +58,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
                         <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;">
+                            <option value="">Selecciona el tipo de producto</option>    
                             <option value="Menvase">Material Envase y Empaque</option>
                             <option value="Mprima">Materia Prima</option>
                             <option value="Pterminado">Producto Terminado</option>
@@ -72,17 +77,17 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     </div>
                     <div class="form-group">
                         <label>Formato:</label>
-                        <input type="text" name="formato" placeholder="Ampolla">
+                        <input type="text" name="formato" placeholder="Ingresa formato de presentación">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Elaborado por:</label>
-                        <input type="text" name="elaboradoPor" placeholder="Reccius">
+                        <input type="text" name="elaboradoPor" Value="Reccius">
                     </div>
                     <div class="form-group">
                         <label>Número de documento:</label>
-                        <input type="text" name="documento" placeholder="12345678">
+                        <input type="text" name="documento" placeholder="ingresa número de documento">
                     </div>
                 </div>
                 <br>
@@ -92,17 +97,30 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="date" name="fechaEdicion" placeholder="dd/mm/aaaa">
+                        <input type="date" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input type="text" name="version" placeholder="1">
+                        <input type="text" name="version" value="1">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Vigencia:</label>
-                        <input type="text" name="vigencia" placeholder="5 años" style="width: 39.5%;"> <!-- Evaluar SVA. se podría mostrar las especificaciones que estén próximas a vencer -->
+                      <label>Vigencia:</label>
+                    <select name="vigencia" style="width: 39.5%;">
+                        <option>Selecciona la vigencia de esta especificación</option>
+                        <option value="1">1 año</option>
+                        <option value="2">2 años</option>
+                        <option value="3">3 años</option>
+                        <option value="4">4 años</option>
+                        <option value="5">5 años</option>
+                    </select>
+                                    <div class="form-group">
+                    <label>Vigente hasta:</label>
+                    <input type="date" name="vigenteHasta" readonly>
+                </div>
+                </div>
+
                     </div>
                 </div>
             </fieldset>
@@ -275,4 +293,23 @@ function carga_tablaMB() {
     var tablaMB = $('#analisisMB').DataTable();
     tablaMB.row($(this).parents('tr')).remove().draw();
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+        const fechaEdicionInput = document.querySelector('input[name="fechaEdicion"]');
+        const vigenciaSelect = document.querySelector('select[name="vigencia"]');
+        const vigenteHastaInput = document.querySelector('input[name="vigenteHasta"]');
+
+        function calcularVigencia() {
+            const fechaEdicion = new Date(fechaEdicionInput.value);
+            const añosVigencia = parseInt(vigenciaSelect.value);
+
+            if (!isNaN(fechaEdicion.getFullYear()) && !isNaN(añosVigencia)) {
+                fechaEdicion.setFullYear(fechaEdicion.getFullYear() + añosVigencia);
+                vigenteHastaInput.value = fechaEdicion.toISOString().split('T')[0];
+            }
+        }
+
+        fechaEdicionInput.addEventListener('change', calcularVigencia);
+        vigenciaSelect.addEventListener('change', calcularVigencia);
+    });
 </script>
