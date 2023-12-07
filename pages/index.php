@@ -72,20 +72,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a id="asignar-roles" href="#">Asignar Roles</a>
                     </div>
                 </li>
-                <li class="item" id="rec_magistrales">
-                    <a href="#rec_magistrales" class="btn_lateral"><i class="fa fa-envelope"></i> Recetas Magistrales</a>
+                <li class="item" id="calidad">
+                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
                     <div class="smenu">
                         <a id="especificacion_producto" href="#">Crear especificaciones de producto</a>
                         <a id="preparacion_solicitud" href="#">Solicitar analisis 1</a>
                         <a id="preparacion_analisis" href="#">Solicitar analisis 2</a>
-                        <a id="acta_liberacion" href="">Acta liberacion o rechazo</a> 
-                        <a href="">Conciliación</a>
+                        <a id="acta_liberacion" href="#">Acta liberacion o rechazo</a> 
+
                     </div>
                 </li>
-                <li class="item" id="calidad">
-                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
+                <li class="item" id="materias_primas">
+                    <a href="#Materias_primas" class="btn_lateral"><i class="fa fa-envelope"></i> Materias Primas</a>
                     <div class="smenu">
-                        <a href="">Paso 1</a>
+                        <a href="">Listado materias primas disponibles</a>
+                        <a href="">Paso 2</a>
+                        <a href="">Paso 3</a>
+                        <a href="">Paso 4</a>
+                    </div>
+                </li>
+                <li class="item" id="recetas_magistrales">
+                    <a href="#recetas_magistrales" class="btn_lateral"><i class="fa fa-envelope"></i> Recetas Magistrales</a>
+                    <div class="smenu">
+                        <a href="">Ingreso</a>
                         <a href="">Paso 2</a>
                         <a href="">Paso 3</a>
                         <a href="">Paso 4</a>

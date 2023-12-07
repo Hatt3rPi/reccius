@@ -20,7 +20,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
     
 
 <STYle>
-        .form-group input[type="date"] {
+    .form-group input[type="date"] {
         width: 80%; /* Ajusta el ancho al de su contenedor */
         padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
         margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
@@ -29,6 +29,12 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
         border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
         box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
     }
+    .section-title {
+            font-weight: bold;  /* Negrita */
+            text-decoration: underline;  /* Subrayado */
+            text-align: left;  /* Alineación a la izquierda */
+            margin-top: 20px;  /* Espaciado superior para separación */
+        }
 </STYle>
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <!-- CSS personalizado específico para esta página -->
@@ -37,11 +43,13 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
 
 <body>
     <div class="form-container">
-        <h1>CREAR ESPECIFICACIÓN DE PRODUCTO</h1>
+        <h1>CALIDAD / Crear Especificación de Producto</h1>
         <form>
             <fieldset>
-                <legend>Especificaciones del producto:</legend>
-
+            <br>
+            <br>
+                <h2 class="section-title">Especificaciones del producto</h2>
+                <br>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
@@ -73,10 +81,14 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                         <input type="text" placeholder="Reccius">
                     </div>
                     <div class="form-group">
-                        <label>Número de documentor:</label>
+                        <label>Número de documento:</label>
                         <input type="text" placeholder="12345678">
                     </div>
                 </div>
+                <br>
+                <br>
+                <h2 class="section-title">Detalles de la Especificación</h2>
+                <br>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
@@ -96,33 +108,26 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
             </fieldset>
             <br>
             <br>
-            <h2>Análisis Físico-Químicos:</h2>
+            <<h2 class="section-title">Análisis Físico-Químicos</h2>
             <div id="contenedor_analisisFQ">
                 <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
             </div>
             <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
-            
             <br>
             <br>
-            <h2>Análisis Microbiológicos:</h2>
+            <h2 class="section-title">Análisis Microbiológicos:</h2>
             <div id="contenedor_analisisMB">
                 <table id="analisisMB" class="table table-striped table-bordered" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaMB()-->
             </div>
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
-
-
             <div class="actions-container">
                 <button type="button" id="cancel1" class="action-button">Cancelar</button>
                 <button type="button" id="continue1" class="action-button">Continuar</button>
             </div>
-
         </form>
-
     </div>
-
-
 </body>
 
 </html>
@@ -227,6 +232,7 @@ function carga_tablaMB() {
                         '<select name="analisis[]">' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Esterilidad">Esterilidad</option>' +
+                            '<option value="Endotoxinas">Endotoxinas</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
                         '<select name="metodologia[]">' +
