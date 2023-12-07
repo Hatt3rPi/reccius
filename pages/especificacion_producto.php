@@ -295,25 +295,20 @@ function carga_tablaMB() {
     var tablaMB = $('#analisisMB').DataTable();
     tablaMB.row($(this).parents('tr')).remove().draw();
 });
-document.addEventListener('DOMContentLoaded', function () {
-    const fechaEdicionInput = document.querySelector('input[name="fechaEdicion"]');
-    const vigenciaSelect = document.querySelector('select[name="vigencia"]');
-    const proximaRenovacionInput = document.querySelector('input[name="proximaRenovacion"]');
-    const proximaRenovacionContainer = proximaRenovacionInput.closest('.form-group');
+function calcularProximaRenovacion() {
+        var fechaEdicion = $('#fechaEdicion').val();
+        var añosVigencia = $('#vigencia').val();
+        var proximaRenovacionContainer = $('#proximaRenovacion').closest('.form-group');
 
-    function calcularProximaRenovacion() {
-        const fechaEdicion = new Date(fechaEdicionInput.value);
-        const añosVigencia = parseInt(vigenciaSelect.value);
-
-        if (!isNaN(fechaEdicion.getFullYear()) && !isNaN(añosVigencia)) {
-            fechaEdicion.setFullYear(fechaEdicion.getFullYear() + añosVigencia);
-            proximaRenovacionInput.value = fechaEdicion.toISOString().split('T')[0];
-            proximaRenovacionContainer.style.display = 'block'; // Mostrar el contenedor
+        if (fechaEdicion && añosVigencia) {
+            var fechaEdicionDate = new Date(fechaEdicion);
+            fechaEdicionDate.setFullYear(fechaEdicionDate.getFullYear() + parseInt(añosVigencia));
+            $('#proximaRenovacion').val(fechaEdicionDate.toISOString().split('T')[0]);
+            proximaRenovacionContainer.show();
         } else {
-            proximaRenovacionContainer.style.display = 'none'; // Ocultar el contenedor
+            proximaRenovacionContainer.hide();
         }
     }
 
-    vigenciaSelect.addEventListener('change', calcularProximaRenovacion);
-});
+    $('#vigencia').on('change', calcularProximaRenovacion);
 </script>
