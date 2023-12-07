@@ -106,42 +106,11 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
             <br>
             <br>
             <h2>Análisis Microbiológicos:</h2>
-            <table class="analysis-table" id="analisisMB">
-                <thead>
-                    <tr>
-                        <th>Análisis</th>
-                        <th>Metodología</th>
-                        <th>Criterio de Aceptación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="editable-row">
-                        <td><input type="text" value="Apariencia" class="editable" disabled></td>
-                        <td><input type="text" value="interno" class="editable" disabled></td>
-                        <td class="criteria-cell.editable"><textarea class="editable"
-                                disabled>Lorem ipsum dolor sit amet, consectetur adipiscing...</textarea></td>
-                        <td>
-                            <button type="button" onclick="toggleEdit(this)">Modificar</button>
-                            <button type="button" onclick="deleteRow(this)">Eliminar</button>
-
-                        </td>
-                    </tr>
-                    <tr class="editable-row">
-                        <td><input type="text" value="Identificación" class="editable" disabled></td>
-                        <td><input type="text" value="USP" class="editable" disabled></td>
-                        <td class="criteria-cell.editable"><textarea class="editable"
-                                disabled>Lorem ipsum dolor sit amet, consectetur adipiscing...</textarea></td>
-                        <td>
-                            <button type="button" onclick="toggleEdit(this)">Modificar</button>
-                            <button type="button" onclick="deleteRow(this)">Eliminar</button>
-
-                        </td>
-                    </tr>
-                    <!-- Repetir filas según sea necesario -->
-                </tbody>
-            </table>
-            <button type="button" onclick="addAnalysisM()">Agregar Análisis</button>
-            <!-- Fin de la sección de Análisis Físico-Químicos -->
+            <div id="contenedor_analisisMB">
+                <table id="analisisMB" class="table table-striped table-bordered" width="100%"></table>
+                <!-- Aquí se incluirá la tabla desde carga_tablaMB()-->
+            </div>
+            <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
 
 
             <div class="actions-container">
@@ -233,5 +202,69 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
     var tablaFQ = $('#analisisFQ').DataTable();
     tablaFQ.row($(this).parents('tr')).remove().draw();
 });
-
+function carga_tablaMB() {
+        var esNuevo = <?php echo json_encode($esNuevo); ?>;
+        if (esNuevo) {
+            var tablaMB = new DataTable('#analisisMB', {
+                    "paging": false,  // Desactiva la paginación
+                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
+                    "searching": false,  // Desactiva la búsqueda
+                    "lengthChange": false, // Oculta el selector "Show X entries"
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                    },
+                    columns: [
+                        { title: 'Análisis' },
+                        { title: 'Metodología' },
+                        { title: 'Criterio aceptación' }, 
+                        { title: 'Acciones' }
+                    ]
+                });
+                $('#boton_agrega_analisisMB').on('click', function() {
+                    // Verificar si la tabla se cargó correctamente antes de agregar filas
+                    if ($.fn.DataTable.isDataTable('#analisisMB')) {
+                        tablaMB.row.add([
+                        '<select name="analisis[]">' + 
+                            '<option value="">Selecciona un análisis</option>' +
+                            '<option value="Esterilidad">Esterilidad</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<select name="metodologia[]">' +
+                            '<option value="">Selecciona metodología</option>' +
+                            '<option value="Interno">Interno</option>' +
+                            '<option value="USP">USP</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<textarea rows="4" cols="50" name="criterio[]"></textarea>',
+                        '<button type="button" class="btn-eliminar">Eliminar</button>'
+                        
+                    ]).draw(false);
+                    } else {
+                        console.error('Error: La tabla no está inicializada.');
+                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
+                    }
+                });
+            $("#boton_agrega_analisisMB").show();
+        }
+        else {
+            $("#contenedor_analisisMB").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
+            if (status == "error") {
+                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
+                alert("Error al cargar la tabla. Revise la consola para más detalles.");
+                return;
+            }
+            try {
+                // Intentar inicializar DataTables
+                var tabla = $('#analisisMB').DataTable();
+            } catch (error) {
+                console.error('Error al inicializar la tabla: ', error);
+                alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
+            }
+        });
+        }
+    }
+    $('#analisisMB').on('click', '.btn-eliminar', function () {
+    var tablaMB = $('#analisisMB').DataTable();
+    tablaMB.row($(this).parents('tr')).remove().draw();
+});
 </script>
