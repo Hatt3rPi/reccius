@@ -3,6 +3,7 @@
 //Elaborato por
 //versión por defecto debería ser 1
 //que es el número de documento? 
+//cuando se selecciona Otros, se debe desplegar un input
 
 session_start();
 
@@ -60,7 +61,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;">
+                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;" required>
                             <option value="">Selecciona el tipo de producto</option>    
                             <option value="Menvase">Material Envase y Empaque</option>
                             <option value="Mprima">Materia Prima</option>
@@ -70,27 +71,27 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     </div>
                     <div class="form-group">
                         <label>Producto:</label>
-                        <input type="text" name="producto" placeholder="Ácido Ascórbico">
+                        <input type="text" name="producto" placeholder="Ácido Ascórbico" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Concentración:</label>
-                        <input type="text" name="concentracion" placeholder="1 g / 10 ml">
+                        <input type="text" name="concentracion" placeholder="1 g / 10 ml" required>
                     </div>
                     <div class="form-group">
                         <label>Formato:</label>
-                        <input type="text" name="formato" placeholder="Ingresa formato de presentación">
+                        <input type="text" name="formato" placeholder="Ingresa formato de presentación" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Elaborado por:</label>
-                        <input type="text" name="elaboradoPor" Value="Reccius">
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
                     </div>
                     <div class="form-group">
                         <label>Número de documento:</label>
-                        <input type="text" name="documento" placeholder="ingresa número de documento">
+                        <input type="text" name="documento" placeholder="ingresa número de documento" required>
                     </div>
                 </div>
                 <br>
@@ -100,17 +101,17 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="date" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>" required>
                     </div>
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input type="text" name="version" value="1">
+                        <input type="text" name="version" value="1" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Vigencia:</label>
-                        <select name="vigencia" style="width: 39.5%;">
+                        <select name="vigencia" style="width: 39.5%;" required>
                             <option>Selecciona la vigencia de esta especificación</option>
                             <option value="1">1 año</option>
                             <option value="2">2 años</option>
@@ -176,7 +177,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                         tablaFQ.row.add([
-                        '<select name="c' + 
+                        '<select name="analisisFQ[0][tipo]" required>' +
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Apariencia">Apariencia</option>' +
                             '<option value="Identificación">Identificación</option>' +
@@ -191,13 +192,13 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                             '<option value="Material Particulado">Material Particulado</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<select name="analisisFQ[0][metodologia]">' +
+                        '<select name="analisisFQ[0][metodologia]" required>' +
                             '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<textarea rows="4" cols="50" name="analisisFQ[0][criterio]"></textarea>',
+                        '<textarea rows="4" cols="50" name="analisisFQ[0][criterio]" required></textarea>',
                         '<button type="button" class="btn-eliminar">Eliminar</button>'
                         
                     ]).draw(false);
@@ -251,19 +252,19 @@ function carga_tablaMB() {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisMB')) {
                         tablaMB.row.add([
-                        '<select name="analisisMB[0][tipo]">">' + 
+                        '<select name="analisisMB[0][tipo]" required>' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Esterilidad">Esterilidad</option>' +
                             '<option value="Endotoxinas">Endotoxinas</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<select name="analisisMB[0][metodologia]">' +
+                        '<select name="analisisMB[0][metodologia]" required>' +
                             '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<textarea rows="4" cols="50" name="analisisMB[0][criterio]"></textarea>',
+                        '<textarea rows="4" cols="50" name="analisisMB[0][criterio]" required></textarea>',
                         '<button type="button" class="btn-eliminar">Eliminar</button>'
                         
                     ]).draw(false);
