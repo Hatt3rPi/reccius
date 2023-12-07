@@ -202,7 +202,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                             '<option value="Otro">Otro</option>' +
                         '</select>',
                         '<textarea rows="4" cols="50" name="criterio[]"></textarea>',
-                        '<button type="button" name="eliminar[]">Eliminar</button>'
+                        '<button type="button" class="btn-eliminar">Eliminar</button>'
                         
                     ]).draw(false);
                     } else {
@@ -229,5 +229,9 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
         });
         }
     }
+    $('#analisisFQ').on('click', '.btn-eliminar', function () {
+    var tablaFQ = $('#analisisFQ').DataTable();
+    tablaFQ.row($(this).parents('tr')).remove().draw();
+});
 
 </script>
