@@ -39,6 +39,9 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
             text-align: left;  /* Alineación a la izquierda */
             margin-top: 20px;  /* Espaciado superior para separación */
         }
+    .form-group-hidden {
+        display: none;
+    }
 </STYle>
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <!-- CSS personalizado específico para esta página -->
@@ -106,22 +109,21 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                      <label>Vigencia:</label>
-                    <select name="vigencia" style="width: 39.5%;">
-                        <option>Selecciona la vigencia de esta especificación</option>
-                        <option value="1">1 año</option>
-                        <option value="2">2 años</option>
-                        <option value="3">3 años</option>
-                        <option value="4">4 años</option>
-                        <option value="5">5 años</option>
-                    </select>
-                                    <div class="form-group">
-                    <label>Vigente hasta:</label>
-                    <input type="date" name="vigenteHasta" readonly>
-                </div>
-                </div>
-
+                        <label>Vigencia:</label>
+                        <select name="vigencia" style="width: 39.5%;">
+                            <option>Selecciona la vigencia de esta especificación</option>
+                            <option value="1">1 año</option>
+                            <option value="2">2 años</option>
+                            <option value="3">3 años</option>
+                            <option value="4">4 años</option>
+                            <option value="5">5 años</option>
+                        </select>
                     </div>
+                    <div class="form-group form-group-hidden">
+                        <label>Próxima renovación:</label>
+                        <input type="date" name="proximaRenovacion" readonly>
+                    </div>
+
                 </div>
             </fieldset>
             <br>
@@ -293,23 +295,25 @@ function carga_tablaMB() {
     var tablaMB = $('#analisisMB').DataTable();
     tablaMB.row($(this).parents('tr')).remove().draw();
 });
-
 document.addEventListener('DOMContentLoaded', function () {
-        const fechaEdicionInput = document.querySelector('input[name="fechaEdicion"]');
-        const vigenciaSelect = document.querySelector('select[name="vigencia"]');
-        const vigenteHastaInput = document.querySelector('input[name="vigenteHasta"]');
+    const fechaEdicionInput = document.querySelector('input[name="fechaEdicion"]');
+    const vigenciaSelect = document.querySelector('select[name="vigencia"]');
+    const proximaRenovacionInput = document.querySelector('input[name="proximaRenovacion"]');
+    const proximaRenovacionContainer = proximaRenovacionInput.closest('.form-group');
 
-        function calcularVigencia() {
-            const fechaEdicion = new Date(fechaEdicionInput.value);
-            const añosVigencia = parseInt(vigenciaSelect.value);
+    function calcularProximaRenovacion() {
+        const fechaEdicion = new Date(fechaEdicionInput.value);
+        const añosVigencia = parseInt(vigenciaSelect.value);
 
-            if (!isNaN(fechaEdicion.getFullYear()) && !isNaN(añosVigencia)) {
-                fechaEdicion.setFullYear(fechaEdicion.getFullYear() + añosVigencia);
-                vigenteHastaInput.value = fechaEdicion.toISOString().split('T')[0];
-            }
+        if (!isNaN(fechaEdicion.getFullYear()) && !isNaN(añosVigencia)) {
+            fechaEdicion.setFullYear(fechaEdicion.getFullYear() + añosVigencia);
+            proximaRenovacionInput.value = fechaEdicion.toISOString().split('T')[0];
+            proximaRenovacionContainer.style.display = 'block'; // Mostrar el contenedor
+        } else {
+            proximaRenovacionContainer.style.display = 'none'; // Ocultar el contenedor
         }
+    }
 
-        fechaEdicionInput.addEventListener('change', calcularVigencia);
-        vigenciaSelect.addEventListener('change', calcularVigencia);
-    });
+    vigenciaSelect.addEventListener('change', calcularProximaRenovacion);
+});
 </script>
