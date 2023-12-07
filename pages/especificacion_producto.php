@@ -43,8 +43,8 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
 
 <body>
     <div class="form-container">
-        <h1>CALIDAD / Crear Especificación de Producto</h1>
-        <form>
+        <h1>Calidad / Crear Especificación de Producto</h1>
+        <form method="POST" action="./backend/calidad/especificacion_productoBE.php">
             <fieldset>
             <br>
             <br>
@@ -62,27 +62,27 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     </div>
                     <div class="form-group">
                         <label>Producto:</label>
-                        <input type="text" placeholder="Ácido Ascórbico">
+                        <input type="text" name="producto" placeholder="Ácido Ascórbico">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Concentración:</label>
-                        <input type="text" placeholder="1 g / 10 ml">
+                        <input type="text" name="concentracion" placeholder="1 g / 10 ml">
                     </div>
                     <div class="form-group">
                         <label>Formato:</label>
-                        <input type="text" placeholder="Ampolla">
+                        <input type="text" name="formato" placeholder="Ampolla">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Elaborado por:</label>
-                        <input type="text" placeholder="Reccius">
+                        <input type="text" name="elaboradoPor" placeholder="Reccius">
                     </div>
                     <div class="form-group">
                         <label>Número de documento:</label>
-                        <input type="text" placeholder="12345678">
+                        <input type="text" name="documento" placeholder="12345678">
                     </div>
                 </div>
                 <br>
@@ -92,28 +92,29 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="date" placeholder="dd/mm/aaaa">
+                        <input type="date" name="fechaEdicion" placeholder="dd/mm/aaaa">
                     </div>
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input type="text" placeholder="1">
+                        <input type="text" name="version" placeholder="1">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Vigencia:</label>
-                        <input type="text" placeholder="5 años" style="width: 39.5%;">
+                        <input type="text" name="vigencia" placeholder="5 años" style="width: 39.5%;"> <!-- Evaluar SVA. se podría mostrar las especificaciones que estén próximas a vencer -->
                     </div>
                 </div>
             </fieldset>
             <br>
             <br>
-            <<h2 class="section-title">Análisis Físico-Químicos</h2>
+            <h2 class="section-title">Análisis Físico-Químicos</h2>
             <div id="contenedor_analisisFQ">
                 <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
             </div>
             <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
+            <br>
             <br>
             <br>
             <h2 class="section-title">Análisis Microbiológicos:</h2>
@@ -123,8 +124,9 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
             </div>
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             <div class="actions-container">
-                <button type="button" id="cancel1" class="action-button">Cancelar</button>
-                <button type="button" id="continue1" class="action-button">Continuar</button>
+                <button type="submit" id="guardar" class="action-button">Guardar Especificación</button>
+
+
             </div>
         </form>
     </div>
@@ -154,7 +156,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                         tablaFQ.row.add([
-                        '<select name="analisis[]">' + 
+                        '<select name="c' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Apariencia">Apariencia</option>' +
                             '<option value="Identificación">Identificación</option>' +
@@ -169,13 +171,13 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                             '<option value="Material Particulado">Material Particulado</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<select name="metodologia[]">' +
+                        '<select name="analisisFQ[0][metodologia]">' +
                             '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<textarea rows="4" cols="50" name="criterio[]"></textarea>',
+                        '<textarea rows="4" cols="50" name="analisisFQ[0][criterio]"></textarea>',
                         '<button type="button" class="btn-eliminar">Eliminar</button>'
                         
                     ]).draw(false);
@@ -229,19 +231,19 @@ function carga_tablaMB() {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisMB')) {
                         tablaMB.row.add([
-                        '<select name="analisis[]">' + 
+                        '<select name="analisisMB[0][tipo]">">' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Esterilidad">Esterilidad</option>' +
                             '<option value="Endotoxinas">Endotoxinas</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<select name="metodologia[]">' +
+                        '<select name="analisisMB[0][metodologia]">' +
                             '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<textarea rows="4" cols="50" name="criterio[]"></textarea>',
+                        '<textarea rows="4" cols="50" name="analisisMB[0][criterio]"></textarea>',
                         '<button type="button" class="btn-eliminar">Eliminar</button>'
                         
                     ]).draw(false);
