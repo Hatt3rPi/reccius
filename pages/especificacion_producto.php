@@ -4,6 +4,7 @@
 //versión por defecto debería ser 1
 //que es el número de documento? 
 //cuando se selecciona Otros, se debe desplegar un input
+//validacion de campos antes de continuar
 
 session_start();
 
