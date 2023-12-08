@@ -378,32 +378,31 @@ function validarFormulario() {
         valido = false;
     }
 
-    $('#analisisFQ tr').each(function() {
+    // Validación para análisis Físico-Químicos
+    $('#analisisFQ').find('tbody tr').each(function() {
         var tipo = $(this).find('select[name*="[tipo]"]').val();
         var metodologia = $(this).find('select[name*="[metodologia]"]').val();
         var criterio = $(this).find('textarea[name*="[criterio]"]').val();
 
-        if (!tipo || !metodologia || !criterio) {
-            mensaje += 'Todos los campos de Análisis Físico-Químicos son obligatorios.\n';
+        if (tipo === '' || metodologia === '' || criterio.trim() === '') {
+            mensaje += 'Todos los campos de Análisis Físico-Químicos son obligatorios en cada fila.\n';
             valido = false;
-            return false; // Salir del bucle .each
+            // No es necesario salir del bucle ya que queremos validar todas las filas
         }
     });
 
     // Validación para análisis Microbiológicos
-    $('#analisisMB tr').each(function() {
+    $('#analisisMB').find('tbody tr').each(function() {
         var tipo = $(this).find('select[name*="[tipo]"]').val();
         var metodologia = $(this).find('select[name*="[metodologia]"]').val();
         var criterio = $(this).find('textarea[name*="[criterio]"]').val();
 
-        if (!tipo || !metodologia || !criterio) {
-            mensaje += 'Todos los campos de Análisis Microbiológicos son obligatorios.\n';
+        if (tipo === '' || metodologia === '' || criterio.trim() === '') {
+            mensaje += 'Todos los campos de Análisis Microbiológicos son obligatorios en cada fila.\n';
             valido = false;
-            return false; // Salir del bucle .each
+            // No es necesario salir del bucle ya que queremos validar todas las filas
         }
     });
-
-
     if (!valido) {
         alert(mensaje);
     }
