@@ -10,18 +10,20 @@ function limpiarDato($dato) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Asegúrate de recibir todos los campos necesarios
-    if (isset($_POST['Tipo_Producto'], $_POST['Producto'], $_POST['Concentracion'], $_POST['Formato'], $_POST['ElaboradoPor'], $_POST['NumeroDocumento'], $_POST['FechaEdicion'], $_POST['Version'], $_POST['Vigencia'])) {
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+    if (isset($_POST['Tipo_Producto'], $_POST['producto'], $_POST['concentracion'], $_POST['formato'], $_POST['elaboradoPor'], $_POST['documento'], $_POST['fechaEdicion'], $_POST['version'], $_POST['vigencia'])) {
 
         $tipoProducto = limpiarDato($_POST['Tipo_Producto']);
-        $producto = limpiarDato($_POST['Producto']);
-        $concentracion=limpiarDato($_POST['Concentracion']);
-        $formato=limpiarDato($_POST['Formato']);
-        $elaboradoPor=limpiarDato($_POST['ElaboradoPor']);
-        $numeroDocumento=limpiarDato($_POST['NumeroDocumento']); 
-        $fechaEdicion=limpiarDato($_POST['FechaEdicion']);
-        $version=limpiarDato($_POST['Version']);
-        $vigencia= limpiarDato($_POST['Vigencia']);
+        $producto = limpiarDato($_POST['producto']);
+        $concentracion=limpiarDato($_POST['concentracion']);
+        $formato=limpiarDato($_POST['formato']);
+        $elaboradoPor=limpiarDato($_POST['elaboradoPor']);
+        $numeroDocumento=limpiarDato($_POST['documento']); 
+        $fechaEdicion=limpiarDato($_POST['fechaEdicion']);
+        $version=limpiarDato($_POST['version']);
+        $vigencia= limpiarDato($_POST['vigencia']);
 
         // Insertar en la tabla calidad_productos
         $stmt = mysqli_prepare($link, "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato,  elaborado_por, documento_ingreso) VALUES ( ?, ?, ?, ?, ?, ?)");
