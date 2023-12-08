@@ -313,4 +313,103 @@ function calcularProximaRenovacion() {
     }
 
     $('#vigencia').on('change', calcularProximaRenovacion);
+
+document.getElementById('guardar').addEventListener('click', function(e) {
+    if (!validarFormulario()) {
+        e.preventDefault(); // Previene el envío del formulario si la validación falla
+    }
+});
+
+function validarFormulario() {
+    var valido = true;
+    var mensaje = '';
+
+    // Validación para el campo 'Tipo de Producto'
+    if (document.forms[0]["Tipo_Producto"].value.trim() === '') {
+        mensaje += 'El campo "Tipo de Producto" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Producto'
+    if (document.forms[0]["producto"].value.trim() === '') {
+        mensaje += 'El campo "Producto" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Concentración'
+    if (document.forms[0]["concentracion"].value.trim() === '') {
+        mensaje += 'El campo "Concentración" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Formato'
+    if (document.forms[0]["formato"].value.trim() === '') {
+        mensaje += 'El campo "Formato" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Elaborado por'
+    if (document.forms[0]["elaboradoPor"].value.trim() === '') {
+        mensaje += 'El campo "Elaborado por" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Número de documento'
+    if (document.forms[0]["documento"].value.trim() === '') {
+        mensaje += 'El campo "Número de documento" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Fecha edición'
+    if (document.forms[0]["fechaEdicion"].value.trim() === '') {
+        mensaje += 'El campo "Fecha edición" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Versión'
+    if (document.forms[0]["version"].value.trim() === '') {
+        mensaje += 'El campo "Versión" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Vigencia'
+    if (document.forms[0]["vigencia"].value.trim() === '') {
+        mensaje += 'El campo "Vigencia" es obligatorio.\n';
+        valido = false;
+    }
+
+    $('#analisisFQ tr').each(function() {
+        var tipo = $(this).find('select[name*="[tipo]"]').val();
+        var metodologia = $(this).find('select[name*="[metodologia]"]').val();
+        var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+
+        if (!tipo || !metodologia || !criterio) {
+            mensaje += 'Todos los campos de Análisis Físico-Químicos son obligatorios.\n';
+            valido = false;
+            return false; // Salir del bucle .each
+        }
+    });
+
+    // Validación para análisis Microbiológicos
+    $('#analisisMB tr').each(function() {
+        var tipo = $(this).find('select[name*="[tipo]"]').val();
+        var metodologia = $(this).find('select[name*="[metodologia]"]').val();
+        var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+
+        if (!tipo || !metodologia || !criterio) {
+            mensaje += 'Todos los campos de Análisis Microbiológicos son obligatorios.\n';
+            valido = false;
+            return false; // Salir del bucle .each
+        }
+    });
+
+
+    if (!valido) {
+        alert(mensaje);
+    }
+
+    return valido;
+}
+
+
 </script>
