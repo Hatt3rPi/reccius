@@ -174,11 +174,12 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                         { title: 'Acciones' }
                     ]
                 });
+                var contadorFilasFQ = 0;
                 $('#boton_agrega_analisisFQ').on('click', function() {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                         tablaFQ.row.add([
-                        '<select name="analisisFQ[0][tipo]" required>' +
+                        '<select name="analisisFQ[' + contadorFilasFQ + '][tipo]" required>' +
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Apariencia">Apariencia</option>' +
                             '<option value="Identificación">Identificación</option>' +
@@ -193,16 +194,17 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                             '<option value="Material Particulado">Material Particulado</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<select name="analisisFQ[0][metodologia]" required>' +
+                        '<select name="analisisFQ[' + contadorFilasFQ + '][metodologia]" required>' +
                             '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<textarea rows="4" cols="50" name="analisisFQ[0][criterio]" required></textarea>',
+                        '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
                         '<button type="button" class="btn-eliminar">Eliminar</button>'
                         
                     ]).draw(false);
+                    contadorFilasFQ++;
                     } else {
                         console.error('Error: La tabla no está inicializada.');
                         alert('Error al cargar la tabla. Por favor, intente de nuevo.');
@@ -249,26 +251,28 @@ function carga_tablaMB() {
                         { title: 'Acciones' }
                     ]
                 });
+                var contadorFilasMB = 0;
                 $('#boton_agrega_analisisMB').on('click', function() {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisMB')) {
                         tablaMB.row.add([
-                        '<select name="analisisMB[0][tipo]" required>' + 
+                        '<select name="analisisMB[' + contadorFilasMB + '][tipo]" required>' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Esterilidad">Esterilidad</option>' +
                             '<option value="Endotoxinas">Endotoxinas</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<select name="analisisMB[0][metodologia]" required>' +
+                        '<select name="analisisMB[' + contadorFilasMB + '][metodologia]" required>' +
                             '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<textarea rows="4" cols="50" name="analisisMB[0][criterio]" required></textarea>',
+                        '<textarea rows="4" cols="50" name="analisisMB[' + contadorFilasMB + '][criterio]" required></textarea>',
                         '<button type="button" class="btn-eliminar">Eliminar</button>'
                         
                     ]).draw(false);
+                    contadorFilasMB++;
                     } else {
                         console.error('Error: La tabla no está inicializada.');
                         alert('Error al cargar la tabla. Por favor, intente de nuevo.');
