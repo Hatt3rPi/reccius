@@ -13,6 +13,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<pre>";
     print_r($_POST);
     echo "</pre>";
+    $error = 'Campos faltantes: ';
+    $campos = [
+        'Tipo_Producto' => 'Tipo producto',
+        'producto' => 'Producto',
+        'concentracion' => 'Concentración',
+        'formato' => 'Formato',
+        'elaboradoPor' => 'Elaborado por',
+        'documento' => 'Documento',
+        'fechaEdicion' => 'Fecha de edición',
+        'version' => 'Versión',
+        'vigencia' => 'Vigencia'
+    ];
+    
+   
+    foreach ($campos as $campo => $nombre) {
+        if (empty($_POST[$campo])) {
+            $error .= "$nombre, ";
+        }
+    }
+    if ($error != 'Campos faltantes: ') {
+        $error = rtrim($error, ', ');
+    }
+    
+    
     if (isset($_POST['Tipo_Producto'], $_POST['producto'], $_POST['concentracion'], $_POST['formato'], $_POST['elaboradoPor'], $_POST['documento'], $_POST['fechaEdicion'], $_POST['version'], $_POST['vigencia'])) {
 
         $tipoProducto = limpiarDato($_POST['Tipo_Producto']);
@@ -48,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($stmt);
         mysqli_close($link);
     } else {
-        echo "Todos los campos son requeridos";
+        echo "Todos los campos son requeridos. ".$error;
     };
     $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
 
