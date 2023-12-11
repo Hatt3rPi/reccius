@@ -64,9 +64,9 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                         <label>Tipo de Producto:</label>
                         <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;" required>
                             <option value="">Selecciona el tipo de producto</option>    
-                            <option value="Menvase">Material Envase y Empaque</option>
-                            <option value="Mprima">Materia Prima</option>
-                            <option value="Pterminado">Producto Terminado</option>
+                            <option value="Materíal Envase y Empaque">Material Envase y Empaque</option>
+                            <option value="Materia Prima">Materia Prima</option>
+                            <option value="Producto Terminado">Producto Terminado</option>
                             <option value="Insumo">Insumo</option>
                         </select>
                     </div>

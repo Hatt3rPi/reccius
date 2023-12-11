@@ -61,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_bind_param($stmt2, "issss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $vigencia);
                     if (mysqli_stmt_execute($stmt2)) {
                         echo "Especificación de producto creada con éxito.";
+                        $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
                     } else {
                         echo "Error al insertar en calidad_especificacion_productos: " . mysqli_error($link);
                     }
@@ -70,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             } else {
                 echo "Error al insertar en calidad_productos: " . mysqli_error($link);
-                mysqli_stmt_close($stmt);
             }
         } else {
             echo "Error en la preparación de la sentencia de calidad_productos: " . mysqli_error($link);
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Procesar datos de analisisFQ
     if (isset($_POST['analisisFQ']) && is_array($_POST['analisisFQ'])) {
-        $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
+        
         foreach ($_POST['analisisFQ'] as $analisis) {
             // Aquí debes extraer y limpiar cada dato del análisis como metodologia, descripcion_analisis, etc.
             // Por ejemplo:
