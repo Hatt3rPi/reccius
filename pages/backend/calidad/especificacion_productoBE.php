@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error en la preparación de la sentencia de calidad_productos: " . mysqli_error($link);
         }
         mysqli_stmt_close($stmt);
-        mysqli_close($link);
+        
         
     };
     
