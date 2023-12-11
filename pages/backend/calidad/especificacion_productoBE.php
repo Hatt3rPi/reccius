@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $idProducto = mysqli_insert_id($link);
                 
                 // Preparar sentencia para insertar en calidad_especificacion_productos
-                $stmt2 = mysqli_prepare($link, "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, vigencia) VALUES (?, ?, ?, ?, ?)");
+                $stmt2 = mysqli_prepare($link, "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion) VALUES (?, ?, ?, ?, ?)");
                 if ($stmt2) {
                     mysqli_stmt_bind_param($stmt2, "issss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $vigencia);
                     if (mysqli_stmt_execute($stmt2)) {
