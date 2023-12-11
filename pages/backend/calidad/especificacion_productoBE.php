@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -36,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($error != 'Campos faltantes: ') {
         $error = rtrim($error, ', ');
+        echo "Todos los campos son requeridos. ".$error;
     } else {
         // Proceso de inserción si todos los campos están presentes
         $tipoProducto = limpiarDato($_POST['Tipo_Producto']);
@@ -75,14 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Error en la preparación de la sentencia de calidad_productos: " . mysqli_error($link);
         }
-
         mysqli_stmt_close($stmt);
         mysqli_close($link);
-    } else {
-        echo "Todos los campos son requeridos. ".$error;
+        
     };
     
-
     // Procesar datos de analisisFQ
     if (isset($_POST['analisisFQ']) && is_array($_POST['analisisFQ'])) {
         
