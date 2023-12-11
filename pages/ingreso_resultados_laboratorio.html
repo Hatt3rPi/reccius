@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Usuario</title>
+    <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
+    <link rel="stylesheet" href="../assets/css/calidad.css">
+    <STYle>
+        .form-group input[type="date"] {
+            width: 80%;
+            /* Ajusta el ancho al de su contenedor */
+            padding: 10px;
+            /* Espaciado interno para que el texto no esté pegado a los bordes */
+            margin: 5px 0;
+            /* Espaciado exterior para separar los campos entre sí */
+            display: inline-block;
+            /* Asegura que se comporten como bloques pero en línea */
+            border: 1px solid #ccc;
+            /* Borde gris claro, puedes cambiarlo por el color que prefieras */
+            border-radius: 4px;
+            /* Bordes redondeados para suavizar la apariencia */
+            box-sizing: border-box;
+            /* Asegura que padding y border no aumenten el ancho total */
+        }
+    </STYle>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Listado de Resultados de laboratorio</h1>
+        <form>
+
+            <br>
+            <legend>I. Análisis Físico-Químicos:</legend>
+            <table class="analysis-table" id="analysis-table4">
+                <thead>
+                    <tr>
+                        <th>Análisis</th>
+                        <th>Criterio de Aceptación</th>
+                        <th>Valor Medido segun laboratorio</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="editable-row">
+                        <td><input type="text" value="Apariencia" class="editable" disabled></td>
+                        <td><input type="text" value="entre 2 y 8" class="editable" disabled></td>
+                        <td><input type="text" value="6" class="editable" disabled></td>
+                        <td><input type="text" value="Cumple"></td>
+
+
+                        </td>
+                    </tr>
+                    <tr class="editable-row">
+                        <td><input type="text" value="Identificación" class="editable" disabled></td>
+                        <td><input type="text" value="entre 2 y 8" class="editable" disabled></td>
+                        <td><input type="text" value="7" class="editable" disabled></td>
+                        <td><input type="text" value="Cumple"></td>
+
+
+                        </td>
+                    </tr>
+                    <tr class="editable-row">
+                        <td><input type="text" value="Valoración" class="editable" disabled></td>
+                        <td><input type="text" value="entre 2 y 8" class="editable" disabled></td>
+                        <td><input type="text" value="3" class="editable" disabled></td>
+                        <td><input type="text" value="Cumple"></td>
+
+                        </td>
+                    </tr>
+                    <tr class="editable-row">
+                        <td><input type="text" value="pH" class="editable" disabled></td>
+                        <td><input type="text" value="entre 2 y 8" class="editable" disabled></td>
+                        <td><input type="text" value="11" class="editable" disabled></td>
+                        <td><input type="text" value="No Cumple"></td>
+
+                        </td>
+                    </tr>
+                    <!-- Repetir filas según sea necesario -->
+                </tbody>
+            </table>
+
+
+            <!-- Fin de la sección de Análisis Físico-Químicos -->
+
+            <br>
+            <br>
+            <legend>II. Análisis Microbiologicos:</legend>
+            <table class="analysis-table" id="analysis-table3">
+                <thead>
+                    <tr>
+                        <th>Análisis</th>
+                        <th>Criterio de Aceptación</th>
+                        <th>Valor Medido segun laboratorio</th>
+                        <th>Resultado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="editable-row">
+                        <td><input type="text" value="pH" class="editable" disabled></td>
+                        <td><input type="text" value="entre 2 y 8" class="editable" disabled></td>
+                        <td><input type="text" value="11" class="editable" disabled></td>
+                        <td><input type="text" value="No Cumple"></td>
+
+                        </td>
+                    </tr>
+                    <tr class="editable-row">
+                        <td><input type="text" value="pH" class="editable" disabled></td>
+                        <td><input type="text" value="entre 2 y 8" class="editable" disabled></td>
+                        <td><input type="text" value="11" class="editable" disabled></td>
+                        <td><input type="text" value="No Cumple"></td>
+
+                        </td>
+                    </tr>
+                    <!-- Repetir filas según sea necesario -->
+                </tbody>
+            </table>
+            <br>
+            <legend>III. Resultado general del analisis:</legend>
+            <br>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Resultado:</label>
+                    <input type="text" placeholder="Cumple">
+                </div>
+            </div>
+
+
+            <div class="actions-container">
+                <button type="button" id="cancel" class="action-button">Cancelar</button>
+                <button type="button" id="continue" class="action-button">Continuar</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+</body>
+
+</html>

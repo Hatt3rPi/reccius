@@ -79,6 +79,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a id="preparacion_solicitud" href="#">Solicitar analisis 1</a>
                         <a id="preparacion_analisis" href="#">Solicitar analisis 2</a>
                         <a id="acta_liberacion" href="#">Acta liberacion o rechazo</a> 
+                        <a id="resultados_laboratorio" href="#">Ingreso resultados de laboratorio</a> 
 
                     </div>
                 </li>
