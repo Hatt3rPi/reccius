@@ -91,9 +91,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $descripcion_analisis = limpiarDato($analisis['descripcion_analisis']);
             $metodologia = limpiarDato($analisis['metodologia']);
             $criterios_aceptacion = limpiarDato($analisis['criterio']);
+            $tipo='analisis_FQ';
 
-            $stmtAnalisisFQ = mysqli_prepare($link, "INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, 'analisis_FQ', ?, ?, ?)");
-            mysqli_stmt_bind_param($stmtAnalisisFQ, "isss", $idEspecificacion, $descripcion_analisis, $metodologia, $criterios_aceptacion);
+            $stmtAnalisisFQ = mysqli_prepare($link, "INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($stmtAnalisisFQ, "issss", $idEspecificacion, $tipo, $descripcion_analisis, $metodologia, $criterios_aceptacion);
             if (mysqli_stmt_execute($stmtAnalisisFQ)) {
                 // Éxito en la inserción
             } else {
@@ -110,9 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $descripcion_analisis = limpiarDato($analisis['descripcion_analisis']);
             $metodologia = limpiarDato($analisis['metodologia']);
             $criterios_aceptacion = limpiarDato($analisis['criterio']);
-
-            $stmtAnalisisMB = mysqli_prepare($link, "INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, 'analisis_MB', ?, ?, ?)");
-            mysqli_stmt_bind_param($stmtAnalisisMB, "isss", $idEspecificacion, $descripcion_analisis, $metodologia, $criterios_aceptacion);
+            $tipo='analisis_MB';
+            $stmtAnalisisMB = mysqli_prepare($link, "INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, ?, ?, ?, ?)");
+            mysqli_stmt_bind_param($stmtAnalisisMB, "issss", $idEspecificacion, $tipo, $descripcion_analisis, $metodologia, $criterios_aceptacion);
             if (mysqli_stmt_execute($stmtAnalisisMB)) {
                 // Éxito en la inserción
             } else {
