@@ -84,12 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     };
     
     // Procesar datos de analisisFQ
+    // Procesar datos de analisisFQ
     if (isset($_POST['analisisFQ']) && is_array($_POST['analisisFQ'])) {
-        
         foreach ($_POST['analisisFQ'] as $analisis) {
-            // Aquí debes extraer y limpiar cada dato del análisis como metodologia, descripcion_analisis, etc.
-            // Por ejemplo:
-            $descripcion_analisis = limpiarDato($analisis['descripcion']);
+            // Asegúrate de que estas claves coincidan con las de tu array
+            $descripcion_analisis = limpiarDato($analisis['descripcion_analisis']);
             $metodologia = limpiarDato($analisis['metodologia']);
             $criterios_aceptacion = limpiarDato($analisis['criterio']);
 
@@ -103,12 +102,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmtAnalisisFQ);
         }
     }
+
     // Procesar datos de analisisMB
     if (isset($_POST['analisisMB']) && is_array($_POST['analisisMB'])) {
         foreach ($_POST['analisisMB'] as $analisis) {
-            // Aquí debes extraer y limpiar cada dato del análisis como metodologia, descripcion_analisis, etc.
-            // Por ejemplo:
-            $descripcion_analisis = limpiarDato($analisis['descripcion']);
+            // Asegúrate de que estas claves coincidan con las de tu array
+            $descripcion_analisis = limpiarDato($analisis['descripcion_analisis']);
             $metodologia = limpiarDato($analisis['metodologia']);
             $criterios_aceptacion = limpiarDato($analisis['criterio']);
 
@@ -122,6 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmtAnalisisMB);
         }
     }
+
     mysqli_close($link);
 } else {
     echo "Todos los campos son requeridos. ".$error;

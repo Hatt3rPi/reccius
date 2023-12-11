@@ -179,7 +179,7 @@ $esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                         tablaFQ.row.add([
-                        '<select name="analisisFQ[' + contadorFilasFQ + '][tipo]" required>' +
+                        '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" required>' +
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Apariencia">Apariencia</option>' +
                             '<option value="Identificación">Identificación</option>' +
@@ -256,7 +256,7 @@ function carga_tablaMB() {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisMB')) {
                         tablaMB.row.add([
-                        '<select name="analisisMB[' + contadorFilasMB + '][tipo]" required>' + 
+                        '<select name="analisisMB[' + contadorFilasMB + '][descripcion_analisis]" required>' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Esterilidad">Esterilidad</option>' +
                             '<option value="Endotoxinas">Endotoxinas</option>' +
@@ -384,7 +384,7 @@ function validarFormulario() {
 
     // Validación para análisis Físico-Químicos
     $('#analisisFQ').find('tbody tr').each(function() {
-        var tipo = $(this).find('select[name*="[tipo]"]').val();
+        var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
         var metodologia = $(this).find('select[name*="[metodologia]"]').val();
         var criterio = $(this).find('textarea[name*="[criterio]"]').val();
 
@@ -397,7 +397,7 @@ function validarFormulario() {
 
     // Validación para análisis Microbiológicos
     $('#analisisMB').find('tbody tr').each(function() {
-        var tipo = $(this).find('select[name*="[tipo]"]').val();
+        var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
         var metodologia = $(this).find('select[name*="[metodologia]"]').val();
         var criterio = $(this).find('textarea[name*="[criterio]"]').val();
 
