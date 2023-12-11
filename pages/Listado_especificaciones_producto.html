@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Especificaciones de Productos</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/calidad.css">
+</head>
+
+<body>
+    <div class="container">
+        <form action="">
+            <h2>Listado de Especificaciones de productos</h2>
+
+            <div id="filters">
+                <label for="filterProduct">Producto:</label>
+                <input type="text" id="filterProduct" placeholder="Buscar por producto...">
+
+                <label for="filterType">Tipo de producto:</label>
+                <select id="filterType">
+                    <option value="">Seleccionar tipo</option>
+                    <option value="Material Envase y Empaque">Material Envase y Empaque</option>
+                    <option value="Materia Prima">Materia Prima</option>
+                    <option value="Producto Terminado">Producto Terminado</option>
+                    <option value="Insumo">Insumo</option>
+                    <!-- Añade aquí más opciones según tus datos -->
+                </select>
+
+                <label for="filterFormat">Formato:</label>
+                <select id="filterFormat">
+                    <option value="">Seleccionar formato</option>
+                    <option value="Ampolla">Ampolla</option>
+                    <option value="Frasco">Frasco</option>
+                    <!-- Añade aquí más opciones según tus datos -->
+                </select>
+
+                <label for="filterManufacturer">Elaborado por:</label>
+                <select id="filterManufacturer">
+                    <option value="">Seleccionar fabricante</option>
+                    <option value="Recicus">Recicus</option>
+                    <option value="Vitafarma">Vitafarma</option>
+                    <!-- Añade aquí más opciones según tus datos -->
+                </select>
+
+                <button id="filterBtn">Filtrar</button>
+            </div>
+
+            <table id="productTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Tipo de Producto</th>
+                        <th>Producto</th>
+                        <th>Concentración</th>
+                        <th>Formato</th>
+                        <th>Elaborado por</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Tus datos de producto irán aquí -->
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var table = $('#productTable').DataTable();
+
+            $('#filterBtn').on('click', function () {
+                var product = $('#filterProduct').val();
+                var type = $('#filterType').val();
+                var format = $('#filterFormat').val();
+                var manufacturer = $('#filterManufacturer').val();
+
+                table.column(1).search(product).draw();
+                table.column(0).search(type).draw();
+                table.column(3).search(format).draw();
+                table.column(4).search(manufacturer).draw();
+            });
+        });
+    </script>
+</body>
+
+</html>
