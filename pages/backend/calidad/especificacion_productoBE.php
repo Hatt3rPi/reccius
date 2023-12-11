@@ -10,9 +10,11 @@ function limpiarDato($dato) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Imprime los datos recibidos para propósitos de depuración
     echo "<pre>";
     print_r($_POST);
     echo "</pre>";
+
     $error = 'Campos faltantes: ';
     $campos = [
         'Tipo_Producto' => 'Tipo producto',
@@ -26,47 +28,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'vigencia' => 'Vigencia'
     ];
     
-   
     foreach ($campos as $campo => $nombre) {
         if (empty($_POST[$campo])) {
             $error .= "$nombre, ";
         }
     }
+    
     if ($error != 'Campos faltantes: ') {
         $error = rtrim($error, ', ');
-    }
-    
-    
-    if (isset($_POST['Tipo_Producto'], $_POST['producto'], $_POST['concentracion'], $_POST['formato'], $_POST['elaboradoPor'], $_POST['documento'], $_POST['fechaEdicion'], $_POST['version'], $_POST['vigencia'])) {
-
+    } else {
+        // Proceso de inserción si todos los campos están presentes
         $tipoProducto = limpiarDato($_POST['Tipo_Producto']);
         $producto = limpiarDato($_POST['producto']);
-        $concentracion=limpiarDato($_POST['concentracion']);
-        $formato=limpiarDato($_POST['formato']);
-        $elaboradoPor=limpiarDato($_POST['elaboradoPor']);
-        $numeroDocumento=limpiarDato($_POST['documento']); 
-        $fechaEdicion=limpiarDato($_POST['fechaEdicion']);
-        $version=limpiarDato($_POST['version']);
-        $vigencia= limpiarDato($_POST['vigencia']);
+        $concentracion = limpiarDato($_POST['concentracion']);
+        $formato = limpiarDato($_POST['formato']);
+        $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
+        $numeroDocumento = limpiarDato($_POST['documento']);
+        $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
+        $version = limpiarDato($_POST['version']);
+        $vigencia = limpiarDato($_POST['vigencia']);
 
-        // Insertar en la tabla calidad_productos
-        $stmt = mysqli_prepare($link, "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato,  elaborado_por, documento_ingreso) VALUES ( ?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($stmt, "ssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento);
-
-        if (mysqli_stmt_execute($stmt)) {
-            $idProducto = mysqli_insert_id($link);
-
-            // Insertar en la tabla calidad_especificacion_productos
-            $stmt2 = mysqli_prepare($link, "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, vigencia) VALUES (?, ?, ?, ?, ?)");
-            mysqli_stmt_bind_param($stmt2, "issss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $vigencia);
-            mysqli_stmt_execute($stmt2);
-
-            // Aquí puedes insertar en calidad_analisis si es necesario
-            // ...
-
-            echo "Especificación de producto creada con éxito.";
+        // Preparar sentencia para insertar en calidad_productos
+        $stmt = mysqli_prepare($link, "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso) VALUES (?, ?, ?, ?, ?, ?)");
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento);
+            if (mysqli_stmt_execute($stmt)) {
+                $idProducto = mysqli_insert_id($link);
+                
+                // Preparar sentencia para insertar en calidad_especificacion_productos
+                $stmt2 = mysqli_prepare($link, "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, vigencia) VALUES (?, ?, ?, ?, ?)");
+                if ($stmt2) {
+                    mysqli_stmt_bind_param($stmt2, "issss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $vigencia);
+                    if (mysqli_stmt_execute($stmt2)) {
+                        echo "Especificación de producto creada con éxito.";
+                    } else {
+                        echo "Error al insertar en calidad_especificacion_productos: " . mysqli_error($link);
+                    }
+                    mysqli_stmt_close($stmt2);
+                } else {
+                    echo "Error en la preparación de la sentencia de calidad_especificacion_productos: " . mysqli_error($link);
+                }
+            } else {
+                echo "Error al insertar en calidad_productos: " . mysqli_error($link);
+                mysqli_stmt_close($stmt);
+            }
         } else {
-            echo "Error al crear la especificación de producto: " . mysqli_error($link);
+            echo "Error en la preparación de la sentencia de calidad_productos: " . mysqli_error($link);
         }
 
         mysqli_stmt_close($stmt);
@@ -74,10 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Todos los campos son requeridos. ".$error;
     };
-    $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
+    
 
     // Procesar datos de analisisFQ
     if (isset($_POST['analisisFQ']) && is_array($_POST['analisisFQ'])) {
+        $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
         foreach ($_POST['analisisFQ'] as $analisis) {
             // Aquí debes extraer y limpiar cada dato del análisis como metodologia, descripcion_analisis, etc.
             // Por ejemplo:
@@ -87,7 +95,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmtAnalisisFQ = mysqli_prepare($link, "INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, 'analisis_FQ', ?, ?, ?)");
             mysqli_stmt_bind_param($stmtAnalisisFQ, "isss", $idEspecificacion, $descripcion_analisis, $metodologia, $criterios_aceptacion);
-            mysqli_stmt_execute($stmtAnalisisFQ);
+            if (mysqli_stmt_execute($stmtAnalisisFQ)) {
+                // Éxito en la inserción
+            } else {
+                echo "Error al insertar en calidad_analisis para analisis_FQ: " . mysqli_error($link);
+            }
             mysqli_stmt_close($stmtAnalisisFQ);
         }
     }
@@ -102,11 +114,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmtAnalisisMB = mysqli_prepare($link, "INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, 'analisis_MB', ?, ?, ?)");
             mysqli_stmt_bind_param($stmtAnalisisMB, "isss", $idEspecificacion, $descripcion_analisis, $metodologia, $criterios_aceptacion);
-            mysqli_stmt_execute($stmtAnalisisMB);
+            if (mysqli_stmt_execute($stmtAnalisisMB)) {
+                // Éxito en la inserción
+            } else {
+                echo "Error al insertar en calidad_analisis para analisis_MB: " . mysqli_error($link);
+            }
             mysqli_stmt_close($stmtAnalisisMB);
         }
     }
+    mysqli_close($link);
 } else {
-    echo "Método no permitido";
+    echo "Todos los campos son requeridos. ".$error;
 }
 ?>
