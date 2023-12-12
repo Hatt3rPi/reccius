@@ -73,7 +73,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 $(document).ready(function() {
     var table = $('#tablaEspecificaciones').DataTable({
-        "ajax": "./backend/calidad/listado_especificaciones_producto.php",
+        "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
         language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     },
