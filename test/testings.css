@@ -1,14 +1,70 @@
-/* styles.css */
-html, body {
-    height: 100%;
+/* Ajustes generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+    padding: 0;
 }
 
-h1 {
-    color: #333;
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: center; /* Centra el formulario en la página */
+}
+
+/* Contenedor del formulario */
+.form-container {
+    width: 500px; /* O el ancho que prefieras */
+    margin-top: 50px; /* Ajusta la distancia desde la parte superior */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Títulos */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos de los campos del formulario */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%; /* Asegúrate de que los inputs tomen todo el ancho */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Botón de envío */
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        margin-top: 20px;
+    }
 }
