@@ -11,49 +11,55 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Modificar Perfil</title>
     <!-- Añade aquí tus estilos o referencias a CSS -->
     <link rel="stylesheet" href="../assets/css/calidad.css">
 </head>
+
 <body>
-    <h2>Modificar Perfil</h2>
-    <form id="formPerfil" action="backend/usuario/modificar_perfilBE.php" method="POST" enctype="multipart/form-data">
-        
-        <!-- Sección de Cambio de Contraseña -->
-        <fieldset>
-            <legend>Cambio de Contraseña</legend>
-            <div>
-                <label for="passwordActual">Contraseña Actual:</label>
-                <input type="password" id="passwordActual" name="passwordActual">
-            </div>
-            <div>
-                <label for="nuevaPassword">Nueva Contraseña:</label>
-                <input type="password" id="nuevaPassword" name="nuevaPassword">
-            </div>
-            <div>
-                <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
-                <input type="password" id="confirmarPassword" name="confirmarPassword">
-            </div>
-            <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
+    <div class="container">
+        <div class="form-container">
+            <h2>Modificar Perfil</h2>
+            <form id="formPerfil" action="backend/usuario/modificar_perfilBE.php" method="POST"
+                enctype="multipart/form-data">
 
-        </fieldset>
+                <!-- Sección de Cambio de Contraseña -->
+                <fieldset>
+                    <legend>Cambio de Contraseña</legend>
+                    <div>
+                        <label for="passwordActual">Contraseña Actual:</label>
+                        <input type="password" id="passwordActual" name="passwordActual">
+                    </div>
+                    <div>
+                        <label for="nuevaPassword">Nueva Contraseña:</label>
+                        <input type="password" id="nuevaPassword" name="nuevaPassword">
+                    </div>
+                    <div>
+                        <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
+                        <input type="password" id="confirmarPassword" name="confirmarPassword">
+                    </div>
+                    <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
 
-        <!-- Sección de Cambio de Foto de Perfil -->
-        <fieldset>
-            <legend>Cambio de Foto de Perfil</legend>
-            <div>
-                <label for="fotoPerfil">Foto de Perfil:</label>
-                <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
-            </div>
-        </fieldset>
+                </fieldset>
 
-        <button type="submit" name="modificarPerfil">Modificar Perfil</button>
-    </form>
+                <!-- Sección de Cambio de Foto de Perfil -->
+                <fieldset>
+                    <legend>Cambio de Foto de Perfil</legend>
+                    <div>
+                        <label for="fotoPerfil">Foto de Perfil:</label>
+                        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+                    </div>
+                </fieldset>
 
+                <button type="submit" name="modificarPerfil">Modificar Perfil</button>
+            </form>
+        </div>
+    </div>
     <script>
-        document.getElementById('formPerfil').addEventListener('submit', function(event) {
+        document.getElementById('formPerfil').addEventListener('submit', function (event) {
             var password = document.getElementById('nuevaPassword').value;
             var confirmPassword = document.getElementById('confirmarPassword').value;
 
@@ -67,5 +73,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Validación adicional aquí si es necesario
         });
     </script>
+
 </body>
+
 </html>

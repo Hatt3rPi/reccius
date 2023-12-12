@@ -1,4 +1,4 @@
-/* calidad.css */
+/* Ajustes generales */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
@@ -6,61 +6,53 @@ body {
     padding: 0;
 }
 
+/* Contenedor principal */
+.container {
+    display: flex;
+    justify-content: center; /* Centra el formulario en la página */
+}
+
+/* Contenedor del formulario */
 .form-container {
-    max-width: 100%;
-    /* Ajusta según el diseño */
+    width: 500px; /* O el ancho que prefieras */
+    margin-top: 50px; /* Ajusta la distancia desde la parte superior */
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 50px;
-    /* Centrar el formulario */
-    margin-right: auto;
-    /* Centrar el formulario */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
-form h2 {
+/* Títulos */
+h2 {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
-fieldset {
-    border: 1px solid #ccc;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
-
-legend {
-    padding: 0 0.5rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-div {
-    margin-bottom: 1rem;
-}
-
-label {
+/* Estilos de los campos del formulario */
+.form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 5px;
 }
 
-input[type="password"],
-input[type="file"],
-input[type="text"] {
-    width: calc(100% - 20px);
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%; /* Asegúrate de que los inputs tomen todo el ancho */
     padding: 10px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
+/* Botón de envío */
 button {
     width: 100%;
     padding: 10px;
+    margin-top: 10px;
     border: none;
     background-color: #007bff;
     color: white;
-    font-size: 1.1rem;
+    font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -69,33 +61,10 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
-    .form-row {
-        flex-direction: column;
-    }
-
-    .form-group {
-        margin-right: 0;
-        /* No es necesario el margen en pantallas pequeñas */
-    }
-
     .form-container {
-        width: 100%;
-        margin: 0;
-        padding: 10px;
-    }
-
-    .analysis-table {
-        font-size: 14px;
-    }
-
-    .form-group input[type="date"] {
-        width: 80%; /* Ajusta el ancho al de su contenedor */
-        padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-        margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
-        display: inline-block; /* Asegura que se comporten como bloques pero en línea */
-        border: 1px solid #ccc; /* Borde gris claro, puedes cambiarlo por el color que prefieras */
-        border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
-        box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
+        width: 90%;
+        margin-top: 20px;
     }
 }
