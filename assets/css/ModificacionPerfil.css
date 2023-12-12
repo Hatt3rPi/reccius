@@ -69,10 +69,33 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Si necesitas algún ajuste para la visualización en dispositivos móviles */
 @media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-right: 0;
+        /* No es necesario el margen en pantallas pequeñas */
+    }
+
     .form-container {
-        width: 95%;
-        padding: 1rem;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .analysis-table {
+        font-size: 14px;
+    }
+
+    .form-group input[type="date"] {
+        width: 80%; /* Ajusta el ancho al de su contenedor */
+        padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+        margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
+        display: inline-block; /* Asegura que se comporten como bloques pero en línea */
+        border: 1px solid #ccc; /* Borde gris claro, puedes cambiarlo por el color que prefieras */
+        border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
+        box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
     }
 }
