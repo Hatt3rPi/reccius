@@ -7,13 +7,15 @@ body {
 }
 
 .form-container {
+    max-width: 100%;
+    /* Ajusta según el diseño */
+    padding: 20px;
     background-color: #fff;
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
+    margin-left: 50px;
+    /* Centrar el formulario */
+    margin-right: auto;
+    /* Centrar el formulario */
 }
 
 form h2 {
