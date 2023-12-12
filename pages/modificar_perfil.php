@@ -16,7 +16,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Modificar Perfil</title>
     <!-- Añade aquí tus estilos o referencias a CSS -->
-    <link rel="stylesheet" href="../assets/css/calidad.css">
+    <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
 </head>
 
 <body>

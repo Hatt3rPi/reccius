@@ -1,70 +1,71 @@
-/* Ajustes generales */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
-/* Contenedor principal */
-.container {
-    display: flex;
-    justify-content: center; /* Centra el formulario en la página */
-}
-
-/* Contenedor del formulario */
+/* Estilos generales del contenedor del formulario */
 .form-container {
-    width: 500px; /* O el ancho que prefieras */
-    margin-top: 50px; /* Ajusta la distancia desde la parte superior */
-    padding: 20px;
+    max-width: 90%; /* Un poco de espacio en los lados para pantallas grandes */
+    padding: 40px; /* Más espacio interior */
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra más suave y extendida */
+    margin: 40px auto; /* Centrado y con más margen superior e inferior */
+    border-radius: 8px; /* Bordes redondeados */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fuente moderna */
 }
 
-/* Títulos */
+/* Estilos para los títulos h2 dentro del formulario */
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Más espacio debajo del título */
+    font-size: 24px; /* Tamaño de fuente más grande */
+    color: #333; /* Color de fuente más oscuro para mejor contraste */
 }
 
-/* Estilos de los campos del formulario */
-.form-group label {
+/* Estilos de los campos de formulario y etiquetas */
+form label {
     display: block;
     margin-bottom: 5px;
+    color: #666; /* Color de fuente más suave para las etiquetas */
+    font-weight: bold; /* Etiquetas en negrita para mejor legibilidad */
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%; /* Asegúrate de que los inputs tomen todo el ancho */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+form input[type='password'],
+form input[type='file'] {
+    width: calc(100% - 20px); /* Ancho completo menos el padding */
+    padding: 10px; /* Espacio interior para los campos de texto */
+    margin-bottom: 20px; /* Más espacio entre campos */
+    border: 1px solid #ddd; /* Borde más suave */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    font-size: 16px; /* Tamaño de fuente más grande para fácil lectura */
 }
 
-/* Botón de envío */
+/* Estilos para el botón de envío */
 button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    background-color: #007bff;
+    padding: 10px 15px;
+    margin-top: 10px; /* Más espacio encima del botón */
+    background-color: #0056b3; /* Color principal más oscuro para el botón */
     color: white;
-    font-size: 16px;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
+    width: 100%; /* El botón se extiende a todo el ancho */
+    font-size: 18px; /* Tamaño de fuente más grande para el botón */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #004190; /* Un tono más oscuro al pasar el ratón por encima */
 }
 
-/* Estilos para dispositivos móviles */
+/* Ajustes para la responsividad */
 @media (max-width: 768px) {
     .form-container {
-        width: 90%;
-        margin-top: 20px;
+        width: 100%;
+        margin: 20px auto; /* Menos margen en dispositivos más pequeños */
+        padding: 20px; /* Menos padding en dispositivos más pequeños */
+    }
+
+    h2 {
+        font-size: 20px; /* Tamaño de fuente más pequeño para pantallas pequeñas */
+    }
+
+    button {
+        font-size: 16px; /* Tamaño de fuente más pequeño para el botón en pantallas pequeñas */
     }
 }
