@@ -1,6 +1,6 @@
 /* Estilos generales del contenedor del formulario */
 .form-container {
-    max-width: 90%; /* Un poco de espacio en los lados para pantallas grandes */
+    max-width: 70%; /* Un poco de espacio en los lados para pantallas grandes */
     padding: 40px; /* Más espacio interior */
     background-color: #fff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra más suave y extendida */
