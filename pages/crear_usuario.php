@@ -16,7 +16,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Crear Usuario</title>
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
-    <link rel="stylesheet" href="../assets/css/calidad.css">
+    <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
 
 </head>
 

@@ -3,66 +3,51 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Modificar Perfil</title>
-    <!-- Añade aquí tus estilos o referencias a CSS -->
-    <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
+    <title>Crear Usuario</title>
+    <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
+    <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
+
 </head>
 
 <body>
     <div class="container">
         <div class="form-container">
-            <h2>Modificar Perfil</h2>
-            <form id="formPerfil" action="backend/usuario/modificar_perfilBE.php" method="POST"
-                enctype="multipart/form-data">
-
-                <!-- Sección de Cambio de Contraseña -->
-                <fieldset>
-                    <legend>Cambio de Contraseña</legend>
-                    <div>
-                        <label for="passwordActual">Contraseña Actual:</label>
-                        <input type="password" id="passwordActual" name="passwordActual">
-                    </div>
-                    <div>
-                        <label for="nuevaPassword">Nueva Contraseña:</label>
-                        <input type="password" id="nuevaPassword" name="nuevaPassword">
-                    </div>
-                    <div>
-                        <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
-                        <input type="password" id="confirmarPassword" name="confirmarPassword">
-                    </div>
-                    <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
-
-                </fieldset>
-
-                <!-- Sección de Cambio de Foto de Perfil -->
-                <fieldset>
-                    <legend>Cambio de Foto de Perfil</legend>
-                    <div>
-                        <label for="fotoPerfil">Foto de Perfil:</label>
-                        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
-                    </div>
-                </fieldset>
-
-                <button type="submit" name="modificarPerfil">Modificar Perfil</button>
+            <h2>Formulario para Crear Usuario</h2>
+            <form id="formCrearUsuario" action="backend/usuario/crear_usuarioBE.php" method="POST">
+                <div class="form-group">
+                    <label for="nombreUsuario">Nombre:</label>
+                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <label for="correoElectronico">Correo Institucional:</label>
+                    <input type="email" class="form-control" id="correoElectronico" name="correoElectronico" required style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" readonly style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <label for="usuario">Empresa:</label>
+                    <input type="text" class="form-control" id="empresa" name="empresa"  style="width: 100%;">
+                </div>
+                <div class="form-group">
+                    <label for="rol">Rol:</label>
+                    <select class="select-styles" id="rol" name="rol" style="width: 100%;">
+                        <!-- Las opciones se cargarán mediante JavaScript -->
+                    </select>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"  ; ">Crear Usuario</button>
             </form>
         </div>
     </div>
     <script>
-        document.getElementById('formPerfil').addEventListener('submit', function (event) {
-            var password = document.getElementById('nuevaPassword').value;
-            var confirmPassword = document.getElementById('confirmarPassword').value;
-
-            // Validar que las contraseñas coincidan
-            if (password !== confirmPassword) {
-                alert('Las contraseñas no coinciden.');
-                event.preventDefault(); // Prevenir el envío del formulario
-                return false;
-            }
-
-            // Validación adicional aquí si es necesario
+        document.getElementById('correoElectronico').addEventListener('input', function () {
+            var correo = this.value;
+            var usuario = correo.split('@')[0];
+            document.getElementById('usuario').value = usuario;
         });
     </script>
-
 </body>
 
 </html>
