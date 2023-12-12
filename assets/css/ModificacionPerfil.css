@@ -1,0 +1,76 @@
+/* calidad.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    background-color: #fff;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+}
+
+form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+legend {
+    padding: 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+div {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="password"],
+input[type="file"],
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Si necesitas algún ajuste para la visualización en dispositivos móviles */
+@media (max-width: 768px) {
+    .form-container {
+        width: 95%;
+        padding: 1rem;
+    }
+}
