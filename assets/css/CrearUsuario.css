@@ -1,5 +1,5 @@
 form input[type='text'],
-form input[type='rol'],
+form select,
 form input[type='email'] {
     width: calc(100% - 20px); /* Ancho completo menos el padding */
     padding: 10px; /* Espacio interior para los campos de texto */
