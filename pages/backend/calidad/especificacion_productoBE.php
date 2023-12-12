@@ -59,9 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fechaEdicionDateTime = new DateTime($fechaEdicion);
                 $fechaEdicionDateTime->modify("+$vigencia years");
                 $fechaExpiracion = $fechaEdicionDateTime->format('Y-m-d');
+                $numeroDocumentoFormateado = 'DCAL-CC-EPT-' . sprintf('%03d', $version);
                 $stmt2 = mysqli_prepare($link, "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion) VALUES (?, ?, ?, ?, ?)");
                 if ($stmt2) {
-                    mysqli_stmt_bind_param($stmt2, "issss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion);
+                    mysqli_stmt_bind_param($stmt2, "issss", $idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion);
                     if (mysqli_stmt_execute($stmt2)) {
                         echo "Especificación de producto creada con éxito.";
                         $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
