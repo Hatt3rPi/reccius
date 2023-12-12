@@ -1,15 +1,13 @@
-/* Estilos generales del contenedor del formulario */
 .form-container {
-    max-width: 70%; /* Un poco de espacio en los lados para pantallas grandes */
-    padding: 40px; /* Más espacio interior */
+    max-width: 100%;
+    /* Ajusta según el diseño */
+    padding: 20px;
     background-color: #fff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra más suave y extendida */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 50px;
     /* Centrar el formulario */
     margin-right: auto;
     /* Centrar el formulario */
-    border-radius: 8px; /* Bordes redondeados */
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fuente moderna */
 }
 
 /* Estilos para los títulos h2 dentro del formulario */
