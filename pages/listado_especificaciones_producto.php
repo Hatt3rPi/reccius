@@ -72,7 +72,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
 
 $(document).ready(function() {
-    var table = $('#tablaEspecificaciones').DataTable({
+    var table = $('#listadoEspecProductos').DataTable({
         "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
         language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
@@ -98,7 +98,7 @@ $(document).ready(function() {
     });
 
     // Event listener para el botón de detalles
-    $('#tablaEspecificaciones tbody').on('click', 'td.details-control', function() {
+    $('#listadoEspecProductos tbody').on('click', 'td.details-control', function() {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
 
@@ -107,7 +107,7 @@ $(document).ready(function() {
             row.child.hide();
             tr.removeClass('shown');
         } else {
-            // Abre esta fila
+            // Abre esta filaQ
             row.child(format(row.data())).show(); // Aquí llamas a la función que formatea el contenido expandido
             tr.addClass('shown');
         }
