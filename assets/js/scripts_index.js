@@ -173,3 +173,33 @@ $(document).ready(function () {
         });
     });
 });
+
+function botones(id, accion, base) {
+    switch (base){
+        case "especificacion":{
+            switch (accion) {
+                case "editar": {
+                    $.redirect('/especificacion_producto.php', {
+                        'id': id,
+                        'accion': accion
+                    }, 'post');
+                    break;
+                }
+                case "generar_documento": {
+                        $.redirect('/bamboo/creacion_actividades.php', {
+                            'id': id
+                        }, 'post');
+                    break;
+                }
+                case "revisar": {
+                    $.redirect('/bamboo/resumen2.php', {
+                        'id': id,
+                        'base': base
+                    }, 'post');
+                    break;
+                }
+            }
+        }
+    }
+
+}

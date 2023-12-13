@@ -14,8 +14,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
+if (isset($_POST['accion']) && $_POST['accion'] == 'true'){
+    echo 'proviene de listado';
+    $esNuevo = 'false';
+}else {
+    $esNuevo = 'true';
+}
 
-$esNuevo = isset($_GET['nuevo']) && $_GET['nuevo'] == 'true';
 ?>
 <!DOCTYPE html>
 <html lang="es">

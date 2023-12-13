@@ -89,12 +89,15 @@ function carga_listadoEspecificacionesProductos() {
     function format(d) {
         // `d` es el objeto de datos original para la fila
         // Construye aquí tu contenido HTML para las acciones y secciones de análisis
-        return '<div>'+
-        '<p><strong>Acciones:</strong> Crear nueva versión; Eliminar; Renovar</p>'+
-        '<p><strong>Análisis Físico-Químicos:</strong></p>'+ // Añade aquí la tabla de Análisis Físico-Químicos
-        '<p><strong>Análisis Microbiológicos:</strong></p>'+ // Añade aquí la tabla de Análisis Microbiológicos
-        '<p><strong>Análisis de Laboratorio Asociados:</strong></p>'+ // Añade aquí la tabla de Análisis de Laboratorio
-        '</div>';
+        return '<table background-color:#F6F6F6; color:#FFF; cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            '<tr><td VALIGN=TOP>Acciones</td>' +
+                '<td>' +
+                    '<button title="Revisar Especificación" type="button" id="' + d.id + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>' +
+                    '<button title="Generar documento" type="button" id="' + d.id + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>' +
+                    '<button title="Editar" type="button" id="' + d.id + '" name="editar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-edit"></i></button><a> </a>' +
+                '</td>' +
+            '</tr>' +
+        '</table>';
     }
 }
 
