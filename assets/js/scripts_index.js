@@ -163,11 +163,12 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('Listado_especificaciones_producto.html', function (response, status, xhr) {
+        $('#dynamic-content').load('listado_especificaciones_producto.php', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                console.log('Listado cargado correctamente cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                carga_listadoEspecificacionesProductos();
             }
         });
     });
