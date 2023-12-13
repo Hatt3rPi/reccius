@@ -1,0 +1,151 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFF;
+}
+
+.header {
+    background-color: #EEE;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #000;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.header-left img {
+    height: 80px;
+    /* Adjust as needed */
+}
+
+.header-center {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header-center h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.header-right {
+    font-size: 12px;
+    text-align: right;
+}
+
+.sub-info {
+    font-size: 12px;
+    text-align: center;
+}
+
+.footer {
+    font-size: 12px;
+    text-align: right;
+    padding: 10px;
+    background-color: #EEE;
+    border-top: 3px solid #000;
+}
+
+.sub-info {
+    font-size: 12px;
+    text-align: center;
+    color: #000;
+    /* Cambia el color del texto a negro */
+    font-weight: bold;
+    /* Opcional: Hace que el texto sea en negrita */
+}
+
+.table-section {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #8a90dd;
+}
+
+/* Estilos para el título y subtítulo del documento */
+.document-title h2 {
+    font-size: 22px;
+    /* Ajustar el tamaño según sea necesario */
+    text-align: center;
+    font-weight: bold;
+    /* Si quieres que el título sea en negrita */
+    margin-top: 20px;
+    /* Espaciado antes del título */
+}
+
+.document-title h3 {
+    font-size: 18px;
+    /* Ajustar el tamaño según sea necesario */
+    text-align: center;
+    font-weight: normal;
+    /* Si quieres que el subtítulo no sea en negrita */
+    margin-bottom: 20px;
+    /* Espaciado después del subtítulo */
+}
+
+.footer {
+background-color: #EEE;
+padding: 20px 10px; /* Ajusta según sea necesario */
+display: flex;
+justify-content: space-between;
+font-size: 12px;
+border-top: 3px solid #000;
+}
+
+.footer-section {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 30%; /* Asegurarse de que coincida con el ancho de .footer-box */
+}
+
+.footer-box {
+border: 1px solid #000;
+padding: 10px;
+width: 80%; /* Hacer que tome todo el ancho de .footer-section */
+text-align: center;
+}
+
+.footer-box-title {
+margin-bottom: 10px; /* Espacio entre el título y el cuadro */
+}
+
+.date {
+margin-top: 10px; /* Espacio entre el cuadro y la fecha */
+}
+
+.signature {
+margin-top: 15px;
+}
+/* Estilos existentes */
+
+.footer p {
+margin: 4px 0;
+/* Añadir otros estilos de párrafo según sea necesario */
+}
+
+.bold {
+font-weight: bold; /* Hace el texto en negrita */
+}
+
+/* ... */
