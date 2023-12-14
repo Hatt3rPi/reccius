@@ -179,20 +179,20 @@ function botones(id, accion, base) {
         case "especificacion":{
             switch (accion) {
                 case "editar": {
-                    $.redirect('/especificacion_producto.php', {
+                    $.redirect('./especificacion_producto.php', {
                         'id': id,
                         'accion': accion
                     }, 'post');
                     break;
                 }
                 case "generar_documento": {
-                        $.redirect('/bamboo/creacion_actividades.php', {
+                        $.redirect('./DocumentsEspecs2.html', {
                             'id': id
                         }, 'post');
                     break;
                 }
                 case "revisar": {
-                    $.redirect('/bamboo/resumen2.php', {
+                    $.redirect('./especificacion_producto.php', {
                         'id': id,
                         'base': base
                     }, 'post');
