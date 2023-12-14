@@ -12,12 +12,17 @@ form .form-check-input {
 }
 
 .form-container {
-    max-width: 600px; /* Ancho máximo del contenedor del formulario */
+    max-width: 100%;
+    /* Ajusta según el diseño */
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 50px auto; /* Centrado con margen superior e inferior */
+    margin-left: 50px;
+    /* Centrar el formulario */
+    margin-right: auto;
+    /* Centrar el formulario */
 }
+
 
 /* Estilos para los títulos h2 y h3 dentro del formulario */
 h2, h3 {
