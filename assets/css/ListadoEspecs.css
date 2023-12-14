@@ -9,6 +9,25 @@
     margin-right: auto;
     /* Centrar el formulario */
 }
+.form-container h1 {
+    font-size: 32px; /* o el tamaño que prefieras */
+    color: #004a99; /* o el color primario de tu marca */
+    font-weight: bold; /* si quieres que sea más prominente */
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.form-container h2.section-title {
+    font-size: 24px; /* o un tamaño proporcional al título */
+    color: #333333; /* un color que contraste pero que no domine */
+    margin-top: 0;
+    margin-bottom: 1em; /* espacio antes del contenido */
+    text-align: center;
+    border-bottom: 2px solid #004a99; /* una línea para destacar el subtítulo */
+    display: inline-block; /* para que la línea se ajuste al texto */
+    padding-bottom: 0.25em;
+}
+
 /* Títulos y subtítulos */
 h1, h2.section-title {
     color: #333333;
