@@ -1,177 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Especificación Producto Terminado</title>
     <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
 </head>
 
 <body>
-
-    <div class="header">
-        <div class="header-left">
-            <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" />
+    <div class="form-container">
+        <h1>Calidad / Listado Especificaciones de Productos</h1>
             <br>
-            <div class="sub-info">
-                Producto de recetario magistral <br> Res. Ex. N° 2988/2018 <br>
-                RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
+            <br>
+            <h2 class="section-title">Listado Especificaciones de Productosv:</h2>
+            <div id="contenedor_listadoEspecProductos">
+                <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th></th> <!-- Columna vacía para botones o checkboxes -->
+                            <th>Estado</th>
+                            <th>Documento</th>
+                            <th>Producto</th>
+                            <th>Tipo producto</th>
+                            <th>Concentración</th>
+                            <th>Formato</th>
+                            <th>Producido por</th>
+                            <th>Fecha expiración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos dinámicos de la tabla se insertarán aquí -->
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="header-center">
-            <h1>Especificación Producto Terminado</h1>
-            Ácido Ascórbico 1g 10ml Amp <br>
-            Dirección de Calidad
-        </div>
-        <div class="header-right">
-            Doc No: CAL-CPF-007 <br>
-            Edición: 24/07/2023 <br>
-            Versión: 005 <br>
-            Vigencia: 5 Años <br>
-            Elab. por: QF DCA.LSR <br>
-            Rev.Por: QF DTS.CPG <br>
-            Aut.Por: QF DTL.ISM <br>
-            Página: 1 de 2
-        </div>
     </div>
-    <div class="table-section">
-        <div class="document-title">
-            <h2>ESPECIFICACIONES DE PRODUCTO TERMINADO</h2>
-            <h3>ÁCIDO ASCÓRBICO 1G 10ML AMPOLLA</h3>
-        </div>
-        <div class="analysis-section">
-            I. Análisis Generales
-        </div>
+</body>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Análisis</th>
-                    <th>Metodología</th>
-                    <th>Criterio de Aceptación</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Apariencia</td>
-                    <td>Interno</td>
-                    <td class="criteria">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
-                        partículas extrañas visibles en suspensión y contenida en una ampolla de vidrio ámbar.</td>
-                </tr>
-                <!-- Repite las filas según sea necesario para cada criterio de análisis -->
-                <tr>
-                    <td>Identificación</td>
-                    <td>USP</td>
-                    <td>(A) La coloración azul se vuelve apreciablemente transparente o desaparece dentro de 3 minutos.
-                        <br> (B) ...</td>
-                </tr>
-                <!-- Más filas según el contenido de tu documento -->
-            </tbody>
-            <tbody>
-                <!-- Fila de Apariencia ya incluida -->
+</html>
+<script>
 
-                <!-- Fila de Identificación ya incluida -->
+function carga_listadoEspecificacionesProductos() {
+    var table = $('#listadoEspecProductos').DataTable({
+        "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
+        language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                    },
+        "columns": [
+            {
+                "className": 'details-control',
+                "orderable": false,
+                "data": null,
+                "defaultContent": '<i class="fas fa-search-plus"></i>',
+                "width": "5%"
+            },
+            { "data": "estado", "title": "Estado" }, // Asegúrate de que 'estado' es un campo en tu base de datos.
+            { "data": "documento", "title": "Documento" },
+            { "data": "producto", "title": "Producto" },
+            { "data": "tipo_producto", "title": "Tipo producto" },
+            { "data": "concentracion", "title": "Concentración" },
+            { "data": "formato", "title": "Formato" },
+            { "data": "elaborado_por", "title": "Producido por" },
+            { "data": "fecha_expiracion", "title": "Fecha expiración" }
+        ],
+        // ... otras opciones de DataTables ...
+    });
 
-                <!-- Fila de Valoración -->
-                <tr>
-                    <td>Valoración</td>
-                    <td>USP</td>
-                    <td>10 g / 100ml (90 - 110%)</td>
-                </tr>
+    // Event listener para el botón de detalles
+    $('#listadoEspecProductos tbody').on('click', 'td.details-control', function() {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
 
-                <!-- Fila de pH -->
-                <tr>
-                    <td>pH</td>
-                    <td>USP</td>
-                    <td>5,5 - 7,0</td>
-                </tr>
+        if (row.child.isShown()) {
+            // Esta fila ya está abierta - ciérrala
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            // Abre esta filaQ
+            row.child(format(row.data())).show(); // Aquí llamas a la función que formatea el contenido expandido
+            tr.addClass('shown');
+        }
+    });
 
-                <!-- Fila de Densidad -->
-                <tr>
-                    <td>Densidad</td>
-                    <td>Interno</td>
-                    <td>1,0 - 1,1 g/mL</td>
-                </tr>
+    // Función para formatear el contenido expandido
+    function format(d) {
+        // `d` es el objeto de datos original para la fila
+        // Construye aquí tu contenido HTML para las acciones y secciones de análisis
+        return '<table background-color:#F6F6F6; color:#FFF; cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+            '<tr><td VALIGN=TOP>Acciones</td>' +
+                '<td>' +
+                    '<button title="Revisar Especificación" type="button" id="' + d.id + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>' +
+                    '<button title="Generar documento" type="button" id="' + d.id + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>' +
+                    '<button title="Editar" type="button" id="' + d.id + '" name="editar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-edit"></i></button><a> </a>' +
+                '</td>' +
+            '</tr>' +
+        '</table>';
+    }
+}
 
-                <!-- Fila de Osmolaridad -->
-                <tr>
-                    <td>Osmolaridad</td>
-                    <td>Interno</td>
-                    <td>900 - 1100 Osm/Kg</td>
-                </tr>
-
-                <!-- Fila de Límite de Oxalato -->
-                <tr>
-                    <td>Límite de Oxalato</td>
-                    <td>USP</td>
-                    <td>No se produce turbidez en 1 minuto</td>
-                </tr>
-
-                <!-- Fila de Volumen extraíble -->
-                <tr>
-                    <td>Volumen extraíble</td>
-                    <td>USP</td>
-                    <td>No menor al declarado (10ml)</td>
-                </tr>
-
-                <!-- Fila de Material Sub particulado -->
-                <tr>
-                    <td>Material Sub particulado</td>
-                    <td>USP</td>
-                    <td>Obturación: >10um: 6000 y >25um: 600 por ampolla Microscopía: >10um: 3000 y >25um: 300 por
-                        ampolla</td>
-                </tr>
-
-                <!-- Fila de Material Particulado -->
-                <tr>
-                    <td>Material Particulado</td>
-                    <td>USP</td>
-                    <td>Ausente</td>
-                </tr>
-            </tbody>
-        </table>
-        </table>
-    </div>
-
-    <!-- Footer -->
-<div class="footer">
-    <!-- Sección realizada por -->
-    <div class="footer-section">
-      <div class="footer-box-title">Realizado por:</div>
-      <div class="footer-box">
-        <p class="bold">QF. Ingar Surname Rodríguez</p>
-        <p class="bold">Director de Calidad</p>
-        <div class="signature">[Espacio para la firma]</div>
-        <p>Firmado digitalmente</p>
-      </div>
-      <div class="date">Fecha: 24/07/2023</div>
-    </div>
-    
-    <!-- Sección revisada por -->
-    <div class="footer-section">
-      <div class="footer-box-title">Revisado por:</div>
-      <div class="footer-box">
-        <p class="bold">QF. Cathrine Pereira García</p>
-        <p class="bold">Jefe de Producción</p>
-        <p>Ausente por Licencia</p>
-        <p>Firmado digitalmente</p>
-      </div>
-      <div class="date">Fecha: 24/07/2023</div>
-    </div>
-    
-    <!-- Sección aprobada por -->
-    <div class="footer-section">
-      <div class="footer-box-title">Aprobado por:</div>
-      <div class="footer-box">
-        <p class="bold">QF. Luis Sepúlveda Miranda</p>
-        <p class="bold">Director Técnico</p>
-        <div class="signature">[Espacio para la firma]</div>
-        <p>Firmado digitalmente</p>
-      </div>
-      <div class="date">Fecha: 24/07/2023</div>
-    </div>
-  </div>
-  
-  </body>
-  </html>
+</script>

@@ -11,12 +11,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+<head>
+    <link rel="stylesheet" href="ruta/a/tu/styles.css">
+</head>
+
 <body>
     <div class="form-container">
         <h1>Calidad / Listado Especificaciones de Productos</h1>
             <br>
             <br>
-            <h2 class="section-title">Listado Especificaciones de Productosv:</h2>
+            <h2 class="section-title">Listado Especificaciones de Productos:</h2>
             <div id="contenedor_listadoEspecProductos">
                 <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
                     <thead>
