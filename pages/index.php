@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <a href="#recetas_magistrales" class="btn_lateral"><i class="fa fa-envelope"></i> Recetas Magistrales</a>
                     <div class="smenu">
                         <a href="">Ingreso</a>
-                        <a href="">Paso 2</a>
+                        <a id="testeo" href="">TEST DOCUMENTOS</a>
                         <a href="">Paso 3</a>
                         <a href="">Paso 4</a>
                     </div>
