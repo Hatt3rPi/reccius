@@ -42,13 +42,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <input type="text" class="form-control" id="empresa" name="empresa"  style="width: 100%;">
                 </div>
                 <div class="form-group">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" class="form-control" id="cargo" name="cargo"  style="width: 100%;">
+                </div>
+                <div class="form-group">
                     <label for="rol">Rol:</label>
                     <select class="select-styles" id="rol" name="rol" style="width: 100%;">
                         <!-- Las opciones se cargarán mediante JavaScript -->
                     </select>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary" style="width: 100%;"  ; ">Crear Usuario</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Crear Usuario</button>
             </form>
         </div>
     </div>
