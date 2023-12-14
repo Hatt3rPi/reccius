@@ -14,8 +14,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
-if (isset($_POST['accion']) && $_POST['accion'] == 'true'){
-    echo 'proviene de listado';
+if (isset($_POST['accion']) && isset($_POST['id'])){
+    echo 'proviene de listado. Acción: '.$_POST['accion'].' - id: '.$_POST['id'];
     $esNuevo = 'false';
 }else {
     $esNuevo = 'true';
@@ -238,9 +238,8 @@ if (isset($_POST['accion']) && $_POST['accion'] == 'true'){
     var tablaFQ = $('#analisisFQ').DataTable();
     tablaFQ.row($(this).parents('tr')).remove().draw();
 });
-function carga_tablaMB() {
-        var esNuevo = <?php echo json_encode($esNuevo); ?>;
-        if (esNuevo) {
+function carga_tablaMB(id = null, accion = null) {
+        if (id==null) {
             var tablaMB = new DataTable('#analisisMB', {
                     "paging": false,  // Desactiva la paginación
                     "info": false,    // Oculta el texto "Showing 1 to X of X entries"
@@ -286,20 +285,7 @@ function carga_tablaMB() {
             $("#boton_agrega_analisisMB").show();
         }
         else {
-            $("#contenedor_analisisMB").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
-            if (status == "error") {
-                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
-                alert("Error al cargar la tabla. Revise la consola para más detalles.");
-                return;
-            }
-            try {
-                // Intentar inicializar DataTables
-                var tabla = $('#analisisMB').DataTable();
-            } catch (error) {
-                console.error('Error al inicializar la tabla: ', error);
-                alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
-            }
-        });
+            
         }
     }
     $('#analisisMB').on('click', '.btn-eliminar', function () {

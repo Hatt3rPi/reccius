@@ -179,11 +179,28 @@ function botones(id, accion, base) {
         case "especificacion":{
             switch (accion) {
                 case "editar": {
-                    $.redirect('especificacion_producto.php', {
-                        'id': id,
-                        'accion': accion
-                    }, 'post');
-                    break;
+                    console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
+                    
+                    $.ajax({
+                        url: 'especificacion_producto.php', // URL del script PHP
+                        type: 'POST', // Tipo de solicitud
+                        data: { 
+                            'id': id,
+                            'accion': accion
+                             }, // Datos que se enviarán con la solicitud
+                        success: function(response) {
+                            // Esta función se ejecuta cuando la solicitud es exitosa
+                            $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
+                            carga_tablaFQ(); // Llama a tus funciones adicionales
+                            carga_tablaMB();
+                        },
+                        error: function(xhr, status, error) {
+                            // Esta función se ejecuta en caso de error en la solicitud
+                            console.error("Error en la solicitud: ", status, error);
+                        }
+                    });
+                    
+                    console.log('Proceso finalizado');
                 }
                 case "generar_documento": {
                         $.redirect('DocumentsEspecs2.html', {
