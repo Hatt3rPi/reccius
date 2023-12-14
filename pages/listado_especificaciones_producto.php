@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="ruta/a/tu/styles.css">
+<link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
 </head>
 
 <body>
