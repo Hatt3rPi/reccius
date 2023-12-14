@@ -179,20 +179,20 @@ function botones(id, accion, base) {
         case "especificacion":{
             switch (accion) {
                 case "editar": {
-                    $.redirect('/pages/especificacion_producto.php', {
+                    $.redirect('../pages/especificacion_producto.php', {
                         'id': id,
                         'accion': accion
                     }, 'post');
                     break;
                 }
                 case "generar_documento": {
-                        $.redirect('/pages/DocumentsEspecs2.html', {
+                        $.redirect('./DocumentsEspecs2.html', {
                             'id': id
                         }, 'post');
                     break;
                 }
                 case "revisar": {
-                    $.redirect('/pages/especificacion_producto.php', {
+                    $.redirect('/especificacion_producto.php', {
                         'id': id,
                         'base': base
                     }, 'post');
