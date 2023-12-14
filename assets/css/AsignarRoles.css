@@ -1,0 +1,99 @@
+/* Estilos generales para formularios */
+form input[type='text'],
+form select,
+form input[type='email'],
+form .form-check-input {
+    width: calc(100% - 20px); /* Ancho completo menos el padding */
+    padding: 10px; /* Espacio interior para los campos de texto y checks */
+    margin-bottom: 20px; /* Más espacio entre campos */
+    border: 1px solid #ddd; /* Borde más suave para inputs */
+    border-radius: 4px; /* Bordes ligeramente redondeados para inputs */
+    font-size: 16px; /* Tamaño de fuente más grande para fácil lectura */
+}
+
+.form-container {
+    max-width: 600px; /* Ancho máximo del contenedor del formulario */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 50px auto; /* Centrado con margen superior e inferior */
+}
+
+/* Estilos para los títulos h2 y h3 dentro del formulario */
+h2, h3 {
+    text-align: center;
+    margin-bottom: 30px; /* Más espacio debajo de los títulos */
+    font-size: 24px; /* Tamaño de fuente más grande para h2 */
+    color: #333; /* Color de fuente más oscuro para mejor contraste */
+}
+
+h3 {
+    font-size: 20px; /* Tamaño de fuente un poco más pequeño para h3 */
+}
+
+/* Estilos de los campos de formulario y etiquetas */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666; /* Color de fuente más suave para las etiquetas */
+    font-weight: bold; /* Etiquetas en negrita para mejor legibilidad */
+}
+
+/* Estilos para las casillas de verificación */
+.form-check-label {
+    margin-left: 5px; /* Espacio para alinear con el check */
+    font-weight: normal; /* Fuente normal para diferenciar de las etiquetas */
+}
+
+/* Estilos para el botón de envío */
+button {
+    padding: 10px 15px;
+    margin-top: 20px; /* Más espacio encima del botón */
+    background-color: #0056b3; /* Color principal más oscuro para el botón */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto; /* El botón no se extiende a todo el ancho */
+    font-size: 18px; /* Tamaño de fuente más grande para el botón */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+}
+
+button:hover {
+    background-color: #004190; /* Un tono más oscuro al pasar el ratón por encima */
+}
+
+/* Ajustes para la responsividad */
+@media (max-width: 768px) {
+    .form-container {
+        width: 100%;
+        margin: 20px auto; /* Menos margen en dispositivos más pequeños */
+        padding: 15px; /* Menos padding en dispositivos más pequeños */
+    }
+
+    h2, h3 {
+        font-size: 18px; /* Tamaño de fuente más pequeño para pantallas pequeñas */
+    }
+
+    button {
+        font-size: 16px; /* Tamaño de fuente más pequeño para el botón en pantallas pequeñas */
+        padding: 10px; /* Padding más pequeño para el botón */
+    }
+}
+
+/* Especificaciones adicionales para selecciones y casillas de verificación */
+form select {
+    display: block; /* Asegura que el select se muestre como bloque */
+    height: auto; /* Altura automática para ajustarse al contenido */
+}
+
+.form-check-input {
+    width: auto; /* Ancho automático para el checkbox */
+    margin-top: 0; /* Alinea verticalmente con su etiqueta */
+    vertical-align: middle; /* Alinea verticalmente el checkbox */
+}
+
+/* Ajustes de la sombra del contenedor para mantener la consistencia */
+.container {
+    box-shadow: none; /* Elimina la sombra si ya está definida en .form-container */
+}
