@@ -28,23 +28,6 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
 <head>
     <meta charset="UTF-8">
     <title>Crear Usuario</title>
-    
-
-<STYle>
-    .form-group input[type="date"] {
-        width: 80%; /* Ajusta el ancho al de su contenedor */
-        padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
-        margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
-        display: inline-block; /* Asegura que se comporten como bloques pero en línea */
-        border: 1px solid #ccc; /* Borde gris claro, puedes cambiarlo por el color que prefieras */
-        border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
-        box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
-    }
-
-    .form-group-hidden {
-        display: none;
-    }
-</STYle>
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <!-- CSS personalizado específico para esta página -->
     <link rel="stylesheet" href="../assets/css/calidad.css">
@@ -57,7 +40,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
             <fieldset>
             <br>
             <br>
-                <h2 class="section-title">Especificaciones del producto</h2>
+                <h2 class="section-title">Especificaciones del producto:</h2>
                 <br>
                 <div class="form-row">
                     <div class="form-group">
@@ -97,7 +80,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                 </div>
                 <br>
                 <br>
-                <h2 class="section-title">Detalles de la Especificación</h2>
+                <h2 class="section-title">Detalles de la Especificación:</h2>
                 <br>
                 <div class="form-row">
                     <div class="form-group">
@@ -113,7 +96,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                     <div class="form-group">
                         <label>Vigencia:</label>
                         <select name="vigencia" style="width: 39.5%;" required>
-                            <option>Selecciona la vigencia de esta especificación</option>
+                            <option>Selecciona la vigencia de esta especificación:</option>
                             <option value="1">1 año</option>
                             <option value="2">2 años</option>
                             <option value="3">3 años</option>
@@ -130,7 +113,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
             </fieldset>
             <br>
             <br>
-            <h2 class="section-title">Análisis Físico-Químicos</h2>
+            <h2 class="section-title">Análisis Físico-Químicos:</h2>
             <div id="contenedor_analisisFQ">
                 <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->

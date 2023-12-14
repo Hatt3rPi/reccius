@@ -1,97 +1,363 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
+    <meta charset="UTF-8">
+    <title>Crear Usuario</title>
+    <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
+    <!-- CSS personalizado específico para esta página -->
+    <link rel="stylesheet" href="../assets/css/calidad.css">
 </head>
 
 <body>
     <div class="form-container">
-        <h1>Calidad / Listado Especificaciones de Productos</h1>
+        <h1>Calidad / Crear Especificación de Producto</h1>
+        <form method="POST" action="./backend/calidad/especificacion_productoBE.php">
+            <fieldset>
             <br>
             <br>
-            <h2 class="section-title">Listado Especificaciones de Productosv:</h2>
-            <div id="contenedor_listadoEspecProductos">
-                <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th></th> <!-- Columna vacía para botones o checkboxes -->
-                            <th>Estado</th>
-                            <th>Documento</th>
-                            <th>Producto</th>
-                            <th>Tipo producto</th>
-                            <th>Concentración</th>
-                            <th>Formato</th>
-                            <th>Producido por</th>
-                            <th>Fecha expiración</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Los datos dinámicos de la tabla se insertarán aquí -->
-                    </tbody>
-                </table>
+                <h2 class="section-title">Especificaciones del producto:</h2>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Producto:</label>
+                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;" required>
+                            <option value="">Selecciona el tipo de producto</option>    
+                            <option value="Materíal Envase y Empaque">Material Envase y Empaque</option>
+                            <option value="Materia Prima">Materia Prima</option>
+                            <option value="Producto Terminado">Producto Terminado</option>
+                            <option value="Insumo">Insumo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Producto:</label>
+                        <input type="text" name="producto" placeholder="Ácido Ascórbico" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Concentración:</label>
+                        <input type="text" name="concentracion" placeholder="1 g / 10 ml" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Formato:</label>
+                        <input type="text" name="formato" placeholder="Ingresa formato de presentación" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de documento:</label>
+                        <input type="text" name="documento" placeholder="ingresa número de documento" required>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <h2 class="section-title">Detalles de la Especificación:</h2>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha edición:</label>
+                        <input type="date" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Versión:</label>
+                        <input type="text" name="version" value="1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Vigencia:</label>
+                        <select name="vigencia" style="width: 39.5%;" required>
+                            <option>Selecciona la vigencia de esta especificación:</option>
+                            <option value="1">1 año</option>
+                            <option value="2">2 años</option>
+                            <option value="3">3 años</option>
+                            <option value="4">4 años</option>
+                            <option value="5">5 años</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-hidden">
+                        <label>Próxima renovación:</label>
+                        <input type="date" name="proximaRenovacion" readonly>
+                    </div>
+
+                </div>
+            </fieldset>
+            <br>
+            <br>
+            <h2 class="section-title">Análisis Físico-Químicos:</h2>
+            <div id="contenedor_analisisFQ">
+                <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
+                <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
             </div>
+            <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
+            <br>
+            <br>
+            <br>
+            <h2 class="section-title">Análisis Microbiológicos:</h2>
+            <div id="contenedor_analisisMB">
+                <table id="analisisMB" class="table table-striped table-bordered" width="100%"></table>
+                <!-- Aquí se incluirá la tabla desde carga_tablaMB()-->
+            </div>
+            <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
+            <div class="actions-container">
+                <button type="submit" id="guardar" class="action-button">Guardar Especificación</button>
+
+
+            </div>
+        </form>
     </div>
 </body>
 
 </html>
 <script>
-
-function carga_listadoEspecificacionesProductos() {
-    var table = $('#listadoEspecProductos').DataTable({
-        "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
-        language: {
+    function carga_tablaFQ() {
+        var esNuevo = <?php echo json_encode($esNuevo); ?>;
+        if (esNuevo) {
+            var tablaFQ = new DataTable('#analisisFQ', {
+                    "paging": false,  // Desactiva la paginación
+                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
+                    "searching": false,  // Desactiva la búsqueda
+                    "lengthChange": false, // Oculta el selector "Show X entries"
+                    language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     },
-        "columns": [
-            {
-                "className": 'details-control',
-                "orderable": false,
-                "data": null,
-                "defaultContent": '<i class="fas fa-search-plus"></i>',
-                "width": "5%"
-            },
-            { "data": "estado", "title": "Estado" }, // Asegúrate de que 'estado' es un campo en tu base de datos.
-            { "data": "documento", "title": "Documento" },
-            { "data": "producto", "title": "Producto" },
-            { "data": "tipo_producto", "title": "Tipo producto" },
-            { "data": "concentracion", "title": "Concentración" },
-            { "data": "formato", "title": "Formato" },
-            { "data": "elaborado_por", "title": "Producido por" },
-            { "data": "fecha_expiracion", "title": "Fecha expiración" }
-        ],
-        // ... otras opciones de DataTables ...
-    });
+                    columns: [
+                        { title: 'Análisis' },
+                        { title: 'Metodología' },
+                        { title: 'Criterio aceptación' }, 
+                        { title: 'Acciones' }
+                    ]
+                });
+                var contadorFilasFQ = 0;
+                $('#boton_agrega_analisisFQ').on('click', function() {
+                    // Verificar si la tabla se cargó correctamente antes de agregar filas
+                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                        tablaFQ.row.add([
+                        '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" required>' +
+                            '<option value="">Selecciona un análisis</option>' +
+                            '<option value="Apariencia">Apariencia</option>' +
+                            '<option value="Identificación">Identificación</option>' +
+                            '<option value="Valoración">Valoración</option>' +
+                            '<option value="Contenido">Contenido</option>' +
+                            '<option value="pH">pH</option>' +
+                            '<option value="Densidad">Densidad</option>' +
+                            '<option value="Osmolaridad">Osmolaridad</option>' +
+                            '<option value="Límite de Oxalato">Límite de Oxalato</option>' +
+                            '<option value="Volumen extraíble">Volumen extraíble</option>' +
+                            '<option value="Material Sub particulado">Material Sub particulado</option>' +
+                            '<option value="Material Particulado">Material Particulado</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<select name="analisisFQ[' + contadorFilasFQ + '][metodologia]" required>' +
+                            '<option value="">Selecciona metodología</option>' +
+                            '<option value="Interno">Interno</option>' +
+                            '<option value="USP">USP</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
+                        '<button type="button" class="btn-eliminar">Eliminar</button>'
+                        
+                    ]).draw(false);
+                    contadorFilasFQ++;
+                    } else {
+                        console.error('Error: La tabla no está inicializada.');
+                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
+                    }
+                });
+            $("#boton_agrega_analisisFQ").show();
+        }
+        else {
+            $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
+            if (status == "error") {
+                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
+                alert("Error al cargar la tabla. Revise la consola para más detalles.");
+                return;
+            }
+            try {
+                // Intentar inicializar DataTables
+                var tabla = $('#analisisFQ').DataTable();
+            } catch (error) {
+                console.error('Error al inicializar la tabla: ', error);
+                alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
+            }
+        });
+        }
+    }
+    $('#analisisFQ').on('click', '.btn-eliminar', function () {
+    var tablaFQ = $('#analisisFQ').DataTable();
+    tablaFQ.row($(this).parents('tr')).remove().draw();
+});
+function carga_tablaMB(id = null, accion = null) {
+        if (id==null) {
+            var tablaMB = new DataTable('#analisisMB', {
+                    "paging": false,  // Desactiva la paginación
+                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
+                    "searching": false,  // Desactiva la búsqueda
+                    "lengthChange": false, // Oculta el selector "Show X entries"
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                    },
+                    columns: [
+                        { title: 'Análisis' },
+                        { title: 'Metodología' },
+                        { title: 'Criterio aceptación' }, 
+                        { title: 'Acciones' }
+                    ]
+                });
+                var contadorFilasMB = 0;
+                $('#boton_agrega_analisisMB').on('click', function() {
+                    // Verificar si la tabla se cargó correctamente antes de agregar filas
+                    if ($.fn.DataTable.isDataTable('#analisisMB')) {
+                        tablaMB.row.add([
+                        '<select name="analisisMB[' + contadorFilasMB + '][descripcion_analisis]" required>' + 
+                            '<option value="">Selecciona un análisis</option>' +
+                            '<option value="Esterilidad">Esterilidad</option>' +
+                            '<option value="Endotoxinas">Endotoxinas</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<select name="analisisMB[' + contadorFilasMB + '][metodologia]" required>' +
+                            '<option value="">Selecciona metodología</option>' +
+                            '<option value="Interno">Interno</option>' +
+                            '<option value="USP">USP</option>' +
+                            '<option value="Otro">Otro</option>' +
+                        '</select>',
+                        '<textarea rows="4" cols="50" name="analisisMB[' + contadorFilasMB + '][criterio]" required></textarea>',
+                        '<button type="button" class="btn-eliminar">Eliminar</button>'
+                        
+                    ]).draw(false);
+                    contadorFilasMB++;
+                    } else {
+                        console.error('Error: La tabla no está inicializada.');
+                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
+                    }
+                });
+            $("#boton_agrega_analisisMB").show();
+        }
+        else {
+            
+        }
+    }
+    $('#analisisMB').on('click', '.btn-eliminar', function () {
+    var tablaMB = $('#analisisMB').DataTable();
+    tablaMB.row($(this).parents('tr')).remove().draw();
+});
+function calcularProximaRenovacion() {
+        var fechaEdicion = $('#fechaEdicion').val();
+        var añosVigencia = $('#vigencia').val();
+        var proximaRenovacionContainer = $('#proximaRenovacion').closest('.form-group');
 
-    // Event listener para el botón de detalles
-    $('#listadoEspecProductos tbody').on('click', 'td.details-control', function() {
-        var tr = $(this).closest('tr');
-        var row = table.row(tr);
-
-        if (row.child.isShown()) {
-            // Esta fila ya está abierta - ciérrala
-            row.child.hide();
-            tr.removeClass('shown');
+        if (fechaEdicion && añosVigencia) {
+            var fechaEdicionDate = new Date(fechaEdicion);
+            fechaEdicionDate.setFullYear(fechaEdicionDate.getFullYear() + parseInt(añosVigencia));
+            $('#proximaRenovacion').val(fechaEdicionDate.toISOString().split('T')[0]);
+            proximaRenovacionContainer.show();
         } else {
-            // Abre esta filaQ
-            row.child(format(row.data())).show(); // Aquí llamas a la función que formatea el contenido expandido
-            tr.addClass('shown');
+            proximaRenovacionContainer.hide();
+        }
+    }
+
+    $('#vigencia').on('change', calcularProximaRenovacion);
+
+document.getElementById('guardar').addEventListener('click', function(e) {
+    if (!validarFormulario()) {
+        e.preventDefault(); // Previene el envío del formulario si la validación falla
+    }
+});
+
+function validarFormulario() {
+    var valido = true;
+    var mensaje = '';
+
+    // Validación para el campo 'Tipo de Producto'
+    if (document.forms[0]["Tipo_Producto"].value.trim() === '') {
+        mensaje += 'El campo "Tipo de Producto" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Producto'
+    if (document.forms[0]["producto"].value.trim() === '') {
+        mensaje += 'El campo "Producto" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Concentración'
+    if (document.forms[0]["concentracion"].value.trim() === '') {
+        mensaje += 'El campo "Concentración" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Formato'
+    if (document.forms[0]["formato"].value.trim() === '') {
+        mensaje += 'El campo "Formato" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Elaborado por'
+    if (document.forms[0]["elaboradoPor"].value.trim() === '') {
+        mensaje += 'El campo "Elaborado por" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Número de documento'
+    if (document.forms[0]["documento"].value.trim() === '') {
+        mensaje += 'El campo "Número de documento" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Fecha edición'
+    if (document.forms[0]["fechaEdicion"].value.trim() === '') {
+        mensaje += 'El campo "Fecha edición" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Versión'
+    if (document.forms[0]["version"].value.trim() === '') {
+        mensaje += 'El campo "Versión" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para el campo 'Vigencia'
+    if (document.forms[0]["vigencia"].value.trim() === '') {
+        mensaje += 'El campo "Vigencia" es obligatorio.\n';
+        valido = false;
+    }
+
+    // Validación para análisis Físico-Químicos
+    $('#analisisFQ').find('tbody tr').each(function() {
+        var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
+        var metodologia = $(this).find('select[name*="[metodologia]"]').val();
+        var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+
+        if (tipo === '' || metodologia === '' || criterio.trim() === '') {
+            mensaje += 'Todos los campos de Análisis Físico-Químicos son obligatorios en cada fila.\n';
+            valido = false;
+            // No es necesario salir del bucle ya que queremos validar todas las filas
         }
     });
 
-    // Función para formatear el contenido expandido
-    function format(d) {
-        // `d` es el objeto de datos original para la fila
-        // Construye aquí tu contenido HTML para las acciones y secciones de análisis
-        return '<table background-color:#F6F6F6; color:#FFF; cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-            '<tr><td VALIGN=TOP>Acciones</td>' +
-                '<td>' +
-                    '<button title="Revisar Especificación" type="button" id="' + d.id + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>' +
-                    '<button title="Generar documento" type="button" id="' + d.id + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>' +
-                    '<button title="Editar" type="button" id="' + d.id + '" name="editar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-edit"></i></button><a> </a>' +
-                '</td>' +
-            '</tr>' +
-        '</table>';
+    // Validación para análisis Microbiológicos
+    $('#analisisMB').find('tbody tr').each(function() {
+        var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
+        var metodologia = $(this).find('select[name*="[metodologia]"]').val();
+        var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+
+        if (tipo === '' || metodologia === '' || criterio.trim() === '') {
+            mensaje += 'Todos los campos de Análisis Microbiológicos son obligatorios en cada fila.\n';
+            valido = false;
+            // No es necesario salir del bucle ya que queremos validar todas las filas
+        }
+    });
+    if (!valido) {
+        alert(mensaje);
     }
+
+    return valido;
 }
+
 
 </script>
