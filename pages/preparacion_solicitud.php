@@ -42,6 +42,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Tipo de Producto:</label>
                         <input type="text" placeholder="Producto Terminado" >
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Código Producto:</label>
                         <input type="text" placeholder="12345" >
@@ -52,6 +53,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Producto:</label>
                         <input type="text" placeholder="Ácido Ascórbico" >
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Concentración:</label>
                         <input type="text" placeholder="1g / 10 ml" >
@@ -62,6 +64,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Formato:</label>
                         <input type="text" placeholder="Ampolla" >
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Elaborado por:</label>
                         <input type="text" placeholder="Reccius" >
@@ -72,9 +75,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Serie o Lote:</label>
                         <input type="text" placeholder="100" >
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Elaboracion:</label>
-                        <input type="date" placeholder="06-07-2023" >
+                        <input type="date" placeholder="06-07-2023" style="width: 82.75%;" >
                     </div>
                 </div>
                 <div class="form-row">
@@ -82,9 +86,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Tamaño Lote:</label>
                         <input type="text" placeholder="100" >
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input type="date" placeholder="06-07-2023" >
+                        <input type="date" placeholder="06-07-2023"  style="width: 82.75%;">
                     </div>
                 </div>
             </fieldset>
@@ -98,9 +103,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Laboratorio Analista:</label>
                         <input type="text" placeholder="CEQUC">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Solicitud:</label>
-                        <input type="date" placeholder="06-07-2023">
+                        <input type="date" placeholder="06-07-2023" style="width: 82.75%;">
                     </div>
                 </div>
                 <div class="form-row">
@@ -108,9 +114,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Análisis según:</label>
                         <input type="text" placeholder="Cotización">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Cotización:</label>
-                        <input type="date" placeholder="06-07-2023">
+                        <input type="date" placeholder="06-07-2023" style="width: 82.75%;">
                     </div>
                 </div>
                 <div class="form-row">
@@ -123,6 +130,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </select>
 
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Adjunta Hoja de seguridad</label>
                         <input type="text" placeholder="No">
@@ -131,8 +139,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Entrega Estimada:</label>
-                        <input type="date" placeholder="06-07-2023">
+                        <input type="date" placeholder="06-07-2023" style="width: 82.75%;">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>N* Documento:</label>
                         <input type="text" placeholder="123456">
@@ -143,6 +152,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Otro:</label>
                         <input type="text" placeholder="">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Otro:</label>
                         <input type="text" placeholder="">
@@ -151,7 +161,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Version:</label>
-                        <input type="text" placeholder="001" style="width: 39.5%;">
+                        <input type="text" placeholder="001" style="width: 38.75%;">
                     </div>
 
                 </div>
@@ -166,6 +176,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Condiciones Almacenamiento:</label>
                         <input type="text" placeholder="Lugar fresco y seco">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Presentacion:</label>
                         <input type="text" placeholder="Ampolla Vidrio Ámbar Tipo I 10ml" >
@@ -176,6 +187,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Tipo Análisis:</label>
                         <input type="text" placeholder="Análisis de rutina">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Registro ISP:</label>
                         <input type="text" placeholder="RF XIII 06/18" >
@@ -186,6 +198,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Cantidad Muestra:</label>
                         <input type="text" placeholder="50 Ampolla">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado por:</label>
                         <input type="text" placeholder="Macarena Godoy" >
@@ -196,6 +209,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Cantidad Contra-muestra:</label>
                         <input type="text" placeholder="100 Ampolla">
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
                         <input type="text" placeholder="DCAL-CC-PO-007" >
