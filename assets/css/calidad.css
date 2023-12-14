@@ -1,100 +1,282 @@
 .form-container {
     max-width: 100%;
+    /* Ajusta según el diseño */
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 0 auto 50px; /* Centrado y margen inferior agregado */
-    /* Se eliminó el margin-left ya que margin: auto centra el contenedor */
+    margin-left: 50px;
+    /* Centrar el formulario */
+    margin-right: auto;
+    /* Centrar el formulario */
 }
 
-/* Estilos para títulos dentro del form-container para mayor especificidad */
-.form-container h1, 
-.form-container h2.section-title {
-    text-align: center;
-    color: #333333; /* Unificado el color de los títulos */
-    margin-bottom: 20px;
-}
+/* ... tus estilos existentes ... */
 
+/* Título y subtítulo con enfoque y coherencia mejorados */
 .form-container h1 {
     font-size: 32px; /* Tamaño grande para el título principal */
     color: #004a99; /* Color del tema para mayor coherencia */
     font-weight: bold; /* Título destacado */
+    margin-bottom: 0.5em; /* Espacio debajo del título */
+    text-align: center; /* Alineación central */
 }
 
 .form-container h2.section-title {
     font-size: 24px; /* Tamaño menor para el subtítulo */
+    color: #333333; /* Color más oscuro para contraste pero no dominante */
+    margin-top: 0; /* Sin margen superior para pegarlo al título */
+    margin-bottom: 1em; /* Espacio antes del contenido */
+    text-align: center; /* Alineación central */
     border-bottom: 2px solid #004a99; /* Línea decorativa debajo del subtítulo */
     display: inline-block; /* Ajusta el ancho al contenido del texto */
     padding-bottom: 0.25em; /* Espacio debajo del texto para no tocar la línea */
 }
 
-/* Estilos para DataTables */
-#listadoEspecProductos {
-    font-family: Arial, sans-serif;
+h1,
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    /* Separa las columnas */
+}
+
+.form-group {
+    flex: 1;
+    /* Cada grupo de formulario toma todo el espacio disponible */
+    margin-right: 10px;
+    /* Añade un margen a la derecha */
+}
+
+.form-group:last-child {
+    margin-right: 0;
+    /* Elimina el margen derecho para el último grupo de formulario */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"]:disabled {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #e9e9e9;
+    /* Fondo para campos deshabilitados */
+
+}
+.select-style {
+    width: 80%; /* Igual al input */
+    padding: 10px; /* Igual al input */
+    border: 1px solid #ccc; /* Igual al input */
+    border-radius: 4px; /* Igual al input */
+    background-color: #ffffff; /* Fondo blanco como el input habilitado */
+    -webkit-appearance: none; /* Desactiva el estilo por defecto en webkit */
+    -moz-appearance: none; /* Desactiva el estilo por defecto en Firefox */
+    appearance: none; /* Desactiva el estilo por defecto */
+    position: relative;
+}
+
+/* Para mostrar la flecha hacia abajo personalizada */
+.select-style {
+    background-image: url('../images/down-arrow.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Ajusta como sea necesario */
+    background-size: 12px; /* Ajusta el tamaño de tu imagen de flecha según sea necesario */
+}
+
+
+.form-group input[type="text"]:enabled {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    /* Fondo para campos deshabilitados */
+
+}
+
+.form-group input[type="email"]:enabled {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    /* Fondo para campos deshabilitados */
+
+}
+
+
+input[type="text"]:disabled {
+    color: #000000;
+    /* Color del texto para campos deshabilitados */
+}
+
+input[type="text"]:enabled {
+    color: #000000;
+    /* Color del texto para campos deshabilitados */
+}
+.analysis-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-#listadoEspecProductos th {
-    background-color: #f2f2f2;
-    color: #333;
-    padding: 10px 15px;
+.analysis-table th,
+.analysis-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
 }
 
-#listadoEspecProductos td {
-    padding: 10px 15px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
-
-#listadoEspecProductos tr:hover {
+.analysis-table th {
     background-color: #f2f2f2;
 }
 
-/* Botones e iconos */
-.action-button {
-    padding: 10px 20px;
-    margin: 5px;
+button {
+    padding: 5px 10px;
+    margin-right: 5px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px; /* Tamaño del texto unificado */
-    transition: background-color 0.3s ease;
 }
 
-.action-button:hover {
+button:last-child {
+    margin-right: 0;
+}
+
+button:hover {
     background-color: #0056b3;
 }
 
-/* Media queries para responsividad */
+.editable {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    /* Agrega otros estilos para que coincidan con tu diseño */
+}
+
+/* Estilo para las celdas de los criterios */
+.criteria-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    /* Puedes ajustar esto según el diseño de tu tabla */
+}
+
+/* Estilo para expandir la celda cuando se edita */
+.criteria-cell textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.criteria-cell .editable {
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    /* Ajusta esto según la altura mínima que prefieras */
+    overflow: hidden;
+    /* Para evitar la barra de desplazamiento innecesaria */
+    resize: none;
+    /* Evitar que el usuario redimensione el área de texto */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.criteria-cell textarea:disabled {
+    background-color: #e9e9e9;
+    color: #6c757d;
+}
+.actions-container {
+    text-align: right; /* Alinea los botones a la derecha */
+    padding: 20px; /* Espaciado alrededor de los botones */
+    background: #f8f9fa; /* Color de fondo del contenedor de acciones */
+    margin-top: 20px; /* Espaciado superior para separar del contenido anterior */
+    border-top: 1px solid #eaeaea; /* Línea separadora opcional */
+}
+
+.action-button {
+    padding: 10px 20px; /* Espaciado interno de los botones */
+    margin-left: 10px; /* Espaciado entre botones */
+    border: none; /* Sin bordes */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor tipo puntero */
+    font-size: 16px; /* Tamaño del texto */
+}
+
+#cancel1 {
+    background-color: #e7ddde; /* Rojo */
+    color: rgb(5, 0, 0); /* Texto blanco */
+}
+
+#continue1 {
+    background-color: rgb(63, 40, 167); /* Verde */
+    color: white; /* Texto blanco */
+}
+/* Asegúrate de añadir estilos para :hover y :focus según necesites */
+.action-button:hover {
+    opacity: 0.9; /* Efecto al pasar el ratón por encima */
+}
+
+
 @media (max-width: 768px) {
-    .form-container {
-        padding: 10px;
-        margin: 10px 0; /* Centrado con margen superior e inferior para móviles */
+    .form-row {
+        flex-direction: column;
     }
 
+    .form-group {
+        margin-right: 0;
+        /* No es necesario el margen en pantallas pequeñas */
+    }
+
+    .form-container {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .analysis-table {
+        font-size: 14px;
+    }
+
+    .form-group input[type="date"] {
+        width: 80%; /* Ajusta el ancho al de su contenedor */
+        padding: 10px; /* Espaciado interno para que el texto no esté pegado a los bordes */
+        margin: 5px 0; /* Espaciado exterior para separar los campos entre sí */
+        display: inline-block; /* Asegura que se comporten como bloques pero en línea */
+        border: 1px solid #ccc; /* Borde gris claro, puedes cambiarlo por el color que prefieras */
+        border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
+        box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
+    }
+}
+
+/* Ajustes de responsividad */
+@media (max-width: 768px) {
     .form-container h1,
     .form-container h2.section-title {
         font-size: 28px; /* Tamaño de título ajustado para dispositivos móviles */
-        /* Se elimina margin-left y margin-right ya que margin: auto ya centra los elementos */
+        margin-left: auto; /* Alineación automática para centrar en el contenedor */
+        margin-right: auto; /* Alineación automática para centrar en el contenedor */
     }
 
     .form-container h2.section-title {
         font-size: 20px; /* Tamaño de subtítulo ajustado para dispositivos móviles */
-    }
-
-    .analysis-table, 
-    .form-group input[type="date"] {
-        font-size: 14px; /* Ajuste de tamaño de fuente para elementos específicos */
-        /* Se eliminan las reglas de width, padding y margin que se definen en el estilo general y no requieren cambios en responsivo */
-    }
-
-    .form-row, 
-    .form-group {
-        flex-direction: column;
-        margin-right: 0; /* Elimina margen derecho en dispositivos móviles */
     }
 }
