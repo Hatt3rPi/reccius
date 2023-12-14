@@ -248,6 +248,13 @@ button:hover {
     display: none;
 }
 
+.divider {
+    background-color: #d3c0c0; /* Código de color para amarillo */
+    width: 1px; /* Ancho de la línea divisora */
+    height: auto; /* Altura automática para que se ajuste al contenedor padre */
+    margin: 0 20px; /* Margen horizontal para separarla del contenido */
+}
+
 
 @media (max-width: 768px) {
     .form-row {

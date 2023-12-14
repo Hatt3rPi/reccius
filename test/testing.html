@@ -7,6 +7,15 @@
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <!-- CSS personalizado específico para esta página -->
     <link rel="stylesheet" href="../assets/css/calidad.css">
+    <style>
+        .divider {
+    background-color: #d3c0c0; /* Código de color para amarillo */
+    width: 1px; /* Ancho de la línea divisora */
+    height: auto; /* Altura automática para que se ajuste al contenedor padre */
+    margin: 0 20px; /* Margen horizontal para separarla del contenido */
+}
+
+    </style>
 </head>
 
 <body>
@@ -29,6 +38,7 @@
                             <option value="Insumo">Insumo</option>
                         </select>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Producto:</label>
                         <input type="text" name="producto" placeholder="Ácido Ascórbico" required>
@@ -39,6 +49,7 @@
                         <label>Concentración:</label>
                         <input type="text" name="concentracion" placeholder="1 g / 10 ml" required>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Formato:</label>
                         <input type="text" name="formato" placeholder="Ingresa formato de presentación" required>
@@ -49,6 +60,7 @@
                         <label>Elaborado por:</label>
                         <input type="text" name="elaboradoPor" Value="Reccius" required>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Número de documento:</label>
                         <input type="text" name="documento" placeholder="ingresa número de documento" required>
@@ -63,6 +75,7 @@
                         <label>Fecha edición:</label>
                         <input type="date" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>" required>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
                         <input type="text" name="version" value="1" required>
@@ -80,6 +93,7 @@
                             <option value="5">5 años</option>
                         </select>
                     </div>
+
                     <div class="form-group form-group-hidden">
                         <label>Próxima renovación:</label>
                         <input type="date" name="proximaRenovacion" readonly>

@@ -53,6 +53,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                             <option value="Insumo">Insumo</option>
                         </select>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Producto:</label>
                         <input type="text" name="producto" placeholder="Ácido Ascórbico" required>
@@ -63,6 +64,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                         <label>Concentración:</label>
                         <input type="text" name="concentracion" placeholder="1 g / 10 ml" required>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Formato:</label>
                         <input type="text" name="formato" placeholder="Ingresa formato de presentación" required>
@@ -73,6 +75,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                         <label>Elaborado por:</label>
                         <input type="text" name="elaboradoPor" Value="Reccius" required>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Número de documento:</label>
                         <input type="text" name="documento" placeholder="ingresa número de documento" required>
@@ -87,6 +90,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                         <label>Fecha edición:</label>
                         <input type="date" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>" required>
                     </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
                         <input type="text" name="version" value="1" required>
@@ -104,6 +108,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                             <option value="5">5 años</option>
                         </select>
                     </div>
+
                     <div class="form-group form-group-hidden">
                         <label>Próxima renovación:</label>
                         <input type="date" name="proximaRenovacion" readonly>
