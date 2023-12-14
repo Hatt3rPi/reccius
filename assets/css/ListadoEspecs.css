@@ -1,12 +1,14 @@
-/* Estilos generales */
 .form-container {
-    max-width: 1200px;
-    margin: auto;
+    max-width: 100%;
+    /* Ajusta según el diseño */
     padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 50px;
+    /* Centrar el formulario */
+    margin-right: auto;
+    /* Centrar el formulario */
 }
-
 /* Títulos y subtítulos */
 h1, h2.section-title {
     color: #333333;
