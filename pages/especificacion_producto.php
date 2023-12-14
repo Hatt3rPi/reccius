@@ -40,12 +40,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
         border-radius: 4px; /* Bordes redondeados para suavizar la apariencia */
         box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho total */
     }
-    .section-title {
-            font-weight: bold;  /* Negrita */
-            text-decoration: underline;  /* Subrayado */
-            text-align: left;  /* Alineación a la izquierda */
-            margin-top: 20px;  /* Espaciado superior para separación */
-        }
+
     .form-group-hidden {
         display: none;
     }
