@@ -272,7 +272,7 @@ function carga_tablaMB(id = null, accion = null) {
         } else if (accion === 'editar') {
         // Cargar la tabla con datos para la edición
         tablaMB = new DataTable('#analisisMB', {
-            "ajax": './backend/calidad/listado_analisis_por_espeficacion.php?id_especificacion=' + id,
+            "ajax": './backend/calidad/listado_analisis_por_espeficacion.php?id=' + id,
             "columns": [
                 { "data": "descripcion_analisis", "title": "Análisis" },
                 { "data": "metodologia", "title": "Metodología" },

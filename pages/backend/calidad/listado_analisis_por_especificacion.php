@@ -2,9 +2,9 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-
+$id=$_GET['token'];
 // Consulta para obtener las especificaciones de productos
-$query = "SELECT 
+$stmt = mysqli_prepare($link, "SELECT 
 can.id_analisis, 
 can.id_especificacion_producto, 
 cp.id as id_producto, 
@@ -14,9 +14,12 @@ can.metodologia,
 can.criterios_aceptacion 
 FROM calidad_productos as cp 
 INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
-INNER JOIN calidad_analisis as can on cep.id_especificacion=can.id_especificacion_producto;";
+INNER JOIN calidad_analisis as can on cep.id_especificacion=can.id_especificacion_producto
+WHERE cp.id=?;");
+mysqli_stmt_bind_param($stmt, "i", $id);
 
-$result = $link->query($query);
+
+$result = mysqli_stmt_execute($stmt);
 
 $data = [];
 
