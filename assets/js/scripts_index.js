@@ -202,6 +202,7 @@ function botones(id, accion, base) {
                     });
                     
                     console.log('Proceso finalizado');
+                    break;
                 }
                 case "generar_documento": {
                         $.redirect('DocumentsEspecs2.html', {
