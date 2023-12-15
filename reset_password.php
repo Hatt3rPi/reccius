@@ -78,26 +78,123 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
 <head>
     <meta charset="UTF-8">
     <title>Restablecer Contraseña</title>
-    <!-- Añadir CSS si es necesario -->
+    <style>
+        /* Estilos proporcionados previamente */
+        :root {
+            --opacity-background: 0.5;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../assets/images/fondo_login.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            opacity: var(--opacity-background);
+            z-index: -1;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 1);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        @media (max-width: 600px) {
+            .login-container {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .login-form label {
+            margin-bottom: 0.3125rem; /* 5px */
+            font-weight: bold;
+        }
+        .login-form input {
+            padding: 0.625rem; /* 10px */
+            margin-bottom: 0.625rem; /* 10px */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-form button {
+            padding: 0.625rem; /* 10px */
+            background-color: #5e4ad9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #473cbd;
+        }
+        .login-header {
+            text-align: center;
+        }
+        .login-header .logo {
+            display: block;
+            margin: 0 auto;
+        }
+        .logo {
+            max-width: 300px;
+            height: auto;
+        }
+        .separator {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 10px 0;
+        }
+        .error-message {
+            color: #ff0000; /* Rojo */
+            background-color: #ffecec; /* Fondo rojo claro */
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <?php if ($error): ?>
-        <p>Error: <?php echo $error; ?></p>
-    <?php endif; ?>
-
-    <?php if ($success): ?>
-        <p><?php echo $success; ?></p>
-    <?php else: ?>
-
-        <?php if ($mostrarFormulario): ?>
-            <form action="reset_password.php" method="post">
-                <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
-                <label for="nuevaContrasena">Nueva Contraseña:</label>
-                <input type="password" id="nuevaContrasena" name="nuevaContrasena" required>
-                <button type="submit" name="reset_password">Restablecer Contraseña</button>
-            </form>
+    <div class="login-container">
+        <?php if ($error): ?>
+            <div class="error-message">Error: <?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
-    <?php endif; ?>
+        <?php if ($success): ?>
+            <p><?php echo htmlspecialchars($success); ?></p>
+        <?php else: ?>
+            <?php if ($mostrarFormulario): ?>
+                <form class="login-form" action="reset_password.php" method="post">
+                    <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
+                    <label for="nuevaContrasena">Nueva Contraseña:</label>
+                    <input type="password" id="nuevaContrasena" name="nuevaContrasena" required>
+                    <button type="submit" name="reset_password">Restablecer Contraseña</button>
+                </form>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
 </body>
 </html>
