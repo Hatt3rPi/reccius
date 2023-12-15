@@ -190,6 +190,7 @@ function botones(id, accion, base) {
                              }, // Datos que se enviarán con la solicitud
                         success: function(response) {
                             // Esta función se ejecuta cuando la solicitud es exitosa
+                            console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
                             carga_tablaFQ(); // Llama a tus funciones adicionales
                             carga_tablaMB();
