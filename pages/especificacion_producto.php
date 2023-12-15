@@ -146,29 +146,29 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
 
 </html>
 <script>
-function carga_tablaFQ() {
-    var esNuevo = <?php echo json_encode($esNuevo); ?>;
-    if (esNuevo) {
-        var tablaFQ = new DataTable('#analisisFQ', {
-                "paging": false,  // Desactiva la paginación
-                "info": false,    // Oculta el texto "Showing 1 to X of X entries"
-                "searching": false,  // Desactiva la búsqueda
-                "lengthChange": false, // Oculta el selector "Show X entries"
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                },
-                columns: [
-                    { title: 'Análisis' },
-                    { title: 'Metodología' },
-                    { title: 'Criterio aceptación' }, 
-                    { title: 'Acciones' }
-                ]
-            });
-            var contadorFilasFQ = 0;
-            $('#boton_agrega_analisisFQ').on('click', function() {
-                // Verificar si la tabla se cargó correctamente antes de agregar filas
-                if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-                    tablaFQ.row.add([
+function carga_tablaFQ(id = null, accion = null) {
+    var tablaFQ;
+        if (id===null) {
+            var tablaFQ = new DataTable('#analisisFQ', {
+                    "paging": false,  // Desactiva la paginación
+                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
+                    "searching": false,  // Desactiva la búsqueda
+                    "lengthChange": false, // Oculta el selector "Show X entries"
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                    },
+                    columns: [
+                        { title: 'Análisis' },
+                        { title: 'Metodología' },
+                        { title: 'Criterio aceptación' }, 
+                        { title: 'Acciones' }
+                    ]
+                });
+                var contadorFilasFQ = 0;
+                $('#boton_agrega_analisisFQ').on('click', function() {
+                    // Verificar si la tabla se cargó correctamente antes de agregar filas
+                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                        tablaFQ.row.add([
                     '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" required>' +
                         '<option value="">Selecciona un análisis</option>' +
                         '<option value="Apariencia">Apariencia</option>' +
@@ -192,7 +192,6 @@ function carga_tablaFQ() {
                     '</select>',
                     '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
                     '<button type="button" class="btn-eliminar">Eliminar</button>'
-                    
                 ]).draw(false);
                 contadorFilasFQ++;
                 } else {
@@ -201,22 +200,37 @@ function carga_tablaFQ() {
                 }
             });
         $("#boton_agrega_analisisFQ").show();
-    }
-    else {
-        $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
-        if (status == "error") {
-            console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
-            alert("Error al cargar la tabla. Revise la consola para más detalles.");
-            return;
-        }
-        try {
-            // Intentar inicializar DataTables
-            var tabla = $('#analisisFQ').DataTable();
-        } catch (error) {
-            console.error('Error al inicializar la tabla: ', error);
-            alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
-        }
-    });
+        } else if (accion === 'editar') {
+        // Cargar la tabla con datos para la edición
+        tablaFQ = new DataTable('#analisisFQ', {
+            "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_FQ',
+            "columns": [
+                { "data": "descripcion_analisis", "title": "Análisis" },
+                { "data": "metodologia", "title": "Metodología" },
+                { "data": "criterios_aceptacion", "title": "Criterio aceptación" }
+            //,
+               // {
+               //    "data": null,
+               //     "defaultContent": '<button type="button" class="btn-eliminar">Eliminar</button>',
+               //     "title": "Acciones"
+               // }
+            ],
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "lengthChange": false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            }
+        });
+
+        // Evento para el botón eliminar en la tabla de edición
+        $('#analisisFQ').on('click', '.btn-eliminar', function () {
+            tablaFQ.row($(this).parents('tr')).remove().draw();
+        });
+
+        // Ocultar el botón de agregar análisis, si es necesario
+        $("#boton_agrega_analisisFQ").hide();
     }
 }
 $('#analisisFQ').on('click', '.btn-eliminar', function () {
@@ -272,7 +286,7 @@ function carga_tablaMB(id = null, accion = null) {
         } else if (accion === 'editar') {
         // Cargar la tabla con datos para la edición
         tablaMB = new DataTable('#analisisMB', {
-            "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id,
+            "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_MB',
             "columns": [
                 { "data": "descripcion_analisis", "title": "Análisis" },
                 { "data": "metodologia", "title": "Metodología" },

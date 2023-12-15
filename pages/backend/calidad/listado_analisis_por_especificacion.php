@@ -4,7 +4,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Validación y saneamiento del ID
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
+$analisis = isset($_GET['analisis']) ? intval($_GET['analisis']) : 0;
 // Preparar la consulta
 $stmt = mysqli_prepare($link, "SELECT 
 can.id_analisis, 
@@ -17,10 +17,10 @@ can.criterios_aceptacion
 FROM calidad_productos as cp 
 INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
 INNER JOIN calidad_analisis as can on cep.id_especificacion=can.id_especificacion_producto
-WHERE cp.id = ?");
+WHERE cp.id = ? and tipo_analisis= ? ;");
 
 // Enlazar parámetro
-mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_bind_param($stmt, "is", $id, $analisis);
 
 // Ejecutar la consulta
 mysqli_stmt_execute($stmt);
