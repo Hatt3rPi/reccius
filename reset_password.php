@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('../assets/images/fondo_login.png');
+            background-image: url('./assets/images/fondo_login.png');
             background-size: cover;
             background-position: center;
             filter: blur(8px);
