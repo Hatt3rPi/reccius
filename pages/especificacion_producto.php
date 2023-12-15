@@ -146,86 +146,86 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
 
 </html>
 <script>
-    function carga_tablaFQ() {
-        var esNuevo = <?php echo json_encode($esNuevo); ?>;
-        if (esNuevo) {
-            var tablaFQ = new DataTable('#analisisFQ', {
-                    "paging": false,  // Desactiva la paginación
-                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
-                    "searching": false,  // Desactiva la búsqueda
-                    "lengthChange": false, // Oculta el selector "Show X entries"
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                    },
-                    columns: [
-                        { title: 'Análisis' },
-                        { title: 'Metodología' },
-                        { title: 'Criterio aceptación' }, 
-                        { title: 'Acciones' }
-                    ]
-                });
-                var contadorFilasFQ = 0;
-                $('#boton_agrega_analisisFQ').on('click', function() {
-                    // Verificar si la tabla se cargó correctamente antes de agregar filas
-                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-                        tablaFQ.row.add([
-                        '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" required>' +
-                            '<option value="">Selecciona un análisis</option>' +
-                            '<option value="Apariencia">Apariencia</option>' +
-                            '<option value="Identificación">Identificación</option>' +
-                            '<option value="Valoración">Valoración</option>' +
-                            '<option value="Contenido">Contenido</option>' +
-                            '<option value="pH">pH</option>' +
-                            '<option value="Densidad">Densidad</option>' +
-                            '<option value="Osmolaridad">Osmolaridad</option>' +
-                            '<option value="Límite de Oxalato">Límite de Oxalato</option>' +
-                            '<option value="Volumen extraíble">Volumen extraíble</option>' +
-                            '<option value="Material Sub particulado">Material Sub particulado</option>' +
-                            '<option value="Material Particulado">Material Particulado</option>' +
-                            '<option value="Otro">Otro</option>' +
-                        '</select>',
-                        '<select name="analisisFQ[' + contadorFilasFQ + '][metodologia]" required>' +
-                            '<option value="">Selecciona metodología</option>' +
-                            '<option value="Interno">Interno</option>' +
-                            '<option value="USP">USP</option>' +
-                            '<option value="Otro">Otro</option>' +
-                        '</select>',
-                        '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
-                        '<button type="button" class="btn-eliminar">Eliminar</button>'
-                        
-                    ]).draw(false);
-                    contadorFilasFQ++;
-                    } else {
-                        console.error('Error: La tabla no está inicializada.');
-                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
-                    }
-                });
-            $("#boton_agrega_analisisFQ").show();
-        }
-        else {
-            $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
-            if (status == "error") {
-                console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
-                alert("Error al cargar la tabla. Revise la consola para más detalles.");
-                return;
-            }
-            try {
-                // Intentar inicializar DataTables
-                var tabla = $('#analisisFQ').DataTable();
-            } catch (error) {
-                console.error('Error al inicializar la tabla: ', error);
-                alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
-            }
-        });
-        }
+function carga_tablaFQ() {
+    var esNuevo = <?php echo json_encode($esNuevo); ?>;
+    if (esNuevo) {
+        var tablaFQ = new DataTable('#analisisFQ', {
+                "paging": false,  // Desactiva la paginación
+                "info": false,    // Oculta el texto "Showing 1 to X of X entries"
+                "searching": false,  // Desactiva la búsqueda
+                "lengthChange": false, // Oculta el selector "Show X entries"
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                },
+                columns: [
+                    { title: 'Análisis' },
+                    { title: 'Metodología' },
+                    { title: 'Criterio aceptación' }, 
+                    { title: 'Acciones' }
+                ]
+            });
+            var contadorFilasFQ = 0;
+            $('#boton_agrega_analisisFQ').on('click', function() {
+                // Verificar si la tabla se cargó correctamente antes de agregar filas
+                if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                    tablaFQ.row.add([
+                    '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" required>' +
+                        '<option value="">Selecciona un análisis</option>' +
+                        '<option value="Apariencia">Apariencia</option>' +
+                        '<option value="Identificación">Identificación</option>' +
+                        '<option value="Valoración">Valoración</option>' +
+                        '<option value="Contenido">Contenido</option>' +
+                        '<option value="pH">pH</option>' +
+                        '<option value="Densidad">Densidad</option>' +
+                        '<option value="Osmolaridad">Osmolaridad</option>' +
+                        '<option value="Límite de Oxalato">Límite de Oxalato</option>' +
+                        '<option value="Volumen extraíble">Volumen extraíble</option>' +
+                        '<option value="Material Sub particulado">Material Sub particulado</option>' +
+                        '<option value="Material Particulado">Material Particulado</option>' +
+                        '<option value="Otro">Otro</option>' +
+                    '</select>',
+                    '<select name="analisisFQ[' + contadorFilasFQ + '][metodologia]" required>' +
+                        '<option value="">Selecciona metodología</option>' +
+                        '<option value="Interno">Interno</option>' +
+                        '<option value="USP">USP</option>' +
+                        '<option value="Otro">Otro</option>' +
+                    '</select>',
+                    '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
+                    '<button type="button" class="btn-eliminar">Eliminar</button>'
+                    
+                ]).draw(false);
+                contadorFilasFQ++;
+                } else {
+                    console.error('Error: La tabla no está inicializada.');
+                    alert('Error al cargar la tabla. Por favor, intente de nuevo.');
+                }
+            });
+        $("#boton_agrega_analisisFQ").show();
     }
-    $('#analisisFQ').on('click', '.btn-eliminar', function () {
+    else {
+        $("#contenedor_analisisFQ").load("./backend/calidad/datatables_analisis.html", function(response, status, xhr) {
+        if (status == "error") {
+            console.error("Error al cargar el archivo: ", xhr.status, xhr.statusText);
+            alert("Error al cargar la tabla. Revise la consola para más detalles.");
+            return;
+        }
+        try {
+            // Intentar inicializar DataTables
+            var tabla = $('#analisisFQ').DataTable();
+        } catch (error) {
+            console.error('Error al inicializar la tabla: ', error);
+            alert('Error al cargar la tabla. Por favor, revise la consola para más detalles.');
+        }
+    });
+    }
+}
+$('#analisisFQ').on('click', '.btn-eliminar', function () {
     var tablaFQ = $('#analisisFQ').DataTable();
     tablaFQ.row($(this).parents('tr')).remove().draw();
 });
 function carga_tablaMB(id = null, accion = null) {
     var tablaMB;
-    if (id === null || accion !== 'editar') {
+        if (id===null) {
             var tablaMB = new DataTable('#analisisMB', {
                     "paging": false,  // Desactiva la paginación
                     "info": false,    // Oculta el texto "Showing 1 to X of X entries"
@@ -263,7 +263,13 @@ function carga_tablaMB(id = null, accion = null) {
                         
                     ]).draw(false);
                     contadorFilasMB++;
-    } else if (accion === 'editar') {
+                    } else {
+                        console.error('Error: La tabla no está inicializada.');
+                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
+                    }
+                });
+            $("#boton_agrega_analisisMB").show();
+        } else if (accion === 'editar') {
         // Cargar la tabla con datos para la edición
         tablaMB = new DataTable('#analisisMB', {
             "ajax": './backend/calidad/listado_analisis_por_espeficacion.php?id_especificacion=' + id,
