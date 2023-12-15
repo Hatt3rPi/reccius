@@ -1,13 +1,84 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restablecer Contraseña - Reccius</title>
-    <link rel="stylesheet" href="../assets/css/RestablecerContraseña.css">
+    <style>
+        :root {
+            --opacity-background: 0.5;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../assets/images/fondo_login.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            opacity: var(--opacity-background);
+            z-index: -1;
+        }
+        .forgot-password-container {
+            background-color: rgba(255, 255, 255, 1);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .forgot-password-container {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+        .forgot-password-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .forgot-password-form input {
+            padding: 0.625rem; /* 10px */
+            margin-bottom: 0.625rem; /* 10px */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%; /* Ajuste para que los campos sean de ancho completo */
+        }
+        .forgot-password-form button {
+            padding: 0.625rem; /* 10px */
+            background-color: #5e4ad9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%; /* Ajuste para que el botón sea de ancho completo */
+        }
+        .forgot-password-form button:hover {
+            background-color: #473cbd;
+        }
+        .forgot-password-container h2 {
+            margin-bottom: 20px;
+        }
+        .forgot-password-container p {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-
 <body>
     <div class="forgot-password-container">
         <h2>Restablecer Contraseña</h2>
@@ -18,5 +89,4 @@
         </form>
     </div>
 </body>
-
 </html>

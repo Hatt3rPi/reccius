@@ -1,97 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<link rel="stylesheet" href="./testings.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña</title>
+    <style>
+        :root {
+            --opacity-background: 0.5;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../assets/images/fondo_login.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            opacity: var(--opacity-background);
+            z-index: -1;
+        }
+        .message-container {
+            background-color: rgba(255, 255, 255, 1);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+        .error-message {
+            color: #ff0000; /* Rojo */
+            background-color: #ffecec; /* Fondo rojo claro */
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .success-message {
+            color: #28a745; /* Verde */
+            background-color: #e6ffe6; /* Fondo verde claro */
+            border: 1px solid #28a745;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="form-container">
-        <h1>Calidad / Listado Especificaciones de Productos</h1>
-            <br>
-            <br>
-            <h2 class="section-title">Listado Especificaciones de Productos:</h2>
-            <div id="contenedor_listadoEspecProductos">
-                <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th></th> <!-- Columna vacía para botones o checkboxes -->
-                            <th>Estado</th>
-                            <th>Documento</th>
-                            <th>Producto</th>
-                            <th>Tipo producto</th>
-                            <th>Concentración</th>
-                            <th>Formato</th>
-                            <th>Producido por</th>
-                            <th>Fecha expiración</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Los datos dinámicos de la tabla se insertarán aquí -->
-                    </tbody>
-                </table>
-            </div>
+    <div class="message-container">
+        <?php if ($error): ?>
+            <div class="error-message">Error: <?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+
+        <?php if ($success): ?>
+            <div class="success-message">Restablecer Contraseña<?php echo htmlspecialchars($success); ?></div>
+        <?php endif; ?>
     </div>
 </body>
-
 </html>
-<script>
-
-function carga_listadoEspecificacionesProductos() {
-    var table = $('#listadoEspecProductos').DataTable({
-        "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
-        language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                    },
-        "columns": [
-            {
-                "className": 'details-control',
-                "orderable": false,
-                "data": null,
-                "defaultContent": '<i class="fas fa-search-plus"></i>',
-                "width": "5%"
-            },
-            { "data": "estado", "title": "Estado" }, // Asegúrate de que 'estado' es un campo en tu base de datos.
-            { "data": "documento", "title": "Documento" },
-            { "data": "producto", "title": "Producto" },
-            { "data": "tipo_producto", "title": "Tipo producto" },
-            { "data": "concentracion", "title": "Concentración" },
-            { "data": "formato", "title": "Formato" },
-            { "data": "elaborado_por", "title": "Producido por" },
-            { "data": "fecha_expiracion", "title": "Fecha expiración" }
-        ],
-        // ... otras opciones de DataTables ...
-    });
-
-    // Event listener para el botón de detalles
-    $('#listadoEspecProductos tbody').on('click', 'td.details-control', function() {
-        var tr = $(this).closest('tr');
-        var row = table.row(tr);
-
-        if (row.child.isShown()) {
-            // Esta fila ya está abierta - ciérrala
-            row.child.hide();
-            tr.removeClass('shown');
-        } else {
-            // Abre esta filaQ
-            row.child(format(row.data())).show(); // Aquí llamas a la función que formatea el contenido expandido
-            tr.addClass('shown');
-        }
-    });
-
-    // Función para formatear el contenido expandido
-    function format(d) {
-        // `d` es el objeto de datos original para la fila
-        // Construye aquí tu contenido HTML para las acciones y secciones de análisis
-        return '<table background-color:#F6F6F6; color:#FFF; cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-            '<tr><td VALIGN=TOP>Acciones</td>' +
-                '<td>' +
-                    '<button title="Revisar Especificación" type="button" id="' + d.id + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>' +
-                    '<button title="Generar documento" type="button" id="' + d.id + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>' +
-                    '<button title="Editar" type="button" id="' + d.id + '" name="editar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-edit"></i></button><a> </a>' +
-                '</td>' +
-            '</tr>' +
-        '</table>';
-    }
-}
-
-</script>
