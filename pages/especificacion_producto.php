@@ -16,6 +16,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 if (isset($_POST['accion']) && isset($_POST['id'])){
     echo 'proviene de listado. Acción: '.$_POST['accion'].' - id: '.$_POST['id'];
+    $id = $_POST['id'];
+    $accion = $_POST['accion'];
     $esNuevo = 'false';
 }else {
     $esNuevo = 'true';
@@ -222,7 +224,8 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
     tablaFQ.row($(this).parents('tr')).remove().draw();
 });
 function carga_tablaMB(id = null, accion = null) {
-        if (id==null) {
+    var tablaMB;
+    if (id === null || accion !== 'editar') {
             var tablaMB = new DataTable('#analisisMB', {
                     "paging": false,  // Desactiva la paginación
                     "info": false,    // Oculta el texto "Showing 1 to X of X entries"
@@ -260,17 +263,42 @@ function carga_tablaMB(id = null, accion = null) {
                         
                     ]).draw(false);
                     contadorFilasMB++;
-                    } else {
-                        console.error('Error: La tabla no está inicializada.');
-                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
-                    }
-                });
-            $("#boton_agrega_analisisMB").show();
-        }
-        else {
-            
-        }
+    } else if (accion === 'editar') {
+        // Cargar la tabla con datos para la edición
+        tablaMB = new DataTable('#analisisMB', {
+            "ajax": './backend/calidad/listado_analisis_por_espeficacion.php?id_especificacion=' + id,
+            "columns": [
+                { "data": "descripcion_analisis", "title": "Análisis" },
+                { "data": "metodologia", "title": "Metodología" },
+                { "data": "criterios_aceptacion", "title": "Criterio aceptación" }
+            //,
+               // {
+               //    "data": null,
+               //     "defaultContent": '<button type="button" class="btn-eliminar">Eliminar</button>',
+               //     "title": "Acciones"
+               // }
+            ],
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "lengthChange": false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            }
+        });
+
+        // Evento para el botón eliminar en la tabla de edición
+        $('#analisisMB').on('click', '.btn-eliminar', function () {
+            tablaMB.row($(this).parents('tr')).remove().draw();
+        });
+
+        // Ocultar el botón de agregar análisis, si es necesario
+        $("#boton_agrega_analisisMB").hide();
     }
+}
+
+// Asegúrate de llamar a carga_tablaMB con los parámetros adecuados donde corresponda.
+
     $('#analisisMB').on('click', '.btn-eliminar', function () {
     var tablaMB = $('#analisisMB').DataTable();
     tablaMB.row($(this).parents('tr')).remove().draw();
