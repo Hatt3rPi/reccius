@@ -5,6 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
+            cp.id,
             cep.estado, 
             cep .documento, 
             cp.nombre_producto AS producto, 
