@@ -6,11 +6,11 @@ body {
 }
 
 .header {
-    background-color: #EEE;
+    background-color: #ffffff;
     padding: 10px;
     display: flex;
     align-items: center;
-    border-bottom: 3px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 .header-left {
@@ -44,13 +44,6 @@ body {
     text-align: center;
 }
 
-.footer {
-    font-size: 12px;
-    text-align: right;
-    padding: 10px;
-    background-color: #EEE;
-    border-top: 3px solid #000;
-}
 
 .sub-info {
     font-size: 12px;
@@ -69,17 +62,43 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    border: none;
+    /* Elimina todos los bordes externos */
 }
 
-th,
-td {
+th {
+    background-color: #0047b3;
+    /* Un azul oscuro */
+    color: white;
     border: 1px solid #000;
     padding: 8px;
     text-align: left;
 }
 
-th {
-    background-color: #8a90dd;
+th,
+td {
+    border-left: none;
+    /* Elimina los bordes izquierdos de las celdas */
+    border-right: none;
+    /* Elimina los bordes derechos de las celdas */
+    padding: 8px;
+    text-align: left;
+}
+
+/* Para mantener el borde superior e inferior de cada fila */
+tr {
+    border-top: 1px solid #0400ff;
+    border-bottom: 1px solid #050e91;
+}
+
+/* Para el borde superior del primer <tr> que es el <thead> */
+thead tr {
+    border-top: none;
+}
+
+/* Para el borde inferior del último <tr> que es el último <tbody> */
+tbody:last-child tr:last-child {
+    border-bottom: none;
 }
 
 /* Estilos para el título y subtítulo del documento */
@@ -104,48 +123,106 @@ th {
 }
 
 .footer {
-background-color: #EEE;
-padding: 20px 10px; /* Ajusta según sea necesario */
-display: flex;
-justify-content: space-between;
-font-size: 12px;
-border-top: 3px solid #000;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    /* Ajusta según sea necesario */
+    display: flex;
+    justify-content: center;
+    /* Centra las secciones del footer */
+    font-size: 12px;
+    border-top: 2px solid #000;
 }
 
 .footer-section {
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 30%; /* Asegurarse de que coincida con el ancho de .footer-box */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+    /* Añade un margen horizontal para separar las secciones */
 }
 
 .footer-box {
-border: 1px solid #000;
-padding: 10px;
-width: 80%; /* Hacer que tome todo el ancho de .footer-section */
-text-align: center;
+    border: 1px solid #000;
+    padding: 10px;
+    width: 100%;
+    /* Ajusta el ancho para llenar la sección del footer */
+    text-align: center;
 }
 
+/* ... Resto de estilos ... */
+
+
 .footer-box-title {
-margin-bottom: 10px; /* Espacio entre el título y el cuadro */
+    margin-bottom: 10px;
+    /* Espacio entre el título y el cuadro */
 }
 
 .date {
-margin-top: 10px; /* Espacio entre el cuadro y la fecha */
+    margin-top: 10px;
+    /* Espacio entre el cuadro y la fecha */
 }
 
 .signature {
-margin-top: 15px;
+    margin-top: 15px;
 }
+
 /* Estilos existentes */
 
 .footer p {
-margin: 4px 0;
-/* Añadir otros estilos de párrafo según sea necesario */
+    margin: 4px 0;
+    /* Añadir otros estilos de párrafo según sea necesario */
 }
 
 .bold {
-font-weight: bold; /* Hace el texto en negrita */
+    font-weight: bold;
+    /* Hace el texto en negrita */
 }
 
 /* ... */
+/* ... tus otros estilos ... */
+
+/* Establecer ancho máximo para contenido del PDF */
+#content {
+    max-width: 595pt;
+    /* Ancho de una página A4 en puntos */
+    margin: auto;
+    font-family: Arial, sans-serif;
+    /* ... otros estilos ... */
+}
+
+/* ... */
+
+#download-pdf {
+    position: fixed;
+    /* Posición fija en la ventana */
+    bottom: 20px;
+    /* Espaciado desde la parte inferior de la ventana */
+    right: 20px;
+    /* Espaciado desde la parte derecha de la ventana */
+    padding: 15px 30px;
+    /* Espaciado interno del botón */
+    background-color: #0047b3;
+    /* Color de fondo azul */
+    color: white;
+    /* Color de texto blanco */
+    border: none;
+    /* Sin bordes */
+    border-radius: 5px;
+    /* Bordes redondeados */
+    font-size: 18px;
+    /* Tamaño del texto */
+    cursor: pointer;
+    /* Cursor tipo puntero */
+    text-align: center;
+    /* Texto centrado */
+    text-decoration: none;
+    /* Sin subrayado en el texto */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    /* Sombra para el botón */
+}
+
+/* Estilo para el hover del botón */
+#download-pdf:hover {
+    background-color: #003580;
+    /* Color de fondo un poco más oscuro al pasar el mouse */
+}
