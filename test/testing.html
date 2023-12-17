@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificación Producto Terminado</title>
     <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 </head>
+
 <body>
 
-    <div class="header">
+    <div class="header" id="header">
         <div class="header-left">
             <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" />
             <br>
@@ -140,76 +143,122 @@
             </table>
             </table>
         </div>
+    </div>
 
-        <div class="footer">
-            <!-- Sección realizada por -->
-            <div class="footer-section">
-                <div class="footer-box-title">Realizado por:</div>
-                <div class="footer-box">
-                    <p class="bold">QF. Ingar Surname Rodríguez</p>
-                    <p class="bold">Director de Calidad</p>
-                    <div class="signature">[Espacio para la firma]</div>
-                    <p>Firmado digitalmente</p>
-                </div>
-                <div class="date">Fecha: 24/07/2023</div>
+    <div class="footer" id="footer">
+        <!-- Sección realizada por -->
+        <div class="footer-section">
+            <div class="footer-box-title">Realizado por:</div>
+            <div class="footer-box">
+                <p class="bold">QF. Ingar Surname Rodríguez</p>
+                <p class="bold">Director de Calidad</p>
+                <div class="signature">[Espacio para la firma]</div>
+                <p>Firmado digitalmente</p>
             </div>
-
-            <!-- Sección revisada por -->
-            <div class="footer-section">
-                <div class="footer-box-title">Revisado por:</div>
-                <div class="footer-box">
-                    <p class="bold">QF. Cathrine Pereira García</p>
-                    <p class="bold">Jefe de Producción</p>
-                    <p>Ausente por Licencia</p>
-                    <p>Firmado digitalmente</p>
-                </div>
-                <div class="date">Fecha: 24/07/2023</div>
-            </div>
-
-            <!-- Sección aprobada por -->
-            <div class="footer-section">
-                <div class="footer-box-title">Aprobado por:</div>
-                <div class="footer-box">
-                    <p class="bold">QF. Luis Sepúlveda Miranda</p>
-                    <p class="bold">Director Técnico</p>
-                    <div class="signature">[Espacio para la firma]</div>
-                    <p>Firmado digitalmente</p>
-                </div>
-                <div class="date">Fecha: 24/07/2023</div>
-            </div>
+            <div class="date">Fecha: 24/07/2023</div>
         </div>
 
+        <!-- Sección revisada por -->
+        <div class="footer-section">
+            <div class="footer-box-title">Revisado por:</div>
+            <div class="footer-box">
+                <p class="bold">QF. Cathrine Pereira García</p>
+                <p class="bold">Jefe de Producción</p>
+                <p>Ausente por Licencia</p>
+                <p>Firmado digitalmente</p>
+            </div>
+            <div class="date">Fecha: 24/07/2023</div>
+        </div>
 
-        <script>
-            // Asegúrate de que este código se ejecute después de que la página se haya cargado completamente
-            window.onload = function() {
-                document.getElementById('download-pdf').addEventListener('click', function() {
-                    downloadPDF();
-                });
-            };
-    
-            function downloadPDF() {
-                const content = document.getElementById('content');
-                
-                html2canvas(content, { scale: 2 }).then(canvas => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF({
-                        orientation: 'portrait',
-                        unit: 'pt',
-                        format: 'a4'
-                    });
-    
-                    const imgProps = pdf.getImageProperties(imgData);
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                    pdf.save('especificacion-producto.pdf');
-                }).catch(error => {
-                    console.error('Error al crear el canvas:', error);
-                });
-            }
-        </script>
+        <!-- Sección aprobada por -->
+        <div class="footer-section">
+            <div class="footer-box-title">Aprobado por:</div>
+            <div class="footer-box">
+                <p class="bold">QF. Luis Sepúlveda Miranda</p>
+                <p class="bold">Director Técnico</p>
+                <div class="signature">[Espacio para la firma]</div>
+                <p>Firmado digitalmente</p>
+            </div>
+            <div class="date">Fecha: 24/07/2023</div>
+        </div>
+    </div>
+
+
+    <script>
+        window.onload = function () {
+            document.getElementById('download-pdf').addEventListener('click', function () {
+                downloadPDF();
+            });
+        };
+
+        function downloadPDF() {
+    // Asegúrese de que jsPDF esté cargado en el ámbito
+    const { jsPDF } = window.jspdf;
+    const contentElement = document.getElementById('content');
+    const headerElement = document.getElementById('header');
+    const footerElement = document.getElementById('footer');
+
+    if (contentElement && headerElement && footerElement) {
+        // Cree una nueva instancia de jsPDF
+        const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'pt',
+            format: 'a4'
+        });
+
+        // Calcule las posiciones y dimensiones
+        const margin = 10; // Margen en puntos
+        const pdfWidth = pdf.internal.pageSize.getWidth() - 2 * margin;
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const headerHeight = 80; // Ajuste la altura en función de su encabezado
+        const footerHeight = 60; // Ajuste la altura en función de su pie de página
+
+        // Función para añadir contenido al PDF
+        const addContentToPDF = (contentDataUrl) => {
+            // Ajuste estas dimensiones según sea necesario
+            const contentTopMargin = 80; // Ajuste en función de su encabezado
+            const contentBottomMargin = 80; // Ajuste en función de su pie de página
+            pdf.addImage(contentDataUrl, 'PNG', margin, contentTopMargin, pdfWidth, pdfHeight - contentTopMargin - contentBottomMargin);
+        };
+
+        // Función para añadir encabezado y pie de página al PDF
+        const addHeaderFooterToPDF = (headerDataUrl, footerDataUrl) => {
+            pdf.addImage(headerDataUrl, 'PNG', margin, margin, pdfWidth, headerHeight - margin);
+            pdf.addImage(footerDataUrl, 'PNG', margin, pdfHeight - footerHeight, pdfWidth, footerHeight - margin);
+        };
+
+        // Renderice el encabezado, el contenido y el pie de página en canvas usando html2canvas
+        Promise.all([
+            html2canvas(headerElement, { scale: 2, useCORS: true }),
+            html2canvas(contentElement, { scale: 2, useCORS: true }),
+            html2canvas(footerElement, { scale: 2, useCORS: true })
+        ]).then(canvases => {
+            const [headerCanvas, contentCanvas, footerCanvas] = canvases;
+
+            // Convierta los canvas a Data URLs
+            const headerDataUrl = headerCanvas.toDataURL('image/png');
+            const contentDataUrl = contentCanvas.toDataURL('image/png');
+            const footerDataUrl = footerCanvas.toDataURL('image/png');
+
+            // Añada el encabezado, el contenido y el pie de página al PDF
+            addHeaderFooterToPDF(headerDataUrl, footerDataUrl);
+            addContentToPDF(contentDataUrl);
+
+            // Guarde el PDF
+            pdf.save('especificacion-producto.pdf');
+        }).catch(error => {
+            console.error('Error al generar el PDF:', error);
+        });
+    } else {
+        console.error('Uno o más elementos necesarios no están presentes en el DOM.');
+    }
+}
+
+    </script>
+
+
+
+
 
 </body>
 
