@@ -601,5 +601,34 @@ function habilitarEdicionAnalisis(tabla) {
     });
 }
 
+function guardar(){
+    var datosFormulario = $(this).serialize();
+    $.ajax({
+        url: 'backend/calidad/especificacion_productoBE.php',
+        type: 'POST',
+        data: datosFormulario,
+        success: function(data) {
+            var respuesta = JSON.parse(data);
+            if (respuesta.exito) {
+                $('#dynamic-content').load('listado_especificaciones_producto.php', function (response, status, xhr) {
+                    if (status == "error") {
+                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
+                    } else {
+                        console.log('Listado cargado correctamente cargado exitosamente.');
+                        carga_listadoEspecificacionesProductos();
+                        console.log(respuesta.mensaje); // Manejar el error
+                        table.columns(9).search(buscarId).draw();
+                        
+                    }
+                });
+            } else {
+                console.log(respuesta.mensaje); // Manejar el error
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error AJAX: " + error);
+        }
+    });
 
+}
 </script>

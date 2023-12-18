@@ -2,7 +2,8 @@
 
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+$exito=false;
+$mensaje='';
 function limpiarDato($dato) {
     $dato = trim($dato);
     $dato = stripslashes($dato);
@@ -65,21 +66,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_bind_param($stmt2, "issssi", $idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia);
                     if (mysqli_stmt_execute($stmt2)) {
                         //echo "Especificación de producto creada con éxito.";
+                        $exito=true;
                         $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
-                        $_SESSION['alerta'] = "Especificación de producto creada con éxito.";
-                        $_SESSION['buscarEspecificacion'] = $idEspecificacion; // Asumiendo que 'producto' es un campo único o relevante para la búsqueda
+                        $mensaje = "Especificación de producto creada con éxito.";
                     } else {
-                        $_SESSION['alerta'] = "Error al insertar en calidad_especificacion_productos: " . mysqli_error($link);
+                        $mensaje = "Error al insertar en calidad_especificacion_productos: " . mysqli_error($link);
                     }
                     mysqli_stmt_close($stmt2);
                 } else {
-                    $_SESSION['alerta'] = "Error en la preparación de la sentencia de calidad_especificacion_productos: " . mysqli_error($link);
+                    $mensaje = "Error en la preparación de la sentencia de calidad_especificacion_productos: " . mysqli_error($link);
                 }
             } else {
-                $_SESSION['alerta'] = "Error al insertar en calidad_productos: " . mysqli_error($link);
+                $mensaje = "Error al insertar en calidad_productos: " . mysqli_error($link);
             }
         } else {
-            $_SESSION['alerta'] = "Error en la preparación de la sentencia de calidad_productos: " . mysqli_error($link);
+            $mensaje = "Error en la preparación de la sentencia de calidad_productos: " . mysqli_error($link);
         }
         mysqli_stmt_close($stmt);
         
@@ -101,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_execute($stmtAnalisisFQ)) {
                 // Éxito en la inserción
             } else {
-                $_SESSION['alerta'] = "Error al insertar en calidad_analisis para analisis_FQ: " . mysqli_error($link);
+                $mensaje = "Error al insertar en calidad_analisis para analisis_FQ: " . mysqli_error($link);
             }
             mysqli_stmt_close($stmtAnalisisFQ);
         }
@@ -120,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_execute($stmtAnalisisMB)) {
                 // Éxito en la inserción
             } else {
-                $_SESSION['alerta'] = "Error al insertar en calidad_analisis para analisis_MB: " . mysqli_error($link);
+                $mensaje = "Error al insertar en calidad_analisis para analisis_MB: " . mysqli_error($link);
             }
             mysqli_stmt_close($stmtAnalisisMB);
         }
@@ -130,6 +131,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     //echo "Todos los campos son requeridos. ".$error;
 }
-header("Location: ../../listado_especificaciones_producto.php");
+$respuesta = [
+    "exito" => true,
+    "mensaje" => "Especificación de producto creada con éxito.",
+    "idEspecificacion" => $idEspecificacion
+];
+echo json_encode($respuesta);
 exit;
 ?>
