@@ -131,6 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     //echo "Todos los campos son requeridos. ".$error;
 }
+$_SESSION['buscarEspecificacion']=$idEspecificacion;
 $respuesta = [
     "exito" => $exito,
     "mensaje" => $mensaje,

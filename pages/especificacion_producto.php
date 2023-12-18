@@ -604,7 +604,7 @@ function habilitarEdicionAnalisis(tabla) {
 function guardar(){
     
     var datosFormulario = $('#formulario_especificacion').serialize();
-    alert(datosFormulario);
+    //alert(datosFormulario);
     $.ajax({
         url: 'backend/calidad/especificacion_productoBE.php',
         type: 'POST',
@@ -619,7 +619,6 @@ function guardar(){
                         console.log('Listado cargado correctamente cargado exitosamente.');
                         carga_listadoEspecificacionesProductos();
                         console.log(respuesta.mensaje); // Manejar el error
-                        $_SESSION['buscarEspecificacion']=buscarId;
                         //table.columns(9).search(buscarId).draw();
                         
                     }
