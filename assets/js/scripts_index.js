@@ -192,8 +192,7 @@ function botones(id, accion, base) {
                             // Esta función se ejecuta cuando la solicitud es exitosa
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
-                            carga_tablaFQ(id, accion); // Llama a tus funciones adicionales
-                            carga_tablaMB(id, accion);
+                            cargarDatosEspecificacion(id);
                         },
                         error: function(xhr, status, error) {
                             // Esta función se ejecuta en caso de error en la solicitud

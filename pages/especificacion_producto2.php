@@ -436,5 +436,86 @@ function validarFormulario() {
     return valido;
 }
 
+function cargarDatosEspecificacion(id) {
+    $.ajax({
+        url: './backend/calidad/listado_analisis_por_especificacion.php',
+        type: 'GET',
+        data: { id: id },
+        success: function(response) {
+            // Suponiendo que 'response' es el objeto JSON que has mencionado
+            // y que contiene los datos de análisis
+            procesarDatosEspecificacion(response.data);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud: ", status, error);
+        }
+    });
+}
+
+function procesarDatosEspecificacion(data) {
+    var analisisFQ = [];
+    var analisisMB = [];
+
+    data.forEach(function(especificacion) {
+        especificacion.analisis.forEach(function(analisis) {
+            if (analisis.tipo_analisis === 'analisis_FQ') {
+                analisisFQ.push(analisis);
+            } else if (analisis.tipo_analisis === 'analisis_MB') {
+                analisisMB.push(analisis);
+            }
+        });
+    });
+
+    // Aquí, analisisFQ y analisisMB contienen los análisis separados por tipo
+    // Puedes llamar a otras funciones para mostrar estos datos en la UI
+    mostrarAnalisisFQ(analisisFQ);
+    mostrarAnalisisMB(analisisMB);
+}
+
+function mostrarAnalisisFQ(analisis) {
+    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+        $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+    } else {
+        $('#analisisFQ').DataTable({
+            data: analisis,
+            columns: [
+                { title: 'Análisis', data: 'descripcion_analisis' },
+                { title: 'Metodología', data: 'metodologia' },
+                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                // Agrega aquí más columnas si es necesario
+            ],
+            paging: false,
+            info: false,
+            searching: false,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            }
+        });
+    }
+}
+
+function mostrarAnalisisMB(analisis) {
+    if ($.fn.DataTable.isDataTable('#analisisMB')) {
+        $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+    } else {
+        $('#analisisMB').DataTable({
+            data: analisis,
+            columns: [
+                { title: 'Análisis', data: 'descripcion_analisis' },
+                { title: 'Metodología', data: 'metodologia' },
+                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                // Agrega aquí más columnas si es necesario
+            ],
+            paging: false,
+            info: false,
+            searching: false,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            }
+        });
+    }
+}
 
 </script>
