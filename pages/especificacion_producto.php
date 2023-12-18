@@ -94,7 +94,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Vigencia:</label>
-                        <select name="vigencia" id="vigencia" class="select-style" style="width: 82.5%" required>
+                        <select name="periodosVigencia" id="periodosVigencia" class="select-style" style="width: 82.5%" required>
                             <option>Selecciona la vigencia de esta especificación:</option>
                             <option value=1>1 año</option>
                             <option value=2>2 años</option>
@@ -318,7 +318,7 @@ function carga_tablaMB(id = null, accion = null) {
 });
 function calcularProximaRenovacion() {
         var fechaEdicion = $('#fechaEdicion').val();
-        var añosVigencia = $('#vigencia').val();
+        var añosVigencia = $('#periodosVigencia').val();
         var proximaRenovacionContainer = $('#proximaRenovacion').closest('.form-group');
 
         if (fechaEdicion && añosVigencia) {
@@ -331,7 +331,7 @@ function calcularProximaRenovacion() {
         }
     }
 
-    $('#vigencia').on('change', calcularProximaRenovacion);
+    $('#periodosVigencia').on('change', calcularProximaRenovacion);
 
 document.getElementById('guardar').addEventListener('click', function(e) {
     if (!validarFormulario()) {
@@ -392,7 +392,7 @@ function validarFormulario() {
     }
 
     // Validación para el campo 'Vigencia'
-    if (document.forms[0]["vigencia"].value.trim() === '') {
+    if (document.forms[0]["periodosVigencia"].value.trim() === '') {
         mensaje += 'El campo "Vigencia" es obligatorio.\n';
         valido = false;
     }
@@ -501,7 +501,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
         $('input[name="fechaEdicion"]').val(especificacion.fecha_edicion).prop('disabled', true);
         $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
-        $('#vigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
+        $('#periodosVigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
     }
     console.log(producto.tipo_producto);
 }
