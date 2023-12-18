@@ -619,7 +619,8 @@ function guardar(){
                         console.log('Listado cargado correctamente cargado exitosamente.');
                         carga_listadoEspecificacionesProductos();
                         console.log(respuesta.mensaje); // Manejar el error
-                        table.columns(9).search(buscarId).draw();
+                        $_SESSION['buscarEspecificacion']=buscarId;
+                        //table.columns(9).search(buscarId).draw();
                         
                     }
                 });
