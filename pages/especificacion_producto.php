@@ -94,7 +94,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Vigencia:</label>
-                        <select name="periodosVigencia" id="periodosVigencia" class="select-style" style="width: 82.5%" required>
+                        <select name="periodosVigencia" id="periodosVigencia" class="select-style"  style="width: 38.5%" required>
                             <option>Selecciona la vigencia de esta especificación:</option>
                             <option value=1>1 año</option>
                             <option value=2>2 años</option>
