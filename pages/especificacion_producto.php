@@ -31,7 +31,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <body>
     <div class="form-container">
         <h1>Calidad / Crear Especificación de Producto</h1>
-        <form method="POST" >
+        <form method="POST" id="formulario_especificacion" name="formulario_especificacion" >
             <fieldset>
             <br>
             <br>
@@ -602,7 +602,8 @@ function habilitarEdicionAnalisis(tabla) {
 }
 
 function guardar(){
-    var datosFormulario = $(this).serialize();
+    
+    var datosFormulario = $('#formulario_especificacion').serialize();
     alert(datosFormulario);
     $.ajax({
         url: 'backend/calidad/especificacion_productoBE.php',
