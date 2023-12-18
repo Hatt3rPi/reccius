@@ -31,7 +31,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <body>
     <div class="form-container">
         <h1>Calidad / Crear Especificación de Producto</h1>
-        <form method="POST" action="./backend/calidad/especificacion_productoBE.php">
+        <form method="POST" >
             <fieldset>
             <br>
             <br>
@@ -129,7 +129,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             <div class="actions-container">
-                <button type="submit" id="guardar" class="action-button">Guardar Especificación</button>
+                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
 
 
             </div>
@@ -629,6 +629,8 @@ function guardar(){
             console.log("Error AJAX: " + error);
         }
     });
-
 }
+$('#guardar').click(function() {
+        guardar();
+    });
 </script>
