@@ -501,7 +501,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
         $('input[name="fechaEdicion"]').val(especificacion.fecha_edicion).prop('disabled', true);
         $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
-        $('#periodosVigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
+        $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
     }
     console.log(producto.tipo_producto);
 }
