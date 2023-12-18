@@ -514,7 +514,13 @@ function mostrarAnalisisFQ(analisis) {
             columns: [
                 { title: 'Análisis', data: 'descripcion_analisis' },
                 { title: 'Metodología', data: 'metodologia' },
-                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                { title: 'Criterio aceptación', data: 'criterios_aceptacion' },
+                {
+                    title: 'Acciones',
+                    data: null,
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+                }
                 // Agrega aquí más columnas si es necesario
             ],
             paging: false,
@@ -537,8 +543,13 @@ function mostrarAnalisisMB(analisis) {
             columns: [
                 { title: 'Análisis', data: 'descripcion_analisis' },
                 { title: 'Metodología', data: 'metodologia' },
-                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-                // Agrega aquí más columnas si es necesario
+                { title: 'Criterio aceptación', data: 'criterios_aceptacion' },
+                {
+                    title: 'Acciones',
+                    data: null,
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+                }
             ],
             paging: false,
             info: false,
@@ -552,7 +563,7 @@ function mostrarAnalisisMB(analisis) {
 }
 
 $('#editarGenerarVersion').click(function() {
-    // Hacer que los campos del formulario sean editables
+    // Resto del código para habilitar edición del formulario...
     $('#guardar').show();
     $('#Tipo_Producto').prop('disabled', false);
     $('input[name="producto"]').prop('disabled', false);
@@ -562,16 +573,32 @@ $('#editarGenerarVersion').click(function() {
     $('input[name="documento"]').prop('disabled', false);
     $('input[name="fechaEdicion"]').prop('disabled', false).val(new Date().toISOString().split('T')[0]);
     
-    // Mostrar los botones "Agregar análisis"
-    $('#boton_agrega_analisisFQ').show();
-    $('#boton_agrega_analisisMB').show();
-
     // Incrementar la versión en 1 y mantenerla no editable
     var versionActual = parseInt($('input[name="version"]').val()) || 0;
     $('input[name="version"]').val(versionActual + 1);
 
-    // Establecer la fecha de edición al día actual
-    // Esto ya se ha hecho arriba
+    // Hacer visible la columna de acciones en ambas tablas
+    var tablaFQ = $('#analisisFQ').DataTable();
+    var tablaMB = $('#analisisMB').DataTable();
+
+    tablaFQ.column('.acciones').visible(true);
+    tablaMB.column('.acciones').visible(true);
+
+    // Habilitar la adición y eliminación de análisis
+    habilitarEdicionAnalisis(tablaFQ);
+    habilitarEdicionAnalisis(tablaMB);
 });
+
+function habilitarEdicionAnalisis(tabla) {
+    // Ejemplo de cómo habilitar la adición de nuevos análisis
+    $('#boton_agrega_analisis' + tabla.node().id).show();
+
+    // Habilitar la eliminación de análisis existentes
+    // Aquí puedes agregar el código que permite eliminar filas en la tabla
+    tabla.on('click', '.btn-eliminar', function() {
+        tabla.row($(this).parents('tr')).remove().draw();
+    });
+}
+
 
 </script>
