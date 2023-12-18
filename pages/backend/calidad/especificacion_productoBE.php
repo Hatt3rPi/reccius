@@ -132,8 +132,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //echo "Todos los campos son requeridos. ".$error;
 }
 $respuesta = [
-    "exito" => true,
-    "mensaje" => "Especificación de producto creada con éxito.",
+    "exito" => $exito,
+    "mensaje" => $mensaje,
     "idEspecificacion" => $idEspecificacion
 ];
 echo json_encode($respuesta);

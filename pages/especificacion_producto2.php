@@ -603,6 +603,7 @@ function habilitarEdicionAnalisis(tabla) {
 
 function guardar(){
     var datosFormulario = $(this).serialize();
+    alert(datosFormulario);
     $.ajax({
         url: 'backend/calidad/especificacion_productoBE.php',
         type: 'POST',
