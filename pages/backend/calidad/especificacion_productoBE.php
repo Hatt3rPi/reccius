@@ -130,6 +130,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     //echo "Todos los campos son requeridos. ".$error;
 }
-header("Location: ../listado_especificaciones_producto.php");
+header("Location: ../../listado_especificaciones_producto.php");
 exit;
 ?>
