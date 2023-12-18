@@ -120,7 +120,7 @@ function carga_listadoEspecificacionesProductos() {
     // Si se acaba de insertar una nueva especificación, establecer el valor del buscador de DataTables
     <?php if (isset($_SESSION['buscarEspecificacion'])) { ?>
         var buscar = '<?php echo $_SESSION['buscarEspecificacion']; ?>';
-        table.columns(9).search(buscarId).draw();
+        table.columns(9).search(buscar).draw();
         //table.search(buscar).draw();
         <?php unset($_SESSION['buscarEspecificacion']); ?>
     <?php } ?>
