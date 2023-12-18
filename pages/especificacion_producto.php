@@ -94,7 +94,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Vigencia:</label>
-                        <select name="vigencia" style="width: 39.5%;" required>
+                        <select name="vigencia" id="vigencia" class="select-style" style="width: 82.5%" required>
                             <option>Selecciona la vigencia de esta especificación:</option>
                             <option value=1>1 año</option>
                             <option value=2>2 años</option>
@@ -495,13 +495,13 @@ function poblarYDeshabilitarCamposProducto(producto) {
     $('input[name="formato"]').val(producto.formato).prop('disabled', true);
     $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
     // $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
-    $('input[name="documento"]').val('').prop('disabled', true);
+    $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true);
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
-        $('input[name="fechaEdicion"]').val(especificacion.fecha_expiracion).prop('disabled', true);
+        $('input[name="fechaEdicion"]').val(especificacion.fecha_edicion).prop('disabled', true);
         $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
-        $('input[name="vigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
+        $('#vigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
     }
     console.log(producto.tipo_producto);
 }
