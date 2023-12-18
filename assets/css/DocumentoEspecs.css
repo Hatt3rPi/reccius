@@ -226,3 +226,70 @@ tbody:last-child tr:last-child {
     background-color: #003580;
     /* Color de fondo un poco más oscuro al pasar el mouse */
 }
+
+/* ... tus estilos existentes ... */
+
+/* Establecer ancho máximo para el contenido del PDF */
+#additionalContent {
+    box-sizing: border-box; /* Asegúrate de que el padding no afecte el ancho */
+    width: 595pt; /* Ancho de una página A4 en puntos */
+    padding: 20pt; /* Padding para el contenido, ajusta según necesites */
+    margin: auto; /* Centrar el div en la página */
+}
+
+.table-section {
+    box-sizing: border-box; /* Asegúrate de que el padding no afecte el ancho */
+    width: 100%; /* Usa el 100% del ancho de #additionalContent */
+    max-width: 555pt; /* Ancho máximo permitido con padding */
+    padding: 20pt; /* Padding para la sección de la tabla */
+    margin-top: 20pt; /* Espacio arriba de la tabla */
+    margin-bottom: 20pt; /* Espacio debajo de la tabla */
+}
+
+/* Estilos para el título y subtítulo del documento */
+.document-title h2,
+.document-title h3 {
+    text-align: center;
+    margin-top: 10pt; /* Espaciado antes del título */
+    margin-bottom: 10pt; /* Espaciado después del título */
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10pt; /* Espacio arriba de la tabla */
+    margin-bottom: 10pt; /* Espacio debajo de la tabla */
+}
+
+th,
+td {
+    padding: 8pt; /* Espaciado dentro de las celdas */
+    text-align: left;
+}
+
+/* Estilos para el footer */
+.footer {
+    width: 595pt; /* Ancho de una página A4 en puntos */
+    padding: 20pt; /* Padding para el contenido del footer */
+}
+
+.footer-section {
+    text-align: center;
+    margin: auto; /* Centrar las secciones del footer */
+}
+
+/* ... */
+
+/* Add this to your CSS file or within a <style> tag in your HTML */
+.header, .content, .footer {
+  width: 80%; /* Example width, adjust as needed */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* If the content has padding that affects its actual content area, 
+you'll need to apply the same padding to the header to align their widths */
+.header, .footer {
+  padding: 0 15px; /* Adjust padding to match content's padding */
+}
