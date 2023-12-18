@@ -83,7 +83,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="date" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>" required>
+                        <input type="date" id="fechaEdicion" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>" required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -499,7 +499,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
-        $('input[name="fechaEdicion"]').val(especificacion.fecha_edicion).prop('disabled', true);
+        $('#fechaEdicion').val(especificacion.fecha_edicion).prop('disabled', true);
         $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
         $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
     }
