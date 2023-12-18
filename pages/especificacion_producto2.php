@@ -6,6 +6,7 @@
 //que es el número de documento? 
 //cuando se selecciona Otros, se debe desplegar un input
 //validacion de campos antes de continuar
+// formato: Ampolla, Frasco Ampolla, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
 
 session_start();
 

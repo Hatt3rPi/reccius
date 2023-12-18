@@ -68,9 +68,15 @@ function carga_listadoEspecificacionesProductos() {
             { "data": "concentracion", "title": "Concentración" },
             { "data": "formato", "title": "Formato" },
             { "data": "elaborado_por", "title": "Producido por" },
-            { "data": "fecha_expiracion", "title": "Fecha expiración" }
+            { "data": "fecha_expiracion", "title": "Fecha expiración" },
+            {
+                    title: 'id_especificacion',
+                    data: id_especificacion,
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+                }
         ],
-        // ... otras opciones de DataTables ...
+        
     });
 
     // Event listener para el botón de detalles
@@ -103,6 +109,21 @@ function carga_listadoEspecificacionesProductos() {
             '</tr>' +
         '</table>';
     }
+
+
+    // Verificar si hay una alerta en la sesión y mostrarla
+    <?php if (isset($_SESSION['alerta'])) { ?>
+        alert('<?php echo $_SESSION['alerta']; ?>');
+        <?php unset($_SESSION['alerta']); ?>
+    <?php } ?>
+
+    // Si se acaba de insertar una nueva especificación, establecer el valor del buscador de DataTables
+    <?php if (isset($_SESSION['buscarEspecificacion'])) { ?>
+        var buscar = '<?php echo $_SESSION['buscarEspecificacion']; ?>';
+        table.columns(9).search(buscarId).draw();
+        //table.search(buscar).draw();
+        <?php unset($_SESSION['buscarEspecificacion']); ?>
+    <?php } ?>
 }
 
 </script>
