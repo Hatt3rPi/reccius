@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,12 @@
     <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
 </head>
 
 <body>
-    <div id="content">
+    <div >
         <!-- Asegúrate de tener un contenedor para el header con display flex -->
-        <div class="header"
+        <div id="header" class="header"
             style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #000;">
 
             <!-- Logo e Información Izquierda -->
@@ -85,7 +85,7 @@
 
         </div>
 
-        <div class="content">
+        <div id="content" class="content">
             <!-- Resto del contenido del cuerpo igual al HTML original -->
             <div class="table-section">
                 <div class="document-title" style="text-align: center;">
@@ -230,43 +230,122 @@
             </div>
         </div>
     </div>
+    <div id="additionalContent">
+        
+        <div class="table-section">
+            <!-- Título y subtítulo del cuerpo del documento -->
+            <div class="document-title" style="text-align: center;">
+                <h2 style="font-size: 22px; margin-bottom: 0; text-decoration: underline;">ESPECIFICACIONES DE
+                    PRODUCTO TERMINADO</h2>
+                <h3 style="font-size: 18px; margin-top: 0;">ÁCIDO ASCÓRBICO 1G 10ML AMPOLLA</h3>
+            </div>
 
-    <button id="download-pdf" onclick="downloadPDF()">Descargar PDF</button>
+            <!-- Sección de Análisis Microbiológico -->
+            <div class="analysis-section">
+                II. Análisis Microbiológico
+            </div>
 
+            <!-- Tabla de Análisis Microbiológico -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Análisis</th>
+                        <th>Metodología</th>
+                        <th>Especificación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Fila de Esterilidad -->
+                    <tr>
+                        <td>Esterilidad</td>
+                        <td>USP</td>
+                        <td>Esteril</td>
+                    </tr>
+
+                    <!-- Fila de Endotoxinas -->
+                    <tr>
+                        <td>Endotoxinas</td>
+                        <td>USP</td>
+                        <td>No más de 1,2 UE/mg</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       
+
+    </div>
+
+    <button id="download-pdf">Descargar PDF</button>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var button = document.getElementById('download-pdf');
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 downloadPDF();
             });
         });
-
+        
         function downloadPDF() {
-            html2canvas(document.getElementById('content'), { scale: 2 }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-
-                // Accede a jsPDF de esta forma si estás usando la versión UMD
-                const { jsPDF } = window.jspdf;
-
-                // Instancia de jsPDF en formato A4
-                const pdf = new jsPDF({
-                    orientation: 'p',
-                    unit: 'pt',
-                    format: 'a4'
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'p',
+                unit: 'pt',
+                format: 'a4'
+            });
+        
+            // Altura total de la página A4 en puntos
+            const pageHeight = 842;
+        
+            // Calcula las alturas según la proporción 1.5:6:2
+            const headerHeight = (1.25 / 9.5) * pageHeight;
+            const contentHeight = (6.5 / 9.5) * pageHeight;
+            const footerHeight = (1.75 / 9.5) * pageHeight;
+        
+            // Función para añadir el header y el footer
+            const addHeaderFooter = (pdf, canvasHeader, canvasFooter) => {
+                const imgDataHeader = canvasHeader.toDataURL('image/png');
+                const imgDataFooter = canvasFooter.toDataURL('image/png');
+                pdf.addImage(imgDataHeader, 'PNG', 0, 0, 595, headerHeight);
+                pdf.addImage(imgDataFooter, 'PNG', 0, pageHeight - footerHeight, 595, footerHeight);
+            };
+        
+            // Captura el header y el footer una sola vez
+            Promise.all([
+                html2canvas(document.getElementById('header'), { scale: 2 }),
+                html2canvas(document.getElementById('footer'), { scale: 2 })
+            ]).then(([canvasHeader, canvasFooter]) => {
+        
+                // Añade el contenido de la primera página
+                html2canvas(document.getElementById('content'), { scale: 2 }).then(canvasContent => {
+                    const imgDataContent = canvasContent.toDataURL('image/png');
+                    addHeaderFooter(pdf, canvasHeader, canvasFooter);
+                    pdf.addImage(imgDataContent, 'PNG', 0, headerHeight, 595, contentHeight);
+        
+                    // Añade una nueva página para el additionalContent
+                    pdf.addPage();
+        
+                    // Añade el contenido de la segunda página con un escalado menor
+                    html2canvas(document.getElementById('additionalContent'), { scale: 2 }).then(canvasAdditionalContent => {
+                        const imgDataAdditionalContent = canvasAdditionalContent.toDataURL('image/png');
+                        addHeaderFooter(pdf, canvasHeader, canvasFooter);
+                        // Ajusta las dimensiones de la imagen según necesites reducir su tamaño
+                        const scaledContentHeight = contentHeight * (canvasAdditionalContent.height / canvasContent.height);
+                        pdf.addImage(imgDataAdditionalContent, 'PNG', 0, headerHeight, 595, scaledContentHeight);
+        
+                        // Guardar el PDF
+                        pdf.save('Especificacion_Producto_Terminado.pdf');
+                    });
                 });
-
-                // Añadir imagen al PDF
-                pdf.addImage(imgData, 'PNG', 0, 0, 595, canvas.height * 595 / canvas.width);
-
-                // Guardar PDF
-                pdf.save('Especificacion_Producto_Terminado.pdf');
             });
         }
-
-        // Asegúrate de que el botón llama a la función correcta
-        document.getElementById('download-pdf').addEventListener('click', downloadPDF);
-
-    </script>
+        </script>
+        
+        
+        
+        
+        
+        
+        
+        
 
 
 </body>
