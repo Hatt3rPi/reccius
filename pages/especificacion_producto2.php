@@ -453,23 +453,35 @@ function cargarDatosEspecificacion(id) {
 }
 
 function procesarDatosEspecificacion(data) {
-    var analisisFQ = [];
-    var analisisMB = [];
+    data.forEach(function(producto) {
+        poblarYDeshabilitarCamposProducto(producto);
 
-    data.forEach(function(especificacion) {
-        especificacion.analisis.forEach(function(analisis) {
-            if (analisis.tipo_analisis === 'analisis_FQ') {
-                analisisFQ.push(analisis);
-            } else if (analisis.tipo_analisis === 'analisis_MB') {
-                analisisMB.push(analisis);
-            }
-        });
+        let especificacion = Object.values(producto.especificaciones)[0];
+        if (especificacion) {
+            let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
+            let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
+
+            mostrarAnalisisFQ(analisisFQ);
+            mostrarAnalisisMB(analisisMB);
+        }
     });
+}
 
-    // Aquí, analisisFQ y analisisMB contienen los análisis separados por tipo
-    // Puedes llamar a otras funciones para mostrar estos datos en la UI
-    mostrarAnalisisFQ(analisisFQ);
-    mostrarAnalisisMB(analisisMB);
+function poblarYDeshabilitarCamposProducto(producto) {
+    $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
+    $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
+    $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true);
+    $('input[name="formato"]').val(producto.formato).prop('disabled', true);
+    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
+    // $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
+    $('input[name="documento"]').val('').prop('disabled', true);
+    let especificacion = Object.values(producto.especificaciones)[0];
+    if (especificacion) {
+        // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
+        $('input[name="fechaEdicion"]').val(especificacion.fecha_expiracion).prop('disabled', true);
+        $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
+        $('input[name="vigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
+    }
 }
 
 function mostrarAnalisisFQ(analisis) {
@@ -517,5 +529,4 @@ function mostrarAnalisisMB(analisis) {
         });
     }
 }
-
 </script>

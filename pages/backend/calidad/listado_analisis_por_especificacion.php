@@ -6,58 +6,79 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Consulta para obtener los productos, especificaciones y análisis asociados
-$query = "SELECT 
-            cp.id as id_producto,
-            cep.id_especificacion,
-            cep.estado, 
-            cep.documento, 
-            cp.nombre_producto AS producto, 
-            cp.tipo_producto, 
-            cp.concentracion, 
-            cp.formato, 
+$query = "SELECT cp.id as id_producto,
+            cp.nombre_producto AS producto,
+            cp.tipo_producto,
+            cp.concentracion,
+            cp.formato,
             cp.elaborado_por, 
+            cep.id_especificacion,
+            cep.estado, cep.documento,
             cep.fecha_expiracion,
-            can.id_analisis, 
-            can.tipo_analisis, 
-            can.descripcion_analisis, 
+            can.id_analisis,
+            can.tipo_analisis,
+            can.descripcion_analisis,
             can.metodologia, 
-            can.criterios_aceptacion 
-        FROM calidad_productos as cp
-        INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto
-        LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto
-        WHERE cp.id = ?";
+            can.criterios_aceptacion,
+            cp.pais_origen 
+        FROM calidad_productos as cp INNER JOIN calidad_especificacion_productos as cep 
+        ON cp.id = cep.id_producto 
+        LEFT JOIN calidad_analisis as can 
+        ON cep.id_especificacion = can.id_especificacion_producto 
+        WHERE cep.id_especificacion= ?";
 
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
-$data = [];
-$especificaciones = [];
+$productos = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-    // Agrupar por especificación
-    $especificacion_id = $row['especificacion_id'];
-    if (!isset($especificaciones[$especificacion_id])) {
-        $especificaciones[$especificacion_id] = [
-            'especificacion' => array_intersect_key($row, array_flip(['estado', 'documento', 'fecha_expiracion'])),
+    $producto_id = $row['id_producto'];
+    $especificacion_id = $row['id_especificacion'];
+
+    // Si el producto no está en el arreglo, agregarlo
+    if (!isset($productos[$producto_id])) {
+        $productos[$producto_id] = [
+            'id' => $producto_id,
+            'nombre_producto' => $row['producto'],
+            'tipo_producto' => $row['tipo_producto'],
+            'concentracion' => $row['concentracion'],
+            'formato' => $row['formato'],
+            'elaborado_por' => $row['elaborado_por'],
+            'pais_origen' => $row['elaborado_por'],
+            'especificaciones' => []
+        ];
+    }
+
+    // Si la especificación no está en el producto, agregarla
+    if (!isset($productos[$producto_id]['especificaciones'][$especificacion_id])) {
+        $productos[$producto_id]['especificaciones'][$especificacion_id] = [
+            'id' => $especificacion_id,
+            'estado' => $row['estado'],
+            'documento' => $row['documento'],
+            'fecha_expiracion' => $row['fecha_expiracion'],
             'analisis' => []
         ];
     }
-    // Agregar análisis a la especificación correspondiente
-    if ($row['id_analisis']) {
-        $especificaciones[$especificacion_id]['analisis'][] = array_intersect_key($row, array_flip(['id_analisis', 'tipo_analisis', 'descripcion_analisis', 'metodologia', 'criterios_aceptacion']));
-    }
-}
 
-// Reorganizar los datos para la salida
-foreach ($especificaciones as $espec) {
-    $data[] = $espec;
+    // Agregar análisis a la especificación
+    if ($row['id_analisis']) {
+        $productos[$producto_id]['especificaciones'][$especificacion_id]['analisis'][] = [
+            'id_analisis' => $row['id_analisis'],
+            'tipo_analisis' => $row['tipo_analisis'],
+            'descripcion_analisis' => $row['descripcion_analisis'],
+            'metodologia' => $row['metodologia'],
+            'criterios_aceptacion' => $row['criterios_aceptacion']
+        ];
+    }
 }
 
 mysqli_stmt_close($stmt);
 mysqli_close($link);
 
-header('Content-Type: application/json');
-echo json_encode(['data' => $data]);
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode(['productos' => array_values($productos)], JSON_UNESCAPED_UNICODE);
+
 ?>
