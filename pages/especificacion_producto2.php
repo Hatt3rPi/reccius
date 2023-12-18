@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\especificacion_producto2.php
 //Mejoras: Formato debería seleccionarse de lista desplegable
 //Elaborato por
 //versión por defecto debería ser 1
@@ -442,9 +443,7 @@ function cargarDatosEspecificacion(id) {
         type: 'GET',
         data: { id: id },
         success: function(response) {
-            // Suponiendo que 'response' es el objeto JSON que has mencionado
-            // y que contiene los datos de análisis
-            procesarDatosEspecificacion(response.data);
+            procesarDatosEspecificacion(response);
         },
         error: function(xhr, status, error) {
             console.error("Error en la solicitud: ", status, error);
@@ -452,12 +451,21 @@ function cargarDatosEspecificacion(id) {
     });
 }
 
-function procesarDatosEspecificacion(data) {
-    data.forEach(function(producto) {
+function procesarDatosEspecificacion(response) {
+    // Asegúrate de que 'response' contiene la propiedad 'productos'
+    if (!response || !response.productos || !Array.isArray(response.productos)) {
+        console.error('Los datos recibidos no son válidos:', response);
+        return;
+    }
+
+    // Procesar cada producto
+    response.productos.forEach(function(producto) {
         poblarYDeshabilitarCamposProducto(producto);
 
-        let especificacion = Object.values(producto.especificaciones)[0];
-        if (especificacion) {
+        // Procesar la primera especificación para cada producto
+        let especificaciones = Object.values(producto.especificaciones || {});
+        if (especificaciones.length > 0) {
+            let especificacion = especificaciones[0];
             let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
             let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
 
