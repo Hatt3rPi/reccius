@@ -15,15 +15,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
-if (isset($_POST['accion']) && isset($_POST['id'])){
-    echo 'proviene de listado. Acción: '.$_POST['accion'].' - id: '.$_POST['id'];
-    $id = $_POST['id'];
-    $accion = $_POST['accion'];
-    $esNuevo = 'false';
-}else {
-    $esNuevo = 'true';
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -104,11 +95,11 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                         <label>Vigencia:</label>
                         <select name="vigencia" style="width: 39.5%;" required>
                             <option>Selecciona la vigencia de esta especificación:</option>
-                            <option value="1">1 año</option>
-                            <option value="2">2 años</option>
-                            <option value="3">3 años</option>
-                            <option value="4">4 años</option>
-                            <option value="5">5 años</option>
+                            <option value=1>1 año</option>
+                            <option value=2>2 años</option>
+                            <option value=3>3 años</option>
+                            <option value=4>4 años</option>
+                            <option value=5>5 años</option>
                         </select>
                     </div>
 
@@ -490,6 +481,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
         $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
         $('input[name="vigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
     }
+    console.log(producto.tipo_producto);
 }
 
 function mostrarAnalisisFQ(analisis) {

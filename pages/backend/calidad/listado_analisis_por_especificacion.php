@@ -20,7 +20,9 @@ $query = "SELECT cp.id as id_producto,
             can.descripcion_analisis,
             can.metodologia, 
             can.criterios_aceptacion,
-            cp.pais_origen 
+            cp.pais_origen,
+            cep.version,
+            cep.vigencia
         FROM calidad_productos as cp INNER JOIN calidad_especificacion_productos as cep 
         ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can 
@@ -59,6 +61,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             'estado' => $row['estado'],
             'documento' => $row['documento'],
             'fecha_expiracion' => $row['fecha_expiracion'],
+            'version' => $row['version'],
+            'vigencia' => $row['vigencia'],
             'analisis' => []
         ];
     }
