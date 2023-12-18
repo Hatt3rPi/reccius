@@ -1,10 +1,12 @@
 <?php
+//archivo: pages\especificacion_producto.php
 //Mejoras: Formato debería seleccionarse de lista desplegable
 //Elaborato por
 //versión por defecto debería ser 1
 //que es el número de documento? 
 //cuando se selecciona Otros, se debe desplegar un input
 //validacion de campos antes de continuar
+// formato: Ampolla, Frasco Ampolla, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
 
 session_start();
 
@@ -14,15 +16,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
-if (isset($_POST['accion']) && isset($_POST['id'])){
-    echo 'proviene de listado. Acción: '.$_POST['accion'].' - id: '.$_POST['id'];
-    $id = $_POST['id'];
-    $accion = $_POST['accion'];
-    $esNuevo = 'false';
-}else {
-    $esNuevo = 'true';
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -38,7 +31,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
 <body>
     <div class="form-container">
         <h1>Calidad / Crear Especificación de Producto</h1>
-        <form method="POST" action="./backend/calidad/especificacion_productoBE.php">
+        <form method="POST" >
             <fieldset>
             <br>
             <br>
@@ -103,11 +96,11 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
                         <label>Vigencia:</label>
                         <select name="vigencia" style="width: 39.5%;" required>
                             <option>Selecciona la vigencia de esta especificación:</option>
-                            <option value="1">1 año</option>
-                            <option value="2">2 años</option>
-                            <option value="3">3 años</option>
-                            <option value="4">4 años</option>
-                            <option value="5">5 años</option>
+                            <option value=1>1 año</option>
+                            <option value=2>2 años</option>
+                            <option value=3>3 años</option>
+                            <option value=4>4 años</option>
+                            <option value=5>5 años</option>
                         </select>
                     </div>
 
@@ -136,7 +129,7 @@ if (isset($_POST['accion']) && isset($_POST['id'])){
             </div>
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             <div class="actions-container">
-                <button type="submit" id="guardar" class="action-button">Guardar Especificación</button>
+                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
 
 
             </div>
@@ -436,5 +429,209 @@ function validarFormulario() {
     return valido;
 }
 
+function cargarDatosEspecificacion(id) {
+    $.ajax({
+        url: './backend/calidad/listado_analisis_por_especificacion.php',
+        type: 'GET',
+        data: { id: id },
+        success: function(response) {
+            procesarDatosEspecificacion(response);
 
+            // Ocultar los botones "Agregar análisis"
+            $('#boton_agrega_analisisFQ').hide();
+            $('#boton_agrega_analisisMB').hide();
+
+            // Ocultar el botón "Guardar especificación"
+            $('#guardar').hide();
+
+            // Agregar un nuevo botón para "Editar y generar nueva versión"
+            var nuevoBoton = $('<button/>', {
+                text: 'Editar y generar nueva versión',
+                id: 'editarGenerarVersion',
+                class: 'action-button',
+                style: 'background-color: red; color: white;',
+                click: function() {
+                    // Aquí puedes agregar la lógica que se ejecutará cuando se haga clic en este botón
+                    console.log('Editar y generar nueva versión');
+                }
+            });
+            $('.actions-container').append(nuevoBoton);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud: ", status, error);
+        }
+    });
+}
+
+
+function procesarDatosEspecificacion(response) {
+    // Asegúrate de que 'response' contiene la propiedad 'productos'
+    if (!response || !response.productos || !Array.isArray(response.productos)) {
+        console.error('Los datos recibidos no son válidos:', response);
+        return;
+    }
+
+    // Procesar cada producto
+    response.productos.forEach(function(producto) {
+        poblarYDeshabilitarCamposProducto(producto);
+
+        // Procesar la primera especificación para cada producto
+        let especificaciones = Object.values(producto.especificaciones || {});
+        if (especificaciones.length > 0) {
+            let especificacion = especificaciones[0];
+            let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
+            let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
+
+            mostrarAnalisisFQ(analisisFQ);
+            mostrarAnalisisMB(analisisMB);
+        }
+    });
+}
+
+function poblarYDeshabilitarCamposProducto(producto) {
+    $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
+    $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
+    $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true);
+    $('input[name="formato"]').val(producto.formato).prop('disabled', true);
+    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
+    // $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
+    $('input[name="documento"]').val('').prop('disabled', true);
+    let especificacion = Object.values(producto.especificaciones)[0];
+    if (especificacion) {
+        // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
+        $('input[name="fechaEdicion"]').val(especificacion.fecha_expiracion).prop('disabled', true);
+        $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
+        $('input[name="vigencia"]').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
+    }
+    console.log(producto.tipo_producto);
+}
+
+function mostrarAnalisisFQ(analisis) {
+    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+        $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+    } else {
+        $('#analisisFQ').DataTable({
+            data: analisis,
+            columns: [
+                { title: 'Análisis', data: 'descripcion_analisis' },
+                { title: 'Metodología', data: 'metodologia' },
+                { title: 'Criterio aceptación', data: 'criterios_aceptacion' },
+                {
+                    title: 'Acciones',
+                    data: null,
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+                }
+                // Agrega aquí más columnas si es necesario
+            ],
+            paging: false,
+            info: false,
+            searching: false,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            }
+        });
+    }
+}
+
+function mostrarAnalisisMB(analisis) {
+    if ($.fn.DataTable.isDataTable('#analisisMB')) {
+        $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+    } else {
+        $('#analisisMB').DataTable({
+            data: analisis,
+            columns: [
+                { title: 'Análisis', data: 'descripcion_analisis' },
+                { title: 'Metodología', data: 'metodologia' },
+                { title: 'Criterio aceptación', data: 'criterios_aceptacion' },
+                {
+                    title: 'Acciones',
+                    data: null,
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+                }
+            ],
+            paging: false,
+            info: false,
+            searching: false,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            }
+        });
+    }
+}
+
+$('#editarGenerarVersion').click(function() {
+    // Resto del código para habilitar edición del formulario...
+    $('#guardar').show();
+    $('#Tipo_Producto').prop('disabled', false);
+    $('input[name="producto"]').prop('disabled', false);
+    $('input[name="concentracion"]').prop('disabled', false);
+    $('input[name="formato"]').prop('disabled', false);
+    $('input[name="elaboradoPor"]').prop('disabled', false);
+    $('input[name="documento"]').prop('disabled', false);
+    $('input[name="fechaEdicion"]').prop('disabled', false).val(new Date().toISOString().split('T')[0]);
+    
+    // Incrementar la versión en 1 y mantenerla no editable
+    var versionActual = parseInt($('input[name="version"]').val()) || 0;
+    $('input[name="version"]').val(versionActual + 1);
+
+    // Hacer visible la columna de acciones en ambas tablas
+    var tablaFQ = $('#analisisFQ').DataTable();
+    var tablaMB = $('#analisisMB').DataTable();
+
+    tablaFQ.column('.acciones').visible(true);
+    tablaMB.column('.acciones').visible(true);
+
+    // Habilitar la adición y eliminación de análisis
+    habilitarEdicionAnalisis(tablaFQ);
+    habilitarEdicionAnalisis(tablaMB);
+});
+
+function habilitarEdicionAnalisis(tabla) {
+    // Ejemplo de cómo habilitar la adición de nuevos análisis
+    $('#boton_agrega_analisis' + tabla.node().id).show();
+
+    // Habilitar la eliminación de análisis existentes
+    // Aquí puedes agregar el código que permite eliminar filas en la tabla
+    tabla.on('click', '.btn-eliminar', function() {
+        tabla.row($(this).parents('tr')).remove().draw();
+    });
+}
+
+function guardar(){
+    var datosFormulario = $(this).serialize();
+    alert(datosFormulario);
+    $.ajax({
+        url: 'backend/calidad/especificacion_productoBE.php',
+        type: 'POST',
+        data: datosFormulario,
+        success: function(data) {
+            var respuesta = JSON.parse(data);
+            if (respuesta.exito) {
+                $('#dynamic-content').load('listado_especificaciones_producto.php', function (response, status, xhr) {
+                    if (status == "error") {
+                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
+                    } else {
+                        console.log('Listado cargado correctamente cargado exitosamente.');
+                        carga_listadoEspecificacionesProductos();
+                        console.log(respuesta.mensaje); // Manejar el error
+                        table.columns(9).search(buscarId).draw();
+                        
+                    }
+                });
+            } else {
+                console.log(respuesta.mensaje); // Manejar el error
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error AJAX: " + error);
+        }
+    });
+}
+$('#guardar').click(function() {
+        guardar();
+    });
 </script>

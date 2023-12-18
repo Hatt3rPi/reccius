@@ -182,7 +182,7 @@ function botones(id, accion, base) {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     
                     $.ajax({
-                        url: 'especificacion_producto2.php', // URL del script PHP
+                        url: 'especificacion_producto.php', // URL del script PHP
                         type: 'POST', // Tipo de solicitud
                         data: { 
                             'id': id,
