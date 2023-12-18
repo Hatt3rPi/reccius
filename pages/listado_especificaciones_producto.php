@@ -71,7 +71,7 @@ function carga_listadoEspecificacionesProductos() {
             { "data": "fecha_expiracion", "title": "Fecha expiración" },
             {
                     title: 'id_especificacion',
-                    data: id_especificacion,
+                    data: 'id_especificacion',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
                 }
