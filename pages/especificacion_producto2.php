@@ -435,12 +435,33 @@ function cargarDatosEspecificacion(id) {
         data: { id: id },
         success: function(response) {
             procesarDatosEspecificacion(response);
+
+            // Ocultar los botones "Agregar análisis"
+            $('#boton_agrega_analisisFQ').hide();
+            $('#boton_agrega_analisisMB').hide();
+
+            // Ocultar el botón "Guardar especificación"
+            $('#guardar').hide();
+
+            // Agregar un nuevo botón para "Editar y generar nueva versión"
+            var nuevoBoton = $('<button/>', {
+                text: 'Editar y generar nueva versión',
+                id: 'editarGenerarVersion',
+                class: 'action-button',
+                style: 'background-color: red; color: white;',
+                click: function() {
+                    // Aquí puedes agregar la lógica que se ejecutará cuando se haga clic en este botón
+                    console.log('Editar y generar nueva versión');
+                }
+            });
+            $('.actions-container').append(nuevoBoton);
         },
         error: function(xhr, status, error) {
             console.error("Error en la solicitud: ", status, error);
         }
     });
 }
+
 
 function procesarDatosEspecificacion(response) {
     // Asegúrate de que 'response' contiene la propiedad 'productos'
@@ -529,4 +550,28 @@ function mostrarAnalisisMB(analisis) {
         });
     }
 }
+
+$('#editarGenerarVersion').click(function() {
+    // Hacer que los campos del formulario sean editables
+    $('#guardar').show();
+    $('#Tipo_Producto').prop('disabled', false);
+    $('input[name="producto"]').prop('disabled', false);
+    $('input[name="concentracion"]').prop('disabled', false);
+    $('input[name="formato"]').prop('disabled', false);
+    $('input[name="elaboradoPor"]').prop('disabled', false);
+    $('input[name="documento"]').prop('disabled', false);
+    $('input[name="fechaEdicion"]').prop('disabled', false).val(new Date().toISOString().split('T')[0]);
+    
+    // Mostrar los botones "Agregar análisis"
+    $('#boton_agrega_analisisFQ').show();
+    $('#boton_agrega_analisisMB').show();
+
+    // Incrementar la versión en 1 y mantenerla no editable
+    var versionActual = parseInt($('input[name="version"]').val()) || 0;
+    $('input[name="version"]').val(versionActual + 1);
+
+    // Establecer la fecha de edición al día actual
+    // Esto ya se ha hecho arriba
+});
+
 </script>
