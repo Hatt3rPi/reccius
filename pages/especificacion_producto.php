@@ -6,7 +6,7 @@
 //que es el número de documento? 
 //cuando se selecciona Otros, se debe desplegar un input
 //validacion de campos antes de continuar
-// formato: Ampolla, Frasco Ampolla, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
+// formato: Ampolla, Frasco Ampolla, Vial, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
 
 session_start();
 
@@ -72,7 +72,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-                        <label>Número de documento:</label>
+                        <label>Número producto:</label>
                         <input type="text" name="documento" placeholder="ingresa número de documento" required>
                     </div>
                 </div>
