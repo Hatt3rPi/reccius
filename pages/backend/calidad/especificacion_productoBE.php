@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "ssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento);
             $crea_producto=mysqli_stmt_execute($stmt);
-
+            
             //in trazabilidad
             $resultado = $crea_producto ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
             $error = mysqli_stmt_error($stmt) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($stmt) : null;
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mensaje = "Error en la preparación de la sentencia de calidad_especificacion_productos: " . mysqli_error($link);
                 }
             } else {
-                $mensaje = "Error al insertar en calidad_productos: " . mysqli_error($link);
+                $mensaje = "Error al insertar en calidad_productos: " .$crea_producto."trazabilidad: ".mysqli_insert_id($link). mysqli_error($link);
             }
         } else {
             $mensaje = "Error en la preparación de la sentencia de calidad_productos: " . mysqli_error($link);
