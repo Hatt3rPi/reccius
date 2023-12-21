@@ -25,11 +25,19 @@ if (isset($_POST['login'])) {
     $password = escape($_POST['password']);
     
     // Modificación aquí: buscar por usuario o correo
-    $stmt = mysqli_prepare($link, "SELECT a.usuario, a.contrasena, b.nombre as rol, a.nombre, a.correo, a.foto_perfil FROM usuarios as a LEFT JOIN roles as b ON a.rol_id=b.id WHERE a.usuario = ? OR a.correo = ?");
+    $query="SELECT a.usuario, a.contrasena, b.nombre as rol, a.nombre, a.correo, a.foto_perfil FROM usuarios as a LEFT JOIN roles as b ON a.rol_id=b.id WHERE a.usuario = ? OR a.correo = ?";
+    $variables = [$loginInput, $loginInput]; 
+    $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "ss", $loginInput, $loginInput);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $usuario = mysqli_fetch_assoc($result);
+    $resultadoArray = mysqli_fetch_assoc($result);
+    $user = $usuario['usuario'] ? $usuario['usuario'] : null;
+    $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
+    $error = $resultadoArray ? '' : 'Descripción del error'; // Descripción del error si hubo uno
+    registrarTrazabilidad($user, $_SERVER['PHP_SELF'], 'login', 'usuarios', null, $query, $variables, $resultado, $error);
+    
 
     if ($usuario && password_verify($password, $usuario['contrasena'])) {
         $csrfToken = generateCSRFToken();
