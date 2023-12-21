@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'documento' => 'Documento',
         'fechaEdicion' => 'Fecha de edición',
         'version' => 'Versión',
-        'vigencia' => 'Vigencia'
+        'periodosVigencia' => 'Vigencia'
     ];
     
     foreach ($campos as $campo => $nombre) {
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $numeroDocumento = limpiarDato($_POST['documento']);
         $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
         $version = limpiarDato($_POST['version']);
-        $vigencia = limpiarDato($_POST['vigencia']);
+        $vigencia = limpiarDato($_POST['periodosVigencia']);
 
         // Preparar sentencia para insertar en calidad_productos
         $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso) VALUES (?, ?, ?, ?, ?, ?)";

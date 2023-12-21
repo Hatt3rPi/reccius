@@ -162,7 +162,7 @@ function carga_tablaFQ(id = null, accion = null) {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                         tablaFQ.row.add([
-                    '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" required>' +
+                    '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" class="select-style" required>' +
                         '<option value="">Selecciona un análisis</option>' +
                         '<option value="Apariencia">Apariencia</option>' +
                         '<option value="Identificación">Identificación</option>' +
@@ -177,7 +177,7 @@ function carga_tablaFQ(id = null, accion = null) {
                         '<option value="Material Particulado">Material Particulado</option>' +
                         '<option value="Otro">Otro</option>' +
                     '</select>',
-                    '<select name="analisisFQ[' + contadorFilasFQ + '][metodologia]" required>' +
+                    '<select name="analisisFQ[' + contadorFilasFQ + '][metodologia]" class="select-style" required>' +
                         '<option value="">Selecciona metodología</option>' +
                         '<option value="Interno">Interno</option>' +
                         '<option value="USP">USP</option>' +
@@ -253,13 +253,13 @@ function carga_tablaMB(id = null, accion = null) {
                     // Verificar si la tabla se cargó correctamente antes de agregar filas
                     if ($.fn.DataTable.isDataTable('#analisisMB')) {
                         tablaMB.row.add([
-                        '<select name="analisisMB[' + contadorFilasMB + '][descripcion_analisis]" required>' + 
+                        '<select name="analisisMB[' + contadorFilasMB + '][descripcion_analisis]" class="select-style" required>' + 
                             '<option value="">Selecciona un análisis</option>' +
                             '<option value="Esterilidad">Esterilidad</option>' +
                             '<option value="Endotoxinas">Endotoxinas</option>' +
                             '<option value="Otro">Otro</option>' +
                         '</select>',
-                        '<select name="analisisMB[' + contadorFilasMB + '][metodologia]" required>' +
+                        '<select name="analisisMB[' + contadorFilasMB + '][metodologia]" class="select-style" required>' +
                             '<option value="">Selecciona metodología</option>' +
                             '<option value="Interno">Interno</option>' +
                             '<option value="USP">USP</option>' +
@@ -397,31 +397,34 @@ function validarFormulario() {
         valido = false;
     }
 
-    // Validación para análisis Físico-Químicos
-    $('#analisisFQ').find('tbody tr').each(function() {
-        var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
-        var metodologia = $(this).find('select[name*="[metodologia]"]').val();
-        var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+    var valido = true;
+    var mensaje = '';
 
-        if (tipo === '' || metodologia === '' || criterio.trim() === '') {
-            mensaje += 'Todos los campos de Análisis Físico-Químicos son obligatorios en cada fila.\n';
-            valido = false;
-            // No es necesario salir del bucle ya que queremos validar todas las filas
-        }
-    });
+    // Función para validar un conjunto de análisis
+    function validarAnalisis(selector, tipoAnalisis) {
+        $(selector).find('tbody tr').each(function() {
+            var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
+            var metodologia = $(this).find('select[name*="[metodologia]"]').val();
+            var criterio = $(this).find('textarea[name*="[criterio]"]').val();
 
-    // Validación para análisis Microbiológicos
-    $('#analisisMB').find('tbody tr').each(function() {
-        var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
-        var metodologia = $(this).find('select[name*="[metodologia]"]').val();
-        var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+            if (tipo === '' || metodologia === '' || criterio.trim() === '') {
+                mensaje += 'Todos los campos de Análisis ' + tipoAnalisis + ' son obligatorios en cada fila.\n';
+                valido = false;
+            }
+        });
+    }
 
-        if (tipo === '' || metodologia === '' || criterio.trim() === '') {
-            mensaje += 'Todos los campos de Análisis Microbiológicos son obligatorios en cada fila.\n';
-            valido = false;
-            // No es necesario salir del bucle ya que queremos validar todas las filas
-        }
-    });
+    // Validar análisis Físico-Químicos si existen
+    if ($('#analisisFQ').find('tbody tr').length > 0) {
+        validarAnalisis('#analisisFQ', 'Físico-Químicos');
+    }
+
+    // Validar análisis Microbiológicos si existen
+    if ($('#analisisMB').find('tbody tr').length > 0) {
+        validarAnalisis('#analisisMB', 'Microbiológicos');
+    }
+
+    // Procesar la validación
     if (!valido) {
         alert(mensaje);
     }
@@ -604,7 +607,7 @@ function habilitarEdicionAnalisis(tabla) {
 function guardar(){
     
     var datosFormulario = $('#formulario_especificacion').serialize();
-    alert(datosFormulario);
+    console.log(datosFormulario);
     $.ajax({
         url: 'backend/calidad/especificacion_productoBE.php',
         type: 'POST',
