@@ -35,7 +35,8 @@ if (isset($_POST['login'])) {
     $resultadoArray = mysqli_fetch_assoc($result);
     $user = $usuario['usuario'] ? $usuario['usuario'] : null;
     $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
-    $error = $resultadoArray ? '' : 'Descripción del error'; // Descripción del error si hubo uno
+    $error = mysqli_stmt_error($stmt) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($stmt) : null;
+    
     try{
         registrarTrazabilidad($user, $_SERVER['PHP_SELF'], 'login', 'usuarios', null, $query, $variables, $resultado, $error);
     } catch (Exception $e) {
