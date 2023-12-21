@@ -604,7 +604,7 @@ function habilitarEdicionAnalisis(tabla) {
 function guardar(){
     
     var datosFormulario = $('#formulario_especificacion').serialize();
-    //alert(datosFormulario);
+    alert(datosFormulario);
     $.ajax({
         url: 'backend/calidad/especificacion_productoBE.php',
         type: 'POST',
