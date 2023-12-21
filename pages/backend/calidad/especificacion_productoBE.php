@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt2 = mysqli_prepare($link, $query_especificacion);
                 if ($stmt2) {
                     mysqli_stmt_bind_param($stmt2, "issssi", $idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia);
-                    $crea_especificacion=mysqli_stmt_execute($stmt2)
+                    $crea_especificacion=mysqli_stmt_execute($stmt2);
                     //in trazabilidad
                         $resultado = $crea_especificacion ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
                         $error = $resultado ? null : "Error al ejecutar la consulta: " . mysqli_stmt_error($stmtAnalisisFQ);
