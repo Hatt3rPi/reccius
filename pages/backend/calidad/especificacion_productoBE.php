@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //in trazabilidad
                         $resultado = $crea_especificacion ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
                         $error = $resultado ? null : "Error al ejecutar la consulta: " . mysqli_stmt_error($stmtAnalisisFQ);
-                        registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea especificación', 'calidad_calidad_especificacion_productosnalisis',  mysqli_insert_id($link), $query_analisis, [$idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia], $resultado, $error);
+                        registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea especificación', 'calidad_calidad_especificacion_productosnalisis',  mysqli_insert_id($link), $query_especificacion, [$idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia], $resultado, $error);
                     // out trazabidad
 
                     if ($crea_especificacion) {
