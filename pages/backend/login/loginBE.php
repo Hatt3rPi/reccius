@@ -36,8 +36,11 @@ if (isset($_POST['login'])) {
     $user = $usuario['usuario'] ? $usuario['usuario'] : null;
     $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
     $error = $resultadoArray ? '' : 'Descripción del error'; // Descripción del error si hubo uno
-    registrarTrazabilidad($user, $_SERVER['PHP_SELF'], 'login', 'usuarios', null, $query, $variables, $resultado, $error);
-    
+    try{
+        registrarTrazabilidad($user, $_SERVER['PHP_SELF'], 'login', 'usuarios', null, $query, $variables, $resultado, $error);
+    } catch (Exception $e) {
+        die("Error: " . $e->getMessage());
+    }
 
     if ($usuario && password_verify($password, $usuario['contrasena'])) {
         $csrfToken = generateCSRFToken();
