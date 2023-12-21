@@ -29,11 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_stmt_num_rows($stmt) > 0) {
             echo "Error: El usuario ya existe.";
         } else {
-            $insert = mysqli_prepare($link, "INSERT INTO usuarios (nombre, correo, usuario, rol_id) VALUES (?, ?, ?, ?)");
+            $query="INSERT INTO usuarios (nombre, correo, usuario, rol_id) VALUES (?, ?, ?, ?)";
+            $variables=[$nombreUsuario, $correoElectronico, $usuario, $rol];
+            $insert = mysqli_prepare($link, $query);
             mysqli_stmt_bind_param($insert, "ssss", $nombreUsuario, $correoElectronico, $usuario, $rol);
             
             if (mysqli_stmt_execute($insert)) {
                 $last_id = mysqli_insert_id($link);
+                //in trazabilidad
+                    $result = mysqli_stmt_get_result($insert);
+                    $resultadoArray = mysqli_fetch_assoc($result);
+                    $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
+                    $error = mysqli_stmt_error($insert) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($insert) : null;
+                    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'crear_usuario', 'usuarios', mysqli_insert_id($link), $query, $variables, $resultado, $error);
+                // out trazabidad
                 $token = bin2hex(random_bytes(32));
 
                 $insertToken = mysqli_prepare($link, "INSERT INTO tokens_reset (usuario_id, token, fecha_expiracion) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 1 HOUR))");

@@ -36,12 +36,8 @@ if (isset($_POST['login'])) {
     $user = $usuario['usuario'] ? $usuario['usuario'] : null;
     $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
     $error = mysqli_stmt_error($stmt) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($stmt) : null;
-    
-    try{
-        registrarTrazabilidad($user, $_SERVER['PHP_SELF'], 'login', 'usuarios', null, $query, $variables, $resultado, $error);
-    } catch (Exception $e) {
-        die("Error: " . $e->getMessage());
-    }
+    registrarTrazabilidad($user, $_SERVER['PHP_SELF'], 'login', 'usuarios', null, $query, $variables, $resultado, $error);
+
 
     if ($usuario && password_verify($password, $usuario['contrasena'])) {
         $csrfToken = generateCSRFToken();

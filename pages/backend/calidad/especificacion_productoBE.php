@@ -52,11 +52,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $vigencia = limpiarDato($_POST['vigencia']);
 
         // Preparar sentencia para insertar en calidad_productos
-        $stmt = mysqli_prepare($link, "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso) VALUES (?, ?, ?, ?, ?, ?)");
+        $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($link, $query);
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "ssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento);
             if (mysqli_stmt_execute($stmt)) {
                 $idProducto = mysqli_insert_id($link);
+                //in trazabilidad
+                    $result = mysqli_stmt_get_result($stmt);
+                    $resultadoArray = mysqli_fetch_assoc($result);
+                    $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
+                    $error = mysqli_stmt_error($stmt) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($stmt) : null;
+                    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'crea producto', 'calidad_productos',  mysqli_insert_id($link), $query, [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento], $resultado, $error);
+                // out trazabidad
+
                 $fechaEdicionDateTime = new DateTime($fechaEdicion);
                 $fechaEdicionDateTime->modify("+$vigencia years");
                 $fechaExpiracion = $fechaEdicionDateTime->format('Y-m-d');
