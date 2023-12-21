@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error = $resultado ? null : "Error al ejecutar la consulta: " . mysqli_stmt_error($stmtAnalisisFQ);
                 registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea analisis FQ', 'calidad_analisis',  mysqli_insert_id($link), $query_analisis, [$idEspecificacion, $tipo, $descripcion_analisis, $metodologia, $criterios_aceptacion], $resultado, $error);
             // out trazabidad
-            if ($crea_analisis='';) {
+            if ($crea_analisis) {
                 // Éxito en la inserción
             } else {
                 $mensaje = "Error al insertar en calidad_analisis para analisis_FQ: " . mysqli_error($link);
