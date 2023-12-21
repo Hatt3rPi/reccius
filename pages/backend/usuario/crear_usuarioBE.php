@@ -41,7 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $resultadoArray = mysqli_fetch_assoc($result);
                     $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
                     $error = mysqli_stmt_error($insert) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($insert) : null;
+                    try{
                     registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'crear_usuario', 'usuarios', mysqli_insert_id($link), $query, $variables, $resultado, $error);
+                    } catch (Exception $e) {
+                        die("Error: " . $e->getMessage());
+                    }
                 // out trazabidad
                 $token = bin2hex(random_bytes(32));
 
