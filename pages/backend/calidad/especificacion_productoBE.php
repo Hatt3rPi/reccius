@@ -63,7 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $resultadoArray = mysqli_fetch_assoc($result);
                     $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
                     $error = mysqli_stmt_error($stmt) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($stmt) : null;
-                    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'crea producto', 'calidad_productos',  mysqli_insert_id($link), $query, [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento], $resultado, $error);
+                    try{
+                        registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'crea producto', 'calidad_productos',  mysqli_insert_id($link), $query, [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento], $resultado, $error);
+                    } catch (Exception $e) {
+                        die("Error: " . $e->getMessage());
+                    }
                 // out trazabidad
 
                 $fechaEdicionDateTime = new DateTime($fechaEdicion);
