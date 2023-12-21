@@ -10,7 +10,6 @@ body {
     padding: 10px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #000;
 }
 
 .header-left {
@@ -25,14 +24,35 @@ body {
 }
 
 .header-center {
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Esto centrará el contenido verticalmente */
+    align-items: center; /* Esto centrará el contenido horizontalmente */
+    flex: 2;
     text-align: center;
+    font-family: 'Arial', sans-serif;
 }
 
+
+
 .header-center h1 {
-    font-size: 24px;
-    margin: 0;
+    margin-top: 20px; /* Añade un margen superior de 20px */
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1.2;
+    margin: 0; /* Asegúrate de que los otros márgenes estén en 0 */
 }
+
+.header-center p {
+    margin-bottom: 0;
+}
+
+/* Puedes añadir un poco de margen arriba y abajo del <hr> si es necesario */
+.header-center hr {
+    margin: 8px 0;
+}
+
 
 .header-right {
     font-size: 12px;
@@ -130,7 +150,7 @@ tbody:last-child tr:last-child {
     justify-content: center;
     /* Centra las secciones del footer */
     font-size: 12px;
-    border-top: 2px solid #000;
+
 }
 
 .footer-section {
@@ -333,4 +353,12 @@ td {
     /* Centrar el formulario */
     margin-right: auto;
     /* Centrar el formulario */
+}
+/* Estilos para PDF */
+.pdf-header {
+    font-size: 12pt; /* Tamaño de fuente más grande para el PDF */
+}
+
+.pdf-footer {
+    font-size: 8pt; /* Tamaño de fuente más grande para el PDF */
 }

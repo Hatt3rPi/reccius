@@ -25,14 +25,35 @@ body {
 }
 
 .header-center {
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Esto centrará el contenido verticalmente */
+    align-items: center; /* Esto centrará el contenido horizontalmente */
+    flex: 2;
     text-align: center;
+    font-family: 'Arial', sans-serif;
 }
 
+
+
 .header-center h1 {
-    font-size: 24px;
-    margin: 0;
+    margin-top: 20px; /* Añade un margen superior de 20px */
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1.2;
+    margin: 0; /* Asegúrate de que los otros márgenes estén en 0 */
 }
+
+.header-center p {
+    margin-bottom: 0;
+}
+
+/* Puedes añadir un poco de margen arriba y abajo del <hr> si es necesario */
+.header-center hr {
+    margin: 8px 0;
+}
+
 
 .header-right {
     font-size: 12px;
@@ -182,15 +203,15 @@ tbody:last-child tr:last-child {
 /* ... tus otros estilos ... */
 
 /* Establecer ancho máximo para contenido del PDF */
-#content {
-    max-width: 595pt;
-    /* Ancho de una página A4 en puntos */
-    margin: auto;
-    font-family: Arial, sans-serif;
-    /* ... otros estilos ... */
+/* Estilos comunes para content y additionalContent */
+#content, #additionalContent {
+    max-width: 595pt; /* Ancho de una página A4 en puntos */
+    margin: auto; /* Centra el contenido en la página */
+    padding: 20pt; /* Padding para el contenido */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho */
 }
 
-/* ... */
+
 
 #download-pdf {
     position: fixed;
@@ -272,6 +293,7 @@ td {
 .footer {
     width: 595pt; /* Ancho de una página A4 en puntos */
     padding: 20pt; /* Padding para el contenido del footer */
+    margin: auto; /* Centrar las secciones del footer */
 }
 
 .footer-section {
@@ -281,15 +303,63 @@ td {
 
 /* ... */
 
-/* Add this to your CSS file or within a <style> tag in your HTML */
+/* Establece un ancho máximo común para header, content y footer */
 .header, .content, .footer {
-  width: 80%; /* Example width, adjust as needed */
-  margin-left: auto;
-  margin-right: auto;
+    max-width: 595pt; /* Ajusta el ancho máximo según sea necesario */
+    margin: auto; /* Centra los elementos en la página */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho */
 }
 
-/* If the content has padding that affects its actual content area, 
-you'll need to apply the same padding to the header to align their widths */
+/* Estilos adicionales para el header y footer si es necesario */
 .header, .footer {
-  padding: 0 15px; /* Adjust padding to match content's padding */
+    padding: 0 20pt; /* Añade padding a los lados para alinear con el contenido */
+}
+
+/* Ajustes para el contenido del cuerpo */
+#content {
+    padding: 20pt; /* Ajusta el padding según sea necesario */
+}
+
+/* Ajustes para las secciones dentro de content */
+.table-section, .document-title {
+    padding: 0 20pt; /* Asegúrate de que el contenido interno esté alineado */
+}
+
+/* ... Resto de tus estilos ... */
+/* Estilos específicos para el footer en additionalContent */
+#additionalContent .footer {
+    margin-left: -20px; /* Desplaza el footer 20px hacia la izquierda */
+}
+
+#mainContainer{
+    background-color: #beaeae; /* Ejemplo de color de fondo */
+    padding: 20px; /* Espaciado alrededor del contenido */
+    margin-bottom: 20px; /* Espaciado entre los contenedores */
+}
+
+/* Continúa con tus estilos existentes */
+
+#additionalContainer {
+    background-color: #ff0000; /* Ejemplo de color de fondo */
+    padding: 20px; /* Espaciado alrededor del contenido */
+    margin-bottom: 20px; /* Espaciado entre los contenedores */
+}
+.form-container {
+    max-width: 100%;
+    /* Ajusta según el diseño */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 50px;
+    /* Centrar el formulario */
+    margin-right: auto;
+    /* Centrar el formulario */
+}
+/* Estilos para PDF */
+.pdf-header {
+    font-size: 12pt; /* Tamaño de fuente más grande para el PDF */
+}
+
+.pdf-footer {
+    font-size: 8pt; /* Tamaño de fuente más grande para el PDF */
 }
