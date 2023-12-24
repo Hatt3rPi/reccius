@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $tipoAbreviatura = 'EIN';
                         break;
                 }
-                $numeroDocumentoFormateado = 'DCAL-CC-' . $tipoAbreviatura . '-' . sprintf('%03d', $numeroDocumento);
+                $numeroDocumentoFormateado = 'DCAL-CC-' . $tipoAbreviatura . '-' . $numeroDocumento;
                 $query_especificacion="INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt2 = mysqli_prepare($link, $query_especificacion);
                 if ($stmt2) {
