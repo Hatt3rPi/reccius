@@ -107,22 +107,23 @@
                     </table>
                 </div>
             </div>
-
+            <div id="content" class="content">
                 <!-- Sección de Análisis Microbiológico -->
-                <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
-                    II. Análisis Microbiológico
-                </div>
+                    <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
+                        II. Análisis Microbiológico
+                    </div>
 
-                <!-- Tabla de Análisis Microbiológico -->
-                <table id="analisisMB" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Análisis</th>
-                            <th>Metodología</th>
-                            <th>Criterio de Aceptación</th>
-                        </tr>
-                    </thead>
-                </table>
+                    <!-- Tabla de Análisis Microbiológico -->
+                    <table id="analisisMB" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Análisis</th>
+                                <th>Metodología</th>
+                                <th>Criterio de Aceptación</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
             <div class="footer" id="additionalfooter">
                 <!-- Sección realizada por -->
