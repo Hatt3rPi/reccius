@@ -35,8 +35,6 @@
                     style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
                     <br>
                     <br>
-                    <h1 style="margin: 0; font-size: 16px; font-weight: bold; color: #000; line-height: 1.2;">
-                        Especificación</h1>
                     <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 16px; font-weight: bold; color: #000; line-height: 1.2;"></h1>
                     <p name="producto" id="producto" style="margin: 0; font-size: 22px; font-weight: bold; color: #000; margin-top: 5px;"></p>
                     <hr style="width:75%;">
@@ -94,8 +92,6 @@
                     <div class="document-title" style="text-align: center;">
                         <h2 name="Tipo_Producto" id="Tipo_Producto"  style="font-size: 22px; margin-bottom: 0; text-decoration: underline;"></h2>
                         <h3 name="producto" id="producto"  style="font-size: 18px; margin-top: 0;"></h3>
-                        <h3 name="concentracion" id="concentracion"  style="font-size: 18px; margin-top: 0;"></h3>
-                        <h3 name="formato" id="formato"  style="font-size: 18px; margin-top: 0;"></h3>
                     </div>
                     <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
                         I. Análisis Generales
@@ -118,7 +114,7 @@
                 </div>
 
                 <!-- Tabla de Análisis Microbiológico -->
-                <table id="analisisMB" class="table table-striped table-bordered" style="width:100%">
+                <table id="analisisMB" class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
                     <thead>
                         <tr>
                             <th>Análisis</th>
@@ -316,7 +312,7 @@ function mostrarAnalisisMB(analisis) {
 function poblarYDeshabilitarCamposProducto(producto) {
     if (producto) {
         // Usando .text() para elementos h2, h3 y p
-        $('#Tipo_Producto').text(producto.tipo_producto);
+        $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
         $('#producto').text(producto.nombre_producto);
         $('#concentracion').text(producto.concentracion);
         $('#formato').text(producto.formato);
