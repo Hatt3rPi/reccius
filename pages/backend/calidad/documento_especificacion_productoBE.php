@@ -13,19 +13,18 @@ $query = "SELECT cp.id as id_producto,
             cp.formato,
             cp.documento_ingreso  as documento_producto,
             cp.elaborado_por, 
+            cp.pais_origen,
+            cep.version,
+            cep.vigencia,
             cep.id_especificacion,
             cep.estado, 
-            cep.documento,
             cep.fecha_expiracion,
             cep.fecha_edicion,
             can.id_analisis,
             can.tipo_analisis,
             can.descripcion_analisis,
             can.metodologia, 
-            can.criterios_aceptacion,
-            cp.pais_origen,
-            cep.version,
-            cep.vigencia
+            can.criterios_aceptacion
         FROM calidad_productos as cp INNER JOIN calidad_especificacion_productos as cep 
         ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can 
@@ -51,6 +50,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'tipo_producto' => $row['tipo_producto'],
             'concentracion' => $row['concentracion'],
             'formato' => $row['formato'],
+            'documento_producto' => $row['documento_producto'],
             'elaborado_por' => $row['elaborado_por'],
             'pais_origen' => $row['elaborado_por'],
             'especificaciones' => []
@@ -62,7 +62,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         $productos[$producto_id]['especificaciones'][$especificacion_id] = [
             'id' => $especificacion_id,
             'estado' => $row['estado'],
-            'documento' => $row['documento'],
             'fecha_expiracion' => $row['fecha_expiracion'],
             'version' => $row['version'],
             'vigencia' => $row['vigencia'],
