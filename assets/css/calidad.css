@@ -300,3 +300,15 @@ button:hover {
         font-size: 20px; /* Tamaño de subtítulo ajustado para dispositivos móviles */
     }
 }
+.form-row {
+    display: flex;
+}
+
+.prefijo-documento {
+    flex: 75%;
+    margin-right: 5px; /* Ajusta el margen según sea necesario */
+}
+
+.numero-producto {
+    flex: 25%;
+}

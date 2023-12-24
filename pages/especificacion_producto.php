@@ -86,9 +86,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Documento:</label>
-                        <div class="form-row">
-                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled>
-                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required>
+                        <div class="form-row" style="display: flex;">
+                            <!-- Campo para el prefijo del documento -->
+                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled style="flex: 75%; margin-right: 5px;">
+                            
+                            <!-- Campo para el número de producto -->
+                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required style="flex: 25%;">
                         </div>
                     </div>
                 </div>
