@@ -42,7 +42,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Tipo de Producto:</label>
                         <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;" required>
                             <option value="">Selecciona el tipo de producto</option>    
-                            <option value="Materíal Envase y Empaque">Material Envase y Empaque</option>
+                            <option value="Material Envase y Empaque">Material Envase y Empaque</option>
                             <option value="Materia Prima">Materia Prima</option>
                             <option value="Producto Terminado">Producto Terminado</option>
                             <option value="Insumo">Insumo</option>
@@ -87,9 +87,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="form-group">
                         <label>Documento:</label>
                         <div class="form-row">
-                                <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled>
-                                <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required>
-                            </div>
+                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled>
+                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required>
                         </div>
                     </div>
                 </div>
