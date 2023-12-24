@@ -85,19 +85,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-                        <label>País de Origen:</label>
+                        <label>País de origen:</label>
                         <input type="text" name="paisOrigen" Value="Chile" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Documento:</label>
-                        <div class="form-col" style="display: flex; flex-direction: column;">
+                        <div class="form-row">
                             <!-- Campo para el prefijo del documento -->
-                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled style="flex: 75%; margin-right: 5px;">
+                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled style="col-2">
                             
                             <!-- Campo para el número de producto -->
-                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required style="flex: 25%;">
+                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required style="col">
                         </div>                    </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
