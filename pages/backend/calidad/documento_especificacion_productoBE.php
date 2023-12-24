@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Validación y saneamiento del ID

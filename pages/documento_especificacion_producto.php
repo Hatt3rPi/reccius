@@ -250,7 +250,7 @@
                 </div>
 
                 <!-- Tabla de Análisis Microbiológico -->
-                <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%">
+                <table id="analisisMB" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Análisis</th>
@@ -446,19 +446,19 @@ function mostrarAnalisisMB(analisis) {
     }
 }
 function poblarYDeshabilitarCamposProducto(producto) {
-    $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
-    $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
-    $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true);
-    $('#formato').val(producto.formato).prop('disabled', true);
-    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
-    // $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
-    $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true);
+    $('#Tipo_Producto').val(producto.tipo_producto);
+    $('input[name="producto"]').val(producto.nombre_producto);
+    $('input[name="concentracion"]').val(producto.concentracion);
+    $('#formato').val(producto.formato);
+    $('input[name="elaboradoPor"]').val(producto.elaborado_por);
+    // $('input[name="paisOrigen"]').val(producto.pais_origen);
+    $('input[name="documento"]').val(producto.documento_producto);
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
-        $('#fechaEdicion').val(especificacion.fecha_edicion).prop('disabled', true);
-        $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
-        $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
+        $('#fechaEdicion').val(especificacion.fecha_edicion);
+        $('input[name="version"]').val(especificacion.version); // Asegúrate de que 'version' exista en tus datos
+        $('#periodosVigencia').val(especificacion.vigencia); // Asegúrate de que 'vigencia' exista en tus datos
     }
     console.log(producto.tipo_producto);
 }
