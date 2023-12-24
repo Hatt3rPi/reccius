@@ -55,10 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $vigencia = limpiarDato($_POST['periodosVigencia']);
 
         // Preparar sentencia para insertar en calidad_productos
-        $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso) VALUES (?, ?, ?, ?, ?, ?)";
+        $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $query);
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "ssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento);
+            mysqli_stmt_bind_param($stmt, "sssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroDocumento);
             $crea_producto=mysqli_stmt_execute($stmt);
             $idProducto = mysqli_insert_id($link);
             //in trazabilidad
@@ -87,16 +87,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         break;
                 }
                 $numeroDocumentoFormateado = 'DCAL-CC-' . $tipoAbreviatura . '-' . sprintf('%03d', $numeroDocumento);
-                $query_especificacion="INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia, identificador_producto) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $query_especificacion="INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt2 = mysqli_prepare($link, $query_especificacion);
                 if ($stmt2) {
-                    mysqli_stmt_bind_param($stmt2, "issssii", $idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $numeroDocumento);
+                    mysqli_stmt_bind_param($stmt2, "issssi", $idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia);
                     $crea_especificacion=mysqli_stmt_execute($stmt2);
                     $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
                     //in trazabilidad
                         $resultado = $crea_especificacion ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
                         $error = $resultado ? null : "Error al ejecutar la consulta: " . mysqli_stmt_error($stmtAnalisisFQ);
-                        registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea especificación', 'calidad_especificacion_productos',  $idEspecificacion, $query_especificacion, [$idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $numeroDocumento], $resultado, $error);
+                        registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea especificación', 'calidad_especificacion_productos',  $idEspecificacion, $query_especificacion, [$idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia], $resultado, $error);
                     // out trazabidad
 
                     if ($crea_especificacion) {
