@@ -94,7 +94,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Documento:</label>
                         <div class="form-row">
                             <!-- Campo para el prefijo del documento -->
-                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled class="col">
+                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled class="col" style="text-align: right;">
                             
                             <!-- Campo para el número de producto -->
                             <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required class="col-2">
