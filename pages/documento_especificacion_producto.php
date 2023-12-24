@@ -446,22 +446,24 @@ function mostrarAnalisisMB(analisis) {
     }
 }
 function poblarYDeshabilitarCamposProducto(producto) {
-    $('#Tipo_Producto').val(producto.tipo_producto);
-    $('input[name="producto"]').val(producto.nombre_producto);
-    $('input[name="concentracion"]').val(producto.concentracion);
-    $('#formato').val(producto.formato);
-    $('input[name="elaboradoPor"]').val(producto.elaborado_por);
-    // $('input[name="paisOrigen"]').val(producto.pais_origen);
-    $('input[name="documento"]').val(producto.documento_producto);
-    let especificacion = Object.values(producto.especificaciones)[0];
-    if (especificacion) {
-        // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
-        $('#fechaEdicion').val(especificacion.fecha_edicion);
-        $('input[name="version"]').val(especificacion.version); // Asegúrate de que 'version' exista en tus datos
-        $('#periodosVigencia').val(especificacion.vigencia); // Asegúrate de que 'vigencia' exista en tus datos
+    if (producto) {
+        // Usando .text() para elementos h2, h3 y p
+        $('#Tipo_Producto').text(producto.tipo_producto);
+        $('#producto').text(producto.nombre_producto);
+        $('#concentracion').text(producto.concentracion);
+        $('#formato').text(producto.formato);
+        $('#documento').text(producto.documento_producto);
+        $('#elaboradoPor').text(producto.elaborado_por);
+        
+        let especificacion = Object.values(producto.especificaciones)[0];
+        if (especificacion) {
+            $('#fechaEdicion').text(especificacion.fecha_edicion);
+            $('#version').text(especificacion.version);
+            $('#periodosVigencia').text(especificacion.vigencia);
+        }
     }
-    console.log(producto.tipo_producto);
 }
+
 
     </script>
 
