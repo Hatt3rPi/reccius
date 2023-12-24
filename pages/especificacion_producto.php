@@ -94,10 +94,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Documento:</label>
                         <div class="form-row">
                             <!-- Campo para el prefijo del documento -->
-                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled style="col-2">
+                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled class="col-2">
                             
                             <!-- Campo para el número de producto -->
-                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required style="col">
+                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required class="col">
                         </div>                    </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
