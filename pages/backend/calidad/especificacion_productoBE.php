@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $vigencia = limpiarDato($_POST['periodosVigencia']);
 
         // Preparar sentencia para insertar en calidad_productos
-        $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto) VALUES (?, ?, ?, ?, ?, ?)";
+        $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $query);
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "sssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroDocumento);
