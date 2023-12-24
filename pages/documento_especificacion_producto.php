@@ -112,138 +112,6 @@
                 </div>
             </div>
 
-            <div class="footer" id="footer">
-                <!-- Sección realizada por -->
-                <div class="footer-section">
-                    <div class="footer-box-title">Realizado por:</div>
-                    <div class="footer-box">
-                        <p class="bold">QF. Ingar Surname Rodríguez</p>
-                        <p class="bold">Director de Calidad</p>
-                        <div class="signature">[Espacio para la firma]</div>
-                        <p>Firmado digitalmente</p>
-                    </div>
-                    <div class="date">Fecha: 24/07/2023</div>
-                </div>
-
-                <!-- Sección revisada por -->
-                <div class="footer-section">
-                    <div class="footer-box-title">Revisado por:</div>
-                    <div class="footer-box">
-                        <p class="bold">QF. Cathrine Pereira García</p>
-                        <p class="bold">Jefe de Producción</p>
-                        <div class="signature">Ausente por Licencia</div>
-                        <p>Firmado digitalmente</p>
-                    </div>
-                    <div class="date">Fecha: 24/07/2023</div>
-                </div>
-
-                <!-- Sección aprobada por -->
-                <div class="footer-section">
-                    <div class="footer-box-title">Aprobado por:</div>
-                    <div class="footer-box">
-                        <p class="bold">QF. Luis Sepúlveda Miranda</p>
-                        <p class="bold">Director Técnico</p>
-                        <div class="signature">[Espacio para la firma]</div>
-                        <p>Firmado digitalmente</p>
-                    </div>
-                    <div class="date">Fecha: 24/07/2023</div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div id="Additionalcontainer">
-            <div id="additionalheader" class="header"
-                style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #000;">
-
-                <!-- Logo e Información Izquierda -->
-                <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo"
-                        style="height: 50px;" />
-                    <!-- Ajusta el tamaño según sea necesario -->
-                    <br>
-                    <div class="sub-info" style="font-size: 0.75em;">
-                        Producto de recetario magistral <br>
-                        Res. Ex. N° 2988/2018 <br>
-                        RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
-                    </div>
-                </div>
-                <!-- Título Central -->
-                <div class="header-center"
-                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <h1 style="margin: 0; font-size: 16px; font-weight: bold; color: #000; line-height: 1.2;">
-                        Especificación
-                        Producto Terminado</h1>
-                    <p style="margin: 0; font-size: 22px; font-weight: bold; color: #000; margin-top: 5px;">Ácido
-                        Ascórbico
-                        1g
-                        10ml Amp</p>
-                    <hr style="width:75%;">
-                    <div style="position: relative; font-size: 18px; font-weight: bold; color: #000; margin-top: 2px;">
-                        Dirección de Calidad
-
-                    </div>
-                </div>
-
-
-
-
-
-                <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="flex: 1; font-size: 0.75em;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Doc No:</td>
-                            <td style="border: 1px solid black; padding: 2px;">CAL-CPF-007</td>
-                            <td style="border: 1px solid black; padding: 2px;">Elab. por:</td>
-                            <td style="border: 1px solid black; padding: 2px;">QF DCA.LSR</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Edición:</td>
-                            <td style="border: 1px solid black; padding: 2px;">24/07/2023</td>
-                            <td style="border: 1px solid black; padding: 2px;">Rev.Por:</td>
-                            <td style="border: 1px solid black; padding: 2px;">QF DTS.CPG</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Versión:</td>
-                            <td style="border: 1px solid black; padding: 2px;">005</td>
-                            <td style="border: 1px solid black; padding: 2px;">Aut.Por:</td>
-                            <td style="border: 1px solid black; padding: 2px;">QF DTL.ISM</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Vigencia:</td>
-                            <td style="border: 1px solid black; padding: 2px;">5 Años</td>
-                            <td style="border: 1px solid black; padding: 2px;">Página:</td>
-                            <td style="border: 1px solid black; padding: 2px;">1 de 2</td>
-                        </tr>
-                    </table>
-                    <div class="sub-info" style="margin-top: 10px; font-size: 14px;">
-
-                        RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
-                    </div>
-                </div>
-
-
-
-            </div>
-            <div class="table-section" id="additionalContent">
-                <!-- Título y subtítulo del cuerpo del documento -->
-                <div class="document-title" style="text-align: center;">
-                    <h2 style="font-size: 22px; margin-bottom: 0; text-decoration: underline;">ESPECIFICACIONES DE
-                        PRODUCTO TERMINADO</h2>
-                    <h3 style="font-size: 18px; margin-top: 0;">ÁCIDO ASCÓRBICO 1G 10ML AMPOLLA</h3>
-                </div>
-
                 <!-- Sección de Análisis Microbiológico -->
                 <div class="analysis-section">
                     II. Análisis Microbiológico
@@ -266,12 +134,12 @@
                     <br>
                     <div class="footer-box-title">Realizado por:</div>
                     <div class="footer-box">
-                        <p class="bold">QF. Inger Sumonte Rodríguez</p>
+                        <p id='creadoPor' name='creadoPor' class="bold"></p>
                         <p class="bold">Director de Calidad</p>
                         <div class="signature">[Espacio para la firma]</div>
                         <p>Firmado digitalmente</p>
                     </div>
-                    <div class="date">Fecha: 24/07/2023</div>
+                    <div id='fecha_Edicion' name='fecha_Edicion' class="date"></div>
                     <br>
                 </div>
 
@@ -279,24 +147,24 @@
                 <div class="footer-section">
                     <div class="footer-box-title">Revisado por:</div>
                     <div class="footer-box">
-                        <p class="bold">QF. Cathrine Pereira García</p>
+                        <p id='revisadoPor' name='revisadoPor'class="bold"></p>
                         <p class="bold">Jefe de Producción</p>
                         <div class="signature">Ausente por Licencia</div>
                         <p>Firmado digitalmente</p>
                     </div>
-                    <div class="date">Fecha: 24/07/2023</div>
+                    <div id='fechaRevision' name='fechaRevision' class="date"></div>
                 </div>
 
                 <!-- Sección aprobada por -->
                 <div class="footer-section">
                     <div class="footer-box-title">Aprobado por:</div>
                     <div class="footer-box">
-                        <p class="bold">QF. Luis Sepúlveda Miranda</p>
+                        <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
                         <p class="bold">Director Técnico</p>
                         <div class="signature">[Espacio para la firma]</div>
                         <p>Firmado digitalmente</p>
                     </div>
-                    <div class="date">Fecha: 24/07/2023</div>
+                    <div id='fechaAprobacion' name='fechaAprobacion' class="date"></div>
                 </div>
             </div>
 
@@ -460,6 +328,15 @@ function poblarYDeshabilitarCamposProducto(producto) {
             $('#fechaEdicion').text(especificacion.fecha_edicion);
             $('#version').text(especificacion.version);
             $('#periodosVigencia').text(especificacion.vigencia);
+            $('#creadoPor').text(especificacion.creado_por || 'No disponible');
+            $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
+            $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
+            
+            // Actualizar fechas de revisión y aprobación
+            $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+            $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+            $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
+
         }
     }
 }

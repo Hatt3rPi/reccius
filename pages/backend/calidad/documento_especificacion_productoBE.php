@@ -7,29 +7,32 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Consulta para obtener los productos, especificaciones y análisis asociados
 $query = "SELECT cp.id as id_producto,
-            cp.nombre_producto AS producto,
+            CONCAT(cp.nombre_producto, ' ', cp.concentracion, ' - ', cp.formato) AS producto,
             cp.tipo_producto,
-            cp.concentracion,
-            cp.formato,
-            cp.documento_ingreso  as documento_producto,
+            cp.documento_ingreso as documento_producto,
             cp.elaborado_por, 
             cp.pais_origen,
             cep.version,
-            cep.vigencia,
+            concat(cep.vigencia, ' años') as vigencia,
             cep.id_especificacion,
-            cep.estado, 
-            cep.fecha_expiracion,
-            cep.fecha_edicion,
+            cep.creado_por,
+            cep.revisado_por,
+            cep.aprobado_por,
+            DATE_FORMAT(cep.fecha_revision, '%d/%m/%Y') as fecha_revision,
+            DATE_FORMAT(cep.fecha_aprobacion, '%d/%m/%Y') as fecha_aprobacion,
+            DATE_FORMAT(cep.fecha_expiracion, '%d/%m/%Y') as fecha_expiracion,
+            DATE_FORMAT(cep.fecha_edicion, '%d/%m/%Y') as fecha_edicion,
             can.id_analisis,
             can.tipo_analisis,
             can.descripcion_analisis,
             can.metodologia, 
             can.criterios_aceptacion
-        FROM calidad_productos as cp INNER JOIN calidad_especificacion_productos as cep 
+        FROM calidad_productos as cp 
+        INNER JOIN calidad_especificacion_productos as cep 
         ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can 
         ON cep.id_especificacion = can.id_especificacion_producto 
-        WHERE cep.id_especificacion= ?";
+        WHERE cep.id_especificacion = ?";
 
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "i", $id);
@@ -61,10 +64,15 @@ while ($row = mysqli_fetch_assoc($result)) {
     if (!isset($productos[$producto_id]['especificaciones'][$especificacion_id])) {
         $productos[$producto_id]['especificaciones'][$especificacion_id] = [
             'id' => $especificacion_id,
-            'estado' => $row['estado'],
-            'fecha_expiracion' => $row['fecha_expiracion'],
             'version' => $row['version'],
             'vigencia' => $row['vigencia'],
+            'creado_por' => $row['creado_por'],
+            'revisado_por' => $row['revisado_por'],
+            'aprobado_por' => $row['aprobado_por'],
+            'fecha_revision' => $row['fecha_revision'],
+            'fecha_aprobacion' => $row['fecha_aprobacion'],
+            'fecha_expiracion' => $row['fecha_expiracion'],
+            'fecha_edicion' => $row['fecha_edicion'],
             'analisis' => []
         ];
     }
