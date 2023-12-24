@@ -62,8 +62,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Formato:</label>
-                        <input type="text" name="formato" placeholder="Ingresa formato de presentación" required>
+                        <select name="formato" id="formato" class="select-style" required>
+                            <option value="">Selecciona un formato</option>
+                            <option value="Ampolla">Ampolla</option>
+                            <option value="Frasco Ampolla">Frasco Ampolla</option>
+                            <option value="Vial">Vial</option>
+                            <option value="Papelillo">Papelillo</option>
+                            <option value="Cápsula">Cápsula</option>
+                            <option value="Colirio">Colirio</option>
+                            <option value="Ungüento">Ungüento</option>
+                            <option value="Jarabe">Jarabe</option>
+                            <option value="Crema">Crema</option>
+                            <option value="Otro">Otro</option>
+                        </select>
                     </div>
+
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -88,7 +101,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input type="text" name="version" value="1" readonly>
+                        <input type="text" name="version" value="1" disabled>
                     </div>
                 </div>
                 <div class="form-row">
@@ -495,7 +508,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
     $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
     $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
     $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true);
-    $('input[name="formato"]').val(producto.formato).prop('disabled', true);
+    $('#formato').val(producto.formato).prop('disabled', true);
     $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
     // $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
     $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true);
