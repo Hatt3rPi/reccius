@@ -89,10 +89,6 @@
             <div id="content" class="content">
                 <!-- Resto del contenido del cuerpo igual al HTML original -->
                 <div class="table-section">
-                    <div class="document-title" style="text-align: center;">
-                        <h2 name="Tipo_Producto" id="Tipo_Producto"  style="font-size: 22px; margin-bottom: 0; text-decoration: underline;"></h2>
-                        <h3 name="producto" id="producto"  style="font-size: 18px; margin-top: 0;"></h3>
-                    </div>
                     <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
                         I. Análisis Generales
                     </div>
@@ -108,6 +104,7 @@
                 </div>
             </div>
             <div id="content" class="content">
+                <div class="table-section">
                 <!-- Sección de Análisis Microbiológico -->
                     <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
                         II. Análisis Microbiológico
