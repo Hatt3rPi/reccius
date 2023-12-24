@@ -109,12 +109,12 @@
             </div>
 
                 <!-- Sección de Análisis Microbiológico -->
-                <div class="analysis-section">
+                <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
                     II. Análisis Microbiológico
                 </div>
 
                 <!-- Tabla de Análisis Microbiológico -->
-                <table id="analisisMB" class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
+                <table id="analisisMB" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Análisis</th>
