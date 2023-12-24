@@ -73,7 +73,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Número producto:</label>
-                        <input type="text" name="documento" placeholder="ingresa número de documento" required>
+                        <input pattern="\d{1,3}" type="text" name="documento" placeholder="ingresa número de producto, ej. 001" required>
                     </div>
                 </div>
                 <br>

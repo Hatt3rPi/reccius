@@ -8,12 +8,13 @@ $query = "SELECT
             cp.id,
             cep.id_especificacion,
             cep.estado, 
-            cep .documento, 
+            cp.documento_ingreso as documento, 
             cp.nombre_producto AS producto, 
             cp.tipo_producto, 
             cp.concentracion, 
             cp.formato, 
-            cp.elaborado_por, 
+            cp.elaborado_por,
+            cp.pais_origen 
             cep.fecha_expiracion 
         FROM calidad_productos as cp
         INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto;";
