@@ -85,8 +85,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-                        <label>Número producto:</label>
-                        <input pattern="\d{1,3}" type="text" name="documento" placeholder="ingresa número de producto, ej. 001" required>
+                        <label>Documento:</label>
+                        <div class="form-row">
+                                <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled>
+                                <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -651,4 +655,26 @@ function guardar(){
 $('#guardar').click(function() {
         guardar();
     });
+
+    $('#Tipo_Producto').on('change', function() {
+    var tipoProducto = $(this).val();
+    var prefijo = '';
+
+    switch (tipoProducto) {
+        case 'Material Envase y Empaque':
+            prefijo = 'DCAL-CC-EME-';
+            break;
+        case 'Materia Prima':
+            prefijo = 'DCAL-CC-EMP-';
+            break;
+        case 'Producto Terminado':
+            prefijo = 'DCAL-CC-EPT-';
+            break;
+        case 'Insumo':
+            prefijo = 'DCAL-CC-EIN-';
+            break;
+    }
+
+    $('#prefijoDocumento').val(prefijo);
+});
 </script>
