@@ -100,23 +100,6 @@
                     <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
                         I. Análisis Generales
                     </div>
-                    <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th></th> <!-- Columna vacía para botones o checkboxes -->
-                            <th>Estado</th>
-                            <th>Documento</th>
-                            <th>Producto</th>
-                            <th>Tipo producto</th>
-                            <th>Concentración</th>
-                            <th>Formato</th>
-                            <th>Producido por</th>
-                            <th>Fecha expiración</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Los datos dinámicos de la tabla se insertarán aquí -->
-                    </tbody>
                     <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
@@ -267,29 +250,14 @@
                 </div>
 
                 <!-- Tabla de Análisis Microbiológico -->
-                <table>
+                <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Análisis</th>
                             <th>Metodología</th>
-                            <th>Especificación</th>
+                            <th>Criterio de Aceptación</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Fila de Esterilidad -->
-                        <tr>
-                            <td>Esterilidad</td>
-                            <td>USP</td>
-                            <td>Esteril</td>
-                        </tr>
-
-                        <!-- Fila de Endotoxinas -->
-                        <tr>
-                            <td>Endotoxinas</td>
-                            <td>USP</td>
-                            <td>No más de 1,2 UE/mg</td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
             <div class="footer" id="additionalfooter">
@@ -456,7 +424,27 @@ function mostrarAnalisisFQ(analisis) {
         });
     }
 }
-
+function mostrarAnalisisMB(analisis) {
+    if ($.fn.DataTable.isDataTable('#analisisMB')) {
+        $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+    } else {
+        $('#analisisMB').DataTable({
+            data: analisis,
+            columns: [
+                { title: 'Análisis', data: 'descripcion_analisis' },
+                { title: 'Metodología', data: 'metodologia' },
+                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+            ],
+            paging: false,
+            info: false,
+            searching: false,
+            lengthChange: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            }
+        });
+    }
+}
 function poblarYDeshabilitarCamposProducto(producto) {
     $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
     $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
