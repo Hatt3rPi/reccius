@@ -88,7 +88,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input type="text" name="version" value="1" required>
+                        <input type="text" name="version" value="1" readonly>
                     </div>
                 </div>
                 <div class="form-row">
