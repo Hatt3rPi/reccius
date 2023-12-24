@@ -85,14 +85,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
+                        <label>País de Origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
                         <label>Documento:</label>
-                        <div class="form-row" style="display: flex;">
+                        <div class="form-col" style="display: flex; flex-direction: column;">
                             <!-- Campo para el prefijo del documento -->
                             <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled style="flex: 75%; margin-right: 5px;">
                             
                             <!-- Campo para el número de producto -->
                             <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required style="flex: 25%;">
-                        </div>
+                        </div>                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+
                     </div>
                 </div>
                 <br>
@@ -516,7 +525,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
     $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true);
     $('#formato').val(producto.formato).prop('disabled', true);
     $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
-    // $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
+    $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
     $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true);
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {

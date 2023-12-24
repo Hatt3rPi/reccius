@@ -300,9 +300,6 @@ button:hover {
         font-size: 20px; /* Tamaño de subtítulo ajustado para dispositivos móviles */
     }
 }
-.form-row {
-    display: flex;
-}
 
 .prefijo-documento {
     flex: 75%;
