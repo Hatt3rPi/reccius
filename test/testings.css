@@ -111,9 +111,9 @@ td {
     display: flex; /* Activa flexbox */
     flex-direction: column; /* Orienta los elementos hijos en una columna */
     justify-content: space-between; /* Separa los elementos hijos uniformemente */
-    padding: 55px; /* Ajusta el padding según sea necesario */
+    padding: 25px; /* Ajusta el padding según sea necesario */
     border: 1px solid #000; /* Borde alrededor de cada caja del footer */
-    height: 150px; /* O un valor que se adapte a tu diseño */
+    height: 200px; /* O un valor que se adapte a tu diseño */
 }
 
 .signature {
