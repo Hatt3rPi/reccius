@@ -697,7 +697,9 @@ function actualizarDocumento() {
     var numero = document.getElementById('numeroProducto').value;
     document.getElementById('documento').value = prefijo + numero;
 }
-document.getElementById('prefijoDocumento').addEventListener('change', actualizarDocumento);
-document.getElementById('numeroProducto').addEventListener('change', actualizarDocumento);
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('prefijoDocumento').addEventListener('change', actualizarDocumento);
+    document.getElementById('numeroProducto').addEventListener('change', actualizarDocumento);
+});
 </script>
