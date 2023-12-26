@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $crea_especificacion=false;
     $crea_analisis=false;
 
-    $error = 'Campos faltantes: ';
+    $error_camposFaltantes = 'Campos faltantes: ';
     $campos = [
         'Tipo_Producto' => 'Tipo producto',
         'producto' => 'Producto',
@@ -62,39 +62,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'periodosVigencia' => 'Vigencia'
     ];
     if (isset($_POST['formato']) && $_POST['formato'] == 'Otro' && empty($_POST['otroFormato'])) {
-        $error .= "Otro Formato, ";
+        $error_camposFaltantes .= "Otro Formato, ";
     }
     if (isset($_POST['analisisFQ']) && is_array($_POST['analisisFQ'])) {
         foreach ($_POST['analisisFQ'] as $analisis) {
             if ($analisis['descripcion_analisis'] == 'Otro' && empty($analisis['otrodescripcion_analisis'])) {
-                $error .= "Otra Descripción Análisis FQ, ";
+                $error_camposFaltantes .= "Otra Descripción Análisis FQ, ";
             }
             if ($analisis['metodologia'] == 'Otro' && empty($analisis['otrometodologia'])) {
-                $error .= "Otra Metodología Análisis FQ, ";
+                $error_camposFaltantes .= "Otra Metodología Análisis FQ, ";
             }
         }
     }
     if (isset($_POST['analisisMB']) && is_array($_POST['analisisMB'])) {
         foreach ($_POST['analisisMB'] as $analisis) {
             if ($analisis['descripcion_analisis'] == 'Otro' && empty($analisis['otrodescripcion_analisis'])) {
-                $error .= "Otra Descripción Análisis MB, ";
+                $error_camposFaltantes .= "Otra Descripción Análisis MB, ";
             }
             if ($analisis['metodologia'] == 'Otro' && empty($analisis['otrometodologia'])) {
-                $error .= "Otra Metodología Análisis MB, ";
+                $error_camposFaltantes .= "Otra Metodología Análisis MB, ";
             }
         }
     }
     if (isset($_POST['Tipo_Producto']) && $_POST['Tipo_Producto'] == 'Otro' && empty($_POST['otroTipo_Producto'])) {
-        $error .= "Otro Tipo de Producto, ";
+        $error_camposFaltantes .= "Otro Tipo de Producto, ";
     }
     foreach ($campos as $campo => $nombre) {
         if (empty($_POST[$campo])) {
-            $error .= "$nombre, ";
+            $error_camposFaltantes .= "$nombre, ";
         }
     }
     
-    if ($error != 'Campos faltantes: ') {
-        $error = rtrim($error, ', ');
+    if ($error_camposFaltantes != 'Campos faltantes: ') {
+        $error_camposFaltantes = rtrim($error_camposFaltantes, ', ');
         //echo "Todos los campos son requeridos. ".$error;
     } else {
         // Proceso de inserción si todos los campos están presentes
@@ -259,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $_SESSION['buscarEspecificacion']=$idEspecificacion;
 $respuesta = [
     "exito" => $exito,
-    "mensaje" => $mensaje,
+    "mensaje" => $mensaje. $error_camposFaltantes,
     "idEspecificacion" => $idEspecificacion
 ];
 echo json_encode($respuesta);

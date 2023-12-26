@@ -116,7 +116,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             
                             <!-- Campo para el número de producto -->
                             <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required class="col-2">
-                            <input type="text" name="documento" style="display: none;">
+                            <input type="text" id="documento" name="documento" style="display: none;">
                         </div>                    </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
