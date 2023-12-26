@@ -471,7 +471,11 @@ function validarFormulario() {
 
     return valido;
 }
-
+function actualizarDocumento() {
+    var prefijo = document.getElementById('prefijoDocumento').value;
+    var numero = document.getElementById('numeroProducto').value;
+    document.getElementById('documento').value = prefijo + numero;
+}
 function cargarDatosEspecificacion(id) {
     $.ajax({
         url: './backend/calidad/listado_analisis_por_especificacion.php',
@@ -716,11 +720,7 @@ function verificarOtro(selectId, inputId) {
         input.value = ''; // Limpiar el campo si "Otro" no está seleccionado
     }
 }
-function actualizarDocumento() {
-    var prefijo = document.getElementById('prefijoDocumento').value;
-    var numero = document.getElementById('numeroProducto').value;
-    document.getElementById('documento').value = prefijo + numero;
-}
+
 
 
 function actualizarCampos() {
