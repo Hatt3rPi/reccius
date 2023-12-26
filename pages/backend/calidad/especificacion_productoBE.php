@@ -11,7 +11,34 @@ function limpiarDato($dato) {
     $dato = htmlspecialchars($dato);
     return $dato;
 }
+function insertarOpcionSiNoExiste($link, $categoria, $nuevoValor) {
+    // Limpiar y preparar el valor
+    $nuevoValor = limpiarDato($nuevoValor);
 
+    // Comprobar si ya existe
+    $queryVerificar = "SELECT COUNT(*) FROM calidad_opciones_desplegables WHERE nombre_opcion = ? AND categoria = ?";
+    $stmtVerificar = mysqli_prepare($link, $queryVerificar);
+    mysqli_stmt_bind_param($stmtVerificar, "ss", $nuevoValor, $categoria);
+    mysqli_stmt_execute($stmtVerificar);
+    mysqli_stmt_bind_result($stmtVerificar, $cantidad);
+    mysqli_stmt_fetch($stmtVerificar);
+    mysqli_stmt_close($stmtVerificar);
+
+    // Insertar si no existe
+    if ($cantidad == 0) {
+        $queryInsertar = "INSERT INTO calidad_opciones_desplegables (categoria, nombre_opcion) VALUES (?, ?)";
+        $stmtInsertar = mysqli_prepare($link, $queryInsertar);
+        mysqli_stmt_bind_param($stmtInsertar, "ss", $categoria, $nuevoValor);
+        $ingresaOtro=mysqli_stmt_execute($stmtInsertar);
+        
+        //in trazabilidad
+            $resultado = $ingresaOtro ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
+            $error = $ingresaOtro ? null: "Error al ejecutar la consulta: " . mysqli_stmt_error($stmtInsertar);
+            registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - OPCIONES DESPLEGABLES - inserta nuevo '.$categoria , 'calidad_opciones_desplegables',  mysqli_insert_id($link), $queryInsertar, [$categoria, $nuevoValor], $resultado, $error);
+        // out trazabidad
+        mysqli_stmt_close($stmtInsertar);
+    }
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Imprime los datos recibidos para propósitos de depuración
     //echo "<pre>";
@@ -33,7 +60,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'version' => 'Versión',
         'periodosVigencia' => 'Vigencia'
     ];
-    
+    if (isset($_POST['formato']) && $_POST['formato'] == 'Otro' && empty($_POST['otroFormato'])) {
+        $error .= "Otro Formato, ";
+    }
+    if (isset($_POST['analisisFQ']) && is_array($_POST['analisisFQ'])) {
+        foreach ($_POST['analisisFQ'] as $analisis) {
+            if ($analisis['descripcion_analisis'] == 'Otro' && empty($analisis['otrodescripcion_analisis'])) {
+                $error .= "Otra Descripción Análisis FQ, ";
+            }
+            if ($analisis['metodologia'] == 'Otro' && empty($analisis['otrometodologia'])) {
+                $error .= "Otra Metodología Análisis FQ, ";
+            }
+        }
+    }
+    if (isset($_POST['analisisMB']) && is_array($_POST['analisisMB'])) {
+        foreach ($_POST['analisisMB'] as $analisis) {
+            if ($analisis['descripcion_analisis'] == 'Otro' && empty($analisis['otrodescripcion_analisis'])) {
+                $error .= "Otra Descripción Análisis MB, ";
+            }
+            if ($analisis['metodologia'] == 'Otro' && empty($analisis['otrometodologia'])) {
+                $error .= "Otra Metodología Análisis MB, ";
+            }
+        }
+    }
+    if (isset($_POST['Tipo_Producto']) && $_POST['Tipo_Producto'] == 'Otro' && empty($_POST['otroTipo_Producto'])) {
+        $error .= "Otro Tipo de Producto, ";
+    }
     foreach ($campos as $campo => $nombre) {
         if (empty($_POST[$campo])) {
             $error .= "$nombre, ";
@@ -48,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $tipoProducto = limpiarDato($_POST['Tipo_Producto']);
         $producto = limpiarDato($_POST['producto']);
         $concentracion = limpiarDato($_POST['concentracion']);
-        $formato = limpiarDato($_POST['formato']);
+        $formato = !empty($_POST['formato']) ? limpiarDato($_POST['formato']) : (isset($_POST['otroFormato']) ? limpiarDato($_POST['otroFormato']) : '');
         $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
         $numeroDocumento = limpiarDato($_POST['documento']);
         $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
@@ -109,8 +161,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             foreach ($_POST['analisisFQ'] as $analisis) {
                                 $crea_analisis='';
                                 // Asegúrate de que estas claves coincidan con las de tu array
-                                $descripcion_analisis = limpiarDato($analisis['descripcion_analisis']);
-                                $metodologia = limpiarDato($analisis['metodologia']);
+                                $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
+                                $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);
                                 $criterios_aceptacion = limpiarDato($analisis['criterio']);
                                 $tipo='analisis_FQ';
                                 $query_analisis="INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, ?, ?, ?, ?)";
@@ -137,8 +189,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             foreach ($_POST['analisisMB'] as $analisis) {
                                 // Asegúrate de que estas claves coincidan con las de tu array
                                 $crea_analisis='';
-                                $descripcion_analisis = limpiarDato($analisis['descripcion_analisis']);
-                                $metodologia = limpiarDato($analisis['metodologia']);
+                                $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrootrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
+                                $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);
                                 $criterios_aceptacion = limpiarDato($analisis['criterio']);
                                 $tipo='analisis_MB';
                                 $query_analisis="INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, ?, ?, ?, ?)";
@@ -153,6 +205,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 // out trazabidad
                                 if ($crea_analisis) {
                                     // Éxito en la inserción
+
+                                    if ($_POST['formato'] == 'Otro' && !empty($_POST['otroFormato'])) {
+                                        insertarOpcionSiNoExiste($link, 'Formato', $_POST['otroFormato']);
+                                    }
+                                    if ($_POST['Tipo_Producto'] == 'Otro' && !empty($_POST['otroTipo_Producto'])) {
+                                        insertarOpcionSiNoExiste($link, 'Tipo_Producto', $_POST['otroTipo_Producto']);
+                                    }
+                                    if ($_POST['descripcion_analisis'] == 'Otro' && !empty($_POST['otrodescripcion_analisis'])) {
+                                        insertarOpcionSiNoExiste($link, 'descripcion_analisis', $_POST['otrodescripcion_analisis']);
+                                    }
+                                    if ($_POST['metodologia'] == 'Otro' && !empty($_POST['otrometodologia'])) {
+                                        insertarOpcionSiNoExiste($link, 'metodologia', $_POST['otrometodologia']);
+                                    }
+                                    // Similar para 'Metodología', 'Análisis FQ' y 'Análisis MB'
+
                                 } else {
                                     $mensaje = "Error al insertar en calidad_analisis para analisis_MB: " . mysqli_error($link);
                                 }

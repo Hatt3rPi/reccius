@@ -249,11 +249,11 @@ function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
 
 function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
     var valorSeleccionado = selectElement.value;
-    var idCampoOtro = 'otro_' + tipoAnalisis + '_' + contador + '_' + campo;
+    var idCampoOtro = 'analisis' + tipoAnalisis + '[' + contador + '][otro' + campo + ']';
 
     if (valorSeleccionado === 'Otro') {
         // Crear y mostrar campo de texto para "Otro"
-        var inputOtro = '<input type="text" id="' + idCampoOtro + '" name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + '_otro]" placeholder="Especificar otr@ ' + campo + '" style="display: inline-block; margin-left: 10px;">';
+        var inputOtro = '<input type="text" id="' + idCampoOtro + '" name="' + idCampoOtro + '" placeholder="Especificar otr@ ' + campo + '" style="display: inline-block; margin-left: 10px;">';
         $(selectElement).after(inputOtro);
     } else {
         // Eliminar campo de texto para "Otro" si ya existe
@@ -416,7 +416,7 @@ function validarFormulario() {
         mensaje += 'El campo "Vigencia" es obligatorio.\n';
         valido = false;
     }
-
+    
     var valido = true;
     var mensaje = '';
 
