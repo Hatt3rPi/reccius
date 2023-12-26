@@ -135,7 +135,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input type="text" id="version" name="version" value="1" disabled>
+                        <input type="text" id="version" name="version" value="1" readonly>
                     </div>
                 </div>
                 <div class="form-row">

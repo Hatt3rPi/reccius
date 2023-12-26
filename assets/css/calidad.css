@@ -309,3 +309,14 @@ button:hover {
 .numero-producto {
     flex: 25%;
 }
+input[readonly] {
+    background-color: #e9ecef; /* Color de fondo gris claro, similar a campos desactivados */
+    color: #495057; /* Color de texto oscuro */
+    cursor: not-allowed; /* Cambia el cursor para indicar que el campo no es editable */
+    border: 1px solid #ced4da; /* Borde sólido, similar a campos desactivados */
+}
+
+/* Opcional: Si quieres cambiar el aspecto al pasar el ratón sobre el campo */
+input[readonly]:hover {
+    background-color: #dde2e6;
+}
