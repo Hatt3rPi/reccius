@@ -253,7 +253,7 @@ function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
 
     if (valorSeleccionado === 'Otro') {
         // Crear y mostrar campo de texto para "Otro"
-        var inputOtro = '<input type="text" id="' + idCampoOtro + '" name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + '_otro]" style="display: inline-block; margin-left: 10px;">';
+        var inputOtro = '<input type="text" id="' + idCampoOtro + '" name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + '_otro]" placeholder="Especificar otr@ ' + campo + '" style="display: inline-block; margin-left: 10px;">';
         $(selectElement).after(inputOtro);
     } else {
         // Eliminar campo de texto para "Otro" si ya existe
