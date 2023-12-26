@@ -127,7 +127,6 @@ td {
 
 .bold, .signature, p {
     margin: 0; /* Elimina márgenes predeterminados */
-    text-align: center; /* Centra el texto si es necesario */
 }
 
 /* Para que el primer y último párrafo no crezcan y solo ocupen su contenido */
@@ -141,9 +140,6 @@ p {
 }
 
 /* Puede ser necesario ajustar el tamaño de la fuente o el peso de la fuente para que coincida con tu diseño */
-.bold {
-    font-weight: bold; /* Asegúrate de que el texto sea en negrita */
-}
 
 
 

@@ -145,7 +145,7 @@
                     <div class="footer-box-title">Realizado por:</div>
                     <div class="footer-box">
                         <p id='creadoPor' name='creadoPor' class="bold"></p>
-                        <p class="bold">QF. Inger Sumonte Rodríguez
+                        <p class="bold">
                             Director de Calidad
                             </p>
                         <div class="signature">[Espacio para la firma]</div>
@@ -160,7 +160,7 @@
                     <div class="footer-box-title">Revisado por:</div>
                     <div class="footer-box">
                         <p id='revisadoPor' name='revisadoPor'class="bold"></p>
-                        <p class="bold">QF. Catherine Pereira García 
+                        <p class="bold">
                             Jefe de Producción
                             </p>
                         <div class="signature">[Espacio para la firma]</div>
@@ -174,7 +174,7 @@
                     <div class="footer-box-title">Aprobado por:</div>
                     <div class="footer-box">
                         <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
-                        <p class="bold">QF. Luis Sepúlveda Miranda
+                        <p class="bold">
                             Director Técnico
                             </p>
                         <div class="signature">[Espacio para la firma]</div>
