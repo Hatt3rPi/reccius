@@ -13,6 +13,10 @@ body {
     box-sizing: border-box;
     background-color: #FFF; /* Fondo para el contenido principal */
     border: 1px solid #000; /* Borde alrededor del contenido */
+    margin-left: 50px;
+    /* Centrar el formulario */
+    margin-right: auto;
+    /* Centrar el formulario */
 }
 
 /* Asegúrate de que ningún otro elemento interno tenga un borde */
