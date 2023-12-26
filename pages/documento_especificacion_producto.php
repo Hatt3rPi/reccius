@@ -17,7 +17,7 @@
             <div id="header-container" style="width: 100%;">
                 <!-- Asegúrate de tener un contenedor para el header con display flex -->
                 <div id="header" class="header"
-                    style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #000;">
+                    style="display: flex; justify-content: space-between; align-items: flex-start;">
 
                     <!-- Logo e Información Izquierda -->
                     <div class="header-left" style="flex: 1;">
