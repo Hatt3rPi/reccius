@@ -104,7 +104,7 @@ td {
 }
 .footer-section {
     /* Asegúrate de que cada sección del footer tenga espacio alrededor */
-    margin: 10px;
+    margin: 5px;
 }
 
 .footer-box {
@@ -113,7 +113,7 @@ td {
     justify-content: space-between; /* Separa los elementos hijos uniformemente */
     padding: 25px; /* Ajusta el padding según sea necesario */
     border: 1px solid #000; /* Borde alrededor de cada caja del footer */
-    height: 150px; /* O un valor que se adapte a tu diseño */
+    height: 200px; /* O un valor que se adapte a tu diseño */
 }
 
 .signature {
@@ -122,7 +122,7 @@ td {
     align-items: center; /* Centra el contenido a lo largo del eje transversal */
     justify-content: center; /* Centra el contenido a lo largo del eje principal */
     /* Asegúrate de que el div de la firma tenga un estilo visible si es necesario */
-    border: 1px dashed #000; /* Ejemplo de borde punteado para la firma */
+    border: 0px dashed #000; /* Ejemplo de borde punteado para la firma */
 }
 
 .bold, .signature, p {
