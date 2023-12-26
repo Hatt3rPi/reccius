@@ -113,7 +113,7 @@ td {
     justify-content: space-between; /* Separa los elementos hijos uniformemente */
     padding: 25px; /* Ajusta el padding según sea necesario */
     border: 1px solid #000; /* Borde alrededor de cada caja del footer */
-    height: 200px; /* O un valor que se adapte a tu diseño */
+    height: 150px; /* O un valor que se adapte a tu diseño */
 }
 
 .signature {
