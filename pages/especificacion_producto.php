@@ -252,15 +252,18 @@ function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
     var valorSeleccionado = selectElement.value;
     var idCampoOtro = 'analisis' + tipoAnalisis + '[' + contador + '][otro' + campo + ']';
 
+    // Eliminar campo de texto para "Otro" si ya existe
+    if ($('#' + idCampoOtro).length > 0) {
+        $('#' + idCampoOtro).remove();
+    }
+
     if (valorSeleccionado === 'Otro') {
         // Crear y mostrar campo de texto para "Otro"
         var inputOtro = '<input type="text" id="' + idCampoOtro + '" name="' + idCampoOtro + '" placeholder="Especificar otr@ ' + campo + '" style="display: inline-block; margin-left: 10px;">';
         $(selectElement).after(inputOtro);
-    } else {
-        // Eliminar campo de texto para "Otro" si ya existe
-        $('#' + idCampoOtro).remove();
     }
 }
+
 
 $('#analisisFQ').on('click', '.btn-eliminar', function () {
     var tablaFQ = $('#analisisFQ').DataTable();
@@ -666,7 +669,7 @@ $('#guardar').click(function() {
 
     switch (tipoProducto) {
         case 'Material Envase y Empaque':
-            prefijo = 'DCAL-CC-EME-';
+            prefijo = 'DCAL-CC-EMEE-';
             break;
         case 'Materia Prima':
             prefijo = 'DCAL-CC-EMP-';
@@ -675,7 +678,7 @@ $('#guardar').click(function() {
             prefijo = 'DCAL-CC-EPT-';
             break;
         case 'Insumo':
-            prefijo = 'DCAL-CC-EIN-';
+            prefijo = 'DCAL-CC-EINS-';
             break;
     }
 
