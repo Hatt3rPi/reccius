@@ -65,7 +65,24 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Concentración:</label>
-                        <input type="text" name="concentracion" placeholder="1 g / 10 ml" required>
+                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style"  style="width: 38.5%" required>
+                            <option>Selecciona estructura a utilizar:</option>
+                            <option value='g/ml'>g/ml</option>
+                            <option value='%/ml'>%/ml</option>
+                            <option value='UI/ml'>UI/ml</option>
+                            <option value='g'>g</option>
+                            <option value='ml'>ml</option>
+                            <option value='UI'>UI</option>
+                        </select>
+                        <div class="form-row">
+                            <input type="text" name="concentracion_param1" placeholder="1" class="col">
+                            <input type="text" name="concentracion_param1_lbl" placeholder="1" class="col" disabled>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" name="concentracion_param2" placeholder="1">
+                            <input type="text" name="concentracion_param2_lbl" placeholder="1" class="col" disabled>
+                        </div>
+                        <input type="text" name="concentracion" placeholder="1g / 10ml">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -78,7 +95,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </select>
                         <input type="text" name="otroFormato" id="otroFormato" class="otro-campo" placeholder="Especificar otro formato" style="display: none;">
                     </div>
-
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -705,4 +721,50 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('prefijoDocumento').addEventListener('change', actualizarDocumento);
     document.getElementById('numeroProducto').addEventListener('change', actualizarDocumento);
 });
+
+
+function actualizarCampos() {
+        var seleccion = $('#tipo_concentracion').val();
+        var campos = ['concentracion_param1', 'concentracion_param2', 'concentracion_param1_lbl', 'concentracion_param2_lbl'];
+        
+        // Ocultar todos los campos primero
+        campos.forEach(function(campo) {
+            $('input[name=' + campo + ']').hide();
+        });
+
+        // Mostrar y actualizar campos según la selección
+        if (['g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
+            $('input[name=concentracion_param1]').show();
+            $('input[name=concentracion_param2]').show();
+            $('input[name=concentracion_param1_lbl]').val(seleccion.split('/')[0]).show();
+            $('input[name=concentracion_param2_lbl]').val(seleccion.split('/')[1]).show();
+        } else if (['g', 'ml', 'UI'].includes(seleccion)) {
+            $('input[name=concentracion_param1]').show();
+            $('input[name=concentracion_param1_lbl]').val(seleccion).show();
+        }
+    }
+
+    function actualizarConcentracion() {
+        var param1 = $('input[name=concentracion_param1]').val();
+        var param2 = $('input[name=concentracion_param2]').val();
+        var tipo = $('#tipo_concentracion').val();
+
+        var concentracion = '';
+        if (['g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
+            concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
+        } else {
+            concentracion = param1 + tipo;
+        }
+        $('input[name=concentracion]').val(concentracion);
+    }
+
+    // Evento change para el select
+    $('#tipo_concentracion').change(function() {
+        actualizarCampos();
+        actualizarConcentracion();
+    });
+
+    // Evento change para los inputs de parámetros
+    $('input[name=concentracion_param1], input[name=concentracion_param2]').change(actualizarConcentracion);
+
 </script>
