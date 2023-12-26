@@ -172,6 +172,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);
                                 $criterios_aceptacion = limpiarDato($analisis['criterio']);
                                 $tipo='analisis_FQ';
+                                if ($_POST['descripcion_analisis'] == 'Otro' && !empty($_POST['otrodescripcion_analisis'])) {
+                                    insertarOpcionSiNoExiste($link, 'AnalisisFQ', $_POST['otrodescripcion_analisis']);
+                                }
+                                if ($_POST['metodologia'] == 'Otro' && !empty($_POST['otrometodologia'])) {
+                                    insertarOpcionSiNoExiste($link, 'metodologia', $_POST['otrometodologia']);
+                                }
                                 $query_analisis="INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, ?, ?, ?, ?)";
                                 $stmtAnalisisFQ = mysqli_prepare($link, $query_analisis);
                                 mysqli_stmt_bind_param($stmtAnalisisFQ, "issss", $idEspecificacion, $tipo, $descripcion_analisis, $metodologia, $criterios_aceptacion);
@@ -196,10 +202,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             foreach ($_POST['analisisMB'] as $analisis) {
                                 // Asegúrate de que estas claves coincidan con las de tu array
                                 $crea_analisis='';
-                                $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrootrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
+                                $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
                                 $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);
                                 $criterios_aceptacion = limpiarDato($analisis['criterio']);
                                 $tipo='analisis_MB';
+                                if ($_POST['descripcion_analisis'] == 'Otro' && !empty($_POST['otrodescripcion_analisis'])) {
+                                    insertarOpcionSiNoExiste($link, 'AnalisisMB', $_POST['otrodescripcion_analisis']);
+                                }
+                                if ($_POST['metodologia'] == 'Otro' && !empty($_POST['otrometodologia'])) {
+                                    insertarOpcionSiNoExiste($link, 'metodologia', $_POST['otrometodologia']);
+                                }
                                 $query_analisis="INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, ?, ?, ?, ?)";
                                 $stmtAnalisisMB = mysqli_prepare($link, $query_analisis);
                                 mysqli_stmt_bind_param($stmtAnalisisMB, "issss", $idEspecificacion, $tipo, $descripcion_analisis, $metodologia, $criterios_aceptacion);
@@ -212,15 +224,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 // out trazabidad
                                 if ($crea_analisis) {
                                     // Éxito en la inserción
-
-
-                                    if ($_POST['descripcion_analisis'] == 'Otro' && !empty($_POST['otrodescripcion_analisis'])) {
-                                        insertarOpcionSiNoExiste($link, 'descripcion_analisis', $_POST['otrodescripcion_analisis']);
-                                    }
-                                    if ($_POST['metodologia'] == 'Otro' && !empty($_POST['otrometodologia'])) {
-                                        insertarOpcionSiNoExiste($link, 'metodologia', $_POST['otrometodologia']);
-                                    }
-                                    // Similar para 'Metodología', 'Análisis FQ' y 'Análisis MB'
 
                                 } else {
                                     $mensaje = "Error al insertar en calidad_analisis para analisis_MB: " . mysqli_error($link);
