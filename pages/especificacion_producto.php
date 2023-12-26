@@ -700,7 +700,12 @@ $('#guardar').click(function() {
 
     $('#prefijoDocumento').val(prefijo);
 });
-
+$('#numeroProducto').on('change', function() {
+    actualizarDocumento
+});
+$('#prefijoDocumento').on('change', function() {
+    actualizarDocumento
+});
 function verificarOtro(selectId, inputId) {
     var select = document.getElementById(selectId);
     var input = document.getElementById(inputId);
@@ -716,11 +721,6 @@ function actualizarDocumento() {
     var numero = document.getElementById('numeroProducto').value;
     document.getElementById('documento').value = prefijo + numero;
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('prefijoDocumento').addEventListener('change', actualizarDocumento);
-    document.getElementById('numeroProducto').addEventListener('change', actualizarDocumento);
-});
 
 
 function actualizarCampos() {
