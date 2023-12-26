@@ -102,6 +102,50 @@ td {
     display: flex;
     justify-content: center;
 }
+.footer-section {
+    /* Asegúrate de que cada sección del footer tenga espacio alrededor */
+    margin: 10px;
+}
+
+.footer-box {
+    display: flex; /* Activa flexbox */
+    flex-direction: column; /* Orienta los elementos hijos en una columna */
+    justify-content: space-between; /* Separa los elementos hijos uniformemente */
+    padding: 25px; /* Ajusta el padding según sea necesario */
+    border: 1px solid #000; /* Borde alrededor de cada caja del footer */
+    height: 150px; /* O un valor que se adapte a tu diseño */
+}
+
+.signature {
+    flex-grow: 1; /* Permite que el div ocupe el espacio disponible */
+    display: flex; /* Activa flexbox */
+    align-items: center; /* Centra el contenido a lo largo del eje transversal */
+    justify-content: center; /* Centra el contenido a lo largo del eje principal */
+    /* Asegúrate de que el div de la firma tenga un estilo visible si es necesario */
+    border: 0px dashed #000; /* Ejemplo de borde punteado para la firma */
+}
+
+.bold, .signature, p {
+    margin: 0; /* Elimina márgenes predeterminados */
+    text-align: center; /* Centra el texto si es necesario */
+}
+
+/* Para que el primer y último párrafo no crezcan y solo ocupen su contenido */
+p {
+    flex-grow: 0;
+}
+
+.date {
+    text-align: center; /* Centra la fecha si es necesario */
+    margin-top: 10px; /* Añade un margen en la parte superior si es necesario para espaciar de la caja */
+}
+
+/* Puede ser necesario ajustar el tamaño de la fuente o el peso de la fuente para que coincida con tu diseño */
+.bold {
+    font-weight: bold; /* Asegúrate de que el texto sea en negrita */
+}
+
+
 
 #download-pdf {
     position: fixed;
