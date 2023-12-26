@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //echo "Todos los campos son requeridos. ".$error;
     } else {
         // Proceso de inserción si todos los campos están presentes
-        $tipoProducto = limpiarDato($_POST['Tipo_Producto']);
+        $tipoProducto = !empty($_POST['Tipo_Producto']) ? limpiarDato($_POST['Tipo_Producto']) : (isset($_POST['otroTipo_Producto']) ? limpiarDato($_POST['otroTipo_Producto']) : '');
         $producto = limpiarDato($_POST['producto']);
         $concentracion = limpiarDato($_POST['concentracion']);
         $formato = !empty($_POST['formato']) ? limpiarDato($_POST['formato']) : (isset($_POST['otroFormato']) ? limpiarDato($_POST['otroFormato']) : '');
@@ -108,7 +108,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
         $version = limpiarDato($_POST['version']);
         $vigencia = limpiarDato($_POST['periodosVigencia']);
-
+        if ($_POST['formato'] == 'Otro' && !empty($_POST['otroFormato'])) {
+            insertarOpcionSiNoExiste($link, 'Formato', $_POST['otroFormato']);
+        }
+        if ($_POST['Tipo_Producto'] == 'Otro' && !empty($_POST['otroTipo_Producto'])) {
+            insertarOpcionSiNoExiste($link, 'Tipo_Producto', $_POST['otroTipo_Producto']);
+        }
         // Preparar sentencia para insertar en calidad_productos
         $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $query);
@@ -208,12 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 if ($crea_analisis) {
                                     // Éxito en la inserción
 
-                                    if ($_POST['formato'] == 'Otro' && !empty($_POST['otroFormato'])) {
-                                        insertarOpcionSiNoExiste($link, 'Formato', $_POST['otroFormato']);
-                                    }
-                                    if ($_POST['Tipo_Producto'] == 'Otro' && !empty($_POST['otroTipo_Producto'])) {
-                                        insertarOpcionSiNoExiste($link, 'Tipo_Producto', $_POST['otroTipo_Producto']);
-                                    }
+
                                     if ($_POST['descripcion_analisis'] == 'Otro' && !empty($_POST['otrodescripcion_analisis'])) {
                                         insertarOpcionSiNoExiste($link, 'descripcion_analisis', $_POST['otrodescripcion_analisis']);
                                     }
