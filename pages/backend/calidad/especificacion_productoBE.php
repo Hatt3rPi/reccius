@@ -103,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $formato = !empty($_POST['formato']) ? limpiarDato($_POST['formato']) : (isset($_POST['otroFormato']) ? limpiarDato($_POST['otroFormato']) : '');
         $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
         $numeroDocumento = limpiarDato($_POST['documento']);
+        $numeroProducto = limpiarDato($_POST['numeroProducto']);
         $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
         $version = limpiarDato($_POST['version']);
         $vigencia = limpiarDato($_POST['periodosVigencia']);
@@ -111,13 +112,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query="INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $query);
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "sssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroDocumento);
+            mysqli_stmt_bind_param($stmt, "sssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto);
             $crea_producto=mysqli_stmt_execute($stmt);
             $idProducto = mysqli_insert_id($link);
             //in trazabilidad
             $resultado = $crea_producto ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
             $error = $crea_producto ? null :  "Error al ejecutar la consulta: " . mysqli_stmt_error($stmt);
-            registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea producto', 'calidad_productos',  $idProducto, $query, [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento], $resultado, $error);
+            registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea producto', 'calidad_productos',  $idProducto, $query, [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto], $resultado, $error);
             // out trazabidad
             if ($crea_producto) {
                 
