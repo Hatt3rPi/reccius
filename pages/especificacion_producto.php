@@ -100,6 +100,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             
                             <!-- Campo para el número de producto -->
                             <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required class="col-2">
+                            <input type="text" name="documento" style="display: none;">
                         </div>                    </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -394,8 +395,8 @@ function validarFormulario() {
     }
 
     // Validación para el campo 'Número de documento'
-    if (document.forms[0]["documento"].value.trim() === '') {
-        mensaje += 'El campo "Número de documento" es obligatorio.\n';
+    if (document.forms[0]["numeroProducto"].value.trim() === '') {
+        mensaje += 'El campo "Número de Producto es obligatorio.\n';
         valido = false;
     }
 
@@ -691,4 +692,12 @@ function verificarOtro(selectId, inputId) {
         input.value = ''; // Limpiar el campo si "Otro" no está seleccionado
     }
 }
+function actualizarDocumento() {
+    var prefijo = document.getElementById('prefijoDocumento').value;
+    var numero = document.getElementById('numeroProducto').value;
+    document.getElementById('documento').value = prefijo + numero;
+}
+document.getElementById('prefijoDocumento').addEventListener('change', actualizarDocumento);
+document.getElementById('numeroProducto').addEventListener('change', actualizarDocumento);
+
 </script>
