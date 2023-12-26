@@ -48,12 +48,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" required>
+                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" onchange="verificarOtro('Tipo_Producto', 'otroTipo_Producto')" required>
                             <option value="">Selecciona el tipo de producto</option>
                             <?php foreach ($opciones['Tipo_Producto'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
                             <?php endforeach; ?>
                         </select>
+                        <input type="text" name="otroTipo_Producto" id="otroTipo_Producto" class="otro-campo" placeholder="Especificar otro tipo de producto" style="display: none;">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -69,13 +70,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Formato:</label>
-                        <select name="formato" id="formato" class="select-style" required>
+                        <select name="formato" id="formato" class="select-style" onchange="verificarOtro('formato', 'otroFormato')" required>
                             <option value="">Selecciona un formato</option>
                             <?php foreach ($opciones['Formato'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        </select>
+                        <input type="text" name="otroFormato" id="otroFormato" class="otro-campo" placeholder="Especificar otro formato" style="display: none;">
                     </div>
 
                 </div>
@@ -174,7 +175,6 @@ function carga_tablaFQ(id = null, accion = null) {
     var contadorFilasFQ = 0;
 
     if (id === null) {
-        // Inicializar la tabla
         tablaFQ = new DataTable('#analisisFQ', {
             "paging": false,
             "info": false,
@@ -192,7 +192,6 @@ function carga_tablaFQ(id = null, accion = null) {
         });
 
         $('#boton_agrega_analisisFQ').on('click', function() {
-            // Agregar una nueva fila
             var filaNueva = [
                 crearSelectHtml('AnalisisFQ', contadorFilasFQ, 'descripcion_analisis', 'FQ'),
                 crearSelectHtml('metodologia', contadorFilasFQ, 'metodologia', 'FQ'),
@@ -237,7 +236,7 @@ function carga_tablaFQ(id = null, accion = null) {
 
 function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
     var opciones = opcionesDesplegables[categoria];
-    var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" required>';
+    var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" onchange="manejarOtro(this, \'' + tipoAnalisis + '\', ' + contador + ', \'' + campo + '\')" required>';
     htmlSelect += '<option value="">Selecciona una opción</option>';
 
     for (var i = 0; i < opciones.length; i++) {
@@ -248,6 +247,19 @@ function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
     return htmlSelect;
 }
 
+function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
+    var valorSeleccionado = selectElement.value;
+    var idCampoOtro = 'otro_' + tipoAnalisis + '_' + contador + '_' + campo;
+
+    if (valorSeleccionado === 'Otro') {
+        // Crear y mostrar campo de texto para "Otro"
+        var inputOtro = '<input type="text" id="' + idCampoOtro + '" name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + '_otro]" style="display: inline-block; margin-left: 10px;">';
+        $(selectElement).after(inputOtro);
+    } else {
+        // Eliminar campo de texto para "Otro" si ya existe
+        $('#' + idCampoOtro).remove();
+    }
+}
 
 $('#analisisFQ').on('click', '.btn-eliminar', function () {
     var tablaFQ = $('#analisisFQ').DataTable();
@@ -258,7 +270,6 @@ function carga_tablaMB(id = null, accion = null) {
     var contadorFilasMB = 0;
 
     if (id === null) {
-        // Inicializar la tabla
         tablaMB = new DataTable('#analisisMB', {
             "paging": false,
             "info": false,
@@ -276,7 +287,6 @@ function carga_tablaMB(id = null, accion = null) {
         });
 
         $('#boton_agrega_analisisMB').on('click', function() {
-            // Agregar una nueva fila
             var filaNueva = [
                 crearSelectHtml('AnalisisMB', contadorFilasMB, 'descripcion_analisis', 'MB'),
                 crearSelectHtml('metodologia', contadorFilasMB, 'metodologia', 'MB'),
@@ -670,4 +680,15 @@ $('#guardar').click(function() {
 
     $('#prefijoDocumento').val(prefijo);
 });
+
+function verificarOtro(selectId, inputId) {
+    var select = document.getElementById(selectId);
+    var input = document.getElementById(inputId);
+    if (select.value === 'Otro') {
+        input.style.display = 'block';
+    } else {
+        input.style.display = 'none';
+        input.value = ''; // Limpiar el campo si "Otro" no está seleccionado
+    }
+}
 </script>
