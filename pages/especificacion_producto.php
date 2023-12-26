@@ -9,13 +9,21 @@
 // formato: Ampolla, Frasco Ampolla, Vial, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
 
 session_start();
-
+require_once "/home/customw2/conexiones/config_reccius.php";
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Redirigir al usuario a la página de inicio de sesión.
     header("Location: login.html");
     exit;
 }
+$query = "SELECT categoria, nombre_opcion FROM calidad_opciones_desplegables ORDER BY categoria, CASE WHEN nombre_opcion = 'Otro' THEN 1 ELSE 0 END, nombre_opcion";
+$result = mysqli_query($link, $query);
+
+$opciones = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $opciones[$row['categoria']][] = $row['nombre_opcion'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,12 +48,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" style="width: 82.5%;" required>
-                            <option value="">Selecciona el tipo de producto</option>    
-                            <option value="Material Envase y Empaque">Material Envase y Empaque</option>
-                            <option value="Materia Prima">Materia Prima</option>
-                            <option value="Producto Terminado">Producto Terminado</option>
-                            <option value="Insumo">Insumo</option>
+                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" required>
+                            <option value="">Selecciona el tipo de producto</option>
+                            <?php foreach ($opciones['Tipo_Producto'] as $opcion): ?>
+                                <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
@@ -64,16 +71,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label>Formato:</label>
                         <select name="formato" id="formato" class="select-style" required>
                             <option value="">Selecciona un formato</option>
-                            <option value="Ampolla">Ampolla</option>
-                            <option value="Frasco Ampolla">Frasco Ampolla</option>
-                            <option value="Vial">Vial</option>
-                            <option value="Papelillo">Papelillo</option>
-                            <option value="Cápsula">Cápsula</option>
-                            <option value="Colirio">Colirio</option>
-                            <option value="Ungüento">Ungüento</option>
-                            <option value="Jarabe">Jarabe</option>
-                            <option value="Crema">Crema</option>
-                            <option value="Otro">Otro</option>
+                            <?php foreach ($opciones['formato'] as $opcion): ?>
+                                <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
+                            <?php endforeach; ?>
+                        </select>
                         </select>
                     </div>
 
@@ -167,62 +168,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+var opcionesDesplegables = <?php echo json_encode($opciones); ?>;
 function carga_tablaFQ(id = null, accion = null) {
     var tablaFQ;
-        if (id===null) {
-            var tablaFQ = new DataTable('#analisisFQ', {
-                    "paging": false,  // Desactiva la paginación
-                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
-                    "searching": false,  // Desactiva la búsqueda
-                    "lengthChange": false, // Oculta el selector "Show X entries"
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                    },
-                    columns: [
-                        { title: 'Análisis' },
-                        { title: 'Metodología' },
-                        { title: 'Criterio aceptación' }, 
-                        { title: 'Acciones' }
-                    ]
-                });
-                var contadorFilasFQ = 0;
-                $('#boton_agrega_analisisFQ').on('click', function() {
-                    // Verificar si la tabla se cargó correctamente antes de agregar filas
-                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-                        tablaFQ.row.add([
-                    '<select name="analisisFQ[' + contadorFilasFQ + '][descripcion_analisis]" class="select-style" required>' +
-                        '<option value="">Selecciona un análisis</option>' +
-                        '<option value="Apariencia">Apariencia</option>' +
-                        '<option value="Identificación">Identificación</option>' +
-                        '<option value="Valoración">Valoración</option>' +
-                        '<option value="Contenido">Contenido</option>' +
-                        '<option value="pH">pH</option>' +
-                        '<option value="Densidad">Densidad</option>' +
-                        '<option value="Osmolaridad">Osmolaridad</option>' +
-                        '<option value="Límite de Oxalato">Límite de Oxalato</option>' +
-                        '<option value="Volumen extraíble">Volumen extraíble</option>' +
-                        '<option value="Material Sub particulado">Material Sub particulado</option>' +
-                        '<option value="Material Particulado">Material Particulado</option>' +
-                        '<option value="Otro">Otro</option>' +
-                    '</select>',
-                    '<select name="analisisFQ[' + contadorFilasFQ + '][metodologia]" class="select-style" required>' +
-                        '<option value="">Selecciona metodología</option>' +
-                        '<option value="Interno">Interno</option>' +
-                        '<option value="USP">USP</option>' +
-                        '<option value="Otro">Otro</option>' +
-                    '</select>',
-                    '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
-                    '<button type="button" class="btn-eliminar">Eliminar</button>'
-                ]).draw(false);
-                contadorFilasFQ++;
-                } else {
-                    console.error('Error: La tabla no está inicializada.');
-                    alert('Error al cargar la tabla. Por favor, intente de nuevo.');
-                }
-            });
-        $("#boton_agrega_analisisFQ").show();
-        } else if (accion === 'editar') {
-        // Cargar la tabla con datos para la edición
+    var contadorFilasFQ = 0;
+
+    if (id === null) {
+        // Inicializar la tabla
+        tablaFQ = new DataTable('#analisisFQ', {
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "lengthChange": false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+            },
+            columns: [
+                { title: 'Análisis' },
+                { title: 'Metodología' },
+                { title: 'Criterio de Aceptación' },
+                { title: 'Acciones' }
+            ]
+        });
+
+        $('#boton_agrega_analisisFQ').on('click', function() {
+            // Agregar una nueva fila
+            var filaNueva = [
+                crearSelectHtml('AnalisisFQ', contadorFilasFQ, 'descripcion_analisis', 'FQ'),
+                crearSelectHtml('metodologia', contadorFilasFQ, 'metodologia', 'FQ'),
+                '<textarea name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
+                '<button type="button" class="btn-eliminar">Eliminar</button>'
+            ];
+            tablaFQ.row.add(filaNueva).draw(false);
+            contadorFilasFQ++;
+        });
+    } else if (accion === 'editar') {
         tablaFQ = new DataTable('#analisisFQ', {
             "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_FQ',
             "columns": [
@@ -254,57 +234,59 @@ function carga_tablaFQ(id = null, accion = null) {
         $("#boton_agrega_analisisFQ").hide();
     }
 }
+
+function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
+    var opciones = opcionesDesplegables[categoria];
+    var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" required>';
+    htmlSelect += '<option value="">Selecciona una opción</option>';
+
+    for (var i = 0; i < opciones.length; i++) {
+        htmlSelect += '<option value="' + opciones[i] + '">' + opciones[i] + '</option>';
+    }
+
+    htmlSelect += '</select>';
+    return htmlSelect;
+}
+
+
 $('#analisisFQ').on('click', '.btn-eliminar', function () {
     var tablaFQ = $('#analisisFQ').DataTable();
     tablaFQ.row($(this).parents('tr')).remove().draw();
 });
 function carga_tablaMB(id = null, accion = null) {
     var tablaMB;
-        if (id===null) {
-            var tablaMB = new DataTable('#analisisMB', {
-                    "paging": false,  // Desactiva la paginación
-                    "info": false,    // Oculta el texto "Showing 1 to X of X entries"
-                    "searching": false,  // Desactiva la búsqueda
-                    "lengthChange": false, // Oculta el selector "Show X entries"
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                    },
-                    columns: [
-                        { title: 'Análisis' },
-                        { title: 'Metodología' },
-                        { title: 'Criterio aceptación' }, 
-                        { title: 'Acciones' }
-                    ]
-                });
-                var contadorFilasMB = 0;
-                $('#boton_agrega_analisisMB').on('click', function() {
-                    // Verificar si la tabla se cargó correctamente antes de agregar filas
-                    if ($.fn.DataTable.isDataTable('#analisisMB')) {
-                        tablaMB.row.add([
-                        '<select name="analisisMB[' + contadorFilasMB + '][descripcion_analisis]" class="select-style" required>' + 
-                            '<option value="">Selecciona un análisis</option>' +
-                            '<option value="Esterilidad">Esterilidad</option>' +
-                            '<option value="Endotoxinas">Endotoxinas</option>' +
-                            '<option value="Otro">Otro</option>' +
-                        '</select>',
-                        '<select name="analisisMB[' + contadorFilasMB + '][metodologia]" class="select-style" required>' +
-                            '<option value="">Selecciona metodología</option>' +
-                            '<option value="Interno">Interno</option>' +
-                            '<option value="USP">USP</option>' +
-                            '<option value="Otro">Otro</option>' +
-                        '</select>',
-                        '<textarea rows="4" cols="50" name="analisisMB[' + contadorFilasMB + '][criterio]" required></textarea>',
-                        '<button type="button" class="btn-eliminar">Eliminar</button>'
-                        
-                    ]).draw(false);
-                    contadorFilasMB++;
-                    } else {
-                        console.error('Error: La tabla no está inicializada.');
-                        alert('Error al cargar la tabla. Por favor, intente de nuevo.');
-                    }
-                });
-            $("#boton_agrega_analisisMB").show();
-        } else if (accion === 'editar') {
+    var contadorFilasMB = 0;
+
+    if (id === null) {
+        // Inicializar la tabla
+        tablaMB = new DataTable('#analisisMB', {
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "lengthChange": false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+            },
+            columns: [
+                { title: 'Análisis' },
+                { title: 'Metodología' },
+                { title: 'Criterio de Aceptación' },
+                { title: 'Acciones' }
+            ]
+        });
+
+        $('#boton_agrega_analisisMB').on('click', function() {
+            // Agregar una nueva fila
+            var filaNueva = [
+                crearSelectHtml('AnalisisMB', contadorFilasMB, 'descripcion_analisis', 'MB'),
+                crearSelectHtml('metodologia', contadorFilasMB, 'metodologia', 'MB'),
+                '<textarea name="analisisMB[' + contadorFilasMB + '][criterio]" required></textarea>',
+                '<button type="button" class="btn-eliminar">Eliminar</button>'
+            ];
+            tablaMB.row.add(filaNueva).draw(false);
+            contadorFilasMB++;
+        });
+    } else if (accion === 'editar') {
         // Cargar la tabla con datos para la edición
         tablaMB = new DataTable('#analisisMB', {
             "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_MB',
