@@ -115,7 +115,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <input type="text" name="prefijoDocumento" id="prefijoDocumento" disabled class="col" style="text-align: right;">
                             
                             <!-- Campo para el número de producto -->
-                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" required class="col-2">
+                            <input pattern="\d{1,3}" type="text" name="numeroProducto" placeholder="001" onchange="actualizarDocumento()" required class="col-2">
                             <input type="text" id="documento" name="documento" style="display: none;">
                         </div>                    </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
@@ -471,11 +471,19 @@ function validarFormulario() {
 
     return valido;
 }
-function actualizarDocumento() {
-    var prefijo = document.getElementById('prefijoDocumento').value;
-    var numero = document.getElementById('numeroProducto').value;
-    document.getElementById('documento').value = prefijo + numero;
-}
+    function actualizarDocumento() {
+        var prefijo = document.getElementById('prefijoDocumento').value;
+        var numero = document.getElementById('numeroProducto').value;
+        document.getElementById('documento').value = prefijo + numero;
+    }
+
+    $('#numeroProducto').on('change', function() {
+        actualizarDocumento();
+    });
+
+    $('#prefijoDocumento').on('change', function() {
+        actualizarDocumento();
+    });
 function cargarDatosEspecificacion(id) {
     $.ajax({
         url: './backend/calidad/listado_analisis_por_especificacion.php',
@@ -704,12 +712,7 @@ $('#guardar').click(function() {
 
     $('#prefijoDocumento').val(prefijo);
 });
-$('#numeroProducto').on('change', function() {
-    actualizarDocumento
-});
-$('#prefijoDocumento').on('change', function() {
-    actualizarDocumento
-});
+
 function verificarOtro(selectId, inputId) {
     var select = document.getElementById(selectId);
     var input = document.getElementById(inputId);
