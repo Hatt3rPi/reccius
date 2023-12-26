@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Imprime los datos recibidos para propósitos de depuración
     //echo "<pre>";
     //print_r($_POST);
+    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'TEST',  1, '', $_POST, '', '');
     //echo "</pre>";
     $crea_producto=false;
     $crea_especificacion=false;
