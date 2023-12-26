@@ -71,7 +71,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <label>Formato:</label>
                         <select name="formato" id="formato" class="select-style" required>
                             <option value="">Selecciona un formato</option>
-                            <?php foreach ($opciones['formato'] as $opcion): ?>
+                            <?php foreach ($opciones['Formato'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -196,7 +196,7 @@ function carga_tablaFQ(id = null, accion = null) {
             var filaNueva = [
                 crearSelectHtml('AnalisisFQ', contadorFilasFQ, 'descripcion_analisis', 'FQ'),
                 crearSelectHtml('metodologia', contadorFilasFQ, 'metodologia', 'FQ'),
-                '<textarea name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
+                '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
             tablaFQ.row.add(filaNueva).draw(false);
@@ -280,7 +280,7 @@ function carga_tablaMB(id = null, accion = null) {
             var filaNueva = [
                 crearSelectHtml('AnalisisMB', contadorFilasMB, 'descripcion_analisis', 'MB'),
                 crearSelectHtml('metodologia', contadorFilasMB, 'metodologia', 'MB'),
-                '<textarea name="analisisMB[' + contadorFilasMB + '][criterio]" required></textarea>',
+                '<textarea rows="4" cols="50" name="analisisMB[' + contadorFilasMB + '][criterio]" required></textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
             tablaMB.row.add(filaNueva).draw(false);
