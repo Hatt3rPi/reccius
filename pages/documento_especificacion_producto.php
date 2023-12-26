@@ -30,7 +30,7 @@
                     </div>
                     <!-- Título Central -->
                     <div class="header-center"
-                        style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                        style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Verdana', sans-serif; height: 100%;">
                         <br>
                         <br>
                         <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 16px; font-weight: bold; color: #000; line-height: 1.2;"></h1>
