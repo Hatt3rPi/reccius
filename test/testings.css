@@ -15,7 +15,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para simular profundidad */
     margin-left: 500px;
     /* Centrar el formulario */
-    margin-right: auto;
+    margin-right: 10px;
     /* Centrar el formulario */
 }
 
