@@ -734,12 +734,12 @@ function actualizarCampos() {
 
         // Mostrar y actualizar campos según la selección
         if (['g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
-            $('input[name=concentracion_param1]').show();
-            $('input[name=concentracion_param2]').show();
+            $('input[name=concentracion_param1]').val('').show();
+            $('input[name=concentracion_param2]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion.split('/')[0]).show();
             $('input[name=concentracion_param2_lbl]').val(seleccion.split('/')[1]).show();
         } else if (['g', 'ml', 'UI'].includes(seleccion)) {
-            $('input[name=concentracion_param1]').show();
+            $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion).show();
         }
     }
