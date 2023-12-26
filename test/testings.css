@@ -7,15 +7,15 @@ body {
 
 /* Contenedor principal que simula el borde del documento */
 #form-container {
-    max-width: 595pt;
-    margin: 20pt auto; /* Margen alrededor del contenido para simular un borde */
-    padding: 10pt;
-    box-sizing: border-box;
-    background-color: #FFF; /* Fondo para el contenido principal */
-    border: 1px solid #000; /* Borde alrededor del contenido */
-    margin-left: 50px;
+    max-width: 595pt; /* Ancho máximo para el tamaño del documento */
+    padding: 10pt; /* Espacio interno para el contenido del documento */
+    box-sizing: border-box; /* El ancho incluye padding y border */
+    background-color: #FFF; /* Fondo blanco para el contenido principal */
+    border: 1px solid #000; /* Borde negro alrededor del contenido */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para simular profundidad */
+    margin-left: 500px;
     /* Centrar el formulario */
-    margin-right: auto;
+    margin-right: 10px;
     /* Centrar el formulario */
 }
 
