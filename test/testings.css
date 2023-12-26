@@ -1,364 +1,130 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #FFF;
+    background-color: #acc1ee; /* Fondo que actúa como margen visual */
 }
 
-.header {
-    background-color: #ffffff;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.header-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.header-left img {
-    height: 80px;
-    /* Adjust as needed */
-}
-
-.header-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Esto centrará el contenido verticalmente */
-    align-items: center; /* Esto centrará el contenido horizontalmente */
-    flex: 2;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-}
-
-
-
-.header-center h1 {
-    margin-top: 20px; /* Añade un margen superior de 20px */
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
-    line-height: 1.2;
-    margin: 0; /* Asegúrate de que los otros márgenes estén en 0 */
-}
-
-.header-center p {
-    margin-bottom: 0;
-}
-
-/* Puedes añadir un poco de margen arriba y abajo del <hr> si es necesario */
-.header-center hr {
-    margin: 8px 0;
-}
-
-
-.header-right {
-    font-size: 12px;
-    text-align: right;
-}
-
-.sub-info {
-    font-size: 12px;
-    text-align: center;
-}
-
-
-.sub-info {
-    font-size: 12px;
-    text-align: center;
-    color: #000;
-    /* Cambia el color del texto a negro */
-    font-weight: bold;
-    /* Opcional: Hace que el texto sea en negrita */
-}
-
-.table-section {
-    padding: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border: none;
-    /* Elimina todos los bordes externos */
-}
-
-th {
-    background-color: #0047b3;
-    /* Un azul oscuro */
-    color: white;
-    border: 1px solid #000;
-    padding: 8px;
-    text-align: left;
-}
-
-th,
-td {
-    border-left: none;
-    /* Elimina los bordes izquierdos de las celdas */
-    border-right: none;
-    /* Elimina los bordes derechos de las celdas */
-    padding: 8px;
-    text-align: left;
-}
-
-/* Para mantener el borde superior e inferior de cada fila */
-tr {
-    border-top: 1px solid #0400ff;
-    border-bottom: 1px solid #050e91;
-}
-
-/* Para el borde superior del primer <tr> que es el <thead> */
-thead tr {
-    border-top: none;
-}
-
-/* Para el borde inferior del último <tr> que es el último <tbody> */
-tbody:last-child tr:last-child {
-    border-bottom: none;
-}
-
-/* Estilos para el título y subtítulo del documento */
-.document-title h2 {
-    font-size: 22px;
-    /* Ajustar el tamaño según sea necesario */
-    text-align: center;
-    font-weight: bold;
-    /* Si quieres que el título sea en negrita */
-    margin-top: 20px;
-    /* Espaciado antes del título */
-}
-
-.document-title h3 {
-    font-size: 18px;
-    /* Ajustar el tamaño según sea necesario */
-    text-align: center;
-    font-weight: normal;
-    /* Si quieres que el subtítulo no sea en negrita */
-    margin-bottom: 20px;
-    /* Espaciado después del subtítulo */
-}
-
-.footer {
-    background-color: #ffffff;
-    padding: 30px 20px;
-    /* Ajusta según sea necesario */
-    display: flex;
-    justify-content: center;
-    /* Centra las secciones del footer */
-    font-size: 12px;
-
-}
-
-.footer-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 20px;
-    /* Añade un margen horizontal para separar las secciones */
-}
-
-.footer-box {
-    border: 1px solid #000;
-    padding: 10px;
-    width: 100%;
-    /* Ajusta el ancho para llenar la sección del footer */
-    text-align: center;
-}
-
-/* ... Resto de estilos ... */
-
-
-.footer-box-title {
-    margin-bottom: 10px;
-    /* Espacio entre el título y el cuadro */
-}
-
-.date {
-    margin-top: 10px;
-    /* Espacio entre el cuadro y la fecha */
-}
-
-.signature {
-    margin-top: 15px;
-}
-
-/* Estilos existentes */
-
-.footer p {
-    margin: 4px 0;
-    /* Añadir otros estilos de párrafo según sea necesario */
-}
-
-.bold {
-    font-weight: bold;
-    /* Hace el texto en negrita */
-}
-
-/* ... */
-/* ... tus otros estilos ... */
-
-/* Establecer ancho máximo para contenido del PDF */
-/* Estilos comunes para content y additionalContent */
-#content, #additionalContent {
-    max-width: 595pt; /* Ancho de una página A4 en puntos */
-    margin: auto; /* Centra el contenido en la página */
-    padding: 20pt; /* Padding para el contenido */
-    box-sizing: border-box; /* Incluye el padding y el borde en el ancho */
-}
-
-
-
-#download-pdf {
-    position: fixed;
-    /* Posición fija en la ventana */
-    bottom: 20px;
-    /* Espaciado desde la parte inferior de la ventana */
-    right: 20px;
-    /* Espaciado desde la parte derecha de la ventana */
-    padding: 15px 30px;
-    /* Espaciado interno del botón */
-    background-color: #0047b3;
-    /* Color de fondo azul */
-    color: white;
-    /* Color de texto blanco */
-    border: none;
-    /* Sin bordes */
-    border-radius: 5px;
-    /* Bordes redondeados */
-    font-size: 18px;
-    /* Tamaño del texto */
-    cursor: pointer;
-    /* Cursor tipo puntero */
-    text-align: center;
-    /* Texto centrado */
-    text-decoration: none;
-    /* Sin subrayado en el texto */
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    /* Sombra para el botón */
-}
-
-/* Estilo para el hover del botón */
-#download-pdf:hover {
-    background-color: #003580;
-    /* Color de fondo un poco más oscuro al pasar el mouse */
-}
-
-/* ... tus estilos existentes ... */
-
-/* Establecer ancho máximo para el contenido del PDF */
-#additionalContent {
-    box-sizing: border-box; /* Asegúrate de que el padding no afecte el ancho */
-    width: 595pt; /* Ancho de una página A4 en puntos */
-    padding: 20pt; /* Padding para el contenido, ajusta según necesites */
-    margin: auto; /* Centrar el div en la página */
-}
-
-.table-section {
-    box-sizing: border-box; /* Asegúrate de que el padding no afecte el ancho */
-    width: 100%; /* Usa el 100% del ancho de #additionalContent */
-    max-width: 555pt; /* Ancho máximo permitido con padding */
-    padding: 20pt; /* Padding para la sección de la tabla */
-    margin-top: 20pt; /* Espacio arriba de la tabla */
-    margin-bottom: 20pt; /* Espacio debajo de la tabla */
-}
-
-/* Estilos para el título y subtítulo del documento */
-.document-title h2,
-.document-title h3 {
-    text-align: center;
-    margin-top: 10pt; /* Espaciado antes del título */
-    margin-bottom: 10pt; /* Espaciado después del título */
-}
-
-/* Estilos para la tabla */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10pt; /* Espacio arriba de la tabla */
-    margin-bottom: 10pt; /* Espacio debajo de la tabla */
-}
-
-th,
-td {
-    padding: 8pt; /* Espaciado dentro de las celdas */
-    text-align: left;
-}
-
-/* Estilos para el footer */
-.footer {
-    width: 595pt; /* Ancho de una página A4 en puntos */
-    padding: 20pt; /* Padding para el contenido del footer */
-    margin: auto; /* Centrar las secciones del footer */
-}
-
-.footer-section {
-    text-align: center;
-    margin: auto; /* Centrar las secciones del footer */
-}
-
-/* ... */
-
-/* Establece un ancho máximo común para header, content y footer */
-.header, .content, .footer {
-    max-width: 595pt; /* Ajusta el ancho máximo según sea necesario */
-    margin: auto; /* Centra los elementos en la página */
-    box-sizing: border-box; /* Incluye el padding y el borde en el ancho */
-}
-
-/* Estilos adicionales para el header y footer si es necesario */
-.header, .footer {
-    padding: 0 20pt; /* Añade padding a los lados para alinear con el contenido */
-}
-
-/* Ajustes para el contenido del cuerpo */
-#content {
-    padding: 20pt; /* Ajusta el padding según sea necesario */
-}
-
-/* Ajustes para las secciones dentro de content */
-.table-section, .document-title {
-    padding: 0 20pt; /* Asegúrate de que el contenido interno esté alineado */
-}
-
-/* ... Resto de tus estilos ... */
-/* Estilos específicos para el footer en additionalContent */
-#additionalContent .footer {
-    margin-left: -20px; /* Desplaza el footer 20px hacia la izquierda */
-}
-
-#mainContainer{
-    background-color: #beaeae; /* Ejemplo de color de fondo */
-    padding: 20px; /* Espaciado alrededor del contenido */
-    margin-bottom: 20px; /* Espaciado entre los contenedores */
-}
-
-/* Continúa con tus estilos existentes */
-
-#additionalContainer {
-    background-color: #ff0000; /* Ejemplo de color de fondo */
-    padding: 20px; /* Espaciado alrededor del contenido */
-    margin-bottom: 20px; /* Espaciado entre los contenedores */
-}
-.form-container {
-    max-width: 100%;
-    /* Ajusta según el diseño */
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Contenedor principal que simula el borde del documento */
+#form-container {
+    max-width: 595pt;
+    margin: 20pt auto; /* Margen alrededor del contenido para simular un borde */
+    padding: 10pt;
+    box-sizing: border-box;
+    background-color: #FFF; /* Fondo para el contenido principal */
+    border: 1px solid #000; /* Borde alrededor del contenido */
     margin-left: 50px;
     /* Centrar el formulario */
     margin-right: auto;
     /* Centrar el formulario */
 }
-/* Estilos para PDF */
+
+/* Asegúrate de que ningún otro elemento interno tenga un borde */
+.header, .header-bottom, .content, .footer, 
+#content, #additionalContent, #mainContainer, #additionalContainer, 
+.form-container, .footer-section, .footer-box, .table-section, 
+th, td, tr, thead tr, tbody:last-child tr:last-child {
+    margin: 0;
+    padding: 10px;
+    border: none; /* Elimina los bordes internos */
+    background-color: #FFF; /* Fondo para todos los elementos internos */
+}
+
+/* Estilos específicos para ciertos elementos */
+.header, .header-bottom, .content, .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left, .header-right, .header-bottom-left, .header-bottom-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-center {
+    flex: 2;
+    text-align: center;
+}
+
+.header-left img, .header-bottom-left, .header-bottom-right {
+    height: 80px;
+}
+
+.header-right, .header-bottom-right, .footer-box {
+    text-align: right;
+    font-size: 12px;
+}
+
+.sub-info, .bold {
+    font-size: 12px;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #0047b3;
+    color: white;
+    text-align: left;
+    padding: 8px;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+.document-title h2, .document-title h3 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.document-title h2 {
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+.document-title h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: normal; /* Si deseas que el subtítulo no sea en negrita */
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+#download-pdf {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 30px;
+    background-color: #0047b3;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#download-pdf:hover {
+    background-color: #003580;
+}
+
 .pdf-header {
-    font-size: 12pt; /* Tamaño de fuente más grande para el PDF */
+    font-size: 12pt;
 }
 
 .pdf-footer {
-    font-size: 8pt; /* Tamaño de fuente más grande para el PDF */
+    font-size: 8pt;
 }

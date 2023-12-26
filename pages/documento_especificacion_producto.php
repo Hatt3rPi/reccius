@@ -14,79 +14,92 @@
 <body>
     <div id="form-container">
         <div id="Maincontainer">
-            <!-- Asegúrate de tener un contenedor para el header con display flex -->
-            <div id="header" class="header"
-                style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #000;">
+            <div id="header-container" style="width: 100%;">
+                <!-- Asegúrate de tener un contenedor para el header con display flex -->
+                <div id="header" class="header"
+                    style="display: flex; justify-content: space-between; align-items: flex-start;">
 
-                <!-- Logo e Información Izquierda -->
-                <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo"
-                        style="height: 50px;" />
-                    <!-- Ajusta el tamaño según sea necesario -->
+                    <!-- Logo e Información Izquierda -->
+                    <div class="header-left" style="flex: 1;">
                     <br>
-                    <div class="sub-info" style="font-size: 0.75em;">
-                        Producto de recetario magistral <br>
-                        Res. Ex. N° 2988/2018 <br>
-                        RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
+                            <br>
+                        <img src="../assets/images/logo documentos.png" alt="Logo"
+                            style="height: 90px;" />
+                        <!-- Ajusta el tamaño según sea necesario -->
+                        <br>
                     </div>
-                </div>
-                <!-- Título Central -->
-                <div class="header-center"
-                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <br>
-                    <br>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 16px; font-weight: bold; color: #000; line-height: 1.2;"></h1>
-                    <p name="producto" id="producto" style="margin: 0; font-size: 22px; font-weight: bold; color: #000; margin-top: 5px;"></p>
-                    <hr style="width:75%;">
-                    <div style="position: relative; font-size: 18px; font-weight: bold; color: #000; margin-top: 2px;">
-                        Dirección de Calidad
+                    <!-- Título Central -->
+                    <div class="header-center"
+                        style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                        <br>
+                        <br>
+                        <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 16px; font-weight: bold; color: #000; line-height: 1.2;"></h1>
+                        <p name="producto" id="producto" style="margin: 0; font-size: 22px; font-weight: bold; color: #000; margin-top: 5px;"></p>
+                        <hr style="width:75%;">
+                        <div style="position: relative; font-size: 18px; font-weight: bold; color: #000; margin-top: 2px;">
+                            Dirección de Calidad
 
+                        </div>
                     </div>
-                </div>
 
 
 
 
 
-                <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="flex: 1; font-size: 0.75em;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Doc No:</td>
-                            <td name="documento" id="documento" style="border: 1px solid black; padding: 2px;"></td>
-                            <td style="border: 1px solid black; padding: 2px;">Elab. por:</td>
-                            <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid black; padding: 2px;">QF DCA.LSR</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Edición:</td>
-                            <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid black; padding: 2px;"></td>
-                            <td style="border: 1px solid black; padding: 2px;">Rev.Por:</td>
-                            <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid black; padding: 2px;">QF DTS.CPG</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Versión:</td>
-                            <td name="version" id="version" style="border: 1px solid black; padding: 2px;"></td>
-                            <td style="border: 1px solid black; padding: 2px;">Aut.Por:</td>
-                            <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid black; padding: 2px;">QF DTL.ISM</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid black; padding: 2px;">Vigencia:</td>
-                            <td name="periodosVigencia" id="periodosVigencia"  style="border: 1px solid black; padding: 2px;"></td>
-                            <td style="border: 1px solid black; padding: 2px;">Página:</td>
-                            <td style="border: 1px solid black; padding: 2px;">1 de 2</td>
-                        </tr>
-                    </table>
-                    <div class="sub-info" style="margin-top: 10px; font-size: 14px;">
-
-                        RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
+                    <!-- Información Derecha con Tabla -->
+                    <div class="header-right" style="flex: 1; font-size: 0.75em;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc No:</td>
+                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Elab. por:</td>
+                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DCA.LSR</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Edición:</td>
+                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Rev.Por:</td>
+                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DTS.CPG</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Versión:</td>
+                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Aut.Por:</td>
+                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DTL.ISM</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Vigencia:</td>
+                                <td name="periodosVigencia" id="periodosVigencia"  style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Página:</td>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">1 de 2</td>
+                            </tr>
+                        </table>
                     </div>
+
+
+
                 </div>
+                <!-- Fila adicional con dos columnas debajo del encabezado existente -->
+                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
+                        <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
+                            <div class="sub-info" style="font-size: 14px;text-align: left;">
 
-
-
+                            Producto de recetario magistral   <br>
+                                Res. Ex. N° 2988/2018  
+                            </div>
+                        </div>
+                        <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
+                            <div class="sub-info" style="font-size: 14px; text-align: right;">
+                                RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
+                            </div>
+                        </div>
+                    </div>
             </div>
-
-            <div id="content" class="content">
+            
+            
+            
+            
+                <div id="content" class="content">
                 <!-- Resto del contenido del cuerpo igual al HTML original -->
                 <div class="table-section">
                     <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
@@ -103,6 +116,9 @@
                     </table>
                 </div>
             </div>
+
+
+
             <div id="content" class="content">
                 <div class="table-section">
                 <!-- Sección de Análisis Microbiológico -->
@@ -203,7 +219,7 @@
     
             // Captura el header y el footer una sola vez
             Promise.all([
-                html2canvas(document.getElementById('header'), { scale: 2 }),
+                html2canvas(document.getElementById('header-container'), { scale: 2 }),
                 html2canvas(document.getElementById('footer'), { scale: 2 })
             ]).then(([canvasHeader, canvasFooter]) => {
                 // Añade el contenido de la primera página
