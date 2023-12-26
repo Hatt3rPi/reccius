@@ -8,12 +8,15 @@ body {
 /* Contenedor principal que simula el borde del documento */
 #form-container {
     max-width: 595pt; /* Ancho máximo para el tamaño del documento */
-    margin: 20pt auto; /* Margen automático para centrar el documento */
     padding: 10pt; /* Espacio interno para el contenido del documento */
     box-sizing: border-box; /* El ancho incluye padding y border */
     background-color: #FFF; /* Fondo blanco para el contenido principal */
     border: 1px solid #000; /* Borde negro alrededor del contenido */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para simular profundidad */
+    margin-left: 500px;
+    /* Centrar el formulario */
+    margin-right: auto;
+    /* Centrar el formulario */
 }
 
 /* Asegúrate de que ningún otro elemento interno tenga un borde */
