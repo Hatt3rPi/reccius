@@ -1,148 +1,66 @@
+/* Estilos base */
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Verdana', 'Geneva', 'Tahoma', 'sans-serif';
     margin: 0;
     padding: 0;
     background-color: #acc1ee; /* Fondo que actúa como margen visual */
 }
 
-/* Contenedor principal que simula el borde del documento */
-#form-container {
-    max-width: 595pt; /* Ancho máximo para el tamaño del documento */
-    padding: 10pt; /* Espacio interno para el contenido del documento */
-    box-sizing: border-box; /* El ancho incluye padding y border */
-    background-color: #FFF; /* Fondo blanco para el contenido principal */
-    border: 1px solid #000; /* Borde negro alrededor del contenido */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para simular profundidad */
-    margin-left: 500px;
-    /* Centrar el formulario */
-    margin-right: 10px;
-    /* Centrar el formulario */
-}
-
-/* Asegúrate de que ningún otro elemento interno tenga un borde */
-.header, .header-bottom, .content, .footer, 
+/* Contenedor principal para todos los elementos del documento */
+#form-container, .header, .header-bottom, .content, .footer, 
 #content, #additionalContent, #mainContainer, #additionalContainer, 
-.form-container, .footer-section, .footer-box, .table-section, 
-th, td, tr, thead tr, tbody:last-child tr:last-child {
-    margin: 0;
+.form-container, .footer-section, .footer-box, .table-section {
+    max-width: 595pt;
     padding: 10px;
-    border: none; /* Elimina los bordes internos */
-    background-color: #FFF; /* Fondo para todos los elementos internos */
+    box-sizing: border-box;
+    background-color: #FFF;
+    margin: auto;
 }
 
-/* Estilos específicos para ciertos elementos */
-.header, .header-bottom, .content, .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-left, .header-right, .header-bottom-left, .header-bottom-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.header-center {
-    flex: 2;
-    text-align: center;
-}
-
-.header-left img, .header-bottom-left, .header-bottom-right {
-    height: 80px;
-}
-
-.header-right, .header-bottom-right, .footer-box {
-    text-align: right;
-    font-size: 12px;
-}
-
-.sub-info, .bold {
-    font-size: 12px;
-    color: #000;
-    font-weight: bold;
-    text-align: center;
-}
-
-table {
+/* Tablas y elementos relacionados */
+table, th, td {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    text-align: left;
+    padding: 4px; /* Reducido para ahorrar espacio */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.65em; /* Tamaño de fuente reducido */
 }
 
+/* Encabezados de tabla */
 th {
     background-color: #0047b3;
     color: white;
-    text-align: left;
-    padding: 8px;
 }
 
-td {
-    padding: 8px;
-    text-align: left;
+/* Cajas de firma y otros elementos del footer */
+.footer-box, .signature, .date, .footer-section {
+    padding: 10px;
+    text-align: center; /* Centrado para todos los elementos del footer */
 }
 
-.document-title h2, .document-title h3 {
-    text-align: center;
-    font-weight: bold;
-}
-
-.document-title h2 {
-    font-size: 22px;
-    margin-top: 20px;
-}
-
-.document-title h3 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    font-weight: normal; /* Si deseas que el subtítulo no sea en negrita */
-}
-
-.footer {
+/* Flexbox para el footer y secciones relacionadas */
+.footer, .footer-box, .signature {
     display: flex;
-    justify-content: center;
-}
-.footer-section {
-    /* Asegúrate de que cada sección del footer tenga espacio alrededor */
-    margin: 5px;
+    align-items: center;
+    justify-content: space-between;
 }
 
+/* Ajustes de altura para las cajas de firma */
 .footer-box {
-    display: flex; /* Activa flexbox */
-    flex-direction: column; /* Orienta los elementos hijos en una columna */
-    justify-content: space-between; /* Separa los elementos hijos uniformemente */
-    padding: 25px; /* Ajusta el padding según sea necesario */
-    border: 1px solid #000; /* Borde alrededor de cada caja del footer */
-    height: 200px; /* O un valor que se adapte a tu diseño */
+    flex-direction: column;
+    border: 1px solid #000;
+    height: 200px; /* Altura ajustable según el contenido */
 }
 
-.signature {
-    flex-grow: 1; /* Permite que el div ocupe el espacio disponible */
-    display: flex; /* Activa flexbox */
-    align-items: center; /* Centra el contenido a lo largo del eje transversal */
-    justify-content: center; /* Centra el contenido a lo largo del eje principal */
-    /* Asegúrate de que el div de la firma tenga un estilo visible si es necesario */
-    border: 0px dashed #000; /* Ejemplo de borde punteado para la firma */
+/* Estilos de texto */
+.bold {
+    font-weight: bold; /* Texto en negrita */
 }
 
-.bold, .signature, p {
-    margin: 0; /* Elimina márgenes predeterminados */
-}
-
-/* Para que el primer y último párrafo no crezcan y solo ocupen su contenido */
-p {
-    flex-grow: 0;
-}
-
-.date {
-    text-align: center; /* Centra la fecha si es necesario */
-    margin-top: 10px; /* Añade un margen en la parte superior si es necesario para espaciar de la caja */
-}
-
-/* Puede ser necesario ajustar el tamaño de la fuente o el peso de la fuente para que coincida con tu diseño */
-
-
-
+/* Estilos para botón de descarga PDF */
 #download-pdf {
     position: fixed;
     bottom: 20px;
@@ -161,10 +79,31 @@ p {
     background-color: #003580;
 }
 
-.pdf-header {
-    font-size: 12pt;
+/* Encabezados del documento */
+.document-title h2 {
+    font-size: 1.375em; /* Tamaño ajustado */
+    margin-top: 20px;
 }
 
-.pdf-footer {
-    font-size: 8pt;
+.document-title h3 {
+    font-size: 1.125em; /* Tamaño ajustado */
+    margin-bottom: 20px;
+}
+
+/* Header y footer alineación */
+.header, .header-bottom, .footer {
+    justify-content: space-between;
+}
+
+/* Encabezado y pies de página, alineación de la imagen */
+.header-left img, .header-bottom-left, .header-bottom-right {
+    height: 80px; /* Alineación vertical de la imagen del logotipo */
+}
+
+/* Eliminación de bordes internos */
+.header, .header-bottom, .content, .footer, 
+#content, #additionalContent, #mainContainer, #additionalContainer, 
+.form-container, .footer-section, .footer-box, .table-section, 
+th, td, tr, thead tr, tbody:last-child tr:last-child {
+    border: none;
 }

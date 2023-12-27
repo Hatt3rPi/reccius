@@ -47,7 +47,7 @@
 
 
                     <!-- Información Derecha con Tabla -->
-                    <div class="header-right" style="flex: 1; font-size: 0.5em;">
+                    <div class="header-right" style="flex: 1; font-size: 0.75em;">
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc No:</td>
