@@ -58,19 +58,16 @@ th, td, tr, thead tr, tbody:last-child tr:last-child {
 }
 
 .header-right table {
-    width: auto; /* o puedes especificar un ancho en px si tienes una medida específica en mente */
+    width: 100%; /* Asegúrate de que la tabla utilice todo el ancho disponible */
 }
 
 .header-right table td,
 .header-right table th {
-    font-size: 10px; /* Ajusta este valor según sea necesario para que coincida con el tamaño deseado */
-    padding: 5px; /* Aumenta el padding para dar más espacio alrededor del texto en las celdas */
-}
-
-/* Si quieres que las celdas tengan un ancho específico, puedes añadir algo como esto: */
-.header-right table th,
-.header-right table td {
-    width: 100px; /* Ajusta este valor según sea necesario */
+    font-size: 10px; /* O el tamaño que se ajuste mejor */
+    white-space: nowrap; /* Esto evitará que el texto pase a la siguiente línea */
+    overflow: hidden; /* Esto cortará cualquier texto que exceda el ancho de la celda */
+    text-overflow: ellipsis; /* Esto agregará puntos suspensivos si el texto es demasiado largo */
+    padding: 5px; /* Ajusta el padding según sea necesario */
 }
 
 
