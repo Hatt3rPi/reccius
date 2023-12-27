@@ -309,26 +309,36 @@ function mostrarAnalisisFQ(analisis) {
     }
 }
 function mostrarAnalisisMB(analisis) {
-    if ($.fn.DataTable.isDataTable('#analisisMB')) {
-        $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+    // Verifica si hay datos para el análisis microbiológico
+    if (analisis.length > 0) {
+        // Si hay datos, muestra la tabla y procesa los datos
+        if ($.fn.DataTable.isDataTable('#analisisMB')) {
+            $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+        } else {
+            $('#analisisMB').DataTable({
+                data: analisis,
+                columns: [
+                    { title: 'Análisis', data: 'descripcion_analisis' },
+                    { title: 'Metodología', data: 'metodologia' },
+                    { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                ],
+                paging: false,
+                info: false,
+                searching: false,
+                lengthChange: false,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                }
+            });
+        }
+        // Muestra la sección del análisis microbiológico
+        $('#additionalContent').show();
     } else {
-        $('#analisisMB').DataTable({
-            data: analisis,
-            columns: [
-                { title: 'Análisis', data: 'descripcion_analisis' },
-                { title: 'Metodología', data: 'metodologia' },
-                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-            ],
-            paging: false,
-            info: false,
-            searching: false,
-            lengthChange: false,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-            }
-        });
+        // Si no hay datos, oculta la sección del análisis microbiológico
+        $('#additionalContent').hide();
     }
 }
+
 function poblarYDeshabilitarCamposProducto(producto) {
     if (producto) {
         // Usando .text() para elementos h2, h3 y p
