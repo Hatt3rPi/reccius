@@ -62,7 +62,7 @@ th, td, tr, thead tr, tbody:last-child tr:last-child {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 0.35em; /* Ajusta el tamaño de fuente como sea necesario */
+    font-size: 0.75em; /* Ajusta el tamaño de fuente como sea necesario */
     border: 1px solid rgb(56, 53, 255);
     padding: 2px;
     max-width: 0; /* Asegura que 'text-overflow' funcione */
