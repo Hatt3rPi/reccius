@@ -57,12 +57,20 @@ th, td, tr, thead tr, tbody:last-child tr:last-child {
     font-size: 12px;
 }
 
+.header-right table {
+    width: auto; /* o puedes especificar un ancho en px si tienes una medida específica en mente */
+}
+
 .header-right table td,
 .header-right table th {
-    font-size: 8px; /* Disminuye el tamaño de fuente según sea necesario */
-    white-space: nowrap; /* Mantiene el texto en una sola línea */
-    overflow: hidden; /* Oculta el texto que se desborde */
-    text-overflow: ellipsis; /* Añade puntos suspensivos al final del texto desbordado */
+    font-size: 10px; /* Ajusta este valor según sea necesario para que coincida con el tamaño deseado */
+    padding: 5px; /* Aumenta el padding para dar más espacio alrededor del texto en las celdas */
+}
+
+/* Si quieres que las celdas tengan un ancho específico, puedes añadir algo como esto: */
+.header-right table th,
+.header-right table td {
+    width: 100px; /* Ajusta este valor según sea necesario */
 }
 
 
