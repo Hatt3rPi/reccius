@@ -102,7 +102,7 @@
                 <div id="content" class="content">
                 <!-- Resto del contenido del cuerpo igual al HTML original -->
                 <div class="table-section">
-                    <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
+                    <div class="analysis-section" style="font-size: 18px; font-weight: bold; margin-top: 20px;">
                         I. Análisis Generales
                     </div>
                     <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%">
@@ -122,7 +122,7 @@
             <div id="additionalContent" class="content">
                 <div class="table-section">
                 <!-- Sección de Análisis Microbiológico -->
-                    <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
+                    <div class="analysis-section" style="font-size: 18px; font-weight: bold; margin-top: 20px;">
                         II. Análisis Microbiológico
                     </div>
 
@@ -288,26 +288,36 @@ function procesarDatosEspecificacion(response) {
     });
 }
 function mostrarAnalisisFQ(analisis) {
-    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-        $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+    // Verifica si hay datos para el análisis FQ
+    if (analisis.length > 0) {
+        // Si hay datos, muestra la tabla y procesa los datos
+        if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+            $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+        } else {
+            $('#analisisFQ').DataTable({
+                data: analisis,
+                columns: [
+                    { title: 'Análisis', data: 'descripcion_analisis' },
+                    { title: 'Metodología', data: 'metodologia' },
+                    { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                ],
+                paging: false,
+                info: false,
+                searching: false,
+                lengthChange: false,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                }
+            });
+        }
+        // Muestra la sección del análisis FQ
+        $('#content').show();
     } else {
-        $('#analisisFQ').DataTable({
-            data: analisis,
-            columns: [
-                { title: 'Análisis', data: 'descripcion_analisis' },
-                { title: 'Metodología', data: 'metodologia' },
-                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-            ],
-            paging: false,
-            info: false,
-            searching: false,
-            lengthChange: false,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-            }
-        });
+        // Si no hay datos, oculta la sección del análisis FQ
+        $('#content').hide();
     }
 }
+
 function mostrarAnalisisMB(analisis) {
     // Verifica si hay datos para el análisis microbiológico
     if (analisis.length > 0) {
