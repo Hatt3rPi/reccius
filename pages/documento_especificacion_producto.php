@@ -193,65 +193,65 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var button = document.getElementById('download-pdf');
-            button.addEventListener('click', function () {
-                downloadPDF();
-            });
+        var button = document.getElementById('download-pdf');
+        button.addEventListener('click', function () {
+            downloadPDF();
         });
-    
-        function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({
-                orientation: 'p',
-                unit: 'pt',
-                format: 'a4'
-            });
-    
-            // Altura total de la página A4 en puntos
-            const pageHeight = 842;
-    
-            // Calcula las alturas según la proporción 1.5:6:2
-            const headerHeight = (1.25 / 9.5) * pageHeight;
-            const contentHeight = (6.5 / 9.5) * pageHeight;
-            const footerHeight = (1.75 / 9.5) * pageHeight;
-            const marginFromBottom = 20; // Margen desde la parte inferior que quieres para el footer
-    
-            // Función para añadir el header y el footer con margen
-            const addHeaderFooter = (pdf, canvasHeader, canvasFooter) => {
-                const imgDataHeader = canvasHeader.toDataURL('image/png');
-                const imgDataFooter = canvasFooter.toDataURL('image/png');
-                pdf.addImage(imgDataHeader, 'PNG', 0, 0, 595, headerHeight);
-                // Ajusta la posición del footer para incluir el margen
-                pdf.addImage(imgDataFooter, 'PNG', 0, pageHeight - footerHeight - marginFromBottom, 595, footerHeight);
-            };
-    
-            // Captura el header y el footer una sola vez
-            Promise.all([
-                html2canvas(document.getElementById('header-container'), { scale: 2 }),
-                html2canvas(document.getElementById('additionalfooter'), { scale: 2 })
-            ]).then(([canvasHeader, canvasFooter]) => {
-                // Añade el contenido de la primera página
-                html2canvas(document.getElementById('content'), { scale: 2 }).then(canvasContent => {
-                    const imgDataContent = canvasContent.toDataURL('image/png');
+    });
+
+    function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'pt',
+            format: 'a4'
+        });
+
+        // Altura total de la página A4 en puntos
+        const pageHeight = 842;
+
+        // Calcula las alturas según la proporción 1.5:6:2
+        const headerHeight = (1.25 / 9.5) * pageHeight;
+        const contentHeight = (6.5 / 9.5) * pageHeight;
+        const footerHeight = (1.75 / 9.5) * pageHeight;
+        const marginFromBottom = 20; // Margen desde la parte inferior que quieres para el footer
+
+        // Función para añadir el header y el footer con margen
+        const addHeaderFooter = (pdf, canvasHeader, canvasFooter) => {
+            const imgDataHeader = canvasHeader.toDataURL('image/png');
+            const imgDataFooter = canvasFooter.toDataURL('image/png');
+            pdf.addImage(imgDataHeader, 'PNG', 0, 0, 595, headerHeight);
+            // Ajusta la posición del footer para incluir el margen
+            pdf.addImage(imgDataFooter, 'PNG', 0, pageHeight - footerHeight - marginFromBottom, 595, footerHeight);
+        };
+
+        // Captura el header y el footer una sola vez
+        Promise.all([
+            html2canvas(document.getElementById('header'), { scale: 2 }),
+            html2canvas(document.getElementById('footer'), { scale: 2 })
+        ]).then(([canvasHeader, canvasFooter]) => {
+            // Añade el contenido de la primera página
+            html2canvas(document.getElementById('content'), { scale: 2 }).then(canvasContent => {
+                const imgDataContent = canvasContent.toDataURL('image/png');
+                addHeaderFooter(pdf, canvasHeader, canvasFooter);
+                pdf.addImage(imgDataContent, 'PNG', 0, headerHeight, 595, contentHeight);
+
+                // Añade una nueva página para el additionalContent
+                pdf.addPage();
+
+                // Añade el contenido de la segunda página con un escalado menor
+                html2canvas(document.getElementById('additionalContent'), { scale: 2 }).then(canvasAdditionalContent => {
+                    const imgDataAdditionalContent = canvasAdditionalContent.toDataURL('image/png');
                     addHeaderFooter(pdf, canvasHeader, canvasFooter);
-                    pdf.addImage(imgDataContent, 'PNG', 0, headerHeight, 595, contentHeight);
-    
-                    // Añade una nueva página para el additionalContent
-                    pdf.addPage();
-    
-                    // Añade el contenido de la segunda página con un escalado menor
-                    html2canvas(document.getElementById('additionalContent'), { scale: 2 }).then(canvasAdditionalContent => {
-                        const imgDataAdditionalContent = canvasAdditionalContent.toDataURL('image/png');
-                        addHeaderFooter(pdf, canvasHeader, canvasFooter);
-                        const scaledContentHeight = contentHeight * (canvasAdditionalContent.height / canvasContent.height);
-                        pdf.addImage(imgDataAdditionalContent, 'PNG', 0, headerHeight, 595, scaledContentHeight);
-    
-                        // Guardar el PDF
-                        pdf.save('Especificacion_Producto_Terminado.pdf');
-                    });
+                    const scaledContentHeight = contentHeight * (canvasAdditionalContent.height / canvasContent.height);
+                    pdf.addImage(imgDataAdditionalContent, 'PNG', 0, headerHeight, 595, scaledContentHeight);
+
+                    // Guardar el PDF
+                    pdf.save('Especificacion_Producto_Terminado.pdf');
                 });
             });
-        }
+        });
+    }
         function cargarDatosEspecificacion(id) {
     $.ajax({
         url: './backend/calidad/documento_especificacion_productoBE.php',
