@@ -347,3 +347,11 @@ body {
   /*object-fit: cover;  Asegura que la imagen cubra completamente el círculo */
 }
 
+#dynamic-content {
+  display: none;
+}
+
+#loading-spinner {
+  display: none; /* oculto inicialmente */
+  /* Aquí puedes agregar más estilos para el spinner */
+}

@@ -41,7 +41,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     </head>
 <body>
     <header>
-    <div id="loading-spinner" style="display: none;">Cargando...</div>
+    
         <div class="header_estatico">
             <div class="logo-title-container">
                 <img src="../assets/images/logo_reccius_medicina_especializada-1.png" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" class="logo"/>
@@ -107,7 +107,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </ul>
         </aside>
         <main class="content">
+            <div id="loading-spinner" style="display: none;">Cargando...</div>
             <div id="dynamic-content">
+            
                 <!-- El contenido se cargará dinámicamente aquí -->
             </div>
         </main>

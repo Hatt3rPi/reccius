@@ -52,6 +52,7 @@ $(document).ready(function () {
             // Llamar a la función de inicialización después de cargar el formulario
             inicializarFormularioCrearUsuario();
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
     });
 });
@@ -63,6 +64,7 @@ $(document).ready(function () {
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
         $('#dynamic-content').load('asignar_roles.php');
         $('#loading-spinner').hide();
+        $('#dynamic-content').show();
     });
 });
 $(document).ready(function () {
@@ -72,6 +74,7 @@ $(document).ready(function () {
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#dynamic-content').load('modificar_perfil.php');
         $('#loading-spinner').hide();
+        $('#dynamic-content').show();
     });
 });
 
@@ -86,6 +89,7 @@ $(document).ready(function () {
             carga_tablaFQ();
             carga_tablaMB();
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
         
         console.log('Proceso finalizado');
@@ -106,6 +110,7 @@ $(document).ready(function () {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
     });
 });
@@ -117,6 +122,7 @@ $(document).ready(function () {
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#testing').load('preparacion_solicitud.php');
         $('#loading-spinner').hide();
+        $('#dynamic-content').show();
     });
 });
 
@@ -135,6 +141,7 @@ $(document).ready(function () {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
     });
 });
@@ -153,6 +160,7 @@ $(document).ready(function () {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
     });
 });
@@ -171,6 +179,7 @@ $(document).ready(function () {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
     });
 });
@@ -190,6 +199,7 @@ $(document).ready(function () {
                 carga_listadoEspecificacionesProductos();
             }
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
     });
 });
@@ -275,6 +285,7 @@ $(document).ready(function () {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
+            $('#dynamic-content').show();
         });
     });
 });
