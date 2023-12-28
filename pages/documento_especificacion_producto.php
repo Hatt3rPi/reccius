@@ -227,8 +227,8 @@
 
         // Captura el header y el footer una sola vez
         Promise.all([
-            html2canvas(document.getElementById('header'), { scale: 2 }),
-            html2canvas(document.getElementById('footer'), { scale: 2 })
+            html2canvas(document.getElementById('header-container'), { scale: 2 }),
+            html2canvas(document.getElementById('additionalfooter'), { scale: 2 })
         ]).then(([canvasHeader, canvasFooter]) => {
             // Añade el contenido de la primera página
             html2canvas(document.getElementById('content'), { scale: 2 }).then(canvasContent => {
