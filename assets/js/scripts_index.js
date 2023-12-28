@@ -300,3 +300,9 @@ $(document).ready(function () {
         });
     });
 });
+$(window).on('load', function() {
+    // Oculta el spinner una vez que se haya cargado toda la página
+    $('#loading-spinner').hide();
+    // Asegúrate de que el contenido dinámico se muestre
+    $('#dynamic-content').show();
+});
