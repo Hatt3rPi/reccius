@@ -52,7 +52,7 @@
                     <br>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc No:</td>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc. N°:</td>
                                 <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Elab. por:</td>
                                 <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DCA.LSR</td>
@@ -299,7 +299,12 @@ function mostrarAnalisisFQ(analisis) {
             $('#analisisFQ').DataTable({
                 data: analisis,
                 columns: [
-                    { title: 'Análisis', data: 'descripcion_analisis' },
+                    {   title: 'Análisis', 
+                        data: 'descripcion_analisis', 
+                        render: function(data, type, row) {
+                            return '<strong>' + data + '</strong>';
+                        } 
+                    },
                     { title: 'Metodología', data: 'metodologia' },
                     { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
                 ],
@@ -330,7 +335,12 @@ function mostrarAnalisisMB(analisis) {
             $('#analisisMB').DataTable({
                 data: analisis,
                 columns: [
-                    { title: 'Análisis', data: 'descripcion_analisis' },
+                    {   title: 'Análisis', 
+                        data: 'descripcion_analisis', 
+                        render: function(data, type, row) {
+                            return '<strong>' + data + '</strong>';
+                        } 
+                    },
                     { title: 'Metodología', data: 'metodologia' },
                     { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
                 ],
