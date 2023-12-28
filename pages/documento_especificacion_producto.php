@@ -59,7 +59,7 @@
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Edición:</td>
-                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Rev.Por:</td>
                                 <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">QF DTS.CPG</td>
                             </tr>
@@ -107,7 +107,7 @@
                     <div class="analysis-section" style="font-size: 13px; font-weight: bold; margin-top: 20px;">
                         I. Análisis Generales
                     </div>
-                    <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%">
+                    <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%; font-size: 13px">
                         <thead>
                             <tr>
                                 <th>Análisis</th>
@@ -129,7 +129,7 @@
                     </div>
 
                     <!-- Tabla de Análisis Microbiológico -->
-                    <table id="analisisMB" class="table table-striped table-bordered" style="width:100%">
+                    <table id="analisisMB" class="table table-striped table-bordered" style="width:100%; font-size: 13px">
                         <thead>
                             <tr>
                                 <th>Análisis</th>
