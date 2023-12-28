@@ -34,9 +34,9 @@
                         <br>
                         <br>
                         <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 14px; font-weight: normla; color: #000; line-height: 1.2;"></h1>
-                        <p name="producto" id="producto" style="margin: 0; font-size: 18px; font-weight: bold; color: #000; margin-top: 5px;"></p>
+                        <p name="producto" id="producto" style="margin: 0; font-size: 14px; font-weight: bold; color: #000; margin-top: 5px;"></p>
                         <hr style="width:75%;">
-                        <div style="position: relative; font-size: 16px; font-weight: bold; color: #000; margin-top: 2px;">
+                        <div style="position: relative; font-size: 14px; font-weight: bold; color: #000; margin-top: 2px;">
                             Dirección de Calidad
 
                         </div>
@@ -53,27 +53,27 @@
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc. N°:</td>
-                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Elab. por:</td>
-                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DCA.LSR</td>
+                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">QF DCA.LSR</td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Edición:</td>
                                 <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Rev.Por:</td>
-                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DTS.CPG</td>
+                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">QF DTS.CPG</td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Versión:</td>
-                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Aut.Por:</td>
-                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DTL.ISM</td>
+                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">QF DTL.ISM</td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Vigencia:</td>
-                                <td name="periodosVigencia" id="periodosVigencia"  style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
+                                <td name="periodosVigencia" id="periodosVigencia"  style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Página:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">1 de 2</td>
+                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">1 de 2</td>
                             </tr>
                         </table>
                     </div>
@@ -84,14 +84,14 @@
                 <!-- Fila adicional con dos columnas debajo del encabezado existente -->
                 <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
                         <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
-                            <div class="sub-info" style="font-size: 14px;text-align: left;">
+                            <div class="sub-info" style="font-size: 13px;text-align: left;">
 
                             Producto de recetario magistral   <br>
                                 Res. Ex. N° 2988/2018  
                             </div>
                         </div>
                         <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
-                            <div class="sub-info" style="font-size: 14px; text-align: right;">
+                            <div class="sub-info" style="font-size: 13px; text-align: right;">
                                 RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                 <div id="content" class="content">
                 <!-- Resto del contenido del cuerpo igual al HTML original -->
                 <div class="table-section">
-                    <div class="analysis-section" style="font-size: 18px; font-weight: bold; margin-top: 20px;">
+                    <div class="analysis-section" style="font-size: 13px; font-weight: bold; margin-top: 20px;">
                         I. Análisis Generales
                     </div>
                     <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%">
@@ -124,7 +124,7 @@
             <div id="additionalContent" class="content">
                 <div class="table-section">
                 <!-- Sección de Análisis Microbiológico -->
-                    <div class="analysis-section" style="font-size: 18px; font-weight: bold; margin-top: 20px;">
+                    <div class="analysis-section" style="font-size: 13px; font-weight: bold; margin-top: 20px;">
                         II. Análisis Microbiológico
                     </div>
 
