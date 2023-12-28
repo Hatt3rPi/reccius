@@ -107,14 +107,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </ul>
         </aside>
         <main class="content">
+            <div id="dynamic-content">
+            
+                <!-- El contenido se cargará dinámicamente aquí -->
+            </div>
             <div class="text-center" id="loading-spinner" style="display: none;">
                 <div class="spinner-border" role="status">
                     <span class="sr-only">Cargando...</span>
                 </div>
-            </div>
-            <div id="dynamic-content">
-            
-                <!-- El contenido se cargará dinámicamente aquí -->
             </div>
         </main>
     </div>
