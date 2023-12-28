@@ -105,10 +105,10 @@
                 <div id="content" class="content">
                 <!-- Resto del contenido del cuerpo igual al HTML original -->
                 <div class="table-section">
-                    <div class="analysis-section" style="font-size: 13px; font-weight: bold; margin-top: 20px;">
+                    <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px;">
                         I. Análisis Generales
                     </div>
-                    <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%; font-size: 13px">
+                    <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%; font-size: 10px">
                         <thead>
                             <tr>
                                 <th>Análisis</th>
@@ -125,12 +125,12 @@
             <div id="additionalContent" class="content">
                 <div class="table-section">
                 <!-- Sección de Análisis Microbiológico -->
-                    <div class="analysis-section" style="font-size: 13px; font-weight: bold; margin-top: 20px;">
+                    <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px;">
                         II. Análisis Microbiológico
                     </div>
 
                     <!-- Tabla de Análisis Microbiológico -->
-                    <table id="analisisMB" class="table table-striped table-bordered" style="width:100%; font-size: 13px">
+                    <table id="analisisMB" class="table table-striped table-bordered" style="width:100%; font-size: 10px">
                         <thead>
                             <tr>
                                 <th>Análisis</th>
