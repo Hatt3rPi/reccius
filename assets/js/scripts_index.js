@@ -47,9 +47,11 @@ function inicializarFormularioCrearUsuario() {
 $(document).ready(function () {
     $('#crear-usuario').click(function (event) {
         event.preventDefault();
+        $('#loading-spinner').show();
         $('#dynamic-content').load('crear_usuario.php', function () {
             // Llamar a la función de inicialización después de cargar el formulario
             inicializarFormularioCrearUsuario();
+            $('#loading-spinner').hide();
         });
     });
 });
@@ -57,27 +59,33 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#asignar-roles').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
         $('#dynamic-content').load('asignar_roles.php');
+        $('#loading-spinner').hide();
     });
 });
 $(document).ready(function () {
     $('#configuracion').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#dynamic-content').load('modificar_perfil.php');
+        $('#loading-spinner').hide();
     });
 });
 
 $(document).ready(function () {
     $('#especificacion_producto').click(function (event) {
         event.preventDefault();
+        $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.');
         
         $('#dynamic-content').load('especificacion_producto.php?nuevo=true', function () {
             // Llamar a la función de inicialización después de cargar el formulario
             carga_tablaFQ();
             carga_tablaMB();
+            $('#loading-spinner').hide();
         });
         
         console.log('Proceso finalizado');
@@ -87,6 +95,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
@@ -96,15 +105,18 @@ $(document).ready(function () {
             } else {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
+            $('#loading-spinner').hide();
         });
     });
 });
 
 $(document).ready(function () {
+    $('#loading-spinner').show();
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#testing').load('preparacion_solicitud.php');
+        $('#loading-spinner').hide();
     });
 });
 
@@ -112,6 +124,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#preparacion_analisis').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
@@ -121,6 +134,7 @@ $(document).ready(function () {
             } else {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
+            $('#loading-spinner').hide();
         });
     });
 });
@@ -128,6 +142,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#acta_liberacion').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
@@ -137,6 +152,7 @@ $(document).ready(function () {
             } else {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
+            $('#loading-spinner').hide();
         });
     });
 });
@@ -144,6 +160,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#resultados_laboratorio').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
@@ -153,6 +170,7 @@ $(document).ready(function () {
             } else {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
+            $('#loading-spinner').hide();
         });
     });
 });
@@ -160,6 +178,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#listado_especificacion_producto').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
@@ -170,6 +189,7 @@ $(document).ready(function () {
                 console.log('Listado cargado correctamente cargado exitosamente.'); // Confirmar que la carga fue exitosa
                 carga_listadoEspecificacionesProductos();
             }
+            $('#loading-spinner').hide();
         });
     });
 });
@@ -244,6 +264,7 @@ function botones(id, accion, base) {
 $(document).ready(function () {
     $('#testeo').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
@@ -253,6 +274,7 @@ $(document).ready(function () {
             } else {
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
+            $('#loading-spinner').hide();
         });
     });
 });
