@@ -33,6 +33,7 @@
                         style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Verdana', sans-serif; height: 100%;">
                         <br>
                         <br>
+                        <br>
                         <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normla; color: #000; line-height: 1.2;"></h1>
                         <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; margin-top: 5px;"></p>
                         <hr style="width:75%;">
