@@ -85,14 +85,14 @@
                 <!-- Fila adicional con dos columnas debajo del encabezado existente -->
                 <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
                         <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
-                            <div class="sub-info" style="font-size: 13px;text-align: left;">
+                            <div class="sub-info" style="font-size: 10px;text-align: left;">
 
                             Producto de recetario magistral   <br>
                                 Res. Ex. N° 2988/2018  
                             </div>
                         </div>
                         <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
-                            <div class="sub-info" style="font-size: 13px; text-align: right;">
+                            <div class="sub-info" style="font-size: 10px; text-align: right;">
                                 RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
                             </div>
                         </div>
