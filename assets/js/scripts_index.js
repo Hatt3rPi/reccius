@@ -47,6 +47,7 @@ function inicializarFormularioCrearUsuario() {
 $(document).ready(function () {
     $('#crear-usuario').click(function (event) {
         event.preventDefault();
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         $('#dynamic-content').load('crear_usuario.php', function () {
             // Llamar a la función de inicialización después de cargar el formulario
@@ -60,6 +61,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#asignar-roles').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
         $('#dynamic-content').load('asignar_roles.php');
@@ -70,6 +72,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#configuracion').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#dynamic-content').load('modificar_perfil.php');
@@ -81,6 +84,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#especificacion_producto').click(function (event) {
         event.preventDefault();
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.');
         
@@ -99,6 +103,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
@@ -116,6 +121,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+     $('#dynamic-content').hide();
     $('#loading-spinner').show();
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
@@ -130,6 +136,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#preparacion_analisis').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
@@ -149,6 +156,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#acta_liberacion').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
@@ -168,6 +176,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#resultados_laboratorio').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
@@ -187,6 +196,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#listado_especificacion_producto').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
@@ -274,6 +284,7 @@ function botones(id, accion, base) {
 $(document).ready(function () {
     $('#testeo').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
