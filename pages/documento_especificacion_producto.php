@@ -198,9 +198,9 @@
         button.addEventListener('click', function () {
             downloadPDF();
         });
-    });
+     });
 
-    function downloadPDF() {
+     function downloadPDF() {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({
             orientation: 'p',
@@ -290,6 +290,8 @@ function procesarDatosEspecificacion(response) {
         }
     });
 }
+
+
 function mostrarAnalisisFQ(analisis) {
     // Verifica si hay datos para el análisis FQ
     if (analisis.length > 0) {
@@ -389,6 +391,51 @@ function poblarYDeshabilitarCamposProducto(producto) {
         }
     }
 }
+
+function checkAndSplitContent() {
+    // Alturas para el header, el footer y el margen inferior
+    const headerHeight = document.getElementById('header-container').offsetHeight;
+    const footerHeight = document.getElementById('additionalfooter').offsetHeight;
+    const marginFromBottom = 20; // Margen desde la parte inferior que quieres para el footer
+    
+    // Altura disponible para el contenido en una página
+    const availableHeight = window.innerHeight - headerHeight - footerHeight - marginFromBottom;
+
+    // Elementos de contenido
+    const content = document.getElementById('content');
+    const additionalContent = document.getElementById('additionalContent');
+
+    // Mide la altura del contenido
+    const contentHeight = content.offsetHeight;
+
+    // Comprueba si el contenido cabe en una sola página
+    if (contentHeight > availableHeight) {
+        // El contenido principal es demasiado grande, prepara para mover a una nueva página
+        // Asegúrate de que additionalContent esté oculto
+        additionalContent.style.display = 'none';
+
+        // Crear un botón o algún control para permitir al usuario moverse a la página siguiente
+        const nextPageButton = document.createElement('button');
+        nextPageButton.innerText = 'Siguiente Página';
+        nextPageButton.onclick = function () {
+            // Al hacer clic, mostrar additionalContent y ocultar el contenido actual
+            content.style.display = 'none';
+            additionalContent.style.display = 'block';
+            nextPageButton.style.display = 'none'; // Ocultar el botón de la siguiente página
+        };
+
+        // Añadir el botón al DOM
+        document.body.appendChild(nextPageButton);
+    } else {
+        // Si el contenido cabe en una sola página, asegúrate de que ambos estén visibles
+        additionalContent.style.display = 'block';
+    }
+}
+
+// Llama a la función cuando el contenido esté listo, por ejemplo, después de cargar los datos o una imagen
+checkAndSplitContent();
+
+
 
 
     </script>
