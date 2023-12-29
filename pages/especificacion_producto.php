@@ -500,6 +500,7 @@ function cargarDatosEspecificacion(id) {
             var nuevoBoton = $('<button/>', {
                 text: 'Editar y generar nueva versión',
                 id: 'editarGenerarVersion',
+                name: 'editarGenerarVersion',
                 class: 'action-button',
                 style: 'background-color: red; color: white;',
                 click: function() {
@@ -622,6 +623,7 @@ function mostrarAnalisisMB(analisis) {
 $('#editarGenerarVersion').click(function() {
     // Resto del código para habilitar edición del formulario...
     $('#guardar').show();
+   /*
     $('#Tipo_Producto').prop('disabled', false);
     $('input[name="producto"]').prop('disabled', false);
     $('input[name="concentracion"]').prop('disabled', false);
@@ -640,7 +642,7 @@ $('#editarGenerarVersion').click(function() {
 
     tablaFQ.column('.acciones').visible(true);
     tablaMB.column('.acciones').visible(true);
-
+    */
     // Habilitar la adición y eliminación de análisis
     //habilitarEdicionAnalisis(tablaFQ);
     //habilitarEdicionAnalisis(tablaMB);
