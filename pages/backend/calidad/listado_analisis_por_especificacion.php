@@ -14,19 +14,19 @@ $query = "SELECT cp.id as id_producto,
             cp.documento_ingreso  as documento_producto,
             cp.elaborado_por, 
             cp.tipo_concentracion,
+            cp.pais_origen,
             cep.id_especificacion,
             cep.estado, 
             cep.documento,
             cep.fecha_expiracion,
             DATE_FORMAT(cep.fecha_edicion, '%d/%m/%Y') as fecha_edicion,
+            cep.version,
+            cep.vigencia,
             can.id_analisis,
             can.tipo_analisis,
             can.descripcion_analisis,
             can.metodologia, 
-            can.criterios_aceptacion,
-            cp.pais_origen,
-            cep.version,
-            cep.vigencia
+            can.criterios_aceptacion
         FROM calidad_productos as cp INNER JOIN calidad_especificacion_productos as cep 
         ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can 
@@ -55,6 +55,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'formato' => $row['formato'],
             'elaborado_por' => $row['elaborado_por'],
             'pais_origen' => $row['pais_origen'],
+            'documento_producto' => $row['documento_producto'],
             'especificaciones' => []
         ];
     }
