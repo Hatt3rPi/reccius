@@ -188,6 +188,7 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     var contadorFilas = 0;
     var selectorTabla = '#analisis' + tipoAnalisis;
     var botonAgregar = '#boton_agrega_analisis' + tipoAnalisis;
+    var accionesVisibles = (id === null);
 
     // Configuración inicial de DataTable
     tabla = new DataTable(selectorTabla, {
@@ -202,7 +203,7 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
             { title: 'Análisis' },
             { title: 'Metodología' },
             { title: 'Criterio de Aceptación' },
-            { title: 'Acciones', visible: true  }
+            { title: 'Acciones', visible: accionesVisibles  }
         ]
     });
 
