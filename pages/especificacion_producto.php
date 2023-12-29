@@ -183,7 +183,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 </html>
 <script>
 var opcionesDesplegables = <?php echo json_encode($opciones); ?>;
-function carga_tabla(tipoAnalisis, id = null) {
+function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     var tabla;
     var contadorFilas = 0;
     var selectorTabla = '#analisis' + tipoAnalisis;
@@ -218,22 +218,15 @@ function carga_tabla(tipoAnalisis, id = null) {
             contadorFilas++;
         });
     } else { // Edición de una especificación existente
-        $.ajax({
-            url: './backend/calidad/listado_analisis_por_especificacion.php',
-            type: 'GET',
-            data: { id: id, analisis: 'analisis_' + tipoAnalisis },
-            success: function(response) {
-                var datos = JSON.parse(response);
-                datos.forEach(function(analisis) {
-                    var fila = [
-                        analisis.descripcion_analisis, // Asegúrate de que estos campos coincidan con los nombres de tus datos
-                        analisis.metodologia,
-                        analisis.criterios_aceptacion,
-                        '<button type="button" class="btn-eliminar">Eliminar</button>'
-                    ];
-                    tabla.row.add(fila).draw(false);
-                });
-            }
+        datosAnalisis.forEach(function(analisis) {
+            var fila = [
+                analisis.descripcion_analisis,
+                analisis.metodologia,
+                analisis.criterios_aceptacion,
+                '<button type="button" class="btn-eliminar">Eliminar</button>'
+            ];
+            tabla.row.add(fila).draw(false);
+            contadorFilas++;
         });
     }
 
@@ -577,28 +570,29 @@ function cargarDatosEspecificacion(id) {
 
 
 function procesarDatosEspecificacion(response) {
-    // Asegúrate de que 'response' contiene la propiedad 'productos'
     if (!response || !response.productos || !Array.isArray(response.productos)) {
         console.error('Los datos recibidos no son válidos:', response);
         return;
     }
 
-    // Procesar cada producto
     response.productos.forEach(function(producto) {
         poblarYDeshabilitarCamposProducto(producto);
 
-        // Procesar la primera especificación para cada producto
+        // Suponiendo que quieres la primera especificación (ajusta según sea necesario)
         let especificaciones = Object.values(producto.especificaciones || {});
         if (especificaciones.length > 0) {
-            let especificacion = especificaciones[0];
+            let especificacion = especificaciones[0]; // Primera especificación
+            let idEspecificacion = especificacion.id; // ID de la especificación
+
             let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
             let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
-            console.log(analisisFQ);
-            carga_tabla('FQ', idEspecificacion);
-            carga_tabla('MB', idEspecificacion);
+
+            carga_tabla('FQ', idEspecificacion, analisisFQ);
+            carga_tabla('MB', idEspecificacion, analisisMB);
         }
     });
 }
+
 
 function poblarYDeshabilitarCamposProducto(producto) {
     $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
