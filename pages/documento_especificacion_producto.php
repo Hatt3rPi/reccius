@@ -209,28 +209,25 @@ function cargarDatosEspecificacion(id) {
         });
         }
         function procesarDatosEspecificacion(response) {
-    // Asegúrate de que 'response' contiene la propiedad 'productos'
+    // Validación de la respuesta
     if (!response || !response.productos || !Array.isArray(response.productos)) {
         console.error('Los datos recibidos no son válidos:', response);
         return;
     }
 
-    // Procesar cada producto
+    // Procesamiento de cada producto
     response.productos.forEach(function(producto) {
         poblarYDeshabilitarCamposProducto(producto);
 
-        // Procesar la primera especificación para cada producto
         let especificaciones = Object.values(producto.especificaciones || {});
         if (especificaciones.length > 0) {
             let especificacion = especificaciones[0];
 
-            // Filtrar y mostrar análisis FQ si están presentes
             let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
             if (analisisFQ.length > 0) {
                 mostrarAnalisisFQ(analisisFQ);
             }
 
-            // Filtrar y mostrar análisis MB si están presentes
             let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
             if (analisisMB.length > 0) {
                 mostrarAnalisisMB(analisisMB);
@@ -238,9 +235,10 @@ function cargarDatosEspecificacion(id) {
         }
     });
 
-    // Verificar y ajustar la paginación después de cargar y procesar todo el contenido
+    // Llamada a checkAndSplitContent
     checkAndSplitContent();
 }
+
 function poblarYDeshabilitarCamposProducto(producto) {
     if (producto) {
         // Usando .text() para elementos h2, h3 y p
