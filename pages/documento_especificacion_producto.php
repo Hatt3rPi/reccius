@@ -141,7 +141,7 @@
                     </table>
                 </div>
             </div>
-            <div class="footer" id="additionalfooter">
+            <div class="footer" id="footer">
                 <!-- Sección realizada por -->
                 <div class="footer-section">
                     <br>
@@ -199,7 +199,7 @@
 
     // Obtiene las alturas del header y footer
     const headerHeight = document.getElementById('header-container').offsetHeight;
-    const footerHeight = document.getElementById('additionalfooter').offsetHeight;
+    const footerHeight = document.getElementById('footer').offsetHeight;
 
     // Muestra las dimensiones en la consola
     console.log("Altura del Header: " + headerHeight + "px");
