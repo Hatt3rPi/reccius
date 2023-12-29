@@ -629,15 +629,19 @@ $('#editarGenerarVersion').click(function() {
 });
 
 function habilitarEdicionAnalisis(tabla) {
-    // Ejemplo de cómo habilitar la adición de nuevos análisis
-    $('#boton_agrega_analisis' + tabla.node().id).show();
+    // Asegúrate de que 'tabla' es una instancia válida de DataTable
+    if (tabla instanceof $.fn.dataTable.Api) {
+        // Obtiene el ID del elemento de tabla y muestra el botón correspondiente
+        var tablaId = $(tabla.table().node()).attr('id');
+        $('#boton_agrega_analisis' + tablaId).show();
 
-    // Habilitar la eliminación de análisis existentes
-    // Aquí puedes agregar el código que permite eliminar filas en la tabla
-    tabla.on('click', '.btn-eliminar', function() {
-        tabla.row($(this).parents('tr')).remove().draw();
-    });
+        // Habilitar la eliminación de análisis existentes
+        $('#' + tablaId).on('click', '.btn-eliminar', function() {
+            tabla.row($(this).parents('tr')).remove().draw();
+        });
+    }
 }
+
 
 function guardar(){
     
