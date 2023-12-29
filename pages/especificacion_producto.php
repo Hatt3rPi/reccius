@@ -182,6 +182,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 </html>
 <script>
+var tablaFQ, contadorFilasFQ = 0;
+var tablaMB, contadorFilasMB = 0;
 var opcionesDesplegables = <?php echo json_encode($opciones); ?>;
 function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     var tabla;
@@ -206,9 +208,7 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
             { title: 'Acciones', visible: accionesVisibles  }
         ]
     });
-
-    if (id === null) { // Creación de una nueva especificación
-        $(botonAgregar).on('click', function() {
+    $(botonAgregar).on('click', function() {
             var filaNueva = [
                 crearSelectHtml('Analisis' + tipoAnalisis, contadorFilas, 'descripcion_analisis', tipoAnalisis),
                 crearSelectHtml('metodologia', contadorFilas, 'metodologia', tipoAnalisis),
@@ -218,6 +218,8 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
             tabla.row.add(filaNueva).draw(false);
             contadorFilas++;
         });
+    if (id === null) { // Creación de una nueva especificación
+        $(botonAgregar).show();
     } else { // Edición de una especificación existente
         datosAnalisis.forEach(function(analisis) {
             var fila = [
@@ -229,6 +231,7 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
             tabla.row.add(fila).draw(false);
             contadorFilas++;
         });
+        $(botonAgregar).hide();
     }
 
     // Manejo del botón eliminar en la tabla
@@ -345,7 +348,7 @@ function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
 
 
 $('#analisisFQ').on('click', '.btn-eliminar', function () {
-    var tablaFQ = $('#analisisFQ').DataTable();
+    tablaFQ = $('#analisisFQ').DataTable();
     tablaFQ.row($(this).parents('tr')).remove().draw();
 });
 function carga_tablaMB(id = null, accion = null) {
@@ -416,7 +419,7 @@ function carga_tablaMB(id = null, accion = null) {
 // Asegúrate de llamar a carga_tablaMB con los parámetros adecuados donde corresponda.
 
     $('#analisisMB').on('click', '.btn-eliminar', function () {
-    var tablaMB = $('#analisisMB').DataTable();
+    tablaMB = $('#analisisMB').DataTable();
     tablaMB.row($(this).parents('tr')).remove().draw();
 });
 function calcularProximaRenovacion() {
