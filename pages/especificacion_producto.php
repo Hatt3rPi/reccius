@@ -691,8 +691,8 @@ $('#editarGenerarVersion').click(function() {
     var tablaFQ = $('#analisisFQ').DataTable();
     var tablaMB = $('#analisisMB').DataTable();
 
-    tablaFQ.column('.acciones').visible(true);
-    tablaMB.column('.acciones').visible(true);
+    tablaFQ.column(-1).visible(true); // Asumiendo que la columna de acciones es la última
+    tablaMB.column(-1).visible(true);
 
     // Habilitar la adición y eliminación de análisis
     habilitarEdicionAnalisis(tablaFQ);
