@@ -13,6 +13,7 @@ $query = "SELECT cp.id as id_producto,
             cp.formato,
             cp.documento_ingreso  as documento_producto,
             cp.elaborado_por, 
+            cp.tipo_concentracion,
             cep.id_especificacion,
             cep.estado, 
             cep.documento,
@@ -50,9 +51,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             'nombre_producto' => $row['producto'],
             'tipo_producto' => $row['tipo_producto'],
             'concentracion' => $row['concentracion'],
+            'tipo_concentracion' => $row['tipo_concentracion'],
             'formato' => $row['formato'],
             'elaborado_por' => $row['elaborado_por'],
-            'pais_origen' => $row['elaborado_por'],
+            'pais_origen' => $row['pais_origen'],
             'especificaciones' => []
         ];
     }
