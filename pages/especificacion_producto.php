@@ -590,8 +590,6 @@ function procesarDatosEspecificacion(response) {
 
             carga_tabla('FQ', idEspecificacion, analisisFQ);
             carga_tabla('MB', idEspecificacion, analisisMB);
-            tablaFQ.column('.acciones').visible(false);
-            tablaMB.column('.acciones').visible(false);
         }
     });
 }
