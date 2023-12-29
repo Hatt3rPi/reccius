@@ -617,6 +617,9 @@ $('#editarGenerarVersion').click(function() {
     $('input[name="version"]').val(versionActual + 1);
 
     // Hacer visible la columna de acciones en ambas tablas
+
+    $('#boton_agrega_analisisFQ').show();
+    $('#boton_agrega_analisisMB').show();
     var tablaFQ = $('#analisisFQ').DataTable();
     var tablaMB = $('#analisisMB').DataTable();
 
