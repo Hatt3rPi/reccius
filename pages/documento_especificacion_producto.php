@@ -192,25 +192,29 @@
 
     <button id="download-pdf">Descargar PDF</button>
     <script>
-    // Espera a que el DOM esté completamente cargado
     document.addEventListener('DOMContentLoaded', function() {
-        // Obtiene las alturas del header y footer
-        const headerHeight = document.getElementById('header-container').offsetHeight;
-        const footerHeight = document.getElementById('additionalfooter').offsetHeight;
+    // Dimensiones estándar de un documento tamaño carta en puntos
+    const cartaWidth = 612; // Ancho de documento tamaño carta
+    const cartaHeight = 792; // Altura de documento tamaño carta
 
-        // Muestra las alturas en la consola
-        console.log("Altura del Header: " + headerHeight + "px");
-        console.log("Altura del Footer: " + footerHeight + "px");
+    // Obtiene las alturas del header y footer
+    const headerHeight = document.getElementById('header-container').offsetHeight;
+    const footerHeight = document.getElementById('additionalfooter').offsetHeight;
 
-        // Obtiene las dimensiones de la ventana del navegador
-        const windowHeight = window.innerHeight;
-        const windowWidth = window.innerWidth;
+    // Muestra las dimensiones en la consola
+    console.log("Altura del Header: " + headerHeight + "px");
+    console.log("Altura del Footer: " + footerHeight + "px");
 
-        // Muestra las dimensiones de la ventana en la consola
-        console.log("Altura de la ventana: " + windowHeight + "px");
-        console.log("Ancho de la ventana: " + windowWidth + "px");
-    });
-</script>
+    // Calcular porcentajes de ocupación en el documento
+    const headerPercentage = (headerHeight / cartaHeight) * 100;
+    const footerPercentage = (footerHeight / cartaHeight) * 100;
+
+    // Mostrar porcentajes en la consola
+    console.log("El header ocupa el " + headerPercentage.toFixed(2) + "% del documento");
+    console.log("El footer ocupa el " + footerPercentage.toFixed(2) + "% del documento");
+});
+
+    </script>
 
     <script>
         
