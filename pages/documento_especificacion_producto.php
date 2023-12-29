@@ -193,81 +193,22 @@
     <button id="download-pdf">Descargar PDF</button>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        var button = document.getElementById('download-pdf');
-        button.addEventListener('click', function () {
-            downloadPDF();
+        
+function cargarDatosEspecificacion(id) {
+         $.ajax({
+         url: './backend/calidad/documento_especificacion_productoBE.php',
+         type: 'GET',
+         data: { id: id },
+         success: function(response) {
+                procesarDatosEspecificacion(response);
+
+         },
+         error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+         }
         });
-     });
-
-     function downloadPDF() {
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({
-            orientation: 'p',
-            unit: 'pt',
-            format: 'a4'
-        });
-
-        // Altura total de la página A4 en puntos
-        const pageHeight = 842;
-
-        // Calcula las alturas según la proporción 1.5:6:2
-        const headerHeight = (1.25 / 9.5) * pageHeight;
-        const contentHeight = (6.5 / 9.5) * pageHeight;
-        const footerHeight = (1.75 / 9.5) * pageHeight;
-        const marginFromBottom = 20; // Margen desde la parte inferior que quieres para el footer
-
-        // Función para añadir el header y el footer con margen
-        const addHeaderFooter = (pdf, canvasHeader, canvasFooter) => {
-            const imgDataHeader = canvasHeader.toDataURL('image/png');
-            const imgDataFooter = canvasFooter.toDataURL('image/png');
-            pdf.addImage(imgDataHeader, 'PNG', 0, 0, 595, headerHeight);
-            // Ajusta la posición del footer para incluir el margen
-            pdf.addImage(imgDataFooter, 'PNG', 0, pageHeight - footerHeight - marginFromBottom, 595, footerHeight);
-        };
-
-        // Captura el header y el footer una sola vez
-        Promise.all([
-            html2canvas(document.getElementById('header-container'), { scale: 2 }),
-            html2canvas(document.getElementById('additionalfooter'), { scale: 2 })
-        ]).then(([canvasHeader, canvasFooter]) => {
-            // Añade el contenido de la primera página
-            html2canvas(document.getElementById('content'), { scale: 2 }).then(canvasContent => {
-                const imgDataContent = canvasContent.toDataURL('image/png');
-                addHeaderFooter(pdf, canvasHeader, canvasFooter);
-                pdf.addImage(imgDataContent, 'PNG', 0, headerHeight, 595, contentHeight);
-
-                // Añade una nueva página para el additionalContent
-                pdf.addPage();
-
-                // Añade el contenido de la segunda página con un escalado menor
-                html2canvas(document.getElementById('additionalContent'), { scale: 2 }).then(canvasAdditionalContent => {
-                    const imgDataAdditionalContent = canvasAdditionalContent.toDataURL('image/png');
-                    addHeaderFooter(pdf, canvasHeader, canvasFooter);
-                    const scaledContentHeight = contentHeight * (canvasAdditionalContent.height / canvasContent.height);
-                    pdf.addImage(imgDataAdditionalContent, 'PNG', 0, headerHeight, 595, scaledContentHeight);
-
-                    // Guardar el PDF
-                    pdf.save('Especificacion_Producto_Terminado.pdf');
-                });
-            });
-        });
-    }
-        function cargarDatosEspecificacion(id) {
-    $.ajax({
-        url: './backend/calidad/documento_especificacion_productoBE.php',
-        type: 'GET',
-        data: { id: id },
-        success: function(response) {
-            procesarDatosEspecificacion(response);
-
-        },
-        error: function(xhr, status, error) {
-            console.error("Error en la solicitud: ", status, error);
         }
-    });
-}
-function procesarDatosEspecificacion(response) {
+        function procesarDatosEspecificacion(response) {
     // Asegúrate de que 'response' contiene la propiedad 'productos'
     if (!response || !response.productos || !Array.isArray(response.productos)) {
         console.error('Los datos recibidos no son válidos:', response);
@@ -282,15 +223,24 @@ function procesarDatosEspecificacion(response) {
         let especificaciones = Object.values(producto.especificaciones || {});
         if (especificaciones.length > 0) {
             let especificacion = especificaciones[0];
-            let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
-            let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
 
-            mostrarAnalisisFQ(analisisFQ);
-            mostrarAnalisisMB(analisisMB);
+            // Filtrar y mostrar análisis FQ si están presentes
+            let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
+            if (analisisFQ.length > 0) {
+                mostrarAnalisisFQ(analisisFQ);
+            }
+
+            // Filtrar y mostrar análisis MB si están presentes
+            let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
+            if (analisisMB.length > 0) {
+                mostrarAnalisisMB(analisisMB);
+            }
         }
     });
-}
 
+    // Verificar y ajustar la paginación después de cargar y procesar todo el contenido
+    checkAndSplitContent();
+}
 
 function mostrarAnalisisFQ(analisis) {
     // Verifica si hay datos para el análisis FQ
@@ -326,9 +276,9 @@ function mostrarAnalisisFQ(analisis) {
         // Si no hay datos, oculta la sección del análisis FQ
         $('#content').hide();
     }
-}
+        }
 
-function mostrarAnalisisMB(analisis) {
+        function mostrarAnalisisMB(analisis) {
     // Verifica si hay datos para el análisis microbiológico
     if (analisis.length > 0) {
         // Si hay datos, muestra la tabla y procesa los datos
@@ -362,7 +312,7 @@ function mostrarAnalisisMB(analisis) {
         // Si no hay datos, oculta la sección del análisis microbiológico
         $('#additionalContent').hide();
     }
-}
+        }
 
 function poblarYDeshabilitarCamposProducto(producto) {
     if (producto) {
@@ -390,7 +340,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
 
         }
     }
-}
+        }
 
 function checkAndSplitContent() {
     // Alturas para el header, el footer y el margen inferior
@@ -430,10 +380,9 @@ function checkAndSplitContent() {
         // Si el contenido cabe en una sola página, asegúrate de que ambos estén visibles
         additionalContent.style.display = 'block';
     }
-}
+        }
 
-// Llama a la función cuando el contenido esté listo, por ejemplo, después de cargar los datos o una imagen
-checkAndSplitContent();
+       
 
 
 
