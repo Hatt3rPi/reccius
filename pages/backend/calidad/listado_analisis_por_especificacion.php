@@ -67,6 +67,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'estado' => $row['estado'],
             'documento' => $row['documento'],
             'fecha_expiracion' => $row['fecha_expiracion'],
+            'fecha_edicion' => $row['fecha_edicion'],
             'version' => $row['version'],
             'vigencia' => $row['vigencia'],
             'analisis' => []
