@@ -609,13 +609,7 @@ function mostrarAnalisisMB(analisis) {
 $('#editarGenerarVersion').click(function() {
     // Resto del código para habilitar edición del formulario...
     $('#guardar').show();
-   /*
-    $('#Tipo_Producto').prop('disabled', false);
-    $('input[name="producto"]').prop('disabled', false);
-    $('input[name="concentracion"]').prop('disabled', false);
-    $('input[name="formato"]').prop('disabled', false);
-    $('input[name="elaboradoPor"]').prop('disabled', false);
-    $('input[name="documento"]').prop('disabled', false);
+    $('#editarGenerarVersion').hide();
     $('input[name="fechaEdicion"]').prop('disabled', false).val(new Date().toISOString().split('T')[0]);
     
     // Incrementar la versión en 1 y mantenerla no editable
@@ -628,10 +622,10 @@ $('#editarGenerarVersion').click(function() {
 
     tablaFQ.column('.acciones').visible(true);
     tablaMB.column('.acciones').visible(true);
-    */
+
     // Habilitar la adición y eliminación de análisis
-    //habilitarEdicionAnalisis(tablaFQ);
-    //habilitarEdicionAnalisis(tablaMB);
+    habilitarEdicionAnalisis(tablaFQ);
+    habilitarEdicionAnalisis(tablaMB);
 });
 
 function habilitarEdicionAnalisis(tabla) {
