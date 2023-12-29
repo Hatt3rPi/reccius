@@ -191,6 +191,26 @@
     </div>
 
     <button id="download-pdf">Descargar PDF</button>
+    <script>
+    // Espera a que el DOM esté completamente cargado
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtiene las alturas del header y footer
+        const headerHeight = document.getElementById('header-container').offsetHeight;
+        const footerHeight = document.getElementById('additionalfooter').offsetHeight;
+
+        // Muestra las alturas en la consola
+        console.log("Altura del Header: " + headerHeight + "px");
+        console.log("Altura del Footer: " + footerHeight + "px");
+
+        // Obtiene las dimensiones de la ventana del navegador
+        const windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+
+        // Muestra las dimensiones de la ventana en la consola
+        console.log("Altura de la ventana: " + windowHeight + "px");
+        console.log("Ancho de la ventana: " + windowWidth + "px");
+    });
+</script>
 
     <script>
         
