@@ -2,52 +2,44 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff; /* Fondo que actúa como margen visual */
+    background-color: #ffffff;
 }
 
-/* Contenedor principal que simula el borde del documento */
 #form-container {
-    max-width: 612pt; /* Ancho máximo para el tamaño del documento */
+    max-width: 612pt;
     max-height: 792pt;
-    padding: 10pt; /* Espacio interno para el contenido del documento */
-    box-sizing: border-box; /* El ancho incluye padding y border */
-    background-color: #FFF; /* Fondo blanco para el contenido principal */
-    border: 1px solid #000; /* Borde negro alrededor del contenido */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para simular profundidad */
+    padding: 10pt;
+    box-sizing: border-box;
+    background-color: #FFF;
+    border: 1px solid #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 500px;
-    /* Centrar el formulario */
     margin-right: 10px;
-    /* Centrar el formulario */
 }
 
-/* Asegúrate de que ningún otro elemento interno tenga un borde */
-.header, .header-bottom, .content, .footer, 
-#content, #additionalContent, #mainContainer, #additionalContainer, 
-.form-container, .footer-section, .footer-box, .table-section, 
-th, td, tr, thead tr, tbody:last-child tr:last-child {
+.header, .header-bottom, .content, .footer, #content, #additionalContent, 
+#mainContainer, #additionalContainer, .form-container, .footer-section, 
+.footer-box, .table-section, th, td, tr, thead tr, tbody:last-child tr:last-child {
     margin: 0;
     padding: 10px;
-    border: none; /* Elimina los bordes internos */
-    background-color: #FFF; /* Fondo para todos los elementos internos */
+    border: none;
+    background-color: #FFF;
 }
 
 .footer, .additionalfooter {
-    max-height: 276pt; /* Establecer el alto máximo */
-    overflow: auto; /* Agregar barra de desplazamiento si el contenido es demasiado alto */
+    max-height: 276pt;
+    overflow: auto;
     display: flex;
     justify-content: center;
 }
 
-
-
-/* Estilos específicos para ciertos elementos */
 .header, .header-bottom, .content, .footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header-left, .header-right, .header-bottom-left, .header-bottom-right {
+.header-left, .header-right, .header-bottom-left, .header-bottom-right, .footer-box {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -68,19 +60,16 @@ th, td, tr, thead tr, tbody:last-child tr:last-child {
 }
 
 .header-right table {
-    width: 100%; /* Asegúrate de que la tabla utilice todo el ancho disponible */
+    width: 100%;
 }
 
-.header-right table td,
-.header-right table th {
-    font-size: 10px; /* O el tamaño que se ajuste mejor */
-    white-space: nowrap; /* Esto evitará que el texto pase a la siguiente línea */
-    overflow: hidden; /* Esto cortará cualquier texto que exceda el ancho de la celda */
-    text-overflow: ellipsis; /* Esto agregará puntos suspensivos si el texto es demasiado largo */
-    padding: 5px; /* Ajusta el padding según sea necesario */
+.header-right table td, .header-right table th {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px;
 }
-
-
 
 .sub-info, .bold {
     font-size: 12px;
@@ -98,13 +87,11 @@ table {
 th {
     background-color: #0047b3;
     color: white;
-    text-align: left;
     padding: 8px;
 }
 
 td {
     padding: 8px;
-    text-align: left;
 }
 
 .document-title h2, .document-title h3 {
@@ -120,53 +107,41 @@ td {
 .document-title h3 {
     font-size: 18px;
     margin-bottom: 20px;
-    font-weight: normal; /* Si deseas que el subtítulo no sea en negrita */
 }
 
-.footer {
-    display: flex;
-    justify-content: center;
-}
 .footer-section {
-    /* Asegúrate de que cada sección del footer tenga espacio alrededor */
     margin: 5px;
 }
 
 .footer-box {
-    display: flex; /* Activa flexbox */
-    flex-direction: column; /* Orienta los elementos hijos en una columna */
-    justify-content: space-between; /* Separa los elementos hijos uniformemente */
-    padding: 25px; /* Ajusta el padding según sea necesario */
-    border: 1px solid #000; /* Borde alrededor de cada caja del footer */
-    height: 200px; /* O un valor que se adapte a tu diseño */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    border: 1px solid #000;
+    height: 200px;
 }
 
 .signature {
-    flex-grow: 1; /* Permite que el div ocupe el espacio disponible */
-    display: flex; /* Activa flexbox */
-    align-items: center; /* Centra el contenido a lo largo del eje transversal */
-    justify-content: center; /* Centra el contenido a lo largo del eje principal */
-    /* Asegúrate de que el div de la firma tenga un estilo visible si es necesario */
-    border: 0px dashed #000; /* Ejemplo de borde punteado para la firma */
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px dashed #000;
 }
 
 .bold, .signature, p {
-    margin: 0; /* Elimina márgenes predeterminados */
+    margin: 0;
 }
 
-/* Para que el primer y último párrafo no crezcan y solo ocupen su contenido */
 p {
     flex-grow: 0;
 }
 
 .date {
-    text-align: center; /* Centra la fecha si es necesario */
-    margin-top: 10px; /* Añade un margen en la parte superior si es necesario para espaciar de la caja */
+    text-align: center;
+    margin-top: 10px;
 }
-
-/* Puede ser necesario ajustar el tamaño de la fuente o el peso de la fuente para que coincida con tu diseño */
-
-
 
 #download-pdf {
     position: fixed;
