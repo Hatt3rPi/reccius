@@ -196,7 +196,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#listado_especificacion_producto').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
+        $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
@@ -230,9 +230,13 @@ function botones(id, accion, base) {
                              }, // Datos que se enviarán con la solicitud
                         success: function(response) {
                             // Esta función se ejecuta cuando la solicitud es exitosa
+                            $('#dynamic-content').hide();
+                            $('#loading-spinner').show();
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
                             cargarDatosEspecificacion(id);
+                            $('#loading-spinner').hide();
+                            $('#dynamic-content').show();
                         },
                         error: function(xhr, status, error) {
                             // Esta función se ejecuta en caso de error en la solicitud

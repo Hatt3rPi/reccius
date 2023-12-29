@@ -641,8 +641,8 @@ $('#editarGenerarVersion').click(function() {
     tablaMB.column('.acciones').visible(true);
 
     // Habilitar la adición y eliminación de análisis
-    habilitarEdicionAnalisis(tablaFQ);
-    habilitarEdicionAnalisis(tablaMB);
+    //habilitarEdicionAnalisis(tablaFQ);
+    //habilitarEdicionAnalisis(tablaMB);
 });
 
 function habilitarEdicionAnalisis(tabla) {
