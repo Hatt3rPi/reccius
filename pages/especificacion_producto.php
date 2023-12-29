@@ -543,11 +543,14 @@ function procesarDatosEspecificacion(response) {
 function poblarYDeshabilitarCamposProducto(producto) {
     $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
     $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
-    $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true);
+    $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true).show();
+    $('input[name="tipo_concentracion"]').hide();
     $('#formato').val(producto.formato).prop('disabled', true);
     $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
     $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
-    $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true);
+    $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
+    $('input[name="prefijoDocumento"]').hide();
+    $('input[name="numeroProducto"]').hide();
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
