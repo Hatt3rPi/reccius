@@ -228,7 +228,8 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
                 analisis.criterios_aceptacion,
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
-            tabla.row.add(fila).draw(false);
+            tabla.row.add(filaNueva);
+            tabla.draw();
             contadorFilas++;
         });
         $(botonAgregar).hide();
