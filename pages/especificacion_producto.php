@@ -157,7 +157,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             </fieldset>
             <br>
             <br>
-            <h2 class="section-title">Análisis Físico-Químicos:</h2>
+            <h2 class="section-title">Análisis Físico-Químico:</h2>
             <div id="contenedor_analisisFQ">
                 <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
@@ -166,7 +166,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <br>
             <br>
             <br>
-            <h2 class="section-title">Análisis Microbiológicos:</h2>
+            <h2 class="section-title">Análisis Microbiológico:</h2>
             <div id="contenedor_analisisMB">
                 <table id="analisisMB" class="table table-striped table-bordered" width="100%"></table>
                 <!-- Aquí se incluirá la tabla desde carga_tablaMB()-->
