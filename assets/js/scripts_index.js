@@ -90,8 +90,8 @@ $(document).ready(function () {
         
         $('#dynamic-content').load('especificacion_producto.php?nuevo=true', function () {
             // Llamar a la función de inicialización después de cargar el formulario
-            carga_tablaFQ();
-            carga_tablaMB();
+            carga_tabla('FQ');
+            carga_tabla('MB');
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });

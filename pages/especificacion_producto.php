@@ -202,7 +202,7 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
             { title: 'Análisis' },
             { title: 'Metodología' },
             { title: 'Criterio de Aceptación' },
-            { title: 'Acciones' }
+            { title: 'Acciones', visible: true  }
         ]
     });
 
@@ -589,6 +589,8 @@ function procesarDatosEspecificacion(response) {
 
             carga_tabla('FQ', idEspecificacion, analisisFQ);
             carga_tabla('MB', idEspecificacion, analisisMB);
+            tablaFQ.column('.acciones').visible(false);
+            tablaMB.column('.acciones').visible(false);
         }
     });
 }
