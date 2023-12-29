@@ -174,8 +174,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             <div class="actions-container">
                 <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
-
-
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">Editar y generar nueva versión</button>
             </div>
         </form>
     </div>
@@ -495,21 +494,7 @@ function cargarDatosEspecificacion(id) {
 
             // Ocultar el botón "Guardar especificación"
             $('#guardar').hide();
-
-            // Agregar un nuevo botón para "Editar y generar nueva versión"
-            var nuevoBoton = $('<button/>', {
-                text: 'Editar y generar nueva versión',
-                id: 'editarGenerarVersion',
-                name: 'editarGenerarVersion',
-                class: 'action-button',
-                style: 'background-color: red; color: white;',
-                click: function() {
-                    // Aquí puedes agregar la lógica que se ejecutará cuando se haga clic en este botón
-                    $('#guardar').show();
-                    console.log('Editar y generar nueva versión');
-                }
-            });
-            $('.actions-container').append(nuevoBoton);
+            $('#editarGenerarVersion').show();
         },
         error: function(xhr, status, error) {
             console.error("Error en la solicitud: ", status, error);
@@ -620,11 +605,11 @@ function mostrarAnalisisMB(analisis) {
         });
     }
 }
-/*
+
 $('#editarGenerarVersion').click(function() {
     // Resto del código para habilitar edición del formulario...
     $('#guardar').show();
-   
+   /*
     $('#Tipo_Producto').prop('disabled', false);
     $('input[name="producto"]').prop('disabled', false);
     $('input[name="concentracion"]').prop('disabled', false);
@@ -643,12 +628,12 @@ $('#editarGenerarVersion').click(function() {
 
     tablaFQ.column('.acciones').visible(true);
     tablaMB.column('.acciones').visible(true);
-    
+    */
     // Habilitar la adición y eliminación de análisis
     //habilitarEdicionAnalisis(tablaFQ);
     //habilitarEdicionAnalisis(tablaMB);
 });
-*/
+
 function habilitarEdicionAnalisis(tabla) {
     // Ejemplo de cómo habilitar la adición de nuevos análisis
     $('#boton_agrega_analisis' + tabla.node().id).show();
