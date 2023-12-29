@@ -31,6 +31,15 @@ th, td, tr, thead tr, tbody:last-child tr:last-child {
     background-color: #FFF; /* Fondo para todos los elementos internos */
 }
 
+.footer, .additionalfooter {
+    max-height: 276pt; /* Establecer el alto máximo */
+    overflow: auto; /* Agregar barra de desplazamiento si el contenido es demasiado alto */
+    display: flex;
+    justify-content: center;
+}
+
+
+
 /* Estilos específicos para ciertos elementos */
 .header, .header-bottom, .content, .footer {
     display: flex;
