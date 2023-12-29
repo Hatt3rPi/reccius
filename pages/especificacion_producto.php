@@ -550,6 +550,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
     $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
     $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
     $('input[name="prefijoDocumento"]').hide();
+    document.getElementById('numeroProducto').required = false;
     $('input[name="numeroProducto"]').hide();
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {
