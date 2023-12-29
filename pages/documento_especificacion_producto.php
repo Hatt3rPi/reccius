@@ -254,9 +254,6 @@ function cargarDatosEspecificacion(id) {
             }
         }
     });
-
-    // Llamada a checkAndSplitContent
-    checkAndSplitContent();
 }
 
 function poblarYDeshabilitarCamposProducto(producto) {
@@ -358,81 +355,6 @@ function mostrarAnalisisMB(analisis) {
         $('#additionalContent').hide();
     }
         }
-
-function ajustarContenidoParaEncabezadosYPiesDePagina() {
-    // Alturas aproximadas de los encabezados y pies de página en puntos
-    const alturaHeader = document.getElementById('header-container').offsetHeight;
-    const alturaFooter = document.getElementById('additionalfooter').offsetHeight;
-
-    // Altura máxima disponible para el contenido en una página de formato carta
-    const alturaMaximaPagina = 792; // Formato carta en puntos
-    const alturaDisponibleParaContenido = alturaMaximaPagina - alturaHeader - alturaFooter;
-
-    // Verifica si el contenido actual excede la altura disponible
-    const alturaContenido = document.getElementById('content').offsetHeight;
-    if (alturaContenido > alturaDisponibleParaContenido) {
-        // Si el contenido excede, divide y crea una nueva página
-        dividirContenidoParaNuevaPagina();
-    }
-}
-
-function dividirContenidoParaNuevaPagina() {
-    // Crear una nueva sección para la continuación del contenido
-    const nuevaSeccion = document.createElement('div');
-    nuevaSeccion.id = 'content_continuation';
-    nuevaSeccion.style.pageBreakBefore = 'always'; // Asegura una nueva página en la impresión
-
-    // Aquí debes agregar la lógica para dividir y mover parte del contenido a la nueva sección
-    // Por ejemplo, mover filas de una tabla, o dividir el contenido de un elemento grande
-
-    document.body.appendChild(nuevaSeccion);
-}
-
-
-
-        function checkAndSplitContent() {
-    // Alturas para el header, el footer y el margen inferior
-    const headerHeight = document.getElementById('header-container').offsetHeight;
-    const footerHeight = document.getElementById('additionalfooter').offsetHeight;
-    const marginFromBottom = 20; // Margen desde la parte inferior que quieres para el footer
-    
-    // Altura disponible para el contenido en una página
-    const availableHeight = window.innerHeight - headerHeight - footerHeight - marginFromBottom;
-
-    // Elementos de contenido
-    const content = document.getElementById('content');
-    const additionalContent = document.getElementById('additionalContent');
-
-    // Mide la altura del contenido
-    const contentHeight = content.offsetHeight;
-
-    // Comprueba si el contenido cabe en una sola página
-    if (contentHeight > availableHeight) {
-        // El contenido principal es demasiado grande, prepara para mover a una nueva página
-        // Asegúrate de que additionalContent esté oculto
-        additionalContent.style.display = 'none';
-
-        // Crear un botón o algún control para permitir al usuario moverse a la página siguiente
-        const nextPageButton = document.createElement('button');
-        nextPageButton.innerText = 'Siguiente Página';
-        nextPageButton.onclick = function () {
-            // Al hacer clic, mostrar additionalContent y ocultar el contenido actual
-            content.style.display = 'none';
-            additionalContent.style.display = 'block';
-            nextPageButton.style.display = 'none'; // Ocultar el botón de la siguiente página
-        };
-
-        // Añadir el botón al DOM
-        document.body.appendChild(nextPageButton);
-    } else {
-        // Si el contenido cabe en una sola página, asegúrate de que ambos estén visibles
-        additionalContent.style.display = 'block';
-    }
-        }
-
-       
-
-
 
 
     </script>
