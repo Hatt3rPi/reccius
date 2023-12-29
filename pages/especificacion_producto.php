@@ -593,7 +593,7 @@ function procesarDatosEspecificacion(response) {
             let especificacion = especificaciones[0];
             let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
             let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
-
+            console.log(analisisFQ);
             carga_tabla('FQ', idEspecificacion);
             carga_tabla('MB', idEspecificacion);
         }
