@@ -191,30 +191,7 @@
     </div>
 
     <button id="download-pdf">Descargar PDF</button>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    // Dimensiones estándar de un documento tamaño carta en puntos
-    const cartaWidth = 612; // Ancho de documento tamaño carta
-    const cartaHeight = 792; // Altura de documento tamaño carta
 
-    // Obtiene las alturas del header y footer
-    const headerHeight = document.getElementById('header-container').offsetHeight;
-    const footerHeight = document.getElementById('footer').offsetHeight;
-
-    // Muestra las dimensiones en la consola
-    console.log("Altura del Header: " + headerHeight + "px");
-    console.log("Altura del Footer: " + footerHeight + "px");
-
-    // Calcular porcentajes de ocupación en el documento
-    const headerPercentage = (headerHeight / cartaHeight) * 100;
-    const footerPercentage = (footerHeight / cartaHeight) * 100;
-
-    // Mostrar porcentajes en la consola
-    console.log("El header ocupa el " + headerPercentage.toFixed(2) + "% del documento");
-    console.log("El footer ocupa el " + footerPercentage.toFixed(2) + "% del documento");
-});
-
-    </script>
 
     <script>
         
@@ -359,6 +336,48 @@ function mostrarAnalisisMB(analisis) {
         $('#additionalContent').hide();
     }
         }
+
+        function dividirContenido() {
+    const alturaMaxima = 230; // Altura máxima en pt
+    const alturaTitulo = 45;  // Altura del título de la columna
+    const alturaFila = 145;   // Altura máxima de una fila
+
+    const filas = document.querySelectorAll('#content .table-section table tr');
+    let alturaActual = alturaTitulo; // Inicia con la altura del título
+    let paginaActual = 1;
+
+    filas.forEach((fila, index) => {
+        if (index > 0) { // Ignorar la fila del título en el cálculo
+            if (alturaActual + alturaFila > alturaMaxima) {
+                // Crear un nuevo contenedor para la próxima página
+                paginaActual++;
+                crearNuevoContenedor(paginaActual);
+                alturaActual = alturaTitulo;
+            }
+            // Mover la fila al contenedor correspondiente
+            moverFilaAFila(fila, `content-pagina-${paginaActual}`);
+            alturaActual += alturaFila;
+        }
+    });
+}
+
+function crearNuevoContenedor(numeroPagina) {
+    const nuevoContenedor = document.createElement('div');
+    nuevoContenedor.id = `content-pagina-${numeroPagina}`;
+    nuevoContenedor.className = 'content';
+    // Añade aquí más configuraciones si es necesario
+    document.body.appendChild(nuevoContenedor);
+}
+
+function moverFilaAFila(fila, idContenedor) {
+    const contenedor = document.getElementById(idContenedor);
+    const tabla = contenedor.querySelector('table');
+    tabla.appendChild(fila);
+}
+
+// Llamar a dividirContenido para iniciar el proceso
+dividirContenido();
+
 
 
     </script>
