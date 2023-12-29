@@ -241,8 +241,34 @@ function cargarDatosEspecificacion(id) {
     // Verificar y ajustar la paginación después de cargar y procesar todo el contenido
     checkAndSplitContent();
 }
+function poblarYDeshabilitarCamposProducto(producto) {
+    if (producto) {
+        // Usando .text() para elementos h2, h3 y p
+        $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
+        $('#producto').text(producto.nombre_producto);
+        $('#concentracion').text(producto.concentracion);
+        $('#formato').text(producto.formato);
+        $('#documento').text(producto.documento_producto);
+        $('#elaboradoPor').text(producto.elaborado_por);
+        
+        let especificacion = Object.values(producto.especificaciones)[0];
+        if (especificacion) {
+            $('#fechaEdicion').text(especificacion.fecha_edicion);
+            $('#version').text(especificacion.version);
+            $('#periodosVigencia').text(especificacion.vigencia);
+            $('#creadoPor').text(especificacion.creado_por || 'No disponible');
+            $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
+            $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
+            
+            // Actualizar fechas de revisión y aprobación
+            $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+            $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+            $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
 
-function mostrarAnalisisFQ(analisis) {
+        }
+    }
+        }
+        function mostrarAnalisisFQ(analisis) {
     // Verifica si hay datos para el análisis FQ
     if (analisis.length > 0) {
         // Si hay datos, muestra la tabla y procesa los datos
@@ -252,12 +278,7 @@ function mostrarAnalisisFQ(analisis) {
             $('#analisisFQ').DataTable({
                 data: analisis,
                 columns: [
-                    {   title: 'Análisis', 
-                        data: 'descripcion_analisis', 
-                        render: function(data, type, row) {
-                            return '<strong>' + data + '</strong>';
-                        } 
-                    },
+                    { title: 'Análisis', data: 'descripcion_analisis' },
                     { title: 'Metodología', data: 'metodologia' },
                     { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
                 ],
@@ -270,15 +291,21 @@ function mostrarAnalisisFQ(analisis) {
                 }
             });
         }
+
         // Muestra la sección del análisis FQ
         $('#content').show();
+
+        // Espera a que la tabla se haya renderizado completamente
+        setTimeout(function() {
+            verificarYDividirContenidoSiEsNecesario();
+        }, 0);
     } else {
         // Si no hay datos, oculta la sección del análisis FQ
         $('#content').hide();
     }
-        }
+}
 
-        function mostrarAnalisisMB(analisis) {
+function mostrarAnalisisMB(analisis) {
     // Verifica si hay datos para el análisis microbiológico
     if (analisis.length > 0) {
         // Si hay datos, muestra la tabla y procesa los datos
@@ -314,35 +341,38 @@ function mostrarAnalisisFQ(analisis) {
     }
         }
 
-function poblarYDeshabilitarCamposProducto(producto) {
-    if (producto) {
-        // Usando .text() para elementos h2, h3 y p
-        $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
-        $('#producto').text(producto.nombre_producto);
-        $('#concentracion').text(producto.concentracion);
-        $('#formato').text(producto.formato);
-        $('#documento').text(producto.documento_producto);
-        $('#elaboradoPor').text(producto.elaborado_por);
-        
-        let especificacion = Object.values(producto.especificaciones)[0];
-        if (especificacion) {
-            $('#fechaEdicion').text(especificacion.fecha_edicion);
-            $('#version').text(especificacion.version);
-            $('#periodosVigencia').text(especificacion.vigencia);
-            $('#creadoPor').text(especificacion.creado_por || 'No disponible');
-            $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
-            $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
-            
-            // Actualizar fechas de revisión y aprobación
-            $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-            $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-            $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
+function ajustarContenidoParaEncabezadosYPiesDePagina() {
+    // Alturas aproximadas de los encabezados y pies de página en puntos
+    const alturaHeader = document.getElementById('header-container').offsetHeight;
+    const alturaFooter = document.getElementById('additionalfooter').offsetHeight;
 
-        }
+    // Altura máxima disponible para el contenido en una página de formato carta
+    const alturaMaximaPagina = 792; // Formato carta en puntos
+    const alturaDisponibleParaContenido = alturaMaximaPagina - alturaHeader - alturaFooter;
+
+    // Verifica si el contenido actual excede la altura disponible
+    const alturaContenido = document.getElementById('content').offsetHeight;
+    if (alturaContenido > alturaDisponibleParaContenido) {
+        // Si el contenido excede, divide y crea una nueva página
+        dividirContenidoParaNuevaPagina();
     }
-        }
+}
 
-function checkAndSplitContent() {
+function dividirContenidoParaNuevaPagina() {
+    // Crear una nueva sección para la continuación del contenido
+    const nuevaSeccion = document.createElement('div');
+    nuevaSeccion.id = 'content_continuation';
+    nuevaSeccion.style.pageBreakBefore = 'always'; // Asegura una nueva página en la impresión
+
+    // Aquí debes agregar la lógica para dividir y mover parte del contenido a la nueva sección
+    // Por ejemplo, mover filas de una tabla, o dividir el contenido de un elemento grande
+
+    document.body.appendChild(nuevaSeccion);
+}
+
+
+
+        function checkAndSplitContent() {
     // Alturas para el header, el footer y el margen inferior
     const headerHeight = document.getElementById('header-container').offsetHeight;
     const footerHeight = document.getElementById('additionalfooter').offsetHeight;
