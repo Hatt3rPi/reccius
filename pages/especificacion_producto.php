@@ -174,7 +174,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             <div class="actions-container">
                 <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">Editar y generar nueva versión</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
             </div>
         </form>
     </div>
@@ -183,68 +183,64 @@ while ($row = mysqli_fetch_assoc($result)) {
 </html>
 <script>
 var opcionesDesplegables = <?php echo json_encode($opciones); ?>;
-function carga_tablaFQ(id = null, accion = null) {
-    var tablaFQ;
-    var contadorFilasFQ = 0;
+function carga_tabla(tipoAnalisis, id = null) {
+    var tabla;
+    var contadorFilas = 0;
+    var selectorTabla = '#analisis' + tipoAnalisis;
+    var botonAgregar = '#boton_agrega_analisis' + tipoAnalisis;
 
-    if (id === null) {
-        tablaFQ = new DataTable('#analisisFQ', {
-            "paging": false,
-            "info": false,
-            "searching": false,
-            "lengthChange": false,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-            },
-            columns: [
-                { title: 'Análisis' },
-                { title: 'Metodología' },
-                { title: 'Criterio de Aceptación' },
-                { title: 'Acciones' }
-            ]
-        });
+    // Configuración inicial de DataTable
+    tabla = new DataTable(selectorTabla, {
+        "paging": false,
+        "info": false,
+        "searching": false,
+        "lengthChange": false,
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+        },
+        columns: [
+            { title: 'Análisis' },
+            { title: 'Metodología' },
+            { title: 'Criterio de Aceptación' },
+            { title: 'Acciones' }
+        ]
+    });
 
-        $('#boton_agrega_analisisFQ').on('click', function() {
+    if (id === null) { // Creación de una nueva especificación
+        $(botonAgregar).on('click', function() {
             var filaNueva = [
-                crearSelectHtml('AnalisisFQ', contadorFilasFQ, 'descripcion_analisis', 'FQ'),
-                crearSelectHtml('metodologia', contadorFilasFQ, 'metodologia', 'FQ'),
-                '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
+                crearSelectHtml('Analisis' + tipoAnalisis, contadorFilas, 'descripcion_analisis', tipoAnalisis),
+                crearSelectHtml('metodologia', contadorFilas, 'metodologia', tipoAnalisis),
+                '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + contadorFilas + '][criterio]" required></textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
-            tablaFQ.row.add(filaNueva).draw(false);
-            contadorFilasFQ++;
+            tabla.row.add(filaNueva).draw(false);
+            contadorFilas++;
         });
-    } else if (accion === 'editar') {
-        tablaFQ = new DataTable('#analisisFQ', {
-            "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_FQ',
-            "columns": [
-                { "data": "descripcion_analisis", "title": "Análisis" },
-                { "data": "metodologia", "title": "Metodología" },
-                { "data": "criterios_aceptacion", "title": "Criterio aceptación" }
-            //,
-               // {
-               //    "data": null,
-               //     "defaultContent": '<button type="button" class="btn-eliminar">Eliminar</button>',
-               //     "title": "Acciones"
-               // }
-            ],
-            "paging": false,
-            "info": false,
-            "searching": false,
-            "lengthChange": false,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+    } else { // Edición de una especificación existente
+        $.ajax({
+            url: './backend/calidad/listado_analisis_por_especificacion.php',
+            type: 'GET',
+            data: { id: id, analisis: 'analisis_' + tipoAnalisis },
+            success: function(response) {
+                var datos = JSON.parse(response);
+                datos.forEach(function(analisis) {
+                    var fila = [
+                        analisis.descripcion_analisis, // Asegúrate de que estos campos coincidan con los nombres de tus datos
+                        analisis.metodologia,
+                        analisis.criterios_aceptacion,
+                        '<button type="button" class="btn-eliminar">Eliminar</button>'
+                    ];
+                    tabla.row.add(fila).draw(false);
+                });
             }
         });
-
-        // Evento para el botón eliminar en la tabla de edición
-        $('#analisisFQ').on('click', '.btn-eliminar', function () {
-            tablaFQ.row($(this).parents('tr')).remove().draw();
-        });
-
-        // Ocultar el botón de agregar análisis, si es necesario
-        $("#boton_agrega_analisisFQ").hide();
     }
+
+    // Manejo del botón eliminar en la tabla
+    $(selectorTabla).on('click', '.btn-eliminar', function () {
+        tabla.row($(this).parents('tr')).remove().draw();
+    });
 }
 
 function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
@@ -259,6 +255,83 @@ function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
     htmlSelect += '</select>';
     return htmlSelect;
 }
+
+// function carga_tablaFQ(id = null, accion = null) {
+//     var tablaFQ;
+//     var contadorFilasFQ = 0;
+
+//     if (id === null) {
+//         tablaFQ = new DataTable('#analisisFQ', {
+//             "paging": false,
+//             "info": false,
+//             "searching": false,
+//             "lengthChange": false,
+//             language: {
+//                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+//             },
+//             columns: [
+//                 { title: 'Análisis' },
+//                 { title: 'Metodología' },
+//                 { title: 'Criterio de Aceptación' },
+//                 { title: 'Acciones' }
+//             ]
+//         });
+
+//         $('#boton_agrega_analisisFQ').on('click', function() {
+//             var filaNueva = [
+//                 crearSelectHtml('AnalisisFQ', contadorFilasFQ, 'descripcion_analisis', 'FQ'),
+//                 crearSelectHtml('metodologia', contadorFilasFQ, 'metodologia', 'FQ'),
+//                 '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
+//                 '<button type="button" class="btn-eliminar">Eliminar</button>'
+//             ];
+//             tablaFQ.row.add(filaNueva).draw(false);
+//             contadorFilasFQ++;
+//         });
+//     } else if (accion === 'editar') {
+//         tablaFQ = new DataTable('#analisisFQ', {
+//             "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_FQ',
+//             "columns": [
+//                 { "data": "descripcion_analisis", "title": "Análisis" },
+//                 { "data": "metodologia", "title": "Metodología" },
+//                 { "data": "criterios_aceptacion", "title": "Criterio aceptación" }
+//             //,
+//                // {
+//                //    "data": null,
+//                //     "defaultContent": '<button type="button" class="btn-eliminar">Eliminar</button>',
+//                //     "title": "Acciones"
+//                // }
+//             ],
+//             "paging": false,
+//             "info": false,
+//             "searching": false,
+//             "lengthChange": false,
+//             language: {
+//                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+//             }
+//         });
+
+//         // Evento para el botón eliminar en la tabla de edición
+//         $('#analisisFQ').on('click', '.btn-eliminar', function () {
+//             tablaFQ.row($(this).parents('tr')).remove().draw();
+//         });
+
+//         // Ocultar el botón de agregar análisis, si es necesario
+//         $("#boton_agrega_analisisFQ").hide();
+//     }
+// }
+
+// function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
+//     var opciones = opcionesDesplegables[categoria];
+//     var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" onchange="manejarOtro(this, \'' + tipoAnalisis + '\', ' + contador + ', \'' + campo + '\')" required>';
+//     htmlSelect += '<option value="">Selecciona una opción</option>';
+
+//     for (var i = 0; i < opciones.length; i++) {
+//         htmlSelect += '<option value="' + opciones[i] + '">' + opciones[i] + '</option>';
+//     }
+
+//     htmlSelect += '</select>';
+//     return htmlSelect;
+// }
 
 function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
     var valorSeleccionado = selectElement.value;
@@ -521,8 +594,8 @@ function procesarDatosEspecificacion(response) {
             let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
             let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
 
-            mostrarAnalisisFQ(analisisFQ);
-            mostrarAnalisisMB(analisisMB);
+            carga_tabla('FQ', idEspecificacion);
+            carga_tabla('MB', idEspecificacion);
         }
     });
 }
