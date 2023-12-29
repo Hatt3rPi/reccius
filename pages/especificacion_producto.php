@@ -505,6 +505,7 @@ function cargarDatosEspecificacion(id) {
                 style: 'background-color: red; color: white;',
                 click: function() {
                     // Aquí puedes agregar la lógica que se ejecutará cuando se haga clic en este botón
+                    $('#guardar').show();
                     console.log('Editar y generar nueva versión');
                 }
             });
@@ -619,11 +620,11 @@ function mostrarAnalisisMB(analisis) {
         });
     }
 }
-
+/*
 $('#editarGenerarVersion').click(function() {
     // Resto del código para habilitar edición del formulario...
     $('#guardar').show();
-   /*
+   
     $('#Tipo_Producto').prop('disabled', false);
     $('input[name="producto"]').prop('disabled', false);
     $('input[name="concentracion"]').prop('disabled', false);
@@ -642,12 +643,12 @@ $('#editarGenerarVersion').click(function() {
 
     tablaFQ.column('.acciones').visible(true);
     tablaMB.column('.acciones').visible(true);
-    */
+    
     // Habilitar la adición y eliminación de análisis
     //habilitarEdicionAnalisis(tablaFQ);
     //habilitarEdicionAnalisis(tablaMB);
 });
-
+*/
 function habilitarEdicionAnalisis(tabla) {
     // Ejemplo de cómo habilitar la adición de nuevos análisis
     $('#boton_agrega_analisis' + tabla.node().id).show();
