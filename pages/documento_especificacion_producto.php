@@ -306,7 +306,8 @@ function mostrarAnalisisMB(analisis) {
             $('#analisisMB').DataTable({
                 data: analisis,
                 columns: [
-                    {   title: 'Análisis', 
+                    {   
+                        title: 'Análisis', 
                         data: 'descripcion_analisis', 
                         render: function(data, type, row) {
                             return '<strong>' + data + '</strong>';
@@ -327,10 +328,15 @@ function mostrarAnalisisMB(analisis) {
         // Muestra la sección del análisis microbiológico
         $('#additionalContent').show();
     } else {
-        // Si no hay datos, oculta la sección del análisis microbiológico
+        // Si no hay datos, destruye la instancia de DataTable y oculta la sección del análisis microbiológico
+        if ($.fn.DataTable.isDataTable('#analisisMB')) {
+            $('#analisisMB').DataTable().destroy();
+        }
+        $('#additionalContent').empty(); // Elimina el contenido del contenedor
         $('#additionalContent').hide();
     }
-        }
+}
+
 
         function dividirContenido() {
     const alturaMaxima = 230; // Altura máxima en pt
