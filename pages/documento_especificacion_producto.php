@@ -286,20 +286,15 @@ function poblarYDeshabilitarCamposProducto(producto) {
                     url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                 }
             });
+            // Muestra el contenedor de la tabla si hay datos
+            $('#content').show();
         }
-
-        // Muestra la sección del análisis FQ
-        $('#content').show();
-
-        // Espera a que la tabla se haya renderizado completamente
-        setTimeout(function() {
-            verificarYDividirContenidoSiEsNecesario();
-        }, 0);
     } else {
-        // Si no hay datos, oculta la sección del análisis FQ
+        // Si no hay datos, oculta el contenedor de la tabla
         $('#content').hide();
     }
 }
+
 
 function mostrarAnalisisMB(analisis) {
     // Verifica si hay datos para el análisis microbiológico
