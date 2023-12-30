@@ -340,49 +340,6 @@ function mostrarAnalisisMB(analisis) {
     }
 }
 
-        function dividirContenido() {
-    const alturaMaxima = 230; // Altura máxima en pt
-    const alturaTitulo = 45;  // Altura del título de la columna
-    const alturaFila = 145;   // Altura máxima de una fila
-
-    const filas = document.querySelectorAll('#content .table-section table tr');
-    let alturaActual = alturaTitulo; // Inicia con la altura del título
-    let paginaActual = 1;
-
-    filas.forEach((fila, index) => {
-        if (index > 0) { // Ignorar la fila del título en el cálculo
-            if (alturaActual + alturaFila > alturaMaxima) {
-                // Crear un nuevo contenedor para la próxima página
-                paginaActual++;
-                crearNuevoContenedor(paginaActual);
-                alturaActual = alturaTitulo;
-            }
-            // Mover la fila al contenedor correspondiente
-            moverFilaAFila(fila, `content-pagina-${paginaActual}`);
-            alturaActual += alturaFila;
-        }
-    });
-}
-
-function crearNuevoContenedor(numeroPagina) {
-    const nuevoContenedor = document.createElement('div');
-    nuevoContenedor.id = `content-pagina-${numeroPagina}`;
-    nuevoContenedor.className = 'content';
-    // Añade aquí más configuraciones si es necesario
-    document.body.appendChild(nuevoContenedor);
-}
-
-function moverFilaAFila(fila, idContenedor) {
-    const contenedor = document.getElementById(idContenedor);
-    const tabla = contenedor.querySelector('table');
-    tabla.appendChild(fila);
-}
-
-// Llamar a dividirContenido para iniciar el proceso
-dividirContenido();
-
-
-
     </script>
 
 </body>
