@@ -314,7 +314,7 @@ function mostrarAnalisisMB(analisis) {
                         } 
                     },
                     { title: 'Metodología', data: 'metodologia' },
-                    { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                    { title: 'Criterio de Aceptación', data: 'criterios_aceptacion' }
                 ],
                 paging: false,
                 info: false,
@@ -330,15 +330,14 @@ function mostrarAnalisisMB(analisis) {
     } else {
         // Si no hay datos, destruye la instancia de DataTable y oculta la sección del análisis microbiológico
         if ($.fn.DataTable.isDataTable('#analisisMB')) {
-            // Destruye la instancia de DataTable
             $('#analisisMB').DataTable().clear().destroy();
-            // Limpia el contenido del thead para que no se muestren los encabezados
             $('#analisisMB thead').empty();
         }
         // Oculta el contenedor
         $('#additionalContent').hide();
     }
 }
+
 
     </script>
 
