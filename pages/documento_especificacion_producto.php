@@ -286,15 +286,14 @@ function poblarYDeshabilitarCamposProducto(producto) {
                     url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                 }
             });
-            // Muestra el contenedor de la tabla si hay datos
-            $('#content').show();
         }
+        // Muestra la sección del análisis FQ
+        $('#content').show();
     } else {
-        // Si no hay datos, oculta el contenedor de la tabla
+        // Si no hay datos, oculta la sección del análisis FQ
         $('#content').hide();
     }
 }
-
 
 function mostrarAnalisisMB(analisis) {
     // Verifica si hay datos para el análisis microbiológico
@@ -306,15 +305,9 @@ function mostrarAnalisisMB(analisis) {
             $('#analisisMB').DataTable({
                 data: analisis,
                 columns: [
-                    {   
-                        title: 'Análisis', 
-                        data: 'descripcion_analisis', 
-                        render: function(data, type, row) {
-                            return '<strong>' + data + '</strong>';
-                        } 
-                    },
+                    { title: 'Análisis', data: 'descripcion_analisis' },
                     { title: 'Metodología', data: 'metodologia' },
-                    { title: 'Criterio de Aceptación', data: 'criterios_aceptacion' }
+                    { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
                 ],
                 paging: false,
                 info: false,
@@ -328,12 +321,7 @@ function mostrarAnalisisMB(analisis) {
         // Muestra la sección del análisis microbiológico
         $('#additionalContent').show();
     } else {
-        // Si no hay datos, destruye la instancia de DataTable y oculta la sección del análisis microbiológico
-        if ($.fn.DataTable.isDataTable('#analisisMB')) {
-            $('#analisisMB').DataTable().clear().destroy();
-            $('#analisisMB thead').empty();
-        }
-        // Oculta el contenedor
+        // Si no hay datos, oculta la sección del análisis microbiológico
         $('#additionalContent').hide();
     }
 }
