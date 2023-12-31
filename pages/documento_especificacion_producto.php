@@ -325,6 +325,16 @@ function mostrarAnalisisMB(analisis) {
         $('#additionalContent').hide();
     }
 }
+function mostrarAnalisisMB(analisis) {
+    console.log('Análisis MB:', analisis); // Esto mostrará los datos en la consola.
+    if (analisis.length > 0) {
+        // ... Código para mostrar la tabla ...
+        $('#additionalContent').show();
+    } else {
+        // ... Código para ocultar la tabla ...
+        $('#additionalContent').hide();
+    }
+}
 
 
     </script>
