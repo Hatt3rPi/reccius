@@ -38,7 +38,7 @@
                         <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; margin-top: 5px;"></p>
                         <hr style="width:75%;">
                         <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
-                            Dirección de Calidad 123123
+                            Dirección de Calidad 
 
                         </div>
                     </div>

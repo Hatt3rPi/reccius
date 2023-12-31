@@ -173,3 +173,7 @@ p {
     max-height: 232pt; /* Altura máxima del contenido */
     overflow: auto; /* Agregar desplazamiento si el contenido es más largo que el espacio disponible */
 }
+
+#additionalContent {
+    display: none;
+}
