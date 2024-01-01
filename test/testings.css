@@ -171,7 +171,7 @@ p {
 
 #content {
     max-height: 232pt; /* Altura máxima del contenido */
-    overflow: auto; /* Agregar desplazamiento si el contenido es más largo que el espacio disponible */
+    overflow: visible; /* Agregar desplazamiento si el contenido es más largo que el espacio disponible */
     display: none;
 }
 
