@@ -194,212 +194,212 @@
 
 
         <script>
-            function clonarConEstilos(elemento) {
-                let clon = elemento.cloneNode(true);
-                clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
-                return clon;
-            }
-            function calcularCantidadDePaginas() {
-                const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
-                const seccionesTabla = document.querySelectorAll('#content .table-section');
-                let alturaTotalSecciones = 0;
+        function calcularCantidadDePaginas() {
+            const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
+            const seccionesTabla = document.querySelectorAll('#content .table-section');
+            let alturaTotalSecciones = 0;
 
-                // Sumar la altura de todas las secciones de la tabla
-                seccionesTabla.forEach(seccion => {
-                    alturaTotalSecciones += seccion.scrollHeight;
-                });
+            // Sumar la altura de todas las secciones de la tabla
+            seccionesTabla.forEach(seccion => {
+                alturaTotalSecciones += seccion.scrollHeight;
+            });
 
-                // Convertir la altura de px a pt
-                const alturaTotalSeccionesPt = alturaTotalSecciones / 1.333;
+            // Convertir la altura de px a pt
+            const alturaTotalSeccionesPt = alturaTotalSecciones / 1.333;
 
-                // Calcular la cantidad de páginas necesarias
-                const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
+            // Calcular la cantidad de páginas necesarias
+            const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
 
-                return cantidadDePaginas;
-            }
-            function dividirContenidoEnPaginas() {
-                let cantidadDePaginas = calcularCantidadDePaginas();
-                let contenedorOriginal = document.getElementById('form-container');
-                let seccionesTabla = document.querySelectorAll('#content .table-section');
-                let headerOriginal = document.querySelector('.header-container');
-                let footerOriginal = document.querySelector('.footer');
+            return cantidadDePaginas;
+        }
 
-                // Remueve el contenido de secciones de tabla del contenedor original para evitar duplicados
-                let contenidoOriginal = contenedorOriginal.querySelector('#content');
-                contenidoOriginal.innerHTML = '';
+        function dividirContenidoEnPaginas() {
+        let cantidadDePaginas = calcularCantidadDePaginas();
+        let contenedorOriginal = document.getElementById('form-container');
+        let seccionesTabla = document.querySelectorAll('#content .table-section');
 
-                // Clonar y reinsertar secciones de tabla en la página original si es necesario
-                seccionesTabla.forEach(seccion => contenidoOriginal.appendChild(seccion.cloneNode(true)));
+        let indiceActualSeccion = 0;
+        let alturaPaginaActual = 0;
+        const alturaMaximaPorPagina = 232; // Asegúrate de que esta variable esté definida en el ámbito correcto
 
-                let alturaMaximaPorPagina = 232; // Altura máxima permitida por página en puntos
-                let alturaPaginaActual = 0;
+        for (let i = 1; i < cantidadDePaginas; i++) {
+            let nuevaPagina = contenedorOriginal.cloneNode(true); // Clona el contenedor original
+            nuevaPagina.id = 'form-container-' + i;
+            nuevaPagina.style.cssText = contenedorOriginal.style.cssText;
+            nuevaPagina.querySelector('#content').innerHTML = ''; // Limpia el contenido actual
 
-                for (let i = 1; i < cantidadDePaginas; i++) {
-                    let nuevaPagina = contenedorOriginal.cloneNode(true); // Clona el contenedor original
-                    nuevaPagina.id = 'form-container-' + i;
-                    nuevaPagina.style.cssText = contenedorOriginal.style.cssText;
+            // Reiniciar el conteo de la altura para la nueva página
+            alturaPaginaActual = 0;
 
-                    // Clonar y añadir el encabezado y pie de página
-                    let clonHeader = headerOriginal.cloneNode(true);
-                    let clonFooter = footerOriginal.cloneNode(true);
-                    nuevaPagina.insertBefore(clonHeader, nuevaPagina.firstChild); // Añade el encabezado clonado al principio
-                    nuevaPagina.appendChild(clonFooter); // Añade el pie de página clonado al final
+            // Mientras haya secciones y espacio disponible en la página actual
+            while (indiceActualSeccion < seccionesTabla.length && alturaPaginaActual < alturaMaximaPorPagina) {
+                let seccionActual = seccionesTabla[indiceActualSeccion];
+                
+                // Clona la sección actual para no alterar el DOM original
+                let clonSeccion = seccionActual.cloneNode(true);
 
-                    let nuevoContenido = nuevaPagina.querySelector('#content');
-                    nuevoContenido.innerHTML = ''; // Limpia el contenido actual para la nueva página
-
-                    while (seccionesTabla.length > 0 && alturaPaginaActual < alturaMaximaPorPagina) {
-                        let alturaSeccion = seccionesTabla[0].scrollHeight / 1.333; // Convertir la altura de la sección a puntos
-
-                        if (alturaPaginaActual + alturaSeccion <= alturaMaximaPorPagina) {
-                            alturaPaginaActual += alturaSeccion;
-                            // Mueve la sección al nuevo contenedor de contenido
-                            nuevoContenido.appendChild(seccionesTabla[0]);
-                        } else {
-                            // Si la sección actual no cabe, rompe el bucle para comenzar una nueva página
-                            break;
-                        }
-                    }
-
-                    // Añadir la nueva página al DOM
-                    document.body.appendChild(nuevaPagina);
-
-                    // Resetea la altura de la página actual para la siguiente iteración
-                    alturaPaginaActual = 0;
-                }
-            }
-            function mostrarAnalisisFQ(analisis) {
-                // Verifica si hay datos para el análisis FQ
-                if (analisis.length > 0) {
-                    // Si hay datos, muestra la tabla y procesa los datos
-                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-                        $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
-                    } else {
-                        $('#analisisFQ').DataTable({
-                            data: analisis,
-                            columns: [
-                                { title: 'Análisis', data: 'descripcion_analisis' },
-                                { title: 'Metodología', data: 'metodologia' },
-                                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-                            ],
-                            paging: false,
-                            info: false,
-                            searching: false,
-                            lengthChange: false,
-                            language: {
-                                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                            }
-                        });
-                    }
-                    // Muestra la sección del análisis FQ
-                    $('#content').show();
+                // Calcula la altura en puntos
+                let alturaSeccion = clonSeccion.scrollHeight / 1.333;
+                
+                // Verifica si la sección cabe en la página actual
+                if (alturaPaginaActual + alturaSeccion <= alturaMaximaPorPagina) {
+                    alturaPaginaActual += alturaSeccion;
+                    nuevaPagina.querySelector('#content').appendChild(clonSeccion);
+                    indiceActualSeccion++;
                 } else {
-                    // Si no hay datos, oculta la sección del análisis FQ
-                    $('#content').hide();
+                    // Si no cabe, rompe el bucle y pasa a la siguiente página
+                    break;
                 }
             }
-            function mostrarAnalisisMB(analisis) {
-                // Verifica si hay datos para el análisis microbiológico
-                if (analisis.length > 0) {
-                    // Si hay datos, muestra la tabla y procesa los datos
-                    if ($.fn.DataTable.isDataTable('#analisisMB')) {
-                        $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
-                    } else {
-                        $('#analisisMB').DataTable({
-                            data: analisis,
-                            columns: [
-                                { title: 'Análisis', data: 'descripcion_analisis' },
-                                { title: 'Metodología', data: 'metodologia' },
-                                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-                            ],
-                            paging: false,
-                            info: false,
-                            searching: false,
-                            lengthChange: false,
-                            language: {
-                                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                            }
-                        });
-                    }
-                    // Muestra la sección del análisis microbiológico
-                    $('#additionalContent').show();
-                } else {
-                    // Si no hay datos, oculta la sección del análisis microbiológico
-                    $('#additionalContent').hide();
+
+            // Añadir la nueva página al DOM
+            document.body.appendChild(nuevaPagina);
+        }
+
+        // Elimina las secciones que ya fueron clonadas para no duplicar contenido en el DOM
+        for (let i = 0; i < indiceActualSeccion; i++) {
+            seccionesTabla[i].remove();
+        }
+    }
+
+    function clonarConEstilos(elemento) {
+        let clon = elemento.cloneNode(true);
+        clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
+        return clon;
+    }
+    function cargarDatosEspecificacion(id) {
+        $.ajax({
+            url: './backend/calidad/documento_especificacion_productoBE.php',
+            type: 'GET',
+            data: { id: id },
+            success: function (response) {
+                procesarDatosEspecificacion(response);
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+            }
+        });
+    }
+
+    function procesarDatosEspecificacion(response) {
+        // Validación de la respuesta
+        if (!response || !response.productos || !Array.isArray(response.productos)) {
+            console.error('Los datos recibidos no son válidos:', response);
+            return;
+        }
+        // Procesamiento de cada producto
+        response.productos.forEach(function (producto) {
+            poblarYDeshabilitarCamposProducto(producto);
+
+            let especificaciones = Object.values(producto.especificaciones || {});
+            if (especificaciones.length > 0) {
+                let especificacion = especificaciones[0];
+
+                let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
+                if (analisisFQ.length > 0) {
+                    mostrarAnalisisFQ(analisisFQ);
+                }
+
+                let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
+                if (analisisMB.length > 0) {
+                    mostrarAnalisisMB(analisisMB);
                 }
             }
-            function poblarYDeshabilitarCamposProducto(producto) {
-                if (producto) {
-                    // Usando .text() para elementos h2, h3 y p
-                    $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
-                    $('#producto').text(producto.nombre_producto);
-                    $('#concentracion').text(producto.concentracion);
-                    $('#formato').text(producto.formato);
-                    $('#documento').text(producto.documento_producto);
-                    $('#elaboradoPor').text(producto.elaborado_por);
+        });
+        dividirContenidoEnPaginas();
+    }
+    function poblarYDeshabilitarCamposProducto(producto) {
+        if (producto) {
+            // Usando .text() para elementos h2, h3 y p
+            $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
+            $('#producto').text(producto.nombre_producto);
+            $('#concentracion').text(producto.concentracion);
+            $('#formato').text(producto.formato);
+            $('#documento').text(producto.documento_producto);
+            $('#elaboradoPor').text(producto.elaborado_por);
 
-                    let especificacion = Object.values(producto.especificaciones)[0];
-                    if (especificacion) {
-                        $('#fechaEdicion').text(especificacion.fecha_edicion);
-                        $('#version').text(especificacion.version);
-                        $('#periodosVigencia').text(especificacion.vigencia);
-                        $('#creadoPor').text(especificacion.creado_por || 'No disponible');
-                        $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
-                        $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
+            let especificacion = Object.values(producto.especificaciones)[0];
+            if (especificacion) {
+                $('#fechaEdicion').text(especificacion.fecha_edicion);
+                $('#version').text(especificacion.version);
+                $('#periodosVigencia').text(especificacion.vigencia);
+                $('#creadoPor').text(especificacion.creado_por || 'No disponible');
+                $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
+                $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
 
-                        // Actualizar fechas de revisión y aprobación
-                        $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                        $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                        $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
+                // Actualizar fechas de revisión y aprobación
+                $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+                $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+                $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
 
-                    }
-                }
             }
-            function procesarDatosEspecificacion(response) {
-                // Validación de la respuesta
-                if (!response || !response.productos || !Array.isArray(response.productos)) {
-                    console.error('Los datos recibidos no son válidos:', response);
-                    return;
-                }
-                // Procesamiento de cada producto
-                response.productos.forEach(function (producto) {
-                    poblarYDeshabilitarCamposProducto(producto);
-
-                    let especificaciones = Object.values(producto.especificaciones || {});
-                    if (especificaciones.length > 0) {
-                        let especificacion = especificaciones[0];
-
-                        let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
-                        if (analisisFQ.length > 0) {
-                            mostrarAnalisisFQ(analisisFQ);
-                        }
-
-                        let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
-                        if (analisisMB.length > 0) {
-                            mostrarAnalisisMB(analisisMB);
-                        }
+        }
+    }
+    function mostrarAnalisisFQ(analisis) {
+        // Verifica si hay datos para el análisis FQ
+        if (analisis.length > 0) {
+            // Si hay datos, muestra la tabla y procesa los datos
+            if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+            } else {
+                $('#analisisFQ').DataTable({
+                    data: analisis,
+                    columns: [
+                        { title: 'Análisis', data: 'descripcion_analisis' },
+                        { title: 'Metodología', data: 'metodologia' },
+                        { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                    ],
+                    paging: false,
+                    info: false,
+                    searching: false,
+                    lengthChange: false,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     }
                 });
-                dividirContenidoEnPaginas();
             }
-            function cargarDatosEspecificacion(id) {
-                $.ajax({
-                    url: './backend/calidad/documento_especificacion_productoBE.php',
-                    type: 'GET',
-                    data: { id: id },
-                    success: function (response) {
-                        procesarDatosEspecificacion(response);
-
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error en la solicitud: ", status, error);
+            // Muestra la sección del análisis FQ
+            $('#content').show();
+        } else {
+            // Si no hay datos, oculta la sección del análisis FQ
+            $('#content').hide();
+        }
+    }
+    function mostrarAnalisisMB(analisis) {
+        // Verifica si hay datos para el análisis microbiológico
+        if (analisis.length > 0) {
+            // Si hay datos, muestra la tabla y procesa los datos
+            if ($.fn.DataTable.isDataTable('#analisisMB')) {
+                $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+            } else {
+                $('#analisisMB').DataTable({
+                    data: analisis,
+                    columns: [
+                        { title: 'Análisis', data: 'descripcion_analisis' },
+                        { title: 'Metodología', data: 'metodologia' },
+                        { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                    ],
+                    paging: false,
+                    info: false,
+                    searching: false,
+                    lengthChange: false,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     }
                 });
             }
-            window.onload = function () {
-                // Suponiendo que tengas un ID de producto para cargar
-                cargarDatosEspecificacion(id);
-            };
+            // Muestra la sección del análisis microbiológico
+            $('#additionalContent').show();
+        } else {
+            // Si no hay datos, oculta la sección del análisis microbiológico
+            $('#additionalContent').hide();
+        }
+    }
+    window.onload = function () {
+        // Suponiendo que tengas un ID de producto para cargar
+        cargarDatosEspecificacion(id);
+    };
         </script>
 
     </body>
