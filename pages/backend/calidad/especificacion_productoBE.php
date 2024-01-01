@@ -187,7 +187,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 // Asegúrate de que estas claves coincidan con las de tu array
                                 $crea_analisis='';
                                 $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
-                                $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);                                $criterios_aceptacion = limpiarDato($analisis['criterio']);
+                                $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);                                
+                                $criterios_aceptacion = $analisis['criterio'];
                                 $tipo='analisis_MB';
                                 if ($analisis['descripcion_analisis'] == 'Otro' && !empty($analisis['otrodescripcion_analisis'])) {
                                     insertarOpcionSiNoExiste($link, 'AnalisisMB', $analisis['otrodescripcion_analisis']);
