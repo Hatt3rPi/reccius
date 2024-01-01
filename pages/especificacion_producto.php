@@ -80,13 +80,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                         
                             <input type="text" name="concentracion_param1"  class="col" style="display: none;width: 40%;margin-left: 10px;margin-top: 5px;">
                             
-                            <input type="text" name="concentracion_param1_lbl" class="col" disabled style="display: none;width: 43%;margin-right: 150px;margin-top: 5px;">
+                            <input type="text" name="concentracion_param1_lbl" class="col" disabled style="display: none;width: 43%;margin-right: 200px;margin-top: 5px;">
                         </div>
                         <br>
                         <div class="form-row">
                         
                             <input type="text" name="concentracion_param2" style="display: none;width: 40%;margin-left: 10px;">
-                            <input type="text" name="concentracion_param2_lbl" class="col" disabled style="display: none;width: 43%;margin-right: 150px;">
+                            <input type="text" name="concentracion_param2_lbl" class="col" disabled style="display: none;width: 43%;margin-right: 20px;">
                         </div>
                         <input type="text" name="concentracion" placeholder="1g / 10ml" style="display: none;">
                     </div>
