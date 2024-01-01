@@ -111,10 +111,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group">
                         <label>Documento:</label>
                         <div class="form-row">
-                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" readonly class="col" style="text-align: right;">
-                            <input type="text" id="numeroProducto" name="numeroProducto" placeholder="001" onchange="actualizarDocumento()" required class="col">
-                            <input type="text" id="documento" name="documento" style="display: none;">
-                        </div>                    </div>
+                            <input type="text" name="prefijoDocumento" id="prefijoDocumento" readonly class="col"
+                                style="text-align: right; background-color: #e9ecef;width: 80%" readonly>
+                            <input type="text" id="documento" name="documento" style="display: none">
+                            <input type="text" id="numeroProducto" name="numeroProducto" placeholder="001"
+                                onchange="actualizarDocumento()" required class="col" style="width: 20px;margin-right: 100px;">
+                            
+                        </div>
+                    </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
 
