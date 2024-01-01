@@ -1,152 +1,124 @@
-<!DOCTYPE html>
-<html lang="es">
+<script>
+    function calcularCantidadDePaginas() {
+        const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
+        const contenido = document.getElementById('content');
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Especificación Producto Terminado</title>
-    <link rel="stylesheet" href="../test/testings.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-</head>
+        // Calcula la altura del contenido en px
+        const alturaContenidoPx = contenido.scrollHeight;
 
-<body>
-    <div id="form-container">
-        <div id="Maincontainer">
-            <div id="header-container" style="width: 100%;">
-                <div id="header" class="header"
-                    style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <div class="header-left" style="flex: 1;">
-                        <br><br>
-                        <img src="../assets/images/logo documentos.png" alt="Logo" style="height: 90px;" />
-                        <br>
-                    </div>
-                    <div class="header-center"
-                        style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: Verdana, Geneva, Tahoma, sans-serif; height: 100%;">
-                        <br><br>
-                        <h1 style="margin: 0; font-size: 16px; font-weight: normal; color: #000; line-height: 1.2;"></h1>
-                        <p style="margin: 0; font-size: 22px; font-weight: bold; color: #000; margin-top: 5px;"></p>
-                        <hr style="width:75%; color: blue;">
-                        <div style="position: relative; font-size: 18px; font-weight: bold; color: #000; margin-top: 2px;">
-                            Dirección de Calidad
-                        </div>
-                    </div>
-                    <div class="header-right" style="flex: 1; font-size: 0.75em;">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc No:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Elab. por:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DCA.LSR</td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Edición:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Rev.Por:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DTS.CPG</td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Versión:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Aut.Por:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">QF DTL.ISM</td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Vigencia:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Página:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">1 de 2</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
-                    <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
-                        <div class="sub-info" style="font-size: 14px;text-align: left;">
-                            Producto de recetario magistral<br>
-                            Res. Ex. N° 2988/2018
-                        </div>
-                    </div>
-                    <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
-                        <div class="sub-info" style="font-size: 14px; text-align: right;">
-                            RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="content" class="content">
-                <div class="table-section">
-                    <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
-                        I. Análisis Generales
-                    </div>
-                    <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Análisis</th>
-                                <th>Metodología</th>
-                                <th>Criterio de Aceptación</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-            <div id="content" class="content">
-                <div class="table-section">
-                    <div class="analysis-section" style="font-size: 20px; font-weight: bold; margin-top: 20px;">
-                        II. Análisis Microbiológico
-                    </div>
-                    <table id="analisisMB" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Análisis</th>
-                                <th>Metodología</th>
-                                <th>Criterio de Aceptación</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-            <div class="footer" id="additionalfooter">
-                <div class="footer-section">
-                    <br>
-                    <div class="footer-box-title">Realizado por:</div>
-                    <div class="footer-box">
-                        <p class="bold">QF. Inger Sumonte Rodríguez
-                            Director de Calidad
-                            </p>
-                        <div class="signature">[Espacio para la firma]</div>
-                        <p>Firmado digitalmente</p>
-                    </div>
-                    <div class="date">Fecha:</div>
-                    <br>
-                </div>
-                <div class="footer-section">
-                    <div class="footer-box-title">Revisado por:</div>
-                    <div class="footer-box">
-                        <p class="bold">QF. Catherine Pereira García 
-                            Jefe de Producción
-                            </p>
-                        <div class="signature">[Espacio para la firma]</div>
-                        <p>Firmado digitalmente</p>
-                    </div>
-                    <div class="date">Fecha:</div>
-                </div>
-                <div class="footer-section">
-                    <div class="footer-box-title">Aprobado por:</div>
-                    <div class="footer-box">
-                        <p class="bold">QF. Luis Sepúlveda Miranda
-                            Director Técnico
-                            </p>
-                        <div class="signature">[Espacio para la firma]</div>
-                        <p>Firmado digitalmente</p>
-                    </div>
-                    <div class="date">Fecha:</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button id="download-pdf">Descargar PDF</button>
-    <script src="../path/to/your/javascript.js"></script>
-</body>
+        // Convierte la altura del contenido a pt
+        const alturaContenidoPt = alturaContenidoPx / 1.333;
 
-</html>
+        // Calcula la cantidad de páginas necesarias
+        const cantidadDePaginas = Math.ceil(alturaContenidoPt / alturaMaximaPorPagina);
+
+        return cantidadDePaginas;
+    }
+    function dividirContenidoEnPaginas() {
+        let cantidadDePaginas = calcularCantidadDePaginas();
+        let contenedorOriginal = document.getElementById('form-container');
+        let contenidoPrincipal = document.getElementById('content');
+        let contenidoAdicional = document.getElementById('additionalContent');
+
+        let filasPrincipales = contenidoPrincipal.querySelectorAll('tr');
+        let filasAdicionales = contenidoAdicional.querySelectorAll('tr');
+
+        let indiceActualFilaPrincipal = 0;
+        let indiceActualFilaAdicional = 0;
+
+        for (let i = 1; i < cantidadDePaginas; i++) {
+            let nuevaPagina = document.createElement('div');
+            nuevaPagina.id = 'form-container-' + i;
+            nuevaPagina.className = 'form-container';
+            nuevaPagina.style.cssText = contenedorOriginal.style.cssText; // Copia estilos en línea
+
+            // Clonar encabezado y pie de página con estilos en línea
+            let headerClone = clonarConEstilos(contenedorOriginal.querySelector('.header-container'));
+            let footerClone = clonarConEstilos(contenedorOriginal.querySelector('.footer'));
+
+            nuevaPagina.appendChild(headerClone);
+
+            // Crear nuevos contenedores de contenido para esta página
+            let nuevoContenidoPrincipal = document.createElement('div');
+            nuevoContenidoPrincipal.id = 'content-' + i;
+            nuevoContenidoPrincipal.className = 'content';
+
+            let nuevoContenidoAdicional = document.createElement('div');
+            nuevoContenidoAdicional.id = 'additionalContent-' + i;
+            nuevoContenidoAdicional.className = 'content';
+
+            // Añadir filas a los nuevos contenedores de contenido hasta alcanzar la altura máxima
+            let alturaPagina = 0;
+
+            while (indiceActualFilaPrincipal < filasPrincipales.length && alturaPagina < alturaMaximaPorPagina) {
+                let fila = filasPrincipales[indiceActualFilaPrincipal].cloneNode(true);
+                nuevoContenidoPrincipal.appendChild(fila);
+                alturaPagina += fila.clientHeight / 1.333;
+                indiceActualFilaPrincipal++;
+            }
+
+            while (indiceActualFilaAdicional < filasAdicionales.length && alturaPagina < alturaMaximaPorPagina) {
+                let fila = filasAdicionales[indiceActualFilaAdicional].cloneNode(true);
+                nuevoContenidoAdicional.appendChild(fila);
+                alturaPagina += fila.clientHeight / 1.333;
+                indiceActualFilaAdicional++;
+            }
+
+            nuevaPagina.appendChild(nuevoContenidoPrincipal);
+            nuevaPagina.appendChild(nuevoContenidoAdicional);
+            nuevaPagina.appendChild(footerClone);
+
+            document.body.appendChild(nuevaPagina);
+        }
+    }
+
+    function clonarConEstilos(elemento) {
+        let clon = elemento.cloneNode(true);
+        clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
+        return clon;
+    }
+    function cargarDatosEspecificacion(id) {
+        $.ajax({
+            url: './backend/calidad/documento_especificacion_productoBE.php',
+            type: 'GET',
+            data: { id: id },
+            success: function (response) {
+                procesarDatosEspecificacion(response);
+
+            },
+            error: function (xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+            }
+        });
+    }
+
+    function procesarDatosEspecificacion(response) {
+        // Validación de la respuesta
+        if (!response || !response.productos || !Array.isArray(response.productos)) {
+            console.error('Los datos recibidos no son válidos:', response);
+            return;
+        }
+        // Procesamiento de cada producto
+        response.productos.forEach(function (producto) {
+            poblarYDeshabilitarCamposProducto(producto);
+
+            let especificaciones = Object.values(producto.especificaciones || {});
+            if (especificaciones.length > 0) {
+                let especificacion = especificaciones[0];
+
+                let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
+                if (analisisFQ.length > 0) {
+                    mostrarAnalisisFQ(analisisFQ);
+                }
+
+                let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
+                if (analisisMB.length > 0) {
+                    mostrarAnalisisMB(analisisMB);
+                }
+            }
+        });
+        dividirContenidoEnPaginas();
+    }
+
+
+</script>
