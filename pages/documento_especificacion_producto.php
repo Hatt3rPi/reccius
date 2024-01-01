@@ -196,7 +196,7 @@
         <script>
             function calcularCantidadDePaginas() {
                 const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
-                const contenido = document.getElementById('content');
+                const contenido = document.getElementById('table-section');
 
                 // Calcula la altura del contenido en px
                 const alturaContenidoPx = contenido.scrollHeight;
