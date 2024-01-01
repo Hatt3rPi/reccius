@@ -194,15 +194,12 @@
 
 
         <script>
-    // Utilidades
-    function clonarConEstilos(elemento) {
+            function clonarConEstilos(elemento) {
                 let clon = elemento.cloneNode(true);
                 clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
                 return clon;
             }
-
-    // Calcula la cantidad de páginas basada en la altura de las secciones
-    function calcularCantidadDePaginas() {
+            function calcularCantidadDePaginas() {
                 const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
                 const seccionesTabla = document.querySelectorAll('#content .table-section');
                 let alturaTotalSecciones = 0;
@@ -220,7 +217,7 @@
 
                 return cantidadDePaginas;
             }
-    function dividirContenidoEnPaginas() {
+            function dividirContenidoEnPaginas() {
                 let cantidadDePaginas = calcularCantidadDePaginas();
                 let contenedorOriginal = document.getElementById('form-container');
                 let seccionesTabla = document.querySelectorAll('#content .table-section');
@@ -271,60 +268,6 @@
                     alturaPaginaActual = 0;
                 }
             }
-
-    // Cargar datos y procesarlos
-    function cargarDatosEspecificacion(id) {
-        $.ajax({
-            url: './backend/calidad/documento_especificacion_productoBE.php',
-            type: 'GET',
-            data: { id: id },
-            success: procesarDatosEspecificacion,
-            error: function(xhr, status, error) {
-                console.error("Error en la solicitud: ", status, error);
-            }
-        });
-    }
-
-    // Procesa los datos recibidos del backend
-    function procesarDatosEspecificacion(response) {
-        // Asegúrate de que la respuesta es válida
-        if (!response || !response.productos || !Array.isArray(response.productos)) {
-            console.error('Los datos recibidos no son válidos:', response);
-            return;
-        }
-        // Procesa y muestra los datos
-        response.productos.forEach(poblarYDeshabilitarCamposProducto);
-        dividirContenidoEnPaginas();
-    }
-
-    function poblarYDeshabilitarCamposProducto(producto) {
-                if (producto) {
-                    // Usando .text() para elementos h2, h3 y p
-                    $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
-                    $('#producto').text(producto.nombre_producto);
-                    $('#concentracion').text(producto.concentracion);
-                    $('#formato').text(producto.formato);
-                    $('#documento').text(producto.documento_producto);
-                    $('#elaboradoPor').text(producto.elaborado_por);
-
-                    let especificacion = Object.values(producto.especificaciones)[0];
-                    if (especificacion) {
-                        $('#fechaEdicion').text(especificacion.fecha_edicion);
-                        $('#version').text(especificacion.version);
-                        $('#periodosVigencia').text(especificacion.vigencia);
-                        $('#creadoPor').text(especificacion.creado_por || 'No disponible');
-                        $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
-                        $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
-
-                        // Actualizar fechas de revisión y aprobación
-                        $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                        $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                        $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
-
-                    }
-                }
-            }
-
             function mostrarAnalisisFQ(analisis) {
                 // Verifica si hay datos para el análisis FQ
                 if (analisis.length > 0) {
@@ -385,11 +328,79 @@
                     $('#additionalContent').hide();
                 }
             }
-    // Carga los datos cuando la página está lista
-    window.onload = function() {
-        cargarDatosEspecificacion(id); // Reemplaza con el ID real
-    };
-</script>
+            function poblarYDeshabilitarCamposProducto(producto) {
+                if (producto) {
+                    // Usando .text() para elementos h2, h3 y p
+                    $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
+                    $('#producto').text(producto.nombre_producto);
+                    $('#concentracion').text(producto.concentracion);
+                    $('#formato').text(producto.formato);
+                    $('#documento').text(producto.documento_producto);
+                    $('#elaboradoPor').text(producto.elaborado_por);
+
+                    let especificacion = Object.values(producto.especificaciones)[0];
+                    if (especificacion) {
+                        $('#fechaEdicion').text(especificacion.fecha_edicion);
+                        $('#version').text(especificacion.version);
+                        $('#periodosVigencia').text(especificacion.vigencia);
+                        $('#creadoPor').text(especificacion.creado_por || 'No disponible');
+                        $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
+                        $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
+
+                        // Actualizar fechas de revisión y aprobación
+                        $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+                        $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
+                        $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
+
+                    }
+                }
+            }
+            function procesarDatosEspecificacion(response) {
+                // Validación de la respuesta
+                if (!response || !response.productos || !Array.isArray(response.productos)) {
+                    console.error('Los datos recibidos no son válidos:', response);
+                    return;
+                }
+                // Procesamiento de cada producto
+                response.productos.forEach(function (producto) {
+                    poblarYDeshabilitarCamposProducto(producto);
+
+                    let especificaciones = Object.values(producto.especificaciones || {});
+                    if (especificaciones.length > 0) {
+                        let especificacion = especificaciones[0];
+
+                        let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
+                        if (analisisFQ.length > 0) {
+                            mostrarAnalisisFQ(analisisFQ);
+                        }
+
+                        let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
+                        if (analisisMB.length > 0) {
+                            mostrarAnalisisMB(analisisMB);
+                        }
+                    }
+                });
+                dividirContenidoEnPaginas();
+            }
+            function cargarDatosEspecificacion(id) {
+                $.ajax({
+                    url: './backend/calidad/documento_especificacion_productoBE.php',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (response) {
+                        procesarDatosEspecificacion(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
+                    }
+                });
+            }
+            window.onload = function () {
+                // Suponiendo que tengas un ID de producto para cargar
+                cargarDatosEspecificacion(id);
+            };
+        </script>
 
     </body>
 
