@@ -326,6 +326,25 @@ function mostrarAnalisisMB(analisis) {
     }
 }
 
+function calcularAlturaContenido() {
+    var contenido = document.getElementById('content');
+    return contenido.scrollHeight;
+}
+
+window.onload = function() {
+    var alturaContenido = calcularAlturaContenido();
+    console.log("Altura del contenido:", alturaContenido + "pt");
+
+    // Aquí puedes hacer la comparación con la altura máxima
+    var alturaMaxima = 232; // en pt
+    if (alturaContenido > alturaMaxima) {
+        console.log("El contenido excede la altura máxima y debe ser dividido.");
+        // Luego llamarías a la función que maneja la división del contenido
+    } else {
+        console.log("El contenido no excede la altura máxima.");
+    }
+}
+
 
     </script>
 
