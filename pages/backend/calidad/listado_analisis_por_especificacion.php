@@ -81,7 +81,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'tipo_analisis' => $row['tipo_analisis'],
             'descripcion_analisis' => $row['descripcion_analisis'],
             'metodologia' => $row['metodologia'],
-            'criterios_aceptacion' => nl2br(htmlspecialchars($row['criterios_aceptacion'], ENT_QUOTES, 'UTF-8'))
+            'criterios_aceptacion' => html_entity_decode(nl2br(htmlspecialchars($row['criterios_aceptacion'], ENT_QUOTES, 'UTF-8')))
         ];
     }
 }
