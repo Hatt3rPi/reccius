@@ -74,14 +74,15 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value='ml'>ml</option>
                             <option value='UI'>UI</option>
                         </select>
-                        <div class="form-row">
-                            <input type="text" name="concentracion_param1"  class="col" style="display: none;">
-                            <input type="text" name="concentracion_param1_lbl" class="col" disabled style="display: none;">
-                        </div>
-                        <div class="form-row">
-                            <input type="text" name="concentracion_param2" style="display: none;">
-                            <input type="text" name="concentracion_param2_lbl" class="col" disabled style="display: none;">
-                        </div>
+                        <form class="form-inline" action="/action_page.php">
+                            <input type="text" name="concentracion_param1" class="form-control mb-2 mr-sm-2" style="display: none;">
+                            <input type="text" name="concentracion_param1_lbl" class="form-control mb-2 mr-sm-2" disabled style="display: none;">
+                        
+                            <input type="text" name="concentracion_param2" class="form-control mb-2 mr-sm-2" style="display: none;">
+                            <input type="text" name="concentracion_param2_lbl" class="form-control mb-2 mr-sm-2" disabled style="display: none;">
+                            <!-- ... otros elementos del formulario ... -->
+                        </form>
+
                         <input type="text" name="concentracion" placeholder="1g / 10ml" style="display: none;">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
