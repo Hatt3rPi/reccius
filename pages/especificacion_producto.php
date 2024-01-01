@@ -75,9 +75,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value='UI'>UI</option>
                         </select>
                         <div class="form-row">
-                            <input type="text" name="concentracion_param1"  class="col" style="display: none;width: 40%;">
+                            <input type="text" name="concentracion_param1"  class="col" style="display: none;width: 40%;margin-left: 15px;">
                             <br>
-                            <input type="text" name="concentracion_param1_lbl" class="col" disabled style="display: none;width: 43%;">
+                            <input type="text" name="concentracion_param1_lbl" class="col" disabled style="display: none;width: 43%;margin-right: 150px;">
                         </div>
                         <div class="form-row">
                             <input type="text" name="concentracion_param2" style="display: none;width: 83%;">
