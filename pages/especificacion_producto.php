@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" onchange="verificarOtro('Tipo_Producto', 'otroTipo_Producto')" required>
+                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" onchange="verificarOtro('Tipo_Producto', 'otroTipo_Producto')" style="width: 83%" required>
                             <option value="">Selecciona el tipo de producto</option>
                             <?php foreach ($opciones['Tipo_Producto'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Concentración:</label>
-                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style"  style="width: 38.5%" required>
+                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style"  style="width: 83%" required>
                             <option>Selecciona estructura a utilizar:</option>
                             <option value='g/ml'>g/ml</option>
                             <option value='%/ml'>%/ml</option>
@@ -87,7 +87,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Formato:</label>
-                        <select name="formato" id="formato" class="select-style" onchange="verificarOtro('formato', 'otroFormato')" required>
+                        <select name="formato" id="formato" class="select-style" onchange="verificarOtro('formato', 'otroFormato')" style="width: 83%" required>
                             <option value="">Selecciona un formato</option>
                             <?php foreach ($opciones['Formato'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
@@ -115,7 +115,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 style="text-align: right; background-color: #e9ecef;width: 80%" readonly>
                             <input type="text" id="documento" name="documento" style="display: none">
                             <input type="text" id="numeroProducto" name="numeroProducto" placeholder="001"
-                                onchange="actualizarDocumento()" required class="col" style="width: 20px;margin-right: 100px;">
+                                onchange="actualizarDocumento()" required class="col" style="width: 20px;margin-right: 150px;">
                             
                         </div>
                     </div>
