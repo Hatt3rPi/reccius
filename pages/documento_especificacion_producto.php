@@ -194,29 +194,6 @@
 
 
         <script>
-            function clonarConEstilos(elemento) {
-                let clon = elemento.cloneNode(true);
-                clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
-                return clon;
-            }
-            function calcularCantidadDePaginas() {
-                const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
-                const seccionesTabla = document.querySelectorAll('#content .table-section');
-                let alturaTotalSecciones = 0;
-
-                // Sumar la altura de todas las secciones de la tabla
-                seccionesTabla.forEach(seccion => {
-                    alturaTotalSecciones += seccion.scrollHeight;
-                });
-
-                // Convertir la altura de px a pt
-                const alturaTotalSeccionesPt = alturaTotalSecciones / 1.333;
-
-                // Calcular la cantidad de páginas necesarias
-                const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
-
-                return cantidadDePaginas;
-            }
             function dividirContenidoEnPaginas() {
                 let cantidadDePaginas = calcularCantidadDePaginas();
                 let contenedorOriginal = document.getElementById('form-container');
@@ -267,6 +244,70 @@
                     // Resetea la altura de la página actual para la siguiente iteración
                     alturaPaginaActual = 0;
                 }
+            }
+            function clonarConEstilos(elemento) {
+                let clon = elemento.cloneNode(true);
+                clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
+                return clon;
+            }
+            function calcularCantidadDePaginas() {
+                const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
+                const seccionesTabla = document.querySelectorAll('#content .table-section');
+                let alturaTotalSecciones = 0;
+
+                // Sumar la altura de todas las secciones de la tabla
+                seccionesTabla.forEach(seccion => {
+                    alturaTotalSecciones += seccion.scrollHeight;
+                });
+
+                // Convertir la altura de px a pt
+                const alturaTotalSeccionesPt = alturaTotalSecciones / 1.333;
+
+                // Calcular la cantidad de páginas necesarias
+                const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
+
+                return cantidadDePaginas;
+            }
+            function cargarDatosEspecificacion(id) {
+                $.ajax({
+                    url: './backend/calidad/documento_especificacion_productoBE.php',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (response) {
+                        procesarDatosEspecificacion(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
+                    }
+                });
+            }
+            function procesarDatosEspecificacion(response) {
+                // Validación de la respuesta
+                if (!response || !response.productos || !Array.isArray(response.productos)) {
+                    console.error('Los datos recibidos no son válidos:', response);
+                    return;
+                }
+                // Procesamiento de cada producto
+                response.productos.forEach(function (producto) {
+                    poblarYDeshabilitarCamposProducto(producto);
+
+                    let especificaciones = Object.values(producto.especificaciones || {});
+                    if (especificaciones.length > 0) {
+                        let especificacion = especificaciones[0];
+
+                        let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
+                        if (analisisFQ.length > 0) {
+                            mostrarAnalisisFQ(analisisFQ);
+                        }
+
+                        let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
+                        if (analisisMB.length > 0) {
+                            mostrarAnalisisMB(analisisMB);
+                        }
+                    }
+                });
+                dividirContenidoEnPaginas();
             }
             function mostrarAnalisisFQ(analisis) {
                 // Verifica si hay datos para el análisis FQ
@@ -355,47 +396,8 @@
                     }
                 }
             }
-            function procesarDatosEspecificacion(response) {
-                // Validación de la respuesta
-                if (!response || !response.productos || !Array.isArray(response.productos)) {
-                    console.error('Los datos recibidos no son válidos:', response);
-                    return;
-                }
-                // Procesamiento de cada producto
-                response.productos.forEach(function (producto) {
-                    poblarYDeshabilitarCamposProducto(producto);
-
-                    let especificaciones = Object.values(producto.especificaciones || {});
-                    if (especificaciones.length > 0) {
-                        let especificacion = especificaciones[0];
-
-                        let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
-                        if (analisisFQ.length > 0) {
-                            mostrarAnalisisFQ(analisisFQ);
-                        }
-
-                        let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
-                        if (analisisMB.length > 0) {
-                            mostrarAnalisisMB(analisisMB);
-                        }
-                    }
-                });
-                dividirContenidoEnPaginas();
-            }
-            function cargarDatosEspecificacion(id) {
-                $.ajax({
-                    url: './backend/calidad/documento_especificacion_productoBE.php',
-                    type: 'GET',
-                    data: { id: id },
-                    success: function (response) {
-                        procesarDatosEspecificacion(response);
-
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error en la solicitud: ", status, error);
-                    }
-                });
-            }
+            
+            
             window.onload = function () {
                 // Suponiendo que tengas un ID de producto para cargar
                 cargarDatosEspecificacion(id);
