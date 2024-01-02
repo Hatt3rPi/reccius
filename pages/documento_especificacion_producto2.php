@@ -18,7 +18,6 @@
                     <!-- Asegúrate de tener un contenedor para el header con display flex -->
                     <div id="header" class="header"
                         style="display: flex; justify-content: space-between; align-items: flex-start;">
-
                         <!-- Logo e Información Izquierda -->
                         <div class="header-left" style="flex: 1;">
                         <br>
@@ -39,14 +38,8 @@
                             <hr style="width:75%;">
                             <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
                                 Dirección de Calidad 
-
                             </div>
                         </div>
-
-
-
-
-
                         <!-- Información Derecha con Tabla -->
                         <div class="header-right" style="flex: 1; font-size: 0.75em;">
                         <br>
@@ -78,15 +71,11 @@
                                 </tr>
                             </table>
                         </div>
-
-
-
                     </div>
                     <!-- Fila adicional con dos columnas debajo del encabezado existente -->
                     <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
                             <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
                                 <div class="sub-info" style="font-size: 10px;text-align: left;">
-
                                 Producto de recetario magistral   <br>
                                     Res. Ex. N° 2988/2018  
                                 </div>
@@ -98,11 +87,8 @@
                             </div>
                         </div>
                 </div>
-                
-                
-                
-                
-                    <div id="content" class="content">
+            <div id="contenido_main">
+                <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px;">
@@ -119,16 +105,12 @@
                         </table>
                     </div>
                 </div>
-
-
-
                 <div id="additionalContent" class="content">
                     <div class="table-section">
                     <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px;">
                             II. Análisis Microbiológico
                         </div>
-
                         <!-- Tabla de Análisis Microbiológico -->
                         <table id="analisisMB" class="table table-striped table-bordered" style="width:100%; font-size: 10px">
                             <thead>
@@ -141,6 +123,7 @@
                         </table>
                     </div>
                 </div>
+            </div>
                 <div class="footer" id="footer">
                     <!-- Sección realizada por -->
                     <div class="footer-section">
@@ -157,7 +140,6 @@
                         <div id='fecha_Edicion' name='fecha_Edicion' class="date"></div>
                         <br>
                     </div>
-
                     <!-- Sección revisada por -->
                     <div class="footer-section">
                         <div class="footer-box-title">Revisado por:</div>
@@ -171,7 +153,6 @@
                         </div>
                         <div id='fechaRevision' name='fechaRevision' class="date"></div>
                     </div>
-
                     <!-- Sección aprobada por -->
                     <div class="footer-section">
                         <div class="footer-box-title">Aprobado por:</div>
@@ -186,13 +167,9 @@
                         <div id='fechaAprobacion' name='fechaAprobacion' class="date"></div>
                     </div>
                 </div>
-
             </div>
         </div>
-
         <button id="download-pdf">Descargar PDF</button>
-
-
         <script>
        
     function cargarDatosEspecificacion(id) {

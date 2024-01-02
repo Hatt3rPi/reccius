@@ -169,3 +169,6 @@ p {
     font-size: 8pt;
 }
 
+.contenido_main {
+    align-items: center;
+}
