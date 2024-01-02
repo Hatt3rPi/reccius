@@ -17,13 +17,13 @@ body {
     margin-right: 10px;
 }
 
-.content, .footer, #content, #additionalContent, #mainContainer, #additionalContainer, .form-container, .footer-section, th, td, tr, thead tr {
+.content, #content, #additionalContent, #mainContainer, #additionalContainer, .form-container, .footer-section, th, td, tr, thead tr {
     margin: 0;
     padding: 10px;
     border: none;
     background-color: #FFF;
 }
-.header, .header-bottom, .table-section, .footer-box {
+.header, .header-bottom, .table-section, .footer-box, .footer {
     margin: 0;
     padding-top: 1px;
     padding-bottom: 0px;
