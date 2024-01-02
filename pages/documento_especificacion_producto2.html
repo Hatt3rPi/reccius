@@ -9,6 +9,59 @@
         <link rel="stylesheet" href="../test/testings.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        
+        <style>
+            @media print {
+                /* Estilos generales para impresión */
+                body {
+                    font-family: 'Times New Roman', Times, serif;
+                    color: black;
+                    font-size: 12pt;
+                }
+
+                /* Encabezado y pie de página */
+                .header, .footer {
+                    display: block;
+                    position: fixed;
+                    width: 100%;
+                    padding: 10px;
+                }
+                .header {
+                    top: 1;
+                }
+                .footer {
+                    bottom: 0;
+                }
+
+                /* Ajustes de contenido */
+                .content {
+                    margin-top: 120px; /* Ajustar según el tamaño del encabezado */
+                    margin-bottom: 80px; /* Ajustar según el tamaño del pie de página */
+                }
+
+                /* Control de saltos de página */
+                .page-break {
+                    page-break-before: always;
+                }
+                .no-break {
+                    page-break-inside: avoid;
+                }
+
+                /* Ocultar elementos no deseados en impresión */
+                .no-print {
+                    display: none;
+                }
+
+                /* Ajustes para imágenes y tablas */
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+                table {
+                    width: 100%;
+                }
+            }
+        </style>
     </head>
 
     <body>
@@ -209,7 +262,7 @@
 
             // Calcular la cantidad de páginas necesarias
             const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
-            console.log(cantidadDePaginas);
+            
             return cantidadDePaginas;
         }
 
