@@ -123,7 +123,7 @@
                     <!-- Sección realizada por -->
                     <div class="footer-section">
                         <br>
-                        <div class="footer-box-title">Realizado por:</div>
+                        <div class="footer-box-title" style="font-size: 8px">Realizado por:</div>
                         <div class="footer-box">
                             <p id='creadoPor' name='creadoPor' class="bold"></p>
                             <p class="bold">
@@ -132,12 +132,12 @@
                             <div class="signature">[Espacio para la firma]</div>
                             <p>Firmado digitalmente</p>
                         </div>
-                        <div id='fecha_Edicion' name='fecha_Edicion' class="date"></div>
+                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
                         <br>
                     </div>
                     <!-- Sección revisada por -->
                     <div class="footer-section">
-                        <div class="footer-box-title">Revisado por:</div>
+                        <div class="footer-box-title" style="font-size: 8px">Revisado por:</div>
                         <div class="footer-box">
                             <p id='revisadoPor' name='revisadoPor'class="bold"></p>
                             <p class="bold">
@@ -146,11 +146,11 @@
                             <div class="signature">[Espacio para la firma]</div>
                             <p>Firmado digitalmente</p>
                         </div>
-                        <div id='fechaRevision' name='fechaRevision' class="date"></div>
+                        <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
                     </div>
                     <!-- Sección aprobada por -->
                     <div class="footer-section">
-                        <div class="footer-box-title">Aprobado por:</div>
+                        <div class="footer-box-title" style="font-size: 8px">Aprobado por:</div>
                         <div class="footer-box">
                             <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
                             <p class="bold">
@@ -159,7 +159,7 @@
                             <div class="signature">[Espacio para la firma]</div>
                             <p>Firmado digitalmente</p>
                         </div>
-                        <div id='fechaAprobacion' name='fechaAprobacion' class="date"></div>
+                        <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>
                     </div>
                 </div>
             </div>
