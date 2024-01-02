@@ -19,7 +19,7 @@ body {
 
 .content, .footer, #content, #additionalContent, 
 #mainContainer, #additionalContainer, .form-container, .footer-section, 
-.footer-box, th, td, tr, thead tr, tbody:last-child tr:last-child {
+.footer-box, th, td, tr, thead tr {
     margin: 0;
     padding: 10px;
     border: none;
@@ -80,6 +80,13 @@ body {
     padding-bottom: 0px;
     padding-left: 3px;
     padding-right: 1px;
+}
+
+tbody {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 

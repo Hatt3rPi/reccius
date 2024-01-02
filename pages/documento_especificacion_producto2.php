@@ -245,11 +245,29 @@
                 $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
             } else {
                 $('#analisisFQ').DataTable({
-                    data: analisis,
+                data: analisis,
                     columns: [
-                        { title: 'Análisis', data: 'descripcion_analisis' },
-                        { title: 'Metodología', data: 'metodologia' },
-                        { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
+                        { 
+                            title: 'Análisis', 
+                            data: 'descripcion_analisis',
+                            createdCell: function(td) {
+                                $(td).css('font-weight', 'bold');
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
+                            }
+                        },
+                        { 
+                            title: 'Metodología', 
+                            data: 'metodologia',
+                            createdCell: function(td) {
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
+                            }
+                        },
+                        { 
+                            title: 'Criterio aceptación', 
+                            data: 'criterios_aceptacion'
+                        }
                     ],
                     paging: false,
                     info: false,
@@ -277,11 +295,29 @@
                 $('#analisisMB').DataTable({
                     data: analisis,
                     columns: [
-                        { title: 'Análisis', data: 'descripcion_analisis' },
-                        { title: 'Metodología', data: 'metodologia' },
-                        { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-                    ],
-                    paging: false,
+                    { 
+                        title: 'Análisis', 
+                        data: 'descripcion_analisis',
+                        createdCell: function(td) {
+                            $(td).css('font-weight', 'bold');
+                            $(td).css('text-align', 'center');
+                            $(td).css('vertical-align', 'middle');
+                        }
+                    },
+                    { 
+                        title: 'Metodología', 
+                        data: 'metodologia',
+                        createdCell: function(td) {
+                            $(td).css('text-align', 'center');
+                            $(td).css('vertical-align', 'middle');
+                        }
+                    },
+                    { 
+                        title: 'Criterio aceptación', 
+                        data: 'criterios_aceptacion'
+                    }
+                ],
+                paging: false,
                     info: false,
                     searching: false,
                     lengthChange: false,
