@@ -130,6 +130,7 @@ $(document).ready(function () {
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
     });
+    $('#loading-spinner').hide();
 });
 
 

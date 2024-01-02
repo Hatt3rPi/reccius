@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Especificación Producto Terminado</title>
-        <link rel="stylesheet" href="../test/testings.css">
+        <link rel="stylesheet" href="../test/testings2.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     </head>
@@ -86,6 +86,7 @@
                     <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
                             <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
                                 <div class="sub-info" style="font-size: 10px;text-align: left;">
+
                                 Producto de recetario magistral   <br>
                                     Res. Ex. N° 2988/2018  
                                 </div>
