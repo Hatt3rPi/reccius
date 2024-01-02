@@ -91,7 +91,7 @@ tbody {
 
 
 .sub-info, .bold {
-    font-size: 12px;
+    font-size: 9px;
     color: #000;
     font-weight: bold;
     text-align: center;
@@ -135,7 +135,7 @@ td {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 25px;
+    padding: 12px;
     border: 1px solid #000;
     height: auto;
 }
