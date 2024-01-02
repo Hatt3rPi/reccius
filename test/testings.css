@@ -172,11 +172,9 @@ p {
 #content {
     max-height: 232pt; /* Altura máxima del contenido */
     overflow: visible; /* Agregar desplazamiento si el contenido es más largo que el espacio disponible */
-    
+    display: none;
 }
 
 #additionalContent {
-    max-height: 232pt; /* Altura máxima del contenido */
-    overflow: visible; /* Agregar desplazamiento si el contenido es más largo que el espacio disponible */
-    
+    display: none;
 }
