@@ -130,7 +130,7 @@
                             <p class="bold">
                                 Director de Calidad
                                 </p>
-                            <div class="signature">[Espacio para la firma]</div>
+                            <div class="signature"></div>
                             <p>Firmado digitalmente</p>
                         </div>
                         <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
@@ -144,7 +144,7 @@
                             <p class="bold">
                                 Jefe de Producción
                                 </p>
-                            <div class="signature">[Espacio para la firma]</div>
+                            <div class="signature"></div>
                             <p>Firmado digitalmente</p>
                         </div>
                         <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
@@ -157,7 +157,7 @@
                             <p class="bold">
                                 Director Técnico
                                 </p>
-                            <div class="signature">[Espacio para la firma]</div>
+                            <div class="signature"></div>
                             <p>Firmado digitalmente</p>
                         </div>
                         <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>

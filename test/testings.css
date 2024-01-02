@@ -17,15 +17,13 @@ body {
     margin-right: 10px;
 }
 
-.content, .footer, #content, #additionalContent, 
-#mainContainer, #additionalContainer, .form-container, .footer-section, 
-.footer-box, th, td, tr, thead tr {
+.content, .footer, #content, #additionalContent, #mainContainer, #additionalContainer, .form-container, .footer-section, th, td, tr, thead tr {
     margin: 0;
     padding: 10px;
     border: none;
     background-color: #FFF;
 }
-.header, .header-bottom, .table-section {
+.header, .header-bottom, .table-section, .footer-box {
     margin: 0;
     padding-top: 1px;
     padding-bottom: 0px;
@@ -147,6 +145,7 @@ td {
     align-items: center;
     justify-content: center;
     border: 0px dashed #000;
+    height: 50px;
 }
 
 .bold, .signature, p {
