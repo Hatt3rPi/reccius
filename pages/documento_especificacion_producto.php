@@ -87,15 +87,15 @@
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px;">
+                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
                             I. Análisis Generales
                         </div>
                         <table id="analisisFQ" class="display compact table-bordered" style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
-                                    <th style="width: 170px;">Análisis</th>
-                                    <th style="width: 106px;">Metodología</th>
-                                    <th style="width: 404px;">Criterio de Aceptación</th>
+                                    <th style="width: 170px; text-align: center">Análisis</th>
+                                    <th style="width: 106px; text-align: center">Metodología</th>
+                                    <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
                                 </tr>
                             </thead>
                         </table>
@@ -104,16 +104,16 @@
                 <div id="additionalContent" class="content">
                     <div class="table-section">
                     <!-- Sección de Análisis Microbiológico -->
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px;">
+                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
                             II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
                         <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
-                                    <th style="width: 170px;">Análisis</th>
-                                    <th style="width: 106px;">Metodología</th>
-                                    <th style="width: 404px;">Criterio de Aceptación</th>
+                                    <th style="width: 170px; text-align: center">Análisis</th>
+                                    <th style="width: 106px; text-align: center">Metodología</th>
+                                    <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
                                 </tr>
                             </thead>
                         </table>
