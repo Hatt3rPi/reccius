@@ -39,7 +39,7 @@ body {
     align-items: center;
 }
 
-.header-left, .header-right, .header-bottom-left, .header-bottom-right, .footer-box {
+.header-left, .header-bottom-left, .header-bottom-right, .footer-box {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -64,7 +64,7 @@ body {
 }
 
 .header-right table td, .header-right table th {
-    font-size: 10px;
+    font-size: 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -81,7 +81,6 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 th {
