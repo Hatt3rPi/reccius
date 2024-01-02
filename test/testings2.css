@@ -19,13 +19,13 @@ body {
 
 .content, .footer, #content, #additionalContent, 
 #mainContainer, #additionalContainer, .form-container, .footer-section, 
-.footer-box, .table-section, th, td, tr, thead tr, tbody:last-child tr:last-child {
+.footer-box, th, td, tr, thead tr, tbody:last-child tr:last-child {
     margin: 0;
     padding: 10px;
     border: none;
     background-color: #FFF;
 }
-.header, .header-bottom {
+.header, .header-bottom, .table-section {
     margin: 0;
     padding-top: 1px;
     padding-bottom: 0px;

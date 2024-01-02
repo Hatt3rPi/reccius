@@ -86,7 +86,7 @@
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px;">
+                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px;">
                             I. Análisis Generales
                         </div>
                         <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%; font-size: 10px">
