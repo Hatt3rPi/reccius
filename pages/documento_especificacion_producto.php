@@ -93,9 +93,9 @@
                         <table id="analisisFQ" class="display compact table-bordered" style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
-                                    <th>Análisis</th>
-                                    <th>Metodología</th>
-                                    <th>Criterio de Aceptación</th>
+                                    <th style="width: 170px;">Análisis</th>
+                                    <th style="width: 106px;">Metodología</th>
+                                    <th style="width: 404px;">Criterio de Aceptación</th>
                                 </tr>
                             </thead>
                         </table>
@@ -111,9 +111,9 @@
                         <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
-                                    <th>Análisis</th>
-                                    <th>Metodología</th>
-                                    <th>Criterio de Aceptación</th>
+                                    <th style="width: 170px;">Análisis</th>
+                                    <th style="width: 106px;">Metodología</th>
+                                    <th style="width: 404px;">Criterio de Aceptación</th>
                                 </tr>
                             </thead>
                         </table>
@@ -342,6 +342,7 @@ function dividirContenidoEnPaginas() {
                         { 
                             title: 'Análisis', 
                             data: 'descripcion_analisis',
+                            width: '170px',
                             createdCell: function(td) {
                                 $(td).css('font-weight', 'bold');
                                 $(td).css('text-align', 'center');
@@ -351,6 +352,7 @@ function dividirContenidoEnPaginas() {
                         { 
                             title: 'Metodología', 
                             data: 'metodologia',
+                            width: '106px',
                             createdCell: function(td) {
                                 $(td).css('text-align', 'center');
                                 $(td).css('vertical-align', 'middle');
@@ -359,6 +361,7 @@ function dividirContenidoEnPaginas() {
                         { 
                             title: 'Criterio aceptación', 
                             data: 'criterios_aceptacion'
+                            width: '404px',
                         }
                     ],
                     paging: false,
@@ -390,6 +393,7 @@ function dividirContenidoEnPaginas() {
                     { 
                         title: 'Análisis', 
                         data: 'descripcion_analisis',
+                        width: '170px',
                         createdCell: function(td) {
                             $(td).css('font-weight', 'bold');
                             $(td).css('text-align', 'center');
@@ -399,6 +403,7 @@ function dividirContenidoEnPaginas() {
                     { 
                         title: 'Metodología', 
                         data: 'metodologia',
+                        width: '106px',
                         createdCell: function(td) {
                             $(td).css('text-align', 'center');
                             $(td).css('vertical-align', 'middle');
@@ -407,6 +412,7 @@ function dividirContenidoEnPaginas() {
                     { 
                         title: 'Criterio aceptación', 
                         data: 'criterios_aceptacion'
+                        width: '404px',
                     }
                 ],
                 paging: false,
