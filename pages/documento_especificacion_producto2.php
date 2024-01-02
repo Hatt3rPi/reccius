@@ -39,28 +39,28 @@
                         <div class="header-right" style="font-size: 8px; font-family: 'Arial', sans-serif">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc. N°:</td>
-                                    <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Elab. por:</td>
-                                    <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">QF DCA.LSR</td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
+                                    <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
+                                    <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center">QF DCA.LSR</td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Edición:</td>
-                                    <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Rev.Por:</td>
-                                    <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">QF DTS.CPG</td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
+                                    <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
+                                    <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center">QF DTS.CPG</td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Versión:</td>
-                                    <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Aut.Por:</td>
-                                    <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">QF DTL.ISM</td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
+                                    <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
+                                    <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center">QF DTL.ISM</td>
                                 </tr>
                                 <tr>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Vigencia:</td>
-                                    <td name="periodosVigencia" id="periodosVigencia"  style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center"></td>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Página:</td>
-                                    <td style="border: 1px solid rgb(56, 53, 255); padding: 2px; text-align: center">1 de 2</td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
+                                    <td name="periodosVigencia" id="periodosVigencia"  style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                    <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
+                                    <td style="border: 1px solid rgb(56, 53, 255); text-align: center">1 de 2</td>
                                 </tr>
                             </table>
                         </div>
@@ -81,8 +81,8 @@
                         </div>
                 </div>
             <div id="contenido_main">
-                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline;"></h1>
-                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
+                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;"></h1>
+                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;"></p>
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
