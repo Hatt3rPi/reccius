@@ -20,8 +20,6 @@
                         style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <!-- Logo e Información Izquierda -->
                         <div class="header-left" style="flex: 1;">
-                        <br>
-                                <br>
                             <img src="../assets/images/logo documentos.png" alt="Logo"
                                 style="height: 90px;" />
                             <!-- Ajusta el tamaño según sea necesario -->
@@ -30,9 +28,6 @@
                         <!-- Título Central -->
                         <div class="header-center"
                             style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Verdana', sans-serif; height: 100%;">
-                            <br>
-                            <br>
-                            <br>
                             <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;"></h1>
                             <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; margin-top: 5px;"></p>
                             <hr style="width:75%;">
@@ -42,8 +37,6 @@
                         </div>
                         <!-- Información Derecha con Tabla -->
                         <div class="header-right" style="flex: 1; font-size: 0.75em;">
-                        <br>
-                        <br>
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr>
                                     <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc. N°:</td>
