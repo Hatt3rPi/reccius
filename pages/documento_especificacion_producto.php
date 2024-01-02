@@ -360,8 +360,8 @@ function dividirContenidoEnPaginas() {
                         },
                         { 
                             title: 'Criterio aceptación', 
-                            data: 'criterios_aceptacion'
-                            width: '404px',
+                            data: 'criterios_aceptacion',
+                            width: '404px'
                         }
                     ],
                     paging: false,
@@ -411,8 +411,8 @@ function dividirContenidoEnPaginas() {
                     },
                     { 
                         title: 'Criterio aceptación', 
-                        data: 'criterios_aceptacion'
-                        width: '404px',
+                        data: 'criterios_aceptacion',
+                        width: '404px'
                     }
                 ],
                 paging: false,
