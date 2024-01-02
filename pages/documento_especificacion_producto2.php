@@ -9,59 +9,6 @@
         <link rel="stylesheet" href="../test/testings.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-        
-        <style>
-            @media print {
-                /* Estilos generales para impresión */
-                body {
-                    font-family: 'Times New Roman', Times, serif;
-                    color: black;
-                    font-size: 12pt;
-                }
-
-                /* Encabezado y pie de página */
-                .header, .footer {
-                    display: block;
-                    position: fixed;
-                    width: 100%;
-                    padding: 10px;
-                }
-                .header {
-                    top: 1;
-                }
-                .footer {
-                    bottom: 0;
-                }
-
-                /* Ajustes de contenido */
-                .content {
-                    margin-top: 120px; /* Ajustar según el tamaño del encabezado */
-                    margin-bottom: 80px; /* Ajustar según el tamaño del pie de página */
-                }
-
-                /* Control de saltos de página */
-                .page-break {
-                    page-break-before: always;
-                }
-                .no-break {
-                    page-break-inside: avoid;
-                }
-
-                /* Ocultar elementos no deseados en impresión */
-                .no-print {
-                    display: none;
-                }
-
-                /* Ajustes para imágenes y tablas */
-                img {
-                    max-width: 100%;
-                    height: auto;
-                }
-                table {
-                    width: 100%;
-                }
-            }
-        </style>
     </head>
 
     <body>
@@ -139,7 +86,6 @@
                     <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
                             <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
                                 <div class="sub-info" style="font-size: 10px;text-align: left;">
-
                                 Producto de recetario magistral   <br>
                                     Res. Ex. N° 2988/2018  
                                 </div>
@@ -247,79 +193,7 @@
 
 
         <script>
-        function calcularCantidadDePaginas() {
-            const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
-            const seccionesTabla = document.querySelectorAll('#content .table-section');
-            let alturaTotalSecciones = 0;
-
-            // Sumar la altura de todas las secciones de la tabla
-            seccionesTabla.forEach(seccion => {
-                alturaTotalSecciones += seccion.scrollHeight;
-            });
-
-            // Convertir la altura de px a pt
-            const alturaTotalSeccionesPt = alturaTotalSecciones / 1.333;
-
-            // Calcular la cantidad de páginas necesarias
-            const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
-            
-            return cantidadDePaginas;
-        }
-
-        function dividirContenidoEnPaginas() {
-        let cantidadDePaginas = calcularCantidadDePaginas();
-        let contenedorOriginal = document.getElementById('form-container');
-        let seccionesTabla = document.querySelectorAll('#content .table-section');
-
-        let indiceActualSeccion = 0;
-        let alturaPaginaActual = 0;
-        const alturaMaximaPorPagina = 232; // Asegúrate de que esta variable esté definida en el ámbito correcto
-
-        for (let i = 1; i < cantidadDePaginas; i++) {
-            let nuevaPagina = contenedorOriginal.cloneNode(true); // Clona el contenedor original
-            nuevaPagina.id = 'form-container-' + i;
-            nuevaPagina.style.cssText = contenedorOriginal.style.cssText;
-            nuevaPagina.querySelector('#content').innerHTML = ''; // Limpia el contenido actual
-
-            // Reiniciar el conteo de la altura para la nueva página
-            alturaPaginaActual = 0;
-
-            // Mientras haya secciones y espacio disponible en la página actual
-            while (indiceActualSeccion < seccionesTabla.length && alturaPaginaActual < alturaMaximaPorPagina) {
-                let seccionActual = seccionesTabla[indiceActualSeccion];
-                
-                // Clona la sección actual para no alterar el DOM original
-                let clonSeccion = seccionActual.cloneNode(true);
-
-                // Calcula la altura en puntos
-                let alturaSeccion = clonSeccion.scrollHeight / 1.333;
-                
-                // Verifica si la sección cabe en la página actual
-                if (alturaPaginaActual + alturaSeccion <= alturaMaximaPorPagina) {
-                    alturaPaginaActual += alturaSeccion;
-                    nuevaPagina.querySelector('#content').appendChild(clonSeccion);
-                    indiceActualSeccion++;
-                } else {
-                    // Si no cabe, rompe el bucle y pasa a la siguiente página
-                    break;
-                }
-            }
-
-            // Añadir la nueva página al DOM
-            document.body.appendChild(nuevaPagina);
-        }
-
-        // Elimina las secciones que ya fueron clonadas para no duplicar contenido en el DOM
-        for (let i = 0; i < indiceActualSeccion; i++) {
-            seccionesTabla[i].remove();
-        }
-    }
-
-    function clonarConEstilos(elemento) {
-        let clon = elemento.cloneNode(true);
-        clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
-        return clon;
-    }
+       
     function cargarDatosEspecificacion(id) {
         $.ajax({
             url: './backend/calidad/documento_especificacion_productoBE.php',
@@ -360,8 +234,7 @@
                 }
             }
         });
-        dividirContenidoEnPaginas();
-    }
+      }
     function poblarYDeshabilitarCamposProducto(producto) {
         if (producto) {
             // Usando .text() para elementos h2, h3 y p
