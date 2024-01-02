@@ -169,11 +169,7 @@
         <script>
        
 
-    function clonarConEstilos(elemento) {
-        let clon = elemento.cloneNode(true);
-        clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
-        return clon;
-    }
+
     function cargarDatosEspecificacion(id) {
         $.ajax({
             url: './backend/calidad/documento_especificacion_productoBE.php',
@@ -214,7 +210,7 @@
                 }
             }
         });
-        dividirContenidoEnPaginas();
+       
     }
     function poblarYDeshabilitarCamposProducto(producto) {
         if (producto) {
