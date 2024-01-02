@@ -27,7 +27,7 @@ body {
 }
 .header, .header-bottom {
     margin: 0;
-    padding-top: 0px;
+    padding-top: 1px;
     padding-bottom: 0px;
     padding-left: 10px;
     padding-right: 10px;
@@ -58,8 +58,8 @@ body {
     text-align: center;
 }
 
-.header-left img, .header-bottom-left, .header-bottom-right {
-    height: 80px;
+.header-bottom-left, .header-bottom-right {
+    height: 50px;
 }
 
 .header-right, .header-bottom-right, .footer-box {

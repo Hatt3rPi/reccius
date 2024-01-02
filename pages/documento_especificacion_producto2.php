@@ -21,7 +21,7 @@
                         <!-- Logo e Información Izquierda -->
                         <div class="header-left" >
                             <img src="../assets/images/logo documentos.png" alt="Logo"
-                                style="height: 70px;" />
+                                style="height: 60px;" />
                             <!-- Ajusta el tamaño según sea necesario -->
                             <br>
                         </div>
