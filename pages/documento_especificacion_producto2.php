@@ -30,13 +30,13 @@
                             style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Verdana', sans-serif; height: 100%;">
                             <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;"></h1>
                             <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; margin-top: 5px;"></p>
-                            <hr style="width:75%;">
+                            <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
                             <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
                                 Dirección de Calidad 
                             </div>
                         </div>
                         <!-- Información Derecha con Tabla -->
-                        <div class="header-right" style="flex: 1; font-size: 0.75em;">
+                        <div class="header-right" style="font-size: 8px;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr>
                                     <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc. N°:</td>
