@@ -40,7 +40,7 @@
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
-                                    <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                    <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
                                     <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center">QF DCA.LSR</td>
                                 </tr>
