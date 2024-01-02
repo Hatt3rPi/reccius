@@ -167,7 +167,25 @@
         </div>
         <button id="download-pdf">Descargar PDF</button>
         <script>
-       
+       function obtenerAlturaElemento(contenido_main) {
+    var elemento = document.getElementById("contenido_main");
+    if (elemento) {
+        return elemento.offsetHeight;
+    } else {
+        console.error('Elemento no encontrado: ' + contenido_main);
+        return 0;
+    }
+}
+
+// Ejemplo de uso
+var alturaHeader = obtenerAlturaElemento('header-container');
+console.log('Altura del Header:', alturaHeader);
+
+var alturaMainContent = obtenerAlturaElemento('contenido_main');
+console.log('Altura del Contenido Principal:', alturaMainContent);
+
+// Continuar con otros elementos según sea necesario
+
 
 
     function cargarDatosEspecificacion(id) {
