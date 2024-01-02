@@ -27,16 +27,16 @@
                         </div>
                         <!-- Título Central -->
                         <div class="header-center"
-                            style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Verdana', sans-serif; height: 100%;">
+                            style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
                             <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;"></h1>
-                            <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; margin-top: 5px;"></p>
+                            <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
                             <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
                             <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
                                 Dirección de Calidad 
                             </div>
                         </div>
                         <!-- Información Derecha con Tabla -->
-                        <div class="header-right" style="font-size: 8px;">
+                        <div class="header-right" style="font-size: 8px; font-family: 'Arial', sans-serif">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <tr>
                                     <td style="border: 1px solid rgb(56, 53, 255); padding: 2px;">Doc. N°:</td>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <!-- Fila adicional con dos columnas debajo del encabezado existente -->
-                    <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box;">
+                    <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
                             <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
                                 <div class="sub-info" style="font-size: 10px;text-align: left;">
                                 Producto de recetario magistral   <br>
@@ -81,6 +81,8 @@
                         </div>
                 </div>
             <div id="contenido_main">
+                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline;"></h1>
+                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
@@ -211,6 +213,8 @@
             // Usando .text() para elementos h2, h3 y p
             $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
             $('#producto').text(producto.nombre_producto);
+            $('#Tipo_Producto2').text('Especificación ' + producto.tipo_producto);
+            $('#producto2').text(producto.nombre_producto);
             $('#concentracion').text(producto.concentracion);
             $('#formato').text(producto.formato);
             $('#documento').text(producto.documento_producto);
