@@ -17,7 +17,7 @@ body {
     margin-right: 10px;
 }
 
-.header, .header-bottom, .content, .footer, #content, #additionalContent, 
+.content, .footer, #content, #additionalContent, 
 #mainContainer, #additionalContainer, .form-container, .footer-section, 
 .footer-box, .table-section, th, td, tr, thead tr, tbody:last-child tr:last-child {
     margin: 0;
@@ -25,7 +25,15 @@ body {
     border: none;
     background-color: #FFF;
 }
-
+.header, .header-bottom {
+    margin: 0;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    background-color: #FFF;
+}
 .footer, .additionalfooter {
     max-height: 276pt;
     overflow: auto;
@@ -70,7 +78,7 @@ body {
     text-overflow: ellipsis;
     padding-top: 0px;
     padding-bottom: 0px;
-    padding-left: 1px;
+    padding-left: 3px;
     padding-right: 1px;
 }
 
