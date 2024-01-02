@@ -213,53 +213,70 @@
             return cantidadDePaginas;
         }
 
-        function dividirContenidoEnPaginas() {
+        function actualizarIds(elemento, sufijo) {
+    if (elemento.id) {
+        elemento.id = `${elemento.id}-${sufijo}`;
+    }
+    elemento.querySelectorAll('*[id]').forEach((el) => {
+        el.id = `${el.id}-${sufijo}`;
+    });
+}
+
+function dividirContenidoEnPaginas() {
     let cantidadDePaginas = calcularCantidadDePaginas();
     let contenedorOriginal = document.getElementById('form-container');
     let seccionesTabla = Array.from(document.querySelectorAll('#content .table-section'));
+    let paginas = [];
+    let paginaActual = contenedorOriginal;
+    let nuevaPagina;
 
-    let alturaPaginaActual = 0;
-    const alturaMaximaPorPagina = 232; 
-
-    // Crear un array para almacenar las páginas
-    let paginas = [contenedorOriginal];
-
-    // Crear nuevas páginas según sea necesario
+    // Clonar la página original y preparar las páginas adicionales
     for (let i = 1; i < cantidadDePaginas; i++) {
-        let nuevaPagina = contenedorOriginal.cloneNode(true);
-        nuevaPagina.id = 'form-container-' + i;
+        nuevaPagina = contenedorOriginal.cloneNode(true);
+        actualizarIds(nuevaPagina, i);
         nuevaPagina.querySelector('#content').innerHTML = '';
         paginas.push(nuevaPagina);
     }
 
     // Distribuir secciones entre las páginas
-    seccionesTabla.forEach(seccion => {
-        let alturaSeccion = seccion.scrollHeight / 1.333;
+    seccionesTabla.forEach((seccion, indiceSeccion) => {
+        let alturaSeccion = seccion.scrollHeight / 1.333; // Convertir la altura de px a pt
 
-        // Si la sección no cabe en la página actual, mover a la siguiente
-        if (alturaPaginaActual + alturaSeccion > alturaMaximaPorPagina) {
-            alturaPaginaActual = 0;
-            paginas.shift();
+        if (paginaActual.scrollHeight + alturaSeccion > alturaMaximaPorPagina) {
+            // Agregar la página actual a la lista de páginas
+            paginas.unshift(paginaActual);
+            
+            // Crear una nueva página para el contenido adicional
+            nuevaPagina = contenedorOriginal.cloneNode(true);
+            actualizarIds(nuevaPagina, paginas.length);
+            nuevaPagina.querySelector('#content').innerHTML = '';
+            paginaActual = nuevaPagina;
         }
 
-        // Añade la sección a la página actual y actualiza la altura
-        alturaPaginaActual += alturaSeccion;
-        if (paginas[0]) {
-            paginas[0].querySelector('#content').appendChild(seccion);
-        }
+        // Actualizar los IDs de la sección y sus hijos antes de moverlos
+        let clonSeccion = seccion.cloneNode(true);
+        actualizarIds(clonSeccion, paginas.length + 1);
+        
+        // Mover la sección a la nueva página
+        paginaActual.querySelector('#content').appendChild(clonSeccion);
     });
 
-    // Añadir nuevas páginas al DOM
-    paginas.forEach((pagina, index) => {
-        if (index !== 0) { // La primera página ya está en el DOM
+    // Agregar la última página procesada a la lista de páginas
+    if (paginaActual !== contenedorOriginal) {
+        paginas.unshift(paginaActual);
+    }
+
+    // Añadir nuevas páginas al DOM y remover el contenido original
+    paginas.reverse().forEach((pagina, index) => {
+        if (index > 0) { // Evitar agregar la página original ya que ya está en el DOM
             document.body.appendChild(pagina);
-            // Actualizar el número de página y la cantidad total
-            let numeroPaginaElemento = pagina.querySelector('[id^="numero-de-pagina-"]');
-            if (numeroPaginaElemento) {
-                numeroPaginaElemento.textContent = `Página ${index + 1} de ${cantidadDePaginas}`;
-            }
         }
     });
+
+    // Eliminar el contenedor original si se crearon nuevas páginas
+    if (paginas.length > 1) {
+        contenedorOriginal.remove();
+    }
 }
 
 
