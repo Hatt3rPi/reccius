@@ -213,13 +213,24 @@
             return cantidadDePaginas;
         }
 
-        function dividirContenidoEnPaginas() {
+        function actualizarIds(nodo, indice) {
+    // Si el nodo tiene un id, añadirle el índice para hacerlo único
+    if (nodo.id) {
+        nodo.id = `${nodo.id}-${indice}`;
+    }
+    // Hacer lo mismo para todos los elementos hijos que tengan un id
+    nodo.querySelectorAll('[id]').forEach((el) => {
+        el.id = `${el.id}-${indice}`;
+    });
+}
+
+function dividirContenidoEnPaginas() {
     let cantidadDePaginas = calcularCantidadDePaginas();
     let contenedorOriginal = document.getElementById('form-container');
     let seccionesTabla = Array.from(document.querySelectorAll('#content .table-section'));
-
+    
     let alturaPaginaActual = 0;
-    const alturaMaximaPorPagina = 232; 
+    const alturaMaximaPorPagina = 232;
 
     // Crear un array para almacenar las páginas
     let paginas = [contenedorOriginal];
@@ -227,7 +238,7 @@
     // Crear nuevas páginas según sea necesario
     for (let i = 1; i < cantidadDePaginas; i++) {
         let nuevaPagina = contenedorOriginal.cloneNode(true);
-        nuevaPagina.id = 'form-container-' + i;
+        actualizarIds(nuevaPagina, i); // Actualizar los ids dentro de la nueva página
         nuevaPagina.querySelector('#content').innerHTML = '';
         paginas.push(nuevaPagina);
     }
