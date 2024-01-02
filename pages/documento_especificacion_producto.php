@@ -199,59 +199,35 @@ function dividirContenidoEnPaginas() {
     let cantidadDePaginas = calcularCantidadDePaginas();
     let contenedorOriginal = document.getElementById('form-container');
     let seccionesTabla = Array.from(document.querySelectorAll('#content .table-section'));
-    let paginas = [];
-    let paginaActual = contenedorOriginal;
-    let nuevaPagina;
+    let paginas = [contenedorOriginal];
 
     // Clonar la página original y preparar las páginas adicionales
     for (let i = 1; i < cantidadDePaginas; i++) {
-        nuevaPagina = contenedorOriginal.cloneNode(true);
+        let nuevaPagina = contenedorOriginal.cloneNode(true);
         actualizarIds(nuevaPagina, i);
         nuevaPagina.querySelector('#content').innerHTML = '';
+        document.body.appendChild(nuevaPagina);
         paginas.push(nuevaPagina);
     }
 
-    // Distribuir secciones entre las páginas
-    seccionesTabla.forEach((seccion, indiceSeccion) => {
+    let indicePaginaActual = 0;
+    seccionesTabla.forEach((seccion) => {
         let alturaSeccion = seccion.scrollHeight / 1.333; // Convertir la altura de px a pt
+        let paginaActual = paginas[indicePaginaActual];
+        let alturaPaginaActual = paginaActual.scrollHeight / 1.333;
 
-        if (paginaActual.scrollHeight + alturaSeccion > alturaMaximaPorPagina) {
-            // Agregar la página actual a la lista de páginas
-            paginas.unshift(paginaActual);
-            
-            // Crear una nueva página para el contenido adicional
-            nuevaPagina = contenedorOriginal.cloneNode(true);
-            actualizarIds(nuevaPagina, paginas.length);
-            nuevaPagina.querySelector('#content').innerHTML = '';
-            paginaActual = nuevaPagina;
+        if (alturaPaginaActual + alturaSeccion > alturaMaximaPorPagina) {
+            indicePaginaActual++;
+            paginaActual = paginas[indicePaginaActual];
+            alturaPaginaActual = paginaActual.scrollHeight / 1.333;
         }
 
-        // Actualizar los IDs de la sección y sus hijos antes de moverlos
         let clonSeccion = seccion.cloneNode(true);
-        actualizarIds(clonSeccion, paginas.length + 1);
-        
-        // Mover la sección a la nueva página
+        actualizarIds(clonSeccion, indicePaginaActual);
         paginaActual.querySelector('#content').appendChild(clonSeccion);
+        seccion.remove(); // Remover la sección del contenedor original
     });
-
-    // Agregar la última página procesada a la lista de páginas
-    if (paginaActual !== contenedorOriginal) {
-        paginas.unshift(paginaActual);
-    }
-
-    // Añadir nuevas páginas al DOM y remover el contenido original
-    paginas.reverse().forEach((pagina, index) => {
-        if (index > 0) { // Evitar agregar la página original ya que ya está en el DOM
-            document.body.appendChild(pagina);
-        }
-    });
-
-    // Eliminar el contenedor original si se crearon nuevas páginas
-    if (paginas.length > 1) {
-        contenedorOriginal.remove();
-    }
 }
-
 
     function clonarConEstilos(elemento) {
         let clon = elemento.cloneNode(true);
