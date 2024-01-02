@@ -68,7 +68,6 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 5px;
 }
 
 .sub-info, .bold {
