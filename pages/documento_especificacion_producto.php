@@ -167,34 +167,7 @@
         </div>
         <button id="download-pdf">Descargar PDF</button>
         <script>
-        function calcularCantidadDePaginas() {
-            const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
-            const seccionesTabla = document.querySelectorAll('#content .table-section');
-            let alturaTotalSecciones = 0;
-
-            // Sumar la altura de todas las secciones de la tabla
-            seccionesTabla.forEach(seccion => {
-                alturaTotalSecciones += seccion.scrollHeight;
-            });
-
-            // Convertir la altura de px a pt
-            const alturaTotalSeccionesPt = alturaTotalSecciones / 1.333;
-
-            // Calcular la cantidad de páginas necesarias
-            const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
-            console.log(cantidadDePaginas);
-            return cantidadDePaginas;
-        }
-
-        function actualizarIds(elemento, sufijo) {
-    if (elemento.id) {
-        elemento.id = `${elemento.id}-${sufijo}`;
-    }
-    elemento.querySelectorAll('*[id]').forEach((el) => {
-        el.id = `${el.id}-${sufijo}`;
-    });
-}
-
+       
 function dividirContenidoEnPaginas() {
     let cantidadDePaginas = calcularCantidadDePaginas();
     let contenedorOriginal = document.getElementById('form-container');
