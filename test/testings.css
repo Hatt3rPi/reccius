@@ -149,6 +149,7 @@ td {
     justify-content: center;
     border: 0px dashed #000;
     height: 50px;
+    width: 150px;
 }
 
 .bold, .signature, p {
