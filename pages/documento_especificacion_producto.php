@@ -214,53 +214,54 @@
         }
 
         function dividirContenidoEnPaginas() {
-        let cantidadDePaginas = calcularCantidadDePaginas();
-        let contenedorOriginal = document.getElementById('form-container');
-        let seccionesTabla = document.querySelectorAll('#content .table-section');
+    let cantidadDePaginas = calcularCantidadDePaginas();
+    let contenedorOriginal = document.getElementById('form-container');
+    let seccionesTabla = Array.from(document.querySelectorAll('#content .table-section'));
 
-        let indiceActualSeccion = 0;
-        let alturaPaginaActual = 0;
-        const alturaMaximaPorPagina = 232; // Asegúrate de que esta variable esté definida en el ámbito correcto
+    let alturaPaginaActual = 0;
+    const alturaMaximaPorPagina = 232; 
 
-        for (let i = 1; i < cantidadDePaginas; i++) {
-            let nuevaPagina = contenedorOriginal.cloneNode(true); // Clona el contenedor original
-            nuevaPagina.id = 'form-container-' + i;
-            nuevaPagina.style.cssText = contenedorOriginal.style.cssText;
-            nuevaPagina.querySelector('#content').innerHTML = ''; // Limpia el contenido actual
+    // Crear un array para almacenar las páginas
+    let paginas = [contenedorOriginal];
 
-            // Reiniciar el conteo de la altura para la nueva página
-            alturaPaginaActual = 0;
-
-            // Mientras haya secciones y espacio disponible en la página actual
-            while (indiceActualSeccion < seccionesTabla.length && alturaPaginaActual < alturaMaximaPorPagina) {
-                let seccionActual = seccionesTabla[indiceActualSeccion];
-                
-                // Clona la sección actual para no alterar el DOM original
-                let clonSeccion = seccionActual.cloneNode(true);
-
-                // Calcula la altura en puntos
-                let alturaSeccion = clonSeccion.scrollHeight / 1.333;
-                
-                // Verifica si la sección cabe en la página actual
-                if (alturaPaginaActual + alturaSeccion <= alturaMaximaPorPagina) {
-                    alturaPaginaActual += alturaSeccion;
-                    nuevaPagina.querySelector('#content').appendChild(clonSeccion);
-                    indiceActualSeccion++;
-                } else {
-                    // Si no cabe, rompe el bucle y pasa a la siguiente página
-                    break;
-                }
-            }
-
-            // Añadir la nueva página al DOM
-            document.body.appendChild(nuevaPagina);
-        }
-
-        // Elimina las secciones que ya fueron clonadas para no duplicar contenido en el DOM
-        for (let i = 0; i < indiceActualSeccion; i++) {
-            seccionesTabla[i].remove();
-        }
+    // Crear nuevas páginas según sea necesario
+    for (let i = 1; i < cantidadDePaginas; i++) {
+        let nuevaPagina = contenedorOriginal.cloneNode(true);
+        nuevaPagina.id = 'form-container-' + i;
+        nuevaPagina.querySelector('#content').innerHTML = '';
+        paginas.push(nuevaPagina);
     }
+
+    // Distribuir secciones entre las páginas
+    seccionesTabla.forEach(seccion => {
+        let alturaSeccion = seccion.scrollHeight / 1.333;
+
+        // Si la sección no cabe en la página actual, mover a la siguiente
+        if (alturaPaginaActual + alturaSeccion > alturaMaximaPorPagina) {
+            alturaPaginaActual = 0;
+            paginas.shift();
+        }
+
+        // Añade la sección a la página actual y actualiza la altura
+        alturaPaginaActual += alturaSeccion;
+        if (paginas[0]) {
+            paginas[0].querySelector('#content').appendChild(seccion);
+        }
+    });
+
+    // Añadir nuevas páginas al DOM
+    paginas.forEach((pagina, index) => {
+        if (index !== 0) { // La primera página ya está en el DOM
+            document.body.appendChild(pagina);
+            // Actualizar el número de página y la cantidad total
+            let numeroPaginaElemento = pagina.querySelector('[id^="numero-de-pagina-"]');
+            if (numeroPaginaElemento) {
+                numeroPaginaElemento.textContent = `Página ${index + 1} de ${cantidadDePaginas}`;
+            }
+        }
+    });
+}
+
 
     function clonarConEstilos(elemento) {
         let clon = elemento.cloneNode(true);
