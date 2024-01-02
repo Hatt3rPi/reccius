@@ -19,9 +19,9 @@
                     <div id="header" class="header"
                         style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <!-- Logo e Información Izquierda -->
-                        <div class="header-left" style="flex: 1;">
+                        <div class="header-left" >
                             <img src="../assets/images/logo documentos.png" alt="Logo"
-                                style="height: 90px;" />
+                                style="height: 70px;" />
                             <!-- Ajusta el tamaño según sea necesario -->
                             <br>
                         </div>
