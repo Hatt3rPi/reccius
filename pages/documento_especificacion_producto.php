@@ -168,39 +168,6 @@
         <button id="download-pdf">Descargar PDF</button>
         <script>
        
-function dividirContenidoEnPaginas() {
-    let cantidadDePaginas = calcularCantidadDePaginas();
-    let contenedorOriginal = document.getElementById('form-container');
-    let seccionesTabla = Array.from(document.querySelectorAll('#content .table-section'));
-    let paginas = [contenedorOriginal];
-
-    // Clonar la página original y preparar las páginas adicionales
-    for (let i = 1; i < cantidadDePaginas; i++) {
-        let nuevaPagina = contenedorOriginal.cloneNode(true);
-        actualizarIds(nuevaPagina, i);
-        nuevaPagina.querySelector('#content').innerHTML = '';
-        document.body.appendChild(nuevaPagina);
-        paginas.push(nuevaPagina);
-    }
-
-    let indicePaginaActual = 0;
-    seccionesTabla.forEach((seccion) => {
-        let alturaSeccion = seccion.scrollHeight / 1.333; // Convertir la altura de px a pt
-        let paginaActual = paginas[indicePaginaActual];
-        let alturaPaginaActual = paginaActual.scrollHeight / 1.333;
-
-        if (alturaPaginaActual + alturaSeccion > alturaMaximaPorPagina) {
-            indicePaginaActual++;
-            paginaActual = paginas[indicePaginaActual];
-            alturaPaginaActual = paginaActual.scrollHeight / 1.333;
-        }
-
-        let clonSeccion = seccion.cloneNode(true);
-        actualizarIds(clonSeccion, indicePaginaActual);
-        paginaActual.querySelector('#content').appendChild(clonSeccion);
-        seccion.remove(); // Remover la sección del contenedor original
-    });
-}
 
     function clonarConEstilos(elemento) {
         let clon = elemento.cloneNode(true);
