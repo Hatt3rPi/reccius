@@ -89,7 +89,7 @@
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px;">
                             I. Análisis Generales
                         </div>
-                        <table id="analisisFQ" class="table table-striped table-bordered" style="width:100%; font-size: 10px">
+                        <table id="analisisFQ" class="display compact table-bordered" style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
                                     <th>Análisis</th>
@@ -107,7 +107,7 @@
                             II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
-                        <table id="analisisMB" class="table table-striped table-bordered" style="width:100%; font-size: 10px">
+                        <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
                                     <th>Análisis</th>
