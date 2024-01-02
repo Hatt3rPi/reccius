@@ -169,6 +169,11 @@ p {
     font-size: 8pt;
 }
 
-.contenido_main {
+#contenido_main {
     align-items: center;
+}
+#contenido_main .table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%; /* Ajusta esto según tus necesidades */
 }
