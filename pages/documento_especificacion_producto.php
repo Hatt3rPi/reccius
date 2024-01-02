@@ -213,14 +213,14 @@
             return cantidadDePaginas;
         }
 
-        function actualizarIds(nodo, indice) {
-    // Si el nodo tiene un id, añadirle el índice para hacerlo único
+        function actualizarIds(nodo, indicePagina) {
+    // Si el nodo tiene un id, añadirle el índice de la página para hacerlo único
     if (nodo.id) {
-        nodo.id = `${nodo.id}-${indice}`;
+        nodo.id = `${nodo.id}-p${indicePagina}`;
     }
     // Hacer lo mismo para todos los elementos hijos que tengan un id
     nodo.querySelectorAll('[id]').forEach((el) => {
-        el.id = `${el.id}-${indice}`;
+        el.id = `${el.id}-p${indicePagina}`;
     });
 }
 
@@ -228,7 +228,7 @@ function dividirContenidoEnPaginas() {
     let cantidadDePaginas = calcularCantidadDePaginas();
     let contenedorOriginal = document.getElementById('form-container');
     let seccionesTabla = Array.from(document.querySelectorAll('#content .table-section'));
-    
+
     let alturaPaginaActual = 0;
     const alturaMaximaPorPagina = 232;
 
@@ -244,7 +244,7 @@ function dividirContenidoEnPaginas() {
     }
 
     // Distribuir secciones entre las páginas
-    seccionesTabla.forEach(seccion => {
+    seccionesTabla.forEach((seccion, index) => {
         let alturaSeccion = seccion.scrollHeight / 1.333;
 
         // Si la sección no cabe en la página actual, mover a la siguiente
@@ -255,8 +255,11 @@ function dividirContenidoEnPaginas() {
 
         // Añade la sección a la página actual y actualiza la altura
         alturaPaginaActual += alturaSeccion;
-        if (paginas[0]) {
-            paginas[0].querySelector('#content').appendChild(seccion);
+        let paginaActual = paginas[0];
+        if (paginaActual) {
+            let clonSeccion = seccion.cloneNode(true);
+            actualizarIds(clonSeccion, paginas.length); // Asegurarse de que los ids son únicos
+            paginaActual.querySelector('#content').appendChild(clonSeccion);
         }
     });
 
@@ -264,15 +267,16 @@ function dividirContenidoEnPaginas() {
     paginas.forEach((pagina, index) => {
         if (index !== 0) { // La primera página ya está en el DOM
             document.body.appendChild(pagina);
-            // Actualizar el número de página y la cantidad total
-            let numeroPaginaElemento = pagina.querySelector('[id^="numero-de-pagina-"]');
-            if (numeroPaginaElemento) {
-                numeroPaginaElemento.textContent = `Página ${index + 1} de ${cantidadDePaginas}`;
-            }
         }
     });
+
+    // Eliminar el contenido original que ha sido repartido entre las páginas
+    contenedorOriginal.remove();
 }
 
+window.onload = function () {
+    cargarDatosEspecificacion(id);
+};
 
     function clonarConEstilos(elemento) {
         let clon = elemento.cloneNode(true);
