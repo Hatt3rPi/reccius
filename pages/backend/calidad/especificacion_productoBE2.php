@@ -122,6 +122,7 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
 
     $exito = mysqli_stmt_execute($stmtEspecificacion);
     $idEspecificacion = $exito ? mysqli_insert_id($link) : 0;
+    $_SESSION['buscarEspecificacion']=$idEspecificacion;
     mysqli_stmt_close($stmtEspecificacion);
 
     registrarTrazabilidad(
