@@ -97,17 +97,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_camposFaltantes = rtrim($error_camposFaltantes, ', ');
         //echo "Todos los campos son requeridos. ".$error;
     } else {
+        $estaEditando = isset($_POST['id_producto']) && !empty($_POST['id_producto']);
+        $idProducto = $estaEditando ? limpiarDato($_POST['id_producto']) : 0;
+        $numeroDocumento = limpiarDato($_POST['documento']);
+        if ($estaEditando) {
+            goto producto_registrado_correctamente;
+        }
         // Proceso de inserción si todos los campos están presentes
         $tipoProducto = !empty($_POST['Tipo_Producto']) ? limpiarDato($_POST['Tipo_Producto']) : (isset($_POST['otroTipo_Producto']) ? limpiarDato($_POST['otroTipo_Producto']) : '');
         $producto = limpiarDato($_POST['producto']);
         $concentracion = limpiarDato($_POST['concentracion']);
         $formato = !empty($_POST['formato']) ? limpiarDato($_POST['formato']) : (isset($_POST['otroFormato']) ? limpiarDato($_POST['otroFormato']) : '');
         $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
-        $numeroDocumento = limpiarDato($_POST['documento']);
+        
         $numeroProducto = limpiarDato($_POST['numeroProducto']);
-        $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
-        $version = limpiarDato($_POST['version']);
-        $vigencia = limpiarDato($_POST['periodosVigencia']);
+
         $paisOrigen = limpiarDato($_POST['paisOrigen']);
         if ($_POST['formato'] == 'Otro' && !empty($_POST['otroFormato'])) {
             insertarOpcionSiNoExiste($link, 'Formato', $_POST['otroFormato']);
@@ -128,7 +132,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea producto', 'calidad_productos',  $idProducto, $query, [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen], $resultado, $error);
             // out trazabidad
             if ($crea_producto) {
-                
+                producto_registrado_correctamente:
+                $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
+                $version = limpiarDato($_POST['version']);
+                $vigencia = limpiarDato($_POST['periodosVigencia']);
                 $fechaEdicionDateTime = new DateTime($fechaEdicion);
                 $fechaEdicionDateTime->modify("+$vigencia years");
                 $fechaExpiracion = $fechaEdicionDateTime->format('Y-m-d');
@@ -157,7 +164,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 $crea_analisis='';
                                 // Asegúrate de que estas claves coincidan con las de tu array
                                 $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
-                                $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);                                $criterios_aceptacion = limpiarDato($analisis['criterio']);
+                                $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);
+                                $criterios_aceptacion = limpiarDato($analisis['criterio']);
                                 $tipo='analisis_FQ';
                                 if ($analisis['descripcion_analisis'] == 'Otro' && !empty($analisis['otrodescripcion_analisis'])) {
                                     insertarOpcionSiNoExiste($link, 'AnalisisFQ', $analisis['otrodescripcion_analisis']);

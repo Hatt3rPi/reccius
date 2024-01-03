@@ -222,7 +222,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="actions-container">
                 <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
-                <input type="hidden" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" >
+                <input type="hidden" name="id_producto">
             </div>
         </form>
     </div>
@@ -648,14 +648,16 @@ function procesarDatosEspecificacion(response) {
 
 
 function poblarYDeshabilitarCamposProducto(producto) {
-    $('#Tipo_Producto').val(producto.tipo_producto).prop('readonly', true);
-    $('input[name="producto"]').val(producto.nombre_producto).prop('readonly', true);
-    $('input[name="concentracion"]').val(producto.concentracion).prop('readonly', true).show();
+    
+    $('#id_producto').val(producto.id_producto);
+    $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
+    $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
+    $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true).show();
     $('#tipo_concentracion').hide();
-    $('#formato').val(producto.formato).prop('readonly', true);
-    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('readonly', true);
-    $('input[name="paisOrigen"]').val(producto.pais_origen).prop('readonly', true);
-    $('input[name="documento"]').val(producto.documento_producto).prop('readonly', true).show();
+    $('#formato').val(producto.formato).prop('disabled', true);
+    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
+    $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
+    $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
     $('input[name="prefijoDocumento"]').hide();
     document.getElementById('numeroProducto').required = false;
     $('input[name="numeroProducto"]').hide();
@@ -780,7 +782,7 @@ function guardar(){
     var datosFormulario = $('#formulario_especificacion').serialize();
     console.log(datosFormulario);
     $.ajax({
-        url: 'backend/calidad/especificacion_productoBE.php',
+        url: 'backend/calidad/especificacion_productoBE2.php',
         type: 'POST',
         data: datosFormulario,
         success: function(data) {
