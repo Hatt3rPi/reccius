@@ -74,7 +74,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value='ml'>ml</option>
                             <option value='UI'>UI</option>
                         </select>
-                      
 
                         <div class="form-row">
                         
@@ -649,27 +648,27 @@ function procesarDatosEspecificacion(response) {
 
 
 function poblarYDeshabilitarCamposProducto(producto) {
-    $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
-    $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
-    $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true).show();
+    $('#Tipo_Producto').val(producto.tipo_producto).prop('readonly', true);
+    $('input[name="producto"]').val(producto.nombre_producto).prop('readonly', true);
+    $('input[name="concentracion"]').val(producto.concentracion).prop('readonly', true).show();
     $('#tipo_concentracion').hide();
-    $('#formato').val(producto.formato).prop('disabled', true);
-    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
-    $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
-    $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
+    $('#formato').val(producto.formato).prop('readonly', true);
+    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('readonly', true);
+    $('input[name="paisOrigen"]').val(producto.pais_origen).prop('readonly', true);
+    $('input[name="documento"]').val(producto.documento_producto).prop('readonly', true).show();
     $('input[name="prefijoDocumento"]').hide();
     document.getElementById('numeroProducto').required = false;
     $('input[name="numeroProducto"]').hide();
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
-        $('#fechaEdicion').val(especificacion.fecha_edicion).prop('disabled', true);
-        $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
-        $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
-        $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true);
-        $('#usuario_editor').val(especificacion.creado_por).prop('disabled', true);
-        $('#usuario_revisor').val(especificacion.revisado_por).prop('disabled', true);
-        $('#usuario_aprobador').val(especificacion.aprobado_por).prop('disabled', true);
+        $('#fechaEdicion').val(especificacion.fecha_edicion).prop('readonly', true);
+        $('input[name="version"]').val(especificacion.version).prop('readonly', true); // Asegúrate de que 'version' exista en tus datos
+        $('#periodosVigencia').val(especificacion.vigencia).prop('readonly', true); // Asegúrate de que 'vigencia' exista en tus datos
+        $('#periodosVigencia').val(especificacion.vigencia).prop('readonly', true);
+        $('#usuario_editor').val(especificacion.creado_por).prop('readonly', true);
+        $('#usuario_revisor').val(especificacion.revisado_por).prop('readonly', true);
+        $('#usuario_aprobador').val(especificacion.aprobado_por).prop('readonly', true);
         
     }
     console.log(producto.tipo_producto);
@@ -736,7 +735,7 @@ $('#editarGenerarVersion').click(function() {
     // Resto del código para habilitar edición del formulario...
     $('#guardar').show();
     $('#editarGenerarVersion').hide();
-    $('input[name="fechaEdicion"]').prop('disabled', false).val(new Date().toISOString().split('T')[0]);
+    $('input[name="fechaEdicion"]').prop('readonly', false).val(new Date().toISOString().split('T')[0]);
     
     // Incrementar la versión en 1 y mantenerla no editable
     var versionActual = parseInt($('input[name="version"]').val()) || 0;
@@ -756,9 +755,9 @@ $('#editarGenerarVersion').click(function() {
     habilitarEdicionAnalisis(tablaFQ);
     habilitarEdicionAnalisis(tablaMB);
 
-    $('#usuario_editor').val("<?php echo $_SESSION['nombre']; ?>").prop('disabled', false);
-    $('#usuario_revisor').prop('disabled', false);
-    $('#usuario_aprobador').prop('disabled', false);
+    $('#usuario_editor').val("<?php echo $_SESSION['nombre']; ?>").prop('readonly', false);
+    $('#usuario_revisor').prop('readonly', false);
+    $('#usuario_aprobador').prop('readonly', false);
 });
 
 function habilitarEdicionAnalisis(tabla) {
