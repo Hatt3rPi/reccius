@@ -167,25 +167,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
 
                 </div>
-            </fieldset>
-            <br>
-            <br>
-            <h2 class="section-title">Análisis Físico-Químico:</h2>
-            <div id="contenedor_analisisFQ">
-                <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
-                <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
-            </div>
-            <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
-            <br>
-            <br>
-            <br>
-            <h2 class="section-title">Análisis Microbiológico:</h2>
-            <div id="contenedor_analisisMB">
-                <table id="analisisMB" class="table table-striped table-bordered" width="100%"></table>
-                <!-- Aquí se incluirá la tabla desde carga_tablaMB()-->
-            </div>
-            <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
-            <br>
+                <br>
                 <br>
                 <h2 class="section-title">Flujo de aprobación:</h2>
                 <br>
@@ -219,7 +201,26 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </select>
                     </div>
                 </div>
-                <div class="actions-container">
+            </fieldset>
+            <br>
+            <br>
+            <h2 class="section-title">Análisis Físico-Químico:</h2>
+            <div id="contenedor_analisisFQ">
+                <table id="analisisFQ" class="table table-striped table-bordered" width="100%"></table>
+                <!-- Aquí se incluirá la tabla desde carga_tablaFQ()-->
+            </div>
+            <button type="button" id="boton_agrega_analisisFQ">Agregar Análisis</button>
+            <br>
+            <br>
+            <br>
+            <h2 class="section-title">Análisis Microbiológico:</h2>
+            <div id="contenedor_analisisMB">
+                <table id="analisisMB" class="table table-striped table-bordered" width="100%"></table>
+                <!-- Aquí se incluirá la tabla desde carga_tablaMB()-->
+            </div>
+            <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
+            
+            <div class="actions-container">
                 <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
                 <input type="hidden" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" >
