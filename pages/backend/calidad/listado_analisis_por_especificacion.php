@@ -74,7 +74,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'version' => $row['version'],
             'vigencia' => $row['vigencia'],
             'creado_por' => $row['creado_por'],
-            'supervisado_por' => $row['supervisado_por'],
+            'revisado_por' => $row['revisado_por'],
             'aprobado_por' => $row['aprobado_por'],
             'analisis' => []
         ];
