@@ -185,11 +185,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <!-- Aquí se incluirá la tabla desde carga_tablaMB()-->
             </div>
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
-            <div class="actions-container">
-                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
-                <input type="hidden" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" >
-            </div>
             <br>
                 <br>
                 <h2 class="section-title">Flujo de aprobación:</h2>
@@ -197,7 +192,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Realizado por:</label>
-                        <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" required>
+                        <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" style="width: 38.5%" readonly>
                     </div>
                 </div>
                 <div class="form-row">
@@ -216,7 +211,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group">
                         <label>Aprobación a cargo de:</label>
                         <select name="usuario_aprobador" id="usuario_aprobador" class="select-style"  style="width: 38.5%" required>
-                            <option>Selecciona el usuario supervisor:</option>
+                            <option>Selecciona el usuario aprobador:</option>
                             <option value="Inger Sumonte Rodríguez">Inger Sumonte Rodríguez - Director Calidad</option>
                             <option value="Lynnda Caques Segovia">Lynnda Caques Segovia - Coordinador Calidad</option>
                             <option value="Catherine Pereira García">Catherine Pereira García - Jefe de Producción</option>
@@ -224,6 +219,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </select>
                     </div>
                 </div>
+                <div class="actions-container">
+                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
+                <input type="hidden" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" >
+            </div>
         </form>
     </div>
 </body>
