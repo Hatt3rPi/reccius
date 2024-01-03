@@ -167,25 +167,37 @@
         </div>
         <button id="download-pdf">Descargar PDF</button>
         <script>
-       function obtenerAlturaElemento(contenido_main) {
-    var elemento = document.getElementById("contenido_main");
-    if (elemento) {
-        return elemento.offsetHeight;
-    } else {
-        console.error('Elemento no encontrado: ' + contenido_main);
-        return 0;
-    }
-}
 
-// Ejemplo de uso
-var alturaHeader = obtenerAlturaElemento('header-container');
-console.log('Altura del Header:', alturaHeader);
+     document.getElementById('download-pdf').addEventListener('click', function () {
+    html2canvas(document.getElementById('form-container'), { scale: 2 }).then(canvas => {
+        var imgData = canvas.toDataURL('image/png');
+        var pdf = new jspdf.jsPDF({
+            orientation: 'portrait',
+            unit: 'pt', // puntos, más adecuado para dimensiones precisas
+            format: 'letter' // Formato carta
+        });
 
-var alturaMainContent = obtenerAlturaElemento('contenido_main');
-console.log('Altura del Contenido Principal:', alturaMainContent);
+        // Calcular el escalado para que la imagen se ajuste al ancho del PDF
+        var pdfWidth = pdf.internal.pageSize.getWidth();
+        var pdfHeight = pdf.internal.pageSize.getHeight();
+        var canvasWidth = canvas.width;
+        var canvasHeight = canvas.height;
+        var scale = pdfWidth / canvasWidth;
+        var scaledHeight = canvasHeight * scale;
 
-// Continuar con otros elementos según sea necesario
+        // Ajustar la altura de la imagen si es más alta que la página
+        if (scaledHeight > pdfHeight) {
+            scale = pdfHeight / canvasHeight;
+            scaledHeight = canvasHeight * scale;
+        }
 
+        // Agregar la imagen al PDF
+        pdf.addImage(imgData, 'PNG', 0, 0, canvasWidth * scale, scaledHeight);
+
+        // Guardar el PDF
+        pdf.save('especificacion-producto.pdf');
+    });
+});
 
 
     function cargarDatosEspecificacion(id) {
