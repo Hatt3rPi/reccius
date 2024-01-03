@@ -241,6 +241,7 @@ console.log('Altura del Contenido Principal:', alturaMainContent);
             $('#formato').text(producto.formato);
             $('#documento').text(producto.documento_producto);
             $('#elaboradoPor').text(producto.elaborado_por);
+            //$('#elaboradoPor').text(producto.creado_por);
 
             let especificacion = Object.values(producto.especificaciones)[0];
             if (especificacion) {

@@ -665,6 +665,11 @@ function poblarYDeshabilitarCamposProducto(producto) {
         $('#fechaEdicion').val(especificacion.fecha_edicion).prop('disabled', true);
         $('input[name="version"]').val(especificacion.version).prop('disabled', true); // Asegúrate de que 'version' exista en tus datos
         $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
+        $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true);
+        $('#usuario_editor').val(especificacion.creado_por).prop('disabled', true);
+        $('#usuario_revisor').val(especificacion.revisado_por).prop('disabled', true);
+        $('#usuario_aprobador').val(especificacion.aprobado_por).prop('disabled', true);
+        
     }
     console.log(producto.tipo_producto);
 }
@@ -749,6 +754,10 @@ $('#editarGenerarVersion').click(function() {
     // Habilitar la adición y eliminación de análisis
     habilitarEdicionAnalisis(tablaFQ);
     habilitarEdicionAnalisis(tablaMB);
+
+    $('#usuario_editor').val("<?php echo $_SESSION['nombre']; ?>").prop('disabled', false);
+    $('#usuario_revisor').prop('disabled', false);
+    $('#usuario_aprobador').prop('disabled', false);
 });
 
 function habilitarEdicionAnalisis(tabla) {

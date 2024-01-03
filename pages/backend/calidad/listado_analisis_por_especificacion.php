@@ -22,6 +22,9 @@ $query = "SELECT cp.id as id_producto,
             cep.fecha_edicion,
             cep.version,
             cep.vigencia,
+            cep.creado_por,
+            cep.revisado_por,
+            cep.aprobado_por,
             can.id_analisis,
             can.tipo_analisis,
             can.descripcion_analisis,
@@ -70,6 +73,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             'fecha_edicion' => $row['fecha_edicion'],
             'version' => $row['version'],
             'vigencia' => $row['vigencia'],
+            'creado_por' => $row['creado_por'],
+            'supervisado_por' => $row['supervisado_por'],
+            'aprobado_por' => $row['aprobado_por'],
             'analisis' => []
         ];
     }
