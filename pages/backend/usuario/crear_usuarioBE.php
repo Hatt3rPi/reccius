@@ -59,23 +59,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $cuerpo = 'Por favor, haz clic en este enlace para restablecer tu contraseña: ' . $enlaceReset;
 
                 if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
-                    // Imprime el script de JavaScript para mostrar la alerta y redirigir
-                    echo "<script type='text/javascript'>
-                            alert('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.');
-                            window.location.href='../../index.php'; // Redirige con JavaScript
-                          </script>";
+                    echo 'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.';
+                    header("Location: ../../index.php");
+                    exit();
                 } else {
-                    // Imprime el script de JavaScript para mostrar la alerta de error en el correo
-                    echo "<script type='text/javascript'>
-                            alert('Usuario creado, pero hubo un error al enviar el correo de restablecimiento.');
-                            window.location.href='../../index.php'; // Opcional: Redirige o maneja el error como prefieras
-                          </script>";
+                    echo 'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.';
+                    header("Location: ../../index.php");
+                    exit();
                 }
             } else {
-                // Imprime el script de JavaScript para mostrar la alerta de error en la creación del usuario
-                echo "<script type='text/javascript'>
-                        alert('Error al crear usuario: " . addslashes(mysqli_error($link)) . "');
-                      </script>";
+                echo "Error al crear usuario: " . mysqli_error($link);
             }
         }
 
