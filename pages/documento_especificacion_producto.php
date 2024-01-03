@@ -81,6 +81,8 @@
                             </div>
                         </div>
                 </div>
+            
+            <div id="watermark">CONFIDENCIAL</div>
             <div id="contenido_main">
                 <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;"></h1>
                 <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;"></p>
