@@ -31,39 +31,65 @@ function insertarOpcionSiNoExiste($link, $categoria, $nuevoValor) {
 }
 
 function procesarFormulario($link) {
-    $estaEditando = isset($_POST['id_producto']) && !empty($_POST['id_producto']);
-    $idProducto = $estaEditando ? limpiarDato($_POST['id_producto']) : 0;
-    $numeroDocumento = limpiarDato($_POST['documento']);
-    if (!$estaEditando) {
-        $idProducto = insertarProducto($link);
-    }
-    if ($idProducto > 0) {
-        $idEspecificacion = insertarEspecificacionYAnalisis($link, $idProducto);
-        if ($idEspecificacion > 0) {
-            return ["exito" => true, "mensaje" => "Especificación y análisis creados con éxito.", "idEspecificacion" => $idEspecificacion];
+    mysqli_begin_transaction($link); // Inicia la transacción
+
+    try {
+        $estaEditando = isset($_POST['id_producto']) && !empty($_POST['id_producto']);
+        $idProducto = $estaEditando ? limpiarDato($_POST['id_producto']) : 0;
+        
+        if (!$estaEditando) {
+            $resultadoProducto = insertarProducto($link);
+            if (!$resultadoProducto['exito']) {
+                throw new Exception("Error al insertar producto: " . $resultadoProducto['error']);
+            }
+            $idProducto = $resultadoProducto['id'];
         }
+
+        $resultadoEspecificacion = insertarEspecificacionYAnalisis($link, $idProducto);
+        if (!$resultadoEspecificacion['exito']) {
+            throw new Exception("Error al insertar especificación y análisis: " . $resultadoEspecificacion['error']);
+        }
+        $idEspecificacion = $resultadoEspecificacion['id'];
+
+        mysqli_commit($link); // Aplica los cambios
+        return ["exito" => true, "mensaje" => "Especificación y análisis creados con éxito.", "idEspecificacion" => $idEspecificacion];
+    } catch (Exception $e) {
+        // Aquí registramos el error en la trazabilidad antes de hacer rollback
+        registrarTrazabilidad(
+            $_SESSION['usuario'],
+            $_SERVER['PHP_SELF'],
+            'Error en la inserción',
+            $e->getMessage(), // Aquí se debe colocar la información más relevante sobre el error
+            0, // ID del registro, 0 si no se creó
+            $resultadoProducto['query'], // Consulta que falló
+            $resultadoProducto['params'], // Parámetros de la consulta
+            0, // Indica que hubo un fracaso
+            $e->getMessage() // Mensaje de error
+        );
+
+        mysqli_rollback($link); // Revierte los cambios
+        return ["exito" => false, "mensaje" => $e->getMessage(), "idEspecificacion" => 0];
     }
-    return ["exito" => false, "mensaje" => "Error al procesar la solicitud", "idEspecificacion" => 0];
 }
 
 function insertarProducto($link) {
-    $tipoProducto = !empty($_POST['Tipo_Producto']) ? limpiarDato($_POST['Tipo_Producto']) : (isset($_POST['otroTipo_Producto']) ? limpiarDato($_POST['otroTipo_Producto']) : '');
+    $tipoProducto = limpiarDato($_POST['Tipo_Producto']) ?? limpiarDato($_POST['otroTipo_Producto']);
     $producto = limpiarDato($_POST['producto']);
     $concentracion = limpiarDato($_POST['concentracion']);
     $tipo_concentracion = limpiarDato($_POST['tipo_concentracion']);
-    $formato = !empty($_POST['formato']) ? limpiarDato($_POST['formato']) : (isset($_POST['otroFormato']) ? limpiarDato($_POST['otroFormato']) : '');
+    $formato = limpiarDato($_POST['formato']) ?? limpiarDato($_POST['otroFormato']);
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $numeroDocumento = limpiarDato($_POST['documento']);
     $numeroProducto = limpiarDato($_POST['numeroProducto']);
     $paisOrigen = limpiarDato($_POST['paisOrigen']);
+
     $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto, tipo_concentracion, pais_origen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "sssssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen);
+
     $exito = mysqli_stmt_execute($stmt);
     $idProducto = $exito ? mysqli_insert_id($link) : 0;
     mysqli_stmt_close($stmt);
-
-    // Registrar trazabilidad
     registrarTrazabilidad(
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
@@ -75,9 +101,10 @@ function insertarProducto($link) {
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
+    $params = [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen];
+    $error = $exito ? null : mysqli_error($link);
 
-    return $idProducto;
-
+    return ['exito' => $exito, 'id' => $idProducto, 'query' => $query, 'params' => $params, 'error' => $error];
 }
 
 function insertarEspecificacionYAnalisis($link, $idProducto) {
@@ -88,14 +115,15 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
     $editor = limpiarDato($_POST['usuario_editor']);
     $revisor = limpiarDato($_POST['usuario_revisor']);
     $aprobador = limpiarDato($_POST['usuario_aprobador']);
+
     $queryEspecificacion = "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia, creado_por, revisado_por, aprobado_por) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmtEspecificacion = mysqli_prepare($link, $queryEspecificacion);
     mysqli_stmt_bind_param($stmtEspecificacion, "issssisss", $idProducto, $_POST['documento'], $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador);
+
     $exito = mysqli_stmt_execute($stmtEspecificacion);
     $idEspecificacion = $exito ? mysqli_insert_id($link) : 0;
     mysqli_stmt_close($stmtEspecificacion);
 
-    // Registrar trazabilidad
     registrarTrazabilidad(
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
@@ -107,14 +135,17 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
+    $params = [$idProducto, $_POST['documento'], $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador];
+    $error = $exito ? null : mysqli_error($link);
 
     if ($exito) {
         insertarAnalisis($link, $idEspecificacion, 'FQ', $_POST['analisisFQ']);
         insertarAnalisis($link, $idEspecificacion, 'MB', $_POST['analisisMB']);
     }
 
-    return $idEspecificacion;
+    return ['exito' => $exito, 'id' => $idEspecificacion, 'query' => $queryEspecificacion, 'params' => $params, 'error' => $error];
 }
+
 
 
 function insertarAnalisis($link, $idEspecificacion, $tipoAnalisis, $datosAnalisis) {
@@ -122,14 +153,15 @@ function insertarAnalisis($link, $idEspecificacion, $tipoAnalisis, $datosAnalisi
         $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
         $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);
         $criterios_aceptacion = limpiarDato($analisis['criterio']);
+
         $queryAnalisis = "INSERT INTO calidad_analisis (id_especificacion_producto, tipo_analisis, descripcion_analisis, metodologia, criterios_aceptacion) VALUES (?, ?, ?, ?, ?)";
         $stmtAnalisis = mysqli_prepare($link, $queryAnalisis);
         mysqli_stmt_bind_param($stmtAnalisis, "issss", $idEspecificacion, $tipoAnalisis, $descripcion_analisis, $metodologia, $criterios_aceptacion);
+
         $exito = mysqli_stmt_execute($stmtAnalisis);
         $idAnalisis = $exito ? mysqli_insert_id($link) : 0;
         mysqli_stmt_close($stmtAnalisis);
 
-        // Registrar trazabilidad
         registrarTrazabilidad(
             $_SESSION['usuario'], 
             $_SERVER['PHP_SELF'], 
@@ -141,6 +173,8 @@ function insertarAnalisis($link, $idEspecificacion, $tipoAnalisis, $datosAnalisi
             $exito ? 1 : 0, 
             $exito ? null : mysqli_error($link)
         );
+        $params = [$idEspecificacion, $tipoAnalisis, $descripcion_analisis, $metodologia, $criterios_aceptacion];
+        $error = $exito ? null : mysqli_error($link);
     }
 }
 
