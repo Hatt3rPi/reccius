@@ -4,8 +4,13 @@ session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
 function limpiarDato($dato) {
-    return htmlspecialchars(stripslashes(trim($dato)));
+    $datoLimpio = trim($dato);
+    if (empty($datoLimpio)) {
+        return null;
+    }
+    return htmlspecialchars(stripslashes($datoLimpio));
 }
+
 
 function insertarOpcionSiNoExiste($link, $categoria, $nuevoValor) {
     $nuevoValor = limpiarDato($nuevoValor);
@@ -45,6 +50,7 @@ function insertarProducto($link) {
     $tipoProducto = !empty($_POST['Tipo_Producto']) ? limpiarDato($_POST['Tipo_Producto']) : (isset($_POST['otroTipo_Producto']) ? limpiarDato($_POST['otroTipo_Producto']) : '');
     $producto = limpiarDato($_POST['producto']);
     $concentracion = limpiarDato($_POST['concentracion']);
+    $tipo_concentracion = limpiarDato($_POST['tipo_concentracion']);
     $formato = !empty($_POST['formato']) ? limpiarDato($_POST['formato']) : (isset($_POST['otroFormato']) ? limpiarDato($_POST['otroFormato']) : '');
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $numeroDocumento = limpiarDato($_POST['documento']);
@@ -62,12 +68,12 @@ function insertarProducto($link) {
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
         'Inserción de producto', 
-        'calidad_productos', 
+        '1. calidad_productos', 
         $idProducto, 
         $query, 
         [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen], 
         $exito ? 1 : 0, 
-        $exito ? '' : mysqli_error($link)
+        $exito ? null : mysqli_error($link)
     );
 
     return $idProducto;
@@ -94,12 +100,12 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
         'Inserción de especificación y análisis', 
-        'calidad_especificacion_productos', 
+        '2. calidad_especificacion_productos', 
         $idEspecificacion, 
         $queryEspecificacion, 
         [$idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador], 
         $exito ? 1 : 0, 
-        $exito ? '' : mysqli_error($link)
+        $exito ? null : mysqli_error($link)
     );
 
     if ($exito) {
@@ -128,12 +134,12 @@ function insertarAnalisis($link, $idEspecificacion, $tipoAnalisis, $datosAnalisi
             $_SESSION['usuario'], 
             $_SERVER['PHP_SELF'], 
             'Inserción de análisis', 
-            'calidad_analisis', 
+            '3. calidad_analisis', 
             $idAnalisis, 
             $queryAnalisis, 
             [$idEspecificacion, $tipoAnalisis, $descripcion_analisis, $metodologia, $criterios_aceptacion], 
             $exito ? 1 : 0, 
-            $exito ? '' : mysqli_error($link)
+            $exito ? null : mysqli_error($link)
         );
     }
 }
