@@ -223,7 +223,7 @@ p {
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
     transform-origin: center center;
-    font-size: 100px; /* Ajusta este valor según sea necesario */
+    font-size: 120px; /* Ajusta este valor según sea necesario */
     color: rgba(0, 0, 0, 0.2); /* Semitransparente */
     pointer-events: none;
     z-index: 9999;
