@@ -209,3 +209,8 @@ p {
     margin-right: auto;
     width: 80%; /* Ajusta esto según tus necesidades */
 }
+
+.no-border {
+    border: none !important;
+    box-shadow: none !important;
+}

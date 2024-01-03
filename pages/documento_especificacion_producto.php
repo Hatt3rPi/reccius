@@ -167,9 +167,12 @@
         </div>
         <button id="download-pdf">Descargar PDF</button>
         <script>
-
 document.getElementById('download-pdf').addEventListener('click', function () {
-    html2canvas(document.getElementById('form-container'), { scale: 2 }).then(canvas => {
+    // Agregar la clase no-border para eliminar bordes y sombras
+    var formContainer = document.getElementById('form-container');
+    formContainer.classList.add('no-border');
+
+    html2canvas(formContainer, { scale: 2 }).then(canvas => {
         var imgData = canvas.toDataURL('image/png');
         var pdf = new jspdf.jsPDF({
             orientation: 'portrait',
@@ -177,35 +180,19 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             format: 'letter'
         });
 
-        // Dimensiones de la página PDF
         var pdfWidth = pdf.internal.pageSize.getWidth();
         var pdfHeight = pdf.internal.pageSize.getHeight();
-
-        // Dimensiones del canvas
-        var canvasWidth = canvas.width;
-        var canvasHeight = canvas.height;
-
-        // Calcular la escala para que la imagen llene la altura de la página PDF
-        var scale = pdfHeight / canvasHeight;
-        var scaledWidth = canvasWidth * scale;
-
-        // Si la imagen es más ancha que la página, escalar basado en el ancho
-        if (scaledWidth > pdfWidth) {
-            scale = pdfWidth / canvasWidth;
-            scaledWidth = canvasWidth * scale;
-        }
-
-        // Posición X para centrar la imagen (si es más delgada que la página)
-        var x = (pdfWidth - scaledWidth) / 2;
-
+        
         // Agregar la imagen al PDF
-        pdf.addImage(imgData, 'PNG', x, 0, scaledWidth, pdfHeight);
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
         // Guardar el PDF
         pdf.save('especificacion-producto.pdf');
+
+        // Remover la clase no-border después de generar el PDF
+        formContainer.classList.remove('no-border');
     });
 });
-
 
     function cargarDatosEspecificacion(id) {
         $.ajax({
