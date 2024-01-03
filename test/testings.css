@@ -15,6 +15,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 500px;
     margin-right: 10px;
+    position: relative;
 }
 
 .content, #content, #additionalContent, #mainContainer, #additionalContainer, .form-container, .footer-section, th, td, tr, thead tr {
@@ -220,9 +221,12 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
-    transform-origin: 50% 50%;
-    font-size: 80px;
-    color: rgba(0, 0, 0, 0.2);
+    transform-origin: center center;
+    font-size: 80px; /* Ajusta este valor según sea necesario */
+    color: rgba(0, 0, 0, 0.2); /* Semitransparente */
     pointer-events: none;
     z-index: 9999;
+    width: 100%; /* Asegúrate de que abarque todo el ancho del contenedor */
+    text-align: center; /* Centra el texto horizontalmente */
+    white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
 }
