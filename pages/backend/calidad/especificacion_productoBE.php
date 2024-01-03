@@ -132,16 +132,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fechaEdicionDateTime = new DateTime($fechaEdicion);
                 $fechaEdicionDateTime->modify("+$vigencia years");
                 $fechaExpiracion = $fechaEdicionDateTime->format('Y-m-d');
-                $query_especificacion="INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia ) VALUES (?, ?, ?, ?, ?, ?)";
+                $editor = limpiarDato($_POST['usuario_editor']);
+                $revisor = limpiarDato($_POST['usuario_revisor']);
+                $aprobador = limpiarDato($_POST['usuario_aprobador']);
+                $query_especificacion="INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia, creado_por, revisado_por, aprobado_por ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt2 = mysqli_prepare($link, $query_especificacion);
                 if ($stmt2) {
-                    mysqli_stmt_bind_param($stmt2, "issssi", $idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia);
+                    mysqli_stmt_bind_param($stmt2, "issssisss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador);
                     $crea_especificacion=mysqli_stmt_execute($stmt2);
                     $idEspecificacion = mysqli_insert_id($link); // ID de la especificación insertada
                     //in trazabilidad
                         $resultado = $crea_especificacion ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
                         $error = $resultado ? null : "Error al ejecutar la consulta: " . mysqli_stmt_error($stmtAnalisisFQ);
-                        registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea especificación', 'calidad_especificacion_productos',  $idEspecificacion, $query_especificacion, [$idProducto, $numeroDocumentoFormateado, $fechaEdicion, $version, $fechaExpiracion, $vigencia], $resultado, $error);
+                        registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'CALIDAD - crea especificación', 'calidad_especificacion_productos',  $idEspecificacion, $query_especificacion, [$idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador], $resultado, $error);
                     // out trazabidad
 
                     if ($crea_especificacion) {
