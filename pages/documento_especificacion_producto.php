@@ -228,6 +228,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
                 if (analisisFQ.length > 0) {
                     mostrarAnalisisFQ(analisisFQ);
+                } else {
+                    // Si no hay datos, oculta la sección del análisis FQ
+                     $('#content').hide();
+
                 }
 
                 let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
