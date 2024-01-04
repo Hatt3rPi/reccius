@@ -1,225 +1,83 @@
-<script>
-    function calcularCantidadDePaginas() {
-            const alturaMaximaPorPagina = 232; // Altura máxima permitida por página en pt
-            const seccionesTabla = document.querySelectorAll('#content .table-section');
-            let alturaTotalSecciones = 0;
+<?php
+session_start();
+require_once "/home/customw2/conexiones/config_reccius.php";
+include "../email/envia_correoBE.php"; // Asegúrate de que esta ruta es correcta
 
-            // Sumar la altura de todas las secciones de la tabla
-            seccionesTabla.forEach(seccion => {
-                alturaTotalSecciones += seccion.scrollHeight;
-            });
-
-            // Convertir la altura de px a pt
-            const alturaTotalSeccionesPt = alturaTotalSecciones / 1.333;
-
-            // Calcular la cantidad de páginas necesarias
-            const cantidadDePaginas = Math.ceil(alturaTotalSeccionesPt / alturaMaximaPorPagina);
-            console.log(cantidadDePaginas);
-            return cantidadDePaginas;
-        }
-
-        function actualizarIds(elemento, sufijo) {
-    if (elemento.id) {
-        elemento.id = `${elemento.id}-${sufijo}`;
-    }
-    elemento.querySelectorAll('*[id]').forEach((el) => {
-        el.id = `${el.id}-${sufijo}`;
-    });
+function limpiarDato($dato) {
+    $dato = trim($dato);
+    $dato = stripslashes($dato);
+    $dato = htmlspecialchars($dato);
+    return $dato;
 }
 
-function dividirContenidoEnPaginas() {
-    let cantidadDePaginas = calcularCantidadDePaginas();
-    let contenedorOriginal = document.getElementById('form-container');
-    let seccionesTabla = Array.from(document.querySelectorAll('#content .table-section'));
-    let paginas = [];
-    let paginaActual = contenedorOriginal;
-    let nuevaPagina;
-
-    // Clonar la página original y preparar las páginas adicionales
-    for (let i = 1; i < cantidadDePaginas; i++) {
-        nuevaPagina = contenedorOriginal.cloneNode(true);
-        actualizarIds(nuevaPagina, i);
-        nuevaPagina.querySelector('#content').innerHTML = '';
-        paginas.push(nuevaPagina);
-    }
-
-    // Distribuir secciones entre las páginas
-    seccionesTabla.forEach((seccion, indiceSeccion) => {
-        let alturaSeccion = seccion.scrollHeight / 1.333; // Convertir la altura de px a pt
-
-        if (paginaActual.scrollHeight + alturaSeccion > alturaMaximaPorPagina) {
-            // Agregar la página actual a la lista de páginas
-            paginas.unshift(paginaActual);
-            
-            // Crear una nueva página para el contenido adicional
-            nuevaPagina = contenedorOriginal.cloneNode(true);
-            actualizarIds(nuevaPagina, paginas.length);
-            nuevaPagina.querySelector('#content').innerHTML = '';
-            paginaActual = nuevaPagina;
-        }
-
-        // Actualizar los IDs de la sección y sus hijos antes de moverlos
-        let clonSeccion = seccion.cloneNode(true);
-        actualizarIds(clonSeccion, paginas.length + 1);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['nombreUsuario'], $_POST['correoElectronico'], $_POST['usuario'], $_POST['rol'])) {
         
-        // Mover la sección a la nueva página
-        paginaActual.querySelector('#content').appendChild(clonSeccion);
-    });
-
-    // Agregar la última página procesada a la lista de páginas
-    if (paginaActual !== contenedorOriginal) {
-        paginas.unshift(paginaActual);
-    }
-
-    // Añadir nuevas páginas al DOM y remover el contenido original
-    paginas.reverse().forEach((pagina, index) => {
-        if (index > 0) { // Evitar agregar la página original ya que ya está en el DOM
-            document.body.appendChild(pagina);
+        $nombreUsuario = limpiarDato($_POST['nombreUsuario']);
+        $correoElectronico = limpiarDato($_POST['correoElectronico']);
+        $usuario = limpiarDato($_POST['usuario']);
+        $rol = limpiarDato($_POST['rol']);
+        if (!$link) {
+            die("Conexión fallida: " . mysqli_connect_error());
         }
-    });
 
-    // Eliminar el contenedor original si se crearon nuevas páginas
-    if (paginas.length > 1) {
-        contenedorOriginal.remove();
+        $stmt = mysqli_prepare($link, "SELECT id FROM usuarios WHERE usuario = ?");
+        mysqli_stmt_bind_param($stmt, "s", $usuario);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
+
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            echo "Error: El usuario ya existe.";
+        } else {
+            $query="INSERT INTO usuarios (nombre, correo, usuario, rol_id) VALUES (?, ?, ?, ?)";
+            $variables=[$nombreUsuario, $correoElectronico, $usuario, $rol];
+            $insert = mysqli_prepare($link, $query);
+            mysqli_stmt_bind_param($insert, "ssss", $nombreUsuario, $correoElectronico, $usuario, $rol);
+            
+            if (mysqli_stmt_execute($insert)) {
+                $last_id = mysqli_insert_id($link);
+                //in trazabilidad
+                    $result = mysqli_stmt_get_result($insert);
+                    $resultadoArray = mysqli_fetch_assoc($result);
+                    $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
+                    $error = mysqli_stmt_error($insert) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($insert) : null;
+                    try{
+                    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'crear_usuario', 'usuarios', mysqli_insert_id($link), $query, $variables, $resultado, $error);
+                    } catch (Exception $e) {
+                        die("Error: " . $e->getMessage());
+                    }
+                // out trazabidad
+                $token = bin2hex(random_bytes(32));
+
+                $insertToken = mysqli_prepare($link, "INSERT INTO tokens_reset (usuario_id, token, fecha_expiracion) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 1 HOUR))");
+                mysqli_stmt_bind_param($insertToken, "is", $last_id, $token);
+                mysqli_stmt_execute($insertToken);
+                mysqli_stmt_close($insertToken);
+
+                $enlaceReset = 'https://customware.cl/reccius/reset_password.php?token=' . $token;
+                $asunto = 'Restablecer tu contraseña';
+                $cuerpo = 'Por favor, haz clic en este enlace para restablecer tu contraseña: ' . $enlaceReset;
+
+                if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
+                    echo 'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.';
+                    header("Location: ../../index.php");
+                    exit();
+                } else {
+                    echo 'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.';
+                    header("Location: ../../index.php");
+                    exit();
+                }
+            } else {
+                echo "Error al crear usuario: " . mysqli_error($link);
+            }
+        }
+
+        mysqli_stmt_close($stmt);
+        mysqli_close($link);
+    } else {
+        echo "Todos los campos son requeridos";
     }
+} else {
+    echo "Método no permitido";
 }
-
-
-    function clonarConEstilos(elemento) {
-        let clon = elemento.cloneNode(true);
-        clon.style.cssText = elemento.style.cssText; // Copia estilos en línea
-        return clon;
-    }
-    function cargarDatosEspecificacion(id) {
-        $.ajax({
-            url: './backend/calidad/documento_especificacion_productoBE.php',
-            type: 'GET',
-            data: { id: id },
-            success: function (response) {
-                procesarDatosEspecificacion(response);
-
-            },
-            error: function (xhr, status, error) {
-                console.error("Error en la solicitud: ", status, error);
-            }
-        });
-    }
-
-    // Cargar datos y procesarlos
-    function cargarDatosEspecificacion(id) {
-        $.ajax({
-            url: './backend/calidad/documento_especificacion_productoBE.php',
-            type: 'GET',
-            data: { id: id },
-            success: procesarDatosEspecificacion,
-            error: function(xhr, status, error) {
-                console.error("Error en la solicitud: ", status, error);
-            }
-        });
-    }
-
-    // Procesa los datos recibidos del backend
-    function procesarDatosEspecificacion(response) {
-        // Asegúrate de que la respuesta es válida
-        if (!response || !response.productos || !Array.isArray(response.productos)) {
-            console.error('Los datos recibidos no son válidos:', response);
-            return;
-        }
-        // Procesa y muestra los datos
-        response.productos.forEach(poblarYDeshabilitarCamposProducto);
-        dividirContenidoEnPaginas();
-    }
-
-    function poblarYDeshabilitarCamposProducto(producto) {
-                if (producto) {
-                    // Usando .text() para elementos h2, h3 y p
-                    $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
-                    $('#producto').text(producto.nombre_producto);
-                    $('#concentracion').text(producto.concentracion);
-                    $('#formato').text(producto.formato);
-                    $('#documento').text(producto.documento_producto);
-                    $('#elaboradoPor').text(producto.elaborado_por);
-
-                    let especificacion = Object.values(producto.especificaciones)[0];
-                    if (especificacion) {
-                        $('#fechaEdicion').text(especificacion.fecha_edicion);
-                        $('#version').text(especificacion.version);
-                        $('#periodosVigencia').text(especificacion.vigencia);
-                        $('#creadoPor').text(especificacion.creado_por || 'No disponible');
-                        $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
-                        $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
-
-                        // Actualizar fechas de revisión y aprobación
-                        $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                        $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                        $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
-
-                    }
-                }
-            }
-
-            function mostrarAnalisisFQ(analisis) {
-                // Verifica si hay datos para el análisis FQ
-                if (analisis.length > 0) {
-                    // Si hay datos, muestra la tabla y procesa los datos
-                    if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-                        $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
-                    } else {
-                        $('#analisisFQ').DataTable({
-                            data: analisis,
-                            columns: [
-                                { title: 'Análisis', data: 'descripcion_analisis' },
-                                { title: 'Metodología', data: 'metodologia' },
-                                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-                            ],
-                            paging: false,
-                            info: false,
-                            searching: false,
-                            lengthChange: false,
-                            language: {
-                                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                            }
-                        });
-                    }
-                    // Muestra la sección del análisis FQ
-                    $('#content').show();
-                } else {
-                    // Si no hay datos, oculta la sección del análisis FQ
-                    $('#content').hide();
-                }
-            }
-            function mostrarAnalisisMB(analisis) {
-                // Verifica si hay datos para el análisis microbiológico
-                if (analisis.length > 0) {
-                    // Si hay datos, muestra la tabla y procesa los datos
-                    if ($.fn.DataTable.isDataTable('#analisisMB')) {
-                        $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
-                    } else {
-                        $('#analisisMB').DataTable({
-                            data: analisis,
-                            columns: [
-                                { title: 'Análisis', data: 'descripcion_analisis' },
-                                { title: 'Metodología', data: 'metodologia' },
-                                { title: 'Criterio aceptación', data: 'criterios_aceptacion' }
-                            ],
-                            paging: false,
-                            info: false,
-                            searching: false,
-                            lengthChange: false,
-                            language: {
-                                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                            }
-                        });
-                    }
-                    // Muestra la sección del análisis microbiológico
-                    $('#additionalContent').show();
-                } else {
-                    // Si no hay datos, oculta la sección del análisis microbiológico
-                    $('#additionalContent').hide();
-                }
-            }
-    // Carga los datos cuando la página está lista
-    window.onload = function() {
-        cargarDatosEspecificacion(id); // Reemplaza con el ID real
-    };
-</script>
+?>
