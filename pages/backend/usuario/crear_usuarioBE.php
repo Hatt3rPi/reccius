@@ -59,41 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $cuerpo = 'Por favor, haz clic en este enlace para restablecer tu contraseña: ' . $enlaceReset;
 
                 if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
-                    if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
-                        // Imprime el script de JavaScript para mostrar la alerta y redirigir
-                        echo "<style>
-                        .popup{
-                            position:fixed;
-                            width:100vw;
-                            heigth:100vh;
-                            display:flex;
-                            align-items: center;
-                            justify-content: center;
-                            
-                        }
-                        .popup__card{
-                            width:100px;
-                            heigth:100px;
-                            border: 1px solid black;
-                            
-                        }
-                        .popup__header{
-    
-                        }
-                        </style> <div class= "popup" >
-                        <article class= "popup__card">
-                            <header class= "popup__header">
-                            titulo
-                            <button> cerrar</button>
-                            </header>
-                            <main>
-                                <button>
-                                    ok                
-                                </button>
-                            </main>
-                        </article>
-                    </div>";
-                    } else {
+                    echo 'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.';
+                    header("Location: ../../index.php");
+                    exit();
+                } else {
                     echo 'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.';
                     header("Location: ../../index.php");
                     exit();
