@@ -186,6 +186,7 @@ function calcularFechaExpiracion($fechaInicio, $añosVigencia) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'TEST',  1, '', $_POST, '', '');
     $respuesta = procesarFormulario($link);
     echo json_encode($respuesta);
 } else {
