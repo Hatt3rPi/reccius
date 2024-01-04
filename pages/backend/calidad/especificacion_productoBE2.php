@@ -140,8 +140,8 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
     $error = $exito ? null : mysqli_error($link);
 
     if ($exito) {
-        insertarAnalisis($link, $idEspecificacion, 'FQ', $_POST['analisisFQ']);
-        insertarAnalisis($link, $idEspecificacion, 'MB', $_POST['analisisMB']);
+        insertarAnalisis($link, $idEspecificacion, 'analisis_FQ', $_POST['analisisFQ']);
+        insertarAnalisis($link, $idEspecificacion, 'analisis_MB', $_POST['analisisMB']);
     }
 
     return ['exito' => $exito, 'id' => $idEspecificacion, 'query' => $queryEspecificacion, 'params' => $params, 'error' => $error];

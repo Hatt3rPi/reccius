@@ -270,11 +270,11 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     if (id === null) { // Creación de una nueva especificación
         $(botonAgregar).show();
     } else { // Edición de una especificación existente
-        datosAnalisis.forEach(function(analisis) {
+        datosAnalisis.forEach(function(analisis, index) {
             var fila = [
-                analisis.descripcion_analisis,
-                analisis.metodologia,
-                analisis.criterios_aceptacion,
+                '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][descripcion_analisis]" value="' + analisis.descripcion_analisis + '" required>',
+                '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][metodologia]" value="' + analisis.metodologia + '" required>',
+                '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + index + '][criterio]" required>' + analisis.criterios_aceptacion + '</textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
             tabla.row.add(fila).draw(false);
