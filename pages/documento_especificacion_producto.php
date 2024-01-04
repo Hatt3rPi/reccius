@@ -268,25 +268,67 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             }
         }
     }
-    function toggleVisibility(containerId, isVisible) {
-        toggleVisibility('content', analisis.length > 0);
-    var container = document.getElementById(containerId);
-    if (isVisible) {
-        container.classList.remove('hidden');
-    } else {
-        container.classList.add('hidden');
-    }
-}
     function mostrarAnalisisFQ(analisis) {
-        toggleVisibility('additionalContent', analisis.length > 0);
-    var content = document.getElementById('content'); // Contenedor de la sección de análisis FQ
-    if (analisis && analisis.length > 0) {
-        if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-            $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
-        } else {
-            $('#analisisFQ').DataTable({
+        // Verifica si hay datos para el análisis FQ
+        if (analisis.length > 0) {
+            // Si hay datos, muestra la tabla y procesa los datos
+            if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+            } else {
+                $('#analisisFQ').DataTable({
                 data: analisis,
-                columns: [
+                    columns: [
+                        { 
+                            title: 'Análisis', 
+                            data: 'descripcion_analisis',
+                            width: '170px',
+                            createdCell: function(td) {
+                                $(td).css('font-weight', 'bold');
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
+                            }
+                        },
+                        { 
+                            title: 'Metodología', 
+                            data: 'metodologia',
+                            width: '106px',
+                            createdCell: function(td) {
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
+                            }
+                        },
+                        { 
+                            title: 'Criterio aceptación', 
+                            data: 'criterios_aceptacion',
+                            width: '404px'
+                        }
+                    ],
+                    paging: false,
+                    info: false,
+                    searching: false,
+                    lengthChange: false,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                    }
+                });
+            }
+            // Muestra la sección del análisis FQ
+            $('#content').show();
+        } else {
+            // Si no hay datos, oculta la sección del análisis FQ
+            $('#content').hide();
+        }
+    }
+    function mostrarAnalisisMB(analisis) {
+        // Verifica si hay datos para el análisis microbiológico
+        if (analisis.length > 0) {
+            // Si hay datos, muestra la tabla y procesa los datos
+            if ($.fn.DataTable.isDataTable('#analisisMB')) {
+                $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+            } else {
+                $('#analisisMB').DataTable({
+                    data: analisis,
+                    columns: [
                     { 
                         title: 'Análisis', 
                         data: 'descripcion_analisis',
@@ -313,69 +355,21 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     }
                 ],
                 paging: false,
-                info: false,
-                searching: false,
-                lengthChange: false,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                }
-            });
-        }
-        content.style.display = 'block'; // Muestra la sección del análisis FQ
-    } else {
-        content.style.display = 'none'; // Oculta la sección del análisis FQ
-    }
-}
-
-function mostrarAnalisisMB(analisis) {
-    var additionalContent = document.getElementById('additionalContent'); // Contenedor de la sección de análisis MB
-    if (analisis && analisis.length > 0) {
-        if ($.fn.DataTable.isDataTable('#analisisMB')) {
-            $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
-        } else {
-            $('#analisisMB').DataTable({
-                data: analisis,
-                columns: [
-                    { 
-                        title: 'Análisis', 
-                        data: 'descripcion_analisis',
-                        width: '170px',
-                        createdCell: function(td) {
-                            $(td).css('font-weight', 'bold');
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    { 
-                        title: 'Metodología', 
-                        data: 'metodologia',
-                        width: '106px',
-                        createdCell: function(td) {
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    { 
-                        title: 'Criterio aceptación', 
-                        data: 'criterios_aceptacion',
-                        width: '404px'
+                    info: false,
+                    searching: false,
+                    lengthChange: false,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     }
-                ],
-                paging: false,
-                info: false,
-                searching: false,
-                lengthChange: false,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                }
-            });
+                });
+            }
+            // Muestra la sección del análisis microbiológico
+            $('#additionalContent').show();
+        } else {
+            // Si no hay datos, oculta la sección del análisis microbiológico
+            $('#additionalContent').hide();
         }
-        additionalContent.style.display = 'block'; // Muestra la sección del análisis microbiológico
-    } else {
-        additionalContent.style.display = 'none'; // Oculta la sección del análisis microbiológico
     }
-}
-
     window.onload = function () {
         // Suponiendo que tengas un ID de producto para cargar
         cargarDatosEspecificacion(id);
