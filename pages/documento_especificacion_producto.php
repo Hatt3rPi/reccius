@@ -270,6 +270,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     }
     function mostrarAnalisisFQ(analisis) {
         // Verifica si hay datos para el análisis FQ
+        console.log(analisis)
         if (analisis.length > 0) {
             // Si hay datos, muestra la tabla y procesa los datos
             if ($.fn.DataTable.isDataTable('#analisisFQ')) {
