@@ -274,7 +274,7 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
             var fila = [
                 '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][descripcion_analisis]" value="' + analisis.descripcion_analisis + '" readonly>',
                 '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][metodologia]" value="' + analisis.metodologia + '" readonly>',
-                '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + index + '][criterio]" required>' + analisis.criterios_aceptacion + '</readonly>',
+                '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + index + '][criterio]" readonly>' + analisis.criterios_aceptacion + '</textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
             tabla.row.add(fila).draw(false);
