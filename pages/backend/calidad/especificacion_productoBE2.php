@@ -33,7 +33,7 @@ function actualizarEstadoEspecificacion($link, $idEspecificacion) {
     $nuevoEstado = 'Especificación obsoleta';
     $query = "UPDATE calidad_especificacion_productos SET estado = 'Especificación obsoleta' WHERE id = ?";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "i", $nuevoEstado, $idEspecificacion);
+    mysqli_stmt_bind_param($stmt, "i", $idEspecificacion);
 
     $exito = mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
