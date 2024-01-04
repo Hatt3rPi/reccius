@@ -71,9 +71,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Mostrar la respuesta como una alerta
                     alert(response);
                 },
-                error: function(){
-                    // Mostrar un mensaje en caso de error en la solicitud
-                    alert("Error al procesar la solicitud.");
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert("Error al procesar la solicitud: " + textStatus + ", " + errorThrown);
                 }
             });
         });
