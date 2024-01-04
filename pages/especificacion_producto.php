@@ -223,6 +223,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
+                <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
     </div>
@@ -664,6 +665,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
     let especificacion = Object.values(producto.especificaciones)[0];
     if (especificacion) {
         // Suponiendo que 'fecha_expiracion', 'version', y 'vigencia' están en la especificación
+        $('#id_especificacion').val(especificacion.id);
         $('#fechaEdicion').val(especificacion.fecha_edicion).prop('readonly', true);
         $('input[name="version"]').val(especificacion.version).prop('readonly', true); // Asegúrate de que 'version' exista en tus datos
         $('#periodosVigencia').val(especificacion.vigencia).prop('readonly', true); // Asegúrate de que 'vigencia' exista en tus datos

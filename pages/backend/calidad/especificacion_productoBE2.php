@@ -44,7 +44,10 @@ function procesarFormulario($link) {
             }
             $idProducto = $resultadoProducto['id'];
         }
-
+        if ($estaEditando) {
+            $idEspecificacion = limpiarDato($_POST['id_especificacion']);
+            actualizarEstadoEspecificacion($link, $idEspecificacion);
+        }
         $resultadoEspecificacion = insertarEspecificacionYAnalisis($link, $idProducto);
         if (!$resultadoEspecificacion['exito']) {
             throw new Exception("Error al insertar especificación y análisis: " . $resultadoEspecificacion['error']);
@@ -184,9 +187,31 @@ function calcularFechaExpiracion($fechaInicio, $añosVigencia) {
     $fecha->modify("+$añosVigencia years");
     return $fecha->format('Y-m-d');
 }
+function actualizarEstadoEspecificacion($link, $idEspecificacion) {
+    $nuevoEstado = 'Especificación obsoleta';
+    $query = "UPDATE calidad_especificacion_productos SET estado = ? WHERE id = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, "si", $nuevoEstado, $idEspecificacion);
 
+    $exito = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    registrarTrazabilidad(
+        $_SESSION['usuario'], 
+        $_SERVER['PHP_SELF'], 
+        'Inserción de especificación y análisis', 
+        '4. versión anterior pasa a obsoleta', 
+        $idEspecificacion, 
+        $query, 
+        [$nuevoEstado, $idEspecificacion], 
+        $exito ? 1 : 0, 
+        $exito ? null : mysqli_error($link)
+    );
+    if (!$exito) {
+        throw new Exception("Error al actualizar el estado de la especificación: " . mysqli_error($link));
+    }
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'TEST',  1, '', $_POST, '', '');
+    //registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'TEST',  1, '', $_POST, '', '');
     $respuesta = procesarFormulario($link);
     echo json_encode($respuesta);
 } else {
