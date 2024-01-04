@@ -237,6 +237,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
                 if (analisisMB.length > 0) {
                     mostrarAnalisisMB(analisisMB);
+                } else {
+                    // Si no hay datos, oculta la sección del análisis FQ
+                     $('#additionalContent').hide();
+
                 }
             }
         });
