@@ -222,7 +222,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="actions-container">
                 <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
-                <input type="text" name="id_producto" style="display: none;">
+                <input type="text" id="id_producto" name="id_producto" style="display: none;">
             </div>
         </form>
     </div>
