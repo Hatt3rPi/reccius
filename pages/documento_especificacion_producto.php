@@ -269,6 +269,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         }
     }
     function mostrarAnalisisFQ(analisis) {
+        var content = $('#content'); // Contenedor de la sección de análisis FQ
         // Verifica si hay datos para el análisis FQ
         if (analisis.length > 0) {
             // Si hay datos, muestra la tabla y procesa los datos
@@ -320,6 +321,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         }
     }
     function mostrarAnalisisMB(analisis) {
+        var additionalContent = $('#additionalContent'); // Contenedor de la sección de análisis MB
         // Verifica si hay datos para el análisis microbiológico
         if (analisis.length > 0) {
             // Si hay datos, muestra la tabla y procesa los datos
