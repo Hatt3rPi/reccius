@@ -57,12 +57,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
     </div>
     <script>
-        document.getElementById('correoElectronico').addEventListener('input', function () {
-            var correo = this.value;
-            var usuario = correo.split('@')[0];
-            document.getElementById('usuario').value = usuario;
+    $(document).ready(function(){
+        $("#formCrearUsuario").submit(function(event){
+            event.preventDefault(); // Prevenir el envío estándar del formulario
+
+            var formData = $(this).serialize(); // Obtener los datos del formulario
+
+            $.ajax({
+                type: "POST",
+                url: "../backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
+                data: formData,
+                success: function(response){
+                    // Mostrar la respuesta como una alerta
+                    alert(response);
+                },
+                error: function(){
+                    // Mostrar un mensaje en caso de error en la solicitud
+                    alert("Error al procesar la solicitud.");
+                }
+            });
         });
-    </script>
+    });
+
+    // El otro script que ya tenías
+    document.getElementById('correoElectronico').addEventListener('input', function () {
+        var correo = this.value;
+        var usuario = correo.split('@')[0];
+        document.getElementById('usuario').value = usuario;
+    });
+</script>
+
 </body>
 
 </html>
