@@ -59,11 +59,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $cuerpo = 'Por favor, haz clic en este enlace para restablecer tu contraseña: ' . $enlaceReset;
 
                 if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
-                    echo "<script>alert('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.');</script>";
+                    echo 'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.';
+                    header("Location: ../../index.php");
+                    exit();
                 } else {
-                    echo "<script>alert('Usuario creado, pero hubo un error al enviar el correo de restablecimiento.');</script>";
+                    echo 'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.';
+                    header("Location: ../../index.php");
+                    exit();
                 }
-                
             } else {
                 echo "Error al crear usuario: " . mysqli_error($link);
             }
