@@ -50,7 +50,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     // Si el producto no está en el arreglo, agregarlo
     if (!isset($productos[$producto_id])) {
         $productos[$producto_id] = [
-            'id' => $producto_id,
+            'id_producto' => $producto_id,
             'nombre_producto' => $row['producto'],
             'tipo_producto' => $row['tipo_producto'],
             'concentracion' => $row['concentracion'],
