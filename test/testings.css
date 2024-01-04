@@ -235,3 +235,7 @@ p {
     text-align: center; /* Centra el texto horizontalmente */
     white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
 }
+
+.hidden {
+    display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
+}
