@@ -66,7 +66,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     // Si la especificación no está en el producto, agregarla
     if (!isset($productos[$producto_id]['especificaciones'][$especificacion_id])) {
         $productos[$producto_id]['especificaciones'][$especificacion_id] = [
-            'id' => $especificacion_id,
+            'id_especificacion' => $especificacion_id,
             'estado' => $row['estado'],
             'documento' => $row['documento'],
             'fecha_expiracion' => $row['fecha_expiracion'],

@@ -41,9 +41,9 @@ function actualizarEstadoEspecificacion($link, $idEspecificacion) {
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
         'Inserción de especificación y análisis', 
-        '4. versión anterior pasa a obsoleta', 
+        '4. versión anterior pasa a obsoleta',  
         $idEspecificacion, 
-        $query, 
+        $query,  
         [$idEspecificacion], 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
