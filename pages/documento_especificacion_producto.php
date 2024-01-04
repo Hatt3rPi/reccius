@@ -88,7 +88,7 @@
                 <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;"></p>
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
-                    <div id="table1" class="table-section">
+                    <div class="table-section">
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
                             I. Análisis Generales
                         </div>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div id="additionalContent" class="content">
-                    <div id="table2" class="table-section">
+                    <div class="table-section">
                     <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
                             II. Análisis Microbiológico
@@ -314,10 +314,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 });
             }
             // Muestra la sección del análisis FQ
-            $('#table1').show();
+            $('#content').show();
         } else {
             // Si no hay datos, oculta la sección del análisis FQ
-            $('#table1').hide();
+            $('#content').hide();
         }
     }
     function mostrarAnalisisMB(analisis) {
@@ -366,10 +366,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 });
             }
             // Muestra la sección del análisis microbiológico
-            $('#table2').show();
+            $('#additionalContent').show();
         } else {
             // Si no hay datos, oculta la sección del análisis microbiológico
-            $('#table2').hide();
+            $('#additionalContent').hide();
         }
     }
     window.onload = function () {
