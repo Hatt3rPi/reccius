@@ -6,8 +6,8 @@ body {
 }
 
 #form-container {
-    max-width: 612pt;
-    max-height: 792pt;
+    width: 612pt;
+    height: 792pt;
     padding: 10pt;
     box-sizing: border-box;
     background-color: #FFF;
@@ -34,6 +34,10 @@ body {
     background-color: #FFF;
 }
 .footer, .additionalfooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     max-height: 276pt;
     overflow: auto;
     display: flex;
