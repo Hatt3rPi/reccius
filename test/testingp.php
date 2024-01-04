@@ -60,15 +60,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if (enviarCorreo($correoElectronico, $nombreUsuario, $asunto, $cuerpo)) {
                     // Imprime el script de JavaScript para mostrar la alerta y redirigir
-                    echo "<script type='text/javascript'>
-                            alert('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.');
-                            window.location.href='../../index.php'; // Redirige con JavaScript
-                          </script>";
+                    echo "<style>
+                    .popup{
+                        position:fixed;
+                        width:100vw;
+                        heigth:100vh;
+                        display:flex;
+                        align-items: center;
+                        justify-content: center;
+                        
+                    }
+                    .popup__card{
+                        width:100px;
+                        heigth:100px;
+                        justify-content: center;
+                        
+                    }
+                    .popup__header{
+                        justify-content: center;
+
+                    }
+                    </style> <div class= "popup" >
+                    <article class= "popup__card">
+                        <header class= "popup__header">
+                        titulo
+                        <button> cerrar</button>
+                        </header>
+                        <main>
+                            <button>
+                                ok                
+                            </button>
+                        </main>
+                    </article>
+                </div>";
                 } else {
                     // Imprime el script de JavaScript para mostrar la alerta de error en el correo
                     echo "<script type='text/javascript'>
                             alert('Usuario creado, pero hubo un error al enviar el correo de restablecimiento.');
-                            window.location.href='../../index.php'; // Opcional: Redirige o maneja el error como prefieras
+                             // Opcional: Redirige o maneja el error como prefieras
                           </script>";
                 }
             } else {
