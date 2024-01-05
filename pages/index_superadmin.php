@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <body>
     <div class="form-container">
-        <h1>Calidad / Listado Especificaciones de Productos</h1>
+        <h1>TRAZABILIDAD / Listado actividad reciente</h1>
             <br>
             <br>
             <h2 class="section-title">Listado Especificaciones de Productos:</h2>
