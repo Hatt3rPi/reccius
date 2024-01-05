@@ -56,27 +56,50 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
         </div>
     </div>
+    <div id="notification" class="notification-container" style="display: none;">
+        <p id="notification-message">Este es un mensaje de notificación.</p>
+    </div>
+
     <script>
     $(document).ready(function(){
-        $("#formCrearUsuario").submit(function(event){
-            event.preventDefault(); // Prevenir el envío estándar del formulario
+    $("#formCrearUsuario").submit(function(event){
+        event.preventDefault(); // Prevenir el envío estándar del formulario
 
-            var formData = $(this).serialize(); // Obtener los datos del formulario
-            
-            $.ajax({
-                type: "POST",
-                url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
-                data: formData,
-                success: function(response){
-                    // Mostrar la respuesta como una alerta
-                    alert(response);
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    alert("Error al procesar la solicitud: " + textStatus + ", " + errorThrown);
-                }
-            });
+        var formData = $(this).serialize(); // Obtener los datos del formulario
+        
+        $.ajax({
+            type: "POST",
+            url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
+            data: formData,
+            success: function(response){
+                // Mostrar la respuesta como una notificación
+                showNotification(response, true);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                // Mostrar un mensaje de error
+                showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
+            }
         });
     });
+});
+
+// Función para mostrar la notificación
+function showNotification(message, isSuccess) {
+    var notification = document.getElementById('notification');
+    var messageElement = document.getElementById('notification-message');
+    messageElement.textContent = message;
+    
+    // Añadir la clase para el estilo de éxito o error
+    notification.className = isSuccess ? 'notification-container success' : 'notification-container';
+    
+    // Mostrar la notificación
+    notification.style.display = 'block';
+    
+    // Ocultar la notificación después de 5 segundos
+    setTimeout(function() {
+        notification.style.display = 'none';
+    }, 5000);
+}
 
     // El otro script que ya tenías
     document.getElementById('correoElectronico').addEventListener('input', function () {
