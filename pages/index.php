@@ -46,7 +46,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <div class="logo-title-container">
                 <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" class="logo"/>
             </div>
+            
             <div class="user-info">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">0</span> <!-- Contador inicializado en 0 -->
+                </div>
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
                 <div class="dropdown">
                     <button class="dropbtn">

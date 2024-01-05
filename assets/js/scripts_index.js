@@ -322,7 +322,20 @@ function botones(id, accion, base) {
     }
 
 }
-
+function obtenNotificaciones() {
+    fetch('../pages/backend/login/notificaciones.php')
+        .then(response => response.json())
+        .then(data => {
+            const notificationCountElement = document.querySelector('.notification-count');
+            if (data.count > 0) {
+                notificationCountElement.textContent = data.count;
+                notificationCountElement.style.display = 'inline'; // Mostrar el contador
+            } else {
+                notificationCountElement.style.display = 'none'; // Ocultar el contador
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
 $(document).ready(function () {
     $('#testeo').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada

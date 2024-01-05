@@ -25,7 +25,7 @@ if (isset($_POST['login'])) {
     $password = escape($_POST['password']);
     
     // Modificación aquí: buscar por usuario o correo
-    $query="SELECT a.usuario, a.contrasena, b.nombre as rol, a.nombre, a.correo, a.foto_perfil FROM usuarios as a LEFT JOIN roles as b ON a.rol_id=b.id WHERE a.usuario = ? OR a.correo = ?";
+    $query="SELECT a.id, a.usuario, a.contrasena, b.nombre as rol, a.nombre, a.correo, a.foto_perfil FROM usuarios as a LEFT JOIN roles as b ON a.rol_id=b.id WHERE a.usuario = ? OR a.correo = ?";
     $variables = [$loginInput, $loginInput]; 
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "ss", $loginInput, $loginInput);
@@ -41,6 +41,7 @@ if (isset($_POST['login'])) {
 
     if ($usuario && password_verify($password, $usuario['contrasena'])) {
         $csrfToken = generateCSRFToken();
+        $_SESSION['id_usuario'] = escape($usuario['id']);
         $_SESSION['usuario'] = escape($usuario['usuario']);
         $_SESSION['rol'] = escape($usuario['rol']);
         $_SESSION['nombre'] = escape($usuario['nombre']);

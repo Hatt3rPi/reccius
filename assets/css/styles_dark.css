@@ -350,3 +350,21 @@ body {
   display: none; /* oculto inicialmente */
   /* Aquí puedes agregar más estilos para el spinner */
 }
+.notifications {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+.notification-count {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  display: inline; /* Por defecto, el contador es visible */
+}
