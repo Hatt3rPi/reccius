@@ -102,9 +102,9 @@ function carga_listadoEspecificacionesProductos() {
         return '<table background-color:#F6F6F6; color:#FFF; cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
             '<tr><td VALIGN=TOP>Acciones</td>' +
                 '<td>' +
-                    '<button title="Revisar Especificación" type="button" id="' + d.id_especificacion + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>' +
-                    '<button title="Generar documento" type="button" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>' +
-                    '<button title="Editar" type="button" id="' + d.id_especificacion + '" name="editar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-edit"></i></button><a> </a>' +
+                    '<button class="accion-btn" title="Revisar Especificación" type="button" id="' + d.id_especificacion + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>' +
+                    '<button class="accion-btn" title="Generar documento" type="button" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>' +
+                    '<button class="accion-btn" title="Editar" type="button" id="' + d.id_especificacion + '" name="editar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-edit"></i></button><a> </a>' +
                 '</td>' +
             '</tr>' +
         '</table>';

@@ -12,9 +12,14 @@ $query = "SELECT
             usuario_ejecutor,
             descripcion_tarea,
             estado,
-            prioridad
-          FROM tareas
-          ORDER BY fecha_ingreso DESC;";
+            CASE prioridad 
+                WHEN '1' THEN 'Alta'
+                WHEN '2' THEN 'Media'
+                WHEN '3' THEN 'Baja'
+                ELSE 'Desconocida'
+            END AS prioridad_detalle
+        FROM tareas
+        ORDER BY fecha_ingreso DESC;";
 
 $result = $link->query($query);
 

@@ -368,3 +368,14 @@ body {
   font-size: 12px;
   display: inline; /* Por defecto, el contador es visible */
 }
+.accion-btn {
+  padding-left: 6px;
+  padding-right: 6px;
+  display: inline-flex; /* Usa flexbox para centrar el ícono */
+  align-items: center; /* Centra verticalmente el ícono */
+  justify-content: center; /* Centra horizontalmente el ícono */
+}
+
+.accion-btn i {
+  margin: 0; /* Elimina cualquier margen del ícono */
+}
