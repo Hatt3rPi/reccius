@@ -98,11 +98,19 @@ function procesarFormulario($link) {
 }
 
 function insertarProducto($link) {
-    $tipoProducto = limpiarDato($_POST['Tipo_Producto']) ?? limpiarDato($_POST['otroTipo_Producto']);
+    if ($_POST['formato'] == 'Otro' && !empty($_POST['otroFormato'])) {
+        insertarOpcionSiNoExiste($link, 'Formato', $_POST['otroFormato']);
+    }
+    if ($_POST['Tipo_Producto'] == 'Otro' && !empty($_POST['otroTipo_Producto'])) {
+        insertarOpcionSiNoExiste($link, 'Tipo_Producto', $_POST['otroTipo_Producto']);
+    }
+    $formato = $_POST['Tipo_Producto'] === 'Otro' ? limpiarDato($_POST['otroTipo_Producto']) : limpiarDato($_POST['Tipo_Producto']);
+    //$tipoProducto = limpiarDato($_POST['Tipo_Producto']) ?? limpiarDato($_POST['otroTipo_Producto']);
     $producto = limpiarDato($_POST['producto']);
     $concentracion = limpiarDato($_POST['concentracion']);
     $tipo_concentracion = limpiarDato($_POST['tipo_concentracion']);
-    $formato = limpiarDato($_POST['formato']) ?? limpiarDato($_POST['otroFormato']);
+    $formato = $_POST['formato'] === 'Otro' ? limpiarDato($_POST['otroFormato']) : limpiarDato($_POST['formato']);
+    //$formato = limpiarDato($_POST['formato']) ?? limpiarDato($_POST['otroFormato']);
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $numeroDocumento = limpiarDato($_POST['documento']);
     $numeroProducto = limpiarDato($_POST['numeroProducto']);
@@ -133,6 +141,7 @@ function insertarProducto($link) {
 }
 
 function insertarEspecificacionYAnalisis($link, $idProducto) {
+    
     $fechaEdicion = limpiarDato($_POST['fechaEdicion']);
     $version = limpiarDato($_POST['version']);
     $vigencia = limpiarDato($_POST['periodosVigencia']);
@@ -176,6 +185,15 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
 
 function insertarAnalisis($link, $idEspecificacion, $tipoAnalisis, $datosAnalisis) {
     foreach ($datosAnalisis as $analisis) {
+        if ($analisis['descripcion_analisis'] == 'Otro' && !empty($analisis['otrodescripcion_analisis']) && $tipoAnalisis=='analisis_FQ') {
+            insertarOpcionSiNoExiste($link, 'AnalisisFQ', $analisis['otrodescripcion_analisis']);
+        }
+        if ($analisis['descripcion_analisis'] == 'Otro' && !empty($analisis['otrodescripcion_analisis']) && $tipoAnalisis=='analisis_MB') {
+            insertarOpcionSiNoExiste($link, 'AnalisisMB', $analisis['otrodescripcion_analisis']);
+        }
+        if ($analisis['metodologia'] == 'Otro' && !empty($analisis['otrometodologia'])) {
+            insertarOpcionSiNoExiste($link, 'metodologia', $analisis['otrometodologia']);
+        }
         $descripcion_analisis = $analisis['descripcion_analisis'] === 'Otro' ? limpiarDato($analisis['otrodescripcion_analisis']) : limpiarDato($analisis['descripcion_analisis']);
         $metodologia = $analisis['metodologia'] === 'Otro' ? limpiarDato($analisis['otrometodologia']) : limpiarDato($analisis['metodologia']);
         $criterios_aceptacion = limpiarDato($analisis['criterio']);
