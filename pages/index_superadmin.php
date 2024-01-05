@@ -52,13 +52,6 @@ function cargaTrazabilidad() {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     },
         "columns": [
-            {
-                "className": 'details-control',
-                "orderable": false,
-                "data": null,
-                "defaultContent": '<i class="fas fa-search-plus"></i>',
-                "width": "5%"
-            },
             { "data": "fecha", "title": "Fecha" }, // Asegúrate de que 'estado' es un campo en tu base de datos.
             { "data": "usuario", "title": "Usuario" },
             { "data": "accion", "title": "Acción" },
