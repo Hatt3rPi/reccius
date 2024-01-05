@@ -77,7 +77,7 @@ button:hover {
     position: fixed;
     bottom: 20px; /* Ubicación en la esquina inferior */
     right: 20px; /* A la derecha */
-    background-color: #c3d3e9; /* Color crema */
+    background-color: #e3e7ec; /* Color crema */
     color: #333; /* Color de texto */
     padding: 20px; /* Aumentar el relleno */
     z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
@@ -85,7 +85,7 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera para profundidad */
     width: 700px; /* Ancho máximo más grande de la notificación */
     font-size: 28px; /* Tamaño de texto más grande */
-    border-left: 5px solid; /* Borde izquierdo sólido, el color se definirá con clases adicionales */
+    border-left: 8px solid; /* Borde izquierdo sólido, el color se definirá con clases adicionales */
 }
 
 .notification-container.success {
@@ -95,3 +95,4 @@ button:hover {
 .notification-container.error {
     border-left-color: #f44336; /* Borde izquierdo para error */
 }
+
