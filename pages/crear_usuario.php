@@ -17,8 +17,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Crear Usuario</title>
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 </head>
 
@@ -58,28 +56,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
         </div>
     </div>
-        <!-- Notificación de Éxito -->
-    <div id="notification-success" class="Message Message--green" style="display: none;">
-    <div class="Message-icon">
-        <i class="fa fa-check"></i>
+    <div id="notification" class="notification-container notify" style="display: none;">
+        <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
-    <div class="Message-body">
-        <p id="notification-success-message">Este es un mensaje de notificación.</p>
-    </div>
-    <button class="Message-close js-messageClose"><i class="fa fa-times"></i></button>
-    </div>
-
-    <!-- Notificación de Error -->
-    <div id="notification-error" class="Message Message--red" style="display: none;">
-    <div class="Message-icon">
-        <i class="fa fa-times"></i>
-    </div>
-    <div class="Message-body">
-        <p id="notification-error-message">Este es un mensaje de notificación.</p>
-    </div>
-    <button class="Message-close js-messageClose"><i class="fa fa-times"></i></button>
-    </div>
-
 
     <script>
     $(document).ready(function(){
@@ -105,32 +84,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 });
 
 // Función para mostrar la notificación
+// Función para mostrar la notificación
 function showNotification(message, isSuccess) {
-    var notificationSuccess = document.getElementById('notification-success');
-    var notificationError = document.getElementById('notification-error');
+    var notification = document.getElementById('notification');
+    var messageElement = document.getElementById('notification-message');
+    messageElement.textContent = message;
     
-    if (isSuccess) {
-        document.getElementById('notification-success-message').textContent = message;
-        notificationSuccess.style.display = 'block';
-        setTimeout(function() {
-            notificationSuccess.style.display = 'none';
-        }, 5000);
-    } else {
-        document.getElementById('notification-error-message').textContent = message;
-        notificationError.style.display = 'block';
-        setTimeout(function() {
-            notificationError.style.display = 'none';
-        }, 5000);
-    }
+    // Añadir la clase para el estilo de éxito o error
+    notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
+    
+    // Mostrar la notificación
+    notification.style.display = 'block';
+    
+    // Ocultar la notificación después de 5 segundos (si deseas que desaparezca automáticamente)
+    setTimeout(function() {
+        $(notification).fadeOut(); // Usar fadeOut de jQuery en lugar de ocultar directamente
+    }, 5000);
 }
 
-// Añade un evento de clic para cerrar la notificación
-document.querySelectorAll('.js-messageClose').forEach(function(button) {
-    button.addEventListener('click', function() {
-        this.parentElement.style.display = 'none';
-    });
+// Este código permite que las notificaciones se desvanezcan al hacer clic en ellas
+$(document).on('click', '.notify', function() {
+    $(this).fadeOut();
 });
 
+    // El otro script que ya tenías
+    document.getElementById('correoElectronico').addEventListener('input', function () {
+        var correo = this.value;
+        var usuario = correo.split('@')[0];
+        document.getElementById('usuario').value = usuario;
+    });
 </script>
 
 </body>
