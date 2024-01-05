@@ -62,10 +62,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             event.preventDefault(); // Prevenir el envío estándar del formulario
 
             var formData = $(this).serialize(); // Obtener los datos del formulario
-
+            
             $.ajax({
                 type: "POST",
-                url: "../backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
+                url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
                 data: formData,
                 success: function(response){
                     // Mostrar la respuesta como una alerta
