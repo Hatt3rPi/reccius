@@ -98,7 +98,7 @@ function showNotification(message, isSuccess) {
     // Ocultar la notificación después de 5 segundos
     setTimeout(function() {
         notification.style.display = 'none';
-    }, 5000);
+    }, 10000);
 }
 
 
