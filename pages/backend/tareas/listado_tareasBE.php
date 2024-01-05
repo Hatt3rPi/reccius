@@ -17,7 +17,7 @@ $query = "SELECT
                 WHEN '2' THEN 'Media'
                 WHEN '3' THEN 'Baja'
                 ELSE 'Desconocida'
-            END AS prioridad_detalle
+            END AS prioridad
         FROM tareas
         ORDER BY fecha_ingreso DESC;";
 
