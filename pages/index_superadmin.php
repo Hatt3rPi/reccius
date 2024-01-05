@@ -17,10 +17,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <body>
     <div class="form-container">
-        <h1>TRAZABILIDAD / Listado actividad reciente</h1>
+        <h1>TRAZABILIDAD</h1>
             <br>
             <br>
-            <h2 class="section-title">Listado Especificaciones de Productos:</h2>
+            <h2 class="section-title">Listado actividad reciente:</h2>
             <div id="contenedor_trazabilidad">
                 <table id="trazabilidad" class="table table-striped table-bordered" style="width:100%">
                     <thead>
