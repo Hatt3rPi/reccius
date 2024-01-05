@@ -50,7 +50,7 @@ function cargaTrazabilidad() {
         "ajax": "./backend/index/index_superadminBE.php",
         "scrollY": "200px",
         "scrollCollapse": true,
-        "paging": false
+        "paging": false,
         language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     },
