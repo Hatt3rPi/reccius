@@ -51,6 +51,7 @@ $(document).ready(function () {
         $('#loading-spinner').show();
         $('#dynamic-content').load('crear_usuario.php', function () {
             // Llamar a la función de inicialización después de cargar el formulario
+            obtenNotificaciones();
             inicializarFormularioCrearUsuario();
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
@@ -64,6 +65,7 @@ $(document).ready(function () {
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
+        obtenNotificaciones();
         $('#dynamic-content').load('asignar_roles.php');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
@@ -75,6 +77,7 @@ $(document).ready(function () {
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
         // Cargar el formulario de configuración dentro del div #dynamic-content
+        obtenNotificaciones();
         $('#dynamic-content').load('modificar_perfil.php');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
@@ -87,7 +90,7 @@ $(document).ready(function () {
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.');
-        
+        obtenNotificaciones();
         $('#dynamic-content').load('especificacion_producto.php?nuevo=true', function () {
             // Llamar a la función de inicialización después de cargar el formulario
             carga_tabla('FQ');
@@ -112,6 +115,7 @@ $(document).ready(function () {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
+                obtenNotificaciones();
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
@@ -126,6 +130,7 @@ $(document).ready(function () {
     $('#preparacion_solicitud').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de configuración dentro del div #dynamic-content
+        obtenNotificaciones();
         $('#testing').load('preparacion_solicitud.php');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
@@ -146,6 +151,7 @@ $(document).ready(function () {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
+                obtenNotificaciones();
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
@@ -166,6 +172,7 @@ $(document).ready(function () {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
+                obtenNotificaciones();
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
@@ -186,6 +193,7 @@ $(document).ready(function () {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
+                obtenNotificaciones();
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
@@ -207,6 +215,7 @@ $(document).ready(function () {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
                 console.log('Listado cargado correctamente cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                obtenNotificaciones();
                 carga_listadoEspecificacionesProductos();
             }
             $('#loading-spinner').hide();
@@ -349,6 +358,7 @@ $(document).ready(function () {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
+                obtenNotificaciones();
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
