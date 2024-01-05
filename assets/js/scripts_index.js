@@ -227,6 +227,7 @@ $(document).ready(function () {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
                 console.log('Listado cargado correctamente cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                obtenNotificaciones();
                 cargaTrazabilidad();
             }
             $('#loading-spinner').hide();
@@ -327,11 +328,11 @@ function obtenNotificaciones() {
         .then(response => response.json())
         .then(data => {
             const notificationCountElement = document.querySelector('.notification-count');
+            contador_notificaciones
             if (data.count > 0) {
-                notificationCountElement.textContent = data.count;
-                notificationCountElement.style.display = 'inline'; // Mostrar el contador
+                $('#contador_notificaciones').text(data.count).show();
             } else {
-                notificationCountElement.style.display = 'none'; // Ocultar el contador
+                $('#contador_notificaciones').text(0).hide();
             }
         })
         .catch(error => console.error('Error:', error));

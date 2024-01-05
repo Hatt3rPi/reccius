@@ -50,7 +50,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <div class="user-info">
                 <div class="notifications">
                     <i class="fas fa-bell"></i>
-                    <span class="notification-count">0</span> <!-- Contador inicializado en 0 -->
+                    <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
                 </div>
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
                 <div class="dropdown">
