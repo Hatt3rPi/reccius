@@ -83,8 +83,8 @@ button:hover {
     z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
     border-radius: 4px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera para profundidad */
-    width: 400px; /* Ancho máximo más grande de la notificación */
-    font-size: 20px; /* Tamaño de texto más grande */
+    width: 700px; /* Ancho máximo más grande de la notificación */
+    font-size: 32px; /* Tamaño de texto más grande */
     border-left: 5px solid; /* Borde izquierdo sólido, el color se definirá con clases adicionales */
 }
 
