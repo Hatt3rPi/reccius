@@ -90,7 +90,7 @@ function showNotification(message, isSuccess) {
     messageElement.textContent = message;
     
     // Añadir la clase para el estilo de éxito o error
-    notification.className = isSuccess ? 'notification-container success' : 'notification-container';
+    notification.className = isSuccess ? 'notification-container success' : 'notification-container error';
     
     // Mostrar la notificación
     notification.style.display = 'block';
@@ -100,6 +100,7 @@ function showNotification(message, isSuccess) {
         notification.style.display = 'none';
     }, 5000);
 }
+
 
     // El otro script que ya tenías
     document.getElementById('correoElectronico').addEventListener('input', function () {
