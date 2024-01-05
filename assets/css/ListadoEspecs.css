@@ -100,8 +100,8 @@ h1, h2.section-title {
     display: inline-flex; /* Usa flexbox para centrar el ícono */
     align-items: center; /* Centra verticalmente el ícono */
     justify-content: center; /* Centra horizontalmente el ícono */
-    width: 16px; /* Ancho fijo del botón */
-    height: 16px; /* Altura fija del botón */
+    /*width: 16px;  Ancho fijo del botón */
+    /*vheight: 16px; Altura fija del botón */
 }
 
 .accion-btn i {
