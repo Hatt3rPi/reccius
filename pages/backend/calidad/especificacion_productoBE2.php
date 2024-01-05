@@ -104,7 +104,7 @@ function insertarProducto($link) {
     if ($_POST['Tipo_Producto'] == 'Otro' && !empty($_POST['otroTipo_Producto'])) {
         insertarOpcionSiNoExiste($link, 'Tipo_Producto', $_POST['otroTipo_Producto']);
     }
-    $formato = $_POST['Tipo_Producto'] === 'Otro' ? limpiarDato($_POST['otroTipo_Producto']) : limpiarDato($_POST['Tipo_Producto']);
+    $tipoProducto = $_POST['Tipo_Producto'] === 'Otro' ? limpiarDato($_POST['otroTipo_Producto']) : limpiarDato($_POST['Tipo_Producto']);
     //$tipoProducto = limpiarDato($_POST['Tipo_Producto']) ?? limpiarDato($_POST['otroTipo_Producto']);
     $producto = limpiarDato($_POST['producto']);
     $concentracion = limpiarDato($_POST['concentracion']);
