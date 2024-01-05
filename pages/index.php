@@ -48,7 +48,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             
             <div class="user-info">
-                <div class="notifications">
+                <div id="notificaciones" name="notificaciones" class="notifications">
                     <i class="fas fa-bell"></i>
                     <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
                 </div>

@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="../assets/css/tu_estilo.css">
+<link rel="stylesheet" href="../assets/css/ListadoEspecs.css">
     <!-- Incluye aquí otros archivos necesarios (jQuery, DataTables CSS, FontAwesome, etc.) -->
 </head>
 <body>
