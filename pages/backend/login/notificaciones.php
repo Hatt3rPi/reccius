@@ -7,7 +7,7 @@ $user = $_SESSION['usuario'];
 
 $query = "SELECT COUNT(*) AS count FROM tareas WHERE estado in ('Activa', 'Vencida') AND usuario_ejecutor = ?";
 $stmt = $link->prepare($query);
-$stmt->bind_param("i", $user);
+$stmt->bind_param("s", $user);
 $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_assoc();
