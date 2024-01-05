@@ -91,3 +91,17 @@ h1, h2.section-title {
         padding: 8px;
     }
 }
+
+.accion-btn {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    display: inline-flex; /* Usa flexbox para centrar el ícono */
+    align-items: center; /* Centra verticalmente el ícono */
+    justify-content: center; /* Centra horizontalmente el ícono */
+  }
+  
+  .accion-btn i {
+    margin: 0; /* Elimina cualquier margen del ícono */
+  }
