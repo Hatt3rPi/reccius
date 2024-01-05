@@ -149,6 +149,6 @@ function fetchUserInfo() {
 }
 
 
-
+    obtenNotificaciones();
     fetchUserInfo();
 </script>
