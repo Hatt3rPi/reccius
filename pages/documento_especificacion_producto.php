@@ -1,3 +1,6 @@
+<?php
+require_once "../../librerias/phpqrcode/qrlib.php";    
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -130,7 +133,7 @@
                         <div class="footer-box">
                             <p id='creadoPor' name='creadoPor' class="bold"></p>
                             <p class="bold">Director de Calidad</p>
-                            <div class="signature">
+                            <div class="signature" id="QRcreador" name="QRcreador">
                                 <!-- acá debe ir el QR -->
                             </div>
                             <p style='text-align: center;'>Firmado digitalmente</p>
@@ -146,7 +149,9 @@
                             <p class="bold">
                                 Jefe de Producción
                                 </p>
-                            <div class="signature"></div>
+                                <div class="signature" id="QRrevisor" name="QRrevisor">
+                                <!-- acá debe ir el QR -->
+                                </div>
                             <p style='text-align: center;' >Firmado digitalmente</p>
                         </div>
                         <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
@@ -159,7 +164,9 @@
                             <p class="bold">
                                 Director Técnico
                                 </p>
-                            <div class="signature"></div>
+                                <div class="signature" id="QRaprobador" name="QRaprobador">
+                                <!-- acá debe ir el QR -->
+                                </div>
                             <p style='text-align: center;' >Firmado digitalmente</p>
                         </div>
                         <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>

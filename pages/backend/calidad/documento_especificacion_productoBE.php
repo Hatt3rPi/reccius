@@ -18,6 +18,18 @@ $query = "SELECT cp.id as id_producto,
             cep.creado_por,
             cep.revisado_por,
             cep.aprobado_por,
+            usrCreado.nombre as usrCreado_nombre,
+            usrCreado.nombre_corto as usrCreado_nombre_corto,
+            usrCreado.ruta_registroPrestadoresSalud as usrCreado_ruta_registroPrestadoresSalud,
+            usrCreado.cargo as usrCreado_cargo,
+            usrRevisado.nombre as usrRevisado_nombre,
+            usrRevisado.nombre_corto as usrRevisado_nombre_corto,
+            usrRevisado.ruta_registroPrestadoresSalud as usrRevisado_ruta_registroPrestadoresSalud,
+            usrRevisado.cargo as usrRevisado_cargo,
+            usrAprobado.nombre as usrAprobado_nombre,
+            usrAprobado.nombre_corto as usrAprobado_nombre_corto,
+            usrAprobado.ruta_registroPrestadoresSalud as usrAprobado_ruta_registroPrestadoresSalud,
+            usrAprobado.cargo as usrAprobado_cargo,
             DATE_FORMAT(cep.fecha_revision, '%d/%m/%Y') as fecha_revision,
             DATE_FORMAT(cep.fecha_aprobacion, '%d/%m/%Y') as fecha_aprobacion,
             DATE_FORMAT(cep.fecha_expiracion, '%d/%m/%Y') as fecha_expiracion,
@@ -31,7 +43,13 @@ $query = "SELECT cp.id as id_producto,
         INNER JOIN calidad_especificacion_productos as cep 
         ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can 
-        ON cep.id_especificacion = can.id_especificacion_producto 
+        ON cep.id_especificacion = can.id_especificacion_producto
+        LEFT JOIN  usuarios as usrCreado
+        ON usrCreado.usuario = cep.creado_por
+        LEFT JOIN usuarios as usrRevisado
+        ON usrRevisado.usuario = cep.revisado_por
+        LEFT JOIN usuarios as usrAprobado
+        ON usrAprobado.usuario = cep.aprobado_por 
         WHERE cep.id_especificacion = ?";
 
 $stmt = mysqli_prepare($link, $query);
@@ -60,22 +78,40 @@ while ($row = mysqli_fetch_assoc($result)) {
         ];
     }
 
+
     // Si la especificación no está en el producto, agregarla
     if (!isset($productos[$producto_id]['especificaciones'][$especificacion_id])) {
         $productos[$producto_id]['especificaciones'][$especificacion_id] = [
             'id' => $especificacion_id,
             'version' => $row['version'],
             'vigencia' => $row['vigencia'],
-            'creado_por' => $row['creado_por'],
-            'revisado_por' => $row['revisado_por'],
-            'aprobado_por' => $row['aprobado_por'],
+            'creado_por' => [
+                'nombre' => $row['usrCreado_nombre'],
+                'nombre_corto' => $row['usrCreado_nombre_corto'],
+                'ruta_registro' => $row['usrCreado_ruta_registroPrestadoresSalud'],
+                'cargo' => $row['usrCreado_cargo']
+            ],
+            'revisado_por' => [
+                'nombre' => $row['usrRevisado_nombre'],
+                'nombre_corto' => $row['usrRevisado_nombre_corto'],
+                'ruta_registro' => $row['usrRevisado_ruta_registroPrestadoresSalud'],
+                'cargo' => $row['usrRevisado_cargo']
+            ],
+            'aprobado_por' => [
+                'nombre' => $row['usrAprobado_nombre'],
+                'nombre_corto' => $row['usrAprobado_nombre_corto'],
+                'ruta_registro' => $row['usrAprobado_ruta_registroPrestadoresSalud'],
+                'cargo' => $row['usrAprobado_cargo']
+            ],
             'fecha_revision' => $row['fecha_revision'],
             'fecha_aprobacion' => $row['fecha_aprobacion'],
             'fecha_expiracion' => $row['fecha_expiracion'],
             'fecha_edicion' => $row['fecha_edicion'],
+            
             'analisis' => []
         ];
     }
+
 
     // Agregar análisis a la especificación
     if ($row['id_analisis']) {
