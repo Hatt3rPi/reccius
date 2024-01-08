@@ -261,7 +261,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             $('#concentracion').text(producto.concentracion);
             $('#formato').text(producto.formato);
             $('#documento').text(producto.documento_producto);
-            $('#elaboradoPor').text(producto.elaborado_por);
+            $('#elaboradoPor').text(producto.creado_por.nombre_corto);
+            $('#supervisadoPor').text(producto.revisado_por.nombre_corto);
+            $('#autorizadoPor').text(producto.aprobado_por.nombre_corto);
             //$('#elaboradoPor').text(producto.creado_por);
 
             let especificacion = Object.values(producto.especificaciones)[0];
@@ -269,13 +271,13 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 $('#fechaEdicion').text(especificacion.fecha_edicion);
                 $('#version').text(especificacion.version);
                 $('#periodosVigencia').text(especificacion.vigencia);
-                $('#creadoPor').text(especificacion.creado_por || 'No disponible');
-                $('#revisadoPor').text(especificacion.revisado_por || 'No disponible');
-                $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
+                $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
+                $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
+                $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
 
                 // Actualizar fechas de revisión y aprobación
                 $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_edicion || 'No disponible'));
-                $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision.fecha_revision || 'No disponible'));
+                $('#fechaRevision').text('Fecha: ' + (especificacion.revisado_por.fecha_revision || 'No disponible'));
                 $('#fechaAprobacion').text('Fecha: ' + (especificacion.aprobado_por.fecha_aprobacion || 'No disponible'));
                 generarMostrarQR(especificacion.creado_por, 'QRcreador');
                 generarMostrarQR(especificacion.revisado_por, 'QRrevisor');
