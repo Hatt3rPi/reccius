@@ -92,22 +92,21 @@ while ($row = mysqli_fetch_assoc($result)) {
                 'cargo' => $row['usrCreado_cargo']
             ],
             'revisado_por' => [
+                'fecha_revision' => $row['fecha_revision'],
                 'nombre' => $row['usrRevisado_nombre'],
                 'nombre_corto' => $row['usrRevisado_nombre_corto'],
                 'ruta_registro' => $row['usrRevisado_ruta_registroPrestadoresSalud'],
                 'cargo' => $row['usrRevisado_cargo']
             ],
             'aprobado_por' => [
+                'fecha_aprobacion' => $row['fecha_aprobacion'],
                 'nombre' => $row['usrAprobado_nombre'],
                 'nombre_corto' => $row['usrAprobado_nombre_corto'],
                 'ruta_registro' => $row['usrAprobado_ruta_registroPrestadoresSalud'],
                 'cargo' => $row['usrAprobado_cargo']
             ],
-            'fecha_revision' => $row['fecha_revision'],
-            'fecha_aprobacion' => $row['fecha_aprobacion'],
             'fecha_expiracion' => $row['fecha_expiracion'],
             'fecha_edicion' => $row['fecha_edicion'],
-            
             'analisis' => []
         ];
     }

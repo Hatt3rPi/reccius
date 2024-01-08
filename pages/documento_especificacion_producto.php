@@ -12,6 +12,7 @@ require_once "../../librerias/phpqrcode/qrlib.php";
         <link rel="stylesheet" href="../test/testings.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        <script src="https://unpkg.com/html5-qrcode" type="text/javascript">
     </head>
 
     <body>
@@ -135,6 +136,8 @@ require_once "../../librerias/phpqrcode/qrlib.php";
                             <p class="bold">Director de Calidad</p>
                             <div class="signature" id="QRcreador" name="QRcreador">
                                 <!-- acá debe ir el QR -->
+                               /* <img id='barcode' src="https://api.qrserver.com/v1/create-qr-code/?data=https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js&amp;size=100x100" alt="" title="HELLO" width="100" height="100" />
+                               */
                             </div>
                             <p style='text-align: center;'>Firmado digitalmente</p>
                         </div>
@@ -276,13 +279,30 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 $('#aprobadoPor').text(especificacion.aprobado_por || 'No disponible');
 
                 // Actualizar fechas de revisión y aprobación
-                $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision || 'No disponible'));
-                $('#fechaAprobacion').text('Fecha: ' + (especificacion.fecha_aprobacion || 'No disponible'));
+                $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_edicion || 'No disponible'));
+                $('#fechaRevision').text('Fecha: ' + (especificacion.fecha_revision.fecha_revision || 'No disponible'));
+                $('#fechaAprobacion').text('Fecha: ' + (especificacion.aprobado_por.fecha_aprobacion || 'No disponible'));
+                generarMostrarQR(especificacion.creado_por, 'QRcreador');
+                generarMostrarQR(especificacion.revisado_por, 'QRrevisor');
+                generarMostrarQR(especificacion.aprobado_por, 'QRaprobador');
+
 
             }
         }
     }
+    function generarMostrarQR(usuario, contenedorQR) {
+    if (usuario && usuario.ruta_registro) {
+        // Genera el código QR
+        var qr = new QRCode(contenedorQR, {
+            text: usuario.ruta_registro,
+            width: 64,
+            height: 64,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    }
+}
     function mostrarAnalisisFQ(analisis) {
         // Verifica si hay datos para el análisis FQ
         console.log(analisis)
