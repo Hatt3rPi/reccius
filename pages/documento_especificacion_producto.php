@@ -43,25 +43,25 @@
                                     <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
                                     <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                    <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center">QF DCA.LSR</td>
+                                    <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 </tr>
                                 <tr>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
                                     <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                    <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center">QF DTS.CPG</td>
+                                    <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 </tr>
                                 <tr>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
                                     <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                    <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center">QF DTL.ISM</td>
+                                    <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 </tr>
                                 <tr>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
                                     <td name="periodosVigencia" id="periodosVigencia"  style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                     <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
-                                    <td style="border: 1px solid rgb(56, 53, 255); text-align: center">1 de 2</td>
+                                    <td style="border: 1px solid rgb(56, 53, 255); text-align: center">1 de 1</td>
                                 </tr>
                             </table>
                         </div>
@@ -261,13 +261,14 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             $('#concentracion').text(producto.concentracion);
             $('#formato').text(producto.formato);
             $('#documento').text(producto.documento_producto);
-            $('#elaboradoPor').text(producto.creado_por.nombre_corto);
-            $('#supervisadoPor').text(producto.revisado_por.nombre_corto);
-            $('#autorizadoPor').text(producto.aprobado_por.nombre_corto);
+
             //$('#elaboradoPor').text(producto.creado_por);
 
             let especificacion = Object.values(producto.especificaciones)[0];
             if (especificacion) {
+                $('#elaboradoPor').text(producto.creado_por.nombre_corto);
+                $('#supervisadoPor').text(producto.revisado_por.nombre_corto);
+                $('#autorizadoPor').text(producto.aprobado_por.nombre_corto);
                 $('#fechaEdicion').text(especificacion.fecha_edicion);
                 $('#version').text(especificacion.version);
                 $('#periodosVigencia').text(especificacion.vigencia);
