@@ -129,10 +129,10 @@
                         <div class="footer-box-title" style="font-size: 8px">Realizado por:</div>
                         <div class="footer-box">
                             <p id='creadoPor' name='creadoPor' class="bold"></p>
-                            <p class="bold">
-                                Director de Calidad
-                                </p>
-                            <div class="signature"></div>
+                            <p class="bold">Director de Calidad</p>
+                            <div class="signature">
+                                <!-- acá debe ir el QR -->
+                            </div>
                             <p style='text-align: center;'>Firmado digitalmente</p>
                         </div>
                         <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
