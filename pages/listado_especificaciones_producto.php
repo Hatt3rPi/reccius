@@ -22,10 +22,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <h2 class="section-title">Listado Especificaciones de Productos:</h2>
             <div class="estado-filtros">
-                <label>Filtrar por:</label>
+                <label>               Filtrar por:</label>
                 <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
-                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
                 <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Revisión')">Pendiente de Revisión</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
                 <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
                 <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
                 <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
@@ -73,7 +73,7 @@ function carga_listadoEspecificacionesProductos() {
                 "orderable": false,
                 "data": null,
                 "defaultContent": '<i class="fas fa-search-plus"></i>',
-                "width": "5%"
+                "width": "20px"
             },
             {
                 "data": "estado",
@@ -92,16 +92,17 @@ function carga_listadoEspecificacionesProductos() {
                             return '<span class="badge badge-warning">Pendiente de Revisión</span>';
                         default:
                             return '<span class="badge">' + data + '</span>';
-                    }
+                    },
+                    "width": "160px"
                 }
             },
-            { "data": "documento", "title": "Documento" },
-            { "data": "version", "title": "Versión" },
+            { "data": "documento", "title": "Documento", "width": "160px" },
+            { "data": "version", "title": "Versión", "width": "65px" },
             { "data": "producto", "title": "Producto" },
             { "data": "tipo_producto", "title": "Tipo producto" },
             { "data": "concentracion", "title": "Concentración" },
             { "data": "formato", "title": "Formato" },
-            { "data": "fecha_expiracion", "title": "Fecha expiración" },
+            { "data": "fecha_expiracion", "title": "Fecha expiración"  },
             {
                     title: 'id_especificacion',
                     data: 'id_especificacion',
