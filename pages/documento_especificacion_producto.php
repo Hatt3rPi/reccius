@@ -282,32 +282,27 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 if (especificacion.fecha_edicion) {
                     document.getElementById('mensaje_creador').style.display = 'block';
                     $('#fecha_Edicion').text('Fecha: ' + especificacion.fecha_edicion);
+                    generarMostrarQR(especificacion.creado_por, 'QRcreador');
                 } else {
                     document.getElementById('mensaje_creador').style.display = 'none';
                     $('#fecha_Edicion').text('Firma Pendiente');
                 }
-
                 if (especificacion.revisado_por.fecha_revision) {
                     document.getElementById('mensaje_revisor').style.display = 'block';
                     $('#fechaRevision').text('Fecha: ' + especificacion.revisado_por.fecha_revision);
+                    generarMostrarQR(especificacion.revisado_por, 'QRrevisor');
                 } else {
                     document.getElementById('mensaje_revisor').style.display = 'none';
                     $('#fechaRevision').text('Firma Pendiente');
                 }
-
                 if (especificacion.aprobado_por.fecha_aprobacion) {
                     document.getElementById('mensaje_aprobador').style.display = 'block';
                     $('#fechaAprobacion').text('Fecha: ' + especificacion.aprobado_por.fecha_aprobacion);
+                    generarMostrarQR(especificacion.aprobado_por, 'QRaprobador');
                 } else {
                     document.getElementById('mensaje_aprobador').style.display = 'none';
                     $('#fechaAprobacion').text('Firma Pendiente');
                 }
-
-                generarMostrarQR(especificacion.creado_por, 'QRcreador');
-                generarMostrarQR(especificacion.revisado_por, 'QRrevisor');
-                generarMostrarQR(especificacion.aprobado_por, 'QRaprobador');
-
-
             }
         }
     }
