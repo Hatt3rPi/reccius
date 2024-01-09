@@ -139,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fechaEdicionDateTime = new DateTime($fechaEdicion);
                 $fechaEdicionDateTime->modify("+$vigencia years");
                 $fechaExpiracion = $fechaEdicionDateTime->format('Y-m-d');
-                $editor = limpiarDato($_POST['usuario_editor']);
+                
                 $editor = limpiarDato($_POST['user_editor']);
                 
                 $revisor = limpiarDato($_POST['usuario_revisor']);
