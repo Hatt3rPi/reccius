@@ -140,6 +140,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fechaEdicionDateTime->modify("+$vigencia years");
                 $fechaExpiracion = $fechaEdicionDateTime->format('Y-m-d');
                 $editor = limpiarDato($_POST['usuario_editor']);
+                $editor = limpiarDato($_POST['user_editor']);
+                
                 $revisor = limpiarDato($_POST['usuario_revisor']);
                 $aprobador = limpiarDato($_POST['usuario_aprobador']);
                 $query_especificacion="INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia, creado_por, revisado_por, aprobado_por ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

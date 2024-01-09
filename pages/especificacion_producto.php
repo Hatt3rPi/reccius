@@ -174,6 +174,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group">
                         <label>Realizado por:</label>
                         <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" style="width: 38.5%" readonly>
+                        <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>"style="display: none;">
+
                     </div>
                 </div>
                 <div class="form-row">
@@ -181,10 +183,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <label>Revisión a cargo de:</label>
                         <select name="usuario_revisor" id="usuario_revisor" class="select-style"  style="width: 38.5%" required>
                             <option>Selecciona el usuario supervisor:</option>
-                            <option value="Inger Sumonte Rodríguez">Inger Sumonte Rodríguez - Director Calidad</option>
-                            <option value="Lynnda Caques Segovia" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
-                            <option value="Catherine Pereira García">Catherine Pereira García - Jefe de Producción</option>
-                            <option value="Luis Sepúlveda Miranda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="isumonte" selected>Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques" >Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                         </select>
                     </div>
                 </div>
@@ -193,10 +195,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <label>Aprobación a cargo de:</label>
                         <select name="usuario_aprobador" id="usuario_aprobador" class="select-style"  style="width: 38.5%" required>
                             <option>Selecciona el usuario aprobador:</option>
-                            <option value="Inger Sumonte Rodríguez">Inger Sumonte Rodríguez - Director Calidad</option>
-                            <option value="Lynnda Caques Segovia">Lynnda Caques Segovia - Coordinador Calidad</option>
-                            <option value="Catherine Pereira García">Catherine Pereira García - Jefe de Producción</option>
-                            <option value="Luis Sepúlveda Miranda" selected>Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques">Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda" selected>Luis Sepúlveda Miranda - Director Técnico</option>
                         </select>
                     </div>
                 </div>
