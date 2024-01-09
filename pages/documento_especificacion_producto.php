@@ -266,9 +266,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
             let especificacion = Object.values(producto.especificaciones)[0];
             if (especificacion) {
-                $('#elaboradoPor').text(producto.creado_por.nombre_corto);
-                $('#supervisadoPor').text(producto.revisado_por.nombre_corto);
-                $('#autorizadoPor').text(producto.aprobado_por.nombre_corto);
+                $('#elaboradoPor').text(especificacion.creado_por.nombre_corto);
+                $('#supervisadoPor').text(especificacion.revisado_por.nombre_corto);
+                $('#autorizadoPor').text(especificacion.aprobado_por.nombre_corto);
                 $('#fechaEdicion').text(especificacion.fecha_edicion);
                 $('#version').text(especificacion.version);
                 $('#periodosVigencia').text(especificacion.vigencia);

@@ -69,7 +69,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             'id' => $producto_id,
             'nombre_producto' => $row['producto'],
             'tipo_producto' => $row['tipo_producto'],
-            'concentracion' => $row['concentracion'],
             'formato' => $row['formato'],
             'documento_producto' => $row['documento_producto'],
             'elaborado_por' => $row['elaborado_por'],
