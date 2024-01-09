@@ -135,6 +135,7 @@ td {
 }
 
 .footer-box {
+    align-items: center;
     display: flex;
     font-size: 8px;
     flex-direction: column;
@@ -145,6 +146,7 @@ td {
     padding-right: 12px;
     border: 1px solid #000;
     height: auto;
+    width: 220px;
 }
 
 .signature {
@@ -155,7 +157,15 @@ td {
     border: 0px dashed #000;
     height: 64px;
     width: 64px;
+    margin: auto; /* Centra el contenedor en el espacio disponible */
 }
+
+.signature img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain; /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
+}
+
 
 .bold, .signature, p {
     margin: 0;
