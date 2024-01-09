@@ -28,11 +28,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <th></th> <!-- Columna vacía para botones o checkboxes -->
                             <th>Estado</th>
                             <th>Documento</th>
+                            <th>Versión</th>
                             <th>Producto</th>
                             <th>Tipo producto</th>
                             <th>Concentración</th>
                             <th>Formato</th>
-                            <th>Producido por</th>
                             <th>Fecha expiración</th>
                         </tr>
                     </thead>
@@ -61,13 +61,32 @@ function carga_listadoEspecificacionesProductos() {
                 "defaultContent": '<i class="fas fa-search-plus"></i>',
                 "width": "5%"
             },
-            { "data": "estado", "title": "Estado" }, // Asegúrate de que 'estado' es un campo en tu base de datos.
+            {
+                "data": "estado",
+                "title": "Estado",
+                "render": function(data, type, row) {
+                    switch (data) {
+                        case 'Vigente':
+                            return '<span class="badge badge-success">Vigente</span>';
+                        case 'Especificación obsoleta':
+                            return '<span class="badge badge-dark">Expirado</span>';
+                        case 'Expirado':
+                            return '<span class="badge badge-dark">Expirado</span>';
+                        case 'Pendiente de Aprobación':
+                            return '<span class="badge badge-warning">Pendiente de Aprobación</span>';
+                        case 'Pendiente de Revisión':
+                            return '<span class="badge badge-warning">Pendiente de Revisión</span>';
+                        default:
+                            return '<span class="badge">' + data + '</span>';
+                    }
+                }
+            },
             { "data": "documento", "title": "Documento" },
+            { "data": "version", "title": "Versión" },
             { "data": "producto", "title": "Producto" },
             { "data": "tipo_producto", "title": "Tipo producto" },
             { "data": "concentracion", "title": "Concentración" },
             { "data": "formato", "title": "Formato" },
-            { "data": "elaborado_por", "title": "Producido por" },
             { "data": "fecha_expiracion", "title": "Fecha expiración" },
             {
                     title: 'id_especificacion',
