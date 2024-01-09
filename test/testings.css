@@ -153,8 +153,8 @@ td {
     align-items: center;
     justify-content: center;
     border: 0px dashed #000;
-    height: 50px;
-    width: 150px;
+    height: 64px;
+    width: 64px;
 }
 
 .bold, .signature, p {
