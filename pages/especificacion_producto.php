@@ -672,7 +672,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
         $('input[name="version"]').val(especificacion.version).prop('readonly', true); // Asegúrate de que 'version' exista en tus datos
         $('#periodosVigencia').val(especificacion.vigencia).prop('readonly', true); // Asegúrate de que 'vigencia' exista en tus datos
         $('#periodosVigencia').val(especificacion.vigencia).prop('readonly', true);
-        $('#usuario_editor').val(especificacion.creado_por).prop('readonly', true);
+        $('#usuario_editor').val(especificacion.nombre).prop('readonly', true);
         $('#usuario_revisor').val(especificacion.revisado_por).prop('readonly', true);
         $('#usuario_aprobador').val(especificacion.aprobado_por).prop('readonly', true);
         

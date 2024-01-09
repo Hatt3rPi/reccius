@@ -22,7 +22,8 @@ $query = "SELECT cp.id as id_producto,
             cep.fecha_edicion,
             cep.version,
             cep.vigencia,
-            cep.creado_por,
+            usrCreado.usuario,
+            usrCreado.nombre,
             cep.revisado_por,
             cep.aprobado_por,
             can.id_analisis,
@@ -34,6 +35,8 @@ $query = "SELECT cp.id as id_producto,
         ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can 
         ON cep.id_especificacion = can.id_especificacion_producto 
+        LEFT JOIN  usuarios as usrCreado
+        ON usrCreado.usuario = cep.creado_por
         WHERE cep.id_especificacion= ?";
 
 $stmt = mysqli_prepare($link, $query);
