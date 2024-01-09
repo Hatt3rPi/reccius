@@ -129,7 +129,7 @@
                         <div class="footer-box-title" style="font-size: 8px">Realizado por:</div>
                         <div class="footer-box">
                             <p id='creadoPor' name='creadoPor' class="bold"></p>
-                            <p class="bold">Director de Calidad</p>
+                            <p id='cargo_creador' name='cargo_creador' class="bold">
                             <div class="signature" id="QRcreador" name="QRcreador">
                                 <!-- acá debe ir el QR -->
                             </div>
@@ -143,7 +143,7 @@
                         <div class="footer-box-title" style="font-size: 8px">Revisado por:</div>
                         <div class="footer-box">
                             <p id='revisadoPor' name='revisadoPor'class="bold"></p>
-                            <p class="bold">
+                            <p id='cargo_revisor' name='cargo_revisor' class="bold">
                                 Jefe de Producción
                                 </p>
                                 <div class="signature" id="QRrevisor" name="QRrevisor">
@@ -158,9 +158,7 @@
                         <div class="footer-box-title" style="font-size: 8px">Aprobado por:</div>
                         <div class="footer-box">
                             <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
-                            <p class="bold">
-                                Director Técnico
-                                </p>
+                            <p id='cargo_aprobador' name='cargo_aprobador' class="bold">
                                 <div class="signature" id="QRaprobador" name="QRaprobador">
                                 <!-- acá debe ir el QR -->
                                 </div>
@@ -266,6 +264,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
             let especificacion = Object.values(producto.especificaciones)[0];
             if (especificacion) {
+                cargo_creador
+                $('#cargo_creador').text(especificacion.creado_por.cargo);
+                $('#cargo_revisor').text(especificacion.revisado_por.cargo);
+                $('#cargo_aprobador').text(especificacion.aprobado_por.cargo);
                 $('#elaboradoPor').text(especificacion.creado_por.nombre_corto);
                 $('#supervisadoPor').text(especificacion.revisado_por.nombre_corto);
                 $('#autorizadoPor').text(especificacion.aprobado_por.nombre_corto);

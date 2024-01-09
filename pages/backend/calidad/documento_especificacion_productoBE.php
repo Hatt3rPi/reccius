@@ -86,21 +86,21 @@ while ($row = mysqli_fetch_assoc($result)) {
             'vigencia' => $row['vigencia'],
             'creado_por' => [
                 'nombre' => $row['usrCreado_nombre'],
-                'nombre_corto' => $row['usrCreado_nombre_corto'],
+                'nombre_corto' => $row['usrCreado_nombre_corto'] ? $row['usrCreado_nombre_corto'] : 'Pendiente',
                 'ruta_registro' => $row['usrCreado_ruta_registroPrestadoresSalud'],
                 'cargo' => $row['usrCreado_cargo']
             ],
             'revisado_por' => [
                 'fecha_revision' => $row['fecha_revision'],
                 'nombre' => $row['usrRevisado_nombre'],
-                'nombre_corto' => $row['usrRevisado_nombre_corto'],
+                'nombre_corto' => $row['usrRevisado_nombre_corto']? $row['usrRevisado_nombre_corto'] : 'Pendiente',
                 'ruta_registro' => $row['usrRevisado_ruta_registroPrestadoresSalud'],
                 'cargo' => $row['usrRevisado_cargo']
             ],
             'aprobado_por' => [
                 'fecha_aprobacion' => $row['fecha_aprobacion'],
                 'nombre' => $row['usrAprobado_nombre'],
-                'nombre_corto' => $row['usrAprobado_nombre_corto'],
+                'nombre_corto' => $row['usrAprobado_nombre_corto']? $row['usrAprobado_nombre_corto'] : 'Pendiente',
                 'ruta_registro' => $row['usrAprobado_ruta_registroPrestadoresSalud'],
                 'cargo' => $row['usrAprobado_cargo']
             ],
