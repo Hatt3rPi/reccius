@@ -96,7 +96,7 @@ function carga_listadoEspecificacionesProductos() {
                     "width": "160px"
                 }
             },
-            { "data": "documento", "title": "Documento", "width": "160px" },
+            { "data": "documento", "title": "Documento", "width": "170px" },
             { "data": "version", "title": "Versión", "width": "65px" },
             { "data": "producto", "title": "Producto" },
             { "data": "tipo_producto", "title": "Tipo producto" },
