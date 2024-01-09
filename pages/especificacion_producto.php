@@ -741,7 +741,8 @@ $('#editarGenerarVersion').click(function() {
     $('#guardar').show();
     $('#editarGenerarVersion').hide();
     $('input[name="fechaEdicion"]').prop('readonly', false).val(new Date().toISOString().split('T')[0]);
-    $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', false);
+    $('#periodosVigencia').prop('disabled', false).prop('required', true);
+
     // Incrementar la versión en 1 y mantenerla no editable
     var versionActual = parseInt($('input[name="version"]').val()) || 0;
     $('input[name="version"]').val(versionActual + 1);
