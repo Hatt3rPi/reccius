@@ -57,7 +57,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-
+    function filtrar_listado(estado) {
+        var table = $('#listadoEspecProductos').DataTable();
+        table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
+    }
 function carga_listadoEspecificacionesProductos() {
     var table = $('#listadoEspecProductos').DataTable({
         "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
@@ -124,10 +127,7 @@ function carga_listadoEspecificacionesProductos() {
             tr.addClass('shown');
         }
     });
-    function filtrar_listado(estado) {
-        var table = $('#listadoEspecProductos').DataTable();
-        table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
-    }
+
     // Función para formatear el contenido expandido
     function format(d) {
         // `d` es el objeto de datos original para la fila
