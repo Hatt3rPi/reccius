@@ -133,7 +133,7 @@
                             <div class="signature" id="QRcreador" name="QRcreador">
                                 <!-- acá debe ir el QR -->
                             </div>
-                            <p style='text-align: center;'>Firmado digitalmente</p>
+                            <p id='mensaje_creador' name='mensaje_creador' style='text-align: center;display: none'>Firmado digitalmente</p>
                         </div>
                         <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
                         <br>
@@ -149,7 +149,7 @@
                                 <div class="signature" id="QRrevisor" name="QRrevisor">
                                 <!-- acá debe ir el QR -->
                                 </div>
-                            <p style='text-align: center;' >Firmado digitalmente</p>
+                                <p id='mensaje_revisor' name='mensaje_revisor' style='text-align: center;display: none'>Firmado digitalmente</p>
                         </div>
                         <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
                     </div>
@@ -162,7 +162,7 @@
                                 <div class="signature" id="QRaprobador" name="QRaprobador">
                                 <!-- acá debe ir el QR -->
                                 </div>
-                            <p style='text-align: center;' >Firmado digitalmente</p>
+                                <p id='mensaje_aprobador' name='mensaje_aprobador' style='text-align: center;display: none'>Firmado digitalmente</p>
                         </div>
                         <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>
                     </div>
@@ -277,11 +277,15 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
                 $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
                 $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
-
+                
                 // Actualizar fechas de revisión y aprobación
                 $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_edicion || 'Firma Pendiente'));
                 $('#fechaRevision').text('Fecha: ' + (especificacion.revisado_por.fecha_revision || 'Firma Pendiente'));
                 $('#fechaAprobacion').text('Fecha: ' + (especificacion.aprobado_por.fecha_aprobacion || 'Firma Pendiente'));
+                document.getElementById('mensaje_creador').style.display = 'block';
+                document.getElementById('mensaje_revisor').style.display = 'block';
+                document.getElementById('mensaje_aprobador').style.display = 'block';
+
                 generarMostrarQR(especificacion.creado_por, 'QRcreador');
                 generarMostrarQR(especificacion.revisado_por, 'QRrevisor');
                 generarMostrarQR(especificacion.aprobado_por, 'QRaprobador');
