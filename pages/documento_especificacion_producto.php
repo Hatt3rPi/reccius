@@ -279,9 +279,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
 
                 // Actualizar fechas de revisión y aprobación
-                $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_edicion || 'No disponible'));
-                $('#fechaRevision').text('Fecha: ' + (especificacion.revisado_por.fecha_revision || 'No disponible'));
-                $('#fechaAprobacion').text('Fecha: ' + (especificacion.aprobado_por.fecha_aprobacion || 'No disponible'));
+                $('#fecha_Edicion').text('Fecha: ' + (especificacion.fecha_edicion || 'Firma Pendiente'));
+                $('#fechaRevision').text('Fecha: ' + (especificacion.revisado_por.fecha_revision || 'Firma Pendiente'));
+                $('#fechaAprobacion').text('Fecha: ' + (especificacion.aprobado_por.fecha_aprobacion || 'Firma Pendiente'));
                 generarMostrarQR(especificacion.creado_por, 'QRcreador');
                 generarMostrarQR(especificacion.revisado_por, 'QRrevisor');
                 generarMostrarQR(especificacion.aprobado_por, 'QRaprobador');
