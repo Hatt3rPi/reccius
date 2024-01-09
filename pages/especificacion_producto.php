@@ -670,14 +670,13 @@ function poblarYDeshabilitarCamposProducto(producto) {
         $('#id_especificacion').val(especificacion.id_especificacion);
         $('#fechaEdicion').val(especificacion.fecha_edicion).prop('readonly', true);
         $('input[name="version"]').val(especificacion.version).prop('readonly', true); // Asegúrate de que 'version' exista en tus datos
-        $('#periodosVigencia').val(especificacion.vigencia).prop('readonly', true); // Asegúrate de que 'vigencia' exista en tus datos
-        $('#periodosVigencia').val(especificacion.vigencia).prop('readonly', true);
+        $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', true); // Asegúrate de que 'vigencia' exista en tus datos
         $('#usuario_editor').val(especificacion.nombre).prop('readonly', true);
         $('#usuario_revisor').val(especificacion.revisado_por).prop('readonly', true);
         $('#usuario_aprobador').val(especificacion.aprobado_por).prop('readonly', true);
         
     }
-    console.log(producto.tipo_producto);
+    //console.log(producto.tipo_producto);
 }
 
 function mostrarAnalisisFQ(analisis) {
@@ -742,7 +741,7 @@ $('#editarGenerarVersion').click(function() {
     $('#guardar').show();
     $('#editarGenerarVersion').hide();
     $('input[name="fechaEdicion"]').prop('readonly', false).val(new Date().toISOString().split('T')[0]);
-    
+    $('#periodosVigencia').val(especificacion.vigencia).prop('disabled', false);
     // Incrementar la versión en 1 y mantenerla no editable
     var versionActual = parseInt($('input[name="version"]').val()) || 0;
     $('input[name="version"]').val(versionActual + 1);
