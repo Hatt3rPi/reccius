@@ -148,7 +148,7 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
     $version = limpiarDato($_POST['version']);
     $vigencia = limpiarDato($_POST['periodosVigencia']);
     $fechaExpiracion = calcularFechaExpiracion($fechaEdicion, $vigencia);
-    $editor = limpiarDato($_POST['usuario_editor']);
+    $editor = limpiarDato($_POST['user_editor']);
     $revisor = limpiarDato($_POST['usuario_revisor']);
     $aprobador = limpiarDato($_POST['usuario_aprobador']);
 

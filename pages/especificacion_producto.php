@@ -786,7 +786,7 @@ function guardar(){
     var datosFormulario = $('#formulario_especificacion').serialize();
     console.log(datosFormulario);
     $.ajax({
-        url: 'backend/calidad/especificacion_productoBE2.php',
+        url: 'backend/calidad/especificacion_productoBE.php',
         type: 'POST',
         data: datosFormulario,
         success: function(data) {
