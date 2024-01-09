@@ -21,6 +21,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <br>
             <h2 class="section-title">Listado Especificaciones de Productos:</h2>
+            <div class="estado-filtros">
+                <button class="estado-filtro badge badge-success" data-estado="Vigente">Vigente</button>
+                <button class="estado-filtro badge badge-dark" data-estado="Especificación obsoleta">Especificación obsoleta</button>
+                <button class="estado-filtro badge badge-dark" data-estado="Expirado">Expirado</button>
+                <button class="estado-filtro badge badge-warning" data-estado="Pendiente de Aprobación">Pendiente de Aprobación</button>
+                <button class="estado-filtro badge badge-warning" data-estado="Pendiente de Revisión">Pendiente de Revisión</button>
+                <button class="estado-filtro badge" data-estado="">Todos</button>
+            </div>
             <div id="contenedor_listadoEspecProductos">
                 <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
                     <thead>

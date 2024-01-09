@@ -216,6 +216,10 @@ $(document).ready(function () {
             } else {
                 console.log('Listado cargado correctamente cargado exitosamente.'); // Confirmar que la carga fue exitosa
                 obtenNotificaciones();
+                $('.estado-filtro').on('click', function() {
+                    var estado = $(this).data('estado');
+                    table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de estado
+                });
                 carga_listadoEspecificacionesProductos();
             }
             $('#loading-spinner').hide();
