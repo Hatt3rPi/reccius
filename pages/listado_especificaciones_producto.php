@@ -78,6 +78,7 @@ function carga_listadoEspecificacionesProductos() {
             {
                 "data": "estado",
                 "title": "Estado",
+                "width": "160px",
                 "render": function(data, type, row) {
                     switch (data) {
                         case 'Vigente':
@@ -92,8 +93,7 @@ function carga_listadoEspecificacionesProductos() {
                             return '<span class="badge badge-warning">Pendiente de Revisión</span>';
                         default:
                             return '<span class="badge">' + data + '</span>';
-                    },
-                    "width": "160px"
+                    }  
                 }
             },
             { "data": "documento", "title": "Documento", "width": "170px" },
