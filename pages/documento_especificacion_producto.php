@@ -297,14 +297,18 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         var imgElement = document.getElementById(contenedorQR).querySelector('img');
         if (!imgElement) {
             imgElement = document.createElement('img');
+            imgElement.style.width = '64px';
+            imgElement.style.height = '64px';
             document.getElementById(contenedorQR).appendChild(imgElement);
         }
         imgElement.src = qrApiUrl;
-    } else 
-    {
+    } else {
+        // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
+        var contenedor = document.getElementById(contenedorQR);
         contenedor.textContent = 'Archivo aún no ha sido cargado';
     }
 }
+
 
     function mostrarAnalisisFQ(analisis) {
         // Verifica si hay datos para el análisis FQ
