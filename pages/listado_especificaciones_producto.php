@@ -22,13 +22,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <h2 class="section-title">Listado Especificaciones de Productos:</h2>
             <div class="estado-filtros">
-            <button class="estado-filtro badge badge-success" data-estado="Vigente">Vigente</button>
                 <label>Filtrar por:</label>
-                <button class="estado-filtro badge badge-dark" data-estado="Especificación obsoleta">Especificación obsoleta</button>
-                <button class="estado-filtro badge badge-dark" data-estado="Expirado">Expirado</button>
-                <button class="estado-filtro badge badge-warning" data-estado="Pendiente de Aprobación">Pendiente de Aprobación</button>
-                <button class="estado-filtro badge badge-warning" data-estado="Pendiente de Revisión">Pendiente de Revisión</button>
-                <button class="estado-filtro badge" data-estado="">Todos</button>
+                <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Revisión')">Pendiente de Revisión</button>
+                <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
+                <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
+                <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
             </div>
             <br>
             <br>
@@ -124,10 +124,10 @@ function carga_listadoEspecificacionesProductos() {
             tr.addClass('shown');
         }
     });
-    $('.estado-filtro').on('click', function() {
-                    var estado = $(this).data('estado');
-                    table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de estado
-                });
+    function filtrar_listado(estado) {
+        var table = $('#listadoEspecProductos').DataTable();
+        table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
+    }
     // Función para formatear el contenido expandido
     function format(d) {
         // `d` es el objeto de datos original para la fila
