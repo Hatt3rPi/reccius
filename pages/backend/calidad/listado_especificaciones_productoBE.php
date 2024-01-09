@@ -8,6 +8,7 @@ $query = "SELECT
             cp.id,
             cep.id_especificacion,
             cep.estado, 
+            cep.version,
             cp.documento_ingreso as documento, 
             cp.nombre_producto AS producto, 
             cp.tipo_producto, 
