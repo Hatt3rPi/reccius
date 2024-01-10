@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+fieldset {
+  margin: revert;
+  padding: revert;
+  box-sizing: revert;
+}
 .btn_lateral {
   position: relative;
   margin: 0;
