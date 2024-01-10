@@ -58,6 +58,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div>
                             <label for="fotoPerfil">Foto de Perfil:</label>
                             <input  class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled >
+                            <div id="certificadoExistente">
+                                <!-- Aquí se mostrará el enlace al archivo existente -->
+                            </div>
                         </div>
                 </div>
                 <div class="seccion seccion-deshabilitada">
@@ -92,8 +95,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div>
                             <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
                             <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
+                            <div id="fotoPerfilExistente">
+                                <!-- Aquí se mostrará el enlace al archivo existente -->
+                            </div>
                         </div>
-                                            </div>          
+                </div>          
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">      
                 <button type="submit" name="modificarPerfil">Modificar Perfil</button>
             </form>
@@ -131,7 +137,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 seccion.classList.add('seccion-deshabilitada');
             }
         }
+        function cargarInformacionExistente() {
+            var usuario = "<?php echo $_SESSION['usuario']; ?>";
+            $.ajax({
+                url: './backend/usuario/modifica_perfilFETCH.php',
+                type: 'GET',
+                data: { usuario: usuario },
+                success: function(response) {
+                    $('#nombre').val(usuario.nombre);
+                    $('#nombre_corto').val(usuario.nombre_corto);
+                    $('#cargo').val(usuario.cargo);
+                    $('#nombre').val(usuario.nombre);
+                    if (datosUsuario.fotoPerfil) {
+                        document.getElementById('fotoPerfilExistente').innerHTML = '<img src="../../../assets/uploads/perfiles/' + usuario.foto_perfil + '" alt="Foto de perfil" />';
+                    }
+                    if (datosUsuario.certificado) {
+                        document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '">Ver Certificado</a>';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error en la solicitud: ", status, error);
+                }
+            });
 
+
+        }
 </script>
 
 </body>

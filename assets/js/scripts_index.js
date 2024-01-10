@@ -79,6 +79,7 @@ $(document).ready(function () {
         // Cargar el formulario de configuración dentro del div #dynamic-content
         obtenNotificaciones();
         $('#dynamic-content').load('modificar_perfil.php');
+        cargarInformacionExistente();
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
     });
