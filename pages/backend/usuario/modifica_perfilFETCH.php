@@ -2,7 +2,7 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-$usuario = $_GET['usuario'] ? $_GET['usuario'] : null;
+$usuario = $_SESSION['usuario'] ? $_SESSION['usuario'] : null;
 $query =    "SELECT 
                 id,
                 nombre, 

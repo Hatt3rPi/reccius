@@ -22,16 +22,15 @@ function cargarInformacionExistente() {
     $.ajax({
         url: './backend/usuario/modifica_perfilFETCH.php',
         type: 'GET',
-        data: { usuario: usuario },
         success: function(response) {
             $('#nombre').val(usuario.nombre);
             $('#nombre_corto').val(usuario.nombre_corto);
             $('#cargo').val(usuario.cargo);
             $('#nombre').val(usuario.nombre);
-            if (datosUsuario.fotoPerfil) {
+            if (usuario.foto_perfil) {
                 document.getElementById('fotoPerfilExistente').innerHTML = '<img src="../../../assets/uploads/perfiles/' + usuario.foto_perfil + '" alt="Foto de perfil" />';
             }
-            if (datosUsuario.certificado) {
+            if (usuario.certificado) {
                 document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '">Ver Certificado</a>';
             }
         },
