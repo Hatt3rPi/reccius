@@ -71,5 +71,7 @@ button:hover {
     }
 }
 fieldset {
-    border: 1px solid grey; /* Cambia el color del borde a gris */
+    padding: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
