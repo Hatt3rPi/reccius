@@ -27,7 +27,7 @@ form label {
 }
 
 form input[type='password'],
-form input[type='file'] {
+form input[type='file'], form input[type='text']{
     width: calc(100% - 20px); /* Ancho completo menos el padding */
     padding: 10px; /* Espacio interior para los campos de texto */
     margin-bottom: 20px; /* Más espacio entre campos */
@@ -74,4 +74,50 @@ fieldset {
     padding: 20px;
     margin-bottom: 10px;
     margin-top: 10px;
+}
+/* Estiliza el switch */
+.form-check-input {
+    position: relative;
+    width: 40px; /* Ancho del switch, ajusta según sea necesario */
+    height: 20px; /* Altura del switch */
+    -webkit-appearance: none;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 20px; /* Borde redondeado según la altura */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: .4s;
+    cursor: pointer;
+}
+
+/* Estiliza el indicator del switch */
+.form-check-input:before {
+    position: absolute;
+    content: "";
+    width: 16px; /* Ancho del indicador, ligeramente menor que la altura del switch */
+    height: 16px; /* Altura del indicador, ligeramente menor que la altura del switch */
+    top: 2px; /* Posiciona el indicador centrado verticalmente */
+    left: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.form-check-input:checked {
+    background: #4caf50;
+}
+
+.form-check-input:checked:before {
+    transform: translateX(20px); /* Desplazamiento horizontal cuando está activado */
+}
+.form-check.form-switch {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+}
+
+.form-check-input {
+    margin-right: 10px; /* Espacio entre el switch y la etiqueta */
+}
+.form-check-label {
+    line-height: 1; /* Ajusta la altura de la línea para mejorar la alineación */
+    /* Puedes agregar más estilos aquí si es necesario */
 }

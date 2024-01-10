@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,52 +28,68 @@
                 <!-- Sección de Cambio de Contraseña -->
                 <fieldset>
                     <legend>Cambio de Contraseña</legend>
-                        <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Editar contraseña</label>
-                      </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch_contrasena" onclick="toggleInputs('switch_contrasena')">
+                        <label class="form-check-label" for="switch_contrasena">Editar</label>
+                    </div>
+                    <br>
                         <div>
                             <label for="passwordActual">Contraseña Actual:</label>
-                            <input type="password" id="passwordActual" name="passwordActual">
+                            <input class="switch_contrasena" type="password" id="passwordActual" name="passwordActual" disabled >
                         </div>
                         <div>
                             <label for="nuevaPassword">Nueva Contraseña:</label>
-                            <input type="password" id="nuevaPassword" name="nuevaPassword">
+                            <input class="switch_contrasena" type="password" id="nuevaPassword" name="nuevaPassword" disabled >
                         </div>
                         <div>
                             <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
-                            <input type="password" id="confirmarPassword" name="confirmarPassword">
+                            <input class="switch_contrasena" type="password" id="confirmarPassword" name="confirmarPassword" disabled >
                         </div>
                         
                 </fieldset>
                 <fieldset>
                     <legend>Cambio de Foto de Perfil</legend>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="switch_foto" onclick="toggleInputs('switch_foto')">
+                            <label class="form-check-label" for="switch_foto">Editar</label>
+                        </div>
+                        <br>
                         <div>
                             <label for="fotoPerfil">Foto de Perfil:</label>
-                            <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+                            <input  class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled >
                         </div>
                 </fieldset>
                 <fieldset>
                     <legend>Editar información de Usuario</legend>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="switch_info" onclick="toggleInputs('switch_info')">
+                            <label class="form-check-label" for="switch_info">Editar</label>
+                        </div>
+                        <br>
                         <div>
                             <label for="cargo">Cargo:</label>
-                            <input type="text" id="cargo" name="cargo">
+                            <input class="switch_info" type="text" id="cargo" name="cargo" disabled >
                         </div>
                         <div>
                             <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre">
+                            <input class="switch_info" type="text" id="nombre" name="nombre" disabled>
                         </div>
                         <div>
                             <label for="nombre_corto">Nombre y Cargo Abreviado:</label>
-                            <input type="text" id="nombre_corto" name="nombre_corto">
+                            <input class="switch_info" type="text" id="nombre_corto" name="nombre_corto" disabled>
                         </div>
                 </fieldset>
                 <fieldset>
                     <legend>Certificado Nacional de Prestadores Individuales de Salud</legend>
-                    <div>
-                        <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
-                        <input type="file" id="certificado" name="certificado" accept="application/pdf">
-                    </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="switch_certificado" onclick="toggleInputs('switch_certificado')">
+                            <label class="form-check-label" for="switch_certificado">Editar</label>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
+                            <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
+                        </div>
                 </fieldset>          
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">      
                 <button type="submit" name="modificarPerfil">Modificar Perfil</button>
@@ -84,6 +110,17 @@
 
             // Validación adicional aquí si es necesario
         });
+
+        function toggleInputs(switchClass) {
+    // Encuentra todos los campos de entrada con la misma clase que el switch
+    var inputs = document.querySelectorAll('.' + switchClass);
+
+    // Alternar el estado de cada campo
+    inputs.forEach(function(input) {
+        input.disabled = !input.disabled; // Cambiar el estado de deshabilitado
+    });
+}
+
     </script>
 
 </body>
