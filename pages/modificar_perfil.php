@@ -106,7 +106,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
     </div>
     <script>
-
+        function cargarInformacionExistente() {
+            $.ajax({
+                url: './backend/usuario/modifica_perfilFETCH.php',
+                type: 'GET',
+                success: function(response) {
+                    $('#nombre').val(usuario.nombre);
+                    $('#nombre_corto').val(usuario.nombre_corto);
+                    $('#cargo').val(usuario.cargo);
+                    $('#nombre').val(usuario.nombre);
+                    if (usuario.foto_perfil) {
+                        document.getElementById('fotoPerfilExistente').innerHTML = '<img src="../../../assets/uploads/perfiles/' + usuario.foto_perfil + '" alt="Foto de perfil" />';
+                    }
+                    if (usuario.certificado) {
+                        document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '">Ver Certificado</a>';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error en la solicitud: ", status, error);
+                }
+            });
+        }
         document.getElementById('formPerfil').addEventListener('submit', function (event) {
             var password = document.getElementById('nuevaPassword').value;
             var confirmPassword = document.getElementById('confirmarPassword').value;
