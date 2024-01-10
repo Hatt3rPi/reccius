@@ -70,3 +70,6 @@ button:hover {
         font-size: 16px; /* Tamaño de fuente más pequeño para el botón en pantallas pequeñas */
     }
 }
+fieldset {
+    border: 1px solid grey; /* Cambia el color del borde a gris */
+}
