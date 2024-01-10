@@ -17,6 +17,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+function cargarInformacionExistente() {
+    var usuario = "<?php echo $_SESSION['usuario']; ?>";
+    $.ajax({
+        url: './backend/usuario/modifica_perfilFETCH.php',
+        type: 'GET',
+        data: { usuario: usuario },
+        success: function(response) {
+            $('#nombre').val(usuario.nombre);
+            $('#nombre_corto').val(usuario.nombre_corto);
+            $('#cargo').val(usuario.cargo);
+            $('#nombre').val(usuario.nombre);
+            if (datosUsuario.fotoPerfil) {
+                document.getElementById('fotoPerfilExistente').innerHTML = '<img src="../../../assets/uploads/perfiles/' + usuario.foto_perfil + '" alt="Foto de perfil" />';
+            }
+            if (datosUsuario.certificado) {
+                document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '">Ver Certificado</a>';
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud: ", status, error);
+        }
+    });
+
+
+}
 function inicializarFormularioCrearUsuario() {
     // Cargar los roles disponibles
     fetch('../pages/backend/roles/rolesBE.php') // Asegúrate de que la ruta es correcta
