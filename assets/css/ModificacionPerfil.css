@@ -70,11 +70,13 @@ button:hover {
         font-size: 16px; /* Tamaño de fuente más pequeño para el botón en pantallas pequeñas */
     }
 }
-fieldset {
-    padding: 20px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+.section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
+
 /* Estiliza el switch */
 .form-check-input {
     position: relative;
