@@ -111,6 +111,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 url: './backend/usuario/modifica_perfilFETCH.php',
                 type: 'GET',
                 success: function(response) {
+                    var usuario = response.usuario;
                     $('#nombre').val(usuario.nombre);
                     $('#nombre_corto').val(usuario.nombre_corto);
                     $('#cargo').val(usuario.cargo);
