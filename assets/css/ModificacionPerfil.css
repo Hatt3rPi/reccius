@@ -70,9 +70,12 @@ button:hover {
         font-size: 16px; /* Tamaño de fuente más pequeño para el botón en pantallas pequeñas */
     }
 }
-.section {
-    margin-bottom: 20px;
-    padding: 10px;
+.seccion {
+    margin-bottom: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -122,4 +125,7 @@ button:hover {
 .form-check-label {
     line-height: 1; /* Ajusta la altura de la línea para mejorar la alineación */
     /* Puedes agregar más estilos aquí si es necesario */
+}
+.seccion-deshabilitada {
+    background-color: #eeeaea; /* Un gris claro, ajusta según tus preferencias */
 }

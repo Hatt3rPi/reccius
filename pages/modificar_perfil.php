@@ -26,7 +26,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 enctype="multipart/form-data">
 
                 <!-- Sección de Cambio de Contraseña -->
-                <div class="seccion">
+                <div class="seccion seccion-deshabilitada">
 
                     <h3>Cambio de Contraseña</h3>
                     <div class="form-check form-switch">
@@ -34,7 +34,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label class="form-check-label" for="switch_contrasena">Editar</label>
                     </div>
                     <br>
-                        <div>
+                        <div >
                             <label for="passwordActual">Contraseña Actual:</label>
                             <input class="switch_contrasena" type="password" id="passwordActual" name="passwordActual" disabled >
                         </div>
@@ -48,7 +48,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                         
                 </div>
-                <div class="seccion">
+                <div class="seccion seccion-deshabilitada">
                     <h3>Cambio de Foto de Perfil</h3>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="switch_foto" onclick="toggleInputs('switch_foto')">
@@ -60,7 +60,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input  class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled >
                         </div>
                 </div>
-                <div class="seccion">
+                <div class="seccion seccion-deshabilitada">
 
                     <h3>Editar información de Usuario</h3>
                         <div class="form-check form-switch">
@@ -81,7 +81,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input class="switch_info" type="text" id="nombre_corto" name="nombre_corto" disabled>
                         </div>
                 </div>
-                <div class="seccion">
+                <div class="seccion seccion-deshabilitada">
 
                     <h3>Certificado Nacional de Prestadores Individuales de Salud</h3>
                         <div class="form-check form-switch">
@@ -115,16 +115,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         function toggleInputs(switchClass) {
-    // Encuentra todos los campos de entrada con la misma clase que el switch
-    var inputs = document.querySelectorAll('.' + switchClass);
+            var inputs = document.querySelectorAll('.' + switchClass);
+            // Determinar si los campos están deshabilitados o no
+            var areDisabled = inputs.length > 0 ? inputs[0].disabled : false;
+            // Encuentra la sección más cercana
+            var seccion = inputs[0].closest('.seccion');
+            // Alternar el estado de cada campo
+            inputs.forEach(function(input) {
+                input.disabled = !areDisabled;
+            });
+            // Alternar la clase de la sección
+            if (areDisabled) {
+                seccion.classList.remove('seccion-deshabilitada');
+            } else {
+                seccion.classList.add('seccion-deshabilitada');
+            }
+        }
 
-    // Alternar el estado de cada campo
-    inputs.forEach(function(input) {
-        input.disabled = !input.disabled; // Cambiar el estado de deshabilitado
-    });
-}
-
-    </script>
+</script>
 
 </body>
 
