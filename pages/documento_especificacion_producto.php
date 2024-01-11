@@ -180,7 +180,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <button id="sign-document" style="display: none;">Firmar Documento</button>
 
         <script>
-var usuarioNombre ="";
+var usuarioNombre ="<?php echo $_SESSION['nombre']; ?>";;
 var usuario = "<?php echo $_SESSION['usuario']; ?>";
 document.getElementById('download-pdf').addEventListener('click', function () {
     // Agregar la clase no-border para eliminar bordes y sombras
@@ -466,6 +466,8 @@ function esRevisorYFirmaPendiente() {
 
 function esAprobadorYFirmaPendiente() {
     // Aquí debes verificar si el usuario actual es el aprobador y si la firma está pendiente
+    console.log($('#aprobadoPor').text());
+    console.log(usuarioNombre);
     return $('#aprobadoPor').text() === usuarioNombre && $('#fechaAprobacion').text() === 'Firma Pendiente';
 }
 
@@ -474,8 +476,7 @@ function firmarDocumento() {
     // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
 }
 function verificarYMostrarBotonFirma() {
-    usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
-    console.log('--> usuario: '.usuarioNombre)
+
     var esRevisorPendiente = esRevisorYFirmaPendiente();
     var esAprobadorPendiente = esAprobadorYFirmaPendiente();
     var esAprobador = $('#aprobadoPor').text() === usuarioNombre;
