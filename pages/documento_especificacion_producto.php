@@ -375,7 +375,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                             width: '404px'
                         }
                     ],
-                    paging: false,
+                    paging: true,
+                    pageLength: 3, // Número de filas por página
                     info: false,
                     searching: false,
                     lengthChange: false,
@@ -426,8 +427,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         width: '404px'
                     }
                 ],
-                paging: true,
-                pageLength: 3, // Número de filas por página
+                paging: false,
                     info: false,
                     searching: false,
                     lengthChange: false,
