@@ -187,30 +187,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             }
         }
-       // Función para mostrar la notificación
+  // Función para mostrar la notificación
 function showNotification(message, isSuccess) {
     var notification = document.getElementById('notification');
     var messageElement = document.getElementById('notification-message');
     messageElement.textContent = message;
     
     // Añadir la clase para el estilo de éxito o error
-    notification.className = isSuccess ? 'notification-container success' : 'notification-container error';
+    notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
     
     // Mostrar la notificación
     notification.style.display = 'block';
     
-    // Ocultar la notificación después de 5 segundos
+    // Ocultar la notificación después de 5 segundos (si deseas que desaparezca automáticamente)
     setTimeout(function() {
-        notification.style.display = 'none';
+        $(notification).fadeOut(); // Usar fadeOut de jQuery en lugar de ocultar directamente
     }, 5000);
 }
-document.addEventListener('DOMContentLoaded', (event) => {
-    <?php if(isset($_SESSION['notification'])): ?>
-        showNotification("<?php echo $_SESSION['notification']['message']; ?>", <?php echo $_SESSION['notification']['isSuccess'] ? 'true' : 'false'; ?>);
-        <?php unset($_SESSION['notification']); // Limpia la notificación de la sesión ?>
-    <?php endif; ?>
-});
 
+// Este código permite que las notificaciones se desvanezcan al hacer clic en ellas
+$(document).on('click', '.notify', function() {
+    $(this).fadeOut();
+});
 
 </script>
 

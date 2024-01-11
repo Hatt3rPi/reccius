@@ -201,14 +201,13 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
 }
     // Agrega aquí las comprobaciones y lógica para las demás secciones (Información de usuario, Certificado, etc.)
 
-    // Si no hay errores, envía una respuesta JSON con el mensaje de éxito
-if (empty($mensajeError)) {
-    echo json_encode(['success' => true, 'message' => "Perfil actualizado con éxito."]);
-} else {
-    // Si hay errores, envía una respuesta JSON con el mensaje de error
-    echo json_encode(['success' => false, 'message' => $mensajeError]);
-}
-exit();
+    if (!empty($mensajeError)) {
+        echo trim($mensajeError);
+    } else {
+        echo "Perfil actualizado con éxito.";
+    }
 
+    header("Location: ../../index.php");
+    exit();
 }
 ?>
