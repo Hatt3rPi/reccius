@@ -173,7 +173,7 @@
         <button id="sign-document" style="display: none;">Firmar Documento</button>
 
         <script>
-var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
+
 var usuario = "<?php echo $_SESSION['usuario']; ?>";
 document.getElementById('download-pdf').addEventListener('click', function () {
     // Agregar la clase no-border para eliminar bordes y sombras
@@ -209,6 +209,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             data: { id: id },
             success: function (response) {
                 procesarDatosEspecificacion(response);
+                var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
+                console.log('--> usuario: '.usuarioNombre)
                 verificarYMostrarBotonFirma();
             },
             error: function (xhr, status, error) {
