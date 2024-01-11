@@ -114,8 +114,7 @@ h1, h2.section-title {
     color: #0056b3; /* Puedes cambiarlo por el color que prefieras */
 }
 
-th,
-td {
+th,td, thead {
     text-align: center;
     justify-content: center;
 }
