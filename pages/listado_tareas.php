@@ -52,13 +52,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         "defaultContent": '<i class="fas fa-search-plus"></i>',
                         "width": "5%"
                     },
-                    { "data": "fecha_ingreso" },
-                    { "data": "fecha_vencimiento" },
+                    { "data": "prioridad" },
+                    { "data": "estado" },
+                    { "data": "descripcion_tarea" },
                     { "data": "usuario_creador" },
                     { "data": "usuario_ejecutor" },
-                    { "data": "descripcion_tarea" },
-                    { "data": "estado" },
-                    { "data": "prioridad" },
+                    { "data": "fecha_ingreso" },
+                    { "data": "fecha_vencimiento" },
+
+                    
                     {
                     title: 'id_tarea',
                     data: 'id',
@@ -89,7 +91,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Agrega acciones según el estado de la tarea
             if (d.estado === 'Activa' || d.estado === 'Vencida') {
-                acciones += '<button class="accion-btn" title="Finalizar Tarea" id="' + d.id + '" name="finalizar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-check"></i></button><a> </a>';
+                acciones += '<button class="accion-btn" title="Recordar Tarea" id="' + d.id + '" name="recordar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-check"></i></button><a> </a>';
                 acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-user-edit"></i></button><a> </a>';
             }
             
