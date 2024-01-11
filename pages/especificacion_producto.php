@@ -129,7 +129,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
                     </div>
                 </div>
                 <br>
