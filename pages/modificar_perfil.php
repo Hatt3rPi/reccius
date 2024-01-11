@@ -187,6 +187,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             }
         }
+
+        $(document).ready(function() {
+    $('#formPerfil').submit(function(event) {
+        event.preventDefault(); // Prevenir el envío estándar del formulario
+
+        // Agrega validaciones aquí si es necesario
+
+        var formData = new FormData(this); // Obtener los datos del formulario
+
+        $.ajax({
+            type: "POST",
+            url: "../pages/backend/usuario/modificar_perfilBE.php", // Asegúrate de que esta ruta es correcta
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                var res = JSON.parse(response);
+                showNotification(res.message, res.success);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
+            }
+        });
+    });
+    });
+
   // Función para mostrar la notificación
 function showNotification(message, isSuccess) {
     var notification = document.getElementById('notification');
