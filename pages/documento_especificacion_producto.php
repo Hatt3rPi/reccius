@@ -342,7 +342,7 @@ function mostrarAnalisisFQ(analisis) {
                 { title: 'Criterio aceptación', data: 'criterios_aceptacion', className: 'text-center' }
             ],
             paging: true, // Habilitar la paginación
-            pageLength: 10, // Número de registros por página
+            pageLength: 3, // Número de registros por página
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
             }
