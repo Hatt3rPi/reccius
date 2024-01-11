@@ -173,7 +173,7 @@
         <button id="sign-document" style="display: none;">Firmar Documento</button>
 
         <script>
-
+var usuarioNombre ="";
 var usuario = "<?php echo $_SESSION['usuario']; ?>";
 document.getElementById('download-pdf').addEventListener('click', function () {
     // Agregar la clase no-border para eliminar bordes y sombras
@@ -209,8 +209,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             data: { id: id },
             success: function (response) {
                 procesarDatosEspecificacion(response);
-                var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
-                console.log('--> usuario: '.usuarioNombre)
+
                 verificarYMostrarBotonFirma();
             },
             error: function (xhr, status, error) {
@@ -468,7 +467,8 @@ function firmarDocumento() {
     // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
 }
 function verificarYMostrarBotonFirma() {
-    console.log(usuarioNombre);
+    usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
+    console.log('--> usuario: '.usuarioNombre)
     var esRevisorPendiente = esRevisorYFirmaPendiente();
     var esAprobadorPendiente = esAprobadorYFirmaPendiente();
     var esAprobador = $('#aprobadoPor').text() === usuarioNombre;
