@@ -201,8 +201,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         // Agregar la imagen al PDF
         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
+        // Obtener el nombre del producto del elemento con id 'producto'
+        var nombreProducto = document.getElementById('producto').textContent.trim();
+
         // Guardar el PDF
-        pdf.save(`${producto.nombre_producto}.pdf`);
+        pdf.save(`${nombreProducto}.pdf`);
 
         // Remover la clase no-border después de generar el PDF
         formContainer.classList.remove('no-border');
