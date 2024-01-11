@@ -446,6 +446,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         // Suponiendo que tengas un ID de producto para cargar
         cargarDatosEspecificacion(id);
         verificarYMostrarBotonFirma();
+        setTimeout(paginarDocumentos, 1000); // Espera a que los datos se carguen. Este valor de tiempo puede necesitar ajustes.
+};
     };
 
 
@@ -494,7 +496,37 @@ function verificarYMostrarBotonFirma() {
         document.getElementById('sign-document').style.display = 'none';
     }
 }
+    // ... Código anterior ...
 
+function crearPagina() {
+    const pagina = document.createElement('div');
+    pagina.innerHTML = document.getElementById('form-container').innerHTML;
+    pagina.classList.add('form-container');
+    return pagina;
+}
+
+function paginarDocumentos() {
+    // Establecer la altura máxima permitida para el contenido de una página.
+    const alturaMaximaPorPagina = 792 - (2 * 20); // 792pt de alto por página, menos el padding.
+    const contenedores = document.querySelectorAll('.form-container');
+
+    contenedores.forEach(contenedor => {
+        let alturaActual = contenedor.querySelector('.header').offsetHeight + contenedor.querySelector('.header-bottom').offsetHeight;
+        const secciones = contenedor.querySelectorAll('.table-section');
+
+        secciones.forEach(seccion => {
+            alturaActual += seccion.offsetHeight;
+            if (alturaActual > alturaMaximaPorPagina) {
+                // Crear una nueva página y mover la sección a esa nueva página.
+                const nuevaPagina = crearPagina();
+                nuevaPagina.querySelector('.content').appendChild(seccion.cloneNode(true));
+                document.body.appendChild(nuevaPagina);
+                seccion.remove();
+                alturaActual = nuevaPagina.querySelector('.header').offsetHeight + nuevaPagina.querySelector('.header-bottom').offsetHeight + seccion.offsetHeight;
+            }
+        });
+    });
+}
         </script>
 
     </body>
