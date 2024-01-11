@@ -38,7 +38,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     <script>
         // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
-        var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
+        var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
         function cargaListadoTareas() {
             var table = $('#listado_tareas').DataTable({
                 "ajax": "./backend/tareas/listado_tareasBE.php",
