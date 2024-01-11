@@ -441,6 +441,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     };
 
 
+
     document.getElementById('sign-document').addEventListener('click', function () {
     // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
     var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
@@ -465,6 +466,7 @@ function firmarDocumento() {
     // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
 }
 function verificarYMostrarBotonFirma() {
+    console.log(usuarioNombre);
     var esRevisorPendiente = esRevisorYFirmaPendiente();
     var esAprobadorPendiente = esAprobadorYFirmaPendiente();
     var esAprobador = $('#aprobadoPor').text() === usuarioNombre;
