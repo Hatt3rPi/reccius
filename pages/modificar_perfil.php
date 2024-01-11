@@ -32,6 +32,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="switch_contrasena" onclick="toggleInputs('switch_contrasena')">
                         <label class="form-check-label" for="switch_contrasena">Editar</label>
+                        <input type="hidden" id="editarContrasena" name="editarContrasena" value="0">
                     </div>
                     <br>
                         <div >
@@ -53,12 +54,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="switch_foto" onclick="toggleInputs('switch_foto')">
                             <label class="form-check-label" for="switch_foto">Editar</label>
+                            <input type="hidden" id="editarFoto" name="editarFoto" value="0">
                         </div>
                         <br>
                         <div>
                             <label for="fotoPerfil">Foto de Perfil:</label>
                             <input  class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled >
-                            <div id="certificadoExistente">
+                            <div id="fotoPerfilExistente">
                                 <!-- Aquí se mostrará el enlace al archivo existente -->
                             </div>
                         </div>
@@ -69,6 +71,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="switch_info" onclick="toggleInputs('switch_info')">
                             <label class="form-check-label" for="switch_info">Editar</label>
+                            <input type="hidden" id="editarInfo" name="editarInfo" value="0">
                         </div>
                         <br>
                         <div>
@@ -90,12 +93,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="switch_certificado" onclick="toggleInputs('switch_certificado')">
                             <label class="form-check-label" for="switch_certificado">Editar</label>
+                            <input type="hidden" id="editarCertificado" name="editarCertificado" value="0">
                         </div>
                         <br>
                         <div>
                             <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
                             <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
-                            <div id="fotoPerfilExistente">
+                            <div id="certificadoExistente">
                                 <!-- Aquí se mostrará el enlace al archivo existente -->
                             </div>
                         </div>
@@ -152,13 +156,34 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             inputs.forEach(function(input) {
                 input.disabled = !areDisabled;
             });
-            // Alternar la clase de la sección
+            // Alternar la clase de la sección y el valor del campo oculto
             if (areDisabled) {
                 seccion.classList.remove('seccion-deshabilitada');
+                // Actualiza el valor del campo oculto correspondiente
+                if (switchClass === 'switch_contrasena') {
+                    document.getElementById('editarContrasena').value = '1';
+                } else if (switchClass === 'switch_foto') {
+                    document.getElementById('editarFoto').value = '1';
+                } else if (switchClass === 'switch_info') {
+                    document.getElementById('editarInfo').value = '1';
+                } else if (switchClass === 'switch_certificado') {
+                    document.getElementById('editarCertificado').value = '1';
+                }
             } else {
                 seccion.classList.add('seccion-deshabilitada');
+                // Restablece el valor del campo oculto
+                if (switchClass === 'switch_contrasena') {
+                    document.getElementById('editarContrasena').value = '0';
+                } else if (switchClass === 'switch_foto') {
+                    document.getElementById('editarFoto').value = '0';
+                } else if (switchClass === 'switch_info') {
+                    document.getElementById('editarInfo').value = '0';
+                } else if (switchClass === 'switch_certificado') {
+                    document.getElementById('editarCertificado').value = '0';
+                }
             }
         }
+
 
 </script>
 

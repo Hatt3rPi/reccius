@@ -2,6 +2,51 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
+
+
+
+function cambiarCertificado($link, $usuario, $certificado) {
+    if ($certificado['error'] !== UPLOAD_ERR_OK) {
+        return "Error al subir el archivo: " . $certificado['error'];
+    }
+
+    $directorioDestino = "../../../documentos_publicos/";
+    if (!is_writable($directorioDestino) || !is_dir($directorioDestino)) {
+        return "Error: El directorio de destino no es escribible o no existe.";
+    }
+
+    $nombreArchivoTemporal = $certificado['tmp_name'];
+    $tipoArchivo = strtolower(pathinfo($certificado['name'], PATHINFO_EXTENSION));
+    $nombreArchivo = $directorioDestino . "certificado_" . $usuario . ".pdf";
+    $nombreArchivo_n = "certificado_" . $usuario . ".pdf";
+
+    if ($certificado["size"] > 10000000) { // Tamaño máximo de 10 MB
+        return "El archivo es demasiado grande.";
+    }
+
+    if ($tipoArchivo != 'pdf') {
+        return "El archivo no es un PDF válido.";
+    }
+
+    if (!move_uploaded_file($nombreArchivoTemporal, $nombreArchivo)) {
+        return "Hubo un error al guardar el archivo.";
+    }
+
+    // Actualizar la ruta del certificado en la base de datos
+    $stmt = mysqli_prepare($link, "UPDATE usuarios SET ruta_registroPrestadoresSalud = ? WHERE usuario = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo_n, $usuario);
+    if (!mysqli_stmt_execute($stmt)) {
+        return "Error al actualizar la ruta del certificado en la base de datos.";
+    }
+
+    return "Certificado actualizado con éxito.";
+}
+function actualizarInformacionUsuario($link, $usuario, $nombre, $nombre_corto, $cargo) {
+    $stmt = mysqli_prepare($link, "UPDATE usuarios SET nombre = ?, nombre_corto = ?, cargo = ? WHERE usuario = ?");
+    mysqli_stmt_bind_param($stmt, "ssss", $nombre, $nombre_corto, $cargo, $usuario);
+    $exito = mysqli_stmt_execute($stmt);
+    return $exito ? "Información de usuario actualizada con éxito." : "Error al actualizar la información del usuario.";
+}
 function validarFortalezaPassword($password) {
     // Agrega aquí tus propias reglas de validación de contraseña
     return strlen($password) >= 8;
@@ -104,6 +149,7 @@ if (isset($_POST['modificarPerfil'])) {
     $mensajeError = "";
 
     // Cambio de contraseña
+if (isset($_POST['editarContrasena']) && $_POST['editarContrasena'] == '1') {
     if (!empty($_POST['passwordActual']) && !empty($_POST['nuevaPassword']) && !empty($_POST['confirmarPassword'])) {
         $passwordActual = $_POST['passwordActual'];
         $nuevaPassword = $_POST['nuevaPassword'];
@@ -120,8 +166,20 @@ if (isset($_POST['modificarPerfil'])) {
     } else {
         $mensajeError .= "Información de contraseña no proporcionada. ";
     }
+}
+if (isset($_POST['editarInfo']) && $_POST['editarInfo'] == '1') {
+    if (!empty($_POST['nombre']) && !empty($_POST['nombre_corto']) && !empty($_POST['cargo'])) {
+        $resultadoActualizarInfo = actualizarInformacionUsuario($link, $usuario, $_POST['nombre'], $_POST['nombre_corto'], $_POST['cargo']);
+        if ($resultadoActualizarInfo !== "Información de usuario actualizada con éxito.") {
+            $mensajeError .= $resultadoActualizarInfo;
+        }
+    } else {
+        $mensajeError .= "Información de usuario incompleta. ";
+    }
+}
 
-    // Cambio de foto de perfil
+// Cambio de foto de perfil
+if (isset($_POST['editarFoto']) && $_POST['editarFoto'] == '1') {
     if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK) {
         $resultadoCambioFoto = cambiarFotoPerfil($link, $usuario, $_FILES['fotoPerfil']);
         if ($resultadoCambioFoto !== "La foto de perfil ha sido actualizada con éxito.") {
@@ -130,8 +188,20 @@ if (isset($_POST['modificarPerfil'])) {
     } else {
         $mensajeError .= "Archivo de foto de perfil no proporcionado. ";
     }
+}
+if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
+    if (isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
+        $resultadoCambioCertificado = cambiarCertificado($link, $usuario, $_FILES['certificado']);
+        if ($resultadoCambioCertificado !== "Certificado actualizado con éxito.") {
+            $mensajeError .= $resultadoCambioCertificado;
+        }
+    } else {
+        $mensajeError .= "Archivo de certificado no proporcionado. ";
+    }
+}
+    // Agrega aquí las comprobaciones y lógica para las demás secciones (Información de usuario, Certificado, etc.)
 
-    if ($mensajeError) {
+    if (!empty($mensajeError)) {
         echo trim($mensajeError);
     } else {
         echo "Perfil actualizado con éxito.";
