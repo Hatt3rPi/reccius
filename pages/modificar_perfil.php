@@ -188,32 +188,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        $(document).ready(function() {
-    $('#formPerfil').submit(function(event) {
+        $(document).ready(function(){
+    $("#formperfil").submit(function(event){
         event.preventDefault(); // Prevenir el envío estándar del formulario
 
-        // Agrega validaciones aquí si es necesario
-
-        var formData = new FormData(this); // Obtener los datos del formulario
-
+        var formData = $(this).serialize(); // Obtener los datos del formulario
+        
         $.ajax({
             type: "POST",
-            url: "../pages/backend/usuario/modificar_perfilBE.php", // Asegúrate de que esta ruta es correcta
+            url: "../pages/backend/usuario/modificar_perfilBE.php", // Ruta relativa correcta
             data: formData,
-            contentType: false,
-            processData: false,
             success: function(response){
-                var res = JSON.parse(response);
-                showNotification(res.message, res.success);
+                // Mostrar la respuesta como una notificación
+                showNotification(response, true);
             },
             error: function(jqXHR, textStatus, errorThrown){
+                // Mostrar un mensaje de error
                 showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
             }
         });
     });
-    });
+});
 
-  // Función para mostrar la notificación
+// Función para mostrar la notificación
+// Función para mostrar la notificación
 function showNotification(message, isSuccess) {
     var notification = document.getElementById('notification');
     var messageElement = document.getElementById('notification-message');
@@ -235,6 +233,7 @@ function showNotification(message, isSuccess) {
 $(document).on('click', '.notify', function() {
     $(this).fadeOut();
 });
+
 
 </script>
 
