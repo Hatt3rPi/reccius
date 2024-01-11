@@ -491,48 +491,6 @@ function verificarYMostrarBotonFirma() {
         document.getElementById('sign-document').style.display = 'none';
     }
 }
-    // ... Código anterior ...
-    function calcularAlturaPromedioFila(minPt, maxPt) {
-    return (minPt + maxPt) / 2;
-}
-
-let alturaFilaPromedioPt = calcularAlturaPromedioFila(32, 167); // Altura promedio en puntos
-
-
-function ajustarFilasVisibles(table, alturaFilaPromedioPt) {
-    // Usa la altura promedio para calcular el número de filas que caben en la página
-    let espacioDisponiblePt = calcularEspacioDisponible();
-    let filasVisibles = Math.floor(espacioDisponiblePt / alturaFilaPromedioPt);
-
-    // Actualiza la paginación de DataTables
-    table.page.len(filasVisibles).draw();
-}
-
-function calcularEspacioDisponible() {
-    // Realiza el cálculo del espacio disponible teniendo en cuenta el tamaño del papel,
-    // el header y el footer, como se mostró en el Paso 1
-    const alturaPaginaPt = 792; // Altura estándar de una página en puntos.
-    const alturaHeaderPt = 136; // Altura del header en puntos.
-    const alturaFooterPt = 232; // Altura del footer en puntos (incluyendo padding).
-    const espacioDisponiblePt = alturaPaginaPt - alturaHeaderPt - alturaFooterPt;
-
-    return espacioDisponiblePt; // Retorna el valor calculado en puntos
-}
-function ajustarFilasVisibles(table) {
-    let alturaFilaPromedioPt = calcularAlturaPromedioFila(32, 167); // Altura promedio en puntos
-    let espacioDisponiblePt = calcularEspacioDisponible(); // Calcula el espacio disponible para las filas
-
-    // Calcula cuántas filas pueden caber en la página
-    let filasVisibles = Math.floor(espacioDisponiblePt / alturaFilaPromedioPt);
-
-    // Ajusta la paginación de DataTables para mostrar solo el número de filas que caben
-    table.page.len(filasVisibles).draw();
-}
-    $(document).ready(function() {
-        ajustarFilasVisibles(table, alturaFilaPromedioPt);
-    });
-
-    
  
     window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
