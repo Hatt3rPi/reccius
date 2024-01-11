@@ -50,15 +50,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         "orderable": false,
                         "data": null,
                         "defaultContent": '<i class="fas fa-search-plus"></i>',
-                        "width": "5%"
+                        "width": "20px"
                     },
-                    { "data": "prioridad" },
-                    { "data": "estado" },
+                    { "data": "prioridad", "width": "50px" },
+                    { "data": "estado", "width": "70px" },
                     { "data": "descripcion_tarea" },
                     { "data": "usuario_creador" },
                     { "data": "usuario_ejecutor" },
-                    { "data": "fecha_ingreso" },
-                    { "data": "fecha_vencimiento" },
+                    { "data": "fecha_ingreso", "width": "70px" },
+                    { "data": "fecha_vencimiento", "width": "70px"  },
 
                     
                     {
