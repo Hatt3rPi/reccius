@@ -246,6 +246,25 @@ p {
     white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
 }
 
+#watermark.pendiente-approbacion {
+    font-family: 'Arial', sans-serif; /* Cambia a la fuente que corresponda */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg); /* Mantén el texto en diagonal */
+    transform-origin: 0 50%; /* Ajusta el origen de la transformación si es necesario */
+    font-size: 100px; /* Ajusta este valor según el tamaño deseado */
+    color: rgba(255, 0, 0, 0.5); /* Cambia el color y la transparencia según sea necesario */
+    pointer-events: none;
+    z-index: 9999;
+    width: 100vw; /* Utiliza 100vw para que abarque todo el ancho de la ventana */
+    text-align: center; /* Centra el texto horizontalmente */
+    white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
+    line-height: 1; /* Ajusta el interlineado si es necesario */
+    letter-spacing: -5px; /* Ajusta el espaciado entre letras si es necesario */
+}
+
+
 .hidden {
     display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
 }

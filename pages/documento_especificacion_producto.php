@@ -503,10 +503,13 @@ function actualizarEstadoDocumento() {
     var watermark = document.getElementById('watermark');
 
     if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-        watermark.textContent = 'CONFIDENCIAL';
-    } else {
-        watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-    }
+    watermark.textContent = 'CONFIDENCIAL';
+    watermark.className = ''; // Remueve clases adicionales
+} else {
+    watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+    watermark.className = 'pendiente-approbacion'; // Aplica la clase para el estilo específico
+}
+
 }
 
 // Llamar a esta función cada vez que actualices el estado de las firmas
