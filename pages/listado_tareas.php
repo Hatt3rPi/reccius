@@ -19,13 +19,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Fecha Ingreso</th>
-                        <th>Fecha Vencimiento</th>
+                        <th>Prioridad</th>
+                        <th>Estado</th>
+                        <th>Descripción</th>
                         <th>Usuario Creador</th>
                         <th>Usuario Ejecutor</th>
-                        <th>Descripción</th>
-                        <th>Estado</th>
-                        <th>Prioridad</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Fecha Vencimiento</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
