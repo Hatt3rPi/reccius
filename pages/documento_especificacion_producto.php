@@ -89,7 +89,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                 </div>
             
-            <div id="watermark">PENDIENTE DE APROBACIÓN</div>
+            <div id="watermark">TESTEO TESTESO</div>
             <div id="contenido_main">
                 <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;"></h1>
                 <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;"></p>
@@ -318,6 +318,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     $('#fechaAprobacion').text('Firma Pendiente');
                 }
             }
+            actualizarEstadoDocumento();
         }
     }
     function generarMostrarQR(usuario, contenedorQR) {
@@ -474,6 +475,7 @@ function esAprobadorYFirmaPendiente() {
 function firmarDocumento() {
     // Aquí va el código para realizar la firma del documento
     // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
+    actualizarEstadoDocumento();
 }
 function verificarYMostrarBotonFirma() {
 
@@ -496,21 +498,21 @@ function verificarYMostrarBotonFirma() {
 }
  
 function actualizarEstadoDocumento() {
-    var creadorFirmado = document.getElementById('mensaje_creador').style.display === 'block';
-    var revisorFirmado = document.getElementById('mensaje_revisor').style.display === 'block';
-    var aprobadorFirmado = document.getElementById('mensaje_aprobador').style.display === 'block';
+    var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
+    var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
+    var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
 
     var watermark = document.getElementById('watermark');
 
     if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-    watermark.textContent = 'CONFIDENCIAL';
-    watermark.className = ''; // Remueve clases adicionales
-} else {
-    watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-    watermark.className = 'pendiente-approbacion'; // Aplica la clase para el estilo específico
+        watermark.textContent = 'CONFIDENCIAL';
+        watermark.classList.remove('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
+    } else {
+        watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+        watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
+    }
 }
 
-}
 
 // Llamar a esta función cada vez que actualices el estado de las firmas
 // Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
