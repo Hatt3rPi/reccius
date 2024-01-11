@@ -119,7 +119,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
             // Agrega acciones según el estado de la tarea
-            if (d.estado === 'Activa' || d.estado === 'Vencida') {
+            if (d.estado === 'Activo' || d.estado === 'Atrasado' || d.estado === 'Fecha de Vencimiento cercano') {
                 acciones += '<button class="accion-btn" title="Recordar Tarea" id="' + d.id + '" name="recordar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-check"></i></button><a> </a>';
                 acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-user-edit"></i></button><a> </a>';
             }
