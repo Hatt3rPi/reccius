@@ -492,6 +492,18 @@ function verificarYMostrarBotonFirma() {
     }
 }
  
+document.addEventListener("DOMContentLoaded", function() {
+    // Crear un clon del body
+    var bodyClone = document.body.cloneNode(true);
+
+    // Aplicar estilo para mover el clon 20 puntos a la derecha
+    bodyClone.style.position = "absolute";
+    bodyClone.style.left = "20pt";
+
+    // Añadir el clon al final del documento
+    document.body.appendChild(bodyClone);
+});
+
     window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
