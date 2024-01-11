@@ -493,48 +493,7 @@ function verificarYMostrarBotonFirma() {
 }
     // ... Código anterior ...
 
-    function ajustarPaginacionDeDataTables() {
-    // Establecer la altura máxima permitida para el contenido de una página.
-    const alturaMaximaPorPagina = 792; // Ajuste según la altura de su página.
-    const alturaHeader = 136; // Ajuste según la altura de su header.
-    const alturaFooter = 232; // Ajuste según la altura de su footer.
-    const alturaDisponibleParaTabla = alturaMaximaPorPagina - alturaHeader - alturaFooter;
-
-    // Suponemos que tu tabla DataTables ya ha sido inicializada y tiene una clase 'miTabla'.
-    const tabla = $('#analisisFQ').DataTable();
-
-    // Calcula la altura de una fila para estimar cuántas filas caben en la página.
-    const alturaFilaPromedio = calcularAlturaFilaPromedio(tabla);
-
-    // Calcula cuántas filas deberían mostrarse para no exceder la altura disponible.
-    const filasQueCaben = Math.floor(alturaDisponibleParaTabla / alturaFilaPromedio);
-
-    // Actualiza la paginación de DataTables para mostrar solo el número de filas que caben.
-    tabla.page.len(filasQueCaben).draw();
-}
-
-function calcularAlturaFilaPromedio(tabla) {
-    // Obtiene las filas de la tabla para calcular la altura promedio.
-    const filas = tabla.rows({ page: 'current' }).nodes();
-    let alturaTotal = 0;
-
-    filas.each(function () {
-        alturaTotal += $(this).outerHeight();
-    });
-
-    // Retorna la altura promedio de una fila.
-    return alturaTotal / filas.length;
-}
-
-// Llama a la función de ajuste de paginación una vez que se ha cargado e inicializado DataTables.
-$(document).ready(function () {
-    // Inicializa tu DataTables aquí o asegúrate de que ya esté inicializado.
-    // ...
-
-    // Luego, ajusta la paginación de la tabla.
-    ajustarPaginacionDeDataTables();
-});
-
+    
  
     window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
