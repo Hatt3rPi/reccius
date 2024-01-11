@@ -494,42 +494,43 @@ function verificarYMostrarBotonFirma() {
     // ... Código anterior ...
 
     function crearNuevaPaginaConHeaderYFooter() {
-        const pagina = document.createElement('div');
-        pagina.innerHTML = document.getElementById('form-container').innerHTML;
-        pagina.classList.add('form-container');
-        // Vacía el contenido para comenzar con una página en blanco
-        pagina.querySelector('#content').innerHTML = '';
-        pagina.querySelector('#additionalContent').innerHTML = '';
-        return pagina;
-    }
+    const pagina = document.createElement('div');
+    pagina.innerHTML = document.getElementById('form-container').innerHTML;
+    pagina.classList.add('form-container');
+    // Vacía el contenido para comenzar con una página en blanco
+    pagina.querySelector('#content').innerHTML = '';
+    pagina.querySelector('#additionalContent').innerHTML = '';
+    return pagina;
+}
 
-    function paginarDocumentos() {
-        const alturaHeader = 136; // Altura del header en puntos
-        const alturaFooter = 222 + 10; // Altura del footer más padding en puntos
-        const alturaMaximaPorPagina = 792; // Altura en puntos para una página de tamaño carta
-        const alturaDisponiblePorPagina = alturaMaximaPorPagina - alturaHeader - alturaFooter;
-        
-        let paginas = [crearNuevaPaginaConHeaderYFooter()];
-        let alturaActual = alturaHeader;
+function paginarDocumentos() {
+    const alturaHeader = 136; // Altura del header en puntos
+    const alturaFooter = 222 + 10; // Altura del footer más padding en puntos
+    const alturaMaximaPorPagina = 792; // Altura en puntos para una página de tamaño carta
+    const alturaDisponiblePorPagina = alturaMaximaPorPagina - alturaHeader - alturaFooter;
+    
+    let paginas = [crearNuevaPaginaConHeaderYFooter()];
+    let alturaActual = alturaHeader;
 
-        document.querySelectorAll('.content').forEach((contenido) => {
-            // Calcula la altura del contenido, si no cabe en la página actual, crea una nueva
-            if (alturaActual + contenido.offsetHeight > alturaDisponiblePorPagina) {
-                paginas.push(crearNuevaPaginaConHeaderYFooter());
-                alturaActual = alturaHeader;
-            }
+    document.querySelectorAll('.content').forEach((contenido) => {
+        // Calcula la altura del contenido, si no cabe en la página actual, crea una nueva
+        if (alturaActual + contenido.offsetHeight > alturaDisponiblePorPagina) {
+            paginas.push(crearNuevaPaginaConHeaderYFooter());
+            alturaActual = alturaHeader;
+        }
 
-            // Añade el contenido a la última página creada y actualiza la altura actual
-            paginas[paginas.length - 1].appendChild(contenido.cloneNode(true));
-            alturaActual += contenido.offsetHeight;
-        });
+        // Añade el contenido a la última página creada y actualiza la altura actual
+        paginas[paginas.length - 1].querySelector('#content').appendChild(contenido.cloneNode(true));
+        alturaActual += contenido.offsetHeight;
+    });
 
-        // Elimina el form-container original y añade las nuevas páginas al DOM
-        document.getElementById('form-container').remove();
-        paginas.forEach(pagina => {
-            document.body.appendChild(pagina);
-        });
-    }   
+    // Elimina el form-container original y añade las nuevas páginas al DOM
+    document.getElementById('form-container').remove();
+    paginas.forEach(pagina => {
+        document.body.appendChild(pagina);
+    });
+}
+ 
     window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
