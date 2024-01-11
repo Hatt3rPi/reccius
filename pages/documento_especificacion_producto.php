@@ -209,7 +209,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             data: { id: id },
             success: function (response) {
                 procesarDatosEspecificacion(response);
-
+                verificarYMostrarBotonFirma();
             },
             error: function (xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
