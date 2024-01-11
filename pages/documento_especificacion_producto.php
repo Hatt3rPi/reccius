@@ -448,7 +448,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         verificarYMostrarBotonFirma();
         setTimeout(paginarDocumentos, 1000); // Espera a que los datos se carguen. Este valor de tiempo puede necesitar ajustes.
 };
-    };
+    
 
 
 
