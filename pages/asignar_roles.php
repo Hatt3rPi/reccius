@@ -3,8 +3,7 @@ session_start();
 
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirigir al usuario a la página de inicio de sesión.
-    header("Location: login.html");
+    header("Location: login.html");    // Redirigir al usuario a la página de inicio de sesión.
     exit;
 }
 
