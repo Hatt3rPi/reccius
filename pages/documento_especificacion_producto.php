@@ -529,10 +529,6 @@ function ajustarFilasVisibles(table) {
     table.page.len(filasVisibles).draw();
 }
     $(document).ready(function() {
-        var table = $('#analisisFQ').DataTable({
-            // ... configuraciones previas de DataTables ...
-        });
-
         ajustarFilasVisibles(table, alturaFilaPromedioPt);
     });
 
