@@ -170,8 +170,11 @@
             </div>
         </div>
         <button id="download-pdf">Descargar PDF</button>
-        <script>
+        <button id="sign-document" style="display: none;">Firmar Documento</button>
 
+        <script>
+var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
+var usuario = "<?php echo $_SESSION['usuario']; ?>";
 document.getElementById('download-pdf').addEventListener('click', function () {
     // Agregar la clase no-border para eliminar bordes y sombras
     var formContainer = document.getElementById('form-container');
@@ -434,7 +437,52 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     window.onload = function () {
         // Suponiendo que tengas un ID de producto para cargar
         cargarDatosEspecificacion(id);
+        verificarYMostrarBotonFirma();
     };
+
+
+    document.getElementById('sign-document').addEventListener('click', function () {
+    // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
+    var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
+    if (puedeFirmar && confirm("¿Estás seguro que deseas firmar el documento?")) {
+        // Aquí va el código para firmar el documento
+        firmarDocumento();
+    }
+});
+
+function esRevisorYFirmaPendiente() {
+    // Aquí debes verificar si el usuario actual es el revisor y si la firma está pendiente
+    return $('#revisadoPor').text() === usuarioNombre && $('#fechaRevision').text() === 'Firma Pendiente';
+}
+
+function esAprobadorYFirmaPendiente() {
+    // Aquí debes verificar si el usuario actual es el aprobador y si la firma está pendiente
+    return $('#aprobadoPor').text() === usuarioNombre && $('#fechaAprobacion').text() === 'Firma Pendiente';
+}
+
+function firmarDocumento() {
+    // Aquí va el código para realizar la firma del documento
+    // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
+}
+function verificarYMostrarBotonFirma() {
+    var esRevisorPendiente = esRevisorYFirmaPendiente();
+    var esAprobadorPendiente = esAprobadorYFirmaPendiente();
+    var esAprobador = $('#aprobadoPor').text() === usuarioNombre;
+    var revisorHaFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
+
+    if (esRevisorPendiente || (esAprobadorPendiente && revisorHaFirmado)) {
+        document.getElementById('sign-document').style.display = 'block';
+        document.getElementById('sign-document').disabled = false;
+    } else if (esAprobador && !revisorHaFirmado) {
+        // Mostrar el botón, pero deshabilitado
+        document.getElementById('sign-document').style.display = 'block';
+        document.getElementById('sign-document').disabled = true;
+        document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
+    } else {
+        document.getElementById('sign-document').style.display = 'none';
+    }
+}
+
         </script>
 
     </body>

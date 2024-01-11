@@ -291,6 +291,7 @@ function botones(id, accion, base) {
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
                             cargarDatosEspecificacion(id);
+                            verificarYMostrarBotonFirma();
                             $('#loading-spinner').hide();
                             $('#dynamic-content').show();
                         },
