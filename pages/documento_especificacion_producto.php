@@ -376,7 +376,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         }
                     ],
                     paging: true,
-                    pageLength: 3, // Número de filas por página
+                    pageLength: 2, // Número de filas por página
                     info: false,
                     searching: false,
                     lengthChange: false,
