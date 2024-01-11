@@ -497,13 +497,7 @@ function verificarYMostrarBotonFirma() {
 }
 
 let alturaFilaPromedioPt = calcularAlturaPromedioFila(32, 167); // Altura promedio en puntos
-$(document).ready(function() {
-    var table = $('#miTabla').DataTable({
-        // ... configuraciones previas de DataTables ...
-    });
 
-    ajustarFilasVisibles(table, alturaFilaPromedioPt);
-});
 
 function ajustarFilasVisibles(table, alturaFilaPromedioPt) {
     // Usa la altura promedio para calcular el número de filas que caben en la página
@@ -524,6 +518,23 @@ function calcularEspacioDisponible() {
 
     return espacioDisponiblePt; // Retorna el valor calculado en puntos
 }
+function ajustarFilasVisibles(table) {
+    let alturaFilaPromedioPt = calcularAlturaPromedioFila(32, 167); // Altura promedio en puntos
+    let espacioDisponiblePt = calcularEspacioDisponible(); // Calcula el espacio disponible para las filas
+
+    // Calcula cuántas filas pueden caber en la página
+    let filasVisibles = Math.floor(espacioDisponiblePt / alturaFilaPromedioPt);
+
+    // Ajusta la paginación de DataTables para mostrar solo el número de filas que caben
+    table.page.len(filasVisibles).draw();
+}
+    $(document).ready(function() {
+        var table = $('#analisisFQ').DataTable({
+            // ... configuraciones previas de DataTables ...
+        });
+
+        ajustarFilasVisibles(table, alturaFilaPromedioPt);
+    });
 
     
  
