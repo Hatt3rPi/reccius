@@ -493,50 +493,54 @@ function verificarYMostrarBotonFirma() {
 }
     // ... Código anterior ...
 
-    function crearNuevaPaginaConHeaderYFooter() {
-    const pagina = document.createElement('div');
-    pagina.innerHTML = document.getElementById('form-container').innerHTML;
-    pagina.classList.add('form-container');
-    // Vacía el contenido para comenzar con una página en blanco
-    pagina.querySelector('#content').innerHTML = '';
-    pagina.querySelector('#additionalContent').innerHTML = '';
-    return pagina;
+    function ajustarPaginacionDeDataTables() {
+    // Establecer la altura máxima permitida para el contenido de una página.
+    const alturaMaximaPorPagina = 792; // Ajuste según la altura de su página.
+    const alturaHeader = 136; // Ajuste según la altura de su header.
+    const alturaFooter = 232; // Ajuste según la altura de su footer.
+    const alturaDisponibleParaTabla = alturaMaximaPorPagina - alturaHeader - alturaFooter;
+
+    // Suponemos que tu tabla DataTables ya ha sido inicializada y tiene una clase 'miTabla'.
+    const tabla = $('#analisisFQ').DataTable();
+
+    // Calcula la altura de una fila para estimar cuántas filas caben en la página.
+    const alturaFilaPromedio = calcularAlturaFilaPromedio(tabla);
+
+    // Calcula cuántas filas deberían mostrarse para no exceder la altura disponible.
+    const filasQueCaben = Math.floor(alturaDisponibleParaTabla / alturaFilaPromedio);
+
+    // Actualiza la paginación de DataTables para mostrar solo el número de filas que caben.
+    tabla.page.len(filasQueCaben).draw();
 }
 
-function paginarDocumentos() {
-    const alturaHeader = 136; // Altura del header en puntos
-    const alturaFooter = 222 + 10; // Altura del footer más padding en puntos
-    const alturaMaximaPorPagina = 792; // Altura en puntos para una página de tamaño carta
-    const alturaDisponiblePorPagina = alturaMaximaPorPagina - alturaHeader - alturaFooter;
-    
-    let paginas = [crearNuevaPaginaConHeaderYFooter()];
-    let alturaActual = alturaHeader;
+function calcularAlturaFilaPromedio(tabla) {
+    // Obtiene las filas de la tabla para calcular la altura promedio.
+    const filas = tabla.rows({ page: 'current' }).nodes();
+    let alturaTotal = 0;
 
-    document.querySelectorAll('.content').forEach((contenido) => {
-        // Calcula la altura del contenido, si no cabe en la página actual, crea una nueva
-        if (alturaActual + contenido.offsetHeight > alturaDisponiblePorPagina) {
-            paginas.push(crearNuevaPaginaConHeaderYFooter());
-            alturaActual = alturaHeader;
-        }
-
-        // Añade el contenido a la última página creada y actualiza la altura actual
-        paginas[paginas.length - 1].querySelector('#content').appendChild(contenido.cloneNode(true));
-        alturaActual += contenido.offsetHeight;
+    filas.each(function () {
+        alturaTotal += $(this).outerHeight();
     });
 
-    // Elimina el form-container original y añade las nuevas páginas al DOM
-    document.getElementById('form-container').remove();
-    paginas.forEach(pagina => {
-        document.body.appendChild(pagina);
-    });
+    // Retorna la altura promedio de una fila.
+    return alturaTotal / filas.length;
 }
+
+// Llama a la función de ajuste de paginación una vez que se ha cargado e inicializado DataTables.
+$(document).ready(function () {
+    // Inicializa tu DataTables aquí o asegúrate de que ya esté inicializado.
+    // ...
+
+    // Luego, ajusta la paginación de la tabla.
+    ajustarPaginacionDeDataTables();
+});
+
  
     window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
-            setTimeout(paginarDocumentos, 1000); // Espera a que los datos se carguen. Este valor de tiempo puede necesitar ajustes.
-    };
+           };
         </script>
 
     </body>
