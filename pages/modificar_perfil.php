@@ -136,36 +136,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
         }
-        document.getElementById('formPerfil').addEventListener('submit', function(event) {
-    event.preventDefault(); // Previene el comportamiento de envío estándar del formulario
+        document.getElementById('formPerfil').addEventListener('submit', function (event) {
+            var password = document.getElementById('nuevaPassword').value;
+            var confirmPassword = document.getElementById('confirmarPassword').value;
 
-    var password = document.getElementById('nuevaPassword').value;
-    var confirmPassword = document.getElementById('confirmarPassword').value;
+            // Validar que las contraseñas coincidan
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden.');
+                event.preventDefault(); // Prevenir el envío del formulario
+                return false;
+            }
 
-    // Validar que las contraseñas coincidan
-    if (password !== confirmPassword) {
-        alert('Las contraseñas no coinciden.');
-        return false;
-    }
-
-    var formData = new FormData(this);
-
-    // Realiza la solicitud AJAX al script PHP de procesamiento de perfil
-    fetch('backend/usuario/modificar_perfilBE.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Llama a la función de notificación con la respuesta
-        showNotification(data.message, data.success);
-    })
-    .catch(error => {
-        // Maneja cualquier error y muestra una notificación
-        showNotification('Error al procesar la solicitud: ' + error, false);
-    });
-});
-
+            // Validación adicional aquí si es necesario
+        });
 
         function toggleInputs(switchClass) {
             var inputs = document.querySelectorAll('.' + switchClass);
