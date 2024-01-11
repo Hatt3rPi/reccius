@@ -183,6 +183,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             }
         }
+        // Función para mostrar la notificación
+function showNotification(message, isSuccess) {
+    var notification = document.getElementById('notification');
+    var messageElement = document.getElementById('notification-message');
+    messageElement.textContent = message;
+    
+    // Añadir la clase para el estilo de éxito o error
+    notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
+    
+    // Mostrar la notificación
+    notification.style.display = 'block';
+    
+    // Ocultar la notificación después de 5 segundos (si deseas que desaparezca automáticamente)
+    setTimeout(function() {
+        notification.style.display = 'none'; // Cambiado para no depender de jQuery
+    }, 5000);
+}
+
+// Asegúrate de que el CSS para las clases 'success' y 'error' esté definido para que las notificaciones se muestren correctamente.
+
 
 
 </script>
