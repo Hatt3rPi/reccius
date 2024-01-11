@@ -250,6 +250,6 @@ p {
     display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
 
-#pagination{
+#col-sm-12 col-md-7{
     display: none !important;
 }
