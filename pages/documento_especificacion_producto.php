@@ -442,12 +442,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             $('#additionalContent').hide();
         }
     }
-    window.onload = function () {
-        // Suponiendo que tengas un ID de producto para cargar
-        cargarDatosEspecificacion(id);
-        verificarYMostrarBotonFirma();
-        setTimeout(paginarDocumentos, 1000); // Espera a que los datos se carguen. Este valor de tiempo puede necesitar ajustes.
-};
+
     
 
 
@@ -498,35 +493,49 @@ function verificarYMostrarBotonFirma() {
 }
     // ... Código anterior ...
 
-function crearPagina() {
-    const pagina = document.createElement('div');
-    pagina.innerHTML = document.getElementById('form-container').innerHTML;
-    pagina.classList.add('form-container');
-    return pagina;
-}
+    function crearNuevaPaginaConHeaderYFooter() {
+        const pagina = document.createElement('div');
+        pagina.innerHTML = document.getElementById('form-container').innerHTML;
+        pagina.classList.add('form-container');
+        // Vacía el contenido para comenzar con una página en blanco
+        pagina.querySelector('#content').innerHTML = '';
+        pagina.querySelector('#additionalContent').innerHTML = '';
+        return pagina;
+    }
 
-function paginarDocumentos() {
-    // Establecer la altura máxima permitida para el contenido de una página.
-    const alturaMaximaPorPagina = 792 - (2 * 20); // 792pt de alto por página, menos el padding.
-    const contenedores = document.querySelectorAll('.form-container');
+    function paginarDocumentos() {
+        const alturaHeader = 136; // Altura del header en puntos
+        const alturaFooter = 222 + 10; // Altura del footer más padding en puntos
+        const alturaMaximaPorPagina = 792; // Altura en puntos para una página de tamaño carta
+        const alturaDisponiblePorPagina = alturaMaximaPorPagina - alturaHeader - alturaFooter;
+        
+        let paginas = [crearNuevaPaginaConHeaderYFooter()];
+        let alturaActual = alturaHeader;
 
-    contenedores.forEach(contenedor => {
-        let alturaActual = contenedor.querySelector('.header').offsetHeight + contenedor.querySelector('.header-bottom').offsetHeight;
-        const secciones = contenedor.querySelectorAll('.table-section');
-
-        secciones.forEach(seccion => {
-            alturaActual += seccion.offsetHeight;
-            if (alturaActual > alturaMaximaPorPagina) {
-                // Crear una nueva página y mover la sección a esa nueva página.
-                const nuevaPagina = crearPagina();
-                nuevaPagina.querySelector('.content').appendChild(seccion.cloneNode(true));
-                document.body.appendChild(nuevaPagina);
-                seccion.remove();
-                alturaActual = nuevaPagina.querySelector('.header').offsetHeight + nuevaPagina.querySelector('.header-bottom').offsetHeight + seccion.offsetHeight;
+        document.querySelectorAll('.content').forEach((contenido) => {
+            // Calcula la altura del contenido, si no cabe en la página actual, crea una nueva
+            if (alturaActual + contenido.offsetHeight > alturaDisponiblePorPagina) {
+                paginas.push(crearNuevaPaginaConHeaderYFooter());
+                alturaActual = alturaHeader;
             }
+
+            // Añade el contenido a la última página creada y actualiza la altura actual
+            paginas[paginas.length - 1].appendChild(contenido.cloneNode(true));
+            alturaActual += contenido.offsetHeight;
         });
-    });
-}
+
+        // Elimina el form-container original y añade las nuevas páginas al DOM
+        document.getElementById('form-container').remove();
+        paginas.forEach(pagina => {
+            document.body.appendChild(pagina);
+        });
+    }   
+    window.onload = function () {
+            // Suponiendo que tengas un ID de producto para cargar
+            cargarDatosEspecificacion(id);
+            verificarYMostrarBotonFirma();
+            setTimeout(paginarDocumentos, 1000); // Espera a que los datos se carguen. Este valor de tiempo puede necesitar ajustes.
+    };
         </script>
 
     </body>
