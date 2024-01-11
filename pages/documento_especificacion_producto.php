@@ -495,17 +495,23 @@ function verificarYMostrarBotonFirma() {
     }
 }
  
-document.addEventListener("DOMContentLoaded", function() {
-    // Crear un clon del body
-    var bodyClone = document.body.cloneNode(true);
+function actualizarEstadoDocumento() {
+    var creadorFirmado = document.getElementById('mensaje_creador').style.display === 'block';
+    var revisorFirmado = document.getElementById('mensaje_revisor').style.display === 'block';
+    var aprobadorFirmado = document.getElementById('mensaje_aprobador').style.display === 'block';
 
-    // Aplicar estilo para mover el clon 20 puntos a la derecha
-    bodyClone.style.position = "absolute";
-    bodyClone.style.left = "20pt";
+    var watermark = document.getElementById('watermark');
 
-    // Añadir el clon al final del documento
-    document.body.appendChild(bodyClone);
-});
+    if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
+        watermark.textContent = 'CONFIDENCIAL';
+    } else {
+        watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+    }
+}
+
+// Llamar a esta función cada vez que actualices el estado de las firmas
+// Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
+
 
     window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
