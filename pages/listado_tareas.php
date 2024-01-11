@@ -123,7 +123,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 acciones += '<button class="accion-btn" title="Recordar Tarea" id="' + d.id + '" name="recordar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-envelope"></i></button><a> </a>';
                 acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-user-edit"></i></button><a> </a>';
                 if (d.usuario_ejecutor === usuarioActual) {
-                    acciones += '<button class="accion-btn" title="Finalizar Tarea" id="' + d.id + '" name="finalizar" onclick="botones(this.id, this.name, \'tareas\')"><i class="fas fa-flag-check"></i></button>';
+                    acciones += '<button class="accion-btn" title="Finalizar Tarea" id="' + d.id + '" name="finalizar" onclick="botones(this.id, this.name, \'tareas\')"><i class="fas fa-check"></i></button>';
                 }
             }
             
