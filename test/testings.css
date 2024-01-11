@@ -249,3 +249,7 @@ p {
 .hidden {
     display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
+
+#pagination{
+    display: none !important;
+}
