@@ -108,3 +108,8 @@ h1, h2.section-title {
     margin: 0; /* Elimina cualquier margen del ícono */
     font-size: 16px; /* Tamaño del ícono para llenar el botón */
 }
+
+.resaltar {
+    font-weight: bold;
+    color: #0056b3; /* Puedes cambiarlo por el color que prefieras */
+}

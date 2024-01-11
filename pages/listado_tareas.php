@@ -38,6 +38,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     <script>
         // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
+        var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
         function cargaListadoTareas() {
             var table = $('#listado_tareas').DataTable({
                 "ajax": "./backend/tareas/listado_tareasBE.php",
@@ -53,10 +54,38 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         "width": "20px"
                     },
                     { "data": "prioridad", "width": "50px" },
-                    { "data": "estado", "width": "70px" },
+                    {
+                        "data": "estado",
+                        "title": "Estado",
+                        "width": "70px",
+                        "render": function(data, type, row) {
+                            switch (data) {
+                                case 'Activo':
+                                    return '<span class="badge badge-primary">Activo</span>';
+                                case 'Finalizado':
+                                    return '<span class="badge badge-dark">Finalizado</span>';
+                                case 'Fecha de Vencimiento cercano':
+                                    return '<span class="badge badge-warning">Fecha de Vencimiento cercano</span>';
+                                case 'Atrasado':
+                                    return '<span class="badge badge-danger">Atrasado</span>';
+                                default:
+                                    return '<span class="badge">' + data + '</span>';
+                            }  
+                        }
+                    },
                     { "data": "descripcion_tarea" },
-                    { "data": "usuario_creador" },
-                    { "data": "usuario_ejecutor" },
+                    {
+                        "data": "usuario_creador",
+                        "render": function (data, type, row) {
+                            return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
+                        }
+                    },
+                    {
+                        "data": "usuario_ejecutor",
+                        "render": function (data, type, row) {
+                            return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
+                        }
+                    },
                     { "data": "fecha_ingreso", "width": "70px" },
                     { "data": "fecha_vencimiento", "width": "70px"  },
 
