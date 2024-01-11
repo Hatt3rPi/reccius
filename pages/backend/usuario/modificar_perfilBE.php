@@ -17,8 +17,8 @@ function cambiarCertificado($link, $usuario, $certificado) {
 
     $nombreArchivoTemporal = $certificado['tmp_name'];
     $tipoArchivo = strtolower(pathinfo($certificado['name'], PATHINFO_EXTENSION));
-    $nombreArchivo = $directorioDestino . "certificado_" . $usuario . ".pdf";
-    $nombreArchivo_n = "certificado_" . $usuario . ".pdf";
+    $nombreArchivo = $directorioDestino . $nombreArchivoTemporal ;
+    $nombreArchivo_n = $nombreArchivoTemporal ;
 
     if ($certificado["size"] > 10000000) { // Tamaño máximo de 10 MB
         return "El archivo es demasiado grande.";

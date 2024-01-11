@@ -124,7 +124,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         document.getElementById('fotoPerfilExistente').innerHTML = '<img src="../assets/uploads/perfiles/' + usuario.foto_perfil + '" alt="Foto de perfil" />';
                     }
                     if (usuario.certificado) {
-                        document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '">Ver Certificado</a>';
+                        document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '" target="_blank">Ver Certificado</a>';
                     }
                 },
                 error: function(xhr, status, error) {
