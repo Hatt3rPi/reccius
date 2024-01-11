@@ -202,7 +202,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
         // Guardar el PDF
-        pdf.save('especificacion-producto.pdf');
+        pdf.save(`${producto}.pdf`);
 
         // Remover la clase no-border después de generar el PDF
         formContainer.classList.remove('no-border');
