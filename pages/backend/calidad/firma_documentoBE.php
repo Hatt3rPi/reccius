@@ -38,6 +38,7 @@ registrarTrazabilidad(
 );
 // Verificar si la actualización fue exitosa
 if ($exito) {
+    finalizarTarea($_SESSION['usuario'], $idEspecificacion, $rolUsuario);
     echo json_encode(['exito' => true, 'mensaje' => 'Documento firmado con éxito']);
 } else {
     echo json_encode(['exito' => false, 'mensaje' => 'Error al firmar el documento']);
