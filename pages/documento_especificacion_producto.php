@@ -463,16 +463,17 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 });
 
 function esRevisorYFirmaPendiente() {
-    return $('#revisadoPor').text() === usuarioActual && $('#fechaRevision').text() === 'Firma Pendiente';
+    return $('#revisadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaRevision').text() === 'Firma Pendiente';
 }
 
 function esAprobadorYFirmaPendiente() {
-    return $('#aprobadoPor').text() === usuarioActual && $('#fechaAprobacion').text() === 'Firma Pendiente';
+    return $('#aprobadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaAprobacion').text() === 'Firma Pendiente';
 }
 
 function firmarDocumento() {
     // Aquí va el código para realizar la firma del documento
     // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
+    alert('acabas de firmar');
     actualizarEstadoDocumento();
 }
 function verificarYMostrarBotonFirma(response) {
