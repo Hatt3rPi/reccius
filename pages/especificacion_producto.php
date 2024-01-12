@@ -128,9 +128,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
+                    <div class="form-group" id="contenedor_dealer" name="contenedor_dealer" style="display: none;">
                         <label>Proveedor:</label>
-                        <input type="text" id="dealer" name="dealer" style="display: none;">
+                        <input type="text" id="dealer" name="dealer" >
                     </div>
                 </div>
                 <br>
@@ -824,19 +824,20 @@ $('#guardar').click(function() {
     switch (tipoProducto) {
         case 'Material Envase y Empaque':
             prefijo = 'DCAL-CC-EMEE-';
-            $('#dealer').hide().prop('required', false);
+            $('#contenedor_dealer').hide().prop('required', false);
             break;
         case 'Materia Prima':
             prefijo = 'DCAL-CC-EMP-';
-            $('#dealer').hide().prop('required', false);
+            $('#contenedor_dealer').show().prop('required', true);
+            
             break;
         case 'Producto Terminado':
             prefijo = 'DCAL-CC-EPT-';
-            $('#dealer').hide().prop('required', false);
+            $('#contenedor_dealer').hide().prop('required', false);
             break;
         case 'Insumo':
             prefijo = 'DCAL-CC-EINS-';
-            $('#dealer').show().prop('required', true);
+            $('#contenedor_dealer').hide().prop('required', false);
             break;
     }
 
