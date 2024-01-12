@@ -147,7 +147,6 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
 if (isset($_POST['modificarPerfil'])) {
     $usuario = $_SESSION['usuario'] ?? $_POST['usuario'];
     $mensajeError = "";
-    $operacionExitosa = true;
 
     // Cambio de contraseña
 if (isset($_POST['editarContrasena']) && $_POST['editarContrasena'] == '1') {
@@ -200,13 +199,15 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
         $mensajeError .= "Archivo de certificado no proporcionado. ";
     }
 }
-    $response = [
-        'success' => $operacionExitosa,
-        'message' => $mensajeError ? trim($mensajeError) : "Perfil actualizado con éxito."
-    ];
+    // Agrega aquí las comprobaciones y lógica para las demás secciones (Información de usuario, Certificado, etc.)
 
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit();
+    if (!empty($mensajeError)) {
+        echo trim($mensajeError);
+    } else {
+        echo "Perfil actualizado con éxito.";
     }
+
+    header("Location: ../../index.php");
+    exit();
+}
 ?>

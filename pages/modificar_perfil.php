@@ -194,6 +194,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         var formData = new FormData(this); // Usa FormData para soportar archivos
         formData = JSON.stringify(formData)
+        
         $.ajax({
             type: "POST",
             url: "backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
@@ -203,16 +204,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             dataType: "json", // Espera una respuesta en formato JSON
             success: function(response){
                 // Mostrar la respuesta como una notificación
-                
-                response = json_decode(response)
-                console.log(response)
-                showNotification(response.message, response.success);
+                showNotification(response, true);
             },
             error: function(jqXHR, textStatus, errorThrown){
-            // Aquí puedes ver el texto de respuesta para depurar
-            console.log(jqXHR.responseText); // Esto mostrará la respuesta cruda del servidor
-            showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
-        }
+                // Mostrar un mensaje de error
+                showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
+            }
         });
     });
 
