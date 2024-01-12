@@ -220,10 +220,10 @@ tbody:last-child tr:last-child {
     align-items: flex-end;
 }
 
-#sign-document, #download-pdf {
+.button-container button {
+    width: 200px; /* Establece un ancho fijo para ambos botones */
     padding: 15px 30px;
     margin-bottom: 10px; /* Espacio entre los botones */
-    background-color: #0047b3;
     color: white;
     border: none;
     border-radius: 5px;
@@ -232,17 +232,23 @@ tbody:last-child tr:last-child {
     text-align: center;
     text-decoration: none;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s; /* Transición suave para el cambio de color */
 }
 
-#sign-document:hover, #download-pdf:hover {
-    background-color: #003580;
+#sign-document {
+    background-color: #ff0000; /* Color rojo para el botón Firmar Documento */
 }
 
+#download-pdf {
+    background-color: #0047b3; /* Color azul para el botón Descargar PDF */
+}
 
-/* Estilo para el hover del botón */
+#sign-document:hover {
+    background-color: #aa0202; /* Color rojo oscuro al pasar el mouse por el botón Firmar Documento */
+}
+
 #download-pdf:hover {
     background-color: #003580;
-    /* Color de fondo un poco más oscuro al pasar el mouse */
 }
 
 /* ... tus estilos existentes ... */
