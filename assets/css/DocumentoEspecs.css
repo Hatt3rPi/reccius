@@ -211,36 +211,33 @@ tbody:last-child tr:last-child {
     box-sizing: border-box; /* Incluye el padding y el borde en el ancho */
 }
 
-
-
-#download-pdf {
+.button-container {
     position: fixed;
-    /* Posición fija en la ventana */
     bottom: 20px;
-    /* Espaciado desde la parte inferior de la ventana */
     right: 20px;
-    /* Espaciado desde la parte derecha de la ventana */
-    padding: 15px 30px;
-    /* Espaciado interno del botón */
-    background-color: #0047b3;
-    /* Color de fondo azul */
-    color: white;
-    /* Color de texto blanco */
-    border: none;
-    /* Sin bordes */
-    border-radius: 5px;
-    /* Bordes redondeados */
-    font-size: 18px;
-    /* Tamaño del texto */
-    cursor: pointer;
-    /* Cursor tipo puntero */
-    text-align: center;
-    /* Texto centrado */
-    text-decoration: none;
-    /* Sin subrayado en el texto */
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    /* Sombra para el botón */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
+
+#sign-document, #download-pdf {
+    padding: 15px 30px;
+    margin-bottom: 10px; /* Espacio entre los botones */
+    background-color: #0047b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#sign-document:hover, #download-pdf:hover {
+    background-color: #003580;
+}
+
 
 /* Estilo para el hover del botón */
 #download-pdf:hover {
