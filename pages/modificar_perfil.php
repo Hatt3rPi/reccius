@@ -189,30 +189,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         $(document).ready(function(){
-    $("#formPerfil").submit(function(event){
-        event.preventDefault(); // Prevenir el envío estándar del formulario
+            $("#formPerfil").submit(function(event){
+    event.preventDefault(); // Prevenir el envío estándar del formulario
 
-        var formData = new FormData(this); // Usa FormData para soportar archivos
-        formData = JSON.stringify(formData)
-        
-        $.ajax({
-            type: "POST",
-            url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
-            data: formData,
-            processData: false, // Necesario para FormData
-            contentType: false, // Necesario para FormData
-            dataType: "json", // Espera una respuesta en formato JSON
-            success: function(response){
-                // Mostrar la notificación con el mensaje del backend
-                showNotification(response.message, response.success);
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                // Mostrar un mensaje de error
-                showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
-            }
-        });
-
+    var formData = new FormData(this); // Usa FormData para soportar archivos
+    
+    $.ajax({
+        type: "POST",
+        url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
+        data: formData,
+        processData: false, // Necesario para FormData
+        contentType: false, // Necesario para FormData
+        dataType: "json", // Espera una respuesta en formato JSON
+        success: function(response){
+            // Mostrar la notificación con el mensaje del backend
+            showNotification(response.message, response.success);
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            // Mostrar un mensaje de error
+            var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
+            showNotification(errorMsg, false);
+        }
     });
+});
+
 
     // Función para mostrar la notificación
     function showNotification(message, isSuccess) {
