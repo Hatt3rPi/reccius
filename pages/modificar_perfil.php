@@ -196,7 +196,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         $.ajax({
             type: "POST",
-            url: "..pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
+            url: "backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
             data: formData,
             processData: false, // Necesario para FormData
             contentType: false, // Necesario para FormData
