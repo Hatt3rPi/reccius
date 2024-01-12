@@ -193,7 +193,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         event.preventDefault(); // Prevenir el envío estándar del formulario
 
         var formData = new FormData(this); // Usa FormData para soportar archivos
-
+        formData = JSON.stringify(formData)
         $.ajax({
             type: "POST",
             url: "backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
