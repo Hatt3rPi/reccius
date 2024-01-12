@@ -206,9 +206,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 showNotification(response.message, response.success);
             },
             error: function(jqXHR, textStatus, errorThrown){
-                // Mostrar un mensaje de error
-                showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
-            }
+            // Aquí puedes ver el texto de respuesta para depurar
+            console.log(jqXHR.responseText); // Esto mostrará la respuesta cruda del servidor
+            showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
+        }
         });
     });
 
