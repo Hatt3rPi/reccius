@@ -179,6 +179,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <div class="button-container">
             <button id="sign-document" style="display: none;">Firmar Documento</button>
             <button id="download-pdf">Descargar PDF</button>
+            <p id='id_especificacion' name='id_especificacion' style="display: none;"><
         </div>
 
         <script>
@@ -275,12 +276,13 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             $('#concentracion').text(producto.concentracion);
             $('#formato').text(producto.formato);
             $('#documento').text(producto.documento_producto);
-
+            
             //$('#elaboradoPor').text(producto.creado_por);
 
             let especificacion = Object.values(producto.especificaciones)[0];
             if (especificacion) {
                 cargo_creador
+                $('#id_especificacion').text(especificacion.id_especificacion);
                 $('#cargo_creador').text(especificacion.creado_por.cargo);
                 $('#cargo_revisor').text(especificacion.revisado_por.cargo);
                 $('#cargo_aprobador').text(especificacion.aprobado_por.cargo);
@@ -471,11 +473,40 @@ function esAprobadorYFirmaPendiente() {
 }
 
 function firmarDocumento() {
-    // Aquí va el código para realizar la firma del documento
-    // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
-    alert('acabas de firmar');
-    actualizarEstadoDocumento();
+    // Obten los datos necesarios para la firmaid_especificacion
+    var idEspecificacion = $('#id_especificacion').text();
+    var rolUsuario='';
+    if (esRevisorYFirmaPendiente()) {
+        rolUsuario = 'revisado_por';
+    } else if (esAprobadorYFirmaPendiente()) {
+        rolUsuario = 'aprobado_por';
+    } else {
+        // En caso de que no se pueda determinar el rol, mostrar un error o tomar una acción adecuada
+        console.error("No se puede determinar el rol del usuario para la firma.");
+        return;
+    }
+
+    // Llamada AJAX al backend
+    $.ajax({
+        url: './backend/calidad/firma_documentoBE.php',
+        type: 'POST',
+        data: {
+            idEspecificacion: idEspecificacion,
+            rolUsuario: rolUsuario
+        },
+        success: function(response) {
+            // Aquí manejas la respuesta del backend
+            console.log('Firma actualizada correctamente:', response);
+            // Actualiza el estado del documento en el frontend
+            actualizarEstadoDocumento();
+            cargarDatosEspecificacion(idEspecificacion);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al firmar documento:', status, error);
+        }
+    });
 }
+
 function verificarYMostrarBotonFirma(response) {
     console.log("Respuesta recibida:", response);
 
