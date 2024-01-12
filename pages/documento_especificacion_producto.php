@@ -220,7 +220,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             success: function (response) {
                 procesarDatosEspecificacion(response);
 
-                verificarYMostrarBotonFirma();
+                verificarYMostrarBotonFirma(response);
             },
             error: function (xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
@@ -461,15 +461,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 });
 
 function esRevisorYFirmaPendiente() {
-    // Aquí debes verificar si el usuario actual es el revisor y si la firma está pendiente
-    return $('#revisadoPor').text() === usuarioNombre && $('#fechaRevision').text() === 'Firma Pendiente';
+    return $('#revisadoPor').text() === usuarioActual && $('#fechaRevision').text() === 'Firma Pendiente';
 }
 
 function esAprobadorYFirmaPendiente() {
-    // Aquí debes verificar si el usuario actual es el aprobador y si la firma está pendiente
-    console.log($('#aprobadoPor').text());
-    console.log(usuarioNombre);
-    return $('#aprobadoPor').text() === usuarioNombre && $('#fechaAprobacion').text() === 'Firma Pendiente';
+    return $('#aprobadoPor').text() === usuarioActual && $('#fechaAprobacion').text() === 'Firma Pendiente';
 }
 
 function firmarDocumento() {
@@ -477,17 +473,21 @@ function firmarDocumento() {
     // Esto podría implicar una llamada AJAX a tu servidor o cualquier otra lógica necesaria
     actualizarEstadoDocumento();
 }
-function verificarYMostrarBotonFirma() {
+function verificarYMostrarBotonFirma(response) {
+    if (!response || !response.productos || !Array.isArray(response.productos)) {
+        return; // Si la respuesta no es válida, no hacer nada
+    }
 
-    var esRevisorPendiente = esRevisorYFirmaPendiente();
-    var esAprobadorPendiente = esAprobadorYFirmaPendiente();
-    var esAprobador = $('#aprobadoPor').text() === usuarioNombre;
-    var revisorHaFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
+    // Considerando que la respuesta tiene una estructura esperada
+    let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
+    let esRevisorPendiente = especificacion.revisado_por.nombre === usuarioNombre && especificacion.revisado_por.fecha_revision === null;
+    let esAprobadorPendiente = especificacion.aprobado_por.nombre === usuarioNombre && especificacion.aprobado_por.fecha_aprobacion === null;
+    let revisorHaFirmado = especificacion.revisado_por.fecha_revision !== null;
 
     if (esRevisorPendiente || (esAprobadorPendiente && revisorHaFirmado)) {
         document.getElementById('sign-document').style.display = 'block';
         document.getElementById('sign-document').disabled = false;
-    } else if (esAprobador && !revisorHaFirmado) {
+    } else if (esAprobadorPendiente && !revisorHaFirmado) {
         // Mostrar el botón, pero deshabilitado
         document.getElementById('sign-document').style.display = 'block';
         document.getElementById('sign-document').disabled = true;
@@ -496,6 +496,7 @@ function verificarYMostrarBotonFirma() {
         document.getElementById('sign-document').style.display = 'none';
     }
 }
+
  
 function actualizarEstadoDocumento() {
     var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
@@ -523,6 +524,7 @@ function actualizarEstadoDocumento() {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
            };
+
         </script>
 
     </body>
