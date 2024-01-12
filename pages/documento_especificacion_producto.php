@@ -474,28 +474,40 @@ function firmarDocumento() {
     actualizarEstadoDocumento();
 }
 function verificarYMostrarBotonFirma(response) {
+    console.log("Respuesta recibida:", response);
+
     if (!response || !response.productos || !Array.isArray(response.productos)) {
+        console.log("Respuesta no válida o sin productos");
         return; // Si la respuesta no es válida, no hacer nada
     }
 
     // Considerando que la respuesta tiene una estructura esperada
     let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
+    console.log("Especificación procesada:", especificacion);
+
     let esRevisorPendiente = especificacion.revisado_por.nombre === usuarioNombre && especificacion.revisado_por.fecha_revision === null;
     let esAprobadorPendiente = especificacion.aprobado_por.nombre === usuarioNombre && especificacion.aprobado_por.fecha_aprobacion === null;
     let revisorHaFirmado = especificacion.revisado_por.fecha_revision !== null;
 
+    console.log("Es Revisor y Firma Pendiente:", esRevisorPendiente);
+    console.log("Es Aprobador y Firma Pendiente:", esAprobadorPendiente);
+    console.log("Revisor ha firmado:", revisorHaFirmado);
+
     if (esRevisorPendiente || (esAprobadorPendiente && revisorHaFirmado)) {
+        console.log("Mostrar botón de firma (habilitado)");
         document.getElementById('sign-document').style.display = 'block';
         document.getElementById('sign-document').disabled = false;
     } else if (esAprobadorPendiente && !revisorHaFirmado) {
-        // Mostrar el botón, pero deshabilitado
+        console.log("Mostrar botón de firma (deshabilitado)");
         document.getElementById('sign-document').style.display = 'block';
         document.getElementById('sign-document').disabled = true;
         document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
     } else {
+        console.log("No mostrar botón de firma");
         document.getElementById('sign-document').style.display = 'none';
     }
 }
+
 
  
 function actualizarEstadoDocumento() {
