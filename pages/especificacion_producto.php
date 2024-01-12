@@ -129,8 +129,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-                        <label>Dealer:</label>
-                        <input type="text" name="dealer" Value="..." required>
+                        <label>Proveedor:</label>
+                        <input type="text" id="dealer" name="dealer" style="display: none;">
                     </div>
                 </div>
                 <br>
@@ -175,7 +175,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group">
                         <label>Realizado por:</label>
                         <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" style="width: 38.5%" readonly>
-                        <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>"style="display: none;">
+                        <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none;">
 
                     </div>
                 </div>
@@ -824,15 +824,19 @@ $('#guardar').click(function() {
     switch (tipoProducto) {
         case 'Material Envase y Empaque':
             prefijo = 'DCAL-CC-EMEE-';
+            $('#dealer').hide().prop('required', false);
             break;
         case 'Materia Prima':
             prefijo = 'DCAL-CC-EMP-';
+            $('#dealer').hide().prop('required', false);
             break;
         case 'Producto Terminado':
             prefijo = 'DCAL-CC-EPT-';
+            $('#dealer').hide().prop('required', false);
             break;
         case 'Insumo':
             prefijo = 'DCAL-CC-EINS-';
+            $('#dealer').show().prop('required', true);
             break;
     }
 
