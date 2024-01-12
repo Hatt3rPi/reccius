@@ -283,7 +283,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             let especificacion = Object.values(producto.especificaciones)[0];
             if (especificacion) {
                 cargo_creador
-                $('#id_especificacion').text(especificacion.id_especificacion);
+                $('#id_especificacion').text(especificacion.id);
                 $('#cargo_creador').text(especificacion.creado_por.cargo);
                 $('#cargo_revisor').text(especificacion.revisado_por.cargo);
                 $('#cargo_aprobador').text(especificacion.aprobado_por.cargo);
