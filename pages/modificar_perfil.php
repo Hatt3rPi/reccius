@@ -203,6 +203,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             dataType: "json", // Espera una respuesta en formato JSON
             success: function(response){
                 // Mostrar la respuesta como una notificación
+                
+                response = json_decode(response)
+                console.log(response)
                 showNotification(response.message, response.success);
             },
             error: function(jqXHR, textStatus, errorThrown){
