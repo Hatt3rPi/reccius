@@ -201,13 +201,13 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
 }
     // Agrega aquí las comprobaciones y lógica para las demás secciones (Información de usuario, Certificado, etc.)
 
+        // Al final de tu script PHP, reemplaza el echo y header por:
     if (!empty($mensajeError)) {
-        echo trim($mensajeError);
+        echo json_encode(["success" => false, "message" => trim($mensajeError)]);
     } else {
-        echo "Perfil actualizado con éxito.";
+        echo json_encode(["success" => true, "message" => "Perfil actualizado con éxito."]);
     }
-
-    header("Location: ../../index.php");
     exit();
+
 }
 ?>

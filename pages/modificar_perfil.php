@@ -203,8 +203,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             contentType: false, // Necesario para FormData
             dataType: "json", // Espera una respuesta en formato JSON
             success: function(response){
-                // Mostrar la respuesta como una notificación
-                showNotification(response, true);
+            // Mostrar la notificación con el mensaje del backend
+            showNotification(response.message, response.success);
+        },
+
             },
             error: function(jqXHR, textStatus, errorThrown){
                 // Mostrar un mensaje de error
