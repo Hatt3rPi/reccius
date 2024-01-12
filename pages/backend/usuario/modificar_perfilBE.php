@@ -147,6 +147,7 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
 if (isset($_POST['modificarPerfil'])) {
     $usuario = $_SESSION['usuario'] ?? $_POST['usuario'];
     $mensajeError = "";
+    $operacionExitosa = true;
 
     // Cambio de contraseña
 if (isset($_POST['editarContrasena']) && $_POST['editarContrasena'] == '1') {
@@ -200,20 +201,12 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
     }
 }
     $response = [
-        'success' => false,
-        'message' => ''
+        'success' => $operacionExitosa,
+        'message' => $mensajeError ? trim($mensajeError) : "Perfil actualizado con éxito."
     ];
 
-    if (!empty($mensajeError)) {
-        $response['message'] = trim($mensajeError);
-    } else {
-        $response['message'] = "Perfil actualizado con éxito.";
-        $response['success'] = true;
-    }
-
+    header('Content-Type: application/json');
     echo json_encode($response);
-
     exit();
-
-}
+    }
 ?>

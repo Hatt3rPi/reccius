@@ -189,46 +189,49 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         $(document).ready(function(){
-    $("#formperfil").submit(function(event){
+    $("#formPerfil").submit(function(event){
         event.preventDefault(); // Prevenir el envío estándar del formulario
 
-        var formData = $(this).serialize(); // Obtener los datos del formulario
-        
+        var formData = new FormData(this); // Usa FormData para soportar archivos
+
         $.ajax({
             type: "POST",
-            url: "../pages/backend/usuario/modificar_perfilBE.php", // Ruta relativa correcta
+            url: "..pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
             data: formData,
+            processData: false, // Necesario para FormData
+            contentType: false, // Necesario para FormData
+            dataType: "json", // Espera una respuesta en formato JSON
             success: function(response){
-                var data = JSON.parse(response);
-                showNotification(data.message, data.success);
+                // Mostrar la respuesta como una notificación
+                showNotification(response.message, response.success);
             },
-
             error: function(jqXHR, textStatus, errorThrown){
                 // Mostrar un mensaje de error
                 showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
             }
         });
     });
+
+    // Función para mostrar la notificación
+    function showNotification(message, isSuccess) {
+        var notification = document.getElementById('notification');
+        var messageElement = document.getElementById('notification-message');
+        messageElement.textContent = message;
+        
+        // Añadir la clase para el estilo de éxito o error
+        notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
+        
+        // Mostrar la notificación
+        notification.style.display = 'block';
+        
+        // Ocultar la notificación después de 5 segundos
+        setTimeout(function() {
+            $(notification).fadeOut();
+        }, 5000);
+    }
 });
 
-// Función para mostrar la notificación
-// Función para mostrar la notificación
-function showNotification(message, isSuccess) {
-    var notification = document.getElementById('notification');
-    var messageElement = document.getElementById('notification-message');
-    messageElement.textContent = message;
-    
-    // Añadir la clase para el estilo de éxito o error
-    notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
-    
-    // Mostrar la notificación
-    notification.style.display = 'block';
-    
-    // Ocultar la notificación después de 5 segundos (si deseas que desaparezca automáticamente)
-    setTimeout(function() {
-        $(notification).fadeOut(); // Usar fadeOut de jQuery en lugar de ocultar directamente
-    }, 5000);
-}
+// Código para manejar los switches y cargar información existente aquí...
 
 // Este código permite que las notificaciones se desvanezcan al hacer clic en ellas
 $(document).on('click', '.notify', function() {
