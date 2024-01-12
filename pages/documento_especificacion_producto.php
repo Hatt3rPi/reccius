@@ -179,7 +179,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <div class="button-container">
             <button id="sign-document" style="display: none;">Firmar Documento</button>
             <button id="download-pdf">Descargar PDF</button>
-            <p id='id_especificacion' name='id_especificacion' style="display: none;"><
+            <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
+
         </div>
 
         <script>
@@ -474,7 +475,7 @@ function esAprobadorYFirmaPendiente() {
 
 function firmarDocumento() {
     // Obten los datos necesarios para la firmaid_especificacion
-    var idEspecificacion = $('#id_especificacion').text();
+    var idEspecificacion = $('#id_especificacion').text().trim();
     var rolUsuario='';
     if (esRevisorYFirmaPendiente()) {
         rolUsuario = 'revisado_por';
