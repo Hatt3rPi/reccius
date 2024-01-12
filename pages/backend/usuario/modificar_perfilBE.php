@@ -199,15 +199,21 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
         $mensajeError .= "Archivo de certificado no proporcionado. ";
     }
 }
-    // Agrega aquí las comprobaciones y lógica para las demás secciones (Información de usuario, Certificado, etc.)
+    $response = [
+        'success' => false,
+        'message' => ''
+    ];
 
     if (!empty($mensajeError)) {
-        echo trim($mensajeError);
+        $response['message'] = trim($mensajeError);
     } else {
-        echo "Perfil actualizado con éxito.";
+        $response['message'] = "Perfil actualizado con éxito.";
+        $response['success'] = true;
     }
 
-    header("Location: ../../index.php");
+    echo json_encode($response);
+
     exit();
+
 }
 ?>

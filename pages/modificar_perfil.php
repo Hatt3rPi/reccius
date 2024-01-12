@@ -199,9 +199,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             url: "../pages/backend/usuario/modificar_perfilBE.php", // Ruta relativa correcta
             data: formData,
             success: function(response){
-                // Mostrar la respuesta como una notificación
-                showNotification(response, true);
+                var data = JSON.parse(response);
+                showNotification(data.message, data.success);
             },
+
             error: function(jqXHR, textStatus, errorThrown){
                 // Mostrar un mensaje de error
                 showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
