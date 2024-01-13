@@ -86,6 +86,9 @@ header h1 {
   height: calc(100% - 60px);
   padding-bottom: 0px;
   font-family: Arial, sans-serif;    
+  transition: transform 0.5s ease; /* Transición suave */
+  transform: translateX(0); /* Estado inicial, completamente visible */
+
 }
 
 .sidebar ul {

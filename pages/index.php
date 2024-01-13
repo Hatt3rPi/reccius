@@ -165,7 +165,8 @@ function fetchUserInfo() {
 </script>
 <script>
     document.getElementById('toggle-sidebar-btn').addEventListener('click', function() {
-        var sidebar = document.querySelector('.sidebar');
-        sidebar.classList.toggle('sidebar-hidden');
-    });
+    var sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('sidebar-hidden');
+});
+
 </script>
