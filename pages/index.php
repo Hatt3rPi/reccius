@@ -66,10 +66,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
         </div>
+        <button id="toggle-sidebar-btn">Toggle Sidebar</button>
     </header>
     
     <div class="container_fas">
         <aside class="sidebar">
+        
             <ul id="sidebarList">
                 <li><a class="" style="pointer-events: none;"> </a></li>
                 <li class="item" id="usuarios">
@@ -160,4 +162,10 @@ function fetchUserInfo() {
 
     obtenNotificaciones();
     fetchUserInfo();
+</script>
+<script>
+    document.getElementById('toggle-sidebar-btn').addEventListener('click', function() {
+        var sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('sidebar-hidden');
+    });
 </script>
