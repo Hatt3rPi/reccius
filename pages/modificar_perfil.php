@@ -201,6 +201,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         processData: false, // Necesario para FormData
         contentType: false, // Necesario para FormData
         dataType: "json", // Espera una respuesta en formato JSON
+        //!: hecharle un ojo en el backend
         success: function(response){
             // Mostrar la notificación con el mensaje del backend
             showNotification(response.message, response.success);
