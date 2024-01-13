@@ -16,7 +16,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Reccius</title>
         <script  src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-        <link rel="stylesheet" href="../assets/css/styles_dark.css">
+        
     
         <!-- CSS de Bootstrap 4 -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <!-- Estilos CSS de DataTables -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     
-        
+        <link rel="stylesheet" href="../assets/css/styles_dark.css">
     
         <!-- JS de DataTables -->
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -66,7 +66,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
         </div>
-        <button id="toggle-sidebar-btn">Toggle Sidebar</button>
+        <button id="toggle-sidebar-btn" class= "togglesibar" ><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24"  height="24"></button>
     </header>
     
     <div class="container_fas">
