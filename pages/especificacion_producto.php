@@ -128,9 +128,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group" id="contenedor_dealer" name="contenedor_dealer" style="display: none;">
-                        <label>Proveedor:</label>
-                        <input type="text" id="dealer" name="dealer" >
+                    <div class="form-group" >
+                        <div class="form-group"id="contenedor_dealer" name="contenedor_dealer" style="display: none;">
+                            <label>Proveedor:</label>
+                            <input type="text" id="dealer" name="dealer" >
+                        </div>  
                     </div>
                 </div>
                 <br>
@@ -188,6 +190,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="lcaques" >Lynnda Caques Segovia - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
                         </select>
                     </div>
                 </div>
@@ -200,6 +204,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="lcaques">Lynnda Caques Segovia - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda" selected>Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
                         </select>
                     </div>
                 </div>
