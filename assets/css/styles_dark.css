@@ -382,10 +382,23 @@ body {
 }
 
 .togglesibar{
+  margin: 0;
   cursor:pointer;
   padding: 4px;
 
 }
 .togglesibar:hover{
   opacity: 0.9;
+}
+.buttonreset{
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
 }

@@ -43,7 +43,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <header>
     
         <div class="header_estatico">
-        <button id="toggle-sidebar-btn" class= "togglesibar" ><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24"  height="24"></button>
+        <button id="toggle-sidebar-btn" class= "buttonreset togglesibar" ><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24"  height="24"></button>
             <div class="logo-title-container">
                 <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" class="logo"/>
             </div>
