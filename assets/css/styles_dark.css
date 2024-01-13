@@ -369,3 +369,6 @@ body {
   font-size: 12px;
   display: inline; /* Por defecto, el contador es visible */
 }
+.sidebar-hidden {
+  display: none;
+}
