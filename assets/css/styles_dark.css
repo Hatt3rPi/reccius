@@ -86,7 +86,7 @@ header h1 {
   height: calc(100% - 60px);
   padding-bottom: 0px;
   font-family: Arial, sans-serif;    
-  transition: transform 0.5s ease; /* Transición suave */
+  transition: transform 0.7s ease-in-out; /* Transición suave */
   transform: translateX(0); /* Estado inicial, completamente visible */
 
 }
@@ -373,5 +373,6 @@ body {
   display: inline; /* Por defecto, el contador es visible */
 }
 .sidebar-hidden {
+  transform: translateX(-100%); /* Mueve el sidebar hacia la izquierda */
   display: none;
 }
