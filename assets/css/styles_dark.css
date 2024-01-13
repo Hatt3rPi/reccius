@@ -162,6 +162,7 @@ header input[type="search"] {
   display: flex;
   padding: 10px;
   justify-content: space-between; /* Alinea los elementos a ambos extremos */
+  width: 100%;
   
 }
 
