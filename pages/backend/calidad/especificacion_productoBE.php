@@ -11,7 +11,7 @@ function limpiarDato($dato) {
     return htmlspecialchars(stripslashes($datoLimpio));
 }
 
-
+$numeroDocumento="";
 function insertarOpcionSiNoExiste($link, $categoria, $nuevoValor) {
     $nuevoValor = limpiarDato($nuevoValor);
     $queryVerificar = "SELECT COUNT(*) FROM calidad_opciones_desplegables WHERE nombre_opcion = ? AND categoria = ?";
@@ -155,7 +155,7 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
 
     $queryEspecificacion = "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia, creado_por, revisado_por, aprobado_por) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmtEspecificacion = mysqli_prepare($link, $queryEspecificacion);
-    mysqli_stmt_bind_param($stmtEspecificacion, "issssisss", $idProducto, $_POST['documento'], $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador);
+    mysqli_stmt_bind_param($stmtEspecificacion, "issssisss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador);
 
     $exito = mysqli_stmt_execute($stmtEspecificacion);
     $idEspecificacion = $exito ? mysqli_insert_id($link) : 0;
