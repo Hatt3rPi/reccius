@@ -88,7 +88,6 @@ header h1 {
   font-family: Arial, sans-serif;    
   transition: transform 0.7s cubic-bezier(0.42, 0, 0.58, 1); /* Ejemplo de cubic-bezier */
   transform: translateX(0);
-  background-color: initial; /* Color de fondo inicial */
 
 }
 
