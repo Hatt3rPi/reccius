@@ -380,3 +380,12 @@ body {
 .content-expanded {
   margin-left: 0;
 }
+
+.togglesibar{
+  cursor:pointer;
+  padding: 4px;
+
+}
+.togglesibar:hover{
+  opacity: 0.9;
+}
