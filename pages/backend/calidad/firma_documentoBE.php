@@ -10,19 +10,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario']) || !isset($_POST
 $idEspecificacion = intval($_POST['idEspecificacion']);
 $rolUsuario = $_POST['rolUsuario'];
 $usuario = $_SESSION['usuario'];
+$fechaActual = date('Y-m-d'); // Obtiene la fecha actual en formato YYYY-MM-DD
 
 // Preparar la consulta dependiendo del rol del usuario (revisor o aprobador)
 if ($rolUsuario == 'revisado_por') {
-    $query = "UPDATE calidad_especificacion_productos SET fecha_revision = CURRENT_DATE, estado='Pendiente de Aprobación' WHERE id_especificacion = ? AND revisado_por = ?";
+    $query = "UPDATE calidad_especificacion_productos SET fecha_revision = ?, estado='Pendiente de Aprobación' WHERE id_especificacion = ? AND revisado_por = ?";
 } elseif ($rolUsuario == 'aprobado_por') {
-    $query = "UPDATE calidad_especificacion_productos SET fecha_aprobacion = CURRENT_DATE, estado='Vigente' WHERE id_especificacion = ? AND aprobado_por = ?";
+    $query = "UPDATE calidad_especificacion_productos SET fecha_aprobacion = ?, estado='Vigente' WHERE id_especificacion = ? AND aprobado_por = ?";
 } else {
     exit('Rol no reconocido');
 }
 
 // Ejecutar la consulta
 $stmt = mysqli_prepare($link, $query);
-mysqli_stmt_bind_param($stmt, "is", $idEspecificacion, $usuario);
+mysqli_stmt_bind_param($stmt, "sis", $fechaActual, $idEspecificacion, $usuario);
 $exito = mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 registrarTrazabilidad(
