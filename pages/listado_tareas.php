@@ -12,28 +12,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Incluye aquí otros archivos necesarios (jQuery, DataTables CSS, FontAwesome, etc.) -->
 </head>
 <body>
-
-case 'Activo':
-                                    return '<span class="badge badge-primary">Activo</span>';
-                                case 'Finalizado':
-                                    return '<span class="badge badge-dark">Finalizado</span>';
-                                case 'Fecha de Vencimiento cercano':
-                                    return '<span class="badge badge-warning">Fecha de Vencimiento cercano</span>';
-                                case 'Atrasado':
-                                    return '<span class="badge badge-danger">Atrasado</span>';
-                                default:
-                                    return '<span class="badge">' + data + '</span>';
-
     <div class="form-container">
         <h1>Listado de Tareas</h1>
         <div class="estado-filtros">
                 <label>               Filtrar por:</label>
-                <button class="estado-filtro badge resaltar" onclick="filtrar_listado('Mis Tareas')">Mis Tareas</button>
-                <button class="estado-filtro badge badge-primary" onclick="filtrar_listado('Activo')">Activo</button>
-                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Fecha de Vencimiento cercano')">Fecha de Vencimiento cercano</button>
-                <button class="estado-filtro badge badge-danger" onclick="filtrar_listado('Atrasado')">Atrasado</button>
-                <button class="estado-filtro badge danger-dark" onclick="filtrar_listado('Finalizado')">Finalizado</button>
-                <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+                <button class="estado-filtro badge resaltar" onclick="filtrar_listado_usuario('')">Mis Tareas</button>
+                <button class="estado-filtro badge badge-primary" onclick="filtrar_listado_estado('Activo')">Activo</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado_estado('Fecha de Vencimiento cercano')">Fecha de Vencimiento cercano</button>
+                <button class="estado-filtro badge badge-danger" onclick="filtrar_listado_estado('Atrasado')">Atrasado</button>
+                <button class="estado-filtro badge danger-dark" onclick="filtrar_listado_estado('Finalizado')">Finalizado</button>
+                <button class="estado-filtro badge" onclick="filtrar_listado_estado('')">Todos</button>
             </div>
         <div id="contenedor_tareas">
             <table id="listado_tareas" class="table table-striped table-bordered" style="width:100%">
@@ -163,9 +151,9 @@ case 'Activo':
         var table = $('#listado_tareas').DataTable();
         table.column(2).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-    function filtrar_listado_usuario(usuario) {
+    function filtrar_listado_usuario() {
         var table = $('#listado_tareas').DataTable();
-        table.column(5).search(usuario).draw(); // Asumiendo que la columna 1 es la de
+        table.column(5).search(usuarioActual).draw(); // Asumiendo que la columna 1 es la de
     }
     </script>
 </body>
