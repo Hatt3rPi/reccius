@@ -13,9 +13,9 @@ $usuario = $_SESSION['usuario'];
 
 // Preparar la consulta dependiendo del rol del usuario (revisor o aprobador)
 if ($rolUsuario == 'revisado_por') {
-    $query = "UPDATE calidad_especificacion_productos SET fecha_revision = CURRENT_DATE WHERE id_especificacion = ? AND revisado_por = ?";
+    $query = "UPDATE calidad_especificacion_productos SET fecha_revision = CURRENT_DATE, estado='Pendiente de Aprobación' WHERE id_especificacion = ? AND revisado_por = ?";
 } elseif ($rolUsuario == 'aprobado_por') {
-    $query = "UPDATE calidad_especificacion_productos SET fecha_aprobacion = CURRENT_DATE WHERE id_especificacion = ? AND aprobado_por = ?";
+    $query = "UPDATE calidad_especificacion_productos SET fecha_aprobacion = CURRENT_DATE, estado='Vigente' WHERE id_especificacion = ? AND aprobado_por = ?";
 } else {
     exit('Rol no reconocido');
 }
