@@ -20,7 +20,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <button class="estado-filtro badge badge-primary" onclick="filtrar_listado_estado('Activo')">Activo</button>
                 <button class="estado-filtro badge badge-warning" onclick="filtrar_listado_estado('Fecha de Vencimiento cercano')">Fecha de Vencimiento cercano</button>
                 <button class="estado-filtro badge badge-danger" onclick="filtrar_listado_estado('Atrasado')">Atrasado</button>
-                <button class="estado-filtro badge danger-dark" onclick="filtrar_listado_estado('Finalizado')">Finalizado</button>
+                <button class="estado-filtro badge badge-dark" onclick="filtrar_listado_estado('Finalizado')">Finalizado</button>
                 <button class="estado-filtro badge" onclick="filtrar_listado_estado('')">Todos</button>
             </div>
         <div id="contenedor_tareas">
@@ -150,6 +150,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         function filtrar_listado_estado(estado) {
         var table = $('#listado_tareas').DataTable();
         table.column(2).search(estado).draw(); // Asumiendo que la columna 1 es la de
+        if (estado==""){
+            table.column(5).search("").draw();
+        }
     }
     function filtrar_listado_usuario() {
         var table = $('#listado_tareas').DataTable();
