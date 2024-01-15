@@ -667,8 +667,8 @@ function poblarYDeshabilitarCamposProducto(producto) {
     $('#formato').val(producto.formato).prop('disabled', true);
     $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
     if (producto.tipo_producto=='Materia Prima'){
-        $('#contenedor_dealer').show().prop('required', true);
-        $('input[name="dealer"]').val(producto.proveedor);
+        $('#contenedor_dealer').show();
+        $('input[name="dealer"]').val(producto.proveedor).prop('disabled', true);
     }
     $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
     $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
