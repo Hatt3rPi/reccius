@@ -270,6 +270,48 @@ $(document).ready(function () {
         });
     });
 });
+
+function obtenNotificaciones() {
+    fetch('../pages/backend/login/notificaciones.php')
+        .then(response => response.json())
+        .then(data => {
+            const notificationCountElement = document.querySelector('.notification-count');
+            contador_notificaciones
+            if (data.count > 0) {
+                $('#contador_notificaciones').text(data.count).show();
+            } else {
+                $('#contador_notificaciones').text(0).hide();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+$(document).ready(function () {
+    $('#testeo').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('DocumentsEspecs2.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                obtenNotificaciones();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+});
+$(window).on('load', function() {
+    // Oculta el spinner una vez que se haya cargado toda la página
+    $('#loading-spinner').hide();
+    // Asegúrate de que el contenido dinámico se muestre
+    $('#dynamic-content').show();
+});
+
 function botones(id, accion, base) {
     switch (base){
         case "especificacion":{
@@ -334,43 +376,3 @@ function botones(id, accion, base) {
     }
 
 }
-function obtenNotificaciones() {
-    fetch('../pages/backend/login/notificaciones.php')
-        .then(response => response.json())
-        .then(data => {
-            const notificationCountElement = document.querySelector('.notification-count');
-            contador_notificaciones
-            if (data.count > 0) {
-                $('#contador_notificaciones').text(data.count).show();
-            } else {
-                $('#contador_notificaciones').text(0).hide();
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
-$(document).ready(function () {
-    $('#testeo').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('DocumentsEspecs2.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-$(window).on('load', function() {
-    // Oculta el spinner una vez que se haya cargado toda la página
-    $('#loading-spinner').hide();
-    // Asegúrate de que el contenido dinámico se muestre
-    $('#dynamic-content').show();
-});
