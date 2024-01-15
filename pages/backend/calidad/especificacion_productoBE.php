@@ -118,8 +118,8 @@ function insertarProducto($link) {
     $numeroDocumento = limpiarDato($_POST['documento']);
     $numeroProducto = limpiarDato($_POST['numeroProducto']);
     $paisOrigen = limpiarDato($_POST['paisOrigen']);
-    $dealer = limpiarDato($_POST['dealer'])? limpiarDato($_POST['dealer']) : null;
-    $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto, tipo_concentracion, pais_origen, proveedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $dealer = limpiarDato($_POST['dealer']);
+    $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto, tipo_concentracion, pais_origen, proveedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "ssssssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen, $dealer);
 
