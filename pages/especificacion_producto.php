@@ -666,6 +666,8 @@ function poblarYDeshabilitarCamposProducto(producto) {
     $('#tipo_concentracion').hide();
     $('#formato').val(producto.formato).prop('disabled', true);
     $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
+    $('input[name="dealer"]').val(producto.proveedor);
+    proveedor
     $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
     $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
     $('input[name="prefijoDocumento"]').hide();

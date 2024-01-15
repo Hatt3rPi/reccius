@@ -12,6 +12,7 @@ $query = "SELECT cp.id as id_producto,
             cp.documento_ingreso as documento_producto,
             cp.elaborado_por, 
             cp.pais_origen,
+            cp.proveedor,
             cep.version,
             concat(cep.vigencia, ' años') as vigencia,
             cep.id_especificacion,
@@ -73,6 +74,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'documento_producto' => $row['documento_producto'],
             'elaborado_por' => $row['elaborado_por'],
             'pais_origen' => $row['elaborado_por'],
+            'proveedor' => $row['proveedor'],
             'especificaciones' => []
         ];
     }

@@ -118,10 +118,10 @@ function insertarProducto($link) {
     $numeroDocumento = limpiarDato($_POST['documento']);
     $numeroProducto = limpiarDato($_POST['numeroProducto']);
     $paisOrigen = limpiarDato($_POST['paisOrigen']);
-
-    $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto, tipo_concentracion, pais_origen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $dealer = limpiarDato($_POST['dealer'])? limpiarDato($_POST['dealer']) : null;
+    $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto, tipo_concentracion, pais_origen, proveedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "sssssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen);
+    mysqli_stmt_bind_param($stmt, "ssssssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen, $dealer);
 
     $exito = mysqli_stmt_execute($stmt);
     $idProducto = $exito ? mysqli_insert_id($link) : 0;
@@ -133,11 +133,11 @@ function insertarProducto($link) {
         '1. calidad_productos', 
         $idProducto, 
         $query, 
-        [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen], 
+        [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen, $dealer], 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
-    $params = [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen];
+    $params = [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen, $dealer];
     $error = $exito ? null : mysqli_error($link);
 
     return ['exito' => $exito, 'id' => $idProducto, 'query' => $query, 'params' => $params, 'error' => $error];
