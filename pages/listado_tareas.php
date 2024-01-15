@@ -23,6 +23,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <button class="estado-filtro badge badge-dark" onclick="filtrar_listado_estado('Finalizado')">Finalizado</button>
                 <button class="estado-filtro badge" onclick="filtrar_listado_estado('')">Todos</button>
             </div>
+            <br>
+            <br>
         <div id="contenedor_tareas">
             <table id="listado_tareas" class="table table-striped table-bordered" style="width:100%">
                 <thead>
