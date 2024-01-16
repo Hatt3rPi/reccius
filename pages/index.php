@@ -84,11 +84,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a id="asignar-roles" href="#">Asignar Roles</a>
                     </div>
                 </li>
-                <li class="item" id="calidad">
-                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
+                <li class="item" id="Especificaciones">
+                    <a href="#Especificaciones" class="btn_lateral"><i class="fa fa-envelope"></i> Ordenes de Compra</a>
                     <div class="smenu">
                         <a id="especificacion_producto" href="#">Crear especificaciones de producto</a>
                         <a id="listado_especificacion_producto" href="#">Listado de especificaciones de producto</a>
+                    </div>
+                </li>
+                <li class="item" id="calidad">
+                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
+                    <div class="smenu">
                         <a id="preparacion_solicitud" href="#">Solicitar analisis 1</a>
                         <a id="preparacion_analisis" href="#">Solicitar analisis 2</a>
                         <a id="acta_liberacion" href="#">Acta liberacion o rechazo</a> 
@@ -123,6 +128,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a href="">Paso 4</a>
                     </div>
                 </li>
+                
             </ul>
         </aside>
         <main class="content">
