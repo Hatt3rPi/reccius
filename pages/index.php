@@ -133,12 +133,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </li>
                 <li class="item" id="ordenes_de_compra">
-                    <a href="#ordenes_de_compra" class="btn_lateral">
-                    
-                    <i class="fa fa-envelope"></i> Ordenes de Compra
-
-                    <img src="./assets/images/down_arrow.png" alt="Flecha hacia abajo"> <!-- Imagen -->
-                    </a>
+                    <a href="#ordenes_de_compra" class="btn_lateral"><i class="fa fa-envelope"></i> Ordenes de Compra</a>
                     <div class="smenu">
                         <a href="">Ingreso</a>
                         <a id="testeo" href="">TEST DOCUMENTOS</a>

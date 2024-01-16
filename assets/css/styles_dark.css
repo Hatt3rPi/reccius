@@ -10,8 +10,12 @@
   padding: 100px;
   box-sizing: border-box;
   display: block;
+  background-image: url('../images/down-arrow.png');
+  background-repeat: no-repeat;
+  background-position: left center; /* Ajusta según sea necesario */
 
 }
+
 .btn_lateral::before {
   content: "";
   position: absolute;
