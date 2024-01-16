@@ -75,9 +75,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         
         <aside class="sidebar">
             <ul id="sidebarList">
-                <li class="item divisoria">
-                    <span class="texto-divisoria">Calidad</span>
-                </li>
+                <li class="title">Accesos rápidos</li>
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral"><spam >
                     <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24"/> <!-- Icono SVG agregado aquí -->    
