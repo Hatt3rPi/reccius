@@ -76,7 +76,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <aside class="sidebar">
             <ul id="sidebarList">
                 <li class="item" id="usuarios">
-
                     <a href="#usuarios" class="btn_lateral"><spam >
                     <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24"/> <!-- Icono SVG agregado aquí -->    
                     </spam> Usuarios y Roles</a>
@@ -95,12 +94,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </a>
                     </div>
                 </li>
+
+                
                 <li class="item" id="Especificaciones">
-                    <a href="#Especificaciones" class="btn_lateral"><i class="fa fa-envelope"></i> Especificaciones</a>
+                    <a href="#Especificaciones" class="btn_lateral"><spam >
+                    <img src="../assets/images/especificaciones.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24"/> <!-- Icono SVG agregado aquí -->    
+                    </spam> Especificaciones</a>
                     <div class="smenu">
-                        <a id="especificacion_producto" href="#">Crear especificaciones de producto</a>
-                        <a id="listado_especificacion_producto" href="#">Listado de especificaciones de producto</a>
+                        <a id="especificacion_producto" href="#" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/crear_especificaciones.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
+                            </span> 
+                            Crear especificaciones de producto
+                        </a>
+                        <a id="listado_especificacion_producto" href="#">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
+                            </span> 
+                            Listado de especificaciones de producto
+                        </a>
                     </div>
+
                 </li>
                 <li class="item" id="Solicitudes_de_Analisi">
                     <a href="#Solicitudes_de_Analisi" class="btn_lateral"><i class="fa fa-envelope"></i> Solicitudes de Analisis</a>
