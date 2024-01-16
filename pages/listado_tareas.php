@@ -4,6 +4,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
+$query = "SELECT usuario, nombre FROM usuarios ORDER BY nombre";
+$result = mysqli_query($link, $query);
+
+$usuarios = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $usuarios[] = $row;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -52,12 +60,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <span class="close">&times;</span>
             <h2>Re-asignar Tarea</h2>
             <form id="formCambiarUsuario">
+                <label for="">Ejecutor original:</label>
+                <input id="ejecutorOriginal" name="ejecutorOriginal">
+                <br>
                 <label for="usuarioNuevo">Re-asignar tarea a:</label>
                 <select name="usuarioNuevo" id="usuarioNuevo">
-                    <option value="Usuario 1">Usuario 1</option>
-                    <option value="Usuario 2">Usuario 2</option>
-                    <!-- Agrega más opciones según sea necesario -->
+                    <option value="">Selecciona el nuevo ejecutor</option>
+                    <?php foreach ($usuarios as $usuario): ?>
+                        <option value="<?php echo htmlspecialchars($usuario['usuario']); ?>">
+                            <?php echo htmlspecialchars($usuario['nombre']); ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
+                <br>
                 <input type="hidden" id="idTarea" name="idTarea">
                 <button type="submit">Aceptar</button>
             </form>
@@ -67,6 +82,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script>
         // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
         var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
+        var usuarioEjecutorOriginal="";
         function cargaListadoTareas() {
             var table = $('#listado_tareas').DataTable({
                 "ajax": "./backend/tareas/listado_tareasBE.php",
@@ -153,7 +169,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 
                 if (d.usuario_creador === usuarioActual) {
                     acciones += '<button class="accion-btn" title="Recordar Tarea" id="' + d.id + '" name="recordar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-envelope"></i></button><a> </a>';
-                    acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-user-edit"></i></button><a> </a>';
+                    acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario" onclick="botones(this.id, this.name, \'tareas\')" data-usuario_ejecutor="' . htmlspecialchars(d.usuario_ejecutor) . '" ><i class="fas fa-user-edit"></i></button><a> </a>';
                 }
                 if (d.usuario_ejecutor === usuarioActual) {
                     acciones += '<button class="accion-btn" title="Finalizar Tarea" id="' + d.id + '" name="finalizar" onclick="botones(this.id, this.name, \'tareas\')"><i class="fas fa-check"></i></button>';
@@ -182,6 +198,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
     $(document).on('click', 'button[name="cambiar_usuario"]', function() {
         var tareaId = $(this).attr('id');
+        var usuarioEjecutorOriginal = $(this).data('usuario_ejecutor');
+        ejecutorOriginal
+        $('#ejecutorOriginal').val(usuarioEjecutorOriginal);
         $('#idTarea').val(tareaId);
         $('#modalCambiarUsuario').show();
     });
@@ -199,7 +218,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Aquí puedes enviar los datos a tu backend
         // Por ejemplo, usando AJAX
         $.ajax({
-            url: './backend/cambiar_usuario_tarea.php', // Asegúrate de ajustar esta URL
+            url: './backend/tareas/tareasBE.php', // Asegúrate de ajustar esta URL
             type: 'POST',
             data: datosFormulario,
             success: function(response) {
