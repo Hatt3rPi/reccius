@@ -425,3 +425,15 @@ body {
   padding-bottom: 8px; /* Añade un poco de espacio entre el texto y la línea */
   margin-bottom: 8px; /* Añade un poco de espacio entre la línea y el siguiente elemento */
 }
+
+.divisoria {
+  border-top: 1px solid #ccc; /* Línea divisoria */
+  text-align: center;
+  padding: 5px 0; /* Espacio alrededor del texto */
+}
+
+.texto-divisoria {
+  display: inline-block;
+  background-color: #f9f9f9; /* Fondo, elige un color que coincida con tu diseño */
+  padding: 0 10px; /* Espacio alrededor del texto */
+}
