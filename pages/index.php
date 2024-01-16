@@ -74,7 +74,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="container_fas">
         
         <aside class="sidebar">
-        
             <ul id="sidebarList">
                 <li><a class="" style="pointer-events: none;"> </a></li>
                 <li class="item" id="usuarios">
