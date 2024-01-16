@@ -79,16 +79,14 @@ header h1 {
 
 .sidebar {
   width: 300px;
-  background-color: #3C4F63;
-  color: #B0BAC9;
-  padding: 0px;
+  background-color: #e60000; /* Color de fondo rojo */
+  color: white; /* Color del texto */
+  font-family: Arial, sans-serif;
   position: fixed;
-  height: calc(100% - 60px);
-  padding-bottom: 0px;
-  font-family: Arial, sans-serif;    
-  transition: transform 0.7s cubic-bezier(0.42, 0, 0.58, 1); /* Ejemplo de cubic-bezier */
-  transform: translateX(0);
-
+  top: 0;
+  bottom: 0;
+  overflow-y: auto; /* Habilita scroll si es necesario */
+  z-index: 1000; /* Asegura que el sidebar se muestre por encima de otros elementos */
 }
 
 .sidebar ul {
@@ -97,18 +95,26 @@ header h1 {
 
 .sidebar li {
   margin-bottom: 10px;
+  transition: background-color 0.3s; /* Transición suave para el hover */
 }
 
+/* Estilo para los enlaces dentro del sidebar */
 .sidebar a {
-  display: block;
   text-decoration: none;
-  color: #f5f5f5;
-  padding: 16px 10px;
-  border-left: 3px solid transparent;
+  color: white; /* Color del texto */
+  padding: 15px 20px; /* Espaciado dentro del enlace */
+  display: flex; /* Alinea los íconos y el texto */
+  align-items: center; /* Centra verticalmente los elementos del enlace */
+  border-bottom: 1px solid #f1f1f1; /* Borde para separar ítems */
 }
+/* Estilo para los íconos de FontAwesome */
+.sidebar .fa {
+  margin-right: 10px; /* Espacio entre el ícono y el texto */
+}
+
 
 .sidebar a:hover {
-  background-color: #FFFFFF;
+  background-color: #d10000; /* Color de fondo más oscuro para el*/
   border-left: 3px solid #007BFF;
   color: #2E3A45;
 
