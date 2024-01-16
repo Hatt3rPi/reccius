@@ -91,11 +91,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a id="listado_especificacion_producto" href="#">Listado de especificaciones de producto</a>
                     </div>
                 </li>
-                <li class="item" id="calidad">
-                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
+                <li class="item" id="Solicitudes_de_Analisi">
+                    <a href="#Solicitudes_de_Analisi" class="btn_lateral"><i class="fa fa-envelope"></i> Solicitudes de Analisi</a>
                     <div class="smenu">
                         <a id="preparacion_solicitud" href="#">Solicitar analisis 1</a>
                         <a id="preparacion_analisis" href="#">Solicitar analisis 2</a>
+                    </div>
+                </li>
+                <li class="item" id="calidad">
+                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
+                    <div class="smenu">
+                        <a id="acta_liberacion" href="#">Acta liberacion o rechazo</a> 
+                        <a id="resultados_laboratorio" href="#">Ingreso resultados de laboratorio</a> 
+
+                    </div>
+                </li>
+                <li class="item" id="Acta_Liberacion_o_Rechazo">
+                    <a href="#Acta_Liberacion_o_Rechazo" class="btn_lateral"><i class="fa fa-envelope"></i> Acta Liberacion o Rechazo</a>
+                    <div class="smenu">
                         <a id="acta_liberacion" href="#">Acta liberacion o rechazo</a> 
                         <a id="resultados_laboratorio" href="#">Ingreso resultados de laboratorio</a> 
 
