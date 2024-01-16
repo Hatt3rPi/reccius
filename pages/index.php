@@ -78,11 +78,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <li class="item" id="usuarios">
 
                     <a href="#usuarios" class="btn_lateral"><spam >
-                    <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24"; weight="24";/> <!-- Icono SVG agregado aquí -->    
+                    <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24"/> <!-- Icono SVG agregado aquí -->    
                     </spam> Usuarios y Roles</a>
                     <div class="smenu">
-                        <a id="crear-usuario" href="#">Crear Usuario</a>
-                        <a id="asignar-roles" href="#">Asignar Roles</a>
+                        <a id="crear-usuario" href="#">
+                            <span>
+                                <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
+                            </span> 
+                            Crear Usuario
+                        </a>
+                        <a id="asignar-roles" href="#">
+                            <span>
+                                <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
+                            </span> 
+                            Asignar Roles
+                        </a>
                     </div>
                 </li>
                 <li class="item" id="Especificaciones">
