@@ -4,13 +4,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
+require_once "/home/customw2/conexiones/config_reccius.php";
 $query = "SELECT usuario, nombre FROM usuarios ORDER BY nombre";
 $result = mysqli_query($link, $query);
 
 $usuarios = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $usuarios[] = $row;
-    echo $row;
 }
 
 ?>
