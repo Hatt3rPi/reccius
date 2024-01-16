@@ -85,7 +85,7 @@ header h1 {
 
 .sidebar {
   width: 300px;
-  background-color: #ccdcee;
+  background-color: #353e49;
   color: #B0BAC9;
   padding: 0px;
   position: fixed;
@@ -94,6 +94,7 @@ header h1 {
   font-family: Arial, sans-serif;    
   transition: transform 0.7s cubic-bezier(0.42, 0, 0.58, 1); /* Ejemplo de cubic-bezier */
   transform: translateX(0);
+  border-right: 3px solid transparent;
 
 }
 
