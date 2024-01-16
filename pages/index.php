@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </li>
                 <li class="item" id="Solicitudes_de_Analisi">
-                    <a href="#Solicitudes_de_Analisi" class="btn_lateral"><i class="fa fa-envelope"></i> Solicitudes de Analisi</a>
+                    <a href="#Solicitudes_de_Analisi" class="btn_lateral"><i class="fa fa-envelope"></i> Solicitudes de Analisis</a>
                     <div class="smenu">
                         <a id="preparacion_solicitud" href="#">Solicitar analisis 1</a>
                         <a id="preparacion_analisis" href="#">Solicitar analisis 2</a>
