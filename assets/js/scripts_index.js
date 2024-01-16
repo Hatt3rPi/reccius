@@ -372,6 +372,7 @@ function botones(id, accion, base) {
                     break;
                 }
             }
+            break;
         }
         case "tareas": {
             switch (accion) {
@@ -381,7 +382,7 @@ function botones(id, accion, base) {
                         url: '../pages/backend/tareas/recordatorioBE.php',
                         type: 'POST',
                         data: {
-                            'idTarea': idTarea
+                            'idTarea': id
                         },
                         success: function(response) {
                             alert("Recordatorio enviado correctamente.");
