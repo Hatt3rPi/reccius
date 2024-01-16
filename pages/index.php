@@ -119,20 +119,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <li class="item" id="Solicitudes_de_Analisi">
                     <a href="#Solicitudes_de_Analisi" class="btn_lateral">
                         <span>
-                            <img src="../assets/images/especificaciones.svg" alt="Icono de solicitudes" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                            <img src="../assets/images/analisis.svg" alt="Icono de solicitudes" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                         </span> 
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
                         <a id="preparacion_solicitud" href="#" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/crear_especificaciones.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/preparacion.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                             </span> 
                             Solicitar análisis 1
                         </a>
                         <a id="preparacion_analisis" href="#">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                             </span> 
                             Solicitar análisis 2
                         </a>
