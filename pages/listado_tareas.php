@@ -46,6 +46,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </table>
         </div>
     </div>
+    <!-- Modal para Cambiar Usuario -->
+    <div id="modalCambiarUsuario" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Re-asignar Tarea</h2>
+            <form id="formCambiarUsuario">
+                <label for="usuarioNuevo">Re-asignar tarea a:</label>
+                <select name="usuarioNuevo" id="usuarioNuevo">
+                    <option value="Usuario 1">Usuario 1</option>
+                    <option value="Usuario 2">Usuario 2</option>
+                    <!-- Agrega más opciones según sea necesario -->
+                </select>
+                <input type="hidden" id="idTarea" name="idTarea">
+                <button type="submit">Aceptar</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
@@ -163,6 +180,39 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listado_tareas').DataTable();
         table.column(5).search(usuarioActual).draw(); // Asumiendo que la columna 1 es la de
     }
+    $(document).on('click', 'button[name="cambiar_usuario"]', function() {
+        var tareaId = $(this).attr('id');
+        $('#idTarea').val(tareaId);
+        $('#modalCambiarUsuario').show();
+    });
+
+    // Cerrar el modal
+    $('.close').click(function() {
+        $('#modalCambiarUsuario').hide();
+    });
+
+    // Manejar el envío del formulario
+    $('#formCambiarUsuario').on('submit', function(e) {
+        e.preventDefault();
+        var datosFormulario = $(this).serialize();
+
+        // Aquí puedes enviar los datos a tu backend
+        // Por ejemplo, usando AJAX
+        $.ajax({
+            url: './backend/cambiar_usuario_tarea.php', // Asegúrate de ajustar esta URL
+            type: 'POST',
+            data: datosFormulario,
+            success: function(response) {
+                // Aquí puedes manejar la respuesta
+                alert('Usuario Cambiado');
+                $('#modalCambiarUsuario').hide();
+                // Aquí deberías también recargar o actualizar tu tabla de tareas
+            },
+            error: function() {
+                alert('Error al cambiar el usuario');
+            }
+        });
+    });
     </script>
 </body>
 </html>
