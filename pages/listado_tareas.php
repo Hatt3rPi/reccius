@@ -238,7 +238,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 alert('Usuario Cambiado');
                 $('#modalCambiarUsuario').hide();
                 // Aquí deberías también recargar o actualizar tu tabla de tareas
-                cargaListadoTareas();
+                $("#notificaciones").click();
             },
             error: function() {
                 alert('Error al cambiar el usuario');
