@@ -81,7 +81,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24"/> <!-- Icono SVG agregado aquí -->    
                     </spam> Usuarios y Roles</a>
                     <div class="smenu">
-                        <a id="crear-usuario" href="#">
+                        <a id="crear-usuario" href="#" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
                             </span> 

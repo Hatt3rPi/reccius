@@ -420,3 +420,8 @@ body {
 
 
 }
+.con-borde-inferior {
+  border-bottom: 1px solid #ccc; /* Cambia el color según tu diseño */
+  padding-bottom: 8px; /* Añade un poco de espacio entre el texto y la línea */
+  margin-bottom: 8px; /* Añade un poco de espacio entre la línea y el siguiente elemento */
+}
