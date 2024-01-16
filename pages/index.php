@@ -76,7 +76,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <aside class="sidebar">
             <ul id="sidebarList">
                 <li class="item" id="usuarios">
-                    <a src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" href="#usuarios" class="btn_lateral"><i class="fa fa-user"></i> Usuarios y Roles</a>
+
+                    <a href="#usuarios" class="btn_lateral"><spam >
+                    <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" /> <!-- Icono SVG agregado aquí -->    
+                    </spam> Usuarios y Roles</a>
                     <div class="smenu">
                         <a id="crear-usuario" href="#">Crear Usuario</a>
                         <a id="asignar-roles" href="#">Asignar Roles</a>
