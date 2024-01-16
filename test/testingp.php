@@ -73,11 +73,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     .popup__card{
                         width:100px;
                         heigth:100px;
-                        justify-content: center;
+                        border: 1px solid black;
                         
                     }
                     .popup__header{
-                        justify-content: center;
 
                     }
                     </style> <div class= "popup" >
