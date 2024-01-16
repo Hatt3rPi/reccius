@@ -413,3 +413,13 @@ body {
   font-size: 18px;
   transition: background-color 0.3s ease;
 }
+
+.icono-usuarios{
+  height:24px;
+  width:24px;
+  position: relative;
+  top: -5px;
+
+
+
+}
