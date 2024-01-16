@@ -83,13 +83,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="smenu">
                         <a id="crear-usuario" href="#">
                             <span>
-                                <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
+                                <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
                             </span> 
                             Crear Usuario
                         </a>
                         <a id="asignar-roles" href="#">
                             <span>
-                                <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
+                                <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG agregado aquí -->    
                             </span> 
                             Asignar Roles
                         </a>
