@@ -97,6 +97,9 @@ header h1 {
 
 .sidebar li {
   margin-bottom: 10px;
+  width: 100%; /* Ocupa todo el ancho del contenedor padre */
+  box-sizing: border-box; /* Incluye padding y border en el ancho total */
+  /* Añade estilos adicionales según sea necesario */
 }
 
 .sidebar a {
