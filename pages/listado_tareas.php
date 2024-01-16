@@ -215,10 +215,21 @@ while ($row = mysqli_fetch_assoc($result)) {
     $('#formCambiarUsuario').on('submit', function(e) {
         e.preventDefault();
         var datosFormulario = $(this).serialize();
+        // Obtener los valores del formulario
+        var usuarioNuevo = document.getElementById('usuarioNuevo').value;
+        var usuarioOriginal = document.getElementById('ejecutorOriginal').value;
 
-        // Aquí puedes enviar los datos a tu backend
-        // Por ejemplo, usando AJAX
-        $.ajax({
+        // Validar que el usuario nuevo no sea null y sea diferente del original
+        if (!usuarioNuevo || usuarioNuevo === usuarioOriginal) {
+            alert("Debes seleccionar un usuario diferente del actual.");
+            return;
+        }
+
+        // Preguntar al usuario si está seguro
+        var confirmacion = confirm("¿Estás seguro de que deseas realizar este cambio?");
+        if (confirmacion) {
+            // Si el usuario confirma, enviar el formulario
+            $.ajax({
             url: './backend/tareas/tareasBE.php', // Asegúrate de ajustar esta URL
             type: 'POST',
             data: datosFormulario,
@@ -232,6 +243,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 alert('Error al cambiar el usuario');
             }
         });
+        }
     });
     </script>
 </body>
