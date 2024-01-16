@@ -85,7 +85,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </li>
                 <li class="item" id="Especificaciones">
-                    <a href="#Especificaciones" class="btn_lateral"><i class="fa fa-envelope"></i> Ordenes de Compra</a>
+                    <a href="#Especificaciones" class="btn_lateral"><i class="fa fa-envelope"></i> Especificaciones</a>
                     <div class="smenu">
                         <a id="especificacion_producto" href="#">Crear especificaciones de producto</a>
                         <a id="listado_especificacion_producto" href="#">Listado de especificaciones de producto</a>
