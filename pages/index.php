@@ -75,7 +75,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         
         <aside class="sidebar">
             <ul id="sidebarList">
-                <li><a class="" style="pointer-events: none;"> </a></li>
+                //**<li><a class="" style="pointer-events: none;"> </a></li>
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral"><i class="fa fa-user"></i> Usuarios y Roles</a>
                     <div class="smenu">
