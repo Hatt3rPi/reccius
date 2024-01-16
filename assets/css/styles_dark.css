@@ -7,15 +7,16 @@
 .btn_lateral {
   position: relative;
   margin: 0;
-  padding: 100px;
+  padding: 100px; /* padding existente */
+  padding-right: 10px; /* Agrega un relleno adicional a la derecha */
   box-sizing: border-box;
   display: block;
   background-image: url('../images/down-arrow.png');
   background-repeat: no-repeat;
-  background-size: 16px 16px; /* Ajusta el tamaño de la imagen */
-  background-position: right center; /* Posiciona la imagen a la derecha y centrada verticalmente */
-
+  background-size: 16px 16px; /* Tamaño de la imagen */
+  background-position: right center; /* Posición de la imagen */
 }
+
 
 .btn_lateral::before {
   content: "";
