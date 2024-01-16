@@ -426,14 +426,10 @@ body {
   margin-bottom: 8px; /* Añade un poco de espacio entre la línea y el siguiente elemento */
 }
 
-.divisoria {
-  border-top: 1px solid #ccc; /* Línea divisoria */
-  text-align: center;
-  padding: 5px 0; /* Espacio alrededor del texto */
-}
-
-.texto-divisoria {
-  display: inline-block;
-  background-color: #f9f9f9; /* Fondo, elige un color que coincida con tu diseño */
-  padding: 0 10px; /* Espacio alrededor del texto */
+.sidebar .title {
+  text-transform: uppercase;
+  font-size: 12px; /* Ajusta al tamaño de fuente que prefieras */
+  color: #333; /* Cambia al color de texto que prefieras */
+  padding: 10px 15px;
+  border-bottom: 1px solid #ccc; /* Color de la línea divisoria */
 }
