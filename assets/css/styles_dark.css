@@ -25,7 +25,7 @@
   height: 0;
   border-left: 14px solid transparent;  /* Mitad del ancho del triángulo */
   border-right: 14px solid transparent;  /* Mitad del ancho del triángulo */
-  border-top: 14px solid #ffffff;  /* Altura del triángulo */
+  border-top: 14px solid #dfe9f5;  /* Altura del triángulo */
   left: 20px;
   bottom: -14px;
 }
