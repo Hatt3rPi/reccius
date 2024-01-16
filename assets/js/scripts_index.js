@@ -311,21 +311,7 @@ $(window).on('load', function() {
     // Asegúrate de que el contenido dinámico se muestre
     $('#dynamic-content').show();
 });
-function enviarRecordatorio(idTarea) {
-    $.ajax({
-        url: '../pages/backend/tareas/recordatorioBE.php',
-        type: 'POST',
-        data: {
-            'idTarea': idTarea
-        },
-        success: function(response) {
-            alert("Recordatorio enviado correctamente.");
-        },
-        error: function(xhr, status, error) {
-            console.error("Error al enviar el recordatorio: ", status, error);
-        }
-    });
-}
+
 function botones(id, accion, base) {
     switch (base){
         case "especificacion":{
@@ -391,7 +377,19 @@ function botones(id, accion, base) {
             switch (accion) {
                 case "recordar": {
                     // Llamar a una función que maneje el envío del recordatorio
-                    enviarRecordatorio(id);
+                    $.ajax({
+                        url: '../pages/backend/tareas/recordatorioBE.php',
+                        type: 'POST',
+                        data: {
+                            'idTarea': idTarea
+                        },
+                        success: function(response) {
+                            alert("Recordatorio enviado correctamente.");
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
                     break;
                 }
                 // ... tus otros casos ...
