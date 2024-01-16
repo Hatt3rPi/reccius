@@ -8,7 +8,7 @@
   position: relative;
   margin: 0;
   padding: 100px; /* padding existente */
-  padding-right: 10px; /* Agrega un relleno adicional a la derecha */
+  padding-right: 100px; /* Agrega un relleno adicional a la derecha */
   box-sizing: border-box;
   display: block;
   background-image: url('../images/down-arrow.png');
