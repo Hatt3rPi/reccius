@@ -128,13 +128,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <span>
                                 <img src="../assets/images/preparacion.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                             </span> 
-                            Solicitar análisis 1
+                            Preparación solicitud
                         </a>
                         <a id="preparacion_analisis" href="#">
                             <span>
                                 <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                             </span> 
-                            Solicitar análisis 2
+                            Preparar Acta de Muestreo
                         </a>
                     </div>
                 </li>
