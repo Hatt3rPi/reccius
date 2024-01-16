@@ -10,6 +10,7 @@ $result = mysqli_query($link, $query);
 $usuarios = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $usuarios[] = $row;
+    echo $row;
 }
 
 ?>
