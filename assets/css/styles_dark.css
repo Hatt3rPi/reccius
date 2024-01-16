@@ -42,7 +42,7 @@ body {
 }
 
 header {
-  background-color: #2E3A45;
+  background-color: #62a0ec;
   color: #FFFFFF;
   height: 70px;
   display: flex;
@@ -320,7 +320,7 @@ body {
 }
 .smenu a {
   display: block;
-  padding: 26px 56px;
+  padding: 26px 66px;
   color: black;
   margin: 4px 0;
   position: relative;
