@@ -367,7 +367,7 @@ body {
   /* Aquí puedes agregar más estilos para el spinner */
 }
 .notifications {
-  position: absolute;
+  position: relative;
   display: inline-block;
   cursor: pointer;
   padding-right: 20px;
