@@ -57,7 +57,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <div class="user-info">
                 
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
-                <div class="dropdown">
+                <div class="dropdown dropbtn">
                     <button class="dropbtn">
                         <span class="username" >usuario</span><br> 
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
