@@ -48,12 +48,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <button id="toggle-sidebar-btn" class= "buttonreset togglesibar" ><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24"  height="24"></button>
                 <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" class="logo"/>
             </div>
-            
-            <div class="user-info">
-                <div id="notificaciones" name="notificaciones" class="notifications">
+            <div id="notificaciones" name="notificaciones" class="notifications">
                     <i class="fas fa-bell"></i>
                     <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
                 </div>
+            <div class="user-info">
+                
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
                 <div class="dropdown">
                     <button class="dropbtn">
