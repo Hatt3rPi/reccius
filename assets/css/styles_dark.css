@@ -291,8 +291,6 @@ body {
   align-items: center; /* Centra verticalmente los elementos */
   margin-right: 20px; /* Añade un margen a la derecha para separarlo del borde */
   background-color: #93B4AA;
-  flex-grow: 1; /* Esto hará que .user-info ocupe todo el espacio disponible */
-  height: 100%; /* Esto ajusta la altura al 100% del contenedor padre (header) */
   
 }
 
