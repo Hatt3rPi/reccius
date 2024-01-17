@@ -53,7 +53,7 @@ header {
   top: 0;
   width: 100%;
   z-index: 1000;
-  border: 1px solid black; /* Añade un borde para darle un toque elegante */
+  border: 0.3px solid black; /* Añade un borde para darle un toque elegante */
   
 }
 
@@ -292,9 +292,8 @@ body {
   display: flex;
   align-items: center; /* Centra verticalmente los elementos */
   margin-right: 0px; /* Añade un margen a la derecha para separarlo del borde */
-  background-color: #e9e7f8;
+  background-color: #014aa3;
   padding: 0 20px;
-  border: 2px solid #000000; /* Añade un borde para darle un toque elegante */
   
 }
 
