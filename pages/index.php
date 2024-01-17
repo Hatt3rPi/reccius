@@ -73,7 +73,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     
     <div class="container_fas">
         
-        <aside class="sidebar">
+        <aside class="sidebar c-scroll" >
             <ul id="sidebarList">
             <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
