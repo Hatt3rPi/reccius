@@ -68,7 +68,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a href="./backend/login/logoutBE.php">Cerrar Sesión</a>
                     </div>
                 </div>
-                <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
+                <img src="../assets/images/configuraciones.svg" alt="Foto de perfil" class="foto-perfil">
             </div>
         </div>
        
