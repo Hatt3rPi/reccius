@@ -293,9 +293,21 @@ body {
   margin-right: 0px; /* Añade un margen a la derecha para separarlo del borde */
   background-color: #93B4AA;
   padding: 0 20px;
+  width: 100%; /* Asegurándonos que ocupa todo el ancho disponible */
+  height: 100%; /* Asegurándonos que ocupa toda la altura disponible */
   
 }
+.user-info .dropdown {
+  display: flex;
+  flex-grow: 1; /* Permite que el contenedor del botón se expanda */
+  height: 100%;
+}
 
+.user-info .dropbtn {
+  width: 100%; /* Expande el botón al ancho completo de su contenedor */
+  height: 100%; /* Expande el botón a la altura completa de su contenedor */
+  /* Otros estilos para el botón */
+}
 .user-role {
   color: #ffffff; /* Utiliza un color que contraste bien con el fondo del header */
   font-size: 12px;
