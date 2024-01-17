@@ -368,12 +368,13 @@ body {
   /*object-fit: cover;  Asegura que la imagen cubra completamente el círculo */
 }
 .foto-config {
-  width: 20px;
-  height: 20px;
+  width: 50;
+  height: 50;
   border-radius: 50%; /* Hace que la imagen sea circular */
   margin-left: 5px;
-  border: 0px solid #fff; /* Añade un borde para darle un toque elegante */
+  border: 3px solid #fff; /* Añade un borde para darle un toque elegante */
   /*object-fit: cover;  Asegura que la imagen cubra completamente el círculo */
+  background-color: white;
 }
 #loading-spinner {
   display: none; /* oculto inicialmente */
