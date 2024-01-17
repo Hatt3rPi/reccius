@@ -139,14 +139,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </a>
                         <a id="listado_solicitudes_analisis" href="#" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado_analisis.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                             </span> 
                             Listado de solicitudes de análisis
                         </a>
                         <!-- Nuevo apartado para el listado de productos disponibles -->
                         <a id="listado_productos_disponibles" href="#">
                             <span>
-                                <img src="../assets/images/productos_disponibles.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                             </span> 
                             Listado de productos disponibles
                         </a>
