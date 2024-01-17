@@ -75,7 +75,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         
         <aside class="sidebar">
             <ul id="sidebarList">
-                <li class="title">Accesos rápidos</li>
+                <li class="title">Calida</li>
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral"><spam >
                     <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24"/> <!-- Icono SVG agregado aquí -->    
@@ -162,7 +162,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </a>
                     </div>
                 </li>
-
+                <li class="title">Otros</li>
                 <li class="item" id="calidad">
                     <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
                     <div class="smenu">
