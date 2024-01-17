@@ -59,9 +59,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
                 <div class="dropdown ">
                     <button class="dropbtn">
-                        <span class="username" >usuario</span><br> 
-                        <span class="user-role" style="font-style: italic;">(administrador)</span>
                     </button>
+                    <span class="username" >usuario</span><br> 
+                    <span class="user-role" style="font-style: italic;">(administrador)</span>
                     <div class="dropdown-content">
 
                         <a id="configuracion" href="modificar_perfil.php">Modificar Perfil</a>
