@@ -371,6 +371,7 @@ body {
   display: inline-block;
   cursor: pointer;
   padding-right: 20px;
+  margin-left: auto;
 }
 
 .notification-count {
