@@ -89,14 +89,15 @@ header h1 {
   color: #000000;
   padding: 0px;
   position: fixed;
-  height: calc(100% - 60px);
-  padding-bottom: 0px;
-  font-family: Arial, sans-serif;    
+  top: 60px; /* Asegúrate de que el sidebar comience debajo de cualquier cabecera fija */
+  bottom: 0; /* Asegúrate de que el sidebar se extienda hasta el fondo de la vista */
+  overflow-y: auto; /* Hace que el sidebar sea desplazable verticalmente si el contenido excede la altura */
+  font-family: Arial, sans-serif;
   transition: transform 0.7s cubic-bezier(0.42, 0, 0.58, 1); /* Ejemplo de cubic-bezier */
   transform: translateX(0);
-  border-right: 1px solid ;
-
+  border-right: 1px solid #ccc; /* Define el color de tu borde derecho aquí */
 }
+
 
 .sidebar ul {
   list-style-type: none;
