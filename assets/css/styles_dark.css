@@ -290,6 +290,7 @@ body {
   display: flex;
   align-items: center; /* Centra verticalmente los elementos */
   margin-right: 20px; /* Añade un margen a la derecha para separarlo del borde */
+  background-color: #93B4AA;
 }
 
 .user-role {
