@@ -89,7 +89,7 @@ header h1 {
   color: #000000;
   padding: 0px;
   position: fixed;
-  top: 60px; /* Asegúrate de que el sidebar comience debajo de cualquier cabecera fija */
+  top: 70px; /* Asegúrate de que el sidebar comience debajo de cualquier cabecera fija */
   bottom: 0; /* Asegúrate de que el sidebar se extienda hasta el fondo de la vista */
   overflow-y: auto; /* Hace que el sidebar sea desplazable verticalmente si el contenido excede la altura */
   font-family: Arial, sans-serif;
