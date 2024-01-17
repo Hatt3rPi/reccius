@@ -174,7 +174,6 @@ header input[type="search"] {
   padding: 10px;
   justify-content: space-between; /* Alinea los elementos a ambos extremos */
   width: 100%;
-  align-items: center;
   
 }
 
@@ -368,12 +367,12 @@ body {
   /* Aquí puedes agregar más estilos para el spinner */
 }
 .notifications {
+  position: absolute;
   display: inline-block;
   cursor: pointer;
-  /* Elimina la posición absoluta y el margen izquierdo automático */
-  /* No necesitas especificar que esté a la derecha ya que el contenedor padre lo manejará */
+  padding-right: 20px;
+  margin-left: auto;
 }
-
 
 .notification-count {
   position: absolute;
