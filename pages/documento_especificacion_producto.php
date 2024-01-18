@@ -102,7 +102,7 @@
                 <p name="producto2" id="producto2"
                     style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
                 </p>
-                <div id="content" class="content" style="display: none;">
+                <div id="content" class="content"  style="display: none;">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
                         <div class="analysis-section"
@@ -123,16 +123,14 @@
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="content" >
+                <div id="additionalContent" class="content"  style="display: none;">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
-                        <div class="analysis-section"
-                            style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
+                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
                             II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
-                        <table id="analisisMB" class="display compact table-bordered"
-                            style="width:100%; font-size: 10px">
+                        <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
                                     <th style="width: 170px; text-align: center">Análisis</th>
@@ -140,9 +138,13 @@
                                     <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <!-- Las filas de la tabla se agregarán dinámicamente con JavaScript -->
+                            </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
             <div class="footer" id="footer">
                 <!-- Sección realizada por -->
