@@ -686,7 +686,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
             break;
     }
     $('input[name="numeroProducto"]').val(producto.identificador_producto);
-    $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
+    $('input[name="documento"]').val(producto.documento_producto).prop('readonly', true).show();
     $('input[name="prefijoDocumento"]').hide();
     document.getElementById('numeroProducto').required = false;
     $('input[name="numeroProducto"]').hide();
