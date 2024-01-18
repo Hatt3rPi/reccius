@@ -29,6 +29,21 @@ function insertarOpcionSiNoExiste($link, $categoria, $nuevoValor) {
         mysqli_stmt_close($stmtInsertar);
     }
 }
+function obtenerTareasActivas($link, $idEspecificacion) {
+    $tareas = [];
+    $sql = "select id, tipo, usuario_ejecutor from tareas where tipo in ('Firma especificación: Revisor', 'Firma especificación: Aprobador') and id_relacion=?;";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "i", $idEspecificacion);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $tareas[] = $fila;
+        }
+        mysqli_stmt_close($stmt);
+    }
+    return $tareas;
+}
+
 function actualizarEstadoEspecificacion($link, $idEspecificacion_obsoleta) {
     $query = "UPDATE calidad_especificacion_productos SET estado = 'Especificación obsoleta' WHERE id_especificacion = ?";
     $stmt = mysqli_prepare($link, $query);
@@ -47,7 +62,10 @@ function actualizarEstadoEspecificacion($link, $idEspecificacion_obsoleta) {
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
-    
+    $tareas = obtenerTareasActivas($link, $idEspecificacion_obsoleta);
+    foreach ($tareas as $tarea) {
+        finalizarTarea($tarea['usuario_ejecutor'], $idEspecificacion_obsoleta, $tarea['tipo'], true);
+    }
     if (!$exito) {
         throw new Exception("Error al actualizar el estado de la especificación: " . mysqli_error($link));
     }
