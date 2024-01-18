@@ -371,10 +371,8 @@
     var tablaFQ = document.getElementById('analisisFQ').getElementsByTagName('tbody')[0];
     tablaFQ.innerHTML = ''; // Limpiar filas existentes
 
-    // Limitar el número de filas a 3
-    var filasLimitadas = analisis.slice(0, 3);
 
-    if (filasLimitadas.length > 0) {
+    if (analisis.length > 0) {
         filasLimitadas.forEach(function(analisisItem) {
             var fila = tablaFQ.insertRow();
             var celdaAnalisis = fila.insertCell(0);
