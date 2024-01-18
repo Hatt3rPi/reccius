@@ -393,7 +393,32 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                // ... tus otros casos ...
+                case "firmar_documento": {
+                    console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
+                    
+                    $.ajax({
+                        url: 'documento_especificacion_producto.php', // URL del script PHP
+                        type: 'POST', // Tipo de solicitud
+                        data: { 
+                            'id': id,
+                            'accion': accion
+                             }, // Datos que se enviarán con la solicitud
+                        success: function(response) {
+                            // Esta función se ejecuta cuando la solicitud es exitosa
+                            console.log('especificacion_producto redirigida con éxito ');
+                            $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
+                            cargarDatosEspecificacion(id);
+                            
+                        },
+                        error: function(xhr, status, error) {
+                            // Esta función se ejecuta en caso de error en la solicitud
+                            console.error("Error en la solicitud: ", status, error);
+                        }
+                    });
+                    
+                    console.log('Proceso finalizado');
+                    break;
+                }
             }
             break;
         }

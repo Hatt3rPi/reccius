@@ -17,7 +17,8 @@ $query = "  SELECT
                     WHEN '2' THEN 'Media'
                     WHEN '3' THEN 'Baja'
                     ELSE 'Desconocida'
-                END AS prioridad
+                END AS prioridad,
+                a.id_relacion
             FROM tareas as a
             LEFT JOIN usuarios as b ON a.usuario_creador = b.usuario
             LEFT JOIN usuarios as c ON a.usuario_ejecutor = c.usuario
