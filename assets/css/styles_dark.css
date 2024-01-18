@@ -374,7 +374,7 @@ body {
   margin-left: 5px;
   border: 3px solid #fff; /* Añade un borde para darle un toque elegante */
   /*object-fit: cover;  Asegura que la imagen cubra completamente el círculo */
-  background-color: white;
+  background-color: #005fd3;
 }
 #loading-spinner {
   display: none; /* oculto inicialmente */
