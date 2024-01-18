@@ -284,6 +284,7 @@
                     }
                 }
             });
+            ajustarContenidoAPaginas(); // Llama a esta función aquí
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
@@ -574,6 +575,53 @@ function mostrarAnalisisMB(analisis) {
 
             // Agrega el nuevo contenedor al DOM
             document.body.appendChild(newContainer);
+        }
+
+        function dividirContenido(contenidoFQ, contenidoMB, espacioDisponible) {
+            let paginas = [];
+            let paginaActual = { contenidoFQ: [], contenidoMB: [] };
+            let espacioUsado = 0;
+
+            // Función para medir el tamaño del contenido (debes implementarla)
+            function medirContenido(contenido) {
+                // Retorna el tamaño del contenido en puntos
+            }
+
+            contenidoFQ.forEach(item => {
+                let tamañoItem = medirContenido(item);
+                if (espacioUsado + tamañoItem > espacioDisponible) {
+                    // Comienza una nueva página
+                    paginas.push(paginaActual);
+                    paginaActual = { contenidoFQ: [], contenidoMB: [] };
+                    espacioUsado = 0;
+                }
+                paginaActual.contenidoFQ.push(item);
+                espacioUsado += tamañoItem;
+            });
+
+            contenidoMB.forEach(item => {
+                let tamañoItem = medirContenido(item);
+                if (espacioUsado + tamañoItem > espacioDisponible) {
+                    // Comienza una nueva página
+                    paginas.push(paginaActual);
+                    paginaActual = { contenidoFQ: [], contenidoMB: [] };
+                    espacioUsado = 0;
+                }
+                paginaActual.contenidoMB.push(item);
+                espacioUsado += tamañoItem;
+            });
+
+            // Añade la última página si tiene contenido
+            if (paginaActual.contenidoFQ.length > 0 || paginaActual.contenidoMB.length > 0) {
+                paginas.push(paginaActual);
+            }
+
+            return paginas;
+        }
+
+        function medirContenido(elemento) {
+            // Retorna la altura del elemento, incluyendo el padding
+            return elemento.offsetHeight;
         }
 
 
