@@ -102,7 +102,7 @@
                 <p name="producto2" id="producto2"
                     style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
                 </p>
-                <div id="content" class="content">
+                <div id="content" class="content" style="display: none;">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
                         <div class="analysis-section"
@@ -123,7 +123,7 @@
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="content">
+                <div id="additionalContent" class="content" style="display: none;">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section"
