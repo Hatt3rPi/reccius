@@ -373,7 +373,7 @@
 
 
     if (analisis.length > 0) {
-        filasLimitadas.forEach(function(analisisItem) {
+        analisis.forEach(function(analisisItem) {
             var fila = tablaFQ.insertRow();
             var celdaAnalisis = fila.insertCell(0);
             var celdaMetodologia = fila.insertCell(1);
