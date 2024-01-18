@@ -369,8 +369,11 @@
     var tablaFQ = document.getElementById('analisisFQ').getElementsByTagName('tbody')[0];
     tablaFQ.innerHTML = ''; // Limpiar filas existentes
 
-    if (analisis.length > 0) {
-        analisis.forEach(function(analisisItem) {
+    // Limitar el número de filas a 3
+    var filasLimitadas = analisis.slice(0, 3);
+
+    if (filasLimitadas.length > 0) {
+        filasLimitadas.forEach(function(analisisItem) {
             var fila = tablaFQ.insertRow();
             var celdaAnalisis = fila.insertCell(0);
             var celdaMetodologia = fila.insertCell(1);
