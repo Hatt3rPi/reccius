@@ -123,7 +123,7 @@
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="content" style="display: none;">
+                <div id="additionalContent" class="content" >
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section"
