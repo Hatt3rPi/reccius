@@ -525,6 +525,63 @@ function mostrarAnalisisMB(analisis) {
         // Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
 
 
+        function ajustarContenidoAPaginas() {
+            const alturaTotal = 792; // Altura total de la página en puntos
+            const alturaHeader = 123; // Altura del encabezado
+            const alturaFooter = 224; // Altura del pie de página
+            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
+
+            // Obtén el contenido de las tablas
+            let contenidoFQ = document.getElementById('content');
+            let contenidoMB = document.getElementById('additionalContent');
+
+            // Calcula la altura total del contenido
+            let alturaContenidoFQ = contenidoFQ.offsetHeight;
+            let alturaContenidoMB = contenidoMB.offsetHeight;
+
+            // Verifica si ambas tablas caben en una sola página
+            if (alturaContenidoFQ + alturaContenidoMB <= espacioDisponible) {
+                // Ambas tablas caben en una sola página, así que las mostramos juntas
+                mostrarTablasEnUnaPagina(contenidoFQ, contenidoMB);
+            } else {
+                // Las tablas no caben en una sola página, procede a dividirlas
+                let paginas = dividirContenido(contenidoFQ, contenidoMB, espacioDisponible);
+
+                // Renderiza las páginas adicionales
+                paginas.forEach((pagina, index) => {
+                    if (index > 0) {
+                        crearPaginaAdicional(pagina);
+                    }
+                });
+            }
+        }
+        function crearPaginaAdicional(contenido) {
+            var originalContainer = document.getElementById('form-container');
+            var newContainer = originalContainer.cloneNode(true); // Clona el contenedor
+
+            newContainer.id = 'form-container-' + (document.querySelectorAll('.form-container').length + 1); // Asigna un nuevo ID
+            newContainer.querySelector('#content').innerHTML = ''; // Limpia el contenido anterior
+            newContainer.querySelector('#additionalContent').innerHTML = ''; // Limpia el contenido adicional
+
+            // Agrega el nuevo contenido a la nueva página
+            contenido.forEach(function(contenidoItem) {
+                if (contenidoItem.tipo === 'FQ') {
+                    newContainer.querySelector('#content').appendChild(contenidoItem.elemento);
+                } else if (contenidoItem.tipo === 'MB') {
+                    newContainer.querySelector('#additionalContent').appendChild(contenidoItem.elemento);
+                }
+            });
+
+            // Ajusta otros elementos como el número de página, si es necesario
+
+            // Agrega el nuevo contenedor al DOM
+            document.body.appendChild(newContainer);
+        }
+
+
+
+
+
         window.onload = function () {
             document.getElementById('content').style.display = 'none';
             document.getElementById('additionalContent').style.display = 'none';
