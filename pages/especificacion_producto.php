@@ -671,6 +671,21 @@ function poblarYDeshabilitarCamposProducto(producto) {
         $('input[name="dealer"]').val(producto.proveedor).prop('disabled', true);
     }
     $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
+    switch (producto.tipo_producto) {
+        case 'Material Envase y Empaque':
+            $('input[name="prefijoDocumento"]').val('DCAL-CC-EMEE-');
+            break;
+        case 'Materia Prima':
+            $('input[name="prefijoDocumento"]').val('DCAL-CC-EMP-');
+            break;
+        case 'Producto Terminado':
+            $('input[name="prefijoDocumento"]').val('DCAL-CC-EPT-');
+            break;
+        case 'Insumo':
+            $('input[name="prefijoDocumento"]').val('DCAL-CC-EINS-');
+            break;
+    }
+    $('input[name="numeroProducto"]').val(producto.identificador_producto);
     $('input[name="documento"]').val(producto.documento_producto).prop('disabled', true).show();
     $('input[name="prefijoDocumento"]').hide();
     document.getElementById('numeroProducto').required = false;

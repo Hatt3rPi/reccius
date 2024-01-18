@@ -8,6 +8,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 // Consulta para obtener los productos, especificaciones y análisis asociados
 $query = "SELECT cp.id as id_producto,
             cp.nombre_producto AS producto,
+            cp.identificador_producto,
             cp.tipo_producto,
             cp.concentracion,
             cp.formato,
@@ -56,6 +57,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $productos[$producto_id] = [
             'id_producto' => $producto_id,
             'nombre_producto' => $row['producto'],
+            'identificador_producto' => $row['identificador_producto'],
             'tipo_producto' => $row['tipo_producto'],
             'concentracion' => $row['concentracion'],
             'tipo_concentracion' => $row['tipo_concentracion'],
