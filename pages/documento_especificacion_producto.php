@@ -524,11 +524,11 @@ function mostrarAnalisisMB(analisis) {
 
 
         window.onload = function () {
-            // Suponiendo que tengas un ID de producto para cargar
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('additionalContent').style.display = 'none';
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
         };
-
     </script>
 </body>
 
