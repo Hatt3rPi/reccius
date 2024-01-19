@@ -137,12 +137,7 @@ function carga_listadoEspecificacionesProductos() {
 
     // Botón para revisar siempre presente
     acciones += '<button class="accion-btn" title="Revisar Especificación" type="button" id="' + d.id_especificacion + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>';
-
-    // Botón para generar documento, visible solo si la especificación está firmada
-    if (d.aprobacion === 1) {
-        acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
-    }
-
+    acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
     // Botón para generar acta de muestreo, visible solo si el estado es 'Vigente'
     if (d.estado === 'Vigente') {
         acciones += '<button class="accion-btn" title="Generar Acta de Muestreo" id="' + d.id_especificacion + '" name="generar_actaMuestreo" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-vial"></i></button><a> </a>';
