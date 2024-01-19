@@ -131,17 +131,28 @@ function carga_listadoEspecificacionesProductos() {
 
     // Función para formatear el contenido expandido
     function format(d) {
-        // `d` es el objeto de datos original para la fila
-        // Construye aquí tu contenido HTML para las acciones y secciones de análisis
-        return '<table background-color:#F6F6F6; color:#FFF; cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-            '<tr><td VALIGN=TOP>Acciones</td>' +
-                '<td>' +
-                    '<button class="accion-btn" title="Revisar Especificación" type="button" id="' + d.id_especificacion + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>' +
-                    '<button class="accion-btn" title="Generar documento" type="button" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>' +
-                '</td>' +
-            '</tr>' +
-        '</table>';
+    // `d` es el objeto de datos original para la fila
+    var acciones = '<table background-color="#F6F6F6" color="#FFF" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+    acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
+
+    // Botón para revisar siempre presente
+    acciones += '<button class="accion-btn" title="Revisar Especificación" type="button" id="' + d.id_especificacion + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>';
+
+    // Botón para generar documento, visible solo si la especificación está firmada
+    if (d.aprobacion === true) {
+        acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
     }
+
+    // Botón para generar acta de muestreo, visible solo si el estado es 'Vigente'
+    if (d.estado === 'Vigente') {
+        acciones += '<button class="accion-btn" title="Generar Acta de Muestreo" id="' + d.id_especificacion + '" name="generar_actaMuestreo" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-vial"></i></button><a> </a>';
+    }
+
+    acciones += '</td></tr></table>';
+    return acciones;
+}
+
+
 
 
     // Verificar si hay una alerta en la sesión y mostrarla

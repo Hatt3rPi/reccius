@@ -16,6 +16,10 @@ $query = "SELECT
             cp.formato, 
             cp.elaborado_por,
             cp.pais_origen,
+            CASE
+                WHEN cep.fecha_aprobacion IS NOT NULL THEN TRUE
+                ELSE FALSE
+            END as aprobacion,
             cep.fecha_expiracion 
         FROM calidad_productos as cp
         INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto;";
