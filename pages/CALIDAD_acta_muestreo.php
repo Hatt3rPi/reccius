@@ -1,0 +1,152 @@
+<?php
+//archivo: pages\especificacion_producto.php
+//Mejoras: Formato debería seleccionarse de lista desplegable
+//Elaborato por
+//versión por defecto debería ser 1
+//que es el número de documento? 
+//cuando se selecciona Otros, se debe desplegar un input
+//validacion de campos antes de continuar
+// formato: Ampolla, Frasco Ampolla, Vial, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
+
+session_start();
+require_once "/home/customw2/conexiones/config_reccius.php";
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+
+?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crear analisis</title>
+    <link rel="stylesheet" href="../assets/css/calidad.css">
+    <script  src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <!-- CSS de Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Estilos CSS de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">s
+
+
+
+    <!-- JS de DataTables -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <!-- JS de DataTables con soporte para Bootstrap 4 -->
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
+</head>
+
+
+<div class="form-container">
+        <h1>CALIDAD / Preparar Acta de Muestreo</h1>
+        <BR></BR>
+        <form>
+            <fieldset>
+                <legend>I. Especificaciones del producto:</legend>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Producto:</label>
+                        <input id="Tipo_Producto" name="Tipo_Producto" type="text" placeholder="Producto Terminado">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Código Producto::</label>
+                        <input id="codigo_producto" name="codigo_producto" type="text" placeholder="12345">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Producto:</label>
+                        <input id="producto" name="producto" type="text" placeholder="Ácido Ascórbico">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Concentración:</label>
+                        <input name="concentracion" id="concentracion" type="text" placeholder="1g / 10 ml">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Formato:</label>
+                        <input name="formato" id="formato" type="text" placeholder="Ampolla">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input name="elaboradoPor" id="elaboradoPor" type="text" placeholder="Reccius">
+                    </div>
+                </div>
+            </fieldset>
+            <br><br>
+            <fieldset>
+                <legend>II. Identificación de la muestra:</legend>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nro Lote:</label>
+                        <input name="lote" id="lote" type="text" placeholder="12345">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Tamaño Lote:</label>
+                        <input name="tamano_lote" id="tamano_lote" type="text" placeholder="20">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo Analisis:</label>
+                        <input name="tipo_analisis" id="tipo_analisis" type="text" placeholder="...">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="form-group">
+                        <label>Condiciones Almacenamiento:</label>
+                        <textarea name="condicion_almacenamiento" id="condicion_almacenamiento" rows="4" cols="44" placeholder="..." ></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cantidad Muestra:</label>
+                        <input name="cantidad_muestra" id="cantidad_muestra" type="text" placeholder="...">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Cantidad Contra-muestra:</label>
+                        <input name="cantidad_contramuestra" id="cantidad_contramuestra" type="text" placeholder="...">
+                    </div>
+                </div>
+            </fieldset>
+            <br><br>
+            <fieldset>
+                <legend>III. Acta de Muestreo:</legend>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Número de registro:</label>
+                        <input name="numero_registro" id="numero_registro" type="text" placeholder="...">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Versión:</label>
+                        <input name="version" id="version" type="text" placeholder="...">
+                    </div>
+                </div>
+            </fieldset>
+        <div class="actions-container">
+            <button type="button" id="guardar" name="guardar" class="action-button">Guardar Acta de Muestreo</button>
+            <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
+            <input type="text" id="id_producto" name="id_producto" style="display: none;">
+            <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
+        </div>
+</div>
+
+
+</html>
