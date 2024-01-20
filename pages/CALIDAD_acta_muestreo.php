@@ -150,3 +150,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 </html>
+<script>
+    function cargarDatosEspecificacion(id) {
+    $.ajax({
+        url: './backend/acta_muestreo/acta_muestreoBE.php',
+        type: 'GET',
+        data: { id: id },
+        success: function(response) {
+            procesarDatosEspecificacion(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud: ", status, error);
+        }
+    });
+}
+</script>
