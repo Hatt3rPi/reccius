@@ -8,18 +8,17 @@ $query = "SELECT
             cp.id as id_producto,
             cep.id_especificacion,
             am.id as id_acta_muestreo,
-            cp.identificador_producto
+            cp.identificador_producto,
             cp.documento_ingreso as documento, 
             cp.nombre_producto AS producto, 
             cp.tipo_producto, 
             cp.concentracion,
             cp.formato, 
             cp.elaborado_por,
-            cp.pais_origen,
-
-        FROM `calidad_acta_muestreo`  AS am 
-        INNER JOIN calidad_especificacion_productos as cep on am.id_especificacion=cep.id
-        FROM calidad_productos as cp ON cp.id = cep.id_producto;";
+            cp.pais_origen
+        FROM calidad_acta_muestreo AS am 
+        INNER JOIN calidad_especificacion_productos as cep ON am.id_especificacion = cep.id
+        INNER JOIN calidad_productos as cp ON cp.id = cep.id_producto;";
         
 
 $result = $link->query($query);
