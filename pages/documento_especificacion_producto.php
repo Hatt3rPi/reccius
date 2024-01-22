@@ -407,6 +407,10 @@
                         lengthChange: false,
                         language: {
                             url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                        },
+                        createdRow: function (row, data, dataIndex) {
+                            // Aquí puedes agregar la clase a la fila
+                            $(row).addClass('row-fileFQ');
                         }
                     });
                 }
@@ -458,6 +462,10 @@
                         lengthChange: false,
                         language: {
                             url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                        },
+                        createdRow: function (row, data, dataIndex) {
+                            // Aquí puedes agregar la clase a la fila
+                            $(row).addClass('row-fileMB');
                         }
                     });
                 }
@@ -584,7 +592,7 @@
 
         function medirAlturasFilas() {
             // Obtén todas las filas de la tabla
-            var filas = document.querySelectorAll('#analisisFQ tbody tr');
+            var filas = document.querySelectorAll('row-fileFQ');
             console.log("filas",  filas)
 
             // Itera sobre cada fila para obtener su altura
