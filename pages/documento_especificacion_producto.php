@@ -592,7 +592,7 @@
 
         function medirAlturasFilas() {
             // Obtén todas las filas de la tabla
-            var filas = document.querySelectorAll('row-fileFQ even , row-fileFQ odd');
+            var filas = document.querySelectorAll('row-fileFQ even  row-fileFQ odd');
             console.log("filas",  filas)
 
             // Itera sobre cada fila para obtener su altura
