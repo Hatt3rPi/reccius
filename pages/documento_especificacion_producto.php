@@ -282,7 +282,7 @@
                     }
                 }
             });
-            medirAlturasFilas()
+            setTimeout(medirAlturasFilas, 3000);
         }
         function poblarYDeshabilitarCamposProducto(producto) {
             if (producto) {
