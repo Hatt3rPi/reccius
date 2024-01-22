@@ -282,7 +282,7 @@
                     }
                 }
             });
-            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
+            setTimeout(ajustarContenidoYCalcularEspacioDisponible, 3000);
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
