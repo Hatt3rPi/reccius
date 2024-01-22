@@ -585,6 +585,7 @@
         function medirAlturasFilas() {
             // Obtén todas las filas de la tabla
             var filas = document.querySelectorAll('#analisisFQ tbody tr');
+            console.log(filas)
 
             // Itera sobre cada fila para obtener su altura
             filas.forEach(function(fila, index) {
@@ -602,7 +603,7 @@
             // Asegúrate de que la tabla se haya cargado completamente
             setTimeout(function() {
                 medirAlturasFilas();
-            }, 3000); // Ajusta este tiempo según sea necesario
+            }, 1000); // Ajusta este tiempo según sea necesario
         };
 
 
