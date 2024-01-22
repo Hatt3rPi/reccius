@@ -282,7 +282,3 @@ p {
     display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
 
-.container-wrapper {
-    display: flex;
-    justify-content: space-around;
-}

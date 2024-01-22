@@ -645,22 +645,11 @@
         window.onload = function() {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
-
-            // Crear un contenedor para envolver ambos form-container
-            var wrapper = document.createElement('div');
-            wrapper.className = 'container-wrapper';
-
-            // Seleccionar el contenedor existente
-            var existingContainer = document.getElementById('form-container');
-
-            // Clonar el contenedor existente
-            var clonedContainer = existingContainer.cloneNode(true);
-
-            // Insertar el contenedor clonado en el DOM
-            existingContainer.parentNode.insertBefore(wrapper, existingContainer);
-            wrapper.appendChild(existingContainer);
-            wrapper.appendChild(clonedContainer);
         };
+        document.addEventListener("DOMContentLoaded", function() {
+        var bodyContent = document.body.innerHTML;
+        document.body.innerHTML += bodyContent;
+         });
 
     </script>
 </body>
