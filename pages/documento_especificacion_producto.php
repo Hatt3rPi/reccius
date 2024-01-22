@@ -102,7 +102,7 @@
                 <p name="producto2" id="producto2"
                     style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
                 </p>
-                <div id="content" class="content"  style="display: none;">
+                <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
                         <div class="analysis-section"
@@ -123,14 +123,16 @@
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="content"  style="display: none;">
+                <div id="additionalContent" class="content">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
                             II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
-                        <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
+                        <table id="analisisMB" class="display compact table-bordered"
+                            style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
                                     <th style="width: 170px; text-align: center">Análisis</th>
@@ -138,13 +140,9 @@
                                     <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Las filas de la tabla se agregarán dinámicamente con JavaScript -->
-                            </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
             <div class="footer" id="footer">
                 <!-- Sección realizada por -->
@@ -284,7 +282,6 @@
                     }
                 }
             });
-            ajustarContenidoAPaginas(); // Llama a esta función aquí
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
@@ -369,47 +366,109 @@
 
 
         function mostrarAnalisisFQ(analisis) {
-    var tablaFQ = document.getElementById('analisisFQ').getElementsByTagName('tbody')[0];
-    tablaFQ.innerHTML = ''; // Limpiar filas existentes
+            // Verifica si hay datos para el análisis FQ
+            console.log(analisis)
+            if (analisis.length > 0) {
+                // Si hay datos, muestra la tabla y procesa los datos
+                if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                    $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+                } else {
+                    $('#analisisFQ').DataTable({
+                        data: analisis,
+                        columns: [
+                            {
+                                title: 'Análisis',
+                                data: 'descripcion_analisis',
+                                width: '170px',
+                                createdCell: function (td) {
+                                    $(td).css('font-weight', 'bold');
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Metodología',
+                                data: 'metodologia',
+                                width: '106px',
+                                createdCell: function (td) {
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Criterio aceptación',
+                                data: 'criterios_aceptacion',
+                                width: '404px'
+                            }
+                        ],
+                        paging: false,
+                        info: false,
+                        searching: false,
+                        lengthChange: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                        }
+                    });
+                }
+                // Muestra la sección del análisis FQ
+                $('#content').show();
+            } else {
+                // Si no hay datos, oculta la sección del análisis FQ
+                $('#content').hide();
+            }
+        }
+        function mostrarAnalisisMB(analisis) {
+            // Verifica si hay datos para el análisis microbiológico
+            if (analisis.length > 0) {
+                // Si hay datos, muestra la tabla y procesa los datos
+                if ($.fn.DataTable.isDataTable('#analisisMB')) {
+                    $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+                } else {
+                    $('#analisisMB').DataTable({
+                        data: analisis,
+                        columns: [
+                            {
+                                title: 'Análisis',
+                                data: 'descripcion_analisis',
+                                width: '170px',
+                                createdCell: function (td) {
+                                    $(td).css('font-weight', 'bold');
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Metodología',
+                                data: 'metodologia',
+                                width: '106px',
+                                createdCell: function (td) {
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Criterio aceptación',
+                                data: 'criterios_aceptacion',
+                                width: '404px'
+                            }
+                        ],
+                        paging: false,
+                        info: false,
+                        searching: false,
+                        lengthChange: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                        }
+                    });
+                }
+                // Muestra la sección del análisis microbiológico
+                $('#additionalContent').show();
+            } else {
+                // Si no hay datos, oculta la sección del análisis microbiológico
+                $('#additionalContent').hide();
+            }
+        }
 
-
-    if (analisis.length > 0) {
-        analisis.forEach(function(analisisItem) {
-            var fila = tablaFQ.insertRow();
-            var celdaAnalisis = fila.insertCell(0);
-            var celdaMetodologia = fila.insertCell(1);
-            var celdaCriterio = fila.insertCell(2);
-
-            celdaAnalisis.textContent = analisisItem.descripcion_analisis;
-            celdaMetodologia.textContent = analisisItem.metodologia;
-            celdaCriterio.textContent = analisisItem.criterios_aceptacion;
-        });
-        document.getElementById('content').style.display = '';
-    } else {
-        document.getElementById('content').style.display = 'none';
-    }
-}
-
-function mostrarAnalisisMB(analisis) {
-    var tablaMB = document.getElementById('analisisMB').getElementsByTagName('tbody')[0];
-    tablaMB.innerHTML = ''; // Limpiar filas existentes
-
-    if (analisis.length > 0) {
-        analisis.forEach(function(analisisItem) {
-            var fila = tablaMB.insertRow();
-            var celdaAnalisis = fila.insertCell(0);
-            var celdaMetodologia = fila.insertCell(1);
-            var celdaCriterio = fila.insertCell(2);
-
-            celdaAnalisis.textContent = analisisItem.descripcion_analisis;
-            celdaMetodologia.textContent = analisisItem.metodologia;
-            celdaCriterio.textContent = analisisItem.criterios_aceptacion;
-        });
-        document.getElementById('additionalContent').style.display = '';
-    } else {
-        document.getElementById('additionalContent').style.display = 'none';
-    }
-}
 
 
 
@@ -524,16 +583,12 @@ function mostrarAnalisisMB(analisis) {
         // Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
 
 
-       
-
-
-
         window.onload = function () {
-            document.getElementById('content').style.display = 'none';
-            document.getElementById('additionalContent').style.display = 'none';
+            // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
         };
+
     </script>
 </body>
 
