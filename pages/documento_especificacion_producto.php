@@ -601,7 +601,7 @@
             // Asegúrate de que la tabla se haya cargado completamente
             setTimeout(function() {
                 medirAlturasFilas();
-            }, 1000); // Ajusta este tiempo según sea necesario
+            }, 3000); // Ajusta este tiempo según sea necesario
         };
 
     </script>
