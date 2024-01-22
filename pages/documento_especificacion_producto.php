@@ -616,6 +616,12 @@
                 var alturaTr = tr.offsetHeight;
                 console.log('Altura del elemento tr #' + (index + 1) + ' con clase even/odd: ' + alturaTr + 'px');
             });
+             // Obtener altura de elementos div con clase analysis-section
+            var divElements = document.querySelectorAll('div.analysis-section');
+            divElements.forEach(function(div, index) {
+                var alturaDiv = div.offsetHeight;
+                console.log('Altura del elemento div #' + (index + 1) + ' con clase analysis-section: ' + alturaDiv + 'px');
+            });
             // Calcular el espacio disponible
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
             console.log('Espacio disponible: ' + espacioDisponible + 'px');
