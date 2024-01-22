@@ -282,7 +282,7 @@
                     }
                 }
             });
-            setTimeout(obtenerAlturaElementos, 3000);
+            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
@@ -578,11 +578,18 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-        function obtenerAlturaElementos() {
+        function obtenerAlturaElementosYCalcularEspacioDisponible() {
+            const alturaTotal = 792; // Altura total de la página en puntos
+            const alturaHeader = 123; // Altura del encabezado
+            const alturaFooter = 224; // Altura del pie de página
+
+            var alturaContent = 0;
+            var alturaAdditionalContent = 0;
+
             // Obtener altura de #content
             var content = document.getElementById('content');
             if (content) {
-                var alturaContent = content.offsetHeight;
+                alturaContent = content.offsetHeight;
                 console.log('La altura de #content es: ' + alturaContent + 'px');
             } else {
                 console.log('Elemento #content no encontrado');
@@ -591,13 +598,18 @@
             // Obtener altura de #additionalContent
             var additionalContent = document.getElementById('additionalContent');
             if (additionalContent) {
-                var alturaAdditionalContent = additionalContent.offsetHeight;
+                alturaAdditionalContent = additionalContent.offsetHeight;
                 console.log('La altura de #additionalContent es: ' + alturaAdditionalContent + 'px');
             } else {
                 console.log('Elemento #additionalContent no encontrado');
             }
+
+            // Calcular el espacio disponible
+            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
+            console.log('Espacio disponible: ' + espacioDisponible + 'px');
+
+            // Aquí puedes decidir qué hacer con el espacio disponible y las alturas obtenidas
         }
-       
 
         window.onload = function () {
             cargarDatosEspecificacion(id);
