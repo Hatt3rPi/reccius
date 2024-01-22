@@ -1,1 +1,5 @@
 -- Archivo para poder vizualisar mis horas de trabajo en el git , estoy trabajando en local la prueba de pdf que es mas comodo---
+const formatTr = (trElemnts) = thElements.map((thElement) => ({
+                element: thElement,
+                heigth: thElement.offsetHeigth
+            }))
