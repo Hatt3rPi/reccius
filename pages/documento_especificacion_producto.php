@@ -282,7 +282,7 @@
                     }
                 }
             });
-            setTimeout(obtenerAlturaAnalisisFQ, 3000);
+            setTimeout(obtenerAlturaElementos, 3000);
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
@@ -578,19 +578,25 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-        function obtenerAlturaAnalisisFQ() {
-            var tablaAnalisisFQ = document.getElementById('content');
-            if (tablaAnalisisFQ) {
-                var altura = tablaAnalisisFQ.offsetHeight;
-                console.log('La altura de #content es: ' + altura + 'px');
-                // Aquí puedes hacer algo con la altura, por ejemplo, mostrarla en algún lugar de la página o usarla para otra lógica.
-                return altura; // Devuelve la altura
+        function obtenerAlturaElementos() {
+            // Obtener altura de #content
+            var content = document.getElementById('content');
+            if (content) {
+                var alturaContent = content.offsetHeight;
+                console.log('La altura de #content es: ' + alturaContent + 'px');
             } else {
                 console.log('Elemento #content no encontrado');
-                return 0; // Devuelve 0 si el elemento no se encuentra
+            }
+
+            // Obtener altura de #additionalContent
+            var additionalContent = document.getElementById('additionalContent');
+            if (additionalContent) {
+                var alturaAdditionalContent = additionalContent.offsetHeight;
+                console.log('La altura de #additionalContent es: ' + alturaAdditionalContent + 'px');
+            } else {
+                console.log('Elemento #additionalContent no encontrado');
             }
         }
-
        
 
         window.onload = function () {
