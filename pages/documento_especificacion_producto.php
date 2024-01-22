@@ -582,11 +582,26 @@
         // Llamar a esta función cada vez que actualices el estado de las firmas
         // Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
 
+        function medirAlturasFilas() {
+            // Obtén todas las filas de la tabla
+            var filas = document.querySelectorAll('#analisisFQ tbody tr, #analisisMB tbody tr');
 
+            // Itera sobre cada fila para obtener su altura
+            filas.forEach(function(fila, index) {
+                var altura = fila.getBoundingClientRect().height;
+                console.log('Altura de la fila ' + (index + 1) + ': ' + altura + 'px');
+                // Aquí puedes hacer lo que necesites con la altura de cada fila
+            });
+        }
         window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
+
+            // Asegúrate de que la tabla se haya cargado completamente
+            setTimeout(function() {
+                medirAlturasFilas();
+            }, 1000); // Ajusta este tiempo según sea necesario
         };
 
     </script>
