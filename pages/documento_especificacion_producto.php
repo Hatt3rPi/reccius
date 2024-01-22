@@ -282,7 +282,7 @@
                     }
                 }
             });
-
+            medirAlturasFilas()
         }
         function poblarYDeshabilitarCamposProducto(producto) {
             if (producto) {
@@ -599,7 +599,6 @@
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
-            medirAlturasFilas();
 
         };
 
