@@ -584,7 +584,6 @@
             const alturaFooter = 224; // Altura del pie de página
 
             var alturaContent = 0;
-            var alturaAdditionalContent = 0;
 
             // Obtener altura de #content
             var content = document.getElementById('content');
@@ -595,35 +594,23 @@
                 console.log('Elemento #content no encontrado');
             }
 
-            // Obtener altura de #additionalContent
+            // Obtener y ocultar #additionalContent
             var additionalContent = document.getElementById('additionalContent');
             if (additionalContent) {
-                alturaAdditionalContent = additionalContent.offsetHeight;
-                console.log('La altura de #additionalContent es: ' + alturaAdditionalContent + 'px');
-            } else {
-                console.log('Elemento #additionalContent no encontrado');
+                additionalContent.style.display = 'none';
             }
 
             // Calcular el espacio disponible
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
             console.log('Espacio disponible: ' + espacioDisponible + 'px');
 
-            // Comprobar y manejar si #content excede el espacio disponible
-            if (alturaContent > espacioDisponible) {
-                // Ocultar #additionalContent si #content ocupa todo el espacio
-                if (additionalContent) {
-                    additionalContent.style.display = 'none';
-                }
-                // Aquí puedes ajustar la altura de #content para que se ajuste al espacio disponible
-                // Esto podría ser simplemente establecer una altura máxima
+            // Ajustar #content según el espacio disponible
+            if (alturaContent >= espacioDisponible) {
                 content.style.maxHeight = espacioDisponible + 'px';
-                content.style.overflow = 'hidden'; // Oculta cualquier contenido que exceda esta altura
+                content.style.overflowY = 'auto'; // Permite desplazamiento vertical si es necesario
                 content.scrollTop = 0; // Asegura que el contenido comience desde la parte superior
-                // Si necesitas manejar el contenido sobrante, aquí es donde lo harías
-                // Por ejemplo, almacenarlo en una variable o moverlo a otro elemento
             }
         }
-
         window.onload = function () {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
