@@ -579,8 +579,20 @@
         }
 
 
-        // Llamar a esta función cada vez que actualices el estado de las firmas
-        // Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esperar a que el DOM esté completamente cargado
+
+            var alturasFilas = []; // Array para almacenar las alturas
+            var filas = document.querySelectorAll('.odd, .even'); // Seleccionar todas las filas con clase 'odd' o 'even'
+
+            filas.forEach(function(fila) {
+                // Iterar sobre cada fila y obtener su altura
+                var altura = fila.clientHeight; // clientHeight da la altura de la fila incluyendo el padding pero no los bordes, márgenes ni el scroll horizontal
+                alturasFilas.push(altura); // Añadir la altura al array
+            });
+
+            console.log(alturasFilas); // Mostrar las alturas en la consola
+        });
 
 
         window.onload = function () {
