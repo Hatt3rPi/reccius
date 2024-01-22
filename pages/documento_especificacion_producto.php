@@ -282,6 +282,7 @@
                     }
                 }
             });
+            obtenerAlturaAnalisisFQ();
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
@@ -577,20 +578,22 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-
-
-       
-
-        window.onload = function () {
+        function obtenerAlturaAnalisisFQ() {
             var tablaAnalisisFQ = document.getElementById('analisisFQ');
             if (tablaAnalisisFQ) {
                 var altura = tablaAnalisisFQ.offsetHeight;
                 console.log('La altura de #analisisFQ es: ' + altura + 'px');
                 // Aquí puedes hacer algo con la altura, por ejemplo, mostrarla en algún lugar de la página o usarla para otra lógica.
+                return altura; // Devuelve la altura
             } else {
                 console.log('Elemento #analisisFQ no encontrado');
+                return 0; // Devuelve 0 si el elemento no se encuentra
             }
-            // Suponiendo que tengas un ID de producto para cargar
+        }
+
+       
+
+        window.onload = function () {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
         };
