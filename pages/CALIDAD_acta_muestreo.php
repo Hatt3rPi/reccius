@@ -165,25 +165,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 }
 function procesarDatosActa(response) {
-    // Suponemos que 'response' es un objeto JSON que contiene un array de datos
-    if(response && response.data && response.data.length > 0) {
-        // Supongamos que quieres cargar la primera especificación recibida
-        var especificacion = response.data[0];
+    if (response && response.productos && response.productos.length > 0) {
+        var producto = response.productos[0];
+        $('#id_producto').val(producto.id_producto);
+        $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
+        $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
+        $('#producto').val(producto.nombre_producto).prop('disabled', true);
+        $('#concentracion').val(producto.concentracion).prop('disabled', true);
+        $('#formato').val(producto.formato).prop('disabled', true);
+        $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
 
-        // Ahora, poblar los campos del formulario con los datos recibidos
-        $('#id_producto').val(especificacion.id_producto);
-        $('#id_especificacion').val(especificacion.id_especificacion);
-        $('#Tipo_Producto').val(especificacion.tipo_producto).prop('disabled', true);
-        $('#codigo_producto').val(especificacion.identificador_producto).prop('disabled', true); // Asegúrate de que 'identificador_producto' corresponde al 'Código Producto'
-        $('#producto').val(especificacion.producto).prop('disabled', true);
-        $('#concentracion').val(especificacion.concentracion).prop('disabled', true);
-        $('#formato').val(especificacion.formato).prop('disabled', true); // Aquí deberías tener un <select> en lugar de <input>
-        $('#elaboradoPor').val(especificacion.elaborado_por).prop('disabled', true);
+        var especificaciones = Object.values(producto.especificaciones);
+        if (especificaciones.length > 0) {
+            var especificacion = especificaciones[0];
+            $('#id_especificacion').val(especificacion.id_especificacion);
 
-        // Si tienes más campos para poblar, continúa aquí...
+        }
     } else {
         console.error("No se recibieron datos válidos: ", response);
     }
 }
+
 
 </script>
