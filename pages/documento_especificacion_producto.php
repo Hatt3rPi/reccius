@@ -282,7 +282,7 @@
                     }
                 }
             });
-            obtenerAlturaAnalisisFQ();
+            setTimeout(obtenerAlturaAnalisisFQ, 3000);
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
