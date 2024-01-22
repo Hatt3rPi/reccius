@@ -584,15 +584,16 @@
 
         function medirAlturasFilas() {
             // Obtén todas las filas de la tabla
-            var filas = document.querySelectorAll('#analisisFQ tbody ');
+            var filas = document.querySelectorAll('#analisisFQ tbody tr');
 
             // Itera sobre cada fila para obtener su altura
             filas.forEach(function(fila, index) {
-                var altura = fila.getBoundingClientRect().height;
+                var altura = fila.offsetHeight;
                 console.log('Altura de la fila ' + (index + 1) + ': ' + altura + 'px');
                 // Aquí puedes hacer lo que necesites con la altura de cada fila
             });
         }
+
         window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
@@ -603,6 +604,7 @@
                 medirAlturasFilas();
             }, 3000); // Ajusta este tiempo según sea necesario
         };
+
 
     </script>
 </body>
