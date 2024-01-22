@@ -180,7 +180,6 @@
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
     </div>
-    <button id="filtrarContenido">Filtrar Contenido</button>
     <script>
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
@@ -641,34 +640,7 @@
 
             // Aquí puedes decidir qué hacer con el espacio disponible y las alturas obtenidas
         }
-        function filtrarContenido() {
-            // Ocultar todos los elementos dentro de #content
-            var contentContainer = document.querySelector('#content');
-            var allChildren = contentContainer.children;
-            for (var i = 0; i < allChildren.length; i++) {
-                allChildren[i].style.display = 'none';
-            }
-
-            // Mostrar div con clase analysis-section
-            var analysisSection = contentContainer.querySelector('div.analysis-section');
-            if (analysisSection) {
-                analysisSection.style.display = 'block';
-            }
-
-            // Mostrar elementos th con clase sorting y sorting_asc
-            var thElements = contentContainer.querySelectorAll('th.sorting, th.sorting_asc');
-            thElements.forEach(function(th) {
-                th.style.display = 'block';
-            });
-
-            // Mostrar los primeros 3 elementos tr con clase even y odd
-            var trElements = contentContainer.querySelectorAll('tr.even, tr.odd');
-            for (var i = 0; i < trElements.length && i < 3; i++) {
-                trElements[i].style.display = 'table-row';
-            }
-        }
-
-        document.getElementById('filtrarContenido').addEventListener('click', filtrarContenido);
+        
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
