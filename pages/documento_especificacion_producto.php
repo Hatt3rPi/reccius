@@ -578,39 +578,47 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-        function obtenerAlturaElementosYCalcularEspacioDisponible() {
+        function ajustarContenidoYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
             const alturaFooter = 224; // Altura del pie de página
 
-            var alturaContent = 0;
+            // Calcular el espacio disponible
+            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
 
-            // Obtener altura de #content
+            // Obtener el elemento #content
             var content = document.getElementById('content');
+
             if (content) {
-                alturaContent = content.offsetHeight;
+                var alturaContent = content.offsetHeight;
+
+                // Si la altura del contenido es mayor al espacio disponible, se ajusta
+                if (alturaContent > espacioDisponible) {
+                    content.style.height = espacioDisponible + 'px';
+                    // En este caso, asegurarse de que el contenido empiece desde el principio
+                    content.scrollTop = 0;
+                } else {
+                    // Si la altura del contenido es menor o igual al espacio disponible, se muestra todo
+                    content.style.height = alturaContent + 'px'; // Esto es opcional, dependiendo de si quieres definir una altura específica
+                }
+
                 console.log('La altura de #content es: ' + alturaContent + 'px');
+                console.log('Espacio disponible: ' + espacioDisponible + 'px');
             } else {
                 console.log('Elemento #content no encontrado');
             }
 
-            // Obtener y ocultar #additionalContent
+            // Obtener y ocultar #additionalContent si #content ocupa todo el espacio
             var additionalContent = document.getElementById('additionalContent');
             if (additionalContent) {
-                additionalContent.style.display = 'none';
-            }
-
-            // Calcular el espacio disponible
-            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
-            console.log('Espacio disponible: ' + espacioDisponible + 'px');
-
-            // Ajustar #content según el espacio disponible
-            if (alturaContent >= espacioDisponible) {
-                content.style.maxHeight = espacioDisponible + 'px';
-                content.style.overflowY = 'auto'; // Permite desplazamiento vertical si es necesario
-                content.scrollTop = 0; // Asegura que el contenido comience desde la parte superior
+                if (alturaContent >= espacioDisponible) {
+                    additionalContent.style.display = 'none';
+                } else {
+                    additionalContent.style.display = 'block'; // Asegurarse de que se muestre si hay espacio
+                }
             }
         }
+
         window.onload = function () {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
