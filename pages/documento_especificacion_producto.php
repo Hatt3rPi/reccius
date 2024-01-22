@@ -282,7 +282,7 @@
                     }
                 }
             });
-            setTimeout(medirAlturasFilas, 3000);
+
         }
         function poblarYDeshabilitarCamposProducto(producto) {
             if (producto) {
@@ -407,10 +407,6 @@
                         lengthChange: false,
                         language: {
                             url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                        },
-                        createdRow: function (row, data, dataIndex) {
-                            // Aquí puedes agregar la clase a la fila
-                            $(row).addClass('row-fileFQ');
                         }
                     });
                 }
@@ -462,10 +458,6 @@
                         lengthChange: false,
                         language: {
                             url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                        },
-                        createdRow: function (row, data, dataIndex) {
-                            // Aquí puedes agregar la clase a la fila
-                            $(row).addClass('row-fileMB');
                         }
                     });
                 }
@@ -590,26 +582,12 @@
         // Llamar a esta función cada vez que actualices el estado de las firmas
         // Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
 
-        function medirAlturasFilas() {
-            // Obtén todas las filas de la tabla
-            var filas = document.querySelectorAll('row-fileFQ even  row-fileFQ odd');
-            console.log("filas",  filas)
-
-            // Itera sobre cada fila para obtener su altura
-            filas.forEach(function(fila, index) {
-                var altura = fila.offsetHeight;
-                console.log('Altura de la fila ' + (index + 1) + ': ' + altura + 'px');
-                // Aquí puedes hacer lo que necesites con la altura de cada fila
-            });
-        }
 
         window.onload = function () {
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
-
         };
-
 
     </script>
 </body>
