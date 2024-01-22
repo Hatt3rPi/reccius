@@ -605,17 +605,34 @@
                 console.log('Altura del elemento th #' + (index + 1) + ' dentro de #additionalContent con clase sorting/sorting_asc: ' + alturaTh + 'px');
             });
 
-            // Obtener altura de elementos tr con clase even y odd
-            var trElements = document.querySelectorAll('tr.even, tr.odd');
-            trElements.forEach(function(tr, index) {
+            // Obtener altura de elementos tr con clase even y odd dentro de #content
+            var contentContainer = document.querySelector('#content');
+            var trElementsInContent = contentContainer.querySelectorAll('tr.even, tr.odd');
+            trElementsInContent.forEach(function(tr, index) {
                 var alturaTr = tr.offsetHeight;
-                console.log('Altura del elemento tr #' + (index + 1) + ' con clase even/odd: ' + alturaTr + 'px');
+                console.log('Altura del elemento tr #' + (index + 1) + ' dentro de #content con clase even/odd: ' + alturaTr + 'px');
             });
-            // Obtener altura de elementos div con clase analysis-section
-            var divElements = document.querySelectorAll('div.analysis-section');
-            divElements.forEach(function(div, index) {
+
+            // Obtener altura de elementos tr con clase even y odd dentro de #additionalContent
+            var additionalContentContainer = document.querySelector('#additionalContent');
+            var trElementsInAdditionalContent = additionalContentContainer.querySelectorAll('tr.even, tr.odd');
+            trElementsInAdditionalContent.forEach(function(tr, index) {
+                var alturaTr = tr.offsetHeight;
+                console.log('Altura del elemento tr #' + (index + 1) + ' dentro de #additionalContent con clase even/odd: ' + alturaTr + 'px');
+            });
+
+            // Obtener altura de elementos div con clase analysis-section dentro de #content
+            var divElementsInContent = contentContainer.querySelectorAll('div.analysis-section');
+            divElementsInContent.forEach(function(div, index) {
                 var alturaDiv = div.offsetHeight;
-                console.log('Altura del elemento div #' + (index + 1) + ' con clase analysis-section: ' + alturaDiv + 'px');
+                console.log('Altura del elemento div #' + (index + 1) + ' dentro de #content con clase analysis-section: ' + alturaDiv + 'px');
+            });
+
+            // Obtener altura de elementos div con clase analysis-section dentro de #additionalContent
+            var divElementsInAdditionalContent = additionalContentContainer.querySelectorAll('div.analysis-section');
+            divElementsInAdditionalContent.forEach(function(div, index) {
+                var alturaDiv = div.offsetHeight;
+                console.log('Altura del elemento div #' + (index + 1) + ' dentro de #additionalContent con clase analysis-section: ' + alturaDiv + 'px');
             });
             // Calcular el espacio disponible
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
