@@ -579,23 +579,17 @@
         }
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Esperar a que el DOM esté completamente cargado
-
-            var alturasFilas = []; // Array para almacenar las alturas
-            var filas = document.querySelectorAll('.odd, .even'); // Seleccionar todas las filas con clase 'odd' o 'even'
-
-            filas.forEach(function(fila) {
-                // Iterar sobre cada fila y obtener su altura
-                var altura = fila.clientHeight; // clientHeight da la altura de la fila incluyendo el padding pero no los bordes, márgenes ni el scroll horizontal
-                alturasFilas.push(altura); // Añadir la altura al array
-            });
-
-            console.log(alturasFilas); // Mostrar las alturas en la consola
-        });
-
+       
 
         window.onload = function () {
+            var tablaAnalisisFQ = document.getElementById('analisisFQ');
+            if (tablaAnalisisFQ) {
+                var altura = tablaAnalisisFQ.offsetHeight;
+                console.log('La altura de #analisisFQ es: ' + altura + 'px');
+                // Aquí puedes hacer algo con la altura, por ejemplo, mostrarla en algún lugar de la página o usarla para otra lógica.
+            } else {
+                console.log('Elemento #analisisFQ no encontrado');
+            }
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
