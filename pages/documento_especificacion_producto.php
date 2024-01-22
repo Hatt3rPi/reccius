@@ -618,7 +618,7 @@
                 // Esto podría ser simplemente establecer una altura máxima
                 content.style.maxHeight = espacioDisponible + 'px';
                 content.style.overflow = 'hidden'; // Oculta cualquier contenido que exceda esta altura
-
+                content.scrollTop = 0; // Asegura que el contenido comience desde la parte superior
                 // Si necesitas manejar el contenido sobrante, aquí es donde lo harías
                 // Por ejemplo, almacenarlo en una variable o moverlo a otro elemento
             }
