@@ -128,6 +128,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
+                        <a id="listado_acta_muestreo" href="#" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                            </span> 
+                            Listado de Actas de Muestreo
+                        </a>
                         <a id="preparacion_solicitud" href="#" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/preparacion.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
