@@ -282,7 +282,7 @@
                     }
                 }
             });
-            setTimeout(ajustarContenidoYCalcularEspacioDisponible, 3000);
+            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
 
         }
         function poblarYDeshabilitarCamposProducto(producto) {
@@ -578,44 +578,45 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-        function ajustarContenidoYCalcularEspacioDisponible() {
+        function obtenerAlturaElementosYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
             const alturaFooter = 224; // Altura del pie de página
 
-            // Calcular el espacio disponible
-            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
+            var alturaContent = 0;
+            var alturaAdditionalContent = 0;
 
-            // Obtener el elemento #content
+            // Obtener altura de #content
             var content = document.getElementById('content');
-
             if (content) {
-                var alturaContent = content.offsetHeight;
-
-                // Si la altura del contenido es mayor al espacio disponible, se ajusta
-                if (alturaContent > espacioDisponible) {
-                    content.style.height = espacioDisponible + 'px';
-                    // En este caso, asegurarse de que el contenido empiece desde el principio
-                    content.scrollTop = 0;
-                } else {
-                    // Si la altura del contenido es menor o igual al espacio disponible, se muestra todo
-                    content.style.height = alturaContent + 'px'; // Esto es opcional, dependiendo de si quieres definir una altura específica
-                }
-
+                alturaContent = content.offsetHeight;
                 console.log('La altura de #content es: ' + alturaContent + 'px');
-                console.log('Espacio disponible: ' + espacioDisponible + 'px');
             } else {
                 console.log('Elemento #content no encontrado');
             }
 
-            // Obtener y ocultar #additionalContent si #content ocupa todo el espacio
+            // Obtener altura de #additionalContent
             var additionalContent = document.getElementById('additionalContent');
             if (additionalContent) {
-                if (alturaContent >= espacioDisponible) {
-                    additionalContent.style.display = 'none';
-                } else {
-                    additionalContent.style.display = 'block'; // Asegurarse de que se muestre si hay espacio
-                }
+                alturaAdditionalContent = additionalContent.offsetHeight;
+                console.log('La altura de #additionalContent es: ' + alturaAdditionalContent + 'px');
+            } else {
+                console.log('Elemento #additionalContent no encontrado');
+            }
+
+            // Calcular el espacio disponible
+            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
+            console.log('Espacio disponible: ' + espacioDisponible + 'px');
+
+            // Comprobar y manejar si #content excede el espacio disponible
+            if (alturaContent > espacioDisponible) {
+                // Aquí puedes ajustar la altura de #content para que se ajuste al espacio disponible
+                // Esto podría ser simplemente establecer una altura máxima
+                content.style.maxHeight = espacioDisponible + 'px';
+                content.style.overflow = 'hidden'; // Oculta cualquier contenido que exceda esta altura
+
+                // Si necesitas manejar el contenido sobrante, aquí es donde lo harías
+                // Por ejemplo, almacenarlo en una variable o moverlo a otro elemento
             }
         }
 
