@@ -610,6 +610,10 @@
 
             // Comprobar y manejar si #content excede el espacio disponible
             if (alturaContent > espacioDisponible) {
+                // Ocultar #additionalContent si #content ocupa todo el espacio
+                if (additionalContent) {
+                    additionalContent.style.display = 'none';
+                }
                 // Aquí puedes ajustar la altura de #content para que se ajuste al espacio disponible
                 // Esto podría ser simplemente establecer una altura máxima
                 content.style.maxHeight = espacioDisponible + 'px';
