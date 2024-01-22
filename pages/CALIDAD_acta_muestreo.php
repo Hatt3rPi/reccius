@@ -109,7 +109,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea name="condicion_almacenamiento" id="condicion_almacenamiento" rows="4" cols="44" placeholder="..." ></textarea>
+                        <textarea name="condicion_almacenamiento" id="condicion_almacenamiento" rows="4" placeholder="..." ></textarea>
                     </div>
                 </div>
                 <div class="form-row">
@@ -136,7 +136,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input name="version" id="version" type="text" placeholder="...">
+                        <input name="version" id="version" type="text" value="1" readonly>
                     </div>
                 </div>
             </fieldset>
@@ -153,7 +153,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     function cargarDatosEspecificacion(id) {
     $.ajax({
-        url: './backend/acta_muestreo/acta_muestreoBE.php',
+        url: './backend/acta_muestreo/cargaEsp_acta_muestreoBE.php',
         type: 'GET',
         data: { id: id },
         success: function(response) {
