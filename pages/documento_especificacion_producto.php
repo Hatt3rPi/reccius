@@ -585,7 +585,7 @@
         function medirAlturasFilas() {
             // Obtén todas las filas de la tabla
             var filas = document.querySelectorAll('#analisisFQ tbody tr');
-            console.log(filas)
+            console.log("filas",  filas)
 
             // Itera sobre cada fila para obtener su altura
             filas.forEach(function(fila, index) {
@@ -599,11 +599,8 @@
             // Suponiendo que tengas un ID de producto para cargar
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
+            medirAlturasFilas();
 
-            // Asegúrate de que la tabla se haya cargado completamente
-            setTimeout(function() {
-                medirAlturasFilas();
-            }, 1000); // Ajusta este tiempo según sea necesario
         };
 
 
