@@ -579,14 +579,14 @@
             }
         }
         function obtenerAlturaAnalisisFQ() {
-            var tablaAnalisisFQ = document.getElementById('analisisFQ');
+            var tablaAnalisisFQ = document.getElementById('content');
             if (tablaAnalisisFQ) {
                 var altura = tablaAnalisisFQ.offsetHeight;
-                console.log('La altura de #analisisFQ es: ' + altura + 'px');
+                console.log('La altura de #content es: ' + altura + 'px');
                 // Aquí puedes hacer algo con la altura, por ejemplo, mostrarla en algún lugar de la página o usarla para otra lógica.
                 return altura; // Devuelve la altura
             } else {
-                console.log('Elemento #analisisFQ no encontrado');
+                console.log('Elemento #content no encontrado');
                 return 0; // Devuelve 0 si el elemento no se encuentra
             }
         }
