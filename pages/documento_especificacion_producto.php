@@ -585,6 +585,7 @@
 
             var alturaContent = 0;
             var alturaAdditionalContent = 0;
+            var alturaThSorting = 0;
 
             // Obtener altura de #content
             var content = document.getElementById('content');
@@ -603,6 +604,12 @@
             } else {
                 console.log('Elemento #additionalContent no encontrado');
             }
+             // Obtener altura de elementos th con clase sorting y sorting_asc
+            var thElements = document.querySelectorAll('th.sorting, th.sorting_asc');
+            thElements.forEach(function(th, index) {
+                alturaThSorting = th.offsetHeight;
+                console.log('Altura del elemento th #' + (index + 1) + ' con clase sorting/sorting_asc: ' + alturaThSorting + 'px');
+            });
 
             // Calcular el espacio disponible
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
