@@ -608,7 +608,16 @@
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
             console.log('Espacio disponible: ' + espacioDisponible + 'px');
 
-            // Aquí puedes decidir qué hacer con el espacio disponible y las alturas obtenidas
+            // Comprobar y manejar si #content excede el espacio disponible
+            if (alturaContent > espacioDisponible) {
+                // Aquí puedes ajustar la altura de #content para que se ajuste al espacio disponible
+                // Esto podría ser simplemente establecer una altura máxima
+                content.style.maxHeight = espacioDisponible + 'px';
+                content.style.overflow = 'hidden'; // Oculta cualquier contenido que exceda esta altura
+
+                // Si necesitas manejar el contenido sobrante, aquí es donde lo harías
+                // Por ejemplo, almacenarlo en una variable o moverlo a otro elemento
+            }
         }
 
         window.onload = function () {
