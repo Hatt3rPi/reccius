@@ -621,23 +621,31 @@
             console.log(`Espacio disponible: ${espacioDisponible}px`);
 
             // Seleccionar los elementos tr dentro de la tabla específica de #content
-            const trsDeContent = Array.from(contentContainer.querySelectorAll('table tbody tr'));
+            const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             newTabla("new-table", trsDeContent);
         }
 
         async function newTabla(id, trArray) {
+            // Crear el contenedor para la nueva tabla
+            const tableContainer = createEl("div");
+            tableContainer.style.height = "792pt";
+            tableContainer.style.width = "612pt";
+            tableContainer.style.overflow = "auto"; // Asegúrate de que el contenedor maneje el desbordamiento si es necesario
+
+            // Crear la nueva tabla y el tbody
             const newTabla = createEl("table");
             const newTbody = createEl("tbody");
             newTabla.appendChild(newTbody);
             newTabla.setAttribute("id", id);
+            tableContainer.appendChild(newTabla); // Añadir la tabla al contenedor
 
-            // Agregar la nueva tabla al cuerpo del documento
-            document.querySelector("body").appendChild(newTabla);
+            // Agregar el contenedor de la tabla al cuerpo del documento
+            document.querySelector("body").appendChild(tableContainer);
 
             // Mover cada elemento tr a la nueva tabla
             for (let tr of trArray) {
                 newTbody.appendChild(tr); // Esto mueve el elemento tr
-                await delay(1000); // Espera 2 segundos antes de mover el siguiente elemento tr
+                await delay(1000); // Espera 1 segundo antes de mover el siguiente elemento tr
             }
 
             return newTabla;
