@@ -650,7 +650,7 @@
             
             tableContainer.appendChild(headerClone);
 
-            
+
           // Añadir el encabezado h1 y el párrafo p al contenedor
             tableContainer.appendChild(tipoProducto2);
             tableContainer.appendChild(producto2);
@@ -661,21 +661,27 @@
             newTabla.setAttribute("id", id);
             tableContainer.appendChild(newTabla); // Añadir la tabla al contenedor
 
-            // Agregar el contenedor de la tabla al cuerpo del documento
-            document.querySelector("#form-container").appendChild(tableContainer);
-
-            // Mover cada elemento tr a la nueva tabla
+              // Mover cada elemento tr a la nueva tabla
             for (let tr of trArray) {
-                newTbody.appendChild(tr); // Esto mueve el elemento tr
+                // Clonar los elementos td de cada tr y agregarlos al nuevo tbody
+                const trClone = tr.cloneNode(true);
+                const tdArray = Array.from(trClone.querySelectorAll('td'));
+                // Crear un nuevo tr para la nueva tabla
+                const newTr = createEl('tr');
+                // Copiar cada td al nuevo tr
+                tdArray.forEach(td => {
+                    const tdClone = td.cloneNode(true);
+                    newTr.appendChild(tdClone);
+                });
+                newTbody.appendChild(newTr); // Esto añade el nuevo tr al tbody
                 await delay(1000); // Espera 1 segundo antes de mover el siguiente elemento tr
             }
-
                // Añadir el footer clonado después de la tabla
             tableContainer.appendChild(footer);
 
 
              // Agregar el contenedor de la tabla al cuerpo del documento
-             document.querySelector("body").appendChild(tableContainer);
+             document.querySelector("#form-container").appendChild(tableContainer);
 
 
             return newTabla;
