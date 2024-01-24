@@ -642,6 +642,8 @@
 
             // Clonar el header y añadir al nuevo contenedor
             const headerClone = document.querySelector('#header-container').cloneNode(true);
+            const footer = document.querySelector("#footer").cloneNode(true);
+
             tableContainer.appendChild(headerClone);
 
             // Crear la nueva tabla y el tbody
@@ -659,6 +661,14 @@
                 newTbody.appendChild(tr); // Esto mueve el elemento tr
                 await delay(1000); // Espera 1 segundo antes de mover el siguiente elemento tr
             }
+
+               // Añadir el footer clonado después de la tabla
+            tableContainer.appendChild(footer);
+
+            
+             // Agregar el contenedor de la tabla al cuerpo del documento
+             document.querySelector("body").appendChild(tableContainer);
+
 
             return newTabla;
         }
