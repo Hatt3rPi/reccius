@@ -640,13 +640,25 @@
 
             // Aquí puedes decidir qué hacer con el espacio disponible y las alturas obtenidas
         }
-        
+        // Función para agregar la nueva tabla
+            function agregarNuevaTabla() {
+                const $ = (tagName) => document.querySelector(tagName);
+                const $$ = (tagName) => document.querySelectorAll(tagName);
 
-        window.onload = function() {
-            cargarDatosEspecificacion(id);
-            verificarYMostrarBotonFirma();
-        };
-        
+                // Suponiendo que quieres copiar filas de #analisisFQ
+                const arrayTr = $$("#analisisFQ tr");
+
+                // Asegúrate de que newTabla y delay estén definidos como en tu script original
+
+                newTabla("new-table-FQ", Array.from(arrayTr));
+            }
+
+            window.onload = function() {
+                cargarDatosEspecificacion(id);
+                verificarYMostrarBotonFirma();
+                setTimeout(agregarNuevaTabla, 5000); // Ajusta el tiempo según sea necesario
+            };
+            
 
     </script>
 </body>
