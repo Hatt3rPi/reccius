@@ -267,6 +267,7 @@
                 }
             });
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
+            setTimeout(agregarNuevaTabla, 5000); // Ajusta el tiempo según sea necesario
 
         }
 
@@ -656,7 +657,7 @@
             window.onload = function() {
                 cargarDatosEspecificacion(id);
                 verificarYMostrarBotonFirma();
-                setTimeout(agregarNuevaTabla, 5000); // Ajusta el tiempo según sea necesario
+                
             };
             
 
