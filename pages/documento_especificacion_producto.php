@@ -638,6 +638,11 @@
             tableContainer.style.marginLeft = "auto";
             tableContainer.style.marginRight = "auto";
             tableContainer.style.position = "relative";
+            tableContainer.style.marginTop = "400px"; // Añade esta línea para el marginTop
+
+            // Clonar el header y añadir al nuevo contenedor
+            const headerClone = document.querySelector('#header-container').cloneNode(true);
+            tableContainer.appendChild(headerClone);
 
             // Crear la nueva tabla y el tbody
             const newTabla = createEl("table");
