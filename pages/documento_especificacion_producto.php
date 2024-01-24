@@ -570,7 +570,6 @@
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        // Esta función se invoca después de que la tabla se ha llenado dinámicamente
         function obtenerAlturaElementosYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
@@ -584,7 +583,7 @@
             const contentContainer = $('#content');
             const additionalContentContainer = $('#additionalContent');
 
-            // Obtener altura de #content y #additionalContent
+            // Función para obtener la altura del contenedor
             function obtenerAlturaContenedor(contenedor, nombreContenedor) {
                 if (contenedor) {
                     const altura = contenedor.offsetHeight;
@@ -596,11 +595,11 @@
                 }
             }
 
-            // Obtener alturas
+            // Calcular la altura de #content y #additionalContent
             var alturaContent = obtenerAlturaContenedor(contentContainer, '#content');
             var alturaAdditionalContent = obtenerAlturaContenedor(additionalContentContainer, '#additionalContent');
 
-            // Función para calcular alturas de elementos
+            // Función para calcular alturas de elementos dentro de los contenedores
             function calcularAlturas(selector, nombreElemento, contenedor) {
                 const elementos = contenedor.querySelectorAll(selector);
                 elementos.forEach(function(elemento, index) {
@@ -621,9 +620,9 @@
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
             console.log(`Espacio disponible: ${espacioDisponible}px`);
 
-            // Crear y manipular nueva tabla con tr de #content
-            const arrayTr = $$("#content table tr");
-            newTabla("new-table", Array.from(arrayTr));
+            // Seleccionar los elementos tr dentro de la tabla específica de #content
+            const trsDeContent = Array.from(contentContainer.querySelectorAll('table tbody tr'));
+            newTabla("new-table", trsDeContent);
         }
 
         async function newTabla(id, trArray) {
@@ -632,20 +631,17 @@
             newTabla.appendChild(newTbody);
             newTabla.setAttribute("id", id);
 
-            // Asegúrate de que la nueva tabla esté vacía antes de agregar filas
-            newTbody.innerHTML = "";
-
+            // Agregar la nueva tabla al cuerpo del documento
             document.querySelector("body").appendChild(newTabla);
 
-            for (let i = 0; i < trArray.length; i++) {
-                // Clona el elemento tr y lo agrega a la nueva tabla
-                newTbody.appendChild(trArray[i].cloneNode(true));
-                await delay(2000);
+            // Mover cada elemento tr a la nueva tabla
+            for (let tr of trArray) {
+                newTbody.appendChild(tr); // Esto mueve el elemento tr
+                await delay(1000); // Espera 2 segundos antes de mover el siguiente elemento tr
             }
 
             return newTabla;
         }
-
             window.onload = function() {
                 cargarDatosEspecificacion(id);
                 verificarYMostrarBotonFirma();
