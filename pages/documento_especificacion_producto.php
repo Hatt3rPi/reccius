@@ -572,87 +572,76 @@
 
             var alturaContent = 0;
             var alturaAdditionalContent = 0;
-            var alturaThSorting = 0;
 
-            // Obtener altura de #content
-            var content = document.getElementById('content');
-            if (content) {
-                alturaContent = content.offsetHeight;
-                console.log('La altura de #content es: ' + alturaContent + 'px');
-            } else {
-                console.log('Elemento #content no encontrado');
+            // Funciones auxiliares
+            const $ = (selector) => document.querySelector(selector);
+            const $$ = (selector) => document.querySelectorAll(selector);
+            const createEl = (name) => document.createElement(name);
+            function delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
             }
 
-            // Obtener altura de #additionalContent
-            var additionalContent = document.getElementById('additionalContent');
-            if (additionalContent) {
-                alturaAdditionalContent = additionalContent.offsetHeight;
-                console.log('La altura de #additionalContent es: ' + alturaAdditionalContent + 'px');
-            } else {
-                console.log('Elemento #additionalContent no encontrado');
+            // Contenedores
+            const contentContainer = $('#content');
+            const additionalContentContainer = $('#additionalContent');
+
+            // Obtener altura de #content y #additionalContent
+            function obtenerAlturaContenedor(contenedor, nombreContenedor) {
+                if (contenedor) {
+                    const altura = contenedor.offsetHeight;
+                    console.log(`La altura de ${nombreContenedor} es: ${altura}px`);
+                    return altura;
+                } else {
+                    console.log(`Elemento ${nombreContenedor} no encontrado`);
+                    return 0;
+                }
             }
-           // Obtener altura de elementos th con clase sorting y sorting_asc dentro de #content
-            var contentContainer = document.querySelector('#content');
-            var thElementsInContent = contentContainer.querySelectorAll('th.sorting, th.sorting_asc');
-            thElementsInContent.forEach(function(th, index) {
-                var alturaTh = th.offsetHeight;
-                console.log('Altura del elemento th #' + (index + 1) + ' dentro de #content con clase sorting/sorting_asc: ' + alturaTh + 'px');
-            });
-            // Obtener altura de elementos th con clase sorting y sorting_asc dentro de #additionalContent
-            var additionalContentContainer = document.querySelector('#additionalContent');
-            var thElementsInAdditionalContent = additionalContentContainer.querySelectorAll('th.sorting, th.sorting_asc');
-            thElementsInAdditionalContent.forEach(function(th, index) {
-                var alturaTh = th.offsetHeight;
-                console.log('Altura del elemento th #' + (index + 1) + ' dentro de #additionalContent con clase sorting/sorting_asc: ' + alturaTh + 'px');
-            });
 
-            // Obtener altura de elementos tr con clase even y odd dentro de #content
-            var contentContainer = document.querySelector('#content');
-            var trElementsInContent = contentContainer.querySelectorAll('tr.even, tr.odd');
-            trElementsInContent.forEach(function(tr, index) {
-                var alturaTr = tr.offsetHeight;
-                console.log('Altura del elemento tr #' + (index + 1) + ' dentro de #content con clase even/odd: ' + alturaTr + 'px');
-            });
+            alturaContent = obtenerAlturaContenedor(contentContainer, '#content');
+            alturaAdditionalContent = obtenerAlturaContenedor(additionalContentContainer, '#additionalContent');
 
-            // Obtener altura de elementos tr con clase even y odd dentro de #additionalContent
-            var additionalContentContainer = document.querySelector('#additionalContent');
-            var trElementsInAdditionalContent = additionalContentContainer.querySelectorAll('tr.even, tr.odd');
-            trElementsInAdditionalContent.forEach(function(tr, index) {
-                var alturaTr = tr.offsetHeight;
-                console.log('Altura del elemento tr #' + (index + 1) + ' dentro de #additionalContent con clase even/odd: ' + alturaTr + 'px');
-            });
+            // Función para calcular alturas de elementos
+            function calcularAlturas(selector, nombreElemento, contenedor) {
+                const elementos = contenedor.querySelectorAll(selector);
+                elementos.forEach(function(elemento, index) {
+                    var alturaElemento = elemento.offsetHeight;
+                    console.log(`Altura del elemento ${nombreElemento} #${index + 1} dentro de ${contenedor.id}: ${alturaElemento}px`);
+                });
+            }
 
-            // Obtener altura de elementos div con clase analysis-section dentro de #content
-            var divElementsInContent = contentContainer.querySelectorAll('div.analysis-section');
-            divElementsInContent.forEach(function(div, index) {
-                var alturaDiv = div.offsetHeight;
-                console.log('Altura del elemento div #' + (index + 1) + ' dentro de #content con clase analysis-section: ' + alturaDiv + 'px');
-            });
+            // Calcular alturas de diferentes elementos
+            calcularAlturas('th.sorting, th.sorting_asc', 'th', contentContainer);
+            calcularAlturas('th.sorting, th.sorting_asc', 'th', additionalContentContainer);
+            calcularAlturas('tr.even, tr.odd', 'tr', contentContainer);
+            calcularAlturas('tr.even, tr.odd', 'tr', additionalContentContainer);
+            calcularAlturas('div.analysis-section', 'div', contentContainer);
+            calcularAlturas('div.analysis-section', 'div', additionalContentContainer);
 
-            // Obtener altura de elementos div con clase analysis-section dentro de #additionalContent
-            var divElementsInAdditionalContent = additionalContentContainer.querySelectorAll('div.analysis-section');
-            divElementsInAdditionalContent.forEach(function(div, index) {
-                var alturaDiv = div.offsetHeight;
-                console.log('Altura del elemento div #' + (index + 1) + ' dentro de #additionalContent con clase analysis-section: ' + alturaDiv + 'px');
-            });
             // Calcular el espacio disponible
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
-            console.log('Espacio disponible: ' + espacioDisponible + 'px');
+            console.log(`Espacio disponible: ${espacioDisponible}px`);
 
-            // Aquí puedes decidir qué hacer con el espacio disponible y las alturas obtenidas
+            // Crear y manipular nueva tabla
+            const arrayTr = $$("tr");
+            newTabla("new-table", Array.from(arrayTr));
         }
-        // Función para agregar la nueva tabla
-            function agregarNuevaTabla() {
-                const $ = (tagName) => document.querySelector(tagName);
-                const $$ = (tagName) => document.querySelectorAll(tagName);
 
-                // Suponiendo que quieres copiar filas de #analisisFQ
-                const arrayTr = $$("#content tr.even, #content tr.odd");
+        async function newTabla(id, trArray) {
+            const newTabla = createEl("table");
+            const newTbody = createEl("tbody");
+            newTabla.appendChild(newTbody);
+            newTabla.setAttribute("id", id);
 
-                // Asegúrate de que newTabla y delay estén definidos como en tu script original
+            document.querySelector("body").appendChild(newTabla);
 
-                newTabla("new-table-Content", Array.from(arrayTr));
+            for (let i = 0; i < trArray.length; i++) {
+                newTbody.appendChild(trArray[i]);
+                await delay(2000);
             }
+
+            return newTabla;
+        }
+
 
             window.onload = function() {
                 cargarDatosEspecificacion(id);
