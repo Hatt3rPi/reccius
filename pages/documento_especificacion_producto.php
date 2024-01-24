@@ -660,20 +660,25 @@
             newTabla.appendChild(newTbody);
             newTabla.setAttribute("id", id);
             tableContainer.appendChild(newTabla); // Añadir la tabla al contenedor
+            
+            // Agregar el contenedor de la tabla al cuerpo del documento
+            document.querySelector("#form-container").appendChild(tableContainer);
 
-              // Mover cada elemento tr a la nueva tabla
+
+            // Mover cada elemento tr a la nueva tabla y duplicar los td
             for (let tr of trArray) {
-                // Clonar los elementos td de cada tr y agregarlos al nuevo tbody
-                const trClone = tr.cloneNode(true);
-                const tdArray = Array.from(trClone.querySelectorAll('td'));
-                // Crear un nuevo tr para la nueva tabla
-                const newTr = createEl('tr');
-                // Copiar cada td al nuevo tr
+                // Clonar los elementos td de cada tr y agregarlos al nuevo tr
+                const tdArray = Array.from(tr.children); // Obtener todos los td del tr original
+                const newTr = createEl('tr'); // Crear un nuevo tr para la nueva tabla
+                
+                // Copiar cada td al nuevo tr y mantener en el tr original
                 tdArray.forEach(td => {
-                    const tdClone = td.cloneNode(true);
-                    newTr.appendChild(tdClone);
+                    const tdClone = td.cloneNode(true); // Clonar el td
+                    newTr.appendChild(tdClone); // Añadir el td clonado al nuevo tr
+                    // No es necesario remover el td original, ya que solo se está clonando
                 });
-                newTbody.appendChild(newTr); // Esto añade el nuevo tr al tbody
+
+                newTbody.appendChild(newTr); // Añadir el nuevo tr al tbody de la nueva tabla
                 await delay(1000); // Espera 1 segundo antes de mover el siguiente elemento tr
             }
                // Añadir el footer clonado después de la tabla
@@ -681,7 +686,7 @@
 
 
              // Agregar el contenedor de la tabla al cuerpo del documento
-             document.querySelector("#form-container").appendChild(tableContainer);
+             document.querySelector("body").appendChild(tableContainer);
 
 
             return newTabla;
