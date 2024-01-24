@@ -643,9 +643,17 @@
             // Clonar el header y añadir al nuevo contenedor
             const headerClone = document.querySelector('#header-container').cloneNode(true);
             const footer = document.querySelector("#footer").cloneNode(true);
+              // Copiar y pegar el encabezado h1 y el párrafo p en el contenedor
+            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
+            const producto2 = document.getElementById('producto2').cloneNode(true);
 
+            
             tableContainer.appendChild(headerClone);
 
+            
+          // Añadir el encabezado h1 y el párrafo p al contenedor
+            tableContainer.appendChild(tipoProducto2);
+            tableContainer.appendChild(producto2);
             // Crear la nueva tabla y el tbody
             const newTabla = createEl("table");
             const newTbody = createEl("tbody");
@@ -665,7 +673,7 @@
                // Añadir el footer clonado después de la tabla
             tableContainer.appendChild(footer);
 
-            
+
              // Agregar el contenedor de la tabla al cuerpo del documento
              document.querySelector("body").appendChild(tableContainer);
 
