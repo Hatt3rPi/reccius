@@ -267,7 +267,7 @@
                 }
             });
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
-            setTimeout(agregarNuevaTabla , 5000); // Ajusta el tiempo según sea necesario
+            
 
         }
 
@@ -653,42 +653,7 @@
 
                 newTabla("new-table-Content", Array.from(arrayTr));
             }
-            const $ = (tagName) => document.querySelector(tagName);
-                const $$ = (tagName) => document.querySelectorAll(tagName);
 
-                // La función createEl es una abstracción para crear elementos
-                const createEl = (name) => document.createElement(name);
-
-                // La función delay es una utilidad para crear retrasos
-                function delay(ms) {
-                    return new Promise((resolve) => setTimeout(resolve, ms));
-                }
-                
-
-                // newTabla crea una nueva tabla con un ID específico y llena la tabla con filas dadas
-                const newTabla = async (id, trArray) => {
-                    const newTable = createEl("table");
-                    const newTbody = createEl("tbody");
-                    newTable.appendChild(newTbody);
-                    newTable.setAttribute("id", id);
-
-                    document.querySelector("body").appendChild(newTable);
-
-                    for (let i = 0; i < trArray.length; i++) {
-                    newTbody.appendChild(trArray[i]);
-                    await delay(2000); // Espera de 2 segundos entre cada fila
-                    }
-
-                    return newTable;
-                };
-                    // Función para agregar la nueva tabla
-                function agregarNuevaTabla() {
-                    // Utiliza los selectores para obtener las filas existentes que deseas copiar
-                    const arrayTr = $$("tr.even, tr.odd");
-
-                    // Llama a la función newTabla que creará una nueva tabla y añadirá las filas
-                    newTabla("new-table-Content", Array.from(arrayTr));
-                }
             window.onload = function() {
                 cargarDatosEspecificacion(id);
                 verificarYMostrarBotonFirma();
@@ -697,7 +662,6 @@
             
 
     </script>
-
 </body>
 
 </html>
