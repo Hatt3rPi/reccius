@@ -646,11 +646,11 @@
                 const $$ = (tagName) => document.querySelectorAll(tagName);
 
                 // Suponiendo que quieres copiar filas de #analisisFQ
-                const arrayTr = $$("#analisisFQ tr");
+                const arrayTr = $$("#content tr.even, #content tr.odd");
 
                 // Asegúrate de que newTabla y delay estén definidos como en tu script original
 
-                newTabla("new-table-FQ", Array.from(arrayTr));
+                newTabla("new-table-Content", Array.from(arrayTr));
             }
 
             window.onload = function() {
