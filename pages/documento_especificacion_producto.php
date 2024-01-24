@@ -564,22 +564,20 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
+        // Funciones auxiliares globales
+        const createEl = (name) => document.createElement(name);
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
         function obtenerAlturaElementosYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
             const alturaFooter = 224; // Altura del pie de página
 
-            var alturaContent = 0;
-            var alturaAdditionalContent = 0;
-
-            // Funciones auxiliares
+            // Funciones auxiliares dentro de la función
             const $ = (selector) => document.querySelector(selector);
             const $$ = (selector) => document.querySelectorAll(selector);
-            const createEl = (name) => document.createElement(name);
-            function delay(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
 
             // Contenedores
             const contentContainer = $('#content');
@@ -597,8 +595,9 @@
                 }
             }
 
-            alturaContent = obtenerAlturaContenedor(contentContainer, '#content');
-            alturaAdditionalContent = obtenerAlturaContenedor(additionalContentContainer, '#additionalContent');
+            // Obtener alturas
+            var alturaContent = obtenerAlturaContenedor(contentContainer, '#content');
+            var alturaAdditionalContent = obtenerAlturaContenedor(additionalContentContainer, '#additionalContent');
 
             // Función para calcular alturas de elementos
             function calcularAlturas(selector, nombreElemento, contenedor) {
@@ -641,7 +640,6 @@
 
             return newTabla;
         }
-
 
             window.onload = function() {
                 cargarDatosEspecificacion(id);
