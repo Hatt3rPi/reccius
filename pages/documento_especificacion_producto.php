@@ -628,9 +628,16 @@
         async function newTabla(id, trArray) {
             // Crear el contenedor para la nueva tabla
             const tableContainer = createEl("div");
-            tableContainer.style.height = "792pt";
             tableContainer.style.width = "612pt";
-            tableContainer.style.overflow = "auto"; // Asegúrate de que el contenedor maneje el desbordamiento si es necesario
+            tableContainer.style.height = "792pt";
+            tableContainer.style.padding = "10pt";
+            tableContainer.style.boxSizing = "border-box";
+            tableContainer.style.backgroundColor = "#FFF";
+            tableContainer.style.border = "1px solid #000";
+            tableContainer.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            tableContainer.style.marginLeft = "auto";
+            tableContainer.style.marginRight = "auto";
+            tableContainer.style.position = "relative";
 
             // Crear la nueva tabla y el tbody
             const newTabla = createEl("table");
@@ -640,7 +647,7 @@
             tableContainer.appendChild(newTabla); // Añadir la tabla al contenedor
 
             // Agregar el contenedor de la tabla al cuerpo del documento
-            document.querySelector("form-container").appendChild(tableContainer);
+            document.querySelector("#form-container").appendChild(tableContainer);
 
             // Mover cada elemento tr a la nueva tabla
             for (let tr of trArray) {
