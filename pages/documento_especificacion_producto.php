@@ -564,12 +564,13 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-        // Funciones auxiliares globales
+                // Funciones auxiliares globales
         const createEl = (name) => document.createElement(name);
         function delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
+        // Esta función se invoca después de que la tabla se ha llenado dinámicamente
         function obtenerAlturaElementosYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
@@ -620,8 +621,8 @@
             const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
             console.log(`Espacio disponible: ${espacioDisponible}px`);
 
-            // Crear y manipular nueva tabla
-            const arrayTr = $$("tr");
+            // Crear y manipular nueva tabla con tr de #content
+            const arrayTr = $$("#content table tr");
             newTabla("new-table", Array.from(arrayTr));
         }
 
@@ -631,10 +632,14 @@
             newTabla.appendChild(newTbody);
             newTabla.setAttribute("id", id);
 
+            // Asegúrate de que la nueva tabla esté vacía antes de agregar filas
+            newTbody.innerHTML = "";
+
             document.querySelector("body").appendChild(newTabla);
 
             for (let i = 0; i < trArray.length; i++) {
-                newTbody.appendChild(trArray[i]);
+                // Clona el elemento tr y lo agrega a la nueva tabla
+                newTbody.appendChild(trArray[i].cloneNode(true));
                 await delay(2000);
             }
 
