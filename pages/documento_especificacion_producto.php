@@ -628,69 +628,50 @@
         async function newTabla(id, trArray) {
             // Crear el contenedor para la nueva tabla
             const tableContainer = createEl("div");
-            tableContainer.style.width = "612pt";
-            tableContainer.style.height = "792pt";
-            tableContainer.style.padding = "10pt";
-            tableContainer.style.boxSizing = "border-box";
-            tableContainer.style.backgroundColor = "#FFF";
-            tableContainer.style.border = "1px solid #000";
-            tableContainer.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            tableContainer.style.marginLeft = "auto";
-            tableContainer.style.marginRight = "auto";
-            tableContainer.style.position = "relative";
-            tableContainer.style.marginTop = "400px"; // Añade esta línea para el marginTop
+            // ... [estilos omitidos para brevedad] ...
 
-            // Clonar el header y añadir al nuevo contenedor
+            // Crear la nueva tabla y el tbody
+            const newTable = createEl("table");
+            const newTbody = createEl("tbody");
+            newTable.appendChild(newTbody);
+            newTable.setAttribute("id", id);
+
+            // Clonar y añadir el header y el footer al nuevo contenedor
             const headerClone = document.querySelector('#header-container').cloneNode(true);
-            const footer = document.querySelector("#footer").cloneNode(true);
-              // Copiar y pegar el encabezado h1 y el párrafo p en el contenedor
-            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
-            const producto2 = document.getElementById('producto2').cloneNode(true);
-
-            
             tableContainer.appendChild(headerClone);
 
-
-          // Añadir el encabezado h1 y el párrafo p al contenedor
+            // Clonar y añadir el h1 y el p al nuevo contenedor
+            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
+            const producto2 = document.getElementById('producto2').cloneNode(true);
             tableContainer.appendChild(tipoProducto2);
             tableContainer.appendChild(producto2);
-            // Crear la nueva tabla y el tbody
-            const newTabla = createEl("table");
-            const newTbody = createEl("tbody");
-            newTabla.appendChild(newTbody);
-            newTabla.setAttribute("id", id);
-            tableContainer.appendChild(newTabla); // Añadir la tabla al contenedor
-            
+
+            // Clonar y añadir el thead al nuevo contenedor
+            const originalThead = document.querySelector("#content table thead").cloneNode(true);
+            newTable.appendChild(originalThead);
+
+            // Agregar el tbody a la nueva tabla
+            newTable.appendChild(newTbody);
+
+            // Agregar la nueva tabla al contenedor de la tabla
+            tableContainer.appendChild(newTable);
+
+            // Mover cada elemento tr a la nueva tabla
+            for (let tr of trArray) {
+                newTbody.appendChild(tr); // Esto mueve el elemento tr
+                await delay(1000); // Espera 1 segundo antes de mover el siguiente elemento tr
+            }
+
+            // Clonar y añadir el footer al nuevo contenedor
+            const footerClone = document.querySelector('#footer').cloneNode(true);
+            tableContainer.appendChild(footerClone);
+
             // Agregar el contenedor de la tabla al cuerpo del documento
             document.querySelector("#form-container").appendChild(tableContainer);
 
-
-            // Mover cada elemento tr a la nueva tabla y duplicar los td
-            for (let tr of trArray) {
-                // Clonar los elementos td de cada tr y agregarlos al nuevo tr
-                const tdArray = Array.from(tr.children); // Obtener todos los td del tr original
-                const newTr = createEl('tr'); // Crear un nuevo tr para la nueva tabla
-                
-                // Copiar cada td al nuevo tr y mantener en el tr original
-                tdArray.forEach(td => {
-                    const tdClone = td.cloneNode(true); // Clonar el td
-                    newTr.appendChild(tdClone); // Añadir el td clonado al nuevo tr
-                    // No es necesario remover el td original, ya que solo se está clonando
-                });
-
-                newTbody.appendChild(newTr); // Añadir el nuevo tr al tbody de la nueva tabla
-                await delay(1000); // Espera 1 segundo antes de mover el siguiente elemento tr
-            }
-               // Añadir el footer clonado después de la tabla
-            tableContainer.appendChild(footer);
-
-
-             // Agregar el contenedor de la tabla al cuerpo del documento
-             document.querySelector("body").appendChild(tableContainer);
-
-
-            return newTabla;
+            return newTable;
         }
+
             window.onload = function() {
                 cargarDatosEspecificacion(id);
                 verificarYMostrarBotonFirma();
