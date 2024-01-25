@@ -549,7 +549,7 @@
 
 
 
-        function actualizarEstadoDocumento(watermarkElement) {
+        function actualizarEstadoDocumento(watermark) {
             var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
             var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
             var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
@@ -557,11 +557,11 @@
             var watermark = document.getElementById('watermark');
 
             if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-                watermarkElement.textContent = 'CONFIDENCIAL';
-                watermarkElement.classList.remove('pendiente-approbacion');
+                watermark.textContent = 'CONFIDENCIAL';
+                watermark.classList.remove('pendiente-approbacion');
             } else {
-                watermarkElement.textContent = 'PENDIENTE DE APROBACIÓN';
-                watermarkElement.classList.add('pendiente-approbacion');
+                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+                watermark.classList.add('pendiente-approbacion');
             }
         }
                 // Funciones auxiliares globales
