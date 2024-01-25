@@ -549,19 +549,21 @@
 
 
 
-        // Función para actualizar el estado del watermark, ahora acepta un parámetro
-        function actualizarEstadoDocumento(watermarkElement) {
+        function actualizarEstadoDocumento() {
             var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
             var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
             var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
 
+            var watermark = document.getElementById('watermark');
+
             if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-                watermarkElement.textContent = 'CONFIDENCIAL';
-                watermarkElement.classList.remove('pendiente-approbacion');
+                watermark.textContent = 'CONFIDENCIAL';
+                watermark.classList.remove('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             } else {
-                watermarkElement.textContent = 'PENDIENTE DE APROBACIÓN';
-                watermarkElement.classList.add('pendiente-approbacion');
+                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+                watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
+        }
                 // Funciones auxiliares globales
         const createEl = (name) => document.createElement(name);
         function delay(ms) {
@@ -681,16 +683,13 @@
                     const clonedSection = section.cloneNode(true);
                     container.appendChild(clonedSection);
                 });
-                
-
+                // Añadir la marca de agua
+                const watermark = createEl("div");
+                watermark.setAttribute("id", "watermark");
+                watermark.textContent = "TESTEO TESTESO";
+                container.appendChild(watermark);
                 const footerClone = document.querySelector('#footer').cloneNode(true);
                 container.appendChild(footerClone);
-
-                 // Crear y configurar el nuevo watermark
-                const newWatermark = createEl("div");
-                newWatermark.setAttribute("id", "watermark");
-                actualizarEstadoDocumento(newWatermark); // Asumiendo que esta función ahora acepta un parámetro para el elemento watermark
-                container.appendChild(newWatermark);
 
                 return container;
             }
