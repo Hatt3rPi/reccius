@@ -628,9 +628,19 @@
         async function newTabla(id, trArray) {
             // Crear el contenedor para la nueva tabla
             const tableContainer = createEl("div");
-            // ... [estilos omitidos para brevedad] ...
+            tableContainer.style.width = "612pt";
+            tableContainer.style.height = "792pt";
+            tableContainer.style.padding = "10pt";
+            tableContainer.style.boxSizing = "border-box";
+            tableContainer.style.backgroundColor = "#FFF";
+            tableContainer.style.border = "1px solid #000";
+            tableContainer.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            tableContainer.style.marginLeft = "auto";
+            tableContainer.style.marginRight = "auto";
+            tableContainer.style.position = "relative";
+            tableContainer.style.marginTop = "400px"; // Añade esta línea para el marginTop
 
-            // Crear la nueva tabla y el tbody
+                    // Crear la nueva tabla y el tbody
             const newTable = createEl("table");
             const newTbody = createEl("tbody");
             newTable.appendChild(newTbody);
@@ -671,7 +681,6 @@
 
             return newTable;
         }
-
             window.onload = function() {
                 cargarDatosEspecificacion(id);
                 verificarYMostrarBotonFirma();
