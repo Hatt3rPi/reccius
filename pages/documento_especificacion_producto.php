@@ -655,24 +655,35 @@
             }
 
                 // Nueva función para agregar los elementos adicionales
-            function agregarElementosAdicionales(container) {
-                const additionalContentContainer = document.getElementById('additionalContent');
-                
-                const thElements = additionalContentContainer.querySelectorAll('th.sorting, th.sorting_asc');
-                thElements.forEach(th => {
-                    container.appendChild(th.cloneNode(true));
-                });
+                function agregarElementosAdicionales(container) {
+                    const additionalContentContainer = document.getElementById('additionalContent');
 
-                const trElements = additionalContentContainer.querySelectorAll('tr.even, tr.odd');
-                trElements.forEach(tr => {
-                    container.appendChild(tr.cloneNode(true));
-                });
+                    // Crear un nuevo contenedor para los elementos adicionales
+                    const additionalElementsContainer = createEl("div");
+                    additionalElementsContainer.classList.add("additional-elements");
 
-                const divElements = additionalContentContainer.querySelectorAll('div.analysis-section');
-                divElements.forEach(div => {
-                    container.appendChild(div.cloneNode(true));
-                });
-            }
+                    // Clonar y añadir los elementos th
+                    const thElements = additionalContentContainer.querySelectorAll('th.sorting, th.sorting_asc');
+                    thElements.forEach(th => {
+                        additionalElementsContainer.appendChild(th.cloneNode(true));
+                    });
+
+                    // Clonar y añadir los elementos tr
+                    const trElements = additionalContentContainer.querySelectorAll('tr.even, tr.odd');
+                    trElements.forEach(tr => {
+                        additionalElementsContainer.appendChild(tr.cloneNode(true));
+                    });
+
+                    // Clonar y añadir los elementos div
+                    const divElements = additionalContentContainer.querySelectorAll('div.analysis-section');
+                    divElements.forEach(div => {
+                        additionalElementsContainer.appendChild(div.cloneNode(true));
+                    });
+
+                    // Añadir el contenedor de elementos adicionales al contenedor principal
+                    container.appendChild(additionalElementsContainer);
+                }
+
 
             // Función para crear un nuevo contenedor de tabla
             function createTableContainer() {
