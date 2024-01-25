@@ -662,27 +662,37 @@
                     const additionalElementsContainer = createEl("div");
                     additionalElementsContainer.classList.add("additional-elements");
 
+                    // Función para clonar elementos y manejar IDs
+                    const clonarYManejarId = (elemento) => {
+                        const clon = elemento.cloneNode(true);
+                        if (clon.id) {
+                            clon.id += "_clon"; // Cambiar el ID o eliminarlo según sea necesario
+                        }
+                        return clon;
+                    };
+
                     // Clonar y añadir los elementos th
                     const thElements = additionalContentContainer.querySelectorAll('th.sorting, th.sorting_asc');
                     thElements.forEach(th => {
-                        additionalElementsContainer.appendChild(th.cloneNode(true));
+                        additionalElementsContainer.appendChild(clonarYManejarId(th));
                     });
 
                     // Clonar y añadir los elementos tr
                     const trElements = additionalContentContainer.querySelectorAll('tr.even, tr.odd');
                     trElements.forEach(tr => {
-                        additionalElementsContainer.appendChild(tr.cloneNode(true));
+                        additionalElementsContainer.appendChild(clonarYManejarId(tr));
                     });
 
                     // Clonar y añadir los elementos div
                     const divElements = additionalContentContainer.querySelectorAll('div.analysis-section');
                     divElements.forEach(div => {
-                        additionalElementsContainer.appendChild(div.cloneNode(true));
+                        additionalElementsContainer.appendChild(clonarYManejarId(div));
                     });
 
                     // Añadir el contenedor de elementos adicionales al contenedor principal
                     container.appendChild(additionalElementsContainer);
                 }
+
 
 
             // Función para crear un nuevo contenedor de tabla
