@@ -632,8 +632,7 @@
             let newTbody = createTableBody(id, tableContainer);
             let alturaActualTabla = 0;
 
-            for (let i = 0; i < trArray.length; i++) {
-                let tr = trArray[i];
+            for (let tr of trArray) {
                 tr.classList.add("table", "table-bordered", "dataTable", "td");
                 let alturaTr = tr.offsetHeight;
 
@@ -648,84 +647,43 @@
                     alturaActualTabla = alturaTr;
                 }
                 await delay(100);
-            }
 
-            // Después de procesar todos los tr de content, procesar additionalContent
+                if (tr === trArray[trArray.length - 1]) {
+                    await agregarElementosAdicionales(tableContainer);
+                }
+            }
             document.querySelector("#form-container").appendChild(tableContainer);
-            agregarElementosAdicionales(tableContainer);
         }
 
-        function agregarElementosAdicionales(container) {
+        async function agregarElementosAdicionales(container) {
             const additionalContentContainer = document.getElementById('additionalContent');
             let alturaTotalDisponible = 792 - (123 + 224);
             let alturaActual = calcularAlturaActual(container);
 
-            const filas = additionalContentContainer.querySelectorAll('table tbody tr');
-            filas.forEach(fila => {
+            const filasAdditionalContent = additionalContentContainer.querySelectorAll('table tbody tr');
+            for (let fila of filasAdditionalContent) {
                 let alturaFila = fila.offsetHeight;
-                let tbody = container.querySelector('table tbody');
-
                 if (alturaActual + alturaFila <= alturaTotalDisponible) {
+                    let tbody = asegurarTbody(container);
                     tbody.appendChild(fila);
                     alturaActual += alturaFila;
                 } else {
                     container = createTableContainer();
                     document.querySelector("#form-container").appendChild(container);
-                    tbody = container.querySelector('table tbody');
+                    let tbody = asegurarTbody(container);
                     tbody.appendChild(fila);
                     alturaActual = alturaFila;
                 }
-            });
-        }
-
-        function calcularAlturaActual(container) {
-            let alturaTotal = 0;
-            Array.from(container.children).forEach(child => {
-                alturaTotal += child.offsetHeight;
-            });
-            return alturaTotal;
+                await delay(100);
+            }
         }
 
         function createTableContainer() {
             const container = createEl("div");
-            container.style.width = "612pt";
-            container.style.height = "792pt";
-            container.style.padding = "10pt";
-            container.style.boxSizing = "border-box";
-            container.style.backgroundColor = "#FFF";
-            container.style.border = "1px solid #000";
-            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            container.style.marginLeft = "auto";
-            container.style.marginRight = "auto";
-            container.style.position = "relative";
-            container.style.marginTop = "1000px";
+            // Aquí van los estilos y otros elementos del contenedor
+            // (configura el contenedor según tus necesidades)
 
-            // Clonar y añadir elementos como encabezado, tipo de producto, etc.
-            const headerClone = document.querySelector('#header-container').cloneNode(true);
-            container.appendChild(headerClone);
-
-            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
-            const producto2 = document.getElementById('producto2').cloneNode(true);
-            container.appendChild(tipoProducto2);
-            container.appendChild(producto2);
-
-            const analysisSections = document.querySelectorAll('#content .analysis-section');
-            analysisSections.forEach(section => {
-                const clonedSection = section.cloneNode(true);
-                container.appendChild(clonedSection);
-            });
-
-            // Añadir la marca de agua
-            const watermark = createEl("div");
-            watermark.setAttribute("id", "watermark");
-            watermark.textContent = "TESTEO TESTESO";
-            container.appendChild(watermark);
-
-            // Clonar y añadir el pie de página
-            const footerClone = document.querySelector('#footer').cloneNode(true);
-            container.appendChild(footerClone);
-
-            // Crear una tabla y añadirla después de los elementos anteriores
+            // Crear la tabla y tbody dentro del contenedor
             const tabla = createEl("table");
             const tbody = createEl("tbody");
             tabla.appendChild(tbody);
@@ -733,7 +691,6 @@
 
             return container;
         }
-
 
         function createTableBody(id, container) {
             const newTable = container.querySelector('table');
@@ -744,6 +701,27 @@
             return newTbody;
         }
 
+        function asegurarTbody(container) {
+            let tbody = container.querySelector('tbody');
+            if (!tbody) {
+                tbody = createEl('tbody');
+                let tabla = container.querySelector('table');
+                if (!tabla) {
+                    tabla = createEl('table');
+                    container.appendChild(tabla);
+                }
+                tabla.appendChild(tbody);
+            }
+            return tbody;
+        }
+
+        function calcularAlturaActual(container) {
+            let alturaTotal = 0;
+            Array.from(container.children).forEach(child => {
+                alturaTotal += child.offsetHeight;
+            });
+            return alturaTotal;
+        }
 
 
 
