@@ -267,7 +267,7 @@
                 }
             });
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
-            
+
 
         }
 
@@ -564,8 +564,9 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-                // Funciones auxiliares globales
+        // Funciones auxiliares globales
         const createEl = (name) => document.createElement(name);
+
         function delay(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -624,147 +625,128 @@
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             newTabla("new-table", trsDeContent);
         }
-          // Función modificada para añadir la nueva funcionalidad
-            async function newTabla(id, trArray) {
-                let alturaTotalDisponible = 792 - (123 + 224);
-                let tableContainer = createTableContainer();
-                let newTbody = createTableBody(id, tableContainer);
-                let alturaActualTabla = 0;
 
-                for (let i = 0; i < trArray.length; i++) {
-                    let tr = trArray[i];
-                    tr.classList.add("table", "table-bordered", "dataTable", "td");
-                    let alturaTr = tr.offsetHeight;
+        async function newTabla(id, trArray) {
+            let alturaTotalDisponible = 792 - (123 + 224);
+            let tableContainer = createTableContainer();
+            let newTbody = createTableBody(id, tableContainer);
+            let alturaActualTabla = 0;
 
-                    if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
-                        newTbody.appendChild(tr);
-                        alturaActualTabla += alturaTr;
-                    } else {
-                        document.querySelector("#form-container").appendChild(tableContainer);
-                        tableContainer = createTableContainer();
-                        newTbody = createTableBody(id, tableContainer);
-                        newTbody.appendChild(tr);
-                        alturaActualTabla = alturaTr;
-                    }
-                    await delay(100);
+            for (let i = 0; i < trArray.length; i++) {
+                let tr = trArray[i];
+                tr.classList.add("table", "table-bordered", "dataTable", "td");
+                let alturaTr = tr.offsetHeight;
+
+                if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
+                    newTbody.appendChild(tr);
+                    alturaActualTabla += alturaTr;
+                } else {
+                    document.querySelector("#form-container").appendChild(tableContainer);
+                    tableContainer = createTableContainer();
+                    newTbody = createTableBody(id, tableContainer);
+                    newTbody.appendChild(tr);
+                    alturaActualTabla = alturaTr;
                 }
-
-                // Después de procesar todos los tr de content, procesar additionalContent
-                document.querySelector("#form-container").appendChild(tableContainer);
-                agregarElementosAdicionales(tableContainer);
-            }
-            function agregarElementosAdicionales(container) {
-                const additionalContentContainer = document.getElementById('additionalContent');
-                let alturaTotalDisponible = 792 - (123 + 224);
-                let alturaActual = calcularAlturaActual(container);
-
-                const filas = additionalContentContainer.querySelectorAll('table tbody tr');
-                filas.forEach(fila => {
-                    let alturaFila = fila.offsetHeight;
-                    if (alturaActual + alturaFila <= alturaTotalDisponible) {
-                        let tbody = container.querySelector('table tbody');
-                        tbody.appendChild(fila);
-                        alturaActual += alturaFila;
-                    } else {
-                        container = createTableContainer();
-                        document.querySelector("#form-container").appendChild(container);
-                        let tbody = container.querySelector('table tbody');
-                        tbody.appendChild(fila);
-                        alturaActual = alturaFila;
-                    }
-                });
+                await delay(100);
             }
 
+            // Después de procesar todos los tr de content, procesar additionalContent
+            document.querySelector("#form-container").appendChild(tableContainer);
+            agregarElementosAdicionales(tableContainer);
+        }
 
-            function asegurarTbody(container) {
-                // Asegura que haya un tbody en el contenedor para añadir filas
-                let tbody = container.querySelector('tbody');
-                if (!tbody) {
-                    tbody = createEl('tbody');
-                    let tabla = container.querySelector('table');
-                    if (!tabla) {
-                        tabla = createEl('table');
-                        container.appendChild(tabla);
-                    }
-                    tabla.appendChild(tbody);
+        function agregarElementosAdicionales(container) {
+            const additionalContentContainer = document.getElementById('additionalContent');
+            let alturaTotalDisponible = 792 - (123 + 224);
+            let alturaActual = calcularAlturaActual(container);
+
+            const filas = additionalContentContainer.querySelectorAll('table tbody tr');
+            filas.forEach(fila => {
+                let alturaFila = fila.offsetHeight;
+                let tbody = container.querySelector('table tbody');
+
+                if (alturaActual + alturaFila <= alturaTotalDisponible) {
+                    tbody.appendChild(fila);
+                    alturaActual += alturaFila;
+                } else {
+                    container = createTableContainer();
+                    document.querySelector("#form-container").appendChild(container);
+                    tbody = container.querySelector('table tbody');
+                    tbody.appendChild(fila);
+                    alturaActual = alturaFila;
                 }
-                return tbody;
-            }
+            });
+        }
 
-            function calcularAlturaActual(container) {
-                // Sumar la altura de todos los elementos dentro del contenedor
-                let alturaTotal = 0;
-                Array.from(container.children).forEach(child => {
-                    alturaTotal += child.offsetHeight;
-                });
-                return alturaTotal;
-            }
+        function calcularAlturaActual(container) {
+            let alturaTotal = 0;
+            Array.from(container.children).forEach(child => {
+                alturaTotal += child.offsetHeight;
+            });
+            return alturaTotal;
+        }
 
-            // Función para crear un nuevo contenedor de tabla
-            function createTableContainer() {
-                const container = createEl("div");
-                container.style.width = "612pt";
-                container.style.height = "792pt";
-                container.style.padding = "10pt";
-                container.style.boxSizing = "border-box";
-                container.style.backgroundColor = "#FFF";
-                container.style.border = "1px solid #000";
-                container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-                container.style.marginLeft = "auto";
-                container.style.marginRight = "auto";
-                container.style.position = "relative";
-                container.style.marginTop = "1000px";
+        function createTableContainer() {
+            const container = createEl("div");
+            container.style.width = "612pt";
+            container.style.height = "792pt";
+            container.style.padding = "10pt";
+            container.style.boxSizing = "border-box";
+            container.style.backgroundColor = "#FFF";
+            container.style.border = "1px solid #000";
+            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            container.style.marginLeft = "auto";
+            container.style.marginRight = "auto";
+            container.style.position = "relative";
+            container.style.marginTop = "1000px";
 
-                const headerClone = document.querySelector('#header-container').cloneNode(true);
-                container.appendChild(headerClone);
+            const headerClone = document.querySelector('#header-container').cloneNode(true);
+            container.appendChild(headerClone);
 
-                const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
-                const producto2 = document.getElementById('producto2').cloneNode(true);
-                container.appendChild(tipoProducto2);
-                container.appendChild(producto2);
+            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
+            const producto2 = document.getElementById('producto2').cloneNode(true);
+            container.appendChild(tipoProducto2);
+            container.appendChild(producto2);
 
-                const analysisSections = document.querySelectorAll('#content .analysis-section');
-                analysisSections.forEach(section => {
-                    const clonedSection = section.cloneNode(true);
-                    container.appendChild(clonedSection);
-                });
-                // Añadir la marca de agua
-                const watermark = createEl("div");
-                watermark.setAttribute("id", "watermark");
-                watermark.textContent = "TESTEO TESTESO";
-                container.appendChild(watermark);
-                const footerClone = document.querySelector('#footer').cloneNode(true);
-                container.appendChild(footerClone);
+            const analysisSections = document.querySelectorAll('#content .analysis-section');
+            analysisSections.forEach(section => {
+                const clonedSection = section.cloneNode(true);
+                container.appendChild(clonedSection);
+            });
 
-                return container;
-            }
+            const watermark = createEl("div");
+            watermark.setAttribute("id", "watermark");
+            watermark.textContent = "TESTEO TESTESO";
+            container.appendChild(watermark);
 
-            // Función para crear el cuerpo de la tabla
-            function createTableBody(id, container) {
-                const newTable = createEl("table");
-                const newTbody = createEl("tbody");
+            const footerClone = document.querySelector('#footer').cloneNode(true);
+            container.appendChild(footerClone);
 
-                const originalThead = document.querySelector("#content table thead").cloneNode(true);
-                
-                newTable.appendChild(originalThead);
+            const tabla = createEl("table");
+            const tbody = createEl("tbody");
+            tabla.appendChild(tbody);
+            container.appendChild(tabla);
 
-                newTable.appendChild(newTbody);
-                newTable.setAttribute("id", id);
-                container.appendChild(newTable);
+            return container;
+        }
 
-                return newTbody;
-            }
+        function createTableBody(id, container) {
+            const newTable = container.querySelector('table');
+            const newTbody = createEl("tbody");
+            newTable.appendChild(newTbody);
+            newTable.setAttribute("id", id);
+
+            return newTbody;
+        }
 
 
 
 
-            window.onload = function() {
-                cargarDatosEspecificacion(id);
-                verificarYMostrarBotonFirma();
-                
-            };
-            
+        window.onload = function() {
+            cargarDatosEspecificacion(id);
+            verificarYMostrarBotonFirma();
 
+        };
     </script>
 </body>
 
