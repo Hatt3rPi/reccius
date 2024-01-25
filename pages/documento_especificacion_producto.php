@@ -653,17 +653,35 @@
                 document.querySelector("#form-container").appendChild(tableContainer);
                 agregarElementosAdicionales(tableContainer);
             }
-               // Función ajustada para transferir elementos de additionalContent
-                function agregarElementosAdicionales(container) {
-                    const additionalContentContainer = document.getElementById('additionalContent');
+            function agregarElementosAdicionales(container) {
+                const additionalContentContainer = document.getElementById('additionalContent');
+                let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
+                let alturaActual = calcularAlturaActual(container); // Calcula la altura ya ocupada en el contenedor actual
 
-                    // Transferir los elementos en lugar de clonarlos
-                    while (additionalContentContainer.firstChild) {
-                        container.appendChild(additionalContentContainer.firstChild);
+                // Transferir los elementos verificando el espacio disponible
+                Array.from(additionalContentContainer.children).forEach(elemento => {
+                    let alturaElemento = elemento.offsetHeight;
+                    if (alturaActual + alturaElemento <= alturaTotalDisponible) {
+                        container.appendChild(elemento);
+                        alturaActual += alturaElemento;
+                    } else {
+                        // Crear un nuevo contenedor si no hay espacio suficiente
+                        container = createTableContainer();
+                        document.querySelector("#form-container").appendChild(container);
+                        container.appendChild(elemento);
+                        alturaActual = alturaElemento; // Restablecer la altura actual para el nuevo contenedor
                     }
-                }
+                });
+            }
 
-
+            function calcularAlturaActual(container) {
+                // Sumar la altura de todos los elementos dentro del contenedor
+                let alturaTotal = 0;
+                Array.from(container.children).forEach(child => {
+                    alturaTotal += child.offsetHeight;
+                });
+                return alturaTotal;
+            }
 
             // Función para crear un nuevo contenedor de tabla
             function createTableContainer() {
