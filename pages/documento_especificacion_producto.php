@@ -660,34 +660,30 @@
             // Crear la nueva tabla y el tbody
             const newTable = createEl("table");
             const newTbody = createEl("tbody");
+            newTable.appendChild(newTbody); // Esto debería estar después de agregar the thead
 
-           // Clonar y añadir el thead al nuevo contenedor
+            // Clonar y añadir el thead al nuevo contenedor
             const originalThead = document.querySelector("#content table thead").cloneNode(true);
-
-            // Aquí iteramos sobre todos los elementos th dentro del thead clonado y les agregamos las clases necesarias
-            originalThead.querySelectorAll('th').forEach(th => {
-                th.classList.add('general-th'); // Aplica el estilo general de th
-
-                // Si th está dentro de .header-right table, aplicamos la clase adicional
-                if (th.closest('.header-right table')) {
-                    th.classList.add('header-right-th');
-                }
-            });
-
-            // Luego, el resto de tu código donde añades thead clonado al newTable...
             newTable.appendChild(originalThead);
 
+            // Variables para controlar el espacio disponible
+            const alturaTotal = 792;
+            const alturaHeader = 123;
+            const alturaFooter = 224;
+            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
+            let alturaAcumulada = 0;
 
-            // Agregar el tbody a la nueva tabla
-            newTable.appendChild(newTbody);
-
-            // Agregar la nueva tabla al contenedor de la tabla
-            tableContainer.appendChild(newTable);
-
-            // Mover cada elemento tr a la nueva tabla
+            // Mover cada elemento tr a la nueva tabla si hay espacio disponible
             for (let tr of trArray) {
-                newTbody.appendChild(tr); // Esto mueve el elemento tr
-                await delay(100); // Espera 1 segundo antes de mover el siguiente elemento tr
+                let alturaTR = tr.offsetHeight;
+                if ((alturaAcumulada + alturaTR) <= espacioDisponible) {
+                    newTbody.appendChild(tr); // Esto mueve el elemento tr
+                    alturaAcumulada += alturaTR;
+                } else {
+                    // Aquí manejarías la lógica para mover este y los siguientes tr a un nuevo contenedor/tabla
+                    break;
+                }
+                await delay(100); // Espera un poco antes de mover el siguiente elemento tr
             }
 
             // Clonar y añadir el footer al nuevo contenedor
@@ -699,6 +695,7 @@
 
             return newTable;
         }
+
 
             window.onload = function() {
                 cargarDatosEspecificacion(id);
