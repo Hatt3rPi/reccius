@@ -650,6 +650,15 @@
             const headerClone = document.querySelector('#header-container').cloneNode(true);
             tableContainer.appendChild(headerClone);
 
+              // Clona y añade las secciones de análisis al nuevo contenedor
+            const analysisSections = contentContainer.querySelectorAll('.analysis-section');
+            analysisSections.forEach(section => {
+                const clonedSection = section.cloneNode(true);
+                tableContainer.appendChild(clonedSection);
+            });
+
+
+
             // Clonar y añadir el h1 y el p al nuevo contenedor
             const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
             const producto2 = document.getElementById('producto2').cloneNode(true);
