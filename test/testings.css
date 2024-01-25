@@ -282,3 +282,22 @@ p {
     display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
 
+/* Estilo para todos los elementos th */
+.general-th {
+    background-color: #0047b3; /* Color de fondo azul */
+    color: white;             /* Texto en color blanco */
+    padding: 8px;             /* Relleno alrededor del texto */
+}
+
+/* Estilo para th dentro de .header-right table */
+.header-right-th {
+    font-size: 8px;            /* Tamaño de fuente más pequeño para th */
+    white-space: nowrap;       /* Asegura que el texto no se envuelva */
+    overflow: hidden;          /* Oculta el contenido que desborde el tamaño del elemento */
+    text-overflow: ellipsis;   /* Añade puntos suspensivos si el texto se desborda */
+    padding-top: 0px;          /* Relleno superior */
+    padding-bottom: 0px;       /* Relleno inferior */
+    padding-left: 3px;         /* Relleno izquierdo */
+    padding-right: 1px;        /* Relleno derecho */
+}
+

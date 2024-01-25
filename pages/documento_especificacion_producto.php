@@ -661,9 +661,22 @@
             const newTable = createEl("table");
             const newTbody = createEl("tbody");
 
-            // Clonar y añadir el thead al nuevo contenedor
+           // Clonar y añadir el thead al nuevo contenedor
             const originalThead = document.querySelector("#content table thead").cloneNode(true);
+
+            // Aquí iteramos sobre todos los elementos th dentro del thead clonado y les agregamos las clases necesarias
+            originalThead.querySelectorAll('th').forEach(th => {
+                th.classList.add('general-th'); // Aplica el estilo general de th
+
+                // Si th está dentro de .header-right table, aplicamos la clase adicional
+                if (th.closest('.header-right table')) {
+                    th.classList.add('header-right-th');
+                }
+            });
+
+            // Luego, el resto de tu código donde añades thead clonado al newTable...
             newTable.appendChild(originalThead);
+
 
             // Agregar el tbody a la nueva tabla
             newTable.appendChild(newTbody);
