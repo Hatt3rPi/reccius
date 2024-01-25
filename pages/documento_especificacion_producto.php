@@ -638,7 +638,7 @@
             tableContainer.style.marginLeft = "auto";
             tableContainer.style.marginRight = "auto";
             tableContainer.style.position = "relative";
-            tableContainer.style.marginTop = "400px"; // Añade esta línea para el marginTop
+            tableContainer.style.marginTop = "400px";
 
             // Clonar y añadir el header al nuevo contenedor
             const headerClone = document.querySelector('#header-container').cloneNode(true);
@@ -650,40 +650,27 @@
             tableContainer.appendChild(tipoProducto2);
             tableContainer.appendChild(producto2);
 
-            // Clonar y añadir las secciones de análisis al nuevo contenedor
-            const analysisSections = document.querySelectorAll('#content .analysis-section');
-            analysisSections.forEach(section => {
-                const clonedSection = section.cloneNode(true);
-                tableContainer.appendChild(clonedSection);
-            });
-
             // Crear la nueva tabla y el tbody
             const newTable = createEl("table");
             const newTbody = createEl("tbody");
-            newTable.appendChild(newTbody); // Esto debería estar después de agregar the thead
-
-            // Clonar y añadir el thead al nuevo contenedor
             const originalThead = document.querySelector("#content table thead").cloneNode(true);
             newTable.appendChild(originalThead);
+            newTable.appendChild(newTbody);
+            tableContainer.appendChild(newTable);
 
-            // Variables para controlar el espacio disponible
-            const alturaTotal = 792;
-            const alturaHeader = 123;
-            const alturaFooter = 224;
-            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
+            // Calcular espacio disponible y agregar filas a la nueva tabla
+            const espacioDisponible = 792 - (123 + 224); // Altura total menos altura de header y footer
             let alturaAcumulada = 0;
 
-            // Mover cada elemento tr a la nueva tabla si hay espacio disponible
             for (let tr of trArray) {
-                let alturaTR = tr.offsetHeight;
-                if ((alturaAcumulada + alturaTR) <= espacioDisponible) {
+                const alturaTr = tr.offsetHeight;
+                if (alturaAcumulada + alturaTr <= espacioDisponible) {
                     newTbody.appendChild(tr); // Esto mueve el elemento tr
-                    alturaAcumulada += alturaTR;
+                    alturaAcumulada += alturaTr;
+                    await delay(100); // Espera antes de mover el siguiente elemento tr
                 } else {
-                    // Aquí manejarías la lógica para mover este y los siguientes tr a un nuevo contenedor/tabla
-                    break;
+                    break; // Detener si no hay más espacio disponible
                 }
-                await delay(100); // Espera un poco antes de mover el siguiente elemento tr
             }
 
             // Clonar y añadir el footer al nuevo contenedor
@@ -695,6 +682,7 @@
 
             return newTable;
         }
+
 
 
             window.onload = function() {
