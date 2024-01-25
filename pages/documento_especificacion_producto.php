@@ -658,20 +658,39 @@
                 let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
                 let alturaActual = calcularAlturaActual(container); // Calcula la altura ya ocupada en el contenedor actual
 
-                // Transferir los elementos verificando el espacio disponible
-                Array.from(additionalContentContainer.children).forEach(elemento => {
-                    let alturaElemento = elemento.offsetHeight;
-                    if (alturaActual + alturaElemento <= alturaTotalDisponible) {
-                        container.appendChild(elemento);
-                        alturaActual += alturaElemento;
+                // Obtiene todas las filas (tr) dentro de additionalContent
+                const filas = additionalContentContainer.querySelectorAll('table tbody tr');
+                filas.forEach(fila => {
+                    let alturaFila = fila.offsetHeight;
+                    if (alturaActual + alturaFila <= alturaTotalDisponible) {
+                        // Si hay espacio en el contenedor actual, añade la fila
+                        newTbody = asegurarTbody(container);
+                        newTbody.appendChild(fila);
+                        alturaActual += alturaFila;
                     } else {
-                        // Crear un nuevo contenedor si no hay espacio suficiente
+                        // Si no hay espacio, crea un nuevo contenedor y añade la fila
                         container = createTableContainer();
                         document.querySelector("#form-container").appendChild(container);
-                        container.appendChild(elemento);
-                        alturaActual = alturaElemento; // Restablecer la altura actual para el nuevo contenedor
+                        newTbody = asegurarTbody(container);
+                        newTbody.appendChild(fila);
+                        alturaActual = alturaFila; // Restablecer la altura para el nuevo contenedor
                     }
                 });
+            }
+
+            function asegurarTbody(container) {
+                // Asegura que haya un tbody en el contenedor para añadir filas
+                let tbody = container.querySelector('tbody');
+                if (!tbody) {
+                    tbody = createEl('tbody');
+                    let tabla = container.querySelector('table');
+                    if (!tabla) {
+                        tabla = createEl('table');
+                        container.appendChild(tabla);
+                    }
+                    tabla.appendChild(tbody);
+                }
+                return tbody;
             }
 
             function calcularAlturaActual(container) {
@@ -696,7 +715,7 @@
                 container.style.marginLeft = "auto";
                 container.style.marginRight = "auto";
                 container.style.position = "relative";
-                container.style.marginTop = "400px";
+                container.style.marginTop = "1000px";
 
                 const headerClone = document.querySelector('#header-container').cloneNode(true);
                 container.appendChild(headerClone);
