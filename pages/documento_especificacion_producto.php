@@ -700,6 +700,7 @@
             container.style.position = "relative";
             container.style.marginTop = "1000px";
 
+            // Clonar y añadir elementos como encabezado, tipo de producto, etc.
             const headerClone = document.querySelector('#header-container').cloneNode(true);
             container.appendChild(headerClone);
 
@@ -714,14 +715,17 @@
                 container.appendChild(clonedSection);
             });
 
+            // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
             watermark.textContent = "TESTEO TESTESO";
             container.appendChild(watermark);
 
+            // Clonar y añadir el pie de página
             const footerClone = document.querySelector('#footer').cloneNode(true);
             container.appendChild(footerClone);
 
+            // Crear una tabla y añadirla después de los elementos anteriores
             const tabla = createEl("table");
             const tbody = createEl("tbody");
             tabla.appendChild(tbody);
@@ -729,6 +733,7 @@
 
             return container;
         }
+
 
         function createTableBody(id, container) {
             const newTable = container.querySelector('table');
