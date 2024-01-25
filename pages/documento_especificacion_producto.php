@@ -549,21 +549,19 @@
 
 
 
-        function actualizarEstadoDocumento(watermark) {
+        // Función para actualizar el estado del watermark, ahora acepta un parámetro
+        function actualizarEstadoDocumento(watermarkElement) {
             var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
             var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
             var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
 
-            var watermark = document.getElementById('watermark');
-
             if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-                watermark.textContent = 'CONFIDENCIAL';
-                watermark.classList.remove('pendiente-approbacion');
+                watermarkElement.textContent = 'CONFIDENCIAL';
+                watermarkElement.classList.remove('pendiente-approbacion');
             } else {
-                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-                watermark.classList.add('pendiente-approbacion');
+                watermarkElement.textContent = 'PENDIENTE DE APROBACIÓN';
+                watermarkElement.classList.add('pendiente-approbacion');
             }
-        }
                 // Funciones auxiliares globales
         const createEl = (name) => document.createElement(name);
         function delay(ms) {
