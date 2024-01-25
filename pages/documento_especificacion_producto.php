@@ -624,36 +624,55 @@
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             newTabla("new-table", trsDeContent);
         }
+            // Función modificada para añadir la nueva funcionalidad
             async function newTabla(id, trArray) {
-                    let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
+                let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
+                let tableContainer = createTableContainer();
+                let newTbody = createTableBody(id, tableContainer);
+                let alturaActualTabla = 0; // Altura inicial de la tabla
 
-                    let tableContainer = createTableContainer();
-                    let newTbody = createTableBody(id, tableContainer);
+                for (let i = 0; i < trArray.length; i++) {
+                    let tr = trArray[i];
+                    tr.classList.add("table", "table-bordered", "dataTable", "td");
+                    let alturaTr = tr.offsetHeight;
 
-                    let alturaActualTabla = 0; // Altura inicial de la tabla
-
-                    for (let tr of trArray) {
-                        tr.classList.add("table", "table-bordered", "dataTable", "td");
-                        let alturaTr = tr.offsetHeight;
-
-                        if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
-                            newTbody.appendChild(tr);
-                            alturaActualTabla += alturaTr; // Actualizar la altura actual de la tabla
-                        } else {
-                            // Agregar el contenedor actual al documento y crear uno nuevo
-                            document.querySelector("#form-container").appendChild(tableContainer);
-                            tableContainer = createTableContainer();
-                            newTbody = createTableBody(id, tableContainer);
-                            newTbody.appendChild(tr);
-                            alturaActualTabla = alturaTr; // Resetear la altura actual para el nuevo contenedor
+                    if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
+                        newTbody.appendChild(tr);
+                        alturaActualTabla += alturaTr; // Actualizar la altura actual de la tabla
+                    } else {
+                        document.querySelector("#form-container").appendChild(tableContainer);
+                        if (i === trArray.length - 1) {
+                            agregarElementosAdicionales(tableContainer);
                         }
-                        await delay(100); // Espera antes de mover el siguiente elemento tr
+                        tableContainer = createTableContainer();
+                        newTbody = createTableBody(id, tableContainer);
+                        newTbody.appendChild(tr);
+                        alturaActualTabla = alturaTr; // Resetear la altura actual para el nuevo contenedor
                     }
-
-                    // Asegurarse de agregar el último contenedor al documento
-                    document.querySelector("#form-container").appendChild(tableContainer);
+                    await delay(100); // Espera antes de mover el siguiente elemento tr
+                }
+                document.querySelector("#form-container").appendChild(tableContainer);
             }
 
+                // Nueva función para agregar los elementos adicionales
+            function agregarElementosAdicionales(container) {
+                const additionalContentContainer = document.getElementById('additionalContent');
+                
+                const thElements = additionalContentContainer.querySelectorAll('th.sorting, th.sorting_asc');
+                thElements.forEach(th => {
+                    container.appendChild(th.cloneNode(true));
+                });
+
+                const trElements = additionalContentContainer.querySelectorAll('tr.even, tr.odd');
+                trElements.forEach(tr => {
+                    container.appendChild(tr.cloneNode(true));
+                });
+
+                const divElements = additionalContentContainer.querySelectorAll('div.analysis-section');
+                divElements.forEach(div => {
+                    container.appendChild(div.cloneNode(true));
+                });
+            }
 
             // Función para crear un nuevo contenedor de tabla
             function createTableContainer() {
