@@ -651,7 +651,7 @@
             tableContainer.appendChild(headerClone);
 
               // Clona y añade las secciones de análisis al nuevo contenedor
-            const analysisSections = contentContainer.querySelectorAll('.analysis-section');
+            const analysisSections = document.querySelectorAll('#content div analysis-section');
             analysisSections.forEach(section => {
                 const clonedSection = section.cloneNode(true);
                 tableContainer.appendChild(clonedSection);
