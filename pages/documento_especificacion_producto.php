@@ -633,6 +633,7 @@
                     let alturaActualTabla = 0; // Altura inicial de la tabla
 
                     for (let tr of trArray) {
+                        tr.classList.add("table", "table-bordered", "dataTable", "td");
                         let alturaTr = tr.offsetHeight;
 
                         if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
@@ -695,6 +696,7 @@
                 const newTbody = createEl("tbody");
 
                 const originalThead = document.querySelector("#content table thead").cloneNode(true);
+                
                 newTable.appendChild(originalThead);
 
                 newTable.appendChild(newTbody);
