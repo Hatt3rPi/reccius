@@ -624,31 +624,35 @@
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             newTabla("new-table", trsDeContent);
         }
-         async function newTabla(id, trArray) {
-                let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
+            async function newTabla(id, trArray) {
+                    let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
 
-                // Crear el primer contenedor para la nueva tabla
-                let tableContainer = createTableContainer();
-                let newTbody = createTableBody(id, tableContainer);
+                    let tableContainer = createTableContainer();
+                    let newTbody = createTableBody(id, tableContainer);
 
-                for (let tr of trArray) {
-                    // Calcular la altura actual de la tabla y compararla con la altura disponible
-                    let alturaActualTabla = newTbody.offsetHeight;
-                    let alturaTr = tr.offsetHeight;
+                    let alturaActualTabla = 0; // Altura inicial de la tabla
 
-                    if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
-                        newTbody.appendChild(tr);
-                    } else {
-                        // Crear un nuevo contenedor y tbody cuando no haya espacio
-                        tableContainer = createTableContainer();
-                        newTbody = createTableBody(id, tableContainer);
-                        newTbody.appendChild(tr);
+                    for (let tr of trArray) {
+                        let alturaTr = tr.offsetHeight;
+
+                        if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
+                            newTbody.appendChild(tr);
+                            alturaActualTabla += alturaTr; // Actualizar la altura actual de la tabla
+                        } else {
+                            // Agregar el contenedor actual al documento y crear uno nuevo
+                            document.querySelector("#form-container").appendChild(tableContainer);
+                            tableContainer = createTableContainer();
+                            newTbody = createTableBody(id, tableContainer);
+                            newTbody.appendChild(tr);
+                            alturaActualTabla = alturaTr; // Resetear la altura actual para el nuevo contenedor
+                        }
+                        await delay(100); // Espera antes de mover el siguiente elemento tr
                     }
-                    await delay(100); // Espera antes de mover el siguiente elemento tr
-                }
 
-                document.querySelector("#form-container").appendChild(tableContainer);
+                    // Asegurarse de agregar el último contenedor al documento
+                    document.querySelector("#form-container").appendChild(tableContainer);
             }
+
 
             // Función para crear un nuevo contenedor de tabla
             function createTableContainer() {
