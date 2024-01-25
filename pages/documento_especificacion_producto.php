@@ -683,7 +683,12 @@
                     const clonedSection = section.cloneNode(true);
                     container.appendChild(clonedSection);
                 });
-
+                // Añadir la marca de agua
+                const watermark = createEl("div");
+                watermark.setAttribute("id", "watermark");
+                watermark.textContent = "TESTEO TESTESO";
+                container.appendChild(watermark);
+                
                 const footerClone = document.querySelector('#footer').cloneNode(true);
                 container.appendChild(footerClone);
 
