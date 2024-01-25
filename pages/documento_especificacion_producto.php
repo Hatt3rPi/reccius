@@ -655,28 +655,26 @@
             }
             function agregarElementosAdicionales(container) {
                 const additionalContentContainer = document.getElementById('additionalContent');
-                let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
-                let alturaActual = calcularAlturaActual(container); // Calcula la altura ya ocupada en el contenedor actual
+                let alturaTotalDisponible = 792 - (123 + 224);
+                let alturaActual = calcularAlturaActual(container);
 
-                // Obtiene todas las filas (tr) dentro de additionalContent
                 const filas = additionalContentContainer.querySelectorAll('table tbody tr');
                 filas.forEach(fila => {
                     let alturaFila = fila.offsetHeight;
                     if (alturaActual + alturaFila <= alturaTotalDisponible) {
-                        // Si hay espacio en el contenedor actual, añade la fila
-                        newTbody = asegurarTbody(container);
-                        newTbody.appendChild(fila);
+                        let tbody = container.querySelector('table tbody');
+                        tbody.appendChild(fila);
                         alturaActual += alturaFila;
                     } else {
-                        // Si no hay espacio, crea un nuevo contenedor y añade la fila
                         container = createTableContainer();
                         document.querySelector("#form-container").appendChild(container);
-                        newTbody = asegurarTbody(container);
-                        newTbody.appendChild(fila);
-                        alturaActual = alturaFila; // Restablecer la altura para el nuevo contenedor
+                        let tbody = container.querySelector('table tbody');
+                        tbody.appendChild(fila);
+                        alturaActual = alturaFila;
                     }
                 });
             }
+
 
             function asegurarTbody(container) {
                 // Asegura que haya un tbody en el contenedor para añadir filas
