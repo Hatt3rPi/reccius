@@ -624,64 +624,82 @@
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             newTabla("new-table", trsDeContent);
         }
-        async function newTabla(id, trArray) {
-            // Crear el contenedor para la nueva tabla
-            const tableContainer = createEl("div");
-            // Estilos del contenedor
-            tableContainer.style.width = "612pt";
-            tableContainer.style.height = "792pt";
-            tableContainer.style.padding = "10pt";
-            tableContainer.style.boxSizing = "border-box";
-            tableContainer.style.backgroundColor = "#FFF";
-            tableContainer.style.border = "1px solid #000";
-            tableContainer.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            tableContainer.style.marginLeft = "auto";
-            tableContainer.style.marginRight = "auto";
-            tableContainer.style.position = "relative";
-            tableContainer.style.marginTop = "400px";
+         async function newTabla(id, trArray) {
+                let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
 
-            // Clonar y añadir el header al nuevo contenedor
-            const headerClone = document.querySelector('#header-container').cloneNode(true);
-            tableContainer.appendChild(headerClone);
+                // Crear el primer contenedor para la nueva tabla
+                let tableContainer = createTableContainer();
+                let newTbody = createTableBody(id, tableContainer);
 
-            // Clonar y añadir el h1 y el p al nuevo contenedor
-            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
-            const producto2 = document.getElementById('producto2').cloneNode(true);
-            tableContainer.appendChild(tipoProducto2);
-            tableContainer.appendChild(producto2);
+                for (let tr of trArray) {
+                    // Calcular la altura actual de la tabla y compararla con la altura disponible
+                    let alturaActualTabla = newTbody.offsetHeight;
+                    let alturaTr = tr.offsetHeight;
 
-            // Crear la nueva tabla y el tbody
-            const newTable = createEl("table");
-            const newTbody = createEl("tbody");
-            const originalThead = document.querySelector("#content table thead").cloneNode(true);
-            newTable.appendChild(originalThead);
-            newTable.appendChild(newTbody);
-            tableContainer.appendChild(newTable);
-
-            // Calcular espacio disponible y agregar filas a la nueva tabla
-            const espacioDisponible = 792 - (123 + 224); // Altura total menos altura de header y footer
-            let alturaAcumulada = 0;
-
-            for (let tr of trArray) {
-                const alturaTr = tr.offsetHeight;
-                if (alturaAcumulada + alturaTr <= espacioDisponible) {
-                    newTbody.appendChild(tr); // Esto mueve el elemento tr
-                    alturaAcumulada += alturaTr;
+                    if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
+                        newTbody.appendChild(tr);
+                    } else {
+                        // Crear un nuevo contenedor y tbody cuando no haya espacio
+                        tableContainer = createTableContainer();
+                        newTbody = createTableBody(id, tableContainer);
+                        newTbody.appendChild(tr);
+                    }
                     await delay(100); // Espera antes de mover el siguiente elemento tr
-                } else {
-                    break; // Detener si no hay más espacio disponible
                 }
+
+                document.querySelector("#form-container").appendChild(tableContainer);
             }
 
-            // Clonar y añadir el footer al nuevo contenedor
-            const footerClone = document.querySelector('#footer').cloneNode(true);
-            tableContainer.appendChild(footerClone);
+            // Función para crear un nuevo contenedor de tabla
+            function createTableContainer() {
+                const container = createEl("div");
+                container.style.width = "612pt";
+                container.style.height = "792pt";
+                container.style.padding = "10pt";
+                container.style.boxSizing = "border-box";
+                container.style.backgroundColor = "#FFF";
+                container.style.border = "1px solid #000";
+                container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                container.style.marginLeft = "auto";
+                container.style.marginRight = "auto";
+                container.style.position = "relative";
+                container.style.marginTop = "400px";
 
-            // Agregar el contenedor de la tabla al cuerpo del documento
-            document.querySelector("#form-container").appendChild(tableContainer);
+                const headerClone = document.querySelector('#header-container').cloneNode(true);
+                container.appendChild(headerClone);
 
-            return newTable;
-        }
+                const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
+                const producto2 = document.getElementById('producto2').cloneNode(true);
+                container.appendChild(tipoProducto2);
+                container.appendChild(producto2);
+
+                const analysisSections = document.querySelectorAll('#content .analysis-section');
+                analysisSections.forEach(section => {
+                    const clonedSection = section.cloneNode(true);
+                    container.appendChild(clonedSection);
+                });
+
+                const footerClone = document.querySelector('#footer').cloneNode(true);
+                container.appendChild(footerClone);
+
+                return container;
+            }
+
+            // Función para crear el cuerpo de la tabla
+            function createTableBody(id, container) {
+                const newTable = createEl("table");
+                const newTbody = createEl("tbody");
+
+                const originalThead = document.querySelector("#content table thead").cloneNode(true);
+                newTable.appendChild(originalThead);
+
+                newTable.appendChild(newTbody);
+                newTable.setAttribute("id", id);
+                container.appendChild(newTable);
+
+                return newTbody;
+            }
+
 
 
 
