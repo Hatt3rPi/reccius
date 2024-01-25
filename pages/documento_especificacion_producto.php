@@ -640,30 +640,23 @@
             tableContainer.style.position = "relative";
             tableContainer.style.marginTop = "400px"; // Añade esta línea para el marginTop
 
-                    // Crear la nueva tabla y el tbody
-            const newTable = createEl("table");
-            const newTbody = createEl("tbody");
-            newTable.appendChild(newTbody);
-            newTable.setAttribute("id", id);
+    
 
             // Clonar y añadir el header y el footer al nuevo contenedor
             const headerClone = document.querySelector('#header-container').cloneNode(true);
             tableContainer.appendChild(headerClone);
-
-              // Clona y añade las secciones de análisis al nuevo contenedor
-            const analysisSections = document.querySelectorAll('#content div analysis-section');
-            analysisSections.forEach(section => {
-                const clonedSection = section.cloneNode(true);
-                tableContainer.appendChild(clonedSection);
-            });
-
-
 
             // Clonar y añadir el h1 y el p al nuevo contenedor
             const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
             const producto2 = document.getElementById('producto2').cloneNode(true);
             tableContainer.appendChild(tipoProducto2);
             tableContainer.appendChild(producto2);
+
+                // Crear la nueva tabla y el tbody
+            const newTable = createEl("table");
+            const newTbody = createEl("tbody");
+            newTable.appendChild(newTbody);
+            newTable.setAttribute("id", id);
 
             // Clonar y añadir el thead al nuevo contenedor
             const originalThead = document.querySelector("#content table thead").cloneNode(true);
@@ -675,10 +668,18 @@
             // Agregar la nueva tabla al contenedor de la tabla
             tableContainer.appendChild(newTable);
 
+             // Clonar y añadir las secciones de análisis al nuevo contenedor
+            const analysisSections = document.querySelectorAll('#content .analysis-section');
+            analysisSections.forEach(section => {
+                const clonedSection = section.cloneNode(true);
+                tableContainer.appendChild(clonedSection);
+              });
+
+
             // Mover cada elemento tr a la nueva tabla
             for (let tr of trArray) {
                 newTbody.appendChild(tr); // Esto mueve el elemento tr
-                await delay(1000); // Espera 1 segundo antes de mover el siguiente elemento tr
+                await delay(100); // Espera 1 segundo antes de mover el siguiente elemento tr
             }
 
             // Clonar y añadir el footer al nuevo contenedor
