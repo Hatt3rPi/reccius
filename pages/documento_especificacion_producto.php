@@ -624,35 +624,35 @@
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             newTabla("new-table", trsDeContent);
         }
-            // Función modificada para añadir la nueva funcionalidad
-            async function newTabla(id, trArray) {
-                let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
-                let tableContainer = createTableContainer();
-                let newTbody = createTableBody(id, tableContainer);
-                let alturaActualTabla = 0; // Altura inicial de la tabla
+           // Función modificada para añadir la nueva funcionalidad
+                async function newTabla(id, trArray) {
+                    let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
+                    let tableContainer = createTableContainer();
+                    let newTbody = createTableBody(id, tableContainer);
+                    let alturaActualTabla = 0; // Altura inicial de la tabla
 
-                for (let i = 0; i < trArray.length; i++) {
-                    let tr = trArray[i];
-                    tr.classList.add("table", "table-bordered", "dataTable", "td");
-                    let alturaTr = tr.offsetHeight;
+                    for (let i = 0; i < trArray.length; i++) {
+                        let tr = trArray[i];
+                        tr.classList.add("table", "table-bordered", "dataTable", "td");
+                        let alturaTr = tr.offsetHeight;
 
-                    if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
-                        newTbody.appendChild(tr);
-                        alturaActualTabla += alturaTr; // Actualizar la altura actual de la tabla
-                    } else {
-                        document.querySelector("#form-container").appendChild(tableContainer);
-                        if (i === trArray.length - 1) {
-                            agregarElementosAdicionales(tableContainer);
+                        if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
+                            newTbody.appendChild(tr);
+                            alturaActualTabla += alturaTr; // Actualizar la altura actual de la tabla
+                        } else {
+                            document.querySelector("#form-container").appendChild(tableContainer);
+                            if (i === trArray.length - 1) {
+                                agregarElementosAdicionales(tableContainer);
+                            }
+                            tableContainer = createTableContainer();
+                            newTbody = createTableBody(id, tableContainer);
+                            newTbody.appendChild(tr);
+                            alturaActualTabla = alturaTr; // Resetear la altura actual para el nuevo contenedor
                         }
-                        tableContainer = createTableContainer();
-                        newTbody = createTableBody(id, tableContainer);
-                        newTbody.appendChild(tr);
-                        alturaActualTabla = alturaTr; // Resetear la altura actual para el nuevo contenedor
+                        await delay(100); // Espera antes de mover el siguiente elemento tr
                     }
-                    await delay(100); // Espera antes de mover el siguiente elemento tr
+                    document.querySelector("#form-container").appendChild(tableContainer);
                 }
-                document.querySelector("#form-container").appendChild(tableContainer);
-            }
 
                 // Nueva función para agregar los elementos adicionales
                 function agregarElementosAdicionales(container) {
