@@ -625,12 +625,13 @@
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             newTabla("new-table", trsDeContent);
         }
-
         async function newTabla(id, trArray) {
-            let alturaTotalDisponible = 792 - (123 + 224);
+            let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar header y footer
+
             let tableContainer = createTableContainer();
             let newTbody = createTableBody(id, tableContainer);
-            let alturaActualTabla = 0;
+
+            let alturaActualTabla = 0; // Altura inicial de la tabla
 
             for (let tr of trArray) {
                 tr.classList.add("table", "table-bordered", "dataTable", "td");
@@ -638,89 +639,76 @@
 
                 if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
                     newTbody.appendChild(tr);
-                    alturaActualTabla += alturaTr;
+                    alturaActualTabla += alturaTr; // Actualizar la altura actual de la tabla
                 } else {
+                    // Agregar el contenedor actual al documento y crear uno nuevo
                     document.querySelector("#form-container").appendChild(tableContainer);
                     tableContainer = createTableContainer();
                     newTbody = createTableBody(id, tableContainer);
                     newTbody.appendChild(tr);
-                    alturaActualTabla = alturaTr;
+                    alturaActualTabla = alturaTr; // Resetear la altura actual para el nuevo contenedor
                 }
-                await delay(100);
-
-                if (tr === trArray[trArray.length - 1]) {
-                    await agregarElementosAdicionales(tableContainer);
-                }
+                await delay(100); // Espera antes de mover el siguiente elemento tr
             }
+
+            // Asegurarse de agregar el último contenedor al documento
             document.querySelector("#form-container").appendChild(tableContainer);
         }
 
-        async function agregarElementosAdicionales(container) {
-            const additionalContentContainer = document.getElementById('additionalContent');
-            let alturaTotalDisponible = 792 - (123 + 224);
-            let alturaActual = calcularAlturaActual(container);
 
-            const filasAdditionalContent = additionalContentContainer.querySelectorAll('table tbody tr');
-            for (let fila of filasAdditionalContent) {
-                let alturaFila = fila.offsetHeight;
-                if (alturaActual + alturaFila <= alturaTotalDisponible) {
-                    let tbody = asegurarTbody(container);
-                    tbody.appendChild(fila);
-                    alturaActual += alturaFila;
-                } else {
-                    container = createTableContainer();
-                    document.querySelector("#form-container").appendChild(container);
-                    let tbody = asegurarTbody(container);
-                    tbody.appendChild(fila);
-                    alturaActual = alturaFila;
-                }
-                await delay(100);
-            }
-        }
-
+        // Función para crear un nuevo contenedor de tabla
         function createTableContainer() {
             const container = createEl("div");
-            // Aquí van los estilos y otros elementos del contenedor
-            // (configura el contenedor según tus necesidades)
+            container.style.width = "612pt";
+            container.style.height = "792pt";
+            container.style.padding = "10pt";
+            container.style.boxSizing = "border-box";
+            container.style.backgroundColor = "#FFF";
+            container.style.border = "1px solid #000";
+            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            container.style.marginLeft = "auto";
+            container.style.marginRight = "auto";
+            container.style.position = "relative";
+            container.style.marginTop = "400px";
 
-            // Crear la tabla y tbody dentro del contenedor
-            const tabla = createEl("table");
-            const tbody = createEl("tbody");
-            tabla.appendChild(tbody);
-            container.appendChild(tabla);
+            const headerClone = document.querySelector('#header-container').cloneNode(true);
+            container.appendChild(headerClone);
+
+            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
+            const producto2 = document.getElementById('producto2').cloneNode(true);
+            container.appendChild(tipoProducto2);
+            container.appendChild(producto2);
+
+            const analysisSections = document.querySelectorAll('#content .analysis-section');
+            analysisSections.forEach(section => {
+                const clonedSection = section.cloneNode(true);
+                container.appendChild(clonedSection);
+            });
+            // Añadir la marca de agua
+            const watermark = createEl("div");
+            watermark.setAttribute("id", "watermark");
+            watermark.textContent = "TESTEO TESTESO";
+            container.appendChild(watermark);
+            const footerClone = document.querySelector('#footer').cloneNode(true);
+            container.appendChild(footerClone);
 
             return container;
         }
 
+        // Función para crear el cuerpo de la tabla
         function createTableBody(id, container) {
-            const newTable = container.querySelector('table');
+            const newTable = createEl("table");
             const newTbody = createEl("tbody");
+
+            const originalThead = document.querySelector("#content table thead").cloneNode(true);
+
+            newTable.appendChild(originalThead);
+
             newTable.appendChild(newTbody);
             newTable.setAttribute("id", id);
+            container.appendChild(newTable);
 
             return newTbody;
-        }
-
-        function asegurarTbody(container) {
-            let tbody = container.querySelector('tbody');
-            if (!tbody) {
-                tbody = createEl('tbody');
-                let tabla = container.querySelector('table');
-                if (!tabla) {
-                    tabla = createEl('table');
-                    container.appendChild(tabla);
-                }
-                tabla.appendChild(tbody);
-            }
-            return tbody;
-        }
-
-        function calcularAlturaActual(container) {
-            let alturaTotal = 0;
-            Array.from(container.children).forEach(child => {
-                alturaTotal += child.offsetHeight;
-            });
-            return alturaTotal;
         }
 
 
