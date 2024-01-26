@@ -1,12 +1,4 @@
 <?php
-//archivo: pages\especificacion_producto.php
-//Mejoras: Formato debería seleccionarse de lista desplegable
-//Elaborato por
-//versión por defecto debería ser 1
-//que es el número de documento? 
-//cuando se selecciona Otros, se debe desplegar un input
-//validacion de campos antes de continuar
-// formato: Ampolla, Frasco Ampolla, Vial, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
 
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";

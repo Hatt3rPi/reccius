@@ -115,7 +115,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('preparacion_solicitud.php', function (response, status, xhr) {
+        $('#dynamic-content').load('LABORATORIO_preparacion_solicitud.php', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
@@ -135,7 +135,7 @@ $(document).ready(function () {
         event.preventDefault(); // Prevenir la navegación predeterminada
         // Cargar el formulario de configuración dentro del div #dynamic-content
         obtenNotificaciones();
-        $('#testing').load('preparacion_solicitud.php');
+        $('#testing').load('LABORATORIO_preparacion_solicitud.php');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
     });
@@ -376,6 +376,32 @@ function botones(id, accion, base) {
                     
                     $.ajax({
                         url: 'CALIDAD_acta_muestreo.php', // URL del script PHP
+                        type: 'POST', // Tipo de solicitud
+                        data: { 
+                            'id': id,
+                            'accion': accion
+                             }, // Datos que se enviarán con la solicitud
+                        success: function(response) {
+                            // Esta función se ejecuta cuando la solicitud es exitosa
+                            console.log('especificacion_producto redirigida con éxito ');
+                            $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
+                            cargarDatosEspecificacion(id);
+                            
+                        },
+                        error: function(xhr, status, error) {
+                            // Esta función se ejecuta en caso de error en la solicitud
+                            console.error("Error en la solicitud: ", status, error);
+                        }
+                    });
+                    
+                    console.log('Proceso finalizado');
+                    break;
+                }
+                case "prepararSolicitud": {
+                    console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
+                    
+                    $.ajax({
+                        url: 'LABORATORIO_preparacion_solicitud.php', // URL del script PHP
                         type: 'POST', // Tipo de solicitud
                         data: { 
                             'id': id,
