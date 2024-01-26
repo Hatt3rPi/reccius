@@ -576,16 +576,6 @@
             const alturaHeader = 123; // Altura del encabezado
             const alturaFooter = 224; // Altura del pie de página
 
-            // Funciones auxiliares dentro de la función
-            const $ = (selector) => document.querySelector(selector);
-            const $$ = (selector) => document.querySelectorAll(selector);
-
-            // Contenedores
-            const contentContainer = $('#content');
-            const additionalContentContainer = $('#additionalContent');
-
-            // Aquí puedes incluir cualquier lógica adicional de cálculo de altura si es necesario
-
             // Seleccionar los elementos tr dentro de la tabla específica de #content y #additionalContent
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             const trsDeAdditionalContent = Array.from(document.querySelectorAll("#additionalContent table tbody tr"));
@@ -595,59 +585,114 @@
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let alturaTotalDisponible = 792 - (123 + 224);
             let tableContainer = createTableContainer();
-            let newTbody = createTableBody(id, tableContainer, true); // true indica que es de 'content'
+            let alturaActualTabla = 0;
 
             // Procesar trs de content
             for (let tr of trsContent) {
-                [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbody, tableContainer, id, true
+                [alturaActualTabla, tableContainer] = await procesarTr(
+                    tr, alturaTotalDisponible, tableContainer, id, true, alturaActualTabla
                 );
             }
 
             // Procesar trs de additionalContent
             for (let tr of trsAdditionalContent) {
-                [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbody, tableContainer, id, false
+                [alturaActualTabla, tableContainer] = await procesarTr(
+                    tr, alturaTotalDisponible, tableContainer, id, false, alturaActualTabla
                 );
             }
 
             document.querySelector("#form-container").appendChild(tableContainer);
         }
 
-        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, id, isContent) {
+        async function procesarTr(tr, alturaTotalDisponible, tableContainer, id, isContent, alturaActualTabla) {
             tr.classList.add("table", "table-bordered", "dataTable", "td");
             let alturaTr = tr.offsetHeight;
 
-            if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
-                newTbody.appendChild(tr);
+            if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
+                asegurarTbody(tableContainer).appendChild(tr);
                 alturaActualTabla += alturaTr;
             } else {
                 document.querySelector("#form-container").appendChild(tableContainer);
                 tableContainer = createTableContainer();
-                newTbody = createTableBody(id, tableContainer, isContent);
-                newTbody.appendChild(tr);
+                crearEncabezadoTabla(tableContainer, isContent);
                 alturaActualTabla = alturaTr;
+                asegurarTbody(tableContainer).appendChild(tr);
             }
             await delay(100);
 
-            return [alturaActualTabla, tableContainer, newTbody];
+            return [alturaActualTabla, tableContainer];
         }
 
-        function createTableBody(id, container, isContent) {
-            const newTable = createEl("table");
-            const newTbody = createEl("tbody");
-            const theadClone = isContent ?
-                document.querySelector("#content table thead").cloneNode(true) :
-                document.querySelector("#additionalContent table thead").cloneNode(true);
 
-            newTable.appendChild(theadClone);
-            newTable.appendChild(newTbody);
-            newTable.setAttribute("id", id);
+        function createTableContainer() {
+            const container = createEl("div");
+            // Configuración de estilos para el contenedor
+            container.style.width = "612pt";
+            container.style.height = "792pt";
+            container.style.padding = "10pt";
+            container.style.boxSizing = "border-box";
+            container.style.backgroundColor = "#FFF";
+            container.style.border = "1px solid #000";
+            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            container.style.marginLeft = "auto";
+            container.style.marginRight = "auto";
+            container.style.position = "relative";
+            container.style.marginTop = "400px";
+
+            // Agregar clones de encabezado, footer, etc.
+            const headerClone = document.querySelector('#header-container').cloneNode(true);
+            container.appendChild(headerClone);
+
+            const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
+            const producto2 = document.getElementById('producto2').cloneNode(true);
+            container.appendChild(tipoProducto2);
+            container.appendChild(producto2);
+
+            // No añadir aquí los analysisSections, ya que serán agregados en otra parte del proceso
+            // Añadir la marca de agua
+            const watermark = createEl("div");
+            watermark.setAttribute("id", "watermark");
+            watermark.textContent = "TESTEO TESTESO";
+            container.appendChild(watermark);
+            const footerClone = document.querySelector('#footer').cloneNode(true);
+            container.appendChild(footerClone);
+
+            // Crear la tabla inicial sin encabezado
+            const newTable = createEl("table");
             container.appendChild(newTable);
 
-            return newTbody;
+            // Añadir un tbody vacío a la tabla
+            const newTbody = createEl("tbody");
+            newTable.appendChild(newTbody);
+
+            return container;
         }
 
+
+        function asegurarTbody(container) {
+            let tbody = container.querySelector('tbody');
+            if (!tbody) {
+                tbody = createEl('tbody');
+                let tabla = container.querySelector('table');
+                if (!tabla) {
+                    tabla = createEl('table');
+                    container.appendChild(tabla);
+                }
+                tabla.appendChild(tbody);
+            }
+            return tbody;
+        }
+
+        function crearEncabezadoTabla(container, isContent) {
+            const thead = isContent ?
+                document.querySelector("#content table thead") :
+                document.querySelector("#additionalContent table thead");
+
+            if (thead) {
+                const theadClone = thead.cloneNode(true);
+                container.querySelector('table').appendChild(theadClone);
+            }
+        }
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
