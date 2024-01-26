@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $registro_isp = limpiarDato($_POST['registro_isp']);
     $muestreado_por = limpiarDato($_POST['muestreado_por']);
     $muestreado_POS = limpiarDato($_POST['muestreado_POS']);
-    $laboratorio = limpiarDato($_POST['Laboratorio']);
+    $laboratorio = limpiarDato($_POST['laboratorio']);
     $fecha_solicitud = limpiarDato($_POST['fecha_solicitud']);
     $analisis_segun = limpiarDato($_POST['analisis_segun']);
     $fecha_cotizacion = limpiarDato($_POST['fecha_cotizacion']);
