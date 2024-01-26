@@ -15,7 +15,8 @@
         <div id="Maincontainer">
             <div id="header-container" style="width: 100%;">
                 <!-- Asegúrate de tener un contenedor para el header con display flex -->
-                <div id="header" class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div id="header" class="header"
+                    style="display: flex; justify-content: space-between; align-items: flex-start;">
 
                     <!-- Logo e Información Izquierda -->
                     <div class="header-left">
@@ -24,12 +25,16 @@
                         <br>
                     </div>
                     <!-- Título Central -->
-                    <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                        <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <div class="header-center"
+                        style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                        <h1 id="Tipo_Producto" name="Tipo_Producto"
+                            style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         </h1>
-                        <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
+                        <p name="producto" id="producto"
+                            style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
                         <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
-                        <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        <div
+                            style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
                             Dirección de Calidad
                         </div>
                     </div>
@@ -38,25 +43,32 @@
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
-                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
+                                <td name="documento" id="documento"
+                                    style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="elaboradoPor" id="elaboradoPor"
+                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
-                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="fechaEdicion" id="fechaEdicion"
+                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="supervisadoPor" id="supervisadoPor"
+                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
-                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="version" id="version"
+                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="autorizadoPor" id="autorizadoPor"
+                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
-                                <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="periodosVigencia" id="periodosVigencia"
+                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
                                 <td style="border: 1px solid rgb(56, 53, 255); text-align: center">1 de 1</td>
                             </tr>
@@ -64,14 +76,17 @@
                     </div>
                 </div>
                 <!-- Fila adicional con dos columnas debajo del encabezado existente -->
-                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
-                    <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
+                <div class="header-bottom"
+                    style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
+                    <div class="header-bottom-left"
+                        style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
                         <div class="sub-info" style="font-size: 10px;text-align: left;">
                             Producto de recetario magistral <br>
                             Res. Ex. N° 2988/2018
                         </div>
                     </div>
-                    <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
+                    <div class="header-bottom-right"
+                        style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
                         <div class="sub-info" style="font-size: 10px; text-align: right;">
                             RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
                         </div>
@@ -81,14 +96,17 @@
 
             <div id="watermark">TESTEO TESTESO</div>
             <div id="contenido_main">
-                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
+                <h1 id="Tipo_Producto2" name="Tipo_Producto2"
+                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
                 </h1>
-                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
+                <p name="producto2" id="producto2"
+                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
                 </p>
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
                             I. Análisis Generales
                         </div>
                         <table id="analisisFQ" class="compact table-bordered" style="width:100%; font-size: 10px">
@@ -108,11 +126,13 @@
                 <div id="additionalContent" class="content">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
                             II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
-                        <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
+                        <table id="analisisMB" class="display compact table-bordered"
+                            style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
                                     <th style="width: 170px; text-align: center">Análisis</th>
@@ -183,7 +203,7 @@
     <script>
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('download-pdf').addEventListener('click', function() {
+        document.getElementById('download-pdf').addEventListener('click', function () {
             // Agregar la clase no-border para eliminar bordes y sombras
             var formContainer = document.getElementById('form-container');
             formContainer.classList.add('no-border');
@@ -222,12 +242,12 @@
                 data: {
                     id: id
                 },
-                success: function(response) {
+                success: function (response) {
                     procesarDatosEspecificacion(response);
 
                     verificarYMostrarBotonFirma(response);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
                 }
             });
@@ -240,7 +260,7 @@
                 return;
             }
             // Procesamiento de cada producto
-            response.productos.forEach(function(producto) {
+            response.productos.forEach(function (producto) {
                 poblarYDeshabilitarCamposProducto(producto);
 
                 let especificaciones = Object.values(producto.especificaciones || {});
@@ -364,29 +384,29 @@
                     $('#analisisFQ').DataTable({
                         data: analisis,
                         columns: [{
-                                title: 'Análisis',
-                                data: 'descripcion_analisis',
-                                width: '170px',
-                                createdCell: function(td) {
-                                    $(td).css('font-weight', 'bold');
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
-                            },
-                            {
-                                title: 'Metodología',
-                                data: 'metodologia',
-                                width: '106px',
-                                createdCell: function(td) {
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
-                            },
-                            {
-                                title: 'Criterio aceptación',
-                                data: 'criterios_aceptacion',
-                                width: '404px'
+                            title: 'Análisis',
+                            data: 'descripcion_analisis',
+                            width: '170px',
+                            createdCell: function (td) {
+                                $(td).css('font-weight', 'bold');
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
                             }
+                        },
+                        {
+                            title: 'Metodología',
+                            data: 'metodologia',
+                            width: '106px',
+                            createdCell: function (td) {
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
+                            }
+                        },
+                        {
+                            title: 'Criterio aceptación',
+                            data: 'criterios_aceptacion',
+                            width: '404px'
+                        }
                         ],
                         paging: false,
                         info: false,
@@ -415,29 +435,29 @@
                     $('#analisisMB').DataTable({
                         data: analisis,
                         columns: [{
-                                title: 'Análisis',
-                                data: 'descripcion_analisis',
-                                width: '170px',
-                                createdCell: function(td) {
-                                    $(td).css('font-weight', 'bold');
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
-                            },
-                            {
-                                title: 'Metodología',
-                                data: 'metodologia',
-                                width: '106px',
-                                createdCell: function(td) {
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
-                            },
-                            {
-                                title: 'Criterio aceptación',
-                                data: 'criterios_aceptacion',
-                                width: '404px'
+                            title: 'Análisis',
+                            data: 'descripcion_analisis',
+                            width: '170px',
+                            createdCell: function (td) {
+                                $(td).css('font-weight', 'bold');
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
                             }
+                        },
+                        {
+                            title: 'Metodología',
+                            data: 'metodologia',
+                            width: '106px',
+                            createdCell: function (td) {
+                                $(td).css('text-align', 'center');
+                                $(td).css('vertical-align', 'middle');
+                            }
+                        },
+                        {
+                            title: 'Criterio aceptación',
+                            data: 'criterios_aceptacion',
+                            width: '404px'
+                        }
                         ],
                         paging: false,
                         info: false,
@@ -460,7 +480,7 @@
 
 
 
-        document.getElementById('sign-document').addEventListener('click', function() {
+        document.getElementById('sign-document').addEventListener('click', function () {
             // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
             var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
             if (puedeFirmar && confirm("¿Estás seguro que deseas firmar el documento?")) {
@@ -499,14 +519,14 @@
                     idEspecificacion: idEspecificacion,
                     rolUsuario: rolUsuario
                 },
-                success: function(response) {
+                success: function (response) {
                     // Aquí manejas la respuesta del backend
                     console.log('Firma actualizada correctamente:', response);
                     // Actualiza el estado del documento en el frontend
                     actualizarEstadoDocumento();
                     cargarDatosEspecificacion(idEspecificacion);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error al firmar documento:', status, error);
                 }
             });
@@ -566,7 +586,6 @@
         }
         // Funciones auxiliares globales
         const createEl = (name) => document.createElement(name);
-
         function delay(ms) {
             return new Promise((resolve) => setTimeout(resolve, ms));
         }
@@ -597,14 +616,14 @@
             let tableContainer = createTableContainer();
             let newTbody = createTableBody(id, tableContainer, true); // true indica que es de 'content'
 
-            // Procesar trs de content
+            // Procesar primero todos los tr de content
             for (let tr of trsContent) {
                 [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
                     tr, alturaTotalDisponible, newTbody, tableContainer, id, true
                 );
             }
 
-            // Procesar trs de additionalContent
+            // Luego procesar todos los tr de additionalContent
             for (let tr of trsAdditionalContent) {
                 [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
                     tr, alturaTotalDisponible, newTbody, tableContainer, id, false
@@ -629,8 +648,6 @@
                 alturaActualTabla = alturaTr;
             }
             await delay(100);
-
-            return [alturaActualTabla, tableContainer, newTbody];
         }
 
         function createTableBody(id, container, isContent) {
@@ -649,7 +666,7 @@
         }
 
 
-        window.onload = function() {
+        window.onload = function () {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
 
