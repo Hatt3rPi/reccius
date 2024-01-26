@@ -614,56 +614,102 @@
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let alturaTotalDisponible = 792 - (123 + 224);
             let tableContainer = createTableContainer();
-            let newTbody = createTableBody(id, tableContainer, true); // true indica que es de 'content'
+            let newTbody = createTableBody(id, tableContainer);
+            let alturaActualTabla = 0;
 
             // Procesar primero todos los tr de content
             for (let tr of trsContent) {
                 [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbody, tableContainer, id, true
+                    tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id
                 );
             }
 
             // Luego procesar todos los tr de additionalContent
             for (let tr of trsAdditionalContent) {
                 [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbody, tableContainer, id, false
+                    tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id
                 );
             }
 
+            // Asegurarse de agregar el último contenedor al documento
             document.querySelector("#form-container").appendChild(tableContainer);
         }
 
-        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, id, isContent) {
+        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id) {
             tr.classList.add("table", "table-bordered", "dataTable", "td");
             let alturaTr = tr.offsetHeight;
 
-            if ((alturaActualTabla + alturaTr) <= alturaTotalDisponible) {
+            if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
                 newTbody.appendChild(tr);
                 alturaActualTabla += alturaTr;
             } else {
                 document.querySelector("#form-container").appendChild(tableContainer);
                 tableContainer = createTableContainer();
-                newTbody = createTableBody(id, tableContainer, isContent);
+                newTbody = createTableBody(id, tableContainer);
                 newTbody.appendChild(tr);
                 alturaActualTabla = alturaTr;
             }
             await delay(100);
         }
 
-        function createTableBody(id, container, isContent) {
+        function createTableContainer() {
+            const container = createEl("div");
+            // Estilos y configuraciones para el contenedor
+            container.style.width = "612pt";
+            container.style.height = "792pt";
+            container.style.padding = "10pt";
+            container.style.boxSizing = "border-box";
+            container.style.backgroundColor = "#FFF";
+            container.style.border = "1px solid #000";
+            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            container.style.marginLeft = "auto";
+            container.style.marginRight = "auto";
+            container.style.position = "relative";
+            container.style.marginTop = "400px";
+
+            const headerClone = document
+                .querySelector("#header-container")
+                .cloneNode(true);
+            container.appendChild(headerClone);
+
+            const tipoProducto2 = document
+                .getElementById("Tipo_Producto2")
+                .cloneNode(true);
+            const producto2 = document.getElementById("producto2").cloneNode(true);
+            container.appendChild(tipoProducto2);
+            container.appendChild(producto2);
+
+            const analysisSections = document.querySelectorAll(
+                "#content .analysis-section"
+            );
+            analysisSections.forEach((section) => {
+                const clonedSection = section.cloneNode(true);
+                container.appendChild(clonedSection);
+            });
+            // Añadir la marca de agua
+            const watermark = createEl("div");
+            watermark.setAttribute("id", "watermark");
+            watermark.textContent = "TESTEO TESTESO";
+            container.appendChild(watermark);
+            const footerClone = document.querySelector("#footer").cloneNode(true);
+            container.appendChild(footerClone);
+
+            return container;
+        }
+
+        function createTableBody(id, container) {
             const newTable = createEl("table");
             const newTbody = createEl("tbody");
-            const theadClone = isContent ?
-                document.querySelector("#content table thead").cloneNode(true) :
-                document.querySelector("#additionalContent table thead").cloneNode(true);
-
-            newTable.appendChild(theadClone);
             newTable.appendChild(newTbody);
             newTable.setAttribute("id", id);
             container.appendChild(newTable);
 
             return newTbody;
         }
+
+        // Asegúrate de llamar a obtenerAlturaElementosYCalcularEspacioDisponible en el momento adecuado.
+
+
 
 
         window.onload = function () {
