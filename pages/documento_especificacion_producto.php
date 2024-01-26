@@ -613,7 +613,7 @@
                 alturaActualTabla += alturaTr;
             } else {
                 document.querySelector("#form-container").appendChild(tableContainer);
-                tableContainer = createTableContainer(); // Esta llamada creará y añadirá el contenedor al body
+                tableContainer = createTableContainer();
                 crearEncabezadoTabla(tableContainer, isContent);
                 alturaActualTabla = alturaTr;
                 asegurarTbody(tableContainer).appendChild(tr);
@@ -624,10 +624,8 @@
         }
 
 
-
         function createTableContainer() {
             const container = createEl("div");
-
             // Configuración de estilos para el contenedor
             container.style.width = "612pt";
             container.style.height = "792pt";
@@ -641,13 +639,17 @@
             container.style.position = "relative";
             container.style.marginTop = "400px";
 
-            // Clonar y agregar encabezado, footer, etc.
+            // Agregar clones de encabezado, footer, etc.
             const headerClone = document.querySelector('#header-container').cloneNode(true);
             container.appendChild(headerClone);
+
             const tipoProducto2 = document.getElementById('Tipo_Producto2').cloneNode(true);
             const producto2 = document.getElementById('producto2').cloneNode(true);
             container.appendChild(tipoProducto2);
             container.appendChild(producto2);
+
+            // No añadir aquí los analysisSections, ya que serán agregados en otra parte del proceso
+            // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
             watermark.textContent = "TESTEO TESTESO";
@@ -655,18 +657,16 @@
             const footerClone = document.querySelector('#footer').cloneNode(true);
             container.appendChild(footerClone);
 
-            // Crear una tabla inicial sin encabezado
+            // Crear la tabla inicial sin encabezado
             const newTable = createEl("table");
-            const newTbody = createEl("tbody");
-            newTable.appendChild(newTbody);
             container.appendChild(newTable);
 
-            // Añadir este contenedor al cuerpo del documento
-            document.body.appendChild(container); // Asegúrate de que el contenedor se añada al cuerpo del documento
+            // Añadir un tbody vacío a la tabla
+            const newTbody = createEl("tbody");
+            newTable.appendChild(newTbody);
 
             return container;
         }
-
 
 
         function asegurarTbody(container) {
