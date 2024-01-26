@@ -221,17 +221,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Especificación de producto:</label>
-                        <input name="muestreado_POS" id="muestreado_POS" type="text" placeholder="06-07-2023" style="width: 82.75%;">
+                        <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="06-07-2023" style="width: 82.75%;">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-                        
+                        <label>Versión:</label>
+                        <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" style="width: 82.75%;">
                     </div>
                 </div>
             </fieldset>
             <div class="actions-container">
-                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Acta de Muestreo</button>
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
+                <button type="button" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">EDITAR</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
@@ -267,12 +268,13 @@ function procesarDatosActa(response) {
         $('#concentracion').val(producto.concentracion).prop('disabled', true);
         $('#formato').val(producto.formato).prop('disabled', true);
         $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
-
+        $('#numero_especificacion').val(producto.documento_producto).prop('disabled', true);
+        
         var especificaciones = Object.values(producto.especificaciones);
         if (especificaciones.length > 0) {
             var especificacion = especificaciones[0];
             $('#id_especificacion').val(especificacion.id_especificacion);
-
+            $('#version_especificacion').val(especificacion.version).prop('disabled', true);
         }
     } else {
         console.error("No se recibieron datos válidos: ", response);
