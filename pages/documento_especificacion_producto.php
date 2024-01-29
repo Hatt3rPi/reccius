@@ -664,13 +664,6 @@
             container.appendChild(tipoProducto2);
             container.appendChild(producto2);
 
-            const analysisSections = document.querySelectorAll(
-                "#content .analysis-section"
-            );
-            analysisSections.forEach((section) => {
-                const clonedSection = section.cloneNode(true);
-                container.appendChild(clonedSection);
-            });
             // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
