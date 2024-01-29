@@ -595,20 +595,21 @@
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let alturaTotalDisponible = 792 - (123 + 224);
             let tableContainer = createTableContainer();
-            let newTbody = createTableBody(id, tableContainer);
+            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
+            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
             let alturaActualTabla = 0;
 
             // Procesar trs de content
             for (let tr of trsContent) {
-                [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id
+                [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
                 );
             }
 
             // Procesar trs de additionalContent
             for (let tr of trsAdditionalContent) {
-                [alturaActualTabla, tableContainer, newTbody] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id
+                [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
                 );
             }
 
@@ -616,7 +617,7 @@
             document.querySelector("#form-container").appendChild(tableContainer);
         }
 
-        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id) {
+        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
             tr.classList.add("table", "table-bordered", "dataTable", "td");
             let alturaTr = tr.offsetHeight;
 
@@ -626,7 +627,7 @@
             } else {
                 document.querySelector("#form-container").appendChild(tableContainer);
                 tableContainer = createTableContainer();
-                newTbody = createTableBody(id, tableContainer);
+                newTbody = createTableBody(id, tableContainer, sectionId);
                 newTbody.appendChild(tr);
                 alturaActualTabla = alturaTr;
             }
@@ -634,6 +635,7 @@
 
             return [alturaActualTabla, tableContainer, newTbody];
         }
+
 
         function createTableContainer() {
             const container = createEl("div");
@@ -689,15 +691,18 @@
             return container;
         }
 
-        function createTableBody(id, container) {
+        function createTableBody(id, container, sectionId) {
             const newTable = createEl("table");
             const newTbody = createEl("tbody");
             newTable.appendChild(newTbody);
             newTable.setAttribute("id", id);
-            container.appendChild(newTable);
+
+            // Ubicar el newTable en el div correspondiente
+            container.querySelector(`#${sectionId}`).appendChild(newTable);
 
             return newTbody;
         }
+
 
 
 
