@@ -677,6 +677,13 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone);
 
+                    // Clonar el contenido principal incluyendo las tablas
+            const contentClone = document.querySelector("#content").cloneNode(true);
+            container.appendChild(contentClone);
+
+            const additionalContentClone = document.querySelector("#additionalContent").cloneNode(true);
+            container.appendChild(additionalContentClone);
+
             return container;
         }
 
