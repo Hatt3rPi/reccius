@@ -675,6 +675,7 @@
             // Crear nuevas secciones de análisis para 'content' y 'additionalContent'
             const newContentDiv = createEl("div");
             newContentDiv.id = "content";
+            newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
             container.appendChild(newContentDiv);
 
             // Crear y agregar la sección de análisis para 'content'
