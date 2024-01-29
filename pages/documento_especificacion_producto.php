@@ -249,7 +249,6 @@
 
                     let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
                     if (analisisFQ.length > 0) {
-                        
                         mostrarAnalisisFQ(analisisFQ);
                     } else {
                         // Si no hay datos, oculta la sección del análisis FQ
@@ -344,7 +343,7 @@
                     imgElement.style.width = '64px';
                     imgElement.style.height = '64px';
                     document.getElementById(contenedorQR).appendChild(imgElement);
-                }mostrarAnalisisFQcreateAnalysisSection
+                }
                 imgElement.src = qrApiUrl;
             } else {
                 // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
