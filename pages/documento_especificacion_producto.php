@@ -354,10 +354,14 @@
 
 
         function mostrarAnalisisFQ(analisis) {
+            const contentSection = document.getElementById("content");
+            const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
+
             // Verifica si hay datos para el análisis FQ
             console.log(analisis)
             if (analisis.length > 0) {
                 // Si hay datos, muestra la tabla y procesa los datos
+                contentSection.appendChild(analysisSectionContent); // Agrega la sección de análisis
                 if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                     $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
                 } else {
@@ -402,13 +406,17 @@
             } else {
                 // Si no hay datos, oculta la sección del análisis FQ
                 $('#content').hide();
+                contentSection.style.display = 'none';
             }
         }
 
         function mostrarAnalisisMB(analisis) {
+            const additionalContentSection = document.getElementById("additionalContent");
+            const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
             // Verifica si hay datos para el análisis microbiológico
             if (analisis.length > 0) {
                 // Si hay datos, muestra la tabla y procesa los datos
+                additionalContentSection.appendChild(analysisSectionAdditionalContent); // Agrega la sección de análisis
                 if ($.fn.DataTable.isDataTable('#analisisMB')) {
                     $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
                 } else {
@@ -453,6 +461,7 @@
             } else {
                 // Si no hay datos, oculta la sección del análisis microbiológico
                 $('#additionalContent').hide();
+                additionalContentSection.style.display = 'none';
             }
         }
 
@@ -693,7 +702,7 @@
         }
 
         function createAnalysisSection(title) {
-            const analysisSection = createEl("div");
+            const analysisSection = document.createElement("div");
             analysisSection.className = "analysis-section";
             analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
             analysisSection.textContent = title;
