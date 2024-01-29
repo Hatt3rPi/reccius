@@ -693,15 +693,44 @@
 
         function createTableBody(id, container, sectionId) {
             const newTable = createEl("table");
+            newTable.setAttribute("id", id);
+            newTable.classList.add("table", "table-bordered");
+
+            // Crear thead dependiendo de la sección
+            const newThead = createEl("thead");
+            newTable.appendChild(newThead);
+
+            const tr = createEl("tr");
+            newThead.appendChild(tr);
+
+            if (sectionId === "content") {
+                // Aquí definimos los encabezados específicos para la tabla de 'content'
+                const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
+                headers.forEach(text => {
+                    const th = createEl("th");
+                    th.textContent = text;
+                    tr.appendChild(th);
+                });
+            } else if (sectionId === "additionalContent") {
+                // Aquí definimos los encabezados específicos para la tabla de 'additionalContent'
+                const headers = ["Análisis", "Metodología", "Resultado"];
+                headers.forEach(text => {
+                    const th = createEl("th");
+                    th.textContent = text;
+                    tr.appendChild(th);
+                });
+            }
+
+            // Crear tbody
             const newTbody = createEl("tbody");
             newTable.appendChild(newTbody);
-            newTable.setAttribute("id", id);
 
             // Ubicar el newTable en el div correspondiente
             container.querySelector(`#${sectionId}`).appendChild(newTable);
 
             return newTbody;
         }
+
 
 
 
