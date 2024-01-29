@@ -679,16 +679,32 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone);
 
-            // Crear nuevos divs para 'content' y 'additionalContent'
+            // Crear nuevas secciones de análisis para 'content' y 'additionalContent'
             const newContentDiv = createEl("div");
             newContentDiv.id = "content";
             container.appendChild(newContentDiv);
+
+            // Crear y agregar la sección de análisis para 'content'
+            const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
+            newContentDiv.appendChild(analysisSectionContent);
 
             const newAdditionalContentDiv = createEl("div");
             newAdditionalContentDiv.id = "additionalContent";
             container.appendChild(newAdditionalContentDiv);
 
+            // Crear y agregar la sección de análisis para 'additionalContent'
+            const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
+            newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
+
             return container;
+        }
+
+        function createAnalysisSection(title) {
+            const analysisSection = createEl("div");
+            analysisSection.className = "analysis-section";
+            analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
+            analysisSection.textContent = title;
+            return analysisSection;
         }
 
         function createTableBody(id, container, sectionId) {
