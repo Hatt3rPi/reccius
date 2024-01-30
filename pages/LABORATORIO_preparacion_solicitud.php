@@ -186,6 +186,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
+                        <label>Muestreado según POS:</label>
+                        <input name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
@@ -203,10 +205,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         </select>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
-                        <label>Muestreado según POS:</label>
-                        <input name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
-                    </div>
+
                 </div>
             </fieldset>
             <br>
@@ -249,6 +248,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             <option value="reccius">Reccius</option>
                             <option value="cequc">CEQUC</option>
                             <option value="pharmaisa">Pharma ISA</option>
+                            <option value="otro">Otro</option>
                         </select>
 
                     </div>
@@ -269,6 +269,16 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <input name="numero_documento" id="numero_documento" type="text" placeholder="123456">
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group">
+                    <label>Observaciones:</label>
+                    <textarea name="observaciones" id="observaciones" rows="4" placeholder="..." ></textarea>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        
+                    </div>
+                </div>
 
             </fieldset>
             <br>
@@ -285,6 +295,35 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-group">
                         <label>Versión:</label>
                         <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" style="width: 82.75%;">
+                    </div>
+                </div>
+            </fieldset>
+            <br>
+            <br>
+            <fieldset>
+                <legend>VI. Flujo de Aprobación:</legend>
+                <br>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Usuario Solicitante:</label>
+                        <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" style="width: 38.5%" readonly>
+                        <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none;">
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Revisión a cargo de:</label>
+                        <select name="usuario_revisor" id="usuario_revisor" class="select-style"  style="width: 38.5%" required>
+                            <option>Selecciona el usuario supervisor:</option>
+                            <option value="isumonte" >Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
+                        </select>
                     </div>
                 </div>
             </fieldset>
