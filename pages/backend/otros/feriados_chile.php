@@ -41,7 +41,7 @@ function insertarActualizarFeriado($feriado) {
               dia_semana = VALUES(dia_semana)";
 
     if ($stmt = $link->prepare($query)) {
-        $stmt->bind_param("sssis", $feriado['nombre'], $feriado['comentarios'], $feriado['fecha'], $feriado['irrenunciable'], $feriado['tipo'], $diaSemana);
+        $stmt->bind_param("sssiss", $feriado['nombre'], $feriado['comentarios'], $feriado['fecha'], $feriado['irrenunciable'], $feriado['tipo'], $diaSemana);
         $resultado = $stmt->execute();
         $stmt->close();
 
