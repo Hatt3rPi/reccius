@@ -30,14 +30,18 @@ function obtenerFeriados() {
 function insertarActualizarFeriado($feriado) {
     global $link; // Asumiendo que $link es tu variable de conexión
 
-    $query = "INSERT INTO feriados_chile (nombre, comentarios, fecha, irrenunciable, tipo) VALUES (?, ?, ?, ?, ?)
+    // Calculando el día de la semana (1 = Lunes, 7 = Domingo)
+    $diaSemana = date('N', strtotime($feriado['fecha']));
+
+    $query = "INSERT INTO feriados_chile (nombre, comentarios, fecha, irrenunciable, tipo, dia_semana) VALUES (?, ?, ?, ?, ?, ?)
               ON DUPLICATE KEY UPDATE
               comentarios = VALUES(comentarios),
               irrenunciable = VALUES(irrenunciable),
-              tipo = VALUES(tipo)";
+              tipo = VALUES(tipo),
+              dia_semana = VALUES(dia_semana)";
 
     if ($stmt = $link->prepare($query)) {
-        $stmt->bind_param("sssis", $feriado['nombre'], $feriado['comentarios'], $feriado['fecha'], $feriado['irrenunciable'], $feriado['tipo']);
+        $stmt->bind_param("sssis", $feriado['nombre'], $feriado['comentarios'], $feriado['fecha'], $feriado['irrenunciable'], $feriado['tipo'], $diaSemana);
         $resultado = $stmt->execute();
         $stmt->close();
 
@@ -47,6 +51,7 @@ function insertarActualizarFeriado($feriado) {
     }
     return null; // Devolver nulo en caso de error
 }
+
 
 
 $feriados = obtenerFeriados();
