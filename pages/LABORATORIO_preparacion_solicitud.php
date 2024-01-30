@@ -16,6 +16,43 @@ while ($row = mysqli_fetch_assoc($result)) {
     $opciones[$row['categoria']][] = $row['nombre_opcion'];
 }
 
+date_default_timezone_set('America/Santiago');
+$fechaActual = new DateTime();
+$fechaLimite = new DateTime('+30 days');
+
+// Formatear las fechas para la consulta
+$fechaActualFormato = $fechaActual->format('Y-m-d');
+$fechaLimiteFormato = $fechaLimite->format('Y-m-d');
+
+// Consulta SQL para obtener feriados entre las fechas
+$query = "SELECT fecha FROM feriados_chile WHERE fecha BETWEEN '$fechaActualFormato' AND '$fechaLimiteFormato'";
+$result = mysqli_query($conexion, $query);
+
+// Construir el arreglo de feriados
+$feriados = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $feriados[] = $row['fecha'];
+}
+function agregarDiasHabiles($fecha, $diasHabiles, $feriados) {
+    $contadorDias = 0;
+
+    while ($contadorDias < $diasHabiles) {
+        $fecha->modify('+1 day'); // Agregar un día
+
+        // Si es un fin de semana o un feriado, no contar este día
+        if ($fecha->format('N') < 6 && !in_array($fecha->format('Y-m-d'), $feriados)) {
+            $contadorDias++;
+        }
+    }
+
+    return $fecha;
+}
+
+// Calcular 10 días hábiles desde la fecha actual
+$fechaEntregaEstimada = agregarDiasHabiles($fechaActual, 10, $feriados);
+
+// Formatear para uso en HTML
+$fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 ?>
 
 <!DOCTYPE html>
@@ -223,8 +260,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Fecha Entrega Estimada:</label>
-                        <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" placeholder="06-07-2023" style="width: 82.75%;">
+                    <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
+                    <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" value="<?php echo $fechaEntregaEstimadaFormato; ?>" style="width: 82.75%;">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
