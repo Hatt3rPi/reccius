@@ -10,63 +10,56 @@ function limpiarDato($dato) {
 
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos) {
-    // Preparar la consulta SQL para insertar un nuevo registro
     $query = "INSERT INTO calidad_analisis_externo (
-                numero_registro, version, numero_solicitud, fecha_registro, tipo_producto, 
-                codigo_producto, producto, concentracion, formato, elaboradoPor, lote, 
-                tamano_lote, fecha_elaboracion, fecha_vencimiento, tipo_analisis, 
-                condicion_almacenamiento, cantidad_muestra, cantidad_contramuestra, 
-                registro_isp, muestreado_por, muestreado_POS, laboratorio, fecha_solicitud, 
-                analisis_segun, fecha_cotizacion, estandar_provisto_por, adjunta_HDS, 
-                fecha_entrega_estimada, numero_documento, numero_especificacion, version_especificacion, 
-                id_producto, id_especificacion
+                estado, numero_registro, version, numero_solicitud, fecha_registro, 
+                laboratorio, fecha_solicitud, analisis_segun, numero_documento, 
+                fecha_cotizacion, estandar_segun, estandar_otro, hds_adjunto, hds_otro,
+                fecha_entrega, fecha_entrega_estimada, id_especificacion, id_producto, lote, 
+                registro_isp, condicion_almacenamiento, muestreado_por, numero_pos, codigo_mastersoft,
+                tamano_lote, fecha_elaboracion, fecha_vencimiento, tamano_muestra, tamano_contramuestra,
+                observaciones, solicitado_por, revisado_por, fecha_firma_revisor
               ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($link, $query);
-    
     if (!$stmt) {
         throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
     }
 
-    // Asociar los datos con la consulta preparada
-    mysqli_stmt_bind_param($stmt, 'sissssssssssssssssssssssssssssss', 
-                           $datos['numero_registro'], $datos['version'], $datos['numero_solicitud'], 
-                           $datos['fecha_registro'], $datos['tipo_producto'], $datos['codigo_producto'], 
-                           $datos['producto'], $datos['concentracion'], $datos['formato'], 
-                           $datos['elaboradoPor'], $datos['lote'], $datos['tamano_lote'], 
-                           $datos['fecha_elaboracion'], $datos['fecha_vencimiento'], 
-                           $datos['tipo_analisis'], $datos['condicion_almacenamiento'], 
-                           $datos['cantidad_muestra'], $datos['cantidad_contramuestra'], 
-                           $datos['registro_isp'], $datos['muestreado_por'], $datos['muestreado_POS'], 
-                           $datos['laboratorio'], $datos['fecha_solicitud'], $datos['analisis_segun'], 
-                           $datos['fecha_cotizacion'], $datos['estandar_provisto_por'], 
-                           $datos['adjunta_HDS'], $datos['fecha_entrega_estimada'], 
-                           $datos['numero_documento'], $datos['numero_especificacion'], 
-                           $datos['version_especificacion'], $datos['id_producto'], 
-                           $datos['id_especificacion']);
+    mysqli_stmt_bind_param($stmt, 'ssisssssssssssssiiisssssssssssss', 
+                           $datos['estado'], $datos['numero_registro'], $datos['version'], 
+                           $datos['numero_solicitud'], $datos['fecha_registro'], $datos['laboratorio'], 
+                           $datos['fecha_solicitud'], $datos['analisis_segun'], $datos['numero_documento'], 
+                           $datos['fecha_cotizacion'], $datos['estandar_segun'], $datos['estandar_otro'], 
+                           $datos['hds_adjunto'], $datos['hds_otro'], $datos['fecha_entrega'], 
+                           $datos['fecha_entrega_estimada'], $datos['id_especificacion'], 
+                           $datos['id_producto'], $datos['lote'], $datos['registro_isp'], 
+                           $datos['condicion_almacenamiento'], $datos['muestreado_por'], $datos['numero_pos'], 
+                           $datos['codigo_mastersoft'], $datos['tamano_lote'], $datos['fecha_elaboracion'], 
+                           $datos['fecha_vencimiento'], $datos['tamano_muestra'], $datos['tamano_contramuestra'], 
+                           $datos['observaciones'], $datos['solicitado_por'], $datos['revisado_por'], 
+                           $datos['fecha_firma_revisor']);
 
-    // Ejecutar la consulta
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
-        mysqli_stmt_close($stmt);
-        registrarTrazabilidad(
-            $_SESSION['usuario'], 
-            $_SERVER['PHP_SELF'], 
-            'Creación registro análisis externo', 
-            'tareas',  
-            $id, 
-            $sql,  
-            $datos, 
-            $exito ? 1 : 0, 
-            $exito ? null : mysqli_error($link)
-        );
+    mysqli_stmt_close($stmt);
+
+    registrarTrazabilidad(
+        $_SESSION['usuario'], 
+        $_SERVER['PHP_SELF'], 
+        'Creación registro análisis externo', 
+        'calidad_analisis_externo',  
+        $id, 
+        $query,  
+        $datos, 
+        $exito ? 1 : 0, 
+        $exito ? null : mysqli_error($link)
+    );
+
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
     }
-
-    // Cerrar el statement
-    mysqli_stmt_close($stmt);
 }
+
 
 
 function actualizarRegistro($link, $datos) {
@@ -87,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $version = limpiarDato($_POST['version']);
     $numero_solicitud = limpiarDato($_POST['numero_solicitud']);
     $fecha_registro = limpiarDato($_POST['fecha_registro']);
-    $tipo_producto = limpiarDato($_POST['Tipo_Producto']);
+    $tipo_producto = limpiarDato($_POST['tipo_producto']);
     $codigo_producto = limpiarDato($_POST['codigo_producto']);
     $producto = limpiarDato($_POST['producto']);
     $concentracion = limpiarDato($_POST['concentracion']);

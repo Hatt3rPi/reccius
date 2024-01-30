@@ -100,7 +100,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <input id="Tipo_Producto" name="Tipo_Producto" type="text" placeholder="Producto Terminado">
+                        <input id="tipo_producto" name="tipo_producto" type="text" placeholder="Producto Terminado">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
