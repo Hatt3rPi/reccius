@@ -1,5 +1,5 @@
 <?php
-require_once "/home/customw2/conexiones/config_reccius.php";
+require_once "/home/customw2/linkes/config_reccius.php";
 
 function obtenerFeriados() {
     $curl = curl_init();
@@ -28,7 +28,7 @@ function obtenerFeriados() {
 }
 
 function insertarActualizarFeriado($feriado) {
-    global $conexion; // Asumiendo que $conexion es tu variable de conexión
+    global $link; // Asumiendo que $link es tu variable de conexión
 
     $query = "INSERT INTO feriados_chile (nombre, comentarios, fecha, irrenunciable, tipo) VALUES (?, ?, ?, ?, ?)
               ON DUPLICATE KEY UPDATE
@@ -36,7 +36,7 @@ function insertarActualizarFeriado($feriado) {
               irrenunciable = VALUES(irrenunciable),
               tipo = VALUES(tipo)";
 
-    if ($stmt = $conexion->prepare($query)) {
+    if ($stmt = $link->prepare($query)) {
         $stmt->bind_param("sssis", $feriado['nombre'], $feriado['comentarios'], $feriado['fecha'], $feriado['irrenunciable'], $feriado['tipo']);
         $resultado = $stmt->execute();
         $stmt->close();
