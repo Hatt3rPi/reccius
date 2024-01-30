@@ -320,7 +320,7 @@ function procesarDatosActa(response) {
     if (response && response.productos && response.productos.length > 0) {
         var producto = response.productos[0];
         $('#id_producto').val(producto.id_producto);
-        $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
+        $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
         $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
         $('#producto').val(producto.nombre_producto).prop('disabled', true);
         $('#concentracion').val(producto.concentracion).prop('disabled', true);
