@@ -1,5 +1,5 @@
 <?php
-require_once "/home/customw2/linkes/config_reccius.php";
+require_once "/home/customw2/conexiones/config_reccius.php";
 
 function obtenerFeriados() {
     $curl = curl_init();
