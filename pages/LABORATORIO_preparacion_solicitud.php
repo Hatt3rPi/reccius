@@ -66,7 +66,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 <body>
     <div class="form-container">
         <h1>CALIDAD / Preparación solicitud Análisis Externo</h1>
-        <form>
+        <form id="formulario_analisis_externo" name="formulario_analisis_externo"> 
             <fieldset>
                 <legend>I. Análisis:</legend>
                 <br>
@@ -350,7 +350,7 @@ function verificarOtro(selectId, inputId) {
 }
 
     function guardar(){
-    var datosFormulario = $('#formulario_especificacion').serialize();
+    var datosFormulario = $('#formulario_analisis_externo').serialize();
     console.log(datosFormulario);
     $.ajax({
         url: 'backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
