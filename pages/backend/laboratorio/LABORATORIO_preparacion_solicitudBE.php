@@ -81,6 +81,7 @@ function actualizarRegistro($link, $datos) {
 // Procesar la solicitud
 // Procesar la solicitud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
     // Limpiar y validar datos recibidos del formulario
     $numero_registro = limpiarDato($_POST['numero_registro']);
     $version = limpiarDato($_POST['version']);

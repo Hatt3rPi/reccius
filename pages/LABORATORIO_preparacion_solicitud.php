@@ -181,12 +181,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group">
                         <label>Laboratorio Analista:</label>
                         <select name="laboratorio" id="laboratorio" class="select-style" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 83%" required>
-                            <option value="">Selecciona un formato</option>
+                            <option value="">Selecciona un Laboratorio</option>
                             <?php foreach ($opciones['laboratorio'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <input type="text" name="otro_laboratorio" id="otro_laboratorio" class="otro-campo" placeholder="Especificar otro formato" style="display: none;">
+                        <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" style="display: none;">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -211,7 +211,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style" style="width: 82.5%;">
                             <option value="reccius">Reccius</option>
                             <option value="cequc">CEQUC</option>
-                            <option value="pharmaisa">Pharmaisa</option>
+                            <option value="pharmaisa">Pharma ISA</option>
                         </select>
 
                     </div>
@@ -311,4 +311,29 @@ function verificarOtro(selectId, inputId) {
         input.value = ''; // Limpiar el campo si "Otro" no está seleccionado
     }
 }
+
+    function guardar(){
+    var datosFormulario = $('#formulario_especificacion').serialize();
+    console.log(datosFormulario);
+    $.ajax({
+        url: 'backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
+        type: 'POST',
+        data: datosFormulario,
+        success: function(data) {
+            var respuesta = JSON.parse(data);
+            if (respuesta.exito) {
+
+            } else {
+                console.log(respuesta.mensaje); // Manejar el error
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error AJAX: " + error);
+        }
+    });
+}
+$('#guardar').click(function() {
+        guardar();
+    });
+
 </script>
