@@ -267,7 +267,7 @@
                 }
             });
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
-            setTimeout( ocultarContenedorPrincipal,5000);
+            setTimeout(ocultarContenedorPrincipal, 5000);
 
 
         }
@@ -743,6 +743,14 @@
             // Crear tbody
             const newTbody = createEl("tbody");
             newTable.appendChild(newTbody);
+            // Aplicar estilo a cada celda (td) que se agregue al tbody
+            newTbody.addEventListener('DOMNodeInserted', function(event) {
+                if (event.target.nodeName === 'tr') {
+                    Array.from(event.target.cells).forEach(td => {
+                        td.style.fontSize = '10px'; // Establece el tamaño de la fuente a 10px
+                    });
+                }
+            });
 
             // Ubicar el newTable en el div correspondiente
             container.querySelector(`#${sectionId}`).appendChild(newTable);
