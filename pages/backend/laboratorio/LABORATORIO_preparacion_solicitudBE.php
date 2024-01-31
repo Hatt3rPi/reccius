@@ -14,26 +14,30 @@ function insertarRegistro($link, $datos) {
                 estado, numero_registro, numero_solicitud, fecha_registro, 
                 laboratorio, fecha_solicitud, analisis_segun, numero_documento, 
                 fecha_cotizacion, estandar_segun, estandar_otro, hds_adjunto, 
-                fecha_entrega, fecha_entrega_estimada, lote, 
+                fecha_entrega_estimada, lote, 
                 registro_isp, condicion_almacenamiento, muestreado_por, numero_pos, 
                 tamano_lote, fecha_elaboracion, fecha_vencimiento, tamano_muestra, tamano_contramuestra,
-                observaciones, solicitado_por, revisado_por, fecha_firma_revisor
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,   ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                observaciones, solicitado_por, revisado_por
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
         throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
     }
 
-    mysqli_stmt_bind_param($stmt, 'iiisssssssssssssssssssssssssss', 
-                           $datos['version'], $datos['id_especificacion'], $datos['id_producto'], 
-                           'Pendiente Acta de Muestreo',  $datos['registro'], $datos['numero_solicitud'], $datos['fecha_registro'], 
-                           $datos['laboratorio'], $datos['fecha_solicitud'], $datos['analisis_segun'], $datos['numero_documento'], 
-                           $datos['fecha_cotizacion'], $datos['estandar_provisto_por'], $datos['estandar_otro'], $datos['adjunta_HDS'],  
-                           null, $datos['fecha_entrega_estimada'], $datos['lote'], 
-                           $datos['registro_isp'],$datos['condicion_almacenamiento'], $datos['muestreado_por'], $datos['muestreado_POS'],
-                           $datos['tamano_lote'], $datos['fecha_elaboracion'],$datos['fecha_vence'], $datos['cantidad_muestra'], $datos['cantidad_contramuestra'], 
-                           $datos['observaciones'], $_SESSION['usuario'], $datos['usuario_revisor'], null);
+    // Asignar valores directos a variables
+    $estado = 'Pendiente Acta de Muestreo';
+    // Luego usa estas variables en la función mysqli_stmt_bind_param
+    mysqli_stmt_bind_param($stmt, 'iiissssssssssssssssssssssssss', 
+        $datos['version'], $datos['id_especificacion'], $datos['id_producto'], 
+        $estado, $datos['registro'], $datos['numero_solicitud'], $datos['fecha_registro'], 
+        $datos['laboratorio'], $datos['fecha_solicitud'], $datos['analisis_segun'], $datos['numero_documento'], 
+        $datos['fecha_cotizacion'], $datos['estandar_provisto_por'], $datos['estandar_otro'], $datos['adjunta_HDS'],  
+        $datos['fecha_entrega_estimada'], $datos['lote'], 
+        $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'], $datos['muestreado_POS'], 
+        $datos['tamano_lote'], $datos['fecha_elaboracion'], $datos['fecha_vence'], $datos['cantidad_muestra'], $datos['cantidad_contramuestra'], 
+        $datos['observaciones'], $_SESSION['usuario'], $datos['usuario_revisor']);
+
 
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
