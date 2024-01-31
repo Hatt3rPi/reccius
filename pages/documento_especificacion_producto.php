@@ -651,7 +651,7 @@
             container.style.marginLeft = "auto";
             container.style.marginRight = "auto";
             container.style.position = "relative";
-            container.style.marginTop = "200px";
+
 
             const headerClone = document
                 .querySelector("#header-container")
@@ -753,7 +753,8 @@
             var contenedorPrincipal = document.getElementById('Maincontainer');
             //var contenedorform = document.getElementById('form-container');
             contenedorPrincipal.style.display = 'none';
-           // contenedorform.style.display = 'none';
+            contenedorForm.style.border = '0px solid #000';
+            contenedorForm.style.boxShadow = '0 0px 0px rgba(0, 0, 0, 0.1)';
         }
 
 
