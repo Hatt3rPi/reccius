@@ -753,8 +753,8 @@
             var contenedorPrincipal = document.getElementById('Maincontainer');
             //var contenedorform = document.getElementById('form-container');
             contenedorPrincipal.style.display = 'none';
-            contenedorForm.style.border = '0px solid #000';
-            contenedorForm.style.boxShadow = '0 0px 0px rgba(0, 0, 0, 0.1)';
+            contenedorForm.style.border = 'none';
+            contenedorForm.style.boxShadow = 'none';
         }
 
 
