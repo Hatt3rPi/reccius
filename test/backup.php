@@ -769,8 +769,17 @@
             contenedorForm.style.boxShadow = 'none';
         }
 
-
-
+        function aplicarEstilosATd(selector) {
+            const tablas = document.querySelectorAll(selector);
+            tablas.forEach((tabla) => {
+                const tds = tabla.querySelectorAll('td');
+                tds.forEach((td) => {
+                    td.style.fontSize = '10px'; // Establece el tamaño de fuente a 10px para los td
+                    // Aquí puedes agregar más estilos según sea necesario
+                });
+            });
+        }
+        aplicarEstilosATd('#analisisFQ, #analisisMB'); // Aquí, '#analisisFQ, #analisisMB' son los selectores de las tablas
 
 
         window.onload = function() {
