@@ -267,6 +267,7 @@
                 }
             });
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
+            setTimeout( ocultarContenedorPrincipal,5000);
 
 
         }
@@ -715,10 +716,10 @@
             const tr = createEl("tr");
             tr.style.fontSize = "10px";
             newThead.appendChild(tr);
-            
+
             //const td = createEl("td");
-           // td.style.fontSize = "10px";
-           // newThead.appendChild(td);
+            // td.style.fontSize = "10px";
+            // newThead.appendChild(td);
 
             if (sectionId === "content") {
                 // Aquí definimos los encabezados específicos para la tabla de 'content'
@@ -748,6 +749,10 @@
             return newTbody;
         }
 
+        function ocultarContenedorPrincipal() {
+            var contenedorPrincipal = document.getElementById('Maincontainer');
+            contenedorPrincipal.style.display = 'none';
+        }
 
 
 
