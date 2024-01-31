@@ -751,9 +751,9 @@
 
         function ocultarContenedorPrincipal() {
             var contenedorPrincipal = document.getElementById('Maincontainer');
-            var contenedorform = document.getElementById('form-container');
+            //var contenedorform = document.getElementById('form-container');
             contenedorPrincipal.style.display = 'none';
-            contenedorform.style.display = 'none';
+           // contenedorform.style.display = 'none';
         }
 
 
