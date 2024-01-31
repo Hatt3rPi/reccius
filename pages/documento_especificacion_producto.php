@@ -716,6 +716,10 @@
             tr.style.fontSize = "10px";
             newThead.appendChild(tr);
 
+            const td = createEl("td");
+            td.style.fontSize = "10px";
+            newThead.appendChild(td);
+
             if (sectionId === "content") {
                 // Aquí definimos los encabezados específicos para la tabla de 'content'
                 const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
