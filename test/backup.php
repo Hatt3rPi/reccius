@@ -15,8 +15,7 @@
         <div id="Maincontainer">
             <div id="header-container" style="width: 100%;">
                 <!-- Asegúrate de tener un contenedor para el header con display flex -->
-                <div id="header" class="header"
-                    style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div id="header" class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
 
                     <!-- Logo e Información Izquierda -->
                     <div class="header-left">
@@ -25,16 +24,12 @@
                         <br>
                     </div>
                     <!-- Título Central -->
-                    <div class="header-center"
-                        style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                        <h1 id="Tipo_Producto" name="Tipo_Producto"
-                            style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                        <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         </h1>
-                        <p name="producto" id="producto"
-                            style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
+                        <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
                         <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
-                        <div
-                            style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
                             Dirección de Calidad
                         </div>
                     </div>
@@ -43,32 +38,25 @@
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
-                                <td name="documento" id="documento"
-                                    style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
+                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                <td name="elaboradoPor" id="elaboradoPor"
-                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
-                                <td name="fechaEdicion" id="fechaEdicion"
-                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                <td name="supervisadoPor" id="supervisadoPor"
-                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
-                                <td name="version" id="version"
-                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                <td name="autorizadoPor" id="autorizadoPor"
-                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
-                                <td name="periodosVigencia" id="periodosVigencia"
-                                    style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
                                 <td style="border: 1px solid rgb(56, 53, 255); text-align: center">1 de 1</td>
                             </tr>
@@ -76,17 +64,14 @@
                     </div>
                 </div>
                 <!-- Fila adicional con dos columnas debajo del encabezado existente -->
-                <div class="header-bottom"
-                    style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
-                    <div class="header-bottom-left"
-                        style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
+                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
+                    <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
                         <div class="sub-info" style="font-size: 10px;text-align: left;">
                             Producto de recetario magistral <br>
                             Res. Ex. N° 2988/2018
                         </div>
                     </div>
-                    <div class="header-bottom-right"
-                        style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
+                    <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
                         <div class="sub-info" style="font-size: 10px; text-align: right;">
                             RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
                         </div>
@@ -96,17 +81,14 @@
 
             <div id="watermark">TESTEO TESTESO</div>
             <div id="contenido_main">
-                <h1 id="Tipo_Producto2" name="Tipo_Producto2"
-                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
+                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
                 </h1>
-                <p name="producto2" id="producto2"
-                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
+                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
                 </p>
-                <div id="content" class="content"  style="display: none;">
+                <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
-                        <div class="analysis-section"
-                            style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
+                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
                             I. Análisis Generales
                         </div>
                         <table id="analisisFQ" class="compact table-bordered" style="width:100%; font-size: 10px">
@@ -123,7 +105,7 @@
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="content"  style="display: none;">
+                <div id="additionalContent" class="content">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
@@ -138,13 +120,9 @@
                                     <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Las filas de la tabla se agregarán dinámicamente con JavaScript -->
-                            </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
             <div class="footer" id="footer">
                 <!-- Sección realizada por -->
@@ -205,12 +183,14 @@
     <script>
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('download-pdf').addEventListener('click', function () {
+        document.getElementById('download-pdf').addEventListener('click', function() {
             // Agregar la clase no-border para eliminar bordes y sombras
             var formContainer = document.getElementById('form-container');
             formContainer.classList.add('no-border');
 
-            html2canvas(formContainer, { scale: 2 }).then(canvas => {
+            html2canvas(formContainer, {
+                scale: 2
+            }).then(canvas => {
                 var imgData = canvas.toDataURL('image/png');
                 var pdf = new jspdf.jsPDF({
                     orientation: 'portrait',
@@ -239,13 +219,15 @@
             $.ajax({
                 url: './backend/calidad/documento_especificacion_productoBE.php',
                 type: 'GET',
-                data: { id: id },
-                success: function (response) {
+                data: {
+                    id: id
+                },
+                success: function(response) {
                     procesarDatosEspecificacion(response);
 
                     verificarYMostrarBotonFirma(response);
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
                 }
             });
@@ -258,7 +240,7 @@
                 return;
             }
             // Procesamiento de cada producto
-            response.productos.forEach(function (producto) {
+            response.productos.forEach(function(producto) {
                 poblarYDeshabilitarCamposProducto(producto);
 
                 let especificaciones = Object.values(producto.especificaciones || {});
@@ -284,9 +266,12 @@
                     }
                 }
             });
-            ajustarContenidoAPaginas(); // Llama a esta función aquí
+            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
+            setTimeout(ocultarContenedorPrincipal, 5000);
+
 
         }
+
         function poblarYDeshabilitarCamposProducto(producto) {
             if (producto) {
                 // Usando .text() para elementos h2, h3 y p
@@ -346,6 +331,7 @@
                 actualizarEstadoDocumento();
             }
         }
+
         function generarMostrarQR(usuario, contenedorQR) {
             if (usuario && usuario.ruta_registro) {
                 // Construye la URL de la API de QR
@@ -369,52 +355,113 @@
 
 
         function mostrarAnalisisFQ(analisis) {
-    var tablaFQ = document.getElementById('analisisFQ').getElementsByTagName('tbody')[0];
-    tablaFQ.innerHTML = ''; // Limpiar filas existentes
+            // Verifica si hay datos para el análisis FQ
+            console.log(analisis)
+            if (analisis.length > 0) {
+                // Si hay datos, muestra la tabla y procesa los datos
+                if ($.fn.DataTable.isDataTable('#analisisFQ')) {
+                    $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
+                } else {
+                    $('#analisisFQ').DataTable({
+                        data: analisis,
+                        columns: [{
+                                title: 'Análisis',
+                                data: 'descripcion_analisis',
+                                width: '170px',
+                                createdCell: function(td) {
+                                    $(td).css('font-weight', 'bold');
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Metodología',
+                                data: 'metodologia',
+                                width: '106px',
+                                createdCell: function(td) {
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Criterio aceptación',
+                                data: 'criterios_aceptacion',
+                                width: '404px'
+                            }
+                        ],
+                        paging: false,
+                        info: false,
+                        searching: false,
+                        lengthChange: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                        }
+                    });
+                }
+                // Muestra la sección del análisis FQ
+                $('#content').show();
+            } else {
+                // Si no hay datos, oculta la sección del análisis FQ
+                $('#content').hide();
+            }
+        }
+
+        function mostrarAnalisisMB(analisis) {
+            // Verifica si hay datos para el análisis microbiológico
+            if (analisis.length > 0) {
+                // Si hay datos, muestra la tabla y procesa los datos
+                if ($.fn.DataTable.isDataTable('#analisisMB')) {
+                    $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
+                } else {
+                    $('#analisisMB').DataTable({
+                        data: analisis,
+                        columns: [{
+                                title: 'Análisis',
+                                data: 'descripcion_analisis',
+                                width: '170px',
+                                createdCell: function(td) {
+                                    $(td).css('font-weight', 'bold');
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Metodología',
+                                data: 'metodologia',
+                                width: '106px',
+                                createdCell: function(td) {
+                                    $(td).css('text-align', 'center');
+                                    $(td).css('vertical-align', 'middle');
+                                }
+                            },
+                            {
+                                title: 'Criterio aceptación',
+                                data: 'criterios_aceptacion',
+                                width: '404px'
+                            }
+                        ],
+                        paging: false,
+                        info: false,
+                        searching: false,
+                        lengthChange: false,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                        }
+                    });
+                }
+                // Muestra la sección del análisis microbiológico
+                $('#additionalContent').show();
+            } else {
+                // Si no hay datos, oculta la sección del análisis microbiológico
+                $('#additionalContent').hide();
+            }
+        }
 
 
-    if (analisis.length > 0) {
-        analisis.forEach(function(analisisItem) {
-            var fila = tablaFQ.insertRow();
-            var celdaAnalisis = fila.insertCell(0);
-            var celdaMetodologia = fila.insertCell(1);
-            var celdaCriterio = fila.insertCell(2);
-
-            celdaAnalisis.textContent = analisisItem.descripcion_analisis;
-            celdaMetodologia.textContent = analisisItem.metodologia;
-            celdaCriterio.textContent = analisisItem.criterios_aceptacion;
-        });
-        document.getElementById('content').style.display = '';
-    } else {
-        document.getElementById('content').style.display = 'none';
-    }
-}
-
-function mostrarAnalisisMB(analisis) {
-    var tablaMB = document.getElementById('analisisMB').getElementsByTagName('tbody')[0];
-    tablaMB.innerHTML = ''; // Limpiar filas existentes
-
-    if (analisis.length > 0) {
-        analisis.forEach(function(analisisItem) {
-            var fila = tablaMB.insertRow();
-            var celdaAnalisis = fila.insertCell(0);
-            var celdaMetodologia = fila.insertCell(1);
-            var celdaCriterio = fila.insertCell(2);
-
-            celdaAnalisis.textContent = analisisItem.descripcion_analisis;
-            celdaMetodologia.textContent = analisisItem.metodologia;
-            celdaCriterio.textContent = analisisItem.criterios_aceptacion;
-        });
-        document.getElementById('additionalContent').style.display = '';
-    } else {
-        document.getElementById('additionalContent').style.display = 'none';
-    }
-}
 
 
 
-
-        document.getElementById('sign-document').addEventListener('click', function () {
+        document.getElementById('sign-document').addEventListener('click', function() {
             // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
             var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
             if (puedeFirmar && confirm("¿Estás seguro que deseas firmar el documento?")) {
@@ -453,14 +500,14 @@ function mostrarAnalisisMB(analisis) {
                     idEspecificacion: idEspecificacion,
                     rolUsuario: rolUsuario
                 },
-                success: function (response) {
+                success: function(response) {
                     // Aquí manejas la respuesta del backend
                     console.log('Firma actualizada correctamente:', response);
                     // Actualiza el estado del documento en el frontend
                     actualizarEstadoDocumento();
                     cargarDatosEspecificacion(idEspecificacion);
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error('Error al firmar documento:', status, error);
                 }
             });
@@ -518,121 +565,218 @@ function mostrarAnalisisMB(analisis) {
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
+        // Funciones auxiliares globales
+        const createEl = (name) => document.createElement(name);
 
+        function delay(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        }
 
-        // Llamar a esta función cada vez que actualices el estado de las firmas
-        // Por ejemplo, puedes llamarla al final de la función poblarYDeshabilitarCamposProducto
-
-
-        function ajustarContenidoAPaginas() {
+        function obtenerAlturaElementosYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
             const alturaFooter = 224; // Altura del pie de página
-            const espacioDisponible = alturaTotal - (alturaHeader + alturaFooter);
 
-            // Obtén el contenido de las tablas
-            let contenidoFQ = document.getElementById('content');
-            let contenidoMB = document.getElementById('additionalContent');
+            // Funciones auxiliares dentro de la función
+            const $ = (selector) => document.querySelector(selector);
+            const $$ = (selector) => document.querySelectorAll(selector);
 
-            // Calcula la altura total del contenido
-            let alturaContenidoFQ = contenidoFQ.offsetHeight;
-            let alturaContenidoMB = contenidoMB.offsetHeight;
+            // Contenedores
+            const contentContainer = $('#content');
+            const additionalContentContainer = $('#additionalContent');
 
-            // Verifica si ambas tablas caben en una sola página
-            if (alturaContenidoFQ + alturaContenidoMB <= espacioDisponible) {
-                // Ambas tablas caben en una sola página, así que las mostramos juntas
-                mostrarTablasEnUnaPagina(contenidoFQ, contenidoMB);
+            // Aquí puedes incluir cualquier lógica adicional de cálculo de altura si es necesario
+
+            // Seleccionar los elementos tr dentro de la tabla específica de #content y #additionalContent
+            const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
+            const trsDeAdditionalContent = Array.from(document.querySelectorAll("#additionalContent table tbody tr"));
+            newTabla("new-table", trsDeContent, trsDeAdditionalContent);
+        }
+
+        async function newTabla(id, trsContent, trsAdditionalContent) {
+            let alturaTotalDisponible = 792 - (123 + 224);
+            let tableContainer = createTableContainer();
+            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
+            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
+            let alturaActualTabla = 0;
+
+            // Procesar trs de content
+            for (let tr of trsContent) {
+                [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
+                );
+            }
+
+            // Procesar trs de additionalContent
+            for (let tr of trsAdditionalContent) {
+                [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
+                );
+            }
+
+            // Asegurarse de agregar el último contenedor al documento
+            document.querySelector("#form-container").appendChild(tableContainer);
+        }
+
+        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
+            tr.classList.add("table", "table-bordered", "dataTable", "td");
+            let alturaTr = tr.offsetHeight;
+
+            if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
+                newTbody.appendChild(tr);
+                alturaActualTabla += alturaTr;
             } else {
-                // Las tablas no caben en una sola página, procede a dividirlas
-                let paginas = dividirContenido(contenidoFQ, contenidoMB, espacioDisponible);
+                document.querySelector("#form-container").appendChild(tableContainer);
+                tableContainer = createTableContainer();
+                newTbody = createTableBody(id, tableContainer, sectionId);
+                newTbody.appendChild(tr);
+                alturaActualTabla = alturaTr;
+            }
+            await delay(100);
 
-                // Renderiza las páginas adicionales
-                paginas.forEach((pagina, index) => {
-                    if (index > 0) {
-                        crearPaginaAdicional(pagina);
-                    }
+            return [alturaActualTabla, tableContainer, newTbody];
+        }
+
+
+        function createTableContainer() {
+            const container = createEl("div");
+            // Estilos y configuraciones para el contenedor
+            container.style.width = "612pt";
+            container.style.height = "792pt";
+            container.style.padding = "10pt";
+            container.style.boxSizing = "border-box";
+            container.style.backgroundColor = "#FFF";
+            container.style.border = "1px solid #000";
+            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            container.style.marginLeft = "auto";
+            container.style.marginRight = "auto";
+            container.style.position = "relative";
+            container.style.marginTop = "30px"
+
+
+            const headerClone = document
+                .querySelector("#header-container")
+                .cloneNode(true);
+            container.appendChild(headerClone);
+
+            const tipoProducto2 = document
+                .getElementById("Tipo_Producto2")
+                .cloneNode(true);
+            const producto2 = document.getElementById("producto2").cloneNode(true);
+            container.appendChild(tipoProducto2);
+            container.appendChild(producto2);
+
+            // Añadir la marca de agua
+            const watermark = createEl("div");
+            watermark.setAttribute("id", "watermark");
+            watermark.textContent = "TESTEO TESTESO";
+            container.appendChild(watermark);
+            const footerClone = document.querySelector("#footer").cloneNode(true);
+            container.appendChild(footerClone);
+
+            // Crear nuevas secciones de análisis para 'content' y 'additionalContent'
+            const newContentDiv = createEl("div");
+            newContentDiv.id = "content";
+            newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
+            newContentDiv.fontSize = "10px";
+            container.appendChild(newContentDiv);
+
+            // Crear y agregar la sección de análisis para 'content'
+            const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
+            newContentDiv.appendChild(analysisSectionContent);
+
+            const newAdditionalContentDiv = createEl("div");
+            newAdditionalContentDiv.id = "additionalContent";
+            container.appendChild(newAdditionalContentDiv);
+
+            // Crear y agregar la sección de análisis para 'additionalContent'
+            const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
+            newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
+
+            return container;
+        }
+
+        function createAnalysisSection(title) {
+            const analysisSection = createEl("div");
+            analysisSection.className = "analysis-section";
+            analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
+            analysisSection.textContent = title;
+            return analysisSection;
+        }
+
+        function createTableBody(id, container, sectionId) {
+            const newTable = createEl("table");
+            newTable.setAttribute("id", id);
+            newTable.classList.add("table", "table-bordered");
+
+            // Crear thead dependiendo de la sección
+            const newThead = createEl("thead");
+            newThead.style.fontSize = "10px";
+            newTable.appendChild(newThead);
+
+            const tr = createEl("tr");
+            tr.style.fontSize = "10px";
+            newThead.appendChild(tr);
+
+            //const td = createEl("td");
+            // td.style.fontSize = "10px";
+            // newThead.appendChild(td);
+
+            if (sectionId === "content") {
+                // Aquí definimos los encabezados específicos para la tabla de 'content'
+                const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
+                headers.forEach(text => {
+                    const th = createEl("th");
+                    th.textContent = text;
+                    tr.appendChild(th);
+                });
+            } else if (sectionId === "additionalContent") {
+                // Aquí definimos los encabezados específicos para la tabla de 'additionalContent'
+                const headers = ["Análisis", "Metodología", "Resultado"];
+                headers.forEach(text => {
+                    const th = createEl("th");
+                    th.textContent = text;
+                    tr.appendChild(th);
                 });
             }
-        }
-        function crearPaginaAdicional(contenido) {
-            var originalContainer = document.getElementById('form-container');
-            var newContainer = originalContainer.cloneNode(true); // Clona el contenedor
 
-            newContainer.id = 'form-container-' + (document.querySelectorAll('.form-container').length + 1); // Asigna un nuevo ID
-            newContainer.querySelector('#content').innerHTML = ''; // Limpia el contenido anterior
-            newContainer.querySelector('#additionalContent').innerHTML = ''; // Limpia el contenido adicional
+            // Crear tbody
+            const newTbody = createEl("tbody");
+            newTable.appendChild(newTbody);
 
-            // Agrega el nuevo contenido a la nueva página
-            contenido.forEach(function(contenidoItem) {
-                if (contenidoItem.tipo === 'FQ') {
-                    newContainer.querySelector('#content').appendChild(contenidoItem.elemento);
-                } else if (contenidoItem.tipo === 'MB') {
-                    newContainer.querySelector('#additionalContent').appendChild(contenidoItem.elemento);
-                }
+            // Selector que apunta solo a las filas dentro de los contenedores 'content' y 'additionalContent'
+            const selector = `#${sectionId} table tbody tr`;
+            const existingTrs = document.querySelectorAll(selector);
+            existingTrs.forEach((tr) => {
+                const clonedTr = tr.cloneNode(true); // Clona la fila con sus td
+                Array.from(clonedTr.cells).forEach((td) => {
+                    td.style.fontSize = '10px'; // Establece el tamaño de fuente a 10px
+                });
+                newTbody.appendChild(clonedTr); // Agrega la fila clonada al nuevo tbody
             });
 
-            // Ajusta otros elementos como el número de página, si es necesario
+            // Ubicar el newTable en el div correspondiente
+            container.querySelector(`#${sectionId}`).appendChild(newTable);
 
-            // Agrega el nuevo contenedor al DOM
-            document.body.appendChild(newContainer);
+            return newTbody;
         }
 
-        function dividirContenido(contenidoFQ, contenidoMB, espacioDisponible) {
-            let paginas = [];
-            let paginaActual = { contenidoFQ: [], contenidoMB: [] };
-            let espacioUsado = 0;
-
-            // Función para medir el tamaño del contenido (debes implementarla)
-            function medirContenido(contenido) {
-                // Retorna el tamaño del contenido en puntos
-            }
-
-            contenidoFQ.forEach(item => {
-                let tamañoItem = medirContenido(item);
-                if (espacioUsado + tamañoItem > espacioDisponible) {
-                    // Comienza una nueva página
-                    paginas.push(paginaActual);
-                    paginaActual = { contenidoFQ: [], contenidoMB: [] };
-                    espacioUsado = 0;
-                }
-                paginaActual.contenidoFQ.push(item);
-                espacioUsado += tamañoItem;
-            });
-
-            contenidoMB.forEach(item => {
-                let tamañoItem = medirContenido(item);
-                if (espacioUsado + tamañoItem > espacioDisponible) {
-                    // Comienza una nueva página
-                    paginas.push(paginaActual);
-                    paginaActual = { contenidoFQ: [], contenidoMB: [] };
-                    espacioUsado = 0;
-                }
-                paginaActual.contenidoMB.push(item);
-                espacioUsado += tamañoItem;
-            });
-
-            // Añade la última página si tiene contenido
-            if (paginaActual.contenidoFQ.length > 0 || paginaActual.contenidoMB.length > 0) {
-                paginas.push(paginaActual);
-            }
-
-            return paginas;
-        }
-
-        function medirContenido(elemento) {
-            // Retorna la altura del elemento, incluyendo el padding
-            return elemento.offsetHeight;
+        function ocultarContenedorPrincipal() {
+            var contenedorPrincipal = document.getElementById('Maincontainer');
+            var contenedorForm = document.getElementById('form-container');
+            contenedorPrincipal.style.display = 'none';
+            contenedorForm.style.border = 'none';
+            contenedorForm.style.boxShadow = 'none';
         }
 
 
 
 
 
-        window.onload = function () {
-            document.getElementById('content').style.display = 'none';
-            document.getElementById('additionalContent').style.display = 'none';
+        window.onload = function() {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
+
         };
     </script>
 </body>

@@ -744,16 +744,6 @@
             const newTbody = createEl("tbody");
             newTable.appendChild(newTbody);
 
-            // Selector que apunta solo a las filas dentro de los contenedores 'content' y 'additionalContent'
-            const selector = `#${sectionId} table tbody tr`;
-            const existingTrs = document.querySelectorAll(selector);
-            existingTrs.forEach((tr) => {
-                const clonedTr = tr.cloneNode(true); // Clona la fila con sus td
-                Array.from(clonedTr.cells).forEach((td) => {
-                    td.style.fontSize = '10px'; // Establece el tamaño de fuente a 10px
-                });
-                newTbody.appendChild(clonedTr); // Agrega la fila clonada al nuevo tbody
-            });
 
             // Ubicar el newTable en el div correspondiente
             container.querySelector(`#${sectionId}`).appendChild(newTable);
