@@ -651,7 +651,7 @@
             container.style.marginLeft = "auto";
             container.style.marginRight = "auto";
             container.style.position = "relative";
-            container.style.marginTop = "400px";
+            container.style.marginTop = "200px";
 
             const headerClone = document
                 .querySelector("#header-container")
@@ -751,7 +751,9 @@
 
         function ocultarContenedorPrincipal() {
             var contenedorPrincipal = document.getElementById('Maincontainer');
+            var contenedorform = document.getElementById('form-container');
             contenedorPrincipal.style.display = 'none';
+            contenedorform.style.display = 'none';
         }
 
 
