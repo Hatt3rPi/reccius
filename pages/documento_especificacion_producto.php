@@ -744,14 +744,13 @@
             const newTbody = createEl("tbody");
             newTable.appendChild(newTbody);
 
-            // Suponiendo que la función que clona los td es llamada aquí o cerca
-            // Ejemplo: Clonar un elemento td existente y aplicarle estilo
-            const existingTrs = document.querySelectorAll('tr');
+            // Selector que apunta solo a las filas dentro de los contenedores 'content' y 'additionalContent'
+            const selector = `#${sectionId} table tbody tr`;
+            const existingTrs = document.querySelectorAll(selector);
             existingTrs.forEach((tr) => {
                 const clonedTr = tr.cloneNode(true); // Clona la fila con sus td
                 Array.from(clonedTr.cells).forEach((td) => {
                     td.style.fontSize = '10px'; // Establece el tamaño de fuente a 10px
-                    // Aplica cualquier otro estilo o cambio necesario aquí
                 });
                 newTbody.appendChild(clonedTr); // Agrega la fila clonada al nuevo tbody
             });
