@@ -651,6 +651,7 @@
             container.style.marginLeft = "auto";
             container.style.marginRight = "auto";
             container.style.position = "relative";
+            container.style.marginTop = "30px"
 
 
             const headerClone = document
@@ -751,7 +752,7 @@
 
         function ocultarContenedorPrincipal() {
             var contenedorPrincipal = document.getElementById('Maincontainer');
-            //var contenedorform = document.getElementById('form-container');
+            var contenedorform = document.getElementById('form-container');
             contenedorPrincipal.style.display = 'none';
             contenedorForm.style.border = 'none';
             contenedorForm.style.boxShadow = 'none';
