@@ -676,6 +676,7 @@
             const newContentDiv = createEl("div");
             newContentDiv.id = "content";
             newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
+            newContentDiv.fontSize = "10px";
             container.appendChild(newContentDiv);
 
             // Crear y agregar la sección de análisis para 'content'
