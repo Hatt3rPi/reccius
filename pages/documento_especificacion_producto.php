@@ -743,13 +743,17 @@
             // Crear tbody
             const newTbody = createEl("tbody");
             newTable.appendChild(newTbody);
-            // Aplicar estilo a cada celda (td) que se agregue al tbody
-            newTbody.addEventListener('DOMNodeInserted', function(event) {
-                if (event.target.nodeName === 'tr') {
-                    Array.from(event.target.cells).forEach(td => {
-                        td.style.fontSize = '10px'; // Establece el tamaño de la fuente a 10px
-                    });
-                }
+
+            // Suponiendo que la función que clona los td es llamada aquí o cerca
+            // Ejemplo: Clonar un elemento td existente y aplicarle estilo
+            const existingTrs = document.querySelectorAll('tr');
+            existingTrs.forEach((tr) => {
+                const clonedTr = tr.cloneNode(true); // Clona la fila con sus td
+                Array.from(clonedTr.cells).forEach((td) => {
+                    td.style.fontSize = '10px'; // Establece el tamaño de fuente a 10px
+                    // Aplica cualquier otro estilo o cambio necesario aquí
+                });
+                newTbody.appendChild(clonedTr); // Agrega la fila clonada al nuevo tbody
             });
 
             // Ubicar el newTable en el div correspondiente
