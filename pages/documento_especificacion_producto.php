@@ -708,9 +708,11 @@
 
             // Crear thead dependiendo de la sección
             const newThead = createEl("thead");
+            newThead.style.fontSize = "10px";
             newTable.appendChild(newThead);
 
             const tr = createEl("tr");
+            tr.style.fontSize = "10px";
             newThead.appendChild(tr);
 
             if (sectionId === "content") {
