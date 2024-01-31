@@ -752,7 +752,7 @@
 
         function ocultarContenedorPrincipal() {
             var contenedorPrincipal = document.getElementById('Maincontainer');
-            var contenedorform = document.getElementById('form-container');
+            var contenedorForm = document.getElementById('form-container');
             contenedorPrincipal.style.display = 'none';
             contenedorForm.style.border = 'none';
             contenedorForm.style.boxShadow = 'none';
