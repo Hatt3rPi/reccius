@@ -663,31 +663,35 @@
             container.style.marginLeft = "auto";
             container.style.marginRight = "auto";
             container.style.position = "relative";
-            container.style.marginTop = "30px";
+            container.style.marginTop = "30px"
+            
 
-            // Crear el contenedor principal interno 'contenido_main' que alojará 'content' y 'additionalContent'
-            const mainContainer = createEl("div");
-            mainContainer.id = "contenido_main";
-            // Estilos para mainContainer si es necesario, por ejemplo:
-            mainContainer.style.width = "100%";
-            mainContainer.style.marginTop = "20px"; // Agregar un margen superior si es necesario
-            mainContainer.style.overflow = "hidden"; // Asegurarse de que todo el contenido se ajuste dentro del contenedor
-
-            // Clonar y añadir elementos de encabezado y pie de página
-            const headerClone = document.querySelector("#header-container").cloneNode(true);
+            const headerClone = document
+                .querySelector("#header-container")
+                .cloneNode(true);
             container.appendChild(headerClone);
+
+            const tipoProducto2 = document
+                .getElementById("Tipo_Producto2")
+                .cloneNode(true);
+            const producto2 = document.getElementById("producto2").cloneNode(true);
+            container.appendChild(tipoProducto2);
+            container.appendChild(producto2);
 
             // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
             watermark.textContent = "TESTEO TESTESO";
             container.appendChild(watermark);
+            const footerClone = document.querySelector("#footer").cloneNode(true);
+            container.appendChild(footerClone);
 
             // Crear nuevas secciones de análisis para 'content' y 'additionalContent'
             const newContentDiv = createEl("div");
             newContentDiv.id = "content";
             newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
-            mainContainer.appendChild(newContentDiv); // Añadir 'content' a 'mainContainer'
+            newContentDiv.fontSize = "10px";
+            container.appendChild(newContentDiv);
 
             // Crear y agregar la sección de análisis para 'content'
             const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
@@ -695,21 +699,14 @@
 
             const newAdditionalContentDiv = createEl("div");
             newAdditionalContentDiv.id = "additionalContent";
-            mainContainer.appendChild(newAdditionalContentDiv); // Añadir 'additionalContent' a 'mainContainer'
+            container.appendChild(newAdditionalContentDiv);
 
             // Crear y agregar la sección de análisis para 'additionalContent'
             const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
             newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
 
-            // Añadir 'mainContainer' a 'container'
-            container.appendChild(mainContainer);
-
-            const footerClone = document.querySelector("#footer").cloneNode(true);
-            container.appendChild(footerClone); // El pie de página se añade al final después de 'mainContainer'
-
-            return container; // Devuelve el contenedor principal con todo dentro
+            return container;
         }
-
 
         function createAnalysisSection(title) {
             const analysisSection = createEl("div");
