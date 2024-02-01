@@ -668,11 +668,6 @@
             // Crear el contenedor principal interno 'contenido_main' que alojará 'content' y 'additionalContent'
             const mainContainer = createEl("div");
             mainContainer.id = "contenido_main";
-            // Estilos para mainContainer si es necesario, por ejemplo:
-            mainContainer.style.width = "100%";
-            mainContainer.style.marginTop = "20px"; // Agregar un margen superior si es necesario
-            mainContainer.style.overflow = "hidden"; // Asegurarse de que todo el contenido se ajuste dentro del contenedor
-
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
