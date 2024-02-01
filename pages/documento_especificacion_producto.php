@@ -620,6 +620,8 @@
 
         async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
             tr.classList.add("table", "table-bordered", "dataTable", "td");
+            // Aplicar estilo a los elementos <td> existentes
+            tr.querySelectorAll("td").forEach(td => td.style.fontSize = "10px");
             let alturaTr = tr.offsetHeight;
 
             if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
@@ -740,8 +742,9 @@
                 });
             }
 
-            // Crear tbody
+            // Crear tbody y aplicar estilo a los <td> cuando se agreguen
             const newTbody = createEl("tbody");
+            newTbody.style.fontSize = "10px"; // Esto aplicará el estilo a los <td> cuando se agreguen
             newTable.appendChild(newTbody);
 
 
