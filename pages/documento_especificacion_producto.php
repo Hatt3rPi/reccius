@@ -663,35 +663,27 @@
             container.style.marginLeft = "auto";
             container.style.marginRight = "auto";
             container.style.position = "relative";
-            container.style.marginTop = "30px"
+            container.style.marginTop = "30px";
+
+            // Crear el contenedor 'maintablas' que alojará 'content' y 'additionalContent'
+            const mainTablas = createEl("div");
+            mainTablas.id = "maintablas";
             
-
-            const headerClone = document
-                .querySelector("#header-container")
-                .cloneNode(true);
+            // Clonar y añadir elementos de encabezado y pie de página
+            const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
-
-            const tipoProducto2 = document
-                .getElementById("Tipo_Producto2")
-                .cloneNode(true);
-            const producto2 = document.getElementById("producto2").cloneNode(true);
-            container.appendChild(tipoProducto2);
-            container.appendChild(producto2);
 
             // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
             watermark.textContent = "TESTEO TESTESO";
             container.appendChild(watermark);
-            const footerClone = document.querySelector("#footer").cloneNode(true);
-            container.appendChild(footerClone);
 
             // Crear nuevas secciones de análisis para 'content' y 'additionalContent'
             const newContentDiv = createEl("div");
             newContentDiv.id = "content";
             newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
-            newContentDiv.fontSize = "10px";
-            container.appendChild(newContentDiv);
+            mainTablas.appendChild(newContentDiv); // Añadir 'content' a 'maintablas'
 
             // Crear y agregar la sección de análisis para 'content'
             const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
@@ -699,14 +691,21 @@
 
             const newAdditionalContentDiv = createEl("div");
             newAdditionalContentDiv.id = "additionalContent";
-            container.appendChild(newAdditionalContentDiv);
+            mainTablas.appendChild(newAdditionalContentDiv); // Añadir 'additionalContent' a 'maintablas'
 
             // Crear y agregar la sección de análisis para 'additionalContent'
             const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
             newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
 
-            return container;
+            // Añadir 'maintablas' a 'container'
+            container.appendChild(mainTablas);
+
+            const footerClone = document.querySelector("#footer").cloneNode(true);
+            container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
+
+            return container; // Devuelve el contenedor principal con todo dentro
         }
+
 
         function createAnalysisSection(title) {
             const analysisSection = createEl("div");
