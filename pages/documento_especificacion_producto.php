@@ -666,6 +666,15 @@
             container.style.marginTop = "30px"
 
 
+            // Crear el contenedor principal interno 'contenido_main' que alojará 'content' y 'additionalContent'
+            const mainContainer = createEl("div");
+            mainContainer.id = "contenido_main";
+            // Estilos para mainContainer si es necesario, por ejemplo:
+            mainContainer.style.width = "100%";
+            mainContainer.style.marginTop = "20px"; // Agregar un margen superior si es necesario
+            mainContainer.style.overflow = "hidden"; // Asegurarse de que todo el contenido se ajuste dentro del contenedor
+
+
             const headerClone = document
                 .querySelector("#header-container")
                 .cloneNode(true);
@@ -691,15 +700,18 @@
             newContentDiv.id = "content";
             newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
             newContentDiv.fontSize = "10px";
-            container.appendChild(newContentDiv);
+            mainContainer.appendChild(newContentDiv);
+
+            const newAdditionalContentDiv = createEl("div");
+            newAdditionalContentDiv.id = "additionalContent";
+            mainContainer.appendChild(newAdditionalContentDiv);
+
 
             // Crear y agregar la sección de análisis para 'content'
             const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
             newContentDiv.appendChild(analysisSectionContent);
 
-            const newAdditionalContentDiv = createEl("div");
-            newAdditionalContentDiv.id = "additionalContent";
-            container.appendChild(newAdditionalContentDiv);
+           
 
             // Crear y agregar la sección de análisis para 'additionalContent'
             const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
