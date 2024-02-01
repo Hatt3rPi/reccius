@@ -619,23 +619,33 @@
         }
 
         async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
-            tr.classList.add("table", "table-bordered", "dataTable", "td");
             // Aplicar estilo a los elementos <td> existentes
             tr.querySelectorAll("td").forEach(td => td.style.fontSize = "10px");
-            let alturaTr = tr.offsetHeight;
 
+            // Calcular la altura estimada de la fila. Esto puede necesitar ajuste basado en el contenido real y estilos de la fila.
+            // Por ejemplo, se puede estimar la altura de una fila en función de su contenido y estilo actual.
+            let alturaTr = tr.getBoundingClientRect().height; // Usar getBoundingClientRect para una medida más precisa.
+
+            // Comprobar si la fila actual cabe en la tabla actual
             if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
                 newTbody.appendChild(tr);
-                alturaActualTabla += alturaTr;
+                alturaActualTabla += alturaTr; // Aumentar la altura actual de la tabla
             } else {
+                // Si la fila no cabe, adjuntar la tabla actual al documento antes de crear una nueva
                 document.querySelector("#form-container").appendChild(tableContainer);
+
+                // Crear un nuevo contenedor y tabla
                 tableContainer = createTableContainer();
                 newTbody = createTableBody(id, tableContainer, sectionId);
-                newTbody.appendChild(tr);
-                alturaActualTabla = alturaTr;
-            }
-            await delay(100);
 
+                // Agregar la fila actual al nuevo cuerpo de la tabla
+                newTbody.appendChild(tr);
+                alturaActualTabla = alturaTr; // Restablecer la altura actual de la tabla con la altura de la nueva fila
+            }
+
+            await delay(100); // Retraso para simular procesamiento asincrónico si es necesario
+
+            // Retorna los valores actualizados
             return [alturaActualTabla, tableContainer, newTbody];
         }
 
