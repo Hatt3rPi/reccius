@@ -595,25 +595,18 @@
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let tableContainer = createTableContainer();
-            let alturaActualTabla = 0;
-            let lastContentTableHeight = 0;
 
-            // Medir las alturas del encabezado y pie de página clonados en píxeles
-            let alturaHeader = document.querySelector("#header-container").clientHeight;
-            let alturaFooter = document.querySelector("#footer").clientHeight;
-            let alturaTotalDisponibleEnPuntos = 792; // Altura total en puntos para un documento tamaño carta
-            let puntosPorPixel = 72 / 96; // Relación aproximada entre puntos y píxeles
-            let alturaTotalDisponible = alturaTotalDisponibleEnPuntos - ((alturaHeader + alturaFooter) * puntosPorPixel);
+            // Establecer la altura total disponible a 700 píxeles
+            let alturaTotalDisponible = 700; // Altura fija de 700 píxeles
 
             let newTbodyContent;
             let newTbodyAdditionalContent;
 
-            // Solo crear y agregar la sección de Análisis Generales si hay filas en la tabla de contenido
+            // Procesar trs de content
             if (trsContent.length > 0) {
                 newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-                let analysisSectionContent = createAnalysisSection("I. Análisis Generales");
-                tableContainer.querySelector("#content").prepend(analysisSectionContent);
-                // Procesar trs de content
+                let alturaActualTabla = 0;
+                let lastContentTableHeight = 0;
                 for (let tr of trsContent) {
                     [alturaActualTabla, tableContainer, newTbodyContent, lastContentTableHeight] = await procesarTr(
                         tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content", lastContentTableHeight
@@ -621,37 +614,35 @@
                 }
             }
 
-            // Solo crear y agregar la sección de Análisis Microbiológico si hay filas en la tabla de contenido adicional
+            // Procesar trs de additionalContent
             if (trsAdditionalContent.length > 0) {
                 newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-                let analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
-                tableContainer.querySelector("#additionalContent").prepend(analysisSectionAdditionalContent);
-                // Procesar trs de additionalContent
+                let alturaActualTabla = 0;
+                let lastAdditionalContentTableHeight = 0;
                 for (let tr of trsAdditionalContent) {
                     // Verificar si hay espacio suficiente en el último contenedor de 'content'
-                    if (alturaActualTabla + lastContentTableHeight <= alturaTotalDisponible) {
+                    if (alturaActualTabla + lastAdditionalContentTableHeight <= alturaTotalDisponible) {
                         // Hay espacio en el contenedor actual
-                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
-                            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent", lastContentTableHeight
+                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent, lastAdditionalContentTableHeight] = await procesarTr(
+                            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent", lastAdditionalContentTableHeight
                         );
                     } else {
                         // No hay espacio, crear un nuevo contenedor
                         document.querySelector("#form-container").appendChild(tableContainer);
                         tableContainer = createTableContainer();
                         newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
+                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent, lastAdditionalContentTableHeight] = await procesarTr(
                             tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, 0, id, "additionalContent", 0
                         );
                     }
                 }
             }
 
-            // Asegurarse de agregar el último contenedor al documento si se creó
-            if (newTbodyContent || newTbodyAdditionalContent) {
+            // Asegurarse de agregar el último contenedor al documento si hay tablas
+            if (trsContent.length > 0 || trsAdditionalContent.length > 0) {
                 document.querySelector("#form-container").appendChild(tableContainer);
             }
         }
-
 
 
 
