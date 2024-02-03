@@ -595,6 +595,8 @@
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let tableContainer = createTableContainer();
+            let alturaActualTabla = 0;
+            let lastContentTableHeight = 0;
 
             // Medir las alturas del encabezado y pie de página clonados en píxeles
             let alturaHeader = document.querySelector("#header-container").clientHeight;
@@ -649,6 +651,7 @@
                 document.querySelector("#form-container").appendChild(tableContainer);
             }
         }
+
 
 
 
