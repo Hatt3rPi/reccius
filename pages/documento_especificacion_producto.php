@@ -594,11 +594,11 @@
         }
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
-            let alturaTotalDisponible = 792 - (123 + 224);
-            let tableContainer = createTableContainer();
-            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-            let alturaActualTabla = 0;
+            let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar el encabezado y pie de página
+            let tableContainer = createTableContainer(); // Contenedor actual
+            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content"); // Tbody para 'content'
+            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent"); // Tbody para 'additionalContent'
+            let alturaActualTabla = 0; // Altura utilizada en el contenedor actual
 
             // Procesar trs de content
             for (let tr of trsContent) {
@@ -608,6 +608,7 @@
             }
 
             // Procesar trs de additionalContent
+            // Comenzamos inmediatamente después de donde terminó 'content'
             for (let tr of trsAdditionalContent) {
                 [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
                     tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
@@ -617,6 +618,7 @@
             // Asegurarse de agregar el último contenedor al documento
             document.querySelector("#form-container").appendChild(tableContainer);
         }
+
 
         async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
             // Aplicar estilo a los elementos <td> existentes
@@ -668,7 +670,7 @@
             // Crear el contenedor 'maintablas' que alojará 'content' y 'additionalContent'
             const mainTablas = createEl("div");
             mainTablas.id = "maintablas";
-            
+
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
