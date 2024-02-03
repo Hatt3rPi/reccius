@@ -595,46 +595,31 @@
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let tableContainer = createTableContainer();
-
-            // Establecer la altura total disponible a 700 píxeles
             let alturaTotalDisponible = 700; // Altura fija de 700 píxeles
 
-            let newTbodyContent;
-            let newTbodyAdditionalContent;
+            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
+            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
+            let alturaActualTabla = 0;
+            let espacioRestante = alturaTotalDisponible;
 
             // Procesar trs de content
-            if (trsContent.length > 0) {
-                newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-                let alturaActualTabla = 0;
-                let lastContentTableHeight = 0;
-                for (let tr of trsContent) {
-                    [alturaActualTabla, tableContainer, newTbodyContent, lastContentTableHeight] = await procesarTr(
-                        tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content", lastContentTableHeight
-                    );
+            for (let tr of trsContent) {
+                let alturaTr = tr.clientHeight; // Asumiendo que tr.clientHeight está disponible
+                if (alturaActualTabla + alturaTr <= espacioRestante) {
+                    newTbodyContent.appendChild(tr.cloneNode(true));
+                    alturaActualTabla += alturaTr;
+                    espacioRestante -= alturaTr;
                 }
             }
 
-            // Procesar trs de additionalContent
-            if (trsAdditionalContent.length > 0) {
-                newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-                let alturaActualTabla = 0;
-                let lastAdditionalContentTableHeight = 0;
-                for (let tr of trsAdditionalContent) {
-                    // Verificar si hay espacio suficiente en el último contenedor de 'content'
-                    if (alturaActualTabla + lastAdditionalContentTableHeight <= alturaTotalDisponible) {
-                        // Hay espacio en el contenedor actual
-                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent, lastAdditionalContentTableHeight] = await procesarTr(
-                            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent", lastAdditionalContentTableHeight
-                        );
-                    } else {
-                        // No hay espacio, crear un nuevo contenedor
-                        document.querySelector("#form-container").appendChild(tableContainer);
-                        tableContainer = createTableContainer();
-                        newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent, lastAdditionalContentTableHeight] = await procesarTr(
-                            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, 0, id, "additionalContent", 0
-                        );
-                    }
+            // Procesar trs de additionalContent solo si hay espacio
+            for (let tr of trsAdditionalContent) {
+                let alturaTr = tr.clientHeight; // Asumiendo que tr.clientHeight está disponible
+                if (alturaActualTabla + alturaTr <= espacioRestante) {
+                    newTbodyAdditionalContent.appendChild(tr.cloneNode(true));
+                    alturaActualTabla += alturaTr;
+                    espacioRestante -= alturaTr;
+                    break; // Agregar solo una tabla y luego salir del bucle
                 }
             }
 
