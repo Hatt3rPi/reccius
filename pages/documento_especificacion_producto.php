@@ -454,6 +454,8 @@
             } else {
                 // Si no hay datos, oculta la sección del análisis microbiológico
                 $('#additionalContent').hide();
+                // Ocultar también el título de la sección de Análisis Microbiológico
+                $('#additionalContent').prev('.analysis-section').hide();
             }
         }
 
