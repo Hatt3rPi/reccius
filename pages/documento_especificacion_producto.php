@@ -594,12 +594,18 @@
         }
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
-            let alturaTotalDisponible = 792 - (123 + 224);
             let tableContainer = createTableContainer();
+
+            // Medir las alturas del encabezado y pie de página clonados en píxeles
+            let alturaHeader = document.querySelector("#header-container").clientHeight;
+            let alturaFooter = document.querySelector("#footer").clientHeight;
+            let alturaTotalDisponibleEnPuntos = 792; // Altura total en puntos para un documento tamaño carta
+            let puntosPorPixel = 72 / 96; // Relación aproximada entre puntos y píxeles
+            let alturaTotalDisponible = alturaTotalDisponibleEnPuntos - ((alturaHeader + alturaFooter) * puntosPorPixel);
+
             let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
             let alturaActualTabla = 0;
             let lastContentTableHeight = 0;
-
             // Procesar trs de content
             for (let tr of trsContent) {
                 [alturaActualTabla, tableContainer, newTbodyContent, lastContentTableHeight] = await procesarTr(
