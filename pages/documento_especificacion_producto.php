@@ -358,6 +358,8 @@
             // Verifica si hay datos para el análisis FQ
             console.log(analisis)
             if (analisis.length > 0) {
+                const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
+                document.getElementById("content").prepend(analysisSectionContent); // Añade el título solo si hay datos
                 // Si hay datos, muestra la tabla y procesa los datos
                 if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                     $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
@@ -409,6 +411,8 @@
         function mostrarAnalisisMB(analisis) {
             // Verifica si hay datos para el análisis microbiológico
             if (analisis.length > 0) {
+                const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
+                document.getElementById("additionalContent").prepend(analysisSectionAdditionalContent); // Añade el título solo si hay datos
                 // Si hay datos, muestra la tabla y procesa los datos
                 if ($.fn.DataTable.isDataTable('#analisisMB')) {
                     $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
@@ -454,8 +458,6 @@
             } else {
                 // Si no hay datos, oculta la sección del análisis microbiológico
                 $('#additionalContent').hide();
-                // Ocultar también el título de la sección de Análisis Microbiológico
-                $('#additionalContent').prev('.analysis-section').hide();
             }
         }
 
