@@ -594,30 +594,45 @@
         }
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
-            let alturaTotalDisponible = 792 - (123 + 224); // Altura disponible después de restar el encabezado y pie de página
-            let tableContainer = createTableContainer(); // Contenedor actual
-            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content"); // Tbody para 'content'
-            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent"); // Tbody para 'additionalContent'
-            let alturaActualTabla = 0; // Altura utilizada en el contenedor actual
+            let alturaTotalDisponible = 792 - (123 + 224);
+            let tableContainer = createTableContainer();
+            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
+            let alturaActualTabla = 0;
+            let lastContentTableHeight = 0;
 
             // Procesar trs de content
             for (let tr of trsContent) {
-                [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
+                [alturaActualTabla, tableContainer, newTbodyContent, lastContentTableHeight] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content", lastContentTableHeight
                 );
             }
 
+            // Empezar con additionalContent
+            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
+
             // Procesar trs de additionalContent
-            // Comenzamos inmediatamente después de donde terminó 'content'
             for (let tr of trsAdditionalContent) {
-                [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
-                );
+                // Verificar si hay espacio suficiente en el último contenedor de 'content'
+                if (alturaActualTabla + lastContentTableHeight <= alturaTotalDisponible) {
+                    // Hay espacio en el contenedor actual
+                    [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
+                        tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent", lastContentTableHeight
+                    );
+                } else {
+                    // No hay espacio, crear un nuevo contenedor
+                    document.querySelector("#form-container").appendChild(tableContainer);
+                    tableContainer = createTableContainer();
+                    newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
+                    [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
+                        tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, 0, id, "additionalContent", 0
+                    );
+                }
             }
 
             // Asegurarse de agregar el último contenedor al documento
             document.querySelector("#form-container").appendChild(tableContainer);
         }
+
 
 
         async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
