@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <div class="estado-filtros">
                 <label>               Filtrar por:</label>
                 <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
-                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de muestreo')">Pendiente Acta de muestreo</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de Muestreo')">Pendiente Acta de Muestreo</button>
                 <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
                 <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
                 <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
@@ -76,7 +76,7 @@ function carga_listado() {
             {
                 "data": "estado",
                 "title": "Estado",
-                "width": "160px",
+                "width": "80px",
                 "render": function(data, type, row) {
                     switch (data) {
                         case 'Vigente':
@@ -85,8 +85,8 @@ function carga_listado() {
                             return '<span class="badge badge-dark">Expirado</span>';
                         case 'Expirado':
                             return '<span class="badge badge-dark">Expirado</span>';
-                        case 'Pendiente Acta de muestreo':
-                            return '<span class="badge badge-warning">Pendiente Acta de muestreo</span>';
+                        case 'Pendiente Acta de Muestreo':
+                            return '<span class="badge badge-warning">Pendiente Acta de Muestreo</span>';
                         case 'Pendiente de Revisión':
                             return '<span class="badge badge-warning">Pendiente de Revisión</span>';
                         default:
