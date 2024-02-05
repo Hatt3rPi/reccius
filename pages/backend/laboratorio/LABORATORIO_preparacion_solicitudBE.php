@@ -61,6 +61,7 @@ function insertarRegistro($link, $datos) {
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
+    $_SESSION['buscar_por_ID']=$id;
 
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
