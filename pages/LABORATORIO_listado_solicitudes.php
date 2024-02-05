@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <div class="estado-filtros">
                 <label>               Filtrar por:</label>
                 <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
-                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Revisión')">Pendiente de Revisión</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de muestreo')">Pendiente Acta de muestreo</button>
                 <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
                 <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
                 <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
@@ -85,8 +85,8 @@ function carga_listado() {
                             return '<span class="badge badge-dark">Expirado</span>';
                         case 'Expirado':
                             return '<span class="badge badge-dark">Expirado</span>';
-                        case 'Pendiente de Aprobación':
-                            return '<span class="badge badge-warning">Pendiente de Aprobación</span>';
+                        case 'Pendiente Acta de muestreo':
+                            return '<span class="badge badge-warning">Pendiente Acta de muestreo</span>';
                         case 'Pendiente de Revisión':
                             return '<span class="badge badge-warning">Pendiente de Revisión</span>';
                         default:
@@ -94,10 +94,11 @@ function carga_listado() {
                     }  
                 }
             },
-            { "data": "numero_registro", "title": "Registro", "width": "170px" },
-            { "data": "producto", "title": "Producto", "width": "65px" },
-            { "data": "laboratorio", "title": "Laboratorio" },
-            { "data": "fecha_registro", "title": "Fecha registro" },
+            { "data": "fecha_registro", "title": "Fecha registro", "width": "65px" },
+            { "data": "numero_registro", "title": "Registro", "width": "70px" },
+            { "data": "producto", "title": "Producto", "width": "170px" },
+            { "data": "laboratorio", "title": "Laboratorio", "width": "70px" },
+            
             {
                     title: 'id',
                     data: 'id_analisisExterno',
