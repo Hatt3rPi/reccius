@@ -486,7 +486,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php.html', function (response, status, xhr) {
+        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
