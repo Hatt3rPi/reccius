@@ -491,6 +491,7 @@ $(document).ready(function () {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
                 obtenNotificaciones();
+                carga_listado();
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }
             $('#loading-spinner').hide();
@@ -512,7 +513,7 @@ $(document).ready(function () {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
                 obtenNotificaciones();
-                carga_listado();
+                
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
             }v
             $('#loading-spinner').hide();
