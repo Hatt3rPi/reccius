@@ -132,12 +132,8 @@ function carga_listado() {
     acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
     // Botón para revisar siempre presente
-    acciones += '<button class="accion-btn" title="Revisar Especificación" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>';
-    acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
-    // Botón para generar acta de muestreo, visible solo si el estado es 'Vigente'
-    if (d.estado === 'Vigente') {
-        acciones += '<button class="accion-btn" title="Generar Acta de Muestreo" id="' + d.id_analisisExterno + '" name="prepararSolicitud" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-vial"></i></button><a> </a>';
-    }
+    acciones += '<button class="accion-btn" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+    acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
 
     acciones += '</td></tr></table>';
     return acciones;

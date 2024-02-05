@@ -398,7 +398,17 @@ function verificarOtro(selectId, inputId) {
         success: function(data) {
             var respuesta = JSON.parse(data);
             if (respuesta.exito) {
-
+                $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+                    if (status == "error") {
+                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
+                    } else {
+                        console.log('Listado cargado correctamente cargado exitosamente.');
+                        carga_listado();
+                        console.log(respuesta.mensaje); // Manejar el error
+                        //table.columns(9).search(buscarId).draw();
+                        
+                    }
+                });
             } else {
                 console.log(respuesta.mensaje); // Manejar el error
             }
