@@ -61,7 +61,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listadoEspecProductos').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-function carga_listadoEspecificacionesProductos() {
+function carga_listado() {
     var table = $('#listadoEspecProductos').DataTable({
         "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
         language: {
