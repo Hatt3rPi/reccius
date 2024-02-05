@@ -221,7 +221,7 @@ $(document).ready(function () {
                 console.log('Listado cargado correctamente cargado exitosamente.'); // Confirmar que la carga fue exitosa
                 obtenNotificaciones();
                 
-                carga_listadoEspecificacionesProductos();
+                carga_listado();
             }
             $('#loading-spinner').hide();
             $('#dynamic-content').show();

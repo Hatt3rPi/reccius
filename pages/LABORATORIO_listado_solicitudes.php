@@ -59,7 +59,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listadoAnalisis').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-function carga_listadoEspecificacionesProductos() {
+function carga_listado() {
     var table = $('#listadoAnalisis').DataTable({
         "ajax": "./backend/laboratorio/listado_solicitudesBE.php",
         language: {

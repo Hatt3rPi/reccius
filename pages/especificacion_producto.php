@@ -823,7 +823,7 @@ function guardar(){
                         console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
                     } else {
                         console.log('Listado cargado correctamente cargado exitosamente.');
-                        carga_listadoEspecificacionesProductos();
+                        carga_listado();
                         console.log(respuesta.mensaje); // Manejar el error
                         //table.columns(9).search(buscarId).draw();
                         
