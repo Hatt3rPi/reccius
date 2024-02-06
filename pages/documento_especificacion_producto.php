@@ -270,7 +270,7 @@
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000).then(() => {
                 actualizarContadorPaginas()
             });
-
+            
             setTimeout(ocultarContenedorPrincipal, 5000);
             
 
