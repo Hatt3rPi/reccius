@@ -763,11 +763,12 @@
         // Esta función actualiza el contador de páginas para el contenedor actual.
         function actualizarContadorPaginas() {
             // Seleccionar todos los contenedores clonados y actualizar sus contadores
-            let contenedores = document.querySelectorAll(".document-cloned-container");
+            const contenedores = document.querySelectorAll(".pagina-numero");
+            const cantidadPaginas =contenedores.length
+
             contenedores.forEach((contenedor, index) => {
                 // Encuentra el elemento del número de página dentro de cada contenedor
-                let contadorPagina = contenedor.querySelector(".pagina-numero");
-                contadorPagina.textContent = `${index + 1} de ${totalPaginas-1}`;
+                contenedor.innerHTML = `${index + 1} de ${cantidadPaginas}`;
             });
 
             console.log("documento clonado ");
