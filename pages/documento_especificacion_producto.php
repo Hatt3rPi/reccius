@@ -643,6 +643,9 @@
             if (trsContent.length > 0 || trsAdditionalContent.length > 0) {
                 document.querySelector("#form-container").appendChild(tableContainer);
             }
+
+            // Actualizar los números de las páginas después de que todos los clones se han creado.
+            actualizarNumerosDePaginas();
         }
 
 
@@ -758,19 +761,21 @@
             return container; // Devuelve el contenedor principal con todo dentro
         }
 
-        function actualizarContadorPaginas() {
-            // Asegúrate de que esta función actualiza el elemento HTML que muestra el número de página
-            console.log(`${paginaActual} y ${totalPaginas}`)
-            document.getElementById('pagina-numero').textContent = `${paginaActual} de ${totalPaginas}`;
-            actulizarnumeropaginas()
+        // Esta función actualiza el contador de páginas para el contenedor actual.
+        function actualizarContadorPaginas(container) {
+            // Buscar el elemento de número de página dentro del contenedor actual
+            let contadorPagina = container.querySelector(".pagina-numero");
+            contadorPagina.textContent = `${paginaActual} de ${totalPaginas}`;
         }
-        function actulizarnumeropaginas(){
-            const celdas = document.querySelectorAll("pagina-numero")
-            const length = celdas.length
 
-            celdas.forEach((el,i)=>{
-                el.textContent = `${i+1} de ${length}`
-            })
+        // Esta función se llama después de haber creado todos los clones.
+        function actualizarNumerosDePaginas() {
+            let contadores = document.querySelectorAll(".pagina-numero");
+            totalPaginas = contadores.length; // Actualizar el total de páginas basado en el número de contadores
+
+            contadores.forEach((contador, index) => {
+                contador.textContent = `${index + 1} de ${totalPaginas}`;
+            });
         }
 
         function createAnalysisSection(title) {
