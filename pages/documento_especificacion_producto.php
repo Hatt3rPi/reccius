@@ -698,6 +698,19 @@
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
 
+            // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
+            const h1Clone = document.querySelector("#Tipo_Producto2").cloneNode(true);
+            const pClone = document.querySelector("#producto2").cloneNode(true);
+
+            // Asegúrate de actualizar los IDs si es necesario para evitar IDs duplicados en el DOM
+            h1Clone.id = "Tipo_Producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
+            pClone.id = "producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
+
+            // Añadir los elementos clonados al contenedor
+            container.appendChild(h1Clone);
+            container.appendChild(pClone);
+
+
             // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
