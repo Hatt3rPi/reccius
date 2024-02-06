@@ -667,7 +667,7 @@
             // Crear el contenedor 'maintablas' que alojará 'content' y 'additionalContent'
             const mainTablas = createEl("div");
             mainTablas.id = "maintablas";
-            mainTablas.style.maxHeight = "700px"; // Establecer la altura máxima
+            mainTablas.style.maxHeight = "750px"; // Establecer la altura máxima
 
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
