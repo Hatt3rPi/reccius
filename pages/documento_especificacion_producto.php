@@ -267,10 +267,11 @@
                     }
                 }
             });
-            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
-            setTimeout(ocultarContenedorPrincipal, 5000).then(() => {
+            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000).then(() => {
                 actualizarContadorPaginas()
             });
+
+            setTimeout(ocultarContenedorPrincipal, 5000);
             
 
 
@@ -680,17 +681,9 @@
             await delay(100);
             return [alturaActualTabla, tableContainer, newTbody, lastContentTableHeight];
         }
-        // Declara las variables globalmente al inicio de tu script
-        let paginaActual = 0; // Empieza en 1, ya que siempre habrá al menos una página.
-        let totalPaginas = 1; // Inicializa el contador de páginas totales.
-
-        // Asegúrate de que estas variables estén definidas fuera de cualquier función para que sean globales.
-
-
         function createTableContainer() {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
-            totalPaginas++;
-            paginaActual++;
+
             const container = createEl("div");
             container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
             // Estilos y configuraciones para el contenedor
