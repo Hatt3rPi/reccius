@@ -268,7 +268,10 @@
                 }
             });
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
-            setTimeout(ocultarContenedorPrincipal, 5000);
+            setTimeout(ocultarContenedorPrincipal, 5000).then(() => {
+                actualizarContadorPaginas()
+            });
+            
 
 
         }
@@ -755,7 +758,7 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
-            actualizarContadorPaginas()
+            
 
             return container; // Devuelve el contenedor principal con todo dentro
         }
