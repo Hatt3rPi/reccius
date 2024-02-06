@@ -700,6 +700,16 @@
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
 
+            // Actualizar el número de página en el clon
+            const pageNumberElement = container.querySelector("#footer td:last-child");
+            if (pageNumberElement) {
+                pageNumberElement.textContent = `${currentPageIndex} de ${totalPages}`;
+            }
+
+
+
+
+
             // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
             const h1Clone = document.querySelector("#Tipo_Producto2").cloneNode(true);
             const pClone = document.querySelector("#producto2").cloneNode(true);
@@ -809,6 +819,18 @@
             contenedorPrincipal.style.display = 'none';
             contenedorForm.style.border = 'none';
             contenedorForm.style.boxShadow = 'none';
+        }
+        async function generateAndCloneDocuments() {
+            // Suponiendo que ya sabes cuántos clones necesitas
+            const totalPages = calculateTotalPages(); // Implementa esta función según tus necesidades
+
+            for (let currentPageIndex = 1; currentPageIndex <= totalPages; currentPageIndex++) {
+                let container = createTableContainer(currentPageIndex, totalPages);
+                // Proceso adicional para llenar el contenedor con datos específicos y clonar
+                document.querySelector("#form-container").appendChild(container);
+            }
+
+            // Ahora, cada clon tiene su número de página actualizado correctamente
         }
 
 
