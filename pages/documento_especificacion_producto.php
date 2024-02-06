@@ -58,7 +58,7 @@
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
                                 <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); text-align: center">1 de 1</td>
+                                <td style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                         </table>
                     </div>
