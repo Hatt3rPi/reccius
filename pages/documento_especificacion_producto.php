@@ -715,6 +715,7 @@
             container.appendChild(mainTablas);
 
             const footerClone = document.querySelector("#footer").cloneNode(true);
+            footerClone.style.marginTop = "5px"; // Reduce el margen superior
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
 
