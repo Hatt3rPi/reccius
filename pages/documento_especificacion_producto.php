@@ -755,36 +755,19 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
-            // Crear y añadir el contenedor de número de página al nuevo contenedor
-            const pageNumberContainer = createEl("div");
-            pageNumberContainer.className = "pagina-numero";
-            pageNumberContainer.style.textAlign = "center";
-            pageNumberContainer.textContent = `Página ${totalPaginas} de ${totalPaginas}`; // Inicialización provisional
-            container.appendChild(pageNumberContainer); // Asegúrate de añadirlo en una posición visible dentro del contenedor
-
-
             actualizarContadorPaginas()
-
 
             return container; // Devuelve el contenedor principal con todo dentro
         }
 
         // Esta función actualiza el contador de páginas para el contenedor actual.
         function actualizarContadorPaginas() {
+            // Seleccionar todos los contenedores clonados y actualizar sus contadores
             let contenedores = document.querySelectorAll(".document-cloned-container");
-            totalPaginas = contenedores.length; // Asegúrate de que totalPaginas se actualiza correctamente antes de llamar a esta función
-
             contenedores.forEach((contenedor, index) => {
+                // Encuentra el elemento del número de página dentro de cada contenedor
                 let contadorPagina = contenedor.querySelector(".pagina-numero");
-                if (contadorPagina) { // Verifica si el contenedor tiene un elemento para el número de página
-                    contadorPagina.textContent = `Página ${index + 1} de ${totalPaginas}`;
-                } else {
-                    // Si por alguna razón el contenedor no tiene el elemento, podrías crearlo y añadirlo aquí
-                    const pageNumberContainer = createEl("div");
-                    pageNumberContainer.className = "pagina-numero";
-                    pageNumberContainer.textContent = `Página ${index + 1} de ${totalPaginas}`;
-                    contenedor.appendChild(pageNumberContainer);
-                }
+                contadorPagina.textContent = `${index + 1} de ${totalPaginas-1}`;
             });
         }
 
