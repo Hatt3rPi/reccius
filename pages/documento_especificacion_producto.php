@@ -269,7 +269,7 @@
             });
             obtenerAlturaElementosYCalcularEspacioDisponible()
             ocultarContenedorPrincipal()
-            actualizarContadorPaginas()
+            //actualizarContadorPaginas()
             
 
 
