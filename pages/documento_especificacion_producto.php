@@ -58,7 +58,7 @@
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
                                 <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
-                                <td id="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td id="pagina-numero" class="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                         </table>
                     </div>
@@ -762,6 +762,15 @@
             // Asegúrate de que esta función actualiza el elemento HTML que muestra el número de página
             console.log(`${paginaActual} y ${totalPaginas}`)
             document.getElementById('pagina-numero').textContent = `${paginaActual} de ${totalPaginas}`;
+            actulizarnumeropaginas()
+        }
+        function actulizarnumeropaginas(){
+            const celdas = document.querySelectorAll("pagina-numero")
+            const length = celdas.length
+
+            celdas.forEach((el,i)=>{
+                el.textContent = `${i+1} de ${length}`
+            })
         }
 
         function createAnalysisSection(title) {
@@ -819,6 +828,8 @@
 
             return newTbody;
         }
+
+
 
         function ocultarContenedorPrincipal() {
             var contenedorPrincipal = document.getElementById('Maincontainer');
