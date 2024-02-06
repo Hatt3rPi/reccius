@@ -267,12 +267,18 @@
                     }
                 }
             });
-            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000).then(() => {
-                actualizarContadorPaginas()
+            // Envuelve setTimeout en una promesa.
+            new Promise((resolve) => {
+                setTimeout(() => {
+                    obtenerAlturaElementosYCalcularEspacioDisponible();
+                    resolve(); // Esto resuelve la promesa después de que se ejecuta el timeout
+                }, 3000);
+            }).then(() => {
+                actualizarContadorPaginas();
             });
-            
+
             setTimeout(ocultarContenedorPrincipal, 5000);
-            
+
 
 
         }
@@ -681,6 +687,7 @@
             await delay(100);
             return [alturaActualTabla, tableContainer, newTbody, lastContentTableHeight];
         }
+
         function createTableContainer() {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
 
@@ -751,7 +758,7 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
-            
+
 
             return container; // Devuelve el contenedor principal con todo dentro
         }
@@ -760,7 +767,7 @@
         function actualizarContadorPaginas() {
             // Seleccionar todos los contenedores clonados y actualizar sus contadores
             const contenedores = document.querySelectorAll(".pagina-numero");
-            const cantidadPaginas =contenedores.length
+            const cantidadPaginas = contenedores.length
 
             contenedores.forEach((contenedor, index) => {
                 // Encuentra el elemento del número de página dentro de cada contenedor
