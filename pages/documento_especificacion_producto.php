@@ -268,9 +268,9 @@
                 }
             });
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 100);
-            
+
             setTimeout(ocultarContenedorPrincipal, 200);
-            
+
             setTimeout(actualizarContadorPaginas, 300);
 
         }
@@ -649,32 +649,31 @@
 
 
 
-        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId, lastContentTableHeight) {
+        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId, lastTableHeight) {
             tr.querySelectorAll("td").forEach(td => td.style.fontSize = "10px");
             let alturaTr = tr.getBoundingClientRect().height;
 
-            // Si es 'content', actualizar la altura de la última tabla de 'content'
-            if (sectionId === "content") {
-                lastContentTableHeight = alturaTr;
+            // Actualizar la altura de la última tabla para el contenido específico
+            if (sectionId === "content" || sectionId === "additionalContent") {
+                lastTableHeight = alturaTr;
             }
 
             if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
+                // Si el contenido actual cabe en el espacio disponible, añadir la fila al tbody
                 newTbody.appendChild(tr);
                 alturaActualTabla += alturaTr;
             } else {
-                document.querySelector("#form-container").appendChild(tableContainer);
-                tableContainer = createTableContainer();
-                newTbody = createTableBody(id, tableContainer, sectionId);
-                newTbody.appendChild(tr);
-                alturaActualTabla = alturaTr;
-                if (sectionId === "content") {
-                    lastContentTableHeight = alturaTr;
-                }
+                // Si el contenido no cabe, necesitamos crear un nuevo contenedor y tbody
+                document.querySelector("#form-container").appendChild(tableContainer); // Agregar el contenedor actual al DOM
+                tableContainer = createTableContainer(); // Crear un nuevo contenedor
+                newTbody = createTableBody(id + "-" + sectionId, tableContainer, sectionId); // Crear un nuevo tbody para la sección
+                newTbody.appendChild(tr); // Añadir la fila al nuevo tbody
+                alturaActualTabla = alturaTr; // Resetear la altura actual del contenido para el nuevo contenedor
             }
 
-            
-            return [alturaActualTabla, tableContainer, newTbody, lastContentTableHeight];
+            return [alturaActualTabla, tableContainer, newTbody, lastTableHeight];
         }
+
         function createTableContainer() {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
 
@@ -745,7 +744,7 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
-            
+
 
             return container; // Devuelve el contenedor principal con todo dentro
         }
@@ -754,7 +753,7 @@
         function actualizarContadorPaginas() {
             // Seleccionar todos los contenedores clonados y actualizar sus contadores
             const contenedores = document.querySelectorAll(".pagina-numero");
-            const cantidadPaginas =contenedores.length
+            const cantidadPaginas = contenedores.length
 
             contenedores.forEach((contenedor, index) => {
                 // Encuentra el elemento del número de página dentro de cada contenedor
