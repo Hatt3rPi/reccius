@@ -767,7 +767,7 @@
             contenedores.forEach((contenedor, index) => {
                 // Encuentra el elemento del número de página dentro de cada contenedor
                 let contadorPagina = contenedor.querySelector(".pagina-numero");
-                contadorPagina.textContent = `${index + 1} de ${totalPaginas}`;
+                contadorPagina.textContent = `${index + 1} de ${totalPaginas-1}`;
             });
         }
 
