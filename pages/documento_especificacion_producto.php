@@ -234,7 +234,7 @@
             });
         }
 
-        function procesarDatosEspecificacion(response) {
+        async function procesarDatosEspecificacion(response) {
             // Validación de la respuesta
             if (!response || !response.productos || !Array.isArray(response.productos)) {
                 console.error('Los datos recibidos no son válidos:', response);
@@ -267,9 +267,9 @@
                     }
                 }
             });
-            obtenerAlturaElementosYCalcularEspacioDisponible()
-            ocultarContenedorPrincipal()
-            //actualizarContadorPaginas()
+            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 100);
+            
+            setTimeout(ocultarContenedorPrincipal, 200);
             
 
 
