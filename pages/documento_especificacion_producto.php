@@ -594,32 +594,28 @@
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let tableContainer = createTableContainer();
+            let alturaTotalDisponible = 700; // Altura disponible antes de necesitar un nuevo contenedor.
 
-            let alturaTotalDisponible = 700; // Altura fija de 700 píxeles
-
+            // Crea contenedores iniciales para 'content' y 'additionalContent'.
             let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
+            let alturaActualTabla = 0; // Altura acumulada actual en el contenedor.
 
-            let alturaActualTablaContent = 0;
-            let alturaActualTablaAdditionalContent = 0;
-
-            let lastTableHeightContent = 0;
-            let lastTableHeightAdditionalContent = 0;
-
-            // Procesar trs de content
+            // Procesa trs de 'content'.
             for (let tr of trsContent) {
-                [alturaActualTablaContent, tableContainer, newTbodyContent, lastTableHeightContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTablaContent, id, "content", lastTableHeightContent
+                [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
                 );
             }
 
-            // Procesar trs de additionalContent en el mismo contenedor si hay espacio o en un nuevo contenedor si es necesario
+            // Asegura que 'additionalContent' comience en el contenedor actual si hay espacio, o en un nuevo contenedor si es necesario.
+            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
             for (let tr of trsAdditionalContent) {
-                [alturaActualTablaAdditionalContent, tableContainer, newTbodyAdditionalContent, lastTableHeightAdditionalContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTablaAdditionalContent, id, "additionalContent", lastTableHeightAdditionalContent
+                [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
                 );
             }
 
+            // Asegura agregar el último contenedor al documento.
             document.querySelector("#form-container").appendChild(tableContainer);
         }
 
@@ -627,26 +623,26 @@
 
 
 
-        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId, lastTableHeight) {
+
+        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
             tr.querySelectorAll("td").forEach(td => td.style.fontSize = "10px");
-            let alturaTr = tr.getBoundingClientRect().height;
+            let alturaTr = tr.getBoundingClientRect().height; // Asume que esta altura se puede determinar así, lo cual puede no ser siempre preciso en un entorno no renderizado.
 
-            if (sectionId === "content" || sectionId === "additionalContent") {
-                lastTableHeight = alturaTr;
-            }
-
-            if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
-                newTbody.appendChild(tr);
-                alturaActualTabla += alturaTr;
-            } else {
+            if (alturaActualTabla + alturaTr > alturaTotalDisponible) {
+                // Si agregar esta fila excede el espacio disponible, primero agregar el contenedor actual al DOM.
                 document.querySelector("#form-container").appendChild(tableContainer);
+
+                // Crea un nuevo contenedor y tbody para continuar.
                 tableContainer = createTableContainer();
                 newTbody = createTableBody(id + "-" + sectionId, tableContainer, sectionId);
-                newTbody.appendChild(tr);
-                alturaActualTabla = alturaTr;
+                alturaActualTabla = 0; // Restablece la altura acumulada para el nuevo contenedor.
             }
 
-            return [alturaActualTabla, tableContainer, newTbody, lastTableHeight];
+            // Añade la fila al tbody actual y actualiza la altura acumulada.
+            newTbody.appendChild(tr);
+            alturaActualTabla += alturaTr;
+
+            return [alturaActualTabla, tableContainer, newTbody];
         }
 
 
