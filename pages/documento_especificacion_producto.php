@@ -645,7 +645,7 @@
             }
 
             // Actualizar los números de las páginas después de que todos los clones se han creado.
-            actualizarNumerosDePaginas();
+            //actualizarNumerosDePaginas();
         }
 
 
@@ -755,17 +755,19 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
-            // Actualizar el contador de páginas en el HTML
-            actualizarContadorPaginas(); // Asegúrate de que esta función actualiza el texto de "pagina-numero" correctamente
 
             return container; // Devuelve el contenedor principal con todo dentro
         }
 
         // Esta función actualiza el contador de páginas para el contenedor actual.
-        function actualizarContadorPaginas(container) {
-            // Buscar el elemento de número de página dentro del contenedor actual
-            let contadorPagina = container.querySelector(".pagina-numero");
-            contadorPagina.textContent = `${paginaActual} de ${totalPaginas}`;
+        function actualizarContadorPaginas() {
+            // Seleccionar todos los contenedores clonados y actualizar sus contadores
+            let contenedores = document.querySelectorAll(".document-cloned-container");
+            contenedores.forEach((contenedor, index) => {
+                // Encuentra el elemento del número de página dentro de cada contenedor
+                let contadorPagina = contenedor.querySelector(".pagina-numero");
+                contadorPagina.textContent = `${index + 1} de ${totalPaginas}`;
+            });
         }
 
         // Esta función se llama después de haber creado todos los clones.
@@ -777,6 +779,7 @@
                 contador.textContent = `${index + 1} de ${totalPaginas}`;
             });
         }
+
 
         function createAnalysisSection(title) {
             const analysisSection = createEl("div");
