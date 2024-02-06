@@ -234,7 +234,7 @@
             });
         }
 
-        function procesarDatosEspecificacion(response) {
+        async function procesarDatosEspecificacion(response) {
             // Validación de la respuesta
             if (!response || !response.productos || !Array.isArray(response.productos)) {
                 console.error('Los datos recibidos no son válidos:', response);
@@ -267,9 +267,9 @@
                     }
                 }
             });
-            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
-            
-            setTimeout(ocultarContenedorPrincipal, 5000);
+            obtenerAlturaElementosYCalcularEspacioDisponible()
+            ocultarContenedorPrincipal()
+            actualizarContadorPaginas()
             
 
 
@@ -745,7 +745,7 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
-            actualizarContadorPaginas()
+            
 
             return container; // Devuelve el contenedor principal con todo dentro
         }
@@ -758,7 +758,7 @@
 
             contenedores.forEach((contenedor, index) => {
                 // Encuentra el elemento del número de página dentro de cada contenedor
-                contenedor.innerHTML = `${index } de ${cantidadPaginas}`;
+                contenedor.innerHTML = `${index + 1 } de ${cantidadPaginas}`;
             });
 
             console.log("documento clonado ");
