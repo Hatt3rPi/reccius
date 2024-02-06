@@ -595,56 +595,34 @@
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let tableContainer = createTableContainer();
 
-            // Establecer la altura total disponible a 700 píxeles
             let alturaTotalDisponible = 700; // Altura fija de 700 píxeles
 
-            let newTbodyContent;
-            let newTbodyAdditionalContent;
+            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
+            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
+
+            let alturaActualTablaContent = 0;
+            let alturaActualTablaAdditionalContent = 0;
+
+            let lastTableHeightContent = 0;
+            let lastTableHeightAdditionalContent = 0;
 
             // Procesar trs de content
-            if (trsContent.length > 0) {
-                newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-                let alturaActualTabla = 0;
-                let lastContentTableHeight = 0;
-                for (let tr of trsContent) {
-                    [alturaActualTabla, tableContainer, newTbodyContent, lastContentTableHeight] = await procesarTr(
-                        tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content", lastContentTableHeight
-                    );
-                }
+            for (let tr of trsContent) {
+                [alturaActualTablaContent, tableContainer, newTbodyContent, lastTableHeightContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTablaContent, id, "content", lastTableHeightContent
+                );
             }
 
-            // Procesar trs de additionalContent
-            if (trsAdditionalContent.length > 0) {
-                newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-                let alturaActualTabla = 0;
-                let lastAdditionalContentTableHeight = 0;
-                for (let tr of trsAdditionalContent) {
-                    // Verificar si hay espacio suficiente en el último contenedor de 'content'
-                    if (alturaActualTabla + lastAdditionalContentTableHeight <= alturaTotalDisponible) {
-                        // Hay espacio en el contenedor actual
-                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent, lastAdditionalContentTableHeight] = await procesarTr(
-                            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent", lastAdditionalContentTableHeight
-                        );
-                    } else {
-                        // No hay espacio, crear un nuevo contenedor
-                        document.querySelector("#form-container").appendChild(tableContainer);
-                        tableContainer = createTableContainer();
-                        newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-                        [alturaActualTabla, tableContainer, newTbodyAdditionalContent, lastAdditionalContentTableHeight] = await procesarTr(
-                            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, 0, id, "additionalContent", 0
-                        );
-                    }
-                }
+            // Procesar trs de additionalContent en el mismo contenedor si hay espacio o en un nuevo contenedor si es necesario
+            for (let tr of trsAdditionalContent) {
+                [alturaActualTablaAdditionalContent, tableContainer, newTbodyAdditionalContent, lastTableHeightAdditionalContent] = await procesarTr(
+                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTablaAdditionalContent, id, "additionalContent", lastTableHeightAdditionalContent
+                );
             }
 
-            // Asegurarse de agregar el último contenedor al documento si hay tablas
-            if (trsContent.length > 0 || trsAdditionalContent.length > 0) {
-                document.querySelector("#form-container").appendChild(tableContainer);
-            }
-
-            // Actualizar los números de las páginas después de que todos los clones se han creado.
-            //actualizarNumerosDePaginas();
+            document.querySelector("#form-container").appendChild(tableContainer);
         }
+
 
 
 
@@ -653,26 +631,24 @@
             tr.querySelectorAll("td").forEach(td => td.style.fontSize = "10px");
             let alturaTr = tr.getBoundingClientRect().height;
 
-            // Actualizar la altura de la última tabla para el contenido específico
             if (sectionId === "content" || sectionId === "additionalContent") {
                 lastTableHeight = alturaTr;
             }
 
             if (alturaActualTabla + alturaTr <= alturaTotalDisponible) {
-                // Si el contenido actual cabe en el espacio disponible, añadir la fila al tbody
                 newTbody.appendChild(tr);
                 alturaActualTabla += alturaTr;
             } else {
-                // Si el contenido no cabe, necesitamos crear un nuevo contenedor y tbody
-                document.querySelector("#form-container").appendChild(tableContainer); // Agregar el contenedor actual al DOM
-                tableContainer = createTableContainer(); // Crear un nuevo contenedor
-                newTbody = createTableBody(id + "-" + sectionId, tableContainer, sectionId); // Crear un nuevo tbody para la sección
-                newTbody.appendChild(tr); // Añadir la fila al nuevo tbody
-                alturaActualTabla = alturaTr; // Resetear la altura actual del contenido para el nuevo contenedor
+                document.querySelector("#form-container").appendChild(tableContainer);
+                tableContainer = createTableContainer();
+                newTbody = createTableBody(id + "-" + sectionId, tableContainer, sectionId);
+                newTbody.appendChild(tr);
+                alturaActualTabla = alturaTr;
             }
 
             return [alturaActualTabla, tableContainer, newTbody, lastTableHeight];
         }
+
 
         function createTableContainer() {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
@@ -696,7 +672,7 @@
             const mainTablas = createEl("div");
             mainTablas.id = "maintablas";
             mainTablas.style.maxHeight = "700px"; // Establecer la altura máxima
-            
+
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
