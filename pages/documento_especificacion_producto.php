@@ -271,7 +271,7 @@
             
             setTimeout(ocultarContenedorPrincipal, 200);
             
-
+            setTimeout(actualizarContadorPaginas, 300);
 
         }
 
