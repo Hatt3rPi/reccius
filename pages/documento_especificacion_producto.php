@@ -58,7 +58,7 @@
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
                                 <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
-                                <td style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td id="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                         </table>
                     </div>
@@ -701,7 +701,7 @@
             container.appendChild(headerClone);
 
             // Actualizar el número de página en el clon
-            const pageNumberElement = container.querySelector("#footer td:last-child");
+            const pageNumberElement = container.querySelector("#pagina-numero");
             if (pageNumberElement) {
                 pageNumberElement.textContent = `${currentPageIndex} de ${totalPages}`;
             }
