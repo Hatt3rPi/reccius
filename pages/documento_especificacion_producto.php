@@ -769,6 +769,8 @@
                 let contadorPagina = contenedor.querySelector(".pagina-numero");
                 contadorPagina.textContent = `${index + 1} de ${totalPaginas-1}`;
             });
+
+            console.log("documento clonado ");
         }
 
         function createAnalysisSection(title) {
