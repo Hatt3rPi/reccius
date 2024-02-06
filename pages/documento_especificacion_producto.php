@@ -676,7 +676,7 @@
         }
         // Declara las variables globalmente al inicio de tu script
         let paginaActual = 1; // Empieza en 1, ya que siempre habrá al menos una página.
-        let totalPaginas = 0; // Inicializa el contador de páginas totales.
+        let totalPaginas = 1; // Inicializa el contador de páginas totales.
 
         // Asegúrate de que estas variables estén definidas fuera de cualquier función para que sean globales.
 
