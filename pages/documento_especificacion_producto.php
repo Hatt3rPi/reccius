@@ -768,7 +768,7 @@
 
             contenedores.forEach((contenedor, index) => {
                 // Encuentra el elemento del número de página dentro de cada contenedor
-                contenedor.innerHTML = `${index + 1} de ${cantidadPaginas}`;
+                contenedor.innerHTML = `${index } de ${cantidadPaginas}`;
             });
 
             console.log("documento clonado ");
