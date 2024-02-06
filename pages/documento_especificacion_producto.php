@@ -762,25 +762,22 @@
 
         // Esta función actualiza el contador de páginas para el contenedor actual.
         function actualizarContadorPaginas() {
-            // Seleccionar todos los contenedores clonados y actualizar sus contadores
             let contenedores = document.querySelectorAll(".document-cloned-container");
+            totalPaginas = contenedores.length; // Asegúrate de que totalPaginas se actualiza correctamente antes de llamar a esta función
+
             contenedores.forEach((contenedor, index) => {
-                // Encuentra el elemento del número de página dentro de cada contenedor
                 let contadorPagina = contenedor.querySelector(".pagina-numero");
-                contadorPagina.textContent = `${index + 1} de ${totalPaginas-1}`;
+                if (contadorPagina) { // Verifica si el contenedor tiene un elemento para el número de página
+                    contadorPagina.textContent = `Página ${index + 1} de ${totalPaginas}`;
+                } else {
+                    // Si por alguna razón el contenedor no tiene el elemento, podrías crearlo y añadirlo aquí
+                    const pageNumberContainer = createEl("div");
+                    pageNumberContainer.className = "pagina-numero";
+                    pageNumberContainer.textContent = `Página ${index + 1} de ${totalPaginas}`;
+                    contenedor.appendChild(pageNumberContainer);
+                }
             });
         }
-
-        // Esta función se llama después de haber creado todos los clones.
-        function actualizarNumerosDePaginas() {
-            let contadores = document.querySelectorAll(".pagina-numero");
-            totalPaginas = contadores.length; // Actualizar el total de páginas basado en el número de contadores
-
-            contadores.forEach((contador, index) => {
-                contador.textContent = `${index + 1} de ${totalPaginas}`;
-            });
-        }
-
 
         function createAnalysisSection(title) {
             const analysisSection = createEl("div");
