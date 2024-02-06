@@ -596,10 +596,8 @@
             let tableContainer = createTableContainer();
             let alturaTotalDisponible = 700; // Altura disponible antes de necesitar un nuevo contenedor.
 
-            // Crea contenedores iniciales para 'content' y 'additionalContent'.
-            let newTbodyContent;
-            let newTbodyAdditionalContent;
-            let alturaActualTabla = 0; // Altura acumulada actual en el contenedor.
+            // Inicializa la altura acumulada actual en el contenedor.
+            let alturaActualTabla = 0;
 
             // Procesa trs de 'content' y crea la sección si hay datos.
             if (trsContent.length > 0) {
@@ -609,7 +607,7 @@
                 const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
                 newContentDiv.appendChild(analysisSectionContent);
                 tableContainer.querySelector("#maintablas").appendChild(newContentDiv);
-                newTbodyContent = createTableBody(id + "-content", newContentDiv, "content");
+                let newTbodyContent = createTableBody(id + "-content", newContentDiv, "content");
 
                 for (let tr of trsContent) {
                     [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
@@ -626,7 +624,7 @@
                 const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
                 newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
                 tableContainer.querySelector("#maintablas").appendChild(newAdditionalContentDiv);
-                newTbodyAdditionalContent = createTableBody(id + "-additionalContent", newAdditionalContentDiv, "additionalContent");
+                let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", newAdditionalContentDiv, "additionalContent");
 
                 for (let tr of trsAdditionalContent) {
                     [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
@@ -636,11 +634,8 @@
             }
 
             // Asegura agregar el último contenedor al documento.
-            if (trsContent.length > 0 || trsAdditionalContent.length > 0) {
-                document.querySelector("#form-container").appendChild(tableContainer);
-            }
+            document.querySelector("#form-container").appendChild(tableContainer);
         }
-
 
 
 
