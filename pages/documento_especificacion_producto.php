@@ -677,6 +677,8 @@
 
 
         function createTableContainer() {
+            // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
+            totalPaginas++;
             const container = createEl("div");
             container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
             // Estilos y configuraciones para el contenedor
@@ -699,15 +701,6 @@
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
-
-            // Actualizar el número de página en el clon
-            const pageNumberElement = container.querySelector("#pagina-numero");
-            if (pageNumberElement) {
-                pageNumberElement.textContent = `${currentPageIndex} de ${totalPages}`;
-            }
-
-
-
 
 
             // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
@@ -753,9 +746,16 @@
             const footerClone = document.querySelector("#footer").cloneNode(true);
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
+            // Actualizar el contador de páginas en el HTML
+            actualizarContadorPaginas(); // Asegúrate de que esta función actualiza el texto de "pagina-numero" correctamente
+
             return container; // Devuelve el contenedor principal con todo dentro
         }
 
+        function actualizarContadorPaginas() {
+            // Asegúrate de que esta función actualiza el elemento HTML que muestra el número de página
+            document.getElementById('pagina-numero').textContent = `${paginaActual} de ${totalPaginas}`;
+        }
 
         function createAnalysisSection(title) {
             const analysisSection = createEl("div");
@@ -820,22 +820,6 @@
             contenedorForm.style.border = 'none';
             contenedorForm.style.boxShadow = 'none';
         }
-        async function generateAndCloneDocuments() {
-            // Suponiendo que ya sabes cuántos clones necesitas
-            const totalPages = calculateTotalPages(); // Implementa esta función según tus necesidades
-
-            for (let currentPageIndex = 1; currentPageIndex <= totalPages; currentPageIndex++) {
-                let container = createTableContainer(currentPageIndex, totalPages);
-                // Proceso adicional para llenar el contenedor con datos específicos y clonar
-                document.querySelector("#form-container").appendChild(container);
-            }
-
-            // Ahora, cada clon tiene su número de página actualizado correctamente
-        }
-
-
-
-
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
