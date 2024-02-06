@@ -234,7 +234,7 @@
             });
         }
 
-        async function procesarDatosEspecificacion(response) {
+        function procesarDatosEspecificacion(response) {
             // Validación de la respuesta
             if (!response || !response.productos || !Array.isArray(response.productos)) {
                 console.error('Los datos recibidos no son válidos:', response);
