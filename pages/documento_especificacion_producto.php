@@ -684,6 +684,7 @@
         function createTableContainer() {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
             totalPaginas++;
+            paginaActual++;
             const container = createEl("div");
             container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
             // Estilos y configuraciones para el contenedor
