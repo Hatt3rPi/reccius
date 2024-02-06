@@ -597,27 +597,50 @@
             let alturaTotalDisponible = 700; // Altura disponible antes de necesitar un nuevo contenedor.
 
             // Crea contenedores iniciales para 'content' y 'additionalContent'.
-            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
+            let newTbodyContent;
+            let newTbodyAdditionalContent;
             let alturaActualTabla = 0; // Altura acumulada actual en el contenedor.
 
-            // Procesa trs de 'content'.
-            for (let tr of trsContent) {
-                [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
-                );
+            // Procesa trs de 'content' y crea la sección si hay datos.
+            if (trsContent.length > 0) {
+                const newContentDiv = createEl("div");
+                newContentDiv.id = "content";
+                newContentDiv.className = "content";
+                const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
+                newContentDiv.appendChild(analysisSectionContent);
+                tableContainer.querySelector("#maintablas").appendChild(newContentDiv);
+                newTbodyContent = createTableBody(id + "-content", newContentDiv, "content");
+
+                for (let tr of trsContent) {
+                    [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
+                        tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
+                    );
+                }
             }
 
-            // Asegura que 'additionalContent' comience en el contenedor actual si hay espacio, o en un nuevo contenedor si es necesario.
-            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-            for (let tr of trsAdditionalContent) {
-                [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
-                );
+            // Procesa trs de 'additionalContent' y crea la sección si hay datos.
+            if (trsAdditionalContent.length > 0) {
+                const newAdditionalContentDiv = createEl("div");
+                newAdditionalContentDiv.id = "additionalContent";
+                newAdditionalContentDiv.className = "content";
+                const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
+                newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
+                tableContainer.querySelector("#maintablas").appendChild(newAdditionalContentDiv);
+                newTbodyAdditionalContent = createTableBody(id + "-additionalContent", newAdditionalContentDiv, "additionalContent");
+
+                for (let tr of trsAdditionalContent) {
+                    [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
+                        tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
+                    );
+                }
             }
 
             // Asegura agregar el último contenedor al documento.
-            document.querySelector("#form-container").appendChild(tableContainer);
+            if (trsContent.length > 0 || trsAdditionalContent.length > 0) {
+                document.querySelector("#form-container").appendChild(tableContainer);
+            }
         }
+
 
 
 
