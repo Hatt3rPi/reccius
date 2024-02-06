@@ -183,36 +183,37 @@
     <script>
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('download-pdf').addEventListener('click', function() {
-            // Agregar la clase no-border para eliminar bordes y sombras
-            var formContainer = document.getElementById('form-container');
-            formContainer.classList.add('no-border');
-
-            html2canvas(formContainer, {
-                scale: 2
-            }).then(canvas => {
-                var imgData = canvas.toDataURL('image/png');
-                var pdf = new jspdf.jsPDF({
-                    orientation: 'portrait',
-                    unit: 'pt',
-                    format: 'letter'
-                });
-
-                var pdfWidth = pdf.internal.pageSize.getWidth();
-                var pdfHeight = pdf.internal.pageSize.getHeight();
-
-                // Agregar la imagen al PDF
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-
-                // Obtener el nombre del producto del elemento con id 'producto'
-                var nombreProducto = document.getElementById('producto').textContent.trim();
-
-                // Guardar el PDF
-                pdf.save(`${nombreProducto}.pdf`);
-
-                // Remover la clase no-border después de generar el PDF
-                formContainer.classList.remove('no-border');
+        document.getElementById('download-pdf').addEventListener('click', async function() {
+            var pdf = new jspdf.jsPDF({
+                orientation: 'portrait',
+                unit: 'pt',
+                format: 'letter'
             });
+
+            // Seleccionar todos los contenedores que deben incluirse en el PDF
+            var containers = document.querySelectorAll('.document-cloned-container');
+
+            for (let i = 0; i < containers.length; i++) {
+                if (i > 0) {
+                    pdf.addPage();
+                }
+
+                await html2canvas(containers[i], {
+                    scale: 2
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/png');
+                    var pdfWidth = pdf.internal.pageSize.getWidth();
+                    var pdfHeight = pdf.internal.pageSize.getHeight();
+
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                });
+            }
+
+            // Obtener el nombre del producto para el nombre del archivo PDF
+            var nombreProducto = document.getElementById('producto').textContent.trim();
+
+            // Guardar el PDF
+            pdf.save(`${nombreProducto}.pdf`);
         });
 
         function cargarDatosEspecificacion(id) {
@@ -677,6 +678,7 @@
 
         function createTableContainer() {
             const container = createEl("div");
+            container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
             // Estilos y configuraciones para el contenedor
             container.style.width = "612pt";
             container.style.height = "792pt";
