@@ -760,6 +760,7 @@
 
         function actualizarContadorPaginas() {
             // Asegúrate de que esta función actualiza el elemento HTML que muestra el número de página
+            console.log(`${paginaActual} y ${totalPaginas}`)
             document.getElementById('pagina-numero').textContent = `${paginaActual} de ${totalPaginas}`;
         }
 
