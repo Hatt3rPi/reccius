@@ -737,6 +737,14 @@
             console.log("documento clonado ");
         }
 
+        function createAnalysisSection(title) {
+            const analysisSection = createEl("div");
+            analysisSection.className = "analysis-section";
+            analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
+            analysisSection.textContent = title;
+            return analysisSection;
+        }
+
         function createTableBody(id, container, sectionId) {
             const newTable = createEl("table");
             newTable.setAttribute("id", id);
