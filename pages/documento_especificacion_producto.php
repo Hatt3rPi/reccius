@@ -647,7 +647,15 @@
 
 
         function createTableContainer() {
-            // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
+            // Verifica si 'additionalContent' contiene tablas antes de proceder
+            const additionalContent = document.getElementById("additionalContent");
+            const hasTables = additionalContent && additionalContent.querySelectorAll("table").length > 0;
+
+            if (!hasTables) {
+                // Si 'additionalContent' no contiene tablas, no continuar con la creación y adición del contenedor
+                console.log("No hay tablas en 'additionalContent'. No se procede a clonar y mostrar.");
+                return null; // Salir de la función sin hacer nada más
+            }
 
             const container = createEl("div");
             container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
@@ -668,11 +676,9 @@
             const mainTablas = createEl("div");
             mainTablas.id = "maintablas";
 
-
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
-
 
             // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
             const h1Clone = document.querySelector("#Tipo_Producto2").cloneNode(true);
@@ -686,7 +692,6 @@
             container.appendChild(h1Clone);
             container.appendChild(pClone);
 
-
             // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
@@ -698,10 +703,6 @@
             newContentDiv.id = "content";
             newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
             mainTablas.appendChild(newContentDiv); // Añadir 'content' a 'maintablas'
-
-            // Crear y agregar la sección de análisis para 'content'
-            //const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
-            //newContentDiv.appendChild(analysisSectionContent);
 
             const newAdditionalContentDiv = createEl("div");
             newAdditionalContentDiv.id = "additionalContent";
@@ -718,10 +719,9 @@
             footerClone.style.marginTop = "5px"; // Reduce el margen superior
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
-
-
             return container; // Devuelve el contenedor principal con todo dentro
         }
+
 
         // Esta función actualiza el contador de páginas para el contenedor actual.
         function actualizarContadorPaginas() {
