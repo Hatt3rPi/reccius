@@ -708,8 +708,8 @@
             mainTablas.appendChild(newAdditionalContentDiv); // Añadir 'additionalContent' a 'maintablas'
 
             // Crear y agregar la sección de análisis para 'additionalContent'
-            //const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
-            //newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
+            const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
+            newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
 
             // Añadir 'maintablas' a 'container'
             container.appendChild(mainTablas);
