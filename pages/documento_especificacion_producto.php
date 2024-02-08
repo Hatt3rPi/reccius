@@ -647,15 +647,7 @@
 
 
         function createTableContainer() {
-            // Verifica si 'additionalContent' contiene tablas antes de proceder
-            const additionalContent = document.getElementById("additionalContent");
-            const hasTables = additionalContent && additionalContent.querySelectorAll("table").length > 0;
-
-            if (!hasTables) {
-                // Si 'additionalContent' no contiene tablas, no continuar con la creación y adición del contenedor
-                console.log("No hay tablas en 'additionalContent'. No se procede a clonar y mostrar.");
-                return null; // Salir de la función sin hacer nada más
-            }
+            // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
 
             const container = createEl("div");
             container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
@@ -676,9 +668,11 @@
             const mainTablas = createEl("div");
             mainTablas.id = "maintablas";
 
+
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
             container.appendChild(headerClone);
+
 
             // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
             const h1Clone = document.querySelector("#Tipo_Producto2").cloneNode(true);
@@ -692,6 +686,7 @@
             container.appendChild(h1Clone);
             container.appendChild(pClone);
 
+
             // Añadir la marca de agua
             const watermark = createEl("div");
             watermark.setAttribute("id", "watermark");
@@ -704,13 +699,17 @@
             newContentDiv.className = "content"; // Asigna la clase "content" para aplicar los estilos
             mainTablas.appendChild(newContentDiv); // Añadir 'content' a 'maintablas'
 
+            // Crear y agregar la sección de análisis para 'content'
+            //const analysisSectionContent = createAnalysisSection("I. Análisis Generales");
+            //newContentDiv.appendChild(analysisSectionContent);
+
             const newAdditionalContentDiv = createEl("div");
             newAdditionalContentDiv.id = "additionalContent";
             mainTablas.appendChild(newAdditionalContentDiv); // Añadir 'additionalContent' a 'maintablas'
 
             // Crear y agregar la sección de análisis para 'additionalContent'
-            const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
-            newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
+            //const analysisSectionAdditionalContent = createAnalysisSection("II. Análisis Microbiológico");
+            // newAdditionalContentDiv.appendChild(analysisSectionAdditionalContent);
 
             // Añadir 'maintablas' a 'container'
             container.appendChild(mainTablas);
@@ -719,9 +718,10 @@
             footerClone.style.marginTop = "5px"; // Reduce el margen superior
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
+
+
             return container; // Devuelve el contenedor principal con todo dentro
         }
-
 
         // Esta función actualiza el contador de páginas para el contenedor actual.
         function actualizarContadorPaginas() {
@@ -750,7 +750,18 @@
             newTable.setAttribute("id", id);
             newTable.classList.add("table", "table-bordered");
 
-            // Crear thead dependiendo de la sección
+            // Crear un div con texto basado en la sección antes del thead
+            const analysisTitleDiv = createEl("div");
+            analysisTitleDiv.className = "analysis-title"; // Asegúrate de definir este estilo en tu CSS
+            if (sectionId === "content") {
+                analysisTitleDiv.textContent = "I. Análisis Generales";
+            } else if (sectionId === "additionalContent") {
+                analysisTitleDiv.textContent = "II. Análisis Microbiológico";
+            }
+            // Inserta el div antes de la tabla en el contenedor
+            container.appendChild(analysisTitleDiv);
+
+            // Continúa con la creación del thead y tbody como antes
             const newThead = createEl("thead");
             newThead.style.fontSize = "10px";
             newTable.appendChild(newThead);
@@ -759,12 +770,8 @@
             tr.style.fontSize = "10px";
             newThead.appendChild(tr);
 
-            //const td = createEl("td");
-            // td.style.fontSize = "10px";
-            // newThead.appendChild(td);
-
             if (sectionId === "content") {
-                // Aquí definimos los encabezados específicos para la tabla de 'content'
+                // Define los encabezados específicos para la tabla de 'content'
                 const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
                 headers.forEach(text => {
                     const th = createEl("th");
@@ -772,7 +779,7 @@
                     tr.appendChild(th);
                 });
             } else if (sectionId === "additionalContent") {
-                // Aquí definimos los encabezados específicos para la tabla de 'additionalContent'
+                // Define los encabezados específicos para la tabla de 'additionalContent'
                 const headers = ["Análisis", "Metodología", "Resultado"];
                 headers.forEach(text => {
                     const th = createEl("th");
@@ -783,15 +790,15 @@
 
             // Crear tbody y aplicar estilo a los <td> cuando se agreguen
             const newTbody = createEl("tbody");
-            newTbody.style.fontSize = "10px"; // Esto aplicará el estilo a los <td> cuando se agreguen
+            newTbody.style.fontSize = "10px";
             newTable.appendChild(newTbody);
 
-
-            // Ubicar el newTable en el div correspondiente
-            container.querySelector(`#${sectionId}`).appendChild(newTable);
+            // Ubicar el newTable en el div correspondiente después del div del título
+            container.appendChild(newTable);
 
             return newTbody;
         }
+
 
 
 
