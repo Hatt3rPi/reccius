@@ -737,14 +737,6 @@
             console.log("documento clonado ");
         }
 
-        function createAnalysisSection(title) {
-            const analysisSection = createEl("div");
-            analysisSection.className = "analysis-section";
-            analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
-            analysisSection.textContent = title;
-            return analysisSection;
-        }
-
         function createTableBody(id, container, sectionId) {
             const newTable = createEl("table");
             newTable.setAttribute("id", id);
@@ -753,6 +745,7 @@
             // Crear un div con texto basado en la sección antes del thead
             const analysisTitleDiv = createEl("div");
             analysisTitleDiv.className = "analysis-title"; // Asegúrate de definir este estilo en tu CSS
+            analysisTitleDiv.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
             if (sectionId === "content") {
                 analysisTitleDiv.textContent = "I. Análisis Generales";
             } else if (sectionId === "additionalContent") {
