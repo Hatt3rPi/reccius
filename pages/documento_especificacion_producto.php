@@ -181,8 +181,7 @@
 
     </div>
     <script>
-    // Funciones auxiliares globales
-        const createEl = (name) => document.createElement(name);
+    
 
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
@@ -650,7 +649,7 @@
         function createTableContainer() {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
 
-            const container = createEl("div");
+            const container = document.createElement("div");
             container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
             // Estilos y configuraciones para el contenedor
             container.style.width = "612pt";
@@ -685,7 +684,7 @@
 
 
             // Añadir la marca de agua
-            const watermark = createEl("div");
+            const watermark = document.createElement("div");
             watermark.setAttribute("id", "watermark");
             watermark.textContent = "TESTEO TESTESO";
             container.appendChild(watermark);
@@ -717,7 +716,7 @@
         }
 
         function createAnalysisSection(title) {
-            const analysisSection = createEl("div");
+            const analysisSection = document.createElement("div");
             analysisSection.className = "analysis-section";
             analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
             analysisSection.textContent = title;
@@ -725,12 +724,12 @@
         }
 
         function createTableBody(id, container, sectionId) {
-            const newTable = createEl("table");
+            const newTable = document.createElement("table");
             newTable.setAttribute("id", id);
             newTable.classList.add("table", "table-bordered");
 
             // Crear un div con texto basado en la sección antes del thead
-            const analysisTitleDiv = createEl("div");
+            const analysisTitleDiv = document.createElement("div");
             analysisTitleDiv.className = "analysis-title"; // Asegúrate de definir este estilo en tu CSS
             analysisTitleDiv.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
             if (sectionId === "content") {
@@ -742,11 +741,11 @@
             container.appendChild(analysisTitleDiv);
 
             // Continúa con la creación del thead y tbody como antes
-            const newThead = createEl("thead");
+            const newThead = document.createElement("thead");
             newThead.style.fontSize = "10px";
             newTable.appendChild(newThead);
 
-            const tr = createEl("tr");
+            const tr = document.createElement("tr");
             tr.style.fontSize = "10px";
             newThead.appendChild(tr);
 
@@ -754,7 +753,7 @@
                 // Define los encabezados específicos para la tabla de 'content'
                 const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
                 headers.forEach(text => {
-                    const th = createEl("th");
+                    const th = document.createElement("th");
                     th.textContent = text;
                     tr.appendChild(th);
                 });
@@ -762,14 +761,14 @@
                 // Define los encabezados específicos para la tabla de 'additionalContent'
                 const headers = ["Análisis", "Metodología", "Resultado"];
                 headers.forEach(text => {
-                    const th = createEl("th");
+                    const th = document.createElement("th");
                     th.textContent = text;
                     tr.appendChild(th);
                 });
             }
 
             // Crear tbody y aplicar estilo a los <td> cuando se agreguen
-            const newTbody = createEl("tbody");
+            const newTbody = document.createElement("tbody");
             newTbody.style.fontSize = "10px";
             newTable.appendChild(newTbody);
 
