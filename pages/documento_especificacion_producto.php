@@ -181,6 +181,9 @@
 
     </div>
     <script>
+    // Funciones auxiliares globales
+        const createEl = (name) => document.createElement(name);
+
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
         document.getElementById('download-pdf').addEventListener('click', async function() {
@@ -568,9 +571,7 @@
                 watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
             }
         }
-        // Funciones auxiliares globales
-        const createEl = (name) => document.createElement(name);
-
+        
         function obtenerAlturaElementosYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
