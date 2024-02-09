@@ -266,7 +266,6 @@
                     }
                 }
             });
-            aplicarEstilosATd('#analisisFQ, #analisisMB'); // Aquí, '#analisisFQ, #analisisMB' son los selectores de las tablas
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 3000);
             setTimeout(ocultarContenedorPrincipal, 5000);
 

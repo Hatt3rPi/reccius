@@ -3,3 +3,5 @@ const formatTr = (trElemnts) = thElements.map((thElement) => ({
                 element: thElement,
                 heigth: thElement.offsetHeigth
             }))
+
+                        const thElementsMapObject = formatTr(thElements)
