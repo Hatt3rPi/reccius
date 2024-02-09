@@ -542,3 +542,24 @@ $(document).ready(function () {
         });
     });
 });
+
+$(document).ready(function () {
+    $('#documento_acta_muestreo').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('documento_Acta_muestreo.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                obtenNotificaciones();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+});

@@ -159,6 +159,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </span> 
                             Listado de productos disponibles
                         </a>
+                        <a id="documento_acta_muestreo" href="#">
+                            <span>
+                                <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                            </span> 
+                            Preparar Acta de Muestreo
+                        </a>
                     </div>
                 </li>
 
