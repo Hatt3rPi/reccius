@@ -163,7 +163,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <span>
                                 <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
                             </span> 
-                            Preparar Acta de Muestreo
+                            DOCUMENTO ACTA DE MUESTREO
                         </a>
                     </div>
                 </li>
