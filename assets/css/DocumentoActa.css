@@ -290,3 +290,14 @@ p {
     padding-right: 1px;        /* Relleno derecho */
 }
 
+.formulario {
+    font-size: 10px;
+    border: 1px solid #000;
+    width: 75%; /* 3 veces el tamaño de .VB y .Rspn */
+}
+
+.VB, .Rspn {
+    font-size: 5px;
+    border: 1px solid #000;
+    width: 25%; /* 1 vez el tamaño de .VB y .Rspn */
+}
