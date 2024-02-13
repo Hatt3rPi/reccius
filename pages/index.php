@@ -165,6 +165,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </span> 
                             DOCUMENTO ACTA DE MUESTREO
                         </a>
+                        
+                        <a id="documento_Analisis_externo" href="#">
+                            <span>
+                                <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24"/> <!-- Icono SVG actualizado aquí -->
+                            </span> 
+                            documento_Analisis_externo
+                        </a>
                     </div>
                 </li>
 

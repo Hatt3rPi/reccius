@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/DocumentoAna.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div id="form-container" class="form-container">
+        <div id="Maincontainer">
+            <header>
+                <div id="header-container"
+                    style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+                    <!-- Logo a la izquierda -->
+                    <div class="header-left" style="flex: 1;">
+                        <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
+                        <!-- Ajusta la altura según sea necesario -->
+                    </div>
+                    <!-- Título Central -->
+                    <div class="header-center"
+                        style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                        <p name="pretitulo" id="pretitulo"
+                            style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
+                            de
+                            Calidad
+                            <!-- Pretitulo -->
+                        </p>
+                        <h1 id="Tipo_Producto" name="Tipo_Producto"
+                            style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                            <!-- Título del documento -->
+                        </h1>
+                        <p name="producto" id="producto"
+                            style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                            <!-- Descripción del producto -->
+                        </p>
+                        <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                        <div
+                            style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                            Dirección de Calidad
+                        </div>
+                    </div>
+                    <!-- Información Derecha con Tabla -->
+                    <div class="header-right"
+                        style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                            <tr>
+                                <td style="border: 1px dotted #000; padding: 2px;">N° Registro:</td>
+                                <td style="border: 1px dotted #000; padding: 2px; text-align: center">DCAL-CC-AMPT-005
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px dotted #000; padding: 2px;">N° Versión:</td>
+                                <td style="border: 1px dotted #000; padding: 2px; text-align: center">001</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px dotted #000; padding: 2px;">N° Acta:</td>
+                                <td style="border: 1px dotted #000; padding: 2px; text-align: center">AMPT-2301006-00
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px dotted #000; padding: 2px;">Fecha Muestreo:</td>
+                                <td style="border: 1px dotted #000; padding: 2px; text-align: center">
+                                    <!-- Fecha de muestreo aquí -->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </header>
+            <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">I. INFORMACION GENERAL</h2>
+            <section>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>1.Laboratorio Analista: (*)</label>
+                        <input type="text">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>2.Fecha de Solicitud: (*)</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>3.Análisis según: (**)</label>
+                        <input type="text">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>N Documento</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>4.Fecha de Cotización: (**)</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>5.Estándar Provisto por: (**)</label>
+                        <input type="text">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Otro:</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>6.Adjunta HDS: (***)</label>
+                        <input type="text">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Otro:</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>7.Elaborado por:</label>
+                        <input type="text">
+                    </div>
+                </div>
+            </section>
+            <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">II. INFORMACION PRODUCTO TERMINADO</h2>
+            <section>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Elaborado por:</label>
+                    <input type="text" name="elaboradoPor" Value="Reccius" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" Value="Chile" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Elaborado por:</label>
+                    <input type="text" name="elaboradoPor" Value="Reccius" required>
+                </div>
+                <div class="form-group">
+                    <label>Elaborado por:</label>
+                    <input type="text" name="elaboradoPor" Value="Reccius" required>
+                </div>
+            </section>
+            <!-- Footer -->
+            <footer style="width: 100%; text-align: center; margin-top: 20px; position: absolute; bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 10%;">
+                    <!-- Área para la firma del Solicitante de Análisis -->
+                    <div style="border: 1px dotted #000; padding: 10px; width: 40%; text-align: center;">
+                        <p style="margin-top: 30px;">Firma Solicitante de Análisis</p>
+                    </div>
+                    <!-- Área para la firma del Revisor de Liberación -->
+                    <div style="border: 1px dotted #000; padding: 10px; width: 40%; text-align: center;">
+                        <p style="margin-top: 30px;">Firma Revisor de Liberación</p>
+                    </div>
+                </div>
+                <!-- Notas adicionales debajo de las áreas de firma -->
+                <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 10px;">
+                    <div style="text-align: left;font-weight: bold;">
+                        (*) Campo Obligatorio<br>
+                        (**) Llenar según lista desplegable<br>
+                        (***) Hoja de Seguridad
+                    </div>
+                    <div style=" text-align: right;font-weight: bold;padding-right: 20px;">
+                        La información contenida en esta solicitud de análisis se considera como respaldo sanitario
+                        válido.<br>
+                        El certificado de análisis solo debe disponer de la información vertida en esta solicitud.<br>
+                        La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
+                        INDUSTRIAL.
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+    <div id="2docontenedor" class="form-container" style="margin-top:10px;">
+        <header>
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+                <!-- Logo a la izquierda -->
+                <div class="header-left" style="flex: 1;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
+                    <!-- Ajusta la altura según sea necesario -->
+                </div>
+                <!-- Título Central -->
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
+                        de
+                        Calidad
+                        <!-- Pretitulo -->
+                    </p>
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                        <!-- Título del documento -->
+                    </h1>
+                    <p name="producto" id="producto"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                        <!-- Descripción del producto -->
+                    </p>
+                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        Dirección de Calidad
+                    </div>
+                </div>
+                <!-- Información Derecha con Tabla -->
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">N° Registro:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">DCAL-CC-AMPT-005
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">N° Versión:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">001</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">N° Acta:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">AMPT-2301006-00
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">Fecha Muestreo:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">
+                                <!-- Fecha de muestreo aquí -->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+        </header>
+        <section id="sampling-plan">
+            <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">III. PLAN DE MUESTREO</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <!-- Encabezados de la tabla -->
+                <tr>
+                    <th>Análisis</th>
+                    <th>Metodologia</th>
+                    <th>Especificación</th>
+                    <th>Revisión</th>
+                </tr>
+                <!-- Fila para lotes de <= 500 unidades -->
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Apariencia:</td>
+                    <td id="Metodo_Apariencia" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Apariencia" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision1_rspn" name="revision1_rspn">
+                        <label for="revision1_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision1_vb" name="revision1_vb">
+                        <label fstyle="text-align: left;" or="revision1_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <!-- Fila para lotes entre 501 y 4999 unidades -->
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Identificación:</td>
+                    <td id="Metodo_Identi" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Identi" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision2_rspn" name="revision2_rspn">
+                        <label for="revision2_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision2_vb" name="revision2_vb">
+                        <label style="text-align: left;" for="revision2_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <!-- Fila para lotes de >= 1000 unidades -->
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Valoración:</td>
+                    <td id="Metodo_Valo" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Valo" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">pH:</td>
+                    <td id="Metodo_PH" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_PH" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Volumen extraíble:</td>
+                    <td id="Metodo_Volumen" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Volumen" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Densidad y Osmolaridad:</td>
+                    <td id="Metodo_Densidad" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Densidad" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Limite de Oxalato:</td>
+                    <td id="Metodo_Limite" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Limite" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Material Particulado:</td>
+                    <td id="Metodo_Material" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Material" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Material Sub-Particulado:</td>
+                    <td id="Metodo_Subparti" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Subparti" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Esterilidad:</td>
+                    <td id="Metodo_Esterilidad" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Esterilidad" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td style="font-weight: bold;">Endotoxinas:</td>
+                    <td id="Metodo_Endotoxinas" style="width: 10%;text-align: center;">USP</td>
+                    <td id="Espec_Endotoxinas" style="width: 30%;text-align: center;">80 unidades</td>
+                    <td style="text-align: left;">
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Cumple</label>
+
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label style="text-align: left;" for="revision3_vb">No Cumple</label>
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <!-- Footer -->
+        <footer style="width: 100%; text-align: center; margin-top: 20px; position: absolute; bottom: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 10%;">
+                <!-- Área para la firma del Solicitante de Análisis -->
+                <div style="border: 1px dotted #000; padding: 10px; width: 40%; text-align: center;">
+                    <p style="margin-top: 30px;">Firma Solicitante de Análisis</p>
+                </div>
+                <!-- Área para la firma del Revisor de Liberación -->
+                <div style="border: 1px dotted #000; padding: 10px; width: 40%; text-align: center;">
+                    <p style="margin-top: 30px;">Firma Revisor de Liberación</p>
+                </div>
+            </div>
+            <!-- Notas adicionales debajo de las áreas de firma -->
+            <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 10px;">
+                <div style="text-align: left;font-weight: bold;">
+                    (*) Campo Obligatorio<br>
+                    (**) Llenar según lista desplegable<br>
+                    (***) Hoja de Seguridad
+                </div>
+                <div style=" text-align: right;font-weight: bold;padding-right: 20px;">
+                    La información contenida en esta solicitud de análisis se considera como respaldo sanitario
+                    válido.<br>
+                    El certificado de análisis solo debe disponer de la información vertida en esta solicitud.<br>
+                    La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
+                    INDUSTRIAL.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <div class="button-container">
+        <button id="download-pdf">Descargar PDF</button>
+    </div>
+    <script>
+        document.getElementById('download-pdf').addEventListener('click', async function () {
+            var pdf = new jspdf.jsPDF({
+                orientation: 'portrait',
+                unit: 'pt',
+                format: 'letter'
+            });
+
+            // Seleccionar todos los contenedores que deben incluirse en el PDF
+            var containers = document.querySelectorAll('.form-container');
+
+            for (let i = 0; i < containers.length; i++) {
+                if (i > 0) {
+                    pdf.addPage();
+                }
+
+                await html2canvas(containers[i], {
+                    scale: 2
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/png');
+                    var pdfWidth = pdf.internal.pageSize.getWidth();
+                    var pdfHeight = pdf.internal.pageSize.getHeight();
+
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                });
+            }
+
+            // Opcionalmente, obtener un nombre dinámico para el archivo PDF
+            // Aquí utilizo 'Acta_de_Muestreo_Control_de_Calidad' como nombre genérico
+            // Si prefieres un nombre basado en el contenido, asegúrate de tener un ID o clase única para seleccionar
+            var nombreArchivo = 'Acta_de_Muestreo_Control_de_Calidad'; // Valor genérico
+
+            // Si quisieras usar el nombre del producto o cualquier otro texto dinámico, asegúrate de que el elemento tenga contenido y esté presente
+            // var nombreProducto = document.getElementById('producto') ? document.getElementById('producto').textContent.trim() : 'Documento';
+
+            // Guardar el PDF
+            pdf.save(`${nombreArchivo}.pdf`);
+        });
+
+    </script>
+
+
+</body>
+
+</html>
