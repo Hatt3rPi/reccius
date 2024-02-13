@@ -31,7 +31,7 @@ body {
 }
 
 
-.content, #content, #additionalContent, #mainContainer, #additionalContainer, .form-container, .footer-section, th, td, tr, thead tr {
+.content, #content, #additionalContent, #mainContainer, #additionalContainer,  .footer-section, th, td, tr, thead tr {
     margin: 0;
     padding: 10px;
     border: none;

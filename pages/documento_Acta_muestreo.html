@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <title>Acta de Muestreo Control de Calidad</title>
     <link rel="stylesheet" href="../assets/css/DocumentoActa.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
 </head>
 
 <body>
-    <div id="form-container">
+    <div id="form-container" class="form-container">
         <div id="Maincontainer">
             <!-- Header -->
             <header>
@@ -204,11 +207,11 @@
                     <tr>
                         <td style="font-size: 11px; width: 60%;" colspan="2">1. La zona de esterilización se encuentra
                             limpia y ordenada.</td>
-                        <td class="formulario" id="form_Pro" colspan="1" style="border: none; width: 1px;">
+                        <td class="formulario" id="form_1" colspan="1" style="border: none; width: 1px;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" id="conforme_Pro" name="estado_Pro" value="Conforme">
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" id="noConforme_Pro" name="estado_Pro" value="No Conforme">
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
                             <label for="noConforme_Pro">No Conforme</label>
                         </td>
                         <td style="border: none; width: 1px;"></td>
@@ -220,11 +223,11 @@
                     <tr>
                         <td style="font-size: 11px; width: 50%;" colspan="2">2. Verificar que la zona de muestreo se
                             encuentre libre de otros productos.</td>
-                        <td class="formulario" id="form_Pro" colspan="1" style="border: none; width: 1px;">
+                        <td class="formulario" id="form_2" colspan="1" style="border: none; width: 1px;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" id="conforme_Pro" name="estado_Pro" value="Conforme">
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" id="noConforme_Pro" name="estado_Pro" value="No Conforme">
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
                             <label for="noConforme_Pro">No Conforme</label>
                         </td>
                         <td style="border: none; width: 1px;"></td>
@@ -236,11 +239,11 @@
                     <tr>
                         <td style="font-size: 11px; width: 50%;" colspan="2">3. Evaluar el aspecto del producto en zona
                             de revisión.</td>
-                        <td class="formulario" id="form_Pro" colspan="1" style="border: none; width: 1px;">
+                        <td class="formulario" id="form_3" colspan="1" style="border: none; width: 1px;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" id="conforme_Pro" name="estado_Pro" value="Conforme">
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" id="noConforme_Pro" name="estado_Pro" value="No Conforme">
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
                             <label for="noConforme_Pro">No Conforme</label>
                         </td>
                         <td style="border: none; width: 1px;"></td>
@@ -251,11 +254,11 @@
                     <tr>
                         <td style="font-size: 11px; width: 50%;" colspan="2">4. Verificar correcta identificación del
                             lote y producto.</td>
-                        <td class="formulario" id="form_Pro" colspan="1" style="border: none; width: 1px;">
+                        <td class="formulario" id="form_4" colspan="1" style="border: none; width: 1px;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" id="conforme_Pro" name="estado_Pro" value="Conforme">
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" id="noConforme_Pro" name="estado_Pro" value="No Conforme">
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
                             <label for="noConforme_Pro">No Conforme</label>
                         </td>
                         <td style="border: none; width: 1px;"></td>
@@ -265,27 +268,27 @@
                     </tr>
                     <tr>
                         <td style="font-size: 11px;" colspan="2">5. Cantidad de ciclos de esterilización</td>
-                        <td class="formulario" id="form_Pro" colspan="1">id="form_Pro"</td>
+                        <td class="formulario" id="form_5" colspan="1">id="form_5"</td>
                         <td style="border: none; width: 1px;"></td>
-                        <td id="Rspn_Pro" class="Rspn" colspan="1">id="Rspn_Pro"</td>
+                        <td id="Rspn_5" class="Rspn" colspan="1">id="Rspn_5"</td>
                         <td style="border: none; width: 1px;"></td>
-                        <td id="VB_Pro" class="VB" colspan="1">id="VB_Pro"</td>
-                    </tr>
+                        <td id="VB_5" class="VB" colspan="1">id="VB_5"</td>
+                    </tr>6
                     <tr>
                         <td style="font-size: 11px;" colspan="2">6. Cantidad bandejas esterilizadas por ciclo</td>
-                        <td class="formulario" id="form_Pro" colspan="1">id="form_Pro"</td>
+                        <td class="formulario" id="form_6" colspan="1">id="form_6"</td>
                         <td style="border: none; width: 1px;"></td>
-                        <td id="Rspn_Pro" class="Rspn" colspan="1">id="Rspn_Pro"</td>
+                        <td id="Rspn_6" class="Rspn" colspan="1">id="Rspn_6"</td>
                         <td style="border: none; width: 1px;"></td>
-                        <td id="VB_Pro" class="VB" colspan="1">id="VB_Pro"</td>
+                        <td id="VB_6" class="VB" colspan="1">id="VB_6"</td>
                     </tr>
                     <tr>
                         <td style="font-size: 11px;" colspan="2">7. Cantidad de muestras por bandeja</td>
-                        <td class="formulario" id="form_Pro" colspan="1">id="form_Pro"</td>
+                        <td class="formulario" id="form_7" colspan="1">id="form_7"</td>
                         <td style="border: none; width: 1px;"></td>
-                        <td id="Rspn_Pro" class="Rspn" colspan="1">id="Rspn_Pro"</td>
+                        <td id="Rspn_7" class="Rspn" colspan="1">id="Rspn_7"</td>
                         <td style="border: none; width: 1px;"></td>
-                        <td id="VB_Pro" class="VB" colspan="1">id="VB_Pro"</td>
+                        <td id="VB_7" class="VB" colspan="1">id="VB_7"</td>
                     </tr>
 
 
@@ -337,62 +340,193 @@
 
         </div>
     </div>
+    <div id="2docontenedor" class="form-container" style="margin-top: 100px;">
+        <!-- Header -->
+        <header>
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+                <!-- Logo a la izquierda -->
+                <div class="header-left" style="flex: 1;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
+                    <!-- Ajusta la altura según sea necesario -->
+                </div>
+                <!-- Título Central -->
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
+                        de
+                        Calidad
+                        <!-- Pretitulo -->
+                    </p>
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                        <!-- Título del documento -->
+                    </h1>
+                    <p name="producto" id="producto"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                        <!-- Descripción del producto -->
+                    </p>
+                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        Dirección de Calidad
+                    </div>
+                </div>
+                <!-- Información Derecha con Tabla -->
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">N° Registro:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">DCAL-CC-AMPT-005
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">N° Versión:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">001</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">N° Acta:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">AMPT-2301006-00
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px dotted #000; padding: 2px;">Fecha Muestreo:</td>
+                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">
+                                <!-- Fecha de muestreo aquí -->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Sección III: Plan de Muestreo -->
+        <section id="sampling-plan">
+            <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">III. PLAN DE MUESTREO</h2>
+            <table style="width:100%; border-collapse: collapse;">
+                <!-- Encabezados de la tabla -->
+                <tr>
+                    <th>Tamaño de Lote</th>
+                    <th>Muestra</th>
+                    <th>Contramuestra</th>
+                    <th>Total</th>
+                    <th>Revisión</th>
+                </tr>
+                <!-- Fila para lotes de <= 500 unidades -->
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td>&le; 500 unidades</td>
+                    <td>40 unidades</td>
+                    <td>80 unidades</td>
+                    <td>120 Unidades</td>
+                    <td>
+                        <input type="checkbox" id="revision1_rspn" name="revision1_rspn">
+                        <label for="revision1_rspn">Rspn.</label>
+                        <br>
+                        <input type="checkbox" id="revision1_vb" name="revision1_vb">
+                        <label for="revision1_vb">V°B°</label>
+                    </td>
+                </tr>
+                <!-- Fila para lotes entre 501 y 4999 unidades -->
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td>501 - 4999 unidades</td>
+                    <td>40 unidades</td>
+                    <td>80 unidades</td>
+                    <td>420 Unidades</td>
+                    <td>
+                        <input type="checkbox" id="revision2_rspn" name="revision2_rspn">
+                        <label for="revision2_rspn">Rspn.</label>
+                        <br>
+                        <input type="checkbox" id="revision2_vb" name="revision2_vb">
+                        <label for="revision2_vb">V°B°</label>
+                    </td>
+                </tr>
+                <!-- Fila para lotes de >= 1000 unidades -->
+                <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <td>&ge; 1000 unidades</td>
+                    <td>50 unidades</td>
+                    <td>100 unidades</td>
+                    <td>150 Unidades</td>
+                    <td>
+                        <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
+                        <label for="revision3_rspn">Rspn.</label>
+                        <br>
+                        <input type="checkbox" id="revision3_vb" name="revision3_vb">
+                        <label for="revision3_vb">V°B°</label>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Footer -->
+        <footer style="width: 100%; text-align: center; margin-top: 20px;position: absolute;bottom: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 10%;">
+                <!-- Área para la firma del responsable del muestreo -->
+                <div style="border: 1px dotted #000; padding: 10px; width: 40%;">
+                    Firma Responsable Muestreo
+                </div>
+                <!-- Área para la firma del verificador del muestreo -->
+                <div style="border: 1px dotted #000; padding: 10px; width: 40%;">
+                    Firma Verificador Muestreo
+                </div>
+            </div>
+            <!-- Nota de confidencialidad -->
+            <p style="margin-top: 10px;font-size: 10px;padding-bottom: 10px;">
+                La información contenida en esta acta es de carácter CONFIDENCIAL y es considerada SECRETO
+                INDUSTRIAL.
+            </p>
+        </footer>
 
 
 
-    <!-- Sección III: Plan de Muestreo -->
-    <section id="sampling-plan">
-        <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">III. PLAN DE MUESTREO</h2>
-        <table style="width:100%; border-collapse: collapse;">
-            <!-- Encabezados de la tabla -->
-            <tr>
-                <th>Tamaño de Lote</th>
-                <th>Muestra</th>
-                <th>Contramuestra</th>
-                <th>Total</th>
-                <th>Revisión</th>
-            </tr>
-            <!-- Fila para lotes de <= 500 unidades -->
-            <tr>
-                <td>&le; 500 unidades</td>
-                <td>40 unidades</td>
-                <td>80 unidades</td>
-                <td>120 Unidades</td>
-                <td>
-                    <input type="checkbox" id="revision1_rspn" name="revision1_rspn">
-                    <label for="revision1_rspn">Rspn.</label>
-                    <input type="checkbox" id="revision1_vb" name="revision1_vb">
-                    <label for="revision1_vb">V°B°</label>
-                </td>
-            </tr>
-            <!-- Fila para lotes entre 501 y 4999 unidades -->
-            <tr>
-                <td>501 - 4999 unidades</td>
-                <td>40 unidades</td>
-                <td>80 unidades</td>
-                <td>420 Unidades</td>
-                <td>
-                    <input type="checkbox" id="revision2_rspn" name="revision2_rspn">
-                    <label for="revision2_rspn">Rspn.</label>
-                    <input type="checkbox" id="revision2_vb" name="revision2_vb">
-                    <label for="revision2_vb">V°B°</label>
-                </td>
-            </tr>
-            <!-- Fila para lotes de >= 1000 unidades -->
-            <tr>
-                <td>&ge; 1000 unidades</td>
-                <td>50 unidades</td>
-                <td>100 unidades</td>
-                <td>150 Unidades</td>
-                <td>
-                    <input type="checkbox" id="revision3_rspn" name="revision3_rspn">
-                    <label for="revision3_rspn">Rspn.</label>
-                    <input type="checkbox" id="revision3_vb" name="revision3_vb">
-                    <label for="revision3_vb">V°B°</label>
-                </td>
-            </tr>
-        </table>
-    </section>
+    </div>
+    <div class="button-container">
+        <button id="download-pdf">Descargar PDF</button>
+    </div>
+    <script>
+        document.getElementById('download-pdf').addEventListener('click', async function () {
+            var pdf = new jspdf.jsPDF({
+                orientation: 'portrait',
+                unit: 'pt',
+                format: 'letter'
+            });
+
+            // Seleccionar todos los contenedores que deben incluirse en el PDF
+            var containers = document.querySelectorAll('.form-container');
+
+            for (let i = 0; i < containers.length; i++) {
+                if (i > 0) {
+                    pdf.addPage();
+                }
+
+                await html2canvas(containers[i], {
+                    scale: 2
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/png');
+                    var pdfWidth = pdf.internal.pageSize.getWidth();
+                    var pdfHeight = pdf.internal.pageSize.getHeight();
+
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                });
+            }
+
+            // Opcionalmente, obtener un nombre dinámico para el archivo PDF
+            // Aquí utilizo 'Acta_de_Muestreo_Control_de_Calidad' como nombre genérico
+            // Si prefieres un nombre basado en el contenido, asegúrate de tener un ID o clase única para seleccionar
+            var nombreArchivo = 'Acta_de_Muestreo_Control_de_Calidad'; // Valor genérico
+
+            // Si quisieras usar el nombre del producto o cualquier otro texto dinámico, asegúrate de que el elemento tenga contenido y esté presente
+            // var nombreProducto = document.getElementById('producto') ? document.getElementById('producto').textContent.trim() : 'Documento';
+
+            // Guardar el PDF
+            pdf.save(`${nombreArchivo}.pdf`);
+        });
+
+    </script>
+
 </body>
 
 </html>
