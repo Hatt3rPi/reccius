@@ -10,15 +10,7 @@ function limpiarDato($dato) {
 
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos) {
-    $query = "INSERT INTO calidad_analisis_externo (version,id_especificacion, id_producto, 
-                estado, numero_registro, numero_solicitud, fecha_registro, 
-                laboratorio, fecha_solicitud, analisis_segun, numero_documento, 
-                fecha_cotizacion, estandar_segun,  hds_adjunto, 
-                fecha_entrega_estimada, lote, 
-                registro_isp, condicion_almacenamiento, muestreado_por, numero_pos, 
-                tamano_lote, fecha_elaboracion, fecha_vencimiento, tamano_muestra, tamano_contramuestra,
-                observaciones, solicitado_por, revisado_por
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO calidad_analisis_externo (version, id_especificacion, id_producto, estado, numero_registro, numero_solicitud, fecha_registro, solicitado_por, revisado_por) VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -28,15 +20,16 @@ function insertarRegistro($link, $datos) {
     // Asignar valores directos a variables
     $estado = 'Pendiente Acta de Muestreo';
     // Luego usa estas variables en la función mysqli_stmt_bind_param
-    mysqli_stmt_bind_param($stmt, 'iiisssssssssssssssssssssssss', 
-        $datos['version'], $datos['id_especificacion'], $datos['id_producto'], 
-        $estado, $datos['registro'], $datos['numero_solicitud'], $datos['fecha_registro'], 
-        $datos['laboratorio'], $datos['fecha_solicitud'], $datos['analisis_segun'], $datos['numero_documento'], 
-        $datos['fecha_cotizacion'], $datos['estandar_provisto_por'],  $datos['adjunta_HDS'],  
-        $datos['fecha_entrega_estimada'], $datos['lote'], 
-        $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'], $datos['muestreado_POS'], 
-        $datos['tamano_lote'], $datos['fecha_elaboracion'], $datos['fecha_vence'], $datos['cantidad_muestra'], $datos['cantidad_contramuestra'], 
-        $datos['observaciones'], $_SESSION['usuario'], $datos['usuario_revisor']);
+    mysqli_stmt_bind_param($stmt, 'iiisssss', 
+    $datos['version'], 
+    $datos['id_especificacion'], 
+    $datos['id_producto'], 
+    $datos['registro'], 
+    $datos['numero_solicitud'], 
+    $datos['fecha_registro'], 
+    $_SESSION['usuario'], 
+    $datos['usuario_revisor']
+);
 
 
     $exito = mysqli_stmt_execute($stmt);
@@ -105,17 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $registro_isp = limpiarDato($_POST['registro_isp']);
     $muestreado_por = limpiarDato($_POST['muestreado_por']);
     $muestreado_POS = limpiarDato($_POST['muestreado_POS']);
-    $laboratorio = limpiarDato($_POST['laboratorio']);
-    $fecha_solicitud = limpiarDato($_POST['fecha_solicitud']);
-    $analisis_segun = limpiarDato($_POST['analisis_segun']);
-    $fecha_cotizacion = limpiarDato($_POST['fecha_cotizacion']);
-    $estandar_provisto_por = limpiarDato($_POST['estandar_provisto_por']);
-    $adjunta_HDS = limpiarDato($_POST['adjunta_HDS']);
-    $fecha_entrega_estimada = limpiarDato($_POST['fecha_entrega_estimada']);
-    $numero_documento = limpiarDato($_POST['numero_documento']);
     $numero_especificacion = limpiarDato($_POST['numero_especificacion']);
     $version_especificacion = limpiarDato($_POST['version_especificacion']);
-    $observaciones = limpiarDato($_POST['observaciones']);
     $usuario_revisor = limpiarDato($_POST['usuario_revisor']);
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
@@ -150,17 +134,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'registro_isp' => $registro_isp,
             'muestreado_por' => $muestreado_por,
             'muestreado_POS' => $muestreado_POS,
-            'laboratorio' => $laboratorio,
-            'fecha_solicitud' => $fecha_solicitud,
-            'analisis_segun' => $analisis_segun,
-            'fecha_cotizacion' => $fecha_cotizacion,
-            'estandar_provisto_por' => $estandar_provisto_por,
-            'adjunta_HDS' => $adjunta_HDS,
-            'fecha_entrega_estimada' => $fecha_entrega_estimada,
-            'numero_documento' => $numero_documento,
             'numero_especificacion' => $numero_especificacion,
             'version_especificacion' => $version_especificacion,
-            'observaciones' => $observaciones,
             'usuario_revisor' => $usuario_revisor,
             'id_producto' => $id_producto,
             'id_especificacion' => $id_especificacion

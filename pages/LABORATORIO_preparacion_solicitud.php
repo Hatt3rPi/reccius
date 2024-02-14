@@ -210,79 +210,81 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             </fieldset>
             <br>
             <br>
-            <fieldset>
-                <legend>IV. Solicitud de Análisis Externo:</legend>
+            <div id="info_adicional" style="display: none;">
+                <fieldset>
+                    <legend>IV. Solicitud de Análisis Externo:</legend>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Laboratorio Analista:</label>
-                        <select name="laboratorio" id="laboratorio" class="select-style" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 83%" required>
-                            <option value="">Selecciona un Laboratorio</option>
-                            <?php foreach ($opciones['laboratorio'] as $opcion): ?>
-                                <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Laboratorio Analista:</label>
+                            <select name="laboratorio" id="laboratorio" class="select-style" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 83%" required>
+                                <option value="">Selecciona un Laboratorio</option>
+                                <?php foreach ($opciones['laboratorio'] as $opcion): ?>
+                                    <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" style="display: none;">
+                        </div>
+                        <div class="divider"></div> <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Fecha Solicitud:</label>
+                            <input name="fecha_solicitud" id="fecha_solicitud" type="date" placeholder="06-07-2023" style="width: 82.75%;">
+                        </div>
                     </div>
-                    <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
-                        <label>Fecha Solicitud:</label>
-                        <input name="fecha_solicitud" id="fecha_solicitud" type="date" placeholder="06-07-2023" style="width: 82.75%;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Análisis según:</label>
+                            <input name="analisis_segun" id="analisis_segun" type="text" placeholder="Cotización">
+                        </div>
+                        <div class="divider"></div> <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Fecha Cotización:</label>
+                            <input name="fecha_cotizacion" id="fecha_cotizacion" type="date" placeholder="06-07-2023" style="width: 82.75%;">
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Análisis según:</label>
-                        <input name="analisis_segun" id="analisis_segun" type="text" placeholder="Cotización">
-                    </div>
-                    <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
-                        <label>Fecha Cotización:</label>
-                        <input name="fecha_cotizacion" id="fecha_cotizacion" type="date" placeholder="06-07-2023" style="width: 82.75%;">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="estandar_provisto_por">Estándar Provisto por:</label>
-                        <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style" style="width: 82.5%;">
-                            <option value="reccius">Reccius</option>
-                            <option value="cequc">CEQUC</option>
-                            <option value="pharmaisa">Pharma ISA</option>
-                            <option value="otro">Otro</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estandar_provisto_por">Estándar Provisto por:</label>
+                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style" style="width: 82.5%;">
+                                <option value="reccius">Reccius</option>
+                                <option value="cequc">CEQUC</option>
+                                <option value="pharmaisa">Pharma ISA</option>
+                                <option value="otro">Otro</option>
+                            </select>
 
+                        </div>
+                        <div class="divider"></div> <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Adjunta Hoja de seguridad</label>
+                            <input name="adjunta_HDS" id="adjunta_HDS" type="text" placeholder="No">
+                        </div>
                     </div>
-                    <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
-                        <label>Adjunta Hoja de seguridad</label>
-                        <input name="adjunta_HDS" id="adjunta_HDS" type="text" placeholder="No">
+                    <div class="form-row">
+                        <div class="form-group">
+                        <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
+                        <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" value="<?php echo $fechaEntregaEstimadaFormato; ?>" style="width: 82.75%;">
+                        </div>
+                        <div class="divider"></div> <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>N° Documento:</label>
+                            <input name="numero_documento" id="numero_documento" type="text" placeholder="123456">
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                    <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
-                    <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" value="<?php echo $fechaEntregaEstimadaFormato; ?>" style="width: 82.75%;">
+                    <div class="form-row">
+                        <div class="form-group">
+                        <label>Observaciones:</label>
+                        <textarea name="observaciones" id="observaciones" rows="4" placeholder="..." ></textarea>
+                        </div>
+                        <div class="divider"></div> <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            
+                        </div>
                     </div>
-                    <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
-                        <label>N° Documento:</label>
-                        <input name="numero_documento" id="numero_documento" type="text" placeholder="123456">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                    <label>Observaciones:</label>
-                    <textarea name="observaciones" id="observaciones" rows="4" placeholder="..." ></textarea>
-                    </div>
-                    <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
-                        
-                    </div>
-                </div>
 
-            </fieldset>
-            <br>
-            <br>
+                </fieldset>
+                <br>
+                <br>
+            </div>
             <fieldset>
                 <legend>V. Análisis:</legend>
                 <br>
@@ -327,6 +329,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                 </div>
             </fieldset>
+            
             <div class="actions-container">
                 <button type="button" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">EDITAR</button>
