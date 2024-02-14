@@ -2,7 +2,12 @@
     display: flex;
     justify-content: space-between;
     /* Separa las columnas */
+    
 }
+.form-group {
+    padding: 1%;
+}
+
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
