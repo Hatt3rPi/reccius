@@ -10,7 +10,14 @@ function limpiarDato($dato) {
 
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos) {
-    $query = "INSERT INTO calidad_analisis_externo (version, id_especificacion, id_producto, estado, numero_registro, numero_solicitud, fecha_registro, solicitado_por, revisado_por) VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO tabla (version, id_especificacion, id_producto, 
+    estado, numero_registro, numero_solicitud, 
+    fecha_registro, solicitado_por, revisado_por, 
+    lote, tamano_lote, fecha_elaboracion, 
+    fecha_vencimiento, tamano_muestra, tamano_contramuestra, 
+    registro_isp, condicion_almacenamiento, muestreado_por, 
+    numero_pos, tipo_analisis) 
+    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -20,15 +27,14 @@ function insertarRegistro($link, $datos) {
     // Asignar valores directos a variables
     $estado = 'Pendiente Acta de Muestreo';
     // Luego usa estas variables en la función mysqli_stmt_bind_param
-    mysqli_stmt_bind_param($stmt, 'iiisssss', 
-    $datos['version'], 
-    $datos['id_especificacion'], 
-    $datos['id_producto'], 
-    $datos['registro'], 
-    $datos['numero_solicitud'], 
-    $datos['fecha_registro'], 
-    $_SESSION['usuario'], 
-    $datos['usuario_revisor']
+    mysqli_stmt_bind_param($stmt, 'iiissssssssssssssss', 
+    $datos['version'], $datos['id_especificacion'], $datos['id_producto'], 
+    $datos['registro'], $datos['numero_solicitud'], 
+    $datos['fecha_registro'], $_SESSION['usuario'],  $datos['usuario_revisor'],
+    $datos['lote'], $datos['tamano_lote'], $datos['fecha_elaboracion'], 
+    $datos['fecha_vence'], $datos['cantidad_muestra'], $datos['cantidad_contramuestra'], 
+    $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'], 
+    $datos['muestreado_POS'], $datos['tipo_analisis']
 );
 
 
@@ -44,13 +50,12 @@ function insertarRegistro($link, $datos) {
         $id, 
         $query,  
         [$datos['version'], $datos['id_especificacion'], $datos['id_producto'], 
-        $estado, $datos['registro'], $datos['numero_solicitud'], $datos['fecha_registro'], 
-        $datos['laboratorio'], $datos['fecha_solicitud'], $datos['analisis_segun'], $datos['numero_documento'], 
-        $datos['fecha_cotizacion'], $datos['estandar_provisto_por'],  $datos['adjunta_HDS'],  
-        $datos['fecha_entrega_estimada'], $datos['lote'], 
-        $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'], $datos['muestreado_POS'], 
-        $datos['tamano_lote'], $datos['fecha_elaboracion'], $datos['fecha_vence'], $datos['cantidad_muestra'], $datos['cantidad_contramuestra'], 
-        $datos['observaciones'], $_SESSION['usuario'], $datos['usuario_revisor']], 
+        $datos['registro'], $datos['numero_solicitud'], 
+        $datos['fecha_registro'], $_SESSION['usuario'],  $datos['usuario_revisor'],
+        $datos['lote'], $datos['tamano_lote'], $datos['fecha_elaboracion'], 
+        $datos['fecha_vence'], $datos['cantidad_muestra'], $datos['cantidad_contramuestra'], 
+        $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'], 
+        $datos['muestreado_POS'], $datos['tipo_analisis']], 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
