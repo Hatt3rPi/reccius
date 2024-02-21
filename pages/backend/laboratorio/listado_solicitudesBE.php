@@ -12,7 +12,11 @@ $query = "SELECT
                 aex.fecha_registro,
                 aex.id_especificacion,
                 aex.id_producto, 
-                concat(pr.nombre_producto, ' ', pr.concentracion) as producto
+                concat(pr.nombre_producto, ' ', pr.concentracion) as producto,
+                aex.revisado_por,
+                aex.solicitado_por,
+                aex.muestreado_por,
+                aex.lote
             FROM `calidad_analisis_externo` as aex
             left join calidad_productos as pr 
             on aex.id_producto=pr.id;";

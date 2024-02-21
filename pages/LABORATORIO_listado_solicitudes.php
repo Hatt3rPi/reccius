@@ -59,6 +59,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listadoAnalisis').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
+var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
 function carga_listado() {
     var table = $('#listadoAnalisis').DataTable({
         "ajax": "./backend/laboratorio/listado_solicitudesBE.php",
@@ -97,6 +98,7 @@ function carga_listado() {
             { "data": "fecha_registro", "title": "Fecha registro", "width": "65px" },
             { "data": "numero_registro", "title": "Registro", "width": "70px" },
             { "data": "producto", "title": "Producto", "width": "170px" },
+            { "data": "lote", "title": "Número Lote", "width": "170px" },
             { "data": "laboratorio", "title": "Laboratorio", "width": "70px" },
             
             {
@@ -134,7 +136,9 @@ function carga_listado() {
     // Botón para revisar siempre presente
     acciones += '<button class="accion-btn" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
     acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
-
+    if (d.muestreado_por === usuarioActual) {
+                    acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i></button>';
+                }
     acciones += '</td></tr></table>';
     return acciones;
 }
