@@ -59,7 +59,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listadoAnalisis').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
+var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
 function carga_listado() {
     var table = $('#listadoAnalisis').DataTable({
         "ajax": "./backend/laboratorio/listado_solicitudesBE.php",
@@ -155,7 +155,7 @@ function carga_listado() {
     // Si se acaba de insertar una nueva especificación, establecer el valor del buscador de DataTables
     <?php if (isset($_SESSION['buscar_por_ID'])) { ?>
         var buscar = '<?php echo $_SESSION['buscar_por_ID']; ?>';
-        table.columns(6).search(buscar).draw();
+        table.columns(7).search(buscar).draw();
         //table.search(buscar).draw();
         <?php unset($_SESSION['buscar_por_ID']); ?>
     <?php } ?>
