@@ -10,7 +10,7 @@ function limpiarDato($dato) {
 
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos) {
-    $query = "INSERT INTO tabla (version, id_especificacion, id_producto, 
+    $query = "INSERT INTO calidad_analisis_externo (version, id_especificacion, id_producto, 
     estado, numero_registro, numero_solicitud, 
     fecha_registro, solicitado_por, revisado_por, 
     lote, tamano_lote, fecha_elaboracion, 
