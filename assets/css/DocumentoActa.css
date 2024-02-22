@@ -6,9 +6,9 @@ body {
 }
 
 #form-container {
-    width: 612pt;
-    height: 792pt;
-    padding: 10pt;
+     width: 1000px;
+    /* height: 792pt; */
+    padding: 20px;
     box-sizing: border-box;
     background-color: #FFF;
     border: 1px solid #000;
@@ -17,18 +17,7 @@ body {
     margin-right: 10px;
     position: relative;
 }
-.form-container {
-    width: 612pt;
-    height: 792pt;
-    padding: 10pt;
-    box-sizing: border-box;
-    background-color: #FFF;
-    border: 1px solid #000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 500px;
-    margin-right: 10px;
-    position: relative;
-}
+
 
 
 .content, #content, #additionalContent, #mainContainer, #additionalContainer,  .footer-section, th, td, tr, thead tr {
@@ -112,18 +101,18 @@ tbody {
     text-align: center;
 }
 
-table {
+#seccion3 table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th {
+#seccion3 th {
     background-color: #0047b3;
     color: white;
     padding: 8px;
 }
 
-td {
+#seccion3 td {
     padding: 8px;
 }
 
@@ -290,14 +279,63 @@ p {
     padding-right: 1px;        /* Relleno derecho */
 }
 
-.formulario {
+
+
+#identificacion_muestra th:first-child, #identificacion_muestra td:first-child {
+    width: 20%;
+
+}
+#identificacion_muestra th:nth-child(2), #identificacion_muestra td:nth-child(2) {
+    width: 40%;
+
+}
+#identificacion_muestra th:nth-child(4), #identificacion_muestra td:nth-child(4) {
+    width: 5%;
+    text-align: center;
+    align-items: center;
     font-size: 10px;
-    border: 1px solid #000;
-    width: 75%; /* 3 veces el tamaño de .VB y .Rspn */
+}
+#identificacion_muestra th:nth-child(6), #identificacion_muestra td:nth-child(6) {
+    width: 5%;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+}
+#identificacion_muestra th:nth-child(8), #identificacion_muestra td:nth-child(8) {
+    width: 30%;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+}
+#identificacion_muestra {
+    width: 100%;
 }
 
-.VB, .Rspn {
-    font-size: 5px;
+.formulario {
     border: 1px solid #000;
-    width: 25%; /* 1 vez el tamaño de .VB y .Rspn */
+    font-size: 12px;
+    
+}
+.formulario-titulo {
+    border: none;
+    font-size: 12px;
+}
+.spacer {
+    border: none;
+    width: 1px !important;
+    padding: 0px !important;
+}
+
+.verificadores{
+    font-size: 8px!important;
+    padding: 3px 3px !important; /* Ajusta el espacio interno del botón */
+    border-radius: 3px !important; 
+    
+}
+
+.resp {
+    background-color: #ffffff;   
+}
+.verif {
+    background-color: #ffffff; 
 }
