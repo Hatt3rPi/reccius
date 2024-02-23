@@ -312,6 +312,114 @@ $(window).on('load', function() {
     $('#dynamic-content').show();
 });
 
+$(document).ready(function () {
+    $('#listado_solicitudes_analisis').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                obtenNotificaciones();
+                carga_listado();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#listado_productos_disponibles').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('listado_productos_disponibles.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                obtenNotificaciones();
+                
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }v
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#listado_acta_muestreo').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                obtenNotificaciones();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#documento_acta_muestreo').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('documento_Acta_muestreo.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                obtenNotificaciones();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#documento_Analisis_externo').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('documento_Analisis_externo.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+            } else {
+                obtenNotificaciones();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+});
+
+
 function botones(id, accion, base) {
     switch (base){
         case "especificacion":{
@@ -474,113 +582,28 @@ function botones(id, accion, base) {
             }
             break;
         }
+        case "laboratorio": {
+            switch (accion) {
+                case "generar_documento": {
+                    // Llamar a una función que maneje el envío del recordatorio
+                    $.ajax({
+                        url: '../pages/backend/acta/genera_acta.php',
+                        type: 'POST',
+                        data: {
+                            'id_analisis_externo': id
+                        },
+                        success: function(response) {
+                            alert("Recordatorio enviado correctamente.");
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+                }
+            }
+            break;
+        }
     }
 
 }
-
-$(document).ready(function () {
-    $('#listado_solicitudes_analisis').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                carga_listado();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-
-$(document).ready(function () {
-    $('#listado_productos_disponibles').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('listado_productos_disponibles.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }v
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-
-$(document).ready(function () {
-    $('#listado_acta_muestreo').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-
-$(document).ready(function () {
-    $('#documento_acta_muestreo').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('documento_Acta_muestreo.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-
-$(document).ready(function () {
-    $('#documento_Analisis_externo').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('documento_Analisis_externo.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});

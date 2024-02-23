@@ -40,7 +40,7 @@
                         <!-- Título del documento -->
                     </h1>
                     <p name="producto" id="producto"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">                        
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -54,21 +54,21 @@
                     <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td style="border: 1px dotted #000; padding: 2px;">N° Registro:</td>
-                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">DCAL-CC-AMPT-005
+                            <td name="nro_registro" id="nro_registro" style="border: 1px dotted #000; padding: 2px; text-align: center">DCAL-CC-AMPT-005
                             </td>
                         </tr>
                         <tr>
                             <td style="border: 1px dotted #000; padding: 2px;">N° Versión:</td>
-                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">001</td>
+                            <td name="nro_version" id="nro_version"style="border: 1px dotted #000; padding: 2px; text-align: center">001</td>
                         </tr>
                         <tr>
                             <td style="border: 1px dotted #000; padding: 2px;">N° Acta:</td>
-                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">AMPT-2301006-00
+                            <td name="nro_acta" id="nro_acta" style="border: 1px dotted #000; padding: 2px; text-align: center">AMPT-2301006-00
                             </td>
                         </tr>
                         <tr>
                             <td style="border: 1px dotted #000; padding: 2px;">Fecha Muestreo:</td>
-                            <td style="border: 1px dotted #000; padding: 2px; text-align: center">
+                            <td name="fecha_muestreo" id="fecha_muestreo" style="border: 1px dotted #000; padding: 2px; text-align: center">
                                 <!-- Fecha de muestreo aquí -->
                             </td>
                         </tr>
@@ -96,7 +96,7 @@
                     </tr>
                     <tr>
                         <td class="formulario-titulo" >1. Producto:</td>
-                        <td class="formulario" id="form_Pro">id="form_Pro"</td>
+                        <td class="formulario" id="form_producto">id="form_producto"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-horizontal " role="group" aria-label="Basic radio toggle button group">
@@ -123,7 +123,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >2. Tipo Producto:</td>
-                        <td class="formulario" id="form_Tipo " >id="form_Tipo"</td>
+                        <td class="formulario" id="form_tipo " >id="form_tipo"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -147,7 +147,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >3. Lote:</td>
-                        <td class="formulario" id="form_Lote " >id="form_Lote"</td>
+                        <td class="formulario" id="form_lote " >id="form_lote"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -170,7 +170,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >4. Tamaño de Lote:</td>
-                        <td class="formulario" id="form_Talo te">id="form_Talote"</td>
+                        <td class="formulario" id="form_tamano_lote">id="form_tamano_lote"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -193,7 +193,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >5. Código Interno:</td>
-                        <td class="formulario" id="form_Codi go">id="form_Codigo"</td>
+                        <td class="formulario" id="form_codigo_mastersoft">id="form_codigo_mastersoft"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -216,7 +216,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >6. Cond. Almacenamiento:</td>
-                        <td class="formulario" id="form_Cond icion">id="form_Condicion"</td>
+                        <td class="formulario" id="form_condAlmacenamiento">id="form_condAlmacenamiento"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -239,7 +239,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >7. Cantidad Muestra:</td>
-                        <td class="formulario" id="form_Cant muestra">id="form_Cantmuestra"</td>
+                        <td class="formulario" id="form_cant_muestra">id="form_cant_muestra"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -262,7 +262,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >8. Cantidad Contramuestra:</td>
-                        <td class="formulario" id="form_Cant contramuestra">id="form_Cantcontramuestra"</td>
+                        <td class="formulario" id="form_cant_contramuestra">id="form_cant_contramuestra"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -285,7 +285,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >9. Tipo de Análisis:</td>
-                        <td class="formulario" id="form_tipo analisis" >id="form_tipoanalisis"</td>
+                        <td class="formulario" id="form_tipo_analisis" >id="form_tipo_analisis"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -451,7 +451,7 @@
                     <tr>
                         <td >5. Cantidad de ciclos de esterilización</td>
                         <td class="formulario" >
-                            <textarea id="form_5" >id="form_5"</textarea>
+                            <textarea id="form_textarea5" >id="form_textarea5"</textarea>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -475,7 +475,7 @@
                     <tr>
                         <td >6. Cantidad bandejas esterilizadas por ciclo</td>
                         <td class="formulario" >
-                            <textarea id="form_6" >id="form_6"</textarea>
+                            <textarea id="form_textarea6" >id="form_textarea6"</textarea>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -499,7 +499,7 @@
                     <tr>
                         <td >7. Cantidad de muestras por bandeja</td>
                         <td class="formulario" >
-                            <textarea id="form_7" >id="form_7"</textarea>
+                            <textarea id="form_textarea7" >id="form_textarea7"</textarea>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -526,16 +526,10 @@
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <textarea id="form_Inusual" name="form_Inusual" rows="3" style="width: 100%;"></textarea>
+                <textarea id="form_textarea8" name="form_textarea8" rows="3" style="width: 99%;margin-left: 1%;">id="form_textarea8"</textarea>
+                
+                
             </div>
-
-
-
-
-
-
-
-
         <!-- Sección III: Plan de Muestreo -->
         <section id="sampling-plan">
             <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">III. PLAN DE MUESTREO</h2>
@@ -631,14 +625,14 @@
                 <!-- Sección realizada por -->
                 <div class="firma-section">
                     
-                    <div class="firma-box-title" style="font-size: 12px">Muestreo realizado por:</div>
+                    <div class="firma-box-title" style="font-size: 12px; text-align: center;">Realizado por:</div>
                     <div class="firma-box">
-                        <p id='creadoPor' name='creadoPor' class="bold"></p>
-                        <p id='cargo_creador' name='cargo_creador' class="bold">
-                        <div class="signature" id="QRcreador" name="QRcreador">
+                        <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                        <p id='cargo_realizador' name='cargo_realizador' class="bold">
+                        <div class="signature" id="QRrealizador" name="QRrealizador">
                             <!-- acá debe ir el QR -->
                         </div>
-                        <p id='mensaje_creador' name='mensaje_creador' style='text-align: center;display: none'>Firmado
+                        <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
                             digitalmente</p>
                     </div>
                     <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
@@ -646,17 +640,17 @@
                 </div>
                 <!-- Sección aprobada por -->
                 <div class="firma-section">
-                    <div class="firma-box-title" style="font-size: 12px">Muestreado revisado por:</div>
+                    <div class="firma-box-title" style="font-size: 12px; text-align: center;">Verificado por:</div>
                     <div class="firma-box">
-                        <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
-                        <p id='cargo_aprobador' name='cargo_aprobador' class="bold">
-                        <div class="signature" id="QRaprobador" name="QRaprobador">
+                        <p id='verificadoPor' name='verificadoPor' class="bold"></p>
+                        <p id='cargo_verificador' name='cargo_verificador' class="bold">
+                        <div class="signature" id="QRverificador" name="QRverificador">
                             <!-- acá debe ir el QR -->
                         </div>
-                        <p id='mensaje_aprobador' name='mensaje_aprobador' style='text-align: center;display: none'>
+                        <p id='mensaje_verificador' name='mensaje_verificador' style='text-align: center;display: none'>
                             Firmado digitalmente</p>
                     </div>
-                    <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>
+                    <div id='fecharevision' name='fecharevision' class="date" style="font-size: 8px">01/01/01</div>
                 </div>
             </div>
             <footer style="width: 100%; text-align: center; margin-top: 20px;bottom: 0;">
@@ -671,6 +665,8 @@
 
     </div>
     <div class="button-container">
+        <button id="guardar">Guardar</button>
+        <button id="firmar">Firmar</button>
         <button id="download-pdf">Descargar PDF</button>
     </div>
 
