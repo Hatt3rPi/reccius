@@ -19,12 +19,26 @@ body {
 }
 
 
-
-.content, #content, #additionalContent, #mainContainer, #additionalContainer,  .footer-section, th, td, tr, thead tr {
-    margin: 0;
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    /* Separa las columnas */
+}
+.firma-box {
+    border: 1px solid #000;
     padding: 10px;
-    border: none;
-    background-color: #FFF;
+    width: 200px;
+    height: 100px;
+    /* Ajusta el ancho para llenar la sección del footer */
+    text-align: center;
+}
+
+/* ... Resto de estilos ... */
+
+
+.firma-box-title {
+    margin-bottom: 10px;
+    /* Espacio entre el título y el cuadro */
 }
 .header, .header-bottom, .table-section, .footer-box, .footer {
     margin: 0;
@@ -104,17 +118,23 @@ tbody {
 #seccion3 table {
     width: 100%;
     border-collapse: collapse;
+
 }
 
 #seccion3 th {
     background-color: #0047b3;
     color: white;
     padding: 8px;
+    text-align: center;
+    align-items: center;
 }
-
 #seccion3 td {
     padding: 8px;
+    text-align: center;
+    align-items: center;
 }
+
+
 
 .document-title h2, .document-title h3 {
     text-align: center;
@@ -134,7 +154,13 @@ tbody {
 .footer-section {
     margin: 5px;
 }
-
+.firma-section {
+    margin: 0;
+    padding-left: 50px;
+    padding-right: 50px;
+    border: none;
+    background-color: #FFF;
+}
 .footer-box {
     align-items: center;
     display: flex;
@@ -287,6 +313,7 @@ p {
 }
 #identificacion_muestra th:nth-child(2), #identificacion_muestra td:nth-child(2) {
     width: 40%;
+    padding: 5px;
 
 }
 #identificacion_muestra th:nth-child(4), #identificacion_muestra td:nth-child(4) {
@@ -294,12 +321,14 @@ p {
     text-align: center;
     align-items: center;
     font-size: 10px;
+    padding: 5px;
 }
 #identificacion_muestra th:nth-child(6), #identificacion_muestra td:nth-child(6) {
     width: 5%;
     text-align: center;
     align-items: center;
     font-size: 10px;
+    padding: 5px;
 }
 #identificacion_muestra th:nth-child(8), #identificacion_muestra td:nth-child(8) {
     width: 30%;
@@ -316,14 +345,18 @@ p {
     font-size: 12px;
     
 }
+#muestreo .formulario {
+    font-size: 12px;
+    
+}
 .formulario-titulo {
     border: none;
     font-size: 12px;
 }
 .spacer {
     border: none;
-    width: 1px !important;
-    padding: 0px !important;
+    width: 5px !important;
+    padding: 2px !important;
 }
 
 .verificadores{
@@ -338,4 +371,52 @@ p {
 }
 .verif {
     background-color: #ffffff; 
+}
+
+#muestreo th:first-child, #muestreo td:first-child {
+    width: 40%;
+
+}
+#muestreo th:nth-child(2), #muestreo td:nth-child(2) {
+    width: 20%;
+
+}
+
+#muestreo th:nth-child(4), #muestreo td:nth-child(4) {
+    width: 5%;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+}
+#muestreo th:nth-child(6), #muestreo td:nth-child(6) {
+    width: 5%;
+    font-size: 10px;
+    padding: 5px;
+}
+#muestreo th:nth-child(8), #muestreo td:nth-child(8) {
+    width: 30%;
+    font-size: 10px;
+}
+#muestreo, #seccion3 {
+    width: 100%;
+    font-size: 12px;
+}
+.formulario textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* Incluye el padding y el border en la altura y anchura total */
+    border: 0px solid #ccc; /* Opcional: Establece un borde para el textarea */
+    padding: 2px; /* Opcional: Añade algo de espacio interior */
+    resize: none; /* Opcional: Evita que el usuario redimensione el textarea */
+}
+
+#seccion3 th:nth-child(5), #muestreo td:nth-child(5) {
+    width: 5%;
+}
+#seccion3 th:nth-child(6), #muestreo td:nth-child(6) {
+    width: 5%;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
 }
