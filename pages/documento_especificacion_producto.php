@@ -338,23 +338,35 @@
         function generarMostrarQR(usuario, contenedorQR) {
             if (usuario && usuario.ruta_registro) {
                 // Construye la URL de la API de QR
-                var qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=https://customware.cl/reccius/documentos_publicos/' + encodeURIComponent(usuario.ruta_registro) + '&amp;size=64x64';
+                var qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent('https://customware.cl/reccius/documentos_publicos/' + usuario.ruta_registro) + '&size=64x64';
 
-                // Crea o actualiza el elemento <img> con la URL del QR
-                var imgElement = document.getElementById(contenedorQR).querySelector('img');
-                if (!imgElement) {
-                    imgElement = document.createElement('img');
-                    imgElement.style.width = '64px';
-                    imgElement.style.height = '64px';
-                    document.getElementById(contenedorQR).appendChild(imgElement);
-                }
-                imgElement.src = qrApiUrl;
+                // Realiza una solicitud AJAX para obtener la imagen como un blob
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                xhr.onload = function() {
+                    var reader = new FileReader();
+                    reader.onloadend = function() {
+                        // Crea o actualiza el elemento <img> con la URL del QR como Data URI
+                        var imgElement = document.getElementById(contenedorQR).querySelector('img');
+                        if (!imgElement) {
+                            imgElement = document.createElement('img');
+                            imgElement.style.width = '64px';
+                            imgElement.style.height = '64px';
+                            document.getElementById(contenedorQR).appendChild(imgElement);
+                        }
+                        imgElement.src = reader.result; // Result es un Data URI
+                    };
+                    reader.readAsDataURL(xhr.response); // Convierte el blob a Data URI
+                };
+                xhr.open('GET', qrApiUrl);
+                xhr.send();
             } else {
                 // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
                 var contenedor = document.getElementById(contenedorQR);
                 contenedor.textContent = 'Archivo aún no ha sido cargado';
             }
         }
+
 
 
         function mostrarAnalisisFQ(analisis) {
