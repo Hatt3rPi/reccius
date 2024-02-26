@@ -476,9 +476,10 @@ body {
   display: flex;
   align-items: center;
   padding: 0px 10px;
-  background-color: transparent;
+  background-color: red;
   border-radius: 0.25rem;
   margin-bottom: 0;
+  margin: 0;
 }
 
 /* Establece el tamaño de fuente y el color para todo dentro de .breadcrumb-item */
