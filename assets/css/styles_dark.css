@@ -481,41 +481,39 @@ body {
   border-radius: 4px; /* Bordes redondeados */
 }
 
-/* Estilos para la lista del breadcrumb */
+/* Estilo base para el breadcrumb */
 .breadcrumb {
-  display: flex; /* Muestra los elementos de la lista en línea */
-  flex-wrap: wrap; /* Permite que los elementos se ajusten según el ancho disponible */
-  padding: 0; /* Elimina el relleno por defecto */
-  margin: 0; /* Elimina el margen por defecto */
-  list-style: none; /* Elimina los estilos de lista por defecto */
+  list-style: none;
+  display: flex; /* Asegura que los elementos estén en línea */
+  padding-left: 0; /* Elimina el relleno predeterminado */
+  margin-bottom: 1rem; /* Espacio debajo del breadcrumb para separarlo de otros elementos */
+  background-color: transparent; /* Fondo transparente o puedes poner un color si así lo deseas */
 }
 
 /* Estilos para cada elemento del breadcrumb */
 .breadcrumb-item {
-  display: flex; /* Muestra el contenido de los elementos en línea */
+  display: inline-flex; /* Muestra el contenido en línea y permite flexibilidad en el espacio */
   align-items: center; /* Centra los elementos verticalmente */
+  padding: 0.5rem 0; /* Añade un relleno vertical para más espacio */
 }
 
 /* Estilos para los enlaces dentro de los elementos del breadcrumb */
 .breadcrumb-item a {
-  color: #0275d8; /* Color del texto de los enlaces */
-  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  color: #0275d8;
+  text-decoration: none; /* Evita el subrayado de los enlaces */
+  padding: 0 0.5rem; /* Añade un relleno horizontal */
 }
 
-.breadcrumb-item a:hover {
-  text-decoration: underline; /* Añade subrayado al pasar el ratón sobre el enlace */
-}
-
-/* Estilo para el separador de los elementos del breadcrumb */
+/* Añade el separador solamente entre elementos */
 .breadcrumb-item + .breadcrumb-item::before {
-  content: "/"; /* Carácter utilizado como separador */
-  padding: 0 5px; /* Espaciado alrededor del separador */
-  color: #6c757d; /* Color del separador */
+  content: "/";
+  padding: 0 0.5rem; /* Espaciado a los lados del separador */
+  color: #6c757d; /* Color del texto del separador */
 }
 
-/* Opcional: Estilos para el último elemento del breadcrumb para diferenciarlo */
+/* Opcional: Estilos para el elemento activo */
 .breadcrumb-item.active a {
-  color: #6c757d; /* Color del texto para el último elemento */
-  pointer-events: none; /* Desactiva la interacción con el enlace */
-  cursor: default; /* Cambia el cursor a default */
+  color: #6c757d; /* Color para el elemento activo */
+  pointer-events: none; /* Deshabilita las interacciones */
+  cursor: default;
 }
