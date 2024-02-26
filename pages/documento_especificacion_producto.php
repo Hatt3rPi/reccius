@@ -79,7 +79,7 @@
                 </div>
             </div>
 
-            <div id="watermark">TESTEO TESTESO</div>
+            <div class="watermark">TESTEO TESTESO</div>
             <div id="contenido_main">
                 <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
                 </h1>
@@ -181,8 +181,6 @@
 
     </div>
     <script>
-    
-
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
         document.getElementById('download-pdf').addEventListener('click', async function() {
@@ -560,17 +558,20 @@
             var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
             var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
 
-            var watermark = document.getElementById('watermark');
+            var watermarks = document.querySelectorAll('.watermark'); // Cambio aquí: usar clase en lugar de id
 
-            if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-                watermark.textContent = 'CONFIDENCIAL';
-                watermark.classList.remove('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
-            } else {
-                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-                watermark.classList.add('pendiente-approbacion'); // Asegúrate de que la clase 'pendiente-approbacion' exista en tus estilos CSS
-            }
+            watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
+                if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
+                    watermark.textContent = 'CONFIDENCIAL';
+                    watermark.classList.remove('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
+                } else {
+                    watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+                    watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
+                }
+            });
         }
-        
+
+
         function obtenerAlturaElementosYCalcularEspacioDisponible() {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
@@ -685,12 +686,12 @@
 
             // Añadir la marca de agua
             const watermark = document.createElement("div");
-            watermark.setAttribute("id", "watermark");
+            watermark.setAttribute("class", "watermark");
             watermark.textContent = "TESTEO TESTESO";
             container.appendChild(watermark);
 
-       
-          
+
+
 
             const footerClone = document.querySelector("#footer").cloneNode(true);
             footerClone.style.marginTop = "5px"; // Reduce el margen superior
