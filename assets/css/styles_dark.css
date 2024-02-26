@@ -473,7 +473,7 @@ body {
   position: relative;
 }
 .breadcrumb-container .breadcrumb {
-  padding: 0.5rem 1rem; /* Reduce el padding para disminuir el alto */
+  padding: 0px 1px 0px 1px; /* Reduce el padding para disminuir el alto */
   background-color: transparent; /* Opcional: establece un fondo transparente */
   border-radius: 0.25rem; /* Opcional: bordes redondeados */
   margin-bottom: 0; /* Reduce el margen inferior para espaciar menos con otros elementos */
