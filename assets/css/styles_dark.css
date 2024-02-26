@@ -477,32 +477,36 @@ body {
   display: flex;
   align-items: center; /* Alineación vertical */
   justify-content: start; /* Alineación horizontal */
-  height: 100%; /* Asume que el contenedor padre tiene una altura definida */
-  padding-left: 20px; /* Espaciado a la izquierda, ajustar según sea necesario */
-  /* background-color: #0056b3; eliminado para no tener fondo */
-  color: #FFFFFF; /* Ajusta este color de texto según sea necesario para que contraste con el fondo de la cabecera */
+  /* Asegúrate de que no haya padding o márgenes innecesarios que puedan causar espacios */
 }
 
 .breadcrumb {
   display: flex;
   align-items: center; /* Asegura que los elementos del breadcrumb también estén centrados verticalmente */
-  margin-bottom: 0; /* Elimina el margen por defecto */
+  margin: 0; /* Elimina cualquier margen */
+  padding: 0; /* Elimina cualquier padding */
   list-style: none;
-  padding: 0;
+  background: none; /* Asegúrate de que no haya fondo */
+}
+
+.breadcrumb-item {
+  background: none; /* Asegúrate de que no haya fondo en los elementos individuales */
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
   content: "/";
-  padding: 0 10px;
-  color: #FFFFFF; /* Ajusta este color de separador según sea necesario */
+  padding: 0 5px; /* Ajusta el espaciado según sea necesario */
+  color: #FFFFFF; /* Ajusta el color según sea necesario */
 }
 
 .breadcrumb-item a {
-  color: #FFFFFF; /* Ajusta este color de enlaces según sea necesario */
+  color: #FFFFFF; /* Ajusta este color según sea necesario */
   text-decoration: none;
+  background: none; /* Asegúrate de que no haya fondo en los enlaces */
 }
 
 .breadcrumb-item.active {
-  color: #FFFFFF; /* Ajusta este color para el elemento activo según sea necesario */
+  color: #FFFFFF; /* Ajusta este color según sea necesario */
   font-weight: 700;
 }
+
