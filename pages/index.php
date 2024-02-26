@@ -82,6 +82,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         <aside class="sidebar c-scroll">
             <ul id="sidebarList">
+                <li class="title">Ruta Actual:</li>
                 <!-- Breadcrumb -->
                 <nav aria-label="breadcrumb" class="breadcrumb-container">
                     <ol class="breadcrumb">
