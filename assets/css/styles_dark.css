@@ -473,33 +473,33 @@ body {
   position: relative;
 }
 .breadcrumb-container .breadcrumb {
-  padding: 0px 1px; /* Ajuste fino del padding */
+  display: flex;
+  align-items: center; /* Alinea los elementos del breadcrumb verticalmente */
+  padding: 0px 1px;
   background-color: transparent;
   border-radius: 0.25rem;
   margin-bottom: 0;
 }
 
-.breadcrumb-container .breadcrumb-item,
-.breadcrumb-container .breadcrumb-item a {
-  font-size: 0.875rem; /* Establece el tamaño de la fuente para ambos, `li` y `a` */
-  color: #007bff; /* Este color se aplicará solo a los enlaces */
+.breadcrumb-container .breadcrumb-item {
+  display: flex;
+  align-items: center; /* Alinea el contenido de cada elemento del breadcrumb */
 }
 
 .breadcrumb-container .breadcrumb-item a {
-  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  font-size: 0.875rem;
+  color: #007bff;
+  text-decoration: none;
 }
 
 .breadcrumb-container .breadcrumb-item a:hover {
-  text-decoration: underline; /* Subraya los enlaces al pasar el mouse */
+  text-decoration: underline;
 }
 
 .breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
-  content: "›"; /* Cambia el separador, si es necesario */
+  content: "›";
   color: #6c757d;
-  padding: 0 5px; /* Ajusta el espaciado alrededor del separador, si es necesario */
-}
-
-/* Asegura que el último elemento tenga el mismo estilo */
-.breadcrumb-container .breadcrumb-item:last-child {
-  color: #6c757d; /* Color del texto para el último elemento si quieres diferenciarlo */
+  padding: 0 5px; /* Mantiene el espaciado horizontal */
+  display: flex; /* Asegura que el separador se alinea correctamente con los elementos */
+  align-items: center; /* Centra el separador verticalmente respecto a los elementos del breadcrumb */
 }
