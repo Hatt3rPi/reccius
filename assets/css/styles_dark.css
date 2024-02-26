@@ -472,48 +472,31 @@ body {
 .notification_container{
   position: relative;
 }
-/* Estilos para el contenedor del breadcrumb */
 .breadcrumb-container {
-  display: block; /* Asegura que el contenedor del breadcrumb sea un bloque */
-  padding: 8px 15px; /* Espaciado interno */
-  margin-bottom: 20px; /* Espacio debajo del breadcrumb */
-  background-color: #f5f5f5; /* Color de fondo */
-  border-radius: 4px; /* Bordes redondeados */
+  display: block; /* Asegúrate de que el contenedor sea un bloque para que tome el ancho completo */
 }
 
-/* Estilo base para el breadcrumb */
 .breadcrumb {
-  list-style: none;
-  display: flex; /* Asegura que los elementos estén en línea */
-  padding-left: 0; /* Elimina el relleno predeterminado */
-  margin-bottom: 1rem; /* Espacio debajo del breadcrumb para separarlo de otros elementos */
-  background-color: transparent; /* Fondo transparente o puedes poner un color si así lo deseas */
+  margin: 0; /* Restablece cualquier margen por defecto */
+  padding: 0; /* Restablece cualquier padding por defecto */
+  list-style-type: none; /* Elimina los estilos de lista predeterminados */
+  display: flex; /* Utiliza flexbox para alinear los elementos horizontalmente */
 }
 
-/* Estilos para cada elemento del breadcrumb */
 .breadcrumb-item {
-  display: inline-flex; /* Muestra el contenido en línea y permite flexibilidad en el espacio */
+  display: flex; /* Asegura que el contenido de los elementos de lista también sea flexible */
   align-items: center; /* Centra los elementos verticalmente */
-  padding: 0.5rem 0; /* Añade un relleno vertical para más espacio */
 }
 
-/* Estilos para los enlaces dentro de los elementos del breadcrumb */
 .breadcrumb-item a {
-  color: #0275d8;
-  text-decoration: none; /* Evita el subrayado de los enlaces */
-  padding: 0 0.5rem; /* Añade un relleno horizontal */
+  text-decoration: none; /* Opcional: elimina el subrayado de los enlaces */
+  padding: 0 10px; /* Añade un poco de espacio alrededor de los enlaces */
+  display: block; /* Hace que el enlace llene el espacio del elemento de lista para facilitar la clicabilidad */
 }
 
-/* Añade el separador solamente entre elementos */
+/* Añade el separador solo entre elementos */
 .breadcrumb-item + .breadcrumb-item::before {
-  content: "/";
-  padding: 0 0.5rem; /* Espaciado a los lados del separador */
-  color: #6c757d; /* Color del texto del separador */
-}
-
-/* Opcional: Estilos para el elemento activo */
-.breadcrumb-item.active a {
-  color: #6c757d; /* Color para el elemento activo */
-  pointer-events: none; /* Deshabilita las interacciones */
-  cursor: default;
+  content: "/"; /* Usa el contenido de CSS para crear un separador */
+  padding: 0 5px; /* Añade espacio alrededor del separador */
+  color: #6c757d; /* Elige un color para el separador */
 }

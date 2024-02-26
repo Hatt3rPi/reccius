@@ -90,27 +90,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <li class="breadcrumb-item"><a href="library.php">Data</a></li>
                     </ol>
                 </nav>
+
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
-                <a href="#usuarios" class="btn_lateral">
-                    <spam>
-                        <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
-                    </spam> Usuarios y Roles
-                </a>
-                <div class="smenu">
-                    <a id="crear-usuario" href="#" class="con-borde-inferior">
-                        <span>
-                            <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
-                        </span>
-                        Crear Usuario
+                    <a href="#usuarios" class="btn_lateral">
+                        <spam>
+                            <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
+                        </spam> Usuarios y Roles
                     </a>
-                    <a id="asignar-roles" href="#">
-                        <span>
-                            <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
-                        </span>
-                        Asignar Roles
-                    </a>
-                </div>
+                    <div class="smenu">
+                        <a id="crear-usuario" href="#" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                            </span>
+                            Crear Usuario
+                        </a>
+                        <a id="asignar-roles" href="#">
+                            <span>
+                                <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                            </span>
+                            Asignar Roles
+                        </a>
+                    </div>
                 </li>
                 <li class="title">Calidad</li>
 
