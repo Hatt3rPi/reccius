@@ -472,15 +472,15 @@ body {
 .notification_container{
   position: relative;
 }
-/* Estilos del contenedor del breadcrumb para alinearlo horizontal y verticalmente */
+/* Estilos del contenedor del breadcrumb */
 .breadcrumb-container {
   display: flex;
   align-items: center; /* Alineación vertical */
   justify-content: start; /* Alineación horizontal */
   height: 100%; /* Asume que el contenedor padre tiene una altura definida */
-  background-color: #0056b3; /* Color de fondo azul */
-  color: white;
   padding-left: 20px; /* Espaciado a la izquierda, ajustar según sea necesario */
+  /* background-color: #0056b3; eliminado para no tener fondo */
+  color: #FFFFFF; /* Ajusta este color de texto según sea necesario para que contraste con el fondo de la cabecera */
 }
 
 .breadcrumb {
@@ -494,15 +494,15 @@ body {
 .breadcrumb-item + .breadcrumb-item::before {
   content: "/";
   padding: 0 10px;
-  color: white; /* Color de los separadores */
+  color: #FFFFFF; /* Ajusta este color de separador según sea necesario */
 }
 
 .breadcrumb-item a {
-  color: white; /* Color de los enlaces */
+  color: #FFFFFF; /* Ajusta este color de enlaces según sea necesario */
   text-decoration: none;
 }
 
 .breadcrumb-item.active {
-  color: white; /* Color del elemento actual */
+  color: #FFFFFF; /* Ajusta este color para el elemento activo según sea necesario */
   font-weight: 700;
 }
