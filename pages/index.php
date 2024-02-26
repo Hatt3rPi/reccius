@@ -53,7 +53,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-            <div id="notificaciones" name="notificaciones" class="notifications">
+            <div id="notificaciones" name="notificaciones" class="notifications" data-breadcrumb="Home > Notificaciones > Listado de Tareas">
                 <div class="notification_container">
                     <i class="fas fa-bell"></i>
                     <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
@@ -68,7 +68,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
                     </button>
                     <div class="dropdown-content">
-                        <a id="configuracion" href="modificar_perfil.php">Modificar Perfil</a>
+                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Home > Configuraciones > Modificar perfil" >Modificar Perfil</a>
                         <a href="./backend/login/logoutBE.php">Cerrar Sesión</a>
                     </div>
                 </div>
