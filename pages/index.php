@@ -52,11 +52,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
 
             <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb" class="breadcrumb-container">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item"><a href="library.php">Library</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Directorios</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data</li>
                 </ol>
             </nav>
 

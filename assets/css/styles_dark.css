@@ -472,27 +472,37 @@ body {
 .notification_container{
   position: relative;
 }
-/* Estilos para Breadcrumb */
+/* Estilos del contenedor del breadcrumb para alinearlo horizontalmente */
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 40px; /* Ajusta esta altura según sea necesario */
+  background-color: #0056b3; /* Color de fondo azul */
+  color: white;
+  padding-left: 20px; /* Espaciado a la izquierda, ajustar según sea necesario */
+}
+
 .breadcrumb {
-  display: inline-block;
-  padding: 8px 16px;
+  display: flex;
+  align-items: center;
   margin-bottom: 0; /* Elimina el margen por defecto */
-  background: #f8f9fa; /* Color de fondo */
-  border-radius: 0.25rem;
+  list-style: none;
+  padding: 0;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
-  content: ">";
-  padding: 0 5px;
-  color: #6c757d; /* Color de los separadores */
+  content: "/";
+  padding: 0 10px;
+  color: white; /* Color de los separadores */
 }
 
 .breadcrumb-item a {
-  color: #007bff; /* Color de los enlaces */
+  color: white; /* Color de los enlaces */
   text-decoration: none;
 }
 
 .breadcrumb-item.active {
-  color: #6c757d; /* Color del elemento actual */
+  color: white; /* Color del elemento actual */
   font-weight: 700;
 }
