@@ -476,7 +476,7 @@ body {
   display: flex;
   align-items: center;
   padding: 0px 10px;
-  background-color: red;
+  background-color: transparent;
   border-radius: 0.25rem;
   margin-bottom: 0;
   margin: 0;
@@ -485,7 +485,7 @@ body {
 /* Establece el tamaño de fuente y el color para todo dentro de .breadcrumb-item */
 .breadcrumb-container .breadcrumb-item, 
 .breadcrumb-container .breadcrumb-item a {
-  font-size: 0.875rem; /* Asegura el mismo tamaño de fuente */
+  font-size: 0.975rem; /* Asegura el mismo tamaño de fuente */
   color: #007bff; /* Color de fuente para los enlaces */
   padding: 0; /* Anula cualquier padding predeterminado o heredado */
   text-decoration: none;
