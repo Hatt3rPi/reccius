@@ -494,13 +494,6 @@ body {
   display: block; /* Hace que el enlace llene el espacio del elemento de lista para facilitar la clicabilidad */
 }
 
-/* Añade el separador solo entre elementos */
-.breadcrumb-item + .breadcrumb-item::before {
-  content: "/"; /* Usa el contenido de CSS para crear un separador */
-  padding: 0 5px; /* Añade espacio alrededor del separador */
-  color: #6c757d; /* Elige un color para el separador */
-}
-
 .breadcrumb-btn_lateral {
   position: relative;
   margin-right: 20px;
