@@ -84,7 +84,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <ul id="sidebarList">
                 <li class="title">Ruta Actual:</li>
                 <!-- Breadcrumb -->
-                <nav aria-label="breadcrumb" class="breadcrumb-container">
+                <nav aria-label="breadcrumb" class="breadcrumb-container con-borde-inferior">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                         <li class="breadcrumb-item"><a href="library.php">Library</a></li>

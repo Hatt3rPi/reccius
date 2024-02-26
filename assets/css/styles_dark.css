@@ -475,7 +475,7 @@ body {
 .breadcrumb-container .breadcrumb {
   display: flex;
   align-items: center;
-  padding: 0px 1px;
+  padding: 0px 10px;
   background-color: transparent;
   border-radius: 0.25rem;
   margin-bottom: 0;
