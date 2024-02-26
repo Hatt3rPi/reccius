@@ -472,3 +472,27 @@ body {
 .notification_container{
   position: relative;
 }
+/* Estilos para Breadcrumb */
+.breadcrumb {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-bottom: 0; /* Elimina el margen por defecto */
+  background: #f8f9fa; /* Color de fondo */
+  border-radius: 0.25rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+  padding: 0 5px;
+  color: #6c757d; /* Color de los separadores */
+}
+
+.breadcrumb-item a {
+  color: #007bff; /* Color de los enlaces */
+  text-decoration: none;
+}
+
+.breadcrumb-item.active {
+  color: #6c757d; /* Color del elemento actual */
+  font-weight: 700;
+}
