@@ -472,35 +472,46 @@ body {
 .notification_container{
   position: relative;
 }
+/* Estilos existentes */
 .breadcrumb-container .breadcrumb {
   display: flex;
   align-items: center;
   padding: 0px 10px;
-  background-color: #548acc29;
+  background-color: #548acc29; /* Fondo ligeramente azul */
   border-radius: 0.25rem;
   margin-bottom: 0;
   margin: 0;
 }
 
-/* Establece el tamaño de fuente y el color para todo dentro de .breadcrumb-item */
 .breadcrumb-container .breadcrumb-item, 
 .breadcrumb-container .breadcrumb-item a {
-  font-size: 0.975rem; /* Asegura el mismo tamaño de fuente */
-  color: #007bff; /* Color de fuente para los enlaces */
-  padding: 0; /* Anula cualquier padding predeterminado o heredado */
+  font-size: 0.975rem; /* Tamaño de fuente */
+  color: #007bff; /* Color azul para los enlaces */
+  padding: 0;
   text-decoration: none;
-  font-weight: bold; /* Hace que el texto sea en negrita */
+  font-weight: bold; /* Texto en negrita */
 }
 
-/* Especifica el estilo para cuando se pasa el mouse por encima de los enlaces */
 .breadcrumb-container .breadcrumb-item a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Subrayado al pasar el ratón */
 }
 
 .breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
-  content: "›";
-  color: #6c757d;
+  content: "›"; /* Separador */
+  color: #6c757d; /* Color del separador */
   padding: 0 5px;
   display: flex;
   align-items: center;
+}
+
+/* Nuevo estilo para el último elemento del breadcrumb */
+.breadcrumb-container .breadcrumb-item:last-child {
+  color: #000000; /* Cambia el color a negro */
+}
+
+/* Asegura que el enlace dentro del último elemento, si existe, también sea negro */
+.breadcrumb-container .breadcrumb-item:last-child a {
+  color: #000000; /* Color negro para el último enlace */
+  pointer-events: none; /* Opcional: deshabilita el clic en el último elemento si es un enlace */
+  cursor: default; /* Opcional: cambia el cursor a default para el último elemento si es un enlace */
 }
