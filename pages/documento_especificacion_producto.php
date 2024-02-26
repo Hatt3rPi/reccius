@@ -687,7 +687,6 @@
             // Añadir la marca de agua
             const watermark = document.createElement("div");
             watermark.setAttribute("class", "watermark");
-            watermark.textContent = "TESTEO TESTESO";
             container.appendChild(watermark);
 
 
