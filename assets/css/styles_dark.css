@@ -473,15 +473,19 @@ body {
   position: relative;
 }
 .breadcrumb-container .breadcrumb {
-  padding: 0px 1px 0px 1px; /* Reduce el padding para disminuir el alto */
-  background-color: transparent; /* Opcional: establece un fondo transparente */
-  border-radius: 0.25rem; /* Opcional: bordes redondeados */
-  margin-bottom: 0; /* Reduce el margen inferior para espaciar menos con otros elementos */
+  padding: 0px 1px; /* Ajuste fino del padding */
+  background-color: transparent;
+  border-radius: 0.25rem;
+  margin-bottom: 0;
+}
+
+.breadcrumb-container .breadcrumb-item,
+.breadcrumb-container .breadcrumb-item a {
+  font-size: 0.875rem; /* Establece el tamaño de la fuente para ambos, `li` y `a` */
+  color: #007bff; /* Este color se aplicará solo a los enlaces */
 }
 
 .breadcrumb-container .breadcrumb-item a {
-  font-size: 0.875rem; /* Reduce el tamaño de la fuente */
-  color: #007bff; /* Color de los enlaces */
   text-decoration: none; /* Elimina el subrayado de los enlaces */
 }
 
@@ -490,7 +494,12 @@ body {
 }
 
 .breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
-  content: "›"; /* Cambia el separador a algo más estilizado si deseas */
-  color: #6c757d; /* Color del separador */
-  padding: 13px 0px 0px 0px; /* Espaciado alrededor del separador */
+  content: "›"; /* Cambia el separador, si es necesario */
+  color: #6c757d;
+  padding: 0 5px; /* Ajusta el espaciado alrededor del separador, si es necesario */
+}
+
+/* Asegura que el último elemento tenga el mismo estilo */
+.breadcrumb-container .breadcrumb-item:last-child {
+  color: #6c757d; /* Color del texto para el último elemento si quieres diferenciarlo */
 }
