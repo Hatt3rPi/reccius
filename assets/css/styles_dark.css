@@ -500,3 +500,9 @@ body {
   padding: 0 5px; /* Añade espacio alrededor del separador */
   color: #6c757d; /* Elige un color para el separador */
 }
+
+.breadcrumb-btn_lateral {
+  position: relative;
+  margin-right: 20px;
+  padding: 10px; /* ajusta el padding según sea necesario */
+}

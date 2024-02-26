@@ -93,7 +93,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
-                    <a href="#usuarios" class="btn_lateral">
+                    <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral">
                         <spam>
                             <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
                         </spam> Usuarios y Roles
