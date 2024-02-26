@@ -184,37 +184,57 @@
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
         document.getElementById('download-pdf').addEventListener('click', async function() {
-            var pdf = new jspdf.jsPDF({
-                orientation: 'portrait',
-                unit: 'pt',
-                format: 'letter'
+            // Primero, genera todos los códigos QR y espera a que se carguen
+            const qrPromises = [];
+            const qrElements = document.querySelectorAll('.signature'); // Asegúrate de que este selector apunte a los contenedores de tus códigos QR
+
+            qrElements.forEach((contenedorQR) => {
+                // Aquí asumimos que tienes una forma de obtener la información del usuario para cada QR
+                // Por ejemplo, podrías tener un data attribute o una estructura de datos relacionada
+                const usuario = {
+                    ruta_registro: contenedorQR.getAttribute('data-ruta-registro') // Asumiendo que tienes un atributo con la ruta
+                };
+                if (usuario.ruta_registro) {
+                    qrPromises.push(generarMostrarQR(usuario, contenedorQR.id));
+                }
             });
 
-            // Seleccionar todos los contenedores que deben incluirse en el PDF
-            var containers = document.querySelectorAll('.document-cloned-container');
+            // Espera a que todos los códigos QR se generen y se carguen
+            try {
+                await Promise.all(qrPromises);
 
-            for (let i = 0; i < containers.length; i++) {
-                if (i > 0) {
-                    pdf.addPage();
+                // Ahora procede con la generación del PDF, ya que todos los QR están cargados
+                var pdf = new jspdf.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'pt',
+                    format: 'letter'
+                });
+
+                var containers = document.querySelectorAll('.document-cloned-container');
+                for (let i = 0; i < containers.length; i++) {
+                    if (i > 0) {
+                        pdf.addPage();
+                    }
+
+                    // Asegúrate de que html2canvas se ejecute después de que las imágenes estén cargadas
+                    await html2canvas(containers[i], {
+                        scale: 2
+                    }).then(canvas => {
+                        var imgData = canvas.toDataURL('image/png');
+                        var pdfWidth = pdf.internal.pageSize.getWidth();
+                        var pdfHeight = pdf.internal.pageSize.getHeight();
+
+                        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    });
                 }
 
-                await html2canvas(containers[i], {
-                    scale: 2
-                }).then(canvas => {
-                    var imgData = canvas.toDataURL('image/png');
-                    var pdfWidth = pdf.internal.pageSize.getWidth();
-                    var pdfHeight = pdf.internal.pageSize.getHeight();
-
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                });
+                var nombreProducto = document.getElementById('producto').textContent.trim();
+                pdf.save(`${nombreProducto}.pdf`);
+            } catch (error) {
+                console.error("Error al cargar los códigos QR: ", error);
             }
-
-            // Obtener el nombre del producto para el nombre del archivo PDF
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-
-            // Guardar el PDF
-            pdf.save(`${nombreProducto}.pdf`);
         });
+
 
         function cargarDatosEspecificacion(id) {
             $.ajax({
@@ -336,36 +356,42 @@
         }
 
         function generarMostrarQR(usuario, contenedorQR) {
-            if (usuario && usuario.ruta_registro) {
-                // Construye la URL de la API de QR
-                var qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent('https://customware.cl/reccius/documentos_publicos/' + usuario.ruta_registro) + '&size=64x64';
+            return new Promise((resolve, reject) => {
+                if (usuario && usuario.ruta_registro) {
+                    // Construye la URL de la API de QR
+                    var qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent('https://customware.cl/reccius/documentos_publicos/' + usuario.ruta_registro) + '&size=64x64';
 
-                // Realiza una solicitud AJAX para obtener la imagen como un blob
-                var xhr = new XMLHttpRequest();
-                xhr.responseType = 'blob';
-                xhr.onload = function() {
-                    var reader = new FileReader();
-                    reader.onloadend = function() {
-                        // Crea o actualiza el elemento <img> con la URL del QR como Data URI
-                        var imgElement = document.getElementById(contenedorQR).querySelector('img');
-                        if (!imgElement) {
-                            imgElement = document.createElement('img');
-                            imgElement.style.width = '64px';
-                            imgElement.style.height = '64px';
-                            document.getElementById(contenedorQR).appendChild(imgElement);
-                        }
-                        imgElement.src = reader.result; // Result es un Data URI
+                    // Realiza una solicitud AJAX para obtener la imagen como un blob
+                    var xhr = new XMLHttpRequest();
+                    xhr.responseType = 'blob';
+                    xhr.onload = function() {
+                        var reader = new FileReader();
+                        reader.onloadend = function() {
+                            // Crea o actualiza el elemento <img> con la URL del QR como Data URI
+                            var imgElement = document.getElementById(contenedorQR).querySelector('img');
+                            if (!imgElement) {
+                                imgElement = document.createElement('img');
+                                imgElement.onload = resolve; // Resuelve la promesa una vez que la imagen se haya cargado
+                                imgElement.onerror = reject; // Rechaza la promesa si hay un error al cargar la imagen
+                                imgElement.style.width = '64px';
+                                imgElement.style.height = '64px';
+                                document.getElementById(contenedorQR).appendChild(imgElement);
+                            }
+                            imgElement.src = reader.result; // Result es un Data URI
+                        };
+                        reader.readAsDataURL(xhr.response); // Convierte el blob a Data URI
                     };
-                    reader.readAsDataURL(xhr.response); // Convierte el blob a Data URI
-                };
-                xhr.open('GET', qrApiUrl);
-                xhr.send();
-            } else {
-                // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
-                var contenedor = document.getElementById(contenedorQR);
-                contenedor.textContent = 'Archivo aún no ha sido cargado';
-            }
+                    xhr.open('GET', qrApiUrl);
+                    xhr.send();
+                } else {
+                    // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
+                    var contenedor = document.getElementById(contenedorQR);
+                    contenedor.textContent = 'Archivo aún no ha sido cargado';
+                    reject(new Error('Archivo aún no ha sido cargado'));
+                }
+            });
         }
+
 
 
 
