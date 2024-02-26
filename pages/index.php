@@ -100,13 +100,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </spam> Usuarios y Roles
                     </a>
                     <div class="smenu">
-                        <a id="crear-usuario" href="#" class="con-borde-inferior">
+                        <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
+
                             <span>
                                 <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Crear Usuario
                         </a>
-                        <a id="asignar-roles" href="#">
+                        <a id="asignar-roles" href="#" data-breadcrumb="Home > Usuarios y Roles > Asignar Roles">
                             <span>
                                 <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
@@ -302,5 +303,42 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var content = document.querySelector('.content');
         sidebar.classList.toggle('sidebar-hidden');
         content.classList.toggle('content-expanded');
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Selecciona todos los elementos que pueden afectar el breadcrumb
+        const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
+
+        // Función para actualizar el breadcrumb
+        function updateBreadcrumb(path) {
+            const breadcrumb = document.querySelector(".breadcrumb");
+            breadcrumb.innerHTML = ''; // Limpiar el breadcrumb actual
+
+            const paths = path.split(" > ");
+            paths.forEach((p, index) => {
+                const li = document.createElement("li");
+                li.className = "breadcrumb-item";
+                if (index === paths.length - 1) {
+                    // El último elemento no es un enlace
+                    li.textContent = p;
+                } else {
+                    const a = document.createElement("a");
+                    a.href = "#"; // Aquí podrías poner el enlace real si lo tienes
+                    a.textContent = p;
+                    li.appendChild(a);
+                }
+                breadcrumb.appendChild(li);
+            });
+        }
+
+        // Asignar el event listener a cada enlace
+        breadcrumbLinks.forEach(link => {
+            link.addEventListener("click", function(e) {
+                e.preventDefault(); // Evitar que el enlace realice su acción predeterminada
+                const path = this.getAttribute("data-breadcrumb");
+                updateBreadcrumb(path);
+            });
+        });
     });
 </script>
