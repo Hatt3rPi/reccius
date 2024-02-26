@@ -492,5 +492,5 @@ body {
 .breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
   content: "›"; /* Cambia el separador a algo más estilizado si deseas */
   color: #6c757d; /* Color del separador */
-  padding: 0 0.5rem; /* Espaciado alrededor del separador */
+  padding: 13px 0px 0px 0px; /* Espaciado alrededor del separador */
 }
