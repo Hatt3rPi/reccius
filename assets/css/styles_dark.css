@@ -480,34 +480,3 @@ body {
   padding-left: 120px;
 }
 
-.breadcrumb {
-  display: flex;
-  align-items: center; /* Asegura que los elementos del breadcrumb también estén centrados verticalmente */
-  margin: 0; /* Elimina cualquier margen */
-  padding: 0; /* Elimina cualquier padding */
-  list-style: none;
-  background: none; /* Asegúrate de que no haya fondo */
-}
-
-.breadcrumb-item {
-  background: none; /* Asegúrate de que no haya fondo en los elementos individuales */
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  content: "/";
-  padding: 0 5px; /* Ajusta el espaciado según sea necesario */
-  color: #FFFFFF; /* Ajusta el color según sea necesario */
-}
-
-.breadcrumb-item a {
-  color: #FFFFFF; /* Ajusta este color según sea necesario */
-  text-decoration: none;
-  background: none; /* Asegúrate de que no haya fondo en los enlaces */
-  font-size: 16px; /* Asumiendo que el tamaño base es 14px y queremos aumentarlo en 2px */
-}
-
-.breadcrumb-item.active {
-  color: #FFFFFF; /* Ajusta este color según sea necesario */
-  font-weight: 700;
-  font-size: 16px; /* Asumiendo que el tamaño base es 14px y queremos aumentarlo en 2px */
-}
