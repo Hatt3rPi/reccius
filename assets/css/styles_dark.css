@@ -472,3 +472,25 @@ body {
 .notification_container{
   position: relative;
 }
+.breadcrumb-container .breadcrumb {
+  padding: 0.5rem 1rem; /* Reduce el padding para disminuir el alto */
+  background-color: transparent; /* Opcional: establece un fondo transparente */
+  border-radius: 0.25rem; /* Opcional: bordes redondeados */
+  margin-bottom: 0; /* Reduce el margen inferior para espaciar menos con otros elementos */
+}
+
+.breadcrumb-container .breadcrumb-item a {
+  font-size: 0.875rem; /* Reduce el tamaño de la fuente */
+  color: #007bff; /* Color de los enlaces */
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+.breadcrumb-container .breadcrumb-item a:hover {
+  text-decoration: underline; /* Subraya los enlaces al pasar el mouse */
+}
+
+.breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
+  content: "›"; /* Cambia el separador a algo más estilizado si deseas */
+  color: #6c757d; /* Color del separador */
+  padding: 0 0.5rem; /* Espaciado alrededor del separador */
+}
