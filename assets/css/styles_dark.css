@@ -472,30 +472,3 @@ body {
 .notification_container{
   position: relative;
 }
-.breadcrumb-container {
-  display: block; /* Asegúrate de que el contenedor sea un bloque para que tome el ancho completo */
-}
-
-.breadcrumb {
-  margin: 0; /* Restablece cualquier margen por defecto */
-  padding: 0; /* Restablece cualquier padding por defecto */
-  list-style-type: none; /* Elimina los estilos de lista predeterminados */
-  display: flex; /* Utiliza flexbox para alinear los elementos horizontalmente */
-}
-
-.breadcrumb-item {
-  display: flex; /* Asegura que el contenido de los elementos de lista también sea flexible */
-  align-items: center; /* Centra los elementos verticalmente */
-}
-
-.breadcrumb-item a {
-  text-decoration: none; /* Opcional: elimina el subrayado de los enlaces */
-  padding: 0 10px; /* Añade un poco de espacio alrededor de los enlaces */
-  display: block; /* Hace que el enlace llene el espacio del elemento de lista para facilitar la clicabilidad */
-}
-
-.breadcrumb-btn_lateral {
-  position: relative;
-  margin-right: 20px;
-  padding: 10px; /* ajusta el padding según sea necesario */
-}
