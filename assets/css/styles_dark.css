@@ -472,12 +472,12 @@ body {
 .notification_container{
   position: relative;
 }
-/* Estilos del contenedor del breadcrumb para alinearlo horizontalmente */
+/* Estilos del contenedor del breadcrumb para alinearlo horizontal y verticalmente */
 .breadcrumb-container {
   display: flex;
-  align-items: center;
-  justify-content: start;
-  height: 40px; /* Ajusta esta altura según sea necesario */
+  align-items: center; /* Alineación vertical */
+  justify-content: start; /* Alineación horizontal */
+  height: 100%; /* Asume que el contenedor padre tiene una altura definida */
   background-color: #0056b3; /* Color de fondo azul */
   color: white;
   padding-left: 20px; /* Espaciado a la izquierda, ajustar según sea necesario */
@@ -485,7 +485,7 @@ body {
 
 .breadcrumb {
   display: flex;
-  align-items: center;
+  align-items: center; /* Asegura que los elementos del breadcrumb también estén centrados verticalmente */
   margin-bottom: 0; /* Elimina el margen por defecto */
   list-style: none;
   padding: 0;
