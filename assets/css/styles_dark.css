@@ -477,7 +477,7 @@ body {
   display: flex;
   align-items: center; /* Alineación vertical */
   justify-content: start; /* Alineación horizontal */
-  /* Asegúrate de que no haya padding o márgenes innecesarios que puedan causar espacios */
+  padding-left: 120px;
 }
 
 .breadcrumb {
@@ -503,10 +503,11 @@ body {
   color: #FFFFFF; /* Ajusta este color según sea necesario */
   text-decoration: none;
   background: none; /* Asegúrate de que no haya fondo en los enlaces */
+  font-size: 16px; /* Asumiendo que el tamaño base es 14px y queremos aumentarlo en 2px */
 }
 
 .breadcrumb-item.active {
   color: #FFFFFF; /* Ajusta este color según sea necesario */
   font-weight: 700;
+  font-size: 16px; /* Asumiendo que el tamaño base es 14px y queremos aumentarlo en 2px */
 }
-
