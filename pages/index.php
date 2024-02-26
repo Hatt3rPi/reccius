@@ -51,14 +51,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" class="logo" />
             </div>
 
-            <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb" class="breadcrumb-container">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="library.php">Library</a></li>
-                    <li class="breadcrumb-item"><a href="library.php">Data</a></li>
-                </ol>
-            </nav>
+
 
             <div id="notificaciones" name="notificaciones" class="notifications">
                 <div class="notification_container">
@@ -89,28 +82,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         <aside class="sidebar c-scroll">
             <ul id="sidebarList">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="breadcrumb-container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                        <li class="breadcrumb-item"><a href="library.php">Library</a></li>
+                        <li class="breadcrumb-item"><a href="library.php">Data</a></li>
+                    </ol>
+                </nav>
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
-                <li></li>
-                    <a href="#usuarios" class="btn_lateral">
-                        <spam>
-                            <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
-                        </spam> Usuarios y Roles
+                <a href="#usuarios" class="btn_lateral">
+                    <spam>
+                        <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
+                    </spam> Usuarios y Roles
+                </a>
+                <div class="smenu">
+                    <a id="crear-usuario" href="#" class="con-borde-inferior">
+                        <span>
+                            <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                        </span>
+                        Crear Usuario
                     </a>
-                    <div class="smenu">
-                        <a id="crear-usuario" href="#" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
-                            </span>
-                            Crear Usuario
-                        </a>
-                        <a id="asignar-roles" href="#">
-                            <span>
-                                <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
-                            </span>
-                            Asignar Roles
-                        </a>
-                    </div>
+                    <a id="asignar-roles" href="#">
+                        <span>
+                            <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                        </span>
+                        Asignar Roles
+                    </a>
+                </div>
                 </li>
                 <li class="title">Calidad</li>
 
