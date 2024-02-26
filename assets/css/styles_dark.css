@@ -488,6 +488,7 @@ body {
   color: #007bff; /* Color de fuente para los enlaces */
   padding: 0; /* Anula cualquier padding predeterminado o heredado */
   text-decoration: none;
+  font-weight: bold; /* Hace que el texto sea en negrita */
 }
 
 /* Especifica el estilo para cuando se pasa el mouse por encima de los enlaces */
