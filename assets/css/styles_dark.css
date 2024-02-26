@@ -472,11 +472,3 @@ body {
 .notification_container{
   position: relative;
 }
-/* Estilos del contenedor del breadcrumb */
-.breadcrumb-container {
-  display: flex;
-  align-items: center; /* Alineación vertical */
-  justify-content: start; /* Alineación horizontal */
-  padding-left: 120px;
-}
-
