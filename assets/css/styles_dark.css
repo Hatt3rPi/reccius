@@ -474,26 +474,23 @@ body {
 }
 .breadcrumb-container .breadcrumb {
   display: flex;
-  align-items: center; /* Alinea los elementos del breadcrumb verticalmente */
+  align-items: center;
   padding: 0px 1px;
   background-color: transparent;
   border-radius: 0.25rem;
   margin-bottom: 0;
 }
 
-.breadcrumb-container .breadcrumb-item {
-  padding: 0;
-  display: flex;
-  align-items: center; /* Alinea el contenido de cada elemento del breadcrumb */
-}
-
+/* Establece el tamaño de fuente y el color para todo dentro de .breadcrumb-item */
+.breadcrumb-container .breadcrumb-item, 
 .breadcrumb-container .breadcrumb-item a {
-  padding: 0;
-  font-size: 0.875rem;
-  color: #007bff;
+  font-size: 0.875rem; /* Asegura el mismo tamaño de fuente */
+  color: #007bff; /* Color de fuente para los enlaces */
+  padding: 0; /* Anula cualquier padding predeterminado o heredado */
   text-decoration: none;
 }
 
+/* Especifica el estilo para cuando se pasa el mouse por encima de los enlaces */
 .breadcrumb-container .breadcrumb-item a:hover {
   text-decoration: underline;
 }
@@ -501,7 +498,7 @@ body {
 .breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
   content: "›";
   color: #6c757d;
-  padding: 0 5px; /* Mantiene el espaciado horizontal */
-  display: flex; /* Asegura que el separador se alinea correctamente con los elementos */
-  align-items: center; /* Centra el separador verticalmente respecto a los elementos del breadcrumb */
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
 }
