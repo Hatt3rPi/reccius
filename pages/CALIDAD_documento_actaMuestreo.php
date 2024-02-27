@@ -689,3 +689,47 @@
 </body>
 
 </html>
+<script>
+    function cargarDatosEspecificacion(id) {
+    $.ajax({
+        url: './backend/acta_muestreo/genera_acta.php',
+        type: 'GET',
+        data: { id: id },
+        success: function(response) {
+            procesarDatosActa(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud: ", status, error);
+        }
+    });
+}
+function procesarDatosActa(response) {
+    // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
+    if (response && response.analisis_externos && response.analisis_externos.length > 0) {
+        const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
+
+        // Aquí asignas los valores a los campos del formulario
+        // Asegúrate de que los ID de los elementos HTML coincidan con estos
+        $('#Tipo_Producto').text(acta.tipo_producto);
+        $('#form_producto').text(acta.nombre_producto);
+        $('#form_tipo').text(acta.tipo_producto);
+        $('#form_lote').text(acta.lote);
+        $('#form_tamano_lote').text(acta.tamano_lote);
+        $('#form_codigo_mastersoft').text(acta.codigo_mastersoft);
+        $('#form_condAlmacenamiento').text(acta.condicion_almacenamiento);
+        $('#form_cant_muestra').text(acta.tamano_muestra);
+        $('#form_cant_contramuestra').text(acta.tamano_contramuestra);
+        $('#form_tipo_analisis').text(acta.tipo_analisis);
+        $('#realizadoPor').text(acta.muestreado_por);
+        
+        
+        // Añade aquí el resto de los campos que necesites asignar
+        
+    } else {
+        console.error("No se recibieron datos válidos: ", response);
+    }
+}
+
+
+
+</script>

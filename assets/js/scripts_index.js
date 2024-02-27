@@ -587,12 +587,13 @@ function botones(id, accion, base) {
                 case "generar_documento": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
-                        url: '../pages/backend/acta/genera_acta.php',
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id_analisis_externo': id
                         },
                         success: function(response) {
+                            cargarDatosEspecificacion(id_analisis_externo)
                             alert("Recordatorio enviado correctamente.");
                         },
                         error: function(xhr, status, error) {
