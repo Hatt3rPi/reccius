@@ -473,49 +473,41 @@ body {
   position: relative;
 }
 .breadcrumb-container {
-  background-color: #005fd380; /* Color de fondo azul para coincidir con la barra de navegación */
-  padding: 10px 0; /* Añade padding vertical para más espacio */
+  background-color: #005fd3; /* Color de fondo azul para coincidir con la barra de navegación */
+  padding: 0; /* Elimina el padding para que la altura de 50px sea solo para el contenido */
+  height: 50px; /* Establece una altura fija de 50px */
+  line-height: 50px; /* Centra el contenido verticalmente */
   position: relative;
   top: 70px; /* Desplaza hacia abajo para que no se solape con el header */
   left: 299px; /* Desplaza hacia la derecha para comenzar a los 299px */
+  display: flex; /* Asegura que los elementos de la lista se muestren en línea */
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: flex-start; /* Alinea los elementos al inicio */
+  overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
 }
 
-.breadcrumb-container .breadcrumb {
+.breadcrumb {
+  margin: 0; /* Asegura que no hay margen que afecte la altura */
+  padding: 0; /* Asegura que no hay padding que afecte la altura */
   display: flex;
   align-items: center;
-  padding-left: 0; /* Elimina el padding izquierdo para alinear con el borde del contenedor */
-  margin-bottom: 0; /* Elimina el margen inferior */
-  list-style-type: none; /* Elimina los estilos de lista */
-  background-color: transparent; /* Fondo transparente para que tome el color del contenedor */
-  border-radius: 0; /* Borde redondeado opcional */
 }
 
-.breadcrumb-container .breadcrumb-item {
-  padding: 10px 15px; /* Espaciado uniforme alrededor de los elementos de la lista */
+.breadcrumb-item,
+.breadcrumb-item a {
+  font-size: 0.9rem; /* Reduce el tamaño de la fuente si es necesario */
+  color: white; /* Texto blanco para contraste */
+  padding: 0 10px; /* Añade padding horizontal para el espaciado */
+  white-space: nowrap; /* Asegura que el texto no se envuelva */
 }
 
-.breadcrumb-container .breadcrumb-item, 
-.breadcrumb-container .breadcrumb-item a {
-  font-size: 1rem; /* Tamaño de la fuente aumentado para mejorar la legibilidad */
-  color: white; /* Cambia el color del texto a blanco para que resalte sobre el fondo azul */
-  font-weight: bold; /* Texto en negrita */
-  text-decoration: none; /* Sin subrayado en los enlaces */
-  transition: color 0.3s; /* Transición suave para el color al pasar el ratón */
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/"; /* Separador */
+  padding: 0 5px; /* Espaciado alrededor del separador */
 }
 
-.breadcrumb-container .breadcrumb-item a:hover {
-  color: #cce5ff; /* Cambia el color al pasar el ratón para un efecto hover */
-  text-decoration: none; /* Asegúrate de que no hay subrayado al pasar el ratón */
-}
-
-.breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
-  content: "/"; /* Cambia el separador a una barra, más típico en las barras de navegación */
-  color: white; /* Cambia el color del separador a blanco */
-  padding: 0 10px; /* Espacio alrededor del separador */
-}
-
-.breadcrumb-container .breadcrumb-item:last-child a {
-  color: #a2d5ff; /* Cambia el color para el último elemento si quieres diferenciarlo */
-  pointer-events: none; /* Opcional: deshabilita el clic en el último elemento si es un enlace */
-  cursor: default; /* Opcional: cambia el cursor a default para el último elemento si es un enlace */
+/* Puedes quitar estas reglas si no necesitas que el último elemento sea diferente */
+.breadcrumb-item:last-child a {
+  pointer-events: none;
+  cursor: default;
 }
