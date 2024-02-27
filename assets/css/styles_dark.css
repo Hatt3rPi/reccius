@@ -519,6 +519,9 @@ body {
 .navbar {
   background-color: #005fd3;
   color: white;
+  position: relative;
+  top: 70px; /* Desplaza el <nav> hacia abajo */
+  /* Otros estilos... */
 }
 
 .nav-list {
