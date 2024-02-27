@@ -123,7 +123,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >2. Tipo Producto:</td>
-                        <td class="formulario" id="form_tipo " >id="form_tipo"</td>
+                        <td class="formulario" id="form_tipo" >id="form_tipo"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -147,7 +147,7 @@
 
                     <tr>
                         <td class="formulario-titulo" >3. Lote:</td>
-                        <td class="formulario" id="form_lote " >id="form_lote"</td>
+                        <td class="formulario" id="form_lote" >id="form_lote"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -629,7 +629,7 @@
                     <div class="firma-box">
                         <p id='realizadoPor' name='realizadoPor' class="bold"></p>
                         <p id='cargo_realizador' name='cargo_realizador' class="bold">
-                        <div class="signature" id="QRrealizador" name="QRrealizador">
+                        <div class="signature" id="firma_realizador" name="firma_realizador">
                             <!-- acá debe ir el QR -->
                         </div>
                         <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
@@ -645,7 +645,7 @@
                     <div class="firma-box">
                         <p id='realizadoPor' name='realizadoPor' class="bold"></p>
                         <p id='cargo_realizador' name='cargo_realizador' class="bold">
-                        <div class="signature" id="QRrealizador" name="QRrealizador">
+                        <div class="signature" id="firma_realizador" name="firma_realizador">
                             <!-- acá debe ir el QR -->
                         </div>
                         <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
@@ -660,7 +660,7 @@
                     <div class="firma-box">
                         <p id='verificadoPor' name='verificadoPor' class="bold"></p>
                         <p id='cargo_verificador' name='cargo_verificador' class="bold">
-                        <div class="signature" id="QRverificador" name="QRverificador">
+                        <div class="signature" id="firma_verificador" name="firma_verificador">
                             <!-- acá debe ir el QR -->
                         </div>
                         <p id='mensaje_verificador' name='mensaje_verificador' style='text-align: center;display: none'>
@@ -725,15 +725,15 @@ function procesarDatosActa(response) {
         
         
         $('#muestreado_por').text(acta.muestreado_por);
-        $('#cargo_muestreado_por').text(acta.cargo_muestreado_por);
+        $('#cargo_realizador').text(acta.cargo_muestreado_por);
         // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
-        $('#foto_firma_muestreado_por').attr('src', acta.foto_firma_muestreado_por);
+        $('#firma_realizador').attr('src', acta.foto_firma_muestreado_por);
 
         // Datos del usuario que revisó
-        $('#revisado_por').text(acta.revisado_por);
-        $('#cargo_revisado_por').text(acta.cargo_revisado_por);
+        $('#verificadoPor').text(acta.revisado_por);
+        $('#cargo_verificador').text(acta.cargo_revisado_por);
         // Y también para la firma
-        $('#foto_firma_revisado_por').attr('src', acta.foto_firma_revisado_por);
+        $('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
         
     } else {
         console.error("No se recibieron datos válidos: ", response);
