@@ -524,3 +524,14 @@ body {
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
 }
+/* Estilo para los enlaces clicables */
+.breadcrumb-item a {
+  color: blue; /* Cambia esto al color azul que prefieras */
+  text-decoration: none; /* Opcional: elimina el subrayado de los enlaces */
+}
+
+/* Estilo para cuando se pasa el mouse por encima de los enlaces */
+.breadcrumb-item a:hover {
+  color: darkblue; /* Cambia esto al color azul más oscuro que prefieras */
+  text-decoration: underline; /* Opcional: añade subrayado al pasar el mouse */
+}
