@@ -483,7 +483,8 @@ body {
   display: flex; /* Asegura que los elementos de la lista se muestren en línea */
   align-items: center; /* Centra los elementos verticalmente */
   justify-content: flex-start; /* Alinea los elementos al inicio */
-  border-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
+  border-top-right-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
+  border-bottom-right-radius: 25px ;
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
 }
 
