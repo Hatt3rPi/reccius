@@ -486,6 +486,7 @@ body {
   border-top-right-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
   border-bottom-right-radius: 25px ;
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
+  border: #000000;
 }
 
 .breadcrumb {
