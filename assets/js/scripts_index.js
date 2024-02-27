@@ -594,7 +594,7 @@ function botones(id, accion, base) {
                             'id_analisis_externo': id
                         },
                         success: function(response) {
-                            cargarDatosEspecificacion(id_analisis_externo)
+                            cargarDatosEspecificacion(id_analisis_externo);
                             alert("Recordatorio enviado correctamente.");
                         },
                         error: function(xhr, status, error) {
