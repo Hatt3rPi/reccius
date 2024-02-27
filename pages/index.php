@@ -81,13 +81,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Indice</a></li>
-            <li class="breadcrumb-item dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Especificaciones</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Crear Especificaciones</a>
-                    <a class="dropdown-item" href="#">Listado de Especificaciones</a>
-                </div>
-            </li>
+            <li class="breadcrumb-item"><a href="library.php">Biblioteca</a></li>
             <li class="breadcrumb-item"><a href="contact.php">Contacto</a></li>
         </ol>
     </nav>
