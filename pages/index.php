@@ -255,6 +255,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </ul>
         </aside>
+        <div id="Navegador" class="Navegador">
+    <a href=""> aaaaaaaaaaaaaaaaa</a>
+        </div>
         <main class="content">
             <div id="dynamic-content">
 
