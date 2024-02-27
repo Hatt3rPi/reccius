@@ -492,6 +492,7 @@ body {
   padding: 0; /* Asegura que no hay padding que afecte la altura */
   display: flex;
   align-items: center;
+  border-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
 }
 
 .breadcrumb-item,
@@ -501,7 +502,7 @@ body {
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
   background-color: #abcaff;
-  border-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
+  
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
