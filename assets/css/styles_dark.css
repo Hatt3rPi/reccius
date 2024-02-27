@@ -508,7 +508,7 @@ body {
 
 .breadcrumb-item + .breadcrumb-item::before {
   content: "/"; /* Separador */
-  padding: 0 5px; /* Espaciado alrededor del separador */
+  padding: 0 10px; /* Espaciado alrededor del separador */
 }
 
 /* Puedes quitar estas reglas si no necesitas que el último elemento sea diferente */
