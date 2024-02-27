@@ -503,12 +503,14 @@ body {
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
   background-color: #abcaff;
+  font-weight: bold; /* Hace el texto negrita */
   
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
   content: "/"; /* Separador */
   padding: 0 10px; /* Espaciado alrededor del separador */
+  font-weight: bold; /* Hace el texto negrita */
 }
 
 /* Puedes quitar estas reglas si no necesitas que el último elemento sea diferente */
