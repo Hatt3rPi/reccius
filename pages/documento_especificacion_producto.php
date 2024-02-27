@@ -230,7 +230,7 @@
 
                 var nombreProducto = document.getElementById('producto').textContent.trim();
                 var nombreDocumento = document.getElementById('documento').textContent.trim();
-                pdf.save(`${nombreDocumento} + ${nombreProducto}.pdf`);
+                pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             } catch (error) {
                 console.error("Error al cargar los códigos QR: ", error);
             }
