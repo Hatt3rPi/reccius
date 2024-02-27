@@ -116,10 +116,6 @@ tr {
 thead tr {
     border-top: none;
 }
-.table-bordered thead th{
-    border-left: none !important; /* Elimina el borde izquierdo */
-    border-right: none !important; /* Elimina el borde derecho */
-}
 
 /* Para el borde inferior del último <tr> que es el último <tbody> */
 tbody:last-child tr:last-child {
@@ -379,6 +375,10 @@ td {
     border-right: none !important; /* Elimina el borde derecho */
 }
 .table-bordered{
+    border-left: none !important; /* Elimina el borde izquierdo */
+    border-right: none !important; /* Elimina el borde derecho */
+}
+.table-bordered thead th{
     border-left: none !important; /* Elimina el borde izquierdo */
     border-right: none !important; /* Elimina el borde derecho */
 }

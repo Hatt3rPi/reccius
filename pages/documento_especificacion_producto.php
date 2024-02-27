@@ -745,10 +745,15 @@
             // Continúa con la creación del thead y tbody como antes
             const newThead = document.createElement("thead");
             newThead.style.fontSize = "10px";
+            newThead.style.borderLeft= none ;
+            newThead.style.borderRight= none ;
+
             newTable.appendChild(newThead);
 
             const tr = document.createElement("tr");
             tr.style.fontSize = "10px";
+            newThead.style.borderLeft= none ;
+            newThead.style.borderRight= none ;
             newThead.appendChild(tr);
 
             if (sectionId === "content") {
