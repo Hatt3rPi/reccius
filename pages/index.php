@@ -81,8 +81,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Indice</a></li>
-            <li class="breadcrumb-item"><a href="library.php">Biblioteca</a></li>
-            <li class="breadcrumb-item"><a href="contact.php">Contacto</a></li>
+            <li class="breadcrumb-item"><a href="library.php">Primer Nodo</a></li>
+            <li class="breadcrumb-item"><a href="contact.php">Segundo Nodo</a></li>
         </ol>
     </nav>
 

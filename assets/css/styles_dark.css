@@ -502,8 +502,9 @@ body {
   color: rgb(0, 14, 78); /* Texto blanco para contraste */
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
-  background-color: #abcaff;
+  background-color: #f8f8f8;
   font-weight: bold; /* Hace el texto negrita */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   
 }
 
