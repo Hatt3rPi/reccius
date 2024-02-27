@@ -593,8 +593,9 @@ function botones(id, accion, base) {
                             'id_analisis_externo': id
                         },
                         success: function(response) {
+                            console.log('especificacion_producto redirigida con éxito ');
+                            $('#dynamic-content').html(response); 
                             cargarDatosEspecificacion(id_analisis_externo);
-                            alert("Recordatorio enviado correctamente.");
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);
