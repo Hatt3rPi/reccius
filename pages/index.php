@@ -39,6 +39,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
     <script src="../assets/js/jquery.redirect.js"></script>
+
 </head>
 
 <body>
@@ -77,11 +78,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
 
     </header>
-    <!-- Breadcrumb que actuará como barra de navegación -->
+    <!-- Breadcrumb actualizado con dropdown -->
     <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Indice</a></li>
-            <li class="breadcrumb-item"><a href="library.php">Biblioteca</a></li>
+            <!-- Ítem de breadcrumb con menú desplegable -->
+            <li class="breadcrumb-item dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Especificaciones</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Crear Especificaciones</a>
+                    <a class="dropdown-item" href="#">Listado de Especificaciones</a>
+                </div>
+            </li>
             <li class="breadcrumb-item"><a href="contact.php">Contacto</a></li>
         </ol>
     </nav>
