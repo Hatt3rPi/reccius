@@ -472,76 +472,50 @@ body {
 .notification_container{
   position: relative;
 }
-/* Estilos existentes */
+.breadcrumb-container {
+  background-color: #005fd3; /* Color de fondo azul para coincidir con la barra de navegación */
+  padding: 10px 0; /* Añade padding vertical para más espacio */
+  position: relative;
+  top: 70px; /* Desplaza hacia abajo para que no se solape con el header */
+  left: 299px; /* Desplaza hacia la derecha para comenzar a los 299px */
+}
+
 .breadcrumb-container .breadcrumb {
   display: flex;
   align-items: center;
-  padding: 0px 10px;
-  background-color: #548acc29; /* Fondo ligeramente azul */
-  border-radius: 0.25rem;
-  margin-bottom: 0;
-  margin: 0;
+  padding-left: 0; /* Elimina el padding izquierdo para alinear con el borde del contenedor */
+  margin-bottom: 0; /* Elimina el margen inferior */
+  list-style-type: none; /* Elimina los estilos de lista */
+  background-color: transparent; /* Fondo transparente para que tome el color del contenedor */
+  border-radius: 0; /* Borde redondeado opcional */
+}
+
+.breadcrumb-container .breadcrumb-item {
+  padding: 10px 15px; /* Espaciado uniforme alrededor de los elementos de la lista */
 }
 
 .breadcrumb-container .breadcrumb-item, 
 .breadcrumb-container .breadcrumb-item a {
-  font-size: 0.975rem; /* Tamaño de fuente */
-  color: #007bff; /* Color azul para los enlaces */
-  padding: 0;
-  text-decoration: none;
+  font-size: 1rem; /* Tamaño de la fuente aumentado para mejorar la legibilidad */
+  color: white; /* Cambia el color del texto a blanco para que resalte sobre el fondo azul */
   font-weight: bold; /* Texto en negrita */
+  text-decoration: none; /* Sin subrayado en los enlaces */
+  transition: color 0.3s; /* Transición suave para el color al pasar el ratón */
 }
 
 .breadcrumb-container .breadcrumb-item a:hover {
-  text-decoration: underline; /* Subrayado al pasar el ratón */
+  color: #cce5ff; /* Cambia el color al pasar el ratón para un efecto hover */
+  text-decoration: none; /* Asegúrate de que no hay subrayado al pasar el ratón */
 }
 
 .breadcrumb-container .breadcrumb-item + .breadcrumb-item::before {
-  content: "›"; /* Separador */
-  color: #6c757d; /* Color del separador */
-  padding: 0 5px;
-  display: flex;
-  align-items: center;
+  content: "/"; /* Cambia el separador a una barra, más típico en las barras de navegación */
+  color: white; /* Cambia el color del separador a blanco */
+  padding: 0 10px; /* Espacio alrededor del separador */
 }
 
-/* Nuevo estilo para el último elemento del breadcrumb */
-.breadcrumb-container .breadcrumb-item:last-child {
-  color: #000000; /* Cambia el color a negro */
-}
-
-/* Asegura que el enlace dentro del último elemento, si existe, también sea negro */
 .breadcrumb-container .breadcrumb-item:last-child a {
-  color: #000000; /* Color negro para el último enlace */
+  color: #a2d5ff; /* Cambia el color para el último elemento si quieres diferenciarlo */
   pointer-events: none; /* Opcional: deshabilita el clic en el último elemento si es un enlace */
   cursor: default; /* Opcional: cambia el cursor a default para el último elemento si es un enlace */
-}
-
-.navbar {
-  background-color: #005fd3;
-  color: white;
-  position: relative;
-  top: 70px; /* Desplaza el <nav> hacia abajo */
-  left: 299px;
-  /* Otros estilos... */
-}
-
-.nav-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: space-around;
-}
-
-.nav-list li {
-  padding: 10px;
-}
-
-.nav-list a {
-  color: white;
-  text-decoration: none;
-}
-
-.nav-list a:hover {
-  text-decoration: underline;
 }

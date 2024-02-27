@@ -77,28 +77,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
 
     </header>
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li><a href="index.php">Inicio</a></li>
-            <li><a href="about.php">Acerca de</a></li>
-            <li><a href="services.php">Servicios</a></li>
-            <li><a href="contact.php">Contacto</a></li>
-        </ul>
+    <!-- Breadcrumb que actuará como barra de navegación -->
+    <nav aria-label="breadcrumb" class="breadcrumb-container con-borde-inferior">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="library.php">Biblioteca</a></li>
+            <li class="breadcrumb-item"><a href="contact.php">Contacto</a></li>
+        </ol>
     </nav>
 
     <div class="container_fas">
 
         <aside class="sidebar c-scroll">
             <ul id="sidebarList">
-                <li class="title">Ruta Actual:</li>
-                <!-- Breadcrumb -->
-                <nav aria-label="breadcrumb" class="breadcrumb-container con-borde-inferior">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                        <li class="breadcrumb-item"><a href="library.php"></a></li>
-                        <li class="breadcrumb-item"><a href="library.php"></a></li>
-                    </ol>
-                </nav>
+
 
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
