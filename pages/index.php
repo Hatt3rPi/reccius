@@ -77,7 +77,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
 
     </header>
-    <div class="container_fas contenedor-posicionado-relativo">
     <nav class="navbar">
         <ul class="nav-list">
             <li><a href="index.php">Inicio</a></li>
@@ -86,7 +85,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <li><a href="contact.php">Contacto</a></li>
         </ul>
     </nav>
-    </div>
+
     <div class="container_fas">
 
         <aside class="sidebar c-scroll">

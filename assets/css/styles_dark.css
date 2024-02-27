@@ -545,7 +545,3 @@ body {
 .nav-list a:hover {
   text-decoration: underline;
 }
-.contenedor-posicionado-relativo {
-  position: relative;
-  /* Otros estilos... */
-}
