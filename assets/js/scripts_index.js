@@ -590,12 +590,12 @@ function botones(id, accion, base) {
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
-                            'id_analisis_externo': id
+                            'id': id
                         },
                         success: function(response) {
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); 
-                            cargarDatosEspecificacion(id_analisis_externo);
+                            cargarDatosEspecificacion(id);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);

@@ -694,7 +694,7 @@
     $.ajax({
         url: './backend/acta_muestreo/genera_acta.php',
         type: 'GET',
-        data: { id: id },
+        data: { id_analisis_externo: id },
         success: function(response) {
             procesarDatosActa(response);
         },
