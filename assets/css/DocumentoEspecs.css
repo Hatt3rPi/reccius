@@ -367,26 +367,10 @@ td {
     font-size: 8pt; /* Tamaño de fuente más grande para el PDF */
 }
 
-#contenido_main table th,
-#contenido_main table td {
+#new-table-content tr.odd td,
+#new-table-content tr.even td,
+#new-table-additionalContent tr.odd td,
+#new-table-additionalContent tr.even td {
     border-left: none !important; /* Elimina el borde izquierdo */
     border-right: none !important; /* Elimina el borde derecho */
-}
-
-#contenido_main table tr {
-    border-top: 1px solid #ddd; /* Establece el borde superior de la fila */
-    border-bottom: 1px solid #ddd; /* Establece el borde inferior de la fila */
-}
-
-#contenido_main table {
-    border-collapse: separate; /* Asegura que los bordes de las celdas se manejen de forma independiente */
-    border-spacing: 0; /* Elimina el espacio entre celdas */
-}
-
-#contenido_main thead tr th {
-    border-bottom: 2px solid #ddd; /* Asegura un borde inferior más grueso para los encabezados de la tabla */
-}
-
-#contenido_main tbody tr:last-child td {
-    border-bottom: none; /* Elimina el borde inferior de la última fila para evitar doble borde */
 }
