@@ -374,3 +374,7 @@ td {
     border-left: none !important; /* Elimina el borde izquierdo */
     border-right: none !important; /* Elimina el borde derecho */
 }
+.table-bordered{
+    border-left: none !important; /* Elimina el borde izquierdo */
+    border-right: none !important; /* Elimina el borde derecho */
+}
