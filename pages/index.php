@@ -48,12 +48,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <div class="logo-title-container">
                 <button id="toggle-sidebar-btn" class="buttonreset togglesibar"><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24" height="24"></button>
-                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" data-breadcrumb="Home > Data > Trazabilidad" class="logo" />
+                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" data-breadcrumb="Indice > Data > Trazabilidad" class="logo" />
             </div>
 
 
 
-            <div id="notificaciones" name="notificaciones" class="notifications" data-breadcrumb="Home > Notificaciones > Listado de Tareas">
+            <div id="notificaciones" name="notificaciones" class="notifications" data-breadcrumb="Indice > Notificaciones > Listado de Tareas">
                 <div class="notification_container">
                     <i class="fas fa-bell"></i>
                     <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
@@ -68,7 +68,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
                     </button>
                     <div class="dropdown-content">
-                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Home > Configuraciones > Modificar perfil">Modificar Perfil</a>
+                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Indice > Configuraciones > Modificar perfil">Modificar Perfil</a>
                         <a href="./backend/login/logoutBE.php">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -100,14 +100,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </spam> Usuarios y Roles
                     </a>
                     <div class="smenu">
-                        <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
+                        <a id="crear-usuario" href="#" data-breadcrumb="Indice > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
 
                             <span>
                                 <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Crear Usuario
                         </a>
-                        <a id="asignar-roles" href="#" data-breadcrumb="Home > Usuarios y Roles > Asignar Roles">
+                        <a id="asignar-roles" href="#" data-breadcrumb="Indice > Usuarios y Roles > Asignar Roles">
                             <span>
                                 <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
@@ -124,13 +124,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </spam> Especificaciones
                     </a>
                     <div class="smenu">
-                        <a id="especificacion_producto" href="#" data-breadcrumb="Home > Especificaciones > Crear especificaciones de producto" class="con-borde-inferior">
+                        <a id="especificacion_producto" href="#" data-breadcrumb="Indice > Especificaciones > Crear especificaciones de producto" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/crear_especificaciones.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Crear especificaciones de producto
                         </a>
-                        <a id="listado_especificacion_producto" href="#" data-breadcrumb="Home > Especificaciones > Listado de especificaciones de producto">
+                        <a id="listado_especificacion_producto" href="#" data-breadcrumb="Indice > Especificaciones > Listado de especificaciones de producto">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
@@ -147,32 +147,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-                        <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
+                        <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de solicitudes de análisis
                         </a>
-                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
+                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de Actas de Muestreo
                         </a>
-                        <a id="preparacion_solicitud" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Preparación solicitud" class="con-borde-inferior">
+                        <a id="preparacion_solicitud" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Preparación solicitud" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/preparacion.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Preparación solicitud
                         </a>
-                        <a id="preparacion_analisis" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Preparar Acta de Muestreo">
+                        <a id="preparacion_analisis" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Preparar Acta de Muestreo">
                             <span>
                                 <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Preparar Acta de Muestreo
                         </a>
                         <!-- Nuevo apartado para el listado de productos disponibles -->
-                        <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de productos disponibles">
+                        <a id="listado_productos_disponibles" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Listado de productos disponibles">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
