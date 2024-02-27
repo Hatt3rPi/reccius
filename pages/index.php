@@ -77,12 +77,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
 
     </header>
-    <nav>
-        <div id="Navegador" class="Navegador">
-            ESTE ES EL Navegador
-        </div>
-
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="about.php">Acerca de</a></li>
+            <li><a href="services.php">Servicios</a></li>
+            <li><a href="contact.php">Contacto</a></li>
+        </ul>
     </nav>
+
     <div class="container_fas">
 
         <aside class="sidebar c-scroll">

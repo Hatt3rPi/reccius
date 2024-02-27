@@ -515,3 +515,29 @@ body {
   pointer-events: none; /* Opcional: deshabilita el clic en el último elemento si es un enlace */
   cursor: default; /* Opcional: cambia el cursor a default para el último elemento si es un enlace */
 }
+
+.navbar {
+  background-color: #005fd3;
+  color: white;
+}
+
+.nav-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-list li {
+  padding: 10px;
+}
+
+.nav-list a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-list a:hover {
+  text-decoration: underline;
+}
