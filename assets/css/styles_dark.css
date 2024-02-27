@@ -496,7 +496,7 @@ body {
 .breadcrumb-item,
 .breadcrumb-item a {
   font-size: 0.9rem; /* Reduce el tamaño de la fuente si es necesario */
-  color: white; /* Texto blanco para contraste */
+  color: rgb(0, 14, 78); /* Texto blanco para contraste */
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
 }
