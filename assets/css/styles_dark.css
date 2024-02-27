@@ -521,6 +521,7 @@ body {
   color: white;
   position: relative;
   top: 70px; /* Desplaza el <nav> hacia abajo */
+  left: 299px;
   /* Otros estilos... */
 }
 
@@ -543,4 +544,8 @@ body {
 
 .nav-list a:hover {
   text-decoration: underline;
+}
+.contenedor-posicionado-relativo {
+  position: relative;
+  /* Otros estilos... */
 }
