@@ -68,7 +68,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
                     </button>
                     <div class="dropdown-content">
-                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Home > Configuraciones > Modificar perfil" >Modificar Perfil</a>
+                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Home > Configuraciones > Modificar perfil">Modificar Perfil</a>
                         <a href="./backend/login/logoutBE.php">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -77,7 +77,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
 
     </header>
+    <nav>
+        <div id="Navegador" class="Navegador">
+            ESTE ES EL Navegador
+        </div>
 
+    </nav>
     <div class="container_fas">
 
         <aside class="sidebar c-scroll">
@@ -153,13 +158,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </span>
                             Listado de solicitudes de análisis
                         </a>
-                        <a id="listado_acta_muestreo" href="#"  data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo"  class="con-borde-inferior">
+                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de Actas de Muestreo
                         </a>
-                        <a id="preparacion_solicitud" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Preparación solicitud"   class="con-borde-inferior">
+                        <a id="preparacion_solicitud" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Preparación solicitud" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/preparacion.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
@@ -255,9 +260,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </ul>
         </aside>
-        <div id="Navegador" class="Navegador">
-    <a href=""> aaaaaaaaaaaaaaaaa</a>
-        </div>
+
         <main class="content">
             <div id="dynamic-content">
 
