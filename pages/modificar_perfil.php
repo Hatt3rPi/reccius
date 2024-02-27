@@ -213,25 +213,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     });
 });
-
-
-    // Función para mostrar la notificación
-    function showNotification(message, isSuccess) {
-        var notification = document.getElementById('notification');
-        var messageElement = document.getElementById('notification-message');
-        messageElement.textContent = message;
-        
-        // Añadir la clase para el estilo de éxito o error
-        notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
-        
-        // Mostrar la notificación
-        notification.style.display = 'block';
-        
-        // Ocultar la notificación después de 5 segundos
-        setTimeout(function() {
-            $(notification).fadeOut();
-        }, 5000);
-    }
 });
 
 // Código para manejar los switches y cargar información existente aquí...
