@@ -8,9 +8,13 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
 // Consulta SQL para obtener los datos del análisis externo y el producto asociado
 $query = "SELECT aex.id as id_analisis_externo, aex.id_especificacion, aex.id_producto,
 pr.nombre_producto, pr.formato, pr.concentracion, pr.tipo_producto,
-aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por
+aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.revisado_por, 
+usrRev.nombre as nombre_usrRev, usrRev.cargo as cargo_usrRev, usrRev.foto_firma as foto_firma_usrRev, usrRev.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrRev, 
+usrMuest.nombre as nombre_usrMuest, usrMuest.cargo as cargo_usrMuest, usrMuest.foto_firma as foto_firma_usrMuest, usrMuest.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrMuest
 FROM `calidad_analisis_externo` as aex
 LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
+LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
+LEFT JOIN usuarios as usrRev ON aex.revisado_por=usrRev.usuario
 WHERE aex.id = ?";
 
 $stmt = mysqli_prepare($link, $query);
@@ -36,7 +40,14 @@ while ($row = mysqli_fetch_assoc($result)) {
         'tamano_muestra' => $row['tamano_muestra'],
         'tamano_contramuestra' => $row['tamano_contramuestra'],
         'tipo_analisis' => $row['tipo_analisis'],
-        'muestreado_por' => $row['muestreado_por'],
+        'muestreado_por' => $row['nombre_usrMuest'],
+        'cargo_muestreado_por' => $row['cargo_usrMuest'],
+        'foto_firma_muestreado_por' => $row['foto_firma_usrMuest'],
+        'ruta_registroPrestadoresSalud_muestreado_por' => $row['ruta_registroPrestadoresSalud_usrMuest'],
+        'revisado_por' => $row['nombre_usrRev'],
+        'cargo_revisado_por' => $row['cargo_usrRev'],
+        'foto_firma_revisado_por' => $row['foto_firma_usrRev'],
+        'ruta_registroPrestadoresSalud_revisado_por' => $row['ruta_registroPrestadoresSalud_usrRev'],
     ];
 }
 

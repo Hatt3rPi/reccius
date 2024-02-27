@@ -710,9 +710,10 @@ function procesarDatosActa(response) {
 
         // Aquí asignas los valores a los campos del formulario
         // Asegúrate de que los ID de los elementos HTML coincidan con estos
+        $('#producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
         $('#Tipo_Producto').text(acta.tipo_producto);
-        $('#form_producto').text(acta.nombre_producto);
-        $('#form_tipo').text(acta.tipo_producto);
+        $('#form_producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
+        $('#form_tipo').text('Magistral ' + acta.tipo_producto);
         $('#form_lote').text(acta.lote);
         $('#form_tamano_lote').text(acta.tamano_lote);
         $('#form_codigo_mastersoft').text(acta.codigo_mastersoft);
@@ -723,7 +724,16 @@ function procesarDatosActa(response) {
         $('#realizadoPor').text(acta.muestreado_por);
         
         
-        // Añade aquí el resto de los campos que necesites asignar
+        $('#muestreado_por').text(acta.muestreado_por);
+        $('#cargo_muestreado_por').text(acta.cargo_muestreado_por);
+        // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
+        $('#foto_firma_muestreado_por').attr('src', acta.foto_firma_muestreado_por);
+
+        // Datos del usuario que revisó
+        $('#revisado_por').text(acta.revisado_por);
+        $('#cargo_revisado_por').text(acta.cargo_revisado_por);
+        // Y también para la firma
+        $('#foto_firma_revisado_por').attr('src', acta.foto_firma_revisado_por);
         
     } else {
         console.error("No se recibieron datos válidos: ", response);
