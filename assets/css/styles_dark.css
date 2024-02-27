@@ -499,6 +499,7 @@ body {
   color: rgb(0, 14, 78); /* Texto blanco para contraste */
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
+  background-color: #abcaff;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
