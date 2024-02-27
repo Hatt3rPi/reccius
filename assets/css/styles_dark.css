@@ -503,8 +503,6 @@ body {
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
   background-color: #abcaff;
-  border-top-right-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
-  border-bottom-right-radius: 25px ;
   
 }
 
@@ -517,4 +515,10 @@ body {
 .breadcrumb-item:last-child a {
   pointer-events: none;
   cursor: default;
+}
+
+/* Seleccionar el último li dentro del contenedor de breadcrumb */
+.breadcrumb-container .breadcrumb li:last-child {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
