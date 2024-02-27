@@ -473,7 +473,7 @@ body {
   position: relative;
 }
 .breadcrumb-container {
-  background-color: #005fd3; /* Color de fondo azul para coincidir con la barra de navegación */
+  background-color: #005fd380; /* Color de fondo azul para coincidir con la barra de navegación */
   padding: 10px 0; /* Añade padding vertical para más espacio */
   position: relative;
   top: 70px; /* Desplaza hacia abajo para que no se solape con el header */
