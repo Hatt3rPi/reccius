@@ -484,7 +484,8 @@ body {
   align-items: center; /* Centra los elementos verticalmente */
   justify-content: flex-start; /* Alinea los elementos al inicio */
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
-  border-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
+  border-top-right-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
+  border-bottom-right-radius: 25px ;
 }
 
 .breadcrumb {
