@@ -517,6 +517,7 @@ body {
 .breadcrumb-item:last-child a {
   pointer-events: none;
   cursor: default;
+  color: #000000;
 }
 
 /* Seleccionar el último li dentro del contenedor de breadcrumb */
