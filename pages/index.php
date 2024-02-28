@@ -202,15 +202,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Acta Liberación o Rechazo
                     </a>
                     <div class="smenu">
-                        <a id="acta_liberacion" href="#" class="con-borde-inferior">
+                        <a id="acta_liberacion" href="#" data-breadcrumb="Indice > Acta Liberación o Rechazo > Acta liberación o rechazo" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/liberacion.svg" data-breadcrumb="Indice > Acta Liberación o Rechazo > Acta liberación o rechazo" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/liberacion.svg"  alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Acta liberación o rechazo
                         </a>
-                        <a id="resultados_laboratorio" href="#">
+                        <a id="resultados_laboratorio" href="#" data-breadcrumb="Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
                             <span>
-                                <img src="../assets/images/resultados.svg" data-breadcrumb="Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio" alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/resultados.svg"  alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Ingreso resultados de laboratorio
                         </a>
