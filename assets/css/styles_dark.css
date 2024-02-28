@@ -477,7 +477,7 @@ body {
   padding: 0; /* Elimina el padding para que la altura de 50px sea solo para el contenido */
   height: 50px; /* Establece una altura fija de 50px */
   line-height: 50px; /* Centra el contenido verticalmente */
-  position: relative;
+  position: fixed;
   top: 70px; /* Desplaza hacia abajo para que no se solape con el header */
   left: 299px; /* Desplaza hacia la derecha para comenzar a los 299px */
   display: flex; /* Asegura que los elementos de la lista se muestren en línea */
