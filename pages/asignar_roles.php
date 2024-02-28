@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <body>
     <div class="container">
-        <div class="form-container mt-5">
+        <div class="form-container">
             <h2>Asignación de Rol y Permisos</h2>
             <form>
                 <div class="form-group">
