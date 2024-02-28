@@ -343,3 +343,53 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     });
 </script>
+<script>
+    const dropdownContents = {
+        "Usuarios y Roles": [{
+                name: "Crear Usuario",
+                breadcrumb: "Indice > Usuarios y Roles > Crear Usuario"
+            },
+            {
+                name: "Asignar Roles",
+                breadcrumb: "Indice > Usuarios y Roles > Asignar Roles"
+            }
+        ],
+        "Especificaciones": [{
+                name: "Crear especificaciones de producto",
+                breadcrumb: "Indice > Especificaciones > Crear especificaciones de producto"
+            },
+            {
+                name: "Listado de especificaciones de producto",
+                breadcrumb: "Indice > Especificaciones > Listado de especificaciones de producto"
+            }
+        ],
+        "Solicitudes de Análisis": [{
+                name: "Listado de solicitudes de análisis",
+                breadcrumb: "Indice > Solicitudes de Análisis > Listado de solicitudes de análisis"
+            },
+            {
+                name: "Listado de Actas de Muestreo",
+                breadcrumb: "Indice > Solicitudes de Análisis > Listado de Actas de Muestreo"
+            },
+            // Incluir otros ítems según sea necesario
+        ],
+        "Acta Liberación o Rechazo": [{
+                name: "Acta liberación o rechazo",
+                breadcrumb: "Indice > Acta Liberación o Rechazo > Acta liberación o rechazo"
+            },
+            {
+                name: "Ingreso resultados de laboratorio",
+                breadcrumb: "Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio"
+            }
+        ],
+        // Agregar más secciones aquí según sea necesario
+    };
+    document.querySelectorAll('.sidebar .item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            const section = this.getAttribute('id'); // Obtener la sección basada en el ID del ítem
+            if (dropdownContents[section]) { // Verificar si la sección tiene contenido de dropdown
+                updateDynamicDropdown(section); // Actualizar el dropdown dinámicamente
+            }
+        });
+    });
+</script>
