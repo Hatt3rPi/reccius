@@ -81,7 +81,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Indice</a></li>
-            <li class="breadcrumb-item"><a href="library.php">Primer Nodo</a></li>
+            <li class="breadcrumb-item  dropdown" id="dynamicNodeDropdown"><a href="library.php">Primer Nodo</a></li>
             <li class="breadcrumb-item"><a href="contact.php">Segundo Nodo</a></li>
         </ol>
     </nav>
@@ -401,7 +401,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         breadcrumbContainer.innerHTML = '';
 
         // 3. Genera el nuevo contenido del breadcrumb basado en la sección
-        const paths = dropdownContents[section][0].breadcrumb.split(" > ");
+        const paths = dropdownContents[section][0].breadcrumb.split(" / ");
         paths.forEach((p, index) => {
             const li = document.createElement("li");
             li.className = "breadcrumb-item";
