@@ -81,7 +81,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Indice</a></li>
-            <li class="breadcrumb-item  dropdown" id="dynamicNodeDropdown"><a href="library.php">Primer Nodo</a></li>
+            <li class="breadcrumb-item"><a href="library.php">Primer Nodo</a></li>
             <li class="breadcrumb-item"><a href="contact.php">Segundo Nodo</a></li>
         </ol>
     </nav>
@@ -342,81 +342,4 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
     });
-</script>
-<script>
-    const dropdownContents = {
-        "Usuarios y Roles": [{
-                name: "Crear Usuario",
-                breadcrumb: "Indice > Usuarios y Roles > Crear Usuario"
-            },
-            {
-                name: "Asignar Roles",
-                breadcrumb: "Indice > Usuarios y Roles > Asignar Roles"
-            }
-        ],
-        "Especificaciones": [{
-                name: "Crear especificaciones de producto",
-                breadcrumb: "Indice > Especificaciones > Crear especificaciones de producto"
-            },
-            {
-                name: "Listado de especificaciones de producto",
-                breadcrumb: "Indice > Especificaciones > Listado de especificaciones de producto"
-            }
-        ],
-        "Solicitudes de Análisis": [{
-                name: "Listado de solicitudes de análisis",
-                breadcrumb: "Indice > Solicitudes de Análisis > Listado de solicitudes de análisis"
-            },
-            {
-                name: "Listado de Actas de Muestreo",
-                breadcrumb: "Indice > Solicitudes de Análisis > Listado de Actas de Muestreo"
-            },
-            // Incluir otros ítems según sea necesario
-        ],
-        "Acta Liberación o Rechazo": [{
-                name: "Acta liberación o rechazo",
-                breadcrumb: "Indice > Acta Liberación o Rechazo > Acta liberación o rechazo"
-            },
-            {
-                name: "Ingreso resultados de laboratorio",
-                breadcrumb: "Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio"
-            }
-        ],
-        // Agregar más secciones aquí según sea necesario
-    };
-    document.querySelectorAll('.sidebar .item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            const section = this.getAttribute('id'); // Obtener la sección basada en el ID del ítem
-            if (dropdownContents[section]) { // Verificar si la sección tiene contenido de dropdown
-                updateDynamicDropdown(section); // Actualizar el dropdown dinámicamente
-            }
-        });
-    });
-
-    function updateDynamicDropdown(section) {
-        // 1. Encuentra el elemento del breadcrumb que se actualizará
-        const breadcrumbContainer = document.querySelector(".breadcrumb");
-
-        // 2. Limpia el contenido existente del breadcrumb
-        breadcrumbContainer.innerHTML = '';
-
-        // 3. Genera el nuevo contenido del breadcrumb basado en la sección
-        const paths = dropdownContents[section][0].breadcrumb.split(" / ");
-        paths.forEach((p, index) => {
-            const li = document.createElement("li");
-            li.className = "breadcrumb-item";
-            if (index !== paths.length - 1) {
-                const a = document.createElement("a");
-                a.href = "#";
-                a.textContent = p;
-                li.appendChild(a);
-            } else {
-                li.textContent = p; // El último elemento es texto plano
-            }
-            breadcrumbContainer.appendChild(li);
-        });
-
-        // 4. Genera el contenido del dropdown (si es necesario)
-        // Nota: Esta parte depende de cómo desees manejar los dropdowns en el breadcrumb
-    }
 </script>
