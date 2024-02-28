@@ -392,4 +392,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
     });
+
+    function updateDynamicDropdown(section) {
+        // 1. Encuentra el elemento del breadcrumb que se actualizará
+        const breadcrumbContainer = document.querySelector(".breadcrumb");
+
+        // 2. Limpia el contenido existente del breadcrumb
+        breadcrumbContainer.innerHTML = '';
+
+        // 3. Genera el nuevo contenido del breadcrumb basado en la sección
+        const paths = dropdownContents[section][0].breadcrumb.split(" > ");
+        paths.forEach((p, index) => {
+            const li = document.createElement("li");
+            li.className = "breadcrumb-item";
+            if (index !== paths.length - 1) {
+                const a = document.createElement("a");
+                a.href = "#";
+                a.textContent = p;
+                li.appendChild(a);
+            } else {
+                li.textContent = p; // El último elemento es texto plano
+            }
+            breadcrumbContainer.appendChild(li);
+        });
+
+        // 4. Genera el contenido del dropdown (si es necesario)
+        // Nota: Esta parte depende de cómo desees manejar los dropdowns en el breadcrumb
+    }
 </script>
