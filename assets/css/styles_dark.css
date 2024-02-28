@@ -97,6 +97,7 @@ header h1 {
   transition: transform 0.7s cubic-bezier(0.42, 0, 0.58, 1); /* Ejemplo de cubic-bezier */
   transform: translateX(0);
   border-right: 1px solid #ccc; /* Define el color de tu borde derecho aquí */
+  z-index: 1000;
 }
 
 
