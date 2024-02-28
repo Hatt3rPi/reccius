@@ -44,8 +44,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="notification" class="notification-container notify" style="display: none;">
         <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
 </body>
 
