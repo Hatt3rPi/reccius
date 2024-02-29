@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Crear Usuario</title>
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
-
+    <script src="../assets/js/scripts_index.js"></script>
 </head>
 
 <body>
@@ -39,11 +39,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <div class="form-group">
                     <label for="usuario">Empresa:</label>
-                    <input type="text" class="form-control" id="empresa" name="empresa"  style="width: 100%;">
+                    <input type="text" class="form-control" id="empresa" name="empresa" style="width: 100%;">
                 </div>
                 <div class="form-group">
                     <label for="cargo">Cargo:</label>
-                    <input type="text" class="form-control" id="cargo" name="cargo"  style="width: 100%;">
+                    <input type="text" class="form-control" id="cargo" name="cargo" style="width: 100%;">
                 </div>
                 <div class="form-group">
                     <label for="rol">Rol:</label>
@@ -61,59 +61,37 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     </div>
 
     <script>
-    $(document).ready(function(){
-    $("#formCrearUsuario").submit(function(event){
-        event.preventDefault(); // Prevenir el envío estándar del formulario
+        $(document).ready(function() {
+            $("#formCrearUsuario").submit(function(event) {
+                event.preventDefault(); // Prevenir el envío estándar del formulario
 
-        var formData = $(this).serialize(); // Obtener los datos del formulario
-        
-        $.ajax({
-            type: "POST",
-            url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
-            data: formData,
-            success: function(response){
-                // Mostrar la respuesta como una notificación
-                showNotification(response, true);
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                // Mostrar un mensaje de error
-                showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
-            }
+                var formData = $(this).serialize(); // Obtener los datos del formulario
+
+                $.ajax({
+                    type: "POST",
+                    url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
+                    data: formData,
+                    success: function(response) {
+                        // Mostrar la respuesta como una notificación de éxito
+                        mostrarNotificacion(response, 'éxito');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Mostrar un mensaje de error
+                        mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, 'error');
+                    }
+                });
+            });
         });
-    });
-});
 
-// Función para mostrar la notificación
-// Función para mostrar la notificación
-function showNotification(message, isSuccess) {
-    var notification = document.getElementById('notification');
-    var messageElement = document.getElementById('notification-message');
-    messageElement.textContent = message;
-    
-    // Añadir la clase para el estilo de éxito o error
-    notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
-    
-    // Mostrar la notificación
-    notification.style.display = 'block';
-    
-    // Ocultar la notificación después de 5 segundos (si deseas que desaparezca automáticamente)
-    setTimeout(function() {
-        $(notification).fadeOut(); // Usar fadeOut de jQuery en lugar de ocultar directamente
-    }, 5000);
-}
 
-// Este código permite que las notificaciones se desvanezcan al hacer clic en ellas
-$(document).on('click', '.notify', function() {
-    $(this).fadeOut();
-});
 
-    // El otro script que ya tenías
-    document.getElementById('correoElectronico').addEventListener('input', function () {
-        var correo = this.value;
-        var usuario = correo.split('@')[0];
-        document.getElementById('usuario').value = usuario;
-    });
-</script>
+        // El otro script que ya tenías
+        document.getElementById('correoElectronico').addEventListener('input', function() {
+            var correo = this.value;
+            var usuario = correo.split('@')[0];
+            document.getElementById('usuario').value = usuario;
+        });
+    </script>
 
 </body>
 
