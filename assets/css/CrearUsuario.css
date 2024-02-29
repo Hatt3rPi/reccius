@@ -73,7 +73,6 @@ button:hover {
 }
 
 .notification-container {
-    display: none; /* Oculto por defecto */
     position: fixed;
     bottom: 20px; /* Ubicación en la esquina inferior */
     right: 20px; /* A la derecha */
@@ -85,6 +84,10 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera para profundidad */
     width: 500px; /* Ancho máximo más grande de la notificación */
     font-size: 28px; /* Tamaño de texto más grande */
+    display: flex; /* Esto permite el uso de justify-content y align-items */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    text-align: center; /* Asegura que el texto esté centrado */
     
 }
 
