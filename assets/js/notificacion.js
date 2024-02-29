@@ -23,7 +23,7 @@ function mostrarNotificacion(mensaje, tipoNotificacion) {
     notificacion.style.display = 'block';
     
     // Ocultar la notificación después de 5 segundos
-   // setTimeout(function() {
-     //   $(notificacion).fadeOut();
-    // }, 5000);
+    setTimeout(function() {
+        $(notificacion).fadeOut();
+    }, 5000);
 }
