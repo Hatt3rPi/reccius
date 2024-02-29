@@ -73,11 +73,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     data: formData,
                     success: function(response) {
                         // Mostrar la respuesta como una notificación
-                        mostrarNotificacion(response, éxito);
+                        mostrarNotificacion(response, "éxito");
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
-                        mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, error);
+                        mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
                     }
                 });
             });
