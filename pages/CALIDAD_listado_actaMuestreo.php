@@ -32,11 +32,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <br>
             <br>
-            <div id="contenedor_listadoEspecProductos">
-                <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
+            <div id="contenedor_listado">
+                <table id="listado" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th></th> <!-- Columna vacía para botones o checkboxes -->
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -51,12 +59,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     function filtrar_listado(estado) {
-        var table = $('#listadoEspecProductos').DataTable();
+        var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
 function carga_listado() {
-    var table = $('#listadoEspecProductos').DataTable({
-        "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
+    var table = $('#listado').DataTable({
+        "ajax": "./backend/calidad/listado_acta_muestreoBE.php.php",
         language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
                     },
@@ -89,25 +97,35 @@ function carga_listado() {
                     }  
                 }
             },
-            { "data": "documento", "title": "Documento", "width": "170px" },
-            { "data": "version", "title": "Versión", "width": "65px" },
+            { "data": "numero_acta", "title": "N° Acta", "width": "170px" },
+            { "data": "fecha_muestreo", "title": "fecha_muestreo", "width": "65px" },
             { "data": "producto", "title": "Producto" },
             { "data": "tipo_producto", "title": "Tipo producto" },
             { "data": "concentracion", "title": "Concentración" },
-            { "data": "formato", "title": "Formato" },
-            { "data": "fecha_expiracion", "title": "Fecha expiración"  },
             {
-                    title: 'id_especificacion',
-                    data: 'id_especificacion',
+                    title: 'responsable',
+                    data: 'responsable',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
-                }
+            },
+            {
+                    title: 'ejecutor',
+                    data: 'ejecutor',
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+            },
+            {
+                    title: 'verificador',
+                    data: 'verificador',
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+            }
         ],
         
     });
 
     // Event listener para el botón de detalles
-    $('#listadoEspecProductos tbody').on('click', 'td.details-control', function() {
+    $('#listado tbody').on('click', 'td.details-control', function() {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
 
