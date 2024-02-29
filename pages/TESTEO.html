@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../assets/js/notificacion.js"></script>
+</head>
+
+<body>
+    <button id="btnExito">Éxito</button>
+    <button id="btnAdvertencia">Advertencia</button>
+    <button id="btnPeligro">Peligro</button>
+    <button id="btnError">Error</button>
+
+
+</body>
+<script>
+
+    document.getElementById('btnExito').addEventListener('click', function () {
+        mostrarNotificacion('Mensaje de éxito', 'éxito');
+    });
+
+    document.getElementById('btnAdvertencia').addEventListener('click', function () {
+        mostrarNotificacion('Mensaje de advertencia', 'advertencia');
+    });
+
+    document.getElementById('btnPeligro').addEventListener('click', function () {
+        mostrarNotificacion('Mensaje de peligro', 'peligro');
+    });
+
+    document.getElementById('btnError').addEventListener('click', function () {
+        mostrarNotificacion('Mensaje de error', 'error');
+    });
+
+</script>
+
+</html>

@@ -39,6 +39,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
     <script src="../assets/js/jquery.redirect.js"></script>
+
+
 </head>
 
 <body>
@@ -84,6 +86,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <li class="breadcrumb-item"><a href="library.php">Primer Nodo</a></li>
             <li class="breadcrumb-item"><a href="contact.php">Segundo Nodo</a></li>
         </ol>
+
     </nav>
 
     <div class="container_fas">
@@ -196,6 +199,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             Acta liberación o rechazo
                         </a>
                         <a id="resultados_laboratorio" href="#" data-breadcrumb="Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
+                            <span>
+                                <img src="../assets/images/resultados.svg" alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                            </span>
+                            Ingreso resultados de laboratorio
+                        </a>
+                        <a id="TESTEO" href="#" data-breadcrumb="Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
                             <span>
                                 <img src="../assets/images/resultados.svg" alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
