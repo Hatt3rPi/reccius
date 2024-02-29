@@ -19,12 +19,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crear analisis</title>
     <link rel="stylesheet" href="../assets/css/calidad.css">
-    <script  src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- CSS de Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Estilos CSS de DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">s
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
 
 
@@ -36,8 +36,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
 </head>
 
+<body>
 
-<div class="form-container">
+
+    <div class="form-container">
         <h1>CALIDAD / Preparar Acta de Muestreo</h1>
         <BR></BR>
         <form>
@@ -101,7 +103,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea name="condicion_almacenamiento" id="condicion_almacenamiento" rows="4" placeholder="..." ></textarea>
+                        <textarea name="condicion_almacenamiento" id="condicion_almacenamiento" rows="4" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
@@ -132,51 +134,52 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
             </fieldset>
-        <div class="actions-container">
-            <button type="button" id="guardar" name="guardar" class="action-button">Guardar Acta de Muestreo</button>
-            <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
-            <input type="text" id="id_producto" name="id_producto" style="display: none;">
-            <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
-        </div>
-</div>
-
+            <div class="actions-container">
+                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Acta de Muestreo</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
+                <input type="text" id="id_producto" name="id_producto" style="display: none;">
+                <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
+            </div>
+    </div>
+</body>
 
 </html>
 <script>
     function cargarDatosEspecificacion(id) {
-    $.ajax({
-        url: './backend/acta_muestreo/cargaEsp_acta_muestreoBE.php',
-        type: 'GET',
-        data: { id: id },
-        success: function(response) {
-            procesarDatosActa(response);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error en la solicitud: ", status, error);
-        }
-    });
-}
-function procesarDatosActa(response) {
-    if (response && response.productos && response.productos.length > 0) {
-        var producto = response.productos[0];
-        $('#id_producto').val(producto.id_producto);
-        $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
-        $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
-        $('#producto').val(producto.nombre_producto).prop('disabled', true);
-        $('#concentracion').val(producto.concentracion).prop('disabled', true);
-        $('#formato').val(producto.formato).prop('disabled', true);
-        $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
-
-        var especificaciones = Object.values(producto.especificaciones);
-        if (especificaciones.length > 0) {
-            var especificacion = especificaciones[0];
-            $('#id_especificacion').val(especificacion.id_especificacion);
-
-        }
-    } else {
-        console.error("No se recibieron datos válidos: ", response);
+        $.ajax({
+            url: './backend/acta_muestreo/cargaEsp_acta_muestreoBE.php',
+            type: 'GET',
+            data: {
+                id: id
+            },
+            success: function(response) {
+                procesarDatosActa(response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+            }
+        });
     }
-}
 
+    function procesarDatosActa(response) {
+        if (response && response.productos && response.productos.length > 0) {
+            var producto = response.productos[0];
+            $('#id_producto').val(producto.id_producto);
+            $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
+            $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
+            $('#producto').val(producto.nombre_producto).prop('disabled', true);
+            $('#concentracion').val(producto.concentracion).prop('disabled', true);
+            $('#formato').val(producto.formato).prop('disabled', true);
+            $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
 
+            var especificaciones = Object.values(producto.especificaciones);
+            if (especificaciones.length > 0) {
+                var especificacion = especificaciones[0];
+                $('#id_especificacion').val(especificacion.id_especificacion);
+
+            }
+        } else {
+            console.error("No se recibieron datos válidos: ", response);
+        }
+    }
 </script>
