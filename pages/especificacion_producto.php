@@ -34,7 +34,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <!-- CSS personalizado específico para esta página -->
     <link rel="stylesheet" href="../assets/css/calidad.css">
-    <script src="assets/js/notificacion.js"></script>
+    <script src="../assets/js/notificacion.js"></script>
 
 </head>
 
