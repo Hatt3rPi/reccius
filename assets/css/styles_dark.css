@@ -490,7 +490,7 @@ body {
   justify-content: flex-start; /* Alinea los elementos al inicio */
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
+  z-index: 100;
 }
 
 .breadcrumb {
