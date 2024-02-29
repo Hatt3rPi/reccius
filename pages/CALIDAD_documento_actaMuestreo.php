@@ -418,8 +418,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td >4. Verificar correcta identificación del
-                            lote y producto.</td>
+                        <td >4. Verificar correcta identificación del lote y producto.</td>
                         <td id="form_4">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
@@ -449,7 +448,7 @@
                     <tr>
                         <td >5. Cantidad de ciclos de esterilización</td>
                         <td class="formulario" >
-                            <textarea id="form_textarea5" >id="form_textarea5"</textarea>
+                            <textarea id="form_textarea5"></textarea>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -473,7 +472,7 @@
                     <tr>
                         <td >6. Cantidad bandejas esterilizadas por ciclo</td>
                         <td class="formulario" >
-                            <textarea id="form_textarea6" >id="form_textarea6"</textarea>
+                            <textarea id="form_textarea6"></textarea>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -497,7 +496,7 @@
                     <tr>
                         <td >7. Cantidad de muestras por bandeja</td>
                         <td class="formulario" >
-                            <textarea id="form_textarea7" >id="form_textarea7"</textarea>
+                            <textarea id="form_textarea7"></textarea>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -524,11 +523,12 @@
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <textarea id="form_textarea8" name="form_textarea8" rows="3" style="width: 99%;margin-left: 1%;">id="form_textarea8"</textarea>
+                <textarea id="form_textarea8" name="form_textarea8" rows="3" style="width: 99%;margin-left: 1%;"></textarea>
                 
                 
             </div>
         <!-- Sección III: Plan de Muestreo -->
+        <br>
         <section id="sampling-plan">
             <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">III. PLAN DE MUESTREO</h2>
 
@@ -551,18 +551,18 @@
                     <td class="class_seccion3">
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp1" id="planResp1a" value="1"  autocomplete="off" >
-                            <label class="btn btn-outline-primary verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                            <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                             <input type="radio" class="btn-check" name="planResp1" id="planResp1b" value="0" autocomplete="off">
-                            <label class="btn btn-outline-primary verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                         </div>
                     </td>
 
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planVB1" id="planVB1a" value="1" autocomplete="off" >
-                            <label class="btn btn-outline-primary verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                            <label class="btn btn-outline-success verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                             <input type="radio" class="btn-check" name="planVB1" id="planVB1b" value="0" autocomplete="off">
-                            <label class="btn btn-outline-primary verificadores" for="planVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            <label class="btn btn-outline-danger verificadores" for="planVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                         </div>
                     </td>
                 </tr>
@@ -575,18 +575,18 @@
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off" >
-                            <label class="btn btn-outline-primary verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                            <label class="btn btn-outline-success verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                             <input type="radio" class="btn-check" name="planResp2" id="planResp2b" value="0" autocomplete="off">
-                            <label class="btn btn-outline-primary verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            <label class="btn btn-outline-danger verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                         </div>
                     </td>
 
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planVB2" id="planVB2a" value="1" autocomplete="off" >
-                            <label class="btn btn-outline-primary verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                            <label class="btn btn-outline-success verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                             <input type="radio" class="btn-check" name="planVB2" id="planVB2b" value="0" autocomplete="off">
-                            <label class="btn btn-outline-primary verificadores" for="planVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            <label class="btn btn-outline-danger verificadores" for="planVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                         </div>
                     </td>
                 </tr>
@@ -599,18 +599,18 @@
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp3" id="planResp3a" value="1" autocomplete="off" >
-                            <label class="btn btn-outline-primary verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                            <label class="btn btn-outline-success verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                             <input type="radio" class="btn-check" name="planResp3" id="planResp3b" value="0" autocomplete="off">
-                            <label class="btn btn-outline-primary verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            <label class="btn btn-outline-danger verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                         </div>
                     </td>
 
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planVB3" id="planVB3a" value="1" autocomplete="off" >
-                            <label class="btn btn-outline-primary verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                            <label class="btn btn-outline-success verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                             <input type="radio" class="btn-check" name="planVB3" id="planVB3b" value="0" autocomplete="off">
-                            <label class="btn btn-outline-primary verificadores" for="planVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            <label class="btn btn-outline-danger verificadores" for="planVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                         </div>
                     </td>
                 </tr>
@@ -679,9 +679,9 @@
 
     </div>
     <div class="button-container">
-        <button id="guardar">Guardar</button>
-        <button id="firmar">Firmar</button>
-        <button id="download-pdf">Descargar PDF</button>
+        <button class="botones" id="guardar">Guardar</button>
+        <button class="botones" id="firmar">Firmar</button>
+        <button class="botones" id="download-pdf">Descargar PDF</button>
     </div>
 
 </body>
