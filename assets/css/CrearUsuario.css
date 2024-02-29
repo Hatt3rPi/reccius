@@ -92,7 +92,15 @@ button:hover {
     border-left-color: #4CAF50; /* Borde izquierdo para éxito */
 }
 
-.notification-container.error {
+.notification-container.danger {
     border-left-color: #f44336; /* Borde izquierdo para error */
+}
+
+.notification-container.warning {
+    border-left-color: #d9ff00; /* Borde izquierdo para error */
+}
+
+.notification-container.error {
+    border-left-color: #000000; /* Borde izquierdo para error */
 }
 

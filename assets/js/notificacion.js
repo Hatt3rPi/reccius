@@ -12,7 +12,10 @@ function mostrarNotificacion(mensaje, tipoNotificacion) {
         case 'advertencia':
             notificacion.className = 'notification-container notify warning';
             break;
-        case 'error':
+        case 'peligro':
+            notificacion.className = 'notification-container notify danger';
+            break;
+         case 'error':
             notificacion.className = 'notification-container notify error';
             break;
         default:
