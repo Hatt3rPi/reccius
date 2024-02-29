@@ -489,7 +489,7 @@ body {
   align-items: center; /* Centra los elementos verticalmente */
   justify-content: flex-start; /* Alinea los elementos al inicio */
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.6);
   z-index: 100;
 }
 
