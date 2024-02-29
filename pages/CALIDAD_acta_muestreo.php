@@ -16,24 +16,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>crear analisis</title>
     <link rel="stylesheet" href="../assets/css/calidad.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- CSS de Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <!-- Estilos CSS de DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-
-
-
-    <!-- JS de DataTables -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <!-- JS de DataTables con soporte para Bootstrap 4 -->
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
