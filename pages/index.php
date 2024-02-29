@@ -153,7 +153,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </span>
                             Preparación solicitud
                         </a>
-                        <a id="preparacion_analisis" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Preparar Acta de Muestreo">
+                        <a id="preparacion_analisis" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Preparar Acta de Muestreo" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
