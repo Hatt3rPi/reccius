@@ -16,6 +16,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Modificar Perfil</title>
     <!-- Añade aquí tus estilos o referencias a CSS -->
     <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
+    <script src="../assets/js/notificacion.js"></script>
 </head>
 
 <body>
@@ -204,22 +205,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         //!: hecharle un ojo en el backend
         success: function(response){
             // Mostrar la notificación con el mensaje del backend
-            showNotification(response.message, response.success);
+            mostrarNotificacion(response.message, response.success);
         },
         error: function(jqXHR, textStatus, errorThrown){
             // Mostrar un mensaje de error
             var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
-            showNotification(errorMsg, false);
+            mostrarNotificacion(errorMsg, false);
         }
     });
 });
-});
-
-// Código para manejar los switches y cargar información existente aquí...
-
-// Este código permite que las notificaciones se desvanezcan al hacer clic en ellas
-$(document).on('click', '.notify', function() {
-    $(this).fadeOut();
 });
 
 
