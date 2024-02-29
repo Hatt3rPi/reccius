@@ -53,17 +53,15 @@
                     <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td >N° Registro:</td>
-                            <td name="nro_registro" id="nro_registro" >DCAL-CC-AMPT-005
-                            </td>
+                            <td name="nro_registro" id="nro_registro" ></td>
                         </tr>
                         <tr>
                             <td >N° Versión:</td>
-                            <td name="nro_version" id="nro_version">001</td>
+                            <td name="nro_version" id="nro_version"></td>
                         </tr>
                         <tr>
                             <td >N° Acta:</td>
-                            <td name="nro_acta" id="nro_acta" >AMPT-2301006-00
-                            </td>
+                            <td name="nro_acta" id="nro_acta" ></td>
                         </tr>
                         <tr>
                             <td >Fecha Muestreo:</td>
@@ -749,7 +747,7 @@ function procesarDatosActa(response) {
             break;
     }
         $('#nro_version').text(1);
-        $('#nro_nro_actaversion').text(acta.numero_acta);
+        $('#nro_acta').text(acta.numero_acta);
         
      
     } else {
