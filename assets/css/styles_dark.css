@@ -474,7 +474,7 @@ body {
   position: relative;
 }
 .breadcrumb-container {
-  background-color: #FFFFFF; /* Color de fondo azul para coincidir con la barra de navegación */
+  background-color: #cecece; /* Color de fondo azul para coincidir con la barra de navegación */
   padding: 0; /* Elimina el padding para que la altura de 50px sea solo para el contenido */
   height: 30px; /* Establece una altura fija de 50px */
   width: 100%;    
@@ -504,7 +504,7 @@ body {
   color: rgb(0, 14, 78); /* Texto blanco para contraste */
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
-  background-color: #ffffff;
+  background-color: #cecece;
   font-weight: bold; /* Hace el texto negrita */
 
   
