@@ -888,13 +888,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         });
     }
     $('#guardar').click(function() {
-        if (validarFormulario()) { // Asegúrate de que esta es la función que valida tu formulario
-            // Muestra una notificación de "guardando..." o similar aquí
-            // Esto es antes de enviar los datos al servidor
-            mostrarNotificacion('Guardando especificación...', 'éxito');
 
-            guardar(); // Suponiendo que esta función envía los datos al servidor
-        }
+        guardar(); // Suponiendo que esta función envía los datos al servidor
+
     });
 
     $('#Tipo_Producto').on('change', function() {
