@@ -349,7 +349,7 @@ $(document).ready(function () {
                 obtenNotificaciones();
                 
                 console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }v
+            }
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
