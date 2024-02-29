@@ -476,7 +476,8 @@ body {
 .breadcrumb-container {
   background-color: #FFFFFF; /* Color de fondo azul para coincidir con la barra de navegación */
   padding: 0; /* Elimina el padding para que la altura de 50px sea solo para el contenido */
-  height: 50px; /* Establece una altura fija de 50px */
+  height: 30px; /* Establece una altura fija de 50px */
+  width: 100%;    
   line-height: 50px; /* Centra el contenido verticalmente */
   position: fixed;
   top: 70px; /* Desplaza hacia abajo para que no se solape con el header */
@@ -484,8 +485,6 @@ body {
   display: flex; /* Asegura que los elementos de la lista se muestren en línea */
   align-items: center; /* Centra los elementos verticalmente */
   justify-content: flex-start; /* Alinea los elementos al inicio */
-  border-top-right-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
-  border-bottom-right-radius: 25px ;
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
@@ -524,11 +523,7 @@ body {
   color: #000000;
 }
 
-/* Seleccionar el último li dentro del contenedor de breadcrumb */
-.breadcrumb-container .breadcrumb li:last-child {
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
+
 /* Estilo para los enlaces clicables */
 .breadcrumb-item a {
   color: blue; /* Cambia esto al color azul que prefieras */
@@ -539,4 +534,7 @@ body {
 .breadcrumb-item a:hover {
   color: darkblue; /* Cambia esto al color azul más oscuro que prefieras */
   text-decoration: underline; /* Opcional: añade subrayado al pasar el mouse */
+}
+.breadcrumbexpanded{
+  left: 0px;
 }

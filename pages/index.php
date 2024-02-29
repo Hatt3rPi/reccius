@@ -302,6 +302,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     document.getElementById('toggle-sidebar-btn').addEventListener('click', function() {
         var sidebar = document.querySelector('.sidebar');
         var content = document.querySelector('.content');
+        var nav = document.querySelector('.breadcrumb-container');
+        nav.classList.toggle('breadcrumbexpanded');
         sidebar.classList.toggle('sidebar-hidden');
         content.classList.toggle('content-expanded');
     });
