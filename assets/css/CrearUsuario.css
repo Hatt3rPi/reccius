@@ -85,15 +85,17 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera para profundidad */
     width: 700px; /* Ancho máximo más grande de la notificación */
     font-size: 28px; /* Tamaño de texto más grande */
-    border-left: 8px solid; /* Borde izquierdo sólido, el color se definirá con clases adicionales */
+    
 }
 
 .notification-container.success {
     background-color: #5cb85c; /* Borde izquierdo para éxito */
+    color: white;
 }
 
 .notification-container.danger {
     background-color: #F32013; /* Borde izquierdo para error */
+    color: white;
 }
 
 .notification-container.warning {
