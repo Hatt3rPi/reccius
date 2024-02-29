@@ -1,235 +1,120 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crear analisis</title>
-    <link rel="stylesheet" href="../assets/css/calidad.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- CSS de Bootstrap 4 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Crear Usuario</title>
+    <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
+    <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
 
-    <!-- Estilos CSS de DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-
-
-
-    <!-- JS de DataTables -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <!-- JS de DataTables con soporte para Bootstrap 4 -->
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
-
-    <div class="form-container">
-        <h1>ACTA LIBERACIÓN O RECHAZO</h1>
-        <BR></BR>
-        <form>
-            <fieldset>
-                <legend>I. Identificación de la muestra</legend>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Tipo de Producto:</label>
-                        <input type="text" placeholder="Producto Terminado">
-                    </div>
-                    <div class="form-group">
-                        <label>Código Producto:</label>
-                        <input type="text" placeholder="12345">
-                    </div>
+    <div class="container">
+        <div class="form-container">
+            <h2>Formulario para Crear Usuario</h2>
+            <form id="formCrearUsuario" action="backend/usuario/crear_usuarioBE.php" method="POST">
+                <div class="form-group">
+                    <label for="nombreUsuario">Nombre:</label>
+                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required style="width: 100%;">
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Producto:</label>
-                        <input type="text" placeholder="Ácido Ascórbico">
-                    </div>
-                    <div class="form-group">
-                        <label>Concentración:</label>
-                        <input type="text" placeholder="1g / 10 ml">
-                    </div>
+                <div class="form-group">
+                    <label for="correoElectronico">Correo Institucional:</label>
+                    <input type="email" class="form-control" id="correoElectronico" name="correoElectronico" required style="width: 100%;">
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Formato:</label>
-                        <input type="text" placeholder="Ampolla">
-                    </div>
-                    <div class="form-group">
-                        <label>Elaborado por:</label>
-                        <input type="text" placeholder="Reccius">
-                    </div>
+                <div class="form-group">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" readonly style="width: 100%;">
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Formato:</label>
-                        <input type="text" placeholder="Ampolla">
-                    </div>
-                    <div class="form-group">
-                        <label>Elaborado por:</label>
-                        <input type="text" placeholder="Reccius">
-                    </div>
+                <div class="form-group">
+                    <label for="usuario">Empresa:</label>
+                    <input type="text" class="form-control" id="empresa" name="empresa"  style="width: 100%;">
                 </div>
-
-            </fieldset>
-            <br>
-
-            <fieldset>
-
-
-
-                <legend>II. Muestreo y Análisis </legend>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nro Lote:</label>
-                        <input type="text" placeholder="12345">
-                    </div>
-                    <div class="form-group">
-                        <label>Tamaño Lote:</label>
-                        <input type="text" placeholder="20">
-                    </div>
+                <div class="form-group">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" class="form-control" id="cargo" name="cargo"  style="width: 100%;">
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nro Lote:</label>
-                        <input type="text" placeholder="12345">
-                    </div>
-                    <div class="form-group">
-                        <label>Tamaño Lote:</label>
-                        <input type="text" placeholder="20">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nro Lote:</label>
-                        <input type="text" placeholder="12345">
-                    </div>
-                    <div class="form-group">
-                        <label>Tamaño Lote:</label>
-                        <input type="text" placeholder="20">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nro Lote:</label>
-                        <input type="text" placeholder="12345">
-                    </div>
-                    <div class="form-group">
-                        <label>Tamaño Lote:</label>
-                        <input type="text" placeholder="20">
-                    </div>
+                <div class="form-group">
+                    <label for="rol">Rol:</label>
+                    <select class="select-styles" id="rol" name="rol" style="width: 100%;">
+                        <!-- Las opciones se cargarán mediante JavaScript -->
+                    </select>
                 </div>
                 <br>
-            </fieldset>
-            </fieldset>
-            <br>
-            <br>
-            <legend>III. Análisis Físico-Químicos:</legend>
-            <table class="analysis-table" id="analysis-table4">
-                <thead>
-                    <tr>
-                        <th>Análisis</th>
-                        <th>Metodología</th>
-                        <th>Criterio de Aceptación</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="editable-row">
-                        <td><input type="text" value="Apariencia" class="editable" disabled></td>
-                        <td><input type="text" value="interno" class="editable" disabled></td>
-                        <td class="criteria-cell.editable"><textarea class="editable"
-                                disabled>Lorem ipsum dolor sit amet, consectetur adipiscing...</textarea></td>
-                        <td>
-                            <button type="button" onclick="toggleEdit(this)">Modificar</button>
-                            <button type="button" onclick="deleteRow(this)">Eliminar</button>
-
-                        </td>
-                    </tr>
-                    <tr class="editable-row">
-                        <td><input type="text" value="Identificación" class="editable" disabled></td>
-                        <td><input type="text" value="USP" class="editable" disabled></td>
-                        <td class="criteria-cell.editable"><textarea class="editable"
-                                disabled>Lorem ipsum dolor sit amet, consectetur adipiscing...</textarea></td>
-                        <td>
-                            <button type="button" onclick="toggleEdit(this)">Modificar</button>
-                            <button type="button" onclick="deleteRow(this)">Eliminar</button>
-
-                        </td>
-                    </tr>
-                    <tr class="editable-row">
-                        <td><input type="text" value="Valoración" class="editable" disabled></td>
-                        <td><input type="text" value="USP" class="editable" disabled></td>
-                        <td class="criteria-cell.editable"><textarea class="editable"
-                                disabled>Lorem ipsum dolor sit amet, consectetur adipiscing...</textarea></td>
-                        <td>
-                            <button type="button" onclick="toggleEdit(this)">Modificar</button>
-                            <button type="button" onclick="deleteRow(this)">Eliminar</button>
-
-                        </td>
-                    </tr>
-                    <tr class="editable-row">
-                        <td><input type="text" value="pH" class="editable" disabled></td>
-                        <td><input type="text" value="USP" class="editable" disabled></td>
-                        <td class="criteria-cell.editable"><textarea class="editable"
-                                disabled>Lorem ipsum dolor sit amet, consectetur adipiscing...</textarea></td>
-                        <td>
-                            <button type="button" onclick="toggleEdit(this)">Modificar</button>
-                            <button type="button" onclick="deleteRow(this)">Eliminar</button>
-
-                        </td>
-                    </tr>
-                    <!-- Repetir filas según sea necesario -->
-                </tbody>
-            </table>
-            <fieldset>
-                <legend>IV. Conciliación</legend>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Tipo Analisis:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                    <div class="form-group">
-                        <label>Cantidad Muestra:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Tipo Analisis:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                    <div class="form-group">
-                        <label>Cantidad Muestra:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Tipo Analisis:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                    <div class="form-group">
-                        <label>Cantidad Muestra:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Tipo Analisis:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                    <div class="form-group">
-                        <label>Cantidad Muestra:</label>
-                        <input type="text" placeholder="...">
-                    </div>
-                </div>
-
-            </fieldset>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Crear Usuario</button>
+            </form>
+        </div>
     </div>
+    <div id="notification" class="notification-container notify" style="display: none;">
+        <p id="notification-message">Este es un mensaje de notificación.</p>
+    </div>
+
+    <script>
+    $(document).ready(function(){
+    $("#formCrearUsuario").submit(function(event){
+        event.preventDefault(); // Prevenir el envío estándar del formulario
+
+        var formData = $(this).serialize(); // Obtener los datos del formulario
+        
+        $.ajax({
+            type: "POST",
+            url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
+            data: formData,
+            success: function(response){
+                // Mostrar la respuesta como una notificación
+                showNotification(response, true);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                // Mostrar un mensaje de error
+                showNotification("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
+            }
+        });
+    });
+});
+
+// Función para mostrar la notificación
+// Función para mostrar la notificación
+function showNotification(message, isSuccess) {
+    var notification = document.getElementById('notification');
+    var messageElement = document.getElementById('notification-message');
+    messageElement.textContent = message;
+    
+    // Añadir la clase para el estilo de éxito o error
+    notification.className = isSuccess ? 'notification-container notify success' : 'notification-container notify error';
+    
+    // Mostrar la notificación
+    notification.style.display = 'block';
+    
+    // Ocultar la notificación después de 5 segundos (si deseas que desaparezca automáticamente)
+    setTimeout(function() {
+        $(notification).fadeOut(); // Usar fadeOut de jQuery en lugar de ocultar directamente
+    }, 5000);
+}
+
+// Este código permite que las notificaciones se desvanezcan al hacer clic en ellas
+$(document).on('click', '.notify', function() {
+    $(this).fadeOut();
+});
+
+    // El otro script que ya tenías
+    document.getElementById('correoElectronico').addEventListener('input', function () {
+        var correo = this.value;
+        var usuario = correo.split('@')[0];
+        document.getElementById('usuario').value = usuario;
+    });
+</script>
+
 </body>
 
 </html>
