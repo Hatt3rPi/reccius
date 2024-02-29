@@ -733,19 +733,20 @@ function procesarDatosActa(response) {
         // Y también para la firma
         $('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
         switch (acta.tipo_producto) {
-        case 'Material Envase y Empaque':
-            $('#nro_registro').val('DCAL-CC-AMMEE-' + acta.identificador_producto);
-            break;
-        case 'Materia Prima':
-            $('#nro_registro').val('DCAL-CC-AMMP-' + acta.identificador_producto);
-            break;
-        case 'Producto Terminado':
-            $('#nro_registro').val('DCAL-CC-AMPT-' + acta.identificador_producto);
-            break;
-        case 'Insumo':
-            $('#nro_registro').val('DCAL-CC-AMINS-' + acta.identificador_producto);
-            break;
-    }
+            case 'Material Envase y Empaque':
+                $('#nro_registro').val('DCAL-CC-AMMEE-' + acta.identificador_producto.toString().padStart(3, '0'));
+                break;
+            case 'Materia Prima':
+                $('#nro_registro').val('DCAL-CC-AMMP-' + acta.identificador_producto.toString().padStart(3, '0'));
+                break;
+            case 'Producto Terminado':
+                $('#nro_registro').val('DCAL-CC-AMPT-' + acta.identificador_producto.toString().padStart(3, '0'));
+                break;
+            case 'Insumo':
+                $('#nro_registro').val('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
+                break;
+        }
+
         $('#nro_version').text(1);
         $('#nro_acta').text(acta.numero_acta);
         
