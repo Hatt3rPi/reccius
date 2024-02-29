@@ -89,15 +89,15 @@ button:hover {
 }
 
 .notification-container.success {
-    background-color: #4CAF50; /* Borde izquierdo para éxito */
+    background-color: #5cb85c; /* Borde izquierdo para éxito */
 }
 
 .notification-container.danger {
-    background-color: #f44336; /* Borde izquierdo para error */
+    background-color: #F32013; /* Borde izquierdo para error */
 }
 
 .notification-container.warning {
-    background-color: #d9ff00; /* Borde izquierdo para error */
+    background-color: #eed202; /* Borde izquierdo para error */
 }
 
 .notification-container.error {
