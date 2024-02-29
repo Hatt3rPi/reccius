@@ -72,12 +72,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
                     data: formData,
                     success: function(response) {
-                        // Mostrar la respuesta como una notificación de éxito
-                        mostrarNotificacion(response, 'éxito');
+                        // Mostrar la respuesta como una notificación
+                        mostrarNotificacion(response, true);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
-                        mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, 'error');
+                        mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, false);
                     }
                 });
             });
