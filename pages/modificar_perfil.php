@@ -16,6 +16,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Modificar Perfil</title>
     <!-- Añade aquí tus estilos o referencias a CSS -->
     <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
+    <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notificacion.js"></script>
 </head>
 

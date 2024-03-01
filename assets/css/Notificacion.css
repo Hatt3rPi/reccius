@@ -1,0 +1,38 @@
+.notification-container {
+    position: fixed;
+    bottom: 20px; /* Ubicación en la esquina inferior */
+    right: 20px; /* A la derecha */
+    background-color: #e3e7ec; /* Color crema */
+    color: #333; /* Color de texto */
+    padding: 20px; /* Aumentar el relleno */
+    z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
+    border-radius: 4px; /* Bordes redondeados */
+    box-shadow: 1px 4px 8px rgba(0,0,0,0.9); /* Sombra ligera para profundidad */
+    width: 400px; /* Ancho máximo más grande de la notificación */
+    font-size: 24px; /* Tamaño de texto más grande */
+    display: flex; /* Esto permite el uso de justify-content y align-items */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    text-align: center; /* Asegura que el texto esté centrado */
+    
+}
+
+.notification-container.success {
+    background-color: #5cb85c; /* Borde izquierdo para éxito */
+    color: white;
+}
+
+.notification-container.danger {
+    background-color: #F32013; /* Borde izquierdo para error */
+    color: white;
+}
+
+.notification-container.warning {
+    background-color: #eed202; /* Borde izquierdo para error */
+}
+
+.notification-container.error {
+    background-color: #000000; /* Borde izquierdo para error */
+    color: white;
+}
+
