@@ -150,18 +150,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-                        <a id="preparacion_solicitud" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Preparación solicitud" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/preparacion.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                            </span>
-                            Preparación solicitud
-                        </a>
-                        <a id="preparacion_analisis" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Preparar Acta de Muestreo" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/acta.svg" alt="Icono de solicitud" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                            </span>
-                            Preparar Acta de Muestreo
-                        </a>
                         <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
@@ -212,43 +200,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </a>
                     </div>
                 </li>
-                <li class="title">Otros</li>
-                <li class="item" id="calidad">
-                    <a href="#calidad" class="btn_lateral"><i class="fa fa-envelope"></i> Calidad</a>
-                    <div class="smenu">
-                        <a id="acta_liberacion" href="#">Acta liberacion o rechazo</a>
-                        <a id="resultados_laboratorio" href="#">Ingreso resultados de laboratorio</a>
-
-                    </div>
-                </li>
-                <li class="item" id="materias_primas">
-                    <a href="#Materias_primas" class="btn_lateral"><i class="fa fa-envelope"></i> Materias Primas</a>
-                    <div class="smenu">
-                        <a href="">Listado materias primas disponibles</a>
-                        <a href="">Paso 2</a>
-                        <a href="">Paso 3</a>
-                        <a href="">Paso 4</a>
-                    </div>
-                </li>
-                <li class="item" id="recetas_magistrales">
-                    <a href="#recetas_magistrales" class="btn_lateral"><i class="fa fa-envelope"></i> Recetas Magistrales</a>
-                    <div class="smenu">
-                        <a href="">Ingreso</a>
-                        <a id="testeo" href="">TEST DOCUMENTOS</a>
-                        <a href="">Paso 3</a>
-                        <a href="">Paso 4</a>
-                    </div>
-                </li>
-                <li class="item" id="ordenes_de_compra">
-                    <a href="#ordenes_de_compra" class="btn_lateral"><i class="fa fa-envelope"></i> Ordenes de Compra</a>
-                    <div class="smenu">
-                        <a href="">Ingreso</a>
-                        <a id="testeo" href="">TEST DOCUMENTOS</a>
-                        <a href="">Paso 3</a>
-                        <a href="">Paso 4</a>
-                    </div>
-                </li>
-
             </ul>
         </aside>
 
