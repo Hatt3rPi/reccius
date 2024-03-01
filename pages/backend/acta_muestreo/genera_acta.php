@@ -6,6 +6,8 @@ $identificador_producto='';
 $id_especificacion='';
 $id_producto='';
 $id_analisis_externo='';
+$responsable='':
+$verificador='';
 // Validación y saneamiento del ID del análisis externo
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
 
@@ -61,6 +63,8 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         $id_especificacion=$row['id_especificacion'];
         $id_producto=$row['id_producto'];
         $id_analisis_externo=$row['id_analisis_externo'];
+        $responsable=$row['muestreado_por'];
+        $verificador=$row['revisado_por'];
     }
     mysqli_stmt_close($stmt);
 
@@ -103,10 +107,10 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     }
     
     // Insertar en la base de datos
-    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno, aux_autoincremental, aux_anomes) VALUES (?, 1, ?, '01', NOW(), ?, ?, ?, ?, ?)";
+    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno, aux_autoincremental, aux_anomes, responsable, verificador) VALUES (?, 1, ?, '01', NOW(), ?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($link, $insertQuery);
-    mysqli_stmt_bind_param($stmt, "ssiiiii", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes);
+    mysqli_stmt_bind_param($stmt, "ssiiiiiss", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador);
     $result = mysqli_stmt_execute($stmt);
     foreach ($analisis_externos as $key => &$value) {
         $value['numero_acta'] = $numero_acta. "-01";

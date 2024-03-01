@@ -585,11 +585,32 @@ function botones(id, accion, base) {
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
-                            'id': id
+                            'id': id,
+                            'resultados': false
                         },
                         success: function(response) {
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); 
+                            cargarDatosEspecificacion(id, resultados);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+                }
+                case "resultados_actaMuestreo": {
+                    // Llamar a una función que maneje el envío del recordatorio
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': true
+                        },
+                        success: function(response) {
+                            console.log('especificacion_producto redirigida con éxito ');
+                            $('#dynamic-content').html(response, resultados); 
                             cargarDatosEspecificacion(id);
                         },
                         error: function(xhr, status, error) {

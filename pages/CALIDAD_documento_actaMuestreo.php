@@ -688,20 +688,35 @@
 
 </html>
 <script>
-    function cargarDatosEspecificacion(id) {
-    $.ajax({
-        url: './backend/acta_muestreo/genera_acta.php',
-        type: 'GET',
-        data: { id_analisis_externo: id },
-        success: function(response) {
-            procesarDatosActa(response);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error en la solicitud: ", status, error);
+    function cargarDatosEspecificacion(id, resultados) {
+        if(resultados){
+            $.ajax({
+            url: './backend/acta_muestreo/ingresa_resultados.php',
+            type: 'GET',
+            data: { id_acta: id},
+            success: function(response) {
+                procesarDatosActa(response, resultados);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+                }
+            });
         }
-    });
-}
-function procesarDatosActa(response) {
+        else{
+            $.ajax({
+            url: './backend/acta_muestreo/genera_acta.php',
+            type: 'GET',
+            data: { id_analisis_externo: id},
+            success: function(response) {
+                procesarDatosActa(response, resultados);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+                }
+            });
+        }
+    }
+function procesarDatosActa(response, resultados) {
     // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
     if (response && response.analisis_externos && response.analisis_externos.length > 0) {
         const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
@@ -719,6 +734,7 @@ function procesarDatosActa(response) {
         $('#form_cant_muestra').text(acta.tamano_muestra);
         $('#form_cant_contramuestra').text(acta.tamano_contramuestra);
         $('#form_tipo_analisis').text(acta.tipo_analisis);
+        $('#nro_acta').text(acta.numero_acta);
         $('#realizadoPor').text(acta.muestreado_por);
         
         
@@ -747,9 +763,8 @@ function procesarDatosActa(response) {
                 $('#nro_registro').text('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
                 break;
         }
-
         $('#nro_version').text(1);
-        $('#nro_acta').text(acta.numero_acta);
+        
         
      
     } else {
