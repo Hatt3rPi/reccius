@@ -205,12 +205,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         //!: hecharle un ojo en el backend
         success: function(response){
             // Mostrar la notificación con el mensaje del backend
-            mostrarNotificacion(response.message, response.success);
+            mostrarNotificacion(response, "éxito");
         },
         error: function(jqXHR, textStatus, errorThrown){
             // Mostrar un mensaje de error
             var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
-            mostrarNotificacion(errorMsg, false);
+            mostrarNotificacion(errorMsg, "error");
         }
     });
 });
