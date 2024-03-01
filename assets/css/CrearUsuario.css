@@ -81,9 +81,9 @@ button:hover {
     padding: 20px; /* Aumentar el relleno */
     z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
     border-radius: 4px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera para profundidad */
-    width: 500px; /* Ancho máximo más grande de la notificación */
-    font-size: 28px; /* Tamaño de texto más grande */
+    box-shadow: 1px 4px 8px rgba(0,0,0,0.9); /* Sombra ligera para profundidad */
+    width: 400px; /* Ancho máximo más grande de la notificación */
+    font-size: 24px; /* Tamaño de texto más grande */
     display: flex; /* Esto permite el uso de justify-content y align-items */
     justify-content: center; /* Centra el contenido horizontalmente */
     align-items: center; /* Centra el contenido verticalmente */
