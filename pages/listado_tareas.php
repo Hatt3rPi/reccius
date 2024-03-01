@@ -17,7 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<link rel="stylesheet" href="../assets/css/ListadoEspecs.css">
+<link rel="stylesheet" href="../assets/css/Listados.css">
     <!-- Incluye aquí otros archivos necesarios (jQuery, DataTables CSS, FontAwesome, etc.) -->
 </head>
 <body>

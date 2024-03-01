@@ -36,31 +36,31 @@ h1, h2.section-title {
 }
 
 /* Estilos de DataTables */
-#listadoEspecProductos {
+#listado {
     font-family: Arial, sans-serif;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-#listadoEspecProductos th {
+#listado th {
     background-color: #004a99; /* Color primario de la empresa */
     color: #ffffff;
     padding: 10px 15px;
 }
 
-#listadoEspecProductos td {
+#listado td {
     padding: 10px 15px;
     text-align: center;
     border-bottom: 1px solid #dddddd;
 }
 
-#listadoEspecProductos tr:hover {
+#listado tr:hover {
     background-color: #f2f2f2; /* Efecto hover para las filas */
 }
 
 /* Botones e iconos */
-#listadoEspecProductos .action-button {
+#listado .action-button {
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
@@ -70,12 +70,12 @@ h1, h2.section-title {
     transition: background-color 0.3s ease;
 }
 
-#listadoEspecProductos .action-button:hover {
+#listado .action-button:hover {
     background-color: #003366; /* Oscurecer el botón al pasar el cursor */
 }
 
 /* Iconos con FontAwesome */
-#listadoEspecProductos .fas {
+#listado .fas {
     cursor: pointer;
     margin-right: 5px;
 }
@@ -87,7 +87,7 @@ h1, h2.section-title {
         margin: 10px;
     }
 
-    #listadoEspecProductos th, #listadoEspecProductos td {
+    #listado th, #listado td {
         padding: 8px;
     }
 }

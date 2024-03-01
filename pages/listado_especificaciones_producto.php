@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<link rel="stylesheet" href="../assets/css/ListadoEspecs.css">
+<link rel="stylesheet" href="../assets/css/Listados.css">
 </head>
 
 <body>
@@ -32,8 +32,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <br>
             <br>
-            <div id="contenedor_listadoEspecProductos">
-                <table id="listadoEspecProductos" class="table table-striped table-bordered" style="width:100%">
+            <div id="contenedor_listado">
+                <table id="listado" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th></th> <!-- Columna vacía para botones o checkboxes -->
@@ -58,11 +58,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     function filtrar_listado(estado) {
-        var table = $('#listadoEspecProductos').DataTable();
+        var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
 function carga_listado() {
-    var table = $('#listadoEspecProductos').DataTable({
+    var table = $('#listado').DataTable({
         "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
         language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
@@ -114,7 +114,7 @@ function carga_listado() {
     });
 
     // Event listener para el botón de detalles
-    $('#listadoEspecProductos tbody').on('click', 'td.details-control', function() {
+    $('#listado tbody').on('click', 'td.details-control', function() {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
 
