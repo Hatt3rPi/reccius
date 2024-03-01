@@ -48,8 +48,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 function cargaTrazabilidad() {
     var table = $('#listado').DataTable({
         "ajax": "./backend/index/index_superadminBE.php",
-        "scrollY": "450px",
-        "scrollCollapse": true,
         "paging": false,
         order: [[0, 'desc']],
         language: {

@@ -47,6 +47,7 @@ h1, h2.section-title {
     background-color: #004a99; /* Color primario de la empresa */
     color: #ffffff;
     padding: 10px 15px;
+    align-items: center;
 }
 
 #listado td {
@@ -98,7 +99,7 @@ h1, h2.section-title {
     padding-bottom: 4px;
     padding-top: 4px;
     display: inline-flex; /* Usa flexbox para centrar el ícono */
-    align-items: center; /* Centra verticalmente el ícono */
+    c /* Centra verticalmente el ícono */
     justify-content: center; /* Centra horizontalmente el ícono */
     /*width: 16px;  Ancho fijo del botón */
     /*vheight: 16px; Altura fija del botón */
