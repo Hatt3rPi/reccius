@@ -129,28 +129,3 @@ button:hover {
 .seccion-deshabilitada {
     background-color: #eeeaea; /* Un gris claro, ajusta según tus preferencias */
 }
-
-.notification-container {
-    display: none; /* Oculto por defecto */
-    position: fixed;
-    bottom: 20px; /* Ubicación en la esquina inferior */
-    right: 20px; /* A la derecha */
-    background-color: #e3e7ec; /* Color crema */
-    color: #333; /* Color de texto */
-    padding: 20px; /* Aumentar el relleno */
-    z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
-    border-radius: 4px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera para profundidad */
-    width: 700px; /* Ancho máximo más grande de la notificación */
-    font-size: 28px; /* Tamaño de texto más grande */
-    border-left: 8px solid; /* Borde izquierdo sólido, el color se definirá con clases adicionales */
-}
-
-.notification-container.success {
-    border-left-color: #4CAF50; /* Borde izquierdo para éxito */
-}
-
-.notification-container.error {
-    border-left-color: #f44336; /* Borde izquierdo para error */
-}
-
