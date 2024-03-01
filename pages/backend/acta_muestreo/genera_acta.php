@@ -6,7 +6,7 @@ $identificador_producto='';
 $id_especificacion='';
 $id_producto='';
 $id_analisis_externo='';
-$responsable='':
+$responsable='';
 $verificador='';
 // Validación y saneamiento del ID del análisis externo
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
