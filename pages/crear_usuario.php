@@ -73,10 +73,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     url: "../pages/backend/usuario/crear_usuarioBE.php", // Ruta relativa correcta
                     data: formData,
                     success: function(response) {
-                        if (response.trim() === "Error: El usuario ya existe.") {
+                        var mensajesError = [
+                            "Error: El usuario ya existe.",
+                            "Error al ejecutar la consulta: ",
+                            "Error: ",
+                            "Error al crear usuario: "
+
+                        ];
+                        var mensajesAdvertencia = [
+                            "Conexión fallida: ",
+                            'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.',
+                            "Todos los campos son requeridos",
+                            "Método no permitido"
+                        ];
+                        var mensajesExito = [
+                            'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.',
+                        ];
+
+
+
+                        if (mensajesAdvertencia.includes(response.trim())) {
                             mostrarNotificacion(response, "advertencia");
-                        } else {
+                        } else if (mensajesExito.includes(response.trim())) {
                             mostrarNotificacion(response, "éxito");
+                        } else if (mensajesError.includes(response.trim())) {
+                            mostrarNotificacion(response, "error");
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

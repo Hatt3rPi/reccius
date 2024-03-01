@@ -24,8 +24,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="container">
         <div class="form-container">
             <h2>Modificar Perfil</h2>
-            <form id="formPerfil" action="backend/usuario/modificar_perfilBE.php" method="POST"
-                enctype="multipart/form-data">
+            <form id="formPerfil" action="backend/usuario/modificar_perfilBE.php" method="POST" enctype="multipart/form-data">
 
                 <!-- Sección de Cambio de Contraseña -->
                 <div class="seccion seccion-deshabilitada">
@@ -37,82 +36,82 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <input type="hidden" id="editarContrasena" name="editarContrasena" value="0">
                     </div>
                     <br>
-                        <div >
-                            <label for="passwordActual">Contraseña Actual:</label>
-                            <input class="switch_contrasena" type="password" id="passwordActual" name="passwordActual" disabled >
-                        </div>
-                        <div>
-                            <label for="nuevaPassword">Nueva Contraseña:</label>
-                            <input class="switch_contrasena" type="password" id="nuevaPassword" name="nuevaPassword" disabled >
-                        </div>
-                        <div>
-                            <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
-                            <input class="switch_contrasena" type="password" id="confirmarPassword" name="confirmarPassword" disabled >
-                        </div>
-                        
+                    <div>
+                        <label for="passwordActual">Contraseña Actual:</label>
+                        <input class="switch_contrasena" type="password" id="passwordActual" name="passwordActual" disabled>
+                    </div>
+                    <div>
+                        <label for="nuevaPassword">Nueva Contraseña:</label>
+                        <input class="switch_contrasena" type="password" id="nuevaPassword" name="nuevaPassword" disabled>
+                    </div>
+                    <div>
+                        <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
+                        <input class="switch_contrasena" type="password" id="confirmarPassword" name="confirmarPassword" disabled>
+                    </div>
+
                 </div>
                 <div class="seccion seccion-deshabilitada">
                     <h3>Cambio de Foto de Perfil</h3>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="switch_foto" onclick="toggleInputs('switch_foto')">
-                            <label class="form-check-label" for="switch_foto">Editar</label>
-                            <input type="hidden" id="editarFoto" name="editarFoto" value="0">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch_foto" onclick="toggleInputs('switch_foto')">
+                        <label class="form-check-label" for="switch_foto">Editar</label>
+                        <input type="hidden" id="editarFoto" name="editarFoto" value="0">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="fotoPerfil">Foto de Perfil:</label>
+                        <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled>
+                        <div id="fotoPerfilExistente">
+                            <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
-                        <br>
-                        <div>
-                            <label for="fotoPerfil">Foto de Perfil:</label>
-                            <input  class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled >
-                            <div id="fotoPerfilExistente">
-                                <!-- Aquí se mostrará el enlace al archivo existente -->
-                            </div>
-                        </div>
+                    </div>
                 </div>
                 <div class="seccion seccion-deshabilitada">
 
                     <h3>Editar información de Usuario</h3>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="switch_info" onclick="toggleInputs('switch_info')">
-                            <label class="form-check-label" for="switch_info">Editar</label>
-                            <input type="hidden" id="editarInfo" name="editarInfo" value="0">
-                        </div>
-                        <br>
-                        <div>
-                            <label for="cargo">Cargo:</label>
-                            <input class="switch_info" type="text" id="cargo" name="cargo" disabled >
-                        </div>
-                        <div>
-                            <label for="nombre">Nombre:</label>
-                            <input class="switch_info" type="text" id="nombre" name="nombre" disabled>
-                        </div>
-                        <div>
-                            <label for="nombre_corto">Nombre y Cargo Abreviado:</label>
-                            <input class="switch_info" type="text" id="nombre_corto" name="nombre_corto" disabled>
-                        </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch_info" onclick="toggleInputs('switch_info')">
+                        <label class="form-check-label" for="switch_info">Editar</label>
+                        <input type="hidden" id="editarInfo" name="editarInfo" value="0">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="cargo">Cargo:</label>
+                        <input class="switch_info" type="text" id="cargo" name="cargo" disabled>
+                    </div>
+                    <div>
+                        <label for="nombre">Nombre:</label>
+                        <input class="switch_info" type="text" id="nombre" name="nombre" disabled>
+                    </div>
+                    <div>
+                        <label for="nombre_corto">Nombre y Cargo Abreviado:</label>
+                        <input class="switch_info" type="text" id="nombre_corto" name="nombre_corto" disabled>
+                    </div>
                 </div>
                 <div class="seccion seccion-deshabilitada">
 
                     <h3>Certificado Nacional de Prestadores Individuales de Salud</h3>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="switch_certificado" onclick="toggleInputs('switch_certificado')">
-                            <label class="form-check-label" for="switch_certificado">Editar</label>
-                            <input type="hidden" id="editarCertificado" name="editarCertificado" value="0">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch_certificado" onclick="toggleInputs('switch_certificado')">
+                        <label class="form-check-label" for="switch_certificado">Editar</label>
+                        <input type="hidden" id="editarCertificado" name="editarCertificado" value="0">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
+                        <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
+                        <div id="certificadoExistente">
+                            <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
-                        <br>
-                        <div>
-                            <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
-                            <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
-                            <div id="certificadoExistente">
-                                <!-- Aquí se mostrará el enlace al archivo existente -->
-                            </div>
-                        </div>
-                </div>          
-                <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">      
+                    </div>
+                </div>
+                <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
                 <button type="submit" name="modificarPerfil">Modificar Perfil</button>
             </form>
         </div>
     </div>
     <div id="notification" class="notification-container notify" style="display: none;">
-    <p id="notification-message">Este es un mensaje de notificación.</p>
+        <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
 
     <script>
@@ -138,7 +137,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
         }
-        document.getElementById('formPerfil').addEventListener('submit', function (event) {
+        document.getElementById('formPerfil').addEventListener('submit', function(event) {
             var password = document.getElementById('nuevaPassword').value;
             var confirmPassword = document.getElementById('confirmarPassword').value;
 
@@ -190,35 +189,66 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        $(document).ready(function(){
-            $("#formPerfil").submit(function(event){
-    event.preventDefault(); // Prevenir el envío estándar del formulario
+        $(document).ready(function() {
+            $("#formPerfil").submit(function(event) {
+                event.preventDefault(); // Prevenir el envío estándar del formulario
 
-    var formData = new FormData(this); // Usa FormData para soportar archivos
-    
-    $.ajax({
-        type: "POST",
-        url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
-        data: formData,
-        processData: false, // Necesario para FormData
-        contentType: false, // Necesario para FormData
-        dataType: "json", // Espera una respuesta en formato JSON
-        //!: hecharle un ojo en el backend
-        success: function(response){
-            // Mostrar la notificación con el mensaje del backend
-            mostrarNotificacion(response, "éxito");
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            // Mostrar un mensaje de error
-            var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
-            mostrarNotificacion(errorMsg, "error");
-        }
-    });
-});
-});
+                var formData = new FormData(this); // Usa FormData para soportar archivos
 
+                $.ajax({
+                    type: "POST",
+                    url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
+                    data: formData,
+                    processData: false, // Necesario para FormData
+                    contentType: false, // Necesario para FormData
+                    dataType: "json", // Espera una respuesta en formato JSON
+                    //!: hecharle un ojo en el backend
+                    success: function(response) {
+                        var mensajesAdvertencia = [
+                            "El archivo es demasiado grande.",
+                            "El archivo no es un PDF válido.",
+                            "Hubo un error al guardar el archivo.",
+                            "La nueva contraseña no cumple con los requisitos de seguridad y formato.",
+                            "La contraseña actual no es correcta o el usuario no fue encontrado.",
+                            "El archivo no es una imagen válida o no tiene un formato permitido.",
+                            "Formato de archivo no soportado.",
+                            "Hubo un error al guardar la imagen redimensionada.",
+                            "Las contraseñas no coinciden.",
+                            "Información de contraseña no proporcionada.",
+                            "Información de usuario incompleta.",
+                            "Archivo de foto de perfil no proporcionado.",
+                            "Archivo de certificado no proporcionado."
+                        ];
+                        var mensajesExito = [
+                            "Información de usuario actualizada con éxito.",
+                            "La contraseña ha sido actualizada con éxito."
+                        ];
 
-</script>
+                        var mensajesError = [
+                            "Error al subir el archivo: ",
+                            "Error: El directorio de destino no es escribible o no existe.",
+                            "Error al actualizar la ruta del certificado en la base de datos.",
+                            "Error al procesar el archivo de imagen.",
+                            "Error al actualizar la foto de perfil en la base de datos.",
+                        ]
+
+                        if (mensajesAdvertencia.includes(response.trim())) {
+                            mostrarNotificacion(response, "advertencia");
+                        } else if (mensajesExito.includes(response.trim())) {
+                            mostrarNotificacion(response, "éxito");
+                        } else if (mensajesError.includes(response.trim())) {
+                            mostrarNotificacion(response, "error");
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Mostrar un mensaje de error
+                        var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
+                        mostrarNotificacion(errorMsg, "error");
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
