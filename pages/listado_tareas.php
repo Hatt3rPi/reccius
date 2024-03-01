@@ -35,7 +35,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <br>
             <br>
         <div id="contenedor_tareas">
-            <table id="listado_tareas" class="table table-striped table-bordered" style="width:100%">
+            <table id="listado" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th></th>
@@ -85,7 +85,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
         var usuarioEjecutorOriginal="";
         function cargaListadoTareas() {
-            var table = $('#listado_tareas').DataTable({
+            var table = $('#listado').DataTable({
                 "ajax": "./backend/tareas/listado_tareasBE.php",
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
@@ -143,7 +143,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 }
                 ],
             });
-            $('#listado_tareas tbody').on('click', 'td.details-control', function() {
+            $('#listado tbody').on('click', 'td.details-control', function() {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
 
@@ -187,14 +187,14 @@ while ($row = mysqli_fetch_assoc($result)) {
         }
         }
         function filtrar_listado_estado(estado) {
-        var table = $('#listado_tareas').DataTable();
+        var table = $('#listado').DataTable();
         table.column(2).search(estado).draw(); // Asumiendo que la columna 1 es la de
         if (estado==""){
             table.column(5).search("").draw();
         }
     }
     function filtrar_listado_usuario() {
-        var table = $('#listado_tareas').DataTable();
+        var table = $('#listado').DataTable();
         table.column(5).search(usuarioActual).draw(); // Asumiendo que la columna 1 es la de
     }
     $(document).on('click', 'button[name="cambiar_usuario"]', function() {

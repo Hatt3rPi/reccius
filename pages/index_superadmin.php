@@ -22,7 +22,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <h2 class="section-title">Listado actividad reciente:</h2>
             <div id="contenedor_trazabilidad">
-                <table id="trazabilidad" class="table table-striped table-bordered" style="width:100%">
+                <table id="listado" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Fecha</th>
@@ -46,7 +46,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
 
 function cargaTrazabilidad() {
-    var table = $('#trazabilidad').DataTable({
+    var table = $('#listado').DataTable({
         "ajax": "./backend/index/index_superadminBE.php",
         "scrollY": "450px",
         "scrollCollapse": true,

@@ -32,8 +32,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <br>
             <br>
-            <div id="contenedor_listadoAnalisis">
-                <table id="listadoAnalisis" class="table table-striped table-bordered" style="width:100%">
+            <div id="contenedor_listado">
+                <table id="listado" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th></th> <!-- Columna vacía para botones o checkboxes -->
@@ -56,12 +56,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     function filtrar_listado(estado) {
-        var table = $('#listadoAnalisis').DataTable();
+        var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
 var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
 function carga_listado() {
-    var table = $('#listadoAnalisis').DataTable({
+    var table = $('#listado').DataTable({
         "ajax": "./backend/laboratorio/listado_solicitudesBE.php",
         language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
@@ -112,7 +112,7 @@ function carga_listado() {
     });
 
     // Event listener para el botón de detalles
-    $('#listadoAnalisis tbody').on('click', 'td.details-control', function() {
+    $('#listado tbody').on('click', 'td.details-control', function() {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
 
