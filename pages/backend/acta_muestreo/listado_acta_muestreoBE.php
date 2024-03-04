@@ -6,7 +6,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 // Consulta para obtener las especificaciones de productos
 $query = "  SELECT 
                 am.estado, 
-                am.numero_acta, 
+                concat(am.numero_acta, '-','am.version_acta) as numero_acta 
                 am.fecha_muestreo, 
                 am.responsable, 
                 am.ejecutor, 

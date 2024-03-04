@@ -689,6 +689,7 @@
 </html>
 <script>
     function cargarDatosEspecificacion(id, resultados) {
+        console.log(id, resultados);
         if(resultados){
             $.ajax({
             url: './backend/acta_muestreo/ingresa_resultados.php',
