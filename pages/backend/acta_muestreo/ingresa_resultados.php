@@ -8,7 +8,7 @@ $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 //OBTENCIÓN DE DATOS
     // Consulta SQL para obtener los datos del análisis externo y el producto asociado
     $query = "SELECT
-                CONCAT(am.numero_acta,'-', am.version_acta) AS numero_acta,
+                CONCAT(am.numero_acta, '-', LPAD(am.version_acta, 2, '0')) AS numero_acta,
                 aex.id AS id_analisis_externo,
                 aex.id_especificacion,
                 aex.id_producto,

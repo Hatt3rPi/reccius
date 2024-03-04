@@ -75,42 +75,47 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     $month = date("m");
 
     // Consulta para obtener el mayor aux_autoincremental para el año y mes actual
-    $query = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ?";
+    $query = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ? and aux_tipo=?";
 
     $aux_anomes = $year . $month; // Concatenación de año y mes para la búsqueda
 
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "s", $aux_anomes);
+    mysqli_stmt_bind_param($stmt, "ss", $aux_anomes, $tipo_producto);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
 
     $correlativo = isset($row['max_correlativo']) ? $row['max_correlativo'] + 1 : 1;
     $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
-    $numero_acta = "AMPT-" . $year . $month . $correlativoStr ;
+    
     // Inserta el nuevo acta con el número de acta generado
     switch ($tipo_producto) {
         case 'Material Envase y Empaque':
             $numero_registro = 'DCAL-CC-AMMEE-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+            $numero_acta = "AMMEE-" . $year . $month . $correlativoStr ;
             break;
         case 'Materia Prima':
             $numero_registro = 'DCAL-CC-AMMP-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+            $numero_acta = "AMMP-" . $year . $month . $correlativoStr ;
             break;
         case 'Producto Terminado':
             $numero_registro = 'DCAL-CC-AMPT-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+            $numero_acta = "AMPT-" . $year . $month . $correlativoStr ;
             break;
         case 'Insumo':
             $numero_registro = 'DCAL-CC-AMINS-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+            $numero_acta = "AMINS-" . $year . $month . $correlativoStr ;
             break;
         default:
             $numero_registro = 'Desconocido';
+            $numero_acta= 'Desconocido';
     }
     
     // Insertar en la base de datos
-    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno, aux_autoincremental, aux_anomes, responsable, verificador) VALUES (?, 1, ?, '01', NOW(), ?, ?, ?, ?, ?, ?, ?)";
+    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno, aux_autoincremental, aux_anomes, responsable, verificador, aux_tipo) VALUES (?, 1, ?, '01', NOW(), ?, ?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($link, $insertQuery);
-    mysqli_stmt_bind_param($stmt, "ssiiiiiss", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador);
+    mysqli_stmt_bind_param($stmt, "ssiiiiisss", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto);
     $result = mysqli_stmt_execute($stmt);
     foreach ($analisis_externos as $key => &$value) {
         $value['numero_acta'] = $numero_acta. "-01";
