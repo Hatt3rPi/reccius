@@ -747,11 +747,12 @@ function procesarDatosActa(response, resultados) {
         $('#cargo_verificador').text(acta.cargo_revisado_por);
         // Y también para la firma
         //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
-        if(resultados){
-            $('#nro_registro').text(acta.numero_registro)
+        if(resultados)
+        {
+            $('#nro_registro').text(acta.numero_registro);
             $('#nro_version').text(acta.version_registro);
-            $('#realizadoPor').text($_SESSION['nombre']);
-            $('#cargo_realizador').text($_SESSION['nombre']);
+            $('#realizadoPor').text(<?php $_SESSION['nombre']; ?>);
+            $('#cargo_realizador').text(<?php $_SESSION['cargo']; ?>);
             
         }
         else
