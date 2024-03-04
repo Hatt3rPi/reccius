@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
         $cuerpo = 'Por favor, haz clic en este enlace para restablecer tu contraseña: ' . $enlaceReset;
 
         if (enviarCorreo($email, $nombreUsuario, $asunto, $cuerpo)) {
-            $success = 'Se ha enviado un enlace de restablecimiento a tu correo electrónico.';
+            $success = ' Se ha enviado un enlace de restablecimiento a tu correo electrónico.';
         } else {
             $error = 'Hubo un error al enviar el correo electrónico de restablecimiento.';
         }
@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
         <?php endif; ?>
 
         <?php if ($success): ?>
-            <div class="success-message">Restablecer Contraseña<?php echo htmlspecialchars($success); ?></div>
+            <div class="success-message">Restablecer Contraseña <?php echo htmlspecialchars($success); ?></div>
         <?php endif; ?>
     </div>
 </body>

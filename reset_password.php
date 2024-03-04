@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
                 <form class="login-form" action="reset_password.php" method="post">
                     <input type="hidden" name="usuario_id" value="<?php echo htmlspecialchars($usuario_id); ?>">
                     <label for="nuevaContrasena">Nueva Contraseña:</label>
-                    <input type="password" id="nuevaContrasena" name="nuevaContrasena" required>
+                    <input type="password" id="nuevaContrasena" name="nuevaContrasena" required minlength="8">
                     <button type="submit" name="reset_password">Restablecer Contraseña</button>
                 </form>
             <?php endif; ?>
