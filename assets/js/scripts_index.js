@@ -611,7 +611,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response, resultados); 
-                            cargarDatosEspecificacion(id);
+                            cargarDatosEspecificacion(id, true);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);
