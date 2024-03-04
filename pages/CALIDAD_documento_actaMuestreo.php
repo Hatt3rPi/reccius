@@ -625,7 +625,7 @@
                     
                     <div class="firma-box-title" style="font-size: 10px; text-align: left;">Realizado por:</div>
                     <div class="firma-box">
-                        <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                        <p id='realizadoPor' name='realizadoPor' class="bold">Nombre:</p>
                         <p id='cargo_realizador' name='cargo_realizador' class="bold">
                         <div class="signature" id="firma_realizador" name="firma_realizador">
                             <!-- acá debe ir el QR -->
@@ -641,15 +641,15 @@
                     
                     <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
                     <div class="firma-box">
-                        <p id='realizadoPor' name='realizadoPor' class="bold"></p>
-                        <p id='cargo_realizador' name='cargo_realizador' class="bold">
-                        <div class="signature" id="firma_realizador" name="firma_realizador">
+                        <p id='responsable' name='responsable' class="bold"></p>
+                        <p id='cargo_responsable' name='cargo_responsable' class="bold">
+                        <div class="signature" id="firma_responsable" name="firma_responsable">
                             <!-- acá debe ir el QR -->
                         </div>
                         <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
                             digitalmente</p>
                     </div>
-                    <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                    <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
                     <br>
                 </div>
                 <!-- Sección aprobada por -->
@@ -664,7 +664,7 @@
                         <p id='mensaje_verificador' name='mensaje_verificador' style='text-align: center;display: none'>
                             Firmado digitalmente</p>
                     </div>
-                    <div id='fecharevision' name='fecharevision' class="date" style="font-size: 8px">01/01/01</div>
+                    <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date" style="font-size: 8px">01/01/01</div>
                 </div>
             </div>
             <footer style="width: 100%; text-align: center; margin-top: 20px;bottom: 0;">
@@ -736,35 +736,43 @@ function procesarDatosActa(response, resultados) {
         $('#form_cant_contramuestra').text(acta.tamano_contramuestra);
         $('#form_tipo_analisis').text(acta.tipo_analisis);
         $('#nro_acta').text(acta.numero_acta);
-        $('#realizadoPor').text(acta.muestreado_por);
         
-        
-        $('#muestreado_por').text(acta.muestreado_por);
-        $('#cargo_realizador').text(acta.cargo_muestreado_por);
+        $('#responsable').text(acta.muestreado_por);
+        $('#cargo_responsable').text(acta.cargo_muestreado_por);
         // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
-        $('#firma_realizador').attr('src', acta.foto_firma_muestreado_por);
+        //$('#firma_responsable').attr('src', acta.foto_firma_muestreado_por);
 
         // Datos del usuario que revisó
         $('#verificadoPor').text(acta.revisado_por);
         $('#cargo_verificador').text(acta.cargo_revisado_por);
         // Y también para la firma
-        $('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
-        
-        switch (acta.tipo_producto) {
-            case 'Material Envase y Empaque':
-                $('#nro_registro').text('DCAL-CC-AMMEE-' + acta.identificador_producto.toString().padStart(3, '0'));
-                break;
-            case 'Materia Prima':
-                $('#nro_registro').text('DCAL-CC-AMMP-' + acta.identificador_producto.toString().padStart(3, '0'));
-                break;
-            case 'Producto Terminado':
-                $('#nro_registro').text('DCAL-CC-AMPT-' + acta.identificador_producto.toString().padStart(3, '0'));
-                break;
-            case 'Insumo':
-                $('#nro_registro').text('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
-                break;
+        //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
+        if(resultados){
+            $('#nro_registro').text(acta.numero_registro)
+            $('#nro_version').text(acta.version_registro);
+            $('#realizadoPor').text($_SESSION['nombre']);
+            $('#cargo_realizador').text($_SESSION['nombre']);
+            
         }
-        $('#nro_version').text(1);
+        else
+        {
+            switch (acta.tipo_producto) {
+                case 'Material Envase y Empaque':
+                    $('#nro_registro').text('DCAL-CC-AMMEE-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Materia Prima':
+                    $('#nro_registro').text('DCAL-CC-AMMP-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Producto Terminado':
+                    $('#nro_registro').text('DCAL-CC-AMPT-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Insumo':
+                    $('#nro_registro').text('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+            }
+            $('#nro_version').text(1);
+        }
+        
         
         
      

@@ -43,7 +43,9 @@ $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
                 am.ejecutor,
                 am.fecha_firma_responsable,
                 am.fecha_firma_ejecutor,
-                am.fecha_firma_verificador
+                am.fecha_firma_verificador,
+                am.numero_registro, 
+                am.version_registro
             FROM calidad_acta_muestreo AS am
             LEFT JOIN `calidad_analisis_externo` AS aex ON am.id_analisisExterno = aex.id
             LEFT JOIN calidad_productos AS pr ON aex.id_producto = pr.id
