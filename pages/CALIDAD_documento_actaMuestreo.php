@@ -769,6 +769,7 @@ function procesarDatosActa(response, resultados) {
             $('#realizadoPor').text(nombre);
             $('#cargo_realizador').text(cargo);
             $('#fecha_muestreo').val(fecha_hoy);
+            $('#fecha_Edicion').val(fecha_hoy);
         }
         else
         {
