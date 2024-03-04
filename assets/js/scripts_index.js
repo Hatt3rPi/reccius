@@ -610,7 +610,7 @@ function botones(id, accion, base) {
                         },
                         success: function(response) {
                             console.log('especificacion_producto redirigida con éxito ');
-                            $('#dynamic-content').html(response, resultados); 
+                            $('#dynamic-content').html(response, true); 
                             cargarDatosEspecificacion(id, true);
                         },
                         error: function(xhr, status, error) {
