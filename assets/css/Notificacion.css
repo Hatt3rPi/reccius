@@ -1,7 +1,7 @@
 .notification-container {
     position: fixed;
-    bottom: 20px; /* Ubicación en la esquina inferior */
-    right: 20px; /* A la derecha */
+    bottom: 710px; /* Ubicación en la esquina inferior */
+    right: 6px; /* A la derecha */
     background-color: #e3e7ec; /* Color crema */
     color: #333; /* Color de texto */
     padding: 20px; /* Aumentar el relleno */
