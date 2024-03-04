@@ -747,6 +747,7 @@ function procesarDatosActa(response, resultados) {
         $('#cargo_verificador').text(acta.cargo_revisado_por);
         // Y también para la firma
         //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
+        console.log(response, resultados);
         if(resultados)
         {
             $('#nro_registro').text(acta.numero_registro);
