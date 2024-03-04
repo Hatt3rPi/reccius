@@ -93,8 +93,9 @@ $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
             'fecha_firma_responsable' => $row['fecha_firma_responsable'],
             'fecha_firma_ejecutor' => $row['fecha_firma_ejecutor'],
             'fecha_firma_verificador' => $row['fecha_firma_verificador'],
-        ];
-        
+            'numero_registro' => $row['numero_registro'],
+            'version_registro' => $row['version_registro'],
+        ];      
     }
     mysqli_stmt_close($stmt);
     mysqli_close($link);
