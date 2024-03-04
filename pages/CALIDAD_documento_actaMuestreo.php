@@ -625,7 +625,7 @@
                     
                     <div class="firma-box-title" style="font-size: 10px; text-align: left;">Realizado por:</div>
                     <div class="firma-box">
-                        <p id='realizadoPor' name='realizadoPor' class="bold">Nombre:</p>
+                        <p id='realizadoPor' name='realizadoPor' class="bold"></p>
                         <p id='cargo_realizador' name='cargo_realizador' class="bold">
                         <div class="signature" id="firma_realizador" name="firma_realizador">
                             <!-- acá debe ir el QR -->
@@ -751,8 +751,8 @@ function procesarDatosActa(response, resultados) {
         {
             $('#nro_registro').text(acta.numero_registro);
             $('#nro_version').text(acta.version_registro);
-            $('#realizadoPor').text(<?php $_SESSION['nombre']; ?>);
-            $('#cargo_realizador').text(<?php $_SESSION['cargo']; ?>);
+            $('#realizadoPor').text('<?php echo $_SESSION["nombre"]; ?>');
+            $('#cargo_realizador').text('<?php echo $_SESSION["cargo"]; ?>');
             
         }
         else
@@ -772,6 +772,7 @@ function procesarDatosActa(response, resultados) {
                     break;
             }
             $('#nro_version').text(1);
+            $('#realizadoPor').text('Nombre:');
         }
         
         
