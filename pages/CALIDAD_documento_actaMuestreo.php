@@ -76,7 +76,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td >Fecha Muestreo:</td>
-                            <td name="fecha_muestreo" id="fecha_muestreo" >
+                            <td name="fecha_muestreo" id="fecha_muestreo" type="date" value="">
                                 <!-- Fecha de muestreo aquí -->
                             </td>
                         </tr>
@@ -767,7 +767,7 @@ function procesarDatosActa(response, resultados) {
             $('#nro_version').text(acta.version_registro);
             $('#realizadoPor').text(nombre);
             $('#cargo_realizador').text(cargo);
-            
+            $('#fecha_muestreo').val("<?php echo date('Y-m-d'); ?>");
         }
         else
         {
