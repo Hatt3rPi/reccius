@@ -750,10 +750,12 @@ function procesarDatosActa(response, resultados) {
         console.log(response, resultados);
         if(resultados)
         {
+            var nombre = "<?php echo $_SESSION['nombre']; ?>";
+            var cargo = "<?php echo $_SESSION['cargo']; ?>";
             $('#nro_registro').text(acta.numero_registro);
             $('#nro_version').text(acta.version_registro);
-            $('#realizadoPor').text('<?php echo $_SESSION["nombre"]; ?>');
-            $('#cargo_realizador').text('<?php echo $_SESSION["cargo"]; ?>');
+            $('#realizadoPor').text(nombre);
+            $('#cargo_realizador').text(cargo);
             
         }
         else
