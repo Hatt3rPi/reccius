@@ -263,39 +263,56 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Selecciona todos los elementos que pueden afectar el breadcrumb
-        const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
+document.addEventListener("DOMContentLoaded", function() {
+    // Inicializa el breadcrumb al cargar la página
+    inicializarBreadcrumb();
 
-        // Función para actualizar el breadcrumb
-        function updateBreadcrumb(path) {
-            const breadcrumb = document.querySelector(".breadcrumb");
-            breadcrumb.innerHTML = ''; // Limpiar el breadcrumb actual
+    const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
 
-            const paths = path.split(" > ");
-            paths.forEach((p, index) => {
-                const li = document.createElement("li");
-                li.className = "breadcrumb-item";
-                if (index === paths.length - 1) {
-                    // El último elemento no es un enlace
-                    li.textContent = p;
-                } else {
-                    const a = document.createElement("a");
-                    a.href = "#"; // Aquí podrías poner el enlace real si lo tienes
-                    a.textContent = p;
-                    li.appendChild(a);
-                }
-                breadcrumb.appendChild(li);
-            });
-        }
+    function inicializarBreadcrumb() {
+        // Solo muestra "Home" al cargar la página
+        const breadcrumb = document.querySelector(".breadcrumb");
+        breadcrumb.innerHTML = ''; // Limpia el breadcrumb actual
+        const liHome = document.createElement("li");
+        liHome.className = "breadcrumb-item";
+        const aHome = document.createElement("a");
+        aHome.href = "index.php";
+        aHome.textContent = "Home";
+        liHome.appendChild(aHome);
+        breadcrumb.appendChild(liHome);
+    }
 
-        // Asignar el event listener a cada enlace
-        breadcrumbLinks.forEach(link => {
-            link.addEventListener("click", function(e) {
-                e.preventDefault(); // Evitar que el enlace realice su acción predeterminada
-                const path = this.getAttribute("data-breadcrumb");
-                updateBreadcrumb(path);
-            });
+    function updateBreadcrumb(path) {
+        // Actualiza el breadcrumb según el enlace clickeado
+        const breadcrumb = document.querySelector(".breadcrumb");
+        breadcrumb.innerHTML = ''; // Limpia el breadcrumb actual
+
+        const paths = path.split(" > ");
+        paths.forEach((p, index) => {
+            const li = document.createElement("li");
+            li.className = "breadcrumb-item";
+            if (index === paths.length - 1) {
+                // El último elemento es texto plano
+                li.textContent = p;
+            } else {
+                // Los elementos intermedios son enlaces
+                const a = document.createElement("a");
+                a.href = "#"; // Se podría ajustar a un enlace real
+                a.textContent = p;
+                li.appendChild(a);
+            }
+            breadcrumb.appendChild(li);
+        });
+    }
+
+    // Asigna el listener a cada enlace que afecte el breadcrumb
+    breadcrumbLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault(); // Previene la acción por defecto
+            const path = this.getAttribute("data-breadcrumb");
+            updateBreadcrumb(path);
         });
     });
+});
+
 </script>
