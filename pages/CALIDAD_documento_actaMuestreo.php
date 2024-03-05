@@ -700,7 +700,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     function cargarDatosEspecificacion(id, resultados) {
-        console.log(id, resultados);
+        
         if(resultados){
             $.ajax({
             url: './backend/acta_muestreo/ingresa_resultados.php',
@@ -758,7 +758,7 @@ function procesarDatosActa(response, resultados) {
         $('#cargo_verificador').text(acta.cargo_revisado_por);
         // Y también para la firma
         //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
-        console.log(response, resultados);
+        
         if(resultados)
         {
             var nombre = "<?php echo $_SESSION['nombre']; ?>";
