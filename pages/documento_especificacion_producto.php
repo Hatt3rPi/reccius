@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div id="form-container">
+    <div id="form-container" class="form-container">
         <div id="Maincontainer">
             <div id="header-container" style="width: 100%;">
                 <!-- Asegúrate de tener un contenedor para el header con display flex -->
