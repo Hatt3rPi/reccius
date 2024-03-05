@@ -762,7 +762,7 @@ function procesarDatosActa(response, resultados, etapa) {
         if(resultados)
         {   
             switch (etapa){
-                case '1':{
+                case '1':
                     var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
                     var cargo = "<?php echo $_SESSION['cargo']; ?>";
                     var fecha_hoy="<?php echo date('d-m-Y'); ?>";
@@ -776,14 +776,15 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('.resp').css('background-color', '#f4fac2');
                     $('.verif input').prop('readonly', true);
                     $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
-
                     //revision_actor1
                     console.log(nombre_ejecutor,acta.muestreado_por);
                     if (nombre_ejecutor!==acta.muestreado_por) {
                         $('#revision_actor1').text('Revisión Ejecutor');
                         $('#revision_actor2').text('Revisión Responsable');
                     }
-                }
+                    break;
+                case '2':
+                    break;
             }
         }
         else
