@@ -700,7 +700,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     function cargarDatosEspecificacion(id, resultados, etapa) {
-        
+        console.log(id, resultados, etapa);
         if(resultados){
             $.ajax({
             url: './backend/acta_muestreo/ingresa_resultados.php',
@@ -729,6 +729,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 function procesarDatosActa(response, resultados, etapa) {
+    console.log(resultados, etapa);
     // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
     if (response && response.analisis_externos && response.analisis_externos.length > 0) {
         const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
