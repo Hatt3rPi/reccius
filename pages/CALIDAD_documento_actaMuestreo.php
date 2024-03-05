@@ -720,7 +720,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             type: 'GET',
             data: { id_analisis_externo: id},
             success: function(response) {
-                procesarDatosActa(response, resultados, 0);
+                procesarDatosActa(response, resultados, '0');
             },
             error: function(xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
