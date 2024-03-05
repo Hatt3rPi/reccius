@@ -762,7 +762,7 @@ function procesarDatosActa(response, resultados, etapa) {
         if(resultados)
         {   
             switch (etapa){
-                case 1:{
+                case '1':{
                     var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
                     var cargo = "<?php echo $_SESSION['cargo']; ?>";
                     var fecha_hoy="<?php echo date('d-m-Y'); ?>";
