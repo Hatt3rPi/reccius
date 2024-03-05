@@ -50,12 +50,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <div class="logo-title-container">
                 <button id="toggle-sidebar-btn" class="buttonreset togglesibar"><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24" height="24"></button>
-                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" data-breadcrumb="Indice > Data > Trazabilidad" class="logo" />
+                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://gestionipn.cl/reccius/pages/index.php" data-breadcrumb="Home > Data > Trazabilidad" class="logo" />
             </div>
 
 
 
-            <div id="notificaciones" name="notificaciones" class="notifications" data-breadcrumb="Indice > Notificaciones > Listado de Tareas">
+            <div id="notificaciones" name="notificaciones" class="notifications" data-breadcrumb="Home > Notificaciones > Listado de Tareas">
                 <div class="notification_container">
                     <i class="fas fa-bell"></i>
                     <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
@@ -70,7 +70,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
                     </button>
                     <div class="dropdown-content">
-                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Indice > Configuraciones > Modificar perfil">Modificar Perfil</a>
+                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Home > Configuraciones > Modificar perfil">Modificar Perfil</a>
                         <a href="./backend/login/logoutBE.php">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -103,14 +103,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </spam> Usuarios y Roles
                     </a>
                     <div class="smenu">
-                        <a id="crear-usuario" href="#" data-breadcrumb="Indice > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
+                        <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
 
                             <span>
                                 <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Crear Usuario
                         </a>
-                        <a id="asignar-roles" href="#" data-breadcrumb="Indice > Usuarios y Roles > Asignar Roles">
+                        <a id="asignar-roles" href="#" data-breadcrumb="Home > Usuarios y Roles > Asignar Roles">
                             <span>
                                 <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
@@ -127,13 +127,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </spam> Especificaciones
                     </a>
                     <div class="smenu">
-                        <a id="especificacion_producto" href="#" data-breadcrumb="Indice > Especificaciones > Crear especificaciones de producto" class="con-borde-inferior">
+                        <a id="especificacion_producto" href="#" data-breadcrumb="Home > Especificaciones > Crear especificaciones de producto" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/crear_especificaciones.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Crear especificaciones de producto
                         </a>
-                        <a id="listado_especificacion_producto" href="#" data-breadcrumb="Indice > Especificaciones > Listado de especificaciones de producto">
+                        <a id="listado_especificacion_producto" href="#" data-breadcrumb="Home > Especificaciones > Listado de especificaciones de producto">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
@@ -150,20 +150,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-                        <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
+                        <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de solicitudes de análisis
                         </a>
-                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
+                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de Actas de Muestreo
                         </a>
                         <!-- Nuevo apartado para el listado de productos disponibles -->
-                        <a id="listado_productos_disponibles" href="#" data-breadcrumb="Indice > Solicitudes de Análisis > Listado de productos disponibles">
+                        <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de productos disponibles">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
@@ -180,19 +180,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Acta Liberación o Rechazo
                     </a>
                     <div class="smenu">
-                        <a id="acta_liberacion" href="#" data-breadcrumb="Indice > Acta Liberación o Rechazo > Acta liberación o rechazo" class="con-borde-inferior">
+                        <a id="acta_liberacion" href="#" data-breadcrumb="Home > Acta Liberación o Rechazo > Acta liberación o rechazo" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Acta liberación o rechazo
                         </a>
-                        <a id="resultados_laboratorio" href="#" data-breadcrumb="Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
+                        <a id="resultados_laboratorio" href="#" data-breadcrumb="Home > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
                             <span>
                                 <img src="../assets/images/resultados.svg" alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Ingreso resultados de laboratorio
                         </a>
-                        <a id="TESTEO" href="#" data-breadcrumb="Indice > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
+                        <a id="TESTEO" href="#" data-breadcrumb="Home > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
                             <span>
                                 <img src="../assets/images/resultados.svg" alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
@@ -298,53 +298,4 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
     });
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    inicializarBreadcrumb();
-
-    const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
-
-    function inicializarBreadcrumb() {
-        // Establece el breadcrumb inicial solo con "Home"
-        const breadcrumb = document.querySelector(".breadcrumb");
-        breadcrumb.innerHTML = ''; // Limpiar el breadcrumb actual
-        const li = document.createElement("li");
-        li.className = "breadcrumb-item";
-        const a = document.createElement("a");
-        a.href = "index.php"; // Enlace de regreso a Home
-        a.textContent = "Home";
-        li.appendChild(a);
-        breadcrumb.appendChild(li);
-    }
-
-    function updateBreadcrumb(path) {
-        const breadcrumb = document.querySelector(".breadcrumb");
-        breadcrumb.innerHTML = ''; // Limpiar el breadcrumb actual
-
-        const paths = path.split(" > ");
-        paths.forEach((p, index) => {
-            const li = document.createElement("li");
-            li.className = "breadcrumb-item";
-            if (index === paths.length - 1) {
-                // El último elemento no es un enlace
-                li.textContent = p;
-            } else {
-                const a = document.createElement("a");
-                a.href = "#"; // Aquí podrías poner el enlace real si lo tienes
-                a.textContent = p;
-                li.appendChild(a);
-            }
-            breadcrumb.appendChild(li);
-        });
-    }
-
-    breadcrumbLinks.forEach(link => {
-        link.addEventListener("click", function(e) {
-            e.preventDefault(); // Evitar que el enlace realice su acción predeterminada
-            const path = this.getAttribute("data-breadcrumb");
-            updateBreadcrumb(path);
-        });
-    });
-});
 </script>
