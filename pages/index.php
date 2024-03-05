@@ -250,9 +250,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var sidebar = document.querySelector('.sidebar');
         var content = document.querySelector('.content');
         var nav = document.querySelector('.breadcrumb-container');
+        var documentClonedContainer = document.querySelector('.document-cloned-container');
+        
         nav.classList.toggle('breadcrumbexpanded');
         sidebar.classList.toggle('sidebar-hidden');
         content.classList.toggle('content-expanded');
+        documentClonedContainer.classList.toggle('document-container-expanded')
     });
 </script>
 <script>
