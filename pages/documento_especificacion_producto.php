@@ -338,13 +338,6 @@
                 // Construye la URL de la API de QR
                 var qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=https://customware.cl/reccius/documentos_publicos/' + encodeURIComponent(usuario.ruta_registro) + '&amp;size=64x64';
 
-                // Realiza una solicitud fetch al servidor QR
-        fetch(qrApiUrl)
-            .then(response => response.blob()) // Obtiene la respuesta como blob
-            .then(blob => {
-                // Crea un Data URL desde el blob
-                var url = URL.createObjectURL(blob);
-
                 // Crea o actualiza el elemento <img> con la URL del QR
                 var imgElement = document.getElementById(contenedorQR).querySelector('img');
                 if (!imgElement) {
@@ -354,8 +347,6 @@
                     document.getElementById(contenedorQR).appendChild(imgElement);
                 }
                 imgElement.src = qrApiUrl;
-            })
-            .catch(error => console.error('Error al cargar el código QR:', error));
             } else {
                 // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
                 var contenedor = document.getElementById(contenedorQR);
