@@ -383,5 +383,5 @@ td {
     border-right: none !important; /* Elimina el borde derecho */
 }
 .document-container--expanded{
-    margin-left: 300;
+    margin-left: -200px;
 }
