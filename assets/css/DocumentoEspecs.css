@@ -382,3 +382,6 @@ td {
     border-left: none !important; /* Elimina el borde izquierdo */
     border-right: none !important; /* Elimina el borde derecho */
 }
+.form-container-expanded{
+    margin-left: 300;
+}
