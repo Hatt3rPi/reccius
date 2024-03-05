@@ -758,7 +758,7 @@ function procesarDatosActa(response, resultados, etapa) {
         $('#cargo_verificador').text(acta.cargo_revisado_por);
         // Y también para la firma
         //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
-        
+        console.log(resultados, etapa);
         if(resultados)
         {   
             switch (etapa){
@@ -809,7 +809,6 @@ function procesarDatosActa(response, resultados, etapa) {
         
         
         
-     
     } else {
         console.error("No se recibieron datos válidos: ", response);
     }
