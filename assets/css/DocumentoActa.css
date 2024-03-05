@@ -233,11 +233,6 @@ p {
     flex-grow: 0;
 }
 
-.date {
-    text-align: center;
-    margin-top: 10px;
-}
-
 .botones {
     position: fixed;
     width: 200px;
@@ -529,10 +524,10 @@ p {
 #fecha_muestreo {
     box-sizing: border-box !important;
     /* Incluye el padding y el border en la altura y anchura total */
-    border: 0px solid #ccc !important;
+    border: 0px !important;
 }
 
 #fecha_Edicion, #fecha_firma_responsable, #fecha_firma_verificador {
     margin-top: 0px !important;
-
+    text-align: center;
 }

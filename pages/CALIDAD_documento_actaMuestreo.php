@@ -77,7 +77,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td >Fecha Muestreo:</td>
                             <td >
-                                <input type="date" id="fecha_muestreo" name="fecha_muestreo" readonly>
+                                <input type="date" id="fecha_muestreo" name="fecha_muestreo" style="border: 0px;" readonly>
                             </td>
                         </tr>
                     </table>
@@ -769,8 +769,9 @@ function procesarDatosActa(response, resultados) {
             $('#nro_version').text(acta.version_registro);
             $('#realizadoPor').text(nombre);
             $('#cargo_realizador').text(cargo);
-            $('#fecha_muestreo').val(fecha_yoh);
+            $('#fecha_muestreo').val(fecha_yoh).removeAttribute('readonly');
             $('#fecha_Edicion').text(fecha_hoy);
+            
         }
         else
         {
