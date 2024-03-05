@@ -82,7 +82,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Breadcrumb que actuará como barra de navegación -->
     <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.php">Indice</a></li>
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
             <li class="breadcrumb-item"><a href="library.php">Primer Nodo</a></li>
             <li class="breadcrumb-item"><a href="contact.php">Segundo Nodo</a></li>
         </ol>
@@ -298,4 +298,53 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
     });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    inicializarBreadcrumb();
+
+    const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
+
+    function inicializarBreadcrumb() {
+        // Establece el breadcrumb inicial solo con "Home"
+        const breadcrumb = document.querySelector(".breadcrumb");
+        breadcrumb.innerHTML = ''; // Limpiar el breadcrumb actual
+        const li = document.createElement("li");
+        li.className = "breadcrumb-item";
+        const a = document.createElement("a");
+        a.href = "index.php"; // Enlace de regreso a Home
+        a.textContent = "Home";
+        li.appendChild(a);
+        breadcrumb.appendChild(li);
+    }
+
+    function updateBreadcrumb(path) {
+        const breadcrumb = document.querySelector(".breadcrumb");
+        breadcrumb.innerHTML = ''; // Limpiar el breadcrumb actual
+
+        const paths = path.split(" > ");
+        paths.forEach((p, index) => {
+            const li = document.createElement("li");
+            li.className = "breadcrumb-item";
+            if (index === paths.length - 1) {
+                // El último elemento no es un enlace
+                li.textContent = p;
+            } else {
+                const a = document.createElement("a");
+                a.href = "#"; // Aquí podrías poner el enlace real si lo tienes
+                a.textContent = p;
+                li.appendChild(a);
+            }
+            breadcrumb.appendChild(li);
+        });
+    }
+
+    breadcrumbLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault(); // Evitar que el enlace realice su acción predeterminada
+            const path = this.getAttribute("data-breadcrumb");
+            updateBreadcrumb(path);
+        });
+    });
+});
 </script>
