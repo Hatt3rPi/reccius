@@ -347,17 +347,7 @@ td {
     padding: 20px; /* Espaciado alrededor del contenido */
     margin-bottom: 20px; /* Espaciado entre los contenedores */
 }
-.form-container {
-    max-width: 100%;
-    /* Ajusta según el diseño */
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 50px;
-    /* Centrar el formulario */
-    margin-right: auto;
-    /* Centrar el formulario */
-}
+
 /* Estilos para PDF */
 .pdf-header {
     font-size: 12pt; /* Tamaño de fuente más grande para el PDF */
