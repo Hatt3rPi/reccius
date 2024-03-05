@@ -385,3 +385,6 @@ td {
 .document-container-expanded{
     margin-left: -200px;
 }
+.form-container-expanded{
+    margin-left: 200px;
+}
