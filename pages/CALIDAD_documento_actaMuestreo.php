@@ -76,8 +76,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td >Fecha Muestreo:</td>
-                            <td name="fecha_muestreo" id="fecha_muestreo" type="date">
-                                <!-- Fecha de muestreo aquí -->
+                            <td >
+                                <input type="date" id="fecha_muestreo" name="fecha_muestreo" readonly>
                             </td>
                         </tr>
                     </table>
@@ -675,7 +675,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id='mensaje_verificador' name='mensaje_verificador' style='text-align: center;display: none'>
                             Firmado digitalmente</p>
                     </div>
-                    <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date" style="font-size: 8px">01/01/01</div>
+                    <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date" style="font-size: 8px"></div>
                 </div>
             </div>
             <footer style="width: 100%; text-align: center; margin-top: 20px;bottom: 0;">
@@ -763,13 +763,13 @@ function procesarDatosActa(response, resultados) {
         {
             var nombre = "<?php echo $_SESSION['nombre']; ?>";
             var cargo = "<?php echo $_SESSION['cargo']; ?>";
-            var fecha_hoy="<?php echo date('Y-m-d'); ?>";
+            var fecha_hoy="<?php echo date('d-m-Y'); ?>";
             $('#nro_registro').text(acta.numero_registro);
             $('#nro_version').text(acta.version_registro);
             $('#realizadoPor').text(nombre);
             $('#cargo_realizador').text(cargo);
             $('#fecha_muestreo').val(fecha_hoy);
-            $('#fecha_Edicion').val(fecha_hoy);
+            $('#fecha_Edicion').text(fecha_hoy);
         }
         else
         {

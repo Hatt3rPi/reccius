@@ -525,3 +525,9 @@ p {
     text-align: center;
     align-items: center;
 }
+
+#fecha_muestreo {
+    box-sizing: border-box;
+    /* Incluye el padding y el border en la altura y anchura total */
+    border: 0px solid #ccc;
+}
