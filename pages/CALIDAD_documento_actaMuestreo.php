@@ -764,11 +764,12 @@ function procesarDatosActa(response, resultados) {
             var nombre = "<?php echo $_SESSION['nombre']; ?>";
             var cargo = "<?php echo $_SESSION['cargo']; ?>";
             var fecha_hoy="<?php echo date('d-m-Y'); ?>";
+            var fecha_yoh="<?php echo date('Y-m-d'); ?>";
             $('#nro_registro').text(acta.numero_registro);
             $('#nro_version').text(acta.version_registro);
             $('#realizadoPor').text(nombre);
             $('#cargo_realizador').text(cargo);
-            $('#fecha_muestreo').val(fecha_hoy);
+            $('#fecha_muestreo').val(fecha_yoh);
             $('#fecha_Edicion').text(fecha_hoy);
         }
         else
