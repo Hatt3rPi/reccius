@@ -97,9 +97,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th ></th>
                         <th ></th>
                         <th ></th>
-                        <th>Revisión Responsable</th>
+                        <th id="revision_actor1">Revisión Responsable</th>
                         <th ></th>
-                        <th>Revisión Verificador</th>
+                        <th id="revision_actor2">Revisión Verificador</th>
                         <th ></th>
                         <th >Rótulo General de Muestra</th>
                     </tr>
@@ -328,9 +328,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th ></th>
                         <th ></th>
                         <th ></th>
-                        <th>Revisión Responsable</th>
+                        <th id="revision_actor1">Revisión Responsable</th>
                         <th ></th>
-                        <th>Revisión Verificador</th>
+                        <th id="revision_actor2">Revisión Verificador</th>
                         <th ></th>
                         <th >Rótulo General de Muestra</th>
                     </tr>
@@ -550,8 +550,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <th>Muestra</th>
                     <th>Contramuestra</th>
                     <th>Total</th>
-                    <th>Revisión Responsable</th>
-                    <th>Revisión Verificador</th>
+                    <th id="revision_actor1">Revisión Responsable</th>
+                    <th id="revision_actor2">Revisión Verificador</th>
                 </tr>
                 <!-- Fila para lotes de <= 500 unidades -->
                 <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
@@ -699,7 +699,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    function cargarDatosEspecificacion(id, resultados) {
+    function cargarDatosEspecificacion(id, resultado, etapa) {
         
         if(resultados){
             $.ajax({
@@ -707,7 +707,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             type: 'GET',
             data: { id_acta: id},
             success: function(response) {
-                procesarDatosActa(response, resultados);
+                procesarDatosActa(response, resultados, etapa);
             },
             error: function(xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
@@ -728,7 +728,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
     }
-function procesarDatosActa(response, resultados) {
+function procesarDatosActa(response, resultados, etapa) {
     // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
     if (response && response.analisis_externos && response.analisis_externos.length > 0) {
         const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
@@ -760,18 +760,31 @@ function procesarDatosActa(response, resultados) {
         //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
         
         if(resultados)
-        {
-            var nombre = "<?php echo $_SESSION['nombre']; ?>";
-            var cargo = "<?php echo $_SESSION['cargo']; ?>";
-            var fecha_hoy="<?php echo date('d-m-Y'); ?>";
-            var fecha_yoh="<?php echo date('Y-m-d'); ?>";
-            $('#nro_registro').text(acta.numero_registro);
-            $('#nro_version').text(acta.version_registro);
-            $('#realizadoPor').text(nombre);
-            $('#cargo_realizador').text(cargo);
-            $('#fecha_muestreo').val(fecha_yoh).removeAttribute('readonly');
-            $('#fecha_Edicion').text(fecha_hoy);
-            
+        {   
+            switch (etapa){
+                case 1:{
+                    var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+                    var cargo = "<?php echo $_SESSION['cargo']; ?>";
+                    var fecha_hoy="<?php echo date('d-m-Y'); ?>";
+                    var fecha_yoh="<?php echo date('Y-m-d'); ?>";
+                    $('#nro_registro').text(acta.numero_registro);
+                    $('#nro_version').text(acta.version_registro);
+                    $('#realizadoPor').text(nombre_ejecutor);
+                    $('#cargo_realizador').text(cargo);
+                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+                    $('#fecha_Edicion').text(fecha_hoy);
+                    $('.resp').css('background-color', '#f4fac2');
+                    $('.verif input').prop('readonly', true);
+                    $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
+
+                    //revision_actor1
+                    console.log(nombre_ejecutor,acta.muestreado_por);
+                    if (nombre_ejecutor!==acta.muestreado_por) {
+                        $('#revision_actor1').text('Revisión Ejecutor');
+                        $('#revision_actor2').text('Revisión Responsable');
+                    }
+                }
+            }
         }
         else
         {

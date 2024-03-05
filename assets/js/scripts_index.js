@@ -591,7 +591,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); 
-                            cargarDatosEspecificacion(id, false);
+                            cargarDatosEspecificacion(id, false,0);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);
@@ -611,7 +611,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response, true); 
-                            cargarDatosEspecificacion(id, true);
+                            cargarDatosEspecificacion(id, true, 1);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);
