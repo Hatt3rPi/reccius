@@ -292,6 +292,7 @@ p {
 
 #sign-document {
     background-color: #ff0000; /* Color rojo para el botón Firmar Documento */
+    margin-bottom: 75px;
 }
 
 #sign-document:hover {
