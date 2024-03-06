@@ -1,10 +1,14 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+include '/home/customw2/librerias/phpqrcode/qrlib.php'; // Asegúrate de ajustar la ruta según donde coloques la biblioteca
 
-
-
-
+function generarQR($usuario, $rutaRegistro){
+    $contenidoQR = 'https://customware.cl/reccius/documentos_publicos/' . $rutaRegistro;
+    $nombreArchivoQR = '../../../documentos_publicos/qr_documento_' . $usuario . '.png'; // Ajusta la ruta según sea necesario
+    QRcode::png($contenidoQR, $nombreArchivoQR, QR_ECLEVEL_L, 3, 2);
+    return 'qr_documento_' . $usuario . '.png'; // Devuelve la ruta del archivo QR para su uso posterior si es necesario
+}
 function cambiarCertificado($link, $usuario, $certificado) {
     if ($certificado['error'] !== UPLOAD_ERR_OK) {
         return "Error al subir el archivo: " . $certificado['error'];
@@ -32,9 +36,10 @@ function cambiarCertificado($link, $usuario, $certificado) {
         return "Hubo un error al guardar el archivo.";
     }
 
-    // Actualizar la ruta del certificado en la base de datos
-    $stmt = mysqli_prepare($link, "UPDATE usuarios SET ruta_registroPrestadoresSalud = ? WHERE usuario = ?");
-    mysqli_stmt_bind_param($stmt, "ss", $nombreArchivo_n, $usuario);
+    $ruta_qr=generarQR($usuario, $nombreArchivo_n);
+
+    $stmt = mysqli_prepare($link, "UPDATE usuarios SET ruta_registroPrestadoresSalud = ?, qr_documento = ? WHERE usuario = ?");
+    mysqli_stmt_bind_param($stmt, "sss", $nombreArchivo_n, $ruta_qr, $usuario);
     if (!mysqli_stmt_execute($stmt)) {
         return "Error al actualizar la ruta del certificado en la base de datos.";
     }
