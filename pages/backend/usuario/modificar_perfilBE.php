@@ -2,7 +2,7 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 include '/home/customw2/librerias/phpqrcode/qrlib.php'; // Asegúrate de ajustar la ruta según donde coloques la biblioteca
-
+error_log(print_r($_POST, true));
 function generarQR($usuario, $rutaRegistro){
     $contenidoQR = 'https://customware.cl/reccius/documentos_publicos/' . $rutaRegistro;
     $nombreArchivoQR = '../../../documentos_publicos/qr_documento_' . $usuario . '.png'; // Ajusta la ruta según sea necesario
@@ -38,7 +38,7 @@ function cambiarCertificado($link, $usuario, $certificado) {
 
     $ruta_qr=generarQR($usuario, $nombreArchivo_n);
 
-    $stmt = mysqli_prepare($link, "UPDATE usuarios SET ruta_registroPrestadoresSalud = ?, qr_documento = ? WHERE usuario = ?");
+    $stmt = mysqli_prepare($link, "UPDATE usuarios SET ruta_registroPrestadoresSalud = ?, qr_documento = ? WHERE usuario = ?;");
     mysqli_stmt_bind_param($stmt, "sss", $nombreArchivo_n, $ruta_qr, $usuario);
     if (!mysqli_stmt_execute($stmt)) {
         return "Error al actualizar la ruta del certificado en la base de datos.";
@@ -195,7 +195,7 @@ if (isset($_POST['editarFoto']) && $_POST['editarFoto'] == '1') {
     }
 }
 if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
-    error_log(print_r($_POST, true));
+    
     if (isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
         $resultadoCambioCertificado = cambiarCertificado($link, $usuario, $_FILES['certificado']);
         if ($resultadoCambioCertificado !== "Certificado actualizado con éxito.") {
