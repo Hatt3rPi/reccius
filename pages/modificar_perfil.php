@@ -191,19 +191,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function guardar(){
                 event.preventDefault(); // Prevenir el envío estándar del formulario
-
-                var formData = new FormData(document.getElementById('formPerfil'));
-                console.log(formData);
-                $.ajax({
-                    type: "POST",
-                    url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
-                    data: formData,
-                    processData: false, // Necesario para FormData
-                    contentType: false, // Necesario para FormData
-                    dataType: "json", // Espera una respuesta en formato JSON
-                    //!: hecharle un ojo en el backend
-                    success: function(response) {
-                        var mensajesAdvertencia = [
+                var mensajesAdvertencia = [
                             "El archivo es demasiado grande.",
                             "El archivo no es un PDF válido.",
                             "Hubo un error al guardar el archivo.",
@@ -218,19 +206,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             "Archivo de foto de perfil no proporcionado.",
                             "Archivo de certificado no proporcionado."
                         ];
-                        var mensajesExito = [
+                var mensajesExito = [
                             "Información de usuario actualizada con éxito.",
                             "La contraseña ha sido actualizada con éxito."
                         ];
 
-                        var mensajesError = [
+                var mensajesError = [
                             "Error al subir el archivo: ",
                             "Error: El directorio de destino no es escribible o no existe.",
                             "Error al actualizar la ruta del certificado en la base de datos.",
                             "Error al procesar el archivo de imagen.",
                             "Error al actualizar la foto de perfil en la base de datos.",
                         ]
-
+                var formData = $('#formPerfil').serialize();
+                console.log(formData);
+                $.ajax({
+                    url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
+                    type: "POST",
+                    data: formData,
+                    success: function(response) {
                         if (mensajesAdvertencia.includes(response.trim())) {
                             mostrarNotificacion(response, "advertencia");
                         } else if (mensajesExito.includes(response.trim())) {
