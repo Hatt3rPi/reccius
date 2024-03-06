@@ -21,10 +21,11 @@ function cambiarCertificado($link, $usuario, $certificado) {
         return "Error: El directorio de destino no es escribible o no existe.";
     }
 
-    $nombreArchivoTemporal = $certificado['tmp_name'];
     $tipoArchivo = strtolower(pathinfo($certificado['name'], PATHINFO_EXTENSION));
-    $nombreArchivo = $directorioDestino . $nombreArchivoTemporal ;
-    $nombreArchivo_n = $nombreArchivoTemporal ;
+    // Asumiendo que quieres mantener el nombre original, pero es buena idea generar un nombre único para evitar conflictos
+    // Por ejemplo: $nombreArchivoFinal = uniqid() . '.' . $tipoArchivo;
+    $nombreArchivoFinal = "registroPrestadorSalud_" . $usuario . "." . $tipoArchivo;
+    $rutaDestinoCompleta = $directorioDestino . $nombreArchivoFinal;
 
     if ($certificado["size"] > 10000000) { // Tamaño máximo de 10 MB
         return "El archivo es demasiado grande.";
@@ -34,20 +35,22 @@ function cambiarCertificado($link, $usuario, $certificado) {
         return "El archivo no es un PDF válido.";
     }
 
-    if (!move_uploaded_file($nombreArchivoTemporal, $nombreArchivo)) {
+    if (!move_uploaded_file($certificado['tmp_name'], $rutaDestinoCompleta)) {
         return "Hubo un error al guardar el archivo.";
     }
 
-    $ruta_qr=generarQR($usuario, $nombreArchivo_n);
+    // Genera el QR usando el nombre de archivo final en lugar del path temporal
+    $ruta_qr = generarQR($usuario, $nombreArchivoFinal);
 
     $stmt = mysqli_prepare($link, "UPDATE usuarios SET ruta_registroPrestadoresSalud = ?, qr_documento = ? WHERE usuario = ?;");
-    mysqli_stmt_bind_param($stmt, "sss", $nombreArchivo_n, $ruta_qr, $usuario);
+    mysqli_stmt_bind_param($stmt, "sss", $nombreArchivoFinal, $ruta_qr, $usuario);
     if (!mysqli_stmt_execute($stmt)) {
         return "Error al actualizar la ruta del certificado en la base de datos.";
     }
 
     return "Certificado actualizado con éxito.";
 }
+
 function actualizarInformacionUsuario($link, $usuario, $nombre, $nombre_corto, $cargo) {
     $stmt = mysqli_prepare($link, "UPDATE usuarios SET nombre = ?, nombre_corto = ?, cargo = ? WHERE usuario = ?");
     mysqli_stmt_bind_param($stmt, "ssss", $nombre, $nombre_corto, $cargo, $usuario);
