@@ -190,7 +190,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function guardar(){
-                event.preventDefault(); // Prevenir el envío estándar del formulario
+
                 var mensajesAdvertencia = [
                             "El archivo es demasiado grande.",
                             "El archivo no es un PDF válido.",
@@ -218,12 +218,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             "Error al procesar el archivo de imagen.",
                             "Error al actualizar la foto de perfil en la base de datos.",
                         ]
-                var formData = $('#formPerfil').serialize();
+
+                event.preventDefault(); // Prevenir el envío estándar del formulario
+                var form = document.getElementById('formPerfil'); // Obtiene el formulario por su ID
+                var formData = new FormData(form); // Usa FormData para construir los datos del formulario, incluyendo archivos
+
                 console.log(formData);
                 $.ajax({
                     url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
                     type: "POST",
                     data: formData,
+                    processData: false, // Necesario para FormData
+                    contentType: false, // Necesario para FormData. Asegúrate de no establecer ningún tipo de contenido para permitir que el navegador establezca el tipo de contenido y los límites correctamente
                     success: function(response) {
                         if (mensajesAdvertencia.includes(response.trim())) {
                             mostrarNotificacion(response, "advertencia");
