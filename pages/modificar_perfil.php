@@ -190,6 +190,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     document.getElementById('editarInfo').value = '1';
                 } else if (switchClass === 'switch_certificado') {
                     document.getElementById('editarCertificado').value = '1';
+                }else if (switchClass === 'switch_firma') {
+                    document.getElementById('editarfirma').value = '1';
                 }
             } else {
                 seccion.classList.add('seccion-deshabilitada');
@@ -202,6 +204,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     document.getElementById('editarInfo').value = '0';
                 } else if (switchClass === 'switch_certificado') {
                     document.getElementById('editarCertificado').value = '0';
+                } else if (switchClass === 'switch_firma') {
+                    document.getElementById('editarfirma').value = '0';
                 }
             }
         }
