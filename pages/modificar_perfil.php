@@ -208,7 +208,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         ];
                 var mensajesExito = [
                             "Información de usuario actualizada con éxito.",
-                            "La contraseña ha sido actualizada con éxito."
+                            "La contraseña ha sido actualizada con éxito.",
+                            "Perfil actualizado con éxito."
                         ];
 
                 var mensajesError = [
@@ -223,7 +224,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 var form = document.getElementById('formPerfil'); // Obtiene el formulario por su ID
                 var formData = new FormData(form); // Usa FormData para construir los datos del formulario, incluyendo archivos
 
-                console.log(formData);
                 $.ajax({
                     url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
                     type: "POST",
@@ -235,6 +235,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             mostrarNotificacion(response, "advertencia");
                         } else if (mensajesExito.includes(response.trim())) {
                             mostrarNotificacion(response, "éxito");
+
                         } else if (mensajesError.includes(response.trim())) {
                             mostrarNotificacion(response, "error");
                         }
