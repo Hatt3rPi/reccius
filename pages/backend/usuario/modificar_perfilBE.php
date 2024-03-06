@@ -151,7 +151,7 @@ function cambiarFotoPerfil($link, $usuario, $fotoPerfil) {
 
     return "La foto de perfil ha sido actualizada con éxito.";
 }
-if (isset($_POST['modificarPerfil'])) {
+if (isset($_POST['usuario'])) {
     $usuario = $_SESSION['usuario'] ?? $_POST['usuario'];
     $mensajeError = "";
 
