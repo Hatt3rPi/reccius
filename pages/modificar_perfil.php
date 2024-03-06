@@ -254,7 +254,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             if (mensajesAdvertencia.includes(data.message.trim())) {
                                 mostrarNotificacion(data.message, "advertencia");
                             } else if (mensajesExito.includes(data.message.trim())) {
-                                mostrarNotificacion(response, "éxito");
+                                mostrarNotificacion("Modificación realizada con éxito.", "éxito");
                             } 
                             
                         } 
