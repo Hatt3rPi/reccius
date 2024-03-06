@@ -193,7 +193,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 event.preventDefault(); // Prevenir el envío estándar del formulario
 
                 var formData = new FormData(document.getElementById('formPerfil'));
-
+                console.log(formData);
                 $.ajax({
                     type: "POST",
                     url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario

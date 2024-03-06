@@ -208,7 +208,7 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
 
         // Al final de tu script PHP, reemplaza el echo y header por:
         if (!empty($mensajeError)) {
-            echo json_encode(["success" => false, "message" => trim($ensajeError)]);
+            echo json_encode(["success" => false, "message" => trim($mensajeError)]);
         } else {
             echo json_encode(["success" => true, "message" => "Perfil actualizado con éxito."]);
         }
