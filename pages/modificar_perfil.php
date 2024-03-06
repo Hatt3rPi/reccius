@@ -231,7 +231,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             "Información de usuario actualizada con éxito.",
                             "La contraseña ha sido actualizada con éxito.",
                             "Perfil actualizado con éxito.",
-                            "Firma actualizada con éxito."
+                            "Firma actualizada con éxito.",
+                            "La firma ha sido actualizada con éxito."
                         ];
 
                 var mensajesError = [
