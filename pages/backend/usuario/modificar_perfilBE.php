@@ -195,6 +195,7 @@ if (isset($_POST['editarFoto']) && $_POST['editarFoto'] == '1') {
     }
 }
 if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
+    error_log(print_r($_POST, true));
     if (isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
         $resultadoCambioCertificado = cambiarCertificado($link, $usuario, $_FILES['certificado']);
         if ($resultadoCambioCertificado !== "Certificado actualizado con éxito.") {
