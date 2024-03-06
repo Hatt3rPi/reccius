@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="container">
         <div class="form-container">
             <h2>Modificar Perfil</h2>
-            <form id="formPerfil" action="backend/usuario/modificar_perfilBE.php" method="POST" enctype="multipart/form-data">
+            <form id="formPerfil" enctype="multipart/form-data">
 
                 <!-- Sección de Cambio de Contraseña -->
                 <div class="seccion seccion-deshabilitada">
@@ -106,7 +106,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
-                <button type="submit" name="modificarPerfil">Modificar Perfil</button>
+                <button type="button" name="modificarPerfil" onclick="guardar()">Modificar Perfil</button>
             </form>
         </div>
     </div>
@@ -189,11 +189,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        $(document).ready(function() {
-            $("#formPerfil").submit(function(event) {
+        function guardar(){
                 event.preventDefault(); // Prevenir el envío estándar del formulario
 
-                var formData = new FormData(this); // Usa FormData para soportar archivos
+                var formData = new FormData(document.getElementById('formPerfil'));
 
                 $.ajax({
                     type: "POST",
@@ -246,8 +245,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         mostrarNotificacion(errorMsg, "error");
                     }
                 });
-            });
-        });
+        };
     </script>
 
 </body>
