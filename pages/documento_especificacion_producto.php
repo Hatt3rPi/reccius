@@ -16,7 +16,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificación Producto Terminado</title>
-    <link rel="stylesheet" href="../test/testings.css">
+    <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
