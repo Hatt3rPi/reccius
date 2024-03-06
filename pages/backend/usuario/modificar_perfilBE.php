@@ -3,6 +3,33 @@ session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 include '/home/customw2/librerias/phpqrcode/qrlib.php'; // Asegúrate de ajustar la ruta según donde coloques la biblioteca
 
+function cambiarFirma($link, $usuario, $firma) {
+    // Verifica y procesa la firma similar a cómo lo haces con cambiarFotoPerfil
+    // Suponiendo que tienes la imagen cargada y validada, procedemos a redimensionar
+    $directorioDestino = "../../../documentos_publicos/";
+    $check = getimagesize($firma['tmp_name']);
+    $imagenOriginal = imagecreatefromstring(file_get_contents($firma['tmp_name']));
+    $imagenRedimensionada = imagecreatetruecolor(64, 64);
+
+    imagecopyresampled($imagenRedimensionada, $imagenOriginal, 0, 0, 0, 0, 64, 64, $check[0], $check[1]);
+    $nombre_firma="firma_" . $usuario . ".png";
+    $rutaFirma = $directorioDestino . $nombre_firma; // Ajusta el directorio destino según necesidad
+
+    imagepng($imagenRedimensionada, $rutaFirma);
+    // No olvides liberar recursos
+    imagedestroy($imagenOriginal);
+    imagedestroy($imagenRedimensionada);
+
+    $stmt = mysqli_prepare($link, "UPDATE usuarios SET foto_firma = ? WHERE usuario = ?;");
+    mysqli_stmt_bind_param($stmt, "ss", $nombre_firma, $usuario);
+    if (!mysqli_stmt_execute($stmt)) {
+        return "Error al actualizar la firma en la base de datos.";
+    } 
+
+
+    return "La firma ha sido actualizada con éxito.";
+}
+
 function generarQR($usuario, $rutaRegistro){
     $contenidoQR = 'https://customware.cl/reccius/documentos_publicos/' . $rutaRegistro;
     $nombreArchivoQR = '../../../documentos_publicos/qr_documento_' . $usuario . '.png'; // Ajusta la ruta según sea necesario
@@ -203,6 +230,17 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
         $resultadoCambioCertificado = cambiarCertificado($link, $usuario, $_FILES['certificado']);
         if ($resultadoCambioCertificado !== "Certificado actualizado con éxito.") {
             $mensajeError .= $resultadoCambioCertificado;
+        }
+    } else {
+        $mensajeError .= "Archivo de certificado no proporcionado. ";
+    }
+}
+if (isset($_POST['editarfirma']) && $_POST['editarfirma'] == '1') {
+    
+    if (isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
+        $resultadoCambioFirma = cambiarFirma($link, $usuario, $_FILES['firma']);
+        if ($resultadoCambioFirma !== "Firma actualizada con éxito.") {
+            $mensajeError .= $resultadoCambioFirma;
         }
     } else {
         $mensajeError .= "Archivo de certificado no proporcionado. ";

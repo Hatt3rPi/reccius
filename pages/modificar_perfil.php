@@ -105,6 +105,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                     </div>
                 </div>
+                <div class="seccion seccion-deshabilitada">
+
+                    <h3>Firma</h3>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="switch_firma" onclick="toggleInputs('switch_firma')">
+                        <label class="form-check-label" for="switch_firma">Editar</label>
+                        <input type="hidden" id="editarfirma" name="editarfirma" value="0">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="firma">Imagen de Firma:</label>
+                        <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled>
+                        <div id="firmaExistente">
+                            <!-- Aquí se mostrará el enlace al archivo existente -->
+                        </div>
+                    </div>
+                </div>
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
                 <button type="button" name="modificarPerfil" onclick="guardar()">Modificar Perfil</button>
             </form>
@@ -209,7 +226,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 var mensajesExito = [
                             "Información de usuario actualizada con éxito.",
                             "La contraseña ha sido actualizada con éxito.",
-                            "Perfil actualizado con éxito."
+                            "Perfil actualizado con éxito.",
+                            "Firma actualizada con éxito."
                         ];
 
                 var mensajesError = [
@@ -231,14 +249,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     processData: false, // Necesario para FormData
                     contentType: false, // Necesario para FormData. Asegúrate de no establecer ningún tipo de contenido para permitir que el navegador establezca el tipo de contenido y los límites correctamente
                     success: function(response) {
-                        if (mensajesAdvertencia.includes(response.trim())) {
-                            mostrarNotificacion(response, "advertencia");
-                        } else if (mensajesExito.includes(response.trim())) {
-                            mostrarNotificacion(response, "éxito");
-
-                        } else if (mensajesError.includes(response.trim())) {
-                            mostrarNotificacion(response, "error");
-                        }
+                        var data = JSON.parse(response); // Asegúrate de que la respuesta sea parseada correctamente como JSON
+                        if (data.success) {
+                            if (mensajesAdvertencia.includes(data.message.trim())) {
+                                mostrarNotificacion(data.message, "advertencia");
+                            } else if (mensajesExito.includes(data.message.trim())) {
+                                mostrarNotificacion(response, "éxito");
+                            } 
+                            
+                        } 
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
