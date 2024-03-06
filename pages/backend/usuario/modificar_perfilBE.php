@@ -3,6 +3,7 @@ session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 include '/home/customw2/librerias/phpqrcode/qrlib.php'; // Asegúrate de ajustar la ruta según donde coloques la biblioteca
 error_log(print_r($_POST, true));
+$mensajeError=$_POST;
 function generarQR($usuario, $rutaRegistro){
     $contenidoQR = 'https://customware.cl/reccius/documentos_publicos/' . $rutaRegistro;
     $nombreArchivoQR = '../../../documentos_publicos/qr_documento_' . $usuario . '.png'; // Ajusta la ruta según sea necesario
