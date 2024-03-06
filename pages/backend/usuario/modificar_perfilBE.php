@@ -237,13 +237,13 @@ if (isset($_POST['editarCertificado']) && $_POST['editarCertificado'] == '1') {
 }
 if (isset($_POST['editarfirma']) && $_POST['editarfirma'] == '1') {
     
-    if (isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
         $resultadoCambioFirma = cambiarFirma($link, $usuario, $_FILES['firma']);
         if ($resultadoCambioFirma !== "Firma actualizada con éxito.") {
             $mensajeError .= $resultadoCambioFirma;
         }
     } else {
-        $mensajeError .= "Archivo de certificado no proporcionado. ";
+        $mensajeError .= "Archivo de firma no proporcionado. ";
     }
 }
     // Agrega aquí las comprobaciones y lógica para las demás secciones (Información de usuario, Certificado, etc.)
