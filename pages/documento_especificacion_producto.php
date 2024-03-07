@@ -533,9 +533,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Actualiza el estado del documento en el frontend
                     actualizarEstadoDocumento();
                     cargarDatosEspecificacion(idEspecificacion);
+                    // Mostrar notificaciones de éxito y advertencia
+                    mostrarNotificacion("Documento firmado con éxito.", "éxito");
+                    mostrarNotificacion("Tarea terminada con éxito", "éxito");
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al firmar documento:', status, error);
+                    mostrarNotificacion("Error al firmar documento:", "error");
                 }
             });
         }
