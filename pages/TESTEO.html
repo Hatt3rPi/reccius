@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
+    <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notificacion.js"></script>
 </head>
 
@@ -22,7 +23,8 @@
 <script>
 
     document.getElementById('btnExito').addEventListener('click', function () {
-        mostrarNotificacion('Mensaje de éxito', 'éxito');
+        mostrarNotificacion("Documento firmado con éxito.", "éxito");
+        mostrarNotificacion("Tarea terminada con éxito", "éxito");
     });
 
     document.getElementById('btnAdvertencia').addEventListener('click', function () {

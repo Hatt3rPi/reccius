@@ -17,8 +17,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificación Producto Terminado</title>
     <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
+    <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="../assets/js/notificacion.js"></script>
 </head>
 
 <body>
@@ -190,6 +192,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <button id="download-pdf">Descargar PDF</button>
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
+    </div>
+    <div id="notification" class="notification-container notify" style="display: none;">
+        <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
     <script>
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
