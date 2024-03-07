@@ -93,10 +93,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (mensajesAdvertencia.includes(response.trim())) {
                             mostrarNotificacion(response, "advertencia");
                         } else if (mensajesExito.includes(response.trim())) {
-                            mostrarNotificacion(response, "éxito");
+                            mostrarNotificacion("response", "éxito");
                         } else if (mensajesError.includes(response.trim())) {
                             mostrarNotificacion(response, "error");
-                        }
+                        }else
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
