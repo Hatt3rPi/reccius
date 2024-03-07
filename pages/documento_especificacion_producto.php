@@ -276,10 +276,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                 }
             });
-            await obtenerAlturaElementosYCalcularEspacioDisponible();
-            ocultarContenedorPrincipal();
-            actualizarContadorPaginas();
+            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 100);
 
+            setTimeout(ocultarContenedorPrincipal, 200);
+
+            setTimeout(actualizarContadorPaginas, 300);
 
         }
 
@@ -581,8 +582,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         function obtenerAlturaElementosYCalcularEspacioDisponible() {
-        return new Promise((resolve, reject) => {
-             try {
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
             const alturaFooter = 224; // Altura del pie de página
@@ -601,14 +600,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
             const trsDeAdditionalContent = Array.from(document.querySelectorAll("#additionalContent table tbody tr"));
             newTabla("new-table", trsDeContent, trsDeAdditionalContent);
-            // La promesa se resuelve inmediatamente después de ejecutar la lógica sincrónica,
-            // indicando que la función ha completado su trabajo.
-            resolve();
-        } catch (error) {
-            reject(error); // En caso de cualquier error, rechaza la promesa.
         }
-    });
-}
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
             let tableContainer = createTableContainer();
