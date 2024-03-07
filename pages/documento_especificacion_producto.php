@@ -235,7 +235,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 success: function(response) {
                     procesarDatosEspecificacion(response);
 
-                    verificarYMostrarBotonFirma(response);
+                   // verificarYMostrarBotonFirma(response);
                 },
                 error: function(xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
@@ -280,6 +280,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             setTimeout(ocultarContenedorPrincipal, 200);
 
+            setTimeout(verificarYMostrarBotonFirma,250);
             setTimeout(actualizarContadorPaginas, 300);
 
         }
