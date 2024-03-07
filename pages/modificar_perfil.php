@@ -127,9 +127,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
         </div>
     </div>
-    <div id="notification" class="notification-container notify" style="display: none;">
-        <p id="notification-message">Este es un mensaje de notificación.</p>
-    </div>
+
 
     <script>
         function cargarInformacionExistente() {
