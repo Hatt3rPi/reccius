@@ -85,7 +85,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         ];
                         var mensajesExito = [
                             'Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.',
-                            'Usuario creado, pero hubo un error al enviar el correo de restablecimiento.'
                         ];
 
 
