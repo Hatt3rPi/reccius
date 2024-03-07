@@ -96,7 +96,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             mostrarNotificacion("response", "éxito");
                         } else if (mensajesError.includes(response.trim())) {
                             mostrarNotificacion(response, "error");
-                        }
+                        }else {
+                            // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
+                            mostrarNotificacion("Usuario creado con éxito", "éxito");}
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
