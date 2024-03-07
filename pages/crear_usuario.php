@@ -96,7 +96,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             mostrarNotificacion("response", "éxito");
                         } else if (mensajesError.includes(response.trim())) {
                             mostrarNotificacion(response, "error");
-                        }else
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
