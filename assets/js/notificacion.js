@@ -21,7 +21,9 @@ function mostrarNotificacion(mensaje, tipoNotificacion) {
         default:
             notificacion.className = 'notification-container notify'; // Clase por defecto si el tipo no se reconoce
     }
-    
+     // Asegurarse de que las notificaciones no se solapen ajustando su posición basada en las notificaciones existentes
+     var existingNotifications = document.querySelectorAll('.notification-container').length;
+     notificacion.style.bottom = (20 + (existingNotifications * 60)) + 'px'; // Ajustar la posición basada en la cantidad de notificaciones
     // Mostrar la notificación
     notificacion.style.display = 'block';
     
