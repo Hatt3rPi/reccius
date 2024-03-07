@@ -232,7 +232,7 @@ p {
     box-shadow: none !important;
 }
 
-#watermark {
+.watermark {
     font-family: 'Verdana', Geneva, Tahoma, sans-serif;
     position: absolute;
     top: 50%;
