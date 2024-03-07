@@ -814,7 +814,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
-            verificarYMostrarBotonFirma();
+            
 
         };
     </script>
