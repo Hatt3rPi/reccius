@@ -234,7 +234,7 @@ $(document).ready(function () {
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
+        
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#dynamic-content').load('index_superadmin.php', function (response, status, xhr) {
             if (status == "error") {
@@ -658,4 +658,34 @@ function mostrarNotificacion(mensaje, tipoNotificacion) {
     }, 5000);
 }
 
-    
+/**
+ * Actualiza el breadcrumb con los nodos y URLs proporcionados.
+ * @param {Array} nodos - Array de strings con los nombres de cada nodo del breadcrumb.
+ * @param {Array} urls - Array de strings con las URLs correspondientes a cada nodo. Puede haber elementos null o undefined si no hay URL para un nodo específico.
+ */
+function actualizarBreadcrumb(nodos, urls) {
+    const breadcrumb = document.querySelector(".breadcrumb");
+    breadcrumb.innerHTML = ''; // Limpia el breadcrumb existente
+
+    nodos.forEach((nodo, index) => {
+        const li = document.createElement("li");
+        li.className = "breadcrumb-item";
+        if (index === nodos.length - 1) {
+            // El último nodo se muestra como texto plano sin enlace
+            li.textContent = nodo;
+        } else {
+            // Crea un enlace si hay una URL definida para el nodo
+            const a = document.createElement("a");
+            if (urls[index]) {
+                a.href = urls[index];
+            } else {
+                // Si no hay URL, se usa "#" como placeholder
+                a.href = "#";
+                a.addEventListener("click", (e) => e.preventDefault()); // Previene la navegación si es un placeholder
+            }
+            a.textContent = nodo;
+            li.appendChild(a);
+        }
+        breadcrumb.appendChild(li);
+    });
+}

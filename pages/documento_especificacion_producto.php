@@ -318,7 +318,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (especificacion.fecha_edicion) {
                         document.getElementById('mensaje_creador').style.display = 'block';
                         $('#fecha_Edicion').text('Fecha: ' + especificacion.fecha_edicion);
-                        generarMostrarQR(especificacion.creado_por, 'QRcreador');
+                        mostrarImagenFirma(especificacion.creado_por, 'QRcreador');
                     } else {
                         document.getElementById('mensaje_creador').style.display = 'none';
                         $('#fecha_Edicion').text('Firma Pendiente');
@@ -326,7 +326,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (especificacion.revisado_por.fecha_revision) {
                         document.getElementById('mensaje_revisor').style.display = 'block';
                         $('#fechaRevision').text('Fecha: ' + especificacion.revisado_por.fecha_revision);
-                        generarMostrarQR(especificacion.revisado_por, 'QRrevisor');
+                        mostrarImagenFirma(especificacion.revisado_por, 'QRrevisor');
                     } else {
                         document.getElementById('mensaje_revisor').style.display = 'none';
                         $('#fechaRevision').text('Firma Pendiente');
@@ -334,7 +334,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (especificacion.aprobado_por.fecha_aprobacion) {
                         document.getElementById('mensaje_aprobador').style.display = 'block';
                         $('#fechaAprobacion').text('Fecha: ' + especificacion.aprobado_por.fecha_aprobacion);
-                        generarMostrarQR(especificacion.aprobado_por, 'QRaprobador');
+                        mostrarImagenFirma(especificacion.aprobado_por, 'QRaprobador');
                     } else {
                         document.getElementById('mensaje_aprobador').style.display = 'none';
                         $('#fechaAprobacion').text('Firma Pendiente');
@@ -344,12 +344,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        function generarMostrarQR(usuario, contenedorQR) {
-            if (usuario && usuario.ruta_registro) {
-                // Construye la URL de la API de QR
-                var qrApiUrl = 'https://api.qrserver.com/v1/create-qr-code/?data=https://customware.cl/reccius/documentos_publicos/' + encodeURIComponent(usuario.ruta_registro) + '&amp;size=64x64';
 
-                // Crea o actualiza el elemento <img> con la URL del QR
+        function mostrarImagenFirma(usuario, contenedorQR) {
+            if (usuario && usuario.ruta_registro) {
+                // Construye la URL completa de la imagen de la firma
+                var firmaUrl = 'https://customware.cl/reccius/documentos_publicos/' + usuario.qr_documento;
+
+                // Crea o actualiza el elemento <img> con la URL de la imagen
                 var imgElement = document.getElementById(contenedorQR).querySelector('img');
                 if (!imgElement) {
                     imgElement = document.createElement('img');
@@ -357,11 +358,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     imgElement.style.height = '64px';
                     document.getElementById(contenedorQR).appendChild(imgElement);
                 }
-                imgElement.src = qrApiUrl;
+                imgElement.src = firmaUrl;
             } else {
                 // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
                 var contenedor = document.getElementById(contenedorQR);
-                contenedor.textContent = 'Archivo aún no ha sido cargado';
+                contenedor.textContent = 'Firma no disponible';
             }
         }
 
