@@ -279,7 +279,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 100);
 
             setTimeout(ocultarContenedorPrincipal, 200);
-            
+
             setTimeout(actualizarContadorPaginas, 300);
 
         }
@@ -814,7 +814,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
-            
+            verificarYMostrarBotonFirma();
 
         };
     </script>
