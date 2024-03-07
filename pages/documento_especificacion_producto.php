@@ -344,13 +344,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-
         function mostrarImagenFirma(usuario, contenedorQR) {
-            if (usuario && usuario.ruta_registro) {
-                // Construye la URL completa de la imagen de la firma
-                var firmaUrl = 'https://customware.cl/reccius/documentos_publicos/' + usuario.qr_documento;
+            // Variable para almacenar la URL de la imagen de la firma
+            var firmaUrl;
 
-                // Crea o actualiza el elemento <img> con la URL de la imagen
+            // Verifica si existe 'qr_documento' y construye la URL de la imagen de la firma
+            if (usuario && usuario.qr_documento) {
+                firmaUrl = 'https://customware.cl/reccius/documentos_publicos/' + usuario.qr_documento;
+            }
+            // Si 'qr_documento' no existe, pero sí existe 'foto_firma', usa 'foto_firma'
+            else if (usuario && usuario.foto_firma) {
+                firmaUrl = 'https://customware.cl/reccius/documentos_publicos/' + usuario.foto_firma;
+            }
+
+            // Si se ha establecido la URL de la firma, crea o actualiza el elemento <img> con la URL de la imagen
+            if (firmaUrl) {
                 var imgElement = document.getElementById(contenedorQR).querySelector('img');
                 if (!imgElement) {
                     imgElement = document.createElement('img');
@@ -360,11 +368,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
                 imgElement.src = firmaUrl;
             } else {
-                // Obtiene el contenedor y muestra un mensaje si no hay ruta de registro
+                // Si no hay 'qr_documento' ni 'foto_firma', muestra un mensaje de "Firma no disponible"
                 var contenedor = document.getElementById(contenedorQR);
-                contenedor.textContent = 'Firma no disponible';
+                contenedor.innerHTML = '<span style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;">Firma no disponible</span>';
             }
         }
+
 
 
         function mostrarAnalisisFQ(analisis) {
