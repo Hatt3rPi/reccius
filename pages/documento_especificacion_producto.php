@@ -719,6 +719,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Añadir la marca de agua
             const watermark = document.createElement("div");
             watermark.setAttribute("class", "watermark");
+            watermark.textContent = "prueba1";
             container.appendChild(watermark);
 
 
