@@ -24,7 +24,7 @@ jobs:
         env:
           MY_SECRET: ${{ secrets.PRODREPO }}
         run: |
-          if [ -z "$PRODREPO" ]; then
+          if [ -z "$MY_SECRET" ]; then
             echo "Secret is NOT available."
             exit 1
           else
