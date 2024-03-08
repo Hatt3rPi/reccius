@@ -35,7 +35,6 @@ jobs:
       
       - name: Push cambios al repositorio productivo
         run: |
-          git checkout -b new-branch
-          git push git@github.com:Hatt3rPi/recciuscl.git new-branch --force
+          git push git@github.com:Hatt3rPi/recciuscl.git main --force
           
           
