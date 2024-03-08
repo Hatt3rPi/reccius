@@ -31,6 +31,6 @@ jobs:
         run: |
           git config --global user.name 'Hatt3rPi'
           git config --global user.email 'fabarca212@gmail.com'
-          git remote add prod https://${{ secrets.TESST }}@github.com/Hatt3rPi/recciuscl.git
+          git remote add prod https://${{ secrets.PRODREPO }}@github.com/Hatt3rPi/recciuscl.git
           git push prod main
       
