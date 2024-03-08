@@ -40,5 +40,6 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.PRODREPO }} # Asegúrate de que aquí uses el PAT y no GITHUB_TOKEN
+          permissions: write-all
           repository: Hatt3rPi/recciuscl
           branch: main
