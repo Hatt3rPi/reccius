@@ -30,7 +30,7 @@ jobs:
       - name: Push cambios al repositorio productivo
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.PRODUCTION_REPO_PAT }} # Usar el PAT en lugar del GITHUB_TOKEN
+          github_token: ${{ secrets.PRODREPO }} # Usar el PAT en lugar del GITHUB_TOKEN
           repository: Hatt3rPi/recciuscl
           branch: main
 
