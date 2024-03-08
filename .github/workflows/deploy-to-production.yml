@@ -40,5 +40,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.PRODREPO }} # Asegúrate de que aquí uses el PAT y no GITHUB_TOKEN
-          repository: Hatt3rPi/recciuscl
+          repository: https://github.com/Hatt3rPi/recciuscl.git
           branch: main
