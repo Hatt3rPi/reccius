@@ -20,28 +20,19 @@ jobs:
           git config --global user.email "fabarca212@gmail.com"
           git config --global user.name "Hatt3rPi"
           
-      - name: Check if secret is available
-        env:
-          MY_SECRET: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        run: |
-          if [ -z "$MY_SECRET" ]; then
-            echo "Secret is NOT available."
-            exit 1
-          else
-            echo "Secret is available."
-          fi
-
+      # Configura SSH
+      - name: Establecer conexión SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        
+    # Asegúrate de que tus pasos de Git usen SSH en lugar de HTTPS aquí
+    
       - name: Commit cambios
         run: |
           git add .
           git commit -m "Reemplazo automático para producción" || echo "No hay cambios para commit."
-
-      - name: Push cambios al repositorio
-        uses: appleboy/ssh-action@master
-        with:
-          host: github.com
-          username: ${{ github.actor }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            git remote set-url origin git@github.com:${{ github.repository }}.git
-            git push origin main
+      
+      - name: Push cambios al repositorio productivo
+        run: |
+          git push git@github.com:Hatt3rPi/recciuscl.git main
