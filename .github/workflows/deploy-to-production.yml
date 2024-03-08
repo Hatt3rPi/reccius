@@ -22,7 +22,7 @@ jobs:
           
       - name: Check if secret is available
         env:
-          MY_SECRET: ${{ secrets.PRODREPO }}
+          MY_SECRET: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           if [ -z "$MY_SECRET" ]; then
             echo "Secret is NOT available."
@@ -36,9 +36,10 @@ jobs:
           git add .
           git commit -m "Reemplazo automático para producción" || echo "No hay cambios para commit."
 
-      - name: Push cambios al repositorio productivo
+      - name: Push commit inicial al repositorio
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           repository: Hatt3rPi/recciuscl
           branch: main
+          force: true
