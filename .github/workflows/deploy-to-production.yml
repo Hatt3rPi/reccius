@@ -19,25 +19,17 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Espejar al Repositorio Productivo
+      - name: Clonar y preparar el repositorio productivo
         run: |
-          git push --mirror git@github.com:Hatt3rPi/recciuscl.git
-
-      - name: Reemplazar URL y rutas de directorios
-        run: |
+          git clone --single-branch --branch main git@github.com:Hatt3rPi/recciuscl.git prod
+          cd prod
+          # Aplica tus transformaciones aquí
+          rm -rf .github/workflows # Elimina los flujos de trabajo de GitHub Actions
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' {} +
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|/home/customw2|/home/recciusc|g' {} +
-
-      - name: Configurar usuario de Git
-        run: |
-          git config --global user.email "fabarca212@gmail.com"
-          git config --global user.name "Hatt3rPi"
-
-      - name: Commit y Push de los cambios
-        run: |
           git add .
-          git commit -m "Aplicar ajustes post-espejo" || echo "No hay cambios para commit."
-          git push
+          git commit -m "Actualizar el repositorio productivo"
+          git push origin main
 # name: Preparar y Publicar en Producción
 
 # on:
