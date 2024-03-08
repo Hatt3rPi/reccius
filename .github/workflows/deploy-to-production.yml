@@ -39,7 +39,7 @@ jobs:
       - name: Push cambios al repositorio productivo
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.PRODREPO }} # Asegúrate de que aquí uses el PAT y no GITHUB_TOKEN
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           permissions: write-all
           repository: Hatt3rPi/recciuscl
           branch: main
