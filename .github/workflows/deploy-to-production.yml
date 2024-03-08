@@ -14,8 +14,8 @@ jobs:
 
       - name: Reemplazar URL y rutas de directorios
         run: |
-          sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' $(find . -type f)
-          sed -i 's|/home/customw2|/home/recciusc|g' $(find . -type f)
+          find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' {} +
+
 
       - name: Configurar usuario de Git
         run: |
