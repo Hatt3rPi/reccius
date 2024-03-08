@@ -28,9 +28,11 @@ jobs:
           git commit -m "Reemplazo automático para producción" || echo "No hay cambios para commit."
 
       - name: Push cambios al repositorio productivo
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: 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
-          repository: Hatt3rPi/recciuscl
-          branch: main
+        run: |
+          git config --global user.name 'Hatt3rPi'
+          git config --global user.email 'fabarca212@gmail.com'
+          git remote add prod ${URL_REPO_PRODUCTIVO} # Reemplaza esto con la URL de tu repo productivo
+          git push prod main
+        env:
+          URL_REPO_PRODUCTIVO: 'https://Hatt3rPi:${{ secrets.PRODREPO }}@github.com/Hatt3rPi/recciuscl.git'
 
