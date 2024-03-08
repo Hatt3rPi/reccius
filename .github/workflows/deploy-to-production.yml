@@ -40,6 +40,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          permissions: write-all
           repository: Hatt3rPi/recciuscl
           branch: main
