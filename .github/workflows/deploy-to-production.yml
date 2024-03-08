@@ -11,26 +11,21 @@ jobs:
     steps:
       - name: Chequear código fuente
         uses: actions/checkout@v2
-
       - name: Reemplazar URL y rutas de directorios
         run: |
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' {} +
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|/home/customw2|/home/recciusc|g' {} +
-
       - name: Configurar usuario de Git
         run: |
           git config --global user.email "fabarca212@gmail.com"
           git config --global user.name "Hatt3rPi"
-
       - name: Commit cambios
         run: |
           git add .
           git commit -m "Reemplazo automático para producción" || echo "No hay cambios para commit."
-
       - name: Push cambios al repositorio productivo
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@v0.6.0 # Usa una versión específica en lugar de master
         with:
-          github_token: ${{ secrets.PRODREPO }} # Asegúrate de que aquí uses el PAT y no GITHUB_TOKEN
-          repository: Hatt3rPi/recciuscl.git
+          github_token: ${{ secrets.PRODREPO }}
+          repository: Hatt3rPi/recciuscl # Quita .git de aquí
           branch: main
-
