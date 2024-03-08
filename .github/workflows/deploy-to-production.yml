@@ -35,4 +35,5 @@ jobs:
       
       - name: Push cambios al repositorio productivo
         run: |
-          git push git@github.com:Hatt3rPi/recciuscl.git main
+          git push git@github.com:Hatt3rPi/recciuscl.git main --force
+        
