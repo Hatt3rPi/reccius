@@ -15,7 +15,7 @@ jobs:
       - name: Reemplazar URL y rutas de directorios
         run: |
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' {} +
-
+          sed -i 's|/home/customw2|/home/recciusc|g' $(find . -type f)
 
       - name: Configurar usuario de Git
         run: |
@@ -30,6 +30,7 @@ jobs:
       - name: Push cambios al repositorio productivo
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PRODREPO }} # Asegúrate de que aquí uses el PAT y no GITHUB_TOKEN
           repository: Hatt3rPi/recciuscl.git
           branch: main
+
