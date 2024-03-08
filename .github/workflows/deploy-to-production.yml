@@ -24,6 +24,8 @@ jobs:
           git clone --single-branch --branch main git@github.com:Hatt3rPi/recciuscl.git prod
           cd prod
           # Aplica tus transformaciones aquí
+          git config --global user.email "fabarca212@gmail.com"
+          git config --global user.name "Hatt3rPi"
           rm -rf .github/workflows # Elimina los flujos de trabajo de GitHub Actions
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' {} +
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|/home/customw2|/home/recciusc|g' {} +
