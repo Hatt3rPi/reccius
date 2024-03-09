@@ -44,47 +44,8 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.customware.cl
-          username: git_controller@customware.cl
+          username: git_controller@customware.cl 
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps-explicit
 
       
-# name: Preparar y Publicar en Producción
-
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   prepare-for-production:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Chequear código fuente
-#         uses: actions/checkout@v2
-#       - name: Reemplazar URL y rutas de directorios
-#         run: |
-#           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' {} +
-#           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|/home/customw2|/home/recciusc|g' {} +
-#       - name: Configurar usuario de Git
-#         run: |
-#           git config --global user.email "fabarca212@gmail.com"
-#           git config --global user.name "Hatt3rPi"
-          
-#       # Configura SSH
-#       - name: Establecer conexión SSH
-#         uses: webfactory/ssh-agent@v0.5.3
-#         with:
-#           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        
-#     # Asegúrate de que tus pasos de Git usen SSH en lugar de HTTPS aquí
-    
-#       - name: Commit cambios
-#         run: |
-#           git add .
-#           git commit -m "Reemplazo automático para producción" || echo "No hay cambios para commit."
-      
-#       - name: Push cambios al repositorio productivo
-#         run: |
-#           git push git@github.com:Hatt3rPi/recciuscl.git main --force
-          
-          
