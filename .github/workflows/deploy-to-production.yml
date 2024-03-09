@@ -46,6 +46,6 @@ jobs:
           server: ftp.customware.cl
           username: git_controller@customware.cl 
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps-explicit
+          protocol: ftps
 
       
