@@ -47,5 +47,6 @@ jobs:
           username: git_controller@customware.cl 
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
+          passive: true
 
       
