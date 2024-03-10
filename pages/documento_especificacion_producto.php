@@ -721,6 +721,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Añadir la marca de agua
             const watermark = document.createElement("div");
             watermark.setAttribute("class", "watermark");
+            console.log(Wcontent);
             if (Wcontent === 1) {
                 watermark.textContent = 'CONFIDENCIAL';
             }
