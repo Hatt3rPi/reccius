@@ -197,6 +197,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
     <script>
+        var Wcontent = 0;
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
         document.getElementById('download-pdf').addEventListener('click', async function() {
@@ -376,6 +377,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Si no hay 'qr_documento' ni 'foto_firma', muestra un mensaje de "Firma no disponible"
                 var contenedor = document.getElementById(contenedorQR);
                 contenedor.innerHTML = '<span style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;">Firma no disponible</span>';
+                Wcontent = 2;
             }
         }
 
@@ -543,7 +545,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
         }
-        var Wcontent = 0;
+        
         function verificarYMostrarBotonFirma(response) {
             console.log("Respuesta recibida:", response);
 
@@ -568,17 +570,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.log("Mostrar botón de firma (habilitado)");
                 document.getElementById('sign-document').style.display = 'block';
                 document.getElementById('sign-document').disabled = false;
-                Wcontent += 2;
+                Wcontent = 2;
             } else if (esAprobadorPendiente && !revisorHaFirmado) {
                 console.log("Mostrar botón de firma (deshabilitado)");
                 document.getElementById('sign-document').style.display = 'block';
                 document.getElementById('sign-document').disabled = true;
                 document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
-                Wcontent += 2;
+                Wcontent = 2;
             } else {
                 console.log("No mostrar botón de firma");
                 document.getElementById('sign-document').style.display = 'none';
-                Wcontent += 1;
+                Wcontent = 1;
             }
         }
 
