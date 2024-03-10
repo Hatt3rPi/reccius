@@ -197,7 +197,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
     <script>
-        var Wcontent = 0;
+        var Wcontent = 2;
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
         document.getElementById('download-pdf').addEventListener('click', async function() {
