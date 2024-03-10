@@ -232,6 +232,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         function cargarDatosEspecificacion(id) {
+            console.log("A1")
             $.ajax({
                 url: './backend/calidad/documento_especificacion_productoBE.php',
                 type: 'GET',
@@ -250,6 +251,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         async function procesarDatosEspecificacion(response) {
+            console.log("A2")
             // Validación de la respuesta
             if (!response || !response.productos || !Array.isArray(response.productos)) {
                 console.error('Los datos recibidos no son válidos:', response);
@@ -291,6 +293,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function poblarYDeshabilitarCamposProducto(producto) {
+            console.log("A3")
             if (producto) {
                 // Usando .text() para elementos h2, h3 y p
                 $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
@@ -351,6 +354,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function mostrarImagenFirma(usuario, contenedorQR) {
+            console.log("A4")
             // Variable para almacenar la URL de la imagen de la firma
             var firmaUrl;
 
@@ -384,6 +388,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         function mostrarAnalisisFQ(analisis) {
+            console.log("A5")
             // Verifica si hay datos para el análisis FQ
             console.log(analisis)
             if (analisis.length > 0) {
@@ -436,6 +441,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function mostrarAnalisisMB(analisis) {
+            console.log("A6")
             // Verifica si hay datos para el análisis microbiológico
             if (analisis.length > 0) {
                 // Si hay datos, muestra la tabla y procesa los datos
@@ -500,14 +506,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         function esRevisorYFirmaPendiente() {
+            console.log("A7")
             return $('#revisadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaRevision').text() === 'Firma Pendiente';
         }
 
         function esAprobadorYFirmaPendiente() {
+            console.log("A8")
             return $('#aprobadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaAprobacion').text() === 'Firma Pendiente';
         }
 
         function firmarDocumento() {
+            console.log("A9")
             // Obten los datos necesarios para la firmaid_especificacion
             var idEspecificacion = $('#id_especificacion').text().trim();
             var rolUsuario = '';
@@ -547,6 +556,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
         
         function verificarYMostrarBotonFirma(response) {
+            console.log("A10")
             console.log("Respuesta recibida:", response);
 
             if (!response || !response.productos || !Array.isArray(response.productos)) {
@@ -588,6 +598,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         function actualizarEstadoDocumento() {
+            console.log("A11")
             var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
             var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
             var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
@@ -608,6 +619,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         function obtenerAlturaElementosYCalcularEspacioDisponible() {
+            console.log("A12")
             const alturaTotal = 792; // Altura total de la página en puntos
             const alturaHeader = 123; // Altura del encabezado
             const alturaFooter = 224; // Altura del pie de página
@@ -629,6 +641,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         async function newTabla(id, trsContent, trsAdditionalContent) {
+            console.log("A13")
             let tableContainer = createTableContainer();
             let alturaTotalDisponible = 700; // Altura disponible antes de necesitar un nuevo contenedor.
 
@@ -661,6 +674,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
+            console.log("A14")
             tr.querySelectorAll("td").forEach(td => {
                 td.style.fontSize = "10px"; // Ajusta el tamaño de la fuente
                 td.style.borderLeft = "none"; // Elimina el borde izquierdo
@@ -687,6 +701,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         function createTableContainer() {
+            console.log("A15")
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
 
             const container = document.createElement("div");
@@ -750,6 +765,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         // Esta función actualiza el contador de páginas para el contenedor actual.
         function actualizarContadorPaginas() {
+            console.log("A16")
             // Seleccionar todos los contenedores clonados y actualizar sus contadores
             const contenedores = document.querySelectorAll(".pagina-numero");
             const cantidadPaginas = contenedores.length
@@ -763,6 +779,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function createAnalysisSection(title) {
+            console.log("A17")
             const analysisSection = document.createElement("div");
             analysisSection.className = "analysis-section";
             analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
@@ -771,6 +788,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function createTableBody(id, container, sectionId) {
+            console.log("A18")
             const newTable = document.createElement("table");
             newTable.setAttribute("id", id);
             newTable.classList.add("table", "table-bordered");
@@ -834,6 +852,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         function ocultarContenedorPrincipal() {
+            console.log("A19")
             var contenedorPrincipal = document.getElementById('Maincontainer');
             var contenedorForm = document.getElementById('form-container');
             contenedorPrincipal.style.display = 'none';
