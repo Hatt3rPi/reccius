@@ -732,6 +732,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             else{
                 watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+                watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
             }
             container.appendChild(watermark);
 
