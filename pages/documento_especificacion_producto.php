@@ -580,7 +580,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             } else {
                 console.log("No mostrar botón de firma");
                 document.getElementById('sign-document').style.display = 'none';
-                Wcontent = 1;
+                Wcontent = 2;
             }
         }
 
