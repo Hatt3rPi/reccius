@@ -251,7 +251,7 @@ p {
     font-family: 'Verdana', Geneva, Tahoma, sans-serif;
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 40%;
     transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5); /* Aumenta la escala verticalmente */
     transform-origin: center center;
     font-size: 110px; /* Ajusta este valor según sea necesario */
@@ -261,7 +261,7 @@ p {
     width: 100%; /* Asegúrate de que abarque todo el ancho del contenedor */
     text-align: center; /* Centra el texto horizontalmente */
     white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
-    font-size: 60px;
+    font-size: 70px;
 }
 
 

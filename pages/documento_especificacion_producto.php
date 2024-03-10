@@ -377,7 +377,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Si no hay 'qr_documento' ni 'foto_firma', muestra un mensaje de "Firma no disponible"
                 var contenedor = document.getElementById(contenedorQR);
                 contenedor.innerHTML = '<span style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;">Firma no disponible</span>';
-                Wcontent = 2;
+                
             }
         }
 
@@ -580,7 +580,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             } else {
                 console.log("No mostrar botón de firma");
                 document.getElementById('sign-document').style.display = 'none';
-                Wcontent = 2;
+                Wcontent = 1;
             }
         }
 
