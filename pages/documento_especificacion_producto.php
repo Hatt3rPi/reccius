@@ -577,10 +577,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 document.getElementById('sign-document').disabled = true;
                 document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
                 Wcontent = 2;
-            }else if(!esAprobadorPendiente && !esRevisorPendiente){
-                console.log("firmas listas");
-                Wcontent = 1;                
-            }else {
+            } else {
                 console.log("No mostrar botón de firma");
                 document.getElementById('sign-document').style.display = 'none';
                 
@@ -600,7 +597,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
                 if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
                     watermark.textContent = 'CONFIDENCIAL';
-                    
+                    Wcontent = 1;
                 } else {
                     watermark.textContent = 'PENDIENTE DE APROBACIÓN';
                     watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
