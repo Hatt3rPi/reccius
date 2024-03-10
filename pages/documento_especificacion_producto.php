@@ -579,6 +579,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
+        var Wcontent = 0;
 
 
         function actualizarEstadoDocumento() {
@@ -591,9 +592,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
                 if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
                     watermark.textContent = 'CONFIDENCIAL';
+                    Wcontent += 1;
                 } else {
                     watermark.textContent = 'PENDIENTE DE APROBACIÓN';
                     watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
+                    Wcontent += 2;
                 }
             });
         }
@@ -718,7 +721,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Añadir la marca de agua
             const watermark = document.createElement("div");
             watermark.setAttribute("class", "watermark");
-            watermark.textContent = "prueba1";
+            if (Wcontent === 1) {
+                watermark.textContent = 'CONFIDENCIAL';
+            }
+            else if (Wcontent === 2) {
+                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
+            }
+            else{
+                watermark.textContent = '';
+            }
             container.appendChild(watermark);
 
 
