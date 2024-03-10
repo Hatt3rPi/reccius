@@ -543,7 +543,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
         }
-
+        var Wcontent = 0;
         function verificarYMostrarBotonFirma(response) {
             console.log("Respuesta recibida:", response);
 
@@ -568,18 +568,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.log("Mostrar botón de firma (habilitado)");
                 document.getElementById('sign-document').style.display = 'block';
                 document.getElementById('sign-document').disabled = false;
+                Wcontent += 2;
             } else if (esAprobadorPendiente && !revisorHaFirmado) {
                 console.log("Mostrar botón de firma (deshabilitado)");
                 document.getElementById('sign-document').style.display = 'block';
                 document.getElementById('sign-document').disabled = true;
                 document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
+                Wcontent += 2;
             } else {
                 console.log("No mostrar botón de firma");
                 document.getElementById('sign-document').style.display = 'none';
+                Wcontent += 1;
             }
         }
 
-        var Wcontent = 0;
+        
 
 
         function actualizarEstadoDocumento() {
@@ -592,11 +595,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
                 if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
                     watermark.textContent = 'CONFIDENCIAL';
-                    Wcontent += 1;
+                    
                 } else {
                     watermark.textContent = 'PENDIENTE DE APROBACIÓN';
                     watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
-                    Wcontent += 2;
+                    
                 }
             });
         }
@@ -725,11 +728,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if (Wcontent === 1) {
                 watermark.textContent = 'CONFIDENCIAL';
             }
-            else if (Wcontent === 2) {
-                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-            }
             else{
-                watermark.textContent = '';
+                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
             }
             container.appendChild(watermark);
 
