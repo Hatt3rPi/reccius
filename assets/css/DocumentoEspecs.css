@@ -248,17 +248,17 @@ p {
 }
 
 .pendiente-aprobacion {
-    font-family: 'Arial', sans-serif; /* Cambia a la fuente que corresponda */
+    font-family: 'Verdana', Geneva, Tahoma, sans-serif;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg); /* Mantén el texto en diagonal */
-    transform-origin: 0 50%; /* Ajusta el origen de la transformación si es necesario */
-    font-size: 100px; /* Ajusta este valor según el tamaño deseado */
-    color: rgba(255, 0, 0, 0.5); /* Cambia el color y la transparencia según sea necesario */
+    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5); /* Aumenta la escala verticalmente */
+    transform-origin: center center;
+    font-size: 110px; /* Ajusta este valor según sea necesario */
+    color: rgba(0, 0, 0, 0.2); /* Semitransparente */
     pointer-events: none;
     z-index: 9999;
-    width: 100vw; /* Utiliza 100vw para que abarque todo el ancho de la ventana */
+    width: 100%; /* Asegúrate de que abarque todo el ancho del contenedor */
     text-align: center; /* Centra el texto horizontalmente */
     white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
     font-size: 60px;
