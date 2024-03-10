@@ -577,10 +577,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 document.getElementById('sign-document').disabled = true;
                 document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
                 Wcontent = 2;
-            } else {
+            }else if(!esAprobadorPendiente && !esRevisorPendiente){
+                console.log("firmas listas");
+                Wcontent = 1;                
+            }else {
                 console.log("No mostrar botón de firma");
                 document.getElementById('sign-document').style.display = 'none';
-                Wcontent = 1;
+                
             }
         }
 
