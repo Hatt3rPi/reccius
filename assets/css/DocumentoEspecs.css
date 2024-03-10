@@ -247,7 +247,7 @@ p {
     white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
 }
 
-#watermark.pendiente-approbacion {
+.pendiente-aprobacion {
     font-family: 'Arial', sans-serif; /* Cambia a la fuente que corresponda */
     position: absolute;
     top: 50%;
@@ -261,8 +261,7 @@ p {
     width: 100vw; /* Utiliza 100vw para que abarque todo el ancho de la ventana */
     text-align: center; /* Centra el texto horizontalmente */
     white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
-    line-height: 1; /* Ajusta el interlineado si es necesario */
-    letter-spacing: -5px; /* Ajusta el espaciado entre letras si es necesario */
+    font-size: 60px;
 }
 
 

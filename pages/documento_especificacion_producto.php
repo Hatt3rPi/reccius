@@ -591,7 +591,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
                 if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
                     watermark.textContent = 'CONFIDENCIAL';
-                    watermark.classList.remove('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
                 } else {
                     watermark.textContent = 'PENDIENTE DE APROBACIÓN';
                     watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
