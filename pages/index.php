@@ -217,7 +217,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script type="module">
     // Ahora puedes usar la sintaxis import
     import { obtenNotificaciones } from '../assets/js/scripts_index.js';
-
+    import { botones } from '../../../assets/js/scripts_index.js';
 
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
