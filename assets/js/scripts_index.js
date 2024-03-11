@@ -1,5 +1,6 @@
 //archivo scripts_index.js
 import FLAGS from './features_customware.js';
+import { carga_listado_especificacionProducto } from '../../pages/backend/calidad/listado_especificaciones_producto.js';
 
 function featureNoDisponible(){
     event.preventDefault();
@@ -207,7 +208,10 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#listado_especificacion_producto').click(function (event) {
+        
         if(FLAGS.especificacionProducto_listado){
+            
+
         event.preventDefault(); // Prevenir la navegación predeterminada
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -221,7 +225,7 @@ $(document).ready(function () {
                 console.log('Listado cargado correctamente cargado exitosamente.'); // Confirmar que la carga fue exitosa
                 obtenNotificaciones();
                 
-                carga_listado();
+                carga_listado_especificacionProducto();
             }
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
