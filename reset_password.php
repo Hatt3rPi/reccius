@@ -22,8 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if (!$link) {
             die("Conexión fallida: " . mysqli_connect_error());
         }
-
-        $stmt = mysqli_prepare($link, "SELECT usuario_id, fecha_expiracion FROM tokens_reset WHERE token = ? AND fecha_expiracion > NOW()");
+        $stmt = mysqli_prepare($link, "SELECT usuario_id, fecha_expiracion FROM tokens_reset WHERE token = ? AND fecha_expiracion > NOW() AND consumido = 0");
         mysqli_stmt_bind_param($stmt, "s", $token);
         mysqli_stmt_execute($stmt);
         $resultado = mysqli_stmt_get_result($stmt);
@@ -57,10 +56,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
         mysqli_stmt_bind_param($update, "si", $contrasenaHash, $usuario_id);
 
         if (mysqli_stmt_execute($update)) {
+            // Actualización exitosa, ahora marcar el token como consumido
+            $stmt_consumido = mysqli_prepare($link, "UPDATE tokens_reset SET consumido = 1 WHERE token = ?");
+            mysqli_stmt_bind_param($stmt_consumido, "s", $token);
+            mysqli_stmt_execute($stmt_consumido);
+            mysqli_stmt_close($stmt_consumido);
+        
             $success = 'Tu contraseña ha sido restablecida exitosamente.';
             header("Location: pages/login.html");
             exit();
-            // Opcionalmente, invalidar el token aquí
         } else {
             $error = 'Error al restablecer tu contraseña: ' . mysqli_stmt_error($update);
         }
