@@ -10,7 +10,7 @@ function featureNoDisponible(){
         $('#dynamic-content').show();
     });
 }
-$(document).ready(function () {
+
     function obtenNotificaciones() {
         fetch('../pages/backend/login/notificaciones.php')
             .then(response => response.json())
@@ -25,7 +25,7 @@ $(document).ready(function () {
             })
             .catch(error => console.error('Error:', error));
     }
-});
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
