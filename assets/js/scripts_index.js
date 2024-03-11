@@ -10,20 +10,23 @@ function featureNoDisponible(){
         $('#dynamic-content').show();
     });
 }
-function obtenNotificaciones() {
-    fetch('../pages/backend/login/notificaciones.php')
-        .then(response => response.json())
-        .then(data => {
-            const notificationCountElement = document.querySelector('.notification-count');
-            contador_notificaciones
-            if (data.count > 0) {
-                $('#contador_notificaciones').text(data.count).show();
-            } else {
-                $('#contador_notificaciones').text(0).hide();
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
+$(document).ready(function () {
+    function obtenNotificaciones() {
+        fetch('../pages/backend/login/notificaciones.php')
+            .then(response => response.json())
+            .then(data => {
+                const notificationCountElement = document.querySelector('.notification-count');
+                contador_notificaciones
+                if (data.count > 0) {
+                    $('#contador_notificaciones').text(data.count).show();
+                } else {
+                    $('#contador_notificaciones').text(0).hide();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const sidebarList = document.getElementById("sidebarList");
