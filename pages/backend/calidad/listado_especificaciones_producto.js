@@ -1,5 +1,5 @@
     // Ahora puedes usar la sintaxis import
-    import { botones } from '../../../assets/js/scripts_index.js';
+    //import { botones } from '../../../assets/js/scripts_index.js';
 
 
     function filtrar_listado(estado) {
@@ -108,7 +108,7 @@
         carga_listado_especificacionProducto(buscarEspecificacion);
     }
 }
-export function botones(id, accion, base) {
+function botones(id, accion, base) {
     switch (base){
         case "especificacion":{
             switch (accion) {
