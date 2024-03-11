@@ -17,6 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script type="module">import { botones } from '../assets/js/scripts_index.js';</script>
 <link rel="stylesheet" href="../assets/css/Listados.css">
     <!-- Incluye aquí otros archivos necesarios (jQuery, DataTables CSS, FontAwesome, etc.) -->
 </head>
@@ -84,7 +85,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
         var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
         var usuarioEjecutorOriginal="";
-        import { botones } from '../assets/js/scripts_index.js';
         function cargaListadoTareas() {
             var table = $('#listado').DataTable({
                 "ajax": "./backend/tareas/listado_tareasBE.php",
