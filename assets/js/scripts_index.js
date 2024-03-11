@@ -24,6 +24,7 @@ function obtenNotificaciones() {
         })
         .catch(error => console.error('Error:', error));
 }
+
 document.addEventListener("DOMContentLoaded", function () {
     const sidebarList = document.getElementById("sidebarList");
 
@@ -94,6 +95,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#asignar-roles').click(function (event) {
+        if(FLAGS.asignarRoles){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -102,10 +104,14 @@ $(document).ready(function () {
         $('#dynamic-content').load('asignar_roles.php');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 $(document).ready(function () {
     $('#configuracion').click(function (event) {
+        if(FLAGS.configuracion_perfil){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -117,11 +123,15 @@ $(document).ready(function () {
         
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 
 $(document).ready(function () {
     $('#especificacion_producto').click(function (event) {
+        if(FLAGS.especificacionProducto_creacion){
         event.preventDefault();
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -136,68 +146,15 @@ $(document).ready(function () {
         });
         
         console.log('Proceso finalizado');
-    });
-});
-
-$(document).ready(function () {
-    $('#preparacion_solicitud').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('LABORATORIO_preparacion_solicitud.php', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-
-$(document).ready(function () {
-     $('#dynamic-content').hide();
-    $('#loading-spinner').show();
-    $('#preparacion_solicitud').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        obtenNotificaciones();
-        $('#testing').load('LABORATORIO_preparacion_solicitud.php');
-        $('#loading-spinner').hide();
-        $('#dynamic-content').show();
-    });
-    $('#loading-spinner').hide();
-});
-
-
-$(document).ready(function () {
-    $('#preparacion_analisis').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('CALIDAD_acta_muestreo.php', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 
 $(document).ready(function () {
     $('#acta_liberacion').click(function (event) {
+        if(FLAGS.acta_liberacion_rechazo){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -214,11 +171,15 @@ $(document).ready(function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 
 $(document).ready(function () {
     $('#resultados_laboratorio').click(function (event) {
+        if(FLAGS.ingreso_resultados_laboratorio){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -235,11 +196,15 @@ $(document).ready(function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 
 $(document).ready(function () {
     $('#listado_especificacion_producto').click(function (event) {
+        if(FLAGS.especificacionProducto_listado){
         event.preventDefault(); // Prevenir la navegación predeterminada
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -258,6 +223,9 @@ $(document).ready(function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 $(document).ready(function () {
@@ -304,26 +272,6 @@ $(document).ready(function () {
 });
 
 
-$(document).ready(function () {
-    $('#testeo').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-        $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('DocumentsEspecs2.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
 $(window).on('load', function() {
     // Oculta el spinner una vez que se haya cargado toda la página
     $('#loading-spinner').hide();
@@ -333,6 +281,7 @@ $(window).on('load', function() {
 
 $(document).ready(function () {
     $('#listado_solicitudes_analisis').click(function (event) {
+        if(FLAGS.analisis_externo_listado){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -350,11 +299,15 @@ $(document).ready(function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 
 $(document).ready(function () {
     $('#listado_productos_disponibles').click(function (event) {
+        if(FLAGS.productos_disponibles_listado){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -372,11 +325,15 @@ $(document).ready(function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 
 $(document).ready(function () {
     $('#listado_acta_muestreo').click(function (event) {
+        if(FLAGS.acta_muestreo_listado){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -394,69 +351,9 @@ $(document).ready(function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
-    });
-});
-
-$(document).ready(function () {
-    $('#documento_acta_muestreo').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('documento_Acta_muestreo.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-
-$(document).ready(function () {
-    $('#documento_Analisis_externo').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('documento_Analisis_externo.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
-    });
-});
-
-$(document).ready(function () {
-    $('#TESTEO').click(function (event) {
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
-
-        // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('TESTEO.html', function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-            } else {
-                obtenNotificaciones();
-                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-            }
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
+        } else {
+            featureNoDisponible();
+        }
     });
 });
 
@@ -521,28 +418,31 @@ function botones(id, accion, base) {
                 }
                 case "prepararSolicitud": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
-                    
-                    $.ajax({
-                        url: 'LABORATORIO_preparacion_solicitud.php', // URL del script PHP
-                        type: 'POST', // Tipo de solicitud
-                        data: { 
-                            'id': id,
-                            'accion': accion
-                             }, // Datos que se enviarán con la solicitud
-                        success: function(response) {
-                            // Esta función se ejecuta cuando la solicitud es exitosa
-                            console.log('especificacion_producto redirigida con éxito ');
-                            $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
-                            cargarDatosEspecificacion(id);
-                            
-                        },
-                        error: function(xhr, status, error) {
-                            // Esta función se ejecuta en caso de error en la solicitud
-                            console.error("Error en la solicitud: ", status, error);
-                        }
-                    });
-                    
-                    console.log('Proceso finalizado');
+                    if(FLAGS.analisis_externo){
+                        $.ajax({
+                            url: 'LABORATORIO_preparacion_solicitud.php', // URL del script PHP
+                            type: 'POST', // Tipo de solicitud
+                            data: { 
+                                'id': id,
+                                'accion': accion
+                                }, // Datos que se enviarán con la solicitud
+                            success: function(response) {
+                                // Esta función se ejecuta cuando la solicitud es exitosa
+                                console.log('especificacion_producto redirigida con éxito ');
+                                $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
+                                cargarDatosEspecificacion(id);
+                                
+                            },
+                            error: function(xhr, status, error) {
+                                // Esta función se ejecuta en caso de error en la solicitud
+                                console.error("Error en la solicitud: ", status, error);
+                            }
+                        });
+                        
+                        console.log('Proceso finalizado');
+                    } else {
+                        featureNoDisponible();
+                    }
                     break;
                 }
             }

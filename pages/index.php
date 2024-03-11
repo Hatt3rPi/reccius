@@ -192,12 +192,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </span>
                             Ingreso resultados de laboratorio
                         </a>
-                        <a id="TESTEO" href="#" data-breadcrumb="Home > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
-                            <span>
-                                <img src="../assets/images/resultados.svg" alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                            </span>
-                            Ingreso resultados de laboratorio
-                        </a>
                     </div>
                 </li>
             </ul>
