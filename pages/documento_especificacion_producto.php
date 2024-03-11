@@ -21,6 +21,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="../assets/js/notificacion.js"></script>
+    
 </head>
 
 <body>
@@ -237,7 +238,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
-            
+            mostrarNotificacion("Creando PDF", "advertencia");
              // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
             await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
 
@@ -270,6 +271,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var nombreProducto = document.getElementById('producto').textContent.trim();
             var nombreDocumento = document.getElementById('documento').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            mostrarNotificacion("PDF generado con exito", "éxito");
         });
 
         function cargarDatosEspecificacion(id) {
