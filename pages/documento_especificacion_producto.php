@@ -187,10 +187,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </div>
     </div>
+    <button id="PRUEBA">PRUEBA</button>
     <div class="button-container">
         <button id="sign-document" style="display: none;">Firmar Documento</button>
         <button id="download-pdf">Descargar PDF</button>
-        <button id="PRUEBA">PRUEBA</button>
+        
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
     </div>
