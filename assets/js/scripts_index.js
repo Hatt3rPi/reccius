@@ -6,6 +6,8 @@ function featureNoDisponible(){
     $('#dynamic-content').hide();
     $('#loading-spinner').show();
     $('#dynamic-content').load('feature_en_contruccion.html', function () {
+        $('#loading-spinner').hide();
+        $('#dynamic-content').show();
     });
 }
 function obtenNotificaciones() {
