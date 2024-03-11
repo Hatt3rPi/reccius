@@ -1,3 +1,12 @@
+import FLAGS from '/home/customw2/librerias/features_customware.js';
+
+function featureNoDisponible(){
+    event.preventDefault();
+    $('#dynamic-content').hide();
+    $('#loading-spinner').show();
+    $('#dynamic-content').load('feature_en_contruccion.html', function () {
+    });
+}
 document.addEventListener("DOMContentLoaded", function () {
     const sidebarList = document.getElementById("sidebarList");
 
@@ -47,16 +56,22 @@ function inicializarFormularioCrearUsuario() {
 
 $(document).ready(function () {
     $('#crear-usuario').click(function (event) {
-        event.preventDefault();
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        $('#dynamic-content').load('crear_usuario.php', function () {
-            // Llamar a la función de inicialización después de cargar el formulario
-            obtenNotificaciones();
-            inicializarFormularioCrearUsuario();
-            $('#loading-spinner').hide();
-            $('#dynamic-content').show();
-        });
+        if(FLAGS.crear_usuario){
+            event.preventDefault();
+            $('#dynamic-content').hide();
+            $('#loading-spinner').show();
+            $('#dynamic-content').load('crear_usuario.php', function () {
+                // Llamar a la función de inicialización después de cargar el formulario
+                obtenNotificaciones();
+                inicializarFormularioCrearUsuario();
+                $('#loading-spinner').hide();
+                $('#dynamic-content').show();
+            });
+        }
+        else
+        {
+            featureNoDisponible();
+        }
     });
 });
 
