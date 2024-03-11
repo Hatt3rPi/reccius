@@ -232,7 +232,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
         });
 
-        document.getElementById('download-pdf').addEventListener('click', async function() {
+        document.getElementById('PRUEBA').addEventListener('click', async function() {
             obtenerAlturaElementosYCalcularEspacioDisponible();
             actualizarContadorPaginas();
             var pdf = new jspdf.jsPDF({
