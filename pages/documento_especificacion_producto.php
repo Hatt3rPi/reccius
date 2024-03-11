@@ -238,6 +238,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
             
+             // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
+            await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
+
+
             var pdf = new jspdf.jsPDF({
                 orientation: 'portrait',
                 unit: 'pt',
