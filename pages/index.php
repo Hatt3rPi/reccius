@@ -210,26 +210,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </main>
     </div>
     <script src="../assets/js/scripts_index.js" type="module"></script>
-    <script type="module">import { obtenNotificaciones } from '../assets/js/scripts_index.js';</script>
 
 </body>
 
 </html>
-<script>
-function obtenNotificaciones() {
-        fetch('../pages/backend/login/notificaciones.php')
-            .then(response => response.json())
-            .then(data => {
-                const notificationCountElement = document.querySelector('.notification-count');
-                contador_notificaciones
-                if (data.count > 0) {
-                    $('#contador_notificaciones').text(data.count).show();
-                } else {
-                    $('#contador_notificaciones').text(0).hide();
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
+<script type="module">
+    // Ahora puedes usar la sintaxis import
+    import { obtenNotificaciones } from '../assets/js/scripts_index.js';
+
+
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
@@ -254,8 +243,7 @@ function obtenNotificaciones() {
 
     obtenNotificaciones();
     fetchUserInfo();
-</script>
-<script>
+
     document.getElementById('toggle-sidebar-btn').addEventListener('click', function() {
         var sidebar = document.querySelector('.sidebar');
         var content = document.querySelector('.content');
@@ -271,8 +259,7 @@ function obtenNotificaciones() {
 
         
     });
-</script>
-<script>
+
 document.addEventListener("DOMContentLoaded", function() {
     // Inicializa el breadcrumb al cargar la página
     inicializarBreadcrumb();
