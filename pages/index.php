@@ -103,12 +103,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </spam> Usuarios y Roles
                     </a>
                     <div class="smenu">
-                    <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
-                        <span>
-                            <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
-                        </span>
-                        Test auto despliegue día 2
-                        </a>
                         <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
 
                             <span>
