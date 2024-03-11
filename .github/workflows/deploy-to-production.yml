@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  mirror-to-production:
+  conditional-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Chequear código fuente
@@ -14,16 +14,17 @@ jobs:
         with:
           fetch-depth: '0' # Importante para asegurar que se obtiene todo el historial
 
-      - name: Configurar SSH
+      - name: Configurar SSH para Producción
+        if: github.repository == 'Hatt3rPi/reccius'
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Clonar y preparar el repositorio productivo
+        if: github.repository == 'Hatt3rPi/reccius'
         run: |
           git clone --single-branch --branch main git@github.com:Hatt3rPi/reccius.git temp_dir
           cd temp_dir
-          rm -f .github/workflows/deploy-to-production.yml || true
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/customware|g' {} +
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|/home/customw2|/home/recciusc|g' {} +
           git config --global user.email "fabarca212@gmail.com"
@@ -33,20 +34,20 @@ jobs:
           git remote add production git@github.com:Hatt3rPi/recciuscl.git
           git push production main --force
 
-  deploy-to-development:
-    needs: mirror-to-production
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.1.0
-        with:
-          fetch-depth: 0
-      - name: FTP-Deploy-Action
+      - name: FTP-Deploy-Action para Desarrollo
+        if: github.repository == 'Hatt3rPi/reccius'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.customware.cl
-          username: git_controller@customware.cl 
+          username: git_controller@customware.cl
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           passive: true
 
-      
+      - name: FTP-Deploy-Action para Producción
+        if: github.repository == 'Hatt3rPi/recciuscl'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.reccius.cl
+          username: customware@reccius.cl
+          password: ${{ secrets.FTP_PASSWORD }}
