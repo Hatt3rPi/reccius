@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $mostrarFormulario = true;
             $usuario_id = $fila['usuario_id'];
         } else {
-            $error = 'El enlace de restablecimiento no es válido o ha expirado.';
+            $error = 'El enlace de restablecimiento no es válido, ha expirado o ya fue utilizado.';
         }
 
         mysqli_stmt_close($stmt);
@@ -57,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
 
         if (mysqli_stmt_execute($update)) {
             // Actualización exitosa, ahora marcar el token como consumido
-            $stmt_consumido = mysqli_prepare($link, "UPDATE tokens_reset SET consumido = 1 WHERE token = ?");
-            mysqli_stmt_bind_param($stmt_consumido, "s", $token);
+            $stmt_consumido = mysqli_prepare($link, "UPDATE tokens_reset SET consumido = 1 WHERE usuario_id  = ?");
+            mysqli_stmt_bind_param($stmt_consumido, "s", $usuario_id);
             mysqli_stmt_execute($stmt_consumido);
             mysqli_stmt_close($stmt_consumido);
         
