@@ -23,8 +23,8 @@ jobs:
         run: |
           git clone --single-branch --branch main git@github.com:Hatt3rPi/reccius.git temp_dir
           cd temp_dir
-          rm -f .github/workflows/deploy-to-production.yml
-          find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/recciuscl|g' {} +
+          rm -f .github/workflows/deploy-to-production.yml || true
+          find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|https://customware.cl/reccius|https://reccius.cl/customware|g' {} +
           find . -type f ! -name "*.png" ! -name "*.jpg" -exec sed -i 's|/home/customw2|/home/recciusc|g' {} +
           git config --global user.email "fabarca212@gmail.com"
           git config --global user.name "Hatt3rPi"
