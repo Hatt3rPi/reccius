@@ -1,5 +1,5 @@
 //archivo scripts_index.js
-import FLAGS from 'features_customware.js';
+import FLAGS from '/features_customware.js';
 
 function featureNoDisponible(){
     event.preventDefault();
