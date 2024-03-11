@@ -190,6 +190,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="button-container">
         <button id="sign-document" style="display: none;">Firmar Documento</button>
         <button id="download-pdf">Descargar PDF</button>
+        <button id="PRUEBA">PRUEBA</button>
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
     </div>
@@ -201,6 +202,39 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
         document.getElementById('download-pdf').addEventListener('click', async function() {
+            var pdf = new jspdf.jsPDF({
+                orientation: 'portrait',
+                unit: 'pt',
+                format: 'letter'
+            });
+
+            // Seleccionar todos los contenedores que deben incluirse en el PDF
+            var containers = document.querySelectorAll('.document-cloned-container');
+
+            for (let i = 0; i < containers.length; i++) {
+                if (i > 0) {
+                    pdf.addPage();
+                }
+
+                await html2canvas(containers[i], {
+                    scale: 2
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/png');
+                    var pdfWidth = pdf.internal.pageSize.getWidth();
+                    var pdfHeight = pdf.internal.pageSize.getHeight();
+
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                });
+            }
+
+            var nombreProducto = document.getElementById('producto').textContent.trim();
+            var nombreDocumento = document.getElementById('documento').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+        });
+
+        document.getElementById('download-pdf').addEventListener('click', async function() {
+            obtenerAlturaElementosYCalcularEspacioDisponible();
+            actualizarContadorPaginas();
             var pdf = new jspdf.jsPDF({
                 orientation: 'portrait',
                 unit: 'pt',
@@ -284,11 +318,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                 }
             });
-            setTimeout(obtenerAlturaElementosYCalcularEspacioDisponible, 100);
-
-            setTimeout(ocultarContenedorPrincipal, 200);
-
-            setTimeout(actualizarContadorPaginas, 300);
+            
 
         }
 
@@ -543,7 +573,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     console.log('Firma actualizada correctamente:', response);
                     // Actualiza el estado del documento en el frontend
                     actualizarEstadoDocumento();
-                    verificarYMostrarBotonFirma();
+                    cargarDatosEspecificacion(idEspecificacion);
                     // Mostrar notificaciones de éxito y advertencia
                     mostrarNotificacion("Documento firmado con éxito.", "éxito");
                     mostrarNotificacion("Tarea terminada con éxito", "éxito");
