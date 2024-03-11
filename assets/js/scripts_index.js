@@ -1,4 +1,5 @@
-const FLAGS = require('/home/customw2/librerias/features_customware.js');
+//archivo scripts_index.js
+import FLAGS from '/home/recciusc/librerias/features_customware.js';
 
 function featureNoDisponible(){
     event.preventDefault();

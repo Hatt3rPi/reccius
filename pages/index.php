@@ -215,7 +215,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </main>
     </div>
-    <script src="../assets/js/scripts_index.js"></script>
+    <script src="../assets/js/scripts_index.js" type="module"></script>
+
 </body>
 
 </html>
