@@ -235,7 +235,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         document.getElementById('PRUEBA').addEventListener('click', async function() {
             obtenerAlturaElementosYCalcularEspacioDisponible();
+            ocultarContenedorPrincipal();
             actualizarContadorPaginas();
+            
             var pdf = new jspdf.jsPDF({
                 orientation: 'portrait',
                 unit: 'pt',
