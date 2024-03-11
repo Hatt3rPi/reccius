@@ -188,10 +188,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </div>
     </div>
-    <button id="PRUEBA">PRUEBA</button>
     <div class="button-container">
         <button id="sign-document" style="display: none;">Firmar Documento</button>
-        <button id="download-pdf">Descargar PDF</button>
+        <button id="PDF">Descargar PDF</button>
         
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
@@ -203,38 +202,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var Wcontent = 2;
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('download-pdf').addEventListener('click', async function() {
-            var pdf = new jspdf.jsPDF({
-                orientation: 'portrait',
-                unit: 'pt',
-                format: 'letter'
-            });
-
-            // Seleccionar todos los contenedores que deben incluirse en el PDF
-            var containers = document.querySelectorAll('.document-cloned-container');
-
-            for (let i = 0; i < containers.length; i++) {
-                if (i > 0) {
-                    pdf.addPage();
-                }
-
-                await html2canvas(containers[i], {
-                    scale: 2
-                }).then(canvas => {
-                    var imgData = canvas.toDataURL('image/png');
-                    var pdfWidth = pdf.internal.pageSize.getWidth();
-                    var pdfHeight = pdf.internal.pageSize.getHeight();
-
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                });
-            }
-
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('documento').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-        });
-
-        document.getElementById('PRUEBA').addEventListener('click', async function() {
+       
+        document.getElementById('PDF').addEventListener('click', async function() {
             obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
