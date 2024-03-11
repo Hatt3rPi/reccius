@@ -61,3 +61,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 
 </html>
+
+<script>
+    
+</script>
