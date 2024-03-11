@@ -543,7 +543,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     console.log('Firma actualizada correctamente:', response);
                     // Actualiza el estado del documento en el frontend
                     actualizarEstadoDocumento();
-                    cargarDatosEspecificacion(idEspecificacion);
+                    verificarYMostrarBotonFirma();
                     // Mostrar notificaciones de éxito y advertencia
                     mostrarNotificacion("Documento firmado con éxito.", "éxito");
                     mostrarNotificacion("Tarea terminada con éxito", "éxito");
