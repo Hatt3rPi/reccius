@@ -84,6 +84,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
         var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
         var usuarioEjecutorOriginal="";
+        import { botones } from '../assets/js/scripts_index.js';
         function cargaListadoTareas() {
             var table = $('#listado').DataTable({
                 "ajax": "./backend/tareas/listado_tareasBE.php",
