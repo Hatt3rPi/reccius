@@ -311,6 +311,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+</script>
+<script>
 function botones(id, accion, base) {
     switch (base){
         case "especificacion":{
