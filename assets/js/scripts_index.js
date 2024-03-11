@@ -1,4 +1,4 @@
-import FLAGS from '/home/customw2/librerias/features_customware.js';
+const FLAGS = require('/home/customw2/librerias/features_customware.js');
 
 function featureNoDisponible(){
     event.preventDefault();
@@ -6,6 +6,20 @@ function featureNoDisponible(){
     $('#loading-spinner').show();
     $('#dynamic-content').load('feature_en_contruccion.html', function () {
     });
+}
+function obtenNotificaciones() {
+    fetch('../pages/backend/login/notificaciones.php')
+        .then(response => response.json())
+        .then(data => {
+            const notificationCountElement = document.querySelector('.notification-count');
+            contador_notificaciones
+            if (data.count > 0) {
+                $('#contador_notificaciones').text(data.count).show();
+            } else {
+                $('#contador_notificaciones').text(0).hide();
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 document.addEventListener("DOMContentLoaded", function () {
     const sidebarList = document.getElementById("sidebarList");
@@ -286,20 +300,7 @@ $(document).ready(function () {
     });
 });
 
-function obtenNotificaciones() {
-    fetch('../pages/backend/login/notificaciones.php')
-        .then(response => response.json())
-        .then(data => {
-            const notificationCountElement = document.querySelector('.notification-count');
-            contador_notificaciones
-            if (data.count > 0) {
-                $('#contador_notificaciones').text(data.count).show();
-            } else {
-                $('#contador_notificaciones').text(0).hide();
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
+
 $(document).ready(function () {
     $('#testeo').click(function (event) {
         event.preventDefault(); // Prevenir la navegación predeterminada
