@@ -11,7 +11,7 @@ function featureNoDisponible(){
     });
 }
 
-function obtenNotificaciones() {
+export function obtenNotificaciones() {
         fetch('../pages/backend/login/notificaciones.php')
             .then(response => response.json())
             .then(data => {
@@ -360,7 +360,7 @@ $(document).ready(function () {
     });
 });
 
-function botones(id, accion, base) {
+export function botones(id, accion, base) {
     switch (base){
         case "especificacion":{
             switch (accion) {
