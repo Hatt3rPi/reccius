@@ -55,7 +55,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 
 </html>
-<script>
+<script type="module">
+    // Ahora puedes usar la sintaxis import
+    import { botones } from '../assets/js/scripts_index.js';
     function filtrar_listado(estado) {
         var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
