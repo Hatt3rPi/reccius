@@ -17,7 +17,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<script src="./backend/tareas/listado_tareas.js" type="module"></script>
+
 <link rel="stylesheet" href="../assets/css/Listados.css">
     <!-- Incluye aquí otros archivos necesarios (jQuery, DataTables CSS, FontAwesome, etc.) -->
 </head>
