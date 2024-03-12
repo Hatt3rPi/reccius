@@ -575,7 +575,7 @@ function verificarYMostrarBotonFirma(response) {
     // Considerando que la respuesta tiene una estructura esperada
     let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
     console.log("Especificación procesada:", especificacion);
-    let esRevisor = especificacion.revisado_por.nombre === usuarioNombre;
+    let esAprobador = especificacion.aprobado_por.nombre === usuarioNombre;
     let esRevisorPendiente = especificacion.revisado_por.nombre === usuarioNombre && especificacion.revisado_por.fecha_revision === null;
     let esAprobadorPendiente = especificacion.aprobado_por.nombre === usuarioNombre && especificacion.aprobado_por.fecha_aprobacion === null;
     let revisorHaFirmado = especificacion.revisado_por.fecha_revision !== null;
@@ -600,9 +600,9 @@ function verificarYMostrarBotonFirma(response) {
         document.getElementById('sign-document').style.display = 'none';
         
     }
-    if (esRevisor && esAprobadorPendiente) {
+    if (esAprobador && especificacion.revisado_por.fecha_revision === null) {
         console.log("Usuario es revisor y la firma del aprobador está pendiente.");
-        mostrarNotificacion("Es necesario que el usuario Aprobador firme antes que tú.", "advertencia");
+        mostrarNotificacion("Es necesario que el usuario Revisor firme antes que tú.", "advertencia");
         // Aquí puedes realizar acciones adicionales basadas en esta condición.
     }
 }
