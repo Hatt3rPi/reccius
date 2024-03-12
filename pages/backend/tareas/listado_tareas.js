@@ -1,9 +1,8 @@
-import { botones } from '../../../assets/js/scripts_index.js';
     // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
     var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
     var usuarioEjecutorOriginal="";
 
-export function cargaListadoTareas() {
+function cargaListadoTareas() {
     var table = $('#listado').DataTable({
         "ajax": "./backend/tareas/listado_tareasBE.php",
         language: {
@@ -105,14 +104,14 @@ export function cargaListadoTareas() {
         return acciones;
     }
 }
-export function filtrar_listado_estado(estado) {
+function filtrar_listado_estado(estado) {
     var table = $('#listado').DataTable();
     table.column(2).search(estado).draw(); // Asumiendo que la columna 1 es la de
     if (estado==""){
         table.column(5).search("").draw();
     }
 }
-export function filtrar_listado_usuario() {
+function filtrar_listado_usuario() {
     var table = $('#listado').DataTable();
     table.column(5).search(usuarioActual).draw(); // Asumiendo que la columna 1 es la de
 }

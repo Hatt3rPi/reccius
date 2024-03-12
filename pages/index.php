@@ -209,17 +209,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </main>
     </div>
-    <script src="../assets/js/botones.js"></script>
-    <script src="../assets/js/scripts_index.js" type="module"></script>
+    
+    <script src="../assets/js/scripts_index.js"></script>
 
 </body>
 
 </html>
-<script type="module">
-    // Ahora puedes usar la sintaxis import
-    import { obtenNotificaciones } from '../assets/js/scripts_index.js';
-    
-
+<script >
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
