@@ -209,7 +209,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </main>
     </div>
-    
+    <script src="../assets/js/features_customware.js"></script>
     <script src="../assets/js/scripts_index.js"></script>
 
 </body>
