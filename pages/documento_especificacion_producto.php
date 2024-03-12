@@ -600,6 +600,11 @@ function verificarYMostrarBotonFirma(response) {
         document.getElementById('sign-document').style.display = 'none';
         
     }
+    if (esRevisor && firmaAprobadorPendiente) {
+        console.log("Usuario es revisor y la firma del aprobador está pendiente.");
+        mostrarNotificacion("Es necesario que el usuario Aprobador firme antes que tú.", "advertencia");
+        // Aquí puedes realizar acciones adicionales basadas en esta condición.
+    }
 }
 
 
