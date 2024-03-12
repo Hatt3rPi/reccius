@@ -1,7 +1,7 @@
 //archivo scripts_index.js
 import FLAGS from './features_customware.js';
 import { carga_listado_especificacionProducto } from '../../pages/backend/calidad/listado_especificaciones_producto.js';
-//import { cargaListadoTareas } from '../../pages/backend/tareas/listado_tareas.js';
+import { cargaListadoTareas } from '../../pages/backend/tareas/listado_tareas.js';
 
 function featureNoDisponible(){
     event.preventDefault();

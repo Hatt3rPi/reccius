@@ -1,4 +1,4 @@
-import { botones } from '../assets/js/scripts_index.js';
+import { botones } from '../../../assets/js/scripts_index.js';
     // Incluye aquí tu script de DataTables y las funciones para las acciones de las tareas
     var usuarioActual = "<?php echo $_SESSION['nombre']; ?>";
     var usuarioEjecutorOriginal="";
