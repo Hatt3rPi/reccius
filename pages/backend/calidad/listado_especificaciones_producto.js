@@ -6,7 +6,7 @@
         var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-    export function carga_listado_especificacionProducto() {
+    function carga_listado_especificacionProducto() {
     var table = $('#listado').DataTable({
         "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",
         language: {

@@ -13,7 +13,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <html lang="es">
 <head>
 <link rel="stylesheet" href="../assets/css/Listados.css">
-<script type="module">import { botones } from '../assets/js/scripts_index.js';</script>
 </head>
 
 <body>
@@ -57,9 +56,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 
 </html>
-<script type="module">
+<script >
     // Ahora puedes usar la sintaxis import
-    import { botones } from '../assets/js/scripts_index.js';
+  
     
     function filtrar_listado(estado) {
         var table = $('#listado').DataTable();
