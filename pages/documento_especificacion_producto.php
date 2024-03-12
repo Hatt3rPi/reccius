@@ -190,7 +190,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     </div>
     <div class="button-container">
         <button id="sign-document" style="display: none;">Firmar Documento</button>
-        <button id="PDF" onclick="flujoPDF()">Descargar PDF</button>
+        <button id="PDF">Descargar PDF</button>
         
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
@@ -202,8 +202,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var Wcontent = 2;
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
-       
-await function flujoPDF(){
+        document.getElementById('PDF').addEventListener('click', async function() {
+
             obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
@@ -241,7 +241,7 @@ await function flujoPDF(){
             var nombreDocumento = document.getElementById('documento').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             mostrarNotificacion("PDF generado con exito", "éxito");
-}
+});
 
 function cargarDatosEspecificacion(id) {
     console.log("A1")
