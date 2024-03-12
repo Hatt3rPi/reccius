@@ -203,7 +203,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
        
-function flujoPDF(){
+await function flujoPDF(){
             obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
