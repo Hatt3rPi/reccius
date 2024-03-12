@@ -190,7 +190,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     </div>
     <div class="button-container">
         <button id="sign-document" style="display: none;">Firmar Documento</button>
-        <button id="PDF">Descargar PDF</button>
+        <button id="download-pdf">Descargar PDF</button>
         
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
@@ -202,7 +202,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var Wcontent = 2;
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('PDF').addEventListener('click', async function() {
+        document.getElementById('download-pdf').addEventListener('click', async function() {
 
             obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
