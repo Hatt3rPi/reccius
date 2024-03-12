@@ -210,8 +210,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </main>
     </div>
     <script src="../assets/js/features_customware.js"></script>
-    <script src="../assets/js/botones.js"></script>
     <script src="../assets/js/scripts_index.js"></script>
+    <script src="../assets/js/botones.js"></script>
 
 </body>
 

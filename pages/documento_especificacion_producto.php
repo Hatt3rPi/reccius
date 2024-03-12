@@ -204,7 +204,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
        
 function flujoPDF(){
-    obtenerAlturaElementosYCalcularEspacioDisponible();
+            obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
             mostrarNotificacion("Creando PDF", "advertencia");
