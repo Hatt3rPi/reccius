@@ -63,6 +63,7 @@ function insertarRegistro($link, $datos) {
 
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
+        mysqli_close($link);
     }
 }
 
@@ -152,12 +153,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             insertarRegistro($link, $datosLimpios);
         }
         mysqli_commit($link); // Aplicar cambios
+        mysqli_close($link);
         echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
     } catch (Exception $e) {
         mysqli_rollback($link); // Revertir cambios en caso de error
+        mysqli_close($link);
         echo json_encode(["exito" => false, "mensaje" => "Error en la operación: " . $e->getMessage()]);
     }
 } else {
+    mysqli_close($link);
     echo json_encode(["exito" => false, "mensaje" => "Método inválido"]);
 }
 
