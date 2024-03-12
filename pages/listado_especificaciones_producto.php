@@ -62,6 +62,3 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 
-<script>
-    
-</script>

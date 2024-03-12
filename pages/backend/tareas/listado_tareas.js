@@ -104,8 +104,8 @@ export function cargaListadoTareas() {
         acciones += '</td></tr></table>';
         return acciones;
     }
-    }
-    function filtrar_listado_estado(estado) {
+}
+function filtrar_listado_estado(estado) {
     var table = $('#listado').DataTable();
     table.column(2).search(estado).draw(); // Asumiendo que la columna 1 es la de
     if (estado==""){
