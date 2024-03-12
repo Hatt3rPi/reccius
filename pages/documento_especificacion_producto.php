@@ -621,6 +621,7 @@ function actualizarEstadoDocumento() {
     watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
         if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
             watermark.textContent = 'CONFIDENCIAL';
+            watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
             Wcontent = 1;
         } else {
             watermark.textContent = 'PENDIENTE DE APROBACIÓN';
@@ -758,6 +759,7 @@ function createTableContainer() {
     console.log(Wcontent);
     if (Wcontent === 1) {
         watermark.textContent = 'CONFIDENCIAL';
+        watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
     }
     else{
         watermark.textContent = 'PENDIENTE DE APROBACIÓN';
