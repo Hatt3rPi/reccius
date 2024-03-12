@@ -105,14 +105,14 @@ export function cargaListadoTareas() {
         return acciones;
     }
 }
-function filtrar_listado_estado(estado) {
+export function filtrar_listado_estado(estado) {
     var table = $('#listado').DataTable();
     table.column(2).search(estado).draw(); // Asumiendo que la columna 1 es la de
     if (estado==""){
         table.column(5).search("").draw();
     }
 }
-function filtrar_listado_usuario() {
+export function filtrar_listado_usuario() {
     var table = $('#listado').DataTable();
     table.column(5).search(usuarioActual).draw(); // Asumiendo que la columna 1 es la de
 }
