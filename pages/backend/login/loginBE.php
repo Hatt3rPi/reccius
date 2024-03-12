@@ -52,11 +52,9 @@ if (isset($_POST['login'])) {
         $_SESSION['cargo'] = escape($usuario['cargo']);
         
         header("Location: ../../index.php");
-        mysqli_close($link);
         exit();
     } else {
         header("Location: ../../login.html?error=invalid_credentials");
-        mysqli_close($link);
         exit();
     }
 }
