@@ -96,11 +96,13 @@
     function restableceContrasenaBE(){
         event.preventDefault(); // Prevenir el envío estándar del formulario
         var email = $("#email").val();
+        
         $.ajax({
             type: "POST",
             url: "../pages/backend/usuario/restablece-contrasenaBE.php", // Ruta relativa correcta
             data: { email: email },
             success: function(response) {
+                var mensaje = response.data;
                 var mensajesError = [
                     "Hubo un error al enviar el correo electrónico de restablecimiento.",
                     "No se encontró una cuenta con ese correo electrónico."
