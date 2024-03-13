@@ -81,7 +81,7 @@
     </style>
 </head>
 <body>
-    <div class="forgot-password-container">
+    <div class="forgot-password-container"  id="forgotPasswordForm">
         <h2>Restablecer Contraseña</h2>
         <p>Para continuar con la recuperación de tu contraseña, por favor ingresa tu correo electrónico:</p>
         <form class="forgot-password-form" >
@@ -118,7 +118,7 @@
                     mostrarNotificacion(mensaje, "error");
                 } else {
                     // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
-                    $("#formCrearUsuario")[0].reset();
+                    $("#forgotPasswordForm")[0].reset();
                     mostrarNotificacion('Se ha enviado un enlace de restablecimiento a tu correo electrónico.', "éxito");}
             },
             error: function(jqXHR, textStatus, errorThrown) {
