@@ -112,9 +112,9 @@
 
 
 
-                if (mensajesError.includes(response.trim())) {
-                    mostrarNotificacion(response, "error");
-                }else {
+                if (mensajesError.includes(mensaje)) {
+                    mostrarNotificacion(mensaje, "error");
+                } else {
                     // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
                     $("#formCrearUsuario")[0].reset();
                     mostrarNotificacion('Se ha enviado un enlace de restablecimiento a tu correo electrónico.', "éxito");}
