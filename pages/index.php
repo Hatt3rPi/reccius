@@ -39,6 +39,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
     <script src="../assets/js/jquery.redirect.js"></script>
+    <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
 
 
 </head>
