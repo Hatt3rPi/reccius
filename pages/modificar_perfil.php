@@ -244,7 +244,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 event.preventDefault(); // Prevenir el envío estándar del formulario
                 var form = document.getElementById('formPerfil'); // Obtiene el formulario por su ID
                 var formData = new FormData(form); // Usa FormData para construir los datos del formulario, incluyendo archivos
-                console.log('click');
                 $.ajax({
                     url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
                     type: "POST",
@@ -253,8 +252,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     contentType: false, // Necesario para FormData. Asegúrate de no establecer ningún tipo de contenido para permitir que el navegador establezca el tipo de contenido y los límites correctamente
                     success: function(response) {
                         var data = JSON.parse(response); // Asegúrate de que la respuesta sea parseada correctamente como JSON
-                        console.log(data.success, data.message)
-                        mostrarNotificacion(data.message, "éxito");
                         if (data.success) {
                             if (mensajesExito.includes(data.message)) {
                                 mostrarNotificacion(data.message, "éxito");
