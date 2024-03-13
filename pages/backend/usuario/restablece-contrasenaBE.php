@@ -14,8 +14,6 @@ $mensaje = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
     $email = limpiarDato($_POST['email']);
-    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
     if (!$link) {
         die("Conexión fallida: " . mysqli_connect_error());
     }

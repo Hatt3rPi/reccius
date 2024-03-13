@@ -97,8 +97,8 @@
 <script>
     function restableceContrasenaBE(){
         event.preventDefault(); // Prevenir el envío estándar del formulario
-        console.log('click')
         var email = $("#email").val();
+        console.log('click', email);
         
         $.ajax({
             type: "POST",
