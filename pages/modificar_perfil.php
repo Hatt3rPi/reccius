@@ -254,16 +254,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     success: function(response) {
                         var data = JSON.parse(response); // Asegúrate de que la respuesta sea parseada correctamente como JSON
                         console.log(data.success, data.message)
+                        mostrarNotificacion(data.message, "éxito");
                         if (data.success) {
                             if (mensajesExito.includes(data.message)) {
                                 mostrarNotificacion(data.message, "éxito");
                             } else if (mensajesAdvertencia.includes(data.message)) {
                                 mostrarNotificacion(data.message, "advertencia");
-                            } else {
+                            } 
+                        } else {
                                 mostrarNotificacion(data.message, "error");
-                            }
-                            
-                        } 
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
