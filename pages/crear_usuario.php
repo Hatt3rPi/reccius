@@ -95,6 +95,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             mostrarNotificacion(response, "error");
                         }else {
                             // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
+                            $("#formCrearUsuario")[0].reset();
                             mostrarNotificacion('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.', "éxito");}
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
