@@ -253,11 +253,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     contentType: false, // Necesario para FormData. Asegúrate de no establecer ningún tipo de contenido para permitir que el navegador establezca el tipo de contenido y los límites correctamente
                     success: function(response) {
                         var data = JSON.parse(response); // Asegúrate de que la respuesta sea parseada correctamente como JSON
-                        console.log(data.success)
+                        console.log(data.message)
                         if (data.success) {
-                            if (mensajesAdvertencia.includes(data.message.trim())) {
+                            if (mensajesAdvertencia.includes(data.message)) {
                                 mostrarNotificacion(data.message, "advertencia");
-                            } else if (mensajesExito.includes(data.message.trim())) {
+                            } else if (mensajesExito.includes(data.message)) {
                                 mostrarNotificacion(data.message, "éxito");
                             } 
                             
