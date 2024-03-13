@@ -238,7 +238,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             "Error: El directorio de destino no es escribible o no existe.",
                             "Error al actualizar la ruta del certificado en la base de datos.",
                             "Error al procesar el archivo de imagen.",
-                            "Error al actualizar la foto de perfil en la base de datos.",
+                            "Error al actualizar la foto de perfil en la base de datos."
                         ]
 
                 event.preventDefault(); // Prevenir el envío estándar del formulario
@@ -253,13 +253,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     contentType: false, // Necesario para FormData. Asegúrate de no establecer ningún tipo de contenido para permitir que el navegador establezca el tipo de contenido y los límites correctamente
                     success: function(response) {
                         var data = JSON.parse(response); // Asegúrate de que la respuesta sea parseada correctamente como JSON
-                        console.log(data.message)
+                        console.log(data.success, data.message)
                         if (data.success) {
-                            if (mensajesAdvertencia.includes(data.message)) {
-                                mostrarNotificacion(data.message, "advertencia");
-                            } else if (mensajesExito.includes(data.message)) {
+                            if (mensajesExito.includes(data.message)) {
                                 mostrarNotificacion(data.message, "éxito");
-                            } 
+                            } else if (mensajesAdvertencia.includes(data.message)) {
+                                mostrarNotificacion(data.message, "advertencia");
+                            } else {
+                                mostrarNotificacion(data.message, "error");
+                            }
                             
                         } 
                     },
