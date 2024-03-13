@@ -83,10 +83,10 @@
     </style>
 </head>
 <body>
-    <div class="forgot-password-container"  id="forgotPasswordForm">
+    <div class="forgot-password-container" >
         <h2>Restablecer Contraseña</h2>
         <p>Para continuar con la recuperación de tu contraseña, por favor ingresa tu correo electrónico:</p>
-        <form class="forgot-password-form" >
+        <form class="forgot-password-form"  id="forgotPasswordForm" >
             <input type="email" id="email" name="email" placeholder="Introduce tu correo electrónico" required>
             <button type="button" onclick="restableceContrasenaBE()">Enviar</button>
         </form>
@@ -97,6 +97,7 @@
 <script>
     function restableceContrasenaBE(){
         event.preventDefault(); // Prevenir el envío estándar del formulario
+        console.log('click')
         var email = $("#email").val();
         
         $.ajax({
