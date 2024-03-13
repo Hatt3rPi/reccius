@@ -14,6 +14,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Permisos</title>
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
+    <link rel="stylesheet" href="../assets/css/Notificacion.css">
+    <script src="../assets/js/notificacion.js"></script>
 </head>
 
 <body>
@@ -37,7 +39,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <label class="form-check-label" for="inicio">Inicio</label>
                 </div>
                 <!-- Otros permisos -->
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Asignar Permisos</button>
+                <button id="btnExito" class="btn btn-primary" style="width: 100%;">Asignar Permisos</button>
             </form>
         </div>
     </div>
@@ -46,5 +48,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     </div>
     
 </body>
+<script>
+    document.getElementById('btnAdvertencia').addEventListener('click', function () {
+        mostrarNotificacion('Este modulo sigue incompleto , te invitamos a seguir explorando la pagina!', 'advertencia');
+    });
 
+</script>
 </html>
