@@ -99,30 +99,26 @@
         event.preventDefault(); // Prevenir el envío estándar del formulario
         var email = $("#email").val();
         console.log('click', email);
-        
+        var mensajesError = [
+                    "Hubo un error al enviar el correo electrónico de restablecimiento.",
+                    "No se encontró una cuenta con ese correo electrónico."
+                ];
+        var mensajesExito = [
+                    'Se ha enviado un enlace de restablecimiento a tu correo electrónico.'
+                ];
         $.ajax({
             type: "POST",
             url: "../pages/backend/usuario/restablece-contrasenaBE.php", // Ruta relativa correcta
             data: { email: email },
             success: function(response) {
                 var mensaje = response.data;
-                var mensajesError = [
-                    "Hubo un error al enviar el correo electrónico de restablecimiento.",
-                    "No se encontró una cuenta con ese correo electrónico."
-                ];
-
-                var mensajesExito = [
-                    'Se ha enviado un enlace de restablecimiento a tu correo electrónico.'
-                ];
-
-
-
+                console.log('click', mensaje);
                 if (mensajesError.includes(mensaje)) {
                     mostrarNotificacion(mensaje, "error");
                 } else {
                     // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
                     $("#forgotPasswordForm")[0].reset();
-                    mostrarNotificacion('Se ha enviado un enlace de restablecimiento a tu correo electrónico.', "éxito");}
+                    mostrarNotificacion(mensaje, "éxito");}
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Mostrar un mensaje de error
