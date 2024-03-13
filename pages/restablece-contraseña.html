@@ -83,10 +83,45 @@
     <div class="forgot-password-container">
         <h2>Restablecer Contraseña</h2>
         <p>Para continuar con la recuperación de tu contraseña, por favor ingresa tu correo electrónico:</p>
-        <form class="forgot-password-form" action="../pages/backend/usuario/restablece-contrasenaBE.php" method="POST">
-            <input type="email" id="email" name="email" placeholder="Introduce tu correo electrónico" required>
-            <button type="submit">Enviar</button>
+        <form class="forgot-password-form" >
+            <input type="email" id="email" name="email" placeholder="Introduce tu correo electrónico" onclick="restableceContrasenaBE()" required>
+            <button type="button" onclick="restableceContrasenaBE()">Enviar</button>
         </form>
     </div>
 </body>
 </html>
+
+<script>
+    function restableceContrasenaBE(){
+        event.preventDefault(); // Prevenir el envío estándar del formulario
+        var email = $("#email").val();
+        $.ajax({
+            type: "POST",
+            url: "../pages/backend/usuario/restablece-contrasenaBE.php", // Ruta relativa correcta
+            data: { email: email },
+            success: function(response) {
+                var mensajesError = [
+                    "Hubo un error al enviar el correo electrónico de restablecimiento.",
+                    "No se encontró una cuenta con ese correo electrónico."
+                ];
+
+                var mensajesExito = [
+                    'Se ha enviado un enlace de restablecimiento a tu correo electrónico.'
+                ];
+
+
+
+                if (mensajesError.includes(response.trim())) {
+                    mostrarNotificacion(response, "error");
+                }else {
+                    // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
+                    $("#formCrearUsuario")[0].reset();
+                    mostrarNotificacion('Se ha enviado un enlace de restablecimiento a tu correo electrónico.', "éxito");}
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Mostrar un mensaje de error
+                mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
+            }
+        });
+    }
+</script>
