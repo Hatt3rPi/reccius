@@ -39,7 +39,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <label class="form-check-label" for="inicio">Inicio</label>
                 </div>
                 <!-- Otros permisos -->
-                <button id="btnExito" class="btn btn-primary" style="width: 100%;">Asignar Permisos</button>
+                <button id="btnAdvertencia" class="btn btn-primary" style="width: 100%;">Asignar Permisos</button>
             </form>
         </div>
     </div>
