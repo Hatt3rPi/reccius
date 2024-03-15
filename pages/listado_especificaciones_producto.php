@@ -53,10 +53,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tbody>
                 </table>
             </div>
-            <div id="phpData" 
-                data-alerta="<?php echo isset($_SESSION['alerta']) ? $_SESSION['alerta'] : ''; ?>" 
-                data-buscarEspecificacion="<?php echo isset($_SESSION['buscarEspecificacion']) ? $_SESSION['buscarEspecificacion'] : ''; ?>">
-            </div>
     </div>
 </body>
 
@@ -155,20 +151,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 
 
-    const phpData = document.getElementById('phpData');
-    const alerta = phpData.getAttribute('data-alerta');
-    const buscarEspecificacion = phpData.getAttribute('data-buscarEspecificacion');
+    <?php if (isset($_SESSION['alerta'])) { ?>
+        alert('<?php echo $_SESSION['alerta']; ?>');
+        <?php unset($_SESSION['alerta']); ?>
+    <?php } ?>
 
-    if (alerta) {
-        alert(alerta);
-        // Asumiendo que quieres eliminar la alerta después de mostrarla
-        phpData.removeAttribute('data-alerta');
-    }
-
-    if (buscarEspecificacion) {
-        // Asume que carga_listado_especificacionProducto() ya ha sido definido y configurado para usar esta búsqueda
-        carga_listado_especificacionProducto(buscarEspecificacion);
-    }
+    // Si se acaba de insertar una nueva especificación, establecer el valor del buscador de DataTables
+    <?php if (isset($_SESSION['buscarEspecificacion'])) { ?>
+        var buscar = '<?php echo $_SESSION['buscarEspecificacion']; ?>';
+        table.columns(9).search(buscar).draw();
+        //table.search(buscar).draw();
+        <?php unset($_SESSION['buscarEspecificacion']); ?>
+    <?php } ?>
 }
 
 
