@@ -797,6 +797,7 @@ function habilitarEdicionAnalisis(tabla) {
     if (tabla instanceof $.fn.dataTable.Api) {
         // Obtiene el ID del elemento de tabla y muestra el botón correspondiente
         var tablaId = $(tabla.table().node()).attr('id');
+        $(tabla.table().body()).find('textarea').prop('readonly', false);
         $('#boton_agrega_analisis' + tablaId).show();
 
         // Habilitar la eliminación de análisis existentes
