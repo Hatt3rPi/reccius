@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
-    <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
 
 </head>
 
@@ -19,26 +20,24 @@
 
 
 </body>
-<script src="../assets/js/notificacion.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify.js/3.0.0/notify.min.js"></script>
 <script>
-
     document.getElementById('btnExito').addEventListener('click', function () {
-        mostrarNotificacion("Documento firmado con éxito.", "éxito");
-        mostrarNotificacion("Tarea terminada con éxito", "advertencia");
+        notify("Documento firmado con éxito.", "success");
     });
 
     document.getElementById('btnAdvertencia').addEventListener('click', function () {
-        mostrarNotificacion('Mensaje de advertencia', 'advertencia');
+        notify('Mensaje de advertencia', 'warning');
     });
 
     document.getElementById('btnPeligro').addEventListener('click', function () {
-        mostrarNotificacion('Mensaje de peligro', 'peligro');
+        notify('Mensaje de peligro', 'danger');
     });
 
     document.getElementById('btnError').addEventListener('click', function () {
-        mostrarNotificacion('Mensaje de error', 'error');
+        notify('Mensaje de error', 'error');
     });
-
 </script>
+
 
 </html>
