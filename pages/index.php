@@ -268,15 +268,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
 
     function inicializarBreadcrumb() {
-        // Solo muestra "Home" al cargar la página
+       // Solo muestra "Home" al cargar la página
         const breadcrumb = document.querySelector(".breadcrumb");
         breadcrumb.innerHTML = ''; // Limpia el breadcrumb actual
         const liHome = document.createElement("li");
         liHome.className = "breadcrumb-item";
-        const aHome = document.createElement("a");
-        aHome.href = "index.php";
-        aHome.textContent = "Home";
-        liHome.appendChild(aHome);
+        liHome.textContent = "Home"; // Cambiado para ser solo texto
         breadcrumb.appendChild(liHome);
     }
 
@@ -287,20 +284,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const paths = path.split(" > ");
         paths.forEach((p, index) => {
-            const li = document.createElement("li");
-            li.className = "breadcrumb-item";
-            if (index === paths.length - 1) {
-                // El último elemento es texto plano
-                li.textContent = p;
-            } else {
-                // Los elementos intermedios son enlaces
-                const a = document.createElement("a");
-                a.href = "#"; // Se podría ajustar a un enlace real
-                a.textContent = p;
-                li.appendChild(a);
-            }
-            breadcrumb.appendChild(li);
-        });
+        const li = document.createElement("li");
+        li.className = "breadcrumb-item";
+        li.textContent = p; // Cambiado para ser solo texto
+        breadcrumb.appendChild(li);
+    });
     }
 
     // Asigna el listener a cada enlace que afecte el breadcrumb
