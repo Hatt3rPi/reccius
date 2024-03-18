@@ -15,7 +15,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Formulario de Permisos</title>
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <script src="../assets/js/notificacion.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
 </head>
 
 <body>
@@ -43,15 +44,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
         </div>
     </div>
-    <div id="notification" class="notification-container notify" style="display: none;">
-        <p id="notification-message">Este es un mensaje de notificación.</p>
-    </div>
+   
     
 </body>
 <script>
-    document.getElementById('btnAdvertencia').addEventListener('click', function () {
-        mostrarNotificacion('Este modulo sigue incompleto , te invitamos a seguir explorando la pagina!', 'advertencia');
-    });
-
+    $('#btnAdvertencia').click(function () {
+            // Aquí usarías el método `notify` de la librería `notify.js`
+            // Asegúrate de que la configuración de la notificación sea correcta según la documentación de la librería
+            $.notify("Este módulo sigue incompleto, te invitamos a seguir explorando la página!", "warn");
+        });
 </script>
 </html>

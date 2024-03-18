@@ -18,7 +18,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <script src="../assets/js/notificacion.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
 </head>
 
 <body>
@@ -90,17 +91,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
                         if (mensajesAdvertencia.includes(response.trim())) {
-                            mostrarNotificacion(response, "advertencia");
+                            $.notify(response, "warn");
                         }else if (mensajesError.includes(response.trim())) {
-                            mostrarNotificacion(response, "error");
+                            $.notify(response, "error");
                         }else {
                             // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
                             $("#formCrearUsuario")[0].reset();
-                            mostrarNotificacion('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.', "éxito");}
+                            $.notify('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.', "éxito");}
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
-                        mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
+                        $.notify("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
                     }
                 });
             });
