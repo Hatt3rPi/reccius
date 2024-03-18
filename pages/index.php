@@ -84,9 +84,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Breadcrumb que actuará como barra de navegación -->
     <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="library.php">Primer Nodo</a></li>
-            <li class="breadcrumb-item"><a href="contact.php">Segundo Nodo</a></li>
+            <li class="breadcrumb-item">Home</li>
+            <li class="breadcrumb-item">Primer Nodo</li>
+            <li class="breadcrumb-item">Segundo Nodo</li>
         </ol>
 
     </nav>
