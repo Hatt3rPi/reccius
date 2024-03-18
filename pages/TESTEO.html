@@ -7,9 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify.js/3.0.0/notify.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
 </head>
 
 <body>
@@ -17,27 +16,24 @@
     <button id="btnAdvertencia">Advertencia</button>
     <button id="btnPeligro">Peligro</button>
     <button id="btnError">Error</button>
-
-
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/notify.js/3.0.0/notify.min.js"></script>
+
 <script>
-    document.getElementById('btnExito').addEventListener('click', function () {
-        notify("Documento firmado con éxito.", "success");
+    $('#btnExito').click(function () {
+        $.notify("Documento firmado con éxito.", "success");
     });
 
-    document.getElementById('btnAdvertencia').addEventListener('click', function () {
-        notify('Mensaje de advertencia', 'warning');
+    $('#btnAdvertencia').click(function () {
+        $.notify('Mensaje de advertencia', 'warn');
     });
 
-    document.getElementById('btnPeligro').addEventListener('click', function () {
-        notify('Mensaje de peligro', 'danger');
+    $('#btnPeligro').click(function () {
+        $.notify('Mensaje de peligro', 'peligro');
     });
 
-    document.getElementById('btnError').addEventListener('click', function () {
-        notify('Mensaje de error', 'error');
+    $('#btnError').click(function () {
+        $.notify('Mensaje de error', 'error');
     });
 </script>
-
 
 </html>
