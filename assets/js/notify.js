@@ -661,6 +661,7 @@
         "padding-left": "25px",
         "background-repeat": "no-repeat",
         "background-position": "3px 7px",
+        "right": "0;"
       },
       error: {
         color: "#B94A48",
