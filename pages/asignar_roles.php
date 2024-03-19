@@ -43,14 +43,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
         </div>
     </div>
-    <div id="notification" class="notification-container notify" style="display: none;">
-        <p id="notification-message">Este es un mensaje de notificación.</p>
-    </div>
+    
     
 </body>
 <script>
     document.getElementById('btnAdvertencia').addEventListener('click', function () {
-        mostrarNotificacion('Este modulo sigue incompleto , te invitamos a seguir explorando la pagina!', 'advertencia');
+        $.notify('Este modulo sigue incompleto , te invitamos a seguir explorando la pagina!', 'warn');
     });
 
 </script>
