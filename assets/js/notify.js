@@ -91,7 +91,7 @@
     css:
       "." +
       pluginClassName +
-      "-corner {\n	position: fixed;\n	margin: 100px;\n	margin-left: 100px;\n	z-index: 1050;\n}\n\n." +
+      "-corner {\n	position: fixed;\n	margin: 100px;\n	z-index: 1050;\n}\n\n." +
       pluginClassName +
       "-corner ." +
       pluginClassName +
