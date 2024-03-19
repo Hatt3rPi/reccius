@@ -41,6 +41,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="../assets/js/jquery.redirect.js"></script>
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
+    <script src="../assets/js/notify.js"></script>
     <script src="../assets/js/notificacion.js"></script>
 
 </head>
