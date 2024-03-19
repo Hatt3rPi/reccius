@@ -661,6 +661,7 @@
         "padding-left": "25px",
         "background-repeat": "no-repeat",
         "background-position": "3px 7px",
+        "position": "fixed",
         "right": "0;"
       },
       error: {
