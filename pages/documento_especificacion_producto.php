@@ -20,7 +20,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="../assets/js/notificacion.js"></script>
+    <script src="../assets/js/notify.js"></script>
     
 </head>
 
@@ -207,7 +207,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
-            mostrarNotificacion("Creando PDF", "advertencia");
+            $.notify("Creando PDF", "warn");
              // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
             await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
 
@@ -240,7 +240,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var nombreProducto = document.getElementById('producto').textContent.trim();
             var nombreDocumento = document.getElementById('documento').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            mostrarNotificacion("PDF generado con exito", "éxito");
+            $.notify("PDF generado con exito", "success");
 });
 
 function cargarDatosEspecificacion(id) {
@@ -553,12 +553,12 @@ function firmarDocumento() {
             actualizarEstadoDocumento();
             cargarDatosEspecificacion(idEspecificacion);
             // Mostrar notificaciones de éxito y advertencia
-            mostrarNotificacion("Documento firmado con éxito.", "éxito");
-            mostrarNotificacion("Tarea terminada con éxito", "éxito");
+            $.notify("Documento firmado con éxito.", "success");
+            $.notify("Tarea terminada con éxito", "success");
         },
         error: function(xhr, status, error) {
             console.error('Error al firmar documento:', status, error);
-            mostrarNotificacion("Error al firmar documento:", "error");
+            $.notify("Error al firmar documento:", "error");
         }
     });
 }
@@ -602,7 +602,7 @@ function verificarYMostrarBotonFirma(response) {
     }
     if (esAprobador && especificacion.revisado_por.fecha_revision === null) {
         console.log("Usuario es revisor y la firma del aprobador está pendiente.");
-        mostrarNotificacion("Es necesario que el usuario Revisor firme antes que tú.", "advertencia");
+        $.notify("Es necesario que el usuario Revisor firme antes que tú.", "warn");
         // Aquí puedes realizar acciones adicionales basadas en esta condición.
     }
 }
