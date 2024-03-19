@@ -15,7 +15,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Formulario de Permisos</title>
     <link rel="stylesheet" href="../assets/css/CrearUsuario.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <script src="../assets/js/notificacion.js"></script>
+    <script src="../assets/js/notify.js"></script>
 </head>
 
 <body>
