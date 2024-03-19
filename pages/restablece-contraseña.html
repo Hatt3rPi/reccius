@@ -6,7 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
-    <script src="../assets/js/notificacion.js"></script>
+    <script src="../assets/js/notify.js"></script>
     <title>Restablecer Contraseña - Reccius</title>
     <style>
         :root {
@@ -115,15 +115,15 @@
                 var mensaje = response.data;
                 console.log('click', mensaje);
                 if (mensajesError.includes(mensaje)) {
-                    mostrarNotificacion(mensaje, "error");
+                    $.notify(mensaje, "error");
                 } else {
                     // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
                     $("#forgotPasswordForm")[0].reset();
-                    mostrarNotificacion(mensaje, "éxito");}
+                    $.notify(mensaje, "success");}
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Mostrar un mensaje de error
-                mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
+                $.notify("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
             }
         });
     }

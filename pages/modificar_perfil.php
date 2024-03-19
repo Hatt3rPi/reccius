@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Añade aquí tus estilos o referencias a CSS -->
     <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <script src="../assets/js/notificacion.js"></script>
+    <script src="../assets/js/notify.js"></script>
 </head>
 
 <body>
@@ -254,18 +254,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         var data = JSON.parse(response); // Asegúrate de que la respuesta sea parseada correctamente como JSON
                         if (data.success) {
                             if (mensajesExito.includes(data.message)) {
-                                mostrarNotificacion(data.message, "éxito");
+                                $.notify(data.message, "success");
                             } else if (mensajesAdvertencia.includes(data.message)) {
-                                mostrarNotificacion(data.message, "advertencia");
+                                $.notify(data.message, "warn");
                             } 
                         } else {
-                                mostrarNotificacion(data.message, "error");
+                                $.notify(data.message, "error");
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
                         var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
-                        mostrarNotificacion(errorMsg, "error");
+                        $.notify(errorMsg, "error");
                     }
                 });
         };
