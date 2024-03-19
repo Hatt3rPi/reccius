@@ -90,17 +90,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
                         if (mensajesAdvertencia.includes(response.trim())) {
-                            mostrarNotificacion(response, "advertencia");
+                            notify(response, "advertencia");
                         }else if (mensajesError.includes(response.trim())) {
-                            mostrarNotificacion(response, "error");
+                            notify(response, "error");
                         }else {
                             // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
                             $("#formCrearUsuario")[0].reset();
-                            mostrarNotificacion('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.', "éxito");}
+                            notify('Usuario creado exitosamente. Se ha enviado un correo electrónico para restablecer la contraseña.', "éxito");}
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Mostrar un mensaje de error
-                        mostrarNotificacion("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
+                        notify("Error al procesar la solicitud: " + textStatus + ", " + errorThrown, "error");
                     }
                 });
             });
