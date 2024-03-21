@@ -880,6 +880,9 @@ function ocultarContenedorPrincipal() {
 window.onload = function() {
     cargarDatosEspecificacion(id);
     verificarYMostrarBotonFirma();
+    obtenerAlturaElementosYCalcularEspacioDisponible();
+    ocultarContenedorPrincipal();
+    actualizarContadorPaginas();
 
 };
     </script>
