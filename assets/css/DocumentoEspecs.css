@@ -5,17 +5,16 @@ body {
     background-color: #ffffff;
 }
 
-#form-container {
+/* Contenedor principal, estilo actualizado para coincidir con los clones */
+#form-container, .document-cloned-container {
     width: 612pt;
     height: 792pt;
+    background-color: #FFF;
+    border: 1px solid #ccc; /* Color de borde alineado con los clones */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin: auto;
     padding: 10pt;
     box-sizing: border-box;
-    background-color: #FFF;
-    border: 1px solid #000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 500px;
-    margin-right: 10px;
-    position: relative;
 }
 .form-container {
     width: 612pt;
@@ -318,4 +317,18 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+/* Estilos de tabla alineados con los clones */
+table, th, td, .cloned-table, .cloned-table th, .cloned-table td {
+    border: 1px solid #ddd; /* Color de borde alineado con los clones */
+    border-collapse: collapse;
+}
+/* Estilos de texto alineados con los clones */
+.text, .cloned-text {
+    font-size: 9px; /* Tamaño de fuente alineado con los clones */
+}
+/* Encabezado, cuerpo y pie de página, estilos actualizados */
+.header, .footer, .cloned-header, .cloned-footer {
+    background-color: #F5F5F5; /* Fondo alineado con los clones */
+    padding: 8px;
 }
