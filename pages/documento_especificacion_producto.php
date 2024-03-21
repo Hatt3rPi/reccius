@@ -877,14 +877,18 @@ function ocultarContenedorPrincipal() {
     contenedorForm.style.boxShadow = 'none';
 }
 
-window.onload = function() {
-    cargarDatosEspecificacion(id);
-    verificarYMostrarBotonFirma();
+window.onload = async function() {
+    // Asumiendo que 'cargarDatosEspecificacion' devuelve una promesa
+    await cargarDatosEspecificacion(id);
+    
+    // Estas funciones se ejecutarán solo después de que 'cargarDatosEspecificacion' haya terminado
     obtenerAlturaElementosYCalcularEspacioDisponible();
     ocultarContenedorPrincipal();
     actualizarContadorPaginas();
 
+    verificarYMostrarBotonFirma(); // Puede ejecutarse independientemente, si no depende de las anteriores
 };
+
     </script>
 </body>
 
