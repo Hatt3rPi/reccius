@@ -537,7 +537,7 @@ function botones(id, accion, base) {
         }
         case "laboratorio": {
             switch (accion) {
-                case "generar_acta_muestreo": {
+                case "generar_documento_actaMuestreo": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',

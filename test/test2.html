@@ -688,6 +688,25 @@
 
 </html>
 <script>
+    // Función para descargar el PDF
+    document.getElementById('download-pdf').addEventListener('click', function() {
+        // Selecciona el elemento que deseas exportar, en este caso, el contenedor de la forma
+        const elementToExport = document.getElementById('form-container');
+    
+        html2canvas(elementToExport, { scale: 2 }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
+            });
+            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+            pdf.save('Acta_de_Muestreo_Control_de_Calidad.pdf');
+        });
+    });
+    </script>
+    
+<script>
     function cargarDatosEspecificacion(id, resultados) {
         
         if(resultados){
