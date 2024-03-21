@@ -10,13 +10,12 @@ body {
     height: 792pt;
     padding: 10pt;
     box-sizing: border-box;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(0, 0, 0);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #FFF;
+    border: 1px solid #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 500px;
+    margin-right: 10px;
     position: relative;
-    margin-top: 30px;
 }
 
 
