@@ -255,9 +255,7 @@ function cargarDatosEspecificacion(id) {
             procesarDatosEspecificacion(response);
 
             verificarYMostrarBotonFirma(response);
-            obtenerAlturaElementosYCalcularEspacioDisponible();
-            ocultarContenedorPrincipal();
-            actualizarContadorPaginas();
+            
         },
         error: function(xhr, status, error) {
             console.error("Error en la solicitud: ", status, error);
