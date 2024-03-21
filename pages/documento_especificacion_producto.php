@@ -255,7 +255,6 @@ function cargarDatosEspecificacion(id) {
             procesarDatosEspecificacion(response);
 
             verificarYMostrarBotonFirma(response);
-            
         },
         error: function(xhr, status, error) {
             console.error("Error en la solicitud: ", status, error);
@@ -877,18 +876,11 @@ function ocultarContenedorPrincipal() {
     contenedorForm.style.boxShadow = 'none';
 }
 
-window.onload = async function() {
-    // Asumiendo que 'cargarDatosEspecificacion' devuelve una promesa
-    await cargarDatosEspecificacion(id);
-    
-    // Estas funciones se ejecutarán solo después de que 'cargarDatosEspecificacion' haya terminado
-    obtenerAlturaElementosYCalcularEspacioDisponible();
-    ocultarContenedorPrincipal();
-    actualizarContadorPaginas();
+window.onload = function() {
+    cargarDatosEspecificacion(id);
+    verificarYMostrarBotonFirma();
 
-    verificarYMostrarBotonFirma(); // Puede ejecutarse independientemente, si no depende de las anteriores
 };
-
     </script>
 </body>
 
