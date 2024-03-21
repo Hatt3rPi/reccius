@@ -103,16 +103,25 @@ tbody {
 table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 10px; /* Tamaño de fuente predeterminado para las tablas */
 }
 
 th {
-    background-color: #0047b3;
-    color: white;
-    padding: 8px;
+    background-color: #0047b3; /* Color de fondo para los encabezados de las tablas */
+    color: white; /* Color del texto para los encabezados de las tablas */
+    text-align: center; /* Alineación del texto para los encabezados */
+    font-weight: bold; /* Hacer que el texto de los encabezados sea en negrita */
+    padding: 8px; /* Espaciado dentro de las celdas del encabezado */
+    border: none; /* Eliminar bordes de las celdas del encabezado */
 }
 
+
 td {
-    padding: 8px;
+    text-align: center; /* Alineación del texto para las celdas */
+    vertical-align: middle; /* Alinear verticalmente el contenido de las celdas */
+    padding: 8px; /* Espaciado dentro de las celdas */
+    border: 1px solid rgb(56, 53, 255); /* Estilo de borde para las celdas */
+    font-size: 10px; /* Tamaño de fuente para las celdas */
 }
 
 .document-title h2, .document-title h3 {
@@ -307,4 +316,16 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+/* Clases específicas para las tablas de análisis FQ y MB */
+#analisisFQ,
+#analisisMB {
+    margin: 0 auto; /* Centrar las tablas horizontalmente */
+    box-sizing: border-box; /* Incluir el padding y el borde en el ancho total de las tablas */
+}
+
+/* Ocultar las tablas cuando no hay datos */
+#analisisFQ.hide,
+#analisisMB.hide {
+    display: none;
 }
