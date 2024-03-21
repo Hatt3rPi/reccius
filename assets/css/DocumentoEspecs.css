@@ -1,98 +1,3 @@
-#header-container {
-    width: 100%;
-}
-
-#header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.header-left img {
-    height: 60px;
-}
-
-.header-center {
-    flex: 2;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    height: 100%;
-}
-
-.header-center h1,
-.header-center p {
-    margin: 0;
-    font-size: 11px;
-    line-height: 1.2;
-    color: #000;
-}
-
-.header-center h1 {
-    font-weight: normal;
-}
-
-.header-center p {
-    font-weight: bold;
-}
-
-.header-right,
-.header-right table td {
-    font-size: 8px;
-    font-family: 'Arial', sans-serif;
-    border: 1px solid rgb(56, 53, 255);
-}
-
-.header-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 10px;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-.sub-info {
-    font-size: 10px;
-}
-
-#Tipo_Producto2,
-#producto2 {
-    margin: 0;
-    font-size: 11px;
-    font-weight: bold;
-    color: #000;
-    line-height: 1.2;
-    text-decoration: underline;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.content,
-.analysis-section {
-    font-size: 10px;
-    font-weight: bold;
-    margin-top: 5px;
-    padding-left: 50px;
-}
-
-table {
-    width: 100%;
-    font-size: 10px;
-}
-
-#sign-document,
-.button-container button {
-    display: none;
-}
-
-#notification {
-    display: none;
-}
-
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
@@ -114,13 +19,13 @@ body {
     margin-top: 30px;
 }
 
+
 .content, #content, #additionalContent, #mainContainer, #additionalContainer, .form-container, .footer-section, th, td, tr, thead tr {
     margin: 0;
     padding: 10px;
     border: none;
     background-color: #FFF;
 }
-
 .header, .header-bottom, .table-section, .footer-box, .footer {
     margin: 0;
     padding-top: 1px;
@@ -130,7 +35,6 @@ body {
     border: none;
     background-color: #FFF;
 }
-
 .footer, .additionalfooter {
     position: absolute;
     bottom: 0;
@@ -187,6 +91,7 @@ tbody {
     padding-left: 10px;
     padding-right: 10px;
 }
+
 
 .sub-info, .bold {
     font-size: 9px;
@@ -252,14 +157,15 @@ td {
     border: 0px dashed #000;
     height: 64px;
     width: 64px;
-    margin: auto;
+    margin: auto; /* Centra el contenedor en el espacio disponible */
 }
 
 .signature img {
     width: 64px;
     height: 64px;
-    object-fit: contain;
+    object-fit: contain; /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
 }
+
 
 .bold, .signature, p {
     margin: 0;
@@ -300,22 +206,13 @@ p {
     font-size: 8pt;
 }
 
-#contenido {
-    background-color: #FFF; /* Fondo blanco */
-    padding: 10px; /* Espaciado interno */
-    margin: 0 auto; /* Centrado y sin márgenes externos */
-    width: auto; /* Ancho automático basado en el contenido */
-    box-sizing: border-box; /* El cálculo del ancho incluye el padding y border */
-}
-
 #contenido_main {
     align-items: center;
 }
-
 #contenido_main .table {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 80%; /* Ajusta esto según tus necesidades */
 }
 
 .no-border {
@@ -328,15 +225,15 @@ p {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5);
+    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5); /* Aumenta la escala verticalmente */
     transform-origin: center center;
-    font-size: 110px;
-    color: rgba(0, 0, 0, 0.2);
+    font-size: 110px; /* Ajusta este valor según sea necesario */
+    color: rgba(0, 0, 0, 0.2); /* Semitransparente */
     pointer-events: none;
     z-index: 1;
-    width: 100%;
-    text-align: center;
-    white-space: nowrap;
+    width: 100%; /* Asegúrate de que abarque todo el ancho del contenedor */
+    text-align: center; /* Centra el texto horizontalmente */
+    white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
 }
 
 .pendiente-aprobacion {
@@ -344,51 +241,54 @@ p {
     position: absolute;
     top: 50%;
     left: 40%;
-    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5);
+    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5); /* Aumenta la escala verticalmente */
     transform-origin: center center;
-    font-size: 70px;
-    color: rgba(0, 0, 0, 0.2);
+    font-size: 110px; /* Ajusta este valor según sea necesario */
+    color: rgba(0, 0, 0, 0.2); /* Semitransparente */
     pointer-events: none;
     z-index: 1;
-    width: 100%;
-    text-align: center;
-    white-space: nowrap;
+    width: 100%; /* Asegúrate de que abarque todo el ancho del contenedor */
+    text-align: center; /* Centra el texto horizontalmente */
+    white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
+    font-size: 70px;
 }
+
 
 .hidden {
-    display: none !important;
+    display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
 
+/* Estilo para todos los elementos th */
 .general-th {
-    background-color: #0047b3;
-    color: white;
-    padding: 8px;
+    background-color: #0047b3; /* Color de fondo azul */
+    color: white;             /* Texto en color blanco */
+    padding: 8px;             /* Relleno alrededor del texto */
 }
 
+/* Estilo para th dentro de .header-right table */
 .header-right-th {
-    font-size: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    padding-left: 3px;
-    padding-right: 1px;
+    font-size: 8px;            /* Tamaño de fuente más pequeño para th */
+    white-space: nowrap;       /* Asegura que el texto no se envuelva */
+    overflow: hidden;          /* Oculta el contenido que desborde el tamaño del elemento */
+    text-overflow: ellipsis;   /* Añade puntos suspensivos si el texto se desborda */
+    padding-top: 0px;          /* Relleno superior */
+    padding-bottom: 0px;       /* Relleno inferior */
+    padding-left: 3px;         /* Relleno izquierdo */
+    padding-right: 1px;        /* Relleno derecho */
 }
 
 #sign-document {
-    background-color: #ff0000;
+    background-color: #ff0000; /* Color rojo para el botón Firmar Documento */
     margin-bottom: 75px;
 }
 
 #sign-document:hover {
-    background-color: #aa0202;
+    background-color: #aa0202; /* Color rojo oscuro al pasar el mouse por el botón Firmar Documento */
 }
-
 .button-container button {
-    width: 200px;
+    width: 200px; /* Establece un ancho fijo para ambos botones */
     padding: 15px 30px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Espacio entre los botones */
     color: white;
     border: none;
     border-radius: 5px;
@@ -397,7 +297,7 @@ p {
     text-align: center;
     text-decoration: none;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s; /* Transición suave para el cambio de color */
 }
 
 .button-container {
