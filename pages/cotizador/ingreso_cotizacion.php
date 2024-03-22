@@ -2,8 +2,9 @@
 //archivo: pages\cotizador\ingreso_cotizacion.php
 //Elaborado por: @ratapan
 // Todo:
-// 1. Tabla
-// 2. Pop-up
+// 1. Cotizador
+// 2. Mantenedor de precios
+// 3. Ingreso de recetas
 
 
 

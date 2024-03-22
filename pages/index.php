@@ -214,7 +214,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </span>
                             Ingreso
                         </a>
-                        <a id="cotizador_buscar" href="#" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
+                        <a id="cotizador_busqueda" href="#" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/search.svg" 
                                 alt="Icono de buscar dentro de cotizador" class="icono-usuario" height="24" width="24" />
