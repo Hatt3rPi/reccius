@@ -44,7 +44,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <button type="button" id="editarCotizacion" name="editarCotizacion" class="action-button" style="background-color: red; color: white;display: none;">Editar cotización</button>
                 </div>
         </form>
-        <div class="modal" id="add_contizacion_modal" tabindex="-1" role="dialog">
+        <div class="modal bg-dark-opacity" id="add_contizacion_modal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-dialog">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">

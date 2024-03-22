@@ -31,6 +31,9 @@
     display: inline-block; /* Ajusta el ancho al contenido del texto */
     padding-bottom: 0.25em; /* Espacio debajo del texto para no tocar la línea */
 }
+.bg-dark-opacity {
+    background-color: rgba(0, 0, 0, 0.5); 
+}
 
 h1,
 h2 {
