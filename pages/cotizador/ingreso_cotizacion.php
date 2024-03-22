@@ -133,7 +133,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         addContizacionModal.hide();
     })
     addContizacionFormProducto.on('input', () => {
-        const searchValue = addContizacionFormProducto.value.toLowerCase();
+        const searchValue = addContizacionFormProducto.val().toLowerCase();
         addContizacionFormProductoData.innerHTML = '';
         console.log('searchValue: ',searchValue);
     });
@@ -142,9 +142,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function addContizacionFormSubmit(event) {
         event.preventDefault();
-        const producto = $('#add_producto').value
-        const tipoPreparacion = $('#add_tipo_preparacion').value
-        const tipoConcentracion = $('#add_tipo_concentracion').value
+        const producto = $('#add_producto').val()
+        const tipoPreparacion = $('#add_tipo_preparacion').val()
+        const tipoConcentracion = $('#add_tipo_concentracion').val()
 
         console.log(tipoPreparacion, tipoConcentracion, cotizadorFilas, cotizadorTabla)
     }
