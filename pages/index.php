@@ -174,7 +174,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </a>
                     </div>
                 </li>
-
                 <li class="item" id="Acta_Liberacion_o_Rechazo">
                     <a href="#Acta_Liberacion_o_Rechazo" class="btn_lateral">
                         <span>
@@ -197,6 +196,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </a>
                     </div>
                 </li>
+
+                <li class="title">Recetario magistral</li>
+
+                <li class="item" id="cotizador">
+                    <a href="#Cotizador" class="btn_lateral">
+                        <span>
+                            <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                        </span>
+                        Cotizador
+                    </a>
+                    <div class="smenu">
+                        <a id="cotizador_ingreo" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" />
+                            </span>
+                            Ingreso
+                        </a>
+                    </div>
+                </li>
+
+
+
             </ul>
         </aside>
 
