@@ -142,8 +142,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     addContizacionForm.on("submit", addContizacionFormSubmit);
-
     function addContizacionFormSubmit(event) {
+        console.log('addContizacionFormSubmit');
         event.preventDefault();
         const formData = new FormData(this);
         var formObject = {};
@@ -151,7 +151,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             formObject[key] = value;
         });
         console.log(formObject);
-
     }
 
 
