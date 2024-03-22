@@ -37,7 +37,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 <body>
     <div class="form-container">
         <h1>Ingreso de cotización</h1>
-        <form method="POST" id="formulario_especificacion" name="formulario_especificacion">
+        <form method="POST" id="formulario_cotizacion" name="formulario_cotizacion">
             <fieldset>
                 <br>
                 <br>
@@ -45,12 +45,60 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div id="contenedor_cotizador">
                     <table id="cotizadorTabla" class="table table-striped table-bordered" width="100%"></table>
                 </div>
-                <button type="button" id="boton_agrega_elemento">Agregar Elemento</button>
+                <button type="button" id="boton_agrega_elemento" data-toggle="modal" data-target="#add_contizacion_modal">Agregar Producto</button>
                 <div class="actions-container">
                     <button type="button" id="guardarCotizacion" name="guardarCotizacion" class="action-button">Guardar Cotización</button>
                     <button type="button" id="editarCotizacion" name="editarCotizacion" class="action-button" style="background-color: red; color: white;display: none;">Editar cotización</button>
                 </div>
         </form>
+        <div class="modal fade" id="add_contizacion_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog">
+                <form id="add_contizacion_form" class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar Producto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="autocomplete-input">Buscar:</label>
+                            <input type="text" id="autocomplete-input" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Concentración:</label>
+                            <select name="tipo_preparacion" id="tipo_preparacion" class="select-style" required>
+                                <option>Selecciona estructura a utilizar:</option>
+                                <option value='fraccionamiento'>fraccionamiento</option>
+                                <option value='inyectables'>inyectables</option>
+                                <option value='oftalmologia'>Oftalmología</option>
+                                <option value='semisolidos'>semisólidos</option>
+                                <option value='solidos'>sólidos</option>
+                                <option value='soluciones'>soluciones</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Concentración:</label>
+                            <select name="tipo_concentracion" id="tipo_concentracion" class="select-style" required>
+                                <option>Selecciona estructura a utilizar:</option>
+                                <option value='g/ml'>g/ml</option>
+                                <option value='%/ml'>%/ml</option>
+                                <option value='UI/ml'>UI/ml</option>
+                                <option value='g'>g</option>
+                                <option value='ml'>ml</option>
+                                <option value='UI'>UI</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" type="submit" class="btn btn-primary">Agregar</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+
     </div>
 </body>
 
@@ -58,10 +106,46 @@ while ($row = mysqli_fetch_assoc($result)) {
 <script>
     const opcionesDesplegables = <?php echo json_encode($opciones); ?>;
     console.log(opcionesDesplegables);
+
+    $(document).ready(function() {
+        var availableTags = [
+            "Opción 1",
+            "Opción 2",
+            "Opción 3",
+            "Opción 4",
+            // Añade más opciones según necesites
+        ];
+        $("#autocomplete-input").autocomplete({
+            source: availableTags
+        });
+    });
+
+
     var cotizadorTabla, cotizadorFilas = 0;
 
-    carga_tabla_cotizacion({id:null, action:null});
-    function carga_tabla_cotizacion({id = null, accion = null}) {
+    const addContizacionModal = $('#add_contizacion_modal')
+
+    const addContizacionForm = $('#add_contizacion_form')
+    addContizacionForm.addEventListener("submit", addContizacionFormSubmit);
+
+    function addContizacionFormSubmit(event) {
+        event.preventDefault();
+        const tipoPreparacion = document.getElementById('#tipo_preparacion').value
+        const tipoConcentracion = document.getElementById('#tipo_concentracion').value
+
+    }
+
+
+
+    cargaTablaCotizacion({
+        id: null,
+        action: null
+    });
+
+    function cargaTablaCotizacion({
+        id = null,
+        accion = null
+    }) {
 
         cotizadorTabla = new DataTable('#cotizadorTabla', {
             "paging": false,
@@ -71,16 +155,23 @@ while ($row = mysqli_fetch_assoc($result)) {
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
             },
-            columns: [
-                { title: 'Preparación' },
-                { title: 'Producto' },
-                { title: 'Concentración' },
-                { title: 'Cantidad' }
+            columns: [{
+                    title: 'Preparación'
+                },
+                {
+                    title: 'Producto'
+                },
+                {
+                    title: 'Concentración'
+                },
+                {
+                    title: 'Cantidad'
+                }
             ]
         });
 
         $('#boton_agrega_elemento').on('click', function() {
-           console.log("Open pop-up")
+            console.log("Open pop-up")
         });
     }
 
