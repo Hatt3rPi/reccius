@@ -41,22 +41,23 @@ while ($row = mysqli_fetch_assoc($result)) {
             <fieldset>
                 <br>
                 <br>
-                <h2 class="section-title">Análisis Físico-Químico:</h2>
+                <h2 class="section-title">Receta:</h2>
                 <div id="contenedor_cotizador">
                     <table id="cotizadorTabla" class="table table-striped table-bordered" width="100%"></table>
                 </div>
-                <button type="button" id="boton_agrega_elemento" data-toggle="modal" data-target="#add_contizacion_modal">Agregar Producto</button>
+                <button type="button" id="button_agrega_elemento">
+                    Agregar Producto</button>
                 <div class="actions-container">
                     <button type="button" id="guardarCotizacion" name="guardarCotizacion" class="action-button">Guardar Cotización</button>
                     <button type="button" id="editarCotizacion" name="editarCotizacion" class="action-button" style="background-color: red; color: white;display: none;">Editar cotización</button>
                 </div>
         </form>
-        <div class="modal fade" id="add_contizacion_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal" id="add_contizacion_modal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-dialog">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agregar Producto</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" id="add_modal_close" data-dismiss="modal">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -73,7 +74,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="form-group">
                             <label>Concentración:</label>
-                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="select-style" required>
+                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="container select-style" required>
                                 <option>Selecciona estructura a utilizar:</option>
                                 <option value='fraccionamiento'>fraccionamiento</option>
                                 <option value='inyectables'>inyectables</option>
@@ -85,7 +86,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="form-group">
                             <label>Concentración:</label>
-                            <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="select-style" required>
+                            <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="container select-style" required>
                                 <option>Selecciona estructura a utilizar:</option>
                                 <option value='g/ml'>g/ml</option>
                                 <option value='%/ml'>%/ml</option>
@@ -113,20 +114,33 @@ while ($row = mysqli_fetch_assoc($result)) {
     const opcionesDesplegables = <?php echo json_encode($opciones); ?>;
     console.log(opcionesDesplegables);
 
-
+    const buttonAgregaElemento = $('#button_agrega_elemento') //toggle modal
+    const addContizacionForm = $('#add_contizacion_form') //form modal
+    const addContizacionModal = $('#add_contizacion_modal') //modal
+    const addContizacionModalClose = $('#add_modal_close') //modal close
+    
     var cotizadorTabla, cotizadorFilas = 0;
 
-    const addContizacionModal = $('#add_contizacion_modal')
 
-    const addContizacionForm = $('#add_contizacion_form')
+
+
+    buttonAgregaElemento.on('click', function() {
+        addContizacionModal.show();
+    });
+    addContizacionModalClose.on('click', function() {
+        addContizacionModal.hide();
+    })
+
     addContizacionForm.on("submit", addContizacionFormSubmit);
 
     function addContizacionFormSubmit(event) {
         event.preventDefault();
-        
-        const producto = document.getElementById('add_producto').value
-        const tipoPreparacion = document.getElementById('add_tipo_preparacion').value
-        const tipoConcentracion = document.getElementById('add_tipo_concentracion').value
+        const producto = $('#add_producto').value
+        const tipoPreparacion = $('#add_tipo_preparacion').value
+        const tipoConcentracion = $('#add_tipo_concentracion').value
+    }
+
+    function feedDataList(datalist, options) {
 
     }
 
@@ -165,9 +179,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             ]
         });
 
-        $('#boton_agrega_elemento').on('click', function() {
-            console.log("Open pop-up")
-        });
     }
 
     document.getElementById('guardarCotizacion').addEventListener('click', function(e) {
