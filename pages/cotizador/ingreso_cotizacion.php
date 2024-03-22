@@ -160,7 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         options.forEach(optionValue => {
             const optionEl = document.createElement('option');
             optionEl.value = optionValue;
-            datalist.appendChild(optionEl);
+            datalist.append(optionEl);
         });
 
     }
