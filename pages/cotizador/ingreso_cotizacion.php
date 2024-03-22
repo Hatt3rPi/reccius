@@ -16,14 +16,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
-$query = "SELECT categoria, nombre_opcion FROM calidad_opciones_desplegables ORDER BY categoria, CASE WHEN nombre_opcion = 'Otro' THEN 1 ELSE 0 END, nombre_opcion";
-$result = mysqli_query($link, $query);
-
-$opciones = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $opciones[$row['categoria']][] = $row['nombre_opcion'];
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -62,6 +54,32 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </button>
                     </div>
                     <div class="modal-body">
+
+                        <div class="form-group">
+                            <label>Preparación:</label>
+                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style" required>
+                                <option>Selecciona estructura a utilizar:</option>
+                                <option value='fraccionamiento'>fraccionamiento</option>
+                                <option value='inyectables'>inyectables</option>
+                                <option value='oftalmologia'>Oftalmología</option>
+                                <option value='semisolidos'>semisólidos</option>
+                                <option value='solidos'>sólidos</option>
+                                <option value='soluciones'>soluciones</option>
+                            </select>
+                        </div>
+
+                        <!--
+                        <div class="form-row">
+                            <input type="text" name="concentracion_param1" class="col" style="display: none;width: 40%;margin-left: 100px;margin-top: 9px;">
+                            <input type="text" name="concentracion_param1_lbl" class="col" disabled style="display: none;width: 43%;margin-right: 200px;margin-top: 9px;">
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <input type="text" name="concentracion_param2" class="col" style="display: none;width: 40%;margin-left: 100px;margin-top: 9px;">
+                            <input type="text" name="concentracion_param2_lbl" class="col" disabled style="display: none;width: 43%;margin-right: 200px;margin-top: 9px;">
+                        </div>
+                        -->
+
                         <div class="form-group">
                             <label for="autocomplete-input">Producto:</label>
                             <input class="form-control" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
@@ -74,19 +92,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="form-group">
                             <label>Concentración:</label>
-                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="container select-style" required>
-                                <option>Selecciona estructura a utilizar:</option>
-                                <option value='fraccionamiento'>fraccionamiento</option>
-                                <option value='inyectables'>inyectables</option>
-                                <option value='oftalmologia'>Oftalmología</option>
-                                <option value='semisolidos'>semisólidos</option>
-                                <option value='solidos'>sólidos</option>
-                                <option value='soluciones'>soluciones</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Concentración:</label>
-                            <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="container select-style" required>
+                            <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style" required>
                                 <option>Selecciona estructura a utilizar:</option>
                                 <option value='g/ml'>g/ml</option>
                                 <option value='%/ml'>%/ml</option>
@@ -111,20 +117,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 </html>
 <script>
-    const opcionesDesplegables = <?php echo json_encode($opciones); ?>;
-    console.log(opcionesDesplegables);
-
-    const buttonAgregaElemento = $('#button_agrega_elemento') //toggle modal
-    const addContizacionForm = $('#add_contizacion_form') //form modal
-    const addContizacionModal = $('#add_contizacion_modal') //modal
+    const buttonAgregaElementoCotizacion = $('#button_agrega_elemento') //modal open
     const addContizacionModalClose = $('#add_modal_close') //modal close
-    
+    const addContizacionModal = $('#add_contizacion_modal') //modal
+    const addContizacionForm = $('#add_contizacion_form') //form modal
+
     var cotizadorTabla, cotizadorFilas = 0;
 
 
 
 
-    buttonAgregaElemento.on('click', function() {
+    buttonAgregaElementoCotizacion.on('click', function() {
         addContizacionModal.show();
     });
     addContizacionModalClose.on('click', function() {
