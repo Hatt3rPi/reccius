@@ -207,7 +207,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#cotizador_ingreso').click(function (event) {
-        console.log('cotizador_ingreso click pre flags'); 
+        console.log('cotizador_ingreso click pre flags recetario_magistral'); 
         if(AppConfig.FLAGS.recetario_magistral){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
@@ -229,10 +229,10 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
     $('#cotizador_busqueda').click(function (event) {
-        console.log('cotizador_busqueda click pre flags'); 
+        console.log('cotizador_busqueda click pre flags recetario_magistral'); 
         if(AppConfig.FLAGS.recetario_magistral){
         event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
+        $('#dynamic-content').hide();
         $('#loading-spinner').show();
         
         console.log('cotizador_ingreso click'); 
