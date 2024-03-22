@@ -117,10 +117,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    const buttonAgregaElementoCotizacion = $('#button_agrega_elemento') //modal open
-    const addContizacionModalClose = $('#add_modal_close') //modal close
-    const addContizacionModal = $('#add_contizacion_modal') //modal
-    const addContizacionForm = $('#add_contizacion_form') //form modal
+    var buttonAgregaElementoCotizacion = $('#button_agrega_elemento') //modal open
+    var addContizacionModalClose = $('#add_modal_close') //modal close
+    var addContizacionModal = $('#add_contizacion_modal') //modal
+    var addContizacionForm = $('#add_contizacion_form') //form modal
 
     var cotizadorTabla, cotizadorFilas = 0;
 
