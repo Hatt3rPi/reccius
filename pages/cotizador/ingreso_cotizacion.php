@@ -62,12 +62,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="autocomplete-input">Buscar:</label>
-                            <input type="text" id="autocomplete-input" class="form-control">
+                            <label for="autocomplete-input">Producto:</label>
+                            <input class="form-control" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
+                            <datalist id="datalist_product_options">
+                                <option value="Opción 1">
+                                <option value="Opción 2">
+                                <option value="Opción 3">
+                                <option value="Opción 4">
+                            </datalist>
                         </div>
                         <div class="form-group">
                             <label>Concentración:</label>
-                            <select name="tipo_preparacion" id="tipo_preparacion" class="select-style" required>
+                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="select-style" required>
                                 <option>Selecciona estructura a utilizar:</option>
                                 <option value='fraccionamiento'>fraccionamiento</option>
                                 <option value='inyectables'>inyectables</option>
@@ -79,7 +85,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="form-group">
                             <label>Concentración:</label>
-                            <select name="tipo_concentracion" id="tipo_concentracion" class="select-style" required>
+                            <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="select-style" required>
                                 <option>Selecciona estructura a utilizar:</option>
                                 <option value='g/ml'>g/ml</option>
                                 <option value='%/ml'>%/ml</option>
@@ -107,31 +113,20 @@ while ($row = mysqli_fetch_assoc($result)) {
     const opcionesDesplegables = <?php echo json_encode($opciones); ?>;
     console.log(opcionesDesplegables);
 
-    $(document).ready(function() {
-        var availableTags = [
-            "Opción 1",
-            "Opción 2",
-            "Opción 3",
-            "Opción 4",
-            // Añade más opciones según necesites
-        ];
-        $("#autocomplete-input").autocomplete({
-            source: availableTags
-        });
-    });
-
 
     var cotizadorTabla, cotizadorFilas = 0;
 
     const addContizacionModal = $('#add_contizacion_modal')
 
     const addContizacionForm = $('#add_contizacion_form')
-    addContizacionForm.addEventListener("submit", addContizacionFormSubmit);
+    addContizacionForm.on("submit", addContizacionFormSubmit);
 
     function addContizacionFormSubmit(event) {
         event.preventDefault();
-        const tipoPreparacion = document.getElementById('#tipo_preparacion').value
-        const tipoConcentracion = document.getElementById('#tipo_concentracion').value
+        
+        const producto = document.getElementById('add_producto').value
+        const tipoPreparacion = document.getElementById('add_tipo_preparacion').value
+        const tipoConcentracion = document.getElementById('add_tipo_concentracion').value
 
     }
 
