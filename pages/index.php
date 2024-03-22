@@ -207,11 +207,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Cotizador
                     </a>
                     <div class="smenu">
-                        <a id="cotizador_ingreo" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
+                        <a id="cotizador_ingreso" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" />
                             </span>
                             Ingreso
+                        </a>
+                        <a id="cotizador_buscar" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/search.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" />
+                            </span>
+                            Buscar
                         </a>
                     </div>
                 </li>
