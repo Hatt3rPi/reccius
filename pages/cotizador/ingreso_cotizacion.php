@@ -58,7 +58,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="form-group">
                             <label>Preparación:</label>
                             <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style" required>
-                                <option>Selecciona estructura a utilizar:</option>
+                                <option>Selecciona preparación a utilizar:</option>
                                 <option value='fraccionamiento'>fraccionamiento</option>
                                 <option value='inyectables'>inyectables</option>
                                 <option value='oftalmologia'>Oftalmología</option>
@@ -104,7 +104,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" type="submit" class="btn btn-primary">Agregar</button>
+                        <button  type="submit" class="btn btn-primary">Agregar</button>
                     </div>
                 </form>
 
