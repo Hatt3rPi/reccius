@@ -202,9 +202,12 @@ $(document).ready(function () {
         }
     });
 });
+
 // Cotizador
+
 $(document).ready(function () {
     $('#cotizador_ingreso').click(function (event) {
+        console.log('cotizador_ingreso click pre flags'); 
         if(AppConfig.FLAGS.cotizador_ingreso){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
