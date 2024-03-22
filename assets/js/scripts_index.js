@@ -202,6 +202,30 @@ $(document).ready(function () {
         }
     });
 });
+// Cotizador
+$(document).ready(function () {
+    $('#cotizador_ingreso').click(function (event) {
+        if(AppConfig.FLAGS.cotizador_ingreso){
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        
+        console.log('cotizador_ingreso click'); 
+        // Confirmar que el evento click funciona
+        obtenNotificaciones();
+
+        // Cargar el formulario de configuración dentro del div #dynamic-content
+        $('#dynamic-content').load('cotizador/ingreso_cotizacion.php?nuevo=true', function () {
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+        } else {
+            featureNoDisponible();
+        }
+    });
+});
+
+// Cotizador final
 
 $(document).ready(function () {
     $('#listado_especificacion_producto').click(function (event) {

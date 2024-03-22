@@ -202,27 +202,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <li class="item" id="cotizador">
                     <a href="#Cotizador" class="btn_lateral">
                         <span>
-                            <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                            <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" />
                         </span>
                         Cotizador
                     </a>
                     <div class="smenu">
                         <a id="cotizador_ingreso" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/liberacion.svg" 
+                                alt="Icono de ingresar dentro de cotizador" class="icono-usuario" height="24" width="24" />
                             </span>
                             Ingreso
                         </a>
-                        <a id="cotizador_buscar" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
+                        <a id="cotizador_buscar" href="#" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/search.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/search.svg" 
+                                alt="Icono de buscar dentro de cotizador" class="icono-usuario" height="24" width="24" />
                             </span>
                             Buscar
                         </a>
                     </div>
                 </li>
-
-
 
             </ul>
         </aside>
