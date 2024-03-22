@@ -156,7 +156,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     function feedDataList(datalist, options) {
-        datalist.innerHTML = '';
+        datalist.empty();
         options.forEach(optionValue => {
             const optionEl = document.createElement('option');
             optionEl.value = optionValue;
