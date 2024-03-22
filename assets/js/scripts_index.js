@@ -210,7 +210,7 @@ $(document).ready(function () {
         console.log('cotizador_ingreso click pre flags recetario_magistral'); 
         if(AppConfig.FLAGS.recetario_magistral){
         event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
+        $('#dynamic-content').hide();
         $('#loading-spinner').show();
         
         console.log('cotizador_ingreso click'); 
