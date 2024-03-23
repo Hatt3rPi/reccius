@@ -202,7 +202,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <li class="item" id="cotizador">
                     <a href="#Cotizador" class="btn_lateral">
                         <span>
-                            <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" />
+                            <img src="../assets/images/calculator.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" />
                         </span>
                         Cotizador
                     </a>
