@@ -286,14 +286,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         cantidad
     }) {
         var filaNueva = [
-            // preparacion,
-            document.createElement('p').textContent = preparacion,
+            `<p>${preparacion}</p>`,
             // producto
-            document.createElement('p').textContent = producto,
+            `<p>${producto}</p>`,
             // concentración
-            document.createElement('p').textContent = concentracion,
+            `<p>${concentracion}</p>`,
             // cantidad
-            document.createElement('p').textContent = cantidad,
+            `<p>${cantidad}</p>`,
             //Action
             `
             <button type="button" data-index="${index}" class="btn-eliminar">Editar</button>
