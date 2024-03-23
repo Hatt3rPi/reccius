@@ -242,12 +242,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             cotizadorLista.push(formObject)
             addProductoCotizador({
                     index: i,
-                    producto: formObject.add_cantidad,
+                    producto: formObject.add_producto,
                     preparacion: formObject.add_tipo_preparacion,
                     concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}/${
                         formObject.add_tipo_preparacion.includes("/") ? 
                         formObject['concentracion_form_param_2'] : ""}`,
-                    cantidad: formObject['add_cantidad'],
+                    cantidad: formObject.add_cantidad,
                 }
 
             )
@@ -284,11 +284,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         concentracion,
         cantidad
     }) {
-        console.log({index,
-        preparacion,
-        producto,
-        concentracion,
-        cantidad});
+        console.log({
+            index,
+            preparacion,
+            producto,
+            concentracion,
+            cantidad
+        });
         var filaNueva = [
             `<p>${preparacion}</p>`,
             // producto
