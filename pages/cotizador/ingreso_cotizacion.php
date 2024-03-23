@@ -314,14 +314,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         addContizacionModal.hide();
     }
     $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
-        cotizadorTabla = $('#analisisMB').DataTable();
+        cotizadorTabla = $('#cotizadorTabla').DataTable();
         var index = $(this).data('index');
         console.log(`eliminar elemento: ${index}`)
         console.log(cotizadorLista[index])
         cotizadorTabla.row($(this).parents('tr')).remove().draw();
     });
     $('#cotizadorTabla').on('click', '.btn-editar', function() {
-        cotizadorTabla = $('#analisisMB').DataTable();
+        cotizadorTabla = $('#cotizadorTabla').DataTable();
         var index = $(this).data('index');
         console.log(`editar elemento: ${index}`)
         console.log(cotizadorLista[index])
