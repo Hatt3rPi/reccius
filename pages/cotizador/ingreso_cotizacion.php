@@ -68,7 +68,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="autocomplete-input">Producto:</label>
+                            <label for="add_producto">Producto:</label>
                             <input class="form-control mx-0" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
                             <datalist id="datalist_product_options">
                             </datalist>
@@ -84,18 +84,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <option value='ml'>ml</option>
                                 <option value='UI'>UI</option>
                             </select>
-                            <div class="form-row">
-                                <input type="text" name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
+                            <div class="form-row mx-0">
+                                <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
                                 <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                             </div>
-                            <br>
-                            <div class="form-row">
+                            <div class="form-row mx-0">
                                 <input type="text" name="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
                                 <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                             </div>
-
-
                         </div>
+                        <div class="form-group">
+                            <label for="add_cantidad">Producto:</label>
+                            <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
+                        </div>
+                    </div>
+                    <div class="alert alert-warning" role="alert" id="add_error_alert" style="display: none;">
+                        Todos los campos deben llenarse
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Agregar</button>
@@ -118,8 +122,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var addContizacionFormProducto = $('#add_producto') //producto modal
     var addContizacionFormProductoData = $('#datalist_product_options') //producto datalist modal
     var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
-
+    
+    var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, cotizadorFilas = 0;
+
+    var cotizadorLista = [];
 
     buttonAgregaElementoCotizacion.on('click', function() {
         addContizacionModal.show();
@@ -127,6 +134,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     addContizacionModalClose.on('click', function() {
         addContizacionModal.hide();
     })
+
+
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
         console.log('searchValue: ', searchValue);
@@ -149,14 +158,52 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     addContizacionForm.on("submit", addContizacionFormSubmit);
 
     function addContizacionFormSubmit(event) {
-        console.log('addContizacionFormSubmit');
+        addErrorAlert.hide();
         event.preventDefault();
         const formData = new FormData(this);
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
         });
-        console.log(formObject);
+        if(validarFormulario(formObject)) {
+            var i = cotizadorLista.length
+            formObject['index'] = i
+            cotizadorLista.push(formObject)
+            addProductoCotizador(
+                {
+                    index: i,
+                    producto: formObject['add_cantidad'],
+                    preparacion: formObject['add_preparacion'],
+                    concentracion: `${formObject['add_concentracion']} : ${formObject['concentracion_form_param_1']}/${formObject["add_tipo_concentracion"].includes("/") ? formObject['concentracion_form_param_2'] : ""}`,
+                    cantidad: formObject['add_cantidad'],
+                }
+
+            ) 
+            return
+        }
+
+        addErrorAlert.show();
+
+    }
+
+    function validarFormulario(formObject) {
+        let valido = true;
+        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1"];
+        camposRequeridos.forEach(campo => {
+            if (!formObject[campo] || formObject[campo].trim() === "") {
+                console.log(`El campo ${campo} es obligatorio.`);
+                valido = false;
+            }
+        });
+
+        // Si add_tipo_concentracion contiene "/", 
+        // validar que concentracion_form_param_2 esté lleno
+        if (formObject["add_tipo_concentracion"].includes("/")) {
+            if (!formObject["concentracion_form_param_2"] || formObject["concentracion_form_param_2"].trim() === "") {
+                valido = false;
+            }
+        }
+        return valido;
     }
 
     function feedDataList(datalist, options) {
@@ -222,96 +269,63 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 },
                 {
                     title: 'Cantidad'
+                },
+                {
+                    title: 'Actividad'
                 }
             ]
         });
 
     }
 
-    document.getElementById('guardarCotizacion').addEventListener('click', function(e) {
+    function addProductoCotizador({
+        index,
+        preparacion,
+        producto,
+        concentracion,
+        cantidad
+    }) {
+        var filaNueva = [
+            // preparacion,
+            document.createElement('p').textContent = preparacion,
+            // producto
+            document.createElement('p').textContent = producto,
+            // concentración
+            document.createElement('p').textContent = concentracion,
+            // cantidad
+            document.createElement('p').textContent = cantidad,
+            //Action
+            `
+            <button type="button" data-index="${index}" class="btn-eliminar">Editar</button>
+            <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
+            `
+        ];
+        cotizadorTabla.row.add(filaNueva).draw(false);
+        contadorFilasMB++;
+    }
+    $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
+        var index = $(this).data('index');
+        cotizadorTabla.row($(this).parents('tr')).remove().draw();
+    });
+    $('#cotizadorTabla').on('click', '.btn-editar', function() {
+        var index = $(this).data('index');
+        console.log('Editar');
+        //cotizadorTabla.row($(this).parents('tr')).remove().draw();
+    });
+
+    $('#guardarCotizacion').addEventListener('click', function(e) {
         if (!validarFormulario()) {
-            e.preventDefault(); // Previene el envío del formulario si la validación falla
+            e.preventDefault();
         }
     });
 
-    function validarFormulario() {
-        var valido = true;
-        var mensaje = '';
-
-        // Validación para el campo 'Tipo de Producto'
-        if (document.forms[0]["Tipo_Producto"].value.trim() === '') {
-            mensaje += 'El campo "Tipo de Producto" es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Producto'
-        if (document.forms[0]["producto"].value.trim() === '') {
-            mensaje += 'El campo "Producto" es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Concentración'
-        if (document.forms[0]["concentracion"].value.trim() === '') {
-            mensaje += 'El campo "Concentración" es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Formato'
-        if (document.forms[0]["formato"].value.trim() === '') {
-            mensaje += 'El campo "Formato" es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Elaborado por'
-        if (document.forms[0]["elaboradoPor"].value.trim() === '') {
-            mensaje += 'El campo "Elaborado por" es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Número de documento'
-        if (document.forms[0]["numeroProducto"].value.trim() === '') {
-            mensaje += 'El campo "Número de Producto es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Fecha edición'
-        if (document.forms[0]["fechaEdicion"].value.trim() === '') {
-            mensaje += 'El campo "Fecha edición" es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Versión'
-        if (document.forms[0]["version"].value.trim() === '') {
-            mensaje += 'El campo "Versión" es obligatorio.\n';
-            valido = false;
-        }
-
-        // Validación para el campo 'Vigencia'
-        if (document.forms[0]["periodosVigencia"].value.trim() === '') {
-            mensaje += 'El campo "Vigencia" es obligatorio.\n';
-            valido = false;
-        }
-
-        var valido = true;
-        var mensaje = '';
-
-        // Función para validar un conjunto de análisis
-        function validarAnalisis(selector, tipoAnalisis) {
-            $(selector).find('tbody tr').each(function() {
-                var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
-                var metodologia = $(this).find('select[name*="[metodologia]"]').val();
-                var criterio = $(this).find('textarea[name*="[criterio]"]').val();
-
-                if (tipo === '' || metodologia === '' || criterio.trim() === '') {
-                    mensaje += 'Todos los campos de Análisis ' + tipoAnalisis + ' son obligatorios en cada fila.\n';
-                    valido = false;
-                }
-            });
-        }
+    $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
+        cotizadorTabla = $('#analisisMB').DataTable();
+        cotizadorTabla.row($(this).parents('tr')).remove().draw();
+    });
 
 
-        return valido;
-    }
+
     var fakeProductos = [{
             id: 1,
             nombre: "Loratadina 231",
