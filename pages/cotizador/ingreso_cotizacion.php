@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
                         </div>
                     </div>
-                    <div class="alert alert-danger mx-3 d-flex justify-content-center" role="alert" id="add_error_alert" style="display: none;">
+                    <div class="alert alert-danger mx-3 d-flex justify-content-center" role="alert" id="add_error_alert">
                         Todos los campos deben llenarse
                     </div>
                     <div class="modal-footer">
@@ -128,13 +128,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     var cotizadorLista = [];
 
+    addErrorAlert.hide();
+
     buttonAgregaElementoCotizacion.on('click', function() {
         addContizacionModal.show();
     });
     addContizacionModalClose.on('click', function() {
         addContizacionModal.hide();
     })
-
 
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
@@ -277,6 +278,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         return valido;
     }
 
+    function cleanFormAddCotizador() {
+        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
+        camposRequeridos.forEach((el)=>{
+            $(`#${el}`).val('')
+        })
+    }
+
     function addProductoCotizador({
         index,
         preparacion,
@@ -284,13 +292,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         concentracion,
         cantidad
     }) {
-        console.log({
-            index,
-            preparacion,
-            producto,
-            concentracion,
-            cantidad
-        });
         var filaNueva = [
             `<p>${preparacion}</p>`,
             // producto
@@ -305,8 +306,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
             `
         ];
+
+        
         cotizadorTabla.row.add(filaNueva);
         cotizadorTabla.draw();
+        cleanFormAddCotizador()
+        addContizacionModal.hide();
     }
     $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
         cotizadorTabla = $('#analisisMB').DataTable();
