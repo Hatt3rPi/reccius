@@ -304,10 +304,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         tabla.draw();
     }
     $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
+        cotizadorTabla = $('#analisisMB').DataTable();
         var index = $(this).data('index');
         cotizadorTabla.row($(this).parents('tr')).remove().draw();
     });
     $('#cotizadorTabla').on('click', '.btn-editar', function() {
+        cotizadorTabla = $('#analisisMB').DataTable();
         var index = $(this).data('index');
         console.log('Editar');
         //cotizadorTabla.row($(this).parents('tr')).remove().draw();
@@ -319,10 +321,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     });
 
-    $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
-        cotizadorTabla = $('#analisisMB').DataTable();
-        cotizadorTabla.row($(this).parents('tr')).remove().draw();
-    });
 
 
 
