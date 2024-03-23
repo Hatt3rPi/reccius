@@ -314,17 +314,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         addContizacionModal.hide();
     }
     $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
+        console.log('pre',cotizadorLista);
         cotizadorTabla = $('#cotizadorTabla').DataTable();
         var index = $(this).data('index');
-        console.log(`eliminar elemento: ${index}`)
-        console.log(cotizadorLista[index])
+        cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == index) , 1)
         cotizadorTabla.row($(this).parents('tr')).remove().draw();
+        console.log(cotizadorLista);
     });
     $('#cotizadorTabla').on('click', '.btn-editar', function() {
         cotizadorTabla = $('#cotizadorTabla').DataTable();
         var index = $(this).data('index');
-        console.log(`editar elemento: ${index}`)
-        console.log(cotizadorLista[index])
+        
         //cotizadorTabla.row($(this).parents('tr')).remove().draw();
     });
 
