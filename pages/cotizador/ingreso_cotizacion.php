@@ -313,7 +313,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         //cotizadorTabla.row($(this).parents('tr')).remove().draw();
     });
 
-    $('#guardarCotizacion').addEventListener('click', function(e) {
+    $('#guardarCotizacion').on('click', function(e) {
         if (!validarFormulario()) {
             e.preventDefault();
         }
