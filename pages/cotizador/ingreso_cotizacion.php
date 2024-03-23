@@ -122,7 +122,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var addContizacionFormProducto = $('#add_producto') //producto modal
     var addContizacionFormProductoData = $('#datalist_product_options') //producto datalist modal
     var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
-    
+
     var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, cotizadorFilas = 0;
 
@@ -138,8 +138,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
-        console.log('searchValue: ', searchValue);
-
         //API
         var fakeProductosFilter = fakeProductos.filter(option => option.nombre.toLowerCase().includes(searchValue));
         feedDataList(addContizacionFormProductoData, fakeProductosFilter.map(option => {
@@ -156,55 +154,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     addContizacionForm.on("submit", addContizacionFormSubmit);
-
-    function addContizacionFormSubmit(event) {
-        addErrorAlert.hide();
-        event.preventDefault();
-        const formData = new FormData(this);
-        var formObject = {};
-        formData.forEach(function(value, key) {
-            formObject[key] = value;
-        });
-        if(validarFormulario(formObject)) {
-            var i = cotizadorLista.length
-            formObject['index'] = i
-            cotizadorLista.push(formObject)
-            addProductoCotizador(
-                {
-                    index: i,
-                    producto: formObject['add_cantidad'],
-                    preparacion: formObject['add_preparacion'],
-                    concentracion: `${formObject['add_concentracion']} : ${formObject['concentracion_form_param_1']}/${formObject["add_tipo_concentracion"].includes("/") ? formObject['concentracion_form_param_2'] : ""}`,
-                    cantidad: formObject['add_cantidad'],
-                }
-
-            ) 
-            return
-        }
-
-        addErrorAlert.show();
-
-    }
-
-    function validarFormulario(formObject) {
-        let valido = true;
-        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1"];
-        camposRequeridos.forEach(campo => {
-            if (!formObject[campo] || formObject[campo].trim() === "") {
-                console.log(`El campo ${campo} es obligatorio.`);
-                valido = false;
-            }
-        });
-
-        // Si add_tipo_concentracion contiene "/", 
-        // validar que concentracion_form_param_2 esté lleno
-        if (formObject["add_tipo_concentracion"].includes("/")) {
-            if (!formObject["concentracion_form_param_2"] || formObject["concentracion_form_param_2"].trim() === "") {
-                valido = false;
-            }
-        }
-        return valido;
-    }
 
     function feedDataList(datalist, options) {
         datalist.empty();
@@ -276,6 +225,54 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             ]
         });
 
+    }
+
+    function addContizacionFormSubmit(event) {
+        addErrorAlert.hide();
+        event.preventDefault();
+        const formData = new FormData(this);
+        var formObject = {};
+        formData.forEach(function(value, key) {
+            formObject[key] = value;
+        });
+        if (validarFormulario(formObject)) {
+            var i = cotizadorLista.length
+            formObject['index'] = i
+            console.log(formObject);
+            cotizadorLista.push(formObject)
+            addProductoCotizador({
+                    index: i,
+                    producto: formObject['add_cantidad'],
+                    preparacion: formObject['add_preparacion'],
+                    concentracion: `${formObject['add_concentracion']} : ${formObject['concentracion_form_param_1']}/${formObject["add_tipo_concentracion"].includes("/") ? formObject['concentracion_form_param_2'] : ""}`,
+                    cantidad: formObject['add_cantidad'],
+                }
+
+            )
+            return
+        }
+
+        addErrorAlert.show();
+
+    }
+
+    function validarFormulario(formObject) {
+        let valido = true;
+        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1"];
+        camposRequeridos.forEach(campo => {
+            if (!formObject[campo] || formObject[campo].trim() === "") {
+                valido = false;
+            }
+        });
+
+        // Si add_tipo_concentracion contiene "/", 
+        // validar que concentracion_form_param_2 esté lleno
+        if (formObject["add_tipo_concentracion"].includes("/")) {
+            if (!formObject["concentracion_form_param_2"] || formObject["concentracion_form_param_2"].trim() === "") {
+                valido = false;
+            }
+        }
+        return valido;
     }
 
     function addProductoCotizador({
