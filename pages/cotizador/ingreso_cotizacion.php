@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
                         </div>
                     </div>
-                    <div class="alert alert-warning" role="alert" id="add_error_alert" style="display: none;">
+                    <div class="alert alert-danger mx-3" role="alert" id="add_error_alert" style="display: none;">
                         Todos los campos deben llenarse
                     </div>
                     <div class="modal-footer">
@@ -300,8 +300,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
             `
         ];
-        cotizadorTabla.row.add(filaNueva).draw(false);
-        contadorFilasMB++;
+        cotizadorTabla.row.add(filaNueva);
+        tabla.draw();
     }
     $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
         var index = $(this).data('index');
