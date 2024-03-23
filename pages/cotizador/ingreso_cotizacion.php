@@ -127,6 +127,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var cotizadorTabla, cotizadorFilas = 0;
 
     var cotizadorLista = [];
+    var editing = false;
+    var editingIndex = null;
 
     addErrorAlert.hide();
 
@@ -284,6 +286,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $(`#${el}`).val('')
         })
     }
+    function setFormAddCotizador(data) {
+        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
+        camposRequeridos.forEach((el)=>{
+            $(`#${el}`).val(data[el])
+        })
+    }
 
     function addProductoCotizador({
         index,
@@ -324,16 +332,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     $('#cotizadorTabla').on('click', '.btn-editar', function() {
         cotizadorTabla = $('#cotizadorTabla').DataTable();
         var index = $(this).data('index');
-        
-        //cotizadorTabla.row($(this).parents('tr')).remove().draw();
+        editing = true;
+        editingIndex = index;
+        setFormAddCotizador(cotizadorLista[index])
+        addContizacionModal.show();
     });
-
-    $('#guardarCotizacion').on('click', function(e) {
-        if (!validarFormulario()) {
-            e.preventDefault();
-        }
-    });
-
 
 
 
