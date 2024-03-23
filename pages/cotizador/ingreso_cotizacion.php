@@ -310,7 +310,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             `<p>${cantidad}</p>`,
             //Action
             `
-            <button type="button" data-index="${index}" class="btn-eliminar">Editar</button>
+            <button type="button" data-index="${index}" class="btn-editar">Editar</button>
             <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
             `
         ];
