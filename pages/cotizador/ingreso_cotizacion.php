@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
                         </div>
                     </div>
-                    <div class="alert alert-danger mx-3" role="alert" id="add_error_alert" style="display: none;">
+                    <div class="alert alert-danger mx-3 d-flex justify-content-center" role="alert" id="add_error_alert" style="display: none;">
                         Todos los campos deben llenarse
                     </div>
                     <div class="modal-footer">
@@ -242,9 +242,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             cotizadorLista.push(formObject)
             addProductoCotizador({
                     index: i,
-                    producto: formObject['add_cantidad'],
-                    preparacion: formObject['add_preparacion'],
-                    concentracion: `${formObject['add_concentracion']} : ${formObject['concentracion_form_param_1']}/${formObject["add_tipo_concentracion"].includes("/") ? formObject['concentracion_form_param_2'] : ""}`,
+                    producto: formObject.add_cantidad,
+                    preparacion: formObject.add_tipo_preparacion,
+                    concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}/${
+                        formObject.add_tipo_preparacion.includes("/") ? 
+                        formObject['concentracion_form_param_2'] : ""}`,
                     cantidad: formObject['add_cantidad'],
                 }
 
@@ -282,6 +284,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         concentracion,
         cantidad
     }) {
+        console.log({index,
+        preparacion,
+        producto,
+        concentracion,
+        cantidad});
         var filaNueva = [
             `<p>${preparacion}</p>`,
             // producto
