@@ -36,19 +36,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <h2 class="section-title">Datos cotización:</h2>
                 <div class="container">
                     <div class="row">
-                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                        <div class="w-100 col form-group">
                             <label>Realizada por:</label>
                             <input class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly>
                         </div>
-                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                        <div class="w-100 col form-group">
                             <label>Nombre Cliente:</label>
                             <input class="form-control" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
                         </div>
-                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                    </div>
+
+                    <div class="row">
+                        <div class="w-100 col form-group">
                             <label>Rut Cliente:</label>
                             <input class="form-control" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
                         </div>
-                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                        <div class="w-100 col form-group">
                             <label>Correo Cliente:</label>
                             <input type="email" class="form-control" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
                         </div>
@@ -397,7 +400,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
     /* 
             formulario
-    */
+*/
     var cotizacionForm = $('#formulario_cotizacion') //formulario
     cotizacionForm.on("submit", contizacionFormSubmit);
 
@@ -408,7 +411,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         formData.forEach(function(value, key) {
             formObject[key] = value;
         });
-        console.log(formObject, cotizadorLista)
+        console.log('contizacionFormSubmit:\n\n=>',formObject, cotizadorLista)
     }
 
     var fakeProductos = [{
