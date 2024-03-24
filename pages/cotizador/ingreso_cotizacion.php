@@ -276,9 +276,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             index: formObject.index,
             producto: formObject.add_producto,
             preparacion: formObject.add_tipo_preparacion,
-            concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}/${
+            concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}${
                         formObject.add_tipo_preparacion.includes("/") ? 
-                        formObject['concentracion_form_param_2'] : ""}`,
+                        `/${formObject['concentracion_form_param_2']}` : ""}`,
             cantidad: formObject.add_cantidad,
         })
     }
@@ -307,6 +307,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         camposRequeridos.forEach((el) => {
             $(`#${el}`).val('')
         })
+        editing = false;
+        editingObj = null;
     }
 
     function setFormAddCotizador(data) {
@@ -352,8 +354,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var index = $(this).data('index');
         editing = true;
         editingIndex = index;
-        editingObj = cotizadorLista[cotizadorLista.findIndex(x => x.index == index)];
-        setFormAddCotizador(cotizadorLista[index])
+        dataIndex = cotizadorLista.findIndex(x => x.index == index)
+        editingObj = cotizadorLista[dataIndex];
+        setFormAddCotizador(cotizadorLista[dataIndex])
         openModal()
     });
 
