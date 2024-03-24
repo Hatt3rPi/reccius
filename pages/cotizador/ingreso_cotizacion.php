@@ -232,8 +232,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function addContizacionFormSubmit(event) {
-        //if editing == true
-
         addErrorAlert.hide();
         event.preventDefault();
         const formData = new FormData(this);
@@ -243,17 +241,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
         if (validarFormulario(formObject)) {
             if (editing) {
+                console.log('cotizadorLista',cotizadorLista);
                 cotizadorTabla = $('#cotizadorTabla').DataTable();
-                cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`).parents('tr')).remove();
-
+                cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`)
+                    .parents('tr')).remove();
+                cotizadorTabla.draw()
                 cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
+                console.log('prod:\n->',{
+                    ...formObject,
+                    index: editingObj.index
+                });
                 addProductoCotizador({
                     ...formObject,
                     index: editingObj.index
                 });
-                // Resetea el modo de edición
                 editing = false;
-                indiceEdicion = null;
+                editingObj = null;
+                console.log('cotizadorLista2',cotizadorLista);
             } else {
                 var index = cotizadorLista.length
                 setToList({
@@ -348,7 +352,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var index = $(this).data('index');
         editing = true;
         editingIndex = index;
-        editingObj = cotizadorLista[index];
+        editingObj = cotizadorLista[cotizadorLista.findIndex(x => x.index == index)];
         setFormAddCotizador(cotizadorLista[index])
         openModal()
     });
