@@ -251,7 +251,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     ...formObject,
                     index: editingObj.index
                 });
-                addProductoCotizador({
+                setToList({
                     ...formObject,
                     index: editingObj.index
                 });
@@ -281,7 +281,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         formObject['concentracion_form_param_2'] : ""}`,
             cantidad: formObject.add_cantidad,
         })
-    } //todo: set to list updates
+    }
 
     function validarFormulario(formObject) {
         let valido = true;
