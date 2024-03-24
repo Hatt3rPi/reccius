@@ -36,19 +36,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <h2 class="section-title">Datos cotización:</h2>
                 <div class="container">
                     <div class="row">
-                        <div class="col-6 col-sm-12 form-group">
+                        <div class="col md-w-50 sm-w-100 form-group">
                             <label>Realizada por:</label>
                             <input class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly>
                         </div>
-                        <div class="col-6 col-sm-12 form-group">
+                        <div class="col md-w-50 sm-w-100 form-group">
                             <label>Nombre Cliente:</label>
                             <input class="form-control" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
                         </div>
-                        <div class="col-6 col-sm-12 form-group">
+                        <div class="col md-w-50 sm-w-100 form-group">
                             <label>Rut Cliente:</label>
                             <input class="form-control" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
                         </div>
-                        <div class="col-6 col-sm-12 form-group">
+                        <div class="col md-w-50 sm-w-100 form-group">
                             <label>Correo Cliente:</label>
                             <input type="email" class="form-control" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
                         </div>
