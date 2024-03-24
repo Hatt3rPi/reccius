@@ -33,6 +33,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <fieldset>
                 <br>
                 <br>
+                <h2 class="section-title">Datos cotización:</h2>
+                <div class="row">
+                    <div class="col form-group  col-12 col-md-6">
+                        <label>Realizada por:</label>
+                        <input class="form-control mx-0" value="<?php echo $_SESSION['nombre']; ?>" readonly>
+                    </div>
+                    <div class="col form-group  col-12 col-md-6">
+                        <label>Nombre Cliente:</label>
+                        <input class="form-control mx-0" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
+                    </div>
+                    <div class="col form-group  col-12 col-md-6">
+                        <label>Rut Cliente:</label>
+                        <input class="form-control mx-0" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
+                    </div>
+                    <div class="col form-group  col-12 col-md-6">
+                        <label>Correo Cliente:</label>
+                        <input class="form-control mx-0" type="mail" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
+                    </div>
+
+                </div>
+
+                <br>
                 <h2 class="section-title">Receta:</h2>
                 <div id="contenedor_cotizador">
                     <table id="cotizadorTabla" class="table table-striped table-bordered" width="100%"></table>
@@ -115,6 +137,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+/*
+    Modal
+*/
     var buttonAgregaElementoCotizacion = $('#button_agrega_elemento') //modal open
     var addContizacionModalClose = $('#add_modal_close') //modal close
     var addContizacionModal = $('#add_contizacion_modal') //modal
@@ -241,13 +266,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
         if (validarFormulario(formObject)) {
             if (editing) {
-                console.log('cotizadorLista',cotizadorLista);
+                console.log('cotizadorLista', cotizadorLista);
                 cotizadorTabla = $('#cotizadorTabla').DataTable();
                 cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`)
                     .parents('tr')).remove();
                 cotizadorTabla.draw()
                 cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
-                console.log('prod:\n->',{
+                console.log('prod:\n->', {
                     ...formObject,
                     index: editingObj.index
                 });
@@ -257,7 +282,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 });
                 editing = false;
                 editingObj = null;
-                console.log('cotizadorLista2',cotizadorLista);
+                console.log('cotizadorLista2', cotizadorLista);
             } else {
                 var index = cotizadorLista.length
                 setToList({
@@ -369,6 +394,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         cleanFormAddCotizador()
         addContizacionFormButton.text('Agregar');
         addContizacionModal.hide();
+    }
+/* 
+        formulario
+*/
+    var cotizacionForm = $('#formulario_cotizacion') //formulario
+    cotizacionForm.on("submit", contizacionFormSubmit);
+    function contizacionFormSubmit(){
+        event.preventDefault();
+        const formData = new FormData(this);
+        var formObject = {};
+        formData.forEach(function(value, key) {
+            formObject[key] = value;
+        });
+        console.log(formObject,cotizadorLista)
     }
 
     var fakeProductos = [{
