@@ -35,26 +35,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <h2 class="section-title">Datos cotización:</h2>
                 <div class="container">
-                    <div class="row">
-                        <div class="col form-group col-6  col-xl-3">
-                            <label>Realizada por:</label>
-                            <input class="form-control mx-0" value="<?php echo $_SESSION['nombre']; ?>" readonly>
-                        </div>
-                        <div class="col form-group col-6  col-xl-3">
-                            <label>Nombre Cliente:</label>
-                            <input class="form-control mx-0" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
-                        </div>
-                        <div class="col form-group col-6  col-xl-3">
-                            <label>Rut Cliente:</label>
-                            <input class="form-control mx-0" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
-                        </div>
-                        <div class="col form-group col-6  col-xl-3">
-                            <label>Correo Cliente:</label>
-                            <input class="form-control mx-0" type="mail" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
-                        </div>
-
-                    </div>
-                </div>
+  <div class="row">
+    <div class="col-md-6 col-xl-3 form-group">
+      <label>Realizada por:</label>
+      <input class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly>
+    </div>
+    <div class="col-md-6 col-xl-3 form-group">
+      <label>Nombre Cliente:</label>
+      <input class="form-control" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
+    </div>
+    <div class="col-md-6 col-xl-3 form-group">
+      <label>Rut Cliente:</label>
+      <input class="form-control" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
+    </div>
+    <div class="col-md-6 col-xl-3 form-group">
+      <label>Correo Cliente:</label>
+      <input type="email" class="form-control" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
+    </div>
+  </div>
+</div>
 
                 <br>
                 <h2 class="section-title">Receta:</h2>
