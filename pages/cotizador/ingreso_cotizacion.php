@@ -34,24 +34,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <br>
                 <h2 class="section-title">Datos cotización:</h2>
-                <div class="row">
-                    <div class="col form-group col-6  col-xl-3">
-                        <label>Realizada por:</label>
-                        <input class="form-control mx-0" value="<?php echo $_SESSION['nombre']; ?>" readonly>
-                    </div>
-                    <div class="col form-group col-6  col-xl-3">
-                        <label>Nombre Cliente:</label>
-                        <input class="form-control mx-0" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
-                    </div>
-                    <div class="col form-group col-6  col-xl-3">
-                        <label>Rut Cliente:</label>
-                        <input class="form-control mx-0" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
-                    </div>
-                    <div class="col form-group col-6  col-xl-3">
-                        <label>Correo Cliente:</label>
-                        <input class="form-control mx-0" type="mail" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
-                    </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col form-group col-6  col-xl-3">
+                            <label>Realizada por:</label>
+                            <input class="form-control mx-0" value="<?php echo $_SESSION['nombre']; ?>" readonly>
+                        </div>
+                        <div class="col form-group col-6  col-xl-3">
+                            <label>Nombre Cliente:</label>
+                            <input class="form-control mx-0" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
+                        </div>
+                        <div class="col form-group col-6  col-xl-3">
+                            <label>Rut Cliente:</label>
+                            <input class="form-control mx-0" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
+                        </div>
+                        <div class="col form-group col-6  col-xl-3">
+                            <label>Correo Cliente:</label>
+                            <input class="form-control mx-0" type="mail" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
+                        </div>
 
+                    </div>
                 </div>
 
                 <br>
@@ -137,7 +139,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-/*
+    /*
     Modal
 */
     var buttonAgregaElementoCotizacion = $('#button_agrega_elemento') //modal open
@@ -395,19 +397,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         addContizacionFormButton.text('Agregar');
         addContizacionModal.hide();
     }
-/* 
-        formulario
-*/
+    /* 
+            formulario
+    */
     var cotizacionForm = $('#formulario_cotizacion') //formulario
     cotizacionForm.on("submit", contizacionFormSubmit);
-    function contizacionFormSubmit(){
+
+    function contizacionFormSubmit() {
         event.preventDefault();
         const formData = new FormData(this);
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
         });
-        console.log(formObject,cotizadorLista)
+        console.log(formObject, cotizadorLista)
     }
 
     var fakeProductos = [{
