@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <title>Ingreso de cotización</title>
-    <link rel="stylesheet" href="../../assets/css/calidad.css">
+    <link rel="stylesheet" href="../assets/css/calidad.css">
 </head>
 
 <body>
