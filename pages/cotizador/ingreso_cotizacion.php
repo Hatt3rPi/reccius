@@ -98,11 +98,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
                         </div>
                     </div>
-                    <div class="alert alert-danger mx-3 d-flex justify-content-center" role="alert" id="add_error_alert">
+                    <div class="alert alert-danger mx-3" style="display: none" role="alert" id="add_error_alert">
                         Todos los campos deben llenarse
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Agregar</button>
+                        <button type="submit" id="add_contizacion_form_button" class="btn btn-primary">Agregar</button>
                     </div>
                 </form>
 
@@ -122,21 +122,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var addContizacionFormProducto = $('#add_producto') //producto modal
     var addContizacionFormProductoData = $('#datalist_product_options') //producto datalist modal
     var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
+    var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
+
+
 
     var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, cotizadorFilas = 0;
 
     var cotizadorLista = [];
     var editing = false;
-    var editingIndex = null;
-
-    addErrorAlert.hide();
+    var editingObj = null;
 
     buttonAgregaElementoCotizacion.on('click', function() {
-        addContizacionModal.show();
+        openModal()
     });
     addContizacionModalClose.on('click', function() {
-        addContizacionModal.hide();
+        closeModal()
     })
 
     addContizacionFormProducto.on('input', () => {
@@ -231,6 +232,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function addContizacionFormSubmit(event) {
+        //if editing == true
+
         addErrorAlert.hide();
         event.preventDefault();
         const formData = new FormData(this);
@@ -239,27 +242,43 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             formObject[key] = value;
         });
         if (validarFormulario(formObject)) {
-            var i = cotizadorLista.length
-            formObject['index'] = i
-            console.log(formObject);
-            cotizadorLista.push(formObject)
-            addProductoCotizador({
-                    index: i,
-                    producto: formObject.add_producto,
-                    preparacion: formObject.add_tipo_preparacion,
-                    concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}/${
-                        formObject.add_tipo_preparacion.includes("/") ? 
-                        formObject['concentracion_form_param_2'] : ""}`,
-                    cantidad: formObject.add_cantidad,
-                }
+            if (editing) {
+                cotizadorTabla = $('#cotizadorTabla').DataTable();
+                cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`).parents('tr')).remove();
+                
+                cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
+                addProductoCotizador({
+                    ...formObject,
+                    index: editingObj.index
+                });
+                // Resetea el modo de edición
+                editing = false;
+                indiceEdicion = null;
+            } else {
 
-            )
+                var index = cotizadorLista.length
+                setToList({
+                    ...formObject,
+                    index
+                })
+            }
             return
         }
-
         addErrorAlert.show();
-
     }
+
+    function setToList(formObject) {
+        cotizadorLista.push(formObject)
+        addProductoCotizador({
+            index: i,
+            producto: formObject.add_producto,
+            preparacion: formObject.add_tipo_preparacion,
+            concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}/${
+                        formObject.add_tipo_preparacion.includes("/") ? 
+                        formObject['concentracion_form_param_2'] : ""}`,
+            cantidad: formObject.add_cantidad,
+        })
+    } //todo: set to list updates
 
     function validarFormulario(formObject) {
         let valido = true;
@@ -282,13 +301,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function cleanFormAddCotizador() {
         let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
-        camposRequeridos.forEach((el)=>{
+        camposRequeridos.forEach((el) => {
             $(`#${el}`).val('')
         })
     }
+
     function setFormAddCotizador(data) {
         let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
-        camposRequeridos.forEach((el)=>{
+        camposRequeridos.forEach((el) => {
             $(`#${el}`).val(data[el])
         })
     }
@@ -314,31 +334,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
             `
         ];
-
-        
         cotizadorTabla.row.add(filaNueva);
         cotizadorTabla.draw();
-        cleanFormAddCotizador()
-        addContizacionModal.hide();
+        closeModal()
     }
     $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
-        console.log('pre',cotizadorLista);
         cotizadorTabla = $('#cotizadorTabla').DataTable();
         var index = $(this).data('index');
-        cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == index) , 1)
+        cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == index), 1)
         cotizadorTabla.row($(this).parents('tr')).remove().draw();
-        console.log(cotizadorLista);
     });
     $('#cotizadorTabla').on('click', '.btn-editar', function() {
         cotizadorTabla = $('#cotizadorTabla').DataTable();
         var index = $(this).data('index');
         editing = true;
         editingIndex = index;
+        editingObj = cotizadorLista[index];
         setFormAddCotizador(cotizadorLista[index])
-        addContizacionModal.show();
+        openModal()
     });
 
+    function openModal() {
+        addContizacionFormButton.text(editing ? 'Actualizar' : 'Agregar');
+        addContizacionModal.show();
+    }
 
+    function closeModal() {
+        cleanFormAddCotizador()
+        addContizacionFormButton.text('Agregar');
+        addContizacionModal.hide();
+    }
 
     var fakeProductos = [{
             id: 1,
