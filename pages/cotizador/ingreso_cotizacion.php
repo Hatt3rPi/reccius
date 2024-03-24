@@ -245,7 +245,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if (editing) {
                 cotizadorTabla = $('#cotizadorTabla').DataTable();
                 cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`).parents('tr')).remove();
-                
+
                 cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
                 addProductoCotizador({
                     ...formObject,
@@ -255,7 +255,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 editing = false;
                 indiceEdicion = null;
             } else {
-
                 var index = cotizadorLista.length
                 setToList({
                     ...formObject,
@@ -270,7 +269,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     function setToList(formObject) {
         cotizadorLista.push(formObject)
         addProductoCotizador({
-            index: i,
+            index: formObject.index,
             producto: formObject.add_producto,
             preparacion: formObject.add_tipo_preparacion,
             concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}/${
