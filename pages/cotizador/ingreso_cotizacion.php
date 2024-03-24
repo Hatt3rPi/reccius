@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <title>Ingreso de cotización</title>
-    <link rel="stylesheet" href="../assets/css/calidad.css">
+    <link rel="stylesheet" href="../../assets/css/calidad.css">
 </head>
 
 <body>
@@ -35,28 +35,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <h2 class="section-title">Datos cotización:</h2>
                 <div class="container">
-    <div class="row">
-        <div class="col-12 col-md-6 col-xl-3 form-group">
-            <label>Realizada por:</label>
-            <input class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly>
-        </div>
-        <div class="col-12 col-md-6 col-xl-3 form-group">
-            <label>Nombre Cliente:</label>
-            <input class="form-control" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
-        </div>
-        <div class="col-12 col-md-6 col-xl-3 form-group">
-            <label>Rut Cliente:</label>
-            <input class="form-control" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
-        </div>
-        <div class="col-12 col-md-6 col-xl-3 form-group">
-            <label>Correo Cliente:</label>
-            <input type="email" class="form-control" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
-        </div>
-    </div>
-</div>
+                    <div class="row">
+                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                            <label>Realizada por:</label>
+                            <input class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly>
+                        </div>
+                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                            <label>Nombre Cliente:</label>
+                            <input class="form-control" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
+                        </div>
+                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                            <label>Rut Cliente:</label>
+                            <input class="form-control" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
+                        </div>
+                        <div class="w-100 col-12 col-md-6 col-xl-3 form-group">
+                            <label>Correo Cliente:</label>
+                            <input type="email" class="form-control" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
+                        </div>
+                    </div>
+                </div>
                 <br>
                 <h2 class="section-title">Receta:</h2>
-                <div id="contenedor_cotizador">
+                <div id="contenedor_cotizador" class="container">
                     <table id="cotizadorTabla" class="table table-striped table-bordered" width="100%"></table>
                 </div>
                 <button type="button" id="button_agrega_elemento">
