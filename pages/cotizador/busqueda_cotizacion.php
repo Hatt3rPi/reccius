@@ -127,7 +127,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         ];
         resultadosTabla.row.add(filaNueva);
         resultadosTabla.draw();
-        closeModal()
     }
 
     function cleanTableResume() {
