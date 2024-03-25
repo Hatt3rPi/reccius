@@ -614,6 +614,27 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
+                case "documento_actaMuestreo": {
+                    // Llamar a una función que maneje la visualización del documento
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': false,
+                            'etapa': '0'
+                        },
+                        success: function(response) {
+                            console.log('Documento Acta Muestreo redirigido con éxito');
+                            $('#dynamic-content').html(response);
+                            cargarDatosEspecificacion(id, false, '0');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al visualizar el documento: ", status, error);
+                        }
+                    });
+                    break;
+                }
             }
             break;
         }
