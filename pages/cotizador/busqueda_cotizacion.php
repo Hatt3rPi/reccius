@@ -36,9 +36,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <h2 class="section-title">Buscador:</h2>
         <div class="container">
 
-            <div class="form-row">
-                <label> Busqueda por Nombre <input type="radio" name="buscador_tipo" id="nombre" value="nombre"> </label>
-                <label> Cotización <input type="radio" name="buscador_tipo" id="contizacion" value="contizacion"> </label>
+            <div class="form-row justify-content-start">
+                <label> Busqueda por Nombre
+                    <input type="radio" name="buscador_tipo" id="nombre" value="nombre">
+                </label>
+                <label> Cotización
+                    <input type="radio" name="buscador_tipo" id="contizacion" value="contizacion">
+                </label>
             </div>
             <div class="form-row">
                 <div class="col w-100">
@@ -95,7 +99,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
     }
-    function fillInitialData(){
+
+    function fillInitialData() {
+        var dateNumber = (date) => new Number((`${date}`)
+            .split('/')
+            .reverse().join(''))
+        fakeData.sort((a, b) =>
+            dateNumber(a.fecha_creacion) -
+            dateNumber(b.fecha_creacion))
         fakeData.forEach(element => {
             setToList(element)
         })
@@ -136,7 +147,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     /*
     Fake Data
 */
-    
+
     var fakeData = [{
             cotizacion: "KRU64QRK7DR",
             cliente: "Hadley Patterson",
@@ -838,6 +849,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             precio: 10068
         }
     ]
-    
+
     fillInitialData();
 </script>
