@@ -6,7 +6,8 @@
 // 2. Cotizador
 // 3. Mantenedor de precios
 
-
+//Todo:
+// redondear arriba 10 pesos
 
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
@@ -63,8 +64,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div id="contenedor_cotizador" class="container">
                     <table id="cotizadorTabla" class="table table-striped table-bordered" width="100%"></table>
                 </div>
-                <button type="button" id="button_agrega_elemento">
-                    Agregar Producto</button>
+                <div class="col-sm-12">
+                    <button type="button" id="button_agrega_elemento">
+                        Agregar Producto
+                    </button>
+                </div>
             </fieldset>
             <br>
             <h2 class="section-title">Resumen de cotización:</h2>
@@ -146,7 +150,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add_cantidad">Producto:</label>
+                            <label for="add_cantidad">Cantidad:</label>
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
                         </div>
                     </div>
@@ -326,14 +330,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function setToList(formObject) {
         cotizadorLista.push(formObject)
+        console.log(formObject);
+        var twoValues = formObject.add_tipo_preparacion.includes("/")
+
         addProductoCotizador({
             index: formObject.index,
             producto: formObject.add_producto,
             preparacion: formObject.add_tipo_preparacion,
-            concentracion: `${formObject.add_tipo_concentracion} : ${formObject['concentracion_form_param_1']}${
-                        formObject.add_tipo_preparacion.includes("/") ? 
+            concentracion: `${formObject.add_tipo_concentracion} : ${formObject.concentracion_form_param_1}${
+                twoValues ? 
                         `/${formObject['concentracion_form_param_2']}` : ""}`,
-            cantidad: formObject.add_cantidad,
+            cantidad: formObject.add_cantidad
         })
     }
 
@@ -449,7 +456,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var formCotizacion = $('#formulario_cotizacion')
     var formCotizacionTbody = $('#formulario_cotizacion_tbody')
     var formCotizacionTotal = $('#formulario_cotizacion_total')
-
+    const roundDoubleZero = (num) => Math.round(num * 100) / 100;
     function updateResume() {
         formCotizacionTbody.empty();
         formCotizacionTotal.empty();
@@ -465,7 +472,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }) => {
             const price = fakeProductos.find(x => x.nombre == add_producto).precio;
             const concentracionType = add_tipo_preparacion.includes("/");
-            const subTotal = concentracionType ? ((concentracion_form_param_1 / concentracion_form_param_2) * price) * add_cantidad : (price * concentracion_form_param_1) * add_cantidad;
+            const subTotal = concentracionType ? (
+                roundDoubleZero((concentracion_form_param_1 / concentracion_form_param_2) * price) * add_cantidad) 
+                : roundDoubleZero((price * concentracion_form_param_1) * add_cantidad);
             total += subTotal
             formCotizacionTbody.append(`
             <tr>
@@ -489,7 +498,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             `)
 
         });
-        formCotizacionTotal.append(total)
+        formCotizacionTotal.append(roundDoubleZero(total))
     }
 
     var fakeProductos = [{
