@@ -127,7 +127,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     async function fillData(page = 0) {
         maxExtraction = fakeData.length
         setBtns(Math.trunc(maxExtraction/10))
-        var extraction = generarArrayRango(page, page+10).map(i => fakeData[i]);
+        var extraction = generarArrayRango(page*10, page*10+10).map(i => fakeData[i]);
         for (var i = 0; i < extraction.length; i++) {
             setToList(extraction[i]);
             await sleep(50);
