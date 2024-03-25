@@ -65,7 +65,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         id: null,
         action: null
     });
-    fillInitialData();
 
     function cargaTablaResult({
         id = null,
@@ -138,6 +137,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     /*
     Fake Data
 */
+    
     var fakeData = [{
             cotizacion: "KRU64QRK7DR",
             cliente: "Hadley Patterson",
@@ -839,4 +839,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             precio: 10068
         }
     ]
+    
+    fillInitialData();
 </script>

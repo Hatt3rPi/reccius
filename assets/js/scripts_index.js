@@ -221,7 +221,6 @@ $(document).ready(function () {
         }
     });
     $('#cotizador_busqueda').click(function (event) {
-        console.log('Busqueda');
         if(AppConfig.FLAGS.recetario_magistral){
         event.preventDefault();
         $('#dynamic-content').hide();
