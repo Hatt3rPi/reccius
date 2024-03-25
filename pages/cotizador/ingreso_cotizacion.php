@@ -265,7 +265,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         id = null,
         accion = null
     }) {
-
         cotizadorTabla = new DataTable('#cotizadorTabla', {
             "paging": false,
             "info": false,

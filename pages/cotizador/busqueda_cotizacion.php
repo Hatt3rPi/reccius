@@ -35,7 +35,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <br>
         <h2 class="section-title">Buscador:</h2>
         <div class="container">
-
             <div class="form-row justify-content-start">
                 <label> Busqueda por Nombre
                     <input type="radio" name="buscador_tipo" id="nombre" value="nombre" checked>
@@ -104,6 +103,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     title: 'Valor($)'
                 },
+                {
+                    title: 'Actividad'
+                }
             ]
         });
 
@@ -134,6 +136,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         maxExtraction = fakeData.length
         setBtns(Math.trunc(maxExtraction / 10))
         var extraction = generarArrayRango(page * 10, page * 10 + 10).map(i => fakeData[i]);
+        cotizacionesLista = []
         extraction.forEach(element => {
             setToList(element)
         })
@@ -143,6 +146,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 */
     function setToList(listObject) {
         cotizacionesLista.push(listObject)
+        console.log(listObject);
         addRowTable({
             cotizacion: listObject.cotizacion,
             fecha_creacion: listObject.fecha_creacion,
@@ -162,6 +166,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             `<p>${fecha_creacion}</p>`,
             `<p>${cliente}</p>`,
             `<p>$${valor}</p>`
+            `<button type="button" data-cotizacion="${cotizacion}" class="btn-ver">Ver</button>`
         ];
         resultadosTabla.row.add(filaNueva);
         resultadosTabla.draw();
