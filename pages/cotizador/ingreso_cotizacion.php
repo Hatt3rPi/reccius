@@ -68,25 +68,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </fieldset>
             <br>
             <h2 class="section-title">Resumen de cotización:</h2>
-            <div class="alert alert-warning" role="alert">
-                Los precios no son reales, solo una simulación!
-            </div>
-            <div class="container resume_cotizador" id="resume_cotizador">
+            <div class="container">
+                <div class="alert alert-warning text-center" role="alert">
+                    Los precios no son reales, solo una simulación!
+                </div>
+                <div class="container resume_cotizador" id="resume_cotizador">
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="row">Producto</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody id="formulario_cotizacion_tbody">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="row">Producto</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="formulario_cotizacion_tbody">
 
-                    </tbody>
-                </table>
-                <h4 class="text-center">Total: $<span id="formulario_cotizacion_total"></span></h4>
+                        </tbody>
+                    </table>
+                    <h4 class="text-center">Total: $<span id="formulario_cotizacion_total"></span></h4>
+                </div>
             </div>
             <br>
             <div class="actions-container">
@@ -148,7 +150,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
                         </div>
                     </div>
-                    <div class="alert alert-danger mx-3" style="display: none" role="alert" id="add_error_alert">
+                    <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert">
                         Todos los campos deben llenarse
                     </div>
                     <div class="modal-footer">
