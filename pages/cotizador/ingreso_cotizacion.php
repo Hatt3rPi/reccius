@@ -125,8 +125,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </select>
                         </div>
                         <div class="alert alert-warning text-center" role="alert">
-                    Los productos no son reales, solo una simulación!
-                </div>
+                            Los productos no son reales, solo una simulación.
+                        </div>
                         <div class="form-group">
                             <label for="add_producto">Producto:</label>
                             <input class="form-control mx-0" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
@@ -459,6 +459,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var formCotizacionTbody = $('#formulario_cotizacion_tbody')
     var formCotizacionTotal = $('#formulario_cotizacion_total')
     var roundDoubleZero = (num) => Math.round(num * 100) / 100;
+
     function updateResume() {
         formCotizacionTbody.empty();
         formCotizacionTotal.empty();
@@ -473,11 +474,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             concentracion_form_param_2
         }) => {
             const price = fakeProductos.find(x => x.nombre == add_producto).precio;
-            var twoValues =  add_tipo_preparacion.includes("/");
+            var twoValues = add_tipo_preparacion.includes("/");
             const subTotal = twoValues ? (
-                roundDoubleZero((concentracion_form_param_1 / concentracion_form_param_2) 
-                * price) * add_cantidad) 
-                : roundDoubleZero((price * concentracion_form_param_1) * add_cantidad);
+                    roundDoubleZero((concentracion_form_param_1 / concentracion_form_param_2) *
+                        price) * add_cantidad) :
+                roundDoubleZero((price * concentracion_form_param_1) * add_cantidad);
             total += subTotal
             formCotizacionTbody.append(`
             <tr>

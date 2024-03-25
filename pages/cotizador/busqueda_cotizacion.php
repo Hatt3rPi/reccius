@@ -52,6 +52,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </div>
         <br>
+        <div class="alert alert-warning text-center" role="alert">
+            Acá se podrían ver las últimas cotizaciones.
+        </div>
         <div id="contenedor_tabla" class="container">
             <table id="resultadosTabla" class="table table-striped table-bordered" width="100%"></table>
             <div class="form-row justify-content-end" id="resultadosTabla_paginacion"></div>
