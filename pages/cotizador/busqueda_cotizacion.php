@@ -138,7 +138,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var extraction = generarArrayRango(page * 10, page * 10 + 10).map(i => fakeData[i]);
         cotizacionesLista = []
         extraction.forEach(element => {
-            setToList(element)
+            if(element !== undefined) setToList(element)
         })
     }
     /*
@@ -146,7 +146,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 */
     function setToList(listObject) {
         cotizacionesLista.push(listObject)
-        console.log(listObject);
         addRowTable({
             cotizacion: listObject.cotizacion,
             fecha_creacion: listObject.fecha_creacion,
