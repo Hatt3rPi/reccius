@@ -64,6 +64,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var resultadosTabla = 0;
     var cotizacionesLista = [];
 
+    var fromExtraction = 0
+    var maxExtraction = 0
+
     /*
     Inicio
 */
@@ -117,7 +120,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     async function fillData() {
         var dateNumber = (date) => new Number((`${date}`).split('/').reverse().join(''));
         fakeData = fakeData.sort((a, b) => dateNumber(a.fecha_creacion) - dateNumber(b.fecha_creacion));
-        var extraction = generarArrayRango(0, fakeData.length - 1).map(i => fakeData[i]);
+        var extraction = generarArrayRango(fromExtraction, fromExtraction+10).map(i => fakeData[i]);
         for (var i = 0; i < extraction.length; i++) {
             setToList(extraction[i]);
             await sleep(100);
