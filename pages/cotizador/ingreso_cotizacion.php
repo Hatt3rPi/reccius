@@ -67,7 +67,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     Agregar Producto</button>
             </fieldset>
             <br>
-            <h2 class="section-title">Receta:</h2>
+            <h2 class="section-title">Resumen de cotización:</h2>
             <div class="alert alert-warning" role="alert">
                 Los precios no son reales, solo una simulación!
             </div>
@@ -460,7 +460,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             concentracion_form_param_1,
             concentracion_form_param_2
         }) => {
-            const price = fakeProductos.find(x => x.name == add_producto).price;
+            const price = fakeProductos.find(x => x.nombre == add_producto).precio;
             const concentracionType = add_tipo_preparacion.includes("/");
             const subTotal = concentracionType ? ((concentracion_form_param_1 / concentracion_form_param_2) * price) * add_cantidad : (price * concentracion_form_param_1) * add_cantidad;
             total += subTotal
