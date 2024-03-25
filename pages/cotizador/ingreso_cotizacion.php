@@ -175,6 +175,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+    console.log('cotizador');
     /*
     Modal
 */
