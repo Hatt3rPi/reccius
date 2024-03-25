@@ -454,9 +454,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         let total = 0
         cotizadorLista.forEach(({
-            add_producto,
-            add_tipo_concentracion,
             add_cantidad,
+            add_producto,
+            add_tipo_preparacion,
+            add_tipo_concentracion,
             concentracion_form_param_1,
             concentracion_form_param_2
         }) => {
