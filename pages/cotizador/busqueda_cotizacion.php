@@ -117,9 +117,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     async function fillData() {
         var dateNumber = (date) => new Number((`${date}`).split('/').reverse().join(''));
         fakeData = fakeData.sort((a, b) => dateNumber(a.fecha_creacion) - dateNumber(b.fecha_creacion));
-        var setToList = generarArrayRango(0, fakeData.length - 1).map(i => fakeData[i]);
-        for (var i = 0; i < setToList.length; i++) {
-            setToList(setToList[i]);
+        var extraction = generarArrayRango(0, fakeData.length - 1).map(i => fakeData[i]);
+        for (var i = 0; i < extraction.length; i++) {
+            setToList(extraction[i]);
             await sleep(100);
         }
     }
