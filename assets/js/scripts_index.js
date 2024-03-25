@@ -208,7 +208,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#cotizador_ingreso').click(function (event) {
         if(AppConfig.FLAGS.recetario_magistral){
-        event.preventDefault(); // Prevenir la navegación predeterminada
+        event.preventDefault();
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         obtenNotificaciones();
@@ -220,11 +220,10 @@ $(document).ready(function () {
             featureNoDisponible();
         }
     });
-});
-$(document).ready(function () {
     $('#cotizador_busqueda').click(function (event) {
+        console.log('Busqueda');
         if(AppConfig.FLAGS.recetario_magistral){
-        event.preventDefault(); // Prevenir la navegación predeterminada
+        event.preventDefault();
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         obtenNotificaciones();
