@@ -458,7 +458,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var formCotizacion = $('#formulario_cotizacion')
     var formCotizacionTbody = $('#formulario_cotizacion_tbody')
     var formCotizacionTotal = $('#formulario_cotizacion_total')
-    const roundDoubleZero = (num) => Math.round(num * 100) / 100;
+    var roundDoubleZero = (num) => Math.round(num * 100) / 100;
     function updateResume() {
         formCotizacionTbody.empty();
         formCotizacionTotal.empty();
