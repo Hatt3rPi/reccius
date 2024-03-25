@@ -105,9 +105,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+   
 
     function generarArrayRango(inicio, fin, paso = 1) {
         let arrayRango = [];
@@ -118,20 +116,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
     function setBtns(num){
         resultadosTablaPaginacion.empty();
-        var rango = generarArrayRango(0, num)
+        var rango = generarArrayRango(0, num-1)
         rango.forEach(element => {
             resultadosTablaPaginacion.append(`<button class="btn btn-primary justify-content-center p-0" style="width: 24px;" onclick="fillData(${element})">${element + 1}</button>`)
         })
     }
-    async function fillData(page = 0) {
+   function fillData(page = 0) {
         cleanTableResume()
         maxExtraction = fakeData.length
         setBtns(Math.trunc(maxExtraction/10))
         var extraction = generarArrayRango(page*10, page*10+10).map(i => fakeData[i]);
-        for (var i = 0; i < extraction.length; i++) {
-            setToList(extraction[i]);
-            await sleep(50);
-        }
+        extraction.forEach(element => {
+            setToList(element)
+        })
     }
     /*
     Manejar contizaciones
