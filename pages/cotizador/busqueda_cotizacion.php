@@ -120,11 +120,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         resultadosTablaPaginacion.empty();
         var rango = generarArrayRango(0, num)
         rango.forEach(element => {
-            resultadosTablaPaginacion.append(`<button class="btn btn-primary justify-content-center" style="width: 20px;" onclick="fillData(${element})">${element + 1}</button>`)
-            
+            resultadosTablaPaginacion.append(`<button class="btn btn-primary justify-content-center p-0" style="width: 24px;" onclick="fillData(${element})">${element + 1}</button>`)
         })
     }
     async function fillData(page = 0) {
+        cleanTableResume()
         maxExtraction = fakeData.length
         setBtns(Math.trunc(maxExtraction/10))
         var extraction = generarArrayRango(page*10, page*10+10).map(i => fakeData[i]);
