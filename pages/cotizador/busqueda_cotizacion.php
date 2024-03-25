@@ -40,7 +40,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <label> Busqueda por Nombre
                     <input type="radio" name="buscador_tipo" id="nombre" value="nombre" checked>
                 </label>
-                <label> Cotización
+                <label class="pl-3"> Cotización
                     <input type="radio" name="buscador_tipo" id="contizacion" value="contizacion">
                 </label>
             </div>
@@ -54,18 +54,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <br>
         <div id="contenedor_tabla" class="container">
             <table id="resultadosTabla" class="table table-striped table-bordered" width="100%"></table>
+            <div class="form-row" id="resultadosTabla_paginacion" ></div>
         </div>
     </div>
 </body>
 
 </html>
 <script>
-    var addErrorAlert = $('#add_error_alert') //error modal
     var resultadosTabla = 0;
     var cotizacionesLista = [];
-
-    var fromExtraction = 0
     var maxExtraction = 0
+
+    var resultadosTablaPaginacion = $('#resultadosTabla_paginacion')
 
     /*
     Inicio
@@ -116,14 +116,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
         return arrayRango;
     }
-
-    async function fillData() {
-        var dateNumber = (date) => new Number((`${date}`).split('/').reverse().join(''));
-        fakeData = fakeData.sort((a, b) => dateNumber(a.fecha_creacion) - dateNumber(b.fecha_creacion));
-        var extraction = generarArrayRango(fromExtraction, fromExtraction+10).map(i => fakeData[i]);
+    function setBtns(num){
+        resultadosTablaPaginacion.empty();
+        var rango = generarArrayRango(0, num)
+        rango.forEach(element => {
+            resultadosTablaPaginacion.append(`<button class="btn btn-primary p-0" onclick="fillData(${element})">${element + 1}</button>`)
+            
+        })
+    }
+    async function fillData(page = 0) {
+        maxExtraction = fakeData.length
+        setBtns(Math.trunc(maxExtraction/10))
+        var extraction = generarArrayRango(page, page+10).map(i => fakeData[i]);
         for (var i = 0; i < extraction.length; i++) {
             setToList(extraction[i]);
-            await sleep(100);
+            await sleep(50);
         }
     }
     /*
