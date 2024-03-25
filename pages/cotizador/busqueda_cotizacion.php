@@ -54,7 +54,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <br>
         <div id="contenedor_tabla" class="container">
             <table id="resultadosTabla" class="table table-striped table-bordered" width="100%"></table>
-            <div class="form-row justify-content-right" id="resultadosTabla_paginacion" ></div>
+            <div class="form-row justify-content-end" id="resultadosTabla_paginacion" ></div>
         </div>
     </div>
 </body>
