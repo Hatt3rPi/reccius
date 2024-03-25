@@ -119,7 +119,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     function setBtns(num) {
         resultadosTablaPaginacion.empty();
         var rango = generarArrayRango(0, num - 1)
-        for (var i = 0; i < rango.length - 1; i++) {
+        for (var i = 0; i < rango.length; i++) {
             resultadosTablaPaginacion.append(`<button class="btn ${pageTabla == i ? 'btn-primary' : '' }  justify-content-center p-0" style="width: 24px;" onclick="fillData(${rango[i]})">${rango[i] + 1}</button>`)
         }
 

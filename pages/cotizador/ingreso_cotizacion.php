@@ -508,229 +508,229 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             id: 1,
             nombre: "Loratadina 231",
             concentracion: "UI",
-            precio: 98.64
+            precio: 964
         },
         {
             id: 2,
             nombre: "Ketorolaco 124",
             concentracion: "g",
-            precio: 32.56
+            precio: 356
         },
         {
             id: 3,
             nombre: "Atorvastatina 148",
             concentracion: "UI/ml",
-            precio: 38.17
+            precio: 317
         },
         {
             id: 4,
             nombre: "Metformina 618",
             concentracion: "g",
-            precio: 29.28
+            precio: 228
         },
         {
             id: 5,
             nombre: "Losartán 980",
             concentracion: "%/ml",
-            precio: 56.77
+            precio: 577
         },
         {
             id: 6,
             nombre: "Amoxicilina 309",
             concentracion: "g",
-            precio: 13.98
+            precio: 198
         },
         {
             id: 7,
             nombre: "Ácido Ascórbico 570",
             concentracion: "%/ml",
-            precio: 54.97
+            precio: 597
         },
         {
             id: 8,
             nombre: "Esomeprazol 200",
             concentracion: "ml",
-            precio: 75.32
+            precio: 732
         },
         {
             id: 9,
             nombre: "Cetirizina 870",
             concentracion: "g/ml",
-            precio: 85.5
+            precio: 85
         },
         {
             id: 10,
             nombre: "Dexametasona 364",
             concentracion: "ml",
-            precio: 39.54
+            precio: 354
         },
         {
             id: 11,
             nombre: "Clotrimazol 374",
             concentracion: "UI/ml",
-            precio: 8.4
+            precio: 4
         },
         {
             id: 12,
             nombre: "Fluconazol 160",
             concentracion: "UI",
-            precio: 7.41
+            precio: 41
         },
         {
             id: 13,
             nombre: "Hidrocortisona 909",
             concentracion: "g/ml",
-            precio: 25.97
+            precio: 297
         },
         {
             id: 14,
             nombre: "Insulina 556",
             concentracion: "%/ml",
-            precio: 76.88
+            precio: 788
         },
         {
             id: 15,
             nombre: "Ketorolaco 788",
             concentracion: "g",
-            precio: 52.36
+            precio: 536
         },
         {
             id: 16,
             nombre: "Lidocaína 433",
             concentracion: "UI",
-            precio: 64.22
+            precio: 622
         },
         {
             id: 17,
             nombre: "Mometasona 521",
             concentracion: "g/ml",
-            precio: 90.3
+            precio: 93
         },
         {
             id: 18,
             nombre: "Ibuprofeno 312",
             concentracion: "ml",
-            precio: 15.67
+            precio: 167
         },
         {
             id: 19,
             nombre: "Omeprazol 157",
             concentracion: "%/ml",
-            precio: 68.44
+            precio: 644
         },
         {
             id: 20,
             nombre: "Paracetamol 983",
             concentracion: "UI/ml",
-            precio: 55.32
+            precio: 532
         },
         {
             id: 21,
             nombre: "Ranitidina 451",
             concentracion: "g",
-            precio: 22.58
+            precio: 258
         },
         {
             id: 22,
             nombre: "Sertralina 867",
             concentracion: "ml",
-            precio: 33.45
+            precio: 345
         },
         {
             id: 23,
             nombre: "Ácido Ascórbico 254",
             concentracion: "g/ml",
-            precio: 47.85
+            precio: 485
         },
         {
             id: 24,
             nombre: "Amoxicilina 789",
             concentracion: "UI",
-            precio: 12.34
+            precio: 134
         },
         {
             id: 25,
             nombre: "Cetirizina 642",
             concentracion: "%/ml",
-            precio: 19.48
+            precio: 148
         },
         {
             id: 26,
             nombre: "Dexametasona 273",
             concentracion: "g/ml",
-            precio: 36.77
+            precio: 377
         },
         {
             id: 27,
             nombre: "Esomeprazol 834",
             concentracion: "ml",
-            precio: 45.66
+            precio: 466
         },
         {
             id: 28,
             nombre: "Fluconazol 195",
             concentracion: "UI/ml",
-            precio: 28.54
+            precio: 254
         },
         {
             id: 29,
             nombre: "Hidrocortisona 678",
             concentracion: "g",
-            precio: 62.37
+            precio: 637
         },
         {
             id: 30,
             nombre: "Insulina 889",
             concentracion: "UI",
-            precio: 56.78
+            precio: 578
         },
         {
             id: 31,
             nombre: "Ketorolaco 456",
             concentracion: "%/ml",
-            precio: 34.89
+            precio: 389
         },
         {
             id: 32,
             nombre: "Lidocaína 321",
             concentracion: "g/ml",
-            precio: 78.99
+            precio: 799
         },
         {
             id: 33,
             nombre: "Mometasona 654",
             concentracion: "ml",
-            precio: 66.87
+            precio: 687
         },
         {
             id: 34,
             nombre: "Ibuprofeno 982",
             concentracion: "UI/ml",
-            precio: 23.56
+            precio: 256
         },
         {
             id: 35,
             nombre: "Omeprazol 314",
             concentracion: "g",
-            precio: 44.73
+            precio: 473
         },
         {
             id: 36,
             nombre: "Paracetamol 765",
             concentracion: "ml",
-            precio: 51.99
+            precio: 599
         },
         {
             id: 37,
             nombre: "Ranitidina 586",
             concentracion: "%/ml",
-            precio: 27.64
+            precio: 264
         },
         {
             id: 38,
             nombre: "Sertralina 423",
             concentracion: "UI/ml",
-            precio: 38.95
+            precio: 395
         }
     ]
 </script>
