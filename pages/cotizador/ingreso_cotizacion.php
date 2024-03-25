@@ -2,9 +2,9 @@
 //archivo: pages\cotizador\ingreso_cotizacion.php
 //Elaborado por: @ratapan
 // Todo:
-// 1. Cotizador
-// 2. Mantenedor de precios
-// 3. Ingreso de recetas
+// 1. Ingreso de recetas ✅
+// 2. Cotizador
+// 3. Mantenedor de precios
 
 
 
@@ -24,12 +24,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Ingreso de cotización</title>
     <link rel="stylesheet" href="../assets/css/calidad.css">
+    <link rel="stylesheet" href="../assets/css/cotizador.css">
 </head>
 
 <body>
     <div class="form-container">
         <h1>Ingreso de cotización</h1>
-        <form method="POST" id="formulario_cotizacion" name="formulario_cotizacion">
+        <form id="formulario_cotizacion" name="formulario_cotizacion">
             <fieldset>
                 <br>
                 <br>
@@ -53,7 +54,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                         <div class="w-100 col form-group">
                             <label>Correo Cliente:</label>
-                            <input type="email" class="form-control" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
+                            <input type="email" class="form-control w-100" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
                         </div>
                     </div>
                 </div>
@@ -64,12 +65,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <button type="button" id="button_agrega_elemento">
                     Agregar Producto</button>
-                <div class="actions-container">
-                    <button type="button" id="guardarCotizacion" name="guardarCotizacion" class="action-button">Guardar Cotización</button>
-                    <button type="button" id="editarCotizacion" name="editarCotizacion" class="action-button" style="background-color: red; color: white;display: none;">Editar cotización</button>
-                </div>
+            </fieldset>
+            <br>
+            <h2 class="section-title">Receta:</h2>
+            <div class="alert alert-warning" role="alert">
+                Los precios no son reales, solo una simulación!
+            </div>
+            <div class="container resume_cotizador" id="resume_cotizador">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="row">Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="formulario_cotizacion_tbody">
+
+                    </tbody>
+                </table>
+                <h3>Total <span id="formulario_cotizacion_total"></span></h3>
+            </div>
+            <br>
+            <div class="actions-container">
+                <button type="button" id="guardarCotizacion" name="guardarCotizacion" class="action-button">Guardar Cotización</button>
+                <button type="button" id="editarCotizacion" name="editarCotizacion" class="action-button" style="background-color: red; color: white;display: none;">Editar cotización</button>
+            </div>
         </form>
-        <div class="modal bg-dark-opacity" id="add_contizacion_modal" tabindex="-1" role="dialog">
+        <div class="modal" id="add_contizacion_modal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-dialog">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">
@@ -269,7 +294,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
         if (validarFormulario(formObject)) {
             if (editing) {
-                console.log('cotizadorLista', cotizadorLista);
                 cotizadorTabla = $('#cotizadorTabla').DataTable();
                 cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`)
                     .parents('tr')).remove();
@@ -285,7 +309,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 });
                 editing = false;
                 editingObj = null;
-                console.log('cotizadorLista2', cotizadorLista);
             } else {
                 var index = cotizadorLista.length
                 setToList({
@@ -296,6 +319,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             return
         }
         addErrorAlert.show();
+        updateResume()
     }
 
     function setToList(formObject) {
@@ -376,6 +400,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var index = $(this).data('index');
         cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == index), 1)
         cotizadorTabla.row($(this).parents('tr')).remove().draw();
+        updateResume()
     });
     $('#cotizadorTabla').on('click', '.btn-editar', function() {
         cotizadorTabla = $('#cotizadorTabla').DataTable();
@@ -386,6 +411,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         editingObj = cotizadorLista[dataIndex];
         setFormAddCotizador(cotizadorLista[dataIndex])
         openModal()
+        updateResume()
     });
 
     function openModal() {
@@ -397,11 +423,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         cleanFormAddCotizador()
         addContizacionFormButton.text('Agregar');
         addContizacionModal.hide();
+        updateResume()
     }
     /* 
             formulario
 */
     var cotizacionForm = $('#formulario_cotizacion') //formulario
+
     cotizacionForm.on("submit", contizacionFormSubmit);
 
     function contizacionFormSubmit() {
@@ -411,7 +439,53 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         formData.forEach(function(value, key) {
             formObject[key] = value;
         });
-        console.log('contizacionFormSubmit:\n\n=>',formObject, cotizadorLista)
+        console.log('contizacionFormSubmit:\n\n=>', formObject, cotizadorLista)
+    }
+    /*
+    Resume
+*/
+    var formCotizacion = $('#formulario_cotizacion')
+    var formCotizacionTbody = $('#formulario_cotizacion_tbody')
+    var formCotizacionTotal = $('#formulario_cotizacion_total')
+
+    function updateResume() {
+        formCotizacionTbody.empty();
+        formCotizacionTotal.empty();
+
+        let total = 0
+        cotizadorLista.forEach(({
+            add_producto,
+            add_tipo_concentracion,
+            add_cantidad,
+            concentracion_form_param_1,
+            concentracion_form_param_2
+        }) => {
+            const price = fakeProductos.find(x => x.name == add_producto).price;
+            const concentracionType = add_tipo_preparacion.includes("/");
+            const subTotal = concentracionType ? ((concentracion_form_param_1 / concentracion_form_param_2) * price) * add_cantidad : (price * concentracion_form_param_1) * add_cantidad;
+            total += subTotal
+            formCotizacionTbody.append(`
+            <tr>
+            <td>
+                <p>${add_producto}</p>
+            </td>
+            <td>
+                <p>${price}</p>
+            </td>
+            <td>
+                <p>${add_tipo_concentracion} | ${concentracion_form_param_1}${
+                    concentracionType ? 
+                        `/${concentracion_form_param_2}` : ""}
+                </p>
+            </td>
+            <td>
+                <p>${subTotal}</p>
+            </td>
+            </tr>
+            `)
+
+        });
+        formCotizacionTotal.append(total)
     }
 
     var fakeProductos = [{
