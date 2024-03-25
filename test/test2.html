@@ -690,21 +690,41 @@
 <script>
     // Función para descargar el PDF
     document.getElementById('download-pdf').addEventListener('click', function() {
-        // Selecciona el elemento que deseas exportar, en este caso, el contenedor de la forma
         const elementToExport = document.getElementById('form-container');
-    
+
         html2canvas(elementToExport, { scale: 2 }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
+            // Crear PDF en tamaño A4 y orientación vertical ('p' para portrait)
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
-                unit: 'px',
-                format: [canvas.width, canvas.height]
+                unit: 'mm', // Usar milímetros para el formato A4
+                format: 'a4' // Especificar A4 como formato
             });
-            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+
+            // Calcular el ancho y alto para mantener la proporción en A4
+            const imgWidth = 210; // ancho de una página A4 en milímetros
+            const pageHeight = 297; // alto de una página A4 en milímetros
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+
+            // Agregar imagen al PDF
+            let position = 0;
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // Agregar nuevas páginas si el contenido excede el primer A4
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
             pdf.save('Acta_de_Muestreo_Control_de_Calidad.pdf');
         });
     });
-    </script>
+</script>
+
     
 <script>
     function cargarDatosEspecificacion(id, resultados) {
