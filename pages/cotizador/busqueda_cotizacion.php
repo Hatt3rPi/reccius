@@ -54,7 +54,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <br>
         <div id="contenedor_tabla" class="container">
             <table id="resultadosTabla" class="table table-striped table-bordered" width="100%"></table>
-            <div class="form-row" id="resultadosTabla_paginacion" ></div>
+            <div class="form-row justify-content-right" id="resultadosTabla_paginacion" ></div>
         </div>
     </div>
 </body>
@@ -120,7 +120,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         resultadosTablaPaginacion.empty();
         var rango = generarArrayRango(0, num)
         rango.forEach(element => {
-            resultadosTablaPaginacion.append(`<button class="btn btn-primary p-0" onclick="fillData(${element})">${element + 1}</button>`)
+            resultadosTablaPaginacion.append(`<button class="btn btn-primary justify-content-center" style="width: 20px;" onclick="fillData(${element})">${element + 1}</button>`)
             
         })
     }
