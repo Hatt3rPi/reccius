@@ -165,7 +165,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             `<p>${cotizacion}</p>`,
             `<p>${fecha_creacion}</p>`,
             `<p>${cliente}</p>`,
-            `<p>$${valor}</p>`
+            `<p>$${valor}</p>`,
             `<button type="button" data-cotizacion="${cotizacion}" class="btn-ver">Ver</button>`
         ];
         resultadosTabla.row.add(filaNueva);
