@@ -38,7 +38,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <div class="form-row justify-content-start">
                 <label> Busqueda por Nombre
-                    <input type="radio" name="buscador_tipo" id="nombre" value="nombre">
+                    <input type="radio" name="buscador_tipo" id="nombre" value="nombre" checked>
                 </label>
                 <label> Cotización
                     <input type="radio" name="buscador_tipo" id="contizacion" value="contizacion">
@@ -46,10 +46,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <div class="form-row">
                 <div class="col w-100">
-                    <input type="text" name="buscador" id="buscador" class="form-control" placeholder="Ingresa el id de cotización..."> <button>Buscar</button>
+                    <input type="text" name="buscador" id="buscador" class="form-control" placeholder="Ingresa el id de cotización...">
                 </div>
+                <button class="buscador_btn">Buscar</button>
             </div>
         </div>
+        <br>
         <div id="contenedor_tabla" class="container">
             <table id="resultadosTabla" class="table table-striped table-bordered" width="100%"></table>
         </div>
@@ -100,16 +102,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     }
 
-    function fillInitialData() {
-        var dateNumber = (date) => new Number((`${date}`)
-            .split('/')
-            .reverse().join(''))
-        fakeData.sort((a, b) =>
-            dateNumber(a.fecha_creacion) -
-            dateNumber(b.fecha_creacion))
-        fakeData.forEach(element => {
-            setToList(element)
-        })
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function generarArrayRango(inicio, fin, paso = 1) {
+        let arrayRango = [];
+        for (let i = inicio; i <= fin; i += paso) {
+            arrayRango.push(i);
+        }
+        return arrayRango;
+    }
+
+    async function fillData() {
+        var dateNumber = (date) => new Number((`${date}`).split('/').reverse().join(''));
+        fakeData = fakeData.sort((a, b) => dateNumber(a.fecha_creacion) - dateNumber(b.fecha_creacion));
+        var setToList = generarArrayRango(0, fakeData.length - 1).map(i => fakeData[i]);
+        for (var i = 0; i < setToList.length; i++) {
+            setToList(setToList[i]);
+            await sleep(100);
+        }
     }
     /*
     Manejar contizaciones
@@ -850,5 +862,5 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     ]
 
-    fillInitialData();
+    fillData();
 </script>
