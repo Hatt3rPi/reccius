@@ -3,11 +3,12 @@
 //Elaborado por: @ratapan
 // Todo:
 // 1. Ingreso de recetas ✅
-// 2. Cotizador
+// 2. Cotizador ✅
 // 3. Mantenedor de precios
+// 4. Busqueda de cotizaciones
 
 //Todo:
-// redondear arriba 10 pesos
+// redondear arriba 10 pesos ✅
 
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
@@ -123,6 +124,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <option value='soluciones'>soluciones</option>
                             </select>
                         </div>
+                        <div class="alert alert-warning text-center" role="alert">
+                    Los productos no son reales, solo una simulación!
+                </div>
                         <div class="form-group">
                             <label for="add_producto">Producto:</label>
                             <input class="form-control mx-0" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
@@ -330,9 +334,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function setToList(formObject) {
         cotizadorLista.push(formObject)
-        console.log(formObject);
-        var twoValues = formObject.add_tipo_preparacion.includes("/")
-
+        var twoValues = formObject.add_tipo_concentracion.includes("/")
         addProductoCotizador({
             index: formObject.index,
             producto: formObject.add_producto,
@@ -471,9 +473,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             concentracion_form_param_2
         }) => {
             const price = fakeProductos.find(x => x.nombre == add_producto).precio;
-            const concentracionType = add_tipo_preparacion.includes("/");
-            const subTotal = concentracionType ? (
-                roundDoubleZero((concentracion_form_param_1 / concentracion_form_param_2) * price) * add_cantidad) 
+            var twoValues =  add_tipo_preparacion.includes("/");
+            const subTotal = twoValues ? (
+                roundDoubleZero((concentracion_form_param_1 / concentracion_form_param_2) 
+                * price) * add_cantidad) 
                 : roundDoubleZero((price * concentracion_form_param_1) * add_cantidad);
             total += subTotal
             formCotizacionTbody.append(`
@@ -486,9 +489,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </td>
             <td>
                 <p>
-                ${add_tipo_concentracion} | ${concentracion_form_param_1}${
-                    concentracionType ? 
-                        `/${concentracion_form_param_2}` : ""} * ${add_cantidad}
+                ${add_tipo_concentracion} | ${twoValues?'(':''}${concentracion_form_param_1}${
+                    twoValues ? 
+                        `/${concentracion_form_param_2}` : ""}${twoValues?')':''} * ${add_cantidad}
                 </p>
             </td>
             <td>
