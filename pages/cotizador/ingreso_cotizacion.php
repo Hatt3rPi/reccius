@@ -86,7 +86,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </tbody>
                 </table>
-                <h3>Total <span id="formulario_cotizacion_total"></span></h3>
+                <h4 class="text-center">Total: $<span id="formulario_cotizacion_total"></span></h4>
             </div>
             <br>
             <div class="actions-container">
@@ -474,9 +474,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <p>${price}</p>
             </td>
             <td>
-                <p>${add_tipo_concentracion} | ${concentracion_form_param_1}${
+                <p>
+                ${add_tipo_concentracion} | ${concentracion_form_param_1}${
                     concentracionType ? 
-                        `/${concentracion_form_param_2}` : ""}
+                        `/${concentracion_form_param_2}` : ""} * ${add_cantidad}
                 </p>
             </td>
             <td>
