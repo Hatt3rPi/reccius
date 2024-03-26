@@ -617,20 +617,38 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "documento_actaMuestreo": {
+                case "revisar": {
                     // Llamar a una función que maneje la visualización del documento
+                    console.log("REVISAR CLICKEADO CON EXITO");
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
-                            'resultados': false,
-                            'etapa': '0'
                         },
                         success: function(response) {
-                            console.log('Documento Acta Muestreo redirigido con éxito');
+                            console.log('Revision de documento Acta Muestreo redirigido con éxito');
                             $('#dynamic-content').html(response);
-                            cargarDatosEspecificacion(id, false, '0');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al visualizar el documento: ", status, error);
+                        }
+                    });
+                    break;
+                }
+                case "generar_documento_solicitudes":{
+                    // Llamar a una función que maneje el envío del recordatorio
+                    console.log("exito al oprimir generar_documento_solicitudes")   
+                    $.ajax({
+                        url: '../pages/CALIDAD_acta_muestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'accion': accion
+                        },
+                        success: function(response) {
+                            console.log('Revision de documento Acta Muestreo redirigido con éxito');
+                            $('#dynamic-content').html(response);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al visualizar el documento: ", status, error);

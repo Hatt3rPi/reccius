@@ -138,7 +138,7 @@ function carga_listado() {
 
     // Botón para revisar siempre presente
     acciones += '<button class="accion-btn" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
-    acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
+    acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
     if (d.muestreado_por === usuarioActual) {
                     acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i></button>';
                 }
