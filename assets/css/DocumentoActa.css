@@ -531,3 +531,7 @@ p {
     margin-top: 0px !important;
     text-align: center;
 }
+
+.ul{
+    padding-left: 0;
+}
