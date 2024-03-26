@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - ambiente_desarrollo
 
 jobs:
   conditional-deploy:
@@ -15,13 +16,13 @@ jobs:
           fetch-depth: '0' # Importante para asegurar que se obtiene todo el historial
 
       - name: Configurar SSH para Producción
-        if: github.repository == 'Hatt3rPi/reccius'
+        if: github.ref == 'refs/heads/main' && github.repository == 'Hatt3rPi/reccius'
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Clonar y preparar el repositorio productivo
-        if: github.repository == 'Hatt3rPi/reccius'
+        if: github.ref == 'refs/heads/main' && github.repository == 'Hatt3rPi/reccius'
         run: |
           git clone --single-branch --branch main git@github.com:Hatt3rPi/reccius.git temp_dir
           cd temp_dir
@@ -35,7 +36,7 @@ jobs:
           git push production main --force
 
       - name: FTP-Deploy-Action para Desarrollo
-        if: github.repository == 'Hatt3rPi/reccius'
+        if: github.ref == 'refs/heads/ambiente_desarrollo' && github.repository == 'Hatt3rPi/reccius'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.customware.cl
@@ -45,7 +46,7 @@ jobs:
           passive: true
 
       - name: FTP-Deploy-Action para Producción
-        if: github.repository == 'Hatt3rPi/recciuscl'
+        if: github.ref == 'refs/heads/main' && github.repository == 'Hatt3rPi/recciuscl'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.reccius.cl
