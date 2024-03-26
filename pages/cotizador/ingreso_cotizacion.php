@@ -44,19 +44,65 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <input class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly>
                         </div>
                         <div class="w-100 col form-group">
-                            <label>Nombre Cliente:</label>
-                            <input class="form-control" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
+                            <label>Rut Cliente:</label>
+                            <input class="form-control" id="data_cli_rut" list="datalist_rut" name="data_cli_rut" placeholder="Rut del cliente">
+                            <datalist id="datalist_rut">
+                                <option value="471722-8">471722-8</option>
+                                <option value="46576394-9">46576394-9</option>
+                                <option value="40381677-9">40381677-9</option>
+                                <option value="161287-5">161287-5</option>
+                                <option value="1232807-9">1232807-9</option>
+                                <option value="7655534-6">7655534-6</option>
+                                <option value="40692441-6">40692441-6</option>
+                                <option value="49998376-K">49998376-K</option>
+                                <option value="1076639-7">1076639-7</option>
+                                <option value="4438868-5">4438868-5</option>
+                                <option value="45663714-0">45663714-0</option>
+                                <option value="15977415-5">15977415-5</option>
+                                <option value="5950396-0">5950396-0</option>
+                                <option value="698660-9">698660-9</option>
+                                <option value="1890659-7">1890659-7</option>
+                                <option value="7347772-7">7347772-7</option>
+                                <option value="46681940-9">46681940-9</option>
+                                <option value="33825362-1">33825362-1</option>
+                                <option value="2974968-K">2974968-K</option>
+                                <option value="21266210-0">21266210-0</option>
+                                <option value="50506607-3">50506607-3</option>
+                                <option value="44475667-5">44475667-5</option>
+                                <option value="12767803-0">12767803-0</option>
+                                <option value="12768443-K">12768443-K</option>
+                                <option value="40440243-9">40440243-9</option>
+                                <option value="22575724-0">22575724-0</option>
+                                <option value="42953327-9">42953327-9</option>
+                                <option value="98307-1">98307-1</option>
+                                <option value="42858688-3">42858688-3</option>
+                                <option value="1081727-7">1081727-7</option>
+                                <option value="26492140-6">26492140-6</option>
+                                <option value="8794257-0">8794257-0</option>
+                                <option value="647469-1">647469-1</option>
+                            </datalist>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="w-100 col form-group">
-                            <label>Rut Cliente:</label>
-                            <input class="form-control" id="data_cli_rut" name="data_cli_rut" placeholder="Rut del cliente">
+                            <label>Nombre Cliente:</label>
+                            <input class="form-control" id="data_cli_name" name="data_cli_name" placeholder="Nombre del cliente">
                         </div>
                         <div class="w-100 col form-group">
                             <label>Correo Cliente:</label>
                             <input type="email" class="form-control w-100" id="data_cli_mail" name="data_cli_mail" placeholder="Correo del cliente">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="w-100 col form-group">
+                            <label>Telefono Cliente:</label>
+                            <input class="form-control" id="data_cli_tel" name="data_cli_tel" placeholder="Telefono del cliente">
+                        </div>
+                        <div class="w-100 col form-group">
+                            <label>Nombre del Medico:</label>
+                            <input class="form-control w-100" id="data_cli_medico" name="data_cli_medico" placeholder="Medico de la receta">
                         </div>
                     </div>
                 </div>
@@ -92,7 +138,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         </tbody>
                     </table>
-                    <h4 class="text-center">Total: $<span id="formulario_cotizacion_total"></span></h4>
+                    <h5 class="text-right text-">Total: $<span id="formulario_cotizacion_total"></span></h5>
                 </div>
             </div>
             <br>
@@ -156,6 +202,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="form-group">
                             <label for="add_cantidad">Cantidad:</label>
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
+                        </div>
+                        <div class="form-group">
+                            <label>Presentación:</label>
+                            <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
+                                <option>Selecciona presentación a utilizar:</option>
+                                <option value='gotas'>gotas</option>
+                                <option value='jarabe'>jarabe</option>
+                                <option value='pastilla'>pastilla</option>
+                                <option value='pipeta'>pipeta</option>
+                            </select>
+                            <div class="form-row mx-0">
+                                <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
+                                <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                            </div>
+                            <div class="form-row mx-0">
+                                <input type="text" name="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
+                                <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                            </div>
                         </div>
                     </div>
                     <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert">
