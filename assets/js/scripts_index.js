@@ -220,6 +220,9 @@ $(document).ready(function () {
             featureNoDisponible();
         }
     });
+});
+
+$(document).ready(function () {
     $('#cotizador_busqueda').click(function (event) {
         if(AppConfig.FLAGS.recetario_magistral){
         event.preventDefault();
