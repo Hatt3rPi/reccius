@@ -559,10 +559,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tr>
                 <!-- Fila para lotes de <= 500 unidades -->
                 <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                    <td>&le; 500 unidades</td>
-                    <td>40 unidades</td>
-                    <td>80 unidades</td>
-                    <td>120 Unidades</td>
+                    <td contenteditable="true">&le; 500 unidades</td>
+                    <td contenteditable="true">40 unidades</td>
+                    <td contenteditable="true">80 unidades</td>
+                    <td contenteditable="true">120 Unidades</td>
                     <td class="class_seccion3">
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp1" id="planResp1a" value="1"  autocomplete="off" >
@@ -583,10 +583,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tr>
                 <!-- Fila para lotes entre 501 y 4999 unidades -->
                 <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                    <td>501 - 4999 unidades</td>
-                    <td>40 unidades</td>
-                    <td>80 unidades</td>
-                    <td>420 Unidades</td>
+                    <td contenteditable="true" >501 - 4999 unidades</td>
+                    <td contenteditable="true" >40 unidades</td>
+                    <td contenteditable="true" >80 unidades</td>
+                    <td contenteditable="true" >420 Unidades</td>
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off" >
@@ -607,10 +607,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tr>
                 <!-- Fila para lotes de >= 1000 unidades -->
                 <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                    <td>&ge; 1000 unidades</td>
-                    <td>50 unidades</td>
-                    <td>100 unidades</td>
-                    <td>150 Unidades</td>
+                    <td contenteditable="true">&ge; 1000 unidades</td>
+                    <td contenteditable="true">50 unidades</td>
+                    <td contenteditable="true">100 unidades</td>
+                    <td contenteditable="true">150 Unidades</td>
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp3" id="planResp3a" value="1" autocomplete="off" >
