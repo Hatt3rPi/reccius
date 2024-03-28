@@ -109,7 +109,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="formulario-titulo" >1. Producto:</td>
-                        <td class="formulario" id="form_producto">id="form_producto"</td>
+                        <td class="formulario" id="form_producto" editable>id="form_producto"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-horizontal " role="group" aria-label="Basic radio toggle button group">
