@@ -24,6 +24,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
+    <link rel="stylesheet" href="../assets/css/Notificacion.css">
 </head>
 
 <body>
@@ -691,51 +693,58 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     </div>
-    <div class="button-container">
+    
+
+</body>
+<div class="button-container">
         <button class="botones" id="guardar">Guardar</button>
         <button class="botones" id="firmar">Firmar</button>
         <button class="botones" id="download-pdf">Descargar PDF</button>
     </div>
-
-</body>
-
 </html>
 <script>
-    // Función para descargar el PDF
     document.getElementById('download-pdf').addEventListener('click', function() {
-        const elementToExport = document.getElementById('form-container');
+    // Ocultar botones antes de la captura
+    document.querySelector('.button-container').style.display = 'none';
 
-        html2canvas(elementToExport, { scale: 2 }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            // Crear PDF en tamaño A4 y orientación vertical ('p' para portrait)
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm', // Usar milímetros para el formato A4
-                format: 'a4' // Especificar A4 como formato
-            });
+    const elementToExport = document.getElementById('form-container');
 
-            // Calcular el ancho y alto para mantener la proporción en A4
-            const imgWidth = 210; // ancho de una página A4 en milímetros
-            const pageHeight = 297; // alto de una página A4 en milímetros
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
+    html2canvas(elementToExport, { scale: 2 }).then(canvas => {
+        // Mostrar botones después de la captura
+        document.querySelector('.button-container').style.display = 'block';
 
-            // Agregar imagen al PDF
-            let position = 0;
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const imgWidth = 210;
+        const pageHeight = 297;
+        let imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        let position = 0;
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
+        }
 
-            // Agregar nuevas páginas si el contenido excede el primer A4
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
 
-            pdf.save('Acta_de_Muestreo_Control_de_Calidad.pdf');
-        });
+        var nombreProducto = document.getElementById('producto').textContent.trim();
+        var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+        $.notify("PDF generado con exito", "success");
+
     });
+});
+
 </script>
 <script>
     function cargarDatosEspecificacion(id, resultados, etapa) {
