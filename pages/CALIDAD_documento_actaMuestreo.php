@@ -109,7 +109,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="formulario-titulo" >1. Producto:</td>
-                        <td class="formulario" id="form_producto" editable>id="form_producto"</td>
+                        <td class="formulario" id="form_producto" contenteditable="true">id="form_producto" </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-horizontal " role="group" aria-label="Basic radio toggle button group">
@@ -136,7 +136,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >2. Tipo Producto:</td>
-                        <td class="formulario" id="form_tipo" >id="form_tipo"</td>
+                        <td class="formulario" id="form_tipo" contenteditable="true">id="form_tipo"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -160,7 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >3. Lote:</td>
-                        <td class="formulario" id="form_lote" >id="form_lote"</td>
+                        <td class="formulario" id="form_lote" contenteditable="true">id="form_lote"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -183,7 +183,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >4. Tamaño de Lote:</td>
-                        <td class="formulario" id="form_tamano_lote">id="form_tamano_lote"</td>
+                        <td class="formulario" id="form_tamano_lote" contenteditable="true">id="form_tamano_lote"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -206,7 +206,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >5. Código Interno:</td>
-                        <td class="formulario" id="form_codigo_mastersoft">id="form_codigo_mastersoft"</td>
+                        <td class="formulario" id="form_codigo_mastersoft" contenteditable="true">id="form_codigo_mastersoft"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -229,7 +229,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >6. Cond. Almacenamiento:</td>
-                        <td class="formulario" id="form_condAlmacenamiento">id="form_condAlmacenamiento"</td>
+                        <td class="formulario" id="form_condAlmacenamiento" contenteditable="true">id="form_condAlmacenamiento"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -252,7 +252,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >7. Cantidad Muestra:</td>
-                        <td class="formulario" id="form_cant_muestra">id="form_cant_muestra"</td>
+                        <td class="formulario" id="form_cant_muestra" contenteditable="true">id="form_cant_muestra"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -275,7 +275,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >8. Cantidad Contramuestra:</td>
-                        <td class="formulario" id="form_cant_contramuestra">id="form_cant_contramuestra"</td>
+                        <td class="formulario" id="form_cant_contramuestra" contenteditable="true" >id="form_cant_contramuestra"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -298,7 +298,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >9. Tipo de Análisis:</td>
-                        <td class="formulario" id="form_tipo_analisis" >id="form_tipo_analisis"</td>
+                        <td class="formulario" id="form_tipo_analisis"  contenteditable="true">id="form_tipo_analisis"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
