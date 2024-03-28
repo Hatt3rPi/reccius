@@ -596,7 +596,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "resultados_actaMuestreo": {
+                case "generar_documento_solicitudes": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
@@ -636,7 +636,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "generar_documento_solicitudes":{
+                case "resultados_actaMuestreo":{
                     // Llamar a una función que maneje el envío del recordatorio
                     console.log("exito al oprimir generar_documento_solicitudes")   
                     $.ajax({
