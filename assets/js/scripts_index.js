@@ -649,6 +649,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
                             $('#dynamic-content').html(response);
+                            cargarDatosEspecificacion(id);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al visualizar el documento: ", status, error);
