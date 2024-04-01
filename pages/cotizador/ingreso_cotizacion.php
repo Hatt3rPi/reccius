@@ -17,6 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 
 $query = "SELECT id, categoria, nombre_opcion FROM recetariomagistral_opcionesdeplegables ORDER BY categoria, CASE WHEN nombre_opcion = 'Otro' THEN 1 ELSE 0 END, nombre_opcion";
+
 $result = mysqli_query($link, $query);
 
 $opciones = [];
@@ -169,8 +170,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
                         <div class="form-group">
                             <label>Preparación:</label>
-                            <select  name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style mx-0" required>
-                                <option disabled value="">Selecciona preparación a utilizar:</option>
+                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style mx-0" required>
+                                <option disabled selected value="">Selecciona preparación a utilizar:</option>
                                 <?php foreach ($opcionesCategorias as $op) : ?>
                                     <option value="<?php echo htmlspecialchars($op); ?>">
                                         <?php echo htmlspecialchars($op); ?>
@@ -214,17 +215,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         <div class="form-group">
                             <label>Presentación:</label>
                             <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
-                            <option value="" disabled>Selecciona presentación a utilizar:</option>
-                            
+                                <option selected disabled value="">Selecciona presentación a utilizar:</option>
+
                             </select>
-                            <div class="form-row mx-0">
-                                <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
-                                <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
-                            </div>
-                            <div class="form-row mx-0">
-                                <input type="text" name="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
-                                <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
-                            </div>
                         </div>
                     </div>
                     <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert">
@@ -281,13 +274,37 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
         //API
-        var fakeProductosFilter = fakeProductos.filter(option => option.nombre.toLowerCase().includes(searchValue));
-        feedDataList(addContizacionFormProductoData, fakeProductosFilter.map(option => {
-            return {
-                name: option.nombre,
-                id: option.id
+        if(searchValue.length < 3) return
+        $.ajax({
+            url: '../pages/cotizador/query_buscar_productos.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                texto: searchValue
+            },
+            success: function(productos) {
+                // Alimentar datalist con los productos obtenidos
+                feedDataList(addContizacionFormProductoData, productos.map(option => {
+                    return {
+                        name: option.nombre,
+                        id: option.id
+                    };
+                }));
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la petición AJAX: " + error);
             }
-        }));
+        });
+
+
+        // Previo
+        //var fakeProductosFilter = fakeProductos.filter(option => option.nombre.toLowerCase().includes(searchValue));
+        //feedDataList(addContizacionFormProductoData, fakeProductosFilter.map(option => {
+        //    return {
+        //        name: option.nombre,
+        //        id: option.id
+        //    }
+        //}));
     });
 
     addContizacionFormConcentracion.change(function() {
@@ -334,9 +351,11 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             $('input[name=concentracion_form_type_1]').val(select).show();
         }
     }
+
     function actualizarPresentacion(select) {
         addTipoPresentacion.empty();
-        addTipoPresentacion.append('<option disabled value="">Selecciona preparación a utilizar:</option>');
+        addTipoPresentacion.val('');
+        addTipoPresentacion.append('<option selected disabled value="">Selecciona presentación a utilizar:</option>');
         opciones[select].forEach(opcion => {
             addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
@@ -590,233 +609,5 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         formCotizacionTotal.append(roundDoubleZero(total))
     }
 
-    var fakeProductos = [{
-            id: 1,
-            nombre: "Loratadina 231",
-            concentracion: "UI",
-            precio: 964
-        },
-        {
-            id: 2,
-            nombre: "Ketorolaco 124",
-            concentracion: "g",
-            precio: 356
-        },
-        {
-            id: 3,
-            nombre: "Atorvastatina 148",
-            concentracion: "UI/ml",
-            precio: 317
-        },
-        {
-            id: 4,
-            nombre: "Metformina 618",
-            concentracion: "g",
-            precio: 228
-        },
-        {
-            id: 5,
-            nombre: "Losartán 980",
-            concentracion: "%/ml",
-            precio: 577
-        },
-        {
-            id: 6,
-            nombre: "Amoxicilina 309",
-            concentracion: "g",
-            precio: 198
-        },
-        {
-            id: 7,
-            nombre: "Ácido Ascórbico 570",
-            concentracion: "%/ml",
-            precio: 597
-        },
-        {
-            id: 8,
-            nombre: "Esomeprazol 200",
-            concentracion: "ml",
-            precio: 732
-        },
-        {
-            id: 9,
-            nombre: "Cetirizina 870",
-            concentracion: "g/ml",
-            precio: 85
-        },
-        {
-            id: 10,
-            nombre: "Dexametasona 364",
-            concentracion: "ml",
-            precio: 354
-        },
-        {
-            id: 11,
-            nombre: "Clotrimazol 374",
-            concentracion: "UI/ml",
-            precio: 4
-        },
-        {
-            id: 12,
-            nombre: "Fluconazol 160",
-            concentracion: "UI",
-            precio: 41
-        },
-        {
-            id: 13,
-            nombre: "Hidrocortisona 909",
-            concentracion: "g/ml",
-            precio: 297
-        },
-        {
-            id: 14,
-            nombre: "Insulina 556",
-            concentracion: "%/ml",
-            precio: 788
-        },
-        {
-            id: 15,
-            nombre: "Ketorolaco 788",
-            concentracion: "g",
-            precio: 536
-        },
-        {
-            id: 16,
-            nombre: "Lidocaína 433",
-            concentracion: "UI",
-            precio: 622
-        },
-        {
-            id: 17,
-            nombre: "Mometasona 521",
-            concentracion: "g/ml",
-            precio: 93
-        },
-        {
-            id: 18,
-            nombre: "Ibuprofeno 312",
-            concentracion: "ml",
-            precio: 167
-        },
-        {
-            id: 19,
-            nombre: "Omeprazol 157",
-            concentracion: "%/ml",
-            precio: 644
-        },
-        {
-            id: 20,
-            nombre: "Paracetamol 983",
-            concentracion: "UI/ml",
-            precio: 532
-        },
-        {
-            id: 21,
-            nombre: "Ranitidina 451",
-            concentracion: "g",
-            precio: 258
-        },
-        {
-            id: 22,
-            nombre: "Sertralina 867",
-            concentracion: "ml",
-            precio: 345
-        },
-        {
-            id: 23,
-            nombre: "Ácido Ascórbico 254",
-            concentracion: "g/ml",
-            precio: 485
-        },
-        {
-            id: 24,
-            nombre: "Amoxicilina 789",
-            concentracion: "UI",
-            precio: 134
-        },
-        {
-            id: 25,
-            nombre: "Cetirizina 642",
-            concentracion: "%/ml",
-            precio: 148
-        },
-        {
-            id: 26,
-            nombre: "Dexametasona 273",
-            concentracion: "g/ml",
-            precio: 377
-        },
-        {
-            id: 27,
-            nombre: "Esomeprazol 834",
-            concentracion: "ml",
-            precio: 466
-        },
-        {
-            id: 28,
-            nombre: "Fluconazol 195",
-            concentracion: "UI/ml",
-            precio: 254
-        },
-        {
-            id: 29,
-            nombre: "Hidrocortisona 678",
-            concentracion: "g",
-            precio: 637
-        },
-        {
-            id: 30,
-            nombre: "Insulina 889",
-            concentracion: "UI",
-            precio: 578
-        },
-        {
-            id: 31,
-            nombre: "Ketorolaco 456",
-            concentracion: "%/ml",
-            precio: 389
-        },
-        {
-            id: 32,
-            nombre: "Lidocaína 321",
-            concentracion: "g/ml",
-            precio: 799
-        },
-        {
-            id: 33,
-            nombre: "Mometasona 654",
-            concentracion: "ml",
-            precio: 687
-        },
-        {
-            id: 34,
-            nombre: "Ibuprofeno 982",
-            concentracion: "UI/ml",
-            precio: 256
-        },
-        {
-            id: 35,
-            nombre: "Omeprazol 314",
-            concentracion: "g",
-            precio: 473
-        },
-        {
-            id: 36,
-            nombre: "Paracetamol 765",
-            concentracion: "ml",
-            precio: 599
-        },
-        {
-            id: 37,
-            nombre: "Ranitidina 586",
-            concentracion: "%/ml",
-            precio: 264
-        },
-        {
-            id: 38,
-            nombre: "Sertralina 423",
-            concentracion: "UI/ml",
-            precio: 395
-        }
-    ]
+
 </script>
