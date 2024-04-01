@@ -25,9 +25,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/notify.js"></script>
-    <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <link rel="stylesheet" href="../assets/css/DocumentoActa.css">
-    <link rel="stylesheet" href="../assets/js/notify.js">
+
 </head>
 
 <body>
