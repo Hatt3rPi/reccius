@@ -1,13 +1,12 @@
-// buscar_productos.php
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-// /if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+// if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 // echo json_encode([]);
 // header("Location: login.html");
 // exit;
-// /}
+// }
 
 $texto_a_buscar = isset($_GET['texto']) ? mysqli_real_escape_string($link, $_GET['texto']) : '';
 
