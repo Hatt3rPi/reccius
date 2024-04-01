@@ -491,6 +491,7 @@ body {
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
   box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.6);
   z-index: 100;
+  font-family: 'Arial', sans-serif !important;
 }
 
 .breadcrumb {
@@ -500,11 +501,13 @@ body {
   align-items: center;
   border-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
   margin-bottom: 0 !important; /* Anula el margin-bottom de Bootstrap */
+  font-family: 'Arial', sans-serif !important;
 }
 
 .breadcrumb-item,
 .breadcrumb-item a {
   font-size: 0.9rem; /* Reduce el tamaño de la fuente si es necesario */
+  font-family: 'Arial', sans-serif !important;
   color: rgb(0, 14, 78) !important; /* Texto blanco para contraste */
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
