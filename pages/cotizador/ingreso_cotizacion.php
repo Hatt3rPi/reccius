@@ -301,8 +301,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     addContizacionForm.on("submit", addContizacionFormSubmit);
 
-
-
     function feedDataList(datalist, options) {
         datalist.empty();
         options.forEach(optionValue => {
@@ -338,9 +336,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     }
     function actualizarPresentacion(select) {
         addTipoPresentacion.empty();
-        addTipoPreparacion.append('<option disabled value="">Selecciona preparación a utilizar:</option>');
+        addTipoPresentacion.append('<option disabled value="">Selecciona preparación a utilizar:</option>');
         opciones[select].forEach(opcion => {
-            addTipoPreparacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
+            addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
     }
 
