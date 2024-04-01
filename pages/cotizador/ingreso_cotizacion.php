@@ -195,13 +195,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         <div class="form-group">
                             <label>Concentración:</label>
                             <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0" required>
-                                <option>Selecciona estructura a utilizar:</option>
-                                <option value='g/ml'>g/ml</option>
-                                <option value='%/ml'>%/ml</option>
-                                <option value='UI/ml'>UI/ml</option>
-                                <option value='g'>g</option>
-                                <option value='ml'>ml</option>
-                                <option value='UI'>UI</option>
+                            <option>Selecciona estructura a utilizar</option>
                             </select>
                             <div class="form-row mx-0">
                                 <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
@@ -357,6 +351,16 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
     }
+    function actualizarConcentracion() {
+        addContizacionFormConcentracion.empty();
+        addContizacionFormConcentracion.val('');
+        addContizacionFormConcentracion.append('<option selected disabled value="">Selecciona estructura a utilizar</option>');
+        opcionesConversion.forEach(opcion => {
+            addContizacionFormConcentracion
+            .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
+        })
+    }
+    actualizarConcentracion()
 
     cargaTablaCotizacion({
         id: null,
