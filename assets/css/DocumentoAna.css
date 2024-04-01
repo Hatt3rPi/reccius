@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -26,6 +26,7 @@ body {
     margin-left: 500px;
     margin-right: 10px;
     position: relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .form-container {
     width: 612pt;
@@ -38,6 +39,7 @@ body {
     margin-left: 500px;
     margin-right: 10px;
     position: relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
