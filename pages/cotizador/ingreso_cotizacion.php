@@ -18,6 +18,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
+
+$query = "SELECT categoria, nombre_opcion FROM calidad_opciones_desplegables ORDER BY categoria, CASE WHEN nombre_opcion = 'Otro' THEN 1 ELSE 0 END, nombre_opcion";
+$result = mysqli_query($link, $query);
+
+$opciones = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $opciones[$row['categoria']][] = $row['nombre_opcion'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -239,9 +248,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    /*
-    Modal
-*/
     var buttonAgregaElementoCotizacion = $('#button_agrega_elemento') //modal open
     var addContizacionModalClose = $('#add_modal_close') //modal close
     var addContizacionModal = $('#add_contizacion_modal') //modal
@@ -250,7 +256,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var addContizacionFormProductoData = $('#datalist_product_options') //producto datalist modal
     var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
-
+    
+    var opciones = <?php echo json_encode($opciones); ?>
+    var opcionesRaw = <?php echo json_encode($result); ?>
+    /*
+    Modal
+*/
+    console.log(opciones);
 
 
     var addErrorAlert = $('#add_error_alert') //error modal
