@@ -23,8 +23,9 @@ $opciones = [];
 $opcionesCategorias = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $opciones[$row['categoria']][] = ['id' => $row['id'], 'nombre_opcion' => $row['nombre_opcion']];
-    $opcionesCategorias[] = $row['categoria'];
+    $opcionesCategorias[$row['categoria']] = true;
 }
+$opcionesCategorias = array_keys($opcionesCategorias);
 
 ?>
 <!DOCTYPE html>
@@ -339,7 +340,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         addTipoPresentacion.empty();
         addTipoPreparacion.append('<option disabled value="">Selecciona preparación a utilizar:</option>');
         opciones[select].forEach(opcion => {
-            addTipoPreparacion.append('<option value="' + opcion + '">' + opcion + '</option>');
+            addTipoPreparacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
     }
 
