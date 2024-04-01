@@ -596,7 +596,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "resultados_actaMuestreo": {
+                case "generar_documento_solicitudes": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
@@ -621,7 +621,7 @@ function botones(id, accion, base) {
                     // Llamar a una función que maneje la visualización del documento
                     console.log("REVISAR CLICKEADO CON EXITO");
                     $.ajax({
-                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        url: '../pages/LABORATORIO_preparacion_solicitud.php',
                         type: 'POST',
                         data: {
                             'id': id,
@@ -629,6 +629,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
                             $('#dynamic-content').html(response);
+                            //cargarDatosEspecificacion(id)
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al visualizar el documento: ", status, error);
@@ -636,7 +637,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "generar_documento_solicitudes":{
+                case "resultados_actaMuestreo":{
                     // Llamar a una función que maneje el envío del recordatorio
                     console.log("exito al oprimir generar_documento_solicitudes")   
                     $.ajax({
@@ -649,6 +650,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
                             $('#dynamic-content').html(response);
+                            cargarDatosEspecificacion(id);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al visualizar el documento: ", status, error);

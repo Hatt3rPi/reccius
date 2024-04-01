@@ -24,6 +24,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
+    <link rel="stylesheet" href="../assets/css/Notificacion.css">
 </head>
 
 <body>
@@ -107,7 +109,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="formulario-titulo" >1. Producto:</td>
-                        <td class="formulario" id="form_producto">id="form_producto"</td>
+                        <td class="formulario" id="form_producto" contenteditable="true">id="form_producto" </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-horizontal " role="group" aria-label="Basic radio toggle button group">
@@ -134,7 +136,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >2. Tipo Producto:</td>
-                        <td class="formulario" id="form_tipo" >id="form_tipo"</td>
+                        <td class="formulario" id="form_tipo" contenteditable="true">id="form_tipo"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -158,7 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >3. Lote:</td>
-                        <td class="formulario" id="form_lote" >id="form_lote"</td>
+                        <td class="formulario" id="form_lote" contenteditable="true">id="form_lote"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -181,7 +183,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >4. Tamaño de Lote:</td>
-                        <td class="formulario" id="form_tamano_lote">id="form_tamano_lote"</td>
+                        <td class="formulario" id="form_tamano_lote" contenteditable="true">id="form_tamano_lote"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -204,7 +206,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >5. Código Interno:</td>
-                        <td class="formulario" id="form_codigo_mastersoft">id="form_codigo_mastersoft"</td>
+                        <td class="formulario" id="form_codigo_mastersoft" contenteditable="true">id="form_codigo_mastersoft"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -227,7 +229,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >6. Cond. Almacenamiento:</td>
-                        <td class="formulario" id="form_condAlmacenamiento">id="form_condAlmacenamiento"</td>
+                        <td class="formulario" id="form_condAlmacenamiento" contenteditable="true">id="form_condAlmacenamiento"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -250,7 +252,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >7. Cantidad Muestra:</td>
-                        <td class="formulario" id="form_cant_muestra">id="form_cant_muestra"</td>
+                        <td class="formulario" id="form_cant_muestra" contenteditable="true">id="form_cant_muestra"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -273,7 +275,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >8. Cantidad Contramuestra:</td>
-                        <td class="formulario" id="form_cant_contramuestra">id="form_cant_contramuestra"</td>
+                        <td class="formulario" id="form_cant_contramuestra" contenteditable="true" >id="form_cant_contramuestra"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -296,7 +298,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo" >9. Tipo de Análisis:</td>
-                        <td class="formulario" id="form_tipo_analisis" >id="form_tipo_analisis"</td>
+                        <td class="formulario" id="form_tipo_analisis"  contenteditable="true">id="form_tipo_analisis"</td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -557,10 +559,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tr>
                 <!-- Fila para lotes de <= 500 unidades -->
                 <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                    <td>&le; 500 unidades</td>
-                    <td>40 unidades</td>
-                    <td>80 unidades</td>
-                    <td>120 Unidades</td>
+                    <td contenteditable="true">&le; 500 unidades</td>
+                    <td contenteditable="true">40 unidades</td>
+                    <td contenteditable="true">80 unidades</td>
+                    <td contenteditable="true">120 Unidades</td>
                     <td class="class_seccion3">
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp1" id="planResp1a" value="1"  autocomplete="off" >
@@ -581,10 +583,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tr>
                 <!-- Fila para lotes entre 501 y 4999 unidades -->
                 <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                    <td>501 - 4999 unidades</td>
-                    <td>40 unidades</td>
-                    <td>80 unidades</td>
-                    <td>420 Unidades</td>
+                    <td contenteditable="true" >501 - 4999 unidades</td>
+                    <td contenteditable="true" >40 unidades</td>
+                    <td contenteditable="true" >80 unidades</td>
+                    <td contenteditable="true" >420 Unidades</td>
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off" >
@@ -605,10 +607,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tr>
                 <!-- Fila para lotes de >= 1000 unidades -->
                 <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                    <td>&ge; 1000 unidades</td>
-                    <td>50 unidades</td>
-                    <td>100 unidades</td>
-                    <td>150 Unidades</td>
+                    <td contenteditable="true">&ge; 1000 unidades</td>
+                    <td contenteditable="true">50 unidades</td>
+                    <td contenteditable="true">100 unidades</td>
+                    <td contenteditable="true">150 Unidades</td>
                     <td>
                         <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="planResp3" id="planResp3a" value="1" autocomplete="off" >
@@ -691,15 +693,59 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     </div>
-    <div class="button-container">
+    
+
+</body>
+<div class="button-container">
         <button class="botones" id="guardar">Guardar</button>
         <button class="botones" id="firmar">Firmar</button>
         <button class="botones" id="download-pdf">Descargar PDF</button>
     </div>
-
-</body>
-
 </html>
+<script>
+    document.getElementById('download-pdf').addEventListener('click', function() {
+    // Ocultar botones antes de la captura
+    document.querySelector('.button-container').style.display = 'none';
+
+    const elementToExport = document.getElementById('form-container');
+
+    html2canvas(elementToExport, { scale: 2 }).then(canvas => {
+        // Mostrar botones después de la captura
+        document.querySelector('.button-container').style.display = 'block';
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const imgWidth = 210;
+        const pageHeight = 297;
+        let imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        let position = 0;
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+
+        var nombreProducto = document.getElementById('producto').textContent.trim();
+        var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+        $.notify("PDF generado con exito", "success");
+
+    });
+});
+
+</script>
 <script>
     function cargarDatosEspecificacion(id, resultados, etapa) {
         console.log(id, resultados, etapa);

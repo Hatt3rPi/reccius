@@ -157,6 +157,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             },
             error: function(xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
+                console.log(status, error);
             }
         });
     }
