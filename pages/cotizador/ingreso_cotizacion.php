@@ -18,13 +18,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 $query = "SELECT id, categoria, nombre_opcion FROM recetariomagistral_opcionesdeplegables ORDER BY categoria, CASE WHEN nombre_opcion = 'Otro' THEN 1 ELSE 0 END, nombre_opcion";
 
+$queryConversion = "SELECT unidad, unidad_minima, conversion_a_unidadminima FROM recetariomagistral_tablaconversion";
+
 $result = mysqli_query($link, $query);
+$resultConversion = mysqli_query($link, $queryConversion);
 
 $opciones = [];
 $opcionesCategorias = [];
+$opcionesConversion = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $opciones[$row['categoria']][] = ['id' => $row['id'], 'nombre_opcion' => $row['nombre_opcion']];
     $opcionesCategorias[$row['categoria']] = true;
+}
+while ($row = mysqli_fetch_assoc($resultConversion)) {
+    $opcionesConversion[] = $row;
 }
 $opcionesCategorias = array_keys($opcionesCategorias);
 
@@ -247,11 +254,12 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     var opciones = <?php echo json_encode($opciones); ?>;
     var opcionesCategorias = <?php echo json_encode($opcionesCategorias); ?>;
+    var opcionesConversion = <?php echo json_encode($opcionesConversion); ?>;
     /*
     Modal
 */
 
-
+    console.log('opcionesConversion: => ', opcionesConversion);
     var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, cotizadorFilas = 0;
 
