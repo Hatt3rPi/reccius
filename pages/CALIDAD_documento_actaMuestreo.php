@@ -27,6 +27,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="../assets/js/notify.js"></script>
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <link rel="stylesheet" href="../assets/css/DocumentoActa.css">
+    <link rel="stylesheet" href="../assets/js/notify.js">
 </head>
 
 <body>
@@ -702,6 +703,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <button class="botones" id="firmar">Firmar</button>
         <button class="botones" id="download-pdf">Descargar PDF</button>
     </div>
+<div id="notification" class="notification-container notify" style="display: none;">
+        <p id="notification-message">Este es un mensaje de notificación.</p>
+</div>
 </html>
 <script>
     document.getElementById('download-pdf').addEventListener('click', function() {
