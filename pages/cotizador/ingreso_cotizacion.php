@@ -20,8 +20,10 @@ $query = "SELECT categoria, nombre_opcion FROM calidad_opciones_desplegables ORD
 $result = mysqli_query($link, $query);
 
 $opciones = [];
+$opcionesRaw = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $opciones[$row['categoria']][] = $row['nombre_opcion'];
+    $opcionesRaw[] = $row;
 }
 
 ?>
@@ -255,7 +257,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
     
     var opciones = <?php echo json_encode($opciones); ?>;
-    var opcionesRaw = <?php echo json_encode($result); ?>;
+    var opcionesRaw = <?php echo json_encode($opcionesRaw); ?>;
     /*
     Modal
 */
