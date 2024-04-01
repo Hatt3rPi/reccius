@@ -477,8 +477,8 @@ body {
   position: relative;
 }
 .breadcrumb-container {
-  background-color: #cecece; /* Color de fondo azul para coincidir con la barra de navegación */
-  padding: 0; /* Elimina el padding para que la altura de 50px sea solo para el contenido */
+  background-color: #cecece !important; /* Color de fondo azul para coincidir con la barra de navegación */
+  padding: 0 !important;  /* Elimina el padding para que la altura de 50px sea solo para el contenido */
   height: 30px; /* Establece una altura fija de 50px */
   width: 100%;    
   line-height: 50px; /* Centra el contenido verticalmente */
@@ -504,7 +504,7 @@ body {
 .breadcrumb-item,
 .breadcrumb-item a {
   font-size: 0.9rem; /* Reduce el tamaño de la fuente si es necesario */
-  color: rgb(0, 14, 78); /* Texto blanco para contraste */
+  color: rgb(0, 14, 78) !important; /* Texto blanco para contraste */
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
   background-color: #cecece;
