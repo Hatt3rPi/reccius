@@ -15,7 +15,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <title>Acta de Muestreo Control de Calidad</title>
-    <link rel="stylesheet" href="../assets/css/DocumentoActa.css">
+    
     <script  src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
@@ -26,6 +26,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/notify.js"></script>
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
+    <link rel="stylesheet" href="../assets/css/DocumentoActa.css">
 </head>
 
 <body>
