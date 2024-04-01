@@ -274,7 +274,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
         //API
-        if(searchValue.length < 3) return
+        if (searchValue.length < 3) return
         $.ajax({
             url: '../pages/cotizador/query_buscar_productos.php',
             type: 'GET',
@@ -283,8 +283,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 texto: searchValue
             },
             success: function(productos) {
-                // Alimentar datalist con los productos obtenidos
-                feedDataList(addContizacionFormProductoData, productos.map(option => {
+                feedDataList(addContizacionFormProductoData, productos.map(function(option) {
                     return {
                         name: option.nombre,
                         id: option.id
@@ -292,7 +291,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 }));
             },
             error: function(xhr, status, error) {
-                console.error("Error en la petición AJAX: " + error);
+                console.error("Error status: " + status);
+                console.error("xhr: " + xhr);
+                console.error("Error: " + error);
             }
         });
 
@@ -608,6 +609,4 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         });
         formCotizacionTotal.append(roundDoubleZero(total))
     }
-
-
 </script>
