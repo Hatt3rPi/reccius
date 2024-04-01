@@ -20,10 +20,10 @@ $query = "SELECT id, categoria, nombre_opcion FROM recetariomagistral_opcionesde
 $result = mysqli_query($link, $query);
 
 $opciones = [];
-$opcionesRaw = [];
+$opcionesCategorias = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $opciones[$row['categoria']][] = $row['nombre_opcion'];
-    $opcionesRaw[] = $row;
+    $opcionesCategorias[] = $row['categoria'];
 }
 
 ?>
@@ -168,14 +168,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                         <div class="form-group">
                             <label>Preparación:</label>
-                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style mx-0" required>
-                                <option>Selecciona preparación a utilizar:</option>
-                                <option value='fraccionamiento'>fraccionamiento</option>
-                                <option value='inyectables'>inyectables</option>
-                                <option value='oftalmologia'>Oftalmología</option>
-                                <option value='semisolidos'>semisólidos</option>
-                                <option value='solidos'>sólidos</option>
-                                <option value='soluciones'>soluciones</option>
+                            <select  name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style mx-0" required>
+                                <option disabled value="">Selecciona preparación a utilizar:</option>
+                                <?php foreach ($opcionesCategorias as $op) : ?>
+                                    <option value="<?php echo htmlspecialchars($op); ?>">
+                                        <?php echo htmlspecialchars($op); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="alert alert-warning text-center" role="alert">
@@ -214,11 +213,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <div class="form-group">
                             <label>Presentación:</label>
                             <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
-                                <option>Selecciona presentación a utilizar:</option>
-                                <option value='gotas'>gotas</option>
-                                <option value='jarabe'>jarabe</option>
-                                <option value='pastilla'>pastilla</option>
-                                <option value='pipeta'>pipeta</option>
+                            <option value="" disabled>Selecciona presentación a utilizar:</option>
+                            
                             </select>
                             <div class="form-row mx-0">
                                 <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
@@ -255,14 +251,16 @@ while ($row = mysqli_fetch_assoc($result)) {
     var addContizacionFormProductoData = $('#datalist_product_options') //producto datalist modal
     var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
-    
+    var addTipoPreparacion = $('#add_tipo_preparacion') //tipo preparacion
+    var addTipoPresentacion = $('#add_tipo_presentacion')
+
     var opciones = <?php echo json_encode($opciones); ?>;
-    var opcionesRaw = <?php echo json_encode($opcionesRaw); ?>;
+    var opcionesCategorias = <?php echo json_encode($opcionesCategorias); ?>;
     /*
     Modal
 */
     console.log(opciones);
-    console.log(opcionesRaw);
+    console.log(opcionesCategorias);
 
 
     var addErrorAlert = $('#add_error_alert') //error modal
@@ -295,8 +293,14 @@ while ($row = mysqli_fetch_assoc($result)) {
         const concentracion = $(this).val();
         actualizarConcentracion(concentracion)
     });
+    addTipoPreparacion.on("change", function() {
+        const presentacion = $(this).val();
+        actualizarPresentacion(presentacion)
+    })
 
     addContizacionForm.on("submit", addContizacionFormSubmit);
+
+
 
     function feedDataList(datalist, options) {
         datalist.empty();
@@ -330,6 +334,13 @@ while ($row = mysqli_fetch_assoc($result)) {
             $('input[name=concentracion_form_param_1]').val('').show();
             $('input[name=concentracion_form_type_1]').val(select).show();
         }
+    }
+    function actualizarPresentacion(select) {
+        addTipoPresentacion.empty();
+        addTipoPreparacion.append('<option disabled value="">Selecciona preparación a utilizar:</option>');
+        opciones[select].forEach(opcion => {
+            addTipoPreparacion.append('<option value="' + opcion + '">' + opcion + '</option>');
+        })
     }
 
     cargaTablaCotizacion({
