@@ -15,7 +15,13 @@ $result = mysqli_query($link, $queryDinamica);
 
 $productos = [];
 while ($row = mysqli_fetch_assoc($result)) {
-    $productos[] = ['id' => $row['id'], 'nombre' => $row['materia_prima']];
+    $productos[] = [
+        'id' => $row['id'], 
+        'nombre' => $row['materia_prima'],
+        'precio_por_kg_lt' => $row['precio_por_kg_lt'],
+        'factor_reccius' => $row['factor_reccius'],
+        'disponibilidad' => $row['disponibilidad']
+        ];
 }
 
 echo json_encode($productos);

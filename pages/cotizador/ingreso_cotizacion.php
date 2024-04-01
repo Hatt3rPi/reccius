@@ -158,7 +158,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             </div>
         </form>
         <div class="modal" id="add_contizacion_modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-dialog">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agregar Producto</h5>
@@ -178,9 +178,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                        </div>
-                        <div class="alert alert-warning text-center" role="alert">
-                            Los productos no son reales, solo una simulación.
                         </div>
                         <div class="form-group">
                             <label for="add_producto">Producto:</label>
@@ -215,7 +212,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         <div class="form-group">
                             <label>Presentación:</label>
                             <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
-                                <option selected disabled value="">Selecciona presentación a utilizar:</option>
+                                <option selected disabled value="">Selecciona presentación a utilizar</option>
 
                             </select>
                         </div>
@@ -253,14 +250,13 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     /*
     Modal
 */
-    console.log(opciones);
-    console.log(opcionesCategorias);
 
 
     var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, cotizadorFilas = 0;
 
     var cotizadorLista = [];
+    var productosLista = [];
     var editing = false;
     var editingObj = null;
 
@@ -283,12 +279,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 texto: searchValue
             },
             success: function(productos) {
+                productosLista = productos;
                 feedDataList(addContizacionFormProductoData, productos.map(function(option) {
                     return {
                         name: option.nombre,
                         id: option.id
                     };
                 }));
+                console.log(productosLista);
             },
             error: function(xhr, status, error) {
                 console.error("Error status: " + status);
@@ -296,16 +294,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 console.error("Error: " + error);
             }
         });
-
-
-        // Previo
-        //var fakeProductosFilter = fakeProductos.filter(option => option.nombre.toLowerCase().includes(searchValue));
-        //feedDataList(addContizacionFormProductoData, fakeProductosFilter.map(option => {
-        //    return {
-        //        name: option.nombre,
-        //        id: option.id
-        //    }
-        //}));
     });
 
     addContizacionFormConcentracion.change(function() {
@@ -356,7 +344,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     function actualizarPresentacion(select) {
         addTipoPresentacion.empty();
         addTipoPresentacion.val('');
-        addTipoPresentacion.append('<option selected disabled value="">Selecciona presentación a utilizar:</option>');
+        addTipoPresentacion.append('<option selected disabled value="">Selecciona presentación a utilizar</option>');
         opciones[select].forEach(opcion => {
             addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
