@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <!-- Body -->
             <br>
-            <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
+            <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
             
             <!-- Sección I: Identificación de la Muestra -->
             <section id="sample-identification"
@@ -324,7 +324,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </section>
             <br>
             <br>
-            <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">II. MUESTREO</h2>
+            <h2 class="Subtitulos">II. MUESTREO</h2>
             <!-- Sección II: MUESTREO -->
             <section id="sample-identification"
                 style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
@@ -547,7 +547,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <!-- Sección III: Plan de Muestreo -->
         <br>
         <section id="sampling-plan">
-            <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">III. PLAN DE MUESTREO</h2>
+            <h2 class="Subtitulos">III. PLAN DE MUESTREO</h2>
 
             <table id="seccion3" style="width:100%; border-collapse: collapse;">
                 <!-- Encabezados de la tabla -->
