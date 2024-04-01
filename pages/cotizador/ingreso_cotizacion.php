@@ -2,13 +2,10 @@
 //archivo: pages\cotizador\ingreso_cotizacion.php
 //Elaborado por: @ratapan
 // Todo:
-// 1. Ingreso de recetas ✅
-// 2. Cotizador ✅
+// 1. Ingreso de recetas 
+// 2. Cotizador 
 // 3. Mantenedor de precios
 // 4. Busqueda de cotizaciones
-
-//Todo:
-// redondear arriba 10 pesos ✅
 
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
@@ -257,8 +254,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
     
-    var opciones = <?php echo json_encode($opciones); ?>
-    var opcionesRaw = <?php echo json_encode($result); ?>
+    var opciones = <?php echo json_encode($opciones); ?>;
+    var opcionesRaw = <?php echo json_encode($result); ?>;
     /*
     Modal
 */
