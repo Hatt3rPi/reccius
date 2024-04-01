@@ -22,7 +22,7 @@ $result = mysqli_query($link, $query);
 $opciones = [];
 $opcionesCategorias = [];
 while ($row = mysqli_fetch_assoc($result)) {
-    $opciones[$row['categoria']][] = $row['nombre_opcion'];
+    $opciones[$row['categoria']][] = ['id' => $row['id'], 'nombre_opcion' => $row['nombre_opcion']];
     $opcionesCategorias[] = $row['categoria'];
 }
 
