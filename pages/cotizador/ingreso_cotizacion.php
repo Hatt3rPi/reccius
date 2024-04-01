@@ -351,16 +351,16 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
     }
-    function actualizarConcentracion() {
+    function initConcentracion() {
         addContizacionFormConcentracion.empty();
-        addContizacionFormConcentracion.val('');
         addContizacionFormConcentracion.append('<option selected disabled value="">Selecciona estructura a utilizar</option>');
         opcionesConversion.forEach(opcion => {
             addContizacionFormConcentracion
             .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
         })
+        addContizacionFormConcentracion.val('');
     }
-    actualizarConcentracion()
+    initConcentracion()
 
     cargaTablaCotizacion({
         id: null,
