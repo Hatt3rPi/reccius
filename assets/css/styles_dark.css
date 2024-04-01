@@ -499,6 +499,7 @@ body {
   display: flex;
   align-items: center;
   border-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
+  margin-bottom: 0 !important; /* Anula el margin-bottom de Bootstrap */
 }
 
 .breadcrumb-item,
