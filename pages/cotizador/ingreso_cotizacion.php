@@ -260,6 +260,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     Modal
 */
     console.log(opciones);
+    console.log(opcionesRaw);
 
 
     var addErrorAlert = $('#add_error_alert') //error modal
