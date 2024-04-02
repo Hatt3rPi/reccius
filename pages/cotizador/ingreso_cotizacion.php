@@ -205,11 +205,11 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <option disabled selected value="">Selecciona estructura a utilizar</option>
                             </select>
                             <div class="form-row mx-0">
-                                <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
+                                <input type="text" required name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
                                 <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                             </div>
                             <div class="form-row mx-0">
-                                <input type="text" name="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
+                                <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
                                 <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                             </div>
                         </div>
@@ -320,10 +320,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var concentracion = addConcentracionMateriaPrima.val() || "";
         let concentracion_1 = $("#concentracion_form_param_1").val() || "";
         let concentracion_2 = $("#concentracion_form_param_2").val() || "";
-        console.log({
-            concentracion_1,
-            concentracion_2
-        });
+
         if (concentracion == "") {
             valido = false;
             addMateriaPrimaErrorAlert.show();
