@@ -374,12 +374,10 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var twoValues = concentracion.includes("/")
         addMaterialTable({
             index,
-            materia,
+            materia: materia.name,
             concentracion: `${concentracion} : ${concentracion_1}${
                 twoValues ? `/${concentracion_2}` : ""}`,
         })
-
-
     }
     //Set tabla de Materia Prima
     function addMaterialTable({
@@ -399,7 +397,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         ];
         newProductoTabla.row.add(filaNueva);
         newProductoTabla.draw();
-        closeModal()
+
     }
     //Eliminar row de tabla Materia Prima
     $('#table_new_prod').on('click', '.btn-eliminar-materia', function() {
@@ -424,7 +422,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             },
             success: function(productos) {
                 materiasList = productos;
-                console.log(productos);
                 feedDataList(addContizacionFormProductoData, productos.map(function(option) {
                     return {
                         name: option.nombre,
@@ -478,8 +475,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     })
 
     addContizacionForm.on("submit", addContizacionFormSubmit);
-
-
 
     function actualizarConcentracion(select) {
         var campos = [
