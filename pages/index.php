@@ -98,7 +98,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <ul id="sidebarList">
 
 
-                <li class="title">Gestión de Usuarios - test</li>
+                <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral">
                         <spam>
