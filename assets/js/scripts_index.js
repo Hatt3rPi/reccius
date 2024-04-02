@@ -435,6 +435,7 @@ function actualizarBreadcrumb(nodos, urls) {
 }
 
 function botones(id, accion, base) {
+    console.log(id, accion, base);
     switch (base){
         case "especificacion":{
             switch (accion) {
@@ -575,7 +576,8 @@ function botones(id, accion, base) {
         }
         case "laboratorio": {
             switch (accion) {
-                case "generar_documento_actaMuestreo": {
+                case "generar_acta_muestreo": {
+                    console.log('generar_acta_muestreo');
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
