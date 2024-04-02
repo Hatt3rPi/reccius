@@ -213,9 +213,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                             </div>
                         </div>
-                        <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_materia_prima_error_alert">
-                            Todos los campos deben llenarse
-                        </div>
+                        <div class="alert alert-danger mx-3 text-center p-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
                         <div class="form-group">
                             <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
                         </div>
@@ -312,19 +310,20 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             addMateriaPrimaErrorAlert.show();
             addMateriaPrimaErrorAlert.append('<p>La materia prima no existe</p>');
         }
-        if (addConcentracionMateriaPrima.val() == "") {
+        var concentracion = addConcentracionMateriaPrima.val()
+        if (concentracion == "") {
             valido = false;
             addMateriaPrimaErrorAlert.append('<p>La concentración es requerida</p>');
         } else {
             let campoRequerido_param_1 = $("#concentracion_form_param_1");
             if (!campoRequerido_param_1.val() || campoRequerido_param_1.val().trim() === "") {
-                addMateriaPrimaErrorAlert.append('<p>El campo 1 de concentración es requerido</p>');
+                addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 1 de concentración es requerido</p>');
                 valido = false;
             }
-            if (addConcentracionMateriaPrima.val().includes("/")) {
+            if (concentracion.includes("/")) {
                 let campoRequerido_param_2 = $("#concentracion_form_param_2");
                 if (!campoRequerido_param_2.val() || campoRequerido_param_2.val().trim() === "") {
-                    addMateriaPrimaErrorAlert.append('<p>El campo 2 de concentración es requerido</p>');
+                    addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 2 de concentración es requerido</p>');
                     valido = false;
                 }
             }
@@ -334,7 +333,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         return {
             valido,
             materia: selectedMateriaFind,
-            concentracion: addConcentracionMateriaPrima.val(),
+            concentracion,
             concentracion_1: $("#concentracion_form_param_1").val(),
             concentracion_2: $("#concentracion_form_param_2").val()
         };
@@ -354,6 +353,13 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             concentracion_2,
             index
         })
+        console.log('setToMateriasList', {
+            materia,
+            concentracion,
+            concentracion_1,
+            concentracion_2,
+            index
+        });
         var twoValues = concentracion.includes("/")
         addMaterialTable({
             index,
@@ -364,7 +370,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
 
     }
-
     //Set tabla de Materia Prima
     function addMaterialTable({
         index,
@@ -385,6 +390,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         newProductoTabla.draw();
         closeModal()
     }
+    //Eliminar row de tabla Materia Prima
     $('#table_new_prod').on('click', '.btn-eliminar-materia', function() {
         newProductoTabla = $('#table_new_prod').DataTable();
         var index = $(this).data('index');
@@ -421,6 +427,17 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         });
     });
 
+    function feedDataList(datalist, options) {
+        datalist.empty();
+        options.forEach(optionValue => {
+            const optionEl = document.createElement('option');
+            optionEl.value = optionValue.name;
+            optionEl.textContent = optionValue.id;
+            datalist.append(optionEl);
+        });
+    }
+
+
     function obtenerCostosProduccion(preparacion, detalle) {
         $.ajax({
             url: '../pages/cotizador/query_buscar_costo_prod.php',
@@ -451,16 +468,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     addContizacionForm.on("submit", addContizacionFormSubmit);
 
-    function feedDataList(datalist, options) {
-        datalist.empty();
-        options.forEach(optionValue => {
-            const optionEl = document.createElement('option');
-            optionEl.value = optionValue.name;
-            optionEl.textContent = optionValue.id;
-            datalist.append(optionEl);
-        });
 
-    }
 
     function actualizarConcentracion(select) {
         var campos = [
