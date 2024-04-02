@@ -708,14 +708,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     document.getElementById('download-pdf').addEventListener('click', function() {
+    
+
+    // Ocultar botones que no han sido seleccionados
+    const verificadores = document.querySelectorAll('.verificadores.btn-check');
+    verificadores.forEach(button => {
+        if (!button.checked) {
+            button.parentElement.style.display = 'none'; // Oculta el label que no está seleccionado
+        }
+    });
     // Ocultar botones antes de la captura
     document.querySelector('.button-container').style.display = 'none';
-
     const elementToExport = document.getElementById('form-container');
 
     html2canvas(elementToExport, { scale: 2 }).then(canvas => {
         // Mostrar botones después de la captura
         document.querySelector('.button-container').style.display = 'block';
+
+        // Vuelve a mostrar todos los botones después de la descarga
+        verificadores.forEach(button => {
+            button.parentElement.style.display = 'inline-block';
+        });
+
 
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jspdf.jsPDF({
