@@ -214,7 +214,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="alert alert-danger mx-3 text-center p-0 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
+                            <div class="alert alert-danger mx-3 text-center p-2 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
                         </div>
                         <div class="form-group">
                             <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
