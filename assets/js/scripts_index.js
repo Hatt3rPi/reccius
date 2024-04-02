@@ -588,7 +588,6 @@ function botones(id, accion, base) {
                             'etapa':'0'
                         },
                         success: function(response) {
-                            console.log('especificacion_producto redirigida con éxito ');
                             $('#dynamic-content').html(response); 
                             cargarDatosEspecificacion(id, false, '0');
                         },
