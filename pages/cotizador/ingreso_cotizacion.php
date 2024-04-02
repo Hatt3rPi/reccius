@@ -374,7 +374,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var twoValues = concentracion.includes("/")
         addMaterialTable({
             index,
-            materia: materia.name,
+            materia: materia.nombre,
             concentracion: `${concentracion} : ${concentracion_1}${
                 twoValues ? `/${concentracion_2}` : ""}`,
         })
@@ -399,15 +399,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         newProductoTabla.draw();
 
     }
-    //Eliminar row de tabla Materia Prima
-    $('#table_new_prod').on('click', '.btn-eliminar-materia', function() {
-        newProductoTabla = $('#table_new_prod').DataTable();
-        var index = $(this).data('index');
-        materiasAddedList.splice(materiasAddedList.findIndex(x => x.index == index), 1)
-        newProductoTabla.row($(this).parents('tr')).remove().draw();
-        updateResume()
-    });
-
 
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
@@ -553,7 +544,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 }
             ]
         });
-
     }
 
     cargaTablaNewProducto({
@@ -568,7 +558,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var contenedor_table_new_prod = $('#contenedor_table_new_prod');
         contenedor_table_new_prod.empty();
         contenedor_table_new_prod.append('<table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>');
-
         newProductoTabla = new DataTable('#table_new_prod', {
             "paging": false,
             "info": false,
@@ -587,6 +576,16 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                     title: 'Actividad'
                 }
             ]
+        });
+
+        //Eliminar row de tabla Materia Prima
+        $('#table_new_prod').on('click', '.btn-eliminar-materia', function() {
+            console.log('Eliminar row de tabla Materia Prima');
+            newProductoTabla = $('#table_new_prod').DataTable();
+            var index = $(this).data('index');
+            materiasAddedList.splice(materiasAddedList.findIndex(x => x.index == index), 1)
+            newProductoTabla.row($(this).parents('tr')).remove().draw();
+            updateResume()
         });
 
     }
