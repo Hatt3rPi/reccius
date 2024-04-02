@@ -164,7 +164,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 <button type="button" id="editarCotizacion" name="editarCotizacion" class="action-button" style="background-color: red; color: white;display: none;">Editar cotización</button>
             </div>
         </form>
-        <div class="modal" style="background-color: #00000050 !important;" id="add_contizacion_modal" tabindex="-1" role="dialog">
+        <div class="modal" style="background-color: #00000080 !important;" id="add_contizacion_modal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">
@@ -214,7 +214,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             <label>Presentación:</label>
                             <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
                                 <option selected disabled value="">Selecciona presentación a utilizar</option>
-
                             </select>
                         </div>
                     </div>
@@ -282,6 +281,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             },
             success: function(productos) {
                 productosLista = productos;
+                console.log(productos);
                 feedDataList(addContizacionFormProductoData, productos.map(function(option) {
                     return {
                         name: option.nombre,
@@ -348,15 +348,15 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             $('input[name=' + campo + ']').hide();
         });
 
-        if (['g/ml', '%/ml', 'UI/ml'].includes(select)) {
+        if (select.includes('/')) {
             $('input[name=concentracion_form_param_1]').val('').show();
             $('input[name=concentracion_form_param_2]').val('').show();
             $('input[name=concentracion_form_type_1]').val(select.split('/')[0]).show();
             $('input[name=concentracion_form_type_2]').val(select.split('/')[1]).show();
-        } else if (['g', 'ml', 'UI'].includes(select)) {
-            $('input[name=concentracion_form_param_1]').val('').show();
-            $('input[name=concentracion_form_type_1]').val(select).show();
+            return
         }
+        $('input[name=concentracion_form_param_1]').val('').show();
+        $('input[name=concentracion_form_type_1]').val(select).show();
     }
 
     function actualizarPresentacion(select) {
