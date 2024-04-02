@@ -271,7 +271,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, newProductoTabla, cotizadorFilas = 0;
 
-    var cotizadorLista, materiasList, materiasAddedList = [];
+    var cotizadorLista = [];
+    var materiasList = [];
+    var materiasAddedList = [];
 
     var editing = false;
     var editingObj = null;
