@@ -323,14 +323,17 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
         if (concentracion == "") {
             valido = false;
+            addMateriaPrimaErrorAlert.show();
             addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La concentración es requerida</p>');
         } else {
             if (concentracion_1.trim() == "") {
+                addMateriaPrimaErrorAlert.show();
                 addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 1 de concentración es requerido</p>');
                 valido = false;
             }
             if (concentracion.includes("/")) {
                 if (concentracion_2.trim() == "") {
+                    addMateriaPrimaErrorAlert.show();
                     addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 2 de concentración es requerido</p>');
                     valido = false;
                 }
