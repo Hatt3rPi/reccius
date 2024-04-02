@@ -321,17 +321,16 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         let concentracion_1 = $("#concentracion_form_param_1").val() || "";
         let concentracion_2 = $("#concentracion_form_param_2").val() || "";
 
-
         if (concentracion == "") {
             valido = false;
             addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La concentración es requerida</p>');
         } else {
-            if (!concentracion_1 || concentracion_1.trim() === "") {
+            if (concentracion_1.trim() == "") {
                 addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 1 de concentración es requerido</p>');
                 valido = false;
             }
             if (concentracion.includes("/")) {
-                if (!concentracion_2 || concentracion_2.trim() === "") {
+                if (concentracion_2.trim() == "") {
                     addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 2 de concentración es requerido</p>');
                     valido = false;
                 }
