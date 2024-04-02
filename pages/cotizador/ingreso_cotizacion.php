@@ -315,7 +315,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         if (selectedMateriaFind == undefined) {
             valido = false;
             addMateriaPrimaErrorAlert.show();
-            addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La materia prima no existe</class=>');
+            addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La materia prima no existe</p>');
         }
         var concentracion = addConcentracionMateriaPrima.val() || "";
         let concentracion_1 = $("#concentracion_form_param_1").val() || "";
