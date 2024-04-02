@@ -202,7 +202,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         <div class="form-group">
                             <label>Concentración:</label>
                             <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0" required>
-                                <option>Selecciona estructura a utilizar</option>
+                                <option disabled selected value="">Selecciona estructura a utilizar</option>
                             </select>
                             <div class="form-row mx-0">
                                 <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
@@ -249,7 +249,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var addContizacionModalClose = $('#add_modal_close') //modal close
     var addContizacionModal = $('#add_contizacion_modal') //modal
     var addContizacionForm = $('#add_contizacion_form') //form modal    
-    var addConcentracionMateriaPrima = $('#add_tipo_concentracion') //cantidad modal
+    var addConcentracionMateriaPrima = $('#add_tipo_concentracion') // modal
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
     var addTipoPreparacion = $('#add_tipo_preparacion') //tipo preparacion
     var addTipoPresentacion = $('#add_tipo_presentacion')
@@ -295,7 +295,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             concentracion_1,
             concentracion_2
         } = validarFormularioMateriaPrima();
-        
+
         if (valido) {
             var index = materiasAddedList.length
             setToMateriasList({
