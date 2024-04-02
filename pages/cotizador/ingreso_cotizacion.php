@@ -317,9 +317,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             addMateriaPrimaErrorAlert.show();
             addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La materia prima no existe</class=>');
         }
-        var concentracion = $('#add_tipo_concentracion').val()
-        console.log($('#add_tipo_concentracion'));
-        console.log($('#add_tipo_concentracion').val());
+        var concentracion = addConcentracionMateriaPrima.val() || "";
+
 
         if (concentracion == "") {
             valido = false;
