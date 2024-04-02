@@ -195,7 +195,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         </div>
                         <div class="form-group">
                             <label for="add_materia_prima">Materia prima:</label>
-                            <input class="form-control mx-0" list="datalist_materia_prima_options" id="add_materia_prima" name="add_materia_prima" placeholder="Buscar producto..">
+                            <input class="form-control mx-0" list="datalist_materia_prima_options" id="add_materia_prima" name="add_materia_prima" placeholder="Buscar materia prima...">
                             <datalist id="datalist_materia_prima_options">
                             </datalist>
                         </div>
@@ -212,6 +212,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <input type="text" name="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
                                 <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                             </div>
+                        </div>
+                        <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_materia_prima_error_alert">
+                            Todos los campos deben llenarse
                         </div>
                         <div class="form-group">
                             <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
@@ -246,13 +249,15 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var addContizacionModalClose = $('#add_modal_close') //modal close
     var addContizacionModal = $('#add_contizacion_modal') //modal
     var addContizacionForm = $('#add_contizacion_form') //form modal    
-    var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
+    var addConcentracionMateriaPrima = $('#add_tipo_concentracion') //cantidad modal
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
     var addTipoPreparacion = $('#add_tipo_preparacion') //tipo preparacion
     var addTipoPresentacion = $('#add_tipo_presentacion')
     //input materias primas
     var addContizacionFormProducto = $('#add_materia_prima') //materias primas
     var addContizacionFormProductoData = $('#datalist_materia_prima_options') //materias primas datalist
+    var addMateriaPrimaBtn = $('#add_materia_prima_btn')
+    var addMateriaPrimaErrorAlert = $('#add_materia_prima_error_alert')
     // opciones desde PHP querys
     var opciones = <?php echo json_encode($opciones); ?>;
     var opcionesCategorias = <?php echo json_encode($opcionesCategorias); ?>;
@@ -266,8 +271,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, newProductoTabla, cotizadorFilas = 0;
 
-    var cotizadorLista = [];
-    var productosLista = [];
+    var cotizadorLista, materiasList, materiasAddedList = [];
+
     var editing = false;
     var editingObj = null;
 
@@ -277,6 +282,115 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     addContizacionModalClose.on('click', function() {
         closeModal()
     })
+
+    // Añadir materia prima
+    addMateriaPrimaBtn.on('click', function() {
+        addMateriaPrimaErrorAlert.hide();
+        addMateriaPrimaErrorAlert.empty();
+        console.log('addMateriaPrimaBtn: ', addContizacionFormProducto.val());
+        var valido, materia, concentracion, concentracion_1, concentracion_2 = validarFormularioMateriaPrima();
+        if (valido) {
+            var index = materiasAddedList.length
+            setToMateriasList({
+                materia,
+                concentracion,
+                concentracion_1,
+                concentracion_2,
+                index
+            })
+        }
+    })
+    //Validar formulario Materia Prima
+    function validarFormularioMateriaPrima() {
+        let valido = true;
+        var selectedMateria = addContizacionFormProducto.val();
+        var selectedMateriaFind = materiasList.find(x => x.nombre == selectedMateria)
+        if (selectedMateriaFind == undefined) {
+            valido = false;
+            addMateriaPrimaErrorAlert.show();
+            addMateriaPrimaErrorAlert.append('<p>La materia prima no existe</p>');
+        }
+        if (addConcentracionMateriaPrima.val() == "") {
+            valido = false;
+            addMateriaPrimaErrorAlert.append('<p>La concentración es requerida</p>');
+        } else {
+            let campoRequerido_param_1 = $("#concentracion_form_param_1");
+            if (!campoRequerido_param_1.val() || campoRequerido_param_1.val().trim() === "") {
+                addMateriaPrimaErrorAlert.append('<p>El campo 1 de concentración es requerido</p>');
+                valido = false;
+            }
+            if (addConcentracionMateriaPrima.val().includes("/")) {
+                let campoRequerido_param_2 = $("#concentracion_form_param_2");
+                if (!campoRequerido_param_2.val() || campoRequerido_param_2.val().trim() === "") {
+                    addMateriaPrimaErrorAlert.append('<p>El campo 2 de concentración es requerido</p>');
+                    valido = false;
+                }
+            }
+
+        }
+
+        return {
+            valido,
+            materia: selectedMateriaFind,
+            concentracion: addConcentracionMateriaPrima.val(),
+            concentracion_1: $("#concentracion_form_param_1").val(),
+            concentracion_2: $("#concentracion_form_param_2").val()
+        };
+    }
+    //Set a la lista y tabla de Materia Prima
+    function setToMateriasList({
+        materia,
+        concentracion,
+        concentracion_1,
+        concentracion_2,
+        index
+    }) {
+        materiasAddedList.push({
+            materia,
+            concentracion,
+            concentracion_1,
+            concentracion_2,
+            index
+        })
+        var twoValues = concentracion.includes("/")
+        addMaterialTable({
+            index,
+            materia,
+            concentracion: `${concentracion} : ${concentracion_1}${
+                twoValues ? `/${concentracion_2}` : ""}`,
+        })
+
+
+    }
+
+    //Set tabla de Materia Prima
+    function addMaterialTable({
+        index,
+        materia,
+        concentracion
+    }) {
+        var filaNueva = [
+            // materia
+            `<p>${materia}</p>`,
+            // concentración
+            `<p>${concentracion}</p>`,
+            //Action
+            `
+            <button type="button" data-index="${index}" class="btn-eliminar-materia">Eliminar</button>
+            `
+        ];
+        newProductoTabla.row.add(filaNueva);
+        newProductoTabla.draw();
+        closeModal()
+    }
+    $('#table_new_prod').on('click', '.btn-eliminar-materia', function() {
+        newProductoTabla = $('#table_new_prod').DataTable();
+        var index = $(this).data('index');
+        materiasAddedList.splice(materiasAddedList.findIndex(x => x.index == index), 1)
+        newProductoTabla.row($(this).parents('tr')).remove().draw();
+        updateResume()
+    });
+
 
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
@@ -290,7 +404,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 texto: searchValue
             },
             success: function(productos) {
-                productosLista = productos;
+                materiasList = productos;
                 console.log(productos);
                 feedDataList(addContizacionFormProductoData, productos.map(function(option) {
                     return {
@@ -298,7 +412,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         id: option.id
                     };
                 }));
-                console.log(productosLista);
             },
             error: function(xhr, status, error) {
                 console.error("Error: " + error);
@@ -324,10 +437,11 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         });
     }
 
-    addContizacionFormConcentracion.change(function() {
+    addConcentracionMateriaPrima.change(function() {
         const concentracion = $(this).val();
         actualizarConcentracion(concentracion)
     });
+
     addTipoPreparacion.on("change", function() {
         const presentacion = $(this).val();
         actualizarPresentacion(presentacion)
@@ -379,13 +493,13 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     }
 
     function initConcentracion() {
-        addContizacionFormConcentracion.empty();
-        addContizacionFormConcentracion.append('<option selected disabled value="">Selecciona estructura a utilizar</option>');
+        addConcentracionMateriaPrima.empty();
+        addConcentracionMateriaPrima.append('<option selected disabled value="">Selecciona estructura a utilizar</option>');
         opcionesConversion.forEach(opcion => {
-            addContizacionFormConcentracion
+            addConcentracionMateriaPrima
                 .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
         })
-        addContizacionFormConcentracion.val('');
+        addConcentracionMateriaPrima.val('');
     }
     initConcentracion()
 
