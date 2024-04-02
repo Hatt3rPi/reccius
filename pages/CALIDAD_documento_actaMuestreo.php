@@ -710,21 +710,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     document.getElementById('download-pdf').addEventListener('click', function() {
     // Ocultar botones antes de la captura
     document.querySelector('.button-container').style.display = 'none';
-    // Ocultar botones no seleccionados 
-    document.querySelectorAll(".btn.check").forEach(function(button) {
+     // Ocultar botones no seleccionados
+     document.querySelectorAll('.btn-check').forEach(function(button) {
         if (!button.checked) {
             button.closest('label').style.display = 'none';
         }
     });
+
 
     const elementToExport = document.getElementById('form-container');
 
     html2canvas(elementToExport, { scale: 2 }).then(canvas => {
         // Mostrar botones después de la captura
         document.querySelector('.button-container').style.display = 'block';
-        document.querySelectorAll(".btn-check").forEach(function(button){
-            button.closest("label").style.display = "inline-block";
-        });
+
+
 
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jspdf.jsPDF({
