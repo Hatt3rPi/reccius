@@ -310,7 +310,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         if (selectedMateriaFind == undefined) {
             valido = false;
             addMateriaPrimaErrorAlert.show();
-            addMateriaPrimaErrorAlert.append('<p>La materia prima no existe</p>');
+            addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La materia prima no existe</class=>');
         }
         var concentracion = $('#add_tipo_concentracion').val()
         if (concentracion == "") {
