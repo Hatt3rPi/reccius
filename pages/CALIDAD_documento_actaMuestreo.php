@@ -711,12 +711,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     
 
     // Ocultar botones que no han sido seleccionados
-    const verificadores = document.querySelectorAll('.verificadores.btn-check');
-    verificadores.forEach(button => {
-        if (!button.checked) {
-            button.parentElement.style.display = 'none'; // Oculta el label que no está seleccionado
-        }
+    const grupos = document.querySelectorAll('.btn-group-horizontal');
+    grupos.forEach(grupo => {
+        const botones = grupo.querySelectorAll('.btn-check');
+        botones.forEach(boton => {
+            if (!boton.checked) {
+                boton.parentElement.style.display = 'none'; // Oculta el label que no está seleccionado
+            }
+        });
     });
+    
     // Ocultar botones antes de la captura
     document.querySelector('.button-container').style.display = 'none';
     const elementToExport = document.getElementById('form-container');
@@ -726,8 +730,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         document.querySelector('.button-container').style.display = 'block';
 
         // Vuelve a mostrar todos los botones después de la descarga
-        verificadores.forEach(button => {
-            button.parentElement.style.display = 'inline-block';
+        grupos.forEach(grupo => {
+            const botones = grupo.querySelectorAll('.btn-check');
+            botones.forEach(boton => {
+                boton.parentElement.style.display = 'inline-block'; // Muestra todos los botones nuevamente
+            });
         });
 
 
