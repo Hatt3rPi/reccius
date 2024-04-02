@@ -310,10 +310,10 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             addMateriaPrimaErrorAlert.show();
             addMateriaPrimaErrorAlert.append('<p>La materia prima no existe</p>');
         }
-        var concentracion = addConcentracionMateriaPrima.val()
+        var concentracion = $('#add_tipo_concentracion').val()
         if (concentracion == "") {
             valido = false;
-            addMateriaPrimaErrorAlert.append('<p>La concentración es requerida</p>');
+            addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La concentración es requerida</p>');
         } else {
             let campoRequerido_param_1 = $("#concentracion_form_param_1");
             if (!campoRequerido_param_1.val() || campoRequerido_param_1.val().trim() === "") {
