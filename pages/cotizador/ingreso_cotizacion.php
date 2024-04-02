@@ -164,7 +164,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 <button type="button" id="editarCotizacion" name="editarCotizacion" class="action-button" style="background-color: red; color: white;display: none;">Editar cotización</button>
             </div>
         </form>
-        <div class="modal" id="add_contizacion_modal" tabindex="-1" role="dialog">
+        <div class="modal" style="background-color: #00000050 !important;" id="add_contizacion_modal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">
@@ -195,7 +195,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         <div class="form-group">
                             <label>Concentración:</label>
                             <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0" required>
-                            <option>Selecciona estructura a utilizar</option>
+                                <option>Selecciona estructura a utilizar</option>
                             </select>
                             <div class="form-row mx-0">
                                 <input type="text" required name="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
@@ -291,12 +291,28 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 console.log(productosLista);
             },
             error: function(xhr, status, error) {
-                console.error("Error status: " + status);
-                console.error("xhr: " + xhr);
                 console.error("Error: " + error);
             }
         });
     });
+
+    function obtenerCostosProduccion(preparacion, detalle) {
+        $.ajax({
+            url: '../pages/cotizador/query_buscar_costo_prod.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                preparacion: preparacion,
+                detalle: detalle
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la petición AJAX: " + error);
+            }
+        });
+    }
 
     addContizacionFormConcentracion.change(function() {
         const concentracion = $(this).val();
@@ -351,12 +367,13 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
     }
+
     function initConcentracion() {
         addContizacionFormConcentracion.empty();
         addContizacionFormConcentracion.append('<option selected disabled value="">Selecciona estructura a utilizar</option>');
         opcionesConversion.forEach(opcion => {
             addContizacionFormConcentracion
-            .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
+                .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
         })
         addContizacionFormConcentracion.val('');
     }
