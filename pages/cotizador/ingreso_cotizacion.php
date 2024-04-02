@@ -320,7 +320,10 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var concentracion = addConcentracionMateriaPrima.val() || "";
         let concentracion_1 = $("#concentracion_form_param_1").val() || "";
         let concentracion_2 = $("#concentracion_form_param_2").val() || "";
-
+        console.log({
+            concentracion_1,
+            concentracion_2
+        });
         if (concentracion == "") {
             valido = false;
             addMateriaPrimaErrorAlert.show();
