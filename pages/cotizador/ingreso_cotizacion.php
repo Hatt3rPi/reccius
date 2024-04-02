@@ -188,8 +188,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         </div>
                         <hr>
                         <div id="contenedor_table_new_prod" class="container">
-                    <table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>
-                </div>
+                            <table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>
+                        </div>
                         <div class="form-group">
                             <label for="add_producto">Producto:</label>
                             <input class="form-control mx-0" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
@@ -433,8 +433,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var contenedor_table_new_prod = $('#contenedor_table_new_prod');
         contenedor_table_new_prod.empty();
         contenedor_table_new_prod.append('<table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>');
-        
-        newProductoTabla = new DataTable('#cotizadorTabla', {
+
+        newProductoTabla = new DataTable('#table_new_prod', {
             "paging": false,
             "info": false,
             "searching": false,
@@ -442,8 +442,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
             },
-            columns: [
-                {
+            columns: [{
                     title: 'Producto'
                 },
                 {
