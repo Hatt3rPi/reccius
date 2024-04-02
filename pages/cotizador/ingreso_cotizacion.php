@@ -187,13 +187,16 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </select>
                         </div>
                         <hr>
+                        <div class="form-group">
+                            <label>Tabla de materias primas:</label>
+                        </div>
                         <div id="contenedor_table_new_prod" class="container">
                             <table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>
                         </div>
                         <div class="form-group">
-                            <label for="add_producto">Producto:</label>
-                            <input class="form-control mx-0" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
-                            <datalist id="datalist_product_options">
+                            <label for="add_materia_prima">Materia prima:</label>
+                            <input class="form-control mx-0" list="datalist_materia_prima_options" id="add_materia_prima" name="add_materia_prima" placeholder="Buscar producto..">
+                            <datalist id="datalist_materia_prima_options">
                             </datalist>
                         </div>
                         <div class="form-group">
@@ -242,17 +245,19 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var buttonAgregaElementoCotizacion = $('#button_agrega_elemento') //modal open
     var addContizacionModalClose = $('#add_modal_close') //modal close
     var addContizacionModal = $('#add_contizacion_modal') //modal
-    var addContizacionForm = $('#add_contizacion_form') //form modal
-    var addContizacionFormProducto = $('#add_producto') //producto modal
-    var addContizacionFormProductoData = $('#datalist_product_options') //producto datalist modal
+    var addContizacionForm = $('#add_contizacion_form') //form modal    
     var addContizacionFormConcentracion = $('#add_tipo_concentracion') //cantidad modal
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
     var addTipoPreparacion = $('#add_tipo_preparacion') //tipo preparacion
     var addTipoPresentacion = $('#add_tipo_presentacion')
-
+    //input materias primas
+    var addContizacionFormProducto = $('#add_materia_prima') //materias primas
+    var addContizacionFormProductoData = $('#datalist_materia_prima_options') //materias primas datalist
+    // opciones desde PHP querys
     var opciones = <?php echo json_encode($opciones); ?>;
     var opcionesCategorias = <?php echo json_encode($opcionesCategorias); ?>;
     var opcionesConversion = <?php echo json_encode($opcionesConversion); ?>;
+
     /*
     Modal
 */
@@ -499,7 +504,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var twoValues = formObject.add_tipo_concentracion.includes("/")
         addProductoCotizador({
             index: formObject.index,
-            producto: formObject.add_producto,
+            producto: formObject.add_materia_prima,
             preparacion: formObject.add_tipo_preparacion,
             concentracion: `${formObject.add_tipo_concentracion} : ${formObject.concentracion_form_param_1}${
                 twoValues ? 
@@ -510,7 +515,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     function validarFormulario(formObject) {
         let valido = true;
-        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1"];
+        let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1"];
         camposRequeridos.forEach(campo => {
             if (!formObject[campo] || formObject[campo].trim() === "") {
                 valido = false;
@@ -528,7 +533,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     }
 
     function cleanFormAddCotizador() {
-        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
+        let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
         camposRequeridos.forEach((el) => {
             $(`#${el}`).val('')
         })
@@ -537,7 +542,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     }
 
     function setFormAddCotizador(data) {
-        let camposRequeridos = ["add_producto", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
+        let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
         camposRequeridos.forEach((el) => {
             $(`#${el}`).val(data[el])
         })
@@ -628,13 +633,13 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         let total = 0
         cotizadorLista.forEach(({
             add_cantidad,
-            add_producto,
+            add_materia_prima,
             add_tipo_preparacion,
             add_tipo_concentracion,
             concentracion_form_param_1,
             concentracion_form_param_2
         }) => {
-            const price = fakeProductos.find(x => x.nombre == add_producto).precio;
+            const price = fakeProductos.find(x => x.nombre == add_materia_prima).precio;
             var twoValues = add_tipo_preparacion.includes("/");
             const subTotal = twoValues ? (
                     roundDoubleZero((concentracion_form_param_1 / concentracion_form_param_2) *
@@ -644,7 +649,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             formCotizacionTbody.append(`
             <tr>
             <td>
-                <p>${add_producto}</p>
+                <p>${add_materia_prima}</p>
             </td>
             <td>
                 <p>${price}</p>
