@@ -318,26 +318,20 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La materia prima no existe</class=>');
         }
         var concentracion = addConcentracionMateriaPrima.val() || "";
+        let concentracion_1 = $("#concentracion_form_param_1").val() || "";
+        let concentracion_2 = $("#concentracion_form_param_2").val() || "";
 
-        let campoRequerido_param_1 = $("#concentracion_form_param_1");
-        let campoRequerido_param_2 = $("#concentracion_form_param_2");
-        console.log('addConcentracionMateriaPrima: ->',addConcentracionMateriaPrima);
-        console.log('addConcentracionMateriaPrima: ->',addConcentracionMateriaPrima.val());
-        console.log('campoRequerido_param_1: ->',campoRequerido_param_1);
-        console.log('campoRequerido_param_1: ->',campoRequerido_param_1.val());
-        console.log('campoRequerido_param_2: ->',campoRequerido_param_2);
-        console.log('campoRequerido_param_2: ->',campoRequerido_param_2.val());
 
         if (concentracion == "") {
             valido = false;
             addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La concentración es requerida</p>');
         } else {
-            if (!campoRequerido_param_1.val() || campoRequerido_param_1.val().trim() === "") {
+            if (!concentracion_1 || concentracion_1.trim() === "") {
                 addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 1 de concentración es requerido</p>');
                 valido = false;
             }
             if (concentracion.includes("/")) {
-                if (!campoRequerido_param_2.val() || campoRequerido_param_2.val().trim() === "") {
+                if (!concentracion_2 || concentracion_2.trim() === "") {
                     addMateriaPrimaErrorAlert.append('<p class="text-left m-0">El campo 2 de concentración es requerido</p>');
                     valido = false;
                 }
@@ -349,8 +343,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             valido,
             materia: selectedMateriaFind,
             concentracion,
-            concentracion_1: $("#concentracion_form_param_1").val(),
-            concentracion_2: $("#concentracion_form_param_2").val()
+            concentracion_1,
+            concentracion_2
         };
     }
     //Set a la lista y tabla de Materia Prima
