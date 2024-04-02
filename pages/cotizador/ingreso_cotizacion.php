@@ -267,7 +267,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     Modal
 */
 
-    console.log('opcionesConversion: => ', opcionesConversion);
     var addErrorAlert = $('#add_error_alert') //error modal
     var cotizadorTabla, newProductoTabla, cotizadorFilas = 0;
 
@@ -289,8 +288,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     addMateriaPrimaBtn.on('click', function() {
         addMateriaPrimaErrorAlert.hide();
         addMateriaPrimaErrorAlert.empty();
-        console.log('addMateriaPrimaBtn: ', addContizacionFormProducto.val());
-        var valido, materia, concentracion, concentracion_1, concentracion_2 = validarFormularioMateriaPrima();
+        var {
+            valido,
+            materia,
+            concentracion,
+            concentracion_1,
+            concentracion_2
+        } = validarFormularioMateriaPrima();
+        
         if (valido) {
             var index = materiasAddedList.length
             setToMateriasList({
