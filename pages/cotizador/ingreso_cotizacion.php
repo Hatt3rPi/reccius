@@ -186,6 +186,10 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <hr>
+                        <div id="contenedor_table_new_prod" class="container">
+                    <table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>
+                </div>
                         <div class="form-group">
                             <label for="add_producto">Producto:</label>
                             <input class="form-control mx-0" list="datalist_product_options" id="add_producto" name="add_producto" placeholder="Buscar producto..">
@@ -207,28 +211,29 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add_cantidad">Cantidad:</label>
-                            <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
+                            <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
                         </div>
+                        <hr>
                         <div class="form-group">
                             <label>Presentación:</label>
                             <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
                                 <option selected disabled value="">Selecciona presentación a utilizar</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="add_cantidad">Cantidad:</label>
+                            <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
+                        </div>
                     </div>
                     <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert">
                         Todos los campos deben llenarse
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" id="add_contizacion_form_button" class="btn btn-primary">Agregar</button>
+                        <button type="submit" id="add_contizacion_form_button" class="btn btn-primary">Agregar producto</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
-
     </div>
 </body>
 
@@ -254,7 +259,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     console.log('opcionesConversion: => ', opcionesConversion);
     var addErrorAlert = $('#add_error_alert') //error modal
-    var cotizadorTabla, cotizadorFilas = 0;
+    var cotizadorTabla, newProductoTabla, cotizadorFilas = 0;
 
     var cotizadorLista = [];
     var productosLista = [];
@@ -416,6 +421,42 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     }
 
+    cargaTablaNewProducto({
+        id: null,
+        action: null
+    });
+
+    function cargaTablaNewProducto({
+        id = null,
+        accion = null
+    }) {
+        var contenedor_table_new_prod = $('#contenedor_table_new_prod');
+        contenedor_table_new_prod.empty();
+        contenedor_table_new_prod.append('<table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>');
+        
+        newProductoTabla = new DataTable('#cotizadorTabla', {
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "lengthChange": false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+            },
+            columns: [
+                {
+                    title: 'Producto'
+                },
+                {
+                    title: 'Concentración'
+                },
+                {
+                    title: 'Actividad'
+                }
+            ]
+        });
+
+    }
+
     function addContizacionFormSubmit(event) {
         addErrorAlert.hide();
         event.preventDefault();
@@ -561,8 +602,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     /* 
             formulario
 */
-    var cotizacionForm = $('#formulario_cotizacion') //formulario
-
+    var cotizacionForm = $('#formulario_cotizacion')
     cotizacionForm.on("submit", contizacionFormSubmit);
 
     function contizacionFormSubmit() {
