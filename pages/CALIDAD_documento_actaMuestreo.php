@@ -731,7 +731,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 buttons.forEach(button => {
                     // Solo mostrar los labels de los botones seleccionados
                     if (button.checked) {
-                        button.nextElementSibling.style.display = 'inline-block';
+                        button.nextElementSibling.style.display = 'block';
                     }
                 });
             });
@@ -770,7 +770,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const buttons = group.querySelectorAll('.btn-check');
                 buttons.forEach(button => {
                     // Mostrar todos los botones nuevamente
-                    button.nextElementSibling.style.display = 'inline-block';
+                    button.nextElementSibling.style.display = 'block';
                 });
             });
 
