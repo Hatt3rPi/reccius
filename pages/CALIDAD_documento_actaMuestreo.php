@@ -703,23 +703,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     document.getElementById('download-pdf').addEventListener('click', function() {
 
 
-        // Ocultar botones no seleccionados
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal');
-
-        allButtonGroups.forEach(group => {
-            const buttons = group.querySelectorAll('.btn-check');
-
-            // Recorrer todos los botones y ocultar solo los no seleccionados
-            buttons.forEach(button => {
-                const label = button.nextElementSibling; // Se utiliza nextElementSibling en lugar de nextSibling
+        // Ocultar botones no seleccionados en todas las filas
+        document.querySelectorAll('.btn-group-horizontal').forEach(group => {
+            group.querySelectorAll('.btn-check').forEach(button => {
+                // Si el botón no está chequeado, ocultar el label asociado
                 if (!button.checked) {
-                    label.style.display = 'none'; // Oculta solo el label del botón no seleccionado
+                    button.nextElementSibling.style.display = 'none';
                 }
             });
         });
 
-        // Ocultar botones antes de la captura
-        document.querySelector('.button-container').style.display = 'none';
+
         const elementToExport = document.getElementById('form-container');
 
         html2canvas(elementToExport, {
@@ -728,15 +722,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
 
-            // Volver a mostrar todos los labels después de generar el PDF
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    const label = button.nextElementSibling;
-                    label.style.display = 'inline-block'; // Muestra el label del botón nuevamente
+            // Restablecer la visibilidad de todos los botones después de generar el PDF
+            document.querySelectorAll('.btn-group-horizontal').forEach(group => {
+                group.querySelectorAll('.btn-check').forEach(button => {
+                    button.nextElementSibling.style.display = 'inline-block';
                 });
             });
-
 
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jspdf.jsPDF({
