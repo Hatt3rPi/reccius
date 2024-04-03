@@ -765,6 +765,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             $.notify("PDF generado con exito", "success");
 
+            // Restaurar la visibilidad de los botones después de descargar el PDF
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    // Mostrar todos los botones nuevamente
+                    button.nextElementSibling.style.display = 'inline-block';
+                });
+            });
+
         });
     });
 </script>
