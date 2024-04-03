@@ -703,9 +703,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     document.getElementById('download-pdf').addEventListener('click', function() {
 
 
-        // Ocultar botones no seleccionados en todas las filas
-        document.querySelectorAll('.btn-group-horizontal').forEach(group => {
-            group.querySelectorAll('.btn-check').forEach(button => {
+        // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
+        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
+
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
                 // Si el botón no está chequeado, ocultar el label asociado
                 if (!button.checked) {
                     button.nextElementSibling.style.display = 'none';
@@ -723,9 +726,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             document.querySelector('.button-container').style.display = 'block';
 
             // Restablecer la visibilidad de todos los botones después de generar el PDF
-            document.querySelectorAll('.btn-group-horizontal').forEach(group => {
-                group.querySelectorAll('.btn-check').forEach(button => {
-                    button.nextElementSibling.style.display = 'inline-block';
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    // Solo mostrar los labels de los botones seleccionados
+                    if (button.checked) {
+                        button.nextElementSibling.style.display = 'inline-block';
+                    }
                 });
             });
 
