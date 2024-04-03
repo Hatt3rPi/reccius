@@ -763,9 +763,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var nombreProducto = document.getElementById('producto').textContent.trim();
             var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con exito", "success");
-
-            // Restaurar la visibilidad de los botones después de descargar el PDF
+            $.notify("PDF generado con éxito", "success");
+            
+            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
                 buttons.forEach(button => {
@@ -773,6 +773,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.nextElementSibling.style.display = 'inline-block';
                 });
             });
+
 
         });
     });
