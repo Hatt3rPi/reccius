@@ -716,7 +716,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
 
-
+        // Continúa con el proceso de descarga del PDF como antes
+        document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
 
         html2canvas(elementToExport, {
@@ -731,7 +732,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 buttons.forEach(button => {
                     // Solo mostrar los labels de los botones seleccionados
                     if (button.checked) {
-                        button.nextElementSibling.style.display = 'inline-block';
+                        button.style.display = 'block';
                     }
                 });
             });
@@ -763,16 +764,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var nombreProducto = document.getElementById('producto').textContent.trim();
             var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con exito", "success");
+            $.notify("PDF generado con éxito", "success");
 
-            // Restaurar la visibilidad de los botones después de descargar el PDF
+            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
                 buttons.forEach(button => {
                     // Mostrar todos los botones nuevamente
-                    button.nextElementSibling.style.display = 'inline-block';
+                    button.style.display = 'block';
                 });
             });
+
 
         });
     });
