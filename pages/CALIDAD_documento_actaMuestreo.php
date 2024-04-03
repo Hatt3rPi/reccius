@@ -708,22 +708,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         allButtonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.btn-check');
-            let selectedButton = null;
 
-            // Encuentra el botón seleccionado y oculta los que no lo están
+            // Recorrer todos los botones y ocultar solo los no seleccionados
             buttons.forEach(button => {
-                if (button.checked) {
-                    selectedButton = button;
-                } else {
-                    // El botón no seleccionado se oculta
-                    button.nextSibling.style.display = 'none';
+                const label = button.nextElementSibling; // Se utiliza nextElementSibling en lugar de nextSibling
+                if (!button.checked) {
+                    label.style.display = 'none'; // Oculta solo el label del botón no seleccionado
                 }
             });
-
-            // Asegurarse de que el botón seleccionado se muestre
-            if (selectedButton) {
-                selectedButton.nextSibling.style.display = 'inline-block';
-            }
         });
 
         // Ocultar botones antes de la captura
@@ -736,11 +728,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
 
-            // Asegúrate de restablecer la visibilidad de todos los botones después de generar el PDF
+            // Volver a mostrar todos los labels después de generar el PDF
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
                 buttons.forEach(button => {
-                    button.nextSibling.style.display = 'inline-block';
+                    const label = button.nextElementSibling;
+                    label.style.display = 'inline-block'; // Muestra el label del botón nuevamente
                 });
             });
 
