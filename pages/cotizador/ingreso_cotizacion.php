@@ -186,40 +186,38 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <hr>
-                        <div class="form-group">
-                            <label>Tabla de materias primas:</label>
-                        </div>
-                        <div id="contenedor_table_new_prod" class="container">
-                            <table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>
-                        </div>
-                        <div class="form-group">
-                            <label for="add_materia_prima">Materia prima:</label>
-                            <input class="form-control mx-0" list="datalist_materia_prima_options" id="add_materia_prima" name="add_materia_prima" placeholder="Buscar materia prima...">
-                            <datalist id="datalist_materia_prima_options">
-                            </datalist>
-                        </div>
-                        <div class="form-group">
-                            <label>Concentración:</label>
-                            <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0" required>
-                                <option disabled selected value="">Selecciona estructura a utilizar</option>
-                            </select>
-                            <div class="form-row mx-0">
-                                <input type="text" required name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
-                                <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                        <fieldset>
+                            <legend>Tabla de materias primas</legend>
+                            <div id="contenedor_table_new_materia" class="container">
+                                <table id="table_new_materia" class="table table-striped table-bordered" width="100%"></table>
                             </div>
-                            <div class="form-row mx-0">
-                                <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
-                                <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                            <div class="form-group">
+                                <label for="add_materia_prima">Materia prima:</label>
+                                <input class="form-control mx-0" list="datalist_materia_prima_options" id="add_materia_prima" name="add_materia_prima" placeholder="Buscar materia prima...">
+                                <datalist id="datalist_materia_prima_options">
+                                </datalist>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="alert alert-danger mx-3 text-center p-2 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
-                        </div>
-                        <hr>
+                            <div class="form-group">
+                                <label>Concentración:</label>
+                                <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0" required>
+                                    <option disabled selected value="">Selecciona estructura a utilizar</option>
+                                </select>
+                                <div class="form-row mx-0">
+                                    <input type="text" required name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
+                                    <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                </div>
+                                <div class="form-row mx-0">
+                                    <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
+                                    <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="alert alert-danger mx-3 text-center p-2 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
+                            </div>
+                        </fieldset>
                         <div class="form-group">
                             <label>Presentación:</label>
                             <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
@@ -284,6 +282,73 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         closeModal()
     })
 
+    cargaTablaNewProducto({
+        id: null,
+        action: null
+    });
+
+    function cargaTablaNewProducto({
+        id = null,
+        accion = null
+    }) {
+        var contenedorTableNewMateria = $('#contenedor_table_new_materia');
+        contenedorTableNewMateria.empty();
+        contenedorTableNewMateria.append('<table id="table_new_materia" class="table table-striped table-bordered" width="100%"></table>');
+        materiasAddedList = [];
+        newProductoTabla = new DataTable('#table_new_materia', {
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "lengthChange": false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+            },
+            columns: [{
+                    title: 'Producto'
+                },
+                {
+                    title: 'Concentración'
+                },
+                {
+                    title: 'Actividad'
+                }
+            ]
+        });
+
+        //Eliminar row de tabla Materia Prima
+        $('#table_new_materia').on('click', '.btn-eliminar-materia', function() {
+            console.log('Eliminar row de tabla Materia Prima');
+            newProductoTabla = $('#table_new_materia').DataTable();
+            var index = $(this).data('index');
+            materiasAddedList.splice(materiasAddedList.findIndex(x => x.index == index), 1)
+            newProductoTabla.row($(this).parents('tr')).remove().draw();
+            console.log('Eliminar row de tabla Materia Prima => ', materiasAddedList);
+        });
+
+    }
+
+
+    /*
+     MODAl RECETA
+    */
+   // Seleccion de tipo preparacion
+    addTipoPreparacion.on("change", function() {
+        const presentacion = $(this).val();
+        actualizarPresentacion(presentacion)
+    })
+   // Actusalizo los opciones de presentacion segun la preparacion
+    function actualizarPresentacion(select) {
+        addTipoPresentacion.empty();
+        addTipoPresentacion.val('');
+        addTipoPresentacion.append('<option selected disabled value="">Selecciona presentación a utilizar</option>');
+        opciones[select].forEach(opcion => {
+            addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
+        })
+    }
+
+    /*
+        TABLA MATERIA PRIMA 
+    */
     // Añadir materia prima
     addMateriaPrimaBtn.on('click', function() {
         addMateriaPrimaErrorAlert.hide();
@@ -364,13 +429,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             concentracion_2,
             index
         })
-        console.log('setToMateriasList', {
-            materia,
-            concentracion,
-            concentracion_1,
-            concentracion_2,
-            index
-        });
         var twoValues = concentracion.includes("/")
         addMaterialTable({
             index,
@@ -397,9 +455,16 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         ];
         newProductoTabla.row.add(filaNueva);
         newProductoTabla.draw();
-
+        cleanAddMateriaPrima()
     }
-
+    //Limpiar formulario add materia prima
+    function cleanAddMateriaPrima() {
+        let camposRequeridos = ["add_materia_prima", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
+        camposRequeridos.forEach((el) => {
+            $(`#${el}`).val('')
+        })
+    }
+    //Buscar materia prima
     addContizacionFormProducto.on('input', () => {
         const searchValue = addContizacionFormProducto.val().toLowerCase();
         //API
@@ -435,37 +500,11 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             datalist.append(optionEl);
         });
     }
-
-
-    function obtenerCostosProduccion(preparacion, detalle) {
-        $.ajax({
-            url: '../pages/cotizador/query_buscar_costo_prod.php',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                preparacion: preparacion,
-                detalle: detalle
-            },
-            success: function(data) {
-                console.log(data);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error en la petición AJAX: " + error);
-            }
-        });
-    }
-
+    // Conscentración Seleccion
     addConcentracionMateriaPrima.change(function() {
         const concentracion = $(this).val();
         actualizarConcentracion(concentracion)
     });
-
-    addTipoPreparacion.on("change", function() {
-        const presentacion = $(this).val();
-        actualizarPresentacion(presentacion)
-    })
-
-    addContizacionForm.on("submit", addContizacionFormSubmit);
 
     function actualizarConcentracion(select) {
         var campos = [
@@ -489,15 +528,78 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         $('input[name=concentracion_form_param_1]').val('').show();
         $('input[name=concentracion_form_type_1]').val(select).show();
     }
+    /*
+        TABLA MATERIA PRIMA FIN 
+    */
 
-    function actualizarPresentacion(select) {
-        addTipoPresentacion.empty();
-        addTipoPresentacion.val('');
-        addTipoPresentacion.append('<option selected disabled value="">Selecciona presentación a utilizar</option>');
-        opciones[select].forEach(opcion => {
-            addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
-        })
+    addContizacionForm.on("submit", addContizacionFormSubmit);
+    function addContizacionFormSubmit(event) {
+        addErrorAlert.hide();
+        event.preventDefault();
+        const formData = new FormData(this);
+        var formObject = {};
+        formData.forEach(function(value, key) {
+            formObject[key] = value;
+        });
+        if (validarFormulario(formObject)) {
+            if (editing) {
+                cotizadorTabla = $('#cotizadorTabla').DataTable();
+                cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`)
+                    .parents('tr')).remove();
+                cotizadorTabla.draw()
+                cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
+                console.log('prod:\n->', {
+                    ...formObject,
+                    index: editingObj.index
+                });
+                setToList({
+                    ...formObject,
+                    index: editingObj.index
+                });
+                editing = false;
+                editingObj = null;
+            } else {
+                var index = cotizadorLista.length
+                setToList({
+                    ...formObject,
+                    index
+                })
+            }
+            return
+        }
+        addErrorAlert.show();
+        updateResume()
     }
+
+    /*
+          MODAl RECETA FIN 
+     */
+
+    function obtenerCostosProduccion(preparacion, presentacion) {
+        $.ajax({
+            url: '../pages/cotizador/query_buscar_costo_prod.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                preparacion: preparacion,
+                detalle: presentacion
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la petición AJAX: " + error);
+            }
+        });
+    }
+
+
+
+
+
+
+
+
 
     function initConcentracion() {
         addConcentracionMateriaPrima.empty();
@@ -546,87 +648,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         });
     }
 
-    cargaTablaNewProducto({
-        id: null,
-        action: null
-    });
 
-    function cargaTablaNewProducto({
-        id = null,
-        accion = null
-    }) {
-        var contenedor_table_new_prod = $('#contenedor_table_new_prod');
-        contenedor_table_new_prod.empty();
-        contenedor_table_new_prod.append('<table id="table_new_prod" class="table table-striped table-bordered" width="100%"></table>');
-        newProductoTabla = new DataTable('#table_new_prod', {
-            "paging": false,
-            "info": false,
-            "searching": false,
-            "lengthChange": false,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-            },
-            columns: [{
-                    title: 'Producto'
-                },
-                {
-                    title: 'Concentración'
-                },
-                {
-                    title: 'Actividad'
-                }
-            ]
-        });
 
-        //Eliminar row de tabla Materia Prima
-        $('#table_new_prod').on('click', '.btn-eliminar-materia', function() {
-            console.log('Eliminar row de tabla Materia Prima');
-            newProductoTabla = $('#table_new_prod').DataTable();
-            var index = $(this).data('index');
-            materiasAddedList.splice(materiasAddedList.findIndex(x => x.index == index), 1)
-            newProductoTabla.row($(this).parents('tr')).remove().draw();
-            updateResume()
-        });
-
-    }
-
-    function addContizacionFormSubmit(event) {
-        addErrorAlert.hide();
-        event.preventDefault();
-        const formData = new FormData(this);
-        var formObject = {};
-        formData.forEach(function(value, key) {
-            formObject[key] = value;
-        });
-        if (validarFormulario(formObject)) {
-            if (editing) {
-                cotizadorTabla = $('#cotizadorTabla').DataTable();
-                cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`)
-                    .parents('tr')).remove();
-                cotizadorTabla.draw()
-                cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
-                console.log('prod:\n->', {
-                    ...formObject,
-                    index: editingObj.index
-                });
-                setToList({
-                    ...formObject,
-                    index: editingObj.index
-                });
-                editing = false;
-                editingObj = null;
-            } else {
-                var index = cotizadorLista.length
-                setToList({
-                    ...formObject,
-                    index
-                })
-            }
-            return
-        }
-        addErrorAlert.show();
-        updateResume()
-    }
 
     function setToList(formObject) {
         cotizadorLista.push(formObject)
