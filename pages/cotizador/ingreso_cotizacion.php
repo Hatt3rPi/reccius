@@ -697,6 +697,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     function updateCotizador() {
         cotizadorLista.sort((a, b) => a.index - b.index)
+        contenedorCotizador.empty();
         cotizadorLista.forEach(({
             tipoPreparacionReceta,
             materiasList,
@@ -725,21 +726,10 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 </footer > 
             </article>
             `
+            contenedorCotizador.append(article)
     })
-    var filaNueva = [
-        `<p>${preparacion}</p>`,
-        // producto
-        `<p>${producto}</p>`,
-        // concentración
-        `<p>${concentracion}</p>`,
-        // cantidad
-        `<p>${cantidad}</p>`,
-        //Action
-        `
-            <button type="button" data-index="${index}" class="btn-editar">Editar</button>
-            <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
-            `
-    ];
+    
+    
     closeModal()
     }
 
