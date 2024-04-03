@@ -186,9 +186,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <fieldset>
-                            <legend>Tabla de materias primas</legend>
-                            <div id="contenedor_table_new_materia" class="container">
+                        <fieldset class="border-left">
+                            <legend  class="h6 font-weight-normal">Tabla de materias primas</legend>
+                            <div id="contenedor_table_new_materia" class="container pl-0">
                                 <table id="table_new_materia" class="table table-striped table-bordered" width="100%"></table>
                             </div>
                             <div class="form-group">
