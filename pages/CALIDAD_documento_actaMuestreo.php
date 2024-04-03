@@ -703,31 +703,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     document.getElementById('download-pdf').addEventListener('click', function() {
 
 
-        // Ocultar botones no seleccionados
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal');
+        // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
+        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.btn-check');
-            let selectedButton = null;
-
-            // Encuentra el botón seleccionado y oculta los que no lo están
             buttons.forEach(button => {
-                if (button.checked) {
-                    selectedButton = button;
-                } else {
-                    // El botón no seleccionado se oculta
-                    button.nextSibling.style.display = 'none';
+                // Si el botón no está chequeado, ocultar el label asociado
+                if (!button.checked) {
+                    button.nextElementSibling.style.display = 'none';
                 }
             });
-
-            // Asegurarse de que el botón seleccionado se muestre
-            if (selectedButton) {
-                selectedButton.nextSibling.style.display = 'inline-block';
-            }
         });
 
-        // Ocultar botones antes de la captura
-        document.querySelector('.button-container').style.display = 'none';
+
         const elementToExport = document.getElementById('form-container');
 
         html2canvas(elementToExport, {
@@ -736,14 +725,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
 
-            // Asegúrate de restablecer la visibilidad de todos los botones después de generar el PDF
+            // Restablecer la visibilidad de todos los botones después de generar el PDF
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
                 buttons.forEach(button => {
-                    button.nextSibling.style.display = 'inline-block';
+                    // Solo mostrar los labels de los botones seleccionados
+                    if (button.checked) {
+                        button.nextElementSibling.style.display = 'inline-block';
+                    }
                 });
             });
-
 
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jspdf.jsPDF({
@@ -773,6 +764,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             $.notify("PDF generado con exito", "success");
+
+            // Restaurar la visibilidad de los botones después de descargar el PDF
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    // Mostrar todos los botones nuevamente
+                    button.nextElementSibling.style.display = 'inline-block';
+                });
+            });
 
         });
     });
