@@ -126,7 +126,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 <br>
                 <h2 class="section-title">Receta:</h2>
                 <div id="contenedor_cotizador" class="container">
-                    <table id="cotizadorTabla" class="table table-striped table-bordered" width="100%"></table>
                 </div>
                 <div class="col-sm-12">
                     <button type="button" id="button_agrega_elemento">
@@ -174,7 +173,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         </button>
                     </div>
                     <div class="modal-body">
-
                         <div class="form-group">
                             <label>Preparación:</label>
                             <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style mx-0" required>
@@ -186,7 +184,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <fieldset class="border-left pl-2">
+                        <fieldset class="form-group border-left pl-2 ">
                             <legend class="h6 font-weight-normal">Tabla de materias primas</legend>
                             <div id="contenedor_table_new_materia" class="container pl-0">
                                 <table id="table_new_materia" class="table table-striped table-bordered" width="100%"></table>
@@ -199,7 +197,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </div>
                             <div class="form-group">
                                 <label>Concentración:</label>
-                                <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0" required>
+                                <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0">
                                     <option disabled selected value="">Selecciona estructura a utilizar</option>
                                 </select>
                                 <div class="form-row mx-0">
@@ -224,14 +222,12 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <option selected disabled value="">Selecciona presentación a utilizar</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-right: 10px;">
                             <label for="add_cantidad">Cantidad:</label>
                             <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
                         </div>
                     </div>
-                    <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert">
-                        Todos los campos deben llenarse
-                    </div>
+                    <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert"></div>
                     <div class="modal-footer">
                         <button type="submit" id="add_contizacion_form_button" class="btn btn-primary">Agregar producto</button>
                     </div>
@@ -256,6 +252,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var addContizacionFormProductoData = $('#datalist_materia_prima_options') //materias primas datalist
     var addMateriaPrimaBtn = $('#add_materia_prima_btn')
     var addMateriaPrimaErrorAlert = $('#add_materia_prima_error_alert')
+
+    var contenedorCotizador = $('#contenedor_cotizador');
 
 
 
@@ -285,20 +283,45 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     */
 
     var addErrorAlert = $('#add_error_alert') //error modal
-    var cotizadorTabla, newProductoTabla, cotizadorFilas = 0;
-
-    var cotizadorLista = [];
+    var newProductoTabla, cotizadorFilas = 0;
 
     var editing = false;
     var editingObj = null;
-
-
 
     /*
     MODAl RECETA
     */
     var materiasList = [];
+
+    /**
+     * @typedef {Object} Material
+     * @property {string} materia - The material name.
+     * @property {string} concentracion - The concentration used in the material.
+     * @property {number} [concentracion_1] - The first concentration used in the material.
+     * @property {number} [concentracion_2] - The second concentration used in the material.
+     * @property {number} index - The index of the material in the list.
+     */
+
+    /**
+     * The list of added materials.
+     * @type {Material[]}
+     */
     var materiasAddedList = [];
+
+    /**
+     * @typedef {Object} Producto
+     * @property {string} cantidadReceta
+     * @property {string} tipoPreparacionReceta
+     * @property {string} tipoPresentacionReceta
+     * @property {Material[]} materiasList
+     * @property {number} index
+     */
+
+    /**
+     * The list of added products.
+     * @type {Producto[]}
+     */
+    var cotizadorLista = [];
 
 
     // abrir modal
@@ -320,7 +343,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     })
 
     function closeModal() {
-        cleanFormAddCotizador()
         addContizacionFormButton.text('Agregar');
         addContizacionModal.hide();
         updateResume()
@@ -334,7 +356,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var contenedorTableNewMateria = $('#contenedor_table_new_materia');
         contenedorTableNewMateria.empty();
         contenedorTableNewMateria.append('<table id="table_new_materia" class="table table-striped table-bordered" width="100%"></table>');
+
         materiasAddedList = [];
+
         newProductoTabla = new DataTable('#table_new_materia', {
             "paging": false,
             "info": false,
@@ -344,7 +368,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
             },
             columns: [{
-                    title: 'Producto'
+                    title: 'Materia Prima'
                 },
                 {
                     title: 'Concentración'
@@ -569,6 +593,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     // Submit Nuevo producto
     addContizacionForm.on("submit", addContizacionFormSubmit);
+
     function addContizacionFormSubmit(event) {
         addErrorAlert.hide();
         event.preventDefault();
@@ -577,28 +602,33 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         formData.forEach(function(value, key) {
             formObject[key] = value;
         });
-        console.log(formObject);
-        if (validarFormulario(formObject)) {
+        var {
+            add_cantidad: cantidadReceta,
+            add_tipo_preparacion: tipoPreparacionReceta,
+            add_tipo_presentacion: tipoPresentacionReceta
+        } = formObject;
+
+        if (validarFormulario({
+                cantidadReceta,
+                tipoPreparacionReceta,
+                tipoPresentacionReceta
+            })) {
             if (editing) {
-                cotizadorTabla = $('#cotizadorTabla').DataTable();
-                cotizadorTabla.row($(`.btn-eliminar[data-index="${editingObj.index}"]`)
-                    .parents('tr')).remove();
-                cotizadorTabla.draw()
                 cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
                 console.log('prod:\n->', {
                     ...formObject,
                     index: editingObj.index
                 });
-                setToList({
-                    ...formObject,
-                    index: editingObj.index
-                });
+               
                 editing = false;
                 editingObj = null;
             } else {
                 var index = cotizadorLista.length
                 setToList({
-                    ...formObject,
+                    cantidadReceta,
+                    tipoPreparacionReceta,
+                    tipoPresentacionReceta,
+                    materiasList: materiasAddedList,
                     index
                 })
             }
@@ -607,21 +637,29 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         addErrorAlert.show();
         updateResume()
     }
-    function validarFormulario(formObject) {
-        let valido = true;
-        let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1"];
-        camposRequeridos.forEach(campo => {
-            if (!formObject[campo] || formObject[campo].trim() === "") {
-                valido = false;
-            }
-        });
 
-        // Si add_tipo_concentracion contiene "/", 
-        // validar que concentracion_form_param_2 esté lleno
-        if (formObject["add_tipo_concentracion"].includes("/")) {
-            if (!formObject["concentracion_form_param_2"] || formObject["concentracion_form_param_2"].trim() === "") {
-                valido = false;
-            }
+    function validarFormulario({
+        cantidadReceta,
+        tipoPreparacionReceta,
+        tipoPresentacionReceta
+    }) {
+        let valido = true;
+        addErrorAlert.empty();
+        if (!tipoPreparacionReceta || tipoPreparacionReceta.trim() === "") {
+            valido = false;
+            addErrorAlert.append('<p class="text-left m-0">El campo Tipo de preparación es requerido </p>');
+        }
+        if (materiasAddedList.length == 0) {
+            valido = false;
+            addErrorAlert.append('<p class="text-left m-0">Debe agregar al menos una materia prima </p>');
+        }
+        if (!cantidadReceta || cantidadReceta.trim() === "") {
+            valido = false;
+            addErrorAlert.append('<p class="text-left m-0">El campo Cantidad es requerido</p>');
+        }
+        if (!tipoPresentacionReceta || tipoPresentacionReceta.trim() === "") {
+            valido = false;
+            addErrorAlert.append('<p class="text-left m-0">El campo Tipo de presentación es requerido </p>');
         }
         return valido;
     }
@@ -647,80 +685,64 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-    cargaTablaCotizacion({
-        id: null,
-        action: null
-    });
-
-    function cargaTablaCotizacion({
-        id = null,
-        accion = null
-    }) {
-        cotizadorTabla = new DataTable('#cotizadorTabla', {
-            "paging": false,
-            "info": false,
-            "searching": false,
-            "lengthChange": false,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-            },
-            columns: [{
-                    title: 'Preparación'
-                },
-                {
-                    title: 'Producto'
-                },
-                {
-                    title: 'Concentración'
-                },
-                {
-                    title: 'Cantidad'
-                },
-                {
-                    title: 'Actividad'
-                }
-            ]
-        });
-    }
-
-
-
+    /*
+        Cotizador
+    */
 
     function setToList(formObject) {
         cotizadorLista.push(formObject)
-        var twoValues = formObject.add_tipo_concentracion.includes("/")
-        addProductoCotizador({
-            index: formObject.index,
-            producto: formObject.add_materia_prima,
-            preparacion: formObject.add_tipo_preparacion,
-            concentracion: `${formObject.add_tipo_concentracion} : ${formObject.concentracion_form_param_1}${
-                twoValues ? 
-                        `/${formObject['concentracion_form_param_2']}` : ""}`,
-            cantidad: formObject.add_cantidad
-        })
+        updateCotizador()
+        updateResume()
     }
 
-
-
-    function cleanFormAddCotizador() {
-        let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
-        camposRequeridos.forEach((el) => {
-            $(`#${el}`).val('')
-        })
-        editing = false;
-        editingObj = null;
+    function updateCotizador() {
+        cotizadorLista.sort((a, b) => a.index - b.index)
+        cotizadorLista.forEach(({
+            tipoPreparacionReceta,
+            materiasList,
+            tipoPresentacionReceta,
+            cantidadReceta,
+            index
+        }, i) => {
+            var article = `
+            <article class="container mt-5">
+                <header>
+                    <h6 class="text-center h6">Producto N° ${i + 1}</h6>
+                </header>
+                <main>
+                    <p>Preparacion: ${tipoPreparacionReceta}</p>
+                    <dl>
+                        <dt>Materiales:</dt>
+                        ${materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
+                        `<dd >${materia} ${concentracion} ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`)}
+                    </dl>
+                    <p> Presentacion: ${ tipoPresentacionReceta} </p> 
+                    <p> Cantidad: ${cantidadReceta} < /p> 
+                </main > 
+                <footer class = "d-flex justify-content-end" style = "gap: 8px;">
+                    <button type="button" data-index="${index}" class="btn-editar">Editar</button>
+                    <button type = "button" data-index="${index}" class="btn-eliminar btn-danger">Eliminar</button> 
+                </footer > 
+            </article>
+            `
+    })
+    var filaNueva = [
+        `<p>${preparacion}</p>`,
+        // producto
+        `<p>${producto}</p>`,
+        // concentración
+        `<p>${concentracion}</p>`,
+        // cantidad
+        `<p>${cantidad}</p>`,
+        //Action
+        `
+            <button type="button" data-index="${index}" class="btn-editar">Editar</button>
+            <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
+            `
+    ];
+    closeModal()
     }
+
 
     function setFormAddCotizador(data) {
         let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
@@ -729,54 +751,28 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         })
     }
 
-    function addProductoCotizador({
-        index,
-        preparacion,
-        producto,
-        concentracion,
-        cantidad
-    }) {
-        var filaNueva = [
-            `<p>${preparacion}</p>`,
-            // producto
-            `<p>${producto}</p>`,
-            // concentración
-            `<p>${concentracion}</p>`,
-            // cantidad
-            `<p>${cantidad}</p>`,
-            //Action
-            `
-            <button type="button" data-index="${index}" class="btn-editar">Editar</button>
-            <button type="button" data-index="${index}" class="btn-eliminar">Eliminar</button>
-            `
-        ];
-        cotizadorTabla.row.add(filaNueva);
-        cotizadorTabla.draw();
-        closeModal()
-    }
-    $('#cotizadorTabla').on('click', '.btn-eliminar', function() {
-        cotizadorTabla = $('#cotizadorTabla').DataTable();
+
+    contenedorCotizador.on('click', '.btn-eliminar', function() {
         var index = $(this).data('index');
         cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == index), 1)
-        cotizadorTabla.row($(this).parents('tr')).remove().draw();
+        $(this).parents('article').remove()
         updateResume()
     });
-    $('#cotizadorTabla').on('click', '.btn-editar', function() {
-        cotizadorTabla = $('#cotizadorTabla').DataTable();
+    contenedorCotizador.on('click', '.btn-editar', function() {
         var index = $(this).data('index');
         editing = true;
         editingIndex = index;
         dataIndex = cotizadorLista.findIndex(x => x.index == index)
         editingObj = cotizadorLista[dataIndex];
-        setFormAddCotizador(cotizadorLista[dataIndex])
         openModal()
         updateResume()
+        setFormAddCotizador(cotizadorLista[dataIndex])
     });
 
 
     /* 
             formulario
-*/
+    */
     var cotizacionForm = $('#formulario_cotizacion')
     cotizacionForm.on("submit", contizacionFormSubmit);
 
@@ -791,7 +787,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     }
     /*
     Resume
-*/
+    */
     var formCotizacion = $('#formulario_cotizacion')
     var formCotizacionTbody = $('#formulario_cotizacion_tbody')
     var formCotizacionTotal = $('#formulario_cotizacion_total')
