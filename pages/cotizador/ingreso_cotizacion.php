@@ -729,7 +729,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         <dt class="pb-2 mb-1">Materiales:</dt>
                         ${
                             materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
-                            `<dd class="pl-2 pb-1 mb-1"> ${materia.nombre} - ${concentracion} : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`).join('')
+                            `<dd class="pl-2 pb-1 mb-1">• ${materia.nombre} (${concentracion}) : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`).join('')
                         }
                     </dl>
                     <p class="pb-2 mb-1"><strong>Presentacion:</strong> ${ tipoPresentacionReceta} </p> 
