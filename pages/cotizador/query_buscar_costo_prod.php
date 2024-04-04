@@ -20,7 +20,7 @@ if (empty($preparacion) || empty($detalle)) {
 }
 
 // Define la consulta SQL
-$queryCosto = "SELECT id, tipo_costo, detalle_costo, preparacion, detalle_preparacion, valor_clp, ultima_modificacion_fecha, ultima_modificacion_usuario FROM recetariomagistral_costosproduccion WHERE preparacion  = '$preparacion' AND detalle_preparacion= '$detalle'";
+$queryCosto = "SELECT id, tipo_costo, detalle_costo, preparacion, detalle_preparacion, valor_clp, ultima_modificacion_fecha, ultima_modificacion_usuario FROM recetariomagistral_costosproduccion WHERE preparacion  = '$preparacion%' AND detalle_preparacion= '$detalle%'";
 
 $result = mysqli_query($link, $queryCosto);
 
