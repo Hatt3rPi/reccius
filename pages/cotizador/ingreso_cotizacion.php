@@ -201,7 +201,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                     <option disabled selected value="">Selecciona estructura a utilizar</option>
                                 </select>
                                 <div class="form-row mx-0">
-                                    <input type="text" required name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
+                                    <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
                                     <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                                 </div>
                                 <div class="form-row mx-0">
@@ -224,7 +224,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         </div>
                         <div class="form-group" style="margin-right: 10px;">
                             <label for="add_cantidad">Cantidad:</label>
-                            <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración">
+                            <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración" required>
                         </div>
                     </div>
                     <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert"></div>
@@ -345,7 +345,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     function closeModal() {
         addContizacionFormButton.text('Agregar');
         addContizacionModal.hide();
-        updateResume()
+        //updateResume()
     }
 
     // CARGA TABLA MATERIAS PRIMAS
@@ -593,7 +593,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     // Submit Nuevo producto
     addContizacionForm.on("submit", addContizacionFormSubmit);
-
     function addContizacionFormSubmit(event) {
         addErrorAlert.hide();
         event.preventDefault();
@@ -635,7 +634,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             return
         }
         addErrorAlert.show();
-        updateResume()
+        //updateResume()
     }
 
     function validarFormulario({
@@ -689,7 +688,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     }
     async function manejarCostos() {
         try {
-            const datos = await obtenerCostosProduccion('preparacionX', 'presentacionY');
+            const datos = await obtenerCostosProduccion('soluciones','Shampoo');
             console.log("Datos recibidos:", datos);
         } catch (error) {
             console.error("Hubo un error:", error);
@@ -705,8 +704,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     function setToList(formObject) {
         cotizadorLista.push(formObject)
+        console.log('cotizadorLista: \n->',cotizadorLista);
         updateCotizador()
-        updateResume()
+        //updateResume()
     }
 
     function updateCotizador() {
@@ -720,19 +720,19 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             index
         }, i) => {
             var article = `
-            <article class="container mt-5 border rounded">
+            <article class="container mt-2 border rounded p-2">
                     <h5 class="text-center h5">Producto N° ${i + 1}</h5>
                 <main>
                     <p>Preparacion: ${tipoPreparacionReceta}</p>
                     <dl>
                         <dt>Materiales:</dt>
                         ${materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
-                        `<dd >${materia.nombre} ${concentracion} ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`)}
+                        `<dd> ${materia.nombre} - ${concentracion} : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`)}
                     </dl>
                     <p> Presentacion: ${ tipoPresentacionReceta} </p> 
-                    <p> Cantidad: ${cantidadReceta} < /p> 
+                    <p> Cantidad: ${cantidadReceta} </p> 
                 </main > 
-                <footer class = "d-flex justify-content-end" style = "gap: 8px;">
+                <footer class = "d-flex justify-content-end border-top" style = "gap: 8px;">
                     <button type="button" data-index="${index}" class="btn-editar">Editar</button>
                     <button type = "button" data-index="${index}" class="btn-eliminar btn-danger">Eliminar</button> 
                 </footer > 
@@ -758,7 +758,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var index = $(this).data('index');
         cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == index), 1)
         $(this).parents('article').remove()
-        updateResume()
+        //updateResume()
     });
     contenedorCotizador.on('click', '.btn-editar', function() {
         var index = $(this).data('index');
@@ -767,7 +767,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         dataIndex = cotizadorLista.findIndex(x => x.index == index)
         editingObj = cotizadorLista[dataIndex];
         openModal()
-        updateResume()
+        //updateResume()
         setFormAddCotizador(cotizadorLista[dataIndex])
     });
 
