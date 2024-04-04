@@ -402,7 +402,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         addTipoPresentacion.val('');
         addTipoPresentacion.append('<option selected disabled value="">Selecciona presentación a utilizar</option>');
         opciones[select].forEach(opcion => {
-            addTipoPresentacion.append('<option value="' + opcion['id'] + '">' + opcion['nombre_opcion'] + '</option>');
+            addTipoPresentacion.append('<option value="' + opcion['nombre_opcion'] + '">' + opcion['nombre_opcion'] + '</option>');
         })
     }
     /*
@@ -735,7 +735,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                     <p class="pb-2"><strong>Presentacion:</strong> ${ tipoPresentacionReceta} </p> 
                     <p class="pb-2"><strong>Cantidad:</strong> ${cantidadReceta} </p> 
                     
-                    ${constosPreparacion.map(({}) =>
+                    ${constosPreparacion.map(({detalle_costo, valor_clp}) =>
                         ` <p class="pb-2"><strong>${detalle_costo}:</strong> ${valor_clp}</p> `).join('')}                    
                 </main > 
                 <footer class = "d-flex justify-content-end border-top pt-2" style = "gap: 8px;">
