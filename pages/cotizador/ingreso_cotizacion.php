@@ -185,7 +185,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </select>
                         </div>
                         <fieldset class="form-group border-left pl-2 ">
-                            <legend class="h6 font-weight-normal">Tabla de materias primas</legend>
+                            <legend class="h5 font-weight-normal">Tabla de materias primas</legend>
                             <div id="contenedor_table_new_materia" class="container pl-0">
                                 <table id="table_new_materia" class="table table-striped table-bordered" width="100%"></table>
                             </div>
@@ -666,25 +666,39 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     /*
           MODAl RECETA FIN 
-     */
-
+    */
+    
     function obtenerCostosProduccion(preparacion, presentacion) {
-        $.ajax({
-            url: '../pages/cotizador/query_buscar_costo_prod.php',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                preparacion: preparacion,
-                detalle: presentacion
-            },
-            success: function(data) {
-                console.log(data);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error en la petición AJAX: " + error);
-            }
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: '../pages/cotizador/query_buscar_costo_prod.php',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    preparacion: preparacion,
+                    detalle: presentacion
+                },
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(xhr, status, error) {
+                    reject(error);
+                }
+            });
         });
     }
+    async function manejarCostos() {
+        try {
+            const datos = await obtenerCostosProduccion('preparacionX', 'presentacionY');
+            console.log("Datos recibidos:", datos);
+        } catch (error) {
+            console.error("Hubo un error:", error);
+        }
+    }
+
+    manejarCostos();
+
+
     /*
         Cotizador
     */
@@ -706,16 +720,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             index
         }, i) => {
             var article = `
-            <article class="container mt-5">
-                <header>
-                    <h6 class="text-center h6">Producto N° ${i + 1}</h6>
-                </header>
+            <article class="container mt-5 border rounded">
+                    <h5 class="text-center h5">Producto N° ${i + 1}</h5>
                 <main>
                     <p>Preparacion: ${tipoPreparacionReceta}</p>
                     <dl>
                         <dt>Materiales:</dt>
                         ${materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
-                        `<dd >${materia} ${concentracion} ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`)}
+                        `<dd >${materia.nombre} ${concentracion} ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`)}
                     </dl>
                     <p> Presentacion: ${ tipoPresentacionReceta} </p> 
                     <p> Cantidad: ${cantidadReceta} < /p> 
