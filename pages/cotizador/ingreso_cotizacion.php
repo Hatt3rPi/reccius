@@ -686,26 +686,26 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             });
         });
     }
-    async function manejarCostos() {
-        try {
-            const datos = await obtenerCostosProduccion('soluciones','Shampoo');
-            console.log("Datos recibidos:", datos);
-        } catch (error) {
-            console.error("Hubo un error:", error);
-        }
-    }
-
-    manejarCostos();
-
 
     /*
         Cotizador
     */
 
-    function setToList(formObject) {
-        cotizadorLista.push(formObject)
-        console.log('cotizadorLista: \n->',cotizadorLista);
-        updateCotizador()
+    async function setToList(formObject) {
+        var {tipoPreparacionReceta:prepara, tipoPresentacionReceta: present} = formObject
+        try {
+            const datos = await obtenerCostosProduccion(prepara,present);
+            formObject['constosPreparacion'] = datos;
+
+            cotizadorLista.push(formObject)
+            console.log('cotizadorLista: \n->',cotizadorLista);
+            updateCotizador() 
+        } catch (error) {
+            formObject['constosPreparacion'] = []
+            cotizadorLista.push(formObject)
+            console.log('cotizadorLista Error: \n->',cotizadorLista);
+            updateCotizador()
+        }
         //updateResume()
     }
 
@@ -717,22 +717,28 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             materiasList,
             tipoPresentacionReceta,
             cantidadReceta,
+            constosPreparacion,
             index
         }, i) => {
             var article = `
             <article class="container mt-2 border rounded p-2">
                     <h5 class="text-center h5">Producto N° ${i + 1}</h5>
                 <main>
-                    <p>Preparacion: ${tipoPreparacionReceta}</p>
+                    <p class="pb-2"><strong>Preparacion:</strong>  ${tipoPreparacionReceta}</p>
                     <dl>
-                        <dt>Materiales:</dt>
-                        ${materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
-                        `<dd> ${materia.nombre} - ${concentracion} : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`)}
+                        <dt class="pb-2">Materiales:</dt>
+                        ${
+                            materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
+                            `<dd class="pl-1 pb-2"> ${materia.nombre} - ${concentracion} : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`).join('')
+                        }
                     </dl>
-                    <p> Presentacion: ${ tipoPresentacionReceta} </p> 
-                    <p> Cantidad: ${cantidadReceta} </p> 
+                    <p class="pb-2"><strong>Presentacion:</strong> ${ tipoPresentacionReceta} </p> 
+                    <p class="pb-2"><strong>Cantidad:</strong> ${cantidadReceta} </p> 
+                    
+                    ${constosPreparacion.map(({}) =>
+                        ` <p class="pb-2"><strong>${detalle_costo}:</strong> ${valor_clp}</p> `).join('')}                    
                 </main > 
-                <footer class = "d-flex justify-content-end border-top" style = "gap: 8px;">
+                <footer class = "d-flex justify-content-end border-top pt-2" style = "gap: 8px;">
                     <button type="button" data-index="${index}" class="btn-editar">Editar</button>
                     <button type = "button" data-index="${index}" class="btn-eliminar btn-danger">Eliminar</button> 
                 </footer > 
