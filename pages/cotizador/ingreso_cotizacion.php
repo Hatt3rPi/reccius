@@ -724,19 +724,19 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             <article class="container mt-2 border rounded p-2">
                     <h5 class="text-center h5">Producto N° ${i + 1}</h5>
                 <main>
-                    <p class="pb-2"><strong>Preparacion:</strong>  ${tipoPreparacionReceta}</p>
-                    <dl>
-                        <dt class="pb-2">Materiales:</dt>
+                    <p class="pb-2 mb-1"><strong>Preparacion:</strong>  ${tipoPreparacionReceta}</p>
+                    <dl class="pb-1 mb-1">
+                        <dt class="pb-2 mb-1">Materiales:</dt>
                         ${
                             materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
-                            `<dd class="pl-1 pb-2"> ${materia.nombre} - ${concentracion} : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`).join('')
+                            `<dd class="pl-2 pb-1 mb-1"> ${materia.nombre} - ${concentracion} : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`).join('')
                         }
                     </dl>
-                    <p class="pb-2"><strong>Presentacion:</strong> ${ tipoPresentacionReceta} </p> 
-                    <p class="pb-2"><strong>Cantidad:</strong> ${cantidadReceta} </p> 
+                    <p class="pb-2 mb-1"><strong>Presentacion:</strong> ${ tipoPresentacionReceta} </p> 
+                    <p class="pb-2 mb-1"><strong>Cantidad:</strong> ${cantidadReceta} </p> 
                     
                     ${constosPreparacion.map(({detalle_costo, valor_clp}) =>
-                        ` <p class="pb-2"><strong>${detalle_costo}:</strong> ${valor_clp}</p> `).join('')}                    
+                        ` <p class="pb-2 mb-1"><strong>${detalle_costo}:</strong> ${valor_clp}</p> `).join('')}                    
                 </main > 
                 <footer class = "d-flex justify-content-end border-top pt-2" style = "gap: 8px;">
                     <button type="button" data-index="${index}" class="btn-editar">Editar</button>
