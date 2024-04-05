@@ -127,7 +127,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 <h2 class="section-title">Receta:</h2>
                 <div id="contenedor_cotizador" class="container">
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-12 mt-2">
                     <button type="button" id="button_agrega_elemento">
                         Agregar Producto
                     </button>
