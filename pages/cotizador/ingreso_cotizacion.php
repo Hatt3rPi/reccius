@@ -127,7 +127,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 <h2 class="section-title">Receta:</h2>
                 <div id="contenedor_cotizador" class="container">
                 </div>
-                <div class="col-sm-12 mt-2">
+                <div class="col-sm-12 mt-4">
                     <button type="button" id="button_agrega_elemento">
                         Agregar Producto
                     </button>
@@ -136,9 +136,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             <br>
             <h2 class="section-title">Resumen de cotización:</h2>
             <div class="container">
-                <div class="alert alert-warning text-center" role="alert">
-                    Los precios no son reales, solo una simulación!
-                </div>
                 <div class="container resume_cotizador" id="resume_cotizador">
 
                     <table class="table">
@@ -164,7 +161,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             </div>
         </form>
         <div class="modal" style="background-color: #00000080 !important;" id="add_contizacion_modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-dialog  modal-dialog-centered modal-xl">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agregar Producto</h5>
@@ -184,8 +181,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Presentación:</label>
+                            <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
+                                <option selected disabled value="">Selecciona presentación a utilizar</option>
+                            </select>
+                        </div>
                         <fieldset class="form-group border-left pl-2 ">
-                            <legend class="h5 font-weight-normal">Tabla de materias primas</legend>
+                            <legend class="h6 font-weight-normal">Tabla de materias primas</legend>
                             <div id="contenedor_table_new_materia" class="container pl-0">
                                 <table id="table_new_materia" class="table table-striped table-bordered" width="100%"></table>
                             </div>
@@ -216,16 +219,36 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                 <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
                             </div>
                         </fieldset>
-                        <div class="form-group">
-                            <label>Presentación:</label>
-                            <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
-                                <option selected disabled value="">Selecciona presentación a utilizar</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin-right: 10px;">
-                            <label for="add_cantidad">Cantidad:</label>
-                            <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantidad de concentración" required>
-                        </div>
+                        <fieldset class="form-group border-left pl-2 ">
+                            <legend class="h6 font-weight-normal">Base y Exipientes</legend>
+
+                        </fieldset>
+
+                        <!--
+                            principio activo
+                            ----------------
+                            base y exipiente
+                            ----------------
+                            Unidad de venta {ejemplo peso de una pastilla} (numero/unidad de medida) *  cantidad 
+                        -->
+                        <fieldset class="form-group border-left pl-2 ">
+                            <legend class="h6 font-weight-normal">Venta</legend>
+                            <div class="form-group" style="margin-right: 10px;">
+                                <label>Unidad de venta:</label>
+                                <div class="form-row">
+                                    <input class="form-control mx-0" id="add_unidad_venta" required name="add_unidad_venta" type="number" placeholder="Unidad de venta" required>
+                                    <select required name="add_unidad_venta_tipo" id="add_unidad_venta_tipo" class="w-100 select-style mx-0">
+                                        <option disabled selected value="">Selecciona Unidad de medida</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-right: 10px;">
+                                <label for="add_cantidad">Cantidad:</label>
+                                <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantida" value="1" required>
+                            </div>
+
+                        </fieldset>
+
                     </div>
                     <div class="alert alert-danger mx-3 text-center" style="display: none" role="alert" id="add_error_alert"></div>
                     <div class="modal-footer">
@@ -243,7 +266,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var addContizacionModalClose = $('#add_modal_close') //modal close
     var addContizacionModal = $('#add_contizacion_modal') //modal
     var addContizacionForm = $('#add_contizacion_form') //form modal    
-    var addConcentracionMateriaPrima = $('#add_tipo_concentracion') // modal
     var addContizacionFormButton = $('#add_contizacion_form_button') // modal button
     var addTipoPreparacion = $('#add_tipo_preparacion') //tipo preparacion
     var addTipoPresentacion = $('#add_tipo_presentacion')
@@ -252,6 +274,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var addContizacionFormProductoData = $('#datalist_materia_prima_options') //materias primas datalist
     var addMateriaPrimaBtn = $('#add_materia_prima_btn')
     var addMateriaPrimaErrorAlert = $('#add_materia_prima_error_alert')
+    //seleccion de medidas
+    var addConcentracionMateriaPrima = $('#add_tipo_concentracion') // concentracion
+    var addUnidadVentaTipo = $('#add_unidad_venta_tipo') // Unidad de venta {ejemplo peso de una pastilla} (numero/unidad de medida)
 
     var contenedorCotizador = $('#contenedor_cotizador');
 
@@ -265,16 +290,21 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var opcionesCategorias = <?php echo json_encode($opcionesCategorias); ?>;
     var opcionesConversion = <?php echo json_encode($opcionesConversion); ?>;
 
-    function initConcentracion() {
+    function initMedidas() {
         addConcentracionMateriaPrima.empty();
+        addUnidadVentaTipo.empty();
         addConcentracionMateriaPrima.append('<option selected disabled value="">Selecciona estructura a utilizar</option>');
+        addUnidadVentaTipo.append('<option selected disabled value="">Selecciona Unidad de medida</option>');
         opcionesConversion.forEach(opcion => {
             addConcentracionMateriaPrima
                 .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
+            addUnidadVentaTipo
+                .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
         })
         addConcentracionMateriaPrima.val('');
+        addUnidadVentaTipo.val('')
     }
-    initConcentracion()
+    initMedidas()
 
 
 
@@ -292,35 +322,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     MODAl RECETA
     */
     var materiasList = [];
-
-    /**
-     * @typedef {Object} Material
-     * @property {string} materia - The material name.
-     * @property {string} concentracion - The concentration used in the material.
-     * @property {number} [concentracion_1] - The first concentration used in the material.
-     * @property {number} [concentracion_2] - The second concentration used in the material.
-     * @property {number} index - The index of the material in the list.
-     */
-
-    /**
-     * The list of added materials.
-     * @type {Material[]}
-     */
-    var materiasAddedList = [];
-
-    /**
-     * @typedef {Object} Producto
-     * @property {string} cantidadReceta
-     * @property {string} tipoPreparacionReceta
-     * @property {string} tipoPresentacionReceta
-     * @property {Material[]} materiasList
-     * @property {number} index
-     */
-
-    /**
-     * The list of added products.
-     * @type {Producto[]}
-     */
     var cotizadorLista = [];
 
 
@@ -593,6 +594,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     // Submit Nuevo producto
     addContizacionForm.on("submit", addContizacionFormSubmit);
+
     function addContizacionFormSubmit(event) {
         addErrorAlert.hide();
         event.preventDefault();
@@ -618,7 +620,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                     ...formObject,
                     index: editingObj.index
                 });
-               
+
                 editing = false;
                 editingObj = null;
             } else {
@@ -666,7 +668,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     /*
           MODAl RECETA FIN 
     */
-    
+
     function obtenerCostosProduccion(preparacion, presentacion) {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -692,23 +694,25 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     */
 
     async function setToList(formObject) {
-        var {tipoPreparacionReceta:prepara, tipoPresentacionReceta: present} = formObject
+        var {
+            tipoPreparacionReceta: prepara,
+            tipoPresentacionReceta: present
+        } = formObject
         try {
-            const datos = await obtenerCostosProduccion(prepara,present);
+            const datos = await obtenerCostosProduccion(prepara, present);
             formObject['constosPreparacion'] = datos;
 
             cotizadorLista.push(formObject)
-            console.log('cotizadorLista: \n->',cotizadorLista);
-            updateCotizador() 
+            console.log('cotizadorLista: \n->', cotizadorLista);
+            updateCotizador()
         } catch (error) {
             formObject['constosPreparacion'] = []
             cotizadorLista.push(formObject)
-            console.log('cotizadorLista Error: \n->',cotizadorLista);
+            console.log('cotizadorLista Error: \n->', cotizadorLista);
             updateCotizador()
         }
-        //updateResume()
+        updateResume()
     }
-
     function updateCotizador() {
         cotizadorLista.sort((a, b) => a.index - b.index)
         contenedorCotizador.empty();
@@ -783,7 +787,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     */
     var cotizacionForm = $('#formulario_cotizacion')
     cotizacionForm.on("submit", contizacionFormSubmit);
-
     function contizacionFormSubmit() {
         event.preventDefault();
         const formData = new FormData(this);
@@ -804,15 +807,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     function updateResume() {
         formCotizacionTbody.empty();
         formCotizacionTotal.empty();
-
         let total = 0
         cotizadorLista.forEach(({
-            add_cantidad,
-            add_materia_prima,
-            add_tipo_preparacion,
-            add_tipo_concentracion,
-            concentracion_form_param_1,
-            concentracion_form_param_2
+            tipoPreparacionReceta,
+            materiasList,
+            tipoPresentacionReceta,
+            cantidadReceta,
+            constosPreparacion,
+            index
         }) => {
             const price = fakeProductos.find(x => x.nombre == add_materia_prima).precio;
             var twoValues = add_tipo_preparacion.includes("/");
