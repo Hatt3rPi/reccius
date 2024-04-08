@@ -225,16 +225,12 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         </fieldset>
                         <fieldset class="form-group border-left pl-2 ">
                             <legend class="h6 font-weight-normal">Base y Exipientes</legend>
-
+                            <div class="form-group">
+                                <input class="form-control mx-0" list="datalist_materia_base_options" id="add_materia_base" name="add_materia_base" placeholder="Buscar materia base...">
+                                <datalist id="datalist_materia_base_options">
+                                </datalist>
+                            </div>
                         </fieldset>
-
-                        <!--
-                            principio activo
-                            ----------------
-                            base y exipiente
-                            ----------------
-                            Unidad de venta {ejemplo peso de una pastilla} (numero/unidad de medida) *  cantidad 
-                        -->
                         <fieldset class="form-group border-left pl-2 ">
                             <legend class="h6 font-weight-normal">Venta</legend>
                             <div class="form-group" style="margin-right: 10px;">
@@ -245,14 +241,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
                                     </div>
                                     <div class="col-auto">
-                                        <select required name="add_unidad_venta_tipo" id="add_unidad_venta_tipo" class="w-100 select-style mx-0 form__select">
+                                        <select required name="add_unidad_venta_medida" id="add_unidad_venta_medida" class="w-100 select-style mx-0 form__select">
                                             <option disabled selected value="">UM</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group" style="margin-right: 10px;">
-                                <label for="add_cantidad">Cantidad:</label>
+                                <label for="add_cantidad">Cantidad (unidad/es):</label>
                                 <input class="form-control mx-0" id="add_cantidad" name="add_cantidad" type="number" placeholder="Cantida" value="1" required>
                             </div>
 
@@ -281,11 +277,15 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     //input materias primas
     var addContizacionFormProducto = $('#add_materia_prima') //materias primas
     var addContizacionFormProductoData = $('#datalist_materia_prima_options') //materias primas datalist
+    //input materias base
+    var addContizacionFormProductoBase = $('#add_materia_base') //materias base
+    var addContizacionFormProductoBaseData = $('#datalist_materia_base_options') //materias base datalist
+    //
     var addMateriaPrimaBtn = $('#add_materia_prima_btn')
     var addMateriaPrimaErrorAlert = $('#add_materia_prima_error_alert')
     //seleccion de medidas
     var addConcentracionMateriaPrima = $('#add_tipo_concentracion') // concentracion
-    var addUnidadVentaTipo = $('#add_unidad_venta_tipo') // Unidad de venta {ejemplo peso de una pastilla} (numero/unidad de medida)
+    var addUnidadVentaTipo = $('#add_unidad_venta_medida') // Unidad de venta {ejemplo peso de una pastilla} (numero/unidad de medida)
 
     var contenedorCotizador = $('#contenedor_cotizador');
 
@@ -332,6 +332,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     MODAl RECETA
     */
     var materiasList = [];
+    var materiasListBase = [];
     var cotizadorLista = [];
 
 
@@ -534,21 +535,30 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             $(`#${el}`).val('')
         })
     }
-    //Buscar materia prima
-    addContizacionFormProducto.on('input', () => {
-        const searchValue = addContizacionFormProducto.val().toLowerCase();
+    //Buscar materia Prima
+    [
+        {
+            input: addContizacionFormProducto, data: addContizacionFormProductoData, 
+            setListFn: (data)=>{materiasList = data }}, 
+        {
+            input: addContizacionFormProductoBase, data: addContizacionFormProductoBaseData,  
+            setListFn: (data)=>{materiasList = data }}
+    ].forEach(({input, data, setListFn}) => 
+    { 
+        input.on('input', () => {
+        const searchValue = input.val().toLowerCase();
         //API
         if (searchValue.length < 3) return
         $.ajax({
             url: '../pages/cotizador/query_buscar_productos.php',
             type: 'GET',
             dataType: 'json',
-            data: {
+            data: { 
                 texto: searchValue
             },
             success: function(productos) {
-                materiasList = productos;
-                feedDataList(addContizacionFormProductoData, productos.map(function(option) {
+                setListFn(productos);
+                feedDataList(data, productos.map(function(option) {
                     return {
                         name: option.nombre,
                         id: option.id
@@ -560,6 +570,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             }
         });
     });
+    })
 
     function feedDataList(datalist, options) {
         datalist.empty();
@@ -570,6 +581,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             datalist.append(optionEl);
         });
     }
+
+    
+
     // Conscentración Seleccion
     addConcentracionMateriaPrima.change(function() {
         const concentracion = $(this).val();
@@ -585,18 +599,24 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         ];
 
         campos.forEach(function(campo) {
-            $('input[name=' + campo + ']').parents('div').hide();
+            $('input[name=' + campo + ']').val('').hide();
         });
 
+        $('#concentracion_form_params_div_1').hide()
+        $('#concentracion_form_params_div_2').hide()
+
         if (select.includes('/')) {
-            $('input[name=concentracion_form_param_1]').val('').parents('div').show();
-            $('input[name=concentracion_form_param_2]').val('').parents('div').show();
-            $('input[name=concentracion_form_type_1]').val(select.split('/')[0]).parents('div').show();
-            $('input[name=concentracion_form_type_2]').val(select.split('/')[1]).parents('div').show();
+            $('#concentracion_form_params_div_1').show();
+            $('input[name=concentracion_form_param_1]').show();
+            $('input[name=concentracion_form_type_1]').val(select.split('/')[0]).show();
+            $('#concentracion_form_params_div_2').show();
+            $('input[name=concentracion_form_param_2]').show();
+            $('input[name=concentracion_form_type_2]').val(select.split('/')[1]).show();
             return
         }
-        $('input[name=concentracion_form_param_1]').val('').parents('div').show();
-        $('input[name=concentracion_form_type_1]').val(select).parents('div').show();
+        $('#concentracion_form_params_div_1').show();
+        $('input[name=concentracion_form_param_1]').show();
+        $('input[name=concentracion_form_type_1]').val(select).show();
     }
     /*
         TABLA MATERIA PRIMA FIN 
@@ -616,13 +636,18 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         var {
             add_cantidad: cantidadReceta,
             add_tipo_preparacion: tipoPreparacionReceta,
-            add_tipo_presentacion: tipoPresentacionReceta
+            add_tipo_presentacion: tipoPresentacionReceta,
+            add_unidad_venta: unidadVenta,
+            add_unidad_venta_medida: unidadVentaMedida,
+
         } = formObject;
 
         if (validarFormulario({
                 cantidadReceta,
                 tipoPreparacionReceta,
-                tipoPresentacionReceta
+                tipoPresentacionReceta,
+                unidadVenta,
+                unidadVentaMedida
             })) {
             if (editing) {
                 cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
@@ -634,12 +659,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 editing = false;
                 editingObj = null;
             } else {
-                var index = cotizadorLista.length
+                var index = Date.now()
                 setToList({
                     cantidadReceta,
                     tipoPreparacionReceta,
                     tipoPresentacionReceta,
                     materiasList: materiasAddedList,
+                    unidadVenta,
+                    unidadVentaMedida,
                     index
                 })
             }
@@ -652,7 +679,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     function validarFormulario({
         cantidadReceta,
         tipoPreparacionReceta,
-        tipoPresentacionReceta
+        tipoPresentacionReceta,
+        unidadVenta,
+        unidadVentaMedida
     }) {
         let valido = true;
         addErrorAlert.empty();
@@ -671,6 +700,15 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         if (!tipoPresentacionReceta || tipoPresentacionReceta.trim() === "") {
             valido = false;
             addErrorAlert.append('<p class="text-left m-0">El campo Tipo de presentación es requerido </p>');
+        }
+        if (!unidadVenta > 0) {
+            valido = false;
+            addErrorAlert.append('<p class="text-left m-0">El campo Unidad de venta es requerido</p>');
+        }
+        if (!unidadVentaMedida.trim() === '') {
+            valido = false;
+            addErrorAlert.append('<p class="text-left m-0"> El campo Unidad de venta medida es requerido </p>');
+            
         }
         return valido;
     }
@@ -706,7 +744,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     async function setToList(formObject) {
         var {
             tipoPreparacionReceta: prepara,
-            tipoPresentacionReceta: present
+            tipoPresentacionReceta: present,
         } = formObject
         try {
             const datos = await obtenerCostosProduccion(prepara, present);
@@ -733,6 +771,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             cantidadReceta,
             constosPreparacion,
             index
+            //Todo: unidadVenta
+            //Todo: unidadVentaMedida
         }, i) => {
             var article = `
             <article class="container mt-2 border rounded p-2">

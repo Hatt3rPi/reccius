@@ -21,9 +21,16 @@
   padding: 6px;
 }
 
+.modal__dialog {
+  max-height: 100dvh;
+  overflow-y: auto;
+}
+
 @media (max-width: 992px) {
   .modal__dialog {
+    height: 100dvh;
     width: 800px;
-    max-width: calc(100dvw - 8px);
+    margin: auto;
+    max-width: calc(100% - 12px);
   }
 }
