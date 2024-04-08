@@ -22,7 +22,7 @@
 }
 
 @media (max-width: 992px) {
-  .modal-dialog {
+  .modal__dialog {
     width: 800px;
     max-width: calc(100dvw - 8px);
   }

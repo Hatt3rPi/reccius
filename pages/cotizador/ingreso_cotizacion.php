@@ -161,7 +161,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             </div>
         </form>
         <div class="modal" style="background-color: #00000080 !important;" id="add_contizacion_modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog  modal-dialog-centered modal-xl">
+            <div class="modal-dialog  modal-dialog-centered modal-xl modal__dialog">
                 <form id="add_contizacion_form" class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Agregar Producto</h5>
@@ -207,12 +207,12 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                         </select>
                                     </div>
                                     <div class="col form-row mx-0">
-                                        <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
-                                        <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col m-0" style="display: none;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_type_1" class="col m-0" disabled style="display: none;width: 50px;margin-top: 9px;">
                                     </div>
                                     <div class="col form-row mx-0">
-                                        <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
-                                        <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col m-0" style="display: none;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_type_2" class="col m-0" disabled style="display: none;width: 50px;margin-top: 9px;">
                                     </div>
                                 </div>
                                 </div>
@@ -585,18 +585,18 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         ];
 
         campos.forEach(function(campo) {
-            $('input[name=' + campo + ']').hide();
+            $('input[name=' + campo + ']').parents('div').hide();
         });
 
         if (select.includes('/')) {
-            $('input[name=concentracion_form_param_1]').val('').show();
-            $('input[name=concentracion_form_param_2]').val('').show();
-            $('input[name=concentracion_form_type_1]').val(select.split('/')[0]).show();
-            $('input[name=concentracion_form_type_2]').val(select.split('/')[1]).show();
+            $('input[name=concentracion_form_param_1]').val('').parents('div').show();
+            $('input[name=concentracion_form_param_2]').val('').parents('div').show();
+            $('input[name=concentracion_form_type_1]').val(select.split('/')[0]).parents('div').show();
+            $('input[name=concentracion_form_type_2]').val(select.split('/')[1]).parents('div').show();
             return
         }
-        $('input[name=concentracion_form_param_1]').val('').show();
-        $('input[name=concentracion_form_type_1]').val(select).show();
+        $('input[name=concentracion_form_param_1]').val('').parents('div').show();
+        $('input[name=concentracion_form_type_1]').val(select).parents('div').show();
     }
     /*
         TABLA MATERIA PRIMA FIN 
