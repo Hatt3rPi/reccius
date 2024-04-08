@@ -172,7 +172,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Preparación:</label>
-                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style mx-0" required>
+                            <select name="add_tipo_preparacion" id="add_tipo_preparacion" class="w-100 select-style mx-0 form__select" required>
                                 <option disabled selected value="">Selecciona preparación a utilizar:</option>
                                 <?php foreach ($opcionesCategorias as $op) : ?>
                                     <option value="<?php echo htmlspecialchars($op); ?>">
@@ -183,7 +183,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         </div>
                         <div class="form-group">
                             <label>Presentación:</label>
-                            <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0" required>
+                            <select name="add_tipo_presentacion" id="add_tipo_presentacion" class="w-100 select-style mx-0 form__select" required>
                                 <option selected disabled value="">Selecciona presentación a utilizar</option>
                             </select>
                         </div>
@@ -200,20 +200,24 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </div>
                             <div class="form-group">
                                 <label>Concentración:</label>
-                                <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0">
-                                    <option disabled selected value="">Selecciona estructura a utilizar</option>
-                                </select>
-                                <div class="form-row mx-0">
-                                    <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
-                                    <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                <div class="form-row">
+                                    <div class="col-auto">
+                                        <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0 form__select">
+                                            <option disabled selected value="">Selecciona estructura a utilizar</option>
+                                        </select>
+                                    </div>
+                                    <div class="col form-row mx-0">
+                                        <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col" style="display: none;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_type_1" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                    </div>
+                                    <div class="col form-row mx-0">
+                                        <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                    </div>
                                 </div>
-                                <div class="form-row mx-0">
-                                    <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col" style="display: none;margin-top: 9px;">
-                                    <input type="text" name="concentracion_form_type_2" class="col" disabled style="display: none;width: 50px;margin-top: 9px;">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="alert alert-danger mx-3 text-center p-2 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
+                                <div class="form-group">
+                                    <div class="alert alert-danger mx-3 text-center p-2 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
                             </div>
                             <div class="form-group">
                                 <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
@@ -241,7 +245,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
                                     </div>
                                     <div class="col-auto">
-                                        <select required name="add_unidad_venta_tipo" id="add_unidad_venta_tipo" class="w-100 select-style mx-0">
+                                        <select required name="add_unidad_venta_tipo" id="add_unidad_venta_tipo" class="w-100 select-style mx-0 form__select">
                                             <option disabled selected value="">UM</option>
                                         </select>
                                     </div>

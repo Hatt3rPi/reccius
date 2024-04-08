@@ -16,3 +16,14 @@
 #resume_cotizador {
   background-color: #f0f7ff;
 }
+
+.form__select {
+  padding: 6px;
+}
+
+@media (max-width: 992px) {
+  .modal-dialog {
+    width: 800px;
+    max-width: calc(100dvw - 8px);
+  }
+}
