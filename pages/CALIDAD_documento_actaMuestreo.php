@@ -784,13 +784,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
    var TESTMODO = 1;
 
    if (TESTMODO === 1) {
-    // Deshabilitar todos los botones dentro de las columnas de revisión
-    const responsables = document.querySelectorAll('.resp .btn-check');
-    const verificadores = document.querySelectorAll('.verif .btn-check');
-
-    responsables.forEach(function(button) {
-        button.disabled = true;
-    });
+    // Deshabilitar solo los botones dentro de la columna de revisión verificador
+    const verificadores = document.querySelectorAll('.formulario.verif .btn-check');
 
     verificadores.forEach(function(button) {
         button.disabled = true;
