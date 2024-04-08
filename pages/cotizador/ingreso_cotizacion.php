@@ -236,10 +236,15 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             <div class="form-group" style="margin-right: 10px;">
                                 <label>Unidad de venta:</label>
                                 <div class="form-row">
-                                    <input class="form-control mx-0" id="add_unidad_venta" required name="add_unidad_venta" type="number" placeholder="Unidad de venta" required>
-                                    <select required name="add_unidad_venta_tipo" id="add_unidad_venta_tipo" class="w-100 select-style mx-0">
-                                        <option disabled selected value="">Selecciona Unidad de medida</option>
-                                    </select>
+                                    <div class="col">
+                                        <input class="form-control mx-0" id="add_unidad_venta" required name="add_unidad_venta" type="number" placeholder="Unidad de venta" required>
+
+                                    </div>
+                                    <div class="col-auto">
+                                        <select required name="add_unidad_venta_tipo" id="add_unidad_venta_tipo" class="w-100 select-style mx-0">
+                                            <option disabled selected value="">UM</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group" style="margin-right: 10px;">
@@ -290,11 +295,12 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     var opcionesCategorias = <?php echo json_encode($opcionesCategorias); ?>;
     var opcionesConversion = <?php echo json_encode($opcionesConversion); ?>;
 
+    // Selects de medidas
     function initMedidas() {
         addConcentracionMateriaPrima.empty();
         addUnidadVentaTipo.empty();
         addConcentracionMateriaPrima.append('<option selected disabled value="">Selecciona estructura a utilizar</option>');
-        addUnidadVentaTipo.append('<option selected disabled value="">Selecciona Unidad de medida</option>');
+        addUnidadVentaTipo.append('<option selected disabled value="">UM</option>');
         opcionesConversion.forEach(opcion => {
             addConcentracionMateriaPrima
                 .append('<option value="' + opcion['unidad'] + '">' + opcion['unidad'] + '</option>');
