@@ -780,6 +780,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
+    var TESTMODO = 1;
+
+    if (TESTMODO === 1) {
+        // Deshabilitar solo los botones dentro de la columna de revisión verificador
+        const verificadores = document.querySelectorAll('.formulario.verif .btn-check');
+
+        verificadores.forEach(function(button) {
+            button.disabled = true;
+        });
+    } else if (TESTMODO === 2) {
+        // Deshabilitar solo los botones dentro de la columna de revisión verificador
+        const verificadores = document.querySelectorAll('.formulario.resp .btn-check');
+
+        verificadores.forEach(function(button) {
+            button.disabled = true;
+        });
+
+    }
+
     function cargarDatosEspecificacion(id, resultados, etapa) {
         console.log(id, resultados, etapa);
         if (resultados) {
