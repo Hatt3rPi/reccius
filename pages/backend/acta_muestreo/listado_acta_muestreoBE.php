@@ -11,6 +11,7 @@ $query = "  SELECT
                 am.responsable, 
                 am.ejecutor, 
                 am.verificador, 
+                am.version_acta,
                 concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
                 pr.tipo_producto,
                 am.id as id_acta

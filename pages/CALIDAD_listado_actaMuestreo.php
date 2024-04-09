@@ -101,6 +101,7 @@ function carga_listado() {
             },
             { "data": "numero_acta", "title": "N° Acta", "width": "170px" },
             { "data": "fecha_muestreo", "title": "Fecha documento", "width": "65px" },
+            { "data": "version_acta", "title": "Versión" },
             { "data": "producto", "title": "Producto" },
             { "data": "tipo_producto", "title": "Tipo producto" },
             {
