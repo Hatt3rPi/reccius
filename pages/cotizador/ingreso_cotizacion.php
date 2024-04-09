@@ -200,19 +200,19 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </div>
                             <div class="form-group">
                                 <label>Concentración:</label>
+                                
+                                <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0 form__select">
+                                    <option disabled selected value="">Selecciona estructura a utilizar</option>
+                                </select>
+                          
                                 <div class="form-row">
-                                    <div class="col-auto">
-                                        <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0 form__select">
-                                            <option disabled selected value="">Selecciona estructura a utilizar</option>
-                                        </select>
+                                    <div class="col form-row mx-0">
+                                        <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col m-0 form-control" style="display: none;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_type_1" class="col m-0 form-control" disabled style="display: none;width: 50px;margin-top: 9px;">
                                     </div>
                                     <div class="col form-row mx-0">
-                                        <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col m-0" style="display: none;margin-top: 9px;">
-                                        <input type="text" name="concentracion_form_type_1" class="col m-0" disabled style="display: none;width: 50px;margin-top: 9px;">
-                                    </div>
-                                    <div class="col form-row mx-0">
-                                        <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col m-0" style="display: none;margin-top: 9px;">
-                                        <input type="text" name="concentracion_form_type_2" class="col m-0" disabled style="display: none;width: 50px;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_param_2" id="concentracion_form_param_2" class="col m-0 form-control" style="display: none;margin-top: 9px;">
+                                        <input type="text" name="concentracion_form_type_2" class="col m-0 form-control" disabled style="display: none;width: 50px;margin-top: 9px;">
                                     </div>
                                 </div>
                                 </div>
@@ -422,8 +422,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     */
     // Añadir materia prima
     addMateriaPrimaBtn.on('click', function() {
-        addMateriaPrimaErrorAlert.hide();
-        addMateriaPrimaErrorAlert.empty();
+        addMateriaPrimaErrorAlert.empty().hide();
         var {
             valido,
             materia,
@@ -624,7 +623,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     // Submit Nuevo producto
     addContizacionForm.on("submit", addContizacionFormSubmit);
-
     function addContizacionFormSubmit(event) {
         addErrorAlert.hide();
         event.preventDefault();
@@ -639,7 +637,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             add_tipo_presentacion: tipoPresentacionReceta,
             add_unidad_venta: unidadVenta,
             add_unidad_venta_medida: unidadVentaMedida,
-
+            add_materia_base: materiaBase
         } = formObject;
 
         if (validarFormulario({
@@ -647,7 +645,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 tipoPreparacionReceta,
                 tipoPresentacionReceta,
                 unidadVenta,
-                unidadVentaMedida
+                unidadVentaMedida,
+                materiaBase
             })) {
             if (editing) {
                 cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == editingObj.index), 1)
@@ -660,6 +659,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 editingObj = null;
             } else {
                 var index = Date.now()
+                var selectedMateriaFind = materiasListBase.find(x => x.nombre == materiaBase)
                 setToList({
                     cantidadReceta,
                     tipoPreparacionReceta,
@@ -667,6 +667,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                     materiasList: materiasAddedList,
                     unidadVenta,
                     unidadVentaMedida,
+                    materiaBase:selectedMateriaFind,
                     index
                 })
             }
@@ -681,7 +682,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         tipoPreparacionReceta,
         tipoPresentacionReceta,
         unidadVenta,
-        unidadVentaMedida
+        unidadVentaMedida,
+        materiaBase
     }) {
         let valido = true;
         addErrorAlert.empty();
@@ -705,11 +707,26 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             valido = false;
             addErrorAlert.append('<p class="text-left m-0">El campo Unidad de venta es requerido</p>');
         }
-        if (!unidadVentaMedida.trim() === '') {
+        if (unidadVentaMedida.trim() === '') {
             valido = false;
             addErrorAlert.append('<p class="text-left m-0"> El campo Unidad de venta medida es requerido </p>');
             
         }
+
+        if(materiaBase){
+            var selectedMateriaFind = materiasListBase.find(x => x.nombre == materiaBase)
+            if (selectedMateriaFind == undefined) {
+                valido = false;
+                addMateriaPrimaErrorAlert.show();
+                addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La materia prima no existe</p>');
+            }
+        }
+        if(!materiaBase){
+            valido = false;
+            addMateriaPrimaErrorAlert.show();
+            addMateriaPrimaErrorAlert.append('<p class="text-left m-0">Debe seleccionar una materia base</p>');
+        }
+
         return valido;
     }
 
@@ -770,9 +787,14 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             tipoPresentacionReceta,
             cantidadReceta,
             constosPreparacion,
-            index
+
             //Todo: unidadVenta
             //Todo: unidadVentaMedida
+            // unidadVenta
+            // unidadVentaMedida
+            // materiaBase
+
+            index,
         }, i) => {
             var article = `
             <article class="container mt-2 border rounded p-2">
@@ -800,11 +822,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
             `
             contenedorCotizador.append(article)
     })
-    
-    
+
     closeModal()
     }
-
 
     function setFormAddCotizador(data) {
         let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
@@ -813,13 +833,13 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         })
     }
 
-
     contenedorCotizador.on('click', '.btn-eliminar', function() {
         var index = $(this).data('index');
         cotizadorLista.splice(cotizadorLista.findIndex(x => x.index == index), 1)
         $(this).parents('article').remove()
         //updateResume()
     });
+
     contenedorCotizador.on('click', '.btn-editar', function() {
         var index = $(this).data('index');
         editing = true;
@@ -830,7 +850,6 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         //updateResume()
         setFormAddCotizador(cotizadorLista[dataIndex])
     });
-
 
     /* 
             formulario
