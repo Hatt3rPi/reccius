@@ -783,13 +783,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let dataToSave = [];
 
         radioButtons.forEach(radio => {
-            // Asumiendo que cada botón de radio tiene un atributo 'name' único
-            let radioInfo = {
-                name: radio.name,
-                value: radio.value,
-                checked: radio.checked
-            };
-            dataToSave.push(radioInfo);
+            if (radio.checked) { // Solo agregar al array si el botón está seleccionado
+                let radioInfo = {
+                    name: radio.name,
+                    value: radio.value,
+                    checked: radio.checked
+                };
+                dataToSave.push(radioInfo);
+            }
         });
 
         // Mostrar los datos recopilados en la consola
