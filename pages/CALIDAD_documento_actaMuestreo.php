@@ -780,7 +780,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
-    var TESTMODO = 2;
+    var TESTMODO = 3;
 
 
     // Definir la función verificarBotonesSeleccionados
