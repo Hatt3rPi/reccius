@@ -26,7 +26,7 @@ $fechaLimiteFormato = $fechaLimite->format('Y-m-d');
 
 // Consulta SQL para obtener feriados entre las fechas
 $queryDate = "SELECT fecha FROM feriados_chile WHERE fecha BETWEEN '$fechaActualFormato' AND '$fechaLimiteFormato'";
-$resultDate = mysqli_query($conexion, $queryDate);
+$resultDate = mysqli_query($link, $queryDate);
 
 // Construir el arreglo de feriados
 $feriados = [];
