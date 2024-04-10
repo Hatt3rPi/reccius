@@ -780,7 +780,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
-    var TESTMODO = 1;
+
+    //ofuncion para ocultar contenido de botones al no ser de la id 
+
+    var TESTMODO = 2;
 
     if (TESTMODO === 1) {
         // Deshabilitar solo los botones dentro de la columna de revisión verificador
