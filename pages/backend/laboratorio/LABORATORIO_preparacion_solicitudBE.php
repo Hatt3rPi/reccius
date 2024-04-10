@@ -36,8 +36,6 @@ function insertarRegistro($link, $datos) {
     $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'], 
     $datos['muestreado_POS'], $datos['tipo_analisis']
 );
-
-
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
     mysqli_stmt_close($stmt);
@@ -59,6 +57,7 @@ function insertarRegistro($link, $datos) {
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
+    
     $_SESSION['buscar_por_ID']=$id;
 
     if (!$exito) {

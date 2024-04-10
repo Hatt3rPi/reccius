@@ -166,7 +166,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="form-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento"  rows="2" placeholder="..."></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento"  rows="2" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
@@ -288,36 +288,36 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         event.preventDefault();
         const formData = new FormData(this);
         validateTextRequiredInputs(formData)
-        
-        
         var datosFormulario = $('#formulario_analisis_externo').serialize();
+
         console.log(datosFormulario);
-        // $.ajax({
-        //     url: 'backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
-        //     type: 'POST',
-        //     data: datosFormulario,
-        //     success: function(data) {
-        //         var respuesta = JSON.parse(data);
-        //         if (respuesta.exito) {
-        //             $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
-        //                 if (status == "error") {
-        //                     console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
-        //                 } else {
-        //                     console.log('Listado cargado correctamente cargado exitosamente.');
-        //                     carga_listado();
-        //                     console.log(respuesta.mensaje); // Manejar el error
-        //                     //table.columns(9).search(buscarId).draw();
-        //                     
-        //                 }
-        //             });
-        //         } else {
-        //             console.log(respuesta.mensaje); // Manejar el error
-        //         }
-        //     },
-        //     error: function(xhr, status, error) {
-        //         console.log("Error AJAX: " + error);
-        //     }
-        // });
+
+        $.ajax({
+            url: 'backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
+            type: 'POST',
+            data: datosFormulario,
+            success: function(data) {
+                var respuesta = JSON.parse(data);
+                if (respuesta.exito) {
+                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+                        if (status == "error") {
+                            console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
+                        } else {
+                            console.log('Listado cargado correctamente cargado exitosamente.');
+                            carga_listado();
+                            console.log(respuesta.mensaje); // Manejar el error
+                            //table.columns(9).search(buscarId).draw();
+                            
+                        }
+                    });
+                } else {
+                    console.log(respuesta.mensaje); // Manejar el error
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error AJAX: " + error);
+            }
+        });
     }
 
 </script>
