@@ -780,35 +780,43 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
-    const formrespElements = document.querySelectorAll("td.formulario.resp");
-    const formverifElements = document.querySelectorAll("td.formulario.verif");
+    var TESTMODO = 2;
 
+
+    // Definir la función verificarBotonesSeleccionados
     function verificarBotonesSeleccionados() {
-        let todoseleccionado = true;
-        let contadorSeleccionados = 0; // Contador para los botones seleccionados
+        let todosSeleccionados = true;
+        const formRespElements = document.querySelectorAll("td.formulario.resp");
+        const formVerifElements = document.querySelectorAll("td.formulario.verif");
 
         // Combina los dos NodeList en un solo array
         const allElements = [...formRespElements, ...formVerifElements];
 
         allElements.forEach(element => {
-            const radiobutton = element.querySelectorAll("input[type=radio");
-            const algunoseleccionado = Array.from(radiobutton).some(radio => radio.checked);
+            const radioButtons = element.querySelectorAll("input[type='radio']");
+            const algunoSeleccionado = Array.from(radioButtons).some(radio => radio.checked);
 
-            if (algunoSeleccionado) {
-                contadorSeleccionados++; // Incrementa el contador si algún botón está seleccionado
-            } else {
+            if (!algunoSeleccionado) {
                 todosSeleccionados = false;
             }
         });
-        console.log(`Total de elementos con botón seleccionado: ${contadorSeleccionados}`);
-        return todosSeleccionados;
+
+        // Ocultar o mostrar el botón de descargar PDF según si todos los botones están seleccionados
+        const botonDescargarPDF = document.getElementById('download-pdf');
+        botonDescargarPDF.style.display = todosSeleccionados ? 'block' : 'none';
     }
 
-    console.log(verificarBotonesSeleccionados());
+    // Ejecutar la verificación inicial y luego cada vez que cambie el estado de un botón de radio
+    document.querySelectorAll("input[type='radio']").forEach(radio => {
+        radio.addEventListener('change', verificarBotonesSeleccionados);
+    });
+
+    // Verificación inicial
+    verificarBotonesSeleccionados();
 
     //ofuncion para ocultar contenido de botones al no ser de la id 
 
-    var TESTMODO = 2;
+
 
     if (TESTMODO === 1) {
         // Deshabilitar solo los botones dentro de la columna de revisión verificador
