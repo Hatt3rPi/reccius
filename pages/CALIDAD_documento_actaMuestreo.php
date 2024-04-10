@@ -794,14 +794,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const radiobutton = element.querySelectorAll("input[type=radio");
             const algunoseleccionado = Array.from(radiobutton).some(radio => radio.checked);
 
-            if (algunoSeleccionado) {
+            if (algunoseleccionado) {
                 contadorSeleccionados++; // Incrementa el contador si algún botón está seleccionado
             } else {
-                todosSeleccionados = false;
+                todoseleccionado = false;
             }
         });
         console.log(`Total de elementos con botón seleccionado: ${contadorSeleccionados}`);
-        return todosSeleccionados;
+        return todoseleccionado;
     }
 
     console.log(verificarBotonesSeleccionados());
