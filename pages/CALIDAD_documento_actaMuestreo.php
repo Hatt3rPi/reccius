@@ -781,20 +781,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </script>
 <script>
     const formrespElements = document.querySelectorAll("td.formulario.resp");
+    const formverifElements = document.querySelectorAll("td.formulario.verif");
 
     function verificarBotonesSeleccionados() {
         let todoseleccionado = true;
         let contadorSeleccionados = 0; // Contador para los botones seleccionados
-        formrespElements.forEach(element => {
+
+        // Combina los dos NodeList en un solo array
+        const allElements = [...formRespElements, ...formVerifElements];
+
+        allElements.forEach(element => {
             const radiobutton = element.querySelectorAll("input[type=radio");
             const algunoseleccionado = Array.from(radiobutton).some(radio => radio.checked);
+
             if (algunoSeleccionado) {
                 contadorSeleccionados++; // Incrementa el contador si algún botón está seleccionado
             } else {
                 todosSeleccionados = false;
             }
         });
-        return todoseleccionado;
+        console.log(`Total de elementos con botón seleccionado: ${contadorSeleccionados}`);
+        return todosSeleccionados;
     }
 
     console.log(verificarBotonesSeleccionados());
