@@ -164,52 +164,50 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         /* 
             Columnas:
-                id
-                numero_registro
-                version_registro
-                numero_acta
-                version_acta
+                aux_anomes
+                aux_autoincremental
+                aux_tipo
+                ejecutor
+                estado
+                fecha_firma_ejecutor
+                fecha_firma_responsable
+                fecha_firma_verificador
                 fecha_muestreo
+                id
+                id_analisisExterno
                 id_especificacion
                 id_producto
-                id_analisisExterno
-                aux_autoincremental
-                aux_anomes
-                aux_tipo
-                estado
-                responsable
-                ejecutor
-                verificador
-                fecha_firma_responsable
-                fecha_firma_ejecutor
-                fecha_firma_verificador
+                numero_acta
+                numero_registro
+                prod_concentracion
+                prod_documento_ingreso
+                prod_elaborado_por
+                prod_formato
                 prod_identificador
                 prod_nombre
+                prod_pais_origen
+                prod_proveedor
                 prod_tipo
                 prod_tipo_concentracion
-                prod_concentracion
-                prod_formato
-                prod_elaborado_por
-                prod_pais_origen
-                prod_documento_ingreso
-                prod_proveedor
+                responsable
+                verificador
+                version_acta
+                version_registro
         */
-        if (response && response.productos && response.productos.length > 0) {
-            var producto = response.productos[0];
-            $('#id_producto').val(producto.id_producto);
-            $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
-            $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
-            $('#producto').val(producto.nombre_producto).prop('disabled', true);
-            $('#concentracion').val(producto.concentracion).prop('disabled', true);
-            $('#formato').val(producto.formato).prop('disabled', true);
-            $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
+        if (response) {
+            $('#id_producto').val(response.id_producto).prop('disabled', true);
+            $('#Tipo_Producto').val(response.prod_tipo).prop('disabled', true);
+            $('#codigo_producto').val(response.prod_identificador).prop('disabled', true);
+            $('#producto').val(response.prod_nombre).prop('disabled', true);
+            $('#concentracion').val(response.prod_concentracion).prop('disabled', true);
+            $('#formato').val(response.prod_formato).prop('disabled', true);
+            $('#elaboradoPor').val(response.prod_elaborado_por).prop('disabled', true);
 
-            var especificaciones = Object.values(producto.especificaciones);
-            if (especificaciones.length > 0) {
-                var especificacion = especificaciones[0];
-                $('#id_especificacion').val(especificacion.id_especificacion);
-
-            }
+            //var especificaciones = Object.values(producto.especificaciones);
+            //if (especificaciones.length > 0) {
+            //    var especificacion = especificaciones[0];
+            //    $('#id_especificacion').val(especificacion.id_especificacion);
+            //}
         } else {
             console.error("No se recibieron datos válidos: ", response);
         }
