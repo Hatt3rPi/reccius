@@ -85,6 +85,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "160px",
                     "render": function(data, type, row) {
                         switch (data) {
+                            case 'Pendiente Muestreo':
+                                return '<span class="badge badge-warning">Pendiente Muestreo</span>';
                             case 'Vigente':
                                 return '<span class="badge badge-success">Vigente</span>';
                             case 'Especificación obsoleta':

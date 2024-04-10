@@ -638,6 +638,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
+                // CALIDAD / Preparar Acta de Muestreo
                 case "resultados_actaMuestreo":{
                     // Llamar a una función que maneje el envío del recordatorio
                     console.log("exito al oprimir generar_documento_solicitudes")   

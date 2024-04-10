@@ -37,8 +37,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </head>
 
 <body>
-
-
     <div class="form-container">
         <h1>CALIDAD / Preparar Acta de Muestreo</h1>
         <BR></BR>
@@ -147,7 +145,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     function cargarDatosEspecificacion(id) {
         $.ajax({
-            url: './backend/acta_muestreo/cargaEsp_acta_muestreoBE.php',
+            url: './backend/acta_muestreo/get_acta_mustreo_by_id.php',
             type: 'GET',
             data: {
                 id: id
@@ -161,8 +159,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
     }
-
     function procesarDatosActa(response) {
+        console.log(response);
+
+        /* 
+            Columnas:
+        id	
+        numero_registro	
+        version_registro	
+        numero_acta	
+        version_acta	
+        fecha_muestreo	
+        id_especificacion	
+        id_producto	
+        id_analisisExterno	
+        aux_autoincremental	
+        aux_anomes	
+        aux_tipo	
+        estado	
+        responsable	
+        ejecutor	
+        verificador	
+        fecha_firma_responsable	
+        fecha_firma_ejecutor	
+        fecha_firma_verificador
+        */
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
             $('#id_producto').val(producto.id_producto);
