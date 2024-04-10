@@ -195,6 +195,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 version_registro
         */
         if (response) {
+            // * Producto
             $('#id_producto').val(response.id_producto).prop('disabled', true);
             $('#Tipo_Producto').val(response.prod_tipo).prop('disabled', true);
             $('#codigo_producto').val(response.prod_identificador).prop('disabled', true);
@@ -203,11 +204,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#formato').val(response.prod_formato).prop('disabled', true);
             $('#elaboradoPor').val(response.prod_elaborado_por).prop('disabled', true);
 
+            // * Identificacion de la muestra
+            
+            
+            // * Acta de Muestreo
+            $('#version').val(response.version_acta).prop('disabled', true);
+            $('#numero_registro').val(response.numero_registro).prop('disabled', true);
+            
+
             //var especificaciones = Object.values(producto.especificaciones);
             //if (especificaciones.length > 0) {
             //    var especificacion = especificaciones[0];
             //    $('#id_especificacion').val(especificacion.id_especificacion);
             //}
+
         } else {
             console.error("No se recibieron datos válidos: ", response);
         }
