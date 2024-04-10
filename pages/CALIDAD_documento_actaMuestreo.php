@@ -778,6 +778,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         });
     });
+    document.getElementById('guardar').addEventListener('click', function() {
+        const radioButtons = document.querySelectorAll("input[type='radio']");
+        let dataToSave = [];
+
+        radioButtons.forEach(radio => {
+            // Asumiendo que cada botón de radio tiene un atributo 'name' único
+            let radioInfo = {
+                name: radio.name,
+                value: radio.value,
+                checked: radio.checked
+            };
+            dataToSave.push(radioInfo);
+        });
+
+        // Mostrar los datos recopilados en la consola
+        console.log(dataToSave);
+    });
 </script>
 <script>
     var TESTMODO = 3;
