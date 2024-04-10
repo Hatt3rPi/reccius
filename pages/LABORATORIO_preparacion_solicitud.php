@@ -432,7 +432,5 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         //     }
         // });
     }
-    $('#guardar').click(function() {
-        guardar();
-    });
+
 </script>
