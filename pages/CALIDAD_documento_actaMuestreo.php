@@ -778,6 +778,37 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         });
     });
+    document.getElementById('guardar').addEventListener('click', function() {
+        const radioButtons = document.querySelectorAll("input[type='radio']");
+        let dataToSave = [];
+
+        radioButtons.forEach(radio => {
+            if (radio.checked) { // Solo agregar al array si el botón está seleccionado
+                let radioInfo = {
+                    name: radio.name,
+                    value: radio.value,
+                    checked: radio.checked
+                };
+                dataToSave.push(radioInfo);
+            }
+        });
+
+        // Mostrar los datos recopilados en la consola
+        console.log(dataToSave);
+    });
+    //  // Aquí se realiza una solicitud AJAX para enviar los datos al servidor
+    //  $.ajax({
+    //     url: './backend/save_selections.php', // Asegúrate de tener este endpoint configurado en tu servidor
+    //     type: 'POST',
+    //     data: { selections: dataToSave },
+    //     success: function(response) {
+    //         // Aquí puedes manejar la respuesta del servidor
+    //         console.log(response);
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error("Error al guardar: ", status, error);
+    //     }
+    // });
 </script>
 <script>
     var TESTMODO = 3;
