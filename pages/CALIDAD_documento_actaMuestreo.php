@@ -780,7 +780,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
-    var TESTMODO = 1;
+
+    const formrespElements = document.querySelectorAll("td.formulario.resp");
+
+    function verificarBotonesSeleccionados(){
+        let todoseleccionado = true;
+        formrespElements.forEach(element => {
+            const radiobutton = element.querySelectorAll("input[type=radio");
+            const algunoseleccionado = Array.from(radiobutton).some(radio=> radio.checked);
+            if(!algunoseleccionado){
+                todoseleccionado = false;
+            }
+        });
+        return todoseleccionado;
+    }
+
+    console.log(verificarBotonesSeleccionados());
+
+    //ofuncion para ocultar contenido de botones al no ser de la id 
+
+    var TESTMODO = 2;
 
     if (TESTMODO === 1) {
         // Deshabilitar solo los botones dentro de la columna de revisión verificador
