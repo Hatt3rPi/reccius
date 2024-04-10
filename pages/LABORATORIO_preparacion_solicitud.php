@@ -79,18 +79,18 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input id="version" name="version" type="text" value="1" readonly>
+                        <input id="version" name="version" type="text" class="w-90" value="1" readonly>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>N° Solicitud:</label>
-                        <input required id="numero_solicitud" name="numero_solicitud" type="text" placeholder="SAEPT-0101001-00">
+                        <input required id="numero_solicitud" class="w-90" name="numero_solicitud" type="text" placeholder="SAEPT-0101001-00">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" id="fecha_registro" type="date" value="<?php echo date('Y-m-d'); ?>">
+                        <input name="fecha_registro" class="w-90" id="fecha_registro" type="date" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
             </fieldset>
@@ -101,34 +101,34 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <input id="tipo_producto" name="tipo_producto" type="text" placeholder="Producto Terminado">
+                        <input class="w-90" id="tipo_producto" name="tipo_producto" type="text" placeholder="Producto Terminado">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Código Producto:</label>
-                        <input id="codigo_producto" name="codigo_producto" type="text" placeholder="12345">
+                        <input class="w-90" id="codigo_producto" name="codigo_producto" type="text" placeholder="12345">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Producto:</label>
-                        <input id="producto" name="producto" type="text" placeholder="Ácido Ascórbico">
+                        <input class="w-90" id="producto" name="producto" type="text" placeholder="Ácido Ascórbico">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Concentración:</label>
-                        <input name="concentracion" id="concentracion" type="text" placeholder="1g / 10 ml">
+                        <input class="w-90" name="concentracion" id="concentracion" type="text" placeholder="1g / 10 ml">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Formato:</label>
-                        <input name="formato" id="formato" type="text" placeholder="Ampolla">
+                        <input class="w-90" name="formato" id="formato" type="text" placeholder="Ampolla">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Elaborado por:</label>
-                        <input name="elaboradoPor" id="elaboradoPor" type="text" placeholder="Reccius">
+                        <input class="w-90" name="elaboradoPor" id="elaboradoPor" type="text" placeholder="Reccius">
                     </div>
                 </div>
             </fieldset>
@@ -139,62 +139,63 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nro Lote:</label>
-                        <input required name="lote" id="lote" type="text" placeholder="RM-000000/00">
+                        <input required class="w-90" name="lote" id="lote" type="text" placeholder="RM-000000/00">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Tamaño Lote:</label>
-                        <input required name="tamano_lote" id="tamano_lote" type="text" placeholder="20">
+                        <input required class="w-90" name="tamano_lote" id="tamano_lote" type="number" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required name="fecha_elaboracion" id="fecha_elaboracion" type="date" placeholder="12345">
+                        <input required class="w-90" name="fecha_elaboracion" id="fecha_elaboracion" type="date" placeholder="12345">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input required name="fecha_vence" id="fecha_vence" type="date" placeholder="20">
+                        <input required class="w-90" name="fecha_vence" id="fecha_vence" type="date" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo Analisis:</label>
-                        <input required name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
+                        <input required class="w-90" name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
                     </div>
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required name="condicion_almacenamiento" id="condicion_almacenamiento" class="w-80 border rounded-sm" rows="4" placeholder="..."></textarea>
+                        <textarea required class="w-90" name="condicion_almacenamiento" id="condicion_almacenamiento" class="w-80 border rounded-sm" rows="4" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Cantidad Muestra:</label>
-                        <input required name="cantidad_muestra" id="cantidad_muestra" type="text" placeholder="...">
+                        <input required class="w-90" name="cantidad_muestra" id="cantidad_muestra" type="text" placeholder="...">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Cantidad Contra-muestra:</label>
-                        <input required name="cantidad_contramuestra" id="cantidad_contramuestra" type="text" placeholder="...">
+                        <input required class="w-90" name="cantidad_contramuestra" id="cantidad_contramuestra" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Registro ISP:</label>
-                        <input required name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
+                        <input required class="w-90" name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
-                        <input required name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
+                        <input required class="w-90" name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Muestreado por:</label>
-                        <select required name="muestreado_por" id="muestreado_por" class="select-style" style="width: 38.5%">
+                        <select required name="muestreado_por" id="muestreado_por" 
+                        class="select-style mx-0 form__select w-90">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
@@ -206,7 +207,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         </select>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
-
+                    <div class="form-group"></div>
                 </div>
             </fieldset>
             <div class="actions-container">
