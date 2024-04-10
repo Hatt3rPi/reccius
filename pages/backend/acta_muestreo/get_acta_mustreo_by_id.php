@@ -41,7 +41,7 @@ $query = mysqli_prepare($link, "SELECT
                         pro.elaborado_por as prod_elaborado_por,	
                         pro.pais_origen as prod_pais_origen,	
                         pro.documento_ingreso as prod_documento_ingreso,	
-                        pro.proveedor as prod_proveedor,
+                        pro.proveedor as prod_proveedor
 
 
                         FROM calidad_acta_muestreo as mu 
