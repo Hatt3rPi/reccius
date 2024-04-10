@@ -166,7 +166,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm" name="condicion_almacenamiento" id="condicion_almacenamiento"  rows="4" placeholder="..."></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="form-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento"  rows="2" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
