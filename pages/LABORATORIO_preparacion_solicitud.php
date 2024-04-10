@@ -25,12 +25,12 @@ $fechaActualFormato = $fechaActual->format('Y-m-d');
 $fechaLimiteFormato = $fechaLimite->format('Y-m-d');
 
 // Consulta SQL para obtener feriados entre las fechas
-$query = "SELECT fecha FROM feriados_chile WHERE fecha BETWEEN '$fechaActualFormato' AND '$fechaLimiteFormato'";
-$result = mysqli_query($conexion, $query);
+$queryDate = "SELECT fecha FROM feriados_chile WHERE fecha BETWEEN '$fechaActualFormato' AND '$fechaLimiteFormato'";
+$resultDate = mysqli_query($conexion, $queryDate);
 
 // Construir el arreglo de feriados
 $feriados = [];
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = mysqli_fetch_assoc($resultDate)) {
     $feriados[] = $row['fecha'];
 }
 function agregarDiasHabiles($fecha, $diasHabiles, $feriados) {

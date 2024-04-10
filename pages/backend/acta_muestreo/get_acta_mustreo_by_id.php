@@ -43,7 +43,6 @@ $query = mysqli_prepare($link, "SELECT
                         pro.documento_ingreso as prod_documento_ingreso,	
                         pro.proveedor as prod_proveedor
 
-
                         FROM calidad_acta_muestreo as mu 
                         JOIN calidad_productos as pro 
                         ON mu.id_producto = pro.id 
