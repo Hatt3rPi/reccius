@@ -788,7 +788,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let contadorSeleccionados = 0; // Contador para los botones seleccionados
 
         // Combina los dos NodeList en un solo array
-        const allElements = [...formRespElements, ...formVerifElements];
+        const allElements = [...formrespElements, ...formverifElements];
 
         allElements.forEach(element => {
             const radiobutton = element.querySelectorAll("input[type=radio");
