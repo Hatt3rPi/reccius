@@ -164,25 +164,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         /* 
             Columnas:
-        id	
-        numero_registro	
-        version_registro	
-        numero_acta	
-        version_acta	
-        fecha_muestreo	
-        id_especificacion	
-        id_producto	
-        id_analisisExterno	
-        aux_autoincremental	
-        aux_anomes	
-        aux_tipo	
-        estado	
-        responsable	
-        ejecutor	
-        verificador	
-        fecha_firma_responsable	
-        fecha_firma_ejecutor	
-        fecha_firma_verificador
+                id
+                numero_registro
+                version_registro
+                numero_acta
+                version_acta
+                fecha_muestreo
+                id_especificacion
+                id_producto
+                id_analisisExterno
+                aux_autoincremental
+                aux_anomes
+                aux_tipo
+                estado
+                responsable
+                ejecutor
+                verificador
+                fecha_firma_responsable
+                fecha_firma_ejecutor
+                fecha_firma_verificador
+                prod_identificador
+                prod_nombre
+                prod_tipo
+                prod_tipo_concentracion
+                prod_concentracion
+                prod_formato
+                prod_elaborado_por
+                prod_pais_origen
+                prod_documento_ingreso
+                prod_proveedor
         */
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];

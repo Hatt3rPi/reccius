@@ -30,18 +30,18 @@ $query = mysqli_prepare($link, "SELECT
                         mu.verificador as verificador ,	
                         mu.fecha_firma_responsable as fecha_firma_responsable ,	
                         mu.fecha_firma_ejecutor as fecha_firma_ejecutor ,	
-                        mu.fecha_firma_verificador as fecha_firma_verificador
+                        mu.fecha_firma_verificador as fecha_firma_verificador,
 
-                        pro.identificador_producto as prod_identificador	
-                        pro.nombre_producto as prod_nombre	
-                        pro.tipo_producto as prod_tipo	
-                        pro.tipo_concentracion as prod_tipo_concentracion	
-                        pro.concentracion as prod_concentracion	
-                        pro.formato as prod_formato	
-                        pro.elaborado_por as prod_elaborado_por	
-                        pro.pais_origen as prod_pais_origen	
-                        pro.documento_ingreso as prod_documento_ingreso	
-                        pro.proveedor as prod_proveedor
+                        pro.identificador_producto as prod_identificador,	
+                        pro.nombre_producto as prod_nombre,	
+                        pro.tipo_producto as prod_tipo,	
+                        pro.tipo_concentracion as prod_tipo_concentracion,	
+                        pro.concentracion as prod_concentracion,	
+                        pro.formato as prod_formato,	
+                        pro.elaborado_por as prod_elaborado_por,	
+                        pro.pais_origen as prod_pais_origen,	
+                        pro.documento_ingreso as prod_documento_ingreso,	
+                        pro.proveedor as prod_proveedor,
 
 
                         FROM calidad_acta_muestreo as mu 
