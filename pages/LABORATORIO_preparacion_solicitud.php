@@ -74,7 +74,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>N° Registro:</label>
-                        <input require id="registro" name="registro" type="text" placeholder="DCAL-CC-ENE-001">
+                        <input required id="registro" class="w-90" name="registro" type="text" placeholder="DCAL-CC-ENE-001">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -85,7 +85,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>N° Solicitud:</label>
-                        <input require id="numero_solicitud" name="numero_solicitud" type="text" placeholder="SAEPT-0101001-00">
+                        <input required id="numero_solicitud" name="numero_solicitud" type="text" placeholder="SAEPT-0101001-00">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -139,62 +139,62 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nro Lote:</label>
-                        <input require name="lote" id="lote" type="text" placeholder="RM-000000/00">
+                        <input required name="lote" id="lote" type="text" placeholder="RM-000000/00">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Tamaño Lote:</label>
-                        <input require name="tamano_lote" id="tamano_lote" type="text" placeholder="20">
+                        <input required name="tamano_lote" id="tamano_lote" type="text" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input require name="fecha_elaboracion" id="fecha_elaboracion" type="date" placeholder="12345">
+                        <input required name="fecha_elaboracion" id="fecha_elaboracion" type="date" placeholder="12345">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input require name="fecha_vence" id="fecha_vence" type="date" placeholder="20">
+                        <input required name="fecha_vence" id="fecha_vence" type="date" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo Analisis:</label>
-                        <input require name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
+                        <input required name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
                     </div>
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea require name="condicion_almacenamiento" id="condicion_almacenamiento" rows="4" placeholder="..."></textarea>
+                        <textarea required name="condicion_almacenamiento" id="condicion_almacenamiento" class="w-80 border rounded-sm" rows="4" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Cantidad Muestra:</label>
-                        <input require name="cantidad_muestra" id="cantidad_muestra" type="text" placeholder="...">
+                        <input required name="cantidad_muestra" id="cantidad_muestra" type="text" placeholder="...">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Cantidad Contra-muestra:</label>
-                        <input require name="cantidad_contramuestra" id="cantidad_contramuestra" type="text" placeholder="...">
+                        <input required name="cantidad_contramuestra" id="cantidad_contramuestra" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Registro ISP:</label>
-                        <input require name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
+                        <input required name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
-                        <input require name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
+                        <input required name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Muestreado por:</label>
-                        <select require name="muestreado_por" id="muestreado_por" class="select-style" style="width: 38.5%">
+                        <select required name="muestreado_por" id="muestreado_por" class="select-style" style="width: 38.5%">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
