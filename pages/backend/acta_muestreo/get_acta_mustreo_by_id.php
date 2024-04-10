@@ -39,7 +39,7 @@ Columnas:
 mysqli_stmt_bind_param($query, 's', $id_a_buscar);
 mysqli_stmt_execute($query);
 
-$result = mysqli_stmt_get_result($link, $query);
+$result = mysqli_stmt_get_result($query);
 $row = mysqli_fetch_assoc($result);
 
 if ($row) {
