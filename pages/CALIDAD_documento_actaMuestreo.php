@@ -795,21 +795,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
 
-        // Now `dataToSave` is defined and we can make the AJAX call
-        $.ajax({
-            url: './backend/acta_muestreo/save_selections.php', // Ensure this endpoint is configured on your server
-            type: 'POST',
-            data: {
-                selections: dataToSave
-            },
-            success: function(response) {
-                // Handle the server response here
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error saving: ", status, error);
-            }
-        });
+        // // Now `dataToSave` is defined and we can make the AJAX call
+        // $.ajax({
+        //     url: './backend/acta_muestreo/save_selections.php', // Ensure this endpoint is configured on your server
+        //     type: 'POST',
+        //     data: {
+        //         selections: dataToSave
+        //     },
+        //     success: function(response) {
+        //         // Handle the server response here
+        //         console.log(response);
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error("Error saving: ", status, error);
+        //     }
+        // });
     });
 </script>
 <script>
