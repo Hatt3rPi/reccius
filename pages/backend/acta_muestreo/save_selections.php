@@ -1,7 +1,8 @@
 <?php
 // Start the session and require database configuration
 session_start();
-require_once "path_to_your_database_configuration.php"; // Replace with your actual path
+require_once "/home/customw2/conexiones/config_reccius.php";
+
 
 // Check for active session
 if (!isset($_SESSION['usuario'])) {
