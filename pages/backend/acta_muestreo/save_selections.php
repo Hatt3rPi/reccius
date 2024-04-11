@@ -1,54 +1,46 @@
 <?php
+// Start the session and require database configuration
 session_start();
-require_once "/home/customw2/conexiones/config_reccius.php";
+require_once "path_to_your_database_configuration.php"; // Replace with your actual path
 
-// Verificar si hay una sesión activa
+// Check for active session
 if (!isset($_SESSION['usuario'])) {
-    echo "No autorizado";
-    exit;
+    exit('Not Authorized');
 }
 
-// Verificar si se recibieron datos
+// Check if data was received
 if (!isset($_POST['selections'])) {
-    echo "No se recibieron datos";
-    exit;
+    exit('No data received');
 }
 
-// Datos enviados desde el frontend
 $selections = $_POST['selections'];
 
-// Preparar la consulta para insertar las selecciones
+// Database connection
+$link = mysqli_connect("your_host", "your_username", "your_password", "your_database"); // Replace with your database connection details
+
+// Prepare the insert statement
 $query = "INSERT INTO save_selections (id_documento, radio_name, radio_value, checked) VALUES (?, ?, ?, ?)";
 
-// Preparar la conexión y la consulta
+// Prepare the connection and the statement
 $stmt = mysqli_prepare($link, $query);
-if (!$stmt) {
-    echo "Error al preparar la consulta: " . mysqli_error($link);
-    exit;
-}
 
 foreach ($selections as $selection) {
-    $id_documento = $selection['id_documento'];
-    $name = $selection['name'];
-    $value = $selection['value'];
-    $checked = $selection['checked'] ? 1 : 0; // Convierte true/false a 1/0
-
-    // Vincular parámetros a la consulta
-    mysqli_stmt_bind_param($stmt, "issi", $id_documento, $name, $value, $checked);
-
-    // Ejecutar la consulta
+    // Bind parameters to the query
+    mysqli_stmt_bind_param($stmt, "issi", $selection['id_documento'], $selection['name'], $selection['value'], $selection['checked']);
+    
+    // Execute the query
     $result = mysqli_stmt_execute($stmt);
     if (!$result) {
-        echo "Error al guardar la selección: " . mysqli_stmt_error($stmt);
-        exit; // Si quieres que el script continúe intentando guardar otras selecciones a pesar de los errores, quita esta línea.
+        // Handle any errors here
+        exit('Error saving selection: ' . mysqli_stmt_error($stmt));
     }
 }
 
-// Cerrar la consulta preparada
+// Close the prepared statement
 mysqli_stmt_close($stmt);
 
-// Cerrar la conexión a la base de datos
+// Close the database connection
 mysqli_close($link);
 
-echo "Selecciones guardadas correctamente";
+echo 'Selections saved successfully';
 ?>

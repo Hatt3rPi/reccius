@@ -779,12 +779,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     });
     document.getElementById('guardar').addEventListener('click', function() {
-        const idDocumento = document.getElementById('nro_registro').value; // Asumiendo que tienes un input o un elemento con el ID del documento
+        const idDocumento = document.getElementById('nro_registro').textContent; // Assuming the ID is in the textContent of an element
         const radioButtons = document.querySelectorAll("input[type='radio']");
         let dataToSave = [];
 
         radioButtons.forEach(radio => {
-            if (radio.checked) { // Solo agregar al array si el botón está seleccionado
+            if (radio.checked) { // Only add to the array if the radio button is selected
                 let radioInfo = {
                     id_documento: idDocumento,
                     name: radio.name,
@@ -795,21 +795,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
 
-        // Mostrar los datos recopilados en la consola
-        console.log(dataToSave);
-    });
-      // Aquí se realiza una solicitud AJAX para enviar los datos al servidor
-     $.ajax({
-        url: './backend/acta_muestreo/save_selections.php', // Asegúrate de tener este endpoint configurado en tu servidor
-        type: 'POST',
-        data: { selections: dataToSave },
-        success: function(response) {
-            // Aquí puedes manejar la respuesta del servidor
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error al guardar: ", status, error);
-        }
+        // Now `dataToSave` is defined and we can make the AJAX call
+        $.ajax({
+            url: './backend/acta_muestreo/save_selections.php', // Ensure this endpoint is configured on your server
+            type: 'POST',
+            data: {
+                selections: dataToSave
+            },
+            success: function(response) {
+                // Handle the server response here
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error saving: ", status, error);
+            }
+        });
     });
 </script>
 <script>
