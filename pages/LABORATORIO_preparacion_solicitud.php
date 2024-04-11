@@ -166,7 +166,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento"  rows="2" placeholder="..."></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
@@ -194,8 +194,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Muestreado por:</label>
-                        <select required name="muestreado_por" id="muestreado_por" 
-                        class="select-style mx-0 form__select w-90">
+                        <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
@@ -210,6 +209,136 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-group"></div>
                 </div>
             </fieldset>
+            <div id="QA_is_editing">
+                <fieldset>
+                    <legend>IV. Solicitud de Análisis Externo:</legend>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Laboratorio Analista:</label>
+                            <select name="laboratorio" id="laboratorio" class="select-style" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 83%" required>
+                                <option value="">Selecciona un Laboratorio</option>
+                                <?php foreach ($opciones['laboratorio'] as $opcion) : ?>
+                                    <option value="<?php echo htmlspecialchars($opcion); ?>">
+                                        <?php echo htmlspecialchars($opcion); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" style="display: none" />
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Fecha Solicitud:</label>
+                            <input name="fecha_solicitud" id="fecha_solicitud" type="date" placeholder="06-07-2023" style="width: 82.75%" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Análisis según:</label>
+                            <input name="analisis_segun" id="analisis_segun" type="text" placeholder="Cotización" />
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Fecha Cotización:</label>
+                            <input name="fecha_cotizacion" id="fecha_cotizacion" type="date" placeholder="06-07-2023" style="width: 82.75%" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estandar_provisto_por">Estándar Provisto por:</label>
+                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style" style="width: 82.5%">
+                                <option value="reccius">Reccius</option>
+                                <option value="cequc">CEQUC</option>
+                                <option value="pharmaisa">Pharma ISA</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Adjunta Hoja de seguridad</label>
+                            <input name="adjunta_HDS" id="adjunta_HDS" type="text" placeholder="No" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" value="<?php echo $fechaEntregaEstimadaFormato; ?>" style="width: 82.75%" />
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>N° Documento:</label>
+                            <input name="numero_documento" id="numero_documento" type="text" placeholder="123456" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Observaciones:</label>
+                            <textarea name="observaciones" id="observaciones" rows="4" placeholder="..."></textarea>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group"></div>
+                    </div>
+                </fieldset>
+                <br />
+                <br />
+                <fieldset>
+                    <legend>V. Análisis:</legend>
+                    <br />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Especificación de producto:</label>
+                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="06-07-2023" style="width: 82.75%" />
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Versión:</label>
+                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" style="width: 82.75%" />
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+                <br />
+                <fieldset>
+                    <legend>VI. Flujo de Aprobación:</legend>
+                    <br />
+                    <br />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Usuario Solicitante:</label>
+                            <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" style="width: 38.5%" readonly />
+                            <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Revisión a cargo de:</label>
+                            <select name="usuario_revisor" id="usuario_revisor" class="select-style" style="width: 38.5%" required>
+                                <option>Selecciona el usuario supervisor:</option>
+                                <option value="isumonte">
+                                    Inger Sumonte Rodríguez - Director Calidad
+                                </option>
+                                <option value="lcaques" selected>
+                                    Lynnda Caques Segovia - Coordinador Calidad
+                                </option>
+                                <option value="cpereira">
+                                    Catherine Pereira García - Jefe de Producción
+                                </option>
+                                <option value="lsepulveda">
+                                    Luis Sepúlveda Miranda - Director Técnico
+                                </option>
+                                <option value="fabarca212">Felipe Abarca</option>
+                                <option value="lucianoalonso2000">Luciano Abarca</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">EDITAR</button>
@@ -217,6 +346,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
+
 
     </div>
 
@@ -277,13 +407,23 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     $('#formulario_analisis_externo').on('submit', formSubmit)
+    
+    console.log({
+        QA_solicitud_analisis_editing
+    });
 
-    function validateTextRequiredInputs (formData) {
+    if (!QA_solicitud_analisis_editing) {
+        $('#QA_is_editing').remove()
+    }
+
+
+    function validateTextRequiredInputs(formData) {
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
         });
     }
+
     function formSubmit(event) {
         event.preventDefault();
         const formData = new FormData(this);
@@ -299,7 +439,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             success: function(data) {
                 var respuesta = JSON.parse(data);
                 if (respuesta.exito) {
-                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
                         if (status == "error") {
                             console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
                         } else {
@@ -307,7 +447,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             carga_listado();
                             console.log(respuesta.mensaje); // Manejar el error
                             //table.columns(9).search(buscarId).draw();
-                            
+
                         }
                     });
                 } else {
@@ -319,5 +459,4 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
         });
     }
-
 </script>

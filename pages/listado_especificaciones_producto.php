@@ -59,6 +59,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 
 <script>
+    // variable de main js
+    QA_solicitud_analisis_editing = false
 
     function filtrar_listado(estado) {
         var table = $('#listado').DataTable();

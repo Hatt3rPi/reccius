@@ -433,6 +433,7 @@ function actualizarBreadcrumb(nodos, urls) {
         breadcrumb.appendChild(li);
     });
 }
+let QA_solicitud_analisis_editing = false  
 
 function botones(id, accion, base) {
     console.log(id, accion, base);
