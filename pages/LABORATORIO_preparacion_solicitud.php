@@ -243,7 +243,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     function procesarDatosActa(response) {
-        console.log(response);
+        console.log({response});
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
             $('#id_producto').val(producto.id_producto);

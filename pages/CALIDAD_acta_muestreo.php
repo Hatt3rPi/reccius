@@ -345,7 +345,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function procesarDatosActa(response) {
-        console.log({response});
+        console.log(response);
 
         /* 
             Columnas:
