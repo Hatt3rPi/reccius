@@ -327,6 +327,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     function cargarDatosEspecificacion(id) {
+        console.log({id});
         $.ajax({
             url: './backend/acta_muestreo/get_acta_mustreo_by_id.php',
             type: 'GET',
@@ -344,7 +345,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function procesarDatosActa(response) {
-        console.log(response);
+        console.log({response});
 
         /* 
             Columnas:

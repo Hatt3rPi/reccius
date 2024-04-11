@@ -10,7 +10,7 @@ function featureNoDisponible(){
 }
 
 function obtenNotificaciones() {
-        fetch('../pages/backend/login/notificaciones.php')
+        fetch('../pages/backend/login/notificaciones.')
             .then(response => response.json())
             .then(data => {
                 const notificationCountElement = document.querySelector('.notification-count');
@@ -48,11 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function inicializarFormularioCrearUsuario() {
     // Cargar los roles disponibles
-    fetch('../pages/backend/roles/rolesBE.php') // Asegúrate de que la ruta es correcta
+    fetch('../pages/backend/roles/rolesBE.') // Asegúrate de que la ruta es correcta
         .then(response => {
             if (!response.ok) {
                 // Si la respuesta no es exitosa, lanza un error
-                throw new Error('La solicitud a rolesBE.php falló: ' + response.statusText);
+                throw new Error('La solicitud a rolesBE. falló: ' + response.statusText);
             }
             return response.json();
         })
@@ -79,7 +79,7 @@ $(document).ready(function () {
             event.preventDefault();
             $('#dynamic-content').hide();
             $('#loading-spinner').show();
-            $('#dynamic-content').load('crear_usuario.php', function () {
+            $('#dynamic-content').load('crear_usuario.', function () {
                 // Llamar a la función de inicialización después de cargar el formulario
                 obtenNotificaciones();
                 inicializarFormularioCrearUsuario();
@@ -102,7 +102,7 @@ $(document).ready(function () {
         $('#loading-spinner').show();
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
         obtenNotificaciones();
-        $('#dynamic-content').load('asignar_roles.php');
+        $('#dynamic-content').load('asignar_roles.');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
         } else {
@@ -118,7 +118,7 @@ $(document).ready(function () {
         $('#loading-spinner').show();
         // Cargar el formulario de configuración dentro del div #dynamic-content
         obtenNotificaciones();
-        $('#dynamic-content').load('modificar_perfil.php', function () {
+        $('#dynamic-content').load('modificar_perfil.', function () {
             cargarInformacionExistente();
         });
         
@@ -138,7 +138,7 @@ $(document).ready(function () {
         $('#loading-spinner').show();
         console.log('El enlace de solicitud de análisis fue clickeado.');
         obtenNotificaciones();
-        $('#dynamic-content').load('especificacion_producto.php?nuevo=true', function () {
+        $('#dynamic-content').load('especificacion_producto.?nuevo=true', function () {
             // Llamar a la función de inicialización después de cargar el formulario
             carga_tabla('FQ');
             carga_tabla('MB');
@@ -212,7 +212,7 @@ $(document).ready(function () {
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         obtenNotificaciones();
-        $('#dynamic-content').load('cotizador/ingreso_cotizacion.php?nuevo=true', function () {
+        $('#dynamic-content').load('cotizador/ingreso_cotizacion.?nuevo=true', function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
@@ -229,7 +229,7 @@ $(document).ready(function () {
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         obtenNotificaciones();
-        $('#dynamic-content').load('cotizador/busqueda_cotizacion.php?nuevo=true', function () {
+        $('#dynamic-content').load('cotizador/busqueda_cotizacion.?nuevo=true', function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
@@ -253,7 +253,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('listado_especificaciones_producto.php', function (response, status, xhr) {
+        $('#dynamic-content').load('listado_especificaciones_producto.', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
@@ -278,7 +278,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
         
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('index_superadmin.php', function (response, status, xhr) {
+        $('#dynamic-content').load('index_superadmin.', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
@@ -299,7 +299,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('listado_tareas.php', function (response, status, xhr) {
+        $('#dynamic-content').load('listado_tareas.', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
@@ -330,7 +330,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
@@ -382,7 +382,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
+        $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {
@@ -444,7 +444,7 @@ function botones(id, accion, base) {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     
                     $.ajax({
-                        url: 'especificacion_producto.php', // URL del script PHP
+                        url: 'especificacion_producto.', // URL del script 
                         type: 'POST', // Tipo de solicitud
                         data: { 
                             'id': id,
@@ -473,7 +473,7 @@ function botones(id, accion, base) {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     
                     $.ajax({
-                        url: 'documento_especificacion_producto.php', // URL del script PHP
+                        url: 'documento_especificacion_producto.', // URL del script 
                         type: 'POST', // Tipo de solicitud
                         data: { 
                             'id': id,
@@ -499,7 +499,7 @@ function botones(id, accion, base) {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     if(AppConfig.FLAGS.analisis_externo){
                         $.ajax({
-                            url: 'LABORATORIO_preparacion_solicitud.php', // URL del script PHP
+                            url: 'LABORATORIO_preparacion_solicitud.', // URL del script 
                             type: 'POST', // Tipo de solicitud
                             data: { 
                                 'id': id,
@@ -532,7 +532,7 @@ function botones(id, accion, base) {
                 case "recordar": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
-                        url: '../pages/backend/tareas/recordatorioBE.php',
+                        url: '../pages/backend/tareas/recordatorioBE.',
                         type: 'POST',
                         data: {
                             'idTarea': id
@@ -550,7 +550,7 @@ function botones(id, accion, base) {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     
                     $.ajax({
-                        url: 'documento_especificacion_producto.php', // URL del script PHP
+                        url: 'documento_especificacion_producto.', // URL del script 
                         type: 'POST', // Tipo de solicitud
                         data: { 
                             'id': id,
@@ -581,7 +581,7 @@ function botones(id, accion, base) {
                     console.log('generar_acta_muestreo');
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
-                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        url: '../pages/CALIDAD_documento_actaMuestreo.',
                         type: 'POST',
                         data: {
                             'id': id,
@@ -601,7 +601,7 @@ function botones(id, accion, base) {
                 case "generar_documento_solicitudes": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
-                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        url: '../pages/CALIDAD_documento_actaMuestreo.',
                         type: 'POST',
                         data: {
                             'id': id,
@@ -623,7 +623,7 @@ function botones(id, accion, base) {
                     // Llamar a una función que maneje la visualización del documento
                     console.log("REVISAR CLICKEADO CON EXITO");
                     $.ajax({
-                        url: '../pages/LABORATORIO_preparacion_solicitud.php',
+                        url: '../pages/LABORATORIO_preparacion_solicitud.',
                         type: 'POST',
                         data: {
                             'id': id,
@@ -644,7 +644,7 @@ function botones(id, accion, base) {
                     // Llamar a una función que maneje el envío del recordatorio
                     console.log("exito al oprimir generar_documento_solicitudes")   
                     $.ajax({
-                        url: '../pages/CALIDAD_acta_muestreo.php',
+                        url: '../pages/CALIDAD_acta_muestreo.',
                         type: 'POST',
                         data: {
                             'id': id,
@@ -653,6 +653,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
                             $('#dynamic-content').html(response);
+                            console.log({id, response});
                             cargarDatosEspecificacion(id);
                         },
                         error: function(xhr, status, error) {
@@ -667,3 +668,4 @@ function botones(id, accion, base) {
     }
 
 }
+
