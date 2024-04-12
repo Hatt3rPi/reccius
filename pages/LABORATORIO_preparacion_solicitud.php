@@ -378,27 +378,23 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         console.log({
             response
         });
-        if (response) {
-            $('#id_producto').val(response.id_producto).prop('disabled', true);
-            $('#Tipo_Producto').val(response.prod_tipo).prop('disabled', true);
-            $('#codigo_producto').val(response.prod_identificador).prop('disabled', true);
-            $('#producto').val(response.prod_nombre).prop('disabled', true);
-            $('#concentracion').val(response.prod_concentracion).prop('disabled', true);
-            $('#formato').val(response.prod_formato).prop('disabled', true);
-            $('#elaboradoPor').val(response.prod_elaborado_por).prop('disabled', true);
-            // * Identificacion de la muestra
+        if (response && response.productos && response.productos.length > 0) {
+            var producto = response.productos[0];
+            $('#id_producto').val(producto.id_producto).prop('disabled', true);;
+            $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
+            $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
+            $('#producto').val(producto.nombre_producto).prop('disabled', true);
+            $('#concentracion').val(producto.concentracion).prop('disabled', true);
+            $('#formato').val(producto.formato).prop('disabled', true);
+            $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
+            $('#numero_especificacion').val(producto.documento_producto).prop('disabled', true);
 
-
-            // * Acta de Muestreo
-            $('#version').val(response.version_acta).prop('disabled', true);
-            $('#numero_registro').val(response.numero_registro).prop('disabled', true);
-
-            // var especificaciones = Object.values(producto.especificaciones);
-            // if (especificaciones.length > 0) {
-            //     var especificacion = especificaciones[0];
-            //     $('#id_especificacion').val(especificacion.id_especificacion);
-            //     $('#version_especificacion').val(especificacion.version).prop('disabled', true);
-            // }
+            var especificaciones = Object.values(producto.especificaciones);
+            if (especificaciones.length > 0) {
+                var especificacion = especificaciones[0];
+                $('#id_especificacion').val(especificacion.id_especificacion);
+                $('#version_especificacion').val(especificacion.version).prop('disabled', true);
+            }
         } else {
             console.error("No se recibieron datos válidos: ", response);
         }
