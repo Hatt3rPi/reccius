@@ -132,7 +132,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                 </div>
             </fieldset>
-            <br><br>
+            <br />
+            <br />
             <fieldset>
                 <legend>III. Identificación de la muestra:</legend>
                 <br>
@@ -209,7 +210,137 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-group"></div>
                 </div>
             </fieldset>
-            
+            <br />
+            <br />
+            <fieldset>
+                <legend>IV. Solicitud de Análisis Externo:</legend>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Laboratorio Analista:</label>
+                        <select name="laboratorio" id="laboratorio" class="select-style" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 83%" required>
+                            <option value="">Selecciona un Laboratorio</option>
+                            <?php foreach ($opciones['laboratorio'] as $opcion) : ?>
+                                <option value="<?php echo htmlspecialchars($opcion); ?>">
+                                    <?php echo htmlspecialchars($opcion); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" style="display: none" />
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Fecha Solicitud:</label>
+                        <input name="fecha_solicitud" id="fecha_solicitud" type="date" placeholder="06-07-2023" style="width: 82.75%" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Análisis según:</label>
+                        <input name="analisis_segun" id="analisis_segun" type="text" placeholder="Cotización" />
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Fecha Cotización:</label>
+                        <input name="fecha_cotizacion" id="fecha_cotizacion" type="date" placeholder="06-07-2023" style="width: 82.75%" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="estandar_provisto_por">Estándar Provisto por:</label>
+                        <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style" style="width: 82.5%">
+                            <option value="reccius">Reccius</option>
+                            <option value="cequc">CEQUC</option>
+                            <option value="pharmaisa">Pharma ISA</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Adjunta Hoja de seguridad</label>
+                        <input name="adjunta_HDS" id="adjunta_HDS" type="text" placeholder="No" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
+                        <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" value="<?php echo $fechaEntregaEstimadaFormato; ?>" style="width: 82.75%" />
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>N° Documento:</label>
+                        <input name="numero_documento" id="numero_documento" type="text" placeholder="123456" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Observaciones:</label>
+                        <textarea name="observaciones" id="observaciones" rows="4" placeholder="..."></textarea>
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Esta es la línea divisora -->
+                    <div class="form-group"></div>
+                </div>
+            </fieldset>
+            <br />
+            <br />
+            <fieldset>
+                <legend>V. Análisis:</legend>
+                <br />
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Especificación de producto:</label>
+                        <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="06-07-2023" style="width: 82.75%" />
+                    </div>
+                    <div class="divider"></div>
+                    <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Versión:</label>
+                        <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" style="width: 82.75%" />
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <br />
+            <fieldset>
+                <legend>VI. Flujo de Aprobación:</legend>
+                <br />
+                <br />
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Usuario Solicitante:</label>
+                        <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" style="width: 38.5%" readonly />
+                        <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Revisión a cargo de:</label>
+                        <select name="usuario_revisor" id="usuario_revisor" class="select-style" style="width: 38.5%" required>
+                            <option>Selecciona el usuario supervisor:</option>
+                            <option value="isumonte">
+                                Inger Sumonte Rodríguez - Director Calidad
+                            </option>
+                            <option value="lcaques" selected>
+                                Lynnda Caques Segovia - Coordinador Calidad
+                            </option>
+                            <option value="cpereira">
+                                Catherine Pereira García - Jefe de Producción
+                            </option>
+                            <option value="lsepulveda">
+                                Luis Sepúlveda Miranda - Director Técnico
+                            </option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">EDITAR</button>
@@ -226,6 +357,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
 </html>
 <script>
+    var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
     function cargarDatosEspecificacion(id) {
         $.ajax({
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
@@ -243,24 +375,30 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     function procesarDatosActa(response) {
-        console.log({response});
-        if (response && response.productos && response.productos.length > 0) {
-            var producto = response.productos[0];
-            $('#id_producto').val(producto.id_producto);
-            $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
-            $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
-            $('#producto').val(producto.nombre_producto).prop('disabled', true);
-            $('#concentracion').val(producto.concentracion).prop('disabled', true);
-            $('#formato').val(producto.formato).prop('disabled', true);
-            $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
-            $('#numero_especificacion').val(producto.documento_producto).prop('disabled', true);
+        console.log({
+            response
+        });
+        if (response) {
+            $('#id_producto').val(response.id_producto).prop('disabled', true);
+            $('#Tipo_Producto').val(response.prod_tipo).prop('disabled', true);
+            $('#codigo_producto').val(response.prod_identificador).prop('disabled', true);
+            $('#producto').val(response.prod_nombre).prop('disabled', true);
+            $('#concentracion').val(response.prod_concentracion).prop('disabled', true);
+            $('#formato').val(response.prod_formato).prop('disabled', true);
+            $('#elaboradoPor').val(response.prod_elaborado_por).prop('disabled', true);
+            // * Identificacion de la muestra
 
-            var especificaciones = Object.values(producto.especificaciones);
-            if (especificaciones.length > 0) {
-                var especificacion = especificaciones[0];
-                $('#id_especificacion').val(especificacion.id_especificacion);
-                $('#version_especificacion').val(especificacion.version).prop('disabled', true);
-            }
+
+            // * Acta de Muestreo
+            $('#version').val(response.version_acta).prop('disabled', true);
+            $('#numero_registro').val(response.numero_registro).prop('disabled', true);
+
+            // var especificaciones = Object.values(producto.especificaciones);
+            // if (especificaciones.length > 0) {
+            //     var especificacion = especificaciones[0];
+            //     $('#id_especificacion').val(especificacion.id_especificacion);
+            //     $('#version_especificacion').val(especificacion.version).prop('disabled', true);
+            // }
         } else {
             console.error("No se recibieron datos válidos: ", response);
         }
@@ -284,16 +422,17 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
     }
 
+    $('#formulario_analisis_externo').on('submit', formSubmit);
     function formSubmit(event) {
         event.preventDefault();
         const formData = new FormData(this);
         validateTextRequiredInputs(formData)
         var datosFormulario = $('#formulario_analisis_externo').serialize();
-
+        datosFormulario += '&id_producto=' + idFormulario;
         console.log(datosFormulario);
 
         $.ajax({
-            url: 'backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
+            url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
             type: 'POST',
             data: datosFormulario,
             success: function(data) {
@@ -306,8 +445,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             console.log('Listado cargado correctamente cargado exitosamente.');
                             carga_listado();
                             console.log(respuesta.mensaje); // Manejar el error
-                            //table.columns(9).search(buscarId).draw();
-
                         }
                     });
                 } else {

@@ -436,7 +436,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         console.log(datosFormulario);
 
         $.ajax({
-            url: 'backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
+            url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
             type: 'POST',
             data: datosFormulario,
             success: function(data) {

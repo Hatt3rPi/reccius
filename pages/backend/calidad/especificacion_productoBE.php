@@ -85,6 +85,8 @@ function procesarFormulario($link) {
             $idProducto = $resultadoProducto['id'];
         }
         if ($estaEditando) {
+            // * editando
+            //Todo: revisar si esta es la última versión
             $idEspecificacion_editada = intval(limpiarDato($_POST['id_especificacion']));
             actualizarEstadoEspecificacion($link, $idEspecificacion_editada);
         }
