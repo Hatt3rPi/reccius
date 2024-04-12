@@ -151,7 +151,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" type="date" placeholder="12345">
+                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>" type="date" placeholder="12345">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -279,7 +279,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Observaciones:</label>
-                        <textarea name="observaciones" id="observaciones" rows="4" placeholder="..."></textarea>
+                        <textarea name="observaciones" id="observaciones" class="form-control mx-0 w-90 border rounded-sm" rows="4" placeholder="..."></textarea>
                     </div>
                     <div class="divider"></div>
                     <!-- Esta es la línea divisora -->
@@ -380,6 +380,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
+            documento_producto
+            $('#registro').val(producto.id_producto);//? es esto lo que tenemos que cambiar?
+            
             $('#id_producto').val(producto.id_producto).prop('disabled', true);;
             $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
             $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
@@ -392,7 +395,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
-                $('#id_especificacion').val(especificacion.id_especificacion);
+                $('#id_especificacion').val(especificacion.documento);
                 $('#version_especificacion').val(especificacion.version).prop('disabled', true);
             }
         } else {
@@ -425,31 +428,32 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         validateTextRequiredInputs(formData)
         var datosFormulario = $('#formulario_analisis_externo').serialize();
         datosFormulario += '&id_producto=' + idFormulario;
-        console.log(datosFormulario);
+        console.log({datosFormulario});
+        console.log(datosFormulario.split('&').join('\n'));    
 
-        $.ajax({
-            url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
-            type: 'POST',
-            data: datosFormulario,
-            success: function(data) {
-                var respuesta = JSON.parse(data);
-                if (respuesta.exito) {
-                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-                        if (status == "error") {
-                            console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
-                        } else {
-                            console.log('Listado cargado correctamente cargado exitosamente.');
-                            carga_listado();
-                            console.log(respuesta.mensaje); // Manejar el error
-                        }
-                    });
-                } else {
-                    console.log(respuesta.mensaje); // Manejar el error
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log("Error AJAX: " + error);
-            }
-        });
+        // $.ajax({
+        //     url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
+        //     type: 'POST',
+        //     data: datosFormulario,
+        //     success: function(data) {
+        //         var respuesta = JSON.parse(data);
+        //         if (respuesta.exito) {
+        //             $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
+        //                 if (status == "error") {
+        //                     console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
+        //                 } else {
+        //                     console.log('Listado cargado correctamente cargado exitosamente.');
+        //                     carga_listado();
+        //                     console.log(respuesta.mensaje); // Manejar el error
+        //                 }
+        //             });
+        //         } else {
+        //             console.log(respuesta.mensaje); // Manejar el error
+        //         }
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.log("Error AJAX: " + error);
+        //     }
+        // });
     }
 </script>
