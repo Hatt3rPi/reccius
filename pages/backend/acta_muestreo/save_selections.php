@@ -1,5 +1,4 @@
-<!-- <?php
-// Start the session and require database configuration
+<?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -53,4 +52,4 @@ mysqli_stmt_close($stmt);
 mysqli_close($link);
 
 echo 'Selections saved successfully';
-?> -->
+?> 
