@@ -380,7 +380,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
-            documento_producto
+            
             $('#registro').val(producto.id_producto);//? es esto lo que tenemos que cambiar?
             
             $('#id_producto').val(producto.id_producto).prop('disabled', true);;
