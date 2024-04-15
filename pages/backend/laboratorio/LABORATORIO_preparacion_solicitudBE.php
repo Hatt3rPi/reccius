@@ -87,8 +87,8 @@ function insertarRegistro($link, $datos)
 
 function actualizarRegistro($link, $datos)
 {
-    $camposAActualizar = ['analisis_segun','codigo_mastersoft','estado','estandar_otro','estandar_segun','fecha_entrega','fecha_entrega_estimada','fecha_firma_revisor','fecha_solicitud','fecha_vencimiento','hds_adjunto','hds_otro','laboratorio','numero_documento','numero_registro','observaciones','revisado_por','solicitado_por','tamano_contramuestra','tamano_muestra','condicion_almacenamiento','fecha_cotizacion','fecha_elaboracion','fecha_registro','id_especificacion','id_producto','lote','muestreado_por','numero_pos','numero_solicitud','registro_isp','tamano_lote','tipo_analisis','version'];
-    
+    $camposAActualizar = ['registro','version','numero_solicitud','fecha_registro','tipo_producto','codigo_producto','producto','concentracion','formato','elaboradoPor','lote','tamano_lote','fecha_elaboracion','fecha_vence','tipo_analisis','condicion_almacenamiento','cantidad_muestra','cantidad_contramuestra','registro_isp','muestreado_por','muestreado_POS','numero_especificacion','version_especificacion','usuario_revisor','id_producto','id_especificacion'];
+
     $partesConsulta = [];
     $valoresParaVincular = [];
     $tipos = '';
@@ -97,9 +97,9 @@ function actualizarRegistro($link, $datos)
         if (isset($datos[$campo]) && $datos[$campo] !== '') {
             $partesConsulta[] = "$campo = ?";
             $valoresParaVincular[] = $datos[$campo];
-            $tipos .= campoTipo($campo); // Obtiene el tipo de dato adecuado para cada campo
+            $tipos .= campoTipo($campo);
         }
-    }// * esto me ayuda a actualizar solo lo que le envio
+    } // * esto me ayuda a actualizar solo lo que le envio
 
 
     // Asegurarte de que haya algo que actualizar
@@ -123,7 +123,8 @@ function actualizarRegistro($link, $datos)
         throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt));
     }
 }
-function campoTipo($campo) {
+function campoTipo($campo)
+{
     // Define los tipos de datos según el campo para la función mysqli_stmt_bind_param
     $tiposCampo = [
         // Campos de tipo INTEGER
@@ -204,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
-    
+
     //!Test
     $Algo_que_seguramente_no_existe = limpiarDato($_POST['Algo_que_seguramente_no_existe']);
 
