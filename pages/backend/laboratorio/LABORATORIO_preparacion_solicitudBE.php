@@ -176,6 +176,7 @@ function campoTipo($campo) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
     // Limpiar y validar datos recibidos del formulario
+
     $registro = limpiarDato($_POST['registro']);
     $version = limpiarDato($_POST['version']);
     $numero_solicitud = limpiarDato($_POST['numero_solicitud']);
@@ -200,10 +201,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numero_especificacion = limpiarDato($_POST['numero_especificacion']);
     $version_especificacion = limpiarDato($_POST['version_especificacion']);
     $usuario_revisor = limpiarDato($_POST['usuario_revisor']);
-    $Algo_que_seguramente_no_existe = limpiarDato($_POST['Algo_que_seguramente_no_existe']);
+
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
-
+    
+    //!Test
+    $Algo_que_seguramente_no_existe = limpiarDato($_POST['Algo_que_seguramente_no_existe']);
 
     /* //* CAMPOS DE LA BASE DE DATOS "calidad_analisis_externo"
     ?   id

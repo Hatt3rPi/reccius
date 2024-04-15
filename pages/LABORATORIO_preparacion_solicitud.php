@@ -215,7 +215,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="informacion_faltante">
                 <fieldset>
                     <legend>IV. Solicitud de Análisis Externo:</legend>
-    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label>Laboratorio Analista:</label>
@@ -359,10 +359,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
 </html>
 <script>
-    if(!QA_solicitud_analisis_editing){
+    if (!QA_solicitud_analisis_editing) {
+        console.log({
+            QA_solicitud_analisis_editing
+        });
         $("#informacion_faltante").remove();
     }
     var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+
     function cargarDatosEspecificacion(id) {
         $.ajax({
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
@@ -385,9 +389,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
-            
-            $('#registro').val(producto.id_producto);//? es esto lo que tenemos que cambiar?
-            
+
+            $('#registro').val(producto.id_producto); //? es esto lo que tenemos que cambiar?
+
             $('#id_producto').val(producto.id_producto).prop('disabled', true);;
             $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
             $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
@@ -427,38 +431,41 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     $('#formulario_analisis_externo').on('submit', formSubmit);
+
     function formSubmit(event) {
         event.preventDefault();
         const formData = new FormData(this);
         validateTextRequiredInputs(formData)
         var datosFormulario = $('#formulario_analisis_externo').serialize();
         datosFormulario += '&id_producto=' + idFormulario;
-        console.log({datosFormulario});
-        console.log(datosFormulario.split('&').join('\n'));    
+        console.log({
+            datosFormulario
+        });
+        console.log(datosFormulario.split('&').join('\n'));
 
-        // $.ajax({
-        //     url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
-        //     type: 'POST',
-        //     data: datosFormulario,
-        //     success: function(data) {
-        //         var respuesta = JSON.parse(data);
-        //         if (respuesta.exito) {
-        //             $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-        //                 if (status == "error") {
-        //                     console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
-        //                 } else {
-        //                     console.log('Listado cargado correctamente cargado exitosamente.');
-        //                     carga_listado();
-        //                     console.log(respuesta.mensaje); // Manejar el error
-        //                 }
-        //             });
-        //         } else {
-        //             console.log(respuesta.mensaje); // Manejar el error
-        //         }
-        //     },
-        //     error: function(xhr, status, error) {
-        //         console.log("Error AJAX: " + error);
-        //     }
-        // });
+        $.ajax({
+            url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
+            type: 'POST',
+            data: datosFormulario,
+            success: function(data) {
+                var respuesta = JSON.parse(data);
+                if (respuesta.exito) {
+                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
+                        if (status == "error") {
+                            console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
+                        } else {
+                            console.log('Listado cargado correctamente cargado exitosamente.');
+                            carga_listado();
+                            console.log(respuesta.mensaje); // Manejar el error
+                        }
+                    });
+                } else {
+                    console.log(respuesta.mensaje); // Manejar el error
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error AJAX: " + error);
+            }
+        });
     }
 </script>
