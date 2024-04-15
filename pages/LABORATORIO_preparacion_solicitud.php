@@ -359,12 +359,19 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
 </html>
 <script>
-    if (!QA_solicitud_analisis_editing) {
-        console.log({
+    console.log({
             QA_solicitud_analisis_editing
         });
-        $("#informacion_faltante").remove();
+    function informacionFaltante () {
+        if (!QA_solicitud_analisis_editing) {
+            console.log({
+                QA_solicitud_analisis_editing
+            });
+            $("#informacion_faltante").remove();
+        }
     }
+    informacionFaltante();
+
     var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
     function cargarDatosEspecificacion(id) {
