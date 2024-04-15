@@ -719,12 +719,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Continúa con el proceso de descarga del PDF como antes
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
+        elementToExport.style.border = 'none'; // Establecer el borde a none
+        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
+        // Guardar los estilos actuales para restablecerlos después
+        const oldBorderStyle = elementToExport.style.border;
+        const oldBoxShadowStyle = elementToExport.style.boxShadow;
 
         html2canvas(elementToExport, {
             scale: 2
         }).then(canvas => {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
+            // Restablecer los estilos originales después de generar el PDF
+            elementToExport.style.border = oldBorderStyle;
+            elementToExport.style.boxShadow = oldBoxShadowStyle;
 
             // Restablecer la visibilidad de todos los botones después de generar el PDF
             allButtonGroups.forEach(group => {
