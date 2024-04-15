@@ -373,7 +373,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
             type: 'GET',
             data: {
-                id: id
+                id: id,
+                id_analisis:idFormulario
             },
             success: function(response) {
                 procesarDatosActa(response);
@@ -391,7 +392,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
-            $('#registro').val(producto.id_producto); //? es esto lo que tenemos que cambiar?
+            $('#registro').val(producto.documento_producto); //? es esto lo que tenemos que cambiar?
 
             $('#id_producto').val(producto.id_producto).prop('disabled', true);;
             $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
@@ -442,6 +443,25 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         console.log({
             datosFormulario
         });
+        /*
+        registro=DCAL-CC-EMP-006
+        version=1
+        numero_solicitud=num-test
+        fecha_registro=2024-04-15
+        lote=RM-000-test
+        tamano_lote=10
+        fecha_elaboracion=2024-04-15
+        fecha_vence=2025-01-16
+        tipo_analisis=An%C3%A1lisis%20de%20rutina
+        condicion_almacenamiento=1
+        cantidad_muestra=5
+        cantidad_contramuestra=10
+        registro_isp=N%C2%B02988%2F18.%20RF%20XIII%2006%2F18.%201A%2C%202B%2C%202C%2C%203A%2C%203D%2C%204
+        muestreado_POS=1
+        muestreado_por=mgodoy
+        id_especificacion=123
+        id_producto=2
+        */
         console.log(datosFormulario.split('&').join('\n'));
 
         $.ajax({
