@@ -437,7 +437,7 @@ function actualizarBreadcrumb(nodos, urls) {
 let QA_solicitud_analisis_editing = false  
 
 function botones(id, accion, base) {
-    console.log({id, accion, base,QA_solicitud_analisis_editing});
+    console.log({id, accion, base});
     switch (base){
         case "especificacion":{
             switch (accion) {
