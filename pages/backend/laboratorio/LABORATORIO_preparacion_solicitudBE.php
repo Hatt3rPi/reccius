@@ -43,13 +43,13 @@ function insertarRegistro($link, $datos)
         $datos['lote'],
         $datos['tamano_lote'],
         $datos['fecha_elaboracion'],
-        $datos['fecha_vence'],
-        $datos['cantidad_muestra'],
-        $datos['cantidad_contramuestra'],
+        $datos['fecha_vencimiento'],
+        $datos['tamano_muestra'],
+        $datos['tamano_contramuestra'],
         $datos['registro_isp'],
         $datos['condicion_almacenamiento'],
         $datos['muestreado_por'],
-        $datos['muestreado_POS'],
+        $datos['numero_pos'],
         $datos['tipo_analisis']
     );
     $exito = mysqli_stmt_execute($stmt);
@@ -68,9 +68,9 @@ function insertarRegistro($link, $datos)
             $datos['registro'], $datos['numero_solicitud'],
             $datos['fecha_registro'], $_SESSION['usuario'],  $datos['usuario_revisor'],
             $datos['lote'], $datos['tamano_lote'], $datos['fecha_elaboracion'],
-            $datos['fecha_vence'], $datos['cantidad_muestra'], $datos['cantidad_contramuestra'],
+            $datos['fecha_vencimiento'], $datos['tamano_muestra'], $datos['tamano_contramuestra'],
             $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'],
-            $datos['muestreado_POS'], $datos['tipo_analisis']
+            $datos['numero_pos'], $datos['tipo_analisis']
         ],
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)
@@ -87,7 +87,7 @@ function insertarRegistro($link, $datos)
 
 function actualizarRegistro($link, $datos)
 {
-    $camposAActualizar = ['registro','version','numero_solicitud','fecha_registro','tipo_producto','codigo_producto','producto','concentracion','formato','elaboradoPor','lote','tamano_lote','fecha_elaboracion','fecha_vence','tipo_analisis','condicion_almacenamiento','cantidad_muestra','cantidad_contramuestra','registro_isp','muestreado_por','muestreado_POS','numero_especificacion','version_especificacion','usuario_revisor','id_producto','id_especificacion'];
+    $camposAActualizar = ['registro','version','numero_solicitud','fecha_registro','tipo_producto','codigo_producto','producto','concentracion','formato','elaboradoPor','lote','tamano_lote','fecha_elaboracion','fecha_vencimiento','tipo_analisis','condicion_almacenamiento','tamano_muestra','tamano_contramuestra','registro_isp','muestreado_por','numero_pos','numero_especificacion','version_especificacion','usuario_revisor','id_producto','id_especificacion'];
 
     $partesConsulta = [];
     $valoresParaVincular = [];
@@ -191,14 +191,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lote = limpiarDato($_POST['lote']);
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
     $fecha_elaboracion = limpiarDato($_POST['fecha_elaboracion']);
-    $fecha_vence = limpiarDato($_POST['fecha_vence']);
+    $fecha_vencimiento = limpiarDato($_POST['fecha_vencimiento']);
     $tipo_analisis = limpiarDato($_POST['tipo_analisis']);
     $condicion_almacenamiento = limpiarDato($_POST['condicion_almacenamiento']);
-    $cantidad_muestra = limpiarDato($_POST['cantidad_muestra']);
-    $cantidad_contramuestra = limpiarDato($_POST['cantidad_contramuestra']);
+    $tamano_muestra = limpiarDato($_POST['tamano_muestra']);
+    $tamano_contramuestra = limpiarDato($_POST['tamano_contramuestra']);
     $registro_isp = limpiarDato($_POST['registro_isp']);
     $muestreado_por = limpiarDato($_POST['muestreado_por']);
-    $muestreado_POS = limpiarDato($_POST['muestreado_POS']);
+    $numero_pos = limpiarDato($_POST['numero_pos']);
     $numero_especificacion = limpiarDato($_POST['numero_especificacion']);
     $version_especificacion = limpiarDato($_POST['version_especificacion']);
     $usuario_revisor = limpiarDato($_POST['usuario_revisor']);
@@ -270,14 +270,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'lote' => $lote,
             'tamano_lote' => $tamano_lote,
             'fecha_elaboracion' => $fecha_elaboracion,
-            'fecha_vence' => $fecha_vence,
+            'fecha_vencimiento' => $fecha_vencimiento,
             'tipo_analisis' => $tipo_analisis,
             'condicion_almacenamiento' => $condicion_almacenamiento,
-            'cantidad_muestra' => $cantidad_muestra,
-            'cantidad_contramuestra' => $cantidad_contramuestra,
+            'tamano_muestra' => $tamano_muestra,
+            'tamano_contramuestra' => $tamano_contramuestra,
             'registro_isp' => $registro_isp,
             'muestreado_por' => $muestreado_por,
-            'muestreado_POS' => $muestreado_POS,
+            'numero_pos' => $numero_pos,
             'numero_especificacion' => $numero_especificacion,
             'version_especificacion' => $version_especificacion,
             'usuario_revisor' => $usuario_revisor,

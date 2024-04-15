@@ -156,7 +156,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_vence" id="fecha_vence" type="date" placeholder="20">
+                        <input required class="form-control mx-0 w-90" name="fecha_vencimiento" id="fecha_vencimiento" type="date" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
@@ -173,12 +173,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Cantidad Muestra:</label>
-                        <input required class="form-control mx-0 w-90" name="cantidad_muestra" id="cantidad_muestra" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90" name="tamano_muestra" id="tamano_muestra" type="text" placeholder="...">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Cantidad Contra-muestra:</label>
-                        <input required class="form-control mx-0 w-90" name="cantidad_contramuestra" id="cantidad_contramuestra" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90" name="tamano_contramuestra" id="tamano_contramuestra" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
@@ -189,7 +189,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
-                        <input required class="form-control mx-0 w-90" name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90" name="numero_pos" id="numero_pos" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
@@ -419,40 +419,48 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         console.log('procesarDatosActaUpdate')
         console.log({response})
         /*
-        "codigo_mastersoft": null,
-        "condicion_almacenamiento": "e",
+        "id": 16,
         "estado": "Pendiente Acta de Muestreo",
-        "estandar_otro": null,
-        "estandar_segun": "reccius",
-        "fecha_cotizacion": "2024-01-31",
-        "fecha_elaboracion": "2024-01-31",
-        "fecha_entrega_estimada": "2024-02-14",
-        "fecha_entrega": null,
-        "fecha_firma_revisor": null
-        "fecha_registro": "2024-01-31",
-        "fecha_solicitud": "2024-01-31",
-        "fecha_vencimiento": "2024-01-31",
-        "hds_adjunto": "j",
-        "hds_otro": null,
-        "id_especificacion": 50,
-        "id_producto": 36,
-        "id": 2,
-        "laboratorio": "CEQUC",
-        "lote": "c",
-        "muestreado_por": "mgodoy",
-        "numero_documento": "k",
-        "numero_pos": "h",
-        "numero_registro": "a",
-        "numero_solicitud": "b",
-        "observaciones": "l",
-        "registro_isp": "N°2988\/18. RF XIII 06\/18. 1A, 2B, 2C, 3A, 3D, 4",
-        "revisado_por": "lcaques",
-        "solicitado_por": "fabarca212",
-        "tamano_contramuestra": "g",
-        "tamano_lote": "d",
-        "tamano_muestra": "f",
-        "tipo_analisis": "",
+        "numero_registro": "DCAL-CC-EMP-006",
         "version": 1,
+        "numero_solicitud": "num-test",
+        "fecha_registro": "2024-04-15",
+        "laboratorio": null,
+        "fecha_solicitud": null,
+        "analisis_segun": null,
+        "numero_documento": null,
+        "fecha_cotizacion": null,
+        "estandar_segun": null,
+        "estandar_otro": null,
+        "hds_adjunto": null,
+        "hds_otro": null,
+        "fecha_entrega": null,
+        "fecha_entrega_estimada": "0000-00-00",
+        "id_especificacion": 123,
+        "id_producto": 2,
+        "lote": "RM-000-test",
+        "registro_isp": "N°2988\/18. RF XIII 06\/18. 1A, 2B, 2C, 3A, 3D, 4",
+        "condicion_almacenamiento": "1",
+        "tipo_analisis": "Análisis de rutina",
+        "muestreado_por": "mgodoy",
+        "numero_pos": "1",
+        "codigo_mastersoft": null,
+        "tamano_lote": "10",
+        "fecha_elaboracion": "2024-04-15",
+        "fecha_vencimiento": "2025-01-16",
+        "tamano_muestra": "5",
+        "tamano_contramuestra": "10",
+        "observaciones": null,
+        "solicitado_por": "javier2000asr",
+        "revisado_por": "",
+        "fecha_firma_revisor": null,
+        "prod_identificador_producto": "2",
+        "prod_nombre_producto": "test",
+        "prod_tipo_producto": "Materia Prima",
+        "prod_tipo_concentracion": null,
+        "prod_concentracion": "concentracion",
+        "prod_formato": "frmato",
+        "prod_elaborado_por": "Reccius"
         */
         if (response && response.analisis) {
 
