@@ -212,7 +212,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             </fieldset>
             <br />
             <br />
-            <div class="informacion_faltante">
+            <div id="informacion_faltante">
                 <fieldset>
                     <legend>IV. Solicitud de Análisis Externo:</legend>
 
@@ -359,14 +359,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
 </html>
 <script>
-    console.log({
-            QA_solicitud_analisis_editing
-        });
     function informacionFaltante () {
         if (!QA_solicitud_analisis_editing) {
-            console.log({
-                QA_solicitud_analisis_editing
-            });
             $("#informacion_faltante").remove();
         }
     }
