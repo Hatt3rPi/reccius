@@ -209,7 +209,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //!Test
     $Algo_que_seguramente_no_existe = limpiarDato($_POST['Algo_que_seguramente_no_existe']);
 
-    /* //* CAMPOS DE LA BASE DE DATOS "calidad_analisis_externo"
+    /*
+    * CAMPOS DE LA BASE DE DATOS "calidad_analisis_externo"
     ?   id
     ?   analisis_segun
     ?   codigo_mastersoft

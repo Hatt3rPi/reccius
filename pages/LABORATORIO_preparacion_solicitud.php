@@ -359,13 +359,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
 </html>
 <script>
-    function informacionFaltante () {
+    function informacionFaltante() {
         if (!QA_solicitud_analisis_editing) {
             $("#informacion_faltante").remove();
         }
     }
     informacionFaltante();
-
     var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
     function cargarDatosEspecificacion(id) {
@@ -374,10 +373,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             type: 'GET',
             data: {
                 id: id,
-                id_analisis:idFormulario
             },
             success: function(response) {
-                procesarDatosActa(response);
+                if (QA_solicitud_analisis_editing) {
+                    procesarDatosActaUpdate(response);
+                } else {
+                    procesarDatosActa(response);
+                }
             },
             error: function(xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
@@ -409,6 +411,87 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 $('#id_especificacion').val(especificacion.documento);
                 $('#version_especificacion').val(especificacion.version).prop('disabled', true);
             }
+        } else {
+            console.error("No se recibieron datos válidos: ", response);
+        }
+    }
+    function procesarDatosActaUpdate(response) {
+        /*
+        "codigo_mastersoft": null,
+        "condicion_almacenamiento": "e",
+        "estado": "Pendiente Acta de Muestreo",
+        "estandar_otro": null,
+        "estandar_segun": "reccius",
+        "fecha_cotizacion": "2024-01-31",
+        "fecha_elaboracion": "2024-01-31",
+        "fecha_entrega_estimada": "2024-02-14",
+        "fecha_entrega": null,
+        "fecha_firma_revisor": null
+        "fecha_registro": "2024-01-31",
+        "fecha_solicitud": "2024-01-31",
+        "fecha_vencimiento": "2024-01-31",
+        "hds_adjunto": "j",
+        "hds_otro": null,
+        "id_especificacion": 50,
+        "id_producto": 36,
+        "id": 2,
+        "laboratorio": "CEQUC",
+        "lote": "c",
+        "muestreado_por": "mgodoy",
+        "numero_documento": "k",
+        "numero_pos": "h",
+        "numero_registro": "a",
+        "numero_solicitud": "b",
+        "observaciones": "l",
+        "registro_isp": "N°2988\/18. RF XIII 06\/18. 1A, 2B, 2C, 3A, 3D, 4",
+        "revisado_por": "lcaques",
+        "solicitado_por": "fabarca212",
+        "tamano_contramuestra": "g",
+        "tamano_lote": "d",
+        "tamano_muestra": "f",
+        "tipo_analisis": "",
+        "version": 1,
+        */
+        if (response && response.analisis) {
+
+            var analisis = response.analisis;
+            //* I. Análisis:
+            $('#registro').val(analisis.numero_registro).prop('disabled', true);
+            $('#version').val(analisis.version).prop('disabled', true);
+            $('#numero_solicitud').val(analisis.numero_solicitud).prop('disabled', true);
+            $('#fecha_registro').val(analisis.fecha_registro).prop('disabled', true);
+            //* II. Especificaciones
+            $('#id_producto').val(analisis.prod_identificador_producto).prop('disabled', true);
+            $('#tipo_producto').val(analisis.prod_tipo_producto).prop('disabled', true);
+            $('#codigo_producto').val(analisis.prod_identificador_producto).prop('disabled', true);
+            $('#producto').val(analisis.prod_nombre_producto).prop('disabled', true);
+            $('#formato').val(analisis.prod_formato).prop('disabled', true);
+            $('#concentracion').val(analisis.prod_concentracion).prop('disabled', true);
+            $('#elaboradoPor').val(analisis.prod_elaborado_por).prop('disabled', true);
+            //* III. Identificación
+            $('#lote').val(analisis.lote).prop('disabled', true);
+            $('#tamano_lote').val(analisis.tamano_lote).prop('disabled', true);
+            $('#fecha_elaboracion').val(analisis.fecha_elaboracion).prop('disabled', true);
+            $('#fecha_vencimiento').val(analisis.fecha_vencimiento).prop('disabled', true);
+            $('#tipo_analisis').val(analisis.tipo_analisis).prop('disabled', true);
+            $('#condicion_almacenamiento').val(analisis.condicion_almacenamiento).prop('disabled', true);
+            $('#tamano_muestra').val(analisis.tamano_muestra).prop('disabled', true);
+            $('#tamano_contramuestra').val(analisis.tamano_contramuestra).prop('disabled', true);
+            $('#registro_isp').val(analisis.registro_isp).prop('disabled', true);
+            $('#numero_pos').val(analisis.numero_pos).prop('disabled', true);
+            $('#muestreado_por').val(analisis.muestreado_por).prop('disabled', true);
+
+            /*
+            condicion_almacenamiento
+
+
+            */
+
+            //* V. Análisis
+            $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
+            $('#id_especificacion').val(analisis.id_especificacion);
+            $('#version_especificacion').val(analisis.version).prop('disabled', true);
+            
         } else {
             console.error("No se recibieron datos válidos: ", response);
         }

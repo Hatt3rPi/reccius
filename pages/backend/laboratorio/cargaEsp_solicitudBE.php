@@ -4,7 +4,6 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Validación y saneamiento del ID
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$id_analisis = isset($_GET['id_analisis']) ? intval($_GET['id_analisis']) : 0;
 
 // Consulta para obtener los productos, especificaciones y análisis asociados
 $query = "SELECT 
@@ -28,10 +27,20 @@ $query = "SELECT
         INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
         WHERE cep.id_especificacion = ?";
+
 $queryAnalisisExterno = "SELECT 
-            *
-        FROM calidad_analisis_externo 
-        WHERE id = ?";
+                            an.*,
+                            prod.identificador_producto AS 'prod_identificador_producto', 
+                            prod.nombre_producto AS 'prod_nombre_producto', 
+                            prod.tipo_producto AS 'prod_tipo_producto', 
+                            prod.tipo_concentracion AS 'prod_tipo_concentracion', 
+                            prod.concentracion AS 'prod_concentracion', 
+                            prod.formato AS 'prod_formato', 
+                            prod.elaborado_por AS 'prod_elaborado_por'
+                        FROM calidad_analisis_externo AS an
+                        JOIN calidad_productos AS prod 
+                        ON an.id_producto = prod.id
+                        WHERE an.id = ?";
 
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "i", $id);
@@ -95,3 +104,4 @@ header('Content-Type: application/json; charset=utf-8');
 echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
 
 ?>
+ 
