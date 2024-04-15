@@ -556,7 +556,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td contenteditable="true">40 unidades</td>
                         <td contenteditable="true">80 unidades</td>
                         <td contenteditable="true">120 Unidades</td>
-                        <td class="class_seccion3">
+                        <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="planResp1" id="planResp1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -565,7 +565,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
 
-                        <td>
+                        <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="planVB1" id="planVB1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -580,7 +580,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td contenteditable="true">40 unidades</td>
                         <td contenteditable="true">80 unidades</td>
                         <td contenteditable="true">420 Unidades</td>
-                        <td>
+                        <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -589,7 +589,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
 
-                        <td>
+                        <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="planVB2" id="planVB2a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -604,7 +604,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td contenteditable="true">50 unidades</td>
                         <td contenteditable="true">100 unidades</td>
                         <td contenteditable="true">150 Unidades</td>
-                        <td>
+                        <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="planResp3" id="planResp3a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -613,7 +613,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
 
-                        <td>
+                        <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="planVB3" id="planVB3a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -719,12 +719,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Continúa con el proceso de descarga del PDF como antes
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
+        elementToExport.style.border = 'none'; // Establecer el borde a none
+        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
+        // Guardar los estilos actuales para restablecerlos después
+        const oldBorderStyle = elementToExport.style.border;
+        const oldBoxShadowStyle = elementToExport.style.boxShadow;
 
         html2canvas(elementToExport, {
             scale: 2
         }).then(canvas => {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
+            // Restablecer los estilos originales después de generar el PDF
+            elementToExport.style.border = oldBorderStyle;
+            elementToExport.style.boxShadow = oldBoxShadowStyle;
 
             // Restablecer la visibilidad de todos los botones después de generar el PDF
             allButtonGroups.forEach(group => {
@@ -750,13 +758,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             let heightLeft = imgHeight;
 
             let position = 0;
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
 
             while (heightLeft >= 0) {
                 position = heightLeft - imgHeight;
                 pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
 
