@@ -721,18 +721,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const elementToExport = document.getElementById('form-container');
         elementToExport.style.border = 'none'; // Establecer el borde a none
         elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
-        // Guardar los estilos actuales para restablecerlos después
-        const oldBorderStyle = elementToExport.style.border;
-        const oldBoxShadowStyle = elementToExport.style.boxShadow;
+        
 
         html2canvas(elementToExport, {
             scale: 2
         }).then(canvas => {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
-            // Restablecer los estilos originales después de generar el PDF
-            elementToExport.style.border = oldBorderStyle;
-            elementToExport.style.boxShadow = oldBoxShadowStyle;
+            // Establecer los estilos originales después de generar el PDF
+            elementToExport.style.border = '1px solid #000';
+            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
             // Restablecer la visibilidad de todos los botones después de generar el PDF
             allButtonGroups.forEach(group => {
