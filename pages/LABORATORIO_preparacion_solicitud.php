@@ -416,6 +416,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
     function procesarDatosActaUpdate(response) {
+        console.log('procesarDatosActaUpdate')
+        console.log({response})
         /*
         "codigo_mastersoft": null,
         "condicion_almacenamiento": "e",

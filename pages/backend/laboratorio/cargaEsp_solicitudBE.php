@@ -50,9 +50,9 @@ $result = mysqli_stmt_get_result($stmt);
 $analisis = [];
 $productos = [];
 
-if ($id_analisis !== 0) {
+if ($id !== 0) {
     $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
-    mysqli_stmt_bind_param($stmtAnali, "i", $id_analisis);
+    mysqli_stmt_bind_param($stmtAnali, "i", $id);
     mysqli_stmt_execute($stmtAnali);
 
     $resultAnali = mysqli_stmt_get_result($stmtAnali);
