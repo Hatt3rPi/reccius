@@ -90,7 +90,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro" type="date" placeholder="dd/mm/aaaa" value="<?php echo date('Y-m-d'); ?>">
+                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro"  placeholder="dd/mm/aaaa" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
             </fieldset>
@@ -150,12 +150,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>" type="date" placeholder="dd/mm/aaaa">
+                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>"  placeholder="dd/mm/aaaa">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_vencimiento" id="fecha_vencimiento" type="date" placeholder="dd/mm/aaaa">
+                        <input required class="form-control mx-0 w-90" name="fecha_vencimiento" id="fecha_vencimiento"  placeholder="dd/mm/aaaa">
                     </div>
                 </div>
                 <div class="form-row">
@@ -231,7 +231,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Solicitud:</label>
-                            <input name="fecha_solicitud" class="form-control mx-0 w-90" id="fecha_solicitud" type="date" placeholder="dd/mm/aaaa" />
+                            <input name="fecha_solicitud" class="form-control mx-0 w-90" id="fecha_solicitud"  placeholder="dd/mm/aaaa" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -243,7 +243,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Cotización:</label>
-                            <input name="fecha_cotizacion" id="fecha_cotizacion" type="date" placeholder="dd/mm/aaaa" class="form-control mx-0 w-90" />
+                            <input name="fecha_cotizacion" id="fecha_cotizacion"  placeholder="dd/mm/aaaa" class="form-control mx-0 w-90" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -266,7 +266,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
-                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" placeholder="dd/mm/aaaa" value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90" />
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada"  placeholder="dd/mm/aaaa" value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
