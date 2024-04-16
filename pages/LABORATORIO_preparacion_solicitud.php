@@ -364,8 +364,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
     ['fecha_registro', 'fecha_elaboracion', 'fecha_vencimiento', 'fecha_solicitud', 'fecha_cotizacion', 'fecha_entrega_estimada'].forEach(val => {
         $('#' + val).datepicker({
-            format: 'dd/mm/yyyy',
-            autoclose: true
+            format: 'dd/mm/yyyy'
         });
     });
 
