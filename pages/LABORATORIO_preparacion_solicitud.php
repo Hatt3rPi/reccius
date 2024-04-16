@@ -217,7 +217,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Laboratorio Analista:</label>
-                            <select name="laboratorio" id="laboratorio" class="select-style" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
+                            <select name="laboratorio" id="laboratorio" class="select-style form-control mx-0 w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
                                 <option value="">Selecciona un Laboratorio</option>
                                 <?php foreach ($opciones['laboratorio'] as $opcion) : ?>
                                     <option value="<?php echo htmlspecialchars($opcion); ?>">
@@ -237,7 +237,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Análisis según:</label>
-                            <input name="analisis_segun" id="analisis_segun" type="text" placeholder="Cotización" />
+                            <input name="analisis_segun" id="analisis_segun" class="form-control mx-0 w-90" type="text" placeholder="Cotización" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
@@ -249,7 +249,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label for="estandar_provisto_por">Estándar Provisto por:</label>
-                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style" style="width: 82.5%">
+                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style form-control mx-0 w-90" style="width: 82.5%">
                                 <option value="reccius">Reccius</option>
                                 <option value="cequc">CEQUC</option>
                                 <option value="pharmaisa">Pharma ISA</option>
@@ -260,7 +260,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Adjunta Hoja de seguridad</label>
-                            <input name="adjunta_HDS" id="adjunta_HDS" type="text" placeholder="No" />
+                            <input name="adjunta_HDS" id="adjunta_HDS" type="text" class="form-control mx-0 w-90" placeholder="No" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -272,7 +272,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>N° Documento:</label>
-                            <input name="numero_documento" id="numero_documento" type="text" placeholder="123456" />
+                            <input name="numero_documento" id="numero_documento" class="form-control mx-0 w-90" type="text" placeholder="123456" />
                         </div>
                     </div>
                     <div class="form-row">
