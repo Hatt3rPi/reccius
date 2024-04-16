@@ -363,7 +363,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
     ['fecha_registro', 'fecha_elaboracion', 'fecha_vencimiento', 'fecha_solicitud', 'fecha_cotizacion', 'fecha_entrega_estimada'].forEach(val => {
-        $(val).datepicker({
+        $('#' + val).datepicker({
             format: 'dd/mm/yyyy',
             autoclose: true
         });
