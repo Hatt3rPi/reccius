@@ -90,7 +90,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro" type="date" value="<?php echo date('Y-m-d'); ?>">
+                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro" type="date" placeholder="dd/mm/aaaa" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
             </fieldset>
@@ -151,12 +151,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>" type="date" placeholder="12345">
+                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>" type="date" placeholder="dd/mm/aaaa">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_vencimiento" id="fecha_vencimiento" type="date" placeholder="20">
+                        <input required class="form-control mx-0 w-90" name="fecha_vencimiento" id="fecha_vencimiento" type="date" placeholder="dd/mm/aaaa">
                     </div>
                 </div>
                 <div class="form-row">
@@ -233,7 +233,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Solicitud:</label>
-                            <input name="fecha_solicitud" class="form-control mx-0 w-90" id="fecha_solicitud" type="date" placeholder="06-07-2023" />
+                            <input name="fecha_solicitud" class="form-control mx-0 w-90" id="fecha_solicitud" type="date" placeholder="dd/mm/aaaa" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -245,7 +245,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Cotización:</label>
-                            <input name="fecha_cotizacion" id="fecha_cotizacion" type="date" placeholder="06-07-2023" class="form-control mx-0 w-90" />
+                            <input name="fecha_cotizacion" id="fecha_cotizacion" type="date" placeholder="dd/mm/aaaa" class="form-control mx-0 w-90" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -268,7 +268,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
-                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90" />
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" type="date" placeholder="dd/mm/aaaa" value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
@@ -367,6 +367,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     informacionFaltante();
     var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
+    ['fecha_registro', 'fecha_elaboracion', 'fecha_vencimiento', 'fecha_solicitud', 'fecha_cotizacion', 'fecha_entrega_estimada'].forEach(val => {
+        $(val).datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+    });
+
+
     function cargarDatosEspecificacion(id) {
         $.ajax({
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
@@ -376,6 +384,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             },
             success: function(response) {
                 if (QA_solicitud_analisis_editing) {
+                    //Todo: pendiente de acta de muestreo
                     procesarDatosActaUpdate(response);
                 } else {
                     procesarDatosActa(response);
@@ -386,6 +395,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
         });
     }
+
+    $('#fecha_elaboracion').datepicker({
+        format: 'dd/mm/yyyy', // Formato de fecha
+        autoclose: true
+    });
 
     function procesarDatosActa(response) {
         console.log({
@@ -415,9 +429,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             console.error("No se recibieron datos válidos: ", response);
         }
     }
+
     function procesarDatosActaUpdate(response) {
         console.log('procesarDatosActaUpdate')
-        console.log({response})
+        console.log({
+            response
+        })
         /*
         "id": 16,
         "estado": "Pendiente Acta de Muestreo",
@@ -501,7 +518,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
             $('#id_especificacion').val(analisis.id_especificacion);
             $('#version_especificacion').val(analisis.version).prop('disabled', true);
-            
+
         } else {
             console.error("No se recibieron datos válidos: ", response);
         }
