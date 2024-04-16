@@ -94,7 +94,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                 </div>
             </fieldset>
-            <br><br>
+            <br />
             <fieldset>
                 <legend>II. Especificaciones del producto:</legend>
                 <br>
@@ -132,7 +132,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                 </div>
             </fieldset>
-            <br />
             <br />
             <fieldset>
                 <legend>III. Identificación de la muestra:</legend>
@@ -211,7 +210,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 </div>
             </fieldset>
             <br />
-            <br />
             <div id="informacion_faltante">
                 <fieldset>
                     <legend>IV. Solicitud de Análisis Externo:</legend>
@@ -288,7 +286,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                 </fieldset>
                 <br />
-                <br />
                 <fieldset>
                     <legend>V. Análisis:</legend>
                     <br />
@@ -305,7 +302,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         </div>
                     </div>
                 </fieldset>
-                <br />
                 <br />
                 <fieldset>
                     <legend>VI. Flujo de Aprobación:</legend>
@@ -342,7 +338,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                 </fieldset>
             </div>
-            <br />
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">EDITAR</button>
@@ -398,7 +393,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
     $('#fecha_elaboracion').datepicker({
         format: 'dd/mm/yyyy', // Formato de fecha
-        autoclose: true
     });
 
     function procesarDatosActa(response) {
