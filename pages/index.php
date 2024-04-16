@@ -17,10 +17,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reccius</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    //jquery ui
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 
     <!-- CSS de Bootstrap 4 -->
@@ -47,7 +47,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notify.js"></script>
-    
+
 
 </head>
 
@@ -214,15 +214,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="smenu">
                         <a id="cotizador_ingreso" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/liberacion.svg" 
-                                alt="Icono de ingresar dentro de cotizador" class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/liberacion.svg" alt="Icono de ingresar dentro de cotizador" class="icono-usuario" height="24" width="24" />
                             </span>
                             Ingreso
                         </a>
                         <a id="cotizador_busqueda" href="#" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/search.svg" 
-                                alt="Icono de buscar dentro de cotizador" class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/search.svg" alt="Icono de buscar dentro de cotizador" class="icono-usuario" height="24" width="24" />
                             </span>
                             Buscar
                         </a>
@@ -247,12 +245,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="../assets/js/features_customware.js"></script>
     <script src="../assets/js/scripts_index.js"></script>
     <script src="../assets/js/botones.js"></script>
-    
+
 
 </body>
 
 </html>
-<script >
+<script>
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
@@ -282,55 +280,55 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var sidebar = document.querySelector('.sidebar');
         var content = document.querySelector('.content');
         var nav = document.querySelector('.breadcrumb-container');
-        
-        
-        
-        
+
+
+
+
         nav.classList.toggle('breadcrumbexpanded');
         sidebar.classList.toggle('sidebar-hidden');
         content.classList.toggle('content-expanded');
-        
 
-        
+
+
     });
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Inicializa el breadcrumb al cargar la página
-    inicializarBreadcrumb();
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inicializa el breadcrumb al cargar la página
+        inicializarBreadcrumb();
 
-    const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
+        const breadcrumbLinks = document.querySelectorAll("[data-breadcrumb]");
 
-    function inicializarBreadcrumb() {
-       // Solo muestra "Home" al cargar la página
-        const breadcrumb = document.querySelector(".breadcrumb");
-        breadcrumb.innerHTML = ''; // Limpia el breadcrumb actual
-        const liHome = document.createElement("li");
-        liHome.className = "breadcrumb-item";
-        liHome.textContent = "Home"; // Cambiado para ser solo texto
-        breadcrumb.appendChild(liHome);
-    }
+        function inicializarBreadcrumb() {
+            // Solo muestra "Home" al cargar la página
+            const breadcrumb = document.querySelector(".breadcrumb");
+            breadcrumb.innerHTML = ''; // Limpia el breadcrumb actual
+            const liHome = document.createElement("li");
+            liHome.className = "breadcrumb-item";
+            liHome.textContent = "Home"; // Cambiado para ser solo texto
+            breadcrumb.appendChild(liHome);
+        }
 
-    function updateBreadcrumb(path) {
-        // Actualiza el breadcrumb según el enlace clickeado
-        const breadcrumb = document.querySelector(".breadcrumb");
-        breadcrumb.innerHTML = ''; // Limpia el breadcrumb actual
+        function updateBreadcrumb(path) {
+            // Actualiza el breadcrumb según el enlace clickeado
+            const breadcrumb = document.querySelector(".breadcrumb");
+            breadcrumb.innerHTML = ''; // Limpia el breadcrumb actual
 
-        const paths = path.split(" > ");
-        paths.forEach((p, index) => {
-        const li = document.createElement("li");
-        li.className = "breadcrumb-item";
-        li.textContent = p; // Cambiado para ser solo texto
-        breadcrumb.appendChild(li);
-    });
-    }
+            const paths = path.split(" > ");
+            paths.forEach((p, index) => {
+                const li = document.createElement("li");
+                li.className = "breadcrumb-item";
+                li.textContent = p; // Cambiado para ser solo texto
+                breadcrumb.appendChild(li);
+            });
+        }
 
-    // Asigna el listener a cada enlace que afecte el breadcrumb
-    breadcrumbLinks.forEach(link => {
-        link.addEventListener("click", function(e) {
-            e.preventDefault(); // Previene la acción por defecto
-            const path = this.getAttribute("data-breadcrumb");
-            updateBreadcrumb(path);
+        // Asigna el listener a cada enlace que afecte el breadcrumb
+        breadcrumbLinks.forEach(link => {
+            link.addEventListener("click", function(e) {
+                e.preventDefault(); // Previene la acción por defecto
+                const path = this.getAttribute("data-breadcrumb");
+                updateBreadcrumb(path);
+            });
         });
     });
-});
 </script>
