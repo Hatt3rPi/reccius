@@ -90,7 +90,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro"  placeholder="dd/mm/aaaa" value="<?php echo date('Y-m-d'); ?>">
+                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro"  placeholder="dd/mm/aaaa" type="date" value="<?php echo date('Y-m-d'); ?>">
                     </div>
                 </div>
             </fieldset>
@@ -150,12 +150,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>"  placeholder="dd/mm/aaaa">
+                        <input required class="form-control mx-0 w-90" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>"  placeholder="dd/mm/aaaa" type="date">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input required class="form-control mx-0 w-90" name="fecha_vencimiento" id="fecha_vencimiento"  placeholder="dd/mm/aaaa">
+                        <input required class="form-control mx-0 w-90" name="fecha_vencimiento" id="fecha_vencimiento"  placeholder="dd/mm/aaaa" type="date">
                     </div>
                 </div>
                 <div class="form-row">
@@ -217,7 +217,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Laboratorio Analista:</label>
-                            <select name="laboratorio" id="laboratorio" class="select-style form-control mx-0 w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
+                            <select name="laboratorio" id="laboratorio" class="select-style mx-0 form__select w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
                                 <option value="">Selecciona un Laboratorio</option>
                                 <?php foreach ($opciones['laboratorio'] as $opcion) : ?>
                                     <option value="<?php echo htmlspecialchars($opcion); ?>">
@@ -231,7 +231,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Solicitud:</label>
-                            <input name="fecha_solicitud" class="form-control mx-0 w-90" id="fecha_solicitud"  placeholder="dd/mm/aaaa" />
+                            <input name="fecha_solicitud" class="form-control mx-0 w-90" id="fecha_solicitud"  placeholder="dd/mm/aaaa" type="date" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -243,13 +243,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Cotización:</label>
-                            <input name="fecha_cotizacion" id="fecha_cotizacion"  placeholder="dd/mm/aaaa" class="form-control mx-0 w-90" />
+                            <input name="fecha_cotizacion" id="fecha_cotizacion"  placeholder="dd/mm/aaaa" type="date" class="form-control mx-0 w-90" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="estandar_provisto_por">Estándar Provisto por:</label>
-                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style form-control mx-0 w-90" style="width: 82.5%">
+                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style mx-0 form__select w-90" style="width: 82.5%">
                                 <option value="reccius">Reccius</option>
                                 <option value="cequc">CEQUC</option>
                                 <option value="pharmaisa">Pharma ISA</option>
@@ -266,7 +266,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
-                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada"  placeholder="dd/mm/aaaa" value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90" />
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada"  placeholder="dd/mm/aaaa" type="date" value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
