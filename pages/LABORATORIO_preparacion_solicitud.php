@@ -310,14 +310,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Usuario Solicitante:</label>
-                            <input type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" style="width: 38.5%" readonly />
+                            <input class="form-control mx-0 w-90" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>"  readonly />
                             <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Revisión a cargo de:</label>
-                            <select name="usuario_revisor" id="usuario_revisor" class="select-style" style="width: 38.5%" required>
+                            <select name="usuario_revisor" id="usuario_revisor" class="select-style mx-0 form__select w-90" required>
                                 <option>Selecciona el usuario supervisor:</option>
                                 <option value="isumonte">
                                     Inger Sumonte Rodríguez - Director Calidad
@@ -340,7 +340,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             </div>
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">EDITAR</button>
+                <button type="submit" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
@@ -355,7 +355,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 </html>
 <script>
     function informacionFaltante() {
-        if (!QA_solicitud_analisis_editing) {
+        if(QA_solicitud_analisis_editing){
+            $("#editarGenerarVersion").hide();
+        }else{
+            $("#guardar").hide();
             $("#informacion_faltante").remove();
         }
     }
@@ -363,9 +366,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
     ['fecha_registro', 'fecha_elaboracion', 'fecha_vencimiento', 'fecha_solicitud', 'fecha_cotizacion', 'fecha_entrega_estimada'].forEach(val => {
+        console.log('#' + val);
         $('#' + val).datepicker({
-            format: 'dd/mm/yyyy', 
-            autoclose: true
+            format: 'dd/mm/yyyy',
         });
     });
 
@@ -379,7 +382,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             },
             success: function(response) {
                 if (QA_solicitud_analisis_editing) {
-                    //Todo: pendiente de acta de muestreo
                     procesarDatosActaUpdate(response);
                 } else {
                     procesarDatosActa(response);
@@ -425,57 +427,62 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     function procesarDatosActaUpdate(response) {
-        console.log('procesarDatosActaUpdate')
         console.log({
             response
         })
         /*
-        "id": 16,
-        "estado": "Pendiente Acta de Muestreo",
-        "numero_registro": "DCAL-CC-EMP-006",
-        "version": 1,
-        "numero_solicitud": "num-test",
-        "fecha_registro": "2024-04-15",
-        "laboratorio": null,
-        "fecha_solicitud": null,
-        "analisis_segun": null,
-        "numero_documento": null,
-        "fecha_cotizacion": null,
-        "estandar_segun": null,
-        "estandar_otro": null,
-        "hds_adjunto": null,
-        "hds_otro": null,
-        "fecha_entrega": null,
-        "fecha_entrega_estimada": "0000-00-00",
-        "id_especificacion": 123,
-        "id_producto": 2,
-        "lote": "RM-000-test",
-        "registro_isp": "N°2988\/18. RF XIII 06\/18. 1A, 2B, 2C, 3A, 3D, 4",
-        "condicion_almacenamiento": "1",
-        "tipo_analisis": "Análisis de rutina",
-        "muestreado_por": "mgodoy",
-        "numero_pos": "1",
-        "codigo_mastersoft": null,
-        "tamano_lote": "10",
-        "fecha_elaboracion": "2024-04-15",
-        "fecha_vencimiento": "2025-01-16",
-        "tamano_muestra": "5",
-        "tamano_contramuestra": "10",
-        "observaciones": null,
-        "solicitado_por": "javier2000asr",
-        "revisado_por": "",
-        "fecha_firma_revisor": null,
-        "prod_identificador_producto": "2",
-        "prod_nombre_producto": "test",
-        "prod_tipo_producto": "Materia Prima",
-        "prod_tipo_concentracion": null,
-        "prod_concentracion": "concentracion",
-        "prod_formato": "frmato",
-        "prod_elaborado_por": "Reccius"
+            "id": 16,
+            "estado": "Pendiente Acta de Muestreo",
+            "numero_registro": "DCAL-CC-EMP-006",
+            "version": 1,
+            "numero_solicitud": "num-test",
+            "fecha_registro": "2024-04-15",
+            "laboratorio": null,
+            "fecha_solicitud": null,
+            "analisis_segun": null,
+            "numero_documento": null,
+            "fecha_cotizacion": null,
+            "estandar_segun": null,
+            "estandar_otro": null,
+            "hds_adjunto": null,
+            "hds_otro": null,
+            "fecha_entrega": null,
+            "fecha_entrega_estimada": "0000-00-00",
+            "id_especificacion": 123,
+            "id_producto": 2,
+            "lote": "RM-000-test",
+            "registro_isp": "N°2988\/18. RF XIII 06\/18. 1A, 2B, 2C, 3A, 3D, 4",
+            "condicion_almacenamiento": "1",
+            "tipo_analisis": "Análisis de rutina",
+            "muestreado_por": "mgodoy",
+            "numero_pos": "1",
+            "codigo_mastersoft": null,
+            "tamano_lote": "10",
+            "fecha_elaboracion": "2024-04-15",
+            "fecha_vencimiento": "2025-01-16",
+            "tamano_muestra": "5",
+            "tamano_contramuestra": "10",
+            "observaciones": null,
+            "solicitado_por": "javier2000asr",
+            "revisado_por": "",
+            "fecha_firma_revisor": null,
+            "prod_identificador_producto": "2",
+            "prod_nombre_producto": "test",
+            "prod_tipo_producto": "Materia Prima",
+            "prod_tipo_concentracion": null,
+            "prod_concentracion": "concentracion",
+            "prod_formato": "frmato",
+            "prod_elaborado_por": "Reccius"
         */
         if (response && response.analisis) {
 
             var analisis = response.analisis;
+
+            if (analisis.estado == "Pendiente Acta de Muestreo") {
+                $("#informacion_faltante").remove();
+                $("#editarGenerarVersion").prop('disabled', true);;
+            }
+
             //* I. Análisis:
             $('#registro').val(analisis.numero_registro).prop('disabled', true);
             $('#version').val(analisis.version).prop('disabled', true);
