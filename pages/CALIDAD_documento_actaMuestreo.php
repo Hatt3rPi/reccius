@@ -1038,4 +1038,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.error("No se recibieron datos válidos: ", response);
         }
     }
+
+document.getElementById('firmar').addEventListener('click', function() {
+    // Hacer visibles los elementos de .formulario.resp
+    document.querySelectorAll('.formulario.resp *').forEach(function(element) {
+        element.style.visibility = 'visible';
+    });
+    document.getElementById('guardar').style.display = 'none';
+    document.getElementById('firmar').style.display = 'none';
+    $('.resp').css('background-color', '#f4fac2');
+    
+});
+
 </script>
