@@ -982,6 +982,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
                 $('#nro_version').text(1);
                 $('#realizadoPor').text('Nombre:');
+                document.querySelectorAll('.formulario.verif, .formulario.resp').forEach(function(element) {
+                element.style.display = 'none'; // Establecer el estilo de display a 'none' para ocultarlos
+                });
             }
 
 
