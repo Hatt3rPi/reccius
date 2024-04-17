@@ -692,7 +692,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div class="button-container">
     <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
     <button class="botones" id="guardar">Guardar</button>
-    <button class="botones" id="firmar">Firmar</button>
+    <button class="botones" id="firmar">Ingresar Resultados</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
 </div>
 <!-- Modal -->
@@ -734,6 +734,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     const metodoManual = document.getElementById('muestreoManual').checked;
     const metodoDigital = document.getElementById('muestreoDigital').checked;
 
+    // Cerrar el modal después de seleccionar la opción
+    $('#modalMetodoMuestreo').modal('hide');
     if (metodoManual) {
         // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
         document.getElementById('download-pdf').click();
@@ -743,9 +745,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             element.style.visibility = 'visible';
         });
     }
-
-    // Cerrar el modal después de seleccionar la opción
-    $('#modalMetodoMuestreo').modal('hide');
+    document.getElementById('metodo_muestreo').style.display = 'none';
+    document.getElementById('firmar').style.display = 'block';
 });
     document.getElementById('download-pdf').addEventListener('click', function() {
 
@@ -1032,6 +1033,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'hidden'; // Hacer invisible el contenido
                  });
+                document.getElementById('firmar').style.display = 'none';
+                document.getElementById('guardar').style.display = 'none';
+                document.getElementById('download-pdf').style.display = 'none';
             }
 
 
