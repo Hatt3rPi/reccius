@@ -31,7 +31,7 @@ function insertarRegistro($link, $datos)
     // Luego usa estas variables en la función mysqli_stmt_bind_param
     mysqli_stmt_bind_param(
         $stmt,
-        'iiissssssssssssssss',
+        'iiisssssssssssssssss',
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
@@ -50,7 +50,9 @@ function insertarRegistro($link, $datos)
         $datos['condicion_almacenamiento'],
         $datos['muestreado_por'],
         $datos['numero_pos'],
-        $datos['tipo_analisis']
+        $datos['tipo_analisis'],
+        $datos['laboratorio']
+        
     );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
@@ -189,6 +191,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formato = limpiarDato($_POST['formato']);
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $lote = limpiarDato($_POST['lote']);
+    $laboratorio = limpiarDato($_POST['laboratorio']);
+ 
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
     $fecha_elaboracion = limpiarDato($_POST['fecha_elaboracion']);
     $fecha_vencimiento = limpiarDato($_POST['fecha_vencimiento']);
@@ -282,7 +286,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'version_especificacion' => $version_especificacion,
             'usuario_revisor' => $usuario_revisor,
             'id_producto' => $id_producto,
-            'id_especificacion' => $id_especificacion
+            'id_especificacion' => $id_especificacion,
+            'laboratorio' => $laboratorio 
         ];
 
         if ($estaEditando) {
