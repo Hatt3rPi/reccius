@@ -690,9 +690,39 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
+    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
     <button class="botones" id="guardar">Guardar</button>
     <button class="botones" id="firmar">Firmar</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
+          <label class="form-check-label" for="muestreoManual">
+            Acta de Muestreo Manual (en papel)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
+          <label class="form-check-label" for="muestreoDigital">
+            Acta de Muestreo Digital (en tablet)
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="notification" class="notification-container notify" style="display: none;">
     <p id="notification-message">Este es un mensaje de notificación.</p>
@@ -700,6 +730,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+    document.getElementById('confirmarMetodo').addEventListener('click', function() {
+    const metodoManual = document.getElementById('muestreoManual').checked;
+    const metodoDigital = document.getElementById('muestreoDigital').checked;
+
+    if (metodoManual) {
+        // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
+        document.getElementById('download-pdf').click();
+    } else if (metodoDigital) {
+        // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
+        document.querySelectorAll('.formulario.resp *').forEach(function(element) {
+            element.style.visibility = 'visible';
+        });
+    }
+
+    // Cerrar el modal después de seleccionar la opción
+    $('#modalMetodoMuestreo').modal('hide');
+});
     document.getElementById('download-pdf').addEventListener('click', function() {
 
 
