@@ -691,9 +691,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 <div class="button-container">
     <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
-    <button class="botones" id="guardar">Guardar</button>
-    <button class="botones" id="firmar">Ingresar Resultados</button>
-    <button class="botones" id="download-pdf">Descargar PDF</button>
+    <button class="botones" id="guardar" style="display: none">Guardar</button>
+    <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
+    <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
@@ -1032,14 +1032,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $('#realizadoPor').text('Nombre:');
                 document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'hidden'; // Hacer invisible el contenido
-                 });
-                document.getElementById('firmar').style.display = 'none';
-                document.getElementById('guardar').style.display = 'none';
-                document.getElementById('download-pdf').style.display = 'none';
+                });
             }
-
-
-
         } else {
             console.error("No se recibieron datos válidos: ", response);
         }
