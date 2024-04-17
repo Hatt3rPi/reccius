@@ -341,6 +341,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
                 <button type="submit" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR</button>
+
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
@@ -356,9 +357,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 <script>
     function informacionFaltante() {
         if(QA_solicitud_analisis_editing){
-            $("#editarGenerarVersion").hide();
-        }else{
             $("#guardar").hide();
+        }else{
+            $("#editarGenerarVersion").hide();
             $("#informacion_faltante").remove();
         }
     }
