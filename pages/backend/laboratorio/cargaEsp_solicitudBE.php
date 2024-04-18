@@ -4,6 +4,8 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Validación y saneamiento del ID
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
+
 
 // Consulta para obtener los productos, especificaciones y análisis asociados
 $query = "SELECT 
@@ -50,9 +52,9 @@ $result = mysqli_stmt_get_result($stmt);
 $analisis = [];
 $productos = [];
 
-if ($id !== 0) {
+if ($id_analisis_externo !== 0) {
     $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
-    mysqli_stmt_bind_param($stmtAnali, "i", $id);
+    mysqli_stmt_bind_param($stmtAnali, "i", $id_analisis_externo);
     mysqli_stmt_execute($stmtAnali);
 
     $resultAnali = mysqli_stmt_get_result($stmtAnali);

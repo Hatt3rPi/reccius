@@ -90,7 +90,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker" id="fecha_registro" placeholder="dd/mm/aaaa" type="text" value="<?php echo date('Y-m-d'); ?>">
+                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker" id="fecha_registro" placeholder="dd/mm/aaaa" type="text" value="<?php echo date('d/m/Y'); ?>">
                     </div>
                 </div>
             </fieldset>
@@ -150,7 +150,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required class="form-control mx-0 w-90 datepicker" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('Y-m-d'); ?>" placeholder="dd/mm/aaaa" type="text">
+                        <input required class="form-control mx-0 w-90 datepicker" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('d/m/Y'); ?>" placeholder="dd/mm/aaaa" type="text">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -398,9 +398,16 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
     informacionFaltante();
-    var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
-
+    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
+    var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+    
+    
     function cargarDatosEspecificacion(id) {
+        var data = {
+            id,
+            id_analisis_externo: idAnalisisExterno
+        };
+        
         $.ajax({
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
             type: 'GET',
@@ -657,7 +664,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
     function formSubmit(event) {
         event.preventDefault();
-
         $('.datepicker').each(function() {
             var dateValue = $(this).val();
             if (dateValue) {
@@ -667,8 +673,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
 
         var datosFormulario = $(this).serialize();
-        datosFormulario += '&id=' + idFormulario;
-        
+        datosFormulario += '&id=' + idEspecificacion;
+
+        //editing --> QA_solicitud_analisis_editing
+
         $.ajax({
             url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
             type: 'POST',

@@ -501,18 +501,19 @@ function botones(id, accion, base) {
                 case "prepararSolicitud": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     if(AppConfig.FLAGS.analisis_externo){
+                        var {analisisExterno,especificacion} = id
                         $.ajax({
                             url: 'LABORATORIO_preparacion_solicitud.php', // URL del script 
                             type: 'POST', // Tipo de solicitud
                             data: { 
-                                'id': id,
+                                analisisExterno,
+                                especificacion,
                                 'accion': accion
                                 }, // Datos que se enviarán con la solicitud
                             success: function(response) {
                                 // Esta función se ejecuta cuando la solicitud es exitosa
                                 console.log('especificacion_producto redirigida con éxito ');
                                 $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
-                                cargarDatosEspecificacion(id);
                                 
                             },
                             error: function(xhr, status, error) {
@@ -623,18 +624,19 @@ function botones(id, accion, base) {
                     break;
                 }
                 case "revisar": {
+                    var {analisisExterno,especificacion} = id
                     // Llamar a una función que maneje la visualización del documento
                     console.log("REVISAR CLICKEADO CON EXITO");
                     $.ajax({
                         url: '../pages/LABORATORIO_preparacion_solicitud.php',
                         type: 'POST',
                         data: {
-                            'id': id,
+                            analisisExterno,
+                            especificacion,
                         },
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
                             $('#dynamic-content').html(response);
-                            cargarDatosEspecificacion(id)
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al visualizar el documento: ", status, error);
@@ -672,6 +674,7 @@ function botones(id, accion, base) {
     formatDatesInputs();
 }
 function formatDatesInputs(){
+    console.log('datepickersss');
     $('input[type="text"].datepicker').datepicker({
         format: 'dd/mm/yyyy', // Formato global de fecha
         language: 'es',

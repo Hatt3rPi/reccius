@@ -160,7 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
             // Botón para revisar siempre presente
-            acciones += '<button class="accion-btn" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+            acciones += '<button class="accion-btn" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones({analisisExterno:this.id, especificacion:'+d.id_especificacion+'}, this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
             acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
             if (d.muestreado_por === usuarioActual) {
                 acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i></button>';
