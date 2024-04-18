@@ -671,16 +671,6 @@ function botones(id, accion, base) {
             break;
         }
     }
-    formatDatesInputs();
 }
-function formatDatesInputs(){
-    console.log('datepickersss');
-    $('input[type="text"].datepicker').datepicker({
-        format: 'dd/mm/yyyy', // Formato global de fecha
-        language: 'es',
-        autoclose: true,
-        todayHighlight: true,
-        startDate: new Date() 
-    });
-}
+
 

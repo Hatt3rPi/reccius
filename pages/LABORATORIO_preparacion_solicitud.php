@@ -683,6 +683,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
 
         $('#formulario_analisis_externo').on('submit', formSubmit);
+
         function formSubmit(event) {
             event.preventDefault();
             $('.datepicker').each(function() {
@@ -731,5 +732,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
         }
+
+
+        $('input[type="text"].datepicker').datepicker({
+            format: 'dd/mm/yyyy', // Formato global de fecha
+            language: 'es',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date()
+        });
     });
 </script>
