@@ -145,7 +145,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
     // Botón para generar acta de muestreo, visible solo si el estado es 'Vigente'
     if (d.estado === 'Vigente') {
-        acciones += '<button class="accion-btn" title="Generar Solicitud de Análisis externo" id="' + d.id_especificacion + '" name="prepararSolicitud" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-vial"></i></button><a> </a>';
+        acciones += '<button class="accion-btn" title="Generar Solicitud de Análisis externo" id="' + d.id_especificacion + '" name="prepararSolicitud" onclick="botones({analisisExterno:0, especificacion:this.id}, this.name, \'especificacion\')"><i class="fas fa-vial"></i></button><a> </a>';
     }
 
     acciones += '</td></tr></table>';
