@@ -74,7 +74,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>N° Registro:</label>
-                        <input required id="registro" class="form-control mx-0 w-90" name="registro" type="text" placeholder="DCAL-CC-ENE-001">
+                        <input required id="numero_registro" class="form-control mx-0 w-90" name="numero_registro" type="text" placeholder="DCAL-CC-ENE-001">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
@@ -434,11 +434,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
-            var arrToSet = [{
-                    id: 'registro',
-                    val: producto.documento_producto,
-                    isDisabled: false
-                },
+
+            setValuesToInputs([
                 {
                     id: 'id_producto',
                     val: producto.id_producto,
@@ -479,10 +476,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     val: producto.documento_producto,
                     isDisabled: true
                 }
-            ]
-
-            setValuesToInputs(arrToSet)
-
+            ])
 
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
@@ -508,7 +502,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
             //* I. Análisis:
             var arrToSetAnalisis = [{
-                id: 'registro',
+                id: 'numero_registro',
                 val: analisis.numero_registro,
                 isDisabled: true
             }, {

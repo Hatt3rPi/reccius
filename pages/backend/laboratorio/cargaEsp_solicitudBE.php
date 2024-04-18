@@ -30,6 +30,7 @@ $query = "SELECT
         LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
         WHERE cep.id_especificacion = ?";
 
+
 $queryAnalisisExterno = "SELECT 
                             an.*,
                             prod.identificador_producto AS 'prod_identificador_producto', 

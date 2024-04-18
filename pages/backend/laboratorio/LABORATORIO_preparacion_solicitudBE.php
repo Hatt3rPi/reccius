@@ -35,7 +35,7 @@ function insertarRegistro($link, $datos)
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
-        $datos['registro'],
+        $datos['numero_registro'],
         $datos['numero_solicitud'],
         $datos['fecha_registro'],
         $_SESSION['usuario'],
@@ -182,7 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
     // Limpiar y validar datos recibidos del formulario
 
-    $registro = limpiarDato($_POST['registro']);
+    $numero_registro = limpiarDato($_POST['numero_registro']);
     $version = limpiarDato($_POST['version']);
     $numero_solicitud = limpiarDato($_POST['numero_solicitud']);
     $fecha_registro = limpiarDato($_POST['fecha_registro']);
@@ -212,47 +212,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
 
-    //!Test
-    $Algo_que_seguramente_no_existe = limpiarDato($_POST['Algo_que_seguramente_no_existe']);
-
-    /*
-    * CAMPOS DE LA BASE DE DATOS "calidad_analisis_externo"
-    ?   id
-    ?   analisis_segun
-    ?   codigo_mastersoft
-    ?   estado
-    ?   estandar_otro
-    ?   estandar_segun
-    ?   fecha_entrega
-    ?   fecha_entrega_estimada
-    ?   fecha_firma_revisor
-    ?   fecha_solicitud
-    ?   fecha_vencimiento
-    ?   hds_adjunto
-    ?   hds_otro
-    ?   laboratorio
-    ?   numero_documento
-    ?   numero_registro
-    ?   observaciones
-    ?   revisado_por
-    ?   solicitado_por
-    ?   tamano_contramuestra
-    ?   tamano_muestra
-        condicion_almacenamiento
-        fecha_cotizacion
-        fecha_elaboracion
-        fecha_registro
-        id_especificacion
-        id_producto
-        lote
-        muestreado_por
-        numero_pos
-        numero_solicitud
-        registro_isp
-        tamano_lote
-        tipo_analisis
-        version
-*/
 
     // Determinar si se está insertando un nuevo registro o actualizando uno existente
     $estaEditando = isset($_POST['id']) && !empty($_POST['id']);
@@ -263,7 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Crear un array con los datos limpios
         $datosLimpios = [
-            'registro' => $registro,
+            'numero_registro' => $numero_registro,
             'version' => $version,
             'numero_solicitud' => $numero_solicitud,
             'fecha_registro' => $fecha_registro,
@@ -292,12 +251,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'laboratorio' => $laboratorio 
         ];
 
-        if ($estaEditando) {
-            $datosLimpios['id'] = limpiarDato($_POST['id']);
-            actualizarRegistro($link, $datosLimpios);
-        } else {
-            insertarRegistro($link, $datosLimpios);
-        }
+        //if ($estaEditando) {
+        //    $datosLimpios['id'] = limpiarDato($_POST['id']);
+        //    actualizarRegistro($link, $datosLimpios);
+        //} else {
+        insertarRegistro($link, $datosLimpios);
+        //}
         mysqli_commit($link); // Aplicar cambios
         echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
     } catch (Exception $e) {
