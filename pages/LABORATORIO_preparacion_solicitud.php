@@ -402,14 +402,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     informacionFaltante();
     var idFormulario = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
-    ['fecha_registro', 'fecha_elaboracion', 'fecha_vencimiento', 'fecha_solicitud', 'fecha_cotizacion', 'fecha_entrega_estimada'].forEach(val => {
-        console.log('#' + val);
-        $('#' + val).datepicker({
-            format: 'dd/mm/yyyy',
-        });
-    });
-
-
     function cargarDatosEspecificacion(id) {
         $.ajax({
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
@@ -498,9 +490,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             ]
 
-            $(document).ready(function() {
                 setValuesToInputs(arrToSet)
-            });
+            
 
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
