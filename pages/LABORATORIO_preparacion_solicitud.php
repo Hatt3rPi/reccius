@@ -358,6 +358,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
 </html>
 <script>
+    //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
     function informacionFaltante() {
         if(QA_solicitud_analisis_editing){
             $("#guardar").hide();
