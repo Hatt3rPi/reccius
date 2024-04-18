@@ -310,7 +310,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Usuario Solicitante:</label>
-                            <input class="form-control mx-0 w-90" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>"  readonly />
+                            <input class="form-control mx-0 w-90" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" readonly />
                             <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none" />
                         </div>
                     </div>
@@ -337,8 +337,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         </div>
                     </div>
                 </fieldset>
-                
-                
+
+
             </div>
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
             <div class="actions-container">
@@ -360,9 +360,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
     function informacionFaltante() {
-        if(QA_solicitud_analisis_editing){
+        if (QA_solicitud_analisis_editing) {
             $("#guardar").hide();
-        }else{
+        } else {
             $("#editarGenerarVersion").hide();
             $("#informacion_faltante").remove();
         }
@@ -409,16 +409,28 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
-            $('#registro').val(producto.documento_producto); //? es esto lo que tenemos que cambiar?
+            // $('#registro').val(producto.documento_producto);
+            // $('#id_producto').val(producto.id_producto).prop('disabled', true);;
+            // $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
+            // $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
+            // $('#producto').val(producto.nombre_producto).prop('disabled', true);
+            // $('#concentracion').val(producto.concentracion).prop('disabled', true);
+            // $('#formato').val(producto.formato).prop('disabled', true);
+            // $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
+            // $('#numero_especificacion').val(producto.documento_producto).prop('disabled', true);
 
-            $('#id_producto').val(producto.id_producto).prop('disabled', true);;
-            $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
-            $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
-            $('#producto').val(producto.nombre_producto).prop('disabled', true);
-            $('#concentracion').val(producto.concentracion).prop('disabled', true);
-            $('#formato').val(producto.formato).prop('disabled', true);
-            $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
-            $('#numero_especificacion').val(producto.documento_producto).prop('disabled', true);
+            var arrToSet = [
+                {id:'registro',val: producto.documento_producto,isDisabled: false},
+                {id:'id_producto',val: producto.id_producto,isDisabled: true},
+                {id:'tipo_producto',val: producto.tipo_producto,isDisabled: true},
+                {id:'codigo_producto',val: producto.identificador_producto,isDisabled: true},
+                {id:'producto',val: producto.nombre_producto,isDisabled: true},
+                {id:'concentracion',val: producto.concentracion,isDisabled: true},
+                {id:'formato',val: producto.formato,isDisabled: true},
+                {id:'elaboradoPor',val: producto.elaborado_por,isDisabled: true},
+                {id:'numero_especificacion',val: producto.documento_producto,isDisabled: true}]
+
+            setValuesToInputs(arrToSet);
 
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
