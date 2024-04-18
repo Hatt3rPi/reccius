@@ -372,16 +372,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 val,
                 isDisabled
             } = el;
-
             var elem = $('#' + id);
-            console.log(elem);
 
             if (isDisabled) {
                 elem.prop('disabled', true);
             }
 
             if (elem.hasClass('datepicker')) {
-                console.log('datepicker: ',val);
                 var formattedDate = moment(val).format('DD/MM/YYYY');
                 elem.val(formattedDate);
             } else {
@@ -480,8 +477,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             ]
 
-                setValuesToInputs(arrToSet)
-            
+            setValuesToInputs(arrToSet)
+
 
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
@@ -495,57 +492,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     function procesarDatosActaUpdate(response) {
-        console.log({
-            response
-        })
-        /*
-            "id": 16,
-            "estado": "Pendiente Acta de Muestreo",
-            "numero_registro": "DCAL-CC-EMP-006",
-            "version": 1,
-            "numero_solicitud": "num-test",
-            "fecha_registro": "2024-04-15",
-            "laboratorio": null,
-            "fecha_solicitud": null,
-            "analisis_segun": null,
-            "numero_documento": null,
-            "fecha_cotizacion": null,
-            "estandar_segun": null,
-            "estandar_otro": null,
-            "hds_adjunto": null,
-            "hds_otro": null,
-            "fecha_entrega": null,
-            "fecha_entrega_estimada": "0000-00-00",
-            "id_especificacion": 123,
-            "id_producto": 2,
-            "lote": "RM-000-test",
-            "registro_isp": "N°2988\/18. RF XIII 06\/18. 1A, 2B, 2C, 3A, 3D, 4",
-            "condicion_almacenamiento": "1",
-            "tipo_analisis": "Análisis de rutina",
-            "muestreado_por": "mgodoy",
-            "numero_pos": "1",
-            "codigo_mastersoft": null,
-            "tamano_lote": "10",
-            "fecha_elaboracion": "2024-04-15",
-            "fecha_vencimiento": "2025-01-16",
-            "tamano_muestra": "5",
-            "tamano_contramuestra": "10",
-            "observaciones": null,
-            "solicitado_por": "javier2000asr",
-            "revisado_por": "",
-            "fecha_firma_revisor": null,
-            "prod_identificador_producto": "2",
-            "prod_nombre_producto": "test",
-            "prod_tipo_producto": "Materia Prima",
-            "prod_tipo_concentracion": null,
-            "prod_concentracion": "concentracion",
-            "prod_formato": "frmato",
-            "prod_elaborado_por": "Reccius"
-        */
         if (response && response.analisis) {
 
             var analisis = response.analisis;
-            
 
             if (analisis.estado == "Pendiente Acta de Muestreo") {
                 $("#informacion_faltante").remove();
@@ -555,60 +504,129 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
             //* I. Análisis:
             var arrToSetAnalisis = [{
-                    id: 'registro',
-                    val: analisis.numero_registro,
-                    isDisabled: true
-                },{
-                    id: 'version',
-                    val: analisis.version,
-                    isDisabled: true
-                },{
-                    id: 'numero_solicitud',
-                    val: analisis.numero_solicitud,
-                    isDisabled: true
-                },{
-                    id: 'fecha_registro',
-                    val: analisis.fecha_registro,
+                id: 'registro',
+                val: analisis.numero_registro,
+                isDisabled: true
+            }, {
+                id: 'version',
+                val: analisis.version,
+                isDisabled: true
+            }, {
+                id: 'numero_solicitud',
+                val: analisis.numero_solicitud,
+                isDisabled: true
+            }, {
+                id: 'fecha_registro',
+                val: analisis.fecha_registro,
+                isDisabled: true
+            }, ]
+            //* II. Especificaciones
+            var arrToSetEspecificaciones = [{
+                    id: 'id_producto',
+                    val: analisis.prod_identificador_producto,
                     isDisabled: true
                 },
-            ]
-            //* II. Especificaciones
-            var arrToSetEspecificaciones = [
-                { id: 'id_producto', val: analisis.prod_identificador_producto, isDisabled: true },
-                { id: 'tipo_producto', val: analisis.prod_tipo_producto, isDisabled: true },
-                { id: 'codigo_producto', val: analisis.prod_identificador_producto, isDisabled: true },
-                { id: 'producto', val: analisis.prod_nombre_producto, isDisabled: true },
-                { id: 'formato', val: analisis.prod_formato, isDisabled: true },
-                { id: 'concentracion', val: analisis.prod_concentracion, isDisabled: true },
-                { id: 'elaboradoPor', val: analisis.prod_elaborado_por, isDisabled: true }
+                {
+                    id: 'tipo_producto',
+                    val: analisis.prod_tipo_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'codigo_producto',
+                    val: analisis.prod_identificador_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'producto',
+                    val: analisis.prod_nombre_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'formato',
+                    val: analisis.prod_formato,
+                    isDisabled: true
+                },
+                {
+                    id: 'concentracion',
+                    val: analisis.prod_concentracion,
+                    isDisabled: true
+                },
+                {
+                    id: 'elaboradoPor',
+                    val: analisis.prod_elaborado_por,
+                    isDisabled: true
+                }
             ];
             //* III. Identificación
-            var arrToSetIdentificacion = [
-                { id: 'lote', val: analisis.lote, isDisabled: true },
-                { id: 'tamano_lote', val: analisis.tamano_lote, isDisabled: true },
-                { id: 'fecha_elaboracion', val: analisis.fecha_elaboracion, isDisabled: true },
-                { id: 'fecha_vencimiento', val: analisis.fecha_vencimiento, isDisabled: true },
-                { id: 'tipo_analisis', val: analisis.tipo_analisis, isDisabled: true },
-                { id: 'condicion_almacenamiento', val: analisis.condicion_almacenamiento, isDisabled: true },
-                { id: 'tamano_muestra', val: analisis.tamano_muestra, isDisabled: true },
-                { id: 'tamano_contramuestra', val: analisis.tamano_contramuestra, isDisabled: true },
-                { id: 'registro_isp', val: analisis.registro_isp, isDisabled: true },
-                { id: 'numero_pos', val: analisis.numero_pos, isDisabled: true },
-                { id: 'muestreado_por', val: analisis.muestreado_por, isDisabled: true }
+            var arrToSetIdentificacion = [{
+                    id: 'lote',
+                    val: analisis.lote,
+                    isDisabled: true
+                },
+                {
+                    id: 'tamano_lote',
+                    val: analisis.tamano_lote,
+                    isDisabled: true
+                },
+                {
+                    id: 'fecha_elaboracion',
+                    val: analisis.fecha_elaboracion,
+                    isDisabled: true
+                },
+                {
+                    id: 'fecha_vencimiento',
+                    val: analisis.fecha_vencimiento,
+                    isDisabled: true
+                },
+                {
+                    id: 'tipo_analisis',
+                    val: analisis.tipo_analisis,
+                    isDisabled: true
+                },
+                {
+                    id: 'condicion_almacenamiento',
+                    val: analisis.condicion_almacenamiento,
+                    isDisabled: true
+                },
+                {
+                    id: 'tamano_muestra',
+                    val: analisis.tamano_muestra,
+                    isDisabled: true
+                },
+                {
+                    id: 'tamano_contramuestra',
+                    val: analisis.tamano_contramuestra,
+                    isDisabled: true
+                },
+                {
+                    id: 'registro_isp',
+                    val: analisis.registro_isp,
+                    isDisabled: true
+                },
+                {
+                    id: 'numero_pos',
+                    val: analisis.numero_pos,
+                    isDisabled: true
+                },
+                {
+                    id: 'muestreado_por',
+                    val: analisis.muestreado_por,
+                    isDisabled: true
+                }
             ];
             /*
             condicion_almacenamiento
 
 
             */
-            
+
 
             //* V. Análisis
             $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
             $('#id_especificacion').val(analisis.id_especificacion);
             $('#version_especificacion').val(analisis.version).prop('disabled', true);
 
-            var arrToSet = [ ...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion ];
+            var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion];
 
             setValuesToInputs(arrToSet)
 
@@ -639,34 +657,18 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
     function formSubmit(event) {
         event.preventDefault();
-        const formData = new FormData(this);
-        validateTextRequiredInputs(formData)
-        var datosFormulario = $('#formulario_analisis_externo').serialize();
-        datosFormulario += '&id_producto=' + idFormulario;
-        console.log({
-            datosFormulario
-        });
-        /*
-        registro=DCAL-CC-EMP-006
-        version=1
-        numero_solicitud=num-test
-        fecha_registro=2024-04-15
-        lote=RM-000-test
-        tamano_lote=10
-        fecha_elaboracion=2024-04-15
-        fecha_vence=2025-01-16
-        tipo_analisis=An%C3%A1lisis%20de%20rutina
-        condicion_almacenamiento=1
-        cantidad_muestra=5
-        cantidad_contramuestra=10
-        registro_isp=N%C2%B02988%2F18.%20RF%20XIII%2006%2F18.%201A%2C%202B%2C%202C%2C%203A%2C%203D%2C%204
-        muestreado_POS=1
-        muestreado_por=mgodoy
-        id_especificacion=123
-        id_producto=2
-        */
-        console.log(datosFormulario.split('&').join('\n'));
 
+        $('.datepicker').each(function() {
+            var dateValue = $(this).val();
+            if (dateValue) {
+                var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                $(this).val(formattedDate); // Establecer el nuevo valor en el formato correcto
+            }
+        });
+
+        var datosFormulario = $(this).serialize();
+        datosFormulario += '&id=' + idFormulario;
+        
         $.ajax({
             url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
             type: 'POST',
@@ -689,6 +691,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             },
             error: function(xhr, status, error) {
                 console.log("Error AJAX: " + error);
+            }
+        });
+
+        $('.datepicker').each(function() {
+            var isoDate = $(this).val();
+            if (isoDate) {
+                var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                $(this).val(originalDate);
             }
         });
     }
