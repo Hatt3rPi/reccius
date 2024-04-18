@@ -366,7 +366,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
      * @return {void}
      */
     function setValuesToInputs(arr) {
-        arr.forEach(el => {
+        for (let el of arr) {
             const {
                 id,
                 val,
@@ -379,6 +379,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 elem.prop('disabled', true);
             }
             console.log({
+                el: elem,
                 classes: elem.className
             });
 
@@ -388,7 +389,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             } else {
                 elem.val(val);
             }
-        });
+
+
+        }
     }
 
     function informacionFaltante() {
