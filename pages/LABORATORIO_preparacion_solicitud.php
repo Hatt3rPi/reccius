@@ -508,25 +508,23 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
 
             //* I. Análisis:
-            var arrToSetAnalisis = [
-                {
-                    id: 'numero_registro',
-                    val: analisis.numero_registro,
-                    isDisabled: true
-                }, {
-                    id: 'version',
-                    val: analisis.version,
-                    isDisabled: true
-                }, {
-                    id: 'numero_solicitud',
-                    val: analisis.numero_solicitud,
-                    isDisabled: true
-                }, {
-                    id: 'fecha_registro',
-                    val: analisis.fecha_registro,
-                    isDisabled: true
-                }
-            ]
+            var arrToSetAnalisis = [{
+                id: 'numero_registro',
+                val: analisis.numero_registro,
+                isDisabled: true
+            }, {
+                id: 'version',
+                val: analisis.version,
+                isDisabled: true
+            }, {
+                id: 'numero_solicitud',
+                val: analisis.numero_solicitud,
+                isDisabled: true
+            }, {
+                id: 'fecha_registro',
+                val: analisis.fecha_registro,
+                isDisabled: true
+            }]
             //* II. Especificaciones
             var arrToSetEspecificaciones = [{
                     id: 'id_producto',
@@ -660,79 +658,78 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
     }
 
-    $('#editarGenerarVersion').on('click', function() {
-        $("#guardar").show();
-        $("#editarGenerarVersion").hide();
-        $("#version").val(newVersion);
-        [
-            // Habilitacion de inputs
-            'lote',
-            'tamano_lote',
-            'fecha_elaboracion',
-            'fecha_vencimiento',
-            'tipo_analisis',
-            'condicion_almacenamiento',
-            'tamano_muestra',
-            'tamano_contramuestra',
-            'registro_isp',
-            'numero_pos',
-            'muestreado_por',
+    $(document).ready(function() {
+        $('#editarGenerarVersion').on('click', function(event) {
+            event.preventDefault();
+            $("#guardar").show();
+            $("#editarGenerarVersion").hide();
+            $("#version").val(newVersion);
 
-        ].forEach(element => {
-            $("#" + element).prop('disabled', false);
+            [
+                'lote',
+                'tamano_lote',
+                'fecha_elaboracion',
+                'fecha_vencimiento',
+                'tipo_analisis',
+                'condicion_almacenamiento',
+                'tamano_muestra',
+                'tamano_contramuestra',
+                'registro_isp',
+                'numero_pos',
+                'muestreado_por',
+            ].forEach(element => {
+                $("#" + element).prop('disabled', false);
+            });
         });
 
-
-    })
-
-    $('#formulario_analisis_externo').on('submit', formSubmit);
-
-    function formSubmit(event) {
-        event.preventDefault();
-        $('.datepicker').each(function() {
-            var dateValue = $(this).val();
-            if (dateValue) {
-                var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
-                $(this).val(formattedDate); // Establecer el nuevo valor en el formato correcto
-            }
-        });
-
-        var datosFormulario = $(this).serialize();
-        datosFormulario += '&id=' + idEspecificacion;
-
-        //editing --> QA_solicitud_analisis_editing
-
-        $.ajax({
-            url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
-            type: 'POST',
-            data: datosFormulario,
-            success: function(data) {
-                var respuesta = JSON.parse(data);
-                if (respuesta.exito) {
-                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-                        if (status == "error") {
-                            console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
-                        } else {
-                            console.log('Listado cargado correctamente cargado exitosamente.');
-                            carga_listado();
-                            console.log(respuesta.mensaje); // Manejar el error
-                        }
-                    });
-                } else {
-                    console.log(respuesta.mensaje); // Manejar el error
+        $('#formulario_analisis_externo').on('submit', formSubmit);
+        function formSubmit(event) {
+            event.preventDefault();
+            $('.datepicker').each(function() {
+                var dateValue = $(this).val();
+                if (dateValue) {
+                    var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                    $(this).val(formattedDate); // Establecer el nuevo valor en el formato correcto
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log("Error AJAX: " + error);
-            }
-        });
+            });
 
-        $('.datepicker').each(function() {
-            var isoDate = $(this).val();
-            if (isoDate) {
-                var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
-                $(this).val(originalDate);
-            }
-        });
-    }
+            var datosFormulario = $(this).serialize();
+            datosFormulario += '&id=' + idEspecificacion;
+
+            //editing --> QA_solicitud_analisis_editing
+
+            $.ajax({
+                url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
+                type: 'POST',
+                data: datosFormulario,
+                success: function(data) {
+                    var respuesta = JSON.parse(data);
+                    if (respuesta.exito) {
+                        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
+                            if (status == "error") {
+                                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
+                            } else {
+                                console.log('Listado cargado correctamente cargado exitosamente.');
+                                carga_listado();
+                                console.log(respuesta.mensaje); // Manejar el error
+                            }
+                        });
+                    } else {
+                        console.log(respuesta.mensaje); // Manejar el error
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error AJAX: " + error);
+                }
+            });
+
+            $('.datepicker').each(function() {
+                var isoDate = $(this).val();
+                if (isoDate) {
+                    var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                    $(this).val(originalDate);
+                }
+            });
+        }
+    });
 </script>
