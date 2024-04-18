@@ -667,6 +667,12 @@ function botones(id, accion, base) {
             break;
         }
     }
-
+    formatDatesInputs();
 }
-
+function formatDatesInputs(){
+    $('input[type="date"]').datepicker({
+        format: 'dd/mm/yyyy', // Formato global de fecha
+        autoclose: true,
+        todayHighlight: true
+    });
+}

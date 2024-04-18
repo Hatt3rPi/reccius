@@ -18,9 +18,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Reccius</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
     <!-- CSS de Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <!-- Estilos CSS de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">

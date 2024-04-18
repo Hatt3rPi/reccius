@@ -89,6 +89,8 @@ function insertarRegistro($link, $datos)
 
 function actualizarRegistro($link, $datos)
 {
+    //Todo:  Cambiar por un insert el update
+
     $camposAActualizar = ['registro','version','numero_solicitud','fecha_registro','tipo_producto','codigo_producto','producto','concentracion','formato','elaboradoPor','lote','tamano_lote','fecha_elaboracion','fecha_vencimiento','tipo_analisis','condicion_almacenamiento','tamano_muestra','tamano_contramuestra','registro_isp','muestreado_por','numero_pos','numero_especificacion','version_especificacion','usuario_revisor','id_producto','id_especificacion'];
 
     $partesConsulta = [];
