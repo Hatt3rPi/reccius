@@ -672,7 +672,9 @@ function botones(id, accion, base) {
 function formatDatesInputs(){
     $('input[type="text"].datepicker').datepicker({
         format: 'dd/mm/yyyy', // Formato global de fecha
+        language: 'es',
         autoclose: true,
-        todayHighlight: true
+        todayHighlight: true,
+        startDate: new Date() 
     });
 }
