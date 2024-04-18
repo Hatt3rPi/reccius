@@ -21,17 +21,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- CSS de Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-
     <!-- Estilos CSS de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../assets/css/styles_dark.css">
+
+    <!-- Bootstrap Datepicker CSS / JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <!-- JS de DataTables con soporte para Bootstrap 4 -->
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
 
     <!-- usados para gráficos-->
@@ -247,7 +251,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
