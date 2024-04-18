@@ -247,7 +247,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    $.fn.datepicker.defaults.format = "dd/mm/yyyy";
 
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')

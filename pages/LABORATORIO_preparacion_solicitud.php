@@ -485,7 +485,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             if (analisis.estado == "Pendiente Acta de Muestreo") {
                 $("#informacion_faltante").remove();
                 $("#editarGenerarVersion").prop('disabled', true);
-                $('#alert_warning').show().append(`No se puede editar, por el estado ${analisis.estado}.`);
+                $('#alert_warning').show().append(`No se puede editar, por el estado: ${analisis.estado}.`);
             }
 
             //* I. Análisis:
