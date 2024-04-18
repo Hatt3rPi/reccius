@@ -681,31 +681,3 @@ function formatDatesInputs(){
     });
 }
 
-/**
- * Sets values to the given inputs.
- *
- * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
- * @return {void}
- */
-function setValuesToInputs(arr) {
-    arr.forEach(el => {
-        const {
-            id, 
-            val,
-            isDisabled
-        } = el;
-
-        var elem = $('#' + id);
-
-        if (isDisabled) {
-            elem.prop('disabled', true);
-        }
-
-        if (elem.hasClass('datepicker')) {
-            var formattedDate = moment(val).format('DD/MM/YYYY');
-            elem.val(formattedDate);
-        } else {
-            elem.val(val);
-        }
-    });
-}

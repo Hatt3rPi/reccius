@@ -359,6 +359,35 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 </html>
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
+    /**
+     * Sets values to the given inputs.
+     *
+     * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
+     * @return {void}
+     */
+    function setValuesToInputs(arr) {
+        arr.forEach(el => {
+            const {
+                id,
+                val,
+                isDisabled
+            } = el;
+
+            var elem = $('#' + id);
+
+            if (isDisabled) {
+                elem.prop('disabled', true);
+            }
+
+            if (elem.hasClass('datepicker')) {
+                var formattedDate = moment(val).format('DD/MM/YYYY');
+                elem.val(formattedDate);
+            } else {
+                elem.val(val);
+            }
+        });
+    }
+
     function informacionFaltante() {
         if (QA_solicitud_analisis_editing) {
             $("#guardar").hide();
@@ -419,18 +448,56 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             // $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
             // $('#numero_especificacion').val(producto.documento_producto).prop('disabled', true);
 
-            var arrToSet = [
-                {id:'registro',val: producto.documento_producto,isDisabled: false},
-                {id:'id_producto',val: producto.id_producto,isDisabled: true},
-                {id:'tipo_producto',val: producto.tipo_producto,isDisabled: true},
-                {id:'codigo_producto',val: producto.identificador_producto,isDisabled: true},
-                {id:'producto',val: producto.nombre_producto,isDisabled: true},
-                {id:'concentracion',val: producto.concentracion,isDisabled: true},
-                {id:'formato',val: producto.formato,isDisabled: true},
-                {id:'elaboradoPor',val: producto.elaborado_por,isDisabled: true},
-                {id:'numero_especificacion',val: producto.documento_producto,isDisabled: true}]
+            var arrToSet = [{
+                    id: 'registro',
+                    val: producto.documento_producto,
+                    isDisabled: false
+                },
+                {
+                    id: 'id_producto',
+                    val: producto.id_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'tipo_producto',
+                    val: producto.tipo_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'codigo_producto',
+                    val: producto.identificador_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'producto',
+                    val: producto.nombre_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'concentracion',
+                    val: producto.concentracion,
+                    isDisabled: true
+                },
+                {
+                    id: 'formato',
+                    val: producto.formato,
+                    isDisabled: true
+                },
+                {
+                    id: 'elaboradoPor',
+                    val: producto.elaborado_por,
+                    isDisabled: true
+                },
+                {
+                    id: 'numero_especificacion',
+                    val: producto.documento_producto,
+                    isDisabled: true
+                }
+            ]
 
-            $(document).ready(function () { setValuesToInputs(arrToSet)});
+            $(document).ready(function() {
+                setValuesToInputs(arrToSet)
+            });
 
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
