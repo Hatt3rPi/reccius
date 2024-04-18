@@ -373,15 +373,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 isDisabled
             } = el;
 
-            var elem = $('#' + id)[0];
+            var elem = $('#' + id);
 
             if (isDisabled) {
                 elem.prop('disabled', true);
             }
-            console.log({
-                el: elem,
-                classes: elem.className
-            });
 
             if (elem.hasClass('datepicker')) {
                 var formattedDate = moment(val).format('DD/MM/YYYY');
