@@ -400,20 +400,16 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     informacionFaltante();
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
-    
-    
-    function cargarDatosEspecificacion(id) {
+    function cargarDatosEspecificacion() {
         var data = {
-            id,
+            id:idEspecificacion,
             id_analisis_externo: idAnalisisExterno
         };
         
         $.ajax({
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
             type: 'GET',
-            data: {
-                id: id,
-            },
+            data,
             success: function(response) {
                 if (QA_solicitud_analisis_editing) {
                     procesarDatosActaUpdate(response);
@@ -426,6 +422,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
         });
     }
+    cargarDatosEspecificacion();
 
     $('#fecha_elaboracion').datepicker({
         format: 'dd/mm/yyyy', // Formato de fecha
