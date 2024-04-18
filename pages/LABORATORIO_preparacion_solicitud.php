@@ -374,12 +374,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             } = el;
 
             var elem = $('#' + id);
+            console.log(elem);
 
             if (isDisabled) {
                 elem.prop('disabled', true);
             }
 
             if (elem.hasClass('datepicker')) {
+                console.log('datepicker: ',val);
                 var formattedDate = moment(val).format('DD/MM/YYYY');
                 elem.val(formattedDate);
             } else {
@@ -431,17 +433,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
-
-            // $('#registro').val(producto.documento_producto);
-            // $('#id_producto').val(producto.id_producto).prop('disabled', true);;
-            // $('#tipo_producto').val(producto.tipo_producto).prop('disabled', true);
-            // $('#codigo_producto').val(producto.identificador_producto).prop('disabled', true);
-            // $('#producto').val(producto.nombre_producto).prop('disabled', true);
-            // $('#concentracion').val(producto.concentracion).prop('disabled', true);
-            // $('#formato').val(producto.formato).prop('disabled', true);
-            // $('#elaboradoPor').val(producto.elaborado_por).prop('disabled', true);
-            // $('#numero_especificacion').val(producto.documento_producto).prop('disabled', true);
-
             var arrToSet = [{
                     id: 'registro',
                     val: producto.documento_producto,
@@ -554,6 +545,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.analisis) {
 
             var analisis = response.analisis;
+            
 
             if (analisis.estado == "Pendiente Acta de Muestreo") {
                 $("#informacion_faltante").remove();
@@ -562,41 +554,63 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
 
             //* I. Análisis:
-            $('#registro').val(analisis.numero_registro).prop('disabled', true);
-            $('#version').val(analisis.version).prop('disabled', true);
-            $('#numero_solicitud').val(analisis.numero_solicitud).prop('disabled', true);
-            $('#fecha_registro').val(analisis.fecha_registro).prop('disabled', true);
+            var arrToSetAnalisis = [{
+                    id: 'registro',
+                    val: analisis.numero_registro,
+                    isDisabled: true
+                },{
+                    id: 'version',
+                    val: analisis.version,
+                    isDisabled: true
+                },{
+                    id: 'numero_solicitud',
+                    val: analisis.numero_solicitud,
+                    isDisabled: true
+                },{
+                    id: 'fecha_registro',
+                    val: analisis.fecha_registro,
+                    isDisabled: true
+                },
+            ]
             //* II. Especificaciones
-            $('#id_producto').val(analisis.prod_identificador_producto).prop('disabled', true);
-            $('#tipo_producto').val(analisis.prod_tipo_producto).prop('disabled', true);
-            $('#codigo_producto').val(analisis.prod_identificador_producto).prop('disabled', true);
-            $('#producto').val(analisis.prod_nombre_producto).prop('disabled', true);
-            $('#formato').val(analisis.prod_formato).prop('disabled', true);
-            $('#concentracion').val(analisis.prod_concentracion).prop('disabled', true);
-            $('#elaboradoPor').val(analisis.prod_elaborado_por).prop('disabled', true);
+            var arrToSetEspecificaciones = [
+                { id: 'id_producto', val: analisis.prod_identificador_producto, isDisabled: true },
+                { id: 'tipo_producto', val: analisis.prod_tipo_producto, isDisabled: true },
+                { id: 'codigo_producto', val: analisis.prod_identificador_producto, isDisabled: true },
+                { id: 'producto', val: analisis.prod_nombre_producto, isDisabled: true },
+                { id: 'formato', val: analisis.prod_formato, isDisabled: true },
+                { id: 'concentracion', val: analisis.prod_concentracion, isDisabled: true },
+                { id: 'elaboradoPor', val: analisis.prod_elaborado_por, isDisabled: true }
+            ];
             //* III. Identificación
-            $('#lote').val(analisis.lote).prop('disabled', true);
-            $('#tamano_lote').val(analisis.tamano_lote).prop('disabled', true);
-            $('#fecha_elaboracion').val(analisis.fecha_elaboracion).prop('disabled', true);
-            $('#fecha_vencimiento').val(analisis.fecha_vencimiento).prop('disabled', true);
-            $('#tipo_analisis').val(analisis.tipo_analisis).prop('disabled', true);
-            $('#condicion_almacenamiento').val(analisis.condicion_almacenamiento).prop('disabled', true);
-            $('#tamano_muestra').val(analisis.tamano_muestra).prop('disabled', true);
-            $('#tamano_contramuestra').val(analisis.tamano_contramuestra).prop('disabled', true);
-            $('#registro_isp').val(analisis.registro_isp).prop('disabled', true);
-            $('#numero_pos').val(analisis.numero_pos).prop('disabled', true);
-            $('#muestreado_por').val(analisis.muestreado_por).prop('disabled', true);
-
+            var arrToSetIdentificacion = [
+                { id: 'lote', val: analisis.lote, isDisabled: true },
+                { id: 'tamano_lote', val: analisis.tamano_lote, isDisabled: true },
+                { id: 'fecha_elaboracion', val: analisis.fecha_elaboracion, isDisabled: true },
+                { id: 'fecha_vencimiento', val: analisis.fecha_vencimiento, isDisabled: true },
+                { id: 'tipo_analisis', val: analisis.tipo_analisis, isDisabled: true },
+                { id: 'condicion_almacenamiento', val: analisis.condicion_almacenamiento, isDisabled: true },
+                { id: 'tamano_muestra', val: analisis.tamano_muestra, isDisabled: true },
+                { id: 'tamano_contramuestra', val: analisis.tamano_contramuestra, isDisabled: true },
+                { id: 'registro_isp', val: analisis.registro_isp, isDisabled: true },
+                { id: 'numero_pos', val: analisis.numero_pos, isDisabled: true },
+                { id: 'muestreado_por', val: analisis.muestreado_por, isDisabled: true }
+            ];
             /*
             condicion_almacenamiento
 
 
             */
+            
 
             //* V. Análisis
             $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
             $('#id_especificacion').val(analisis.id_especificacion);
             $('#version_especificacion').val(analisis.version).prop('disabled', true);
+
+            var arrToSet = [ ...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion ];
+
+            setValuesToInputs(arrToSet)
 
         } else {
             console.error("No se recibieron datos válidos: ", response);
