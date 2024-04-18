@@ -670,7 +670,7 @@ function botones(id, accion, base) {
     formatDatesInputs();
 }
 function formatDatesInputs(){
-    $('input[type="date"]').datepicker({
+    $('input:date').datepicker({
         format: 'dd/mm/yyyy', // Formato global de fecha
         autoclose: true,
         todayHighlight: true
