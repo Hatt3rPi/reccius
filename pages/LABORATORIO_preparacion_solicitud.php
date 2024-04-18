@@ -430,7 +430,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 {id:'elaboradoPor',val: producto.elaborado_por,isDisabled: true},
                 {id:'numero_especificacion',val: producto.documento_producto,isDisabled: true}]
 
-            setValuesToInputs(arrToSet);
+            $(document).ready(function () { setValuesToInputs(arrToSet)});
 
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
