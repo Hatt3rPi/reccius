@@ -343,7 +343,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
-                <button type="submit" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
 
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
@@ -400,12 +400,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     informacionFaltante();
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+
     function cargarDatosEspecificacion() {
         var data = {
-            id:idEspecificacion,
+            id: idEspecificacion,
             id_analisis_externo: idAnalisisExterno
         };
-        
+
         $.ajax({
             url: './backend/laboratorio/cargaEsp_solicitudBE.php',
             type: 'GET',
@@ -435,8 +436,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
-            setValuesToInputs([
-                {
+            $('#version').val(response.productos.length + 1).prop('disabled', true);
+
+            setValuesToInputs([{
                     id: 'id_producto',
                     val: producto.id_producto,
                     isDisabled: true
@@ -489,8 +491,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
 
+    var newVersion = 1;
+
     function procesarDatosActaUpdate(response) {
+
         if (response && response.analisis) {
+
+            newVersion = response.productos.length + 1
 
             var analisis = response.analisis;
 
@@ -501,23 +508,25 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
 
             //* I. Análisis:
-            var arrToSetAnalisis = [{
-                id: 'numero_registro',
-                val: analisis.numero_registro,
-                isDisabled: true
-            }, {
-                id: 'version',
-                val: analisis.version,
-                isDisabled: true
-            }, {
-                id: 'numero_solicitud',
-                val: analisis.numero_solicitud,
-                isDisabled: true
-            }, {
-                id: 'fecha_registro',
-                val: analisis.fecha_registro,
-                isDisabled: true
-            }, ]
+            var arrToSetAnalisis = [
+                {
+                    id: 'numero_registro',
+                    val: analisis.numero_registro,
+                    isDisabled: true
+                }, {
+                    id: 'version',
+                    val: analisis.version,
+                    isDisabled: true
+                }, {
+                    id: 'numero_solicitud',
+                    val: analisis.numero_solicitud,
+                    isDisabled: true
+                }, {
+                    id: 'fecha_registro',
+                    val: analisis.fecha_registro,
+                    isDisabled: true
+                }
+            ]
             //* II. Especificaciones
             var arrToSetEspecificaciones = [{
                     id: 'id_producto',
@@ -650,6 +659,31 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             formObject[key] = value;
         });
     }
+
+    $('#editarGenerarVersion').on('click', function() {
+        $("#guardar").show();
+        $("#editarGenerarVersion").hide();
+        $("#version").val(newVersion);
+        [
+            // Habilitacion de inputs
+            'lote',
+            'tamano_lote',
+            'fecha_elaboracion',
+            'fecha_vencimiento',
+            'tipo_analisis',
+            'condicion_almacenamiento',
+            'tamano_muestra',
+            'tamano_contramuestra',
+            'registro_isp',
+            'numero_pos',
+            'muestreado_por',
+
+        ].forEach(element => {
+            $("#" + element).prop('disabled', false);
+        });
+
+
+    })
 
     $('#formulario_analisis_externo').on('submit', formSubmit);
 
