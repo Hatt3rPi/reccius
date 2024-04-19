@@ -661,6 +661,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     $(document).ready(function() {
         $('#editarGenerarVersion').on('click', function(event) {
             event.preventDefault();
+            console.log("Editar Generar Version");
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
