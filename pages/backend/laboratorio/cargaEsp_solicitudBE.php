@@ -45,12 +45,17 @@ $queryAnalisisExterno = "SELECT
                         ON an.id_producto = prod.id
                         WHERE an.id = ?";
 
+$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count
+                        FROM calidad_analisis_externo
+                        WHERE id_especificacion = ?";
+
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 $analisis = [];
+$analisis_count = [];
 $productos = [];
 
 if ($id_analisis_externo !== 0) {
@@ -64,6 +69,20 @@ if ($id_analisis_externo !== 0) {
     }
     mysqli_stmt_close($stmtAnali);
 }
+
+//----------
+
+$stmtAnaliCount = mysqli_prepare($link, $queryAnalisisMany);
+mysqli_stmt_bind_param($stmtAnaliCount, "i", $id);
+mysqli_stmt_execute($stmtAnaliCount);
+
+$resultAnaliCount = mysqli_stmt_get_result($stmtAnaliCount);
+if ($rowAnaliCount = mysqli_fetch_assoc($resultAnaliCount)) {
+    $analisis_count = $rowAnaliCount['analisis_externo_count'];
+}
+mysqli_stmt_close($stmtAnaliCount);
+
+//----------
 
 while ($row = mysqli_fetch_assoc($result)) {
     $producto_id = $row['id_producto'];
@@ -104,7 +123,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 mysqli_close($link);
 
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
+echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo'=> $analisis_count], JSON_UNESCAPED_UNICODE);
 
 ?>
  
