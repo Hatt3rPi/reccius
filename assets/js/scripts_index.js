@@ -671,6 +671,15 @@ function botones(id, accion, base) {
             break;
         }
     }
+    $(document).ready(function() {
+        $('input[type="text"].datepicker').datepicker({
+            format: 'dd/mm/yyyy', // Formato global de fecha
+            language: 'es',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date()
+        });
+    });
 }
 
 

@@ -65,7 +65,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 </head>
 
 <body>
-    <div class="form-container">
+    <div class="form-container position-relative">
         <h1>CALIDAD / Preparación solicitud Análisis Externo</h1>
         <form id="formulario_analisis_externo" name="formulario_analisis_externo">
             <fieldset>
@@ -508,23 +508,23 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
 
             //* I. Análisis:
+            $("#version").val(analisis.version);
+
             var arrToSetAnalisis = [{
-                id: 'numero_registro',
-                val: analisis.numero_registro,
-                isDisabled: true
-            }, {
-                id: 'version',
-                val: analisis.version,
-                isDisabled: true
-            }, {
-                id: 'numero_solicitud',
-                val: analisis.numero_solicitud,
-                isDisabled: true
-            }, {
-                id: 'fecha_registro',
-                val: analisis.fecha_registro,
-                isDisabled: true
-            }]
+                    id: 'numero_registro',
+                    val: analisis.numero_registro,
+                    isDisabled: true
+                }, {
+                    id: 'numero_solicitud',
+                    val: analisis.numero_solicitud,
+                    isDisabled: true
+                }, {
+                    id: 'fecha_registro',
+                    val: analisis.fecha_registro,
+                    isDisabled: true
+                }
+                //
+            ]
             //* II. Especificaciones
             var arrToSetEspecificaciones = [{
                     id: 'id_producto',
@@ -732,14 +732,5 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
         }
-
-
-        $('input[type="text"].datepicker').datepicker({
-            format: 'dd/mm/yyyy', // Formato global de fecha
-            language: 'es',
-            autoclose: true,
-            todayHighlight: true,
-            startDate: new Date()
-        });
     });
 </script>
