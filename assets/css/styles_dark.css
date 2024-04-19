@@ -420,10 +420,12 @@ body {
   margin: 0;
   cursor:pointer;
   padding: 4px;
-
 }
 .togglesibar:hover{
   opacity: 0.9;
+}
+.togglesibar:focus{
+ outline: none;
 }
 .buttonreset{
   padding: 0;
@@ -549,3 +551,4 @@ body {
 .w-90{
   width: 90% !important;
 }
+

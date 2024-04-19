@@ -65,7 +65,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 </head>
 
 <body>
-    <div class="form-container position-relative">
+    <div class="form-container">
         <h1>CALIDAD / Preparación solicitud Análisis Externo</h1>
         <form id="formulario_analisis_externo" name="formulario_analisis_externo">
             <fieldset>
@@ -436,7 +436,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
-            $('#version').val(response.productos.length + 1).prop('disabled', true);
+            $('#version').val(response.count_analisis_externo + 1).prop('disabled', true);
 
             setValuesToInputs([{
                     id: 'id_producto',
@@ -497,7 +497,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
         if (response && response.analisis) {
 
-            newVersion = response.productos.length + 1
+            newVersion = response.count_analisis_externo + 1
 
             var analisis = response.analisis;
 
@@ -666,7 +666,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
 
-            [
+            [//* unlock inputs
+                // I. Analisis:
+                'numero_registro',
+                'numero_solicitud',
+                'fecha_registro',
+                // III. Identificacion de la muestra:
                 'lote',
                 'tamano_lote',
                 'fecha_elaboracion',
@@ -733,7 +738,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
         }
-        
+
         $('input[type="text"].datepicker').datepicker({
             format: 'dd/mm/yyyy', // Formato global de fecha
             language: 'es',

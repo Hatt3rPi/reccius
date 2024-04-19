@@ -55,7 +55,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </head>
 
-<body>
+<body class="position-relative">
     <header>
 
         <div class="header_estatico">

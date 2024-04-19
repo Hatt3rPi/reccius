@@ -41,13 +41,10 @@ $queryAnalisisExterno = "SELECT
                             prod.formato AS 'prod_formato', 
                             prod.elaborado_por AS 'prod_elaborado_por'
                         FROM calidad_analisis_externo AS an
-                        JOIN calidad_productos AS prod 
-                        ON an.id_producto = prod.id
+                        JOIN calidad_productos AS prod ON an.id_producto = prod.id
                         WHERE an.id = ?";
 
-$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count
-                        FROM calidad_analisis_externo
-                        WHERE id_especificacion = ?";
+$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = ?";
 
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "i", $id);

@@ -52,7 +52,7 @@ function insertarRegistro($link, $datos)
         $datos['numero_pos'],
         $datos['tipo_analisis'],
         $datos['laboratorio']
-        
+
     );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
@@ -85,13 +85,11 @@ function insertarRegistro($link, $datos)
     }
 }
 
-
-
 function actualizarRegistro($link, $datos)
 {
     //Todo:  Cambiar por un insert el update
 
-    $camposAActualizar = ['registro','version','numero_solicitud','fecha_registro','tipo_producto','codigo_producto','producto','concentracion','formato','elaboradoPor','lote','tamano_lote','fecha_elaboracion','fecha_vencimiento','tipo_analisis','condicion_almacenamiento','tamano_muestra','tamano_contramuestra','registro_isp','muestreado_por','numero_pos','numero_especificacion','version_especificacion','usuario_revisor','id_producto','id_especificacion'];
+    $camposAActualizar = ['registro', 'version', 'numero_solicitud', 'fecha_registro', 'tipo_producto', 'codigo_producto', 'producto', 'concentracion', 'formato', 'elaboradoPor', 'lote', 'tamano_lote', 'fecha_elaboracion', 'fecha_vencimiento', 'tipo_analisis', 'condicion_almacenamiento', 'tamano_muestra', 'tamano_contramuestra', 'registro_isp', 'muestreado_por', 'numero_pos', 'numero_especificacion', 'version_especificacion', 'usuario_revisor', 'id_producto', 'id_especificacion'];
 
     $partesConsulta = [];
     $valoresParaVincular = [];
@@ -194,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $lote = limpiarDato($_POST['lote']);
     $laboratorio = limpiarDato($_POST['laboratorio']);
- 
+
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
     $fecha_elaboracion = limpiarDato($_POST['fecha_elaboracion']);
     $fecha_vencimiento = limpiarDato($_POST['fecha_vencimiento']);
@@ -210,6 +208,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario_revisor = limpiarDato($_POST['usuario_revisor']);
 
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
+    $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
+
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
 
 
@@ -248,15 +248,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'usuario_revisor' => $usuario_revisor,
             'id_producto' => $id_producto,
             'id_especificacion' => $id_especificacion,
-            'laboratorio' => $laboratorio 
+            'laboratorio' => $laboratorio
         ];
 
-        //if ($estaEditando) {
-        //    $datosLimpios['id'] = limpiarDato($_POST['id']);
-        //    actualizarRegistro($link, $datosLimpios);
-        //} else {
-        insertarRegistro($link, $datosLimpios);
-        //}
+        if ($estaEditando) {
+            $datosLimpios['id'] = limpiarDato($_POST['id']);
+            insertarRegistro($link, $datosLimpios);
+            //actualizarRegistro($link, $datosLimpios);
+        } else {
+            insertarRegistro($link, $datosLimpios);
+        }
         mysqli_commit($link); // Aplicar cambios
         echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
     } catch (Exception $e) {
