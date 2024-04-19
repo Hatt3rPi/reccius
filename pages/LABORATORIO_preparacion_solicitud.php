@@ -733,5 +733,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
         }
+        
+        $('input[type="text"].datepicker').datepicker({
+            format: 'dd/mm/yyyy', // Formato global de fecha
+            language: 'es',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date()
+        });
     });
 </script>
