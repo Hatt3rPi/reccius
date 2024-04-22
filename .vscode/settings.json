@@ -1,0 +1,5 @@
+{
+  "CodeGPT.apiKey": "Ollama",
+  "intelephense.environment.includePaths": ["../assets/dependencies/aws.phar"],
+
+}
