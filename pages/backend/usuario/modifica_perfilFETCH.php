@@ -2,6 +2,8 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
+$folder = 'usuarios';
+
 $usuario = $_SESSION['usuario'] ? $_SESSION['usuario'] : null;
 $query =    "SELECT 
                 id,

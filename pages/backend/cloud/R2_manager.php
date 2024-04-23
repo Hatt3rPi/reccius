@@ -12,10 +12,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
   exit;
 }
 
-$bucket_name        = "reccius-bucket";
-$account_id         = "<accountid>";
-$access_key_id      = "<access_key_id>";
-$access_key_secret  = "<access_key_secret>";
+$bucket_name        = getenv('BUCKET_NAME');
+$account_id         = getenv('ACCOUNT_ID');
+$access_key_id      = getenv('ACCESS_KEY_ID');
+$access_key_secret  = getenv('ACCESS_KEY_SECRET');
 
 $credentials = new Credentials($access_key_id, $access_key_secret);
 
@@ -35,7 +35,7 @@ function setFile($params) {
       throw new InvalidArgumentException('Se espera un arreglo.');
   }
   if (!isset($params['fileBinary']) || !isset($params['folder']) || !isset($params['fileName'])) {
-      throw new InvalidArgumentException('Faltan parámetros requeridos.');
+      throw new InvalidArgumentException('Faltan parámetros requeridos (fileBinary, folder, fileName).');
   }
 
   // Acceder a los parámetros
@@ -50,7 +50,7 @@ function setFile($params) {
       'Body' => $fileBinary,
       'ACL' => 'private'
     ]);
-      return json_encode(['success' => $result, 'error' => '']);
+      return json_encode(['success' => $result, 'error' => false]);
 
   } catch (Aws\Exception\AwsException $e) {
       return json_encode(['success'=> false, 'error' => $e->getMessage()]);
@@ -66,7 +66,7 @@ function deleteFile($folder, $fileName) {
           'Bucket' => $bucket_name,
           'Key' => $folder . '/' . $fileName
       ]);
-      return json_encode(['success' => true, 'error' => '']);
+      return json_encode(['success' => $result, 'error' => false]);
   } catch (Aws\Exception\AwsException $e) {
       return json_encode(['success' => false, 'error' => $e->getMessage()]);
   }

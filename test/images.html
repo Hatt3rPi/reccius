@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crop Image to 1:1 Aspect Ratio</title>
+  </head>
+  <body style="height: 100dvh; width: 100dvw; padding: 0; margin: 0">
+    <form
+      id="form"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 100px;
+      "
+    >
+      <input
+        class="switch_foto"
+        type="file"
+        id="fotoPerfil"
+        name="fotoPerfil"
+        accept="image/*"
+      />
+      <canvas style="display: none"></canvas>
+      <img id="preview" style="max-width: 300px" />
+
+      <button>Enviar</button>
+    </form>
+
+    <script>
+      var newProfilePhoto = null;
+      var newProfilePhotoBlob = null;
+      document
+        .getElementById("fotoPerfil")
+        .addEventListener("change", function (e) {
+          if (e.target.files && e.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+              var img = new Image();
+              img.onload = function () {
+                var canvas = document.querySelector("canvas");
+                var ctx = canvas.getContext("2d");
+                var size = Math.min(img.width, img.height);
+                canvas.width = size;
+                canvas.height = size;
+
+                // Calculating the top left corner coordinates of the image to center the crop
+                var x = (img.width - size) / 2;
+                var y = (img.height - size) / 2;
+
+                ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+
+                newProfilePhoto = canvas.toDataURL("image/webp");
+                document.getElementById("preview").src = newProfilePhoto;
+                canvas.toBlob(
+                  (blob) => {
+                    if (blob) {
+                      newProfilePhotoBlob = new File([blob], 'name', {
+                        type: "image/webp",
+                      });
+                    } else {
+                      reject(new Error("Error processing image"));
+                    }
+                  },
+                  "image/webp",
+                  1
+                );
+              };
+              img.src = event.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+          }
+        });
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        console.log(formData);
+        if (newProfilePhoto) {
+          console.log(newProfilePhoto);
+          console.log(newProfilePhotoBlob);
+        }
+      });
+    </script>
+  </body>
+</html>

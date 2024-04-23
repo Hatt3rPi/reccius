@@ -67,7 +67,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <div class="seccion seccion-deshabilitada">
-
                     <h3>Editar información de Usuario</h3>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="switch_info" onclick="toggleInputs('switch_info')">
