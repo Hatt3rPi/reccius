@@ -694,6 +694,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="guardar" style="display: none">Guardar</button>
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
+    <p id='etapa' name='etapa' style="display: none;"></p>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
@@ -730,7 +731,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.getElementById('confirmarMetodo').addEventListener('click', function() {
+
+document.getElementById('confirmarMetodo').addEventListener('click', function() {
     const metodoManual = document.getElementById('muestreoManual').checked;
     const metodoDigital = document.getElementById('muestreoDigital').checked;
 
@@ -740,6 +742,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
         document.getElementById('download-pdf').click();
     } else if (metodoDigital) {
+        $('#etapa').text('muestreador');
         // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
@@ -758,299 +761,297 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#realizadoPor').text(nombre_ejecutor);
 
     }
-    document.getElementById('metodo_muestreo').style.display = 'none';
-    document.getElementById('firmar').style.display = 'block';
 });
-    document.getElementById('download-pdf').addEventListener('click', function() {
+
+document.getElementById('download-pdf').addEventListener('click', function() {
 
 
-        // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
+    // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
+    const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
+    allButtonGroups.forEach(group => {
+        const buttons = group.querySelectorAll('.btn-check');
+        buttons.forEach(button => {
+            // Si el botón no está chequeado, ocultar el label asociado
+            if (!button.checked) {
+                button.nextElementSibling.style.display = 'none';
+            }
+        });
+    });
+
+    // Continúa con el proceso de descarga del PDF como antes
+    document.querySelector('.button-container').style.display = 'none';
+    const elementToExport = document.getElementById('form-container');
+    elementToExport.style.border = 'none'; // Establecer el borde a none
+    elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
+    
+
+    html2canvas(elementToExport, {
+        scale: 2
+    }).then(canvas => {
+        // Mostrar botones después de la captura
+        document.querySelector('.button-container').style.display = 'block';
+        // Establecer los estilos originales después de generar el PDF
+        elementToExport.style.border = '1px solid #000';
+        elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+        // Restablecer la visibilidad de todos los botones después de generar el PDF
         allButtonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.btn-check');
             buttons.forEach(button => {
-                // Si el botón no está chequeado, ocultar el label asociado
-                if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none';
+                // Solo mostrar los labels de los botones seleccionados
+                if (button.checked) {
+                    button.style.display = 'block';
                 }
             });
         });
 
-        // Continúa con el proceso de descarga del PDF como antes
-        document.querySelector('.button-container').style.display = 'none';
-        const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none'; // Establecer el borde a none
-        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
-        
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
 
-        html2canvas(elementToExport, {
-            scale: 2
-        }).then(canvas => {
-            // Mostrar botones después de la captura
-            document.querySelector('.button-container').style.display = 'block';
-            // Establecer los estilos originales después de generar el PDF
-            elementToExport.style.border = '1px solid #000';
-            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        const imgWidth = 210;
+        const pageHeight = 297;
+        let imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
 
-            // Restablecer la visibilidad de todos los botones después de generar el PDF
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    // Solo mostrar los labels de los botones seleccionados
-                    if (button.checked) {
-                        button.style.display = 'block';
-                    }
-                });
-            });
+        let position = 0;
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
 
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            const imgWidth = 210;
-            const pageHeight = 297;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-
-            let position = 0;
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
+        }
 
 
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
+        var nombreProducto = document.getElementById('producto').textContent.trim();
+        var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+        $.notify("PDF generado con éxito", "success");
 
-            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    // Mostrar todos los botones nuevamente
-                    button.style.display = 'block';
-                });
+        // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                // Mostrar todos los botones nuevamente
+                button.style.display = 'block';
             });
-
-
         });
+
+
     });
-    document.getElementById('guardar').addEventListener('click', function() {
-        const idDocumento = document.getElementById('nro_registro').textContent; // Assuming the ID is in the textContent of an element
-        const radioButtons = document.querySelectorAll("input[type='radio']");
-        let dataToSave = [];
+});
+    // document.getElementById('guardar').addEventListener('click', function() {
+    //     const idDocumento = document.getElementById('nro_registro').textContent; // Assuming the ID is in the textContent of an element
+    //     const radioButtons = document.querySelectorAll("input[type='radio']");
+    //     let dataToSave = [];
 
-        radioButtons.forEach(radio => {
-            if (radio.checked) { // Only add to the array if the radio button is selected
-                let radioInfo = {
-                    id_documento: idDocumento,
-                    name: radio.name,
-                    value: radio.value,
-                    checked: radio.checked
-                };
-                dataToSave.push(radioInfo);
-            }
-        });
+    //     radioButtons.forEach(radio => {
+    //         if (radio.checked) { // Only add to the array if the radio button is selected
+    //             let radioInfo = {
+    //                 id_documento: idDocumento,
+    //                 name: radio.name,
+    //                 value: radio.value,
+    //                 checked: radio.checked
+    //             };
+    //             dataToSave.push(radioInfo);
+    //         }
+    //     });
 
-        // // Now `dataToSave` is defined and we can make the AJAX call
+    //     // // Now `dataToSave` is defined and we can make the AJAX call
+    //     $.ajax({
+    //         url: './backend/acta_muestreo/save_selections.php', // Ensure this endpoint is configured on your server
+    //         type: 'POST',
+    //         data: {
+    //             selections: dataToSave
+    //         },
+    //         success: function(response) {
+    //             // Handle the server response here
+    //             console.log(response);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error("Error saving: ", status, error);
+    //         }
+    //     });
+    // });
+
+//     var TESTMODO = 3;
+
+
+// // Definir la función verificarBotonesSeleccionados
+// function verificarBotonesSeleccionados() {
+//     let todosSeleccionados = true;
+//     const formRespElements = document.querySelectorAll("td.formulario.resp");
+//     const formVerifElements = document.querySelectorAll("td.formulario.verif");
+
+//     // Combina los dos NodeList en un solo array
+//     const allElements = [...formRespElements, ...formVerifElements];
+
+//     allElements.forEach(element => {
+//         const radioButtons = element.querySelectorAll("input[type='radio']");
+//         const algunoSeleccionado = Array.from(radioButtons).some(radio => radio.checked);
+
+//         if (!algunoSeleccionado) {
+//             todosSeleccionados = false;
+//         }
+//     });
+
+//     // Ocultar o mostrar el botón de descargar PDF según si todos los botones están seleccionados
+//     const botonDescargarPDF = document.getElementById('download-pdf');
+//     botonDescargarPDF.style.display = todosSeleccionados ? 'block' : 'none';
+// }
+
+//     // Ejecutar la verificación inicial y luego cada vez que cambie el estado de un botón de radio
+//     document.querySelectorAll("input[type='radio']").forEach(radio => {
+//         radio.addEventListener('change', verificarBotonesSeleccionados);
+//     });
+
+//     // Verificación inicial
+//     verificarBotonesSeleccionados();
+
+//     //ofuncion para ocultar contenido de botones al no ser de la id 
+
+
+
+//     if (TESTMODO === 1) {
+//         // Deshabilitar solo los botones dentro de la columna de revisión Responsable
+//         const verificadores = document.querySelectorAll('.formulario.verif .btn-check');
+
+//         verificadores.forEach(function(button) {
+//             button.disabled = true;
+//         });
+//     } else if (TESTMODO === 2) {
+//         // Deshabilitar solo los botones dentro de la columna de revisión Responsable
+//         const verificadores = document.querySelectorAll('.formulario.resp .btn-check');
+
+//         verificadores.forEach(function(button) {
+//             button.disabled = true;
+//         });
+
+//     }
+
+function cargarDatosEspecificacion(id, resultados, etapa) {
+    console.log(id, resultados, etapa);
+    if (resultados) {
         $.ajax({
-            url: './backend/acta_muestreo/save_selections.php', // Ensure this endpoint is configured on your server
-            type: 'POST',
+            url: './backend/acta_muestreo/ingresa_resultados.php',
+            type: 'GET',
             data: {
-                selections: dataToSave
+                id_acta: id
             },
             success: function(response) {
-                // Handle the server response here
-                console.log(response);
+                procesarDatosActa(response, resultados, etapa);
             },
             error: function(xhr, status, error) {
-                console.error("Error saving: ", status, error);
+                console.error("Error en la solicitud: ", status, error);
             }
         });
-    });
-</script>
-<script>
-    var TESTMODO = 3;
-
-
-    // Definir la función verificarBotonesSeleccionados
-    function verificarBotonesSeleccionados() {
-        let todosSeleccionados = true;
-        const formRespElements = document.querySelectorAll("td.formulario.resp");
-        const formVerifElements = document.querySelectorAll("td.formulario.verif");
-
-        // Combina los dos NodeList en un solo array
-        const allElements = [...formRespElements, ...formVerifElements];
-
-        allElements.forEach(element => {
-            const radioButtons = element.querySelectorAll("input[type='radio']");
-            const algunoSeleccionado = Array.from(radioButtons).some(radio => radio.checked);
-
-            if (!algunoSeleccionado) {
-                todosSeleccionados = false;
+    } else {
+        $.ajax({
+            url: './backend/acta_muestreo/genera_acta.php',
+            type: 'GET',
+            data: {
+                id_analisis_externo: id
+            },
+            success: function(response) {
+                procesarDatosActa(response, resultados, '0');
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
             }
         });
-
-        // Ocultar o mostrar el botón de descargar PDF según si todos los botones están seleccionados
-        const botonDescargarPDF = document.getElementById('download-pdf');
-        botonDescargarPDF.style.display = todosSeleccionados ? 'block' : 'none';
     }
+}
 
-    // Ejecutar la verificación inicial y luego cada vez que cambie el estado de un botón de radio
-    document.querySelectorAll("input[type='radio']").forEach(radio => {
-        radio.addEventListener('change', verificarBotonesSeleccionados);
-    });
+function procesarDatosActa(response, resultados, etapa) {
+    console.log(resultados, etapa);
+    // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
+    if (response && response.analisis_externos && response.analisis_externos.length > 0) {
+        const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
 
-    // Verificación inicial
-    verificarBotonesSeleccionados();
+        // Aquí asignas los valores a los campos del formulario
+        // Asegúrate de que los ID de los elementos HTML coincidan con estos
+        $('#producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
+        $('#Tipo_Producto').text(acta.tipo_producto);
+        $('#form_producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
+        $('#form_tipo').text('Magistral ' + acta.tipo_producto);
+        $('#form_lote').text(acta.lote);
+        $('#form_tamano_lote').text(acta.tamano_lote);
+        $('#form_codigo_mastersoft').text(acta.codigo_mastersoft);
+        $('#form_condAlmacenamiento').text(acta.condicion_almacenamiento);
+        $('#form_cant_muestra').text(acta.tamano_muestra);
+        $('#form_cant_contramuestra').text(acta.tamano_contramuestra);
+        $('#form_tipo_analisis').text(acta.tipo_analisis);
+        $('#nro_acta').text(acta.numero_acta);
 
-    //ofuncion para ocultar contenido de botones al no ser de la id 
+        $('#responsable').text(acta.muestreado_por);
+        $('#cargo_responsable').text(acta.cargo_muestreado_por);
+        // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
+        //$('#firma_responsable').attr('src', acta.foto_firma_muestreado_por);
 
-
-
-    if (TESTMODO === 1) {
-        // Deshabilitar solo los botones dentro de la columna de revisión Responsable
-        const verificadores = document.querySelectorAll('.formulario.verif .btn-check');
-
-        verificadores.forEach(function(button) {
-            button.disabled = true;
-        });
-    } else if (TESTMODO === 2) {
-        // Deshabilitar solo los botones dentro de la columna de revisión Responsable
-        const verificadores = document.querySelectorAll('.formulario.resp .btn-check');
-
-        verificadores.forEach(function(button) {
-            button.disabled = true;
-        });
-
-    }
-
-    function cargarDatosEspecificacion(id, resultados, etapa) {
-        console.log(id, resultados, etapa);
-        if (resultados) {
-            $.ajax({
-                url: './backend/acta_muestreo/ingresa_resultados.php',
-                type: 'GET',
-                data: {
-                    id_acta: id
-                },
-                success: function(response) {
-                    procesarDatosActa(response, resultados, etapa);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud: ", status, error);
-                }
-            });
-        } else {
-            $.ajax({
-                url: './backend/acta_muestreo/genera_acta.php',
-                type: 'GET',
-                data: {
-                    id_analisis_externo: id
-                },
-                success: function(response) {
-                    procesarDatosActa(response, resultados, '0');
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud: ", status, error);
-                }
-            });
-        }
-    }
-
-    function procesarDatosActa(response, resultados, etapa) {
+        // Datos del usuario que revisó
+        $('#verificadoPor').text(acta.revisado_por);
+        $('#cargo_verificador').text(acta.cargo_revisado_por);
+        // Y también para la firma
+        //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
         console.log(resultados, etapa);
-        // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
-        if (response && response.analisis_externos && response.analisis_externos.length > 0) {
-            const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
-
-            // Aquí asignas los valores a los campos del formulario
-            // Asegúrate de que los ID de los elementos HTML coincidan con estos
-            $('#producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
-            $('#Tipo_Producto').text(acta.tipo_producto);
-            $('#form_producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
-            $('#form_tipo').text('Magistral ' + acta.tipo_producto);
-            $('#form_lote').text(acta.lote);
-            $('#form_tamano_lote').text(acta.tamano_lote);
-            $('#form_codigo_mastersoft').text(acta.codigo_mastersoft);
-            $('#form_condAlmacenamiento').text(acta.condicion_almacenamiento);
-            $('#form_cant_muestra').text(acta.tamano_muestra);
-            $('#form_cant_contramuestra').text(acta.tamano_contramuestra);
-            $('#form_tipo_analisis').text(acta.tipo_analisis);
-            $('#nro_acta').text(acta.numero_acta);
-
-            $('#responsable').text(acta.muestreado_por);
-            $('#cargo_responsable').text(acta.cargo_muestreado_por);
-            // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
-            //$('#firma_responsable').attr('src', acta.foto_firma_muestreado_por);
-
-            // Datos del usuario que revisó
-            $('#verificadoPor').text(acta.revisado_por);
-            $('#cargo_verificador').text(acta.cargo_revisado_por);
-            // Y también para la firma
-            //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
-            console.log(resultados, etapa);
-            if (resultados) {
-                switch (etapa) {
-                    case '1':
-                        var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
-                        var cargo = "<?php echo $_SESSION['cargo']; ?>";
-                        var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
-                        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-                        $('#nro_registro').text(acta.numero_registro);
-                        $('#nro_version').text(acta.version_registro);
-                        $('#realizadoPor').text(nombre_ejecutor);
-                        $('#cargo_realizador').text(cargo);
-                        $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
-                        $('#fecha_Edicion').text(fecha_hoy);
-                        $('.resp').css('background-color', '#f4fac2');
-                        $('.verif input').prop('readonly', true);
-                        $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
-                        //revision_actor1
-                        console.log(nombre_ejecutor, acta.muestreado_por);
-                        if (nombre_ejecutor !== acta.muestreado_por) {
-                            $('#revision_actor1').text('Revisión Ejecutor');
-                            $('#revision_actor2').text('Revisión Muestreador');
-                        }
-                        break;
-                    case '2':
-                        break;
-                }
-            } else {
-                switch (acta.tipo_producto) {
-                    case 'Material Envase y Empaque':
-                        $('#nro_registro').text('DCAL-CC-AMMEE-' + acta.identificador_producto.toString().padStart(3, '0'));
-                        break;
-                    case 'Materia Prima':
-                        $('#nro_registro').text('DCAL-CC-AMMP-' + acta.identificador_producto.toString().padStart(3, '0'));
-                        break;
-                    case 'Producto Terminado':
-                        $('#nro_registro').text('DCAL-CC-AMPT-' + acta.identificador_producto.toString().padStart(3, '0'));
-                        break;
-                    case 'Insumo':
-                        $('#nro_registro').text('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
-                        break;
-                }
-                $('#nro_version').text(1);
-                $('#realizadoPor').text('Nombre:');
-                document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
-                element.style.visibility = 'hidden'; // Hacer invisible el contenido
-                });
+        if (resultados) {
+            switch (etapa) {
+                case '1':
+                    var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+                    var cargo = "<?php echo $_SESSION['cargo']; ?>";
+                    var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
+                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                    $('#nro_registro').text(acta.numero_registro);
+                    $('#nro_version').text(acta.version_registro);
+                    $('#realizadoPor').text(nombre_ejecutor);
+                    $('#cargo_realizador').text(cargo);
+                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+                    $('#fecha_Edicion').text(fecha_hoy);
+                    $('.resp').css('background-color', '#f4fac2');
+                    $('.verif input').prop('readonly', true);
+                    $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
+                    //revision_actor1
+                    console.log(nombre_ejecutor, acta.muestreado_por);
+                    if (nombre_ejecutor !== acta.muestreado_por) {
+                        $('#revision_actor1').text('Revisión Ejecutor');
+                        $('#revision_actor2').text('Revisión Muestreador');
+                    }
+                    break;
+                case '2':
+                    break;
             }
         } else {
-            console.error("No se recibieron datos válidos: ", response);
+            switch (acta.tipo_producto) {
+                case 'Material Envase y Empaque':
+                    $('#nro_registro').text('DCAL-CC-AMMEE-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Materia Prima':
+                    $('#nro_registro').text('DCAL-CC-AMMP-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Producto Terminado':
+                    $('#nro_registro').text('DCAL-CC-AMPT-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Insumo':
+                    $('#nro_registro').text('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    break;
+            }
+            $('#nro_version').text(1);
+            $('#realizadoPor').text('Nombre:');
+            document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
+            element.style.visibility = 'hidden'; // Hacer invisible el contenido
+            });
         }
+    } else {
+        console.error("No se recibieron datos válidos: ", response);
     }
+}
 
 document.getElementById('firmar').addEventListener('click', function() {
     // Hacer visibles los elementos de .formulario.resp
@@ -1063,6 +1064,85 @@ document.getElementById('firmar').addEventListener('click', function() {
     document.getElementById('firmar').style.display = 'none';
     $('.resp').css('background-color', '#f4fac2');
 
+});
+function consolidarRespuestas() {
+    let valorConsolidado = '';
+    // Selecciona todos los grupos de botones de radio dentro de la sección de respuesta
+    const grupos = document.querySelectorAll('.formulario.resp');
+    
+    // Itera a través de cada grupo para ver cuál botón de radio está seleccionado
+    grupos.forEach(grupo => {
+        const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
+        
+        // Añadir al valor consolidado basado en el valor del botón seleccionado
+        if (radioSeleccionado) {
+            // Asumiendo que los valores son 'Cumple' y 'No Cumple' transformados a '1' y '0'
+            valorConsolidado += (radioSeleccionado.value === 'Cumple' ? '1' : '0');
+        } else {
+            // Si no se selecciona ninguno en el grupo, se podría considerar como no cumple o manejar como error
+            valorConsolidado += '0'; // o manejar la situación de manera diferente
+        }
+    });
+
+    return valorConsolidado;
+}
+
+document.getElementById('guardar').addEventListener('click', function() {
+    // Verifica si la etapa es 'muestreador'
+    if ($('#etapa').text() === 'muestreador') {
+        let respuestas = consolidarRespuestas();
+        let todosSeleccionados = true;
+        let dataToSave = [];
+
+        // Verifica que todos los toggle buttons en 'formulario.resp' estén seleccionados
+        document.querySelectorAll('.formulario.resp input[type="radio"]').forEach(function(button) {
+            if (!button.checked && button.style.visibility === 'visible') {
+                todosSeleccionados = false;
+            }
+        });
+
+        if (!todosSeleccionados) {
+            alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
+            return; // Detiene la función si no todos están seleccionados
+        }
+
+        // Recolecta datos de los textarea que necesitan estar cargados
+        ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
+            let textarea = document.getElementById(id);
+            if (textarea.value.trim() === '') {
+                alert(`El campo ${id} está vacío y es obligatorio.`);
+                todosSeleccionados = false;
+                return;
+            } else {
+                dataToSave.push({ id: id, value: textarea.value });
+            }
+        });
+
+        if (!todosSeleccionados) {
+            return; // Detiene la función si algún textarea está vacío
+        }
+
+        // Si todo está correcto, se preparan los datos para enviar al backend
+        document.querySelectorAll('.formulario.resp input[type="radio"]:checked').forEach(function(radio) {
+            dataToSave.push({ name: radio.name, value: radio.value });
+        });
+
+        // Envía la información al backend mediante AJAX
+        $.ajax({
+            url: './backend/guardar_muestreo.php', // Asegúrate de que esta URL es correcta
+            type: 'POST',
+            data: JSON.stringify(dataToSave),
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                console.log('Guardado exitoso: ', response);
+                alert("Datos guardados correctamente.");
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al guardar: ", status, error);
+                alert("Error al guardar los datos.");
+            }
+        });
+    }
 });
 
 </script>
