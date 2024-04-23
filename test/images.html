@@ -5,8 +5,7 @@
     <title>Crop Image to 1:1 Aspect Ratio</title>
   </head>
   <body style="height: 100dvh; width: 100dvw; padding: 0; margin: 0">
-    <form
-      id="form"
+    <div
       style="
         display: flex;
         flex-direction: column;
@@ -24,62 +23,78 @@
       />
       <canvas style="display: none"></canvas>
       <img id="preview" style="max-width: 300px" />
-
-      <button>Enviar</button>
-    </form>
+      <form id="form">
+        <button>Enviar</button>
+      </form>
+    </div>
 
     <script>
-      var newProfilePhoto = null;
-      var newProfilePhotoBlob = null;
+      function processImageSquare(inputFile, callback) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const img = new Image();
+          img.onload = function () {
+            const canvas = document.querySelector("canvas");
+            const ctx = canvas.getContext("2d");
+            const size = Math.min(img.width, img.height);
+            canvas.width = size;
+            canvas.height = size;
+            const x = (img.width - size) / 2;
+            const y = (img.height - size) / 2;
+            ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+
+            canvas.toBlob(
+              (blob) => {
+                if (blob) {
+                  const newProfilePhotoBlob = new File(
+                    [blob],
+                    "profile-photo.webp",
+                    {
+                      type: "image/webp",
+                    }
+                  );
+                  callback(null, {
+                    dataURL: canvas.toDataURL("image/webp"),
+                    blob: newProfilePhotoBlob,
+                  });
+                } else {
+                  callback(new Error("Error processing image"));
+                }
+              },
+              "image/webp",
+              1
+            );
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(inputFile);
+      }
+      var blobImg = null;
       document
         .getElementById("fotoPerfil")
         .addEventListener("change", function (e) {
           if (e.target.files && e.target.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-              var img = new Image();
-              img.onload = function () {
-                var canvas = document.querySelector("canvas");
-                var ctx = canvas.getContext("2d");
-                var size = Math.min(img.width, img.height);
-                canvas.width = size;
-                canvas.height = size;
-
-                // Calculating the top left corner coordinates of the image to center the crop
-                var x = (img.width - size) / 2;
-                var y = (img.height - size) / 2;
-
-                ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
-
-                newProfilePhoto = canvas.toDataURL("image/webp");
-                document.getElementById("preview").src = newProfilePhoto;
-                canvas.toBlob(
-                  (blob) => {
-                    if (blob) {
-                      newProfilePhotoBlob = new File([blob], 'name', {
-                        type: "image/webp",
-                      });
-                    } else {
-                      reject(new Error("Error processing image"));
-                    }
-                  },
-                  "image/webp",
-                  1
-                );
-              };
-              img.src = event.target.result;
-            };
-            reader.readAsDataURL(e.target.files[0]);
+            processImageSquare(e.target.files[0], function (error, result) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+              blobImg = result.blob;
+              document.getElementById("preview").src = result.dataURL;
+            });
           }
         });
+
       document.getElementById("form").addEventListener("submit", function (e) {
         e.preventDefault();
         const formData = new FormData(this);
-        console.log(formData);
-        if (newProfilePhoto) {
-          console.log(newProfilePhoto);
-          console.log(newProfilePhotoBlob);
-        }
+        formData.append("photo", blobImg);
+
+        var formObject = {};
+        formData.forEach(function(value, key) {
+            formObject[key] = value;
+        });
+        console.log(formObject);
       });
     </script>
   </body>
