@@ -95,9 +95,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th id="revision_actor1">Revisión Responsable</th>
+                        <th id="revision_actor1">Revisión Muestreador</th>
                         <th></th>
-                        <th id="revision_actor2">Revisión Verificador</th>
+                        <th id="revision_actor2">Revisión Responsable</th>
                         <th></th>
                         <th>Rótulo General de Muestra</th>
                     </tr>
@@ -325,9 +325,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th id="revision_actor1">Revisión Responsable</th>
+                        <th id="revision_actor1">Revisión Muestreador</th>
                         <th></th>
-                        <th id="revision_actor2">Revisión Verificador</th>
+                        <th id="revision_actor2">Revisión Responsable</th>
                         <th></th>
                         <th>Rótulo General de Muestra</th>
                     </tr>
@@ -547,8 +547,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th>Muestra</th>
                         <th>Contramuestra</th>
                         <th>Total</th>
-                        <th id="revision_actor1">Revisión Responsable</th>
-                        <th id="revision_actor2">Revisión Verificador</th>
+                        <th id="revision_actor1">Revisión Muestreador</th>
+                        <th id="revision_actor2">Revisión Responsable</th>
                     </tr>
                     <!-- Fila para lotes de <= 500 unidades -->
                     <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
@@ -631,7 +631,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <!-- Sección realizada por -->
                 <div class="firma-section">
 
-                    <div class="firma-box-title" style="font-size: 10px; text-align: left;">Realizado por:</div>
+                    <div class="firma-box-title" style="font-size: 10px; text-align: left;">Muestreado por:</div>
                     <div class="firma-box">
                         <p id='realizadoPor' name='realizadoPor' class="bold"></p>
                         <p id='cargo_realizador' name='cargo_realizador' class="bold">
@@ -744,6 +744,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
         });
+        document.getElementById('metodo_muestreo').style.display = 'none';
+        document.getElementById('guardar').style.display = 'block';
+        $('.resp').css('background-color', '#f4fac2');
+        var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+         $('#realizadoPor').text(nombre_ejecutor);
+         var fechaActual = new Date().toLocaleDateString();
+        $('#fecha_Edicion').text(fechaActual);
     }
     document.getElementById('metodo_muestreo').style.display = 'none';
     document.getElementById('firmar').style.display = 'block';
@@ -906,14 +913,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     if (TESTMODO === 1) {
-        // Deshabilitar solo los botones dentro de la columna de revisión verificador
+        // Deshabilitar solo los botones dentro de la columna de revisión Responsable
         const verificadores = document.querySelectorAll('.formulario.verif .btn-check');
 
         verificadores.forEach(function(button) {
             button.disabled = true;
         });
     } else if (TESTMODO === 2) {
-        // Deshabilitar solo los botones dentro de la columna de revisión verificador
+        // Deshabilitar solo los botones dentro de la columna de revisión Responsable
         const verificadores = document.querySelectorAll('.formulario.resp .btn-check');
 
         verificadores.forEach(function(button) {
@@ -1007,7 +1014,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.log(nombre_ejecutor, acta.muestreado_por);
                         if (nombre_ejecutor !== acta.muestreado_por) {
                             $('#revision_actor1').text('Revisión Ejecutor');
-                            $('#revision_actor2').text('Revisión Responsable');
+                            $('#revision_actor2').text('Revisión Muestreador');
                         }
                         break;
                     case '2':
@@ -1041,13 +1048,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 document.getElementById('firmar').addEventListener('click', function() {
     // Hacer visibles los elementos de .formulario.resp
+    console.log('click firma')
     document.querySelectorAll('.formulario.resp *').forEach(function(element) {
         element.style.visibility = 'visible';
     });
+    console.log('formulario resp cargado')
     document.getElementById('guardar').style.display = 'none';
     document.getElementById('firmar').style.display = 'none';
     $('.resp').css('background-color', '#f4fac2');
-    
+
 });
 
 </script>
