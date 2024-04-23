@@ -1,13 +1,3 @@
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    /* Separa las columnas */
-    
-}
-.form-group {
-    padding: 1%;
-}
-
 body {
     
     margin: 0;
@@ -16,40 +6,47 @@ body {
 }
 
 #form-container {
-    width: 612pt;
-    height: 792pt;
-    padding: 10pt;
+    width: 1000px;
+    /* height: 792pt; */
+    padding: 1px;
     box-sizing: border-box;
     background-color: #FFF;
     border: 1px solid #000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 500px;
-    margin-right: 10px;
+    margin-left: 100px;
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    top: 10px;
 }
-.form-container {
-    width: 612pt;
-    height: 792pt;
-    padding: 10pt;
-    box-sizing: border-box;
-    background-color: #FFF;
+
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    /* Separa las columnas */
+}
+
+.firma-box {
     border: 1px solid #000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 500px;
-    margin-right: 10px;
-    position: relative;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-right: 10px;
+    width: 200px;
+    height: 100px;
+    /* Ajusta el ancho para llenar la sección del footer */
+    text-align: center;
 }
 
+/* ... Resto de estilos ... */
 
-.content, #content, #additionalContent, #mainContainer, #additionalContainer,  .footer-section, th, td, tr, thead tr {
-    margin: 0;
-    padding: 10px;
-    border: none;
-    background-color: #FFF;
-}
-.header, .header-bottom, .table-section, .footer-box, .footer {
+
+
+.header,
+.header-bottom,
+.table-section,
+.footer-box,
+.footer {
     margin: 0;
     padding-top: 1px;
     padding-bottom: 0px;
@@ -58,7 +55,9 @@ body {
     border: none;
     background-color: #FFF;
 }
-.footer, .additionalfooter {
+
+.footer,
+.additionalfooter {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -69,12 +68,17 @@ body {
     justify-content: center;
 }
 
-.header, .header-bottom, .content, .footer {
+.header,
+.header-bottom,
+.content,
+.footer {
     justify-content: space-between;
     align-items: center;
 }
 
-.header-bottom-left, .header-bottom-right, .footer-box {
+.header-bottom-left,
+.header-bottom-right,
+.footer-box {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -85,28 +89,38 @@ body {
     text-align: center;
 }
 
-.header-bottom-left, .header-bottom-right {
+.header-bottom-left,
+.header-bottom-right {
     height: 50px;
 }
 
-.header-right, .header-bottom-right, .footer-box {
+.header-right,
+.header-bottom-right,
+.footer-box {
     text-align: right;
     font-size: 10px;
+}
+
+.header-right th:nth-child(2),
+.header-right td:nth-child(2) {
+    text-align: left;
+    font-size: 10px;
+    padding-left: 5px;
+
 }
 
 .header-right table {
     width: 100%;
 }
 
-.header-right table td, .header-right table th {
-    font-size: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-top: 0px;
-    padding-bottom: 0px;
+.header-right table td,
+.header-right table th {
+    font-size: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     padding-left: 3px;
     padding-right: 1px;
+    border: 1px dotted #000;
 }
 
 tbody {
@@ -117,29 +131,38 @@ tbody {
 }
 
 
-.sub-info, .bold {
+.sub-info,
+.bold {
     font-size: 9px;
     color: #000;
     font-weight: bold;
     text-align: center;
 }
 
-table {
+#seccion3 table {
     width: 100%;
     border-collapse: collapse;
+
 }
 
-th {
+#seccion3 th {
     background-color: #0047b3;
     color: white;
     padding: 8px;
+    text-align: center;
+    align-items: center;
 }
 
-td {
+#seccion3 td {
     padding: 8px;
+    text-align: center;
+    align-items: center;
 }
 
-.document-title h2, .document-title h3 {
+
+
+.document-title h2,
+.document-title h3 {
     text-align: center;
     font-weight: bold;
 }
@@ -156,6 +179,14 @@ td {
 
 .footer-section {
     margin: 5px;
+}
+
+.firma-section {
+    margin: 0;
+    padding-left: 50px;
+    padding-right: 50px;
+    border: none;
+    background-color: #FFF;
 }
 
 .footer-box {
@@ -181,17 +212,21 @@ td {
     border: 0px dashed #000;
     height: 64px;
     width: 64px;
-    margin: auto; /* Centra el contenedor en el espacio disponible */
+    margin: auto;
+    /* Centra el contenedor en el espacio disponible */
 }
 
 .signature img {
     width: 64px;
     height: 64px;
-    object-fit: contain; /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
+    object-fit: contain;
+    /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
 }
 
 
-.bold, .signature, p {
+.bold,
+.signature,
+p {
     margin: 0;
 }
 
@@ -199,14 +234,9 @@ p {
     flex-grow: 0;
 }
 
-.date {
-    text-align: center;
-    margin-top: 10px;
-}
-
-#download-pdf {
+.botones {
     position: fixed;
-    bottom: 20px;
+    width: 200px;
     right: 20px;
     padding: 15px 30px;
     background-color: #0047b3;
@@ -217,7 +247,19 @@ p {
     text-decoration: none;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
-
+#metodo_muestreo {
+    bottom: 30px !important;
+}
+#guardar {
+    bottom: 90px;
+}
+#firmar {
+    bottom: 160px;
+    background-color: #ff0000;
+}
+#download-pdf {
+    bottom: 20px;
+}
 #download-pdf:hover {
     background-color: #003580;
 }
@@ -233,10 +275,12 @@ p {
 #contenido_main {
     align-items: center;
 }
+
 #contenido_main .table {
     margin-left: auto;
     margin-right: auto;
-    width: 80%; /* Ajusta esto según tus necesidades */
+    width: 80%;
+    /* Ajusta esto según tus necesidades */
 }
 
 .no-border {
@@ -249,67 +293,258 @@ p {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5); /* Aumenta la escala verticalmente */
+    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5);
+    /* Aumenta la escala verticalmente */
     transform-origin: center center;
-    font-size: 110px; /* Ajusta este valor según sea necesario */
-    color: rgba(0, 0, 0, 0.2); /* Semitransparente */
+    font-size: 110px;
+    /* Ajusta este valor según sea necesario */
+    color: rgba(0, 0, 0, 0.2);
+    /* Semitransparente */
     pointer-events: none;
     z-index: 9999;
-    width: 100%; /* Asegúrate de que abarque todo el ancho del contenedor */
-    text-align: center; /* Centra el texto horizontalmente */
-    white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
+    width: 100%;
+    /* Asegúrate de que abarque todo el ancho del contenedor */
+    text-align: center;
+    /* Centra el texto horizontalmente */
+    white-space: nowrap;
+    /* Evita que el texto se envuelva en múltiples líneas */
 }
 
 #watermark.pendiente-approbacion {
-    font-family: 'Arial', sans-serif; /* Cambia a la fuente que corresponda */
+    font-family: 'Arial', sans-serif;
+    /* Cambia a la fuente que corresponda */
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg); /* Mantén el texto en diagonal */
-    transform-origin: 0 50%; /* Ajusta el origen de la transformación si es necesario */
-    font-size: 100px; /* Ajusta este valor según el tamaño deseado */
-    color: rgba(255, 0, 0, 0.5); /* Cambia el color y la transparencia según sea necesario */
+    transform: translate(-50%, -50%) rotate(-45deg);
+    /* Mantén el texto en diagonal */
+    transform-origin: 0 50%;
+    /* Ajusta el origen de la transformación si es necesario */
+    font-size: 100px;
+    /* Ajusta este valor según el tamaño deseado */
+    color: rgba(255, 0, 0, 0.5);
+    /* Cambia el color y la transparencia según sea necesario */
     pointer-events: none;
     z-index: 9999;
-    width: 100vw; /* Utiliza 100vw para que abarque todo el ancho de la ventana */
-    text-align: center; /* Centra el texto horizontalmente */
-    white-space: nowrap; /* Evita que el texto se envuelva en múltiples líneas */
-    line-height: 1; /* Ajusta el interlineado si es necesario */
-    letter-spacing: -5px; /* Ajusta el espaciado entre letras si es necesario */
+    width: 100vw;
+    /* Utiliza 100vw para que abarque todo el ancho de la ventana */
+    text-align: center;
+    /* Centra el texto horizontalmente */
+    white-space: nowrap;
+    /* Evita que el texto se envuelva en múltiples líneas */
+    line-height: 1;
+    /* Ajusta el interlineado si es necesario */
+    letter-spacing: -5px;
+    /* Ajusta el espaciado entre letras si es necesario */
 }
 
 
 .hidden {
-    display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
+    display: none !important;
+    /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
 
 /* Estilo para todos los elementos th */
 .general-th {
-    background-color: #0047b3; /* Color de fondo azul */
-    color: white;             /* Texto en color blanco */
-    padding: 8px;             /* Relleno alrededor del texto */
+    background-color: #0047b3;
+    /* Color de fondo azul */
+    color: white;
+    /* Texto en color blanco */
+    padding: 8px;
+    /* Relleno alrededor del texto */
 }
 
 /* Estilo para th dentro de .header-right table */
 .header-right-th {
-    font-size: 8px;            /* Tamaño de fuente más pequeño para th */
-    white-space: nowrap;       /* Asegura que el texto no se envuelva */
-    overflow: hidden;          /* Oculta el contenido que desborde el tamaño del elemento */
-    text-overflow: ellipsis;   /* Añade puntos suspensivos si el texto se desborda */
-    padding-top: 0px;          /* Relleno superior */
-    padding-bottom: 0px;       /* Relleno inferior */
-    padding-left: 3px;         /* Relleno izquierdo */
-    padding-right: 1px;        /* Relleno derecho */
+    font-size: 8px;
+    /* Tamaño de fuente más pequeño para th */
+    white-space: nowrap;
+    /* Asegura que el texto no se envuelva */
+    overflow: hidden;
+    /* Oculta el contenido que desborde el tamaño del elemento */
+    text-overflow: ellipsis;
+    /* Añade puntos suspensivos si el texto se desborda */
+    padding-top: 0px;
+    /* Relleno superior */
+    padding-bottom: 0px;
+    /* Relleno inferior */
+    padding-left: 3px;
+    /* Relleno izquierdo */
+    padding-right: 1px;
+    /* Relleno derecho */
+}
+
+
+
+#identificacion_muestra th:first-child,
+#identificacion_muestra td:first-child {
+    width: 20%;
+
+}
+
+#identificacion_muestra th:nth-child(2),
+#identificacion_muestra td:nth-child(2) {
+    width: 40%;
+    padding: 5px;
+
+}
+
+#identificacion_muestra th:nth-child(4),
+#identificacion_muestra td:nth-child(4) {
+    width: 8% !important;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#identificacion_muestra th:nth-child(6),
+#identificacion_muestra td:nth-child(6) {
+    width: 8% !important;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#identificacion_muestra th:nth-child(8),
+#identificacion_muestra td:nth-child(8) {
+    width: 20%;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+}
+
+#identificacion_muestra {
+    width: 100%;
 }
 
 .formulario {
-    font-size: 10px;
     border: 1px solid #000;
-    width: 75%; /* 3 veces el tamaño de .VB y .Rspn */
+    font-size: 12px;
+
 }
 
-.VB, .Rspn {
-    font-size: 5px;
-    border: 1px solid #000;
-    width: 25%; /* 1 vez el tamaño de .VB y .Rspn */
+#muestreo .formulario {
+    font-size: 12px;
+
+}
+
+.formulario-titulo {
+    border: none;
+    font-size: 12px;
+}
+
+.spacer {
+    border: none;
+    width: 1% !important;
+    padding: 0px !important;
+}
+
+.verificadores {
+    font-size: 8px !important;
+    margin-bottom: 0px !important;
+    padding: 2px 2px !important;
+    /* Ajusta el espacio interno del botón */
+    border-radius: 3px !important;
+    width: 100% !important;
+
+}
+
+.resp {
+    background-color: #ffffff;
+}
+
+.verif {
+    background-color: #ffffff;
+}
+
+#muestreo th:first-child,
+#muestreo td:first-child {
+    width: 40%;
+
+}
+
+#muestreo th:nth-child(2),
+#muestreo td:nth-child(2) {
+    width: 20%;
+
+}
+
+#muestreo th:nth-child(4),
+#muestreo td:nth-child(4) {
+    width: 8%;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#muestreo th:nth-child(6),
+#muestreo td:nth-child(6) {
+    width: 8%;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#muestreo th:nth-child(8),
+#muestreo td:nth-child(8) {
+    width: 20%;
+    font-size: 10px;
+}
+
+#muestreo,
+#seccion3 {
+    width: 100%;
+    font-size: 12px;
+}
+
+.formulario textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /* Incluye el padding y el border en la altura y anchura total */
+    border: 0px solid #ccc;
+    /* Opcional: Establece un borde para el textarea */
+    padding: 2px;
+    /* Opcional: Añade algo de espacio interior */
+    resize: none;
+    /* Opcional: Evita que el usuario redimensione el textarea */
+}
+
+#seccion3 th:nth-child(5),
+#muestreo td:nth-child(5) {
+    width: 8%;
+}
+
+#seccion3 th:nth-child(6),
+#muestreo td:nth-child(6) {
+    width: 8%;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
+}
+
+#fecha_muestreo {
+    box-sizing: border-box !important;
+    /* Incluye el padding y el border en la altura y anchura total */
+    border: 0px !important;
+}
+
+#fecha_Edicion, #fecha_firma_responsable, #fecha_firma_verificador {
+    margin-top: 0px !important;
+    text-align: center;
+}
+
+ol, ul {
+    padding-left: 0; /* o cualquier otro valor que necesites */
+  }
+  
+.Subtitulos {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 1px; 
+}
+th {
+    background-color: #8eb0d6;
 }

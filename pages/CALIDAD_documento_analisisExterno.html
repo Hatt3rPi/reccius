@@ -1,0 +1,717 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Acta de Muestreo Control de Calidad</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
+    <!-- JS de DataTables -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
+    <link rel="stylesheet" href="../assets/css/DocumentoAna.css">
+    
+
+</head>
+
+<body>
+    <div id="form-container" class="form-container formpadding">
+        <div id="Maincontainer">
+            <!-- Header -->
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+                <!-- Logo a la izquierda -->
+                <div class="header-left" style="flex: 1;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
+                    <!-- Ajusta la altura según sea necesario -->
+                </div>
+                <!-- Título Central -->
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisi Externo
+                        Control de Calidad
+                        <!-- Pretitulo -->
+                    </p>
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                        <!-- Título del documento -->
+                    </h1>
+                    <p name="producto" id="producto"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                        <!-- Descripción del producto -->
+                    </p>
+                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        Dirección de Calidad
+                    </div>
+                </div>
+                <!-- Información Derecha con Tabla -->
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo"
+                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                        <tr>
+                            <td>N° Registro:</td>
+                            <td name="nro_registro" id="nro_registro"></td>
+                        </tr>
+                        <tr>
+                            <td>N° Versión:</td>
+                            <td name="nro_version" id="nro_version"></td>
+                        </tr>
+                        <tr>
+                            <td>N° Solicitud:</td>
+                            <td name="nro_solicitud" id="nro_solicitud"></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha :</td>
+                            <td>
+                                <input type="date" id="fecha" name="fecha" style="border: 0px;" readonly>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <!-- Body -->
+            <form>
+                <table>
+                    <tr>
+                        <td class="Subtitulos" colspan="4">I. INFORMACIÓN GENERAL</td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">1. Laboratorio Analista:(*)</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">2. Fecha de Solicitud:(*)</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">3. Análisis según:(**)</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">N° Documento:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">4. Fecha de Cotización:(**)</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">5. Estandar Provisto por:(**)</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">Otro:</td>
+                        <td><input type="text" id="otro" name="otro"></td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">6. Adjunta HDS:(***)</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">Otro:</td>
+                        <td><input type="text" id="otro" name="otro"></td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">7. Fecha de Entrega estimada:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                    </tr>
+                    <!-- Continúa agregando más filas según los campos requeridos -->
+                </table>
+
+            </form>
+            <br>
+         
+            <!-- Sección II: MUESTREO -->
+            <form>
+                <table>
+                    <tr>
+                        <td class="Subtitulos" colspan="4">II. INFORMACIÓN PRODUCTO TERMINADO</td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">1. Nombre producto:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">10. T. de lote:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">2. Presentación:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">11. Fecha Elab.:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">3. Serie o lote:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">12. Fecha Vence:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">4. Registro I.S.P:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">13. Muestra:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">5. Condic. almacenamiento</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">14. Cta.muestra</td>
+                        <td><input type="text" id="otro" name="otro"></td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">6. fabricante:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">Otro:</td>
+                        <td><input type="text" id="otro" name="otro"></td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">7. Muestreado por:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td class="titulo">Observaciones:</td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="titulo">8.Muestreado según POS:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="otro" name="otro"></td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="titulo">9. Código:</td>
+                        <td><input type="text" id="analista" name="analista" required></td>
+                        
+                        
+                    </tr>
+                    <!-- Continúa agregando más filas según los campos requeridos -->
+                </table>
+
+            </form>
+            <form>
+                <table>
+                  <tr>
+                    <td class="Subtitulos" colspan="4">
+                        III. ANÁLISIS SOLICITADOS</td>
+                  </tr>
+                  <tr>
+                    <th>Análisis</th>
+                    <th>Metodología</th>
+                    <th>Especificación</th>
+                    <th>Revisión</th>
+                  </tr>
+                  <tr>
+                    <td class="titulo">1:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">2:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">3:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">4:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">5:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">6:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">7:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">8:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">9:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">10:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <tr>
+                    <td class="titulo">11:</td>
+                    <td>Metodología interna laboratorio analista</td>
+                    <td>Solución límpida, transparente, de color ligeramente amarillo, inolora, sin partículas...</td>
+                    <td class="revision"><input type="checkbox" class="checkmark"></td>
+                  </tr>
+                  <!-- ... -->
+                </table>
+                
+              </form>
+
+            <!-- Footer -->
+            <br>
+            <div class="form-row" id="firma">
+                <!-- Sección Firma Solicitante de Análisis -->
+                <div class="firma-section">
+                    <div class="firma-box-title" style="font-size: 10px; text-align: left;">Firma Solicitante de Análisis</div>
+                    <div class="firma-box">
+                        <!-- Espacio para la firma o datos del solicitante -->
+                        <div class="signature" id="firma_solicitante" name="firma_solicitante">
+                            <!-- acá puede ir la firma o un espacio en blanco -->
+                        </div>
+                        <!-- Información del solicitante -->
+                    </div>
+                </div>
+            
+                <!-- Sección Firma Revisor de Liberación -->
+                <div class="firma-section">
+                    <div class="firma-box-title" style="font-size: 10px; text-align: left;">Firma Revisor de Liberación</div>
+                    <div class="firma-box">
+                        <!-- Espacio para la firma o datos del revisor -->
+                        <div class="signature" id="firma_revisor" name="firma_revisor">
+                            <!-- acá puede ir la firma o un espacio en blanco -->
+                        </div>
+                        <!-- Información del revisor -->
+                    </div>
+                </div>
+            </div>
+            
+            <footer style="width: 100%; text-align: center; margin-top: 20px;">
+                <p style="margin-top: 10px; font-size: 10px;">
+                    (*) Campo Obligatorio<br>
+                    (**) Llenar según lista desplegable<br>
+                    (***) Hoja de Seguridad<br>
+                    La información contenida en esta solicitud de análisis se considerará como respaldo sanitario válido. El certificado de análisis solo debe disponer de la información vertida en esta solicitud. La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO INDUSTRIAL.
+                </p>
+            </footer>
+
+
+
+        </div>
+
+
+</body>
+<div class="button-container">
+    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método
+        Muestreo</button>
+    <button class="botones" id="guardar" style="display: none">Guardar</button>
+    <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
+    <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual"
+                        value="manual">
+                    <label class="form-check-label" for="muestreoManual">
+                        Acta de Muestreo Manual (en papel)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital"
+                        value="digital">
+                    <label class="form-check-label" for="muestreoDigital">
+                        Acta de Muestreo Digital (en tablet)
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="notification" class="notification-container notify" style="display: none;">
+    <p id="notification-message">Este es un mensaje de notificación.</p>
+</div>
+
+</html>
+<script>
+    document.getElementById('confirmarMetodo').addEventListener('click', function () {
+        const metodoManual = document.getElementById('muestreoManual').checked;
+        const metodoDigital = document.getElementById('muestreoDigital').checked;
+
+        // Cerrar el modal después de seleccionar la opción
+        $('#modalMetodoMuestreo').modal('hide');
+        if (metodoManual) {
+            // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
+            document.getElementById('download-pdf').click();
+        } else if (metodoDigital) {
+            // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
+            document.querySelectorAll('.formulario.resp *').forEach(function (element) {
+                element.style.visibility = 'visible';
+            });
+            document.getElementById('metodo_muestreo').style.display = 'none';
+            document.getElementById('firmar').style.display = 'none';
+            document.getElementById('guardar').style.display = 'block';
+            $('.resp').css('background-color', '#f4fac2');
+            var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+            var cargo = "<?php echo $_SESSION['cargo']; ?>";
+            var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
+            var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+            $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+            $('#fecha_Edicion').text(fecha_hoy);
+            $('#cargo_realizador').text(cargo);
+            $('#realizadoPor').text(nombre_ejecutor);
+
+        }
+        document.getElementById('metodo_muestreo').style.display = 'none';
+        document.getElementById('firmar').style.display = 'block';
+    });
+    document.getElementById('download-pdf').addEventListener('click', function () {
+
+
+        // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
+        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
+
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                // Si el botón no está chequeado, ocultar el label asociado
+                if (!button.checked) {
+                    button.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
+
+        // Continúa con el proceso de descarga del PDF como antes
+        document.querySelector('.button-container').style.display = 'none';
+        const elementToExport = document.getElementById('form-container');
+        elementToExport.style.border = 'none'; // Establecer el borde a none
+        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
+
+
+        html2canvas(elementToExport, {
+            scale: 2
+        }).then(canvas => {
+            // Mostrar botones después de la captura
+            document.querySelector('.button-container').style.display = 'block';
+            // Establecer los estilos originales después de generar el PDF
+            elementToExport.style.border = '1px solid #000';
+            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+            // Restablecer la visibilidad de todos los botones después de generar el PDF
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    // Solo mostrar los labels de los botones seleccionados
+                    if (button.checked) {
+                        button.style.display = 'block';
+                    }
+                });
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const imgWidth = 210;
+            const pageHeight = 297;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 0;
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+
+            var nombreProducto = document.getElementById('producto').textContent.trim();
+            var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            $.notify("PDF generado con éxito", "success");
+
+            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    // Mostrar todos los botones nuevamente
+                    button.style.display = 'block';
+                });
+            });
+
+
+        });
+    });
+    document.getElementById('guardar').addEventListener('click', function () {
+        const idDocumento = document.getElementById('nro_registro').textContent; // Assuming the ID is in the textContent of an element
+        const radioButtons = document.querySelectorAll("input[type='radio']");
+        let dataToSave = [];
+
+        radioButtons.forEach(radio => {
+            if (radio.checked) { // Only add to the array if the radio button is selected
+                let radioInfo = {
+                    id_documento: idDocumento,
+                    name: radio.name,
+                    value: radio.value,
+                    checked: radio.checked
+                };
+                dataToSave.push(radioInfo);
+            }
+        });
+
+        // // Now `dataToSave` is defined and we can make the AJAX call
+        $.ajax({
+            url: './backend/acta_muestreo/save_selections.php', // Ensure this endpoint is configured on your server
+            type: 'POST',
+            data: {
+                selections: dataToSave
+            },
+            success: function (response) {
+                // Handle the server response here
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error saving: ", status, error);
+            }
+        });
+    });
+</script>
+<script>
+    var TESTMODO = 3;
+
+
+    // Definir la función verificarBotonesSeleccionados
+    function verificarBotonesSeleccionados() {
+        let todosSeleccionados = true;
+        const formRespElements = document.querySelectorAll("td.formulario.resp");
+        const formVerifElements = document.querySelectorAll("td.formulario.verif");
+
+        // Combina los dos NodeList en un solo array
+        const allElements = [...formRespElements, ...formVerifElements];
+
+        allElements.forEach(element => {
+            const radioButtons = element.querySelectorAll("input[type='radio']");
+            const algunoSeleccionado = Array.from(radioButtons).some(radio => radio.checked);
+
+            if (!algunoSeleccionado) {
+                todosSeleccionados = false;
+            }
+        });
+
+        // Ocultar o mostrar el botón de descargar PDF según si todos los botones están seleccionados
+        const botonDescargarPDF = document.getElementById('download-pdf');
+        botonDescargarPDF.style.display = todosSeleccionados ? 'block' : 'none';
+    }
+
+    // Ejecutar la verificación inicial y luego cada vez que cambie el estado de un botón de radio
+    document.querySelectorAll("input[type='radio']").forEach(radio => {
+        radio.addEventListener('change', verificarBotonesSeleccionados);
+    });
+
+    // Verificación inicial
+    verificarBotonesSeleccionados();
+
+    //ofuncion para ocultar contenido de botones al no ser de la id 
+
+
+
+    if (TESTMODO === 1) {
+        // Deshabilitar solo los botones dentro de la columna de revisión Responsable
+        const verificadores = document.querySelectorAll('.formulario.verif .btn-check');
+
+        verificadores.forEach(function (button) {
+            button.disabled = true;
+        });
+    } else if (TESTMODO === 2) {
+        // Deshabilitar solo los botones dentro de la columna de revisión Responsable
+        const verificadores = document.querySelectorAll('.formulario.resp .btn-check');
+
+        verificadores.forEach(function (button) {
+            button.disabled = true;
+        });
+
+    }
+
+    function cargarDatosEspecificacion(id, resultados, etapa) {
+        console.log(id, resultados, etapa);
+        if (resultados) {
+            $.ajax({
+                url: './backend/acta_muestreo/ingresa_resultados.php',
+                type: 'GET',
+                data: {
+                    id_acta: id
+                },
+                success: function (response) {
+                    procesarDatosActa(response, resultados, etapa);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error en la solicitud: ", status, error);
+                }
+            });
+        } else {
+            $.ajax({
+                url: './backend/acta_muestreo/genera_acta.php',
+                type: 'GET',
+                data: {
+                    id_analisis_externo: id
+                },
+                success: function (response) {
+                    procesarDatosActa(response, resultados, '0');
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error en la solicitud: ", status, error);
+                }
+            });
+        }
+    }
+
+    function procesarDatosActa(response, resultados, etapa) {
+        console.log(resultados, etapa);
+        // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
+        if (response && response.analisis_externos && response.analisis_externos.length > 0) {
+            const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
+
+            // Aquí asignas los valores a los campos del formulario
+            // Asegúrate de que los ID de los elementos HTML coincidan con estos
+            $('#producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
+            $('#Tipo_Producto').text(acta.tipo_producto);
+            $('#form_producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
+            $('#form_tipo').text('Magistral ' + acta.tipo_producto);
+            $('#form_lote').text(acta.lote);
+            $('#form_tamano_lote').text(acta.tamano_lote);
+            $('#form_codigo_mastersoft').text(acta.codigo_mastersoft);
+            $('#form_condAlmacenamiento').text(acta.condicion_almacenamiento);
+            $('#form_cant_muestra').text(acta.tamano_muestra);
+            $('#form_cant_contramuestra').text(acta.tamano_contramuestra);
+            $('#form_tipo_analisis').text(acta.tipo_analisis);
+            $('#nro_acta').text(acta.numero_acta);
+
+            $('#responsable').text(acta.muestreado_por);
+            $('#cargo_responsable').text(acta.cargo_muestreado_por);
+            // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
+            //$('#firma_responsable').attr('src', acta.foto_firma_muestreado_por);
+
+            // Datos del usuario que revisó
+            $('#verificadoPor').text(acta.revisado_por);
+            $('#cargo_verificador').text(acta.cargo_revisado_por);
+            // Y también para la firma
+            //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
+            console.log(resultados, etapa);
+            if (resultados) {
+                switch (etapa) {
+                    case '1':
+                        var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+                        var cargo = "<?php echo $_SESSION['cargo']; ?>";
+                        var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
+                        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                        $('#nro_registro').text(acta.numero_registro);
+                        $('#nro_version').text(acta.version_registro);
+                        $('#realizadoPor').text(nombre_ejecutor);
+                        $('#cargo_realizador').text(cargo);
+                        $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+                        $('#fecha_Edicion').text(fecha_hoy);
+                        $('.resp').css('background-color', '#f4fac2');
+                        $('.verif input').prop('readonly', true);
+                        $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
+                        //revision_actor1
+                        console.log(nombre_ejecutor, acta.muestreado_por);
+                        if (nombre_ejecutor !== acta.muestreado_por) {
+                            $('#revision_actor1').text('Revisión Ejecutor');
+                            $('#revision_actor2').text('Revisión Muestreador');
+                        }
+                        break;
+                    case '2':
+                        break;
+                }
+            } else {
+                switch (acta.tipo_producto) {
+                    case 'Material Envase y Empaque':
+                        $('#nro_registro').text('DCAL-CC-AMMEE-' + acta.identificador_producto.toString().padStart(3, '0'));
+                        break;
+                    case 'Materia Prima':
+                        $('#nro_registro').text('DCAL-CC-AMMP-' + acta.identificador_producto.toString().padStart(3, '0'));
+                        break;
+                    case 'Producto Terminado':
+                        $('#nro_registro').text('DCAL-CC-AMPT-' + acta.identificador_producto.toString().padStart(3, '0'));
+                        break;
+                    case 'Insumo':
+                        $('#nro_registro').text('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
+                        break;
+                }
+                $('#nro_version').text(1);
+                $('#realizadoPor').text('Nombre:');
+                document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function (element) {
+                    element.style.visibility = 'hidden'; // Hacer invisible el contenido
+                });
+            }
+        } else {
+            console.error("No se recibieron datos válidos: ", response);
+        }
+    }
+
+    document.getElementById('firmar').addEventListener('click', function () {
+        // Hacer visibles los elementos de .formulario.resp
+        console.log('click firma')
+        document.querySelectorAll('.formulario.resp *').forEach(function (element) {
+            element.style.visibility = 'visible';
+        });
+        console.log('formulario resp cargado')
+        document.getElementById('guardar').style.display = 'none';
+        document.getElementById('firmar').style.display = 'none';
+        $('.resp').css('background-color', '#f4fac2');
+
+    });
+
+</script>
