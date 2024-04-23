@@ -745,12 +745,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             element.style.visibility = 'visible';
         });
         document.getElementById('metodo_muestreo').style.display = 'none';
+        document.getElementById('firmar').style.display = 'none';
         document.getElementById('guardar').style.display = 'block';
         $('.resp').css('background-color', '#f4fac2');
         var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
-         $('#realizadoPor').text(nombre_ejecutor);
-         var fechaActual = new Date().toLocaleDateString();
-        $('#fecha_Edicion').text(fechaActual);
+        var cargo = "<?php echo $_SESSION['cargo']; ?>";
+        var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
+        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+        $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+        $('#fecha_Edicion').text(fecha_hoy);
+        $('#cargo_realizador').text(cargo);
+        $('#realizadoPor').text(nombre_ejecutor);
+
     }
     document.getElementById('metodo_muestreo').style.display = 'none';
     document.getElementById('firmar').style.display = 'block';
