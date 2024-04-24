@@ -1065,10 +1065,10 @@ document.getElementById('firmar').addEventListener('click', function() {
     $('.resp').css('background-color', '#f4fac2');
 
 });
-function consolidarRespuestas() {
+function consolidarRespuestas(universo) {
     let valorConsolidado = '';
     // Selecciona todos los grupos de botones de radio dentro de la sección de respuesta
-    const grupos = document.querySelectorAll('.formulario.resp');
+    const grupos = document.querySelectorAll(universo);
     
     // Itera a través de cada grupo para ver cuál botón de radio está seleccionado
     grupos.forEach(grupo => {
@@ -1077,33 +1077,40 @@ function consolidarRespuestas() {
         // Añadir al valor consolidado basado en el valor del botón seleccionado
         if (radioSeleccionado) {
             // Asumiendo que los valores son 'Cumple' y 'No Cumple' transformados a '1' y '0'
-            valorConsolidado += (radioSeleccionado.value === 'Cumple' ? '1' : '0');
+            valorConsolidado += (radioSeleccionado.value === '1' ? '1' : '0');
         } else {
             // Si no se selecciona ninguno en el grupo, se podría considerar como no cumple o manejar como error
-            valorConsolidado += '0'; // o manejar la situación de manera diferente
+            valorConsolidado += 'N'; // o manejar la situación de manera diferente
         }
     });
 
     return valorConsolidado;
 }
 
+
 document.getElementById('guardar').addEventListener('click', function() {
     // Verifica si la etapa es 'muestreador'
     if ($('#etapa').text() === 'muestreador') {
-        let respuestas = consolidarRespuestas();
+        let respuestas = consolidarRespuestas('.formulario.resp');
         let todosSeleccionados = true;
         let dataToSave = [];
-
+        let botonesNoSeleccionados = [];
+        console.log(respuestas);
         // Verifica que todos los toggle buttons en 'formulario.resp' estén seleccionados
-        document.querySelectorAll('.formulario.resp input[type="radio"]').forEach(function(button) {
-            if (!button.checked && button.style.visibility === 'visible') {
-                todosSeleccionados = false;
-            }
-        });
+        document.querySelectorAll('.formulario.resp').forEach(function(grupo) {
+        const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
+        if (!radioSeleccionado) {
+            todosSeleccionados = false;
+            grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
+            });
+        }
+    });
 
         if (!todosSeleccionados) {
-            alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
-            return; // Detiene la función si no todos están seleccionados
+        console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
+        alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
+        return; // Detiene la función si no todos están seleccionados
         }
 
         // Recolecta datos de los textarea que necesitan estar cargados
@@ -1128,20 +1135,20 @@ document.getElementById('guardar').addEventListener('click', function() {
         });
 
         // Envía la información al backend mediante AJAX
-        $.ajax({
-            url: './backend/guardar_muestreo.php', // Asegúrate de que esta URL es correcta
-            type: 'POST',
-            data: JSON.stringify(dataToSave),
-            contentType: 'application/json; charset=utf-8',
-            success: function(response) {
-                console.log('Guardado exitoso: ', response);
-                alert("Datos guardados correctamente.");
-            },
-            error: function(xhr, status, error) {
-                console.error("Error al guardar: ", status, error);
-                alert("Error al guardar los datos.");
-            }
-        });
+        // $.ajax({
+        //     url: './backend/guardar_muestreo.php', // Asegúrate de que esta URL es correcta
+        //     type: 'POST',
+        //     data: JSON.stringify(dataToSave),
+        //     contentType: 'application/json; charset=utf-8',
+        //     success: function(response) {
+        //         console.log('Guardado exitoso: ', response);
+        //         alert("Datos guardados correctamente.");
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error("Error al guardar: ", status, error);
+        //         alert("Error al guardar los datos.");
+        //     }
+        // });
     }
 });
 
