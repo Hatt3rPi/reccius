@@ -1132,22 +1132,22 @@ document.getElementById('guardar').addEventListener('click', function() {
         document.querySelectorAll('.formulario.resp input[type="radio"]:checked').forEach(function(radio) {
             dataToSave.push({ name: radio.name, value: radio.value });
         });
-
+        console.log(dataToSave);
         // Envía la información al backend mediante AJAX
-        $.ajax({
-            url: './backend/guardar_muestreo.php', // Asegúrate de que esta URL es correcta
-            type: 'POST',
-            data: JSON.stringify(dataToSave),
-            contentType: 'application/json; charset=utf-8',
-            success: function(response) {
-                console.log('Guardado exitoso: ', response);
-                alert("Datos guardados correctamente.");
-            },
-            error: function(xhr, status, error) {
-                console.error("Error al guardar: ", status, error);
-                alert("Error al guardar los datos.");
-            }
-        });
+        // $.ajax({
+        //     url: './backend/guardar_muestreo.php', // Asegúrate de que esta URL es correcta
+        //     type: 'POST',
+        //     data: JSON.stringify(dataToSave),
+        //     contentType: 'application/json; charset=utf-8',
+        //     success: function(response) {
+        //         console.log('Guardado exitoso: ', response);
+        //         alert("Datos guardados correctamente.");
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error("Error al guardar: ", status, error);
+        //         alert("Error al guardar los datos.");
+        //     }
+        // });
     }
 });
 
