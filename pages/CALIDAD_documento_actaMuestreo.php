@@ -1065,10 +1065,10 @@ document.getElementById('firmar').addEventListener('click', function() {
     $('.resp').css('background-color', '#f4fac2');
 
 });
-function consolidarRespuestas() {
+function consolidarRespuestas(universo) {
     let valorConsolidado = '';
     // Selecciona todos los grupos de botones de radio dentro de la sección de respuesta
-    const grupos = document.querySelectorAll('.formulario.resp');
+    const grupos = document.querySelectorAll(universo);
     
     // Itera a través de cada grupo para ver cuál botón de radio está seleccionado
     grupos.forEach(grupo => {
@@ -1077,7 +1077,7 @@ function consolidarRespuestas() {
         // Añadir al valor consolidado basado en el valor del botón seleccionado
         if (radioSeleccionado) {
             // Asumiendo que los valores son 'Cumple' y 'No Cumple' transformados a '1' y '0'
-            valorConsolidado += (radioSeleccionado.value === 'Cumple' ? '1' : '0');
+            valorConsolidado += (radioSeleccionado.value === '1' ? '1' : '0');
         } else {
             // Si no se selecciona ninguno en el grupo, se podría considerar como no cumple o manejar como error
             valorConsolidado += 'N'; // o manejar la situación de manera diferente
@@ -1087,10 +1087,11 @@ function consolidarRespuestas() {
     return valorConsolidado;
 }
 
+
 document.getElementById('guardar').addEventListener('click', function() {
     // Verifica si la etapa es 'muestreador'
     if ($('#etapa').text() === 'muestreador') {
-        let respuestas = consolidarRespuestas();
+        let respuestas = consolidarRespuestas('.formulario.resp');
         let todosSeleccionados = true;
         let dataToSave = [];
         let botonesNoSeleccionados = [];
