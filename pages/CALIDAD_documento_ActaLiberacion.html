@@ -75,7 +75,7 @@
                         <tr>
                             <td>Fecha Liberación:</td>
                             <td>
-                                <input type="date" id="fecha" name="fecha" style="border: 0px;" readonly>
+                                <input type="date" id="fecha_lib" name="fecha_lib" style="border: 0px;" readonly>
                             </td>
                         </tr>
                     </table>
@@ -91,31 +91,31 @@
                     </tr>
                     <tr>
                         <td class="titulo">1. Producto</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="Producto" name="Producto" required></td>
                         <td class="titulo">2. N°Lote:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="nro_lote" name="nro_lote" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">3. Tipo Producto:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="tipo_producto" name="tipo_producto" required></td>
                         <td class="titulo">4. Tamaño de Lote:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="tamaño_lote" name="tamaño_lote" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">5. Código Interno:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="codigo_interno" name="codigo_interno" required></td>
                         <td class="titulo">6. Fecha Elaboración:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_elab" name="fecha_elab" required></td>
 
                     </tr>
 
                     <tr>
                         <td class="titulo">7. Cond. Almacenamiento</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="cond_almacenamiento" name="cond_almacenamiento" required></td>
                         <td class="titulo">8. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_venc" name="fecha_venc" required></td>
 
                     </tr>
 
@@ -132,31 +132,31 @@
                     </tr>
                     <tr>
                         <td class="titulo">1. N°Acta de Muestreo:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="nro_acta_muestreo" name="nro_acta_muestreo" required></td>
                         <td class="titulo">2. Fecha Acta Muestreo:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_acta_muestreo" name="fecha_acta_muestreo" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">3. N° Solicitud de Análisis</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="nro_solicitud_analisis" name="nro_solicitud_analisis" required></td>
                         <td class="titulo">4. Fecha Solicitud Análisis</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_solicitud_analisis" name="fecha_solicitud_analisis" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">5. Laboratorio Analista</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="laboratorio_analista" name="laboratorio_analista" required></td>
                         <td class="titulo">6. Fecha de Envío</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_envio" name="fecha_envio" required></td>
 
                     </tr>
 
                     <tr>
                         <td class="titulo">7. N° de Análisis:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="nro_analisis" name="nro_analisis" required></td>
                         <td class="titulo">8. Fecha de Revisión:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_revision" name="fecha_revision" required></td>
 
                     </tr>
                 </table>
@@ -177,8 +177,8 @@
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td class="Metod">Metodología interna laboratorio analista</td>
-                        <td class="Espec">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Metod" id="Metod_Pfabricacion">Metodología interna laboratorio analista</td>
+                        <td class="Espec" id="Espec_Pfabricacion">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -189,8 +189,8 @@
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td class="Metod">Metodología interna laboratorio analista</td>
-                        <td class="Espec">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Metod" id="Metod_Actamuestreo">Metodología interna laboratorio analista</td>
+                        <td class="Espec" id="Espec_Actamuestreo">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -201,8 +201,8 @@
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td class="Metod">Metodología interna laboratorio analista</td>
-                        <td class="Espec">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Metod" id="Metod_Solicitud">Metodología interna laboratorio analista</td>
+                        <td class="Espec" id="Espec_Solicitud">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -213,8 +213,8 @@
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td class="Metod">Metodología interna laboratorio analista</td>
-                        <td class="Espec">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Metod" id="Metod_Certificado">Metodología interna laboratorio analista</td>
+                        <td class="Espec" id="Espec_Certificado">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -237,31 +237,31 @@
                     </tr>
                     <tr>
                         <td class="titulo">1. N°Acta de Liberacion:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" required></td>
                         <td class="titulo">2. Fecha Liberacion:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_lib" name="fecha_lib" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">3. Producto:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="producto" name="producto" required></td>
                         <td class="titulo">4. N° Lote:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="nro_lote" name="nro_lote" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">5. Fecha de Elaboración:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_elab" name="fecha_elab" required></td>
                         <td class="titulo">6. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="fecha_venc" name="fecha_venc" required></td>
 
                     </tr>
 
                     <tr>
                         <td class="titulo">7. Cantidad real Liberada:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="cantidad_real" name="cantidad_real" required></td>
                         <td class="titulo">8. N°Parte de Ingreso/Traspaso:</td>
-                        <td><input type="text" id="analista" name="analista" required></td>
+                        <td><input type="text" id="nro_traspaso" name="nro_traspaso" required></td>
 
                     </tr>
                 </table>
