@@ -50,10 +50,30 @@ function setFile($params) {
       'Body' => $fileBinary,
       'ACL' => 'private'
     ]);
-      return json_encode(['success' => $result, 'error' => false]);
+
+    //  Result Syntax
+    //    [
+    //        'BucketKeyEnabled' => true || false,
+    //        'ChecksumCRC32' => '<string>',
+    //        'ChecksumCRC32C' => '<string>',
+    //        'ChecksumSHA1' => '<string>',
+    //        'ChecksumSHA256' => '<string>',
+    //        'ETag' => '<string>',
+    //        'Expiration' => '<string>',
+    //        'ObjectURL' => '<string>',
+    //        'RequestCharged' => 'requester',
+    //        'SSECustomerAlgorithm' => '<string>',
+    //        'SSECustomerKeyMD5' => '<string>',
+    //        'SSEKMSEncryptionContext' => '<string>',
+    //        'SSEKMSKeyId' => '<string>',
+    //        'ServerSideEncryption' => 'AES256|aws:kms|aws:kms:dsse',
+    //        'VersionId' => '<string>',
+    //    ]
+
+    return json_encode(['success' => $result, 'error' => false]);
 
   } catch (Aws\Exception\AwsException $e) {
-      return json_encode(['success'=> false, 'error' => $e->getMessage()]);
+    return json_encode(['success'=> false, 'error' => $e->getMessage()]);
   }
 
 }

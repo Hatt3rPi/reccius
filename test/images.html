@@ -14,16 +14,16 @@
         padding-top: 100px;
       "
     >
-      <input
-        class="switch_foto"
-        type="file"
-        id="fotoPerfil"
-        name="fotoPerfil"
-        accept="image/*"
-      />
-      <canvas style="display: none"></canvas>
-      <img id="preview" style="max-width: 300px" />
-      <form id="form">
+    <form id="form">
+        <input
+          class="switch_foto"
+          type="file"
+          id="fotoPerfil"
+          name="fotoPerfil"
+          accept="image/*"
+        />
+        <canvas style="display: none"></canvas>
+        <img id="preview" style="max-width: 300px" />
         <button>Enviar</button>
       </form>
     </div>
@@ -69,6 +69,7 @@
         };
         reader.readAsDataURL(inputFile);
       }
+      
       var blobImg = null;
       document
         .getElementById("fotoPerfil")
