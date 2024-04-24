@@ -1080,7 +1080,7 @@ function consolidarRespuestas() {
             valorConsolidado += (radioSeleccionado.value === 'Cumple' ? '1' : '0');
         } else {
             // Si no se selecciona ninguno en el grupo, se podría considerar como no cumple o manejar como error
-            valorConsolidado += '0'; // o manejar la situación de manera diferente
+            valorConsolidado += 'N'; // o manejar la situación de manera diferente
         }
     });
 
@@ -1094,7 +1094,7 @@ document.getElementById('guardar').addEventListener('click', function() {
         let todosSeleccionados = true;
         let dataToSave = [];
         let botonesNoSeleccionados = [];
-
+        console.log(respuestas);
         // Verifica que todos los toggle buttons en 'formulario.resp' estén seleccionados
         document.querySelectorAll('.formulario.resp').forEach(function(grupo) {
         const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
@@ -1132,7 +1132,7 @@ document.getElementById('guardar').addEventListener('click', function() {
         document.querySelectorAll('.formulario.resp input[type="radio"]:checked').forEach(function(radio) {
             dataToSave.push({ name: radio.name, value: radio.value });
         });
-        console.log(dataToSave);
+
         // Envía la información al backend mediante AJAX
         // $.ajax({
         //     url: './backend/guardar_muestreo.php', // Asegúrate de que esta URL es correcta
