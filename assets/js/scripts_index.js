@@ -578,7 +578,7 @@ function botones(id, accion, base) {
                 }
             }
             break;
-        }
+        } //
         case "laboratorio": {
             switch (accion) {
                 case "generar_acta_muestreo": {
@@ -602,7 +602,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "generar_documento_solicitudes": {
+                case "generar_documento_solicitudes": { 
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
@@ -650,6 +650,28 @@ function botones(id, accion, base) {
                     console.log("exito al oprimir generar_documento_solicitudes")   
                     $.ajax({
                         url: '../pages/CALIDAD_acta_muestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'accion': accion
+                        },
+                        success: function(response) {
+                            console.log('Revision de documento Acta Muestreo redirigido con éxito');
+                            $('#dynamic-content').html(response);
+                            console.log({id, response});
+                            cargarDatosEspecificacion(id);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al visualizar el documento: ", status, error);
+                        }
+                    });
+                    break;
+                }
+                case "generar_documento_actaMuestreo":{
+                    // Llamar a una función que maneje el envío del recordatorio
+                    console.log("exito al oprimir generar_documento_solicitudes")   
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_analisisExterno.php',
                         type: 'POST',
                         data: {
                             'id': id,
