@@ -1093,17 +1093,23 @@ document.getElementById('guardar').addEventListener('click', function() {
         let respuestas = consolidarRespuestas();
         let todosSeleccionados = true;
         let dataToSave = [];
+        let botonesNoSeleccionados = [];
 
         // Verifica que todos los toggle buttons en 'formulario.resp' estén seleccionados
-        document.querySelectorAll('.formulario.resp input[type="radio"]').forEach(function(button) {
-            if (!button.checked && button.style.visibility === 'visible') {
-                todosSeleccionados = false;
-            }
-        });
+        document.querySelectorAll('.formulario.resp').forEach(function(grupo) {
+        const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
+        if (!radioSeleccionado) {
+            todosSeleccionados = false;
+            grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
+            });
+        }
+    });
 
         if (!todosSeleccionados) {
-            alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
-            return; // Detiene la función si no todos están seleccionados
+        console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
+        alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
+        return; // Detiene la función si no todos están seleccionados
         }
 
         // Recolecta datos de los textarea que necesitan estar cargados
