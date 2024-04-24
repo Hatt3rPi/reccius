@@ -141,7 +141,8 @@
                         <td class="titulo">3. N° Solicitud de Análisis</td>
                         <td><input type="text" id="nro_solicitud_analisis" name="nro_solicitud_analisis" required></td>
                         <td class="titulo">4. Fecha Solicitud Análisis</td>
-                        <td><input type="text" id="fecha_solicitud_analisis" name="fecha_solicitud_analisis" required></td>
+                        <td><input type="text" id="fecha_solicitud_analisis" name="fecha_solicitud_analisis" required>
+                        </td>
 
                     </tr>
                     <tr>
@@ -178,7 +179,8 @@
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
                         <td class="Metod" id="Metod_Pfabricacion">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Pfabricacion">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Espec" id="Espec_Pfabricacion">Solución límpida, transparente, de color ligeramente
+                            amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -190,7 +192,8 @@
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td class="Metod" id="Metod_Actamuestreo">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Actamuestreo">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Espec" id="Espec_Actamuestreo">Solución límpida, transparente, de color ligeramente
+                            amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -202,7 +205,8 @@
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td class="Metod" id="Metod_Solicitud">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Solicitud">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Espec" id="Espec_Solicitud">Solución límpida, transparente, de color ligeramente
+                            amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -214,7 +218,8 @@
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td class="Metod" id="Metod_Certificado">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Certificado">Solución límpida, transparente, de color ligeramente amarillo, inolora, sin
+                        <td class="Espec" id="Espec_Certificado">Solución límpida, transparente, de color ligeramente
+                            amarillo, inolora, sin
                             partículas...
                         </td>
                         <td class="revision"><input type="checkbox" class="checkmark">
@@ -271,51 +276,53 @@
 
             <!-- Footer -->
             <br>
-            <div class="form-row" id="firma">
-                <!-- Sección Firma Solicitante de Análisis -->
-                <div class="firma-section">
+            <div class="footer-container">
+                <div class="form-row" id="firma">
+                    <!-- Sección Firma Solicitante de Análisis -->
+                    <div class="firma-section">
 
-                    <div class="firma-box">
+                        <div class="firma-box">
 
-                        <!-- Espacio para la firma o datos del solicitante -->
-                        <div class="signature" id="firma_solicitante" name="firma_solicitante">
-                            <!-- acá puede ir la firma o un espacio en blanco -->
+                            <!-- Espacio para la firma o datos del solicitante -->
+                            <div class="signature" id="firma_solicitante" name="firma_solicitante">
+                                <!-- acá puede ir la firma o un espacio en blanco -->
 
+                            </div>
+                            <!-- Información del solicitante -->
+                            <div class="firma-box-title">Firma Solicitante de
+                                Análisis</div>
                         </div>
-                        <!-- Información del solicitante -->
-                        <div class="firma-box-title">Firma Solicitante de
-                            Análisis</div>
+                    </div>
+
+                    <!-- Sección Firma Revisor de Liberación -->
+                    <div class="firma-section">
+
+                        <div class="firma-box">
+
+                            <!-- Espacio para la firma o datos del revisor -->
+                            <div class="signature" id="firma_revisor" name="firma_revisor">
+                                <!-- acá puede ir la firma o un espacio en blanco -->
+                            </div>
+                            <div class="firma-box-title">Firma Revisor de Liberación
+                            </div>
+                            <!-- Información del revisor -->
+                        </div>
                     </div>
                 </div>
 
-                <!-- Sección Firma Revisor de Liberación -->
-                <div class="firma-section">
-
-                    <div class="firma-box">
-
-                        <!-- Espacio para la firma o datos del revisor -->
-                        <div class="signature" id="firma_revisor" name="firma_revisor">
-                            <!-- acá puede ir la firma o un espacio en blanco -->
-                        </div>
-                        <div class="firma-box-title">Firma Revisor de Liberación
-                        </div>
-                        <!-- Información del revisor -->
-                    </div>
-                </div>
+                <footer class="TextoBajo">
+                    <p class="ParrafoBajo">
+                        (*) Campo Obligatorio<br>
+                        (**) Llenar según lista desplegable<br>
+                        (***) Hoja de Seguridad<br>
+                        La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
+                        válido. El certificado de análisis solo debe disponer de la información vertida en esta
+                        solicitud.
+                        La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
+                        INDUSTRIAL.
+                    </p>
+                </footer>
             </div>
-
-            <footer class="TextoBajo">
-                <p class="ParrafoBajo">
-                    (*) Campo Obligatorio<br>
-                    (**) Llenar según lista desplegable<br>
-                    (***) Hoja de Seguridad<br>
-                    La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
-                    válido. El certificado de análisis solo debe disponer de la información vertida en esta solicitud.
-                    La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
-                    INDUSTRIAL.
-                </p>
-            </footer>
-
 
 
         </div>
@@ -332,27 +339,19 @@
 
 </html>
 <script>
-
     document.getElementById('download-pdf').addEventListener('click', function () {
-
-
-        // Continúa con el proceso de descarga del PDF como antes
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none'; // Establecer el borde a none
-        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
 
 
         html2canvas(elementToExport, {
-            scale: 2
+            scale: 2,
+            logging: true,
+            useCORS: true
         }).then(canvas => {
-            // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
-            // Establecer los estilos originales después de generar el PDF
             elementToExport.style.border = '1px solid #000';
             elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-
-
 
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jspdf.jsPDF({
@@ -361,8 +360,9 @@
                 format: 'a4'
             });
 
-            const imgWidth = 210;
-            const pageHeight = 297;
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = pageWidth;
             let imgHeight = canvas.height * imgWidth / canvas.width;
             let heightLeft = imgHeight;
 
@@ -370,30 +370,15 @@
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
 
-            while (heightLeft >= 0) {
+            while (heightLeft > 0) {
                 position = heightLeft - imgHeight;
                 pdf.addPage();
                 pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
 
-
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            pdf.save('documento.pdf');
             $.notify("PDF generado con éxito", "success");
-
-            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    // Mostrar todos los botones nuevamente
-                    button.style.display = 'block';
-                });
-            });
-
-
         });
     });
-
 </script>
