@@ -62,10 +62,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div>
                         <label for="fotoPerfil">Foto de Perfil:</label>
                         <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled onchange="handleImageUploadPerfil(event)">
-                        <button type="button" id="cancelFotoPerfil" style="display: none;">Eliminar foto</button>
                         <div id="fotoPerfilPreview">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
+                        <button type="button" id="cancelFotoPerfil" style="display: none;">Eliminar foto</button>
                     </div>
                 </div>
                 <div class="seccion seccion-deshabilitada">
@@ -183,7 +183,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                     fotoPerfilCancel.show();
                     blobImgPerfil = result.blob;
-                    fotoPerfilPreview.innerHTML = '<img src="' + result.dataURL + '" alt="Foto de perfil" />';
+                    fotoPerfilPreview.html('<img src="' + result.dataURL + '" alt="Foto de perfil" />');
                     console.log({
                         fotoPerfilCancel,
                         blobImgPerfil,
@@ -195,7 +195,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         fotoPerfilCancel.on('click', function(e) {
             e.preventDefault();
             blobImgPerfil = null;
-            fotoPerfilPreview.innerHTML = '';
+            fotoPerfilPreview.empty();
             fotoPerfilCancel.hide();
             console.log({
                 fotoPerfilCancel,
