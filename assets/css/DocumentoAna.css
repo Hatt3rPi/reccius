@@ -298,3 +298,6 @@ input{
     margin-top: 10px;
     font-size: 10px;
 }
+ul{
+    padding-left: none;
+}

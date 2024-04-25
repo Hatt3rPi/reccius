@@ -162,17 +162,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                            </span>
-                            Listado de Actas de Muestreo
-                        </a>
+                        
                         <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de solicitudes de análisis
+                        </a>
+                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                            </span>
+                            Listado de Actas de Muestreo
                         </a>
                         <!-- Nuevo apartado para el listado de productos disponibles -->
                         <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de productos disponibles">
