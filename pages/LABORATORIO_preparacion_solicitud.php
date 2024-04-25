@@ -432,12 +432,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
-            $('#version').val(response.count_analisis_externo + 1).prop('disabled', true);
+            $('#version').val(response.count_analisis_externo + 1);
 
             setValuesToInputs([{
                     id: 'id_producto',
                     val: producto.id_producto,
-                    isDisabled: true
+                    isDisabled: false
                 },
                 {
                     id: 'tipo_producto',
@@ -479,7 +479,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
-                $('#version_especificacion').val(especificacion.version).prop('disabled', true);
+                $('#version_especificacion').val(especificacion.version);
             }
         } else {
             console.error("No se recibieron datos válidos: ", response);
@@ -770,7 +770,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
         })
-        
+
         $('#id_especificacion').val(idEspecificacion);
     });
 </script>
