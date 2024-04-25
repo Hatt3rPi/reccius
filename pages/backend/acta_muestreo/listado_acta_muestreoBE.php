@@ -36,5 +36,5 @@ $link->close();
 // Enviar los datos en formato JSON
 header('Content-Type: application/json');
 echo json_encode(['data' => $data]);
-echo '<pre>'; print_r($data); echo '</pre>';
+
 ?>
