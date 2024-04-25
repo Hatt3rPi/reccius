@@ -20,17 +20,15 @@ if (!$id_actaMuestreo || !$etapa || !$respuestas || count($textareaData) === 0) 
 }
 
 // Preparar la consulta SQL para insertar los datos en la base de datos
-$query = "INSERT INTO calidad_acta_muestreo (
-    id_analisisExterno, 
-    estado, 
-    resultados_muestrador,
-    pregunta5, pregunta6, pregunta7, pregunta8, muestreador, fecha_firma_muestreador
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$query = "update calidad_acta_muestreo  set 
+    
+    estado=? , 
+    resultados_muestrador=? , 
+    pregunta5=? ,  pregunta6=? ,  pregunta7=? ,  pregunta8=? ,  muestreador=? ,  fecha_firma_muestreador=? where id_analisisExterno =? ";
 
 if ($stmt = mysqli_prepare($link, $query)) {
     // Vincular parámetros para marcadores
-    mysqli_stmt_bind_param($stmt, "issssssss",
-        $id_actaMuestreo, 
+    mysqli_stmt_bind_param($stmt, "ssssssssi",
         $estado, 
         $respuestas,
         $textareaData['form_textarea5'],
@@ -38,7 +36,8 @@ if ($stmt = mysqli_prepare($link, $query)) {
         $textareaData['form_textarea7'],
         $textareaData['form_textarea8'],
         $usuario,
-        $fechaActual
+        $fechaActual,
+        $id_actaMuestreo
     );
 
     // Establecer estado y otros valores necesarios
