@@ -39,7 +39,7 @@ function insertarRegistro($link, $datos)
     if (!$stmt) {
         throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
     }
-    
+
     mysqli_stmt_bind_param(
         $stmt,
         'iiissssssssssssssss',
@@ -96,7 +96,7 @@ function insertarRegistro($link, $datos)
 
 function agregarDatosPostFirma($link, $datos)
 {
-    $camposAActualizar = [  
+    $camposAActualizar = [
         'laboratorio',
         'fecha_solicitud',
         'analisis_segun',
@@ -106,13 +106,13 @@ function agregarDatosPostFirma($link, $datos)
         'fecha_entrega_estimada',
         'numero_documento',
         'observaciones',
-        ];
-        /* 
-            todo:preguntar al felipe cual es el campo a rellenar con el nombre del usuario (muestreado_por, solicitado_por, revisado_por)
-            usuario_editor  =  Javier Sabando
-            user_editor  =  javier2000asr
-            usuario_revisor  =  lcaques
-        */
+    ];
+    /* 
+        todo:preguntar al felipe cual es el campo a rellenar con el nombre del usuario (muestreado_por, solicitado_por, revisado_por)
+        usuario_editor  =  Javier Sabando
+        user_editor  =  javier2000asr
+        usuario_revisor  =  lcaques
+    */
 
     $partesConsulta = [];
     $valoresParaVincular = [];
@@ -121,7 +121,7 @@ function agregarDatosPostFirma($link, $datos)
     foreach ($camposAActualizar as $campo) {
         if (isset($datos[$campo]) && $datos[$campo] !== '') {
             $partesConsulta[] = "$campo = ?";
-            $valoresParaVincular[] = limpiarDato($_POST[$campo]);
+            $valoresParaVincular[] = $datos[$campo];
             $tipos .= campoTipo($campo);
         }
     } // * esto me ayuda a actualizar solo lo que le envio
@@ -215,11 +215,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formato = limpiarDato($_POST['formato']);
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $lote = limpiarDato($_POST['lote']);
-
-    $laboratorio = limpiarDato($_POST['laboratorio']);
-
-
-
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
     $fecha_elaboracion = limpiarDato($_POST['fecha_elaboracion']);
     $fecha_vencimiento = limpiarDato($_POST['fecha_vencimiento']);
@@ -233,6 +228,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numero_especificacion = limpiarDato($_POST['numero_especificacion']);
     $version_especificacion = limpiarDato($_POST['version_especificacion']);
     $usuario_revisor = limpiarDato($_POST['usuario_revisor']);
+    // datos extra
+    $laboratorio = limpiarDato($_POST['laboratorio']);
+    $fecha_solicitud = limpiarDato($_POST['fecha_solicitud']);
+    $analisis_segun = limpiarDato($_POST['analisis_segun']);
+    $fecha_cotizacion = limpiarDato($_POST['fecha_cotizacion']);
+    $estandar_segun = limpiarDato($_POST['estandar_segun']);
+    $hds_otro = limpiarDato($_POST['hds_otro']);
+    $fecha_entrega_estimada = limpiarDato($_POST['fecha_entrega_estimada']);
+    $numero_documento = limpiarDato($_POST['numero_documento']);
+    $observaciones = limpiarDato($_POST['observaciones']);
 
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
@@ -259,7 +264,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'formato' => $formato,
             'id_especificacion' => $id_especificacion,
             'id_producto' => $id_producto,
-            'laboratorio' => $laboratorio,
             'lote' => $lote,
             'muestreado_por' => $muestreado_por,
             'numero_especificacion' => $numero_especificacion,
@@ -276,6 +280,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'usuario_revisor' => $usuario_revisor,
             'version_especificacion' => $version_especificacion,
             'version' => $version,
+
+            'laboratorio' => $laboratorio,
+            'fecha_solicitud' => $fecha_solicitud,
+            'analisis_segun' => $analisis_segun,
+            'fecha_cotizacion' => $fecha_cotizacion,
+            'estandar_segun' => $estandar_segun,
+            'hds_otro' => $hds_otro,
+            'fecha_entrega_estimada' => $fecha_entrega_estimada,
+            'numero_documento' => $numero_documento,
+            'observaciones' => $observaciones
         ];
 
         if ($estaEditando) {

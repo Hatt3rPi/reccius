@@ -216,7 +216,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Laboratorio Analista:</label>
-                            <select name="laboratorio" id="laboratorio" class="select-style mx-0 form__select w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
+                            <select required name="laboratorio" id="laboratorio" class="select-style mx-0 form__select w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
                                 <option value="">Selecciona un Laboratorio</option>
                                 <?php foreach ($opciones['laboratorio'] as $opcion) : ?>
                                     <option value="<?php echo htmlspecialchars($opcion); ?>">
@@ -224,31 +224,31 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="form-control mx-0 w-90" style="display: none" />
+                            <input type="text" required name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="form-control mx-0 w-90" style="display: none" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Solicitud:</label>
-                            <input name="fecha_solicitud" class="form-control mx-0 w-90 datepicker" id="fecha_solicitud" placeholder="dd/mm/aaaa" type="text" />
+                            <input name="fecha_solicitud" class="form-control mx-0 w-90 datepicker" id="fecha_solicitud" placeholder="dd/mm/aaaa" type="text" required />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Análisis según:</label>
-                            <input name="analisis_segun" id="analisis_segun" class="form-control mx-0 w-90" type="text" placeholder="Cotización" />
+                            <input name="analisis_segun" id="analisis_segun" class="form-control mx-0 w-90" type="text" required placeholder="Cotización" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Cotización:</label>
-                            <input name="fecha_cotizacion" id="fecha_cotizacion" placeholder="dd/mm/aaaa" type="text" class="form-control mx-0 w-90 datepicker" />
+                            <input name="fecha_cotizacion" id="fecha_cotizacion" placeholder="dd/mm/aaaa" type="text" required class="form-control mx-0 w-90 datepicker" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="estandar_segun">Estándar Provisto por:</label>
-                            <select id="estandar_segun" name="estandar_segun" class="select-style mx-0 form__select w-90" style="width: 82.5%">
+                            <select  required id="estandar_segun" name="estandar_segun" class="select-style mx-0 form__select w-90" style="width: 82.5%">
                                 <option value="reccius">Reccius</option>
                                 <option value="cequc">CEQUC</option>
                                 <option value="pharmaisa">Pharma ISA</option>
@@ -259,19 +259,19 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Adjunta Hoja de seguridad</label>
-                            <input name="hds_otro" id="hds_otro" type="text" class="form-control mx-0 w-90" placeholder="No" />
+                            <input name="hds_otro" id="hds_otro" type="text" required class="form-control mx-0 w-90" placeholder="No" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
-                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90 datepicker" />
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="form-control mx-0 w-90 datepicker" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>N° Documento:</label>
-                            <input name="numero_documento" id="numero_documento" class="form-control mx-0 w-90" type="text" placeholder="123456" />
+                            <input name="numero_documento" id="numero_documento" class="form-control mx-0 w-90" type="text" required placeholder="123456" />
                         </div>
                     </div>
                     <div class="form-row">
