@@ -669,7 +669,7 @@ function botones(id, accion, base) {
                 }
                 // CALIDAD / Preparar Acta de Muestreo
                 case "generar_documento_actaMuestreo":{
-                    console.log('generar_acta_muestreo');
+                    
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
@@ -682,6 +682,7 @@ function botones(id, accion, base) {
                         success: function(response) {
                             $('#dynamic-content').html(response); 
                             cargarDatosEspecificacion(id, false, '0');
+                            console.log('generar_acta_muestreo');
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);
