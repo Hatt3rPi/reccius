@@ -695,6 +695,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
+    <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
@@ -946,6 +947,7 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_acta: id
             },
             success: function(response) {
+                $('#id_actaMuestreo').text(id);
                 procesarDatosActa(response, resultados, etapa);
             },
             error: function(xhr, status, error) {
@@ -960,6 +962,7 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_analisis_externo: id
             },
             success: function(response) {
+                $('#id_actaMuestreo').text(id);
                 procesarDatosActa(response, resultados, '0');
             },
             error: function(xhr, status, error) {
@@ -1091,26 +1094,33 @@ function consolidarRespuestas(universo) {
 document.getElementById('guardar').addEventListener('click', function() {
     // Verifica si la etapa es 'muestreador'
     if ($('#etapa').text() === 'muestreador') {
+        let usuario_muestreador = "<?php echo $_SESSION['usuario']; ?>";
         let respuestas = consolidarRespuestas('.formulario.resp');
         let todosSeleccionados = true;
-        let dataToSave = [];
+        let dataToSave = {
+            id_actaMuestreo: $('#id_actaMuestreo').text(),
+            etapa: 1,
+            usuario: usuario_muestreador,
+            respuestas: respuestas,
+            textareaData: {}
+        };
         let botonesNoSeleccionados = [];
-        console.log(respuestas);
+
         // Verifica que todos los toggle buttons en 'formulario.resp' estén seleccionados
         document.querySelectorAll('.formulario.resp').forEach(function(grupo) {
-        const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
-        if (!radioSeleccionado) {
-            todosSeleccionados = false;
-            grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
-                botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
-            });
-        }
-    });
+            const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
+            if (!radioSeleccionado) {
+                todosSeleccionados = false;
+                grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                    botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
+                });
+            }
+        });
 
         if (!todosSeleccionados) {
-        console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
-        alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
-        return; // Detiene la función si no todos están seleccionados
+            console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
+            alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
+            return; // Detiene la función si no todos están seleccionados
         }
 
         // Recolecta datos de los textarea que necesitan estar cargados
@@ -1121,7 +1131,7 @@ document.getElementById('guardar').addEventListener('click', function() {
                 todosSeleccionados = false;
                 return;
             } else {
-                dataToSave.push({ id: id, value: textarea.value });
+                dataToSave.textareaData[id] = textarea.value;
             }
         });
 
@@ -1129,27 +1139,23 @@ document.getElementById('guardar').addEventListener('click', function() {
             return; // Detiene la función si algún textarea está vacío
         }
 
-        // Si todo está correcto, se preparan los datos para enviar al backend
-        document.querySelectorAll('.formulario.resp input[type="radio"]:checked').forEach(function(radio) {
-            dataToSave.push({ name: radio.name, value: radio.value });
+        // Enviar datos al servidor usando AJAX
+        $.ajax({
+            url: './backend/acta_muestreo/guardar_y_firmar.php', // Asegúrate de que esta URL es correcta
+            type: 'POST',
+            data: JSON.stringify(dataToSave),
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                console.log('Guardado exitoso: ', response);
+                alert("Datos guardados correctamente.");
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al guardar: ", status, error);
+                alert("Error al guardar los datos.");
+            }
         });
-
-        // Envía la información al backend mediante AJAX
-        // $.ajax({
-        //     url: './backend/guardar_muestreo.php', // Asegúrate de que esta URL es correcta
-        //     type: 'POST',
-        //     data: JSON.stringify(dataToSave),
-        //     contentType: 'application/json; charset=utf-8',
-        //     success: function(response) {
-        //         console.log('Guardado exitoso: ', response);
-        //         alert("Datos guardados correctamente.");
-        //     },
-        //     error: function(xhr, status, error) {
-        //         console.error("Error al guardar: ", status, error);
-        //         alert("Error al guardar los datos.");
-        //     }
-        // });
     }
 });
+
 
 </script>
