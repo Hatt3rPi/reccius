@@ -68,7 +68,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-
+    var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
+    
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_muestreo/listado_acta_muestreoBE.php",
