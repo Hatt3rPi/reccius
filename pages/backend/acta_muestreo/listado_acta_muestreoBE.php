@@ -9,7 +9,7 @@ $query = "SELECT
                 CONCAT(am.numero_acta, '-', LPAD(am.version_acta, 2, '0')) AS numero_acta,
                 am.fecha_muestreo, 
                 am.responsable, 
-                am.ejecutor, 
+                am.muestreador, 
                 am.verificador, 
                 am.version_acta,
                 concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 

@@ -125,19 +125,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "title": "Tipo producto"
                 },
                 {
-                    title: 'responsable',
+                    title: 'Responsable',
                     data: 'responsable',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
                 },
                 {
-                    title: 'ejecutor',
-                    data: 'ejecutor',
+                    title: 'Muestreador',
+                    data: 'muestreador',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
                 },
                 {
-                    title: 'verificador',
+                    title: 'Verificador',
                     data: 'verificador',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
