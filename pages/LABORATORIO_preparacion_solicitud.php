@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
@@ -248,8 +247,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="estandar_provisto_por">Estándar Provisto por:</label>
-                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style mx-0 form__select w-90" style="width: 82.5%">
+                            <label for="estandar_segun">Estándar Provisto por:</label>
+                            <select id="estandar_segun" name="estandar_segun" class="select-style mx-0 form__select w-90" style="width: 82.5%">
                                 <option value="reccius">Reccius</option>
                                 <option value="cequc">CEQUC</option>
                                 <option value="pharmaisa">Pharma ISA</option>
