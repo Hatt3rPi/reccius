@@ -605,7 +605,7 @@ function botones(id, accion, base) {
                 case "generar_documento_solicitudes": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
-                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        url: '../pages/CALIDAD_documento_analisisExterno.html',
                         type: 'POST',
                         data: {
                             'id': id,
@@ -647,7 +647,7 @@ function botones(id, accion, base) {
                 // CALIDAD / Preparar Acta de Muestreo
                 case "resultados_actaMuestreo":{
                     // Llamar a una función que maneje el envío del recordatorio
-                    console.log("exito al oprimir generar_documento_solicitudes")   
+                    console.log("exito al oprimir resultados_actaMuestreo")   
                     $.ajax({
                         url: '../pages/CALIDAD_acta_muestreo.php',
                         type: 'POST',
