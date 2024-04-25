@@ -398,6 +398,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     informacionFaltante();
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+    
 
     function cargarDatosEspecificacion() {
         var data = {
@@ -478,7 +479,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
-                $('#id_especificacion').val(especificacion.documento);
                 $('#version_especificacion').val(especificacion.version).prop('disabled', true);
             }
         } else {
@@ -623,7 +623,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
             //* V. Análisis
             $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
-            $('#id_especificacion').val(analisis.id_especificacion);
             $('#version_especificacion').val(analisis.version).prop('disabled', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion];
@@ -752,8 +751,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             todayHighlight: true,
             startDate: new Date()
         });
-
-
         $('#btn_getall').on('click', function() {
             $('.datepicker').each(function() {
                 var dateValue = $(this).val();
@@ -773,5 +770,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
         })
+        
+        $('#id_especificacion').val(idEspecificacion);
     });
 </script>
