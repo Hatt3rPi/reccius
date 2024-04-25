@@ -60,7 +60,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <br>
                     <div>
-                        <label for="fotoPerfil">Fotto de Perfil:</label>
+                        <label for="fotoPerfil">Foto de Perfil:</label>
                         <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled onchange="handleImageUploadPerfil(event)">
                         <div id="fotoPerfilPreview" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
