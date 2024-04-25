@@ -4,12 +4,12 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 
 // Consulta para obtener las especificaciones de productos
-$query = "  SELECT 
+$query = "SELECT 
                 am.estado, 
                 CONCAT(am.numero_acta, '-', LPAD(am.version_acta, 2, '0')) AS numero_acta,
                 am.fecha_muestreo, 
                 am.responsable, 
-                am.ejecutor, 
+                am.muestreador, 
                 am.verificador, 
                 am.version_acta,
                 concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
@@ -36,4 +36,5 @@ $link->close();
 // Enviar los datos en formato JSON
 header('Content-Type: application/json');
 echo json_encode(['data' => $data]);
+
 ?>
