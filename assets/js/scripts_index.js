@@ -667,29 +667,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                // CALIDAD / Preparar Acta de Muestreo
-                case "generar_documento_actaMuestreo":{
-                    
-                    // Llamar a una función que maneje el envío del recordatorio
-                    $.ajax({
-                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
-                        type: 'POST',
-                        data: {
-                            'id': id,
-                            'resultados': false,
-                            'etapa':'0'
-                        },
-                        success: function(response) {
-                            $('#dynamic-content').html(response); 
-                            cargarDatosEspecificacion(id, false, '0');
-                            console.log('generar_acta_muestreo');
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error al enviar el recordatorio: ", status, error);
-                        }
-                    });
-                    break;
-                }
+                
             }
             break;
         }
