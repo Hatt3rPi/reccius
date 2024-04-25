@@ -70,10 +70,12 @@ function setFile($params) {
     //        'VersionId' => '<string>',
     //    ]
 
+    error_log('File uploaded successfully: ' . print_r($result, true));
     return json_encode(['success' => $result, 'error' => false]);
 
   } catch (Aws\Exception\AwsException $e) {
-    return json_encode(['success'=> false, 'error' => $e->getMessage()]);
+    error_log('Error uploading file: ' . $e->getMessage());
+    return json_encode(['success' => false, 'error' => $e->getMessage()]);
   }
 
 }
