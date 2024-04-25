@@ -1141,7 +1141,7 @@ document.getElementById('guardar').addEventListener('click', function() {
 
         // Enviar datos al servidor usando AJAX
         $.ajax({
-            url: './backend/guardar_y_firmar.php', // Asegúrate de que esta URL es correcta
+            url: './backend/acta_muestreo/guardar_y_firmar.php', // Asegúrate de que esta URL es correcta
             type: 'POST',
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
