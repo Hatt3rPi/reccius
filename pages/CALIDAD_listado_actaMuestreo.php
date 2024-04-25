@@ -30,8 +30,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
             <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('En Proceso de firma')">En Proceso de Firma</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('Pendiente Muestreo')">Pendiente Muestreo</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En Proceso de firma')">En Proceso de Firma</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Muestreo')">Pendiente Muestreo</button>
         </div>
         <br>
         <br>
