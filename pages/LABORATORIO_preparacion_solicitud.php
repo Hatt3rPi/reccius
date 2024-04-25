@@ -337,25 +337,20 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         </div>
                     </div>
                 </fieldset>
-
-
             </div>
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
-
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
 
+        <button type="button" id="btn_getall" name="btn_getall" style="background-color: red; color: white;">GetAll</button>
 
     </div>
-
-
 </body>
-
 </html>
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
@@ -500,12 +495,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             newVersion = response.count_analisis_externo + 1
 
             var analisis = response.analisis;
-
-            if (analisis.estado == "Pendiente Acta de Muestreo") {
-                $("#informacion_faltante").remove();
-                $("#editarGenerarVersion");
-                // $('#alert_warning').show().append(`No se puede editar, se crea.`);
-            }
+            //Todo : Volver a validar cuando se pueda editar
+            /*
+                if (analisis.estado == "Pendiente Acta de Muestreo") {
+                    $("#informacion_faltante").remove();
+                    $("#editarGenerarVersion");
+                    // $('#alert_warning').show().append(`No se puede editar, se crea.`);
+                }
+             */
 
             //* I. Análisis:
             $("#version").val(analisis.version);
@@ -621,10 +618,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             ];
             /*
             condicion_almacenamiento
-
-
             */
-
 
             //* V. Análisis
             $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
@@ -651,11 +645,16 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
 
+    $('#btn_getall').on('click', function() {
+        validateTextRequiredInputs(new FormData($('#formulario_analisis_externo')))
+    })
+
     function validateTextRequiredInputs(formData) {
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
         });
+        console.log(formObject);
     }
 
     $(document).ready(function() {
@@ -689,7 +688,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
 
         $('#formulario_analisis_externo').on('submit', formSubmit);
-
         function formSubmit(event) {
             event.preventDefault();
             $('.datepicker').each(function() {
@@ -700,10 +698,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
 
+            validateTextRequiredInputs(new FormData(this));
             var datosFormulario = $(this).serialize();
-            datosFormulario += '&id=' + idEspecificacion;
 
-            //editing --> QA_solicitud_analisis_editing
+            datosFormulario += '&id=' + idEspecificacion;
+            
 
             $.ajax({
                 url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',

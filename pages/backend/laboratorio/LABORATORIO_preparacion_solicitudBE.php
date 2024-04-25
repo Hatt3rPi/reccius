@@ -125,6 +125,7 @@ function actualizarRegistro($link, $datos)
         throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt));
     }
 }
+
 function campoTipo($campo)
 {
     // Define los tipos de datos según el campo para la función mysqli_stmt_bind_param
