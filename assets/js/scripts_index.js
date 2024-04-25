@@ -614,7 +614,7 @@ function botones(id, accion, base) {
                         },
                         success: function(response) {
                             console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito ');
-                            //$('#dynamic-content').html(response, true); 
+                            $('#dynamic-content').html(response, true); 
                             //cargarDatosEspecificacion(id, true, '1');
                         },
                         error: function(xhr, status, error) {
