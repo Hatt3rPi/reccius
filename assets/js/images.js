@@ -1,9 +1,8 @@
-function processImageSquare(inputFile, callback) {
+function processImageSquare(inputFile, canvas, callback) {
   const reader = new FileReader();
   reader.onload = function (event) {
     const img = new Image();
     img.onload = function () {
-      const canvas = document.querySelector("canvas");
       const ctx = canvas.getContext("2d");
       const size = Math.min(img.width, img.height);
       canvas.width = size;

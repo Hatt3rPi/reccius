@@ -123,6 +123,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                     </div>
                 </div>
+                <canvas style="display: none;"></canvas>
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
                 <button type="button" name="modificarPerfil" onclick="guardar()">Modificar Perfil</button>
             </form>
@@ -174,7 +175,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function handleImageUploadPerfil(e) {
             if (e.target.files && e.target.files[0]) {
-                processImageSquare(e.target.files[0], function(error, result) {
+                var canvas = document.querySelector("canvas");
+                processImageSquare(e.target.files[0], canvas, function(error, result) {
                     if (error) {
                         console.error(error);
                         return;
