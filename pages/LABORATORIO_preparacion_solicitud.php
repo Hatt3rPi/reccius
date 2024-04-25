@@ -224,7 +224,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <input type="text" required name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="form-control mx-0 w-90" style="display: none" />
+                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="form-control mx-0 w-90" style="display: none" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
