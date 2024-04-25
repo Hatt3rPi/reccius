@@ -493,8 +493,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.analisis) {
 
             newVersion = response.count_analisis_externo + 1
-
             var analisis = response.analisis;
+
             //Todo : Volver a validar cuando se pueda editar
             /*
                 if (analisis.estado == "Pendiente Acta de Muestreo") {
@@ -646,7 +646,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     $('#btn_getall').on('click', function() {
-        validateTextRequiredInputs(new FormData($('#formulario_analisis_externo')))
+        validateTextRequiredInputs(new FormData(document.querySelector('#formulario_analisis_externo')))
     })
 
     function validateTextRequiredInputs(formData) {
