@@ -947,6 +947,7 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_acta: id
             },
             success: function(response) {
+                console.log(response);
                 $('#id_actaMuestreo').text(id);
                 procesarDatosActa(response, resultados, etapa);
             },
