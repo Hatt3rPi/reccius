@@ -68,7 +68,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function carga_listado() {
         var table = $('#listado').DataTable({
-            "ajax": "./backend/laboratorio/listado_solicitudesBE.php",
+            "ajax": "./backend/acta_muestreo/listado_acta_muestreoBE.php",
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
             },
