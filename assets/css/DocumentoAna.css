@@ -299,5 +299,5 @@ input{
     font-size: 10px;
 }
 ul{
-    padding-left: none;
+    padding-left: 0px !important;
 }
