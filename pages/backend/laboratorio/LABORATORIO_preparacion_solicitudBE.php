@@ -42,7 +42,7 @@ function insertarRegistro($link, $datos)
     
     mysqli_stmt_bind_param(
         $stmt,
-        'iiisssssssssssssssss',
+        'iiissssssssssssssss',
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
