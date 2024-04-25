@@ -613,9 +613,9 @@ function botones(id, accion, base) {
                             'etapa':'1'
                         },
                         success: function(response) {
-                            console.log('especificacion_producto redirigida con éxito ');
+                            console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito ');
                             $('#dynamic-content').html(response, true); 
-                            cargarDatosEspecificacion(id, true, '1');
+                            //cargarDatosEspecificacion(id, true, '1');
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);

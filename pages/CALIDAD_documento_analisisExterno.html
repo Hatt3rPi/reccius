@@ -210,7 +210,8 @@
                         <th>Análisis</th>
                         <th>Metodología</th>
                         <th>Especificación</th>
-                        <th>Revisión</th>
+                        <th class="revision">Revisión</th>
+
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Apariencia:</td>
@@ -414,9 +415,10 @@
 
 </body>
 <div class="button-container">
-    <button class="botones" id="firma">Firmar Documento</button>
-    <button class="botones" id="guardar">Guardar Documento</button>
+    
+    <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
+    
 
 
 </div>
@@ -491,4 +493,45 @@
         });
     });
 
+</script>
+<script>
+    // Declarar la variable primeravez
+    let primeravez = false;
+
+    // Función para cambiar el estado de primeravez y actualizar la visibilidad de la columna
+    function cambio() {
+        primeravez = !primeravez; // Invierte el estado de primeravez
+        toggleRevisionColumn();
+        console.log(primeravez); // Imprime el nuevo estado de primeravez
+    }
+
+    // Agregar el evento click al botón con id 'Cambiante'
+    document.getElementById('Cambiante').addEventListener('click', function() {
+        cambio();
+    });
+
+    // Función para mostrar u ocultar la columna de revisión
+    function toggleRevisionColumn() {
+        // Seleccionar todas las celdas y el encabezado de la columna Revisión
+        const revisionCells = document.querySelectorAll('.revision');
+        const revisionHeader = document.querySelector('th.revision');
+
+        if (primeravez) {
+            // Ocultar las celdas y el encabezado si primeravez es true
+            revisionCells.forEach(cell => {
+                cell.style.display = 'none';
+            });
+            if (revisionHeader) {
+                revisionHeader.style.display = 'none';
+            }
+        } else {
+            // Mostrar las celdas y el encabezado si primeravez es false
+            revisionCells.forEach(cell => {
+                cell.style.display = '';
+            });
+            if (revisionHeader) {
+                revisionHeader.style.display = '';
+            }
+        }
+    }
 </script>
