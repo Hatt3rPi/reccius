@@ -12,21 +12,33 @@ function limpiarDato($dato)
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos)
 {
-    $query = "INSERT INTO calidad_analisis_externo (version, id_especificacion, id_producto, 
-    estado, numero_registro, numero_solicitud, 
-    fecha_registro, solicitado_por, revisado_por, 
-    lote, tamano_lote, fecha_elaboracion, 
-    fecha_vencimiento, tamano_muestra, tamano_contramuestra, 
-    registro_isp, condicion_almacenamiento, muestreado_por, 
-    numero_pos, tipo_analisis) 
+    $query = "INSERT INTO calidad_analisis_externo (
+        version
+        ,id_especificacion
+        ,id_producto
+        ,estado
+        ,numero_registro
+        ,numero_solicitud
+        ,fecha_registro
+        ,solicitado_por
+        ,revisado_por
+        ,lote
+        ,tamano_lote
+        ,fecha_elaboracion
+        ,fecha_vencimiento
+        ,tamano_muestra
+        ,tamano_contramuestra
+        ,registro_isp
+        ,condicion_almacenamiento
+        ,muestreado_por
+        ,numero_pos
+        ,tipo_analisis) 
     VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
         throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
     }
-
-    $estado = 'Pendiente Acta de Muestreo';
     
     mysqli_stmt_bind_param(
         $stmt,
@@ -34,7 +46,6 @@ function insertarRegistro($link, $datos)
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
-        $estado,
         $datos['numero_registro'],
         $datos['numero_solicitud'],
         $datos['fecha_registro'],

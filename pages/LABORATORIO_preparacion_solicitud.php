@@ -391,6 +391,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#guardar").hide();
         } else {
             $("#editarGenerarVersion").hide();
+            $("#agregarDatos").hide();
             $("#informacion_faltante").remove();
         }
     }
@@ -427,9 +428,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     });
 
     function procesarDatosActa(response) {
-        console.log({
-            response
-        });
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
@@ -659,7 +657,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     $(document).ready(function() {
         $("#agregarDatos").on('click', function(event) {
             event.preventDefault();
-            console.log("Agregar datos a la solicitud");
             $("#guardar").show();
             $("#agregarDatos").hide();
         })
