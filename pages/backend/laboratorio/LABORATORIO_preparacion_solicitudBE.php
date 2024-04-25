@@ -121,7 +121,7 @@ function agregarDatosPostFirma($link, $datos)
     foreach ($camposAActualizar as $campo) {
         if (isset($datos[$campo]) && $datos[$campo] !== '') {
             $partesConsulta[] = "$campo = ?";
-            $valoresParaVincular[] = $datos[$campo];
+            $valoresParaVincular[] = limpiarDato($_POST[$campo]);
             $tipos .= campoTipo($campo);
         }
     } // * esto me ayuda a actualizar solo lo que le envio
@@ -217,6 +217,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lote = limpiarDato($_POST['lote']);
 
     $laboratorio = limpiarDato($_POST['laboratorio']);
+
+
 
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
     $fecha_elaboracion = limpiarDato($_POST['fecha_elaboracion']);
