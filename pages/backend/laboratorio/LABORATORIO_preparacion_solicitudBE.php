@@ -86,37 +86,53 @@ function insertarRegistro($link, $datos)
 function agregarDatosPostFirma($link, $datos)
 {
     //Todo:  Cambiar por un insert el update
-    $camposAActualizar = ['registro', 'version', 'numero_solicitud', 'fecha_registro', 'tipo_producto', 'codigo_producto', 'producto', 'concentracion', 'formato', 'elaboradoPor', 'lote', 'tamano_lote', 'fecha_elaboracion', 'fecha_vencimiento', 'tipo_analisis', 'condicion_almacenamiento', 'tamano_muestra', 'tamano_contramuestra', 'registro_isp', 'muestreado_por', 'numero_pos', 'numero_especificacion', 'version_especificacion', 'usuario_revisor', 'id_producto', 'id_especificacion'];
+    $camposAActualizar = [  
+        'hds_otro',
+        'codigo_producto', 
+        'concentracion', 
+        'condicion_almacenamiento', 
+        'elaboradoPor', 
+        'fecha_elaboracion', 
+        'fecha_registro', 
+        'fecha_vencimiento', 
+        'formato', 
+        'id_especificacion',
+        'id_producto', 
+        'lote', 
+        'muestreado_por', 
+        'numero_especificacion', 
+        'numero_pos', 
+        'numero_solicitud', 
+        'producto', 
+        'registro_isp', 
+        'registro', 
+        'tamano_contramuestra', 
+        'tamano_lote', 
+        'tamano_muestra', 
+        'tipo_analisis', 
+        'tipo_producto', 
+        'usuario_revisor', 
+        'version_especificacion', 
+        'version', 
+        ];
         /*
-            adjunta_HDS : ""
-            analisis_segun : ""
-            condicion_almacenamiento : "en frio"
-            estandar_provisto_por : "reccius"
-            fecha_cotizacion : ""
-            fecha_elaboracion : "15/04/2024"
-            fecha_entrega_estimada : "2024-05-09"
-            fecha_registro : "15/04/2024"
-            fecha_solicitud : ""
-            fecha_vencimiento : "01/05/2025"
-            id_especificacion : "123"
-            laboratorio : ""
-            lote : "RM-00000"
-            muestreado_por : "mgodoy"
-            numero_documento : ""
-            numero_pos : "10"
-            numero_registro : "DCAL-CC-EMP-test2"
-            numero_solicitud : "test2"
-            observaciones : ""
-            otro_laboratorio : ""
-            registro_isp : "N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4"
-            tamano_contramuestra : "20"
-            tamano_lote : "10"
-            tamano_muestra : "10"
-            tipo_analisis : "Análisis de rutina"
-            user_editor : "javier2000asr"
-            usuario_editor : "Javier Sabando"
-            usuario_revisor : "lcaques"
-            version : "3"
+            laboratorio  =  
+            otro_laboratorio  =  
+            fecha_solicitud  =  
+            analisis_segun  =  
+            fecha_cotizacion  =  
+            estandar_provisto_por  =  reccius
+            adjunta_HDS  =  
+            fecha_entrega_estimada  =  2024-05-09
+            numero_documento  =  
+            observaciones  =  
+            numero_especificacion  =  
+            version_especificacion  =  1
+            usuario_editor  =  Javier Sabando
+            user_editor  =  javier2000asr
+            usuario_revisor  =  lcaques
+            id_producto  =  2
+            id_especificacion  =  123
         */
 
     $partesConsulta = [];

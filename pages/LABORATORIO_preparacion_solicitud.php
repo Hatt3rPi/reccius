@@ -260,7 +260,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Adjunta Hoja de seguridad</label>
-                            <input name="adjunta_HDS" id="adjunta_HDS" type="text" class="form-control mx-0 w-90" placeholder="No" />
+                            <input name="hds_otro" id="hds_otro" type="text" class="form-control mx-0 w-90" placeholder="No" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -372,7 +372,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var elem = $('#' + id);
 
             if (isDisabled) {
-                elem.prop('readonly', true);
+                console.log('Elemento ' + id + ' deshabilitado');
+                elem.prop('disabled', true);
             }
 
             if (elem.hasClass('datepicker')) {
@@ -433,7 +434,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
-            $('#version').val(response.count_analisis_externo + 1).prop('readonly', true);
+            $('#version').val(response.count_analisis_externo + 1).prop('disabled', true);
 
             setValuesToInputs([{
                     id: 'id_producto',
@@ -481,7 +482,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
                 $('#id_especificacion').val(especificacion.documento);
-                $('#version_especificacion').val(especificacion.version).prop('readonly', true);
+                $('#version_especificacion').val(especificacion.version).prop('disabled', true);
             }
         } else {
             console.error("No se recibieron datos válidos: ", response);
@@ -624,9 +625,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             ];
 
             //* V. Análisis
-            $('#numero_especificacion').val(analisis.documento_producto).prop('readonly', true);
+            $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
             $('#id_especificacion').val(analisis.id_especificacion);
-            $('#version_especificacion').val(analisis.version).prop('readonly', true);
+            $('#version_especificacion').val(analisis.version).prop('disabled', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion];
 
@@ -652,8 +653,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
+            console.log(key,' = ', value);
         });
-        console.log(formObject);
     }
 
     $(document).ready(function() {
@@ -689,7 +690,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 'numero_pos',
                 'muestreado_por',
             ].forEach(element => {
-                $("#" + element).prop('readonly', false);
+                $("#" + element).prop('disabled', false);
             });
         });
 
