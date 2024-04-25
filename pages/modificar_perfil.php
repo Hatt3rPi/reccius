@@ -172,7 +172,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var fotoPerfilCancel = $('#cancelFotoPerfil');
         var blobImgPerfil = null;
 
-        function handleImageUploadPerfil(event) {
+        function handleImageUploadPerfil(e) {
             if (e.target.files && e.target.files[0]) {
                 processImageSquare(e.target.files[0], function(error, result) {
                     if (error) {
