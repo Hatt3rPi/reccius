@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
@@ -248,8 +247,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="estandar_provisto_por">Estándar Provisto por:</label>
-                            <select id="estandar_provisto_por" name="estandar_provisto_por" class="select-style mx-0 form__select w-90" style="width: 82.5%">
+                            <label for="estandar_segun">Estándar Provisto por:</label>
+                            <select id="estandar_segun" name="estandar_segun" class="select-style mx-0 form__select w-90" style="width: 82.5%">
                                 <option value="reccius">Reccius</option>
                                 <option value="cequc">CEQUC</option>
                                 <option value="pharmaisa">Pharma ISA</option>
@@ -392,12 +391,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#guardar").hide();
         } else {
             $("#editarGenerarVersion").hide();
+            $("#agregarDatos").hide();
             $("#informacion_faltante").remove();
         }
     }
     informacionFaltante();
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+    
 
     function cargarDatosEspecificacion() {
         var data = {
@@ -428,9 +429,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     });
 
     function procesarDatosActa(response) {
-        console.log({
-            response
-        });
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
@@ -481,7 +479,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
-                $('#id_especificacion').val(especificacion.documento);
                 $('#version_especificacion').val(especificacion.version).prop('disabled', true);
             }
         } else {
@@ -626,7 +623,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
             //* V. Análisis
             $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
-            $('#id_especificacion').val(analisis.id_especificacion);
             $('#version_especificacion').val(analisis.version).prop('disabled', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion];
@@ -660,7 +656,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     $(document).ready(function() {
         $("#agregarDatos").on('click', function(event) {
             event.preventDefault();
-            console.log("Agregar datos a la solicitud");
             $("#guardar").show();
             $("#agregarDatos").hide();
         })
@@ -756,8 +751,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             todayHighlight: true,
             startDate: new Date()
         });
-
-
         $('#btn_getall').on('click', function() {
             $('.datepicker').each(function() {
                 var dateValue = $(this).val();
@@ -777,5 +770,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             });
         })
+        
+        $('#id_especificacion').val(idEspecificacion);
     });
 </script>

@@ -12,29 +12,40 @@ function limpiarDato($dato)
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos)
 {
-    $query = "INSERT INTO calidad_analisis_externo (version, id_especificacion, id_producto, 
-    estado, numero_registro, numero_solicitud, 
-    fecha_registro, solicitado_por, revisado_por, 
-    lote, tamano_lote, fecha_elaboracion, 
-    fecha_vencimiento, tamano_muestra, tamano_contramuestra, 
-    registro_isp, condicion_almacenamiento, muestreado_por, 
-    numero_pos, tipo_analisis) 
+    $query = "INSERT INTO calidad_analisis_externo (
+        version
+        ,id_especificacion
+        ,id_producto
+        ,estado
+        ,numero_registro
+        ,numero_solicitud
+        ,fecha_registro
+        ,solicitado_por
+        ,revisado_por
+        ,lote
+        ,tamano_lote
+        ,fecha_elaboracion
+        ,fecha_vencimiento
+        ,tamano_muestra
+        ,tamano_contramuestra
+        ,registro_isp
+        ,condicion_almacenamiento
+        ,muestreado_por
+        ,numero_pos
+        ,tipo_analisis) 
     VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
         throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
     }
-
-    $estado = 'Pendiente Acta de Muestreo';
     
     mysqli_stmt_bind_param(
         $stmt,
-        'iiisssssssssssssssss',
+        'iiissssssssssssssss',
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
-        $estado,
         $datos['numero_registro'],
         $datos['numero_solicitud'],
         $datos['fecha_registro'],
@@ -85,54 +96,22 @@ function insertarRegistro($link, $datos)
 
 function agregarDatosPostFirma($link, $datos)
 {
-    //Todo:  Cambiar por un insert el update
     $camposAActualizar = [  
+        'laboratorio',
+        'fecha_solicitud',
+        'analisis_segun',
+        'fecha_cotizacion',
+        'estandar_segun', // estandar_provisto_por
         'hds_otro',
-        'codigo_producto', 
-        'concentracion', 
-        'condicion_almacenamiento', 
-        'elaboradoPor', 
-        'fecha_elaboracion', 
-        'fecha_registro', 
-        'fecha_vencimiento', 
-        'formato', 
-        'id_especificacion',
-        'id_producto', 
-        'lote', 
-        'muestreado_por', 
-        'numero_especificacion', 
-        'numero_pos', 
-        'numero_solicitud', 
-        'producto', 
-        'registro_isp', 
-        'registro', 
-        'tamano_contramuestra', 
-        'tamano_lote', 
-        'tamano_muestra', 
-        'tipo_analisis', 
-        'tipo_producto', 
-        'usuario_revisor', 
-        'version_especificacion', 
-        'version', 
+        'fecha_entrega_estimada',
+        'numero_documento',
+        'observaciones',
         ];
-        /*
-            laboratorio  =  
-            otro_laboratorio  =  
-            fecha_solicitud  =  
-            analisis_segun  =  
-            fecha_cotizacion  =  
-            estandar_provisto_por  =  reccius
-            adjunta_HDS  =  
-            fecha_entrega_estimada  =  2024-05-09
-            numero_documento  =  
-            observaciones  =  
-            numero_especificacion  =  
-            version_especificacion  =  1
+        /* 
+            todo:preguntar al felipe cual es el campo a rellenar con el nombre del usuario (muestreado_por, solicitado_por, revisado_por)
             usuario_editor  =  Javier Sabando
             user_editor  =  javier2000asr
             usuario_revisor  =  lcaques
-            id_producto  =  2
-            id_especificacion  =  123
         */
 
     $partesConsulta = [];
