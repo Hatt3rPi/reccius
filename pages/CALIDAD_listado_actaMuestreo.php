@@ -30,6 +30,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
             <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+            <button class="estado-filtro badge" onclick="filtrar_listado('En Proceso de firma')">En Proceso de Firma</button>
+            <button class="estado-filtro badge" onclick="filtrar_listado('Pendiente Muestreo')">Pendiente Muestreo</button>
         </div>
         <br>
         <br>
@@ -96,6 +98,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             case 'Pendiente de Aprobación':
                                 return '<span class="badge badge-warning">Pendiente de Aprobación</span>';
                             case 'Pendiente de Revisión':
+                                return '<span class="badge badge-warning">Pendiente de Revisión</span>';
+                            case 'Pendiente Muestreo':
+                                return '<span class="badge badge-warning">Pendiente de Aprobación</span>';
+                            case 'En proceso de firma':
                                 return '<span class="badge badge-warning">Pendiente de Revisión</span>';
                             default:
                                 return '<span class="badge">' + data + '</span>';
@@ -169,7 +175,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
             // Botón para revisar siempre presente
-            acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones('+ d.id_acta +', this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+            acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
             acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_acta + '" name="generar_documento_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
             acciones += '</td></tr></table>';
             return acciones;
