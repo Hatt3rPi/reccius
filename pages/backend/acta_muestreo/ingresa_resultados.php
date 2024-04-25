@@ -55,10 +55,7 @@ $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
             WHERE am.id = ?;";
 
     $stmt = mysqli_prepare($link, $query);
-    if (!$stmt) {
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['error' => mysqli_error($link)], JSON_UNESCAPED_UNICODE);
-    }
+    
     mysqli_stmt_bind_param($stmt, "i", $id_acta);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
