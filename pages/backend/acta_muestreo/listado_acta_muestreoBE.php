@@ -5,6 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
+                am.id_analisisExterno,
                 am.estado, 
                 CONCAT(am.numero_acta, '-', LPAD(am.version_acta, 2, '0')) AS numero_acta,
                 am.fecha_muestreo, 
