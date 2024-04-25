@@ -62,7 +62,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div>
                         <label for="fotoPerfil">Foto de Perfil:</label>
                         <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled onchange="handleImageUploadPerfil(event)">
-                        <div id="fotoPerfilPreview"  class="d-flex justify-content-center">
+                        <div id="fotoPerfilPreview" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
                         <button type="button" id="cancelFotoPerfil" style="display: none;">Eliminar foto</button>
@@ -294,10 +294,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 formData.append('nuevaPassword', nuevaPassword);
             }
             if ($('#switch_foto').is(':checked')) {
+
+                console.log('$(#switch_foto).is(:checked))');
                 if (blobImgPerfil === null) {
                     alert("Por favor, selecciona una imagen.");
                     return;
                 }
+                console.log('$(#switch_foto).is(:checked)) Append');
+
                 formData.append('imagen', blobImgPerfil);
 
             }
@@ -326,26 +330,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 url: "../pages/backend/usuario/modificar_perfilBE.php",
                 type: "POST",
                 data: formData,
-                processData: false,
+                processData: false, 
                 contentType: false,
                 success: function(response) {
-                    var data = JSON.parse(response);
-                    if (data.success) {
-                        if (mensajesExito.includes(data.message)) {
-                            $.notify(data.message, "success");
-                        } else if (mensajesAdvertencia.includes(data.message)) {
-                            $.notify(data.message, "warn");
-                        }
-                    } else {
-                        $.notify(data.message, "error");
-                    }
+                    console.log('Respuesta recibida: ', response);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    // Mostrar un mensaje de error
-                    var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
-                    $.notify(errorMsg, "error");
+                    console.error('Error en la solicitud: ',{jqXHR, textStatus, errorThrown});
                 }
             });
+
         };
     </script>
 

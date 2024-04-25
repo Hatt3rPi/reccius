@@ -42,22 +42,23 @@ function getUsuario($link, $usuario)
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['usuario' => $data], JSON_UNESCAPED_UNICODE);
 }
-function updateUsuario($link, $usuario) 
+function updateUsuario($link, $usuario)
 {
     // $nombre = $_POST['nombre'] ?? null;
     // $nombre_corto = $_POST['nombre_corto'] ?? null;
     // $cargo = $_POST['cargo'] ?? null;
-    $foto_perfil = null; // Este será actualizado solo si se sube una nueva imagen
+    $foto_perfil = null;
 
-    if (isset($_FILES['imagen'])) {
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+
         include_once '../cloud/R2_manager.php';
-        
+
         $imagen = $_FILES['imagen'];
         $folder = 'usuarios';
         $usuarioFilename = str_replace(' ', '_', $usuario);
         $timestamp = time();
         $fileName = $usuarioFilename . '_' . $timestamp . '.webp';
-    
+
         $fileBinary = file_get_contents($imagen['tmp_name']);
         $params = [
             'fileBinary' => $fileBinary,
@@ -68,10 +69,10 @@ function updateUsuario($link, $usuario)
         $uploadStatus = setFile($params);
         $uploadResult = json_decode($uploadStatus, true);
 
-        if ($uploadResult['success']) {
+        if (isset($uploadResult['success'])) {
             $foto_perfil = $uploadResult['success']['ObjectURL'];
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Error al subir la imagen']);
+            echo json_encode(['status' => 'error', 'message' => 'Error al subir la imagen: ' . $uploadResult['error']]);
             return;
         }
     }
@@ -80,36 +81,36 @@ function updateUsuario($link, $usuario)
 
     //     $passwordActual = $_POST['passwordActual'];
     //     $nuevaPassword = password_hash($_POST['nuevaPassword'], PASSWORD_DEFAULT);
-    
+
     //     // Actualizar la contraseña en la base de datos
     //     $queryPassword = "UPDATE `usuarios` SET password = ? WHERE usuario = ? AND password = ?";
     //     $stmtPassword = mysqli_prepare($link, $queryPassword);
     //     mysqli_stmt_bind_param($stmtPassword, "sss", $nuevaPassword, $usuario, $passwordActual);
     //     mysqli_stmt_execute($stmtPassword);
-    
+
     //     if (mysqli_stmt_affected_rows($stmtPassword) > 0) {
     //         echo json_encode(['status' => 'success', 'message' => 'Contraseña actualizada correctamente']);
     //     } else {
     //         echo json_encode(['status' => 'error', 'message' => 'Contraseña actual no coincide o no se pudo actualizar']);
     //     }
-    
+
     //     mysqli_stmt_close($stmtPassword);
     // }
-    
+
 
     // Actualizar la base de datos con todos los campos nuevos
-    $query = "UPDATE `usuarios` SET foto_perfil = ? WHERE usuario = ?";
-    $stmt = mysqli_prepare($link, $query);
-    // mysqli_stmt_bind_param($stmt, "sssss", $nombre, $nombre_corto, $foto_perfil, $cargo, $usuario);
-    mysqli_stmt_bind_param($stmt, "ss", $foto_perfil, $usuario);
-    mysqli_stmt_execute($stmt);
+    if ($foto_perfil) {
+        
+        $query = "UPDATE `usuarios` SET foto_perfil = ? WHERE usuario = ?";
+        $stmt = mysqli_prepare($link, $query);
+        // mysqli_stmt_bind_param($stmt, "sssss", $nombre, $nombre_corto, $foto_perfil, $cargo, $usuario);
+        mysqli_stmt_bind_param($stmt, "ss", $foto_perfil, $usuario);
+        mysqli_stmt_execute($stmt);
 
-    if (mysqli_stmt_affected_rows($stmt) > 0) {
-        echo json_encode(['status' => 'success', 'message' => 'Perfil actualizado correctamente']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar el perfil']);
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            echo json_encode(['status' => 'success', 'message' => 'Perfil actualizado correctamente']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar el perfil']);
+        }
     }
- 
 }
-
-?>
