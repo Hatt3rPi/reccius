@@ -21,10 +21,9 @@ if (!$id_actaMuestreo || !$etapa || !$respuestas || count($textareaData) === 0) 
 
 // Preparar la consulta SQL para insertar los datos en la base de datos
 $query = "update calidad_acta_muestreo  set 
-    
     estado=? , 
     resultados_muestrador=? , 
-    pregunta5=? ,  pregunta6=? ,  pregunta7=? ,  pregunta8=? ,  muestreador=? ,  fecha_firma_muestreador=? where id_analisisExterno =? ";
+    pregunta5=? ,  pregunta6=? ,  pregunta7=? ,  pregunta8=? ,  muestreador=? ,  fecha_firma_muestreador=? where id =? ";
 
 if ($stmt = mysqli_prepare($link, $query)) {
     // Vincular parámetros para marcadores
