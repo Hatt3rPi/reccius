@@ -605,7 +605,7 @@ function botones(id, accion, base) {
                 case "generar_documento_solicitudes": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
-                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        url: '../pages/CALIDAD_documento_analisisExterno.html',
                         type: 'POST',
                         data: {
                             'id': id,
@@ -647,7 +647,7 @@ function botones(id, accion, base) {
                 // CALIDAD / Preparar Acta de Muestreo
                 case "resultados_actaMuestreo":{
                     // Llamar a una función que maneje el envío del recordatorio
-                    console.log("exito al oprimir generar_documento_solicitudes")   
+                    console.log("exito al oprimir resultados_actaMuestreo")   
                     $.ajax({
                         url: '../pages/CALIDAD_acta_muestreo.php',
                         type: 'POST',
@@ -667,7 +667,29 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                
+                // CALIDAD / Preparar Acta de Muestreo
+                case "generar_documento_actaMuestreo":{
+                    
+                    // Llamar a una función que maneje el envío del recordatorio
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': false,
+                            'etapa':'0'
+                        },
+                        success: function(response) {
+                            $('#dynamic-content').html(response); 
+                            cargarDatosEspecificacion(id, false, '0');
+                            console.log('generar_acta_muestreo');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+                }
             }
             break;
         }

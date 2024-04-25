@@ -27,12 +27,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Revisión')">Pendiente de Revisión</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En Proceso de firma')">En Proceso de Firma</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Muestreo')">Pendiente Muestreo</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
             <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
-            
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En Proceso de firma')">En Proceso de Firma</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Muestreo')">Pendiente Muestreo</button>
         </div>
         <br>
         <br>
@@ -68,8 +67,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-    var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
-    
+
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_muestreo/listado_acta_muestreoBE.php",
@@ -178,10 +176,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Botón para revisar siempre presente
             acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
-            acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
-            if (d.muestreado_por === usuarioActual) {
-                acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i></button>';
-            }
+            acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_acta + '" name="generar_documento_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
             acciones += '</td></tr></table>';
             return acciones;
         }
