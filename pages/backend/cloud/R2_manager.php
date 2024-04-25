@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-require_once "../../../assets/dependencies/aws.phar";
+require_once "../../../assets/dependencies/aws/aws-autoloader.php";
 
 use  Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
@@ -70,11 +70,9 @@ function setFile($params) {
     //        'VersionId' => '<string>',
     //    ]
 
-    error_log('File uploaded successfully: ' . print_r($result, true));
     return json_encode(['success' => $result, 'error' => false]);
 
   } catch (Aws\Exception\AwsException $e) {
-    error_log('Error uploading file: ' . $e->getMessage());
     return json_encode(['success' => false, 'error' => $e->getMessage()]);
   }
 
