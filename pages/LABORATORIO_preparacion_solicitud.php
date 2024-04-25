@@ -341,6 +341,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
+                <button type="button" id="agregarDatos" name="agregarDatos" class="action-button">AGREGAR DATOS DE SOLICITUD</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
@@ -351,6 +352,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
     </div>
 </body>
+
 </html>
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
@@ -370,7 +372,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var elem = $('#' + id);
 
             if (isDisabled) {
-                elem.prop('disabled', true);
+                elem.prop('readonly', true);
             }
 
             if (elem.hasClass('datepicker')) {
@@ -431,7 +433,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
 
-            $('#version').val(response.count_analisis_externo + 1).prop('disabled', true);
+            $('#version').val(response.count_analisis_externo + 1).prop('readonly', true);
 
             setValuesToInputs([{
                     id: 'id_producto',
@@ -479,7 +481,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
                 $('#id_especificacion').val(especificacion.documento);
-                $('#version_especificacion').val(especificacion.version).prop('disabled', true);
+                $('#version_especificacion').val(especificacion.version).prop('readonly', true);
             }
         } else {
             console.error("No se recibieron datos válidos: ", response);
@@ -499,10 +501,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             /*
                 if (analisis.estado == "Pendiente Acta de Muestreo") {
                     $("#informacion_faltante").remove();
-                    $("#editarGenerarVersion");
+                    $("#agregarDatos").hide();
                     // $('#alert_warning').show().append(`No se puede editar, se crea.`);
-                }
-             */
+                }else{
+                    */
+                    $("#editarGenerarVersion").hide();
+                /*
+                    }
+                */
 
             //* I. Análisis:
             $("#version").val(analisis.version);
@@ -616,14 +622,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     isDisabled: true
                 }
             ];
-            /*
-            condicion_almacenamiento
-            */
 
             //* V. Análisis
-            $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
+            $('#numero_especificacion').val(analisis.documento_producto).prop('readonly', true);
             $('#id_especificacion').val(analisis.id_especificacion);
-            $('#version_especificacion').val(analisis.version).prop('disabled', true);
+            $('#version_especificacion').val(analisis.version).prop('readonly', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion];
 
@@ -645,10 +648,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
 
-    $('#btn_getall').on('click', function() {
-        validateTextRequiredInputs(new FormData(document.querySelector('#formulario_analisis_externo')))
-    })
-
     function validateTextRequiredInputs(formData) {
         var formObject = {};
         formData.forEach(function(value, key) {
@@ -658,6 +657,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     $(document).ready(function() {
+        $("#agregarDatos").on('click', function(event) {
+            event.preventDefault();
+            console.log("Agregar datos a la solicitud");
+            $("#guardar").show();
+            $("#agregarDatos").hide();
+        })
+
         $('#editarGenerarVersion').on('click', function(event) {
             event.preventDefault();
             console.log("Editar Generar Version");
@@ -665,7 +671,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
 
-            [//* unlock inputs
+            [ //* unlock inputs
                 // I. Analisis:
                 'numero_registro',
                 'numero_solicitud',
@@ -683,26 +689,30 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 'numero_pos',
                 'muestreado_por',
             ].forEach(element => {
-                $("#" + element).prop('disabled', false);
+                $("#" + element).prop('readonly', false);
             });
         });
 
         $('#formulario_analisis_externo').on('submit', formSubmit);
+
         function formSubmit(event) {
             event.preventDefault();
             $('.datepicker').each(function() {
                 var dateValue = $(this).val();
                 if (dateValue) {
                     var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
-                    $(this).val(formattedDate); // Establecer el nuevo valor en el formato correcto
+                    $(this).val(formattedDate);
                 }
             });
 
             validateTextRequiredInputs(new FormData(this));
             var datosFormulario = $(this).serialize();
 
-            datosFormulario += '&id=' + idEspecificacion;
-            
+            if ($("#informacion_faltante").length > 0) {
+                // Si el informacion_faltante no fue eliminada, entonces agregamos el id del analisis externo
+                // para que en el backend sepa que tiene que hacer un "update" de los datos faltantes
+                datosFormulario += '&id=' + idAnalisisExterno;
+            }
 
             $.ajax({
                 url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
@@ -745,5 +755,26 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             todayHighlight: true,
             startDate: new Date()
         });
+
+
+        $('#btn_getall').on('click', function() {
+            $('.datepicker').each(function() {
+                var dateValue = $(this).val();
+                if (dateValue) {
+                    var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                    $(this).val(formattedDate);
+                }
+            });
+
+            validateTextRequiredInputs(new FormData(document.querySelector('#formulario_analisis_externo')))
+
+            $('.datepicker').each(function() {
+                var isoDate = $(this).val();
+                if (isoDate) {
+                    var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                    $(this).val(originalDate);
+                }
+            });
+        })
     });
 </script>

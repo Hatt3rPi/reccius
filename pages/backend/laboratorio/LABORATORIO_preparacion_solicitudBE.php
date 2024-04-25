@@ -26,15 +26,15 @@ function insertarRegistro($link, $datos)
         throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
     }
 
-    // Asignar valores directos a variables
     $estado = 'Pendiente Acta de Muestreo';
-    // Luego usa estas variables en la función mysqli_stmt_bind_param
+    
     mysqli_stmt_bind_param(
         $stmt,
         'iiisssssssssssssssss',
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
+        $estado,
         $datos['numero_registro'],
         $datos['numero_solicitud'],
         $datos['fecha_registro'],
@@ -50,9 +50,7 @@ function insertarRegistro($link, $datos)
         $datos['condicion_almacenamiento'],
         $datos['muestreado_por'],
         $datos['numero_pos'],
-        $datos['tipo_analisis'],
-        $datos['laboratorio']
-
+        $datos['tipo_analisis']
     );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
@@ -85,11 +83,41 @@ function insertarRegistro($link, $datos)
     }
 }
 
-function actualizarRegistro($link, $datos)
+function agregarDatosPostFirma($link, $datos)
 {
     //Todo:  Cambiar por un insert el update
-
     $camposAActualizar = ['registro', 'version', 'numero_solicitud', 'fecha_registro', 'tipo_producto', 'codigo_producto', 'producto', 'concentracion', 'formato', 'elaboradoPor', 'lote', 'tamano_lote', 'fecha_elaboracion', 'fecha_vencimiento', 'tipo_analisis', 'condicion_almacenamiento', 'tamano_muestra', 'tamano_contramuestra', 'registro_isp', 'muestreado_por', 'numero_pos', 'numero_especificacion', 'version_especificacion', 'usuario_revisor', 'id_producto', 'id_especificacion'];
+        /*
+            adjunta_HDS : ""
+            analisis_segun : ""
+            condicion_almacenamiento : "en frio"
+            estandar_provisto_por : "reccius"
+            fecha_cotizacion : ""
+            fecha_elaboracion : "15/04/2024"
+            fecha_entrega_estimada : "2024-05-09"
+            fecha_registro : "15/04/2024"
+            fecha_solicitud : ""
+            fecha_vencimiento : "01/05/2025"
+            id_especificacion : "123"
+            laboratorio : ""
+            lote : "RM-00000"
+            muestreado_por : "mgodoy"
+            numero_documento : ""
+            numero_pos : "10"
+            numero_registro : "DCAL-CC-EMP-test2"
+            numero_solicitud : "test2"
+            observaciones : ""
+            otro_laboratorio : ""
+            registro_isp : "N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4"
+            tamano_contramuestra : "20"
+            tamano_lote : "10"
+            tamano_muestra : "10"
+            tipo_analisis : "Análisis de rutina"
+            user_editor : "javier2000asr"
+            usuario_editor : "Javier Sabando"
+            usuario_revisor : "lcaques"
+            version : "3"
+        */
 
     $partesConsulta = [];
     $valoresParaVincular = [];
@@ -192,6 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $formato = limpiarDato($_POST['formato']);
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $lote = limpiarDato($_POST['lote']);
+
     $laboratorio = limpiarDato($_POST['laboratorio']);
 
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
@@ -223,39 +252,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Crear un array con los datos limpios
         $datosLimpios = [
-            'numero_registro' => $numero_registro,
-            'version' => $version,
-            'numero_solicitud' => $numero_solicitud,
-            'fecha_registro' => $fecha_registro,
-            'tipo_producto' => $tipo_producto,
             'codigo_producto' => $codigo_producto,
-            'producto' => $producto,
             'concentracion' => $concentracion,
-            'formato' => $formato,
-            'elaboradoPor' => $elaboradoPor,
-            'lote' => $lote,
-            'tamano_lote' => $tamano_lote,
-            'fecha_elaboracion' => $fecha_elaboracion,
-            'fecha_vencimiento' => $fecha_vencimiento,
-            'tipo_analisis' => $tipo_analisis,
             'condicion_almacenamiento' => $condicion_almacenamiento,
-            'tamano_muestra' => $tamano_muestra,
-            'tamano_contramuestra' => $tamano_contramuestra,
-            'registro_isp' => $registro_isp,
-            'muestreado_por' => $muestreado_por,
-            'numero_pos' => $numero_pos,
-            'numero_especificacion' => $numero_especificacion,
-            'version_especificacion' => $version_especificacion,
-            'usuario_revisor' => $usuario_revisor,
-            'id_producto' => $id_producto,
+            'elaboradoPor' => $elaboradoPor,
+            'fecha_elaboracion' => $fecha_elaboracion,
+            'fecha_registro' => $fecha_registro,
+            'fecha_vencimiento' => $fecha_vencimiento,
+            'formato' => $formato,
             'id_especificacion' => $id_especificacion,
-            'laboratorio' => $laboratorio
+            'id_producto' => $id_producto,
+            'laboratorio' => $laboratorio,
+            'lote' => $lote,
+            'muestreado_por' => $muestreado_por,
+            'numero_especificacion' => $numero_especificacion,
+            'numero_pos' => $numero_pos,
+            'numero_registro' => $numero_registro,
+            'numero_solicitud' => $numero_solicitud,
+            'producto' => $producto,
+            'registro_isp' => $registro_isp,
+            'tamano_contramuestra' => $tamano_contramuestra,
+            'tamano_lote' => $tamano_lote,
+            'tamano_muestra' => $tamano_muestra,
+            'tipo_analisis' => $tipo_analisis,
+            'tipo_producto' => $tipo_producto,
+            'usuario_revisor' => $usuario_revisor,
+            'version_especificacion' => $version_especificacion,
+            'version' => $version,
         ];
 
         if ($estaEditando) {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
-            insertarRegistro($link, $datosLimpios);
-            //actualizarRegistro($link, $datosLimpios);
+            agregarDatosPostFirma($link, $datosLimpios);
         } else {
             insertarRegistro($link, $datosLimpios);
         }
