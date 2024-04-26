@@ -291,7 +291,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Especificación de producto:</label>
-                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90" />
+                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
@@ -481,6 +481,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
+                $('#id_especificacion').val(especificacion.id_especificacion);
                 $('#version_especificacion').val(especificacion.version);
             }
         } else {
@@ -672,8 +673,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
 
             //* V. Análisis
-            $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
-            $('#version_especificacion').val(analisis.version).prop('disabled', true);
+            $('#numero_especificacion').val(analisis.id_especificacion).prop('disabled', true);
+            $('#version_especificacion').val(analisis.version_especificacion).prop('disabled', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion, ...arrToSetAdditionalInfo];
 
