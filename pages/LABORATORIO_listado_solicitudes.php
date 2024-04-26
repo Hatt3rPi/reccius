@@ -28,6 +28,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de Muestreo')">Pendiente Acta de Muestreo</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente ingreso resultados laboratorio')">Pendiente ingreso resultados laboratorio</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
             <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
@@ -96,6 +97,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 return '<span class="badge badge-warning">Pendiente Acta de Muestreo</span>';
                             case 'Pendiente de Revisión':
                                 return '<span class="badge badge-warning">Pendiente de Revisión</span>';
+                                case 'Pendiente ingreso resultados laboratorio':
+                                return '<span class="badge badge-warning">Pendiente ingreso resultados laboratorio</span>';
                             default:
                                 return '<span class="badge">' + data + '</span>';
                         }
