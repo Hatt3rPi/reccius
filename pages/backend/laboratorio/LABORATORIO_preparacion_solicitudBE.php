@@ -97,13 +97,13 @@ function insertarRegistro($link, $datos)
 function agregarDatosPostFirma($link, $datos)
 {
     $camposAActualizar = [
-        'laboratorio',
-        'fecha_solicitud',
         'analisis_segun',
-        'fecha_cotizacion',
         'estandar_segun', // estandar_provisto_por
-        'hds_otro',
+        'fecha_cotizacion',
         'fecha_entrega_estimada',
+        'fecha_solicitud',
+        'hds_otro',
+        'laboratorio',
         'numero_documento',
         'observaciones',
     ];

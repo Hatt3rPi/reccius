@@ -248,7 +248,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label for="estandar_segun">Estándar Provisto por:</label>
-                            <select  required id="estandar_segun" name="estandar_segun" class="select-style mx-0 form__select w-90" style="width: 82.5%">
+                            <select required id="estandar_segun" name="estandar_segun" class="select-style mx-0 form__select w-90" style="width: 82.5%">
                                 <option value="reccius">Reccius</option>
                                 <option value="cequc">CEQUC</option>
                                 <option value="pharmaisa">Pharma ISA</option>
@@ -340,15 +340,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
-                <button type="button" id="agregarDatos" name="agregarDatos" class="action-button">AGREGAR DATOS DE SOLICITUD</button>
+                <button type="button" id="agregarDatos" name="agregarDatos" class="action-button" style="background-color: red; color: white;">AGREGAR DATOS DE SOLICITUD</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
-
-        <button type="button" id="btn_getall" name="btn_getall" style="background-color: red; color: white;">GetAll</button>
-
     </div>
 </body>
 
@@ -361,6 +358,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
      * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
      * @return {void}
      */
+
     function setValuesToInputs(arr) {
         for (let el of arr) {
             const {
@@ -386,6 +384,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
 
+    informacionFaltante();
+
     function informacionFaltante() {
         if (QA_solicitud_analisis_editing) {
             $("#guardar").hide();
@@ -395,10 +395,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#informacion_faltante").remove();
         }
     }
-    informacionFaltante();
+
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
-    
+
 
     function cargarDatosEspecificacion() {
         var data = {
@@ -427,6 +427,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     $('#fecha_elaboracion').datepicker({
         format: 'dd/mm/yyyy', // Formato de fecha
     });
+
+    var newVersion = 1;
 
     function procesarDatosActa(response) {
         if (response && response.productos && response.productos.length > 0) {
@@ -486,8 +488,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
 
-    var newVersion = 1;
-
     function procesarDatosActaUpdate(response) {
 
         if (response && response.analisis) {
@@ -503,10 +503,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     // $('#alert_warning').show().append(`No se puede editar, se crea.`);
                 }else{
                     */
-                    $("#editarGenerarVersion").hide();
-                /*
-                    }
-                */
+            $("#editarGenerarVersion").hide();
+            /*
+                }
+            */
 
             //* I. Análisis:
             $("#version").val(analisis.version);
@@ -620,12 +620,62 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     isDisabled: true
                 }
             ];
+            //* IV. Solicitud de Análisis Externo
+            var arrToSetAdditionalInfo = [];
+            if (analisis.laboratorio) {
+                arrToSetAdditionalInfo = [{
+                        id: 'analisis_segun',
+                        val: analisis.analisis_segun,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'estandar_segun',
+                        val: analisis.estandar_segun,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'fecha_cotizacion',
+                        val: analisis.fecha_cotizacion,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'fecha_entrega_estimada',
+                        val: analisis.fecha_entrega_estimada,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'fecha_solicitud',
+                        val: analisis.fecha_solicitud,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'hds_otro',
+                        val: analisis.hds_otro,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'laboratorio',
+                        val: analisis.laboratorio,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'numero_documento',
+                        val: analisis.numero_documento,
+                        isDisabled: false
+                    },
+                    {
+                        id: 'observaciones',
+                        val: analisis.observaciones,
+                        isDisabled: false
+                    },
+                ]
+            }
 
             //* V. Análisis
             $('#numero_especificacion').val(analisis.documento_producto).prop('disabled', true);
             $('#version_especificacion').val(analisis.version).prop('disabled', true);
 
-            var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion];
+            var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion, ...arrToSetAdditionalInfo];
 
             setValuesToInputs(arrToSet)
 
@@ -649,7 +699,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
-            console.log(key,' = ', value);
+            console.log(key, ' = ', value);
         });
     }
 
@@ -751,25 +801,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             todayHighlight: true,
             startDate: new Date()
         });
-        $('#btn_getall').on('click', function() {
-            $('.datepicker').each(function() {
-                var dateValue = $(this).val();
-                if (dateValue) {
-                    var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
-                    $(this).val(formattedDate);
-                }
-            });
-
-            validateTextRequiredInputs(new FormData(document.querySelector('#formulario_analisis_externo')))
-
-            $('.datepicker').each(function() {
-                var isoDate = $(this).val();
-                if (isoDate) {
-                    var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
-                    $(this).val(originalDate);
-                }
-            });
-        })
 
         $('#id_especificacion').val(idEspecificacion);
     });
