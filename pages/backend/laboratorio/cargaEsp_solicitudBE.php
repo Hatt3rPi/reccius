@@ -39,8 +39,8 @@ $queryAnalisisExterno = "SELECT
                             prod.tipo_concentracion AS 'prod_tipo_concentracion', 
                             prod.concentracion AS 'prod_concentracion', 
                             prod.formato AS 'prod_formato', 
-                            prod.elaborado_por AS 'prod_elaborado_por'
-                            ep.version AS 'version_especificacion',
+                            prod.elaborado_por AS 'prod_elaborado_por',
+                            ep.version AS 'version_especificacion'
                         FROM calidad_analisis_externo AS an
                         JOIN calidad_productos AS prod ON an.id_producto = prod.id
                         JOIN calidad_especificacion_productos AS ep ON an.id_especificacion = ep.id_especificacion
