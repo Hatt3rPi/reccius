@@ -673,7 +673,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
 
             //* V. Análisis
-            $('#numero_especificacion').val(analisis.id_especificacion).prop('disabled', true);
+            $('#numero_especificacion').val(analisis.documento).prop('disabled', true);
             $('#version_especificacion').val(analisis.version_especificacion).prop('disabled', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion, ...arrToSetAdditionalInfo];
