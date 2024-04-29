@@ -64,6 +64,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
     );
     if ($exito) {
         echo json_encode(['success' => 'Datos guardados correctamente.']);
+        $_SESSION['nuevo_id'] = $id_actaMuestreo;
     } else {
         echo json_encode(['error' => 'Error al guardar datos: ' . mysqli_stmt_error($stmt)]);
     }
