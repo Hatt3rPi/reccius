@@ -504,10 +504,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }else{
                     */
                     if (analisis.laboratorio) {
-                        $("#editarGenerarVersion").hide();
+                        $("#agregarDatos").hide();
                     }
                     else{
-                        $("#agregarDatos").hide();
+                        $("#editarGenerarVersion").hide();
                     }
 
             /*
