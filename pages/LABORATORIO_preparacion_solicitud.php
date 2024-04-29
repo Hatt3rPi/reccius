@@ -496,15 +496,20 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             newVersion = response.count_analisis_externo + 1
             var analisis = response.analisis;
 
-            //Todo : Volver a validar cuando se pueda editar
+            //Todo : Volver a validar cuando se pueda editar ||| en caso de que los datos este de 4 al 6 hacer la seccion de "nuevo analisis" y añadir nueva version
             /*
                 if (analisis.estado == "Pendiente Acta de Muestreo") {
                     $("#informacion_faltante").remove();
                     $("#agregarDatos").hide();
-                    // $('#alert_warning').show().append(`No se puede editar, se crea.`);
                 }else{
                     */
-            $("#editarGenerarVersion").hide();
+                    if (analisis.laboratorio) {
+                        $("#editarGenerarVersion").hide();
+                    }
+                    else{
+                        $("#agregarDatos").hide();
+                    }
+
             /*
                 }
             */
@@ -627,47 +632,47 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 arrToSetAdditionalInfo = [{
                         id: 'analisis_segun',
                         val: analisis.analisis_segun,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'estandar_segun',
                         val: analisis.estandar_segun,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'fecha_cotizacion',
                         val: analisis.fecha_cotizacion,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'fecha_entrega_estimada',
                         val: analisis.fecha_entrega_estimada,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'fecha_solicitud',
                         val: analisis.fecha_solicitud,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'hds_otro',
                         val: analisis.hds_otro,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'laboratorio',
                         val: analisis.laboratorio,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'numero_documento',
                         val: analisis.numero_documento,
-                        isDisabled: false
+                        isDisabled: true
                     },
                     {
                         id: 'observaciones',
                         val: analisis.observaciones,
-                        isDisabled: false
+                        isDisabled: true
                     },
                 ]
             }
@@ -714,11 +719,25 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         $('#editarGenerarVersion').on('click', function(event) {
             event.preventDefault();
             console.log("Editar Generar Version");
+
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
-
-            [ //* unlock inputs
+            var informacionFaltanteArr = []
+            if ($("#informacion_faltante").length > 0) {
+                informacionFaltanteArr = [
+                    'analisis_segun',
+                    'estandar_segun',
+                    'fecha_cotizacion',
+                    'fecha_entrega_estimada',
+                    'fecha_solicitud',
+                    'hds_otro',
+                    'laboratorio',
+                    'numero_documento',
+                    'observaciones'
+                ]
+            }
+            [
                 // I. Analisis:
                 'numero_registro',
                 'numero_solicitud',
@@ -735,9 +754,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 'registro_isp',
                 'numero_pos',
                 'muestreado_por',
+                ...informacionFaltanteArr
+
             ].forEach(element => {
                 $("#" + element).prop('disabled', false);
             });
+           
         });
 
         $('#formulario_analisis_externo').on('submit', formSubmit);
@@ -755,7 +777,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             validateTextRequiredInputs(new FormData(this));
             var datosFormulario = $(this).serialize();
 
-            if ($("#informacion_faltante").length > 0) {
+            if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
                 // Si el informacion_faltante no fue eliminada, entonces agregamos el id del analisis externo
                 // para que en el backend sepa que tiene que hacer un "update" de los datos faltantes
                 datosFormulario += '&id=' + idAnalisisExterno;
