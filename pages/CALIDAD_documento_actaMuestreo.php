@@ -963,7 +963,9 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_analisis_externo: id
             },
             success: function(response) {
-                $('#id_actaMuestreo').text(id);
+                var buscar = '<?php echo $_SESSION['nuevo_id']; ?>';
+                <?php unset($_SESSION['nuevo_id']); ?>
+                $('#id_actaMuestreo').text(buscar);
                 procesarDatosActa(response, resultados, '0');
             },
             error: function(xhr, status, error) {
@@ -1150,7 +1152,7 @@ document.getElementById('guardar').addEventListener('click', function() {
             success: function(response) {
                 console.log('Guardado exitoso: ', response);
                 alert("Datos guardados correctamente.");// convertir a notificación
-                $.notify("Datos guardados correctamente.", "success");
+                //$.notify("Datos guardados correctamente.", "success");
                 $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
                     if (status == "error") {
                         console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
