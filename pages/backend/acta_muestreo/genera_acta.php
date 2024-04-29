@@ -120,6 +120,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     
     $exito = mysqli_stmt_execute($stmt);
     $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
+    unset($_SESSION['nuevo_id']);
     $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
     // Ejecutar la declaración
     registrarTrazabilidad(
@@ -152,5 +153,8 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
 
 // Devolver los resultados en formato JSON
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['analisis_externos' => $analisis_externos], JSON_UNESCAPED_UNICODE);
+echo json_encode([
+    'analisis_externos' => $analisis_externos,
+    'id_actaMuestreo' => $nuevo_id  // Asegúrate de que esta línea está incluida
+], JSON_UNESCAPED_UNICODE);
 ?>

@@ -963,11 +963,8 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_analisis_externo: id
             },
             success: function(response) {
-
-                var buscar = '<?php echo $_SESSION['nuevo_id']; ?>';
-                <?php unset($_SESSION['nuevo_id']); ?>;
-                console.log(buscar);
-                $('#id_actaMuestreo').text(buscar);
+                var data = JSON.parse(response);
+                $('#id_actaMuestreo').text(data.id_actaMuestreo);
                 procesarDatosActa(response, resultados, '0');
             },
             error: function(xhr, status, error) {
