@@ -67,10 +67,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-    function filtrar_listado_por_acta(id_acta) {
-        var table = $('#listado').DataTable();
-        table.column(11).search(id_acta).draw(); 
-    }
+
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_muestreo/listado_acta_muestreoBE.php",
@@ -184,8 +181,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
             // Botón para revisar siempre presente
-            acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+            if (d.estado === "Pendiente Muestreo") {
+                acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+            }
             acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_acta + '" name="generar_documento_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
+            if (d.estado === "En proceso de firma") {
+                acciones += '<button class="accion-btn" title="WIP¨Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
+            }
+
             acciones += '</td></tr></table>';
             return acciones;
         }

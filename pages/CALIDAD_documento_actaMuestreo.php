@@ -1149,14 +1149,14 @@ document.getElementById('guardar').addEventListener('click', function() {
             contentType: 'application/json; charset=utf-8',
             success: function(response) {
                 console.log('Guardado exitoso: ', response);
-                alert("Datos guardados correctamente.");
+                alert("Datos guardados correctamente.");// convertir a notificación
+                $.notify("Datos guardados correctamente.", "success");
                 $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
                     if (status == "error") {
                         console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
                     } else {
                         obtenNotificaciones();
                         carga_listado();
-                        //filtrar_listado_por_acta(id_actaMuestreo) ;
                         console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
                     }
                     $('#loading-spinner').hide();
