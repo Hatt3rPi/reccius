@@ -1097,9 +1097,10 @@ document.getElementById('guardar').addEventListener('click', function() {
     if ($('#etapa').text() === 'muestreador') {
         let usuario_muestreador = "<?php echo $_SESSION['usuario']; ?>";
         let respuestas = consolidarRespuestas('.formulario.resp');
+        let id_actaMuestreo= $('#id_actaMuestreo').text();
         let todosSeleccionados = true;
         let dataToSave = {
-            id_actaMuestreo: $('#id_actaMuestreo').text(),
+            id_actaMuestreo: id_actaMuestreo,
             etapa: 1,
             usuario: usuario_muestreador,
             respuestas: respuestas,
@@ -1149,6 +1150,18 @@ document.getElementById('guardar').addEventListener('click', function() {
             success: function(response) {
                 console.log('Guardado exitoso: ', response);
                 alert("Datos guardados correctamente.");
+                $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
+                    if (status == "error") {
+                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+                    } else {
+                        obtenNotificaciones();
+                        carga_listado();
+                        filtrar_listado_por_acta(id_actaMuestreo) ;
+                        console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                    }
+                    $('#loading-spinner').hide();
+                    $('#dynamic-content').show();
+                }); 
             },
             error: function(xhr, status, error) {
                 console.error("Error al guardar: ", status, error);

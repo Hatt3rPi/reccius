@@ -67,7 +67,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var table = $('#listado').DataTable();
         table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
     }
-
+    function filtrar_listado_por_acta(id_acta) {
+        var table = $('#listado').DataTable();
+        table.column(11).search(id_acta).draw(); 
+    }
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_muestreo/listado_acta_muestreoBE.php",
@@ -145,6 +148,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     title: 'Verificador',
                     data: 'verificador',
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
+                },
+                {
+                    title: 'id_acta',
+                    data: 'id_acta',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
                 }
