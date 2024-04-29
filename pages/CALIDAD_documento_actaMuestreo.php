@@ -963,7 +963,9 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_analisis_externo: id
             },
             success: function(response) {
-                $('#id_actaMuestreo').text(id);
+                var data = JSON.parse(response);
+                console.log(data);
+                $('#id_actaMuestreo').text(data.id_actaMuestreo);
                 procesarDatosActa(response, resultados, '0');
             },
             error: function(xhr, status, error) {
@@ -1097,9 +1099,10 @@ document.getElementById('guardar').addEventListener('click', function() {
     if ($('#etapa').text() === 'muestreador') {
         let usuario_muestreador = "<?php echo $_SESSION['usuario']; ?>";
         let respuestas = consolidarRespuestas('.formulario.resp');
+        let id_actaMuestreo= $('#id_actaMuestreo').text();
         let todosSeleccionados = true;
         let dataToSave = {
-            id_actaMuestreo: $('#id_actaMuestreo').text(),
+            id_actaMuestreo: id_actaMuestreo,
             etapa: 1,
             usuario: usuario_muestreador,
             respuestas: respuestas,
@@ -1148,7 +1151,19 @@ document.getElementById('guardar').addEventListener('click', function() {
             contentType: 'application/json; charset=utf-8',
             success: function(response) {
                 console.log('Guardado exitoso: ', response);
-                alert("Datos guardados correctamente.");
+                alert("Datos guardados correctamente.");// convertir a notificación
+                //$.notify("Datos guardados correctamente.", "success");
+                $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
+                    if (status == "error") {
+                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+                    } else {
+                        obtenNotificaciones();
+                        carga_listado();
+                        console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                    }
+                    $('#loading-spinner').hide();
+                    $('#dynamic-content').show();
+                }); 
             },
             error: function(xhr, status, error) {
                 console.error("Error al guardar: ", status, error);

@@ -41,10 +41,30 @@ if ($stmt = mysqli_prepare($link, $query)) {
 
     // Establecer estado y otros valores necesarios
     $estado = 'En proceso de firma'; // Suponiendo un valor predeterminado
-
+    $exito = mysqli_stmt_execute($stmt);
     // Ejecutar la declaración
-    if (mysqli_stmt_execute($stmt)) {
+    registrarTrazabilidad(
+        $_SESSION['usuario'], 
+        $_SERVER['PHP_SELF'], 
+        'Firma muestreador', 
+        'acta de muestreo',  
+        $id_actaMuestreo, 
+        $query,  
+        [ $estado, 
+        $respuestas,
+        $textareaData['form_textarea5'],
+        $textareaData['form_textarea6'],
+        $textareaData['form_textarea7'],
+        $textareaData['form_textarea8'],
+        $usuario,
+        $fechaActual,
+        $id_actaMuestreo], 
+        $exito ? 1 : 0, 
+        $exito ? null : mysqli_error($link)
+    );
+    if ($exito) {
         echo json_encode(['success' => 'Datos guardados correctamente.']);
+        $_SESSION['nuevo_id'] = $id_actaMuestreo;
     } else {
         echo json_encode(['error' => 'Error al guardar datos: ' . mysqli_stmt_error($stmt)]);
     }

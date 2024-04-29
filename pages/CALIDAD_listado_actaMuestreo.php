@@ -147,6 +147,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     data: 'verificador',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
+                },
+                {
+                    title: 'id_acta',
+                    data: 'id_acta',
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
                 }
             ],
 
@@ -175,8 +181,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
             // Botón para revisar siempre presente
-            acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+            if (d.estado === "Pendiente Muestreo") {
+                acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+            }
             acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_acta + '" name="generar_documento_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
+            if (d.estado === "En proceso de firma") {
+                acciones += '<button class="accion-btn" title="WIP¨Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
+            }
+
             acciones += '</td></tr></table>';
             return acciones;
         }
@@ -191,11 +203,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <?php } ?>
 
         // Si se acaba de insertar una nueva especificación, establecer el valor del buscador de DataTables
-        <?php if (isset($_SESSION['buscarEspecificacion'])) { ?>
-            var buscar = '<?php echo $_SESSION['buscarEspecificacion']; ?>';
-            table.columns(9).search(buscar).draw();
+        <?php if (isset($_SESSION['nuevo_id'])) { ?>
+            var buscar = '<?php echo $_SESSION['nuevo_id']; ?>';
+            console.log('se intentará filtrar por id: ', buscar);
+            table.columns(10).search(buscar).draw();
             //table.search(buscar).draw();
-            <?php unset($_SESSION['buscarEspecificacion']); ?>
+            <?php unset($_SESSION['nuevo_id']); ?>
         <?php } ?>
     }
 </script>
