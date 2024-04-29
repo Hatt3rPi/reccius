@@ -117,9 +117,24 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     
     $stmt = mysqli_prepare($link, $insertQuery);
     mysqli_stmt_bind_param($stmt, "ssiiiiisss", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto);
-    if (mysqli_stmt_execute($stmt)) {
-        $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
-        $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
+    
+    $exito = mysqli_stmt_execute($stmt);
+    $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
+    $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
+    // Ejecutar la declaración
+    registrarTrazabilidad(
+        $_SESSION['usuario'], 
+        $_SERVER['PHP_SELF'], 
+        'Genera Acta de Muestreo', 
+        'acta de muestreo',  
+        $nuevo_id, 
+        $insertQuery,  
+        [$numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto], 
+        $exito ? 1 : 0, 
+        $exito ? null : mysqli_error($link)
+    );
+    if ($exito) {
+        
     
         // Actualización de los datos con el nuevo número de acta
         foreach ($analisis_externos as &$value) {
