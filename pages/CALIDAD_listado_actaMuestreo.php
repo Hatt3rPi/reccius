@@ -200,11 +200,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <?php } ?>
 
         // Si se acaba de insertar una nueva especificación, establecer el valor del buscador de DataTables
-        <?php if (isset($_SESSION['buscarEspecificacion'])) { ?>
-            var buscar = '<?php echo $_SESSION['buscarEspecificacion']; ?>';
-            table.columns(9).search(buscar).draw();
+        <?php if (isset($_SESSION['nuevo_id'])) { ?>
+            var buscar = '<?php echo $_SESSION['nuevo_id']; ?>';
+            console.log('se intentará filtrar por id: ', buscar);
+            table.columns(10).search(buscar).draw();
             //table.search(buscar).draw();
-            <?php unset($_SESSION['buscarEspecificacion']); ?>
+            <?php unset($_SESSION['nuevo_id']); ?>
         <?php } ?>
     }
 </script>

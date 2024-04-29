@@ -8,6 +8,7 @@ $id_producto='';
 $id_analisis_externo='';
 $responsable='';
 $verificador='';
+$nuevo_id='';
 // Validación y saneamiento del ID del análisis externo
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
 
@@ -116,14 +117,23 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     
     $stmt = mysqli_prepare($link, $insertQuery);
     mysqli_stmt_bind_param($stmt, "ssiiiiisss", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto);
-    $result = mysqli_stmt_execute($stmt);
-    foreach ($analisis_externos as $key => &$value) {
-        $value['numero_acta'] = $numero_acta. "-01";
+    if (mysqli_stmt_execute($stmt)) {
+        $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
+        $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
+    
+        // Actualización de los datos con el nuevo número de acta
+        foreach ($analisis_externos as &$value) {
+            $value['numero_acta'] = $numero_acta . "-01";
+        }
+        unset($value);
+    } else {
+        // Manejo de errores en la inserción
+        echo json_encode(['error' => 'Error al insertar el acta muestreada']);
+        exit;
     }
-    unset($value); 
 
     mysqli_stmt_close($stmt);
- mysqli_close($link);
+    mysqli_close($link);
 
 // Devolver los resultados en formato JSON
 header('Content-Type: application/json; charset=utf-8');

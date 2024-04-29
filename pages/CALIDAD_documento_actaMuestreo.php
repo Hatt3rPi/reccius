@@ -1156,7 +1156,7 @@ document.getElementById('guardar').addEventListener('click', function() {
                     } else {
                         obtenNotificaciones();
                         carga_listado();
-                        filtrar_listado_por_acta(id_actaMuestreo) ;
+                        //filtrar_listado_por_acta(id_actaMuestreo) ;
                         console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
                     }
                     $('#loading-spinner').hide();
