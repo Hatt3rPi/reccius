@@ -542,9 +542,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Cargar datos iniciales (si es necesario)
         loadData();
     });
+   
 
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
-
+    console.log("ID Analisis Externo:", idAnalisisExterno);
     function loadData() {
     $.ajax({
         url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que la URL es correcta

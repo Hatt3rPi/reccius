@@ -19,7 +19,7 @@ $query = "SELECT
                 am.id as id_acta
             FROM `calidad_acta_muestreo` as am
             LEFT JOIN calidad_productos as pr 
-            on am.id_producto=pr.id;
+            on am.id_producto=pr.id
             WHERE am.id = ?";
 
 // Preparar y ejecutar la consulta
