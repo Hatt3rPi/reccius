@@ -49,7 +49,7 @@ $queryAnalisisExterno = "SELECT
 
 $queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHEN id_analisisExterno= ?";
 
-
+//queryAnalisisExterno
 $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
 mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
 mysqli_stmt_execute($stmtAnali);
@@ -62,16 +62,20 @@ if ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
 }
 mysqli_stmt_close($stmtAnali);
 
+
+//queryActaMuestreo
+$analisisActaMuestreo = [];
+
 $stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo);
 mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
 mysqli_stmt_execute($stmtActaMuestreo);
 
-$analisisActaMuestreo = [];
-
 $resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
-if ($rowActaMuestreo = mysqli_fetch_assoc($resultActaMuestreo)) {
-    $analisisActaMuestreo = $rowActaMuestreo;
+while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
+    $analisisActaMuestreo[] = $row;
+
 }
+
 mysqli_stmt_close($stmtActaMuestreo);
 
 // Enviar los datos en formato JSON
