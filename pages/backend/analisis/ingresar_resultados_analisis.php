@@ -2,6 +2,8 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
+// Validación y saneamiento del ID del análisis externo
+$id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
@@ -17,9 +19,14 @@ $query = "SELECT
                 am.id as id_acta
             FROM `calidad_acta_muestreo` as am
             LEFT JOIN calidad_productos as pr 
-            on am.id_producto=pr.id;";
+            on am.id_producto=pr.id;
+            WHERE am.id = ?";
 
-$result = $link->query($query);
+// Preparar y ejecutar la consulta
+$stmt = $link->prepare($query);
+$stmt->bind_param("i", $id_acta);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $data = [];
 

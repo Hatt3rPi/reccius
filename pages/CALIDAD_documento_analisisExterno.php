@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,9 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -25,8 +36,7 @@
     <div id="form-container" class="form-container formpadding">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container"
-                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
@@ -34,20 +44,16 @@
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center"
-                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
+                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
                         Externo
                         Control de Calidad
                         <!-- Pretitulo -->
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto"
-                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="producto" id="producto"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -56,10 +62,8 @@
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right"
-                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo"
-                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
                             <td name="nro_registro" id="nro_registroT"></td>
@@ -415,10 +419,10 @@
 
 </body>
 <div class="button-container">
-    
+
     <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
-    
+
 
 
 </div>
@@ -429,8 +433,7 @@
 
 </html>
 <script>
-
-    document.getElementById('download-pdf').addEventListener('click', function () {
+    document.getElementById('download-pdf').addEventListener('click', function() {
 
 
         // Continúa con el proceso de descarga del PDF como antes
@@ -492,7 +495,6 @@
 
         });
     });
-
 </script>
 <script>
     // Declarar la variable primeravez
@@ -536,29 +538,37 @@
     }
 </script>
 <script>
-$(document).ready(function() {
-    // Cargar datos iniciales (si es necesario)
-    loadData();
-});
-
-function loadData() {
-    $.ajax({
-        url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que la URL es correcta
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            // Llenar los campos del formulario con los datos recibidos
-            $('#Tipo_Producto').text(data.Tipo_Producto);
-            $('#producto').text(data.producto);
-            $('#nro_registroT').text(data.nro_registro);
-            $('#nro_version').text(data.nro_version);
-            $('#nro_solicitud').text(data.nro_solicitud);
-            $('#fecha').val(data.fecha);
-            // Continúa llenando otros campos según necesites
-        },
-        error: function() {
-            console.error('Error cargando los datos');
-        }
+    $(document).ready(function() {
+        // Cargar datos iniciales (si es necesario)
+        loadData();
     });
-}
+
+    var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+
+    function loadData() {
+
+
+        $.ajax({
+            url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que esta URL es correcta
+            type: 'GET',
+            data: {
+                id_acta: idAnalisisExterno
+            }, // Enviar el ID como parte de la solicitud
+            dataType: 'json',
+            success: function(response) {
+                // Asumiendo que la respuesta incluye datos bajo la clave 'data'
+                const datos = response.data[0]; // Asumiendo que solo hay un resultado
+                $('#Tipo_Producto').text(datos.tipo_producto);
+                $('#producto').text(datos.producto);
+                $('#nro_registroT').text(datos.numero_acta);
+                $('#nro_version').text(datos.version_acta);
+                $('#nro_solicitud').text(datos.id_acta); // Asegúrate de que estos mapeos son correctos
+                $('#fecha').val(datos.fecha_muestreo);
+                // Continúa llenando otros campos según necesites
+            },
+            error: function() {
+                console.error('Error cargando los datos');
+            }
+        });
+    }
 </script>
