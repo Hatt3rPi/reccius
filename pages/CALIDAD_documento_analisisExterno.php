@@ -551,7 +551,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         url: './backend/analisis/ingresar_resultados_analisis.php',
         type: 'GET',
         data: { id_acta: idAnalisisExterno },
-        dataType: 'json',
         success: function(response) {
             const datos = response.data[0];
             $('#Tipo_Producto').text(datos.tipo_producto);
