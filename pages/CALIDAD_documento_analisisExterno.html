@@ -62,7 +62,7 @@
                         style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
-                            <td name="nro_registro" id="nro_registro"></td>
+                            <td name="nro_registro" id="nro_registroT"></td>
                         </tr>
                         <tr>
                             <td>N° Versión:</td>
@@ -429,38 +429,27 @@
 
 </html>
 <script>
-    $(document).ready(function() {
-        // Cargar datos iniciales (si es necesario)
-        loadData();
-    });
 
-    function loadData() {
-        $.ajax({
-            url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que la URL es correcta
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                // Llenar los campos del formulario con los datos recibidos
-                $('#Tipo_Producto').text(data.Tipo_Producto);
-                $('#producto').text(data.producto);
-                $('#nro_registro').text(data.nro_registro);
-                $('#nro_version').text(data.nro_version);
-                $('#nro_solicitud').text(data.nro_solicitud);
-                $('#fecha').val(data.fecha);
-                // Continúa llenando otros campos según necesites
-            },
-            error: function() {
-                console.error('Error cargando los datos');
-            }
-        });
-    }
+    document.getElementById('download-pdf').addEventListener('click', function () {
 
-    document.getElementById('download-pdf').addEventListener('click', function() {
+
+        // Continúa con el proceso de descarga del PDF como antes
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
+        elementToExport.style.border = 'none'; // Establecer el borde a none
+        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
 
-        html2canvas(elementToExport, {scale: 2}).then(canvas => {
+
+        html2canvas(elementToExport, {
+            scale: 2
+        }).then(canvas => {
+            // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
+            // Establecer los estilos originales después de generar el PDF
+            elementToExport.style.border = '1px solid #000';
+            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+
 
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jspdf.jsPDF({
@@ -485,19 +474,91 @@
                 heightLeft -= pageHeight;
             }
 
-            pdf.save('documento.pdf');
+
+            var nombreProducto = document.getElementById('producto').textContent.trim();
+            var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             $.notify("PDF generado con éxito", "success");
+
+            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    // Mostrar todos los botones nuevamente
+                    button.style.display = 'block';
+                });
+            });
+
+
         });
     });
 
-    // Función para alternar la visibilidad de la columna de revisión
+</script>
+<script>
+    // Declarar la variable primeravez
     let primeravez = false;
+
+    // Función para cambiar el estado de primeravez y actualizar la visibilidad de la columna
+    function cambio() {
+        primeravez = !primeravez; // Invierte el estado de primeravez
+        toggleRevisionColumn();
+        console.log(primeravez); // Imprime el nuevo estado de primeravez
+    }
+
+    // Agregar el evento click al botón con id 'Cambiante'
     document.getElementById('Cambiante').addEventListener('click', function() {
-        primeravez = !primeravez;
-        const revisionCells = document.querySelectorAll('.revision');
-        const displayStyle = primeravez ? 'none' : '';
-        revisionCells.forEach(cell => {
-            cell.style.display = displayStyle;
-        });
+        cambio();
     });
+
+    // Función para mostrar u ocultar la columna de revisión
+    function toggleRevisionColumn() {
+        // Seleccionar todas las celdas y el encabezado de la columna Revisión
+        const revisionCells = document.querySelectorAll('.revision');
+        const revisionHeader = document.querySelector('th.revision');
+
+        if (primeravez) {
+            // Ocultar las celdas y el encabezado si primeravez es true
+            revisionCells.forEach(cell => {
+                cell.style.display = 'none';
+            });
+            if (revisionHeader) {
+                revisionHeader.style.display = 'none';
+            }
+        } else {
+            // Mostrar las celdas y el encabezado si primeravez es false
+            revisionCells.forEach(cell => {
+                cell.style.display = '';
+            });
+            if (revisionHeader) {
+                revisionHeader.style.display = '';
+            }
+        }
+    }
+</script>
+<script>
+$(document).ready(function() {
+    // Cargar datos iniciales (si es necesario)
+    loadData();
+});
+
+function loadData() {
+    $.ajax({
+        url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que la URL es correcta
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // Llenar los campos del formulario con los datos recibidos
+            $('#Tipo_Producto').text(data.Tipo_Producto);
+            $('#producto').text(data.producto);
+            $('#nro_registroT').text(data.nro_registro);
+            $('#nro_version').text(data.nro_version);
+            $('#nro_solicitud').text(data.nro_solicitud);
+            $('#fecha').val(data.fecha);
+            // Continúa llenando otros campos según necesites
+        },
+        error: function() {
+            console.error('Error cargando los datos');
+        }
+    });
+}
 </script>
