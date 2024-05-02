@@ -76,4 +76,4 @@ mysqli_stmt_close($stmtActaMuestreo);
 
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo'=> $analisis_count], JSON_UNESCAPED_UNICODE);
+echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
