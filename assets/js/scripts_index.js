@@ -605,7 +605,7 @@ function botones(id, accion, base) {
                 case "generar_documento_solicitudes": {
                     // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
-                        url: '../pages/CALIDAD_documento_analisisExterno.html',
+                        url: '../pages/CALIDAD_documento_analisisExterno.php',
                         type: 'POST',
                         data: {
                             'id': id,
