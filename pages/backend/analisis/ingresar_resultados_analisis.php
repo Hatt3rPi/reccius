@@ -16,11 +16,22 @@ $query = "SELECT
                 am.version_acta,
                 concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
                 pr.tipo_producto,
-                am.id as id_acta
+                am.id as id_acta,
+                cae.laboratorio,
+                cae.fecha_solicitud,
+                cae.analisis_segun,
+                cae.fecha_cotizacion,
+                cae.estandar_segun,
+                cae.hds_adjunto,
+                cae.fecha_entrega_estimada,
+                cae.numero_documento,
+                cae.estandar_otro,
+                cae.hds_otro
             FROM `calidad_acta_muestreo` as am
-            LEFT JOIN calidad_productos as pr 
-            on am.id_producto=pr.id
+            LEFT JOIN calidad_productos as pr ON am.id_producto=pr.id
+            LEFT JOIN calidad_analisis_externo as cae ON am.id=cae.id_acta
             WHERE am.id = ?";
+
 
 // Preparar y ejecutar la consulta
 $stmt = $link->prepare($query);
