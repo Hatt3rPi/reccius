@@ -66,7 +66,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
-                            <td name="nro_registro" id="nro_registroT"></td>
+                            <td name="nro_registro" id="nro_registro"></td>
                         </tr>
                         <tr>
                             <td>N° Versión:</td>
@@ -94,7 +94,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Laboratorio Analista:(*)</td>
-                        <td><input type="text" id="laboratorio_analista" name="laboratorio_analista" required></td>
+                        <td><input type="text" id="laboratorio" name="laboratorio" required></td>
 
                     </tr>
                     <tr>
@@ -106,7 +106,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">3. Análisis según:(**)</td>
                         <td><input type="text" id="analisis_segun" name="analisis_segun" required></td>
                         <td class="titulo titulo-right">N° Documento:</td>
-                        <td><input type="text" id="nro_documento" name="nro_documento" required></td>
+                        <td><input type="text" id="numero_documento" name="numero_documento" required></td>
                     </tr>
 
                     <tr>
@@ -115,15 +115,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">5. Estandar Provisto por:(**)</td>
-                        <td><input type="text" id="Estandar" name="Estandar" required></td>
+                        <td><input type="text" id="estandar_segun" name="estandar_segun" required></td>
                         <td class="titulo titulo-right">Otro:</td>
-                        <td><input type="text" id="otro1" name="otro1"></td>
+                        <td><input type="text" id="estandar_otro" name="estandar_otro"></td>
                     </tr>
                     <tr>
                         <td class="titulo">6. Adjunta HDS:(***)</td>
-                        <td><input type="text" id="HDS" name="HDS" required></td>
+                        <td><input type="text" id="hds_adjunto" name="hds_adjunto" required></td>
                         <td class="titulo titulo-right">Otro:</td>
-                        <td><input type="text" id="otro2" name="otro2"></td>
+                        <td><input type="text" id="hds_otro" name="hds_otro"></td>
                     </tr>
                     <tr>
                         <td class="titulo">7. Fecha de Entrega estimada:</td>
@@ -542,33 +542,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Cargar datos iniciales (si es necesario)
         loadData();
     });
+   
 
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
-
+    console.log("ID Analisis Externo:", idAnalisisExterno);
     function loadData() {
+    $.ajax({
+        url: './backend/analisis/ingresar_resultados_analisis.php',
+        type: 'GET',
+        data: { id_acta: idAnalisisExterno },
+        success: function(response) {
+            const datos = response.data[0];
+            $('#Tipo_Producto').text(datos.tipo_producto);
+            $('#producto').text(datos.producto);
+            $('#nro_registro').text(datos.numero_acta);
+            $('#nro_version').text(datos.version_acta);
+            $('#nro_solicitud').text(datos.id_acta);
+            $('#fecha').val(datos.fecha_muestreo);
+            // Nuevos campos añadidos
+            $('#laboratorio').text(datos.laboratorio);
+            $('#fecha_solicitud').text(datos.fecha_solicitud);
+            $('#analisis_segun').text(datos.analisis_segun);
+            $('#fecha_cotizacion').text(datos.fecha_cotizacion);
+            $('#estandar_segun').text(datos.estandar_segun);
+            $('#hds_adjunto').text(datos.hds_adjunto);
+            $('#fecha_entrega_estimada').text(datos.fecha_entrega_estimada);
+            $('#numero_documento').text(datos.numero_documento);
+            $('#estandar_otro').text(datos.estandar_otro);
+            $('#hds_otro').text(datos.hds_otro);
+            // Continúa llenando otros campos según necesites
+        },
+        error: function(xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+        }
+    });
+}
 
 
-        $.ajax({
-            url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que esta URL es correcta
-            type: 'GET',
-            data: {
-                id_acta: idAnalisisExterno
-            }, // Enviar el ID como parte de la solicitud
-            dataType: 'json',
-            success: function(response) {
-                // Asumiendo que la respuesta incluye datos bajo la clave 'data'
-                const datos = response.data[0]; // Asumiendo que solo hay un resultado
-                $('#Tipo_Producto').text(datos.tipo_producto);
-                $('#producto').text(datos.producto);
-                $('#nro_registroT').text(datos.numero_acta);
-                $('#nro_version').text(datos.version_acta);
-                $('#nro_solicitud').text(datos.id_acta); // Asegúrate de que estos mapeos son correctos
-                $('#fecha').val(datos.fecha_muestreo);
-                // Continúa llenando otros campos según necesites
-            },
-            error: function() {
-                console.error('Error cargando los datos');
-            }
-        });
-    }
 </script>
