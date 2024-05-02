@@ -47,7 +47,7 @@ $queryAnalisisExterno = "SELECT
                         JOIN calidad_productos AS prod ON an.id_producto = prod.id
                         WHERE an.id = ?";
 
-$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHEN id_analisisExterno= ?";
+$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno= ?";
 
 //queryAnalisisExterno
 $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
