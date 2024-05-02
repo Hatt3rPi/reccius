@@ -278,8 +278,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function reloadPageBypassCacheHash() {
-        window.location.hash = "nocache=" + new Date().getTime();
-        window.location.reload(true);
+        
+        const PageVersion = window.localStorage.getItem("PageVersion")
+        if (PageVersion == null) {
+            window.localStorage.setItem("PageVersion", AppConfig.VERSION);
+            return;
+        }
+        if (PageVersion == AppConfig.VERSION) {
+            window.location.hash = "nocache=" + PageVersion;
+            window.location.reload(true);
+            return;
+        }
     }
 
 
@@ -291,14 +300,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var content = document.querySelector('.content');
         var nav = document.querySelector('.breadcrumb-container');
 
-
-
-
         nav.classList.toggle('breadcrumbexpanded');
         sidebar.classList.toggle('sidebar-hidden');
         content.classList.toggle('content-expanded');
-
-
 
     });
 

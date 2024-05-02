@@ -29,6 +29,10 @@
     </div>
 
     <script>
+      window.localStorage.setItem("PageVersion", 123)
+      console.log(window.localStorage.getItem("PageVersion"))
+      console.log(window.localStorage.getItem("PageVersion") == 123)
+
       function processImageSquare(inputFile, callback) {
         const reader = new FileReader();
         reader.onload = function (event) {
