@@ -7,14 +7,14 @@ $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
-                am.estado, 
+                am.estado,
                 CONCAT(am.numero_acta, '-', LPAD(am.version_acta, 2, '0')) AS numero_acta,
-                am.fecha_muestreo, 
-                am.responsable, 
-                am.muestreador, 
-                am.verificador, 
+                am.fecha_muestreo,
+                am.responsable,
+                am.muestreador,
+                am.verificador,
                 am.version_acta,
-                concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
+                concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto,
                 pr.tipo_producto,
                 am.id as id_acta,
                 cae.laboratorio,
@@ -28,9 +28,10 @@ $query = "SELECT
                 cae.estandar_otro,
                 cae.hds_otro
             FROM `calidad_acta_muestreo` as am
-            LEFT JOIN calidad_productos as pr ON am.id_producto=pr.id
-            LEFT JOIN calidad_analisis_externo as cae ON am.id=cae.id_acta
+            LEFT JOIN `calidad_productos` as pr ON am.id_producto = pr.id
+            LEFT JOIN `calidad_analisis_externo` as cae ON am.id = cae.id_acta
             WHERE am.id = ?";
+
 
 
 // Preparar y ejecutar la consulta
