@@ -78,6 +78,12 @@ while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
 
 mysqli_stmt_close($stmtActaMuestreo);
 
+
+mysqli_close($link);
+
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
+
+?>
+ 
