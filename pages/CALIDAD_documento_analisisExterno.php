@@ -66,7 +66,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
-                            <td name="nro_registro" id="nro_registroT"></td>
+                            <td name="nro_registro" id="nro_registro"></td>
                         </tr>
                         <tr>
                             <td>N° Versión:</td>
@@ -546,29 +546,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
     function loadData() {
+    $.ajax({
+        url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que la URL es correcta
+        type: 'GET',
+        data: {
+            id_acta: idAnalisisExterno
+        }, // Enviar el ID como parte de la solicitud
+        dataType: 'json',
+        success: function(response) {
+            // Asumiendo que la respuesta incluye datos bajo la clave 'data'
+            const datos = response.data[0]; // Asumiendo que solo hay un resultado
+            $('#Tipo_Producto').text(datos.tipo_producto);
+            $('#producto').text(datos.producto);
+            $('#nro_registro').text(datos.numero_acta);
+            $('#nro_version').text(datos.version_acta);
+            $('#nro_solicitud').text(datos.id_acta);
+            $('#fecha').val(datos.fecha_muestreo);
+            // Continúa llenando otros campos según necesites
+        },
+        error: function() {
+            console.error('Error cargando los datos');
+        }
+    });
+}
 
-
-        $.ajax({
-            url: './backend/analisis/ingresar_resultados_analisis.php', // Asegúrate de que esta URL es correcta
-            type: 'GET',
-            data: {
-                id_acta: idAnalisisExterno
-            }, // Enviar el ID como parte de la solicitud
-            dataType: 'json',
-            success: function(response) {
-                // Asumiendo que la respuesta incluye datos bajo la clave 'data'
-                const datos = response.data[0]; // Asumiendo que solo hay un resultado
-                $('#Tipo_Producto').text(datos.tipo_producto);
-                $('#producto').text(datos.producto);
-                $('#nro_registroT').text(datos.numero_acta);
-                $('#nro_version').text(datos.version_acta);
-                $('#nro_solicitud').text(datos.id_acta); // Asegúrate de que estos mapeos son correctos
-                $('#fecha').val(datos.fecha_muestreo);
-                // Continúa llenando otros campos según necesites
-            },
-            error: function() {
-                console.error('Error cargando los datos');
-            }
-        });
-    }
 </script>
