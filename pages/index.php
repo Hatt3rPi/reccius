@@ -162,7 +162,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-                        
+
                         <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
@@ -275,6 +275,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             })
             .catch(error => console.error('Error:', error));
+    }
+
+    function reloadPageBypassCacheHash() {
+        window.location.hash = "nocache=" + new Date().getTime();
+        window.location.reload(true);
     }
 
 

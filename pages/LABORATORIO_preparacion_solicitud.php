@@ -488,55 +488,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             console.error("No se recibieron datos válidos: ", response);
         }
     }
-    /*
-    numero_registro: DCAL-CC-ENE-003
-    version: 3
-    numero_solicitud: SAEPT-0101001-03
-    fecha_registro: 2024-06-27
-    lote: LOTE-00003
-    tamano_lote: 500
-    fecha_elaboracion: 2024-04-17
-    fecha_vencimiento: 2025-04-16
-    tipo_analisis: Análisis de rutina
-    condicion_almacenamiento: sin humedad
-    tamano_muestra: 10
-    tamano_contramuestra: 5
-    registro_isp: N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4
-    numero_pos: no
-    muestreado_por: lucianoalonso2000
-    laboratorio: CEQUC
-    otro_laboratorio: 
-    fecha_solicitud: 2024-04-26
-    analisis_segun: Cotización nueva 2
-    fecha_cotizacion: 2024-06-01
-    estandar_segun: reccius
-    hds_otro: no
-    fecha_entrega_estimada: Invalid date
-    numero_documento: 12345678
-    observaciones: Observaciones de Cotización nueva 2
-    usuario_editor: Javier Sabando
-    user_editor: javier2000asr
-    usuario_revisor: lcaques
-    id_especificacion: 2
 
-numero_registro: DCAL-CC-ABR-003
-version: 3
-numero_solicitud: SAEPT-0101001-03
-fecha_registro: 2024-04-30
-lote: LOTE-00003
-tamano_lote: 40
-fecha_elaboracion: 2024-04-29
-fecha_vencimiento: 2025-02-13
-tipo_analisis: Análisis de rutina
-condicion_almacenamiento: 100
-tamano_muestra: 10
-tamano_contramuestra: 10
-registro_isp: N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4
-numero_pos: no
-muestreado_por: mgodoy
-: 11
-id_especificacion: 107
-    */
 
     function procesarDatosActaUpdate(response) {
 
@@ -552,12 +504,11 @@ id_especificacion: 107
                     $("#agregarDatos").hide();
                 }else{
                     */
-                    if (analisis.laboratorio) {
-                        $("#agregarDatos").hide();
-                    }
-                    else{
-                        $("#editarGenerarVersion").hide();
-                    }
+            if (analisis.laboratorio) {
+                $("#agregarDatos").hide();
+            } else {
+                $("#editarGenerarVersion").hide();
+            }
 
             /*
                 }
@@ -772,7 +723,10 @@ id_especificacion: 107
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
+            
             var informacionFaltanteArr = []
+
+
             if ($("#informacion_faltante").length > 0) {
                 informacionFaltanteArr = [
                     'analisis_segun',
@@ -784,31 +738,32 @@ id_especificacion: 107
                     'laboratorio',
                     'numero_documento',
                     'observaciones'
-                ]
+                ].forEach(element => {
+                    $("#" + element).prop('disabled', false);
+                });
+            } else {
+                [
+                    // I. Analisis:
+                    'numero_registro',
+                    'numero_solicitud',
+                    'fecha_registro',
+                    // III. Identificacion de la muestra:
+                    'lote',
+                    'tamano_lote',
+                    'fecha_elaboracion',
+                    'fecha_vencimiento',
+                    'tipo_analisis',
+                    'condicion_almacenamiento',
+                    'tamano_muestra',
+                    'tamano_contramuestra',
+                    'registro_isp',
+                    'numero_pos',
+                    'muestreado_por'
+                ].forEach(element => {
+                    $("#" + element).prop('disabled', false);
+                });
             }
-            [
-                // I. Analisis:
-                'numero_registro',
-                'numero_solicitud',
-                'fecha_registro',
-                // III. Identificacion de la muestra:
-                'lote',
-                'tamano_lote',
-                'fecha_elaboracion',
-                'fecha_vencimiento',
-                'tipo_analisis',
-                'condicion_almacenamiento',
-                'tamano_muestra',
-                'tamano_contramuestra',
-                'registro_isp',
-                'numero_pos',
-                'muestreado_por',
-                ...informacionFaltanteArr
 
-            ].forEach(element => {
-                $("#" + element).prop('disabled', false);
-            });
-           
         });
 
         $('#formulario_analisis_externo').on('submit', formSubmit);

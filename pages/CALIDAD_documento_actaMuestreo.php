@@ -963,9 +963,7 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_analisis_externo: id
             },
             success: function(response) {
-                var data = JSON.parse(response);
-                console.log(data);
-                $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                $('#id_actaMuestreo').text(id);
                 procesarDatosActa(response, resultados, '0');
             },
             error: function(xhr, status, error) {

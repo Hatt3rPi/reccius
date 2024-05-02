@@ -12,6 +12,7 @@ function limpiarDato($dato)
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos)
 {
+    //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
     $query = "INSERT INTO calidad_analisis_externo (
         version
         ,id_especificacion
