@@ -573,8 +573,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#hds_otro').text(datos.hds_otro);
             // Continúa llenando otros campos según necesites
         },
-        error: function() {
-            console.error('Error cargando los datos');
+        error: function(xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
         }
     });
 }
