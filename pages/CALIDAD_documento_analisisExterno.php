@@ -53,7 +53,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="nombre_producto" id="nombre_producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -66,20 +66,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
-                            <td name="nro_registro" id="nro_registro"></td>
+                            <td name="numero_registro" id="numero_registro"></td>
                         </tr>
                         <tr>
                             <td>N° Versión:</td>
-                            <td name="nro_version" id="nro_version"></td>
+                            <td name="version" id="version"></td>
                         </tr>
                         <tr>
                             <td>N° Solicitud:</td>
-                            <td name="nro_solicitud" id="nro_solicitud"></td>
+                            <td name="numero_solicitud" id="numero_solicitud"></td>
                         </tr>
                         <tr>
                             <td>Fecha :</td>
                             <td>
-                                <input type="date" id="fecha" name="fecha" style="border: 0px;" readonly>
+                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;" readonly>
                             </td>
                         </tr>
                     </table>
@@ -145,39 +145,39 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">1. Nombre producto:</td>
                         <td><input type="text" id="nombre_producto" name="nombre_producto" required></td>
                         <td class="titulo titulo-right">10. T. de lote:</td>
-                        <td><input type="text" id="tamaño_lote" name="tamaño_lote" required></td>
+                        <td><input type="text" id="tamano_lote" name="tamano_lote" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">2. Presentación:</td>
-                        <td><input type="text" id="presentacion" name="presentacion" required></td>
+                        <td><input type="text" id="formato" name="formato" required></td>
                         <td class="titulo titulo-right">11. Fecha Elab.:</td>
-                        <td><input type="text" id="fecha_elab" name="fecha_elab" required></td>
+                        <td><input type="text" id="fecha_elaboracion" name="fecha_elaboracion" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">3. Serie o lote:</td>
-                        <td><input type="text" id="serie" name="serie" required></td>
+                        <td><input type="text" id="lote" name="lote" required></td>
                         <td class="titulo titulo-right">12. Fecha Vence:</td>
-                        <td><input type="text" id="fecha_venc" name="fecha_venc" required></td>
+                        <td><input type="text" id="fecha_vencimiento" name="fecha_vencimiento" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">4. Registro I.S.P:</td>
-                        <td><input type="text" id="registro" name="registro" required></td>
+                        <td><input type="text" id="registro_isp" name="registro_isp" required></td>
                         <td class="titulo titulo-right">13. Muestra:</td>
-                        <td><input type="text" id="muestra" name="muestra" required></td>
+                        <td><input type="text" id="tamano_muestra" name="tamano_muestra" required></td>
                     </tr>
                     <tr>
                         <td class="titulo">5. Condic. almacenamiento</td>
                         <td><input type="text" id="condicion_almacenamiento" name="condicion_almacenamiento" required>
                         </td>
                         <td class="titulo titulo-right">14. Cta.muestra</td>
-                        <td><input type="text" id="contra_muestra" name="contra_muestra"></td>
+                        <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
                     </tr>
                     <tr>
                         <td class="titulo">6. fabricante:</td>
-                        <td><input type="text" id="fabricante" name="fabricante" required></td>
+                        <td><input type="text" id="elaborado_por" name="elaborado_por" required></td>
                         <td class="titulo titulo-right">Otro:</td>
                         <td><input type="text" id="otro3" name="otro3"></td>
                     </tr>
@@ -185,18 +185,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">7. Muestreado por:</td>
                         <td><input type="text" id="muestreado_por" name="muestreado_por" required></td>
                         <td class="titulo titulo-right">Observaciones:</td>
-                        <td><input type="text" id="Observaciones" name="Observaciones"></td>
+                        <td><input type="text" id="observaciones" name="observaciones"></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">8. Muestreado según POS:</td>
-                        <td><input type="text" id="POS" name="POS" required></td>
+                        <td><input type="text" id="numero_pos" name="numero_pos" required></td>
 
 
                     </tr>
                     <tr>
                         <td class="titulo">9. Código:</td>
-                        <td><input type="text" id="codigo" name="codigo" required></td>
+                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
 
 
                     </tr>
@@ -479,7 +479,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
             var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+            var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             $.notify("PDF generado con éxito", "success");
 
@@ -556,15 +556,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
                 // Actualizar los inputs con los datos del análisis
-                $('#estado').val(analisis.estado);
+                //TITULO TABLA
+                $('#nombre_producto').val(analisis.nombre_producto);
+                $('#Tipo_Producto').val(analisis.tipo_producto);
+                //TABLA 1
+                $('#laboratorio').val(analisis.laboratorio);
+                $('#tamano_lote').val(analisis.tamano_lote);
+                $('#analisis_segun').val(analisis.analisis_segun);
+                $('#numero_documento').val(analisis.numero_documento);
+
+                //TABLA 2
+                $('#formato').val(analisis.formato);
+                $('#lote').val(analisis.lote);
+                $('#fecha_elaboracion').val(analisis.fecha_elaboracion);
+                $('#fecha_vencimiento').val(analisis.fecha_vencimiento);
+                $('#registro_isp').val(analisis.registro_isp);
+                $('#tamano_muestra').val(analisis.tamano_muestra);
+                $('#condicion_almacenamiento').val(analisis.condicion_almacenamiento); 
+                $('#tamano_contramuestra').val(analisis.tamano_contramuestra);
+                $('#elaborado_por').val(analisis.elaborado_por);
+                $('#muestreado_por').val(analisis.muestreado_por);
+                $('#observaciones').val(analisis.observaciones);
+                $('#numero_pos').val(analisis.numero_pos);
+                $('#codigo_mastersoft').val(analisis.codigo_mastersoft);
+
+
+
+                $('#estado').val(analisis.estado); 
                 $('#numero_registro').val(analisis.numero_registro);
                 $('#version').val(analisis.version);
                 $('#numero_solicitud').val(analisis.numero_solicitud);
                 $('#fecha_registro').val(analisis.fecha_registro);
-                $('#laboratorio').val(analisis.laboratorio);
                 $('#fecha_solicitud').val(analisis.fecha_solicitud);
-                $('#analisis_segun').val(analisis.analisis_segun);
-                $('#numero_documento').val(analisis.numero_documento);
+
+                
+                
                 $('#fecha_cotizacion').val(analisis.fecha_cotizacion);
                 $('#estandar_segun').val(analisis.estandar_segun);
                 $('#estandar_otro').val(analisis.estandar_otro);
@@ -572,9 +598,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $('#hds_otro').val(analisis.hds_otro);
                 $('#fecha_entrega').val(analisis.fecha_entrega);
                 $('#fecha_entrega_estimada').val(analisis.fecha_entrega_estimada);
-                $('#lote').val(analisis.lote);
+                
                 $('#tipo_analisis').val(analisis.tipo_analisis);
-                $('#muestreado_por').val(analisis.muestreado_por);
+                
+
+                
+                
+                
+                
                 // etc., continúa para otros campos según sea necesario
 
                 // Opcional: Si también necesitas poblar datos desde Acta Muestreo
