@@ -539,44 +539,53 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </script>
 <script>
     $(document).ready(function() {
-        // Cargar datos iniciales (si es necesario)
+        // Cargar datos iniciales
         loadData();
     });
-   
 
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
     console.log("ID Analisis Externo:", idAnalisisExterno);
+
     function loadData() {
-    $.ajax({
-        url: './backend/analisis/ingresar_resultados_analisis.php',
-        type: 'GET',
-        data: { id_acta: idAnalisisExterno },
-        success: function(response) {
-            const datos = response.data[0];
-            $('#Tipo_Producto').text(datos.tipo_producto);
-            $('#producto').text(datos.producto);
-            $('#nro_registro').text(datos.numero_acta);
-            $('#nro_version').text(datos.version_acta);
-            $('#nro_solicitud').text(datos.id_acta);
-            $('#fecha').val(datos.fecha_muestreo);
-            // Nuevos campos añadidos
-            $('#laboratorio').text(datos.laboratorio);
-            $('#fecha_solicitud').text(datos.fecha_solicitud);
-            $('#analisis_segun').text(datos.analisis_segun);
-            $('#fecha_cotizacion').text(datos.fecha_cotizacion);
-            $('#estandar_segun').text(datos.estandar_segun);
-            $('#hds_adjunto').text(datos.hds_adjunto);
-            $('#fecha_entrega_estimada').text(datos.fecha_entrega_estimada);
-            $('#numero_documento').text(datos.numero_documento);
-            $('#estandar_otro').text(datos.estandar_otro);
-            $('#hds_otro').text(datos.hds_otro);
-            // Continúa llenando otros campos según necesites
-        },
-        error: function(xhr, status, error) {
+        $.ajax({
+            url: './backend/analisis/ingresar_resultados_analisis.php',
+            type: 'GET',
+            data: { id_acta: idAnalisisExterno },
+            dataType: 'json',  // Asegúrate de que la respuesta esperada es JSON
+            success: function(response) {
+                // Suponiendo que la respuesta tiene dos partes principales
+                const analisis = response.analisis; // Datos del análisis externo
+                // Actualizar los inputs con los datos del análisis
+                $('#estado').val(analisis.estado);
+                $('#numero_registro').val(analisis.numero_registro);
+                $('#version').val(analisis.version);
+                $('#numero_solicitud').val(analisis.numero_solicitud);
+                $('#fecha_registro').val(analisis.fecha_registro);
+                $('#laboratorio').val(analisis.laboratorio);
+                $('#fecha_solicitud').val(analisis.fecha_solicitud);
+                $('#analisis_segun').val(analisis.analisis_segun);
+                $('#numero_documento').val(analisis.numero_documento);
+                $('#fecha_cotizacion').val(analisis.fecha_cotizacion);
+                $('#estandar_segun').val(analisis.estandar_segun);
+                $('#estandar_otro').val(analisis.estandar_otro);
+                $('#hds_adjunto').val(analisis.hds_adjunto);
+                $('#hds_otro').val(analisis.hds_otro);
+                $('#fecha_entrega').val(analisis.fecha_entrega);
+                $('#fecha_entrega_estimada').val(analisis.fecha_entrega_estimada);
+                $('#lote').val(analisis.lote);
+                $('#tipo_analisis').val(analisis.tipo_analisis);
+                $('#muestreado_por').val(analisis.muestreado_por);
+                // etc., continúa para otros campos según sea necesario
+
+                // Opcional: Si también necesitas poblar datos desde Acta Muestreo
+                if (response.Acta_Muestreo && response.Acta_Muestreo.length > 0) {
+                    // Puedes poblar datos adicionales o manejar múltiples actas de muestreo
+                }
+            },
+            error: function(xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
-        }
-    });
-}
-
-
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
+            }
+        });
+    }
 </script>
