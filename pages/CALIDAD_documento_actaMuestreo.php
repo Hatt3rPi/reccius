@@ -965,7 +965,7 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_analisis_externo: id
             },
             success: function(response) {
-                $('#id_actaMuestreo').text(id_actaM);
+                $('#id_actaMuestreo').text(response.id_actaMuestreo);
                 $('#id_analisis_externo').text(id);
                 procesarDatosActa(response, resultados, '0');
             },
