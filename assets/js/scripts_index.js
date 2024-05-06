@@ -1,4 +1,4 @@
-
+// archivo assets\js\scripts_index.js
 function featureNoDisponible(){
     event.preventDefault();
     $('#dynamic-content').hide();
@@ -670,7 +670,7 @@ function botones(id, accion, base) {
                 // CALIDAD / Preparar Acta de Muestreo
                 case "generar_documento_actaMuestreo":{
                     
-                    // Llamar a una función que maneje el envío del recordatorio
+                    // id = id del análisis externo
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
@@ -692,7 +692,7 @@ function botones(id, accion, base) {
                 }
                 case "firmar_acta_muestreo":{
                     
-                    // está en formato TBK
+                    // id = id del acta de muestreo
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',

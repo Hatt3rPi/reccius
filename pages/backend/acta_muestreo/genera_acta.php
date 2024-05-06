@@ -1,4 +1,5 @@
 <?php
+//archivo pages\backend\acta_muestreo\genera_acta.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 $tipo_producto='';

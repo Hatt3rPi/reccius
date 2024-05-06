@@ -14,7 +14,8 @@ $query = "SELECT
                 am.version_acta,
                 concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
                 pr.tipo_producto,
-                am.id as id_acta
+                am.id as id_acta,
+                am.id_analisisExterno
             FROM `calidad_acta_muestreo` as am
             LEFT JOIN calidad_productos as pr 
             on am.id_producto=pr.id;";

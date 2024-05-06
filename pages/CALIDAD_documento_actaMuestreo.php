@@ -1,4 +1,5 @@
 <?php
+// archivo pages\CALIDAD_documento_actaMuestreo.php
 session_start();
 
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
