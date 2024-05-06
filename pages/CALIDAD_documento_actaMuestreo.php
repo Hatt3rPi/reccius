@@ -696,6 +696,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
+    <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
@@ -939,6 +940,7 @@ document.getElementById('download-pdf').addEventListener('click', function() {
 
 function cargarDatosEspecificacion(id, resultados, etapa) {
     console.log(id, resultados, etapa);
+    var id_actaM="<?php echo $_SESSION['nuevo_id']; ?>";
     if (resultados) {
         $.ajax({
             url: './backend/acta_muestreo/ingresa_resultados.php',
@@ -963,7 +965,8 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
                 id_analisis_externo: id
             },
             success: function(response) {
-                $('#id_actaMuestreo').text(id);
+                $('#id_actaMuestreo').text(id_actaM);
+                $('#id_analisis_externo').text(id);
                 procesarDatosActa(response, resultados, '0');
             },
             error: function(xhr, status, error) {
