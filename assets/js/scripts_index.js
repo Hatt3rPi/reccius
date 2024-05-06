@@ -698,12 +698,12 @@ function botones(id, accion, base) {
                         type: 'POST',
                         data: {
                             'id': id,
-                            'resultados': false,
-                            'etapa':'0'
+                            'resultados': true,
+                            'etapa':'1'
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response); 
-                            cargarDatosEspecificacion(id, false, '0');
+                            cargarDatosEspecificacion(id, true, '1');
                             console.log('generar_acta_muestreo');
                         },
                         error: function(xhr, status, error) {
