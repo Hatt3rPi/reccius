@@ -857,7 +857,7 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
     if (resultados) {
         $.ajax({
             url: './backend/acta_muestreo/consulta_resultados.php',
-            type: 'GET',
+            type: 'POST',
             data: {
                 id_actaMuestreo: id
             },
