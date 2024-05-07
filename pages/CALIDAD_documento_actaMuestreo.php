@@ -850,104 +850,16 @@ document.getElementById('download-pdf').addEventListener('click', function() {
 
     });
 });
-    // document.getElementById('guardar').addEventListener('click', function() {
-    //     const idDocumento = document.getElementById('nro_registro').textContent; // Assuming the ID is in the textContent of an element
-    //     const radioButtons = document.querySelectorAll("input[type='radio']");
-    //     let dataToSave = [];
-
-    //     radioButtons.forEach(radio => {
-    //         if (radio.checked) { // Only add to the array if the radio button is selected
-    //             let radioInfo = {
-    //                 id_documento: idDocumento,
-    //                 name: radio.name,
-    //                 value: radio.value,
-    //                 checked: radio.checked
-    //             };
-    //             dataToSave.push(radioInfo);
-    //         }
-    //     });
-
-    //     // // Now `dataToSave` is defined and we can make the AJAX call
-    //     $.ajax({
-    //         url: './backend/acta_muestreo/save_selections.php', // Ensure this endpoint is configured on your server
-    //         type: 'POST',
-    //         data: {
-    //             selections: dataToSave
-    //         },
-    //         success: function(response) {
-    //             // Handle the server response here
-    //             console.log(response);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.error("Error saving: ", status, error);
-    //         }
-    //     });
-    // });
-
-//     var TESTMODO = 3;
-
-
-// // Definir la función verificarBotonesSeleccionados
-// function verificarBotonesSeleccionados() {
-//     let todosSeleccionados = true;
-//     const formRespElements = document.querySelectorAll("td.formulario.resp");
-//     const formVerifElements = document.querySelectorAll("td.formulario.verif");
-
-//     // Combina los dos NodeList en un solo array
-//     const allElements = [...formRespElements, ...formVerifElements];
-
-//     allElements.forEach(element => {
-//         const radioButtons = element.querySelectorAll("input[type='radio']");
-//         const algunoSeleccionado = Array.from(radioButtons).some(radio => radio.checked);
-
-//         if (!algunoSeleccionado) {
-//             todosSeleccionados = false;
-//         }
-//     });
-
-//     // Ocultar o mostrar el botón de descargar PDF según si todos los botones están seleccionados
-//     const botonDescargarPDF = document.getElementById('download-pdf');
-//     botonDescargarPDF.style.display = todosSeleccionados ? 'block' : 'none';
-// }
-
-//     // Ejecutar la verificación inicial y luego cada vez que cambie el estado de un botón de radio
-//     document.querySelectorAll("input[type='radio']").forEach(radio => {
-//         radio.addEventListener('change', verificarBotonesSeleccionados);
-//     });
-
-//     // Verificación inicial
-//     verificarBotonesSeleccionados();
-
-//     //ofuncion para ocultar contenido de botones al no ser de la id 
-
-
-
-//     if (TESTMODO === 1) {
-//         // Deshabilitar solo los botones dentro de la columna de revisión Responsable
-//         const verificadores = document.querySelectorAll('.formulario.verif .btn-check');
-
-//         verificadores.forEach(function(button) {
-//             button.disabled = true;
-//         });
-//     } else if (TESTMODO === 2) {
-//         // Deshabilitar solo los botones dentro de la columna de revisión Responsable
-//         const verificadores = document.querySelectorAll('.formulario.resp .btn-check');
-
-//         verificadores.forEach(function(button) {
-//             button.disabled = true;
-//         });
-
-//     }
 
 function cargarDatosEspecificacion(id, resultados, etapa) {
     console.log(id, resultados, etapa);
     var id_actaM="<?php echo $_SESSION['nuevo_id']; ?>";
     if (resultados) {
         $.ajax({
-            url: './backend/acta_muestreo/ingresa_resultados.php',
+            url: './backend/acta_muestreo/consulta_resultados.php',
             type: 'GET',
             data: {
-                id_acta: id
+                id_actaMuestreo: id
             },
             success: function(response) {
                 console.log(response);
@@ -1012,27 +924,26 @@ function procesarDatosActa(response, resultados, etapa) {
         if (resultados) {
             switch (etapa) {
                 case '1':
-                    var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
-                    var cargo = "<?php echo $_SESSION['cargo']; ?>";
-                    var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
-                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-                    $('#nro_registro').text(acta.numero_registro);
-                    $('#nro_version').text(acta.version_registro);
-                    $('#realizadoPor').text(nombre_ejecutor);
-                    $('#cargo_realizador').text(cargo);
-                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
-                    $('#fecha_Edicion').text(fecha_hoy);
-                    $('.resp').css('background-color', '#f4fac2');
-                    $('.verif input').prop('readonly', true);
-                    $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
-                    //revision_actor1
-                    console.log(nombre_ejecutor, acta.muestreado_por);
-                    if (nombre_ejecutor !== acta.muestreado_por) {
-                        $('#revision_actor1').text('Revisión Ejecutor');
-                        $('#revision_actor2').text('Revisión Muestreador');
-                    }
-                    break;
-                case '2':
+                    console.log('asignación 1')
+                    // var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+                    // var cargo = "<?php echo $_SESSION['cargo']; ?>";
+                    // var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
+                    // var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                    // $('#nro_registro').text(acta.numero_registro);
+                    // $('#nro_version').text(acta.version_registro);
+                    // $('#realizadoPor').text(nombre_ejecutor);
+                    // $('#cargo_realizador').text(cargo);
+                    // $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+                    // $('#fecha_Edicion').text(fecha_hoy);
+                    // $('.resp').css('background-color', '#f4fac2');
+                    // $('.verif input').prop('readonly', true);
+                    // $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
+                    // //revision_actor1
+                    // console.log(nombre_ejecutor, acta.muestreado_por);
+                    // if (nombre_ejecutor !== acta.muestreado_por) {
+                    //     $('#revision_actor1').text('Revisión Ejecutor');
+                    //     $('#revision_actor2').text('Revisión Muestreador');
+                    // }
                     break;
             }
         } else {
