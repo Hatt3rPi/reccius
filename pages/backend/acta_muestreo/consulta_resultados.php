@@ -38,7 +38,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
     if (empty($data)) {
         echo json_encode(['error' => 'No se encontraron datos para el ID proporcionado.']);
     } else {
-        echo json_encode(['analisis_externos' => $data, JSON_UNESCAPED_UNICODE]);
+        echo json_encode(['analisis_externos' => $data], JSON_UNESCAPED_UNICODE);
     }
 
     mysqli_stmt_close($stmt);

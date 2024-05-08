@@ -864,6 +864,8 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
             success: function(response) {
                 console.log(response);
                 $('#id_actaMuestreo').text(id);
+                var data = JSON.parse(response);
+                console.log('Datos parseados:', data);
                 procesarDatosActa(response, resultados, etapa);
             },
             error: function(xhr, status, error) {
