@@ -858,31 +858,38 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
         $.ajax({
             url: './backend/acta_muestreo/consulta_resultados.php',
             type: 'POST',
-            data: {
-                id_actaMuestreo: id
-            },
-            success: function(response) {
-                console.log(response);
+            dataType: 'json', // Asegura que la respuesta se parsea como JSON
+            data: { id_actaMuestreo: id },
+            success: function(data) {
+                console.log('Datos recibidos:', data);
                 $('#id_actaMuestreo').text(id);
-                var data = JSON.parse(response);
-                console.log('Datos parseados:', data);
-                procesarDatosActa(response, resultados, etapa);
+                if (data.analisis_externos && data.analisis_externos.length > 0) {
+                    procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                } else {
+                    console.error("No se encontraron datos válidos: ", data);
+                }
             },
             error: function(xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
             }
         });
     } else {
+        // Solicitud GET para generar una nueva acta
         $.ajax({
             url: './backend/acta_muestreo/genera_acta.php',
             type: 'GET',
-            data: {
-                id_analisis_externo: id
-            },
-            success: function(response) {
-                $('#id_actaMuestreo').text(response.id_actaMuestreo);
-                $('#id_analisis_externo').text(id);
-                procesarDatosActa(response, resultados, '0');
+            dataType: 'json', // Asegura que la respuesta se parsea como JSON
+            data: { id_analisis_externo: id },
+            success: function(data) {
+                console.log('Datos recibidos para nueva acta:', data);
+                if (data.id_actaMuestreo) {
+                    $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                }
+                if (data.analisis_externos && data.analisis_externos.length > 0) {
+                    procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                } else {
+                    console.error("No se recibieron datos válidos: ", data);
+                }
             },
             error: function(xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
@@ -894,34 +901,31 @@ function cargarDatosEspecificacion(id, resultados, etapa) {
 function procesarDatosActa(response, resultados, etapa) {
     console.log(resultados, etapa);
     // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
-    if (response && response.analisis_externos && response.analisis_externos.length > 0) {
-        const acta = response.analisis_externos[0]; // Tomamos el primer elemento, como ejemplo
-
         // Aquí asignas los valores a los campos del formulario
         // Asegúrate de que los ID de los elementos HTML coincidan con estos
-        $('#producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
-        $('#Tipo_Producto').text(acta.tipo_producto);
-        $('#form_producto').text(acta.nombre_producto + ' ' + acta.concentracion + ' ' + acta.formato);
-        $('#form_tipo').text('Magistral ' + acta.tipo_producto);
-        $('#form_lote').text(acta.lote);
-        $('#form_tamano_lote').text(acta.tamano_lote);
-        $('#form_codigo_mastersoft').text(acta.codigo_mastersoft);
-        $('#form_condAlmacenamiento').text(acta.condicion_almacenamiento);
-        $('#form_cant_muestra').text(acta.tamano_muestra);
-        $('#form_cant_contramuestra').text(acta.tamano_contramuestra);
-        $('#form_tipo_analisis').text(acta.tipo_analisis);
-        $('#nro_acta').text(acta.numero_acta);
+        $('#producto').text(response.nombre_producto + ' ' + response.concentracion + ' ' + response.formato);
+        $('#Tipo_Producto').text(response.tipo_producto);
+        $('#form_producto').text(response.nombre_producto + ' ' + response.concentracion + ' ' + response.formato);
+        $('#form_tipo').text('Magistral ' + response.tipo_producto);
+        $('#form_lote').text(response.lote);
+        $('#form_tamano_lote').text(response.tamano_lote);
+        $('#form_codigo_mastersoft').text(response.codigo_mastersoft);
+        $('#form_condAlmacenamiento').text(response.condicion_almacenamiento);
+        $('#form_cant_muestra').text(response.tamano_muestra);
+        $('#form_cant_contramuestra').text(response.tamano_contramuestra);
+        $('#form_tipo_analisis').text(response.tipo_analisis);
+        $('#nro_acta').text(response.numero_acta);
 
-        $('#responsable').text(acta.muestreado_por);
-        $('#cargo_responsable').text(acta.cargo_muestreado_por);
+        $('#responsable').text(response.muestreado_por);
+        $('#cargo_responsable').text(response.cargo_muestreado_por);
         // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
-        //$('#firma_responsable').attr('src', acta.foto_firma_muestreado_por);
+        //$('#firma_responsable').attr('src', response.foto_firma_muestreado_por);
 
         // Datos del usuario que revisó
-        $('#verificadoPor').text(acta.revisado_por);
-        $('#cargo_verificador').text(acta.cargo_revisado_por);
+        $('#verificadoPor').text(response.revisado_por);
+        $('#cargo_verificador').text(response.cargo_revisado_por);
         // Y también para la firma
-        //$('#firma_verificador').attr('src', acta.foto_firma_revisado_por);
+        //$('#firma_verificador').attr('src', response.foto_firma_revisado_por);
         console.log(resultados, etapa);
         if (resultados) {
             switch (etapa) {
@@ -931,8 +935,8 @@ function procesarDatosActa(response, resultados, etapa) {
                     // var cargo = "<?php echo $_SESSION['cargo']; ?>";
                     // var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
                     // var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-                    // $('#nro_registro').text(acta.numero_registro);
-                    // $('#nro_version').text(acta.version_registro);
+                    // $('#nro_registro').text(response.numero_registro);
+                    // $('#nro_version').text(response.version_registro);
                     // $('#realizadoPor').text(nombre_ejecutor);
                     // $('#cargo_realizador').text(cargo);
                     // $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
@@ -941,26 +945,26 @@ function procesarDatosActa(response, resultados, etapa) {
                     // $('.verif input').prop('readonly', true);
                     // $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
                     // //revision_actor1
-                    // console.log(nombre_ejecutor, acta.muestreado_por);
-                    // if (nombre_ejecutor !== acta.muestreado_por) {
+                    // console.log(nombre_ejecutor, response.muestreado_por);
+                    // if (nombre_ejecutor !== response.muestreado_por) {
                     //     $('#revision_actor1').text('Revisión Ejecutor');
                     //     $('#revision_actor2').text('Revisión Muestreador');
                     // }
                     break;
             }
         } else {
-            switch (acta.tipo_producto) {
+            switch (response.tipo_producto) {
                 case 'Material Envase y Empaque':
-                    $('#nro_registro').text('DCAL-CC-AMMEE-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    $('#nro_registro').text('DCAL-CC-AMMEE-' + response.identificador_producto.toString().padStart(3, '0'));
                     break;
                 case 'Materia Prima':
-                    $('#nro_registro').text('DCAL-CC-AMMP-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    $('#nro_registro').text('DCAL-CC-AMMP-' + response.identificador_producto.toString().padStart(3, '0'));
                     break;
                 case 'Producto Terminado':
-                    $('#nro_registro').text('DCAL-CC-AMPT-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    $('#nro_registro').text('DCAL-CC-AMPT-' + response.identificador_producto.toString().padStart(3, '0'));
                     break;
                 case 'Insumo':
-                    $('#nro_registro').text('DCAL-CC-AMINS-' + acta.identificador_producto.toString().padStart(3, '0'));
+                    $('#nro_registro').text('DCAL-CC-AMINS-' + response.identificador_producto.toString().padStart(3, '0'));
                     break;
             }
             $('#nro_version').text(1);
@@ -969,9 +973,6 @@ function procesarDatosActa(response, resultados, etapa) {
             element.style.visibility = 'hidden'; // Hacer invisible el contenido
             });
         }
-    } else {
-        console.error("No se recibieron datos válidos: ", response);
-    }
 }
 
 document.getElementById('firmar').addEventListener('click', function() {
