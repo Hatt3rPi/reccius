@@ -936,7 +936,7 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#nro_version').text(response.version_registro);
                     $('#firma_realizador').attr('src', response.foto_firma_usr1);
                     $('#fecha_Edicion').text(response.fecha_firma_muestreador);
-                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp *');
+                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
                     //CHATGPT incorporar resultados realizador/muestreador resultados_muestrador "1100110011001100110" con proceso inverso de función consolidarRespuestas
                     break;
             }
@@ -963,28 +963,33 @@ function procesarDatosActa(response, resultados, etapa) {
         }
 }
 function asignarValoresARadios(valores, selectorGrupos) {
+    // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
     const grupos = document.querySelectorAll(selectorGrupos);
     console.log("Cantidad de grupos encontrados:", grupos.length);
     console.log("Longitud de valores esperados:", valores.length);
+
     if (valores.length !== grupos.length) {
         console.error("La cantidad de valores no coincide con la cantidad de grupos de botones.");
         return;
     }
 
-    // Iterar sobre cada grupo de botones de radio
+    // Iterar sobre cada grupo y asignar el valor correspondiente basado en el valor en la cadena 'valores'.
     grupos.forEach((grupo, index) => {
-        const botones = grupo.querySelectorAll('input[type="radio"]');
-        if (botones.length === 2) {
-            // Asumiendo que siempre hay dos botones: Cumple y No Cumple
-            if (valores[index] === '1') {
-                botones[0].checked = true; // Suponiendo que el primer botón es 'Cumple'
-            } else if (valores[index] === '0') {
-                botones[1].checked = true; // Suponiendo que el segundo botón es 'No Cumple'
-            } else {
-                console.error("Valor no reconocido en la posición " + index + ": " + valores[index]);
-            }
+        // El valor para el grupo actual se obtiene del string de valores.
+        const valor = valores[index];
+
+        // Determinar el sufijo del botón basado en el valor ('a' para '1', 'b' para '0').
+        const suffix = valor === '1' ? 'a' : 'b';
+
+        // Intentar seleccionar el botón de radio correspondiente en el grupo.
+        const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
+
+        if (radio) {
+            // Si se encuentra el botón, se marca como seleccionado.
+            radio.checked = true;
         } else {
-            console.error("Número inesperado de botones en el grupo.");
+            // Si no se encuentra el botón, se muestra un error en la consola.
+            console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
         }
     });
 }
