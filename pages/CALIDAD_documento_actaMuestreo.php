@@ -937,6 +937,7 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#firma_realizador').attr('src', response.foto_firma_usr1);
                     $('#fecha_Edicion').text(response.fecha_firma_muestreador);
                     asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
+                    $('.verif').css('background-color', '#f4fac2');
                     //CHATGPT incorporar resultados realizador/muestreador resultados_muestrador "1100110011001100110" con proceso inverso de función consolidarRespuestas
                     break;
             }
@@ -987,6 +988,9 @@ function asignarValoresARadios(valores, selectorGrupos) {
         if (radio) {
             // Si se encuentra el botón, se marca como seleccionado.
             radio.checked = true;
+            radio.setAttribute('readonly', 'readonly');
+            // Además, deshabilitar el botón para evitar cambios adicionales.
+            radio.setAttribute('disabled', 'disabled');
         } else {
             // Si no se encuentra el botón, se muestra un error en la consola.
             console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
