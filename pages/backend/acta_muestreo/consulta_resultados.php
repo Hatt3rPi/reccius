@@ -32,13 +32,15 @@ if ($stmt = mysqli_prepare($link, $query)) {
     mysqli_stmt_bind_param($stmt, "i", $id_actaMuestreo);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    $data = [];
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $data[] = $row;
+    $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    if (empty($data)) {
+        echo json_encode(['error' => 'No se encontraron datos para el ID proporcionado.']);
+    } else {
+        echo json_encode(['analisis_externos' => $data, JSON_UNESCAPED_UNICODE]);
     }
 
-    echo json_encode(['analisis_externos' => $data]);
     mysqli_stmt_close($stmt);
 } else {
     echo json_encode(['error' => 'Error al preparar la declaración: ' . mysqli_error($link)]);
