@@ -19,7 +19,10 @@ $query = "SELECT
             usr1.nombre as nombre_usr1, usr1.cargo as cargo_usr1, usr1.foto_firma as foto_firma_usr1, usr1.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr1, 
             usr2.nombre as nombre_usr2, usr2.cargo as cargo_usr2, usr2.foto_firma as foto_firma_usr2, usr2.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr2, 
             usr3.nombre as nombre_usr3, usr3.cargo as cargo_usr3, usr3.foto_firma as foto_firma_usr3, usr3.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr3,
-            am.id as id_actaMuestreo, am.numero_registro, am.version_registro, am.numero_acta, am.version_acta, am.fecha_muestreo, am.muestreador, am.responsable, am.verificador, am.fecha_firma_muestreador, am.fecha_firma_responsable, am.fecha_firma_verificador, am.resultados_muestrador, am.resultados_responsable, am.pregunta5, am.pregunta6, am.pregunta7, am.pregunta8
+            am.id as id_actaMuestreo, am.numero_registro, am.version_registro, am.numero_acta, am.version_acta, am.fecha_muestreo, am.muestreador, am.responsable, am.verificador, am.fecha_firma_muestreador, am.fecha_firma_responsable, am.fecha_firma_verificador, am.resultados_muestrador, am.resultados_responsable, am.pregunta5, am.pregunta6, am.pregunta7, am.pregunta8,
+            (CASE WHEN am.fecha_firma_muestreador IS NOT NULL THEN 1 ELSE 0 END + 
+            CASE WHEN am.fecha_firma_responsable IS NOT NULL THEN 1 ELSE 0 END + 
+            CASE WHEN am.fecha_firma_verificador IS NOT NULL THEN 1 ELSE 0 END) AS cantidad_firmas
           FROM calidad_acta_muestreo as am 
           LEFT JOIN `calidad_analisis_externo` as aex ON am.id_analisisExterno=aex.id
           LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id

@@ -924,9 +924,6 @@ function procesarDatosActa(response, resultados, etapa) {
 
         console.log(resultados, etapa);
         if (resultados) {
-            switch (etapa) {
-                case '1':
-                    console.log('asignación 1');
                     $('#form_textarea5').text(response.pregunta5);
                     $('#form_textarea6').text(response.pregunta6);
                     $('#form_textarea7').text(response.pregunta7);
@@ -934,11 +931,14 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#fecha_muestreo').val(response.fecha_muestreo);
                     $('#nro_registro').text(response.numero_registro);
                     $('#nro_version').text(response.version_registro);
-                    $('#firma_realizador').attr('src', response.foto_firma_usr1);
-                    $('#fecha_Edicion').text(response.fecha_firma_muestreador);
-                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
+            switch (response.cantidad_firmas) {
+                case '1':
+                    firma1();
                     $('.verif').css('background-color', '#f4fac2');
-                    //CHATGPT incorporar resultados realizador/muestreador resultados_muestrador "1100110011001100110" con proceso inverso de función consolidarRespuestas
+                    break;
+                case '2':
+                    firma1();
+                    firma2();
                     break;
             }
         } else {
@@ -962,6 +962,20 @@ function procesarDatosActa(response, resultados, etapa) {
             element.style.visibility = 'hidden'; // Hacer invisible el contenido
             });
         }
+}
+
+
+function firma1(){
+    console.log('asignación 1');
+                    $('#firma_realizador').attr('src', response.foto_firma_usr1);
+                    $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
+}
+function firma2(){
+    console.log('asignación 2');
+                    $('#firma_responsable').attr('src', response.foto_firma_usr2);
+                    $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
+                    asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
 }
 function asignarValoresARadios(valores, selectorGrupos) {
     // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
