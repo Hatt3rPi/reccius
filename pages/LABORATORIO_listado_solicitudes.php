@@ -168,6 +168,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if (d.muestreado_por === usuarioActual) {
                 acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i></button>';
             }
+            
+            if (d.revisado_por === usuarioActual, d.fecha_firma_revisor === null) {
+                acciones += '<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="firmar_solicitud_analisis_externo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
+            }
+
             acciones += '</td></tr></table>';
             return acciones;
         }

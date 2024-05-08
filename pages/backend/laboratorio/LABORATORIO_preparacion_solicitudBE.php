@@ -22,7 +22,6 @@ function insertarRegistro($link, $datos)
         ,numero_solicitud
         ,fecha_registro
         ,solicitado_por
-        ,revisado_por
         ,lote
         ,tamano_lote
         ,fecha_elaboracion
@@ -34,7 +33,7 @@ function insertarRegistro($link, $datos)
         ,muestreado_por
         ,numero_pos
         ,tipo_analisis) 
-    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -43,7 +42,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'iiissssssssssssssss',
+        'iiisssssssssssssss',
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
@@ -51,7 +50,6 @@ function insertarRegistro($link, $datos)
         $datos['numero_solicitud'],
         $datos['fecha_registro'],
         $_SESSION['usuario'],
-        $datos['usuario_revisor'],
         $datos['lote'],
         $datos['tamano_lote'],
         $datos['fecha_elaboracion'],
@@ -107,13 +105,11 @@ function agregarDatosPostFirma($link, $datos)
         'laboratorio',
         'numero_documento',
         'observaciones',
+        'solicitado_por',
+        'revisado_por',
     ];
-    /* 
-        todo:preguntar al felipe cual es el campo a rellenar con el nombre del usuario (muestreado_por, solicitado_por, revisado_por)
-        usuario_editor  =  Javier Sabando
-        user_editor  =  javier2000asr
-        usuario_revisor  =  lcaques
-    */
+
+    //* Añado revisado por para luego hacer que esa persona firme en tareas
 
     $partesConsulta = [];
     $valoresParaVincular = [];
@@ -148,6 +144,19 @@ function agregarDatosPostFirma($link, $datos)
     if (!mysqli_stmt_execute($stmt)) {
         throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt));
     }
+    
+    // registrar tarea
+    registrarTarea(7, 
+            $_SESSION['usuario'], 
+            $datos['usuario_revisor'], 
+            'Revisar Analisis Externo: '.$datos['numero_registro']
+            //Añadir documento en vez de id 
+            ,
+            1, 
+            'Firma analisis externo: Revisor', 
+            $datos['id'].';'.$datos['numero_registro'], 
+            'calidad_analisis_externo'
+        );
 }
 
 function campoTipo($campo)
@@ -200,7 +209,6 @@ function campoTipo($campo)
 }
 
 // Procesar la solicitud
-// Procesar la solicitud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
     // Limpiar y validar datos recibidos del formulario
@@ -239,6 +247,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_entrega_estimada = limpiarDato($_POST['fecha_entrega_estimada']);
     $numero_documento = limpiarDato($_POST['numero_documento']);
     $observaciones = limpiarDato($_POST['observaciones']);
+    $solicitadoPor = limpiarDato($_POST['solicitado_por']);
+    $revisadoPor = limpiarDato($_POST['revisado_por']);
 
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
@@ -290,7 +300,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'hds_otro' => $hds_otro,
             'fecha_entrega_estimada' => $fecha_entrega_estimada,
             'numero_documento' => $numero_documento,
-            'observaciones' => $observaciones
+            'observaciones' => $observaciones,
+            'solicitado_por' => $solicitadoPor,
+            'revisado_por' => $revisadoPor
+
         ];
 
         if ($estaEditando) {

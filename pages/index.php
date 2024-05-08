@@ -278,20 +278,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             .catch(error => console.error('Error:', error));
     }
 
-    function reloadPageBypassCacheHash() {
-        
+    function reloadPageBypassCacheHash() { 
         const PageVersion = window.localStorage.getItem("PageVersion")
         if (PageVersion == null) {
             window.localStorage.setItem("PageVersion", AppConfig.VERSION);
             return;
         }
-        if (PageVersion == AppConfig.VERSION) {
+        if (PageVersion !== AppConfig.VERSION) {
             window.location.hash = "nocache=" + PageVersion;
             window.location.reload(true);
             return;
         }
     }
-
+    reloadPageBypassCacheHash()
 
     obtenNotificaciones();
     fetchUserInfo();

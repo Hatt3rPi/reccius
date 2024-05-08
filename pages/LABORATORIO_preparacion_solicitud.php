@@ -316,7 +316,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Revisión a cargo de:</label>
-                            <select name="usuario_revisor" id="usuario_revisor" class="select-style mx-0 form__select w-90" required>
+                            <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-90" required>
                                 <option>Selecciona el usuario supervisor:</option>
                                 <option value="isumonte">
                                     Inger Sumonte Rodríguez - Director Calidad
@@ -340,7 +340,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
             <div class="actions-container">
                 <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
-                <button type="button" id="agregarDatos" name="agregarDatos" class="action-button" style="background-color: red; color: white;">AGREGAR DATOS DE SOLICITUD</button>
+                <button type="button" id="agregarDatos" name="agregarDatos" class="action-button" style="background-color: red; color: white;">AGREGAR DATOS DE SOLICITUD Y FIRMAR</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
@@ -489,7 +489,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         }
     }
 
-
+    var guardarYFirmarSolicitud = false
     function procesarDatosActaUpdate(response) {
 
         if (response && response.analisis) {
@@ -506,8 +506,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     */
             if (analisis.laboratorio) {
                 $("#agregarDatos").hide();
+
             } else {
                 $("#editarGenerarVersion").hide();
+                $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
+                guardarYFirmarSolicitud = true
             }
 
             /*
@@ -798,9 +801,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             if (status == "error") {
                                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
                             } else {
-                                console.log('Listado cargado correctamente cargado exitosamente.');
-                                carga_listado();
-                                console.log(respuesta.mensaje); // Manejar el error
+                                if (guardarYFirmarSolicitud && idAnalisisExterno > 0) {
+                                    //Todo: redireccion a acta de muestreo
+                                    botones(idAnalisisExterno, 'generar_documento_solicitudes', 'laboratorio')
+                                }else{
+                                    carga_listado();
+                                }
                             }
                         });
                     } else {
