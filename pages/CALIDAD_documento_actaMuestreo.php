@@ -933,12 +933,12 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#nro_version').text(response.version_registro);
             switch (response.cantidad_firmas) {
                 case 1:
-                    firma1();
+                    firma1(response);
                     $('.verif').css('background-color', '#f4fac2');
                     break;
                 case 2:
-                    firma1();
-                    firma2();
+                    firma1(response);
+                    firma2(response);
                     break;
                 case 3:
                     break;
@@ -967,13 +967,13 @@ function procesarDatosActa(response, resultados, etapa) {
 }
 
 
-function firma1(){
+function firma1(response){
     console.log('asignación 1');
                     $('#firma_realizador').attr('src', response.foto_firma_usr1);
                     $('#fecha_Edicion').text(response.fecha_firma_muestreador);
                     asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
 }
-function firma2(){
+function firma2(response){
     console.log('asignación 2');
                     $('#firma_responsable').attr('src', response.foto_firma_usr2);
                     $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
