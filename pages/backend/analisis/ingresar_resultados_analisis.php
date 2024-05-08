@@ -13,10 +13,15 @@ $queryAnalisisExterno = "SELECT
                             prod.tipo_concentracion AS 'prod_tipo_concentracion', 
                             prod.concentracion AS 'prod_concentracion', 
                             prod.formato AS 'prod_formato', 
-                            prod.elaborado_por AS 'prod_elaborado_por'
+                            prod.elaborado_por AS 'prod_elaborado_por',
+                            can.id_analisis AS 'can_analisis' ,
+                            can.tipo_analisis AS 'can_tipo_analisis,
+                            can.descripcion_analisis,
+                            can.metodologia
                             
                         FROM calidad_analisis_externo AS an
                         JOIN calidad_productos AS prod ON an.id_producto = prod.id
+                        LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto
                         WHERE an.id = ?";
 
 $queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno= ?";
