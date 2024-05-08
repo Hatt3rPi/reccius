@@ -964,7 +964,8 @@ function procesarDatosActa(response, resultados, etapa) {
 }
 function asignarValoresARadios(valores, selectorGrupos) {
     const grupos = document.querySelectorAll(selectorGrupos);
-
+    console.log("Cantidad de grupos encontrados:", grupos.length);
+    console.log("Longitud de valores esperados:", valores.length);
     if (valores.length !== grupos.length) {
         console.error("La cantidad de valores no coincide con la cantidad de grupos de botones.");
         return;
