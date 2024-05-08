@@ -38,7 +38,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
         $data[] = $row;
     }
 
-    echo json_encode(['data' => $data]);
+    echo json_encode(['analisis_externos' => $data]);
     mysqli_stmt_close($stmt);
 } else {
     echo json_encode(['error' => 'Error al preparar la declaración: ' . mysqli_error($link)]);
