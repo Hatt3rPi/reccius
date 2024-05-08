@@ -915,17 +915,13 @@ function procesarDatosActa(response, resultados, etapa) {
         $('#form_cant_contramuestra').text(response.tamano_contramuestra);
         $('#form_tipo_analisis').text(response.tipo_analisis);
         $('#nro_acta').text(response.numero_acta);
+        $('#realizadoPor').text(response.nombre_usr1);
+        $('#cargo_realizador').text(response.cargo_usr1);
+        $('#responsable').text(response.nombre_usr2);
+        $('#cargo_responsable').text(response.cargo_usr2);
+        $('#verificadoPor').text(response.nombre_usr1);
+        $('#cargo_verificador').text(response.cargo_usr3);
 
-        $('#responsable').text(response.muestreado_por);
-        $('#cargo_responsable').text(response.cargo_muestreado_por);
-        // Puedes incluso cargar la imagen de la firma si tienes un elemento img para ello
-        //$('#firma_responsable').attr('src', response.foto_firma_muestreado_por);
-
-        // Datos del usuario que revisó
-        $('#verificadoPor').text(response.revisado_por);
-        $('#cargo_verificador').text(response.cargo_revisado_por);
-        // Y también para la firma
-        //$('#firma_verificador').attr('src', response.foto_firma_revisado_por);
         console.log(resultados, etapa);
         if (resultados) {
             switch (etapa) {
@@ -938,10 +934,9 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#fecha_muestreo').val(response.fecha_muestreo);
                     $('#nro_registro').text(response.numero_registro);
                     $('#nro_version').text(response.version_registro);
-                    $('#realizadoPor').text(response.nombre_usr1);
-                    $('#cargo_realizador').text(response.cargo_usr1);
                     $('#firma_realizador').attr('src', response.foto_firma_usr1);
                     $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp .btn-group-vertical');
                     //CHATGPT incorporar resultados realizador/muestreador resultados_muestrador "1100110011001100110" con proceso inverso de función consolidarRespuestas
                     break;
             }
@@ -967,6 +962,37 @@ function procesarDatosActa(response, resultados, etapa) {
             });
         }
 }
+function asignarValoresARadios(valores, selectorGrupos) {
+    const grupos = document.querySelectorAll(selectorGrupos);
+
+    if (valores.length !== grupos.length) {
+        console.error("La cantidad de valores no coincide con la cantidad de grupos de botones.");
+        return;
+    }
+
+    // Iterar sobre cada grupo de botones de radio
+    grupos.forEach((grupo, index) => {
+        const botones = grupo.querySelectorAll('input[type="radio"]');
+        if (botones.length === 2) {
+            // Asumiendo que siempre hay dos botones: Cumple y No Cumple
+            if (valores[index] === '1') {
+                botones[0].checked = true; // Suponiendo que el primer botón es 'Cumple'
+            } else if (valores[index] === '0') {
+                botones[1].checked = true; // Suponiendo que el segundo botón es 'No Cumple'
+            } else {
+                console.error("Valor no reconocido en la posición " + index + ": " + valores[index]);
+            }
+        } else {
+            console.error("Número inesperado de botones en el grupo.");
+        }
+    });
+}
+
+// Uso de la función
+document.addEventListener('DOMContentLoaded', function() {
+    // Llamada a la función asignarValoresARadios
+    asignarValoresARadios('1100110011001100110', '.formulario.resp .btn-group-vertical');
+});
 
 document.getElementById('firmar').addEventListener('click', function() {
     // Hacer visibles los elementos de .formulario.resp
