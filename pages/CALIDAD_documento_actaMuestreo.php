@@ -1001,18 +1001,22 @@ function asignarValoresARadios(valores, selectorGrupos) {
         // Intentar seleccionar el botón de radio correspondiente en el grupo.
         const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
 
+        // Deshabilitar todos los botones dentro del grupo para evitar cambios adicionales.
+        const allRadios = grupo.querySelectorAll('input[type="radio"]');
+        allRadios.forEach(r => {
+            r.setAttribute('disabled', 'disabled');
+        });
+
         if (radio) {
             // Si se encuentra el botón, se marca como seleccionado.
             radio.checked = true;
-            radio.setAttribute('readonly', 'readonly');
-            // Además, deshabilitar el botón para evitar cambios adicionales.
-            radio.setAttribute('disabled', 'disabled');
         } else {
             // Si no se encuentra el botón, se muestra un error en la consola.
             console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
         }
     });
 }
+
 
 
 document.getElementById('firmar').addEventListener('click', function() {
