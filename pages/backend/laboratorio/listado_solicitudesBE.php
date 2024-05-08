@@ -14,7 +14,7 @@ $query = "SELECT
                 aex.id_producto, 
                 concat(pr.nombre_producto, ' ', pr.concentracion) as producto,
                 aex.revisado_por,
-                aex.fecha_firma_revisor
+                aex.fecha_firma_revisor,
                 aex.solicitado_por,
                 aex.muestreado_por,
                 aex.lote
