@@ -932,13 +932,15 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#nro_registro').text(response.numero_registro);
                     $('#nro_version').text(response.version_registro);
             switch (response.cantidad_firmas) {
-                case '1':
+                case 1:
                     firma1();
                     $('.verif').css('background-color', '#f4fac2');
                     break;
-                case '2':
+                case 2:
                     firma1();
                     firma2();
+                    break;
+                case 3:
                     break;
             }
         } else {
