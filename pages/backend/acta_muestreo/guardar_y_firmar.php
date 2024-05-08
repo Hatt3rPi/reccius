@@ -1,12 +1,14 @@
 <?php
+// archivo pages\backend\acta_muestreo\guardar_y_firmar.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Leer los datos JSON enviados desde el frontend
 $inputJSON = file_get_contents('php://input');
-$input = json_decode($inputJSON, TRUE); // convert JSON into array
-$usuario = $_SESSION['usuario'] ?? 'Usuario no definido'; // Cambia 'usuario' por la clave apropiada
+$input = json_decode($inputJSON, TRUE); // convertir JSON a array
+$usuario = $_SESSION['usuario'] ?? 'Usuario no definido'; // Usa la clave correcta para 'usuario'
 $fechaActual = date("Y-m-d"); // Formato de fecha para SQL
+
 // Validar y obtener los datos necesarios
 $id_actaMuestreo = isset($input['id_actaMuestreo']) ? intval($input['id_actaMuestreo']) : null;
 $etapa = isset($input['etapa']) ? intval($input['etapa']) : null;
@@ -14,67 +16,104 @@ $respuestas = isset($input['respuestas']) ? $input['respuestas'] : null;
 $textareaData = isset($input['textareaData']) ? $input['textareaData'] : [];
 
 // Validar que los datos esenciales están presentes
-if (!$id_actaMuestreo || !$etapa || !$respuestas || count($textareaData) === 0) {
+if (!$id_actaMuestreo || !$etapa || !$respuestas) {
     echo json_encode(['error' => 'Datos faltantes o incorrectos.']);
     exit;
 }
 
-// Preparar la consulta SQL para insertar los datos en la base de datos
-$query = "update calidad_acta_muestreo  set 
-    estado=? , 
-    resultados_muestrador=? , 
-    pregunta5=? ,  pregunta6=? ,  pregunta7=? ,  pregunta8=? ,  muestreador=? ,  fecha_firma_muestreador=? where id =? ";
+// Dependiendo de la etapa, los datos relevantes cambiarán
+switch ($etapa) {
+    case 1:
+        // Asumimos que sólo en la etapa 1 necesitamos guardar datos de textarea
+        $estado = 'En proceso de firma';
+        if (count($textareaData) === 0) {
+            echo json_encode(['error' => 'Datos de textarea faltantes para la etapa 1.']);
+            exit;
+        }
+        $query = "UPDATE calidad_acta_muestreo SET
+                    estado=?,
+                    resultados_muestrador=?,
+                    pregunta5=?, pregunta6=?, pregunta7=?, pregunta8=?,
+                    muestreador=?, fecha_firma_muestreador=?
+                  WHERE id=?";
+        $types = "ssssssssi";
+        $params = [
+            $estado,
+            $respuestas,
+            $textareaData['form_textarea5'],
+            $textareaData['form_textarea6'],
+            $textareaData['form_textarea7'],
+            $textareaData['form_textarea8'],
+            $usuario,
+            $fechaActual,
+            $id_actaMuestreo
+        ];
+        $flujo='Firma usuario 1 de 3';
+        break;
+    case 2:
+        $estado = 'En proceso de firma';
+        // Otras etapas podrían tener diferentes campos a guardar
+        $query = "UPDATE calidad_acta_muestreo SET
+                    estado=?, resultados_responsable=?,
+                    responsable=?, fecha_firma_responsable=?
+                  WHERE id=?";
+        $types = "ssssi";
+        $params = [
+            $estado,
+            $respuestas,
+            $usuario,
+            $fechaActual,
+            $id_actaMuestreo
+        ];
+        $flujo='Firma usuario 2 de 3';
+        break;
+    case 3:
+        $estado = 'Vigente';
+        // Etapa 3 sólo guarda el usuario y fecha de la firma
+        $query = "UPDATE calidad_acta_muestreo SET
+                    estado=?,
+                    verificador=?, fecha_firma_verificador=?
+                  WHERE id=?";
+        $types = "sssi";
+        $params = [
+            $estado,
+            $usuario,
+            $fechaActual,
+            $id_actaMuestreo
+        ];
+        $flujo='Firma usuario 3 de 3';
+        break;
+    default:
+        echo json_encode(['error' => 'Etapa de firma no reconocida.']);
+        exit;
+}
 
+// Ejecutar la consulta preparada
 if ($stmt = mysqli_prepare($link, $query)) {
-    // Vincular parámetros para marcadores
-    mysqli_stmt_bind_param($stmt, "ssssssssi",
-        $estado, 
-        $respuestas,
-        $textareaData['form_textarea5'],
-        $textareaData['form_textarea6'],
-        $textareaData['form_textarea7'],
-        $textareaData['form_textarea8'],
-        $usuario,
-        $fechaActual,
-        $id_actaMuestreo
-    );
-
-    // Establecer estado y otros valores necesarios
-    $estado = 'En proceso de firma'; // Suponiendo un valor predeterminado
+    mysqli_stmt_bind_param($stmt, $types, ...$params);
     $exito = mysqli_stmt_execute($stmt);
-    // Ejecutar la declaración
+    // Aquí podrías agregar registro de trazabilidad...
     registrarTrazabilidad(
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
-        'Firma muestreador', 
+        $flujo, 
         'acta de muestreo',  
         $id_actaMuestreo, 
         $query,  
-        [ $estado, 
-        $respuestas,
-        $textareaData['form_textarea5'],
-        $textareaData['form_textarea6'],
-        $textareaData['form_textarea7'],
-        $textareaData['form_textarea8'],
-        $usuario,
-        $fechaActual,
-        $id_actaMuestreo], 
+        $params, 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
     if ($exito) {
         echo json_encode(['success' => 'Datos guardados correctamente.']);
-        $_SESSION['nuevo_id'] = $id_actaMuestreo;
+        $_SESSION['nuevo_id'] = $id_actaMuestreo; // Esto puede ser útil dependiendo del flujo
     } else {
         echo json_encode(['error' => 'Error al guardar datos: ' . mysqli_stmt_error($stmt)]);
     }
-
-    // Cerrar declaración
     mysqli_stmt_close($stmt);
 } else {
     echo json_encode(['error' => 'Error al preparar la declaración: ' . mysqli_error($link)]);
 }
 
-// Cerrar la conexión
 mysqli_close($link);
 ?>

@@ -1073,10 +1073,10 @@ document.getElementById('guardar').addEventListener('click', function() {
     let etapa = $('#etapa').text();
     switch (etapa){
         case 'firma1':
-            guardar_firma1();
+            guardar_firma('.formulario.resp', 1);
             break;
         case 'firma2':
-            guardar_firma2();
+            guardar_firma('.formulario.verif', 2);
             break;
         case 'firma3':
             guardar_firma3();
@@ -1084,38 +1084,39 @@ document.getElementById('guardar').addEventListener('click', function() {
     }
 });
 
-function guardar_firma1(){
-        let usuario_muestreador = "<?php echo $_SESSION['usuario']; ?>";
-        let respuestas = consolidarRespuestas('.formulario.resp');
-        let id_actaMuestreo= $('#id_actaMuestreo').text();
-        let todosSeleccionados = true;
-        let dataToSave = {
-            id_actaMuestreo: id_actaMuestreo,
-            etapa: 1,
-            usuario: usuario_muestreador,
-            respuestas: respuestas,
-            textareaData: {}
-        };
-        let botonesNoSeleccionados = [];
+function guardar_firma(selector, etapa) {
+    let usuario = "<?php echo $_SESSION['usuario']; ?>";
+    let respuestas = consolidarRespuestas(selector);
+    let id_actaMuestreo = $('#id_actaMuestreo').text();
+    let todosSeleccionados = true;
+    let dataToSave = {
+        id_actaMuestreo: id_actaMuestreo,
+        etapa: etapa,
+        usuario: usuario,
+        respuestas: respuestas,
+        textareaData: {}
+    };
+    let botonesNoSeleccionados = [];
 
-        // Verifica que todos los toggle buttons en 'formulario.resp' estén seleccionados
-        document.querySelectorAll('.formulario.resp').forEach(function(grupo) {
-            const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
-            if (!radioSeleccionado) {
-                todosSeleccionados = false;
-                grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
-                    botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
-                });
-            }
-        });
-
-        if (!todosSeleccionados) {
-            console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
-            alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
-            return; // Detiene la función si no todos están seleccionados
+    // Verifica que todos los radio buttons en el selector especificado estén seleccionados
+    document.querySelectorAll(selector).forEach(function(grupo) {
+        const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
+        if (!radioSeleccionado) {
+            todosSeleccionados = false;
+            grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
+            });
         }
+    });
 
-        // Recolecta datos de los textarea que necesitan estar cargados
+    if (!todosSeleccionados) {
+        console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
+        alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
+        return; // Detiene la función si no todos están seleccionados
+    }
+
+    // Recolecta datos de los textarea sólo si la firma es 1
+    if (etapa === 1) {
         ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
             let textarea = document.getElementById(id);
             if (textarea.value.trim() === '') {
@@ -1130,36 +1131,47 @@ function guardar_firma1(){
         if (!todosSeleccionados) {
             return; // Detiene la función si algún textarea está vacío
         }
+    }
 
-        // Enviar datos al servidor usando AJAX
-        $.ajax({
-            url: './backend/acta_muestreo/guardar_y_firmar.php', // Asegúrate de que esta URL es correcta
-            type: 'POST',
-            data: JSON.stringify(dataToSave),
-            contentType: 'application/json; charset=utf-8',
-            success: function(response) {
-                console.log('Guardado exitoso: ', response);
-                alert("Datos guardados correctamente.");// convertir a notificación
-                //$.notify("Datos guardados correctamente.", "success");
-                $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
-                    if (status == "error") {
-                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
-                    } else {
-                        obtenNotificaciones();
-                        carga_listado();
-                        console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-                    }
-                    $('#loading-spinner').hide();
-                    $('#dynamic-content').show();
-                }); 
-            },
-            error: function(xhr, status, error) {
-                console.error("Error al guardar: ", status, error);
-                alert("Error al guardar los datos.");
-            }
-        });
+    // Enviar datos al servidor usando AJAX
+    $.ajax({
+        url: './backend/acta_muestreo/guardar_y_firmar.php',
+        type: 'POST',
+        data: JSON.stringify(dataToSave),
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log('Guardado exitoso: ', response);
+            alert("Datos guardados correctamente.");
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al guardar: ", status, error);
+            alert("Error al guardar los datos.");
+        }
+    });
 }
-function guardar_firma2(){
-    console.log('guardar firma2');
+
+function guardar_firma3() {
+    let usuario = "<?php echo $_SESSION['usuario']; ?>";
+    let fecha = new Date().toISOString().slice(0, 10);  // Formato YYYY-MM-DD
+    let dataToSave = {
+        usuario: usuario,
+        fecha: fecha
+    };
+
+    // Enviar datos al servidor usando AJAX
+    $.ajax({
+        url: './backend/acta_muestreo/guardar_firma3.php',
+        type: 'POST',
+        data: JSON.stringify(dataToSave),
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log('Firma guardada con éxito: ', response);
+            alert("Firma guardada correctamente.");
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al guardar la firma: ", status, error);
+            alert("Error al guardar la firma.");
+        }
+    });
 }
 </script>
