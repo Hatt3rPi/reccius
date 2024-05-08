@@ -930,26 +930,19 @@ function procesarDatosActa(response, resultados, etapa) {
         if (resultados) {
             switch (etapa) {
                 case '1':
-                    console.log('asignación 1')
-                    // var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
-                    // var cargo = "<?php echo $_SESSION['cargo']; ?>";
-                    // var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
-                    // var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-                    // $('#nro_registro').text(response.numero_registro);
-                    // $('#nro_version').text(response.version_registro);
-                    // $('#realizadoPor').text(nombre_ejecutor);
-                    // $('#cargo_realizador').text(cargo);
-                    // $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
-                    // $('#fecha_Edicion').text(fecha_hoy);
-                    // $('.resp').css('background-color', '#f4fac2');
-                    // $('.verif input').prop('readonly', true);
-                    // $('.verif').css('background-color', '#e0e0e0'); // Asume que esto "atenuará" visualmente el elemento.
-                    // //revision_actor1
-                    // console.log(nombre_ejecutor, response.muestreado_por);
-                    // if (nombre_ejecutor !== response.muestreado_por) {
-                    //     $('#revision_actor1').text('Revisión Ejecutor');
-                    //     $('#revision_actor2').text('Revisión Muestreador');
-                    // }
+                    console.log('asignación 1');
+                    $('#form_textarea5').text(response.pregunta5);
+                    $('#form_textarea6').text(response.pregunta6);
+                    $('#form_textarea7').text(response.pregunta7);
+                    $('#form_textarea8').text(response.pregunta8);
+                    $('#fecha_muestreo').val(response.fecha_muestreo);
+                    $('#nro_registro').text(response.numero_registro);
+                    $('#nro_version').text(response.version_registro);
+                    $('#realizadoPor').text(response.nombre_usr1);
+                    $('#cargo_realizador').text(response.cargo_usr1);
+                    $('#firma_realizador').attr('src', response.foto_firma_usr1);
+                    $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+                    //CHATGPT incorporar resultados realizador/muestreador resultados_muestrador "1100110011001100110" con proceso inverso de función consolidarRespuestas
                     break;
             }
         } else {
