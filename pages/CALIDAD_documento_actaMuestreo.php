@@ -745,7 +745,7 @@ document.getElementById('confirmarMetodo').addEventListener('click', function() 
         // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
         document.getElementById('download-pdf').click();
     } else if (metodoDigital) {
-        $('#etapa').text('muestreador');
+        $('#etapa').text('firma1');
         // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
@@ -924,6 +924,7 @@ function procesarDatosActa(response, resultados, etapa) {
 
         console.log(resultados, etapa);
         if (resultados) {
+                    let usuario_activo = "<?php echo $_SESSION['usuario']; ?>";
                     $('#form_textarea5').text(response.pregunta5);
                     $('#form_textarea6').text(response.pregunta6);
                     $('#form_textarea7').text(response.pregunta7);
@@ -933,12 +934,26 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#nro_version').text(response.version_registro);
             switch (response.cantidad_firmas) {
                 case 1:
+                    //documento firmado por muestreador. queda pendiente firma de responsable
                     firma1(response);
-                    $('.verif').css('background-color', '#f4fac2');
+                    $('#etapa').text('firma2');
+                    if ( usuario_activo==response.responsable){
+                        document.getElementById('metodo_muestreo').style.display = 'none';
+                        document.getElementById('guardar').style.display = 'block';
+                        $('.verif').css('background-color', '#f4fac2');
+                    }
+                    
                     break;
                 case 2:
+                    //documento firmado por muestreador y responsable. queda pendiente firma de revisor
                     firma1(response);
                     firma2(response);
+                    $('#etapa').text('firma3');
+                    if ( usuario_activo==response.verificador){
+                        document.getElementById('metodo_muestreo').style.display = 'none';
+                        document.getElementById('guardar').style.display = 'block';
+                        $('.verif').css('background-color', '#f4fac2');
+                    }
                     break;
                 case 3:
                     break;
@@ -1055,8 +1070,21 @@ function consolidarRespuestas(universo) {
 
 
 document.getElementById('guardar').addEventListener('click', function() {
-    // Verifica si la etapa es 'muestreador'
-    if ($('#etapa').text() === 'muestreador') {
+    let etapa = $('#etapa').text();
+    switch (etapa){
+        case 'firma1':
+            guardar_firma1();
+            break;
+        case 'firma2':
+            guardar_firma2();
+            break;
+        case 'firma3':
+            guardar_firma3();
+            break;           
+    }
+});
+
+function guardar_firma1(){
         let usuario_muestreador = "<?php echo $_SESSION['usuario']; ?>";
         let respuestas = consolidarRespuestas('.formulario.resp');
         let id_actaMuestreo= $('#id_actaMuestreo').text();
@@ -1130,8 +1158,8 @@ document.getElementById('guardar').addEventListener('click', function() {
                 alert("Error al guardar los datos.");
             }
         });
-    }
-});
-
-
+}
+function guardar_firma2(){
+    console.log('guardar firma2');
+}
 </script>
