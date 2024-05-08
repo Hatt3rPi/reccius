@@ -601,13 +601,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 
                 $('#tipo_analisis').val(analisis.tipo_analisis);
                 
-                //tabla especificaciones
-                $('#can_analisis').val(analisis.can_analisis);
-                $('#can_tipo_analisis').val(analisis.can_tipo_analisis);
-                $('#descripcion_analisis').val(analisis.descripcion_analisis);
-                $('#metodologia').val(analisis.metodologia);
 
-                
                 
                 
                 
