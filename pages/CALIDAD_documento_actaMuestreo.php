@@ -936,7 +936,7 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#nro_version').text(response.version_registro);
                     $('#firma_realizador').attr('src', response.foto_firma_usr1);
                     $('#fecha_Edicion').text(response.fecha_firma_muestreador);
-                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp .btn-group-vertical');
+                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp *');
                     //CHATGPT incorporar resultados realizador/muestreador resultados_muestrador "1100110011001100110" con proceso inverso de función consolidarRespuestas
                     break;
             }
@@ -988,11 +988,6 @@ function asignarValoresARadios(valores, selectorGrupos) {
     });
 }
 
-// Uso de la función
-document.addEventListener('DOMContentLoaded', function() {
-    // Llamada a la función asignarValoresARadios
-    asignarValoresARadios('1100110011001100110', '.formulario.resp .btn-group-vertical');
-});
 
 document.getElementById('firmar').addEventListener('click', function() {
     // Hacer visibles los elementos de .formulario.resp
