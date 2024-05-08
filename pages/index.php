@@ -290,7 +290,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             return;
         }
     }
-    reloadPageBypassCacheHash()
 
     obtenNotificaciones();
     fetchUserInfo();
