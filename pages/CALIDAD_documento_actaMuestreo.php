@@ -956,6 +956,7 @@ function procesarDatosActa(response, resultados, etapa) {
                     }
                     break;
                 case 3:
+                    document.getElementById('download-pdf').style.display = 'block';
                     break;
             }
         } else {

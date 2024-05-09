@@ -712,6 +712,28 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
+                case "revisar_acta":{
+                    
+                    // id = id del acta de muestreo
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': true,
+                            'etapa':'1'
+                        },
+                        success: function(response) {
+                            $('#dynamic-content').html(response); 
+                            cargarDatosEspecificacion(id, true, '1');
+                            console.log('ver documento');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+                }
             }
             break;
         }
