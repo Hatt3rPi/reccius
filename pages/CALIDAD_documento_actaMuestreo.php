@@ -336,7 +336,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>1. La zona de esterilización se encuentra
                             limpia y ordenada.</td>
-                        <td id="form_1">
+                        <td id="form_1" style="visibility: hidden;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
@@ -370,7 +370,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>2. Verificar que la zona de muestreo se
                             encuentre libre de otros productos.</td>
-                        <td id="form_2">
+                        <td id="form_2" style="visibility: hidden;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
@@ -400,7 +400,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>3. Evaluar el aspecto del producto en zona
                             de revisión.</td>
-                        <td id="form_3">
+                        <td id="form_3" style="visibility: hidden;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
@@ -428,7 +428,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td>4. Verificar correcta identificación del lote y producto.</td>
-                        <td id="form_4">
+                        <td id="form_4" style="visibility: hidden;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
                             <label for="conforme_Pro">Conforme</label>
