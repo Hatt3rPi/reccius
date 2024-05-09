@@ -70,9 +70,7 @@ switch ($etapa) {
     case 3:
         $estado = 'Vigente'; // Define el estado del documento como vigente después de esta firma.
         $query = "UPDATE calidad_acta_muestreo SET
-                    estado=?,  // Actualiza el estado
-                    verificador=?,  // Guarda el usuario que verifica
-                    fecha_firma_verificador=?  // Fecha de la firma del verificador
+                    estado=?, verificador=?,fecha_firma_verificador=? 
                     WHERE id=?";  // Condición para asegurar la actualización correcta por ID
         $types = "sssi";  // Tipos de los parámetros: string, string, string, integer
         $params = [
