@@ -68,16 +68,24 @@ switch ($etapa) {
         $flujo='Firma usuario 2 de 3';
         break;
     case 3:
+        
+        $id_analisis_externo = intval($input['id_analisis_externo']);
         $estado = 'Vigente'; // Define el estado del documento como vigente después de esta firma.
-        $query = "UPDATE calidad_acta_muestreo SET
-                    estado=?, verificador=?, fecha_firma_verificador=? 
-                    WHERE id=?";  // Condición para asegurar la actualización correcta por ID
-        $types = "sssi";  // Tipos de los parámetros: string, string, string, integer
+        $estado2 = 'Pendiente completar análisis'; // Define el estado del documento como vigente después de esta firma.
+        $query = "  UPDATE calidad_acta_muestreo SET
+                        estado=?, verificador=?, fecha_firma_verificador=? 
+                    WHERE id=?;
+                    UPDATE calidad_analisis_externo SET
+                        estado=? 
+                    WHERE id=?;";  // Condición para asegurar la actualización correcta por ID
+        $types = "sssisi";  // Tipos de los parámetros: string, string, string, integer
         $params = [
             $estado,
             $usuario,
             $fechaActual,
-            $id_actaMuestreo
+            $id_actaMuestreo,
+            $estado2,
+            $id_analisis_externo
         ];
         $flujo='Firma usuario 3 de 3';  // Descripción del proceso actual para la trazabilidad
         break;

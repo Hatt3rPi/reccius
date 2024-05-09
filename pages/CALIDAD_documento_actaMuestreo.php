@@ -932,6 +932,8 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     $('#nro_registro').text(response.numero_registro);
                     $('#nro_version').text(response.version_registro);
+                    $('#id_analisis_externo').text(response.id_analisis_externo);
+                    
             switch (response.cantidad_firmas) {
                 case 1:
                     //documento firmado por muestreador. queda pendiente firma de responsable
@@ -1162,7 +1164,10 @@ function guardar_firma(selector, etapa) {
 
 function guardar_firma3() {
     let id_actaMuestreo = $('#id_actaMuestreo').text();
+    let id_analisis_externo = $('#id_analisis_externo').text();
+    
     let dataToSave = {
+        id_analisis_externo: id_analisis_externo,
         id_actaMuestreo: id_actaMuestreo,
         etapa: 3,
         respuestas: 'no aplica'
