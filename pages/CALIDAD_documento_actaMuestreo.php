@@ -925,11 +925,11 @@ function procesarDatosActa(response, resultados, etapa) {
         console.log(resultados, etapa);
         if (resultados) {
                     let usuario_activo = "<?php echo $_SESSION['usuario']; ?>";
-                    $('#form_textarea5').text(response.pregunta5);
-                    $('#form_textarea6').text(response.pregunta6);
-                    $('#form_textarea7').text(response.pregunta7);
-                    $('#form_textarea8').text(response.pregunta8);
-                    $('#fecha_muestreo').val(response.fecha_muestreo);
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     $('#nro_registro').text(response.numero_registro);
                     $('#nro_version').text(response.version_registro);
             switch (response.cantidad_firmas) {
