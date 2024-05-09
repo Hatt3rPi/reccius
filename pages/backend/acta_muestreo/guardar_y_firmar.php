@@ -73,7 +73,7 @@ switch ($etapa) {
         $query = "  UPDATE calidad_acta_muestreo SET
                         estado=?, verificador=?, fecha_firma_verificador=? 
                     WHERE id=?;";  // Condición para asegurar la actualización correcta por ID
-        $types = "sssisi";  // Tipos de los parámetros: string, string, string, integer
+        $types = "sssi";  // Tipos de los parámetros: string, string, string, integer
         $params = [
             $estado,
             $usuario,
@@ -113,12 +113,8 @@ if ($stmt = mysqli_prepare($link, $query)) {
                             estado=? 
                         WHERE id=?;";  // Condición para asegurar la actualización correcta por ID
             $types = "si";  // Tipos de los parámetros: string, string, string, integer
-            $params = [
-                $estado2,
-                $id_analisis_externo
-            ];
             $stmt2 = mysqli_prepare($link, $query);
-            mysqli_stmt_bind_param($stmt2, $types, ...$params);
+            mysqli_stmt_bind_param($stmt2, $types, $estado2, $id_analisis_externo);
             $exito = mysqli_stmt_execute($stmt2);
             // Aquí podrías agregar registro de trazabilidad...
             registrarTrazabilidad(
@@ -128,7 +124,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 'análisis externo',  
                 $id_analisis_externo, 
                 $query,  
-                $params, 
+                [$estado2, $id_analisis_externo], 
                 $exito ? 1 : 0, 
                 $exito ? null : mysqli_error($link)
             );
