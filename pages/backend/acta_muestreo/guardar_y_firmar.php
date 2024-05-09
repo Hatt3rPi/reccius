@@ -69,23 +69,16 @@ switch ($etapa) {
         break;
     case 3:
         
-        $id_analisis_externo = intval($input['id_analisis_externo']);
         $estado = 'Vigente'; // Define el estado del documento como vigente después de esta firma.
-        $estado2 = 'Pendiente completar análisis'; // Define el estado del documento como vigente después de esta firma.
         $query = "  UPDATE calidad_acta_muestreo SET
                         estado=?, verificador=?, fecha_firma_verificador=? 
-                    WHERE id=?;
-                    UPDATE calidad_analisis_externo SET
-                        estado=? 
                     WHERE id=?;";  // Condición para asegurar la actualización correcta por ID
         $types = "sssisi";  // Tipos de los parámetros: string, string, string, integer
         $params = [
             $estado,
             $usuario,
             $fechaActual,
-            $id_actaMuestreo,
-            $estado2,
-            $id_analisis_externo
+            $id_actaMuestreo
         ];
         $flujo='Firma usuario 3 de 3';  // Descripción del proceso actual para la trazabilidad
         break;
@@ -111,8 +104,41 @@ if ($stmt = mysqli_prepare($link, $query)) {
         $exito ? null : mysqli_error($link)
     );
     if ($exito) {
-        echo json_encode(['success' => 'Datos guardados correctamente.']);
         $_SESSION['nuevo_id'] = $id_actaMuestreo; // Esto puede ser útil dependiendo del flujo
+        if ($etapa==3) {
+            
+            $id_analisis_externo = intval($input['id_analisis_externo']);
+            $estado2 = 'Pendiente completar análisis'; // Define el estado del documento como vigente después de esta firma.
+            $query = "  UPDATE calidad_analisis_externo SET
+                            estado=? 
+                        WHERE id=?;";  // Condición para asegurar la actualización correcta por ID
+            $types = "si";  // Tipos de los parámetros: string, string, string, integer
+            $params = [
+                $estado2,
+                $id_analisis_externo
+            ];
+            $stmt2 = mysqli_prepare($link, $query);
+            mysqli_stmt_bind_param($stmt2, $types, ...$params);
+            $exito = mysqli_stmt_execute($stmt2);
+            // Aquí podrías agregar registro de trazabilidad...
+            registrarTrazabilidad(
+                $_SESSION['usuario'], 
+                $_SERVER['PHP_SELF'], 
+                'Cambio de estado post firma acta de muestreo', 
+                'análisis externo',  
+                $id_analisis_externo, 
+                $query,  
+                $params, 
+                $exito ? 1 : 0, 
+                $exito ? null : mysqli_error($link)
+            );
+            if ($exito){
+                echo json_encode(['success' => 'Datos guardados correctamente.']);
+            } else {
+                echo json_encode(['error' => 'Error al guardar datos: ' . mysqli_stmt_error($stmt2)]);
+            }
+            mysqli_stmt_close($stmt2);
+        }
     } else {
         echo json_encode(['error' => 'Error al guardar datos: ' . mysqli_stmt_error($stmt)]);
     }
