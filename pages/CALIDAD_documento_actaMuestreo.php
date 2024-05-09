@@ -1154,7 +1154,8 @@ function guardar_firma3() {
     let id_actaMuestreo = $('#id_actaMuestreo').text();
     let dataToSave = {
         id_actaMuestreo: id_actaMuestreo,
-        etapa: 3
+        etapa: 3,
+        respuestas: 'no aplica'
     };
 
     // Enviar datos al servidor usando AJAX
