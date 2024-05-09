@@ -202,6 +202,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
                         </select>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
@@ -332,6 +333,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                                 </option>
                                 <option value="fabarca212">Felipe Abarca</option>
                                 <option value="lucianoalonso2000">Luciano Abarca</option>
+                                <option value="javier2000asr">Javier Sabando</option>
                             </select>
                         </div>
                     </div>

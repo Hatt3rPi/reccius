@@ -192,6 +192,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
                         </select>
                     </div>
                 </div>
@@ -206,6 +207,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="lsepulveda" selected>Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
                         </select>
                     </div>
                 </div>

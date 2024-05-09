@@ -177,6 +177,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
                         </select>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
