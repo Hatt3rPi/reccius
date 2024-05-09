@@ -956,6 +956,10 @@ function procesarDatosActa(response, resultados, etapa) {
                     }
                     break;
                 case 3:
+                    firma1(response);
+                    firma2(response);
+                    firma3(response);
+                    document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('download-pdf').style.display = 'block';
                     break;
             }
@@ -994,6 +998,11 @@ function firma2(response){
                     $('#firma_responsable').attr('src', response.foto_firma_usr2);
                     $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
                     asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
+}
+function firma3(response){
+    console.log('asignación 2');
+                    $('#firma_verificador').attr('src', response.foto_firma_usr3);
+                    $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
 }
 function asignarValoresARadios(valores, selectorGrupos) {
     // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
