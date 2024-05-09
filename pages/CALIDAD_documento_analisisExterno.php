@@ -164,13 +164,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">4. Registro I.S.P:</td>
-                        <td><input type="text" id="registro_isp" name="registro_isp" required></td>
+                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
+                        
                         <td class="titulo titulo-right">13. Muestra:</td>
                         <td><input type="text" id="tamano_muestra" name="tamano_muestra" required></td>
                     </tr>
                     <tr>
                         <td class="titulo">5. Condic. almacenamiento</td>
-                        <td><input type="text" id="condicion_almacenamiento" name="condicion_almacenamiento" required>
+                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
                         </td>
                         <td class="titulo titulo-right">14. Cta.muestra</td>
                         <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
@@ -185,7 +186,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">7. Muestreado por:</td>
                         <td><input type="text" id="muestreado_por" name="muestreado_por" required></td>
                         <td class="titulo titulo-right">Observaciones:</td>
-                        <td><input type="text" id="observaciones" name="observaciones"></td>
+                        <td><textarea id="observaciones" name="observaciones" required></textarea></td>
 
                     </tr>
                     <tr>
