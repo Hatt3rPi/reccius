@@ -952,7 +952,7 @@ function procesarDatosActa(response, resultados, etapa) {
                     if ( usuario_activo==response.verificador){
                         document.getElementById('metodo_muestreo').style.display = 'none';
                         document.getElementById('guardar').style.display = 'block';
-                        $('.verif').css('background-color', '#f4fac2');
+                        
                     }
                     break;
                 case 3:
@@ -1151,16 +1151,15 @@ function guardar_firma(selector, etapa) {
 }
 
 function guardar_firma3() {
-    let usuario = "<?php echo $_SESSION['usuario']; ?>";
-    let fecha = new Date().toISOString().slice(0, 10);  // Formato YYYY-MM-DD
+    let id_actaMuestreo = $('#id_actaMuestreo').text();
     let dataToSave = {
-        usuario: usuario,
-        fecha: fecha
+        id_actaMuestreo: id_actaMuestreo,
+        etapa: 3
     };
 
     // Enviar datos al servidor usando AJAX
     $.ajax({
-        url: './backend/acta_muestreo/guardar_firma3.php',
+        url: './backend/acta_muestreo/guardar_y_firmar.php',
         type: 'POST',
         data: JSON.stringify(dataToSave),
         contentType: 'application/json; charset=utf-8',

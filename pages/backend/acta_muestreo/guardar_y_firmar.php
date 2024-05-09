@@ -68,20 +68,20 @@ switch ($etapa) {
         $flujo='Firma usuario 2 de 3';
         break;
     case 3:
-        $estado = 'Vigente';
-        // Etapa 3 sólo guarda el usuario y fecha de la firma
+        $estado = 'Vigente'; // Define el estado del documento como vigente después de esta firma.
         $query = "UPDATE calidad_acta_muestreo SET
-                    estado=?,
-                    verificador=?, fecha_firma_verificador=?
-                  WHERE id=?";
-        $types = "sssi";
+                    estado=?,  // Actualiza el estado
+                    verificador=?,  // Guarda el usuario que verifica
+                    fecha_firma_verificador=?  // Fecha de la firma del verificador
+                    WHERE id=?";  // Condición para asegurar la actualización correcta por ID
+        $types = "sssi";  // Tipos de los parámetros: string, string, string, integer
         $params = [
             $estado,
             $usuario,
             $fechaActual,
             $id_actaMuestreo
         ];
-        $flujo='Firma usuario 3 de 3';
+        $flujo='Firma usuario 3 de 3';  // Descripción del proceso actual para la trazabilidad
         break;
     default:
         echo json_encode(['error' => 'Etapa de firma no reconocida.']);
