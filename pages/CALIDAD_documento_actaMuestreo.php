@@ -336,7 +336,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>1. La zona de esterilización se encuentra
                             limpia y ordenada.</td>
-
+                        <td id="form_1">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -364,6 +370,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>2. Verificar que la zona de muestreo se
                             encuentre libre de otros productos.</td>
+                        <td id="form_2">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -387,6 +400,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>3. Evaluar el aspecto del producto en zona
                             de revisión.</td>
+                        <td id="form_3">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -408,6 +428,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td>4. Verificar correcta identificación del lote y producto.</td>
+                        <td id="form_4">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
