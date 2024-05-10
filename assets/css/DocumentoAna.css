@@ -314,4 +314,6 @@ ul{
 textarea{
     width: 295px;
     field-sizing: content;
+    resize: none;
+    overflow: hidden;
 }
