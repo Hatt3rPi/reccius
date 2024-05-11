@@ -736,13 +736,7 @@ function botones(id, accion, base) {
                 }
                 case "firmar_solicitud_analisis_externo":{
                     // id <- id analisis externo
-                    var datosAnalisisExternoParams = {
-                        id: 0,
-                        id_analisis_externo: id
-                    };
-                    var url = new URL('./backend/laboratorio/cargaEsp_solicitudBE.php');
-                    url.search = new URLSearchParams(datosAnalisisExternoParams).toString();
-                    fetch(url,{
+                    fetch(`./backend/laboratorio/cargaEsp_solicitudBE.php?id=0&id_analisis_externo=${id}`,{
                         method: 'GET'
                     })
                     .then(response => {
