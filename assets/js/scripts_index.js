@@ -740,7 +740,7 @@ function botones(id, accion, base) {
                         id: 0,
                         id_analisis_externo: id
                     };
-                    var url = new URL('./backend/laboratorio/cargaEsp_solicitudBE.php', window.location.origin);
+                    var url = new URL('./backend/laboratorio/cargaEsp_solicitudBE.php');
                     url.search = new URLSearchParams(datosAnalisisExternoParams).toString();
                     fetch(url,{
                         method: 'GET'
