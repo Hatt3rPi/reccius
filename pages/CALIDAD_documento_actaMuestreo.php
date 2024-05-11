@@ -1082,6 +1082,7 @@ function consolidarRespuestas(universo) {
 
 
 document.getElementById('guardar').addEventListener('click', function() {
+    $.notify("PDF generado con éxito", "success");
     let etapa = $('#etapa').text();
     switch (etapa){
         case 'firma1':
