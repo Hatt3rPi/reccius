@@ -769,7 +769,7 @@ function botones(id, accion, base) {
 
                     
                         $.ajax({
-                            url: '../../pages/components/modal_confirm.php',
+                            url: '../pages/components/modal_confirm.php',
                             type: 'POST',
                             data: {
                                 'title': 'Firmar documento',
