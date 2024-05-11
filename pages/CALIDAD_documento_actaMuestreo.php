@@ -836,7 +836,7 @@ document.getElementById('download-pdf').addEventListener('click', function() {
         var nombreProducto = document.getElementById('producto').textContent.trim();
         var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
         pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-        //$.notify("PDF generado con éxito", "success");
+        $.notify("PDF generado con éxito", "success");
 
         // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
         allButtonGroups.forEach(group => {
@@ -1082,7 +1082,7 @@ function consolidarRespuestas(universo) {
 
 
 document.getElementById('guardar').addEventListener('click', function() {
-    $.notify("PDF generado con éxito", "success");
+    
     let etapa = $('#etapa').text();
     switch (etapa){
         case 'firma1':
@@ -1124,8 +1124,8 @@ function guardar_firma(selector, etapa) {
 
     if (!todosSeleccionados) {
         console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
-        alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
-        //$.notify("Datos guardados correctamente.", "warn");
+        //alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
+        $.notify("Existen campos imcompletos.", "warn");
         return; // Detiene la función si no todos están seleccionados
     }
 
@@ -1134,7 +1134,8 @@ function guardar_firma(selector, etapa) {
         ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
             let textarea = document.getElementById(id);
             if (textarea.value.trim() === '') {
-                alert(`El campo ${id} está vacío y es obligatorio.`);
+                //alert(`El campo ${id} está vacío y es obligatorio.`);
+                $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
                 todosSeleccionados = false;
                 return;
             } else {
@@ -1155,8 +1156,8 @@ function guardar_firma(selector, etapa) {
         contentType: 'application/json; charset=utf-8',
         success: function(response) {
             console.log('Guardado exitoso: ', response);
-            alert("Datos guardados correctamente.");
-            //$.notify("Datos guardados correctamente.", "success");
+            //alert("Datos guardados correctamente.");
+            $.notify("Datos guardados correctamente.", "success");
             $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
                     if (status == "error") {
                         console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
@@ -1167,8 +1168,8 @@ function guardar_firma(selector, etapa) {
         },
         error: function(xhr, status, error) {
             console.error("Error al guardar: ", status, error);
-            alert("Error al guardar los datos.");
-            //$.notify("Error al guardar los datos.", "error");
+            //alert("Error al guardar los datos.");
+            $.notify("Error al guardar los datos.", "error");
         }
     });
 }
@@ -1192,8 +1193,8 @@ function guardar_firma3() {
         contentType: 'application/json; charset=utf-8',
         success: function(response) {
             console.log('Firma guardada con éxito: ', response);
-            alert("Firma guardada correctamente.");
-            //$.notify("Documento firmado correctamente.", "success");
+            //alert("Firma guardada correctamente.");
+            $.notify("Documento firmado correctamente.", "success");
             $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
                     if (status == "error") {
                         console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
@@ -1204,8 +1205,8 @@ function guardar_firma3() {
         },
         error: function(xhr, status, error) {
             console.error("Error al guardar la firma: ", status, error);
-            alert("Error al guardar la firma.");
-            //$.notify("Error al firmar documento", "error");
+            //alert("Error al guardar la firma.");
+            $.notify("Error al firmar documento", "error");
         }
     });
 }
