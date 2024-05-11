@@ -129,6 +129,11 @@ function agregarDatosPostFirma($link, $datos)
         throw new Exception("No hay datos para actualizar.");
     }
 
+    //nuevo estado 
+    $partesConsulta[] = "En proceso de firmas";
+    $valoresParaVincular[] = "estado";
+    $tipos .= campoTipo("estado");
+
     // Añadir el ID al final para la cláusula WHERE
     $valoresParaVincular[] = $datos['id'];
     $tipos .= 'i';

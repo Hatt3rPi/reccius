@@ -734,6 +734,69 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
+                case "firmar_solicitud_analisis_externo":{
+                    // id <- id analisis externo
+                    var datosAnalisisExternoParams = {
+                        id: 0,
+                        id_analisis_externo: id
+                    };
+                    var url = new URL('./backend/laboratorio/cargaEsp_solicitudBE.php', window.location.origin);
+                    url.search = new URLSearchParams(datosAnalisisExternoParams).toString();
+                    fetch(url,{
+                        method: 'GET'
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok: ' + response.statusText);
+                        }
+                        return response.json();
+                    }).then(response => {
+                        var bodyHtml = [
+                            {text:'Numero de registro',value:response['analisis'].numero_registro},
+                            {text:'Numero de solicitud',value:response['analisis'].numero_solicitud},
+                            {text:'Solicitante',value:response['analisis'].solicitado_por},
+                            {text:'Version de analisis',value:response['analisis'].version},
+                            {text:'Nombre de producto',value:response['analisis'].prod_nombre_producto},
+                            {text:'Concentracion de producto',value:response['analisis'].prod_tipo_concentracion},
+                            {text:'Estandar segun',value:response['analisis'].estandar_segun},
+                            {text:'Registro isp',value:response['analisis'].registro_isp},
+                            {text:'Revisado por',value:response['analisis'].revisado_por},
+                            {text:'Especificacion',value:response['analisis'].id_especificacion},
+                            {text:'Version especificacion',value:response['analisis'].version_especificacion},
+                        ].map(({text,value})=> /*html*/`
+                        <fieldset class="form-group border-left pl-2 ">
+                            <legend class="h6 font-weight-normal">${text}</legend>
+                            <div class="form-group">
+                                <input class="form-control mx-0" list="datalist_materia_base_options" 
+                                value="${value}">
+                            </div>
+                        </fieldset>
+                        `)
+
+                    
+                        $.ajax({
+                            url: '../../pages/components/modal_confirm.php',
+                            type: 'POST',
+                            data: {
+                                'title': 'Firmar documento',
+                                'body': bodyHtml.join(''),
+                                'button_text': 'Firmar',
+                                'button_action': `firmarDocumentoSolicitudExterna(${id})`,
+                            },
+                            success: function(response) {
+                                $('#dynamic-content').append(response); 
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error al enviar el recordatorio: ", status, error);
+                            }
+                        });
+                    }
+
+                    ).catch(error => {
+                        return {error};
+                    });
+                    break;
+                }
             }
             break;
         }
@@ -742,3 +805,8 @@ function botones(id, accion, base) {
 }
 
 
+async function firmarDocumentoSolicitudExterna(idAnalisisExternoFirmar){
+//Todo: notificar cuando la firma sea exitosa
+    console.log("firmando el doc on id: ", id)
+
+}

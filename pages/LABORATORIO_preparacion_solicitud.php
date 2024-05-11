@@ -500,28 +500,26 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var analisis = response.analisis;
 
             //Todo : Volver a validar cuando se pueda editar ||| en caso de que los datos este de 4 al 6 hacer la seccion de "nuevo analisis" y añadir nueva version
-            /*
-                if (analisis.estado == "Pendiente Acta de Muestreo") {
-                    $("#informacion_faltante").remove();
-                    $("#agregarDatos").hide();
-                }else{
-                    */
-            if (analisis.laboratorio) {
+           
+            if (analisis.estado == "Pendiente Acta de Muestreo") {
+                //!elimina del punto 4 al 6
+                $("#informacion_faltante").remove();
                 $("#agregarDatos").hide();
-
-            } else {
-                $("#editarGenerarVersion").hide();
-                $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
-                guardarYFirmarSolicitud = true
-            }
-
-            /*
+            }else{
+                if (analisis.estado !== "Pendiente completar análisis") {
+                    //! Deja generar nueva version
+                    $("#agregarDatos").hide();
+                } 
+                else {
+                    //! llenar del 4 al 6 y firmar
+                    $("#editarGenerarVersion").hide();
+                    $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
+                    guardarYFirmarSolicitud = true
                 }
-            */
+            }
 
             //* I. Análisis:
             $("#version").val(analisis.version);
-
             var arrToSetAnalisis = [{
                     id: 'numero_registro',
                     val: analisis.numero_registro,
@@ -803,12 +801,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             if (status == "error") {
                                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
                             } else {
-                                if (guardarYFirmarSolicitud && idAnalisisExterno > 0) {
-                                    //Todo: redireccion a acta de muestreo
-                                    botones(idAnalisisExterno, 'generar_documento_solicitudes', 'laboratorio')
-                                }else{
                                     carga_listado();
-                                }
                             }
                         });
                     } else {

@@ -93,6 +93,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 return '<span class="badge badge-dark">Expirado</span>';
                             case 'Expirado':
                                 return '<span class="badge badge-dark">Expirado</span>';
+                            case 'Pendiente completar análisis':
+                                return '<span class="badge badge-warning">Pendiente completar análisis</span>';
                             case 'Pendiente Acta de Muestreo':
                                 return '<span class="badge badge-warning">Pendiente Acta de Muestreo</span>';
                             case 'Pendiente de Revisión':
@@ -170,9 +172,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             
             if (d.revisado_por === usuarioActual && d.fecha_firma_revisor === null) {
-                acciones += '<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" id="' 
-                + d.id_analisisExterno + 
-                '" name="firmar_solicitud_analisis_externo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
+                acciones += `<button class="accion-btn" 
+                    title="WIP Firmar Solicitud Análisis Externo" 
+                    id="${d.id_analisisExterno}" 
+                    name="firmar_solicitud_analisis_externo" 
+                    onclick="botones(this.id, this.name, \'laboratorio\')">
+                <i class="fa fa-signature"></i> Firmar</button><a> 
+                </a>`
+                ;
             }
 
             acciones += '</td></tr></table>';

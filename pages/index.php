@@ -18,6 +18,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reccius</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/js/notify.js"></script>
 
     <!-- CSS de Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -51,7 +52,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="../assets/js/jquery.redirect.js"></script>
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <script src="../assets/js/notify.js"></script>
 
 
 </head>
