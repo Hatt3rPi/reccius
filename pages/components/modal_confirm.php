@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -7,6 +6,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
+
 
 $fecha = new DateTime();
 $temp = $fecha->getTimestamp();
@@ -43,7 +43,8 @@ $temp = $fecha->getTimestamp();
             $("#add_contizacion_form_button_<?php echo $temp ?>").on('click', function(event) {
                 try {
                     <?php echo $_POST['button_action'] ?? 'console.log("Aceptar");' ?>
-                    $("#modal_<?php echo $temp ?>").remove();
+
+                    ;$("#modal_<?php echo $temp ?>").remove();
                 } catch (error) {
                     alert("Error: " + error.message);
                 }
