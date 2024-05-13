@@ -130,7 +130,7 @@ function agregarDatosPostFirma($link, $datos)
     }
 
     //nuevo estado 
-    $partesConsulta[] = "estado";
+    $partesConsulta[] = "estado = ?";
     $valoresParaVincular[] = "En proceso de firmas";
     $tipos .= campoTipo("estado");
 
