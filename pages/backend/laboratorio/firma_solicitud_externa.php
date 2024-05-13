@@ -24,7 +24,7 @@ $fechaActual = date('Y-m-d');
 // revisado_por
 
 $queryAnalisisExterno = "SELECT revisado_por, fecha_firma_revisor, estado 
-                          FROM  calidad_solicitudes_externas
+                          FROM  calidad_analisis_externo
                           WHERE id = ?";
 
 $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
