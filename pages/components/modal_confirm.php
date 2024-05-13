@@ -12,7 +12,7 @@ $fecha = new DateTime();
 $temp = $fecha->getTimestamp();
 ?>
 
-<div class="modal" style="background-color: #00000080 !important; display: block;" id="modal_<?php echo $temp ?>" tabindex="-1" role="dialog">
+<div class="modal" id="modal_<?php echo $temp ?>" tabindex="-1" role="dialog" style="background-color: #00000080 !important; display: block; z-index: 5;">
     <div class="modal-dialog  modal-dialog-centered modal-xl modal__dialog">
         <div id="add_contizacion_form_<?php echo $temp ?>" class="modal-content">
             <div class="modal-header">

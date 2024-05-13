@@ -761,7 +761,8 @@ function botones(id, accion, base) {
                         <fieldset class="form-group border-left pl-2 ">
                             <legend class="h6 font-weight-normal">${text}</legend>
                             <div class="form-group">
-                                <input class="form-control mx-0" list="datalist_materia_base_options" 
+                                <input class="form-control mx-0"
+                                readonly
                                 value="${value}">
                             </div>
                         </fieldset>
