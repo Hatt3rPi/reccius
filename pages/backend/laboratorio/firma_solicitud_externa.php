@@ -3,12 +3,15 @@ session_start();
 header('Content-Type: application/json');
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario']) || !isset($_POST['id_analisis_externo'])) {
-    http_response_code(403);
-    echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado o datos insuficientes']);
-    exit;
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+  echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado']);
+  exit;
 }
+if (!isset($_POST['id_analisis_externo'])) {
+  echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes']);
+  exit;
+}
+
 $idAnalisisExterno = intval($_POST['id_analisis_externo']);
 $usuario = $_SESSION['usuario'];
 $fechaActual = date('Y-m-d');
@@ -45,16 +48,16 @@ $fechaFirmaRevisor = $analisis['fecha_firma_revisor'];
 $revisadoPor = $analisis['revisado_por'];
 $estado = $analisis['estado'];
 
-if ($fechaFirmaRevisor !== null){
+if ($fechaFirmaRevisor !== null) {
   echo json_encode(['exito' => false, 'mensaje' => 'Este documento ya ha sido firmado']);
   exit;
 }
-if ($revisadoPor !== $usuario){
+if ($revisadoPor !== $usuario) {
   echo json_encode(['exito' => false, 'mensaje' => 'No puedes firmar esta solicitud de analisis externo']);
   exit;
 }
 
-if ("" !== $estado){
+if ("" !== $estado) {
   echo json_encode(['exito' => false, 'mensaje' => 'No puedes firmar esta solicitud de analisis externo']);
   exit;
 }
@@ -80,4 +83,3 @@ if ($exito) {
   http_response_code(500);
   echo json_encode(['exito' => false, 'mensaje' => 'Error al firmar el documento']);
 }
-?>
