@@ -38,9 +38,15 @@ $temp = $fecha->getTimestamp();
         $(document).ready(function() {
             $('#add_modal_close_<?php echo $temp ?>').on('click', function(event) {
                 $("#modal_<?php echo $temp ?>").remove();
-            })
+            });
+            
             $("#add_contizacion_form_button_<?php echo $temp ?>").on('click', function(event) {
-                <?php echo $_POST['button_action'] ?? 'console.log("Aceptar")' ?>
+                try {
+                    <?php echo $_POST['button_action'] ?? 'console.log("Aceptar");' ?>
+                    $("#modal_<?php echo $temp ?>").remove();
+                } catch (error) {
+                    alert("Error: " + error.message);
+                }
             })
         })
     </script>

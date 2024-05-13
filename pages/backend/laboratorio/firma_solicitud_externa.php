@@ -1,13 +1,13 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-// Verificación básica para asegurarse de que el usuario está autenticado y los datos necesarios están presentes
-if (!isset($_SESSION['usuario']) || 
-    empty($_SESSION['usuario']) || 
-    !isset($_POST['id_analisis_externo'])) 
-{
-    exit('Acceso denegado o datos insuficientes');
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario']) || !isset($_POST['id_analisis_externo'])) {
+    http_response_code(403);
+    echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado o datos insuficientes']);
+    exit;
+
 }
 $idAnalisisExterno = intval($_POST['id_analisis_externo']);
 $usuario = $_SESSION['usuario'];
@@ -77,6 +77,7 @@ if ($exito) {
   // );
   echo json_encode(['exito' => true, 'mensaje' => 'Documento firmado con éxito']);
 } else {
+  http_response_code(500);
   echo json_encode(['exito' => false, 'mensaje' => 'Error al firmar el documento']);
 }
 ?>
