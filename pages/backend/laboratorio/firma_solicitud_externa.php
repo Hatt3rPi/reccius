@@ -56,12 +56,12 @@ if ($fechaFirmaRevisor !== null) {
   exit;
 }
 if ($revisadoPor !== $usuario) {
-  echo json_encode(['exito' => false, 'mensaje' => 'No puedes firmar esta solicitud de analisis externo']);
+  echo json_encode(['exito' => false, 'mensaje' => 'No puedes firmar esta solicitud de análisis externo, ya que no eres un revisor']);
   exit;
 }
 
-if ("" !== $estado) {
-  echo json_encode(['exito' => false, 'mensaje' => 'No puedes firmar esta solicitud de analisis externo']);
+if ("En proceso de firmas" !== $estado) {
+  echo json_encode(['exito' => false, 'mensaje' => 'No puedes firmar esta solicitud de análisis externo, ya que no está en "En proceso de firmas"']);
   exit;
 }
 
