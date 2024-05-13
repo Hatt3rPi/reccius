@@ -7,12 +7,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
   echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado']);
   exit;
 }
-if (!isset($_POST['id_analisis_externo'])) {
-  echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes']);
-  exit;
+
+$input = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($input['id_analisis_externo'])) {
+    echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes']);
+    exit;
 }
 
-$idAnalisisExterno = intval($_POST['id_analisis_externo']);
+$idAnalisisExterno = intval($input['id_analisis_externo']);
 $usuario = $_SESSION['usuario'];
 $fechaActual = date('Y-m-d');
 
