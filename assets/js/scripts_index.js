@@ -823,7 +823,8 @@ async function firmarDocumentoSolicitudExterna(idAnalisisExternoFirmar) {
     }
 
     $.notify("Firma realizada", 'success');
-
+    carga_listado()
+    
   } catch (error) {
     alert("Error: " + error.message);
   }
