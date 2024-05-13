@@ -95,6 +95,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 return '<span class="badge badge-dark">Expirado</span>';
                             case 'Pendiente completar análisis':
                                 return '<span class="badge badge-warning">Pendiente completar análisis</span>';
+                            case 'Pendiente envío a Laboratorio':
+                                return '<span class="badge badge-warning">Pendiente envío a Laboratorio</span>';
+                            case 'En proceso de firmas':
+                                return '<span class="badge badge-warning">En proceso de firmas</span>';
                             case 'Pendiente Acta de Muestreo':
                                 return '<span class="badge badge-warning">Pendiente Acta de Muestreo</span>';
                             case 'Pendiente de Revisión':

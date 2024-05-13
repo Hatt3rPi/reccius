@@ -822,7 +822,7 @@ async function firmarDocumentoSolicitudExterna(idAnalisisExternoFirmar) {
         throw new Error(dataFromResp.mensaje);
     }
 
-    Notify("Firma realizada", null, null, 'success');
+    $.notify("Firma realizada", 'success');
 
   } catch (error) {
     alert("Error: " + error.message);
