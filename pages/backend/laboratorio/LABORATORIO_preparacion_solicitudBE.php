@@ -130,8 +130,8 @@ function agregarDatosPostFirma($link, $datos)
     }
 
     //nuevo estado 
-    $partesConsulta[] = "En proceso de firmas";
-    $valoresParaVincular[] = "estado";
+    $partesConsulta[] = "estado";
+    $valoresParaVincular[] = "En proceso de firmas";
     $tipos .= campoTipo("estado");
 
     // Añadir el ID al final para la cláusula WHERE

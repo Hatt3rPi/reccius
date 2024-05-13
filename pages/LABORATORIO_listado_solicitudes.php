@@ -171,7 +171,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i></button>';
             }
             
-            if (d.revisado_por === usuarioActual && d.fecha_firma_revisor === null) {
+            if (d.revisado_por === usuarioActual && d.fecha_firma_revisor === null && d.estado === "En proceso de firmas") {
                 acciones += `<button class="accion-btn" 
                     title="WIP Firmar Solicitud Análisis Externo" 
                     id="${d.id_analisisExterno}" 
