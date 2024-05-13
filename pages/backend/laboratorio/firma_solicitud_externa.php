@@ -67,7 +67,7 @@ if ("En proceso de firmas" !== $estado) {
 
 
 $query = "UPDATE calidad_analisis_externo 
-            SET fecha_revision = ?, estado='Pendiente envío a Laboratorio' 
+            SET fecha_firma_revisor = ?, estado='Pendiente envío a Laboratorio' 
             WHERE id = ?";
 
 $stmt = mysqli_prepare($link, $query);
