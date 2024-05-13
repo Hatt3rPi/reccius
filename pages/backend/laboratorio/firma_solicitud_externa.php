@@ -68,7 +68,7 @@ if ("En proceso de firmas" !== $estado) {
 
 $query = "UPDATE calidad_solicitudes_externas 
             SET fecha_revision = ?, estado='Pendiente de Aprobación' 
-            WHERE id_especificacion = ?";
+            WHERE id = ?";
 
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, "si", $fechaActual, $idAnalisisExterno);
