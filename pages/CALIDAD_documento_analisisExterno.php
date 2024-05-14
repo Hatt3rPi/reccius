@@ -417,7 +417,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     // Actualizar los inputs con los datos del análisis
                     //TITULO TABLA
-                    $('#nombre_producto').val(primerAnalisis.nombre_producto);
+                    $('#nombre_producto').val(primerAnalisis.prod_nombre_producto
+);
                     $('#Tipo_Producto').val(primerAnalisis.tipo_producto);
                     //TABLA 1
                     $('#laboratorio').val(primerAnalisis.laboratorio);
