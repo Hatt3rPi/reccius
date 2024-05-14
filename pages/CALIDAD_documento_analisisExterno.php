@@ -563,54 +563,54 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const analisis = response.analisis; // Datos del análisis externo
                 if (analisis.length > 0) {
                     const primerAnalisis = analisis[0];
+
+                    // Actualizar los inputs con los datos del análisis
+                    //TITULO TABLA
+                    $('#nombre_producto').val(primerAnalisis.nombre_producto);
+                    $('#Tipo_Producto').val(primerAnalisis.tipo_producto);
+                    //TABLA 1
+                    $('#laboratorio').val(primerAnalisis.laboratorio);
+                    $('#tamano_lote').val(primerAnalisis.tamano_lote);
+                    $('#analisis_segun').val(primerAnalisis.analisis_segun);
+                    $('#numero_documento').val(primerAnalisis.numero_documento);
+
+                    //TABLA 2
+                    $('#formato').val(primerAnalisis.formato);
+                    $('#lote').val(primerAnalisis.lote);
+                    $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                    $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+                    $('#registro_isp').val(primerAnalisis.registro_isp);
+                    $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
+                    $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                    $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
+                    $('#elaborado_por').val(primerAnalisis.elaborado_por);
+                    $('#muestreado_por').val(primerAnalisis.muestreado_por);
+                    $('#observaciones').val(primerAnalisis.observaciones);
+                    $('#numero_pos').val(primerAnalisis.numero_pos);
+                    $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+
+
+
+                    $('#estado').val(primerAnalisis.estado);
+                    $('#numero_registro').val(primerAnalisis.numero_registro);
+                    $('#version').val(primerAnalisis.version);
+                    $('#numero_solicitud').val(primerAnalisis.numero_solicitud);
+                    $('#fecha_registro').val(primerAnalisis.fecha_registro);
+                    $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
+
+
+
+                    $('#fecha_cotizacion').val(primerAnalisis.fecha_cotizacion);
+                    $('#estandar_segun').val(primerAnalisis.estandar_segun);
+                    $('#estandar_otro').val(primerAnalisis.estandar_otro);
+                    $('#hds_adjunto').val(primerAnalisis.hds_adjunto);
+                    $('#hds_otro').val(primerAnalisis.hds_otro);
+                    $('#fecha_entrega').val(primerAnalisis.fecha_entrega);
+                    $('#fecha_entrega_estimada').val(primerAnalisis.fecha_entrega_estimada);
+
+                    $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
+
                 }
-                // Actualizar los inputs con los datos del análisis
-                //TITULO TABLA
-                $('#nombre_producto').val(primerAnalisis.nombre_producto);
-                $('#Tipo_Producto').val(primerAnalisis.tipo_producto);
-                //TABLA 1
-                $('#laboratorio').val(primerAnalisis.laboratorio);
-                $('#tamano_lote').val(primerAnalisis.tamano_lote);
-                $('#analisis_segun').val(primerAnalisis.analisis_segun);
-                $('#numero_documento').val(primerAnalisis.numero_documento);
-
-                //TABLA 2
-                $('#formato').val(primerAnalisis.formato);
-                $('#lote').val(primerAnalisis.lote);
-                $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
-                $('#registro_isp').val(primerAnalisis.registro_isp);
-                $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
-                $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
-                $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
-                $('#elaborado_por').val(primerAnalisis.elaborado_por);
-                $('#muestreado_por').val(primerAnalisis.muestreado_por);
-                $('#observaciones').val(primerAnalisis.observaciones);
-                $('#numero_pos').val(primerAnalisis.numero_pos);
-                $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
-
-
-
-                $('#estado').val(primerAnalisis.estado);
-                $('#numero_registro').val(primerAnalisis.numero_registro);
-                $('#version').val(primerAnalisis.version);
-                $('#numero_solicitud').val(primerAnalisis.numero_solicitud);
-                $('#fecha_registro').val(primerAnalisis.fecha_registro);
-                $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
-
-
-
-                $('#fecha_cotizacion').val(primerAnalisis.fecha_cotizacion);
-                $('#estandar_segun').val(primerAnalisis.estandar_segun);
-                $('#estandar_otro').val(primerAnalisis.estandar_otro);
-                $('#hds_adjunto').val(primerAnalisis.hds_adjunto);
-                $('#hds_otro').val(primerAnalisis.hds_otro);
-                $('#fecha_entrega').val(primerAnalisis.fecha_entrega);
-                $('#fecha_entrega_estimada').val(primerAnalisis.fecha_entrega_estimada);
-
-                $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
-
-
                 if (d.revisado_por === usuarioActual && d.fecha_firma_revisor === null && d.estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
                     $("#FirmaAnalisisExternoRevisor").click(function() {
