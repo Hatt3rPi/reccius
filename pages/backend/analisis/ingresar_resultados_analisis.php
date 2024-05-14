@@ -24,6 +24,7 @@ $queryAnalisisExterno = "SELECT
                         FROM calidad_analisis_externo AS an
 
                         JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
+                        JOIN calidad_productos AS prod ON es.id_producto = prod.id
 
                         JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
 
