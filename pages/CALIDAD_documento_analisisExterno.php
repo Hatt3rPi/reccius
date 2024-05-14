@@ -457,10 +457,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm',
+            const imgData = canvas.toDataURL('image/png');merge
                 format: 'a4'
             });
 
@@ -611,7 +608,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
 
                 }
-                if (d.revisado_por === usuarioActual && d.fecha_firma_revisor === null && d.estado === "En proceso de firmas") {
+                if (analisis.revisado_por === usuarioActual && analisis.fecha_firma_revisor === null && analisis.estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
                     $("#FirmaAnalisisExternoRevisor").click(function() {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
