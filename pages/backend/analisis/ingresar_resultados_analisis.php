@@ -22,20 +22,15 @@ $queryAnalisisExterno = "SELECT
                             anali.metodologia AS 'anali_metodologia',
                             anali.descripcion_analisis AS 'anali_descripcion_analisis',
                             anali.criterios_aceptacion AS 'anali_criterios_aceptacion'
-
                         FROM calidad_analisis_externo AS an
-
                         JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
                         JOIN calidad_productos AS prod ON es.id_producto = prod.id
-
                         JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
-
                         WHERE an.id = ?";
 
+$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno = ?";
 
-$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno= ?";
-
-//queryAnalisisExterno
+// queryAnalisisExterno
 $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
 if (!$stmtAnali) {
     die("Error en mysqli_prepare (queryAnalisisExterno): " . mysqli_error($link));
@@ -44,14 +39,25 @@ mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
 mysqli_stmt_execute($stmtAnali);
 
 $analisis = [];
+$analiDatos = [];
 $resultAnali = mysqli_stmt_get_result($stmtAnali);
 while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
     $analisis[] = $rowAnali;
+
+    // Extraer datos con prefijo "anali_"
+    $analiItem = [];
+    foreach ($rowAnali as $key => $value) {
+        if (strpos($key, 'anali_') === 0) {
+            $analiItem[$key] = $value;
+        }
+    }
+    if (!empty($analiItem)) {
+        $analiDatos[] = $analiItem;
+    }
 }
 mysqli_stmt_close($stmtAnali);
 
-
-//queryActaMuestreo
+// queryActaMuestreo
 $analisisActaMuestreo = [];
 
 $stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo);
@@ -71,24 +77,12 @@ while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
 
 mysqli_stmt_close($stmtActaMuestreo);
 
-
 mysqli_close($link);
-
-// Agrupar todos los análisis con prefijo "anali"
-$analisisAgrupados = [];
-foreach ($analisis as $item) {
-    $analiItem = [];
-    foreach ($item as $key => $value) {
-        if (strpos($key, 'anali_') === 0) {
-            $analiItem[$key] = $value;
-        }
-    }
-    if (!empty($analiItem)) {
-        $analisisAgrupados[] = $analiItem;
-    }
-}
 
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisisAgrupados], JSON_UNESCAPED_UNICODE);
-?>
+echo json_encode([
+    'Acta_Muestreo' => array_values($analisisActaMuestreo),
+    'analisis' => $analisis,
+    'analiDatos' => $analiDatos
+], JSON_UNESCAPED_UNICODE);
