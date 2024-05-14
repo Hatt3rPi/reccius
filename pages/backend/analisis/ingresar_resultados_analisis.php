@@ -2,9 +2,10 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-// Validación y saneamiento del ID del análisis externo
-$id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
+// Validación y saneamiento del ID
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
+// Consulta para obtener los productos, especificaciones y análisis asociados
 $queryAnalisisExterno = "SELECT 
                             an.*,
                             prod.identificador_producto AS 'prod_identificador_producto', 
@@ -14,52 +15,34 @@ $queryAnalisisExterno = "SELECT
                             prod.concentracion AS 'prod_concentracion', 
                             prod.formato AS 'prod_formato', 
                             prod.elaborado_por AS 'prod_elaborado_por',
-                            can.id_analisis,
-                            can.tipo_analisis,
-                            can.descripcion_analisis,
-                            can.metodologia, 
-                            can.criterios_aceptacion
+                            cep.id_especificacion AS 'cep_id_especificacion',
+                            cep.version AS 'cep_version',
+                            cep.vigencia AS 'cep_vigencia',
+                            cep.creado_por AS 'cep_creado_por',
+                            cep.revisado_por AS 'cep_revisado_por',
+                            cep.aprobado_por AS 'cep_aprobado_por'
                         FROM calidad_analisis_externo AS an
                         JOIN calidad_productos AS prod ON an.id_producto = prod.id
-                        LEFT JOIN calidad_analisis AS can ON an.id = can.id_analisis_externo
+                        JOIN calidad_especificacion_productos AS cep ON cep.id_producto = prod.id
                         WHERE an.id = ?";
 
-// Preparar la consulta y verificar errores
-if ($stmtAnali = mysqli_prepare($link, $queryAnalisisExterno)) {
-    mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
-    mysqli_stmt_execute($stmtAnali);
+$stmt = mysqli_prepare($link, $queryAnalisisExterno);
+if (!$stmt) {
+    die('Error en la preparación de la consulta: ' . mysqli_error($link));
+}
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
-    $analisis = [];
-    $resultAnali = mysqli_stmt_get_result($stmtAnali);
-    if ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
-        $analisis = $rowAnali;
-    }
-    mysqli_stmt_close($stmtAnali);
-} else {
-    // Manejo de errores en la preparación de la consulta
-    die("Error en la preparación de la consulta: " . mysqli_error($link));
+$productos = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    // Procesamiento de resultados
 }
 
-// Consulta para obtener datos de calidad_acta_muestreo
-$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno= ?";
-if ($stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo)) {
-    mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
-    mysqli_stmt_execute($stmtActaMuestreo);
-
-    $analisisActaMuestreo = [];
-    $resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
-    while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
-        $analisisActaMuestreo[] = $row;
-    }
-    mysqli_stmt_close($stmtActaMuestreo);
-} else {
-    // Manejo de errores en la preparación de la consulta
-    die("Error en la preparación de la consulta: " . mysqli_error($link));
-}
-
+mysqli_stmt_close($stmt);
 mysqli_close($link);
 
-// Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
+echo json_encode(['productos' => array_values($productos)], JSON_UNESCAPED_UNICODE);
 ?>
