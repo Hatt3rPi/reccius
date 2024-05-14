@@ -498,7 +498,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </script>
 <script>
     // Declarar la variable primeravez
-    let primeravez = false;
+    var primeravez = false;
 
     // Función para cambiar el estado de primeravez y actualizar la visibilidad de la columna
     function cambio() {
