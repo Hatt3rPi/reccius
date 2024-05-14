@@ -20,10 +20,13 @@ $queryAnalisisExterno = "SELECT
                             anali.id_analisis AS 'anali_id_analisis', 
                             anali.tipo_analisis AS 'anali_tipo_analisis', 
                             anali.metodologia AS 'anali_metodologia'
+
                         FROM calidad_analisis_externo AS an
-                        JOIN calidad_productos AS prod ON an.id_producto = prod.id
-                        JOIN calidad_especificacion_productos AS es ON prod.id = es.id_producto
+
+                        JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
+
                         JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
+
                         WHERE an.id = ?";
 
 
@@ -53,7 +56,6 @@ mysqli_stmt_execute($stmtActaMuestreo);
 $resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
 while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
     $analisisActaMuestreo[] = $row;
-
 }
 
 mysqli_stmt_close($stmtActaMuestreo);
@@ -64,5 +66,3 @@ mysqli_close($link);
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
-
-?>
