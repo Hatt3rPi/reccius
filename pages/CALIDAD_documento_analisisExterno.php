@@ -208,162 +208,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </form>
             <form>
-                <table>
+            <table id="analisis-solicitados">
                     <tr>
-                        <td class="Subtitulos" colspan="4">
-                            III. ANÁLISIS SOLICITADOS</td>
+                        <td class="Subtitulos" colspan="4">III. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
                         <th>Análisis</th>
                         <th>Metodología</th>
                         <th>Especificación</th>
                         <th class="revision">Revisión</th>
-
                     </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Apariencia:</td>
-                        <td class="Metod" id="Metod_Apariencia">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Metod_Especs">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Identificación:</td>
-                        <td class="Metod" id="Metod_Identificacion">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Identificacion">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Valoración:</td>
-                        <td class="Metod" id="Metod_Valoracion">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Valoracion">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">pH:</td>
-                        <td class="Metod" id="Metod_pH">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_pH">Solución límpida, transparente, de color ligeramente amarillo,
-                            inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Volumen extraíble:</td>
-                        <td class="Metod" id="Metod_VolumenExtraible">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_VolumenExtraible">Solución límpida, transparente, de color
-                            ligeramente amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Densidad y Osmoralidad:</td>
-                        <td class="Metod" id="Metod_DyO">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_DyO">Solución límpida, transparente, de color ligeramente amarillo,
-                            inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Límite de Oxalato:</td>
-                        <td class="Metod" id="Metod_Oxalato">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Oxalato">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Material Particulado:</td>
-                        <td class="Metod" id="Metod_Mparticulado">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Mparticulado">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Material Sub-Particulado:</td>
-                        <td class="Metod" id="Metod_Msubparticulado">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Msubparticulado">Solución límpida, transparente, de color
-                            ligeramente amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Esterilidad:</td>
-                        <td class="Metod" id="Metod_Esterilidad">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Esterilidad">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <td class="tituloTabla">Endotoxinas:</td>
-                        <td class="Metod" id="Metod_Endotoxinas">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Endotoxinas">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
-                        </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision ">no cumple</span>
-                        </td>
-                    </tr>
-                    <!-- ... -->
                 </table>
 
             </form>
@@ -614,6 +468,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
                     });
                 }
+                
+                // Poblar la tabla III. ANÁLISIS SOLICITADOS
+                const analisisSolicitados = response.analiDatos;
+                const table = $('#analisis-solicitados');
+
+                analisisSolicitados.forEach(function(analisis) {
+                    const row = `<tr class="bordeAbajo">
+                        <td class="tituloTabla">${analisis.anali_tipo_analisis}:</td>
+                        <td class="Metod">${analisis.anali_metodologia}</td>
+                        <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="revision">
+                            <input type="checkbox" class="checkmark">
+                            <span class="tamañoRevision">cumple</span>
+                            <br>
+                            <input type="checkbox" class="checkmark">
+                            <span class="tamañoRevision">no cumple</span>
+                        </td>
+                    </tr>`;
+                    table.append(row);
+                });
+
 
 
                 // etc., continúa para otros campos según sea necesario
