@@ -34,6 +34,9 @@ $queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExter
 
 //queryAnalisisExterno
 $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
+if (!$stmtAnali) {
+    die("Error en mysqli_prepare (queryAnalisisExterno): " . mysqli_error($link));
+}
 mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
 mysqli_stmt_execute($stmtAnali);
 
@@ -50,7 +53,13 @@ mysqli_stmt_close($stmtAnali);
 $analisisActaMuestreo = [];
 
 $stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo);
+if (!$stmtActaMuestreo) {
+    die("Error en mysqli_prepare (queryActaMuestreo): " . mysqli_error($link));
+}
 mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
+if (!mysqli_stmt_execute($stmtActaMuestreo)) {
+    die("Error en mysqli_stmt_execute (queryActaMuestreo): " . mysqli_stmt_error($stmtActaMuestreo));
+}
 mysqli_stmt_execute($stmtActaMuestreo);
 
 $resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
