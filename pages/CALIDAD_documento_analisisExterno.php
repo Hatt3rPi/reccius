@@ -475,7 +475,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 analisisSolicitados.forEach(function(analisis) {
                     const row = `<tr class="bordeAbajo">
-                        <td class="tituloTabla">${analisis.anali_metodologia}:</td>
+                        <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
                         <td class="revision">
