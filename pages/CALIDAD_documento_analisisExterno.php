@@ -616,7 +616,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Opcional: Si también necesitas poblar datos desde Acta Muestreo
                 if (response.Acta_Muestreo && response.Acta_Muestreo.length > 0) {
                     // Puedes poblar datos adicionales o manejar múltiples actas de muestreo
-                    console.log(data.productos);
+                    console.log(analisis.productos);
                 }
             },
             error: function(xhr, status, error) {
