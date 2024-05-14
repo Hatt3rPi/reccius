@@ -28,7 +28,10 @@ $queryAnalisisExterno = "SELECT
                         JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
                         WHERE an.id = ?";
 
-$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno = ?";
+$queryUltimaActaMuestreo = "SELECT * FROM calidad_acta_muestreo 
+                            WHERE id_analisisExterno = ? 
+                            ORDER BY fecha_muestreo DESC 
+                            LIMIT 1";
 
 // queryAnalisisExterno
 $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
@@ -66,32 +69,32 @@ while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
 }
 mysqli_stmt_close($stmtAnali);
 
-// queryActaMuestreo
-$analisisActaMuestreo = [];
+// queryUltimaActaMuestreo
+$ultimaActaMuestreo = [];
 
-$stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo);
-if (!$stmtActaMuestreo) {
-    die("Error en mysqli_prepare (queryActaMuestreo): " . mysqli_error($link));
+$stmtUltimaActaMuestreo = mysqli_prepare($link, $queryUltimaActaMuestreo);
+if (!$stmtUltimaActaMuestreo) {
+    die("Error en mysqli_prepare (queryUltimaActaMuestreo): " . mysqli_error($link));
 }
-mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
-if (!mysqli_stmt_execute($stmtActaMuestreo)) {
-    die("Error en mysqli_stmt_execute (queryActaMuestreo): " . mysqli_stmt_error($stmtActaMuestreo));
+mysqli_stmt_bind_param($stmtUltimaActaMuestreo, "i", $id_acta);
+if (!mysqli_stmt_execute($stmtUltimaActaMuestreo)) {
+    die("Error en mysqli_stmt_execute (queryUltimaActaMuestreo): " . mysqli_stmt_error($stmtUltimaActaMuestreo));
 }
-mysqli_stmt_execute($stmtActaMuestreo);
+mysqli_stmt_execute($stmtUltimaActaMuestreo);
 
-$resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
-while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
-    $analisisActaMuestreo[] = $row;
+$resultUltimaActaMuestreo = mysqli_stmt_get_result($stmtUltimaActaMuestreo);
+while ($row = mysqli_fetch_assoc($resultUltimaActaMuestreo)) {
+    $ultimaActaMuestreo[] = $row;
 }
 
-mysqli_stmt_close($stmtActaMuestreo);
+mysqli_stmt_close($stmtUltimaActaMuestreo);
 
 mysqli_close($link);
 
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
-    'Acta_Muestreo' => array_values($analisisActaMuestreo), 
+    'Acta_Muestreo' => array_values($ultimaActaMuestreo), 
     'analisis' => $analisis,
     'analiDatos' => $analiDatos
 ], JSON_UNESCAPED_UNICODE);
