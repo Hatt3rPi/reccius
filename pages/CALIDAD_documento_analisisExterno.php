@@ -416,10 +416,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     const primerAnalisis = analisis[0];
 
                     // Actualizar los inputs con los datos del análisis
+                    //TABLA HEADER
+                    $('#version').val(primerAnalisis.version);
                     //TITULO TABLA
                     $('#nombre_producto').val(primerAnalisis.prod_nombre_producto
 );
-                    $('#Tipo_Producto').val(primerAnalisis.tipo_producto);
+                    $('#Tipo_Producto').val(primerAnalisis.prod_tipo_producto);
                     //TABLA 1
                     $('#laboratorio').val(primerAnalisis.laboratorio);
                     $('#tamano_lote').val(primerAnalisis.tamano_lote);
