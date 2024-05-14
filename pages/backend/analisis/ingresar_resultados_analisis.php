@@ -40,6 +40,7 @@ mysqli_stmt_execute($stmtAnali);
 
 $analisis = [];
 $analiDatos = [];
+$seenAnalisis = [];
 $resultAnali = mysqli_stmt_get_result($stmtAnali);
 while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
     $filteredRow = [];
@@ -53,9 +54,12 @@ while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
         }
     }
 
-    if (!empty($filteredRow)) {
+    // Use the 'id' field to check for duplicates
+    if (!isset($seenAnalisis[$rowAnali['id']])) {
         $analisis[] = $filteredRow;
+        $seenAnalisis[$rowAnali['id']] = true;
     }
+
     if (!empty($analiItem)) {
         $analiDatos[] = $analiItem;
     }
