@@ -28,10 +28,7 @@ $queryAnalisisExterno = "SELECT
                         JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
                         WHERE an.id = ?";
 
-$queryUltimaActaMuestreo = "SELECT * FROM calidad_acta_muestreo 
-                            WHERE id_analisisExterno = ? AND estado = 'Vigente' 
-                            ORDER BY fecha_muestreo DESC 
-                            LIMIT 1";
+$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno = ?";
 
 // queryAnalisisExterno
 $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
