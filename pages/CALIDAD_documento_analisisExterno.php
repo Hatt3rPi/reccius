@@ -608,7 +608,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
 
                 }
-                if (primerAnalisis.revisado_por === usuarioActual && primerAnalisis.fecha_firma_revisor === null && primerAnalisis.estado === "En proceso de firmas") {
+                if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
                     $("#FirmaAnalisisExternoRevisor").click(function() {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
