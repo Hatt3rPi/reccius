@@ -1,11 +1,4 @@
 <?php
-session_start();
-require_once "/home/customw2/conexiones/config_reccius.php";
-
-// Validación y saneamiento del ID
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-// Consulta para obtener los análisis externos con productos y especificaciones asociados
 $queryAnalisisExterno = "
 SELECT 
     an.*,
@@ -37,7 +30,6 @@ $stmt = mysqli_prepare($link, $queryAnalisisExterno);
 if ($stmt === false) {
     die('Error en la preparación de la consulta: ' . mysqli_error($link));
 }
-
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
