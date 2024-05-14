@@ -170,9 +170,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td><input type="text" id="tamano_muestra" name="tamano_muestra" required></td>
                     </tr>
                     <tr>
-                        <td class="titulo">5. Condic. almacenamiento</td>
-                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
-                        </td>
+                        <td class="titulo">5. Muestreado según POS:</td>
+                        <td><input type="text" id="numero_pos" name="numero_pos" required></td>
                         <td class="titulo titulo-right">14. Cta.muestra</td>
                         <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
                     </tr>
@@ -185,14 +184,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">7. Muestreado por:</td>
                         <td><input type="text" id="muestreado_por" name="muestreado_por" required></td>
-                        <td class="titulo titulo-right">Observaciones:</td>
-                        <td><textarea id="observaciones" name="observaciones" required></textarea></td>
+                        
 
                     </tr>
                     <tr>
-                        <td class="titulo">8. Muestreado según POS:</td>
-                        <td><input type="text" id="numero_pos" name="numero_pos" required></td>
-
+                        
+                        <td class="titulo">8. Condic. almacenamiento</td>
+                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
+                        </td>
+                        <td class="titulo titulo-right">Observaciones:</td>
+                        <td><textarea id="observaciones" name="observaciones" required></textarea></td>
 
                     </tr>
                     <tr>
