@@ -219,9 +219,12 @@ p {
 }
 
 th {
-    background-color: #8eb0d6;
+    background-color: #0047b3;
     text-align: center;
+    color: white;
+    padding: 8px;
 }
+
 
 table {
     width: 100%;
