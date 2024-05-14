@@ -42,14 +42,19 @@ $analisis = [];
 $analiDatos = [];
 $resultAnali = mysqli_stmt_get_result($stmtAnali);
 while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
-    $analisis[] = $rowAnali;
-
-    // Extraer datos con prefijo "anali_"
+    $filteredRow = [];
     $analiItem = [];
+
     foreach ($rowAnali as $key => $value) {
         if (strpos($key, 'anali_') === 0) {
             $analiItem[$key] = $value;
+        } else {
+            $filteredRow[$key] = $value;
         }
+    }
+
+    if (!empty($filteredRow)) {
+        $analisis[] = $filteredRow;
     }
     if (!empty($analiItem)) {
         $analiDatos[] = $analiItem;
@@ -82,7 +87,8 @@ mysqli_close($link);
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
-    'Acta_Muestreo' => array_values($analisisActaMuestreo),
+    'Acta_Muestreo' => array_values($analisisActaMuestreo), 
     'analisis' => $analisis,
     'analiDatos' => $analiDatos
 ], JSON_UNESCAPED_UNICODE);
+?>
