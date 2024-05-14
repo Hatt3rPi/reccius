@@ -620,6 +620,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             },
             error: function(xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
+                console.error('AJAX error: ' + textStatus + ' : ' + errorThrown);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
         });
