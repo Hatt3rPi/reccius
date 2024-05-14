@@ -33,7 +33,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </head>
 
 <body>
-    <div id="form-container" class="form-container formpadding">
+    <div id="form-container" class="form-container formpadding"  style="margin: 0 auto;">
         <div id="Maincontainer">
             <!-- Header -->
             <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
@@ -545,8 +545,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Cargar datos iniciales
         loadData();
     });
-
+    var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
     function loadData() {
@@ -606,6 +607,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 $('#tipo_analisis').val(analisis.tipo_analisis);
 
+                
+                if(d.revisado_por === usuarioActual && d.fecha_firma_revisor === null && d.estado === "En proceso de firmas"){
+                    $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
+                    $("#FirmaAnalisisExternoRevisor").click(function() {
+                        firmarDocumentoSolicitudExterna(idAnalisisExterno);
+                    });
+                }
+                
+                
+                // etc., continúa para otros campos según sea necesario
+
+                // Opcional: Si también necesitas poblar datos desde Acta Muestreo
+                if (response.Acta_Muestreo && response.Acta_Muestreo.length > 0) {
+                    // Puedes poblar datos adicionales o manejar múltiples actas de muestreo
+                }
             },
             error: function(xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);

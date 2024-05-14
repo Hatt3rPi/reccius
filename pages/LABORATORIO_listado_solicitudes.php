@@ -176,14 +176,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             
             if (d.revisado_por === usuarioActual && d.fecha_firma_revisor === null && d.estado === "En proceso de firmas") {
-                acciones += `<button class="accion-btn" 
+                acciones += `<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" 
+                id="${d.id_analisisExterno}" 
+                name="generar_documento_solicitudes" 
+                onclick="botones(this.id, this.name, \'laboratorio\')">
+                <i class="fa fa-file-pdf-o"></i></button><a></a>`;
+                
+                /*`<button class="accion-btn" 
                     title="WIP Firmar Solicitud Análisis Externo" 
                     id="${d.id_analisisExterno}" 
                     name="firmar_solicitud_analisis_externo" 
                     onclick="botones(this.id, this.name, \'laboratorio\')">
                 <i class="fa fa-signature"></i> Firmar</button><a> 
-                </a>`
-                ;
+                </a>`*/
             }
 
             acciones += '</td></tr></table>';

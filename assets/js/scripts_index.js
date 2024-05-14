@@ -801,8 +801,6 @@ function botones(id, accion, base) {
 
 
 async function firmarDocumentoSolicitudExterna(idAnalisisExternoFirmar) {
-  //Todo: notificar cuando la firma sea exitosa
-  console.log("Firmando el documento con ID:", idAnalisisExternoFirmar);
   try {
     const responseFirmaSolicitudExterna = await fetch(`./backend/laboratorio/firma_solicitud_externa.php`, {
         method: 'POST',
