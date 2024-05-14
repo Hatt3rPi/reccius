@@ -19,7 +19,9 @@ $queryAnalisisExterno = "SELECT
                             es.version AS 'es_version', 
                             anali.id_analisis AS 'anali_id_analisis', 
                             anali.tipo_analisis AS 'anali_tipo_analisis', 
-                            anali.metodologia AS 'anali_metodologia'
+                            anali.metodologia AS 'anali_metodologia',
+                            anali.descripcion_analisis AS 'anali_descripcion_analisis',
+                            anali.criterios_aceptacion AS 'anali_criterios_aceptacion',
 
                         FROM calidad_analisis_externo AS an
 
