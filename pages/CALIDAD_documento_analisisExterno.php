@@ -494,7 +494,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         });
-    });
+    
 </script>
 <script>
     // Declarar la variable primeravez
