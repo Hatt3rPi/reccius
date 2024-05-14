@@ -606,18 +606,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 $('#tipo_analisis').val(analisis.tipo_analisis);
 
-
-
-
-
-
-                // etc., continúa para otros campos según sea necesario
-
-                // Opcional: Si también necesitas poblar datos desde Acta Muestreo
-                if (response.Acta_Muestreo && response.Acta_Muestreo.length > 0) {
-                    // Puedes poblar datos adicionales o manejar múltiples actas de muestreo
-                    console.log(analisis.productos);
-                }
             },
             error: function(xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
