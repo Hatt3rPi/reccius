@@ -24,31 +24,39 @@ $queryAnalisisExterno = "SELECT
                         LEFT JOIN calidad_analisis AS can ON an.id = can.id_analisis_externo
                         WHERE an.id = ?";
 
-$stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
-mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
-mysqli_stmt_execute($stmtAnali);
+// Preparar la consulta y verificar errores
+if ($stmtAnali = mysqli_prepare($link, $queryAnalisisExterno)) {
+    mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
+    mysqli_stmt_execute($stmtAnali);
 
-$analisis = [];
-
-$resultAnali = mysqli_stmt_get_result($stmtAnali);
-if ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
-    $analisis = $rowAnali;
+    $analisis = [];
+    $resultAnali = mysqli_stmt_get_result($stmtAnali);
+    if ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
+        $analisis = $rowAnali;
+    }
+    mysqli_stmt_close($stmtAnali);
+} else {
+    // Manejo de errores en la preparación de la consulta
+    die("Error en la preparación de la consulta: " . mysqli_error($link));
 }
-mysqli_stmt_close($stmtAnali);
 
-// Consulta para obtener datos de calidad_acta_muestreo (si es necesario)
+// Consulta para obtener datos de calidad_acta_muestreo
 $queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno= ?";
-$stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo);
-mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
-mysqli_stmt_execute($stmtActaMuestreo);
+if ($stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo)) {
+    mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
+    mysqli_stmt_execute($stmtActaMuestreo);
 
-$analisisActaMuestreo = [];
-$resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
-while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
-    $analisisActaMuestreo[] = $row;
+    $analisisActaMuestreo = [];
+    $resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
+    while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
+        $analisisActaMuestreo[] = $row;
+    }
+    mysqli_stmt_close($stmtActaMuestreo);
+} else {
+    // Manejo de errores en la preparación de la consulta
+    die("Error en la preparación de la consulta: " . mysqli_error($link));
 }
 
-mysqli_stmt_close($stmtActaMuestreo);
 mysqli_close($link);
 
 // Enviar los datos en formato JSON
