@@ -44,10 +44,9 @@ mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
 mysqli_stmt_execute($stmtAnali);
 
 $analisis = [];
-
 $resultAnali = mysqli_stmt_get_result($stmtAnali);
-if ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
-    $analisis = $rowAnali;
+while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
+    $analisis[] = $rowAnali;
 }
 mysqli_stmt_close($stmtAnali);
 
@@ -78,3 +77,4 @@ mysqli_close($link);
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
+
