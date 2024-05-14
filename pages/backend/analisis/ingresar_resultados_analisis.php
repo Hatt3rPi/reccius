@@ -74,7 +74,21 @@ mysqli_stmt_close($stmtActaMuestreo);
 
 mysqli_close($link);
 
+// Agrupar todos los análisis con prefijo "anali"
+$analisisAgrupados = [];
+foreach ($analisis as $item) {
+    $analiItem = [];
+    foreach ($item as $key => $value) {
+        if (strpos($key, 'anali_') === 0) {
+            $analiItem[$key] = $value;
+        }
+    }
+    if (!empty($analiItem)) {
+        $analisisAgrupados[] = $analiItem;
+    }
+}
+
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisis], JSON_UNESCAPED_UNICODE);
-
+echo json_encode(['Acta_Muestreo' => array_values($analisisActaMuestreo), 'analisis' => $analisisAgrupados], JSON_UNESCAPED_UNICODE);
+?>
