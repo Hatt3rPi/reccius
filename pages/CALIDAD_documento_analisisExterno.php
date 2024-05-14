@@ -163,9 +163,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </tr>
                     <tr>
-                        <td class="titulo">4. Registro I.S.P:</td>
-                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
-                        
+                        <td class="titulo">4. Código:</td>
+                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
+
                         <td class="titulo titulo-right">13. Muestra:</td>
                         <td><input type="text" id="tamano_muestra" name="tamano_muestra" required></td>
                     </tr>
@@ -196,8 +196,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </tr>
                     <tr>
-                        <td class="titulo">9. Código:</td>
-                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
+
+                        <td class="titulo">9. Registro I.S.P:</td>
+                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
 
 
                     </tr>
@@ -551,8 +552,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $.ajax({
             url: './backend/analisis/ingresar_resultados_analisis.php',
             type: 'GET',
-            data: { id_acta: idAnalisisExterno },
-            dataType: 'json',  // Asegúrate de que la respuesta esperada es JSON
+            data: {
+                id_acta: idAnalisisExterno
+            },
+            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
             success: function(response) {
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
@@ -573,7 +576,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $('#fecha_vencimiento').val(analisis.fecha_vencimiento);
                 $('#registro_isp').val(analisis.registro_isp);
                 $('#tamano_muestra').val(analisis.tamano_muestra);
-                $('#condicion_almacenamiento').val(analisis.condicion_almacenamiento); 
+                $('#condicion_almacenamiento').val(analisis.condicion_almacenamiento);
                 $('#tamano_contramuestra').val(analisis.tamano_contramuestra);
                 $('#elaborado_por').val(analisis.elaborado_por);
                 $('#muestreado_por').val(analisis.muestreado_por);
@@ -583,15 +586,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-                $('#estado').val(analisis.estado); 
+                $('#estado').val(analisis.estado);
                 $('#numero_registro').val(analisis.numero_registro);
                 $('#version').val(analisis.version);
                 $('#numero_solicitud').val(analisis.numero_solicitud);
                 $('#fecha_registro').val(analisis.fecha_registro);
                 $('#fecha_solicitud').val(analisis.fecha_solicitud);
 
-                
-                
+
+
                 $('#fecha_cotizacion').val(analisis.fecha_cotizacion);
                 $('#estandar_segun').val(analisis.estandar_segun);
                 $('#estandar_otro').val(analisis.estandar_otro);
@@ -599,14 +602,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $('#hds_otro').val(analisis.hds_otro);
                 $('#fecha_entrega').val(analisis.fecha_entrega);
                 $('#fecha_entrega_estimada').val(analisis.fecha_entrega_estimada);
-                
-                $('#tipo_analisis').val(analisis.tipo_analisis);
-                
 
-                
-                
-                
-                
+                $('#tipo_analisis').val(analisis.tipo_analisis);
+
+
+
+
+
+
                 // etc., continúa para otros campos según sea necesario
 
                 // Opcional: Si también necesitas poblar datos desde Acta Muestreo

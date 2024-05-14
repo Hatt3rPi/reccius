@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -151,16 +163,15 @@
 
                     </tr>
                     <tr>
-                        <td class="titulo">4. Registro I.S.P:</td>
-                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
-                        
+                        <td class="titulo">4. Código:</td>
+                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
+
                         <td class="titulo titulo-right">13. Muestra:</td>
                         <td><input type="text" id="tamano_muestra" name="tamano_muestra" required></td>
                     </tr>
                     <tr>
-                        <td class="titulo">5. Condic. almacenamiento</td>
-                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
-                        </td>
+                        <td class="titulo">5. Muestreado según POS:</td>
+                        <td><input type="text" id="numero_pos" name="numero_pos" required></td>
                         <td class="titulo titulo-right">14. Cta.muestra</td>
                         <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
                     </tr>
@@ -173,19 +184,22 @@
                     <tr>
                         <td class="titulo">7. Muestreado por:</td>
                         <td><input type="text" id="muestreado_por" name="muestreado_por" required></td>
+                        
+
+                    </tr>
+                    <tr>
+                        
+                        <td class="titulo">8. Condic. almacenamiento</td>
+                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
+                        </td>
                         <td class="titulo titulo-right">Observaciones:</td>
                         <td><textarea id="observaciones" name="observaciones" required></textarea></td>
 
                     </tr>
                     <tr>
-                        <td class="titulo">8. Muestreado según POS:</td>
-                        <td><input type="text" id="numero_pos" name="numero_pos" required></td>
 
-
-                    </tr>
-                    <tr>
-                        <td class="titulo">9. Código:</td>
-                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
+                        <td class="titulo">9. Registro I.S.P:</td>
+                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
 
 
                     </tr>
@@ -524,5 +538,90 @@
                 revisionHeader.style.display = '';
             }
         }
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        // Cargar datos iniciales
+        loadData();
+    });
+
+    var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+    console.log("ID Analisis Externo:", idAnalisisExterno);
+
+    function loadData() {
+        $.ajax({
+            url: './backend/analisis/ingresar_resultados_analisis.php',
+            type: 'GET',
+            data: {
+                id_acta: idAnalisisExterno
+            },
+            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+            success: function(response) {
+                // Suponiendo que la respuesta tiene dos partes principales
+                const analisis = response.analisis; // Datos del análisis externo
+                // Actualizar los inputs con los datos del análisis
+                //TITULO TABLA
+                $('#nombre_producto').val(analisis.nombre_producto);
+                $('#Tipo_Producto').val(analisis.tipo_producto);
+                //TABLA 1
+                $('#laboratorio').val(analisis.laboratorio);
+                $('#tamano_lote').val(analisis.tamano_lote);
+                $('#analisis_segun').val(analisis.analisis_segun);
+                $('#numero_documento').val(analisis.numero_documento);
+
+                //TABLA 2
+                $('#formato').val(analisis.formato);
+                $('#lote').val(analisis.lote);
+                $('#fecha_elaboracion').val(analisis.fecha_elaboracion);
+                $('#fecha_vencimiento').val(analisis.fecha_vencimiento);
+                $('#registro_isp').val(analisis.registro_isp);
+                $('#tamano_muestra').val(analisis.tamano_muestra);
+                $('#condicion_almacenamiento').val(analisis.condicion_almacenamiento);
+                $('#tamano_contramuestra').val(analisis.tamano_contramuestra);
+                $('#elaborado_por').val(analisis.elaborado_por);
+                $('#muestreado_por').val(analisis.muestreado_por);
+                $('#observaciones').val(analisis.observaciones);
+                $('#numero_pos').val(analisis.numero_pos);
+                $('#codigo_mastersoft').val(analisis.codigo_mastersoft);
+
+
+
+                $('#estado').val(analisis.estado);
+                $('#numero_registro').val(analisis.numero_registro);
+                $('#version').val(analisis.version);
+                $('#numero_solicitud').val(analisis.numero_solicitud);
+                $('#fecha_registro').val(analisis.fecha_registro);
+                $('#fecha_solicitud').val(analisis.fecha_solicitud);
+
+
+
+                $('#fecha_cotizacion').val(analisis.fecha_cotizacion);
+                $('#estandar_segun').val(analisis.estandar_segun);
+                $('#estandar_otro').val(analisis.estandar_otro);
+                $('#hds_adjunto').val(analisis.hds_adjunto);
+                $('#hds_otro').val(analisis.hds_otro);
+                $('#fecha_entrega').val(analisis.fecha_entrega);
+                $('#fecha_entrega_estimada').val(analisis.fecha_entrega_estimada);
+
+                $('#tipo_analisis').val(analisis.tipo_analisis);
+
+
+
+
+
+
+                // etc., continúa para otros campos según sea necesario
+
+                // Opcional: Si también necesitas poblar datos desde Acta Muestreo
+                if (response.Acta_Muestreo && response.Acta_Muestreo.length > 0) {
+                    // Puedes poblar datos adicionales o manejar múltiples actas de muestreo
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
+            }
+        });
     }
 </script>

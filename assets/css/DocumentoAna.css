@@ -234,7 +234,7 @@ table {
     /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
     text-align: left;
     /* Alinea el texto a la izquierda */
-    font-size: 16px;
+    font-size: 12px;
     width: 270px;
 
 }
@@ -248,6 +248,8 @@ table {
 
 input[type="text"] {
     width: 295px;
+    font-size: 12px;
+    padding: 3%;
     /* Asegura que el input ocupe toda la celda */
 }
 input{
@@ -316,4 +318,6 @@ textarea{
     field-sizing: content;
     resize: none;
     overflow: hidden;
+    font-size: 12px;
+    padding: 3%;
 }
