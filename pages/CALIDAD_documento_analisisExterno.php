@@ -143,7 +143,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Nombre producto:</td>
-                        <td><input type="text" id="nombre_producto" name="nombre_producto" required></td>
+                        <td><input type="text" id="nombre_producto2" name="nombre_producto2" required></td>
                         <td class="titulo titulo-right">10. T. de lote:</td>
                         <td><input type="text" id="tamano_lote" name="tamano_lote" required></td>
 
@@ -424,6 +424,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 //TITULO TABLA
                 $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                $('#nombre_producto2').text(primerAnalisis.prod_nombre_producto);
                 $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
 
                 //TABLA 1
