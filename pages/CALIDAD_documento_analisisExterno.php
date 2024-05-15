@@ -424,7 +424,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 //TITULO TABLA
                 $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                $('#nombre_producto2').text(primerAnalisis.prod_nombre_producto);
+                $('#nombre_producto2').val(primerAnalisis.prod_nombre_producto);
                 $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
 
                 //TABLA 1
@@ -442,6 +442,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 //TABLA 2
                 $('#formato').val(primerAnalisis.formato);
                 $('#lote').val(primerAnalisis.lote);
+                $('#tamano_lote').val(primerAnalisis.tamano_lote);
                 $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
                 $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
                 $('#registro_isp').val(primerAnalisis.registro_isp);
