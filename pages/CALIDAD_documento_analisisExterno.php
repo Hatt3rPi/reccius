@@ -402,111 +402,101 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
     function loadData() {
-        $.ajax({
-            url: './backend/analisis/ingresar_resultados_analisis.php',
-            type: 'GET',
-            data: {
-                id_acta: idAnalisisExterno
-            },
-            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function(response) {
-                // Suponiendo que la respuesta tiene dos partes principales
-                const analisis = response.analisis; // Datos del análisis externo
-                
+    $.ajax({
+        url: './backend/analisis/ingresar_resultados_analisis.php',
+        type: 'GET',
+        data: {
+            id_acta: idAnalisisExterno
+        },
+        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+        success: function(response) {
+            // Suponiendo que la respuesta tiene dos partes principales
+            const analisis = response.analisis; // Datos del análisis externo
+            if (analisis.length > 0) {
+                const primerAnalisis = analisis[0];
 
-                    // Actualizar los inputs con los datos del análisis
-                    //TABLA HEADER
-                    $('#version').val(analisis.version);
-                    //TITULO TABLA
-                    $('#nombre_producto').val(analisis.prod_nombre_producto
-);
-                    $('#Tipo_Producto').val(analisis.prod_tipo_producto);
-                    //TABLA 1
-                    $('#laboratorio').val(analisis.laboratorio);
-                    $('#tamano_lote').val(analisis.tamano_lote);
-                    $('#analisis_segun').val(analisis.analisis_segun);
-                    $('#numero_documento').val(analisis.numero_documento);
+                // Actualizar los inputs con los datos del análisis
+                //TABLA HEADER
+                $('#numero_registro').text(primerAnalisis.numero_registro);
+                $('#version').text(primerAnalisis.version);
+                $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
+                $('#fecha_registro').val(primerAnalisis.fecha_registro);
 
-                    //TABLA 2
-                    $('#formato').val(analisis.formato);
-                    $('#lote').val(analisis.lote);
-                    $('#fecha_elaboracion').val(analisis.fecha_elaboracion);
-                    $('#fecha_vencimiento').val(analisis.fecha_vencimiento);
-                    $('#registro_isp').val(analisis.registro_isp);
-                    $('#tamano_muestra').val(analisis.tamano_muestra);
-                    $('#condicion_almacenamiento').val(analisis.condicion_almacenamiento);
-                    $('#tamano_contramuestra').val(analisis.tamano_contramuestra);
-                    $('#elaborado_por').val(analisis.elaborado_por);
-                    $('#muestreado_por').val(analisis.muestreado_por);
-                    $('#observaciones').val(analisis.observaciones);
-                    $('#numero_pos').val(analisis.numero_pos);
-                    $('#codigo_mastersoft').val(analisis.codigo_mastersoft);
+                //TITULO TABLA
+                $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
 
+                //TABLA 1
+                $('#laboratorio').val(primerAnalisis.laboratorio);
+                $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
+                $('#analisis_segun').val(primerAnalisis.analisis_segun);
+                $('#numero_documento').val(primerAnalisis.numero_documento);
+                $('#fecha_cotizacion').val(primerAnalisis.fecha_cotizacion);
+                $('#estandar_segun').val(primerAnalisis.estandar_segun);
+                $('#estandar_otro').val(primerAnalisis.estandar_otro);
+                $('#hds_adjunto').val(primerAnalisis.hds_adjunto);
+                $('#hds_otro').val(primerAnalisis.hds_otro);
+                $('#fecha_entrega_estimada').val(primerAnalisis.fecha_entrega_estimada);
 
+                //TABLA 2
+                $('#formato').val(primerAnalisis.formato);
+                $('#lote').val(primerAnalisis.lote);
+                $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+                $('#registro_isp').val(primerAnalisis.registro_isp);
+                $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
+                $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
+                $('#elaborado_por').val(primerAnalisis.elaborado_por);
+                $('#muestreado_por').val(primerAnalisis.muestreado_por);
+                $('#observaciones').val(primerAnalisis.observaciones);
+                $('#numero_pos').val(primerAnalisis.numero_pos);
+                $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
 
-                    $('#estado').val(analisis.estado);
-                    $('#numero_registro').val(analisis.numero_registro);
-                    $('#version').val(analisis.version);
-                    $('#numero_solicitud').val(analisis.numero_solicitud);
-                    $('#fecha_registro').val(analisis.fecha_registro);
-                    $('#fecha_solicitud').val(analisis.fecha_solicitud);
-
-
-
-                    $('#fecha_cotizacion').val(analisis.fecha_cotizacion);
-                    $('#estandar_segun').val(analisis.estandar_segun);
-                    $('#estandar_otro').val(analisis.estandar_otro);
-                    $('#hds_adjunto').val(analisis.hds_adjunto);
-                    $('#hds_otro').val(analisis.hds_otro);
-                    $('#fecha_entrega').val(analisis.fecha_entrega);
-                    $('#fecha_entrega_estimada').val(analisis.fecha_entrega_estimada);
-
-                    $('#tipo_analisis').val(analisis.tipo_analisis);
-                    if (analisis.length > 0) {
-                    const primerAnalisis = analisis[0];
-
-                }
-                if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
-                    $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function() {
-                        firmarDocumentoSolicitudExterna(idAnalisisExterno);
-                    });
-                }
-                
-                // Poblar la tabla III. ANÁLISIS SOLICITADOS
-                const analisisSolicitados = response.analiDatos;
-                const table = $('#analisis-solicitados');
-
-                analisisSolicitados.forEach(function(analisis) {
-                    const row = `<tr class="bordeAbajo">
-                        <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
-                        <td class="Metod">${analisis.anali_metodologia}</td>
-                        <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="revision">
-                            <input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision">cumple</span>
-                            <br>
-                            <input type="checkbox" class="checkmark">
-                            <span class="tamañoRevision">no cumple</span>
-                        </td>
-                    </tr>`;
-                    table.append(row);
-                });
-
-
-
-                // etc., continúa para otros campos según sea necesario
-
-                // Opcional: Si también necesitas poblar datos desde Acta Muestreo
-                if (response.Acta_Muestreo && response.Acta_Muestreo.length > 0) {
-                    // Puedes poblar datos adicionales o manejar múltiples actas de muestreo
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error cargando los datos: ' + error);
-                console.error('AJAX error: ' + textStatus + ' : ' + errorThrown);
-                alert("Error en carga de datos. Revisa la consola para más detalles.");
+                // Otros campos
+                $('#estado').val(primerAnalisis.estado);
+                $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
             }
-        });
-    }
+
+            if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
+                $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
+                $("#FirmaAnalisisExternoRevisor").click(function() {
+                    firmarDocumentoSolicitudExterna(idAnalisisExterno);
+                });
+            }
+
+            // Poblar la tabla III. ANÁLISIS SOLICITADOS
+            const analisisSolicitados = response.analiDatos;
+            const table = $('#analisis-solicitados');
+
+            analisisSolicitados.forEach(function(analisis) {
+                const row = `<tr class="bordeAbajo">
+                    <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
+                    <td class="Metod">${analisis.anali_metodologia}</td>
+                    <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
+                    <td class="revision">
+                        <input type="checkbox" class="checkmark">
+                        <span class="tamañoRevision">cumple</span>
+                        <br>
+                        <input type="checkbox" class="checkmark">
+                        <span class="tamañoRevision">no cumple</span>
+                    </td>
+                </tr>`;
+                table.append(row);
+            });
+
+            // Manejo de Acta Muestreo
+            const actaMuestreo = response.Acta_Muestreo;
+            if (actaMuestreo.length > 0) {
+                const ultimaActa = actaMuestreo[0];
+                // Poblar campos adicionales de acta de muestreo si es necesario
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error cargando los datos: ' + error);
+            console.error('AJAX error: ' + status + ' : ' + error);
+            alert("Error en carga de datos. Revisa la consola para más detalles.");
+        }
+    });
+}
 </script>
