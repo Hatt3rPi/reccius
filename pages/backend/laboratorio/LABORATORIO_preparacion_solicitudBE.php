@@ -32,8 +32,9 @@ function insertarRegistro($link, $datos)
         ,condicion_almacenamiento
         ,muestreado_por
         ,numero_pos
-        ,tipo_analisis) 
-    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ,tipo_analisis
+        ,am_revisado_por) 
+    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -42,7 +43,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'iiisssssssssssssss',
+        'iiissssssssssssssss',
         $datos['version'],
         $datos['id_especificacion'],
         $datos['id_producto'],
@@ -60,8 +61,9 @@ function insertarRegistro($link, $datos)
         $datos['condicion_almacenamiento'],
         $datos['muestreado_por'],
         $datos['numero_pos'],
-        $datos['tipo_analisis']
-    );
+        $datos['tipo_analisis'],
+        $datos['am_verificado_por']
+        
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
     mysqli_stmt_close($stmt);
@@ -80,7 +82,7 @@ function insertarRegistro($link, $datos)
             $datos['lote'], $datos['tamano_lote'], $datos['fecha_elaboracion'],
             $datos['fecha_vencimiento'], $datos['tamano_muestra'], $datos['tamano_contramuestra'],
             $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'],
-            $datos['numero_pos'], $datos['tipo_analisis']
+            $datos['numero_pos'], $datos['tipo_analisis'],            $datos['am_verificado_por']
         ],
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)
@@ -200,6 +202,7 @@ function campoTipo($campo)
         'condicion_almacenamiento' => 's',
         'tipo_analisis' => 's',
         'muestreado_por' => 's',
+        'am_revisado_por' => 's',
         'numero_pos' => 's',
         'codigo_mastersoft' => 's',
         'tamano_lote' => 's',
@@ -254,6 +257,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $observaciones = limpiarDato($_POST['observaciones']);
     $solicitadoPor = limpiarDato($_POST['solicitado_por']);
     $revisadoPor = limpiarDato($_POST['revisado_por']);
+    $am_verificado_por = limpiarDato($_POST['am_verificado_por']);
 
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;

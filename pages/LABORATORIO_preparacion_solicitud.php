@@ -192,7 +192,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Muestreado por:</label>
+                        <label>Responsable Muestreo:</label>
                         <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
@@ -206,7 +206,20 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         </select>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group"></div>
+                    <div class="form-group">
+                        <label>Verificador Muestreo:</label>
+                        <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90">
+                            <option>Selecciona el usuario:</option>
+                            <option value="mgodoy" >Macarena Godoy - Supervisor Calidad</option>
+                            <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
+                        </select>
+                    </div>
                 </div>
             </fieldset>
             <br />
