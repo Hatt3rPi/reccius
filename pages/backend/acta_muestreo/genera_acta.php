@@ -59,6 +59,10 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
             'foto_firma_revisado_por' => $row['foto_firma_usrRev'],
             'identificador_producto' => $row['identificador_producto'],
             'ruta_registroPrestadoresSalud_revisado_por' => $row['ruta_registroPrestadoresSalud_usrRev'],
+            'nombre_usr2'=> $row['nombre_usrMuest'],
+            'cargo_usr2'=> $row['cargo_usrMuest'],
+            'nombre_usr3'=> $row['nombre_usrRev'],
+            'cargo_usr3'=> $row['cargo_usrRev'],
         ];
         $tipo_producto=$row['tipo_producto'];
         $identificador_producto=$row['identificador_producto'];
