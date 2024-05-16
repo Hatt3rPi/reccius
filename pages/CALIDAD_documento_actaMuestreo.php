@@ -927,20 +927,25 @@ function procesarDatosActa(response, resultados, etapa) {
         console.log(resultados, etapa);
         if (resultados) {
                     let usuario_activo = "<?php echo $_SESSION['usuario']; ?>";
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     $('#nro_registro').text(response.numero_registro);
                     $('#nro_version').text(response.version_registro);
                     $('#id_analisis_externo').text(response.id_analisis_externo);
                     
             switch (response.cantidad_firmas) {
+                case 0:
+                    $('#etapa').text('ingresa resultados y firma1');
+                    document.getElementById('metodo_muestreo').style.display = 'none';
+                    document.getElementById('guardar').style.display = 'block';
+                    $('.resp').css('background-color', '#f4fac2');
                 case 1:
                     //documento firmado por muestreador. queda pendiente firma de responsable
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
-                    $('#etapa').text('firma2');
+                    $('#etapa').text('ingresa resultados y firma2');
                     if ( usuario_activo==response.responsable){
                         document.getElementById('metodo_muestreo').style.display = 'none';
                         document.getElementById('guardar').style.display = 'block';
@@ -950,6 +955,11 @@ function procesarDatosActa(response, resultados, etapa) {
                     break;
                 case 2:
                     //documento firmado por muestreador y responsable. queda pendiente firma de revisor
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     firma2(response);
                     $('#etapa').text('firma3');
@@ -960,6 +970,11 @@ function procesarDatosActa(response, resultados, etapa) {
                     }
                     break;
                 case 3:
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     firma2(response);
                     firma3(response);
