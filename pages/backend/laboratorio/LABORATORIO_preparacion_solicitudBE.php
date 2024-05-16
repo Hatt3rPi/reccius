@@ -33,7 +33,7 @@ function insertarRegistro($link, $datos)
         ,muestreado_por
         ,numero_pos
         ,tipo_analisis
-        ,am_revisado_por) 
+        ,am_verificado_por) 
     VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
     $stmt = mysqli_prepare($link, $query);
@@ -202,7 +202,7 @@ function campoTipo($campo)
         'condicion_almacenamiento' => 's',
         'tipo_analisis' => 's',
         'muestreado_por' => 's',
-        'am_revisado_por' => 's',
+        'am_verificado_por' => 's',
         'numero_pos' => 's',
         'codigo_mastersoft' => 's',
         'tamano_lote' => 's',
