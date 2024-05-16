@@ -63,7 +63,7 @@ function insertarRegistro($link, $datos)
         $datos['numero_pos'],
         $datos['tipo_analisis'],
         $datos['am_verificado_por']
-    )
+    );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
     mysqli_stmt_close($stmt);
