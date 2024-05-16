@@ -311,7 +311,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'numero_documento' => $numero_documento,
             'observaciones' => $observaciones,
             'solicitado_por' => $solicitadoPor,
-            'revisado_por' => $revisadoPor
+            'revisado_por' => $revisadoPor,
+            'am_verificado_por' => $am_verificado_por,
 
         ];
 
