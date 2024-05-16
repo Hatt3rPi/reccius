@@ -649,20 +649,20 @@ function botones(id, accion, base) {
                     // Llamar a una función que maneje el envío del recordatorio
                     console.log("exito al oprimir resultados_actaMuestreo")   
                     $.ajax({
-                        url: '../pages/CALIDAD_acta_muestreo.php',
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
-                            'accion': accion
+                            'resultados': true,
+                            'etapa':'0'
                         },
                         success: function(response) {
-                            console.log('Revision de documento Acta Muestreo redirigido con éxito');
-                            $('#dynamic-content').html(response);
-                            console.log({id, response});
-                            cargarDatosEspecificacion(id);
+                            $('#dynamic-content').html(response); 
+                            cargarDatosEspecificacion(id, true, '0');
+                            console.log('resultados_actaMuestreo');
                         },
                         error: function(xhr, status, error) {
-                            console.error("Error al visualizar el documento: ", status, error);
+                            console.error("Error al enviar el recordatorio: ", status, error);
                         }
                     });
                     break;
