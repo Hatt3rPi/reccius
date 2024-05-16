@@ -34,7 +34,7 @@ function insertarRegistro($link, $datos)
         ,numero_pos
         ,tipo_analisis
         ,am_verificado_por) 
-    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -82,7 +82,7 @@ function insertarRegistro($link, $datos)
             $datos['lote'], $datos['tamano_lote'], $datos['fecha_elaboracion'],
             $datos['fecha_vencimiento'], $datos['tamano_muestra'], $datos['tamano_contramuestra'],
             $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'],
-            $datos['numero_pos'], $datos['tipo_analisis'],            $datos['am_verificado_por']
+            $datos['numero_pos'], $datos['tipo_analisis'], $datos['am_verificado_por']
         ],
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)

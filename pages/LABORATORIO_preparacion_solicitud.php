@@ -632,6 +632,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     id: 'muestreado_por',
                     val: analisis.muestreado_por,
                     isDisabled: true
+                },
+                {
+                    id: 'am_verificado_por',
+                    val: analisis.am_verificado_por,
+                    isDisabled: true
                 }
             ];
             //* IV. Solicitud de Análisis Externo
@@ -766,7 +771,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     'tamano_contramuestra',
                     'registro_isp',
                     'numero_pos',
-                    'muestreado_por'
+                    'muestreado_por',
+                    'am_verificado_por'
                 ].forEach(element => {
                     $("#" + element).prop('disabled', false);
                 });
