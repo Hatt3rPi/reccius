@@ -332,18 +332,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             <label>Revisión a cargo de:</label>
                             <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-90" required>
                                 <option>Selecciona el usuario supervisor:</option>
-                                <option value="isumonte">
-                                    Inger Sumonte Rodríguez - Director Calidad
-                                </option>
-                                <option value="lcaques" selected>
-                                    Lynnda Caques Segovia - Coordinador Calidad
-                                </option>
-                                <option value="cpereira">
-                                    Catherine Pereira García - Jefe de Producción
-                                </option>
-                                <option value="lsepulveda">
-                                    Luis Sepúlveda Miranda - Director Técnico
-                                </option>
+                                <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                                <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
+                                <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                                <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                                 <option value="fabarca212">Felipe Abarca</option>
                                 <option value="lucianoalonso2000">Luciano Abarca</option>
                                 <option value="javier2000asr">Javier Sabando</option>
