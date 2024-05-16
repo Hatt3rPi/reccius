@@ -933,7 +933,17 @@ function procesarDatosActa(response, resultados, etapa) {
                     
             switch (response.cantidad_firmas) {
                 case 0:
+                    var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+                    var cargo = "<?php echo $_SESSION['cargo']; ?>";
+                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
                     $('#etapa').text('ingresa resultados y firma1');
+                    $('#realizadoPor').text(nombre_ejecutor);
+                    $('#cargo_realizador').text(cargo);
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', false);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', false);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', false);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', false);
+                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
