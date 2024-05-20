@@ -393,3 +393,85 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     });
 </script>
+<script>
+$(document).ready(function() {
+    // Cargar datos iniciales
+    loadData();
+});
+
+var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
+var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+
+console.log("ID Analisis Externo:", idAnalisisExterno);
+
+function loadData() {
+    $.ajax({
+        url: './backend/analisis/ingresar_resultados_analisis.php',
+        type: 'GET',
+        data: {
+            id_acta: idAnalisisExterno
+        },
+        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+        success: function(response) {
+            // Suponiendo que la respuesta tiene dos partes principales
+            const analisis = response.analisis; // Datos del análisis externo
+            if (analisis.length > 0) {
+                const primerAnalisis = analisis[0];
+
+                // Actualizar los inputs con los datos del análisis
+                $('#numero_registro').text(primerAnalisis.numero_registro);
+                $('#version').text(primerAnalisis.version);
+                $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
+                // FALTA LA FECHA DE LIBERACION
+
+                //TABLA 1
+                
+                $('#lote').val(primerAnalisis.lote);
+                $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                $('#nombre_producto2').val(primerAnalisis.prod_nombre_producto);
+                $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
+                $('#tamano_lote').val(primerAnalisis.tamano_lote);
+                $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+                $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+
+                //TABLA 2
+
+                $('#laboratorio').val(primerAnalisis.laboratorio);
+                //FECHA DE MUESTREO
+                //NUMERO SOLICITUD ANALISIS
+                $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
+                //LABORATORIO ANALISTA
+                //FECHA ENVIO
+                //NUMERO ANALISIS
+                //FECHA REVISION
+
+                //TABLA 3
+                //NRO ACTA LIBERACION
+                //FECHA LIBERACION
+                $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                $('#lote').val(primerAnalisis.lote);
+                $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+                // CANTIDAD REAL LIBERADA
+                // N°PARTE DE INGRESO/ TRASPASO
+            }
+
+            if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
+                $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
+                $("#FirmaAnalisisExternoRevisor").click(function() {
+                    firmarDocumentoSolicitudExterna(idAnalisisExterno);
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error cargando los datos: ' + error);
+            console.error('AJAX error: ' + status + ' : ' + error);
+            alert("Error en carga de datos. Revisa la consola para más detalles.");
+        }
+    });
+}
+
+
+</script>
