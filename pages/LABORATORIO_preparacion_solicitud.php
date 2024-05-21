@@ -353,7 +353,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
-        <button onclick=""><?php echo getcwd() . "\n"; ?></button>
+        <button onclick="actualPath"><?php echo getcwd() . "\n"; ?></button>
     </div>
 </body>
 
