@@ -353,7 +353,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
-        <button onclick="actualPath()"><?php echo getcwd() . "\n"; ?></button>
     </div>
 </body>
 
@@ -366,9 +365,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
      * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
      * @return {void}
      */
-    function actualPath() {
-        fetch("./backend/cloud/actualPath.php").then(response => console.log(response));
-    }
 
     function setValuesToInputs(arr) {
         for (let el of arr) {

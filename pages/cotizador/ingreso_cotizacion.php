@@ -52,6 +52,8 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         <form id="formulario_cotizacion" name="formulario_cotizacion">
             <fieldset>
                 <br>
+
+                <button><?php echo getcwd() . "\n"; ?></button>
                 <br>
                 <h2 class="section-title">Datos cotización:</h2>
                 <div class="container">
@@ -200,11 +202,11 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                             </div>
                             <div class="form-group">
                                 <label>Concentración:</label>
-                                
+
                                 <select name="add_tipo_concentracion" id="add_tipo_concentracion" class="w-100 select-style mx-0 form__select">
                                     <option disabled selected value="">Selecciona estructura a utilizar</option>
                                 </select>
-                          
+
                                 <div class="form-row">
                                     <div class="col form-row mx-0">
                                         <input type="text" name="concentracion_form_param_1" id="concentracion_form_param_1" class="col m-0 form-control" style="display: none;margin-top: 9px;">
@@ -215,9 +217,9 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                                         <input type="text" name="concentracion_form_type_2" class="col m-0 form-control" disabled style="display: none;width: 50px;margin-top: 9px;">
                                     </div>
                                 </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="alert alert-danger mx-3 text-center p-2 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="alert alert-danger mx-3 text-center p-2 m-0" style="display: none" role="alert" id="add_materia_prima_error_alert"></div>
                             </div>
                             <div class="form-group">
                                 <button type="button" id="add_materia_prima_btn" class="btn btn-primary">Añadir materia prima</button>
@@ -535,40 +537,50 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         })
     }
     //Buscar materia Prima
-    [
-        {
-            input: addContizacionFormProducto, data: addContizacionFormProductoData, 
-            setListFn: (data)=>{materiasList = data }}, 
-        {
-            input: addContizacionFormProductoBase, data: addContizacionFormProductoBaseData,  
-            setListFn: (data)=>{materiasList = data }}
-    ].forEach(({input, data, setListFn}) => 
-    { 
-        input.on('input', () => {
-        const searchValue = input.val().toLowerCase();
-        //API
-        if (searchValue.length < 3) return
-        $.ajax({
-            url: '../pages/cotizador/query_buscar_productos.php',
-            type: 'GET',
-            dataType: 'json',
-            data: { 
-                texto: searchValue
-            },
-            success: function(productos) {
-                setListFn(productos);
-                feedDataList(data, productos.map(function(option) {
-                    return {
-                        name: option.nombre,
-                        id: option.id
-                    };
-                }));
-            },
-            error: function(xhr, status, error) {
-                console.error("Error: " + error);
+    [{
+            input: addContizacionFormProducto,
+            data: addContizacionFormProductoData,
+            setListFn: (data) => {
+                materiasList = data
             }
+        },
+        {
+            input: addContizacionFormProductoBase,
+            data: addContizacionFormProductoBaseData,
+            setListFn: (data) => {
+                materiasList = data
+            }
+        }
+    ].forEach(({
+        input,
+        data,
+        setListFn
+    }) => {
+        input.on('input', () => {
+            const searchValue = input.val().toLowerCase();
+            //API
+            if (searchValue.length < 3) return
+            $.ajax({
+                url: '../pages/cotizador/query_buscar_productos.php',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    texto: searchValue
+                },
+                success: function(productos) {
+                    setListFn(productos);
+                    feedDataList(data, productos.map(function(option) {
+                        return {
+                            name: option.nombre,
+                            id: option.id
+                        };
+                    }));
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + error);
+                }
+            });
         });
-    });
     })
 
     function feedDataList(datalist, options) {
@@ -581,7 +593,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         });
     }
 
-    
+
 
     // Conscentración Seleccion
     addConcentracionMateriaPrima.change(function() {
@@ -623,6 +635,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
 
     // Submit Nuevo producto
     addContizacionForm.on("submit", addContizacionFormSubmit);
+
     function addContizacionFormSubmit(event) {
         addErrorAlert.hide();
         event.preventDefault();
@@ -667,7 +680,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                     materiasList: materiasAddedList,
                     unidadVenta,
                     unidadVentaMedida,
-                    materiaBase:selectedMateriaFind,
+                    materiaBase: selectedMateriaFind,
                     index
                 })
             }
@@ -710,10 +723,10 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         if (unidadVentaMedida.trim() === '') {
             valido = false;
             addErrorAlert.append('<p class="text-left m-0"> El campo Unidad de venta medida es requerido </p>');
-            
+
         }
 
-        if(materiaBase){
+        if (materiaBase) {
             var selectedMateriaFind = materiasListBase.find(x => x.nombre == materiaBase)
             if (selectedMateriaFind == undefined) {
                 valido = false;
@@ -721,7 +734,7 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                 addMateriaPrimaErrorAlert.append('<p class="text-left m-0">La materia prima no existe</p>');
             }
         }
-        if(!materiaBase){
+        if (!materiaBase) {
             valido = false;
             addMateriaPrimaErrorAlert.show();
             addMateriaPrimaErrorAlert.append('<p class="text-left m-0">Debe seleccionar una materia base</p>');
@@ -778,25 +791,26 @@ $opcionesCategorias = array_keys($opcionesCategorias);
         }
         updateResume()
     }
+
     function updateCotizador() {
         cotizadorLista.sort((a, b) => a.index - b.index)
         contenedorCotizador.empty();
         cotizadorLista.forEach(({
-            tipoPreparacionReceta,
-            materiasList,
-            tipoPresentacionReceta,
-            cantidadReceta,
-            constosPreparacion,
+                    tipoPreparacionReceta,
+                    materiasList,
+                    tipoPresentacionReceta,
+                    cantidadReceta,
+                    constosPreparacion,
 
-            //Todo: unidadVenta
-            //Todo: unidadVentaMedida
-            // unidadVenta
-            // unidadVentaMedida
-            // materiaBase
+                    //Todo: unidadVenta
+                    //Todo: unidadVentaMedida
+                    // unidadVenta
+                    // unidadVentaMedida
+                    // materiaBase
 
-            index,
-        }, i) => {
-            var article = `
+                    index,
+                }, i) => {
+                    var article = `
             <article class="container mt-2 border rounded p-2">
                     <h5 class="text-center h5">Producto N° ${i + 1}</h5>
                 <main>
@@ -805,21 +819,39 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         <dt class="pb-2 mb-1">Materiales:</dt>
                         ${
                             materiasList.map(({materia,concentracion,concentracion_1,concentracion_2,index}) => 
-                            `<dd class="pl-2 pb-1 mb-1">• ${materia.nombre} (${concentracion}) : ${concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`}</dd>`).join('')
-                        }
-                    </dl>
-                    <p class="pb-2 mb-1"><strong>Presentacion:</strong> ${ tipoPresentacionReceta} </p> 
-                    <p class="pb-2 mb-1"><strong>Cantidad:</strong> ${cantidadReceta} </p> 
-                    
-                    ${constosPreparacion.map(({detalle_costo, valor_clp}) =>
-                        ` <p class="pb-2 mb-1"><strong>${detalle_costo}:</strong> ${valor_clp}</p> `).join('')}                    
-                </main > 
-                <footer class = "d-flex justify-content-end border-top pt-2" style = "gap: 8px;">
-                    <button type="button" data-index="${index}" class="btn-editar">Editar</button>
-                    <button type = "button" data-index="${index}" class="btn-eliminar btn-danger">Eliminar</button> 
-                </footer > 
-            </article>
-            `
+                            ` < dd class = "pl-2 pb-1 mb-1" > •$ {
+                        materia.nombre
+                    }($ {
+                        concentracion
+                    }): $ {
+                        concentracion.includes("/") ? `${concentracion_1}/${concentracion_2}` : `${concentracion_1}`
+                    } < /dd>`).join('')
+                } <
+                /dl> <
+                p class = "pb-2 mb-1" > < strong > Presentacion: < /strong> ${ tipoPresentacionReceta} </p >
+                <
+                p class = "pb-2 mb-1" > < strong > Cantidad: < /strong> ${cantidadReceta} </p >
+
+                $ {
+                    constosPreparacion.map(({
+                            detalle_costo,
+                            valor_clp
+                        }) =>
+                        ` <p class="pb-2 mb-1"><strong>${detalle_costo}:</strong> ${valor_clp}</p> `).join('')
+                } <
+                /main >  <
+                footer class = "d-flex justify-content-end border-top pt-2"
+                style = "gap: 8px;" >
+                <
+                button type = "button"
+                data - index = "${index}"
+                class = "btn-editar" > Editar < /button> <
+                button type = "button"
+                data - index = "${index}"
+                class = "btn-eliminar btn-danger" > Eliminar < /button>  < /
+                footer > <
+                /article>
+                `
             contenedorCotizador.append(article)
     })
 
@@ -829,7 +861,11 @@ $opcionesCategorias = array_keys($opcionesCategorias);
     function setFormAddCotizador(data) {
         let camposRequeridos = ["add_materia_prima", "add_tipo_preparacion", "add_cantidad", "add_tipo_concentracion", "concentracion_form_param_1", "concentracion_form_param_2"];
         camposRequeridos.forEach((el) => {
-            $(`#${el}`).val(data[el])
+            $(`
+                #$ {
+                    el
+                }
+                `).val(data[el])
         })
     }
 
@@ -892,26 +928,51 @@ $opcionesCategorias = array_keys($opcionesCategorias);
                         price) * add_cantidad) :
                 roundDoubleZero((price * concentracion_form_param_1) * add_cantidad);
             total += subTotal
-            formCotizacionTbody.append(`
-            <tr>
-            <td>
-                <p>${add_materia_prima}</p>
-            </td>
-            <td>
-                <p>${price}</p>
-            </td>
-            <td>
-                <p>
-                ${add_tipo_concentracion} | ${twoValues?'(':''}${concentracion_form_param_1}${
-                    twoValues ? 
-                        `/${concentracion_form_param_2}` : ""}${twoValues?')':''} * ${add_cantidad}
-                </p>
-            </td>
-            <td>
-                <p>${subTotal}</p>
-            </td>
-            </tr>
-            `)
+            formCotizacionTbody.append(` <
+                tr >
+                <
+                td >
+                <
+                p > $ {
+                    add_materia_prima
+                } < /p> < /
+                td > <
+                td >
+                <
+                p > $ {
+                    price
+                } < /p> < /
+                td > <
+                td >
+                <
+                p >
+                $ {
+                    add_tipo_concentracion
+                } | $ {
+                    twoValues ? '(' : ''
+                }
+                $ {
+                    concentracion_form_param_1
+                }
+                $ {
+                    twoValues ?
+                        `/${concentracion_form_param_2}` : ""
+                }
+                $ {
+                    twoValues ? ')' : ''
+                }* $ {
+                    add_cantidad
+                } <
+                /p> < /
+                td > <
+                td >
+                <
+                p > $ {
+                    subTotal
+                } < /p> < /
+                td > <
+                /tr>
+                `)
 
         });
         formCotizacionTotal.append(roundDoubleZero(total))
