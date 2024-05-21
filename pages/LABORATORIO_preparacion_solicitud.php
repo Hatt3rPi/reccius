@@ -210,7 +210,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <label>Verificador Muestreo:</label>
                         <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90">
                             <option>Selecciona el usuario:</option>
-                            <option value="mgodoy" >Macarena Godoy - Supervisor Calidad</option>
+                            <option value="mgodoy">Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
                             <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
@@ -353,7 +353,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
-        <button onclick="actualPath"><?php echo getcwd() . "\n"; ?></button>
+        <button onclick="actualPath()"><?php echo getcwd() . "\n"; ?></button>
     </div>
 </body>
 
