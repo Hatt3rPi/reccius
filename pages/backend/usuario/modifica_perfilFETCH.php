@@ -1,15 +1,22 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+include_once '../cloud/R2_manager.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 $usuario = $_SESSION['usuario'] ? $_SESSION['usuario'] : null;
+
+if (!$usuario) {
+    header('HTTP/1.1 403 Forbidden');
+    echo json_encode(['error' => 'Acceso denegado']);
+    exit;
+}
 
 switch ($method) {
     case 'GET':
         getUsuario($link, $usuario);
         break;
-    case 'POST':
+    case 'PUT':
         updateUsuario($link, $usuario);
         break;
     default:
@@ -42,75 +49,51 @@ function getUsuario($link, $usuario)
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['usuario' => $data], JSON_UNESCAPED_UNICODE);
 }
-function updateUsuario($link, $usuario)
+function updateImage($link, $usuario, $file, $type)
 {
-    // $nombre = $_POST['nombre'] ?? null;
-    // $nombre_corto = $_POST['nombre_corto'] ?? null;
-    // $cargo = $_POST['cargo'] ?? null;
-    $foto_perfil = null;
+    include_once '../cloud/r2_manager.php';
 
-    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+    $folder = 'usuarios';
+    $usuarioFilename = str_replace(' ', '_', $usuario);
+    $timestamp = time();
+    $fileName = $usuarioFilename . '_' . $timestamp . '.webp';
 
-        include_once '../cloud/R2_manager.php';
+    $fileBinary = file_get_contents($file['tmp_name']);
+    $params = [
+        'fileBinary' => $fileBinary,
+        'folder' => $folder,
+        'fileName' => $fileName
+    ];
 
-        $imagen = $_FILES['imagen'];
-        $folder = 'usuarios';
-        $usuarioFilename = str_replace(' ', '_', $usuario);
-        $timestamp = time();
-        $fileName = $usuarioFilename . '_' . $timestamp . '.webp';
+    $uploadStatus = setFile($params);
+    $uploadResult = json_decode($uploadStatus, true);
 
-        $fileBinary = file_get_contents($imagen['tmp_name']);
-        $params = [
-            'fileBinary' => $fileBinary,
-            'folder' => $folder,
-            'fileName' => $fileName
-        ];
+    if (isset($uploadResult['success'])) {
+        $fileURL = $uploadResult['success']['ObjectURL'];
 
-        $uploadStatus = setFile($params);
-        $uploadResult = json_decode($uploadStatus, true);
-
-        if (isset($uploadResult['success'])) {
-            $foto_perfil = $uploadResult['success']['ObjectURL'];
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Error al subir la imagen: ' . $uploadResult['error']]);
-            return;
-        }
-    }
-
-    // if (isset($_POST['nuevaPassword'], $_POST['passwordActual'])) {
-
-    //     $passwordActual = $_POST['passwordActual'];
-    //     $nuevaPassword = password_hash($_POST['nuevaPassword'], PASSWORD_DEFAULT);
-
-    //     // Actualizar la contraseña en la base de datos
-    //     $queryPassword = "UPDATE `usuarios` SET password = ? WHERE usuario = ? AND password = ?";
-    //     $stmtPassword = mysqli_prepare($link, $queryPassword);
-    //     mysqli_stmt_bind_param($stmtPassword, "sss", $nuevaPassword, $usuario, $passwordActual);
-    //     mysqli_stmt_execute($stmtPassword);
-
-    //     if (mysqli_stmt_affected_rows($stmtPassword) > 0) {
-    //         echo json_encode(['status' => 'success', 'message' => 'Contraseña actualizada correctamente']);
-    //     } else {
-    //         echo json_encode(['status' => 'error', 'message' => 'Contraseña actual no coincide o no se pudo actualizar']);
-    //     }
-
-    //     mysqli_stmt_close($stmtPassword);
-    // }
-
-
-    // Actualizar la base de datos con todos los campos nuevos
-    if ($foto_perfil) {
-        
-        $query = "UPDATE `usuarios` SET foto_perfil = ? WHERE usuario = ?";
+        $column = $type === 'foto' ? 'foto_perfil' : 'foto_firma';
+        $query = "UPDATE `usuarios` SET $column = ? WHERE usuario = ?";
         $stmt = mysqli_prepare($link, $query);
-        // mysqli_stmt_bind_param($stmt, "sssss", $nombre, $nombre_corto, $foto_perfil, $cargo, $usuario);
-        mysqli_stmt_bind_param($stmt, "ss", $foto_perfil, $usuario);
+        mysqli_stmt_bind_param($stmt, "ss", $fileURL, $usuario);
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
-            echo json_encode(['status' => 'success', 'message' => 'Perfil actualizado correctamente']);
+            echo json_encode(['status' => 'success', 'message' => ucfirst($type) . ' actualizada correctamente']);
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar el perfil']);
+            echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la ' . $type]);
         }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Error al subir la ' . $type . ': ' . $uploadResult['error']]);
+    }
+}
+
+
+function updateUsuario($link, $usuario)
+{
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        updateImage($link, $usuario, $_FILES['imagen'], 'foto');
+    }
+    if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
+        updateImage($link, $usuario, $_FILES['firma'], 'firma');
     }
 }

@@ -248,36 +248,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function guardar() {
-            var mensajesAdvertencia = [
-                "El archivo es demasiado grande.",
-                "El archivo no es un PDF válido.",
-                "Hubo un error al guardar el archivo.",
-                "La nueva contraseña no cumple con los requisitos de seguridad y formato.",
-                "La contraseña actual no es correcta o el usuario no fue encontrado.",
-                "El archivo no es una imagen válida o no tiene un formato permitido.",
-                "Formato de archivo no soportado.",
-                "Hubo un error al guardar la imagen redimensionada.",
-                "Las contraseñas no coinciden.",
-                "Información de contraseña no proporcionada.",
-                "Información de usuario incompleta.",
-                "Archivo de foto de perfil no proporcionado.",
-                "Archivo de certificado no proporcionado."
-            ];
-            var mensajesExito = [
-                "Información de usuario actualizada con éxito.",
-                "La contraseña ha sido actualizada con éxito.",
-                "Perfil actualizado con éxito.",
-                "Firma actualizada con éxito.",
-                "La firma ha sido actualizada con éxito."
-            ];
-            var mensajesError = [
-                "Error al subir el archivo: ",
-                "Error: El directorio de destino no es escribible o no existe.",
-                "Error al actualizar la ruta del certificado en la base de datos.",
-                "Error al procesar el archivo de imagen.",
-                "Error al actualizar la foto de perfil en la base de datos."
-            ]
-
             event.preventDefault();
             var formData = new FormData();
 
@@ -305,6 +275,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 formData.append('imagen', blobImgPerfil);
 
             }
+            if ($('#switch_certificado').is(':checked')) {
+                var fotoFirma = $('#firma')[0].files[0];
+                if (fotoFirma !== undefined && fotoFirma !== null) {
+                    formData.append('firma', fotoFirma);
+                } else {
+                    alert("Por favor, selecciona una firma.");
+                }
+
+
+            }
+
             if ($('#switch_info').is(':checked')) {
                 var cargo = $('#cargo').val();
                 var nombre = $('#nombre').val();
@@ -327,16 +308,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
             $.ajax({
-                url: "../pages/backend/usuario/modificar_perfilBE.php",
-                type: "POST",
+                url: './backend/usuario/modifica_perfilFETCH.php',
+                type: "PUT",
                 data: formData,
-                processData: false, 
+                processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log('Respuesta recibida: ', response);
+                    var res = JSON.parse(response);
+                    if (res.success) {
+                        alert(res.message);
+                    } else {
+                        alert("Error: " + res.message);
+                    }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Error en la solicitud: ',{jqXHR, textStatus, errorThrown});
+                    console.error('Error en la solicitud: ', textStatus, errorThrown);
                 }
             });
 

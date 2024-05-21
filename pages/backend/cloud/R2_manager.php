@@ -16,9 +16,7 @@ $bucket_name        = getenv('BUCKET_NAME');
 $account_id         = getenv('ACCOUNT_ID');
 $access_key_id      = getenv('ACCESS_KEY_ID');
 $access_key_secret  = getenv('ACCESS_KEY_SECRET');
-
 $credentials = new Credentials($access_key_id, $access_key_secret);
-
 $options = [
   'region' => 'auto',
   'endpoint' => "https://$account_id.r2.cloudflarestorage.com",
