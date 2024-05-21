@@ -353,6 +353,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
         </form>
+        <button onclick=""><?php echo getcwd() . "\n"; ?></button>
     </div>
 </body>
 
@@ -365,6 +366,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
      * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
      * @return {void}
      */
+    function actualPath() {
+        fetch("./backend/cloud/actualPath.php").then(response => console.log(response));
+    }
 
     function setValuesToInputs(arr) {
         for (let el of arr) {
@@ -497,6 +501,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     var guardarYFirmarSolicitud = false
+
     function procesarDatosActaUpdate(response) {
 
         if (response && response.analisis) {
@@ -505,17 +510,16 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var analisis = response.analisis;
 
             //Todo : Volver a validar cuando se pueda editar ||| en caso de que los datos este de 4 al 6 hacer la seccion de "nuevo analisis" y añadir nueva version
-           
+
             if (analisis.estado == "Pendiente Acta de Muestreo") {
                 //!elimina del punto 4 al 6
                 $("#informacion_faltante").remove();
                 $("#agregarDatos").hide();
-            }else{
+            } else {
                 if (analisis.estado !== "Pendiente completar análisis") {
                     //! Deja generar nueva version
                     $("#agregarDatos").hide();
-                } 
-                else {
+                } else {
                     //! llenar del 4 al 6 y firmar
                     $("#editarGenerarVersion").hide();
                     $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
@@ -736,7 +740,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
-            
+
             var informacionFaltanteArr = []
 
 
@@ -812,7 +816,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             if (status == "error") {
                                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
                             } else {
-                                    carga_listado();
+                                carga_listado();
                             }
                         });
                     } else {
