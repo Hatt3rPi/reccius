@@ -121,7 +121,12 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 $exito ? null : mysqli_error($link)
             );
             if ($exito) {
-                $query = "UPDATE calidad_acta_muestreo SET estado='Deprecado' WHERE id_analisisExterno=(SELECT id_analisisExterno FROM calidad_acta_muestreo WHERE id=?) AND estado NOT IN ('Vigente')";
+                $query = "UPDATE calidad_acta_muestreo AS cam
+                JOIN (SELECT id_analisisExterno FROM calidad_acta_muestreo WHERE id = ?) AS sub
+                ON cam.id_analisisExterno = sub.id_analisisExterno
+                SET cam.estado = 'Deprecado'
+                WHERE cam.estado NOT IN ('Vigente');
+                ";
                 $types = "i";
                 $stmt3 = mysqli_prepare($link, $query);
                 mysqli_stmt_bind_param($stmt3, $types, $id_actaMuestreo);
