@@ -947,6 +947,7 @@ function procesarDatosActa(response, resultados, etapa) {
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
+                    break;
                 case 1:
                     //documento firmado por muestreador. queda pendiente firma de responsable
                     $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
