@@ -143,7 +143,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#cargo').val(usuario.cargo);
                     $('#nombre').val(usuario.nombre);
                     if (usuario.foto_perfil) {
-                        document.getElementById('fotoPerfilPreview').innerHTML = '<img src="../assets/uploads/perfiles/' + usuario.foto_perfil + '" alt="Foto de perfil" />';
+                        document.getElementById('fotoPerfilPreview').innerHTML = '<img src="' + usuario.foto_perfil + '" alt="Foto de perfil" />';
                     }
                     if (usuario.certificado) {
                         document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '" target="_blank">Ver Certificado</a>';
@@ -272,7 +272,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 formData.append('imagen', blobImgPerfil);
             }
 
-            if ($('#switch_certificado').is(':checked')) {
+            if ($('#switch_firma').is(':checked')) {
                 var fotoFirma = $('#firma')[0].files[0];
                 if (fotoFirma !== undefined && fotoFirma !== null) {
                     formData.append('firma', fotoFirma);
@@ -295,15 +295,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             }
 
-            if ($('#switch_certificado').val()) {
-
-            }
-
-            if ($('#switch_firma').val()) {
-
-            }
-
-
             $.ajax({
                 url: './backend/usuario/modifica_perfilFETCH.php',
                 type: "POST",
@@ -312,11 +303,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 contentType: false,
                 success: function(response) {
                     var res = JSON.parse(response);
-                    if (res.status === 'success' || res.status === 'partial success') {
-                        alert(res.message);
-                    } else {
-                        alert("Error: " + res.message);
-                    }
+                    console.log(res);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error en la solicitud: ', textStatus, errorThrown);
