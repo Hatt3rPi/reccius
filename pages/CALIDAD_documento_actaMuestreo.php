@@ -743,6 +743,7 @@ document.getElementById('confirmarMetodo').addEventListener('click', function() 
 
     // Cerrar el modal después de seleccionar la opción
     $('#modalMetodoMuestreo').modal('hide');
+    $("#modalMetodoMuestreo").css("z-index", "-1");
     if (metodoManual) {
         // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
         document.getElementById('download-pdf').click();
