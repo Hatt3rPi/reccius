@@ -76,6 +76,8 @@ function updateImage($link, $usuario, $file, $type)
     $uploadStatus = setFile($params);
     $uploadResult = json_decode($uploadStatus, true);
 
+    $response['uploadResult'] = $uploadResult;
+    
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $fileURL = $uploadResult['success']['ObjectURL'];
 
