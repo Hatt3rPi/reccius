@@ -51,12 +51,23 @@ function getUsuario($link, $usuario)
 }
 function updateImage($link, $usuario, $file, $type)
 {
+    if (!$file) {
+        echo json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
+        return;
+    }
+
     $folder = 'usuarios';
     $usuarioFilename = str_replace(' ', '_', $usuario);
     $timestamp = time();
     $fileName = $usuarioFilename . '_' . $timestamp . '.webp';
 
     $fileBinary = file_get_contents($file['tmp_name']);
+
+    if (!$fileBinary) {
+        echo json_encode(['status' => 'error', 'message' => 'Error al leer el archivo.']);
+        return;
+    }
+
     $params = [
         'fileBinary' => $fileBinary,
         'folder' => $folder,
@@ -93,7 +104,7 @@ function updateUsuario($link, $usuario)
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
         ob_start();
         updateImage($link, $usuario, $_FILES['imagen'], 'foto');
-        $response['foto_perfil'] = json_decode(ob_get_clean(), true);
+        $response['foto'] = json_decode(ob_get_clean(), true);
     }
 
     if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
@@ -108,3 +119,5 @@ function updateUsuario($link, $usuario)
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
 }
+
+?>
