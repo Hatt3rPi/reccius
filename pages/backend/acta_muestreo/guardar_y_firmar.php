@@ -100,6 +100,13 @@ if ($stmt = mysqli_prepare($link, $query)) {
         $exito ? null : mysqli_error($link)
     );
     if ($exito) {
+        if($flujo=='Firma usuario 1 de 3'){
+            //function registrarTarea($dias_hasta_vencimiento, $usuario_creador, $usuario_ejecutor, $descripcion_tarea, $prioridad, $tipo, $id_relacion, $tabla_relacion)
+            registrarTarea($7, $_SESSION['usuario'], 'usuario_ejecutor', 'descripcion_tarea', 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
+        } elseif ($flujo=='Firma usuario 2 de 3'){
+            registrarTarea($7, $_SESSION['usuario'], 'usuario_ejecutor', 'Firmar final a acta de muestreo:', 2, 'Firma 3', $id_actaMuestreo, 'calidad_acta_muestreo');
+        }
+        
         $_SESSION['nuevo_id'] = $id_actaMuestreo;
         if ($etapa == 3) {
             $id_analisis_externo = intval($input['id_analisis_externo']);
@@ -144,6 +151,8 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 );
                 if ($exito) {
                     echo json_encode(['success' => 'Datos guardados correctamente.']);
+                    //function registrarTarea($dias_hasta_vencimiento, $usuario_creador, $usuario_ejecutor, $descripcion_tarea, $prioridad, $tipo, $id_relacion, $tabla_relacion)
+                   
                 } else {
                     echo json_encode(['error' => 'Error al guardar datos deprecados: ' . mysqli_stmt_error($stmt3)]);
                 }
