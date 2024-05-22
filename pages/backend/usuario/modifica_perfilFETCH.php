@@ -52,6 +52,8 @@ function getUsuario($link, $usuario)
 
 function updateImage($link, $usuario, $file, $type)
 {
+    $response = [];
+
     if (!$file) {
         return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
     }
@@ -76,10 +78,11 @@ function updateImage($link, $usuario, $file, $type)
     $uploadStatus = setFile($params);
     $uploadResult = json_decode($uploadStatus, true);
 
-    $response['uploadResult'] = $uploadResult;
-    
+    $response['uploadResult'] = $uploadResult; // Añadir el resultado de la subida al objeto de respuesta
+
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $fileURL = $uploadResult['success']['ObjectURL'];
+        $response['fileURL'] = $fileURL;
 
         $column = $type === 'foto' ? 'foto_perfil' : 'foto_firma';
         $query = "UPDATE `usuarios` SET $column = ? WHERE usuario = ?";
@@ -88,13 +91,19 @@ function updateImage($link, $usuario, $file, $type)
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
-            return json_encode(['status' => 'success', 'message' => ucfirst($type) . ' actualizada correctamente', 'url' => $fileURL]);
+            $response['status'] = 'success';
+            $response['message'] = ucfirst($type) . ' actualizada correctamente';
+            $response['url'] = $fileURL;
         } else {
-            return json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la ' . $type]);
+            $response['status'] = 'error';
+            $response['message'] = 'No se pudo actualizar la ' . $type;
         }
     } else {
-        return json_encode(['status' => 'error', 'message' => 'Error al subir la ' . $type . ': ' . $uploadResult['error']]);
+        $response['status'] = 'error';
+        $response['message'] = 'Error al subir la ' . $type . ': ' . $uploadResult['error'];
     }
+
+    return json_encode($response);
 }
 
 function updateUsuario($link, $usuario)
