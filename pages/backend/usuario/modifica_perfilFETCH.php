@@ -49,11 +49,11 @@ function getUsuario($link, $usuario)
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['usuario' => $data], JSON_UNESCAPED_UNICODE);
 }
+
 function updateImage($link, $usuario, $file, $type)
 {
     if (!$file) {
-        echo json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
-        return;
+        return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
     }
 
     $folder = 'usuarios';
@@ -64,8 +64,7 @@ function updateImage($link, $usuario, $file, $type)
     $fileBinary = file_get_contents($file['tmp_name']);
 
     if (!$fileBinary) {
-        echo json_encode(['status' => 'error', 'message' => 'Error al leer el archivo.']);
-        return;
+        return json_encode(['status' => 'error', 'message' => 'Error al leer el archivo.']);
     }
 
     $params = [
@@ -87,12 +86,12 @@ function updateImage($link, $usuario, $file, $type)
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
-            echo json_encode(['status' => 'success', 'message' => ucfirst($type) . ' actualizada correctamente', 'url' => $fileURL]);
+            return json_encode(['status' => 'success', 'message' => ucfirst($type) . ' actualizada correctamente', 'url' => $fileURL]);
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la ' . $type]);
+            return json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la ' . $type]);
         }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Error al subir la ' . $type . ': ' . $uploadResult['error']]);
+        return json_encode(['status' => 'error', 'message' => 'Error al subir la ' . $type . ': ' . $uploadResult['error']]);
     }
 }
 
@@ -101,19 +100,15 @@ function updateUsuario($link, $usuario)
     $response = [];
 
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        ob_start();
-        updateImage($link, $usuario, $_FILES['imagen'], 'foto');
-        $response['foto'] = json_decode(ob_get_clean(), true);
-    } else {
-        $response['foto_error'] = 'Error en imagen: ' . (isset($_FILES['imagen']['error']) ? $_FILES['imagen']['error'] : 'No se encontró el archivo de imagen.');
+        $response['foto'] = json_decode(updateImage($link, $usuario, $_FILES['imagen'], 'foto'), true);
+    } else if (isset($_FILES['imagen'])) {
+        $response['foto_error'] = 'Error en imagen: ' . $_FILES['imagen']['error'];
     }
 
     if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
-        ob_start();
-        updateImage($link, $usuario, $_FILES['firma'], 'firma');
-        $response['firma'] = json_decode(ob_get_clean(), true);
-    } else {
-        $response['firma_error'] = 'Error en firma: ' . (isset($_FILES['firma']['error']) ? $_FILES['firma']['error'] : 'No se encontró el archivo de firma.');
+        $response['firma'] = json_decode(updateImage($link, $usuario, $_FILES['firma'], 'firma'), true);
+    } else if (isset($_FILES['firma'])) {
+        $response['firma_error'] = 'Error en firma: ' . $_FILES['firma']['error'];
     }
 
     if (!empty($response)) {
