@@ -406,7 +406,7 @@ console.log("ID Analisis Externo:", idAnalisisExterno);
 
 function loadData() {
     $.ajax({
-        url: './backend/analisis/ingresar_resultados_analisis.php',
+        url: './backend/acta_liberacion/ingresar_resultados_liberacion.php',
         type: 'GET',
         data: {
             id_acta: idAnalisisExterno
