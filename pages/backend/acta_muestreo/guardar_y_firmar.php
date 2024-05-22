@@ -24,7 +24,6 @@ if (!$id_actaMuestreo || !$etapa || !$respuestas) {
 // Dependiendo de la etapa, los datos relevantes cambiarán
 switch ($etapa) {
     case 1:
-        // Asumimos que sólo en la etapa 1 necesitamos guardar datos de textarea
         $estado = 'En proceso de firma';
         if (count($textareaData) === 0) {
             echo json_encode(['error' => 'Datos de textarea faltantes para la etapa 1.']);
@@ -48,11 +47,10 @@ switch ($etapa) {
             $fechaActual,
             $id_actaMuestreo
         ];
-        $flujo='Firma usuario 1 de 3';
+        $flujo = 'Firma usuario 1 de 3';
         break;
     case 2:
         $estado = 'En proceso de firma';
-        // Otras etapas podrían tener diferentes campos a guardar
         $query = "UPDATE calidad_acta_muestreo SET
                     estado=?, resultados_responsable=?,
                     responsable=?, fecha_firma_responsable=?
@@ -65,22 +63,21 @@ switch ($etapa) {
             $fechaActual,
             $id_actaMuestreo
         ];
-        $flujo='Firma usuario 2 de 3';
+        $flujo = 'Firma usuario 2 de 3';
         break;
     case 3:
-        
-        $estado = 'Vigente'; // Define el estado del documento como vigente después de esta firma.
-        $query = "  UPDATE calidad_acta_muestreo SET
-                        estado=?, verificador=?, fecha_firma_verificador=? 
-                    WHERE id=?;";  // Condición para asegurar la actualización correcta por ID
-        $types = "sssi";  // Tipos de los parámetros: string, string, string, integer
+        $estado = 'Vigente';
+        $query = "UPDATE calidad_acta_muestreo SET
+                    estado=?, verificador=?, fecha_firma_verificador=?
+                  WHERE id=?";
+        $types = "sssi";
         $params = [
             $estado,
             $usuario,
             $fechaActual,
             $id_actaMuestreo
         ];
-        $flujo='Firma usuario 3 de 3';  // Descripción del proceso actual para la trazabilidad
+        $flujo = 'Firma usuario 3 de 3';
         break;
     default:
         echo json_encode(['error' => 'Etapa de firma no reconocida.']);
@@ -91,12 +88,11 @@ switch ($etapa) {
 if ($stmt = mysqli_prepare($link, $query)) {
     mysqli_stmt_bind_param($stmt, $types, ...$params);
     $exito = mysqli_stmt_execute($stmt);
-    // Aquí podrías agregar registro de trazabilidad...
     registrarTrazabilidad(
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
         $flujo, 
-        'acta de muestreo',  
+        'CALIDAD - Acta de Muestreo',  
         $id_actaMuestreo, 
         $query,  
         $params, 
@@ -104,36 +100,55 @@ if ($stmt = mysqli_prepare($link, $query)) {
         $exito ? null : mysqli_error($link)
     );
     if ($exito) {
-        $_SESSION['nuevo_id'] = $id_actaMuestreo; // Esto puede ser útil dependiendo del flujo
-        if ($etapa==3) {
-            
+        $_SESSION['nuevo_id'] = $id_actaMuestreo;
+        if ($etapa == 3) {
             $id_analisis_externo = intval($input['id_analisis_externo']);
-            $estado2 = 'Pendiente completar análisis'; // Define el estado del documento como vigente después de esta firma.
-            $query = "  UPDATE calidad_analisis_externo SET
-                            estado=? 
-                        WHERE id=?;";  // Condición para asegurar la actualización correcta por ID
-            $types = "si";  // Tipos de los parámetros: string, string, string, integer
+            $estado2 = 'Pendiente completar análisis';
+            $query = "UPDATE calidad_analisis_externo SET estado=? WHERE id=?";
+            $types = "si";
             $stmt2 = mysqli_prepare($link, $query);
             mysqli_stmt_bind_param($stmt2, $types, $estado2, $id_analisis_externo);
             $exito = mysqli_stmt_execute($stmt2);
-            // Aquí podrías agregar registro de trazabilidad...
             registrarTrazabilidad(
                 $_SESSION['usuario'], 
                 $_SERVER['PHP_SELF'], 
                 'Cambio de estado post firma acta de muestreo', 
-                'análisis externo',  
+                'CALIDAD - Análisis Externo',  
                 $id_analisis_externo, 
                 $query,  
                 [$estado2, $id_analisis_externo], 
                 $exito ? 1 : 0, 
                 $exito ? null : mysqli_error($link)
             );
-            if ($exito){
-                echo json_encode(['success' => 'Datos guardados correctamente.']);
+            if ($exito) {
+                $query = "UPDATE calidad_acta_muestreo SET estado='Deprecado' WHERE id_analisisExterno=(SELECT id_analisisExterno FROM calidad_acta_muestreo WHERE id=?) AND estado NOT IN ('Vigente')";
+                $types = "i";
+                $stmt3 = mysqli_prepare($link, $query);
+                mysqli_stmt_bind_param($stmt3, $types, $id_actaMuestreo);
+                $exito = mysqli_stmt_execute($stmt3);
+                registrarTrazabilidad(
+                    $_SESSION['usuario'], 
+                    $_SERVER['PHP_SELF'], 
+                    'Deprecado Actas de Muestreo inconclusas', 
+                    'CALIDAD - Acta de Muestreo',  
+                    $id_actaMuestreo, 
+                    $query,  
+                    [$id_actaMuestreo], 
+                    $exito ? 1 : 0, 
+                    $exito ? null : mysqli_error($link)
+                );
+                if ($exito) {
+                    echo json_encode(['success' => 'Datos guardados correctamente.']);
+                } else {
+                    echo json_encode(['error' => 'Error al guardar datos deprecados: ' . mysqli_stmt_error($stmt3)]);
+                }
+                mysqli_stmt_close($stmt3);
             } else {
-                echo json_encode(['error' => 'Error al guardar datos: ' . mysqli_stmt_error($stmt2)]);
+                echo json_encode(['error' => 'Error al guardar datos modificación análisis externo: ' . mysqli_stmt_error($stmt2)]);
             }
             mysqli_stmt_close($stmt2);
+        } else {
+            echo json_encode(['success' => 'Datos guardados correctamente.']);
         }
     } else {
         echo json_encode(['error' => 'Error al guardar datos: ' . mysqli_stmt_error($stmt)]);
