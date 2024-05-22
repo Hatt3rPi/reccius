@@ -13,6 +13,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 
 $bucket_name        = getenv('BUCKET_NAME');
+$bucket_url         = getenv('BUCKET_URL');
 $account_id         = getenv('ACCOUNT_ID');
 $access_key_id      = getenv('ACCESS_KEY_ID');
 $access_key_secret  = getenv('ACCESS_KEY_SECRET');
@@ -26,14 +27,15 @@ $options = [
 
 $R2_client = new S3Client($options);
 
-function setFile($params) {
-  global $R2_client, $bucket_name;
+function setFile($params)
+{
+  global $R2_client, $bucket_name, $bucket_url;
 
   if (!is_array($params)) {
-      throw new InvalidArgumentException('Se espera un arreglo.');
+    throw new InvalidArgumentException('Se espera un arreglo.');
   }
   if (!isset($params['fileBinary']) || !isset($params['folder']) || !isset($params['fileName'])) {
-      throw new InvalidArgumentException('Faltan parámetros requeridos (fileBinary, folder, fileName).');
+    throw new InvalidArgumentException('Faltan parámetros requeridos (fileBinary, folder, fileName).');
   }
 
   // Acceder a los parámetros
@@ -49,26 +51,30 @@ function setFile($params) {
       'ACL' => 'private'
     ]);
 
-    return json_encode(['success' => $result, 'error' => false]);
+    $objectURL = "$bucket_url$folder/$fileName";
 
+    return json_encode(['success' => [
+      'ObjectURL' => $objectURL, 
+      'result' => $result, 
+      'error' => false
+    ]]);
   } catch (Aws\Exception\AwsException $e) {
     return json_encode(['success' => false, 'error' => $e->getMessage()]);
   }
 }
 
 
-function deleteFile($folder, $fileName) {
+function deleteFile($folder, $fileName)
+{
   global $R2_client, $bucket_name;
 
   try {
-      $result = $R2_client->deleteObject([
-          'Bucket' => $bucket_name,
-          'Key' => $folder . '/' . $fileName
-      ]);
-      return json_encode(['success' => $result, 'error' => false]);
+    $result = $R2_client->deleteObject([
+      'Bucket' => $bucket_name,
+      'Key' => $folder . '/' . $fileName
+    ]);
+    return json_encode(['success' => $result, 'error' => false]);
   } catch (Aws\Exception\AwsException $e) {
-      return json_encode(['success' => false, 'error' => $e->getMessage()]);
+    return json_encode(['success' => false, 'error' => $e->getMessage()]);
   }
 }
-
-?>
