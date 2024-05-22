@@ -58,7 +58,6 @@ function updateImage($link, $usuario, $file, $type)
         return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
     }
 
-    $folder = 'usuarios';
     $usuarioFilename = str_replace(' ', '_', $usuario);
     $timestamp = time();
     $fileName = $usuarioFilename . '_' . $timestamp . '.webp';
@@ -71,7 +70,7 @@ function updateImage($link, $usuario, $file, $type)
 
     $params = [
         'fileBinary' => $fileBinary,
-        'folder' => $folder,
+        'folder' => $type,
         'fileName' => $fileName
     ];
 
@@ -84,8 +83,7 @@ function updateImage($link, $usuario, $file, $type)
         $fileURL = $uploadResult['success']['ObjectURL'];
         $response['fileURL'] = $fileURL;
 
-        $column = $type === 'foto' ? 'foto_perfil' : 'foto_firma';
-        $query = "UPDATE `usuarios` SET $column = ? WHERE usuario = ?";
+        $query = "UPDATE `usuarios` SET $type = ? WHERE usuario = ?";
         $stmt = mysqli_prepare($link, $query);
         mysqli_stmt_bind_param($stmt, "ss", $fileURL, $usuario);
         mysqli_stmt_execute($stmt);
@@ -111,13 +109,13 @@ function updateUsuario($link, $usuario)
     $response = [];
 
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        $response['foto'] = json_decode(updateImage($link, $usuario, $_FILES['imagen'], 'foto'), true);
+        $response['foto'] = json_decode(updateImage($link, $usuario, $_FILES['imagen'], 'foto_perfil'), true);
     } else if (isset($_FILES['imagen'])) {
         $response['foto_error'] = 'Error en imagen: ' . $_FILES['imagen']['error'];
     }
 
     if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
-        $response['firma'] = json_decode(updateImage($link, $usuario, $_FILES['firma'], 'firma'), true);
+        $response['firma'] = json_decode(updateImage($link, $usuario, $_FILES['firma'], 'foto_firma'), true);
     } else if (isset($_FILES['firma'])) {
         $response['firma_error'] = 'Error en firma: ' . $_FILES['firma']['error'];
     }
