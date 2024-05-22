@@ -268,7 +268,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     const fotoPerfil = document.querySelector('.foto-perfil');
                     if (data.foto_perfil && data.foto_perfil.trim() !== "") {
                         // Construye la ruta completa a la imagen de perfil
-                        fotoPerfil.src = "../assets/uploads/perfiles/" + data.foto_perfil;
+                        fotoPerfil.src = data.foto_perfil;
                     } else {
                         // Usa la imagen genérica si no hay foto de perfil
                         fotoPerfil.src = "../assets/images/perfil.png";
