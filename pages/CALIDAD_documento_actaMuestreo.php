@@ -748,7 +748,7 @@ document.getElementById('confirmarMetodo').addEventListener('click', function() 
         // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
         document.getElementById('download-pdf').click();
     } else if (metodoDigital) {
-        $('#etapa').text('firma1');
+        $('#etapa').text('ingresa resultados y firma1');
         // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
@@ -1114,10 +1114,10 @@ document.getElementById('guardar').addEventListener('click', function() {
     
     let etapa = $('#etapa').text();
     switch (etapa){
-        case 'firma1':
+        case 'ingresa resultados y firma1':
             guardar_firma('.formulario.resp', 1);
             break;
-        case 'firma2':
+        case 'ingresa resultados y firma2':
             guardar_firma('.formulario.verif', 2);
             break;
         case 'firma3':
