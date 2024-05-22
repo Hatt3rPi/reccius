@@ -263,18 +263,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 formData.append('passwordActual', passwordActual);
                 formData.append('nuevaPassword', nuevaPassword);
             }
-            if ($('#switch_foto').is(':checked')) {
 
-                console.log('$(#switch_foto).is(:checked))');
+            if ($('#switch_foto').is(':checked')) {
                 if (blobImgPerfil === null) {
                     alert("Por favor, selecciona una imagen.");
                     return;
                 }
-                console.log('$(#switch_foto).is(:checked)) Append');
-
                 formData.append('imagen', blobImgPerfil);
-
             }
+
             if ($('#switch_certificado').is(':checked')) {
                 var fotoFirma = $('#firma')[0].files[0];
                 if (fotoFirma !== undefined && fotoFirma !== null) {
@@ -282,8 +279,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 } else {
                     alert("Por favor, selecciona una firma.");
                 }
-
-
             }
 
             if ($('#switch_info').is(':checked')) {
@@ -299,9 +294,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 formData.append('nombre_corto', nombre_corto);
 
             }
+
             if ($('#switch_certificado').val()) {
 
             }
+
             if ($('#switch_firma').val()) {
 
             }
@@ -315,7 +312,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 contentType: false,
                 success: function(response) {
                     var res = JSON.parse(response);
-                    if (res.success) {
+                    if (res.status === 'success' || res.status === 'partial success') {
                         alert(res.message);
                     } else {
                         alert("Error: " + res.message);

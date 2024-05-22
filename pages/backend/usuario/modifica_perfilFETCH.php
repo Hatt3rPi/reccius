@@ -51,8 +51,6 @@ function getUsuario($link, $usuario)
 }
 function updateImage($link, $usuario, $file, $type)
 {
-    include_once '../cloud/r2_manager.php';
-
     $folder = 'usuarios';
     $usuarioFilename = str_replace(' ', '_', $usuario);
     $timestamp = time();
@@ -78,7 +76,7 @@ function updateImage($link, $usuario, $file, $type)
         mysqli_stmt_execute($stmt);
 
         if (mysqli_stmt_affected_rows($stmt) > 0) {
-            echo json_encode(['status' => 'success', 'message' => ucfirst($type) . ' actualizada correctamente']);
+            echo json_encode(['status' => 'success', 'message' => ucfirst($type) . ' actualizada correctamente', 'url' => $fileURL]);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la ' . $type]);
         }
@@ -90,10 +88,23 @@ function updateImage($link, $usuario, $file, $type)
 
 function updateUsuario($link, $usuario)
 {
+    $response = [];
+
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        ob_start();
         updateImage($link, $usuario, $_FILES['imagen'], 'foto');
+        $response['foto_perfil'] = json_decode(ob_get_clean(), true);
     }
+
     if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
+        ob_start();
         updateImage($link, $usuario, $_FILES['firma'], 'firma');
+        $response['firma'] = json_decode(ob_get_clean(), true);
+    }
+
+    if (!empty($response)) {
+        echo json_encode(['status' => 'partial success', 'response' => $response]);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
 }
