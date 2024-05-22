@@ -76,10 +76,13 @@ $exito = mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 
 if ($exito) {
+// update 22052024
+//function finalizarTarea($usuarioEjecutor, $id_relacion, $tabla_relacion, $tipoAccion, $esAutomatico = false)
   // finalizarTarea(
   //   $_SESSION['usuario'], 
   //   $idAnalisisExterno, 
-  //   'calidad_analisis_externo'
+  //   'calidad_analisis_externo',
+  //   'Firma 2'
   // );
   echo json_encode(['exito' => true, 'mensaje' => 'Documento firmado con éxito']);
 } else {

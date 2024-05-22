@@ -160,7 +160,7 @@ function agregarDatosPostFirma($link, $datos)
             //Añadir documento en vez de id 
             ,
             1, 
-            'Firma analisis externo: Revisor', 
+            'Firma 2', 
             $datos['id'].';'.$datos['numero_registro'], 
             'calidad_analisis_externo'
         );
