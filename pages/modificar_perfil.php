@@ -306,7 +306,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             $.ajax({
                 url: './backend/usuario/modifica_perfilFETCH.php',
-                type: "PUT",
+                type: "POST",
                 data: formData,
                 processData: false,
                 contentType: false,

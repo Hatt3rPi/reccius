@@ -16,7 +16,7 @@ switch ($method) {
     case 'GET':
         getUsuario($link, $usuario);
         break;
-    case 'PUT':
+    case 'POST':
         updateUsuario($link, $usuario);
         break;
     default:
@@ -77,7 +77,7 @@ function updateImage($link, $usuario, $file, $type)
     $uploadStatus = setFile($params);
     $uploadResult = json_decode($uploadStatus, true);
 
-    if (isset($uploadResult['success'])) {
+    if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $fileURL = $uploadResult['success']['ObjectURL'];
 
         $column = $type === 'foto' ? 'foto_perfil' : 'foto_firma';
@@ -96,7 +96,6 @@ function updateImage($link, $usuario, $file, $type)
     }
 }
 
-
 function updateUsuario($link, $usuario)
 {
     $response = [];
@@ -105,12 +104,16 @@ function updateUsuario($link, $usuario)
         ob_start();
         updateImage($link, $usuario, $_FILES['imagen'], 'foto');
         $response['foto'] = json_decode(ob_get_clean(), true);
+    } else {
+        $response['foto_error'] = 'Error en imagen: ' . (isset($_FILES['imagen']['error']) ? $_FILES['imagen']['error'] : 'No se encontró el archivo de imagen.');
     }
 
     if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
         ob_start();
         updateImage($link, $usuario, $_FILES['firma'], 'firma');
         $response['firma'] = json_decode(ob_get_clean(), true);
+    } else {
+        $response['firma_error'] = 'Error en firma: ' . (isset($_FILES['firma']['error']) ? $_FILES['firma']['error'] : 'No se encontró el archivo de firma.');
     }
 
     if (!empty($response)) {
@@ -119,5 +122,4 @@ function updateUsuario($link, $usuario)
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
 }
-
 ?>
