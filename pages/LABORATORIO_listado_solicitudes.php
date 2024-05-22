@@ -190,7 +190,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <i class="fa fa-signature"></i> Firmar</button><a> 
                 </a>`*/
             }
-
+            acciones += '<button class="accion-btn" title="WIP Solicitud Liberacion" type="button" id="' + d.id_analisisExterno + '" name="Liberacion" onclick="botones({analisisExterno:this.id, especificacion:'+d.id_especificacion+'}, this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
             acciones += '</td></tr></table>';
             return acciones;
         }

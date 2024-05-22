@@ -734,6 +734,27 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
+                case "Liberacion": {
+                    // Llamar a una función que maneje el envío del recordatorio
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_ActaLiberacion.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': true,
+                            'etapa':'1'
+                        },
+                        success: function(response) {
+                            console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito ');
+                            $('#dynamic-content').html(response, true); 
+                            //cargarDatosEspecificacion(id, true, '1');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+            }
                 case "firmar_solicitud_analisis_externo":{
                     // id <- id analisis externo
                     fetch(`./backend/laboratorio/cargaEsp_solicitudBE.php?id=0&id_analisis_externo=${id}`,{
@@ -792,6 +813,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
+                
             }
             break;
         }
