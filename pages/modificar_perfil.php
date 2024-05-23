@@ -101,7 +101,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div>
                         <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
                         <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
-                        <div id="certificadoExistente" class="d-flex justify-content-center">
+                        <div id="certificadoExistente" class="container-md d-flex justify-content-center" style="height: 400px;">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
                     </div>
