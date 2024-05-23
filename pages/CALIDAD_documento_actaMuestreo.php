@@ -1210,13 +1210,8 @@ function guardar_firma(selector, etapa) {
             console.log('Guardado exitoso: ', response);
             //alert("Datos guardados correctamente.");
             $.notify("Datos guardados correctamente.", "success");
-            $('#dynamic-content').load('CALIDAD_listado_actaMuestreo.php', function (response, status, xhr) {
-                    if (status == "error") {
-                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
-                    } else {
-                        console.log('Listado cargado correctamente cargado exitosamente.');
-                    }
-            });
+            $('#listado_acta_muestreo').click();
+            
         },
         error: function(xhr, status, error) {
             console.error("Error al guardar: ", status, error);

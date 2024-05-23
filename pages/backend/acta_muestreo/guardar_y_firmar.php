@@ -122,7 +122,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 break;
         }
         
-        
+        unset($_SESSION['nuevo_id']);
         $_SESSION['nuevo_id'] = $id_actaMuestreo;
         if ($etapa == 3) {
             $id_analisis_externo = intval($input['id_analisis_externo']);
