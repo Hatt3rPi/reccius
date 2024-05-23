@@ -150,12 +150,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
 
                     if (usuario.certificado) {
-                        document.getElementById('certificadoExistente').innerHTML = `
-                    <div class="d-flex flex-column justify-content-center">
-                        <a href="${usuario.certificado}" target="_blank">Ver Certificado</a>
-                        <iframe src="${usuario.certificado}" width="400" height="800" style="border: none;"></iframe>
-                    </div>
-                `;
+                        fetch(usuario.certificado)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.blob();
+                            })
+                            .then(blob => {
+                                const url = URL.createObjectURL(blob);
+                                document.getElementById('certificadoExistente').innerHTML = `
+                            <div class="d-flex justify-content-center flex-column">
+                            <a href="${usuario.certificado}" target="_blank">Descargar Certificado</a>
+                            <iframe src="${url}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                            </div>
+                            `;
+                            })
+                            .catch(error => {
+                                console.error('There was a problem with the fetch operation:', error);
+                                document.getElementById('certificadoExistente').innerHTML = `
+                                    <a href="${usuario.certificado}" target="_blank">Descargar Certificado</a>
+                                `;
+                            });
+
                     }
                 },
                 error: function(xhr, status, error) {
