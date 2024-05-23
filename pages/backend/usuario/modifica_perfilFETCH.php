@@ -23,7 +23,31 @@ switch ($method) {
         header('HTTP/1.1 405 Method Not Allowed');
         exit;
 }
+function updateSession($usuario){
+    global $link;
+    $query = "SELECT 
+            usr.id, usr.nombre, usr.foto_firma, usr.foto_perfil, 
+            usr.correo, usr.cargo, rol.nombre as rol
+            FROM `usuarios` as usr 
+            LEFT JOIN roles as rol 
+            ON usr.rol_id=rol.id WHERE usuario = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, "s", $usuario);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
+    if ($row = mysqli_fetch_assoc($result)) {
+        $_SESSION['id_usuario'] = $row['id'];
+        $_SESSION['nombre'] = $row['nombre'];
+        $_SESSION['foto_firma'] = $row['foto_firma'];
+        $_SESSION['foto_perfil'] = $row['foto_perfil'];
+        $_SESSION['correo'] = $row['correo'];
+        $_SESSION['cargo'] = $row['cargo'];
+        $_SESSION['rol'] = $row['rol'];
+    }
+
+    mysqli_stmt_close($stmt);
+}
 function getUsuario($link, $usuario)
 {
     $query = "SELECT id, nombre, nombre_corto, foto_perfil, ruta_registroPrestadoresSalud, cargo FROM `usuarios` WHERE usuario = ?";
@@ -121,6 +145,7 @@ function updateUsuario($link, $usuario)
     }
 
     if (!empty($response)) {
+        updateSession($_SESSION['usuario']);
         echo json_encode(['status' => 'partial success', 'response' => $response]);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
