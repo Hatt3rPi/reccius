@@ -34,6 +34,7 @@ if (isset($_POST['login'])) {
     $result = mysqli_stmt_get_result($stmt);
     $usuario = mysqli_fetch_assoc($result);
     $resultadoArray = mysqli_fetch_assoc($result);
+    
     $user = $usuario['usuario'] ? $usuario['usuario'] : null;
     $resultado = $resultadoArray ? 1 : 0; // Suponiendo que 1 es éxito y 0 es fracaso
     $error = mysqli_stmt_error($stmt) ? "Error al ejecutar la consulta: " . mysqli_stmt_error($stmt) : null;

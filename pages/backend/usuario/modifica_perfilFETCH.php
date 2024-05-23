@@ -23,6 +23,13 @@ switch ($method) {
         header('HTTP/1.1 405 Method Not Allowed');
         exit;
 }
+function limpiarDato($dato) {
+    $dato = trim($dato);
+    $dato = stripslashes($dato);
+    $dato = htmlspecialchars($dato);
+    return $dato;
+}
+
 function updateSession($usuario)
 {
     global $link;
@@ -196,6 +203,38 @@ function updateCertificado($file)
     return json_encode($response);
 }
 
+function updatePassword($pass, $newPass)
+{
+    global $link, $usuario;
+
+    if ($newPass == '' || $newPass == null) {
+        return json_encode(['status' => 'error', 'message' => 'Las contraseñas no coinciden.']);
+    }
+
+    $query = "SELECT id, contrasena FROM `usuarios`  WHERE usuario = ?";
+
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, "s", $usuario);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $userFetch = mysqli_fetch_assoc($result);
+
+    if ($usuario && password_verify($pass, $userFetch['contrasena'])) {
+        $contrasenaHash = password_hash($newPass, PASSWORD_DEFAULT);
+        $update = mysqli_prepare($link, "UPDATE usuarios SET contrasena = ? WHERE id = ?");
+        mysqli_stmt_bind_param($update, "si", $contrasenaHash, $userFetch['id']);
+        $update_result = mysqli_stmt_execute($update);
+        mysqli_stmt_close($update);
+
+        return $update_result
+            ? json_encode(['status' => 'success', 'message' => 'Contraseña actualizada correctamente.'])
+            : json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la contraseña.']);
+
+    }else{
+        return json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta.']);
+    }
+}
+
 function updateUsuario()
 {
     $response = [];
@@ -217,6 +256,9 @@ function updateUsuario()
         $response['certificado_error'] = 'Error en certificado: ' . $_FILES['certificado']['error'];
     }
 
+    if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['newPassword']) && !empty($_POST['newPassword'])) {
+        $response['password'] = updatePassword(limpiarDato($_POST['password']), limpiarDato($_POST['newPassword']));
+    }
 
     if (!empty($response)) {
         updateSession($_SESSION['usuario']);

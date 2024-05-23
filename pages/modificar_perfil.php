@@ -287,8 +287,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     alert("Las contraseñas no coinciden o son muy cortas.");
                     return;
                 }
-                formData.append('passwordActual', passwordActual);
-                formData.append('nuevaPassword', nuevaPassword);
+                formData.append('password', passwordActual);
+                formData.append('newPassword', nuevaPassword);
             }
 
             if ($('#switch_foto').is(':checked')) {
