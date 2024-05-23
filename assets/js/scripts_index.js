@@ -438,91 +438,75 @@ function actualizarBreadcrumb(nodos, urls) {
 
 let QA_solicitud_analisis_editing = false  
 
-function botones(id, accion, base, opcional = null) {
-    console.log({id, accion, basr, opcional});
-    switch (base){
-        case "especificacion":{
+function botones(id, accion, base, opcional = null, opcional2 = null) {
+    console.log({id, accion, base, opcional, opcional2});
+    switch (base) {
+        case "especificacion": {
             switch (accion) {
                 case "revisar": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
-                    
                     $.ajax({
-                        url: 'especificacion_producto.php', // URL del script 
-                        type: 'POST', // Tipo de solicitud
+                        url: 'especificacion_producto.php',
+                        type: 'POST',
                         data: { 
                             'id': id,
                             'accion': accion
-                             }, // Datos que se enviarán con la solicitud
+                        },
                         success: function(response) {
-                            // Esta función se ejecuta cuando la solicitud es exitosa
                             $('#dynamic-content').hide();
                             $('#loading-spinner').show();
-                            console.log('especificacion_producto redirigida con éxito ');
-                            $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
+                            console.log('especificacion_producto redirigida con éxito');
+                            $('#dynamic-content').html(response);
                             cargarDatosEspecificacion(id);
                             $('#loading-spinner').hide();
                             $('#dynamic-content').show();
                         },
                         error: function(xhr, status, error) {
-                            // Esta función se ejecuta en caso de error en la solicitud
                             console.error("Error en la solicitud: ", status, error);
                         }
                     });
-                    
-                    console.log('Proceso finalizado');
                     break;
                 }
                 case "generar_documento": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
-                    
                     $.ajax({
-                        url: 'documento_especificacion_producto.php', // URL del script 
-                        type: 'POST', // Tipo de solicitud
+                        url: 'documento_especificacion_producto.php',
+                        type: 'POST',
                         data: { 
                             'id': id,
                             'accion': accion
-                             }, // Datos que se enviarán con la solicitud
+                        },
                         success: function(response) {
-                            // Esta función se ejecuta cuando la solicitud es exitosa
-                            console.log('especificacion_producto redirigida con éxito ');
-                            $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
+                            console.log('especificacion_producto redirigida con éxito');
+                            $('#dynamic-content').html(response);
                             cargarDatosEspecificacion(id);
-                            
                         },
                         error: function(xhr, status, error) {
-                            // Esta función se ejecuta en caso de error en la solicitud
                             console.error("Error en la solicitud: ", status, error);
                         }
                     });
-                    
-                    console.log('Proceso finalizado');
                     break;
                 }
                 case "prepararSolicitud": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
-                    if(AppConfig.FLAGS.analisis_externo){
-                        var {analisisExterno,especificacion} = id
+                    if (AppConfig.FLAGS.analisis_externo) {
+                        var {analisisExterno, especificacion} = id;
                         $.ajax({
-                            url: 'LABORATORIO_preparacion_solicitud.php', // URL del script 
-                            type: 'POST', // Tipo de solicitud
+                            url: 'LABORATORIO_preparacion_solicitud.php',
+                            type: 'POST',
                             data: { 
                                 analisisExterno,
                                 especificacion,
                                 'accion': accion
-                                }, // Datos que se enviarán con la solicitud
+                            },
                             success: function(response) {
-                                // Esta función se ejecuta cuando la solicitud es exitosa
-                                console.log('especificacion_producto redirigida con éxito ');
-                                $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
-                                
+                                console.log('especificacion_producto redirigida con éxito');
+                                $('#dynamic-content').html(response);
                             },
                             error: function(xhr, status, error) {
-                                // Esta función se ejecuta en caso de error en la solicitud
                                 console.error("Error en la solicitud: ", status, error);
                             }
                         });
-                        
-                        console.log('Proceso finalizado');
                     } else {
                         featureNoDisponible();
                     }
@@ -534,7 +518,6 @@ function botones(id, accion, base, opcional = null) {
         case "tareas": {
             switch (accion) {
                 case "recordar": {
-                    // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/backend/tareas/recordatorioBE.php',
                         type: 'POST',
@@ -552,27 +535,28 @@ function botones(id, accion, base, opcional = null) {
                 }
                 case "finalizar_tarea": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
-                    
-                    $.ajax({
-                        url: 'documento_especificacion_producto.php', // URL del script 
-                        type: 'POST', // Tipo de solicitud
-                        data: { 
-                            'id': id,
-                            'accion': accion
-                             }, // Datos que se enviarán con la solicitud
-                        success: function(response) {
-                            // Esta función se ejecuta cuando la solicitud es exitosa
-                            console.log('especificacion_producto redirigida con éxito ');
-                            $('#dynamic-content').html(response); // Inserta el contenido en el elemento del DOM
-                            cargarDatosEspecificacion(id);
-                            
-                        },
-                        error: function(xhr, status, error) {
-                            // Esta función se ejecuta en caso de error en la solicitud
-                            console.error("Error en la solicitud: ", status, error);
+                    switch (opcional) {
+                        case "calidad_especificacion_productos": {
+                            switch (opcional2) {
+                                case 'Firma 2':
+                                case 'Firma 3': {
+                                    botones(id, 'generar_documento', 'especificacion');
+                                    break;
+                                }
+                            }
+                            break;
                         }
-                    });
-                    
+                        case "calidad_acta_muestreo": {
+                            switch (opcional2) {
+                                case 'Firma 2':
+                                case 'Firma 3': {
+                                    botones(id, 'firmar_acta_muestreo', 'laboratorio');
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
                     console.log('Proceso finalizado');
                     break;
                 }
@@ -583,17 +567,16 @@ function botones(id, accion, base, opcional = null) {
             switch (accion) {
                 case "generar_acta_muestreo": {
                     console.log('generar_acta_muestreo');
-                    // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
                             'resultados': false,
-                            'etapa':'0'
+                            'etapa': '0'
                         },
                         success: function(response) {
-                            $('#dynamic-content').html(response); 
+                            $('#dynamic-content').html(response);
                             cargarDatosEspecificacion(id, false, '0');
                         },
                         error: function(xhr, status, error) {
@@ -603,19 +586,17 @@ function botones(id, accion, base, opcional = null) {
                     break;
                 }
                 case "generar_documento_solicitudes": {
-                    // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_analisisExterno.php',
                         type: 'POST',
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa':'1'
+                            'etapa': '1'
                         },
                         success: function(response) {
-                            console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito ');
-                            $('#dynamic-content').html(response, true); 
-                            //cargarDatosEspecificacion(id, true, '1');
+                            console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito');
+                            $('#dynamic-content').html(response, true);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);
@@ -624,15 +605,14 @@ function botones(id, accion, base, opcional = null) {
                     break;
                 }
                 case "revisar": {
-                    var {analisisExterno,especificacion} = id
-                    // Llamar a una función que maneje la visualización del documento
+                    var {analisisExterno, especificacion} = id;
                     console.log("REVISAR CLICKEADO CON EXITO");
                     $.ajax({
                         url: '../pages/LABORATORIO_preparacion_solicitud.php',
                         type: 'POST',
                         data: {
                             analisisExterno,
-                            especificacion,
+                            especificacion
                         },
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
@@ -644,20 +624,18 @@ function botones(id, accion, base, opcional = null) {
                     });
                     break;
                 }
-                // CALIDAD / Preparar Acta de Muestreo
-                case "resultados_actaMuestreo":{
-                    // Llamar a una función que maneje el envío del recordatorio
-                    console.log("exito al oprimir resultados_actaMuestreo")   
+                case "resultados_actaMuestreo": {
+                    console.log("exito al oprimir resultados_actaMuestreo");
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa':'0'
+                            'etapa': '0'
                         },
                         success: function(response) {
-                            $('#dynamic-content').html(response); 
+                            $('#dynamic-content').html(response);
                             cargarDatosEspecificacion(id, true, '0');
                             console.log('resultados_actaMuestreo');
                         },
@@ -667,20 +645,17 @@ function botones(id, accion, base, opcional = null) {
                     });
                     break;
                 }
-                // CALIDAD / Preparar Acta de Muestreo
-                case "generar_documento_actaMuestreo":{
-                    
-                    // id = id del análisis externo
+                case "generar_documento_actaMuestreo": {
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
                             'resultados': false,
-                            'etapa':'0'
+                            'etapa': '0'
                         },
                         success: function(response) {
-                            $('#dynamic-content').html(response); 
+                            $('#dynamic-content').html(response);
                             cargarDatosEspecificacion(id, false, '0');
                             console.log('generar_acta_muestreo');
                         },
@@ -690,19 +665,17 @@ function botones(id, accion, base, opcional = null) {
                     });
                     break;
                 }
-                case "firmar_acta_muestreo":{
-                    
-                    // id = id del acta de muestreo
+                case "firmar_acta_muestreo": {
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa':'1'
+                            'etapa': '1'
                         },
                         success: function(response) {
-                            $('#dynamic-content').html(response); 
+                            $('#dynamic-content').html(response);
                             cargarDatosEspecificacion(id, true, '1');
                             console.log('generar_acta_muestreo');
                         },
@@ -712,19 +685,17 @@ function botones(id, accion, base, opcional = null) {
                     });
                     break;
                 }
-                case "revisar_acta":{
-                    
-                    // id = id del acta de muestreo
+                case "revisar_acta": {
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa':'1'
+                            'etapa': '1'
                         },
                         success: function(response) {
-                            $('#dynamic-content').html(response); 
+                            $('#dynamic-content').html(response);
                             cargarDatosEspecificacion(id, true, '1');
                             console.log('ver documento');
                         },
@@ -735,29 +706,26 @@ function botones(id, accion, base, opcional = null) {
                     break;
                 }
                 case "Liberacion": {
-                    // Llamar a una función que maneje el envío del recordatorio
                     $.ajax({
                         url: '../pages/CALIDAD_documento_ActaLiberacion.php',
                         type: 'POST',
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa':'1'
+                            'etapa': '1'
                         },
                         success: function(response) {
-                            console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito ');
-                            $('#dynamic-content').html(response, true); 
-                            //cargarDatosEspecificacion(id, true, '1');
+                            console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito');
+                            $('#dynamic-content').html(response, true);
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);
                         }
                     });
                     break;
-            }
-                case "firmar_solicitud_analisis_externo":{
-                    // id <- id analisis externo
-                    fetch(`./backend/laboratorio/cargaEsp_solicitudBE.php?id=0&id_analisis_externo=${id}`,{
+                }
+                case "firmar_solicitud_analisis_externo": {
+                    fetch(`./backend/laboratorio/cargaEsp_solicitudBE.php?id=0&id_analisis_externo=${id}`, {
                         method: 'GET'
                     })
                     .then(response => {
@@ -767,29 +735,26 @@ function botones(id, accion, base, opcional = null) {
                         return response.json();
                     }).then(response => {
                         var bodyHtml = [
-                            {text:'Numero de registro',value:response['analisis'].numero_registro},
-                            {text:'Numero de solicitud',value:response['analisis'].numero_solicitud},
-                            {text:'Solicitante',value:response['analisis'].solicitado_por},
-                            {text:'Version de analisis',value:response['analisis'].version},
-                            {text:'Nombre de producto',value:response['analisis'].prod_nombre_producto},
-                            {text:'Concentracion de producto',value:response['analisis'].prod_tipo_concentracion},
-                            {text:'Estandar segun',value:response['analisis'].estandar_segun},
-                            {text:'Registro isp',value:response['analisis'].registro_isp},
-                            {text:'Revisado por',value:response['analisis'].revisado_por},
-                            {text:'Especificacion',value:response['analisis'].id_especificacion},
-                            {text:'Version especificacion',value:response['analisis'].version_especificacion},
-                        ].map(({text,value})=> /*html*/`
-                        <fieldset class="form-group border-left pl-2 ">
+                            {text: 'Numero de registro', value: response['analisis'].numero_registro},
+                            {text: 'Numero de solicitud', value: response['analisis'].numero_solicitud},
+                            {text: 'Solicitante', value: response['analisis'].solicitado_por},
+                            {text: 'Version de analisis', value: response['analisis'].version},
+                            {text: 'Nombre de producto', value: response['analisis'].prod_nombre_producto},
+                            {text: 'Concentracion de producto', value: response['analisis'].prod_tipo_concentracion},
+                            {text: 'Estandar segun', value: response['analisis'].estandar_segun},
+                            {text: 'Registro isp', value: response['analisis'].registro_isp},
+                            {text: 'Revisado por', value: response['analisis'].revisado_por},
+                            {text: 'Especificacion', value: response['analisis'].id_especificacion},
+                            {text: 'Version especificacion', value: response['analisis'].version_especificacion},
+                        ].map(({text, value}) => /*html*/`
+                        <fieldset class="form-group border-left pl-2">
                             <legend class="h6 font-weight-normal">${text}</legend>
                             <div class="form-group">
-                                <input class="form-control mx-0"
-                                readonly
-                                value="${value}">
+                                <input class="form-control mx-0" readonly value="${value}">
                             </div>
                         </fieldset>
-                        `)
+                        `);
 
-                    
                         $.ajax({
                             url: '../pages/components/modal_confirm.php',
                             type: 'POST',
@@ -797,28 +762,24 @@ function botones(id, accion, base, opcional = null) {
                                 'title': 'Firmar documento',
                                 'body': bodyHtml.join(''),
                                 'button_text': 'Firmar',
-                                'button_action': `firmarDocumentoSolicitudExterna(${id})`,
+                                'button_action': `firmarDocumentoSolicitudExterna(${id})`
                             },
                             success: function(response) {
-                                $('#dynamic-content').append(response); 
+                                $('#dynamic-content').append(response);
                             },
                             error: function(xhr, status, error) {
                                 console.error("Error al enviar el recordatorio: ", status, error);
                             }
                         });
-                    }
-
-                    ).catch(error => {
-                        return {error};
+                    }).catch(error => {
+                        console.error('Error:', error);
                     });
                     break;
                 }
-                
             }
             break;
         }
     }
-   
 }
 
 
