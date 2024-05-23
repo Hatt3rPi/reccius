@@ -150,12 +150,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
 
                     if (usuario.certificado) {
-                        document.getElementById('certificadoExistente').innerHTML = /*html*/ `
-                        <div class="d-flex flex-column justify-content-center">
+                        document.getElementById('certificadoExistente').innerHTML = `
+                    <div class="d-flex flex-column justify-content-center">
                         <a href="${usuario.certificado}" target="_blank">Ver Certificado</a>
-                        <iframe src="${usuario.certificado}" width="400" height="800"></iframe>
-                        </div>
-                        `;
+                        <iframe src="${usuario.certificado}" width="400" height="800" style="border: none;"></iframe>
+                    </div>
+                `;
                     }
                 },
                 error: function(xhr, status, error) {
