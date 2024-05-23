@@ -100,13 +100,25 @@ if ($stmt = mysqli_prepare($link, $query)) {
         $exito ? null : mysqli_error($link)
     );
     if ($exito) {
-        if ($flujo == 'Firma usuario 1 de 3') {
-            // Crear tarea para la segunda firma
-            registrarTarea(7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: ' . $acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
-        } elseif ($flujo == 'Firma usuario 2 de 3') {
-            // Crear tarea para la tercera firma
-            registrarTarea(7, $_SESSION['usuario'], $firma3, '3ra firma acta de muestreo: ' . $acta, 2, 'Firma 3', $id_actaMuestreo, 'calidad_acta_muestreo');
+        switch ($flujo) {
+            case 'Firma usuario 1 de 3':
+                // Crear tarea para la segunda firma
+                registrarTarea(7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: ' . $acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
+                break;
+            case 'Firma usuario 2 de 3':
+                // Finalizar tarea de la segunda firma y crear tarea para la tercera firma
+                finalizarTarea($_SESSION['usuario'], $id_actaMuestreo, 'calidad_acta_muestreo', 'Firma 2');
+                registrarTarea(7, $_SESSION['usuario'], $firma3, '3ra firma acta de muestreo: ' . $acta, 2, 'Firma 3', $id_actaMuestreo, 'calidad_acta_muestreo');
+                break;
+            case 'Firma usuario 3 de 3':
+                // Finalizar tarea de la tercera firma
+                finalizarTarea($_SESSION['usuario'], $id_actaMuestreo, 'calidad_acta_muestreo', 'Firma 3');
+                break;
+            default:
+                // Manejo de caso por defecto si es necesario
+                break;
         }
+        
         
         $_SESSION['nuevo_id'] = $id_actaMuestreo;
         if ($etapa == 3) {
