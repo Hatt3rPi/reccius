@@ -14,9 +14,9 @@ $id_actaMuestreo = isset($input['id_actaMuestreo']) ? intval($input['id_actaMues
 $etapa = isset($input['etapa']) ? intval($input['etapa']) : null;
 $respuestas = isset($input['respuestas']) ? $input['respuestas'] : null;
 $textareaData = isset($input['textareaData']) ? $input['textareaData'] : [];
-$firma2 = isset($input['firma2']) ? intval($input['firma2']) : null;
-$firma3 = isset($input['firma3']) ? intval($input['firma3']) : null;
-$acta = isset($input['acta']) ? intval($input['acta']) : null;
+$firma2 = isset($input['firma2']) ? $input['firma2'] : null;
+$firma3 = isset($input['firma3']) ? $input['firma3'] : null;
+$acta = isset($input['acta']) ? $input['acta'] : null;
 
 // Validar que los datos esenciales están presentes
 if (!$id_actaMuestreo || !$etapa || !$respuestas) {
@@ -33,19 +33,17 @@ switch ($etapa) {
             exit;
         }
         $query = "UPDATE calidad_acta_muestreo SET
-                    estado=?,
-                    resultados_muestrador=?,
-                    pregunta5=?, pregunta6=?, pregunta7=?, pregunta8=?,
+                    estado=?, resultados_muestrador=?, pregunta5=?, pregunta6=?, pregunta7=?, pregunta8=?,
                     muestreador=?, fecha_firma_muestreador=?
                   WHERE id=?";
         $types = "ssssssssi";
         $params = [
             $estado,
             $respuestas,
-            $textareaData['form_textarea5'],
-            $textareaData['form_textarea6'],
-            $textareaData['form_textarea7'],
-            $textareaData['form_textarea8'],
+            $textareaData['form_textarea5'] ?? '',
+            $textareaData['form_textarea6'] ?? '',
+            $textareaData['form_textarea7'] ?? '',
+            $textareaData['form_textarea8'] ?? '',
             $usuario,
             $fechaActual,
             $id_actaMuestreo
@@ -55,8 +53,7 @@ switch ($etapa) {
     case 2:
         $estado = 'En proceso de firma';
         $query = "UPDATE calidad_acta_muestreo SET
-                    estado=?, resultados_responsable=?,
-                    responsable=?, fecha_firma_responsable=?
+                    estado=?, resultados_responsable=?, responsable=?, fecha_firma_responsable=?
                   WHERE id=?";
         $types = "ssssi";
         $params = [
@@ -103,11 +100,12 @@ if ($stmt = mysqli_prepare($link, $query)) {
         $exito ? null : mysqli_error($link)
     );
     if ($exito) {
-        if($flujo=='Firma usuario 1 de 3'){
-            //function registrarTarea($dias_hasta_vencimiento, $usuario_creador, $usuario_ejecutor, $descripcion_tarea, $prioridad, $tipo, $id_relacion, $tabla_relacion)
-            registrarTarea(7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: '.$acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
-        } elseif ($flujo=='Firma usuario 2 de 3'){
-            registrarTarea(7, $_SESSION['usuario'], $firma3, '3ra firma acta de muestreo: '.$acta, 2, 'Firma 3', $id_actaMuestreo, 'calidad_acta_muestreo');
+        if ($flujo == 'Firma usuario 1 de 3') {
+            // Crear tarea para la segunda firma
+            registrarTarea(7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: ' . $acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
+        } elseif ($flujo == 'Firma usuario 2 de 3') {
+            // Crear tarea para la tercera firma
+            registrarTarea(7, $_SESSION['usuario'], $firma3, '3ra firma acta de muestreo: ' . $acta, 2, 'Firma 3', $id_actaMuestreo, 'calidad_acta_muestreo');
         }
         
         $_SESSION['nuevo_id'] = $id_actaMuestreo;
@@ -135,8 +133,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 JOIN (SELECT id_analisisExterno FROM calidad_acta_muestreo WHERE id = ?) AS sub
                 ON cam.id_analisisExterno = sub.id_analisisExterno
                 SET cam.estado = 'Deprecado'
-                WHERE cam.estado NOT IN ('Vigente');
-                ";
+                WHERE cam.estado NOT IN ('Vigente')";
                 $types = "i";
                 $stmt3 = mysqli_prepare($link, $query);
                 mysqli_stmt_bind_param($stmt3, $types, $id_actaMuestreo);
@@ -154,8 +151,6 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 );
                 if ($exito) {
                     echo json_encode(['success' => 'Datos guardados correctamente.']);
-                    //function registrarTarea($dias_hasta_vencimiento, $usuario_creador, $usuario_ejecutor, $descripcion_tarea, $prioridad, $tipo, $id_relacion, $tabla_relacion)
-                   
                 } else {
                     echo json_encode(['error' => 'Error al guardar datos deprecados: ' . mysqli_stmt_error($stmt3)]);
                 }
