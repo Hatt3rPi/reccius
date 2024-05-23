@@ -1189,6 +1189,7 @@ function guardar_firma(selector, etapa) {
     }
 
     // Enviar datos al servidor usando AJAX
+    console.log(dataToSave);
     $.ajax({
         url: './backend/acta_muestreo/guardar_y_firmar.php',
         type: 'POST',
@@ -1231,6 +1232,7 @@ function guardar_firma3() {
     };
 
     // Enviar datos al servidor usando AJAX
+    console.log(dataToSave);
     $.ajax({
         url: './backend/acta_muestreo/guardar_y_firmar.php',
         type: 'POST',
