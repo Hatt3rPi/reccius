@@ -14,16 +14,17 @@ if (!$usuario) {
 
 switch ($method) {
     case 'GET':
-        getUsuario($link, $usuario);
+        getUsuario();
         break;
     case 'POST':
-        updateUsuario($link, $usuario);
+        updateUsuario();
         break;
     default:
         header('HTTP/1.1 405 Method Not Allowed');
         exit;
 }
-function updateSession($usuario){
+function updateSession($usuario)
+{
     global $link;
     $query = "SELECT 
             usr.id, usr.nombre, usr.foto_firma, usr.foto_perfil, 
@@ -42,15 +43,18 @@ function updateSession($usuario){
         $_SESSION['foto_firma'] = $row['foto_firma'];
         $_SESSION['foto_perfil'] = $row['foto_perfil'];
         $_SESSION['correo'] = $row['correo'];
+        $_SESSION['certificado'] = $row['ruta_registroPrestadoresSalud'];
         $_SESSION['cargo'] = $row['cargo'];
         $_SESSION['rol'] = $row['rol'];
     }
 
     mysqli_stmt_close($stmt);
 }
-function getUsuario($link, $usuario)
+function getUsuario()
 {
-    $query = "SELECT id, nombre, nombre_corto, foto_perfil, ruta_registroPrestadoresSalud, cargo FROM `usuarios` WHERE usuario = ?";
+
+    global $link, $usuario;
+    $query = "SELECT id, nombre, nombre_corto, foto_perfil,foto_firma, ruta_registroPrestadoresSalud, cargo FROM `usuarios` WHERE usuario = ?";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "s", $usuario);
     mysqli_stmt_execute($stmt);
@@ -64,6 +68,7 @@ function getUsuario($link, $usuario)
             'nombre' => $row['nombre'],
             'nombre_corto' => $row['nombre_corto'],
             'foto_perfil' => $row['foto_perfil'],
+            'foto_firma' => $row['foto_firma'],
             'certificado' => $row['ruta_registroPrestadoresSalud'],
             'cargo' => $row['cargo']
         ];
@@ -74,12 +79,21 @@ function getUsuario($link, $usuario)
     echo json_encode(['usuario' => $data], JSON_UNESCAPED_UNICODE);
 }
 
-function updateImage($link, $usuario, $file, $type)
+function updateImage($file, $type)
 {
+    global $link, $usuario;
     $response = [];
 
     if (!$file) {
         return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
+    }
+    // Validar el tipo MIME del archivo
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+
+    if ($mimeType !== 'application/pdf') {
+        return json_encode(['status' => 'error', 'message' => 'El archivo no es un PDF.']);
     }
 
     $usuarioFilename = str_replace(' ', '_', $usuario);
@@ -128,21 +142,81 @@ function updateImage($link, $usuario, $file, $type)
     return json_encode($response);
 }
 
-function updateUsuario($link, $usuario)
+function updateCertificado($file)
+{
+    global $link, $usuario;
+    //ruta_registroPrestadoresSalud
+    if (!$file) {
+        return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
+    }
+    $usuarioFilename = str_replace(' ', '_', $usuario);
+    $timestamp = time();
+    $fileName = 'registroPrestadoresSalud_' . $usuarioFilename . '_' . $timestamp . '.pdf';
+
+    $fileBinary = file_get_contents($file['tmp_name']);
+
+    if (!$fileBinary) {
+        return json_encode(['status' => 'error', 'message' => 'Error al leer el archivo.']);
+    }
+
+    $params = [
+        'fileBinary' => $fileBinary,
+        'folder' => 'certificados',
+        'fileName' => $fileName
+    ];
+
+    $uploadStatus = setFile($params);
+    $uploadResult = json_decode($uploadStatus, true);
+
+    $response['uploadResult'] = $uploadResult;
+
+    if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
+        $fileURL = $uploadResult['success']['ObjectURL'];
+        $response['fileURL'] = $fileURL;
+
+        $query = "UPDATE `usuarios` SET ruta_registroPrestadoresSalud = ? WHERE usuario = ?";
+
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, "ss", $fileURL, $usuario);
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            $response['status'] = 'success';
+            $response['message'] = 'certificado  actualizado correctamente';
+            $response['url'] = $fileURL;
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'No se pudo actualizar el certificado';
+        }
+    } else {
+        $response['status'] = 'error';
+        $response['message'] = 'Error al subir el ' . 'certificado' . ': ' . $uploadResult['error'];
+    }
+
+    return json_encode($response);
+}
+
+function updateUsuario()
 {
     $response = [];
 
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        $response['foto'] = json_decode(updateImage($link, $usuario, $_FILES['imagen'], 'foto_perfil'), true);
+        $response['foto'] = json_decode(updateImage($_FILES['imagen'], 'foto_perfil'), true);
     } else if (isset($_FILES['imagen'])) {
         $response['foto_error'] = 'Error en imagen: ' . $_FILES['imagen']['error'];
     }
 
     if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
-        $response['firma'] = json_decode(updateImage($link, $usuario, $_FILES['firma'], 'foto_firma'), true);
+        $response['firma'] = json_decode(updateImage($_FILES['firma'], 'foto_firma'), true);
     } else if (isset($_FILES['firma'])) {
         $response['firma_error'] = 'Error en firma: ' . $_FILES['firma']['error'];
     }
+    if (isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
+        $response['certificado'] = json_decode(updateCertificado($_FILES['certificado']), true);
+    } else if (isset($_FILES['certificado'])) {
+        $response['certificado_error'] = 'Error en certificado: ' . $_FILES['certificado']['error'];
+    }
+
 
     if (!empty($response)) {
         updateSession($_SESSION['usuario']);
@@ -151,4 +225,3 @@ function updateUsuario($link, $usuario)
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
 }
-?>

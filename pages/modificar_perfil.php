@@ -145,6 +145,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (usuario.foto_perfil) {
                         document.getElementById('fotoPerfilPreview').innerHTML = '<img src="' + usuario.foto_perfil + '" alt="Foto de perfil" />';
                     }
+                    if (usuario.foto_firma) {
+                        document.getElementById('firmaExistente').innerHTML = '<img src="' + usuario.foto_firma + '" alt="Foto de perfil" />';
+                    }
+                    
                     if (usuario.certificado) {
                         document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '" target="_blank">Ver Certificado</a>';
                     }
@@ -154,6 +158,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
         }
+
         document.getElementById('formPerfil').addEventListener('submit', function(event) {
             var password = document.getElementById('nuevaPassword').value;
             var confirmPassword = document.getElementById('confirmarPassword').value;
@@ -278,6 +283,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     formData.append('firma', fotoFirma);
                 } else {
                     alert("Por favor, selecciona una firma.");
+                }
+            }
+
+            if ($('#switch_certificado').is(':checked')) {
+                var certificado = $('#certificado')[0].files[0];
+                if (certificado !== undefined && certificado !== null) {
+                    formData.append('certificado', certificado);
+                } else {
+                    alert("Por favor, selecciona un certificado.");
                 }
             }
 
