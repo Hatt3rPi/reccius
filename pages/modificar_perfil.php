@@ -101,7 +101,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div>
                         <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
                         <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
-                        <div id="certificadoExistente">
+                        <div id="certificadoExistente" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
                     </div>
@@ -118,7 +118,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div>
                         <label for="firma">Imagen de Firma:</label>
                         <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled>
-                        <div id="firmaExistente">
+                        <div id="firmaExistente" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
                     </div>
@@ -148,9 +148,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (usuario.foto_firma) {
                         document.getElementById('firmaExistente').innerHTML = '<img src="' + usuario.foto_firma + '" alt="Foto de perfil" />';
                     }
-                    
+
                     if (usuario.certificado) {
-                        document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '" target="_blank">Ver Certificado</a>';
+                        document.getElementById('certificadoExistente').innerHTML = /*html*/ `
+                        <div class="d-flex flex-column justify-content-center">
+                        <a href="${usuario.certificado}" target="_blank">Ver Certificado</a>
+                        <iframe src="${usuario.certificado}" width="400" height="800"></iframe>
+                        </div>
+                        `;
                     }
                 },
                 error: function(xhr, status, error) {
