@@ -637,6 +637,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-box-title" style="font-size: 10px; text-align: left;">Muestreado por:</div>
                     <div class="firma-box">
                         <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                        <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
                         <p id='cargo_realizador' name='cargo_realizador' class="bold">
                         <div class="signature" id="firma_realizador" name="firma_realizador">
                             <!-- acá debe ir el QR -->
@@ -653,6 +654,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
                     <div class="firma-box">
                         <p id='responsable' name='responsable' class="bold"></p>
+                        <p id='user_responsable' name='user_responsable' style="display: none"></p>
                         <p id='cargo_responsable' name='cargo_responsable' class="bold">
                         <div class="signature" id="firma_responsable" name="firma_responsable">
                             <!-- acá debe ir el QR -->
@@ -668,6 +670,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-box-title" style="font-size: 10px; text-align: left;">Verificado por:</div>
                     <div class="firma-box">
                         <p id='verificadoPor' name='verificadoPor' class="bold"></p>
+                        <p id='user_verificadoPor' name='user_verificadoPor' style="display: none"></p>
                         <p id='cargo_verificador' name='cargo_verificador' class="bold">
                         <div class="signature" id="firma_verificador" name="firma_verificador">
                             <!-- acá debe ir el QR -->
@@ -921,8 +924,10 @@ function procesarDatosActa(response, resultados, etapa) {
         $('#realizadoPor').text(response.nombre_usr1);
         $('#cargo_realizador').text(response.cargo_usr1);
         $('#responsable').text(response.nombre_usr2);
-        $('#cargo_responsable').text(response.cargo_usr2);
+        $('#user_responsable').text(response.nombre_usr2);
+        $('#cargo_responsable').text(response.responsable);
         $('#verificadoPor').text(response.nombre_usr3);
+        $('#user_verificadoPor').text(response.verificador);
         $('#cargo_verificador').text(response.cargo_usr3);
 
         console.log(resultados, etapa);
@@ -931,7 +936,7 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#nro_registro').text(response.numero_registro);
                     $('#nro_version').text(response.version_registro);
                     $('#id_analisis_externo').text(response.id_analisis_externo);
-                    
+                    $('#user_realizadoPor').text(usuario_activo);
             switch (response.cantidad_firmas) {
                 case 0:
                     var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
@@ -1130,11 +1135,17 @@ function guardar_firma(selector, etapa) {
     let usuario = "<?php echo $_SESSION['usuario']; ?>";
     let respuestas = consolidarRespuestas(selector);
     let id_actaMuestreo = $('#id_actaMuestreo').text();
+    let firma2 = $('#user_responsable').text();
+    let firma3 = $('#user_verificadoPor').text();
+    let acta = $('#nro_acta').text();
     let todosSeleccionados = true;
     let dataToSave = {
         id_actaMuestreo: id_actaMuestreo,
         etapa: etapa,
         usuario: usuario,
+        firma2: firma2,
+        firma3: firma3,
+        acta: acta,
         respuestas: respuestas,
         textareaData: {}
     };
@@ -1206,10 +1217,15 @@ function guardar_firma(selector, etapa) {
 function guardar_firma3() {
     let id_actaMuestreo = $('#id_actaMuestreo').text();
     let id_analisis_externo = $('#id_analisis_externo').text();
-    
+    let firma2 = $('#user_responsable').text();
+    let firma3 = $('#user_verificadoPor').text();
+    let acta = $('#nro_acta').text();
     let dataToSave = {
         id_analisis_externo: id_analisis_externo,
         id_actaMuestreo: id_actaMuestreo,
+        firma2: firma2,
+        firma3: firma3,
+        acta: acta,
         etapa: 3,
         respuestas: 'no aplica'
     };
