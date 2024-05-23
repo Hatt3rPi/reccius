@@ -105,9 +105,9 @@ if ($stmt = mysqli_prepare($link, $query)) {
     if ($exito) {
         if($flujo=='Firma usuario 1 de 3'){
             //function registrarTarea($dias_hasta_vencimiento, $usuario_creador, $usuario_ejecutor, $descripcion_tarea, $prioridad, $tipo, $id_relacion, $tabla_relacion)
-            registrarTarea($7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: '.$acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
+            registrarTarea(7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: '.$acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
         } elseif ($flujo=='Firma usuario 2 de 3'){
-            registrarTarea($7, $_SESSION['usuario'], $firma3, '3ra firma acta de muestreo: '.$acta, 2, 'Firma 3', $id_actaMuestreo, 'calidad_acta_muestreo');
+            registrarTarea(7, $_SESSION['usuario'], $firma3, '3ra firma acta de muestreo: '.$acta, 2, 'Firma 3', $id_actaMuestreo, 'calidad_acta_muestreo');
         }
         
         $_SESSION['nuevo_id'] = $id_actaMuestreo;
