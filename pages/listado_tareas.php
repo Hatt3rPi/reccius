@@ -140,10 +140,10 @@ function cargaListadoTareas() {
 
             
             {
-            title: 'id_tarea',
+            title: 'Nro Tarea',
             data: 'id',
             defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-            visible: false // Esto oculta la columna
+            visible: true // Esto oculta la columna
         }
         ],
     });
