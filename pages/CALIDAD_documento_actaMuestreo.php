@@ -924,8 +924,8 @@ function procesarDatosActa(response, resultados, etapa) {
         $('#realizadoPor').text(response.nombre_usr1);
         $('#cargo_realizador').text(response.cargo_usr1);
         $('#responsable').text(response.nombre_usr2);
-        $('#user_responsable').text(response.nombre_usr2);
-        $('#cargo_responsable').text(response.responsable);
+        $('#user_responsable').text(response.responsable);
+        $('#cargo_responsable').text(response.cargo_usr2);
         $('#verificadoPor').text(response.nombre_usr3);
         $('#user_verificadoPor').text(response.verificador);
         $('#cargo_verificador').text(response.cargo_usr3);
