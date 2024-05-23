@@ -27,9 +27,28 @@ $options = [
 
 $R2_client = new S3Client($options);
 
+$mime_types = [
+  'pdf' => 'application/pdf',
+  'jpg' => 'image/jpeg',
+  'jpeg' => 'image/jpeg',
+  'png' => 'image/png',
+  'gif' => 'image/gif',
+  'webp' => 'image/webp',
+  'txt' => 'text/plain',
+  'csv' => 'text/csv',
+  'html' => 'text/html',
+  'css' => 'text/css',
+  'js' => 'application/javascript',
+  'json' => 'application/json',
+  'xml' => 'application/xml',
+  'xls' => 'application/vnd.ms-excel',
+  'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'doc' => 'application/msword',
+  'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
 function setFile($params)
 {
-  global $R2_client, $bucket_name, $bucket_url;
+  global $R2_client, $bucket_name, $bucket_url, $mime_types;
 
   if (!is_array($params)) {
     throw new InvalidArgumentException('Se espera un arreglo.');
@@ -43,11 +62,16 @@ function setFile($params)
   $folder = $params['folder'];
   $fileName = $params['fileName'];
 
+  $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+  $contentType = isset($mime_types[$fileExtension]) ? $mime_types[$fileExtension] : 'application/octet-stream';
+
+
   try {
     $result = $R2_client->putObject([
       'Bucket' => $bucket_name,
       'Key' => $folder . '/' . $fileName,
       'Body' => $fileBinary,
+      'ContentType' => $contentType,
       'ACL' => 'private'
     ]);
 
