@@ -5,8 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 // Validación y saneamiento del ID del análisis externo
 $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 
-// Preparación de la consulta
-$queryAnalisisExterno = $conn->prepare("SELECT 
+$queryAnalisisExterno = "SELECT 
                             an.*,
                             prod.identificador_producto AS 'prod_identificador_producto', 
                             prod.nombre_producto AS 'prod_nombre_producto', 
@@ -27,29 +26,73 @@ $queryAnalisisExterno = $conn->prepare("SELECT
                         JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
                         JOIN calidad_productos AS prod ON es.id_producto = prod.id
                         JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
-                        WHERE an.id = ?");
+                        WHERE an.id = ?";
 
+$queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno = ?";
 
-// Vinculación de parámetros
-$queryAnalisisExterno->bind_param("i", $id_acta);
+// queryAnalisisExterno
+$stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
+if (!$stmtAnali) {
+    die("Error en mysqli_prepare (queryAnalisisExterno): " . mysqli_error($link));
+}
+mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
+mysqli_stmt_execute($stmtAnali);
 
-// Ejecución de la consulta
-$queryAnalisisExterno->execute();
+$analisis = [];
+$analiDatos = [];
+$seenAnalisis = [];
+$resultAnali = mysqli_stmt_get_result($stmtAnali);
+while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
+    $filteredRow = [];
+    $analiItem = [];
 
-// Obtención de resultados
-$result = $queryAnalisisExterno->get_result();
+    foreach ($rowAnali as $key => $value) {
+        if (strpos($key, 'anali_') === 0) {
+            $analiItem[$key] = $value;
+        } else {
+            $filteredRow[$key] = $value;
+        }
+    }
 
-// Verificación de resultados
-if ($result->num_rows > 0) {
-    $analisisExterno = $result->fetch_assoc();
-    // Procesar los resultados según sea necesario
-    // Por ejemplo, puedes almacenarlos en una variable de sesión
-    $_SESSION['analisis_externo'] = $analisisExterno;
-} else {
-    echo "No se encontraron resultados.";
+    // Use the 'id' field to check for duplicates
+    if (!isset($seenAnalisis[$rowAnali['id']])) {
+        $analisis[] = $filteredRow;
+        $seenAnalisis[$rowAnali['id']] = true;
+    }
+
+    if (!empty($analiItem)) {
+        $analiDatos[] = $analiItem;
+    }
+}
+mysqli_stmt_close($stmtAnali);
+
+// queryActaMuestreo
+$analisisActaMuestreo = [];
+
+$stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo);
+if (!$stmtActaMuestreo) {
+    die("Error en mysqli_prepare (queryActaMuestreo): " . mysqli_error($link));
+}
+mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
+if (!mysqli_stmt_execute($stmtActaMuestreo)) {
+    die("Error en mysqli_stmt_execute (queryActaMuestreo): " . mysqli_stmt_error($stmtActaMuestreo));
+}
+mysqli_stmt_execute($stmtActaMuestreo);
+
+$resultActaMuestreo = mysqli_stmt_get_result($stmtActaMuestreo);
+while ($row = mysqli_fetch_assoc($resultActaMuestreo)) {
+    $analisisActaMuestreo[] = $row;
 }
 
-// Cierre de la consulta y la conexión
-$queryAnalisisExterno->close();
-$conn->close();
+mysqli_stmt_close($stmtActaMuestreo);
+
+mysqli_close($link);
+
+// Enviar los datos en formato JSON
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode([
+    'Acta_Muestreo' => array_values($analisisActaMuestreo), 
+    'analisis' => $analisis,
+    'analiDatos' => $analiDatos
+], JSON_UNESCAPED_UNICODE);
 ?>
