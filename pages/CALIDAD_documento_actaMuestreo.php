@@ -703,6 +703,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='numero_solicitud_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='solicitado_por_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
@@ -929,6 +931,8 @@ function procesarDatosActa(response, resultados, etapa) {
         $('#verificadoPor').text(response.nombre_usr3);
         $('#user_verificadoPor').text(response.verificador);
         $('#cargo_verificador').text(response.cargo_usr3);
+        $('#numero_solicitud_analisis_externo').text(response.aex_numero_solicitud);
+        $('#solicitado_por_analisis_externo').text(response.aex_solicitado_por);
 
         console.log(resultados, etapa);
         if (resultados) {
@@ -1141,6 +1145,8 @@ function guardar_firma(selector, etapa) {
     let firma2 = $('#user_responsable').text();
     let firma3 = $('#user_verificadoPor').text();
     let acta = $('#nro_acta').text();
+    let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
+    let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
     let todosSeleccionados = true;
     let dataToSave = {
         id_actaMuestreo: id_actaMuestreo,
@@ -1149,6 +1155,8 @@ function guardar_firma(selector, etapa) {
         firma2: firma2,
         firma3: firma3,
         acta: acta,
+        numero_solicitud: numero_solicitud_analisis_externo,
+        solicitado_por_analisis_externo: solicitado_por_analisis_externo,
         respuestas: respuestas,
         textareaData: {}
     };
@@ -1224,12 +1232,16 @@ function guardar_firma3() {
     let firma2 = $('#user_responsable').text();
     let firma3 = $('#user_verificadoPor').text();
     let acta = $('#nro_acta').text();
+    let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
+    let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
     let dataToSave = {
         id_analisis_externo: id_analisis_externo,
         id_actaMuestreo: id_actaMuestreo,
         firma2: firma2,
         firma3: firma3,
         acta: acta,
+        numero_solicitud: numero_solicitud_analisis_externo,
+        solicitado_por_analisis_externo: solicitado_por_analisis_externo,
         etapa: 3,
         respuestas: 'no aplica'
     };

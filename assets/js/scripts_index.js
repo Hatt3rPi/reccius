@@ -537,9 +537,11 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     switch (opcional) {
                         case "calidad_especificacion_productos": {
+                            console.log(opcional, opcional2);
                             switch (opcional2) {
                                 case 'Firma 2':
                                 case 'Firma 3': {
+                                    // Llamar a la función botones con los parámetros adecuados para especificación
                                     botones(id, 'generar_documento', 'especificacion');
                                     break;
                                 }
@@ -547,10 +549,22 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                             break;
                         }
                         case "calidad_acta_muestreo": {
+                            console.log(opcional, opcional2);
                             switch (opcional2) {
                                 case 'Firma 2':
                                 case 'Firma 3': {
+                                    // Llamar a la función botones con los parámetros adecuados para acta de muestreo
                                     botones(id, 'firmar_acta_muestreo', 'laboratorio');
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case "calidad_analisis_externo": {
+                            console.log(opcional, opcional2);
+                            switch (opcional2) {
+                                case 'Completar análisis externo': {
+                                    //botones(id, 'firmar_acta_muestreo', 'laboratorio');
                                     break;
                                 }
                             }
@@ -560,6 +574,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     console.log('Proceso finalizado');
                     break;
                 }
+                
             }
             break;
         }

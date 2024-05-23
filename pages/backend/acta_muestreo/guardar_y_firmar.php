@@ -17,6 +17,8 @@ $textareaData = isset($input['textareaData']) ? $input['textareaData'] : [];
 $firma2 = isset($input['firma2']) ? $input['firma2'] : null;
 $firma3 = isset($input['firma3']) ? $input['firma3'] : null;
 $acta = isset($input['acta']) ? $input['acta'] : null;
+$numero_solicitud = isset($input['numero_solicitud']) ? $input['numero_solicitud'] : null;
+$solicitado_por_analisis_externo = isset($input['solicitado_por_analisis_externo']) ? $input['solicitado_por_analisis_externo'] : null;
 
 // Validar que los datos esenciales están presentes
 if (!$id_actaMuestreo || !$etapa || !$respuestas) {
@@ -113,6 +115,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
             case 'Firma usuario 3 de 3':
                 // Finalizar tarea de la tercera firma
                 finalizarTarea($_SESSION['usuario'], $id_actaMuestreo, 'calidad_acta_muestreo', 'Firma 3');
+                registrarTarea(7, $_SESSION['usuario'], $solicitado_por_analisis_externo, 'Finalizas Solicitud análisis externo: ' . $numero_solicitud , 2, 'Completar análisis externo', $id_actaMuestreo, 'calidad_analisis_externo');
                 break;
             default:
                 // Manejo de caso por defecto si es necesario

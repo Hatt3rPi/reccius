@@ -20,7 +20,9 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.am_verificado_por, 
     usrRev.nombre as nombre_usrRev, usrRev.cargo as cargo_usrRev, usrRev.foto_firma as foto_firma_usrRev, usrRev.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrRev, 
     usrMuest.nombre as nombre_usrMuest, usrMuest.cargo as cargo_usrMuest, usrMuest.foto_firma as foto_firma_usrMuest, usrMuest.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrMuest,
-    LPAD(pr.identificador_producto, 3, '0') AS identificador_producto
+    LPAD(pr.identificador_producto, 3, '0') AS identificador_producto,
+	aex.solicitado_por,
+    aex.numero_solicitud
     FROM `calidad_analisis_externo` as aex
     LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
     LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
@@ -63,6 +65,8 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
             'cargo_usr2'=> $row['cargo_usrMuest'],
             'nombre_usr3'=> $row['nombre_usrRev'],
             'cargo_usr3'=> $row['cargo_usrRev'],
+            'aex_solicitado_por'=> $row['solicitado_por'],
+            'aex_numero_solicitud'=> $row['numero_solicitud'],
         ];
         $tipo_producto=$row['tipo_producto'];
         $identificador_producto=$row['identificador_producto'];
