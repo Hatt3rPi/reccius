@@ -856,7 +856,7 @@ document.getElementById('download-pdf').addEventListener('click', function() {
 
     });
 });
-
+//cargarDatosEspecificacion(id, true, '0');
 function cargarDatosEspecificacion(id, resultados, etapa) {
     console.log(id, resultados, etapa);
     var id_actaM="<?php echo $_SESSION['nuevo_id']; ?>";
@@ -945,14 +945,17 @@ function procesarDatosActa(response, resultados, etapa) {
                     $('#etapa').text('ingresa resultados y firma1');
                     $('#realizadoPor').text(nombre_ejecutor);
                     $('#cargo_realizador').text(cargo);
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', false);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', false);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', false);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', false);
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
+                    document.querySelectorAll('.formulario.verif *').forEach(function(element) {
+                        element.style.visibility = 'hidden'; // Hacer invisible el contenido
+                    });
                     break;
                 case 1:
                     //documento firmado por muestreador. queda pendiente firma de responsable
