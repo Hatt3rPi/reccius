@@ -438,8 +438,8 @@ function actualizarBreadcrumb(nodos, urls) {
 
 let QA_solicitud_analisis_editing = false  
 
-function botones(id, accion, base) {
-    console.log({id, accion, base});
+function botones(id, accion, base, opcional = null) {
+    console.log({id, accion, basr, opcional});
     switch (base){
         case "especificacion":{
             switch (accion) {
@@ -550,7 +550,7 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "firmar_documento": {
+                case "finalizar_tarea": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     
                     $.ajax({
