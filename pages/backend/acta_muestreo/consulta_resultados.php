@@ -22,7 +22,9 @@ $query = "SELECT
             am.id as id_actaMuestreo, am.numero_registro, am.version_registro, am.numero_acta, am.version_acta, am.fecha_muestreo, am.muestreador, am.responsable, am.verificador, am.fecha_firma_muestreador, am.fecha_firma_responsable, am.fecha_firma_verificador, am.resultados_muestrador, am.resultados_responsable, am.pregunta5, am.pregunta6, am.pregunta7, am.pregunta8,
             (CASE WHEN am.fecha_firma_muestreador IS NOT NULL THEN 1 ELSE 0 END + 
             CASE WHEN am.fecha_firma_responsable IS NOT NULL THEN 1 ELSE 0 END + 
-            CASE WHEN am.fecha_firma_verificador IS NOT NULL THEN 1 ELSE 0 END) AS cantidad_firmas
+            CASE WHEN am.fecha_firma_verificador IS NOT NULL THEN 1 ELSE 0 END) AS cantidad_firmas,
+            aex.solicitado_por,
+            aex.numero_solicitud
           FROM calidad_acta_muestreo as am 
           LEFT JOIN `calidad_analisis_externo` as aex ON am.id_analisisExterno=aex.id
           LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id

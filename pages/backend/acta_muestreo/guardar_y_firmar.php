@@ -115,7 +115,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
             case 'Firma usuario 3 de 3':
                 // Finalizar tarea de la tercera firma
                 finalizarTarea($_SESSION['usuario'], $id_actaMuestreo, 'calidad_acta_muestreo', 'Firma 3');
-                registrarTarea(7, $_SESSION['usuario'], $solicitado_por_analisis_externo, 'Finalizas Solicitud análisis externo: ' . $numero_solicitud , 2, 'Completar análisis externo', $id_actaMuestreo, 'calidad_analisis_externo');
+                registrarTarea(7, $_SESSION['usuario'], $solicitado_por_analisis_externo, 'Finalizar Solicitud análisis externo: ' . $numero_solicitud , 2, 'Completar análisis externo', $id_actaMuestreo, 'calidad_analisis_externo');
                 break;
             default:
                 // Manejo de caso por defecto si es necesario
