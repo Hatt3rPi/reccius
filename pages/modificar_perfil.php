@@ -143,10 +143,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#cargo').val(usuario.cargo);
                     $('#nombre').val(usuario.nombre);
                     if (usuario.foto_perfil) {
-                        document.getElementById('fotoPerfilPreview').innerHTML = '<img src="' + usuario.foto_perfil + '" alt="Foto de perfil" />';
+                        document.getElementById('fotoPerfilPreview').innerHTML = '<img height="250px" src="' + usuario.foto_perfil + '" alt="Foto de perfil" />';
                     }
                     if (usuario.foto_firma) {
-                        document.getElementById('firmaExistente').innerHTML = '<img src="' + usuario.foto_firma + '" alt="Foto de perfil" />';
+                        document.getElementById('firmaExistente').innerHTML = '<img height="250px" src="' + usuario.foto_firma + '" alt="Foto de perfil" />';
                     }
 
                     if (usuario.certificado) {
@@ -160,7 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             .then(blob => {
                                 const url = URL.createObjectURL(blob);
                                 document.getElementById('certificadoExistente').innerHTML = `
-                            <div class="d-flex justify-content-center flex-column">
+                            <div class="d-flex justify-content-center flex-column w-100">
                             <a href="${usuario.certificado}" target="_blank">Descargar Certificado</a>
                             <iframe src="${url}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
                             </div>

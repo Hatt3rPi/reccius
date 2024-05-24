@@ -55,7 +55,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="producto" id="producto"
+                    <p name="producto_completo" id="producto_completo"
                         style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
@@ -100,7 +100,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Producto</td>
-                        <td><input type="text" id="Producto" name="Producto" required></td>
+                        <td><input type="text" id="producto_completoT1" name="producto_completoT1" required></td>
                         <td class="titulo">2. N°Lote:</td>
                         <td><input type="text" id="nro_lote" name="nro_lote" required></td>
 
@@ -258,16 +258,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">3. Producto:</td>
-                        <td><input type="text" id="producto" name="producto" required></td>
+                        <td><input type="text" id="producto_completoT3" name="producto_completoT3" required></td>
                         <td class="titulo">4. N° Lote:</td>
-                        <td><input type="text" id="nro_lote" name="nro_lote" required></td>
+                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">5. Fecha de Elaboración:</td>
-                        <td><input type="text" id="fecha_elab" name="fecha_elab" required></td>
+                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" required></td>
                         <td class="titulo">6. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="fecha_venc" name="fecha_venc" required></td>
+                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" required></td>
 
                     </tr>
 
@@ -418,18 +418,22 @@ function loadData() {
             if (analisis.length > 0) {
                 const primerAnalisis = analisis[0];
 
-                // Actualizar los inputs con los datos del análisis
-                $('#numero_registro').text(primerAnalisis.numero_registro);
-                $('#version').text(primerAnalisis.version);
-                $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
-                // FALTA LA FECHA DE LIBERACION
+                // Sumar los resultados de producto en un solo texto
+                var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
 
-                //TABLA 1
+                // Actualizar el elemento con el texto combinado
+                $('#producto_completo').text(productoCompleto);
+                // Actualizar el elemento con el texto combinado
+                $('#producto_completoT1').val(productoCompleto);
+
+                // Actualizar los inputs con los datos del análisis
+                $('#nro_registro').val(primerAnalisis.numero_registro);
+                $('#nro_version').val(primerAnalisis.version);
+                $('#nro_solicitud').val(primerAnalisis.numero_solicitud);
+                // FALTA LA FECHA DE LIBERACION
                 
                 $('#nro_lote').val(primerAnalisis.lote);
-                $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                $('#nombre_producto2').val(primerAnalisis.prod_nombre_producto);
-                $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
+                $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
                 $('#tamaño_lote').val(primerAnalisis.tamano_lote);
                 $('#codigo_interno').val(primerAnalisis.codigo_interno);
                 $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
@@ -452,10 +456,13 @@ function loadData() {
                 //TABLA 3
                 //NRO ACTA LIBERACION
                 //FECHA LIBERACION
+
                 $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                $('#nro_lote').val(primerAnalisis.lote);
-                $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+                $('#nro_loteT3').val(primerAnalisis.lote);
+                $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
+                $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
+                // Actualizar el elemento con el texto combinado
+                $('#producto_completoT3').val(productoCompleto);
                 // CANTIDAD REAL LIBERADA
                 // N°PARTE DE INGRESO/ TRASPASO
             }
