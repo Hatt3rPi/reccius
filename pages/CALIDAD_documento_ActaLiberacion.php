@@ -424,18 +424,16 @@ function loadData() {
                 // Actualizar el elemento con el texto combinado
                 $('#producto_completo').text(productoCompleto);
                 // Actualizar el elemento con el texto combinado
-                $('#producto_completoT1').text(productoCompleto);
+                $('#producto_completoT1').val(productoCompleto);
 
                 // Actualizar los inputs con los datos del análisis
-                $('#numero_registro').text(primerAnalisis.numero_registro);
-                $('#version').text(primerAnalisis.version);
-                $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
+                $('#numero_registro').val(primerAnalisis.numero_registro);
+                $('#version').val(primerAnalisis.version);
+                $('#numero_solicitud').val(primerAnalisis.numero_solicitud);
                 // FALTA LA FECHA DE LIBERACION
                 
                 $('#nro_lote').val(primerAnalisis.lote);
-                $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                $('#nombre_producto2').val(primerAnalisis.prod_nombre_producto);
-                $('#tipo_producto').text(primerAnalisis.prod_tipo_producto);
+                $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
                 $('#tamaño_lote').val(primerAnalisis.tamano_lote);
                 $('#codigo_interno').val(primerAnalisis.codigo_interno);
                 $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
@@ -464,7 +462,7 @@ function loadData() {
                 $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
                 $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
                 // Actualizar el elemento con el texto combinado
-                $('#producto_completoT3').text(productoCompleto);
+                $('#producto_completoT3').val(productoCompleto);
                 // CANTIDAD REAL LIBERADA
                 // N°PARTE DE INGRESO/ TRASPASO
             }
