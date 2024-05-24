@@ -16,9 +16,27 @@ $query = "SELECT
             aex.id as id_analisis_externo, aex.id_especificacion, aex.id_producto,
             pr.nombre_producto, pr.formato, pr.concentracion, pr.tipo_producto,
             aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.revisado_por,
-            usr1.nombre as nombre_usr1, usr1.cargo as cargo_usr1, usr1.foto_firma as foto_firma_usr1, usr1.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr1, 
-            usr2.nombre as nombre_usr2, usr2.cargo as cargo_usr2, usr2.foto_firma as foto_firma_usr2, usr2.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr2, 
-            usr3.nombre as nombre_usr3, usr3.cargo as cargo_usr3, usr3.foto_firma as foto_firma_usr3, usr3.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr3,
+            usr1.nombre as nombre_usr1, usr1.cargo as cargo_usr1, 
+            CASE
+                WHEN usr1.qr_documento IS NOT NULL THEN usr1.qr_documento
+                WHEN usr1.foto_firma IS NOT NULL THEN usr1.foto_firma
+                ELSE 'Firma no registrada'
+            END as foto_firma_usr1,
+            usr1.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr1, 
+            usr2.nombre as nombre_usr2, usr2.cargo as cargo_usr2, 
+            CASE
+                WHEN usr2.qr_documento IS NOT NULL THEN usr2.qr_documento
+                WHEN usr2.foto_firma IS NOT NULL THEN usr2.foto_firma
+                ELSE 'Firma no registrada'
+            END as foto_firma_usr2,
+            usr2.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr2, 
+            usr3.nombre as nombre_usr3, usr3.cargo as cargo_usr3, 
+            CASE
+                WHEN usr3.qr_documento IS NOT NULL THEN usr3.qr_documento
+                WHEN usr3.foto_firma IS NOT NULL THEN usr3.foto_firma
+                ELSE 'Firma no registrada'
+            END as foto_firma_usr3,
+            usr3.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr3,
             am.id as id_actaMuestreo, am.numero_registro, am.version_registro, am.numero_acta, am.version_acta, am.fecha_muestreo, am.muestreador, am.responsable, am.verificador, am.fecha_firma_muestreador, am.fecha_firma_responsable, am.fecha_firma_verificador, am.resultados_muestrador, am.resultados_responsable, am.pregunta5, am.pregunta6, am.pregunta7, am.pregunta8,
             (CASE WHEN am.fecha_firma_muestreador IS NOT NULL THEN 1 ELSE 0 END + 
             CASE WHEN am.fecha_firma_responsable IS NOT NULL THEN 1 ELSE 0 END + 
