@@ -100,7 +100,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Producto</td>
-                        <td><input type="text" id="Producto" name="Producto" required></td>
+                        <td><input type="text" id="producto_completoT1" name="producto_completoT1" required></td>
                         <td class="titulo">2. N°Lote:</td>
                         <td><input type="text" id="nro_lote" name="nro_lote" required></td>
 
@@ -258,7 +258,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">3. Producto:</td>
-                        <td><input type="text" id="producto" name="producto" required></td>
+                        <td><input type="text" id="producto_completoT3" name="producto_completoT3" required></td>
                         <td class="titulo">4. N° Lote:</td>
                         <td><input type="text" id="nro_loteT3" name="nro_loteT3" required></td>
 
@@ -423,6 +423,8 @@ function loadData() {
 
                 // Actualizar el elemento con el texto combinado
                 $('#producto_completo').text(productoCompleto);
+                // Actualizar el elemento con el texto combinado
+                $('#producto_completoT1').text(productoCompleto);
 
                 // Actualizar los inputs con los datos del análisis
                 $('#numero_registro').text(primerAnalisis.numero_registro);
@@ -433,7 +435,7 @@ function loadData() {
                 $('#nro_lote').val(primerAnalisis.lote);
                 $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
                 $('#nombre_producto2').val(primerAnalisis.prod_nombre_producto);
-                $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
+                $('#tipo_producto').text(primerAnalisis.prod_tipo_producto);
                 $('#tamaño_lote').val(primerAnalisis.tamano_lote);
                 $('#codigo_interno').val(primerAnalisis.codigo_interno);
                 $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
@@ -461,6 +463,8 @@ function loadData() {
                 $('#nro_loteT3').val(primerAnalisis.lote);
                 $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
                 $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
+                // Actualizar el elemento con el texto combinado
+                $('#producto_completoT3').text(productoCompleto);
                 // CANTIDAD REAL LIBERADA
                 // N°PARTE DE INGRESO/ TRASPASO
             }
