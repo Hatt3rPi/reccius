@@ -116,7 +116,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">5. Código Interno:</td>
                         <td><input type="text" id="codigo_interno" name="codigo_interno" required></td>
                         <td class="titulo">6. Fecha Elaboración:</td>
-                        <td><input type="text" id="fecha_elab" name="fecha_elab" required></td>
+                        <td><input type="text" id="fecha_elaboracion" name="fecha_elaboracion" required></td>
 
                     </tr>
 
@@ -124,7 +124,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">7. Cond. Almacenamiento</td>
                         <td><input type="text" id="cond_almacenamiento" name="cond_almacenamiento" required></td>
                         <td class="titulo">8. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="fecha_venc" name="fecha_venc" required></td>
+                        <td><input type="text" id="fecha_vencimiento" name="fecha_vencimiento" required></td>
 
                     </tr>
 
@@ -426,14 +426,14 @@ function loadData() {
 
                 //TABLA 1
                 
-                $('#lote').val(primerAnalisis.lote);
+                $('#nro_lote').val(primerAnalisis.lote);
                 $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
                 $('#nombre_producto2').val(primerAnalisis.prod_nombre_producto);
                 $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
-                $('#tamano_lote').val(primerAnalisis.tamano_lote);
-                $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+                $('#tamaño_lote').val(primerAnalisis.tamano_lote);
+                $('#codigo_interno').val(primerAnalisis.codigo_interno);
                 $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
                 $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
 
                 //TABLA 2
@@ -451,7 +451,7 @@ function loadData() {
                 //NRO ACTA LIBERACION
                 //FECHA LIBERACION
                 $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                $('#lote').val(primerAnalisis.lote);
+                $('#nro_lote').val(primerAnalisis.lote);
                 $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
                 $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
                 // CANTIDAD REAL LIBERADA
