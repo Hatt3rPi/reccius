@@ -639,8 +639,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id='realizadoPor' name='realizadoPor' class="bold"></p>
                         <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
                         <p id='cargo_realizador' name='cargo_realizador' class="bold">
-                        <div class="signature d-flex justify-content-center">
-                            <img id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
+                        <div class="signature" style="d-flex justify-content-center">
+                            <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
                             <!-- acá debe ir el QR -->
                         </div>
                         <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
@@ -657,8 +657,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id='responsable' name='responsable' class="bold"></p>
                         <p id='user_responsable' name='user_responsable' style="display: none"></p>
                         <p id='cargo_responsable' name='cargo_responsable' class="bold">
-                        <div class="signature d-flex justify-content-center">
-                            <img id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
+                        <div class="signature" style="d-flex justify-content-center">
+                            <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
                             <!-- acá debe ir el QR -->
                         </div>
                         <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
@@ -674,8 +674,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id='verificadoPor' name='verificadoPor' class="bold"></p>
                         <p id='user_verificadoPor' name='user_verificadoPor' style="display: none"></p>
                         <p id='cargo_verificador' name='cargo_verificador' class="bold">
-                        <div class="signature d-flex justify-content-center">
-                            <img id="firma_verificador" name="firma_verificador" src="" alt="firma_verificador" />
+                        <div class="signature" style="d-flex justify-content-center">
+                            <img style="height: 64px;" id="firma_verificador" name="firma_verificador" src="" alt="firma_verificador" />
                             <!-- acá debe ir el QR -->
                         </div>
                         <p id='mensaje_verificador' name='mensaje_verificador' style='text-align: center;display: none'>
