@@ -427,9 +427,9 @@ function loadData() {
                 $('#producto_completoT1').val(productoCompleto);
 
                 // Actualizar los inputs con los datos del análisis
-                $('#numero_registro').val(primerAnalisis.numero_registro);
-                $('#version').val(primerAnalisis.version);
-                $('#numero_solicitud').val(primerAnalisis.numero_solicitud);
+                $('#nro_registro').val(primerAnalisis.numero_registro);
+                $('#nro_version').val(primerAnalisis.version);
+                $('#nro_solicitud').val(primerAnalisis.numero_solicitud);
                 // FALTA LA FECHA DE LIBERACION
                 
                 $('#nro_lote').val(primerAnalisis.lote);
