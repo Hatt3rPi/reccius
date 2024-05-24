@@ -438,10 +438,11 @@ function loadData() {
 
                 //TABLA 2
 
-                $('#laboratorio').val(primerAnalisis.laboratorio);
-                //FECHA DE MUESTREO
-                //NUMERO SOLICITUD ANALISIS
-                $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
+                $('#laboratorio_analista').val(primerAnalisis.laboratorio);
+                $('#nro_solicitud_analisis').text(primerAnalisis.numero_solicitud);
+                $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
+                
+                
                 //LABORATORIO ANALISTA
                 //FECHA ENVIO
                 //NUMERO ANALISIS
