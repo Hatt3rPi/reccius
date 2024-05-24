@@ -27,28 +27,14 @@ body {
 
 .firma-box {
     border: 1px solid #000;
-    padding: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-right: 10px;
     width: 200px;
-    height: 120px; /* Ajusta la altura según tus necesidades */
+    height: 100px;
+    /* Ajusta el ancho para llenar la sección del footer */
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.signature {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 64px;
-}
-
-.signature img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
 }
 
 /* ... Resto de estilos ... */
@@ -217,7 +203,24 @@ tbody {
     width: 220px;
 }
 
+.signature {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px dashed #000;
+    height: 64px;
+    width: 64px;
+    margin: auto;
+    /* Centra el contenedor en el espacio disponible */
+}
 
+.signature img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
+}
 
 
 .bold,
