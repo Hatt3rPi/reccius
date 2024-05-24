@@ -419,7 +419,7 @@ function loadData() {
                 const primerAnalisis = analisis[0];
 
                 // Sumar los resultados de producto en un solo texto
-                var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_tipo_producto;
+                var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
 
                 // Actualizar el elemento con el texto combinado
                 $('#producto_completo').text(productoCompleto);
