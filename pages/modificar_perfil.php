@@ -203,7 +203,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         function handleImageUploadPerfil(e) {
             if (e.target.files && e.target.files[0]) {
                 var canvas = document.querySelector("canvas");
-                processImageSquare(e.target.files[0], canvas, function(error, result) {
+                processImageSquare(e.target.files[0], function(error, result) {
                     if (error) {
                         console.error(error);
                         return;
