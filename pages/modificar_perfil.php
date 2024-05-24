@@ -100,7 +100,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <br>
                     <div>
                         <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
-                        <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
+                        <input class="switch_certificado" onChange="handleCertificado(event)" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
                         <div id="certificadoExistente" class="container-md d-flex justify-content-center" style="height: 400px;">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
@@ -117,10 +117,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <br>
                     <div>
                         <label for="firma">Imagen de Firma:</label>
-                        <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled>
+                        <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled onChange="handleFirma(event)">
                         <div id="firmaExistente" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
+                        <button type="button" id="cancelFirma" style="display: none;">Eliminar firma</button>
                     </div>
                 </div>
                 <canvas style="display: none;"></canvas>
@@ -129,8 +130,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
         </div>
     </div>
-
-
     <script>
         function cargarInformacionExistente() {
             $.ajax({
@@ -202,7 +201,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function handleImageUploadPerfil(e) {
             if (e.target.files && e.target.files[0]) {
-                var canvas = document.querySelector("canvas");
                 processImageSquare(e.target.files[0], function(error, result) {
                     if (error) {
                         console.error(error);
@@ -211,12 +209,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     fotoPerfilCancel.show();
                     blobImgPerfil = result.blob;
                     fotoPerfilPreview.html('<img class="img-thumbnail" src="' + result.dataURL + '" alt="Foto de perfil" />');
-                    console.log({
-                        fotoPerfilCancel,
-                        blobImgPerfil,
-                        fotoPerfilPreview
-                    })
-                });
+                },100);
             }
         }
         fotoPerfilCancel.on('click', function(e) {
@@ -230,6 +223,50 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 fotoPerfilPreview
             })
         })
+
+
+        //edit foto de firma
+        var firmaExistente = $('#firmaExistente');
+        var cancelFirma = $('#cancelFirma');
+        var blobFirma = null;
+
+        function handleFirma(e) {
+            if (e.target.files && e.target.files[0]) {
+                processImageSquare(e.target.files[0], function(error, result) {
+                    if (error) {
+                        console.error(error);
+                        return;
+                    }
+                    cancelFirma.show();
+                    blobFirma = result.blob;
+                    firmaExistente.html('<img class="img-thumbnail" src="' + result.dataURL + '" alt="Foto de firma" />');
+                },150);
+            }
+        }
+        cancelFirma.on('click', function(e) {
+            e.preventDefault();
+            blobFirma = null;
+            firmaExistente.empty();
+            cancelFirma.hide();
+        })
+
+        function handleCertificado(event) {
+            if (event.target.files && event.target.files[0]) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const result = reader.result;
+                    document.getElementById('certificadoExistente').innerHTML = `
+                    <div class="d-flex justify-content-center flex-column w-100">
+                    <a href="${result}" target="_blank">Descargar Certificado</a>
+                    <iframe src="${result}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                    </div>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
 
         // edit switches certificado
         function toggleInputs(switchClass) {
@@ -300,12 +337,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
 
             if ($('#switch_firma').is(':checked')) {
-                var fotoFirma = $('#firma')[0].files[0];
-                if (fotoFirma !== undefined && fotoFirma !== null) {
-                    formData.append('firma', fotoFirma);
-                } else {
+                if (blobFirma === null) {
                     alert("Por favor, selecciona una firma.");
+                    return;
                 }
+                formData.append('firma', blobFirma);
+
             }
 
             if ($('#switch_certificado').is(':checked')) {
