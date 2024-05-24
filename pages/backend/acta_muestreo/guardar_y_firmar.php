@@ -105,6 +105,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
         switch ($flujo) {
             case 'Firma usuario 1 de 3':
                 // Crear tarea para la segunda firma
+                finalizarTarea($_SESSION['usuario'], $nuevo_id, 'calidad_acta_muestreo', 'Firma 1');
                 registrarTarea(7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: ' . $acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
                 break;
             case 'Firma usuario 2 de 3':
@@ -114,8 +115,10 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 break;
             case 'Firma usuario 3 de 3':
                 // Finalizar tarea de la tercera firma
+                $id_analisis_externo = intval($input['id_analisis_externo']);
                 finalizarTarea($_SESSION['usuario'], $id_actaMuestreo, 'calidad_acta_muestreo', 'Firma 3');
-                registrarTarea(7, $_SESSION['usuario'], $solicitado_por_analisis_externo, 'Finalizar Solicitud análisis externo: ' . $numero_solicitud , 2, 'Completar análisis externo', $id_actaMuestreo, 'calidad_analisis_externo');
+                registrarTarea(7, $_SESSION['usuario'], $solicitado_por_analisis_externo, 'Finalizar Solicitud análisis externo: ' . $numero_solicitud , 2, 'Firma 1', $id_analisis_externo, 'calidad_analisis_externo');
+                // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
                 break;
             default:
                 // Manejo de caso por defecto si es necesario

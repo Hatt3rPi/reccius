@@ -8,7 +8,7 @@ function limpiarDato($dato)
     $datoLimpio = trim($dato);
     return htmlspecialchars(stripslashes($datoLimpio));
 }
-
+$id_analisis_externo="";
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos)
 {
@@ -66,6 +66,7 @@ function insertarRegistro($link, $datos)
     );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
+    $id_analisis_externo=$id;
     mysqli_stmt_close($stmt);
 
     registrarTrazabilidad(
@@ -138,6 +139,7 @@ function agregarDatosPostFirma($link, $datos)
 
     // Añadir el ID al final para la cláusula WHERE
     $valoresParaVincular[] = $datos['id'];
+    $id_analisis_externo=$datos['id'];
     $tipos .= 'i';
 
     $consultaSQL = "UPDATE calidad_analisis_externo SET " . join(", ", $partesConsulta) . " WHERE id = ?";
@@ -157,17 +159,17 @@ function agregarDatosPostFirma($link, $datos)
     $_SESSION['buscar_por_ID'] = $datos['id'];
     
     // registrar tarea
-    registrarTarea(7, 
-            $_SESSION['usuario'], 
-            $datos['usuario_revisor'], 
-            'Revisar Analisis Externo: '.$datos['numero_registro']
-            //Añadir documento en vez de id 
-            ,
-            1, 
-            'Firma 2', 
-            $datos['id'].';'.$datos['numero_registro'], 
-            'calidad_analisis_externo'
-        );
+    finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
+    registrarTarea(7, $_SESSION['usuario'], $datos['usuario_revisor'], 'Revisar Analisis Externo: '.$datos['numero_registro'] , 2, 'Firma 2', $datos['id'], 'calidad_analisis_externo');
+    // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 2');
+    // registrarTarea(7, $_SESSION['usuario'], $datos['usuario_revisor'], 'Revisar Analisis Externo: '.$datos['numero_registro']
+    //         //Añadir documento en vez de id 
+    //         ,
+    //         1, 
+    //         'Firma 2', 
+    //         $datos['id'].';'.$datos['numero_registro'], 
+    //         'calidad_analisis_externo'
+    //     );
 }
 
 function campoTipo($campo)
@@ -266,9 +268,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
 
-    $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
-
-
     // Determinar si se está insertando un nuevo registro o actualizando uno existente
     $estaEditando = isset($_POST['id']) && !empty($_POST['id']);
 
@@ -328,6 +327,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         mysqli_commit($link); // Aplicar cambios
         echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
+        
+        registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
+        // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
     } catch (Exception $e) {
         mysqli_rollback($link); // Revertir cambios en caso de error
         echo json_encode(["exito" => false, "mensaje" => "Error en la operación: " . $e->getMessage()]);

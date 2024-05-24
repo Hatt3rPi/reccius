@@ -563,7 +563,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         case "calidad_analisis_externo": {
                             console.log(opcional, opcional2);
                             switch (opcional2) {
-                                case 'Completar análisis externo': {
+                                case 'Firma 1': {
                                     //botones(id, 'firmar_acta_muestreo', 'laboratorio');
                                     break;
                                 }

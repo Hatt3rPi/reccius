@@ -23,7 +23,7 @@ $fechaActual = date('Y-m-d');
 // fecha_firma_revisor
 // revisado_por
 
-$queryAnalisisExterno = "SELECT revisado_por, fecha_firma_revisor, estado 
+$queryAnalisisExterno = "SELECT revisado_por, fecha_firma_revisor, estado , numero_solicitud, solicitado_por
                           FROM  calidad_analisis_externo
                           WHERE id = ?";
 
@@ -50,6 +50,8 @@ if (!$analisis) {
 $fechaFirmaRevisor = $analisis['fecha_firma_revisor'];
 $revisadoPor = $analisis['revisado_por'];
 $estado = $analisis['estado'];
+$numero_solicitud = $analisis['numero_solicitud'];
+$solicitado_por = $analisis['solicitado_por'];
 
 if ($fechaFirmaRevisor !== null) {
   echo json_encode(['exito' => false, 'mensaje' => 'Este documento ya ha sido firmado']);
@@ -76,14 +78,11 @@ $exito = mysqli_stmt_execute($stmt);
 mysqli_stmt_close($stmt);
 
 if ($exito) {
+  finalizarTarea($_SESSION['usuario'], $idAnalisisExterno, 'calidad_analisis_externo', 'Firma 2');
+  registrarTarea(7, $_SESSION['usuario'], $solicitado_por, 'Enviar a Laboratorio la solicitud de análisis externo: ' . $numero_solicitud , 2, 'Enviar a Laboratorio', $idAnalisisExterno, 'calidad_analisis_externo');
+  //tarea anterior finaliza con: finalizarTarea($_SESSION['usuario'], $idAnalisisExterno, 'calidad_analisis_externo', 'Enviar a Laboratorio');
 // update 22052024
 //function finalizarTarea($usuarioEjecutor, $id_relacion, $tabla_relacion, $tipoAccion, $esAutomatico = false)
-  // finalizarTarea(
-  //   $_SESSION['usuario'], 
-  //   $idAnalisisExterno, 
-  //   'calidad_analisis_externo',
-  //   'Firma 2'
-  // );
   echo json_encode(['exito' => true, 'mensaje' => 'Documento firmado con éxito']);
 } else {
   http_response_code(500);
