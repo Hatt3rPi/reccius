@@ -439,7 +439,8 @@ function loadData() {
                 //TABLA 2
 
                 $('#laboratorio_analista').val(primerAnalisis.laboratorio);
-                $('#nro_solicitud_analisis').text(primerAnalisis.numero_solicitud);
+                $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
+
                 $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
                 
                 
