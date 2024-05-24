@@ -95,13 +95,6 @@ function updateImage($file, $type)
         return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
     }
     // Validar el tipo MIME del archivo
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimeType = finfo_file($finfo, $file['tmp_name']);
-    finfo_close($finfo);
-
-    if ($mimeType !== 'application/pdf') {
-        return json_encode(['status' => 'error', 'message' => 'El archivo no es un PDF.']);
-    }
 
     $usuarioFilename = str_replace(' ', '_', $usuario);
     $timestamp = time();
@@ -156,6 +149,15 @@ function updateCertificado($file)
     if (!$file) {
         return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
     }
+    // Validar el tipo MIME del archivo
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+
+    if ($mimeType !== 'application/pdf') {
+        return json_encode(['status' => 'error', 'message' => 'El archivo no es un PDF.']);
+    }
+
     $usuarioFilename = str_replace(' ', '_', $usuario);
     $timestamp = time();
     $fileName = 'registroPrestadoresSalud_' . $usuarioFilename . '_' . $timestamp . '.pdf';
@@ -239,27 +241,41 @@ function updateUsuario()
 {
     $response = [];
 
-    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        $response['foto'] = json_decode(updateImage($_FILES['imagen'], 'foto_perfil'), true);
-    } else if (isset($_FILES['imagen'])) {
-        $response['foto_error'] = 'Error en imagen: ' . $_FILES['imagen']['error'];
+    // Procesar imagen de perfil
+    if (isset($_FILES['imagen'])) {
+        if ($_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $response['foto'] = json_decode(updateImage($_FILES['imagen'], 'foto_perfil'), true);
+        } else {
+            $response['foto_error'] = 'Error en imagen: ' . $_FILES['imagen']['error'];
+        }
     }
 
-    if (isset($_FILES['firma']) && $_FILES['firma']['error'] === UPLOAD_ERR_OK) {
-        $response['firma'] = json_decode(updateImage($_FILES['firma'], 'foto_firma'), true);
-    } else if (isset($_FILES['firma'])) {
-        $response['firma_error'] = 'Error en firma: ' . $_FILES['firma']['error'];
-    }
-    if (isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
-        $response['certificado'] = json_decode(updateCertificado($_FILES['certificado']), true);
-    } else if (isset($_FILES['certificado'])) {
-        $response['certificado_error'] = 'Error en certificado: ' . $_FILES['certificado']['error'];
+    // Procesar firma
+    if (isset($_FILES['firma'])) {
+        if ($_FILES['firma']['error'] === UPLOAD_ERR_OK) {
+            $response['firma'] = json_decode(updateImage($_FILES['firma'], 'foto_firma'), true);
+        } else {
+            $response['firma_error'] = 'Error en firma: ' . $_FILES['firma']['error'];
+        }
     }
 
-    if (isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['newPassword']) && !empty($_POST['newPassword'])) {
-        $response['password'] = updatePassword(limpiarDato($_POST['password']), limpiarDato($_POST['newPassword']));
+    // Procesar certificado
+    if (isset($_FILES['certificado'])) {
+        if ($_FILES['certificado']['error'] === UPLOAD_ERR_OK) {
+            $response['certificado'] = json_decode(updateCertificado($_FILES['certificado']), true);
+        } else {
+            $response['certificado_error'] = 'Error en certificado: ' . $_FILES['certificado']['error'];
+        }
     }
 
+    // Procesar cambio de contraseña
+    if (!empty($_POST['password']) && !empty($_POST['newPassword'])) {
+        $oldPassword = limpiarDato($_POST['password']);
+        $newPassword = limpiarDato($_POST['newPassword']);
+        $response['password'] = updatePassword($oldPassword, $newPassword);
+    }
+
+    // Verificar y actualizar sesión si hay respuestas
     if (!empty($response)) {
         updateSession($_SESSION['usuario']);
         echo json_encode(['status' => 'partial success', 'response' => $response]);
@@ -267,3 +283,4 @@ function updateUsuario()
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
 }
+

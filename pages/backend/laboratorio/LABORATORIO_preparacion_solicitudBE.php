@@ -87,7 +87,7 @@ function insertarRegistro($link, $datos)
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)
     );
-
+    unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $id;
 
     if (!$exito) {
@@ -148,9 +148,13 @@ function agregarDatosPostFirma($link, $datos)
 
     mysqli_stmt_bind_param($stmt, $tipos, ...$valoresParaVincular);
 
+
+
     if (!mysqli_stmt_execute($stmt)) {
         throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt));
     }
+    unset($_SESSION['buscar_por_ID']);
+    $_SESSION['buscar_por_ID'] = $datos['id'];
     
     // registrar tarea
     registrarTarea(7, 
