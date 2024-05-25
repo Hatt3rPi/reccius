@@ -539,6 +539,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         case "calidad_especificacion_productos": {
                             console.log(opcional, opcional2);
                             switch (opcional2) {
+
                                 case 'Firma 2':
                                 case 'Firma 3': {
                                     // Llamar a la función botones con los parámetros adecuados para especificación
@@ -551,6 +552,10 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         case "calidad_acta_muestreo": {
                             console.log(opcional, opcional2);
                             switch (opcional2) {
+                                case 'Firma 1': {
+                                    botones(id, 'resultados_actaMuestreo', 'laboratorio');
+                                    break;
+                                }
                                 case 'Firma 2':
                                 case 'Firma 3': {
                                     // Llamar a la función botones con los parámetros adecuados para acta de muestreo
@@ -563,8 +568,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         case "calidad_analisis_externo": {
                             console.log(opcional, opcional2);
                             switch (opcional2) {
-                                case 'Firma 1': {
-                                    //botones(id, 'firmar_acta_muestreo', 'laboratorio');
+                                case 'Generar Acta Muestreo':{
+                                    botones(id, 'generar_acta_muestreo', 'laboratorio');
                                     break;
                                 }
                             }
