@@ -18,9 +18,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -34,8 +32,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container formpadding">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container"
-                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
@@ -43,20 +40,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center"
-                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
+                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
                     </p>
                     </p>
                     <!-- Pretitulo -->
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto"
-                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="producto_completo" id="producto_completo"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="producto_completo" id="producto_completo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -65,10 +58,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right"
-                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo"
-                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
                             <td name="nro_registro" id="nro_registro"></td>
@@ -311,54 +302,59 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <div class="footer-container">
                 <div class="form-row" id="firma">
-                    <!-- Sección Firma Solicitante de Análisis -->
+                    <!-- Sección realizada por -->
                     <div class="firma-section">
-
+                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Muestreado por:</div>
                         <div class="firma-box">
-
-                            <!-- Espacio para la firma o datos del solicitante -->
-                            <div class="signature" id="firma_solicitante" name="firma_solicitante">
-                                <!-- acá puede ir la firma o un espacio en blanco -->
-
+                            <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                            <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
+                            <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
+                            <div class="signature" style="d-flex justify-content-center">
+                                <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
+                                <!-- acá debe ir el QR -->
                             </div>
-                            <!-- Información del solicitante -->
-                            <div class="firma-box-title">Firma Solicitante de
-                                Análisis</div>
+                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
                         </div>
+                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                        <br>
                     </div>
 
-                    <!-- Sección Firma Revisor de Liberación -->
+                    <!-- Sección realizada por -->
                     <div class="firma-section">
-
+                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
                         <div class="firma-box">
-
-                            <!-- Espacio para la firma o datos del revisor -->
-                            <div class="signature" id="firma_revisor" name="firma_revisor">
-                                <!-- acá puede ir la firma o un espacio en blanco -->
+                            <p id='responsable' name='responsable' class="bold"></p>
+                            <p id='user_responsable' name='user_responsable' style="display: none"></p>
+                            <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
+                            <div class="signature" style="d-flex justify-content-center">
+                                <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
+                                <!-- acá debe ir el QR -->
                             </div>
-                            <div class="firma-box-title">Firma Revisor de Liberación
-                            </div>
-                            <!-- Información del revisor -->
+                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
                         </div>
+                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
+                        <br>
                     </div>
                 </div>
-
-                <footer class="TextoBajo">
-                    <p class="ParrafoBajo">
-                        (*) Campo Obligatorio<br>
-                        (**) Llenar según lista desplegable<br>
-                        (***) Hoja de Seguridad<br>
-                        La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
-                        válido. El certificado de análisis solo debe disponer de la información vertida en esta
-                        solicitud.
-                        La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
-                        INDUSTRIAL.
-                    </p>
-                </footer>
             </div>
 
 
+            <footer class="TextoBajo">
+                <p class="ParrafoBajo">
+                    (*) Campo Obligatorio<br>
+                    (**) Llenar según lista desplegable<br>
+                    (***) Hoja de Seguridad<br>
+                    La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
+                    válido. El certificado de análisis solo debe disponer de la información vertida en esta
+                    solicitud.
+                    La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
+                    INDUSTRIAL.
+                </p>
+            </footer>
         </div>
+
+
+    </div>
 
 
 </body>
@@ -374,7 +370,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.getElementById('download-pdf').addEventListener('click', function () {
+    document.getElementById('download-pdf').addEventListener('click', function() {
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
 
@@ -418,7 +414,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Cargar datos iniciales
         loadData();
     });
@@ -436,7 +432,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 id_acta: idAnalisisExterno
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function (response) {
+            success: function(response) {
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
                 if (analisis.length > 0) {
@@ -493,18 +489,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function () {
+                    $("#FirmaAnalisisExternoRevisor").click(function() {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
                     });
                 }
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
         });
     }
-
-
 </script>
