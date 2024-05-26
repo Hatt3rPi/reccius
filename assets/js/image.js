@@ -44,11 +44,12 @@ function processImageSquare(inputFile, callback, targetSize = 250) {
   reader.readAsDataURL(inputFile);
 }
 
-function processImageScale(inputFile, canvas, callback, targetSize = 150) {
+function processImageScale(inputFile, callback, targetSize = 150) {
   const reader = new FileReader();
   reader.onload = function (event) {
     const img = new Image();
     img.onload = function () {
+      const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
       let width = img.width;
