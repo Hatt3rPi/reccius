@@ -356,16 +356,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     
 </script>
 <script>
-    // Declarar la variable primeravez
-    var primeravez = false;
 
-    // Función para cambiar el estado de primeravez y actualizar la visibilidad de la columna
-    function cambio() {
-        primeravez = !primeravez; // Invierte el estado de primeravez
-        toggleRevisionColumn();
-        console.log(primeravez); // Imprime el nuevo estado de primeravez
-    }
-
+    
     // Agregar el evento click al botón con id 'Cambiante'
     document.getElementById('Cambiante').addEventListener('click', function() {
         cambio();
@@ -462,6 +454,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Otros campos
                 $('#estado').val(primerAnalisis.estado);
                 $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
+                // Mostrar u ocultar columna de revisión basado en el estado
+                if (primerAnalisis.estado === "Pendiende ingreso resultados laboratorio") {
+                        primeravez = false; // Mostrar la columna
+                    } else {
+                        primeravez = true; // Ocultar la columna
+                    }
+                    toggleRevisionColumn();
             }
 
             if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
