@@ -228,7 +228,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row" id="firma">
                     <!-- Sección realizada por -->
                     <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Muestreado por:</div>
+                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Solicitado por:</div>
                         <div class="firma-box">
                             <p id='realizadoPor' name='realizadoPor' class="bold"></p>
                             <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
@@ -245,7 +245,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <!-- Sección realizada por -->
                     <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
+                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Revisado por:</div>
                         <div class="firma-box">
                             <p id='responsable' name='responsable' class="bold"></p>
                             <p id='user_responsable' name='user_responsable' style="display: none"></p>
