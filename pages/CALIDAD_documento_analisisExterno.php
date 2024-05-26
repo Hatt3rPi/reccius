@@ -224,35 +224,40 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <!-- Footer -->
             <br>
-            <div class="form-row" id="firma">
-                <!-- Sección Firma Solicitante de Análisis -->
-                <div class="firma-section">
-
-                    <div class="firma-box">
-
-                        <!-- Espacio para la firma o datos del solicitante -->
-                        <div class="signature" id="firma_solicitante" name="firma_solicitante">
-                            <!-- acá puede ir la firma o un espacio en blanco -->
-
+            <div class="footer-container">
+                <div class="form-row" id="firma">
+                    <!-- Sección realizada por -->
+                    <div class="firma-section">
+                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Muestreado por:</div>
+                        <div class="firma-box">
+                            <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                            <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
+                            <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
+                            <div class="signature" style="d-flex justify-content-center">
+                                <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
+                                <!-- acá debe ir el QR -->
+                            </div>
+                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
                         </div>
-                        <!-- Información del solicitante -->
-                        <div class="firma-box-title">Firma Solicitante de
-                            Análisis</div>
+                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                        <br>
                     </div>
-                </div>
 
-                <!-- Sección Firma Revisor de Liberación -->
-                <div class="firma-section">
-
-                    <div class="firma-box">
-
-                        <!-- Espacio para la firma o datos del revisor -->
-                        <div class="signature" id="firma_revisor" name="firma_revisor">
-                            <!-- acá puede ir la firma o un espacio en blanco -->
+                    <!-- Sección realizada por -->
+                    <div class="firma-section">
+                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
+                        <div class="firma-box">
+                            <p id='responsable' name='responsable' class="bold"></p>
+                            <p id='user_responsable' name='user_responsable' style="display: none"></p>
+                            <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
+                            <div class="signature" style="d-flex justify-content-center">
+                                <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
+                                <!-- acá debe ir el QR -->
+                            </div>
+                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
                         </div>
-                        <div class="firma-box-title">Firma Revisor de Liberación
-                        </div>
-                        <!-- Información del revisor -->
+                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
+                        <br>
                     </div>
                 </div>
             </div>
