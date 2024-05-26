@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
     $password = escape($_POST['password']);
     
     // Modificación aquí: buscar por usuario o correo
-    $query="SELECT a.id, a.usuario, a.contrasena,a.ruta_registroPrestadoresSalud, b.nombre as rol, a.nombre, a.correo, a.foto_perfil, a.foto_firma, a.cargo FROM usuarios as a LEFT JOIN roles as b ON a.rol_id=b.id WHERE a.usuario = ? OR a.correo = ?";
+    $query="SELECT a.id, a.usuario, a.contrasena,a.ruta_registroPrestadoresSalud, a.qr_documento, b.nombre as rol, a.nombre, a.correo, a.foto_perfil, a.foto_firma, a.cargo FROM usuarios as a LEFT JOIN roles as b ON a.rol_id=b.id WHERE a.usuario = ? OR a.correo = ?";
     $variables = [$loginInput, $loginInput]; 
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "ss", $loginInput, $loginInput);
@@ -49,6 +49,7 @@ if (isset($_POST['login'])) {
         $_SESSION['nombre'] = escape($usuario['nombre']);
         $_SESSION['correo'] = escape($usuario['correo']);
         $_SESSION['certificado'] = escape($usuario['ruta_registroPrestadoresSalud']);
+        $_SESSION['certificado_ qr'] = $row['qr_documento'];
         $_SESSION['csrf_token'] = $csrfToken;
         $_SESSION['foto_perfil'] = escape($usuario['foto_perfil']);
         $_SESSION['foto_firma'] = escape($usuario['foto_firma']);

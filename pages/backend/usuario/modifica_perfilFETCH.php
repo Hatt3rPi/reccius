@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-include '/home/customw2/librerias/phpqrcode/qrlib.php'; 
+include '/home/customw2/librerias/phpqrcode/qrlib.php';
 include_once '../cloud/R2_manager.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -24,7 +24,8 @@ switch ($method) {
         header('HTTP/1.1 405 Method Not Allowed');
         exit;
 }
-function limpiarDato($dato) {
+function limpiarDato($dato)
+{
     $dato = trim($dato);
     $dato = stripslashes($dato);
     $dato = htmlspecialchars($dato);
@@ -52,6 +53,7 @@ function updateSession($usuario)
         $_SESSION['foto_perfil'] = $row['foto_perfil'];
         $_SESSION['correo'] = $row['correo'];
         $_SESSION['certificado'] = $row['ruta_registroPrestadoresSalud'];
+        $_SESSION['certificado_ qr'] = $row['qr_documento'];
         $_SESSION['cargo'] = $row['cargo'];
         $_SESSION['rol'] = $row['rol'];
     }
@@ -62,7 +64,7 @@ function getUsuario()
 {
 
     global $link, $usuario;
-    $query = "SELECT id, nombre, nombre_corto, foto_perfil,foto_firma, ruta_registroPrestadoresSalud, cargo FROM `usuarios` WHERE usuario = ?";
+    $query = "SELECT id, nombre, nombre_corto, foto_perfil,foto_firma, ruta_registroPrestadoresSalud, 	qr_documento, cargo FROM `usuarios` WHERE usuario = ?";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "s", $usuario);
     mysqli_stmt_execute($stmt);
@@ -78,6 +80,7 @@ function getUsuario()
             'foto_perfil' => $row['foto_perfil'],
             'foto_firma' => $row['foto_firma'],
             'certificado' => $row['ruta_registroPrestadoresSalud'],
+            'certificado_ qr' => $row['qr_documento'],
             'cargo' => $row['cargo']
         ];
     }
@@ -115,8 +118,6 @@ function updateImage($file, $type)
 
     $uploadStatus = setFile($params);
     $uploadResult = json_decode($uploadStatus, true);
-
-    $response['uploadResult'] = $uploadResult;
 
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $fileURL = $uploadResult['success']['ObjectURL'];
@@ -178,8 +179,6 @@ function updateCertificado($file)
 
     $uploadStatus = setFile($params);
     $uploadResult = json_decode($uploadStatus, true);
-
-    $response['uploadResult'] = $uploadResult;
 
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $fileURL = $uploadResult['success']['ObjectURL'];
@@ -261,8 +260,7 @@ function updatePassword($pass, $newPass)
         return $update_result
             ? json_encode(['status' => 'success', 'message' => 'Contraseña actualizada correctamente.'])
             : json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la contraseña.']);
-
-    }else{
+    } else {
         return json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta.']);
     }
 }
@@ -313,4 +311,3 @@ function updateUsuario()
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
 }
-

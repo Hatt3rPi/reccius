@@ -160,6 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 const url = URL.createObjectURL(blob);
                                 document.getElementById('certificadoExistente').innerHTML = `
                             <div class="d-flex justify-content-center flex-column w-100">
+                            <img src="${usuario.certificado_qr}" alt="Certificado" />
                             <a href="${usuario.certificado}" target="_blank">Descargar Certificado</a>
                             <iframe src="${url}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
                             </div>
