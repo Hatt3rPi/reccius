@@ -49,7 +49,7 @@ if (isset($_POST['login'])) {
         $_SESSION['nombre'] = escape($usuario['nombre']);
         $_SESSION['correo'] = escape($usuario['correo']);
         $_SESSION['certificado'] = escape($usuario['ruta_registroPrestadoresSalud']);
-        $_SESSION['certificado_ qr'] = $row['qr_documento'];
+        $_SESSION['certificado_qr'] = $row['qr_documento'];
         $_SESSION['csrf_token'] = $csrfToken;
         $_SESSION['foto_perfil'] = escape($usuario['foto_perfil']);
         $_SESSION['foto_firma'] = escape($usuario['foto_firma']);

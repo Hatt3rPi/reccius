@@ -53,7 +53,7 @@ function updateSession($usuario)
         $_SESSION['foto_perfil'] = $row['foto_perfil'];
         $_SESSION['correo'] = $row['correo'];
         $_SESSION['certificado'] = $row['ruta_registroPrestadoresSalud'];
-        $_SESSION['certificado_ qr'] = $row['qr_documento'];
+        $_SESSION['certificado_qr'] = $row['qr_documento'];
         $_SESSION['cargo'] = $row['cargo'];
         $_SESSION['rol'] = $row['rol'];
     }
@@ -80,7 +80,7 @@ function getUsuario()
             'foto_perfil' => $row['foto_perfil'],
             'foto_firma' => $row['foto_firma'],
             'certificado' => $row['ruta_registroPrestadoresSalud'],
-            'certificado_ qr' => $row['qr_documento'],
+            'certificado_qr' => $row['qr_documento'],
             'cargo' => $row['cargo']
         ];
     }
