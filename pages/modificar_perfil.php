@@ -101,7 +101,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div>
                         <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
                         <input class="switch_certificado" onChange="handleCertificado(event)" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
-                        <div id="certificadoExistente" class="container-md d-flex justify-content-center" style="height: 400px;">
+                        <div id="certificadoExistente" class="container-md d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
                     </div>
@@ -160,9 +160,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 const url = URL.createObjectURL(blob);
                                 document.getElementById('certificadoExistente').innerHTML = `
                             <div class="d-flex justify-content-center flex-column w-100">
-                            <img src="${usuario.certificado_qr}" alt="Certificado" />
-                            <a href="${usuario.certificado}" target="_blank">Descargar Certificado</a>
-                            <iframe src="${url}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                            <a href="${usuario.certificado}" target="_blank">
+                            <img height="120px" width="120px" src="${usuario.certificado_qr}" alt="Certificado" />
+                            </a>
+                            <iframe src="${url}" frameborder="0" style="width: 100%; height: 400px;"></iframe>
                             </div>
                             `;
                             })
@@ -210,7 +211,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     fotoPerfilCancel.show();
                     blobImgPerfil = result.blob;
                     fotoPerfilPreview.html('<img class="img-thumbnail" src="' + result.dataURL + '" alt="Foto de perfil" />');
-                },100);
+                }, 100);
             }
         }
         fotoPerfilCancel.on('click', function(e) {
@@ -241,7 +242,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     cancelFirma.show();
                     blobFirma = result.blob;
                     firmaExistente.html('<img class="img-thumbnail" src="' + result.dataURL + '" alt="Foto de firma" />');
-                },150);
+                }, 150);
             }
         }
 
