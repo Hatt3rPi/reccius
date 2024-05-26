@@ -424,7 +424,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
-    var idAnalisisExterno = <? php echo json_encode($_POST['id'] ?? ''); ?>;
+    var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
