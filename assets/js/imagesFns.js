@@ -43,3 +43,53 @@ function processImageSquare(inputFile, callback, targetSize = 250) {
   };
   reader.readAsDataURL(inputFile);
 }
+
+function processImageScale(inputFile, canvas, callback, targetSize = 150) {
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    const img = new Image();
+    img.onload = function () {
+      const ctx = canvas.getContext("2d");
+
+      let width = img.width;
+      let height = img.height;
+
+      // Calcular las dimensiones escaladas manteniendo la proporción
+      if (width > height) {
+        if (width > targetSize) {
+          height = Math.round((height *= targetSize / width));
+          width = targetSize;
+        }
+      } else {
+        if (height > targetSize) {
+          width = Math.round((width *= targetSize / height));
+          height = targetSize;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const scaledImageBlob = new File([blob], "scaled-image.webp", {
+              type: "image/webp",
+            });
+            callback(null, {
+              dataURL: canvas.toDataURL("image/webp"),
+              blob: scaledImageBlob,
+            });
+          } else {
+            callback(new Error("Error processing image"));
+          }
+        },
+        "image/webp",
+        1
+      );
+    };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(inputFile);
+}

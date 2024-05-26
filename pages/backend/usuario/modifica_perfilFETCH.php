@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+include '/home/customw2/librerias/phpqrcode/qrlib.php'; 
 include_once '../cloud/R2_manager.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -145,10 +146,11 @@ function updateImage($file, $type)
 function updateCertificado($file)
 {
     global $link, $usuario;
-    //ruta_registroPrestadoresSalud
+
     if (!$file) {
         return json_encode(['status' => 'error', 'message' => 'No se recibió archivo.']);
     }
+
     // Validar el tipo MIME del archivo
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mimeType = finfo_file($finfo, $file['tmp_name']);
@@ -183,27 +185,55 @@ function updateCertificado($file)
         $fileURL = $uploadResult['success']['ObjectURL'];
         $response['fileURL'] = $fileURL;
 
-        $query = "UPDATE `usuarios` SET ruta_registroPrestadoresSalud = ? WHERE usuario = ?";
+        // Generar el QR Code
+        ob_start();
+        QRcode::png($fileURL);
+        $imageString = ob_get_contents();
+        ob_end_clean();
 
-        $stmt = mysqli_prepare($link, $query);
-        mysqli_stmt_bind_param($stmt, "ss", $fileURL, $usuario);
-        mysqli_stmt_execute($stmt);
+        // Subir el QR Code a Cloudflare R2
+        $qrFileName = 'qr_documento_' . $usuarioFilename . '_' . $timestamp . '.png';
+        $params = [
+            'fileBinary' => $imageString,
+            'folder' => 'certificados_qr',
+            'fileName' => $qrFileName
+        ];
 
-        if (mysqli_stmt_affected_rows($stmt) > 0) {
-            $response['status'] = 'success';
-            $response['message'] = 'certificado  actualizado correctamente';
-            $response['url'] = $fileURL;
+        $qrUploadStatus = setFile($params);
+        $qrUploadResult = json_decode($qrUploadStatus, true);
+
+        if (isset($qrUploadResult['success']) && $qrUploadResult['success'] !== false) {
+            $qrFileURL = $qrUploadResult['success']['ObjectURL'];
+            $response['qrFileURL'] = $qrFileURL;
+
+            // Actualizar la base de datos con la URL del certificado y del QR
+            $query = "UPDATE `usuarios` SET ruta_registroPrestadoresSalud = ?, qr_documento = ? WHERE usuario = ?";
+            $stmt = mysqli_prepare($link, $query);
+            mysqli_stmt_bind_param($stmt, "sss", $fileURL, $qrFileURL, $usuario);
+            mysqli_stmt_execute($stmt);
+
+            if (mysqli_stmt_affected_rows($stmt) > 0) {
+                $response['status'] = 'success';
+                $response['message'] = 'Certificado y QR actualizados correctamente';
+                $response['url'] = $fileURL;
+                $response['qr_url'] = $qrFileURL;
+            } else {
+                $response['status'] = 'error';
+                $response['message'] = 'No se pudo actualizar la base de datos con el certificado y el QR';
+            }
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'No se pudo actualizar el certificado';
+            $response['message'] = 'Error al subir el QR: ' . $qrUploadResult['error'];
+            $response['url'] = $fileURL;
         }
     } else {
         $response['status'] = 'error';
-        $response['message'] = 'Error al subir el ' . 'certificado' . ': ' . $uploadResult['error'];
+        $response['message'] = 'Error al subir el certificado: ' . $uploadResult['error'];
     }
 
     return json_encode($response);
 }
+
 
 function updatePassword($pass, $newPass)
 {

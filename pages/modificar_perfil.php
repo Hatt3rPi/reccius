@@ -232,7 +232,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function handleFirma(e) {
             if (e.target.files && e.target.files[0]) {
-                processImageSquare(e.target.files[0], function(error, result) {
+                processImageScale(e.target.files[0], function(error, result) {
                     if (error) {
                         console.error(error);
                         return;
@@ -243,6 +243,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 },150);
             }
         }
+
         cancelFirma.on('click', function(e) {
             e.preventDefault();
             blobFirma = null;
@@ -258,7 +259,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     const result = reader.result;
                     document.getElementById('certificadoExistente').innerHTML = `
                     <div class="d-flex justify-content-center flex-column w-100">
-                    <a href="${result}" target="_blank">Descargar Certificado</a>
                     <iframe src="${result}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
                     </div>
                     `;
