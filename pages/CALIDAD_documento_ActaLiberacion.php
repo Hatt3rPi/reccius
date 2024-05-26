@@ -100,9 +100,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Producto</td>
-                        <td><input type="text" id="producto_completoT1" name="producto_completoT1" required></td>
-                        <td class="titulo">2. N°Lote:</td>
-                        <td><input type="text" id="nro_lote" name="nro_lote" required></td>
+                        <td>
+                            <textarea id="producto_completoT1" name="producto_completoT1" required></textarea>
+                        </td>
+                        <td class="titulo">2. Cond. Almacenamiento</td>
+                        <td><textarea id="cond_almacenamiento" name="cond_almacenamiento" required></textarea>
+                        </td>
+
 
                     </tr>
                     <tr>
@@ -121,8 +125,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
 
                     <tr>
-                        <td class="titulo">7. Cond. Almacenamiento</td>
-                        <td><input type="text" id="cond_almacenamiento" name="cond_almacenamiento" required></td>
+                        <td class="titulo">7. N°Lote:</td>
+                        <td><input type="text" id="nro_lote" name="nro_lote" required></td>
                         <td class="titulo">8. Fecha de Vencimiento:</td>
                         <td><input type="text" id="fecha_vencimiento" name="fecha_vencimiento" required></td>
 
@@ -180,60 +184,80 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             III. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
-                        <th>Análisis</th>
-                        <th>Metodología</th>
-                        <th>Especificación</th>
+                        <th>Documento</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
                         <th>Revisión</th>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td class="Metod" id="Metod_Pfabricacion">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Pfabricacion">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
+                        <td id="Estado1">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
                         </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
+                        <td class="Espec" id="Espec_Pfabricacion">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
+                            <br><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">no cumple</span>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td class="Metod" id="Metod_Actamuestreo">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Actamuestreo">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
+                        <td id="Estado2">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
                         </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
+                        <td class="Espec" id="Espec_Actamuestreo">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
+                            <br><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">no cumple</span>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td class="Metod" id="Metod_Solicitud">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Solicitud">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
+                        <td id="Estado3">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
                         </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
+                        <td class="Espec" id="Espec_Solicitud">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
+                            <br><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">no cumple</span>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td class="Metod" id="Metod_Certificado">Metodología interna laboratorio analista</td>
-                        <td class="Espec" id="Espec_Certificado">Solución límpida, transparente, de color ligeramente
-                            amarillo, inolora, sin
-                            partículas...
+                        <td id="Estado4">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
                         </td>
-                        <td class="revision"><input type="checkbox" class="checkmark">
+                        <td class="Espec" id="Espec_Certificado">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="checkmark">
+                            <br><input type="checkbox" class="revision">
                             <span class="tamañoRevision ">no cumple</span>
                         </td>
                     </tr>
@@ -339,9 +363,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="download-pdf" >Descargar PDF</button>
-    <button class="botones" id="firma" >Firmar Documento</button>
-    <button class="botones" id="guardar" >Guardar Documento</button>
+    <button class="botones" id="download-pdf">Descargar PDF</button>
+    <button class="botones" id="firma">Firmar Documento</button>
+    <button class="botones" id="guardar">Guardar Documento</button>
 </div>
 
 <div id="notification" class="notification-container notify" style="display: none;">
@@ -394,93 +418,93 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 </script>
 <script>
-$(document).ready(function() {
-    // Cargar datos iniciales
-    loadData();
-});
-
-var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
-var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
-
-console.log("ID Analisis Externo:", idAnalisisExterno);
-
-function loadData() {
-    $.ajax({
-        url: './backend/acta_liberacion/ingresar_resultados_liberacion.php',
-        type: 'GET',
-        data: {
-            id_acta: idAnalisisExterno
-        },
-        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-        success: function(response) {
-            // Suponiendo que la respuesta tiene dos partes principales
-            const analisis = response.analisis; // Datos del análisis externo
-            if (analisis.length > 0) {
-                const primerAnalisis = analisis[0];
-
-                // Sumar los resultados de producto en un solo texto
-                var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
-
-                // Actualizar el elemento con el texto combinado
-                $('#producto_completo').text(productoCompleto);
-                // Actualizar el elemento con el texto combinado
-                $('#producto_completoT1').val(productoCompleto);
-
-                // Actualizar los inputs con los datos del análisis
-                $('#nro_registro').val(primerAnalisis.numero_registro);
-                $('#nro_version').val(primerAnalisis.version);
-                $('#nro_solicitud').val(primerAnalisis.numero_solicitud);
-                // FALTA LA FECHA DE LIBERACION
-                
-                $('#nro_lote').val(primerAnalisis.lote);
-                $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
-                $('#tamaño_lote').val(primerAnalisis.tamano_lote);
-                $('#codigo_interno').val(primerAnalisis.codigo_interno);
-                $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
-                $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
-
-                //TABLA 2
-
-                $('#laboratorio_analista').val(primerAnalisis.laboratorio);
-                $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
-
-                $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
-                
-                
-                //LABORATORIO ANALISTA
-                //FECHA ENVIO
-                //NUMERO ANALISIS
-                //FECHA REVISION
-
-                //TABLA 3
-                //NRO ACTA LIBERACION
-                //FECHA LIBERACION
-
-                $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                $('#nro_loteT3').val(primerAnalisis.lote);
-                $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
-                $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
-                // Actualizar el elemento con el texto combinado
-                $('#producto_completoT3').val(productoCompleto);
-                // CANTIDAD REAL LIBERADA
-                // N°PARTE DE INGRESO/ TRASPASO
-            }
-
-            if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
-                $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                $("#FirmaAnalisisExternoRevisor").click(function() {
-                    firmarDocumentoSolicitudExterna(idAnalisisExterno);
-                });
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error cargando los datos: ' + error);
-            console.error('AJAX error: ' + status + ' : ' + error);
-            alert("Error en carga de datos. Revisa la consola para más detalles.");
-        }
+    $(document).ready(function () {
+        // Cargar datos iniciales
+        loadData();
     });
-}
+
+    var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
+    var idAnalisisExterno = <? php echo json_encode($_POST['id'] ?? ''); ?>;
+
+    console.log("ID Analisis Externo:", idAnalisisExterno);
+
+    function loadData() {
+        $.ajax({
+            url: './backend/acta_liberacion/ingresar_resultados_liberacion.php',
+            type: 'GET',
+            data: {
+                id_acta: idAnalisisExterno
+            },
+            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+            success: function (response) {
+                // Suponiendo que la respuesta tiene dos partes principales
+                const analisis = response.analisis; // Datos del análisis externo
+                if (analisis.length > 0) {
+                    const primerAnalisis = analisis[0];
+
+                    // Sumar los resultados de producto en un solo texto
+                    var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
+
+                    // Actualizar el elemento con el texto combinado
+                    $('#producto_completo').text(productoCompleto);
+                    // Actualizar el elemento con el texto combinado
+                    $('#producto_completoT1').val(productoCompleto);
+
+                    // Actualizar los inputs con los datos del análisis
+                    $('#nro_registro').val(primerAnalisis.numero_registro);
+                    $('#nro_version').val(primerAnalisis.version);
+                    $('#nro_solicitud').val(primerAnalisis.numero_solicitud);
+                    // FALTA LA FECHA DE LIBERACION
+
+                    $('#nro_lote').val(primerAnalisis.lote);
+                    $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
+                    $('#tamaño_lote').val(primerAnalisis.tamano_lote);
+                    $('#codigo_interno').val(primerAnalisis.codigo_interno);
+                    $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                    $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                    $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+
+                    //TABLA 2
+
+                    $('#laboratorio_analista').val(primerAnalisis.laboratorio);
+                    $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
+
+                    $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
+
+
+                    //LABORATORIO ANALISTA
+                    //FECHA ENVIO
+                    //NUMERO ANALISIS
+                    //FECHA REVISION
+
+                    //TABLA 3
+                    //NRO ACTA LIBERACION
+                    //FECHA LIBERACION
+
+                    $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                    $('#nro_loteT3').val(primerAnalisis.lote);
+                    $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
+                    $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
+                    // Actualizar el elemento con el texto combinado
+                    $('#producto_completoT3').val(productoCompleto);
+                    // CANTIDAD REAL LIBERADA
+                    // N°PARTE DE INGRESO/ TRASPASO
+                }
+
+                if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
+                    $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
+                    $("#FirmaAnalisisExternoRevisor").click(function () {
+                        firmarDocumentoSolicitudExterna(idAnalisisExterno);
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+                console.error('AJAX error: ' + status + ' : ' + error);
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
+            }
+        });
+    }
 
 
 </script>

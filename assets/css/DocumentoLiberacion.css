@@ -213,9 +213,10 @@ p {
 
 
 .Subtitulos {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     margin-bottom: 1px;
+    padding: 1%;
 }
 
 th {
@@ -231,26 +232,29 @@ table {
 }
 
 .titulo {
-    /* Asumiendo que quieres que el texto sea negrita */
-    padding-right: 12px;
+    
     /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
     text-align: left;
     /* Alinea el texto a la izquierda */
-    font-size: 16px;
+    font-size: 12px;
+    width: 270px;
 
 }
 
 .titulo-right {
     /* Alinea el texto a la derecha */
     padding-left: 10px;
+    width: 155px;
     /* Ajusta el espaciado a la izquierda para empujar el contenido hacia la derecha */
 }
 
+
 input[type="text"] {
-    width: 100%;
+    width: 295px;
+    font-size: 12px;
+    padding: 3%;
     /* Asegura que el input ocupe toda la celda */
 }
-
 input {
     line-height: normal !important;
 }
@@ -302,3 +306,34 @@ input {
     font-size: 10px;
 }
 
+.estado-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+input[type="checkbox"].checkmark {
+    width: 15px; /* Ancho del checkbox */
+    height: 15px; /* Altura del checkbox */
+    transform: scale(1.5); /* Escala del checkbox */
+    -webkit-transform: scale(1.5); /* Escala del checkbox para navegadores basados en WebKit */
+    -moz-transform: scale(1.5); /* Escala del checkbox para navegadores basados en Mozilla */
+}
+input[type="checkbox"].revision {
+    width: 12px; /* Ancho del checkbox */
+    height: 12px; /* Altura del checkbox */
+    transform: scale(1.5); /* Escala del checkbox */
+    -webkit-transform: scale(1.5); /* Escala del checkbox para navegadores basados en WebKit */
+    -moz-transform: scale(1.5); /* Escala del checkbox para navegadores basados en Mozilla */
+}
+span.tamañoRevision {
+    font-size: 1.1em; /* Ajusta el tamaño del texto según sea necesario */
+}
+textarea{
+    width: 295px;
+    field-sizing: content;
+    resize: none;
+    overflow: hidden;
+    font-size: 12px;
+    padding: 3%;
+}
