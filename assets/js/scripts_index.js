@@ -572,6 +572,10 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                                     botones(id, 'generar_acta_muestreo', 'laboratorio');
                                     break;
                                 }
+                                case 'Firma 1': {
+                                    botones(id, 'resultados_actaMuestreo', 'laboratorio');
+                                    break;
+                                }
                             }
                             break;
                         }
@@ -625,14 +629,12 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     break;
                 }
                 case "revisar": {
-                    var {analisisExterno, especificacion} = id;
                     console.log("REVISAR CLICKEADO CON EXITO");
                     $.ajax({
                         url: '../pages/LABORATORIO_preparacion_solicitud.php',
                         type: 'POST',
                         data: {
-                            analisisExterno,
-                            especificacion
+                            'analisisExterno': id
                         },
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');

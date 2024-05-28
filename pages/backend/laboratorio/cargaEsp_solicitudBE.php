@@ -3,9 +3,12 @@ session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Validación y saneamiento del ID
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
 
+if ($id_analisis_externo === 0) {
+    echo json_encode(['error' => 'ID de análisis externo no válido.']);
+    exit;
+}
 
 // Consulta para obtener los productos, especificaciones y análisis asociados
 $query = "SELECT 
@@ -28,8 +31,7 @@ $query = "SELECT
         FROM calidad_productos as cp 
         INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
-        WHERE cep.id_especificacion = ?";
-
+        WHERE cep.id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
 
 $queryAnalisisExterno = "SELECT 
                             an.*,
@@ -47,15 +49,15 @@ $queryAnalisisExterno = "SELECT
                         JOIN calidad_especificacion_productos AS ep ON an.id_especificacion = ep.id_especificacion
                         WHERE an.id = ?";
 
-$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = ?";
+$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
 
 $stmt = mysqli_prepare($link, $query);
-mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_bind_param($stmt, "i", $id_analisis_externo);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 $analisis = [];
-$analisis_count = [];
+$analisis_count = 0;
 $productos = [];
 
 if ($id_analisis_externo !== 0) {
@@ -73,7 +75,7 @@ if ($id_analisis_externo !== 0) {
 //----------
 
 $stmtAnaliCount = mysqli_prepare($link, $queryAnalisisMany);
-mysqli_stmt_bind_param($stmtAnaliCount, "i", $id);
+mysqli_stmt_bind_param($stmtAnaliCount, "i", $id_analisis_externo);
 mysqli_stmt_execute($stmtAnaliCount);
 
 $resultAnaliCount = mysqli_stmt_get_result($stmtAnaliCount);
@@ -110,8 +112,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     if (!isset($productos[$producto_id]['especificaciones'][$especificacion_id])) {
         $productos[$producto_id]['especificaciones'][$especificacion_id] = [
             'id_especificacion' => $especificacion_id,
-            'id' => $especificacion_id,
-            'estado' => $row['estado'],
             'documento' => $row['documento'],
             'version' => $row['version']
         ];
@@ -120,10 +120,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 }
 
+mysqli_stmt_close($stmt);
 mysqli_close($link);
 
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo'=> $analisis_count], JSON_UNESCAPED_UNICODE);
+echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo' => $analisis_count], JSON_UNESCAPED_UNICODE);
 
 ?>
  
