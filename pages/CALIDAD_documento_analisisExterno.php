@@ -308,12 +308,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             input.setAttribute('value', input.value);
         });
 
-        html2canvas(elementToExport, { scale: 3 }).then(canvas => { // Incrementar la escala a 3
+        html2canvas(elementToExport, { scale: 2 }).then(canvas => { // Reducir la escala a 2
             document.querySelector('.button-container').style.display = 'block';
             elementToExport.style.border = '1px solid #000';
             elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
-            const imgData = canvas.toDataURL('image/png');
+            const imgData = canvas.toDataURL('image/jpeg', 0.7); // Reducir la calidad de la imagen
             const pdf = new jsPDF('p', 'mm', 'a4');
             const imgWidth = 210;
             const pageHeight = 297;
