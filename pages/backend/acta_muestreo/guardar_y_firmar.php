@@ -105,7 +105,7 @@ if ($stmt = mysqli_prepare($link, $query)) {
         switch ($flujo) {
             case 'Firma usuario 1 de 3':
                 // Crear tarea para la segunda firma
-                finalizarTarea($_SESSION['usuario'], $nuevo_id, 'calidad_acta_muestreo', 'Firma 1');
+                finalizarTarea($_SESSION['usuario'], $id_actaMuestreo, 'calidad_acta_muestreo', 'Firma 1');
                 registrarTarea(7, $_SESSION['usuario'], $firma2, '2da firma acta de muestreo: ' . $acta, 2, 'Firma 2', $id_actaMuestreo, 'calidad_acta_muestreo');
                 break;
             case 'Firma usuario 2 de 3':
