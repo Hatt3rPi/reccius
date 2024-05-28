@@ -295,64 +295,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.getElementById('download-pdf').addEventListener('click', function() {
-
-
-        // Continúa con el proceso de descarga del PDF como antes
+    document.getElementById('download-pdf').addEventListener('click', function () {
+        const { jsPDF } = window.jspdf;
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none'; // Establecer el borde a none
-        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
 
-
-        html2canvas(elementToExport, {
-            scale: 2
-        }).then(canvas => {
-            // Mostrar botones después de la captura
+        html2canvas(elementToExport, { scale: 2 }).then(canvas => {
             document.querySelector('.button-container').style.display = 'block';
-            // Establecer los estilos originales después de generar el PDF
             elementToExport.style.border = '1px solid #000';
             elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
-
-
             const imgData = canvas.toDataURL('image/png');
-            merge
-            format: 'a4'
-        });
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210;
+            const pageHeight = 297;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
 
-        const imgWidth = 210;
-        const pageHeight = 297;
-        let imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-
-        let position = 0;
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
-        }
 
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
 
-        var nombreProducto = document.getElementById('producto').textContent.trim();
-        var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-        $.notify("PDF generado con éxito", "success");
-
-        // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
-        allButtonGroups.forEach(group => {
-            const buttons = group.querySelectorAll('.btn-check');
-            buttons.forEach(button => {
-                // Mostrar todos los botones nuevamente
-                button.style.display = 'block';
-            });
+            var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
+            var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            $.notify("PDF generado con éxito", "success");
         });
-
-
     });
 </script>
 <script>
@@ -460,7 +437,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#estado').val(primerAnalisis.estado);
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
                     // Mostrar u ocultar columna de revisión basado en el estado
-                    if (primerAnalisis.estado === "Pendiende ingreso resultados laboratorio") {
+                    if (primerAnalisis.estado === "Pendiente ingreso resultados laboratorio") {
                         primeravez = false; // Mostrar la columna
                     } else {
                         primeravez = true; // Ocultar la columna
