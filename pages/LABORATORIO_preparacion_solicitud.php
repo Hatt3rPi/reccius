@@ -418,10 +418,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             success: function(response) {
                 if (QA_solicitud_analisis_editing) {
                     procesarDatosActaUpdate(response);
-                    $('#id_especificacion').val(response.productos[0].especificaciones[0].id_especificacion);
+                    //$('#id_especificacion').val(response.productos[0].especificaciones[0].id_especificacion);
                 } else {
                     procesarDatosActa(response);
-                    $('#id_especificacion').val(response.productos[0].especificaciones[0].id_especificacion);
+                    //$('#id_especificacion').val(response.productos[0].especificaciones[0].id_especificacion);
                 }
             },
             error: function(xhr, status, error) {
@@ -840,6 +840,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             todayHighlight: true,
             startDate: new Date()
         });
-
+        var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+        $('#id_especificacion').val(idEspecificacion);
     });
 </script>
