@@ -255,6 +255,7 @@ input[type="text"] {
     font-size: 12px;
     padding: 3%;
     /* Asegura que el input ocupe toda la celda */
+    box-sizing: border-box;
 }
 input{
     line-height: normal !important;
