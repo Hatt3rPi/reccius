@@ -208,7 +208,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </form>
             <form>
-            <table id="analisis-solicitados">
+                <table id="analisis-solicitados">
                     <tr>
                         <td class="Subtitulos" colspan="4">III. ANÁLISIS SOLICITADOS</td>
                     </tr>
@@ -316,48 +316,46 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-            const imgData = canvas.toDataURL('image/png');merge
-                format: 'a4'
-            });
+            const imgData = canvas.toDataURL('image/png');
+            merge
+            format: 'a4'
+        });
 
-            const imgWidth = 210;
-            const pageHeight = 297;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
+        const imgWidth = 210;
+        const pageHeight = 297;
+        let imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
 
-            let position = 0;
+        let position = 0;
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
+        }
 
 
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
+        var nombreProducto = document.getElementById('producto').textContent.trim();
+        var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
+        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+        $.notify("PDF generado con éxito", "success");
 
-            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    // Mostrar todos los botones nuevamente
-                    button.style.display = 'block';
-                });
+        // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                // Mostrar todos los botones nuevamente
+                button.style.display = 'block';
             });
-
-
         });
-    
+
+
+    });
 </script>
 <script>
-
-    
     // Agregar el evento click al botón con id 'Cambiante'
     document.getElementById('Cambiante').addEventListener('click', function() {
         cambio();
@@ -399,83 +397,90 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
     function loadData() {
-    $.ajax({
-        url: './backend/analisis/ingresar_resultados_analisis.php',
-        type: 'GET',
-        data: {
-            id_acta: idAnalisisExterno
-        },
-        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-        success: function(response) {
-            // Suponiendo que la respuesta tiene dos partes principales
-            const analisis = response.analisis; // Datos del análisis externo
-            if (analisis.length > 0) {
-                const primerAnalisis = analisis[0];
+        $.ajax({
+            url: './backend/analisis/ingresar_resultados_analisis.php',
+            type: 'GET',
+            data: {
+                id_acta: idAnalisisExterno
+            },
+            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+            success: function(response) {
+                // Suponiendo que la respuesta tiene dos partes principales
+                const analisis = response.analisis; // Datos del análisis externo
+                if (analisis.length > 0) {
+                    const primerAnalisis = analisis[0];
 
-                // Actualizar los inputs con los datos del análisis
-                //TABLA HEADER
-                $('#numero_registro').text(primerAnalisis.numero_registro);
-                $('#version').text(primerAnalisis.version);
-                $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
-                $('#fecha_registro').val(primerAnalisis.fecha_registro);
-                //TITULO TABLA
-                $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                $('#nombre_producto2').val(primerAnalisis.prod_nombre_producto);
-                $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
+                    // Actualizar los inputs con los datos del análisis
+                    //TABLA HEADER
+                    $('#numero_registro').text(primerAnalisis.numero_registro);
+                    $('#version').text(primerAnalisis.version);
+                    $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
+                    $('#fecha_registro').val(primerAnalisis.fecha_registro);
 
-                //TABLA 1
-                $('#laboratorio').val(primerAnalisis.laboratorio);
-                $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
-                $('#analisis_segun').val(primerAnalisis.analisis_segun);
-                $('#numero_documento').val(primerAnalisis.numero_documento);
-                $('#fecha_cotizacion').val(primerAnalisis.fecha_cotizacion);
-                $('#estandar_segun').val(primerAnalisis.estandar_segun);
-                $('#estandar_otro').val(primerAnalisis.estandar_otro);
-                $('#hds_adjunto').val(primerAnalisis.hds_adjunto);
-                $('#hds_otro').val(primerAnalisis.hds_otro);
-                $('#fecha_entrega_estimada').val(primerAnalisis.fecha_entrega_estimada);
+                    //
+                    // Sumar los resultados de producto en un solo texto
+                    var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
 
-                //TABLA 2
-                $('#formato').val(primerAnalisis.prod_formato);
-                $('#lote').val(primerAnalisis.lote);
-                $('#tamano_lote').val(primerAnalisis.tamano_lote);
-                $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
-                $('#registro_isp').val(primerAnalisis.registro_isp);
-                $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
-                $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
-                $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
-                $('#elaborado_por').val(primerAnalisis.elaborado_por);
-                $('#muestreado_por').val(primerAnalisis.muestreado_por);
-                $('#observaciones').val(primerAnalisis.observaciones);
-                $('#numero_pos').val(primerAnalisis.numero_pos);
-                $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+                    // Actualizar el elemento con el texto combinado
+                    $('#nombre_producto').text(productoCompleto);
+                    // Actualizar el elemento con el texto combinado
+                    $('#nombre_producto2').val(productoCompleto);
+                    //TITULO TABLA
+                    $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
 
-                // Otros campos
-                $('#estado').val(primerAnalisis.estado);
-                $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
-                // Mostrar u ocultar columna de revisión basado en el estado
-                if (primerAnalisis.estado === "Pendiende ingreso resultados laboratorio") {
+                    //TABLA 1
+                    $('#laboratorio').val(primerAnalisis.laboratorio);
+                    $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
+                    $('#analisis_segun').val(primerAnalisis.analisis_segun);
+                    $('#numero_documento').val(primerAnalisis.numero_documento);
+                    $('#fecha_cotizacion').val(primerAnalisis.fecha_cotizacion);
+                    $('#estandar_segun').val(primerAnalisis.estandar_segun);
+                    $('#estandar_otro').val(primerAnalisis.estandar_otro);
+                    $('#hds_adjunto').val(primerAnalisis.hds_adjunto);
+                    $('#hds_otro').val(primerAnalisis.hds_otro);
+                    $('#fecha_entrega_estimada').val(primerAnalisis.fecha_entrega_estimada);
+
+                    //TABLA 2
+                    $('#formato').val(primerAnalisis.prod_formato);
+                    $('#lote').val(primerAnalisis.lote);
+                    $('#tamano_lote').val(primerAnalisis.tamano_lote);
+                    $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                    $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+                    $('#registro_isp').val(primerAnalisis.registro_isp);
+                    $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
+                    $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                    $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
+                    $('#elaborado_por').val(primerAnalisis.elaborado_por);
+                    $('#muestreado_por').val(primerAnalisis.muestreado_por);
+                    $('#observaciones').val(primerAnalisis.observaciones);
+                    $('#numero_pos').val(primerAnalisis.numero_pos);
+                    $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+
+                    // Otros campos
+                    $('#estado').val(primerAnalisis.estado);
+                    $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
+                    // Mostrar u ocultar columna de revisión basado en el estado
+                    if (primerAnalisis.estado === "Pendiende ingreso resultados laboratorio") {
                         primeravez = false; // Mostrar la columna
                     } else {
                         primeravez = true; // Ocultar la columna
                     }
                     toggleRevisionColumn();
-            }
+                }
 
-            if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
-                $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                $("#FirmaAnalisisExternoRevisor").click(function() {
-                    firmarDocumentoSolicitudExterna(idAnalisisExterno);
-                });
-            }
+                if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
+                    $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
+                    $("#FirmaAnalisisExternoRevisor").click(function() {
+                        firmarDocumentoSolicitudExterna(idAnalisisExterno);
+                    });
+                }
 
-            // Poblar la tabla III. ANÁLISIS SOLICITADOS
-            const analisisSolicitados = response.analiDatos;
-            const table = $('#analisis-solicitados');
+                // Poblar la tabla III. ANÁLISIS SOLICITADOS
+                const analisisSolicitados = response.analiDatos;
+                const table = $('#analisis-solicitados');
 
-            analisisSolicitados.forEach(function(analisis) {
-                const row = `<tr class="bordeAbajo">
+                analisisSolicitados.forEach(function(analisis) {
+                    const row = `<tr class="bordeAbajo">
                     <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                     <td class="Metod">${analisis.anali_metodologia}</td>
                     <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
@@ -487,21 +492,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <span class="tamañoRevision">no cumple</span>
                     </td>
                 </tr>`;
-                table.append(row);
-            });
+                    table.append(row);
+                });
 
-            // Manejo de Acta Muestreo
-            const actaMuestreo = response.Acta_Muestreo;
-            if (actaMuestreo.length > 0) {
-                const ultimaActa = actaMuestreo[0];
-                // Poblar campos adicionales de acta de muestreo si es necesario
+                // Manejo de Acta Muestreo
+                const actaMuestreo = response.Acta_Muestreo;
+                if (actaMuestreo.length > 0) {
+                    const ultimaActa = actaMuestreo[0];
+                    // Poblar campos adicionales de acta de muestreo si es necesario
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+                console.error('AJAX error: ' + status + ' : ' + error);
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error cargando los datos: ' + error);
-            console.error('AJAX error: ' + status + ' : ' + error);
-            alert("Error en carga de datos. Revisa la consola para más detalles.");
-        }
-    });
-}
+        });
+    }
 </script>
