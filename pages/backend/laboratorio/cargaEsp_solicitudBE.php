@@ -5,10 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 // Validación y saneamiento del ID
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
 
-if ($id_analisis_externo === 0) {
-    echo json_encode(['error' => 'ID de análisis externo no válido.']);
-    exit;
-}
+
 
 // Consulta para obtener los productos, especificaciones y análisis asociados
 $query = "SELECT 
