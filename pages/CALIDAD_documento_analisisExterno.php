@@ -442,13 +442,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Otros campos
                     $('#estado').val(primerAnalisis.estado);
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
-                    // Mostrar u ocultar columna de revisión basado en el estado
-                    if (primerAnalisis.estado === "Pendiente ingreso resultados laboratorio") {
-                        primeravez = false; // Mostrar la columna
-                    } else {
-                        primeravez = true; // Ocultar la columna
-                    }
-                    toggleRevisionColumn();
                 }
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
