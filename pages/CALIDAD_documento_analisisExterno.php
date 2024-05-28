@@ -295,48 +295,49 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.getElementById('download-pdf').addEventListener('click', function () {
-        const { jsPDF } = window.jspdf;
-        document.querySelector('.button-container').style.display = 'none';
-        const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none';
-        elementToExport.style.boxShadow = 'none';
+   document.getElementById('download-pdf').addEventListener('click', function () {
+    const { jsPDF } = window.jspdf;
+    document.querySelector('.button-container').style.display = 'none';
+    const elementToExport = document.getElementById('form-container');
+    elementToExport.style.border = 'none';
+    elementToExport.style.boxShadow = 'none';
 
-        // Asegurarte de que los campos de entrada tengan valores visibles
-        const inputs = elementToExport.querySelectorAll('input, textarea');
-        inputs.forEach(input => {
-            input.setAttribute('value', input.value);
-        });
+    // Asegurarte de que los campos de entrada tengan valores visibles
+    const inputs = elementToExport.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.setAttribute('value', input.value);
+    });
 
-        html2canvas(elementToExport, { scale: 2 }).then(canvas => { // Reducir la escala a 2
-            document.querySelector('.button-container').style.display = 'block';
-            elementToExport.style.border = '1px solid #000';
-            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+    html2canvas(elementToExport, { scale: 2 }).then(canvas => { // Aumenta la escala para mayor resolución
+        document.querySelector('.button-container').style.display = 'block';
+        elementToExport.style.border = '1px solid #000';
+        elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
-            const imgData = canvas.toDataURL('image/jpeg', 0.7); // Reducir la calidad de la imagen
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgWidth = 210;
-            const pageHeight = 297;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-            let position = 0;
+        const imgData = canvas.toDataURL('image/jpeg', 1.0); // Usa la máxima calidad de imagen
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 210;
+        const pageHeight = 297;
+        let imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
 
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
+        }
 
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-
-            var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
-            var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
-        });
+        var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
+        var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
+        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+        $.notify("PDF generado con éxito", "success");
     });
+});
+
 </script>
 <script>
     // Agregar el evento click al botón con id 'Cambiante'
