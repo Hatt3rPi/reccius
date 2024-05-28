@@ -302,7 +302,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         elementToExport.style.border = 'none';
         elementToExport.style.boxShadow = 'none';
 
-        html2canvas(elementToExport, { scale: 2 }).then(canvas => {
+        // Asegurarte de que los campos de entrada tengan valores visibles
+        const inputs = elementToExport.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.setAttribute('value', input.value);
+        });
+
+        html2canvas(elementToExport, { scale: 3 }).then(canvas => { // Incrementar la escala a 3
             document.querySelector('.button-container').style.display = 'block';
             elementToExport.style.border = '1px solid #000';
             elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
