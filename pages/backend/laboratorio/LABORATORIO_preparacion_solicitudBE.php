@@ -8,33 +8,34 @@ function limpiarDato($dato)
     $datoLimpio = trim($dato);
     return htmlspecialchars(stripslashes($datoLimpio));
 }
-$id_analisis_externo="";
+
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos)
 {
+    global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
     //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
     $query = "INSERT INTO calidad_analisis_externo (
-        version
-        ,id_especificacion
-        ,id_producto
-        ,estado
-        ,numero_registro
-        ,numero_solicitud
-        ,fecha_registro
-        ,solicitado_por
-        ,lote
-        ,tamano_lote
-        ,fecha_elaboracion
-        ,fecha_vencimiento
-        ,tamano_muestra
-        ,tamano_contramuestra
-        ,registro_isp
-        ,condicion_almacenamiento
-        ,muestreado_por
-        ,numero_pos
-        ,tipo_analisis
-        ,am_verificado_por) 
-    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+        version,
+        id_especificacion,
+        id_producto,
+        estado,
+        numero_registro,
+        numero_solicitud,
+        fecha_registro,
+        solicitado_por,
+        lote,
+        tamano_lote,
+        fecha_elaboracion,
+        fecha_vencimiento,
+        tamano_muestra,
+        tamano_contramuestra,
+        registro_isp,
+        condicion_almacenamiento,
+        muestreado_por,
+        numero_pos,
+        tipo_analisis,
+        am_verificado_por) 
+    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -66,7 +67,7 @@ function insertarRegistro($link, $datos)
     );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
-    $id_analisis_externo=$id;
+    $id_analisis_externo = $id; // Asignar el ID a la variable global
     mysqli_stmt_close($stmt);
 
     registrarTrazabilidad(
@@ -98,6 +99,7 @@ function insertarRegistro($link, $datos)
 
 function agregarDatosPostFirma($link, $datos)
 {
+    global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
     $camposAActualizar = [
         'analisis_segun',
         'estandar_segun', // estandar_provisto_por
@@ -139,7 +141,7 @@ function agregarDatosPostFirma($link, $datos)
 
     // Añadir el ID al final para la cláusula WHERE
     $valoresParaVincular[] = $datos['id'];
-    $id_analisis_externo=$datos['id'];
+    $id_analisis_externo = $datos['id']; // Asignar el ID a la variable global
     $tipos .= 'i';
 
     $consultaSQL = "UPDATE calidad_analisis_externo SET " . join(", ", $partesConsulta) . " WHERE id = ?";
@@ -150,8 +152,6 @@ function agregarDatosPostFirma($link, $datos)
 
     mysqli_stmt_bind_param($stmt, $tipos, ...$valoresParaVincular);
 
-
-
     if (!mysqli_stmt_execute($stmt)) {
         throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt));
     }
@@ -160,7 +160,7 @@ function agregarDatosPostFirma($link, $datos)
     
     // registrar tarea
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
-    registrarTarea(7, $_SESSION['usuario'], $datos['usuario_revisor'], 'Revisar Analisis Externo: '.$datos['numero_registro'] , 2, 'Firma 2', $datos['id'], 'calidad_analisis_externo');
+    registrarTarea(7, $_SESSION['usuario'], $datos['usuario_revisor'], 'Revisar Analisis Externo: ' . $datos['numero_registro'], 2, 'Firma 2', $datos['id'], 'calidad_analisis_externo');
     // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 2');
     // registrarTarea(7, $_SESSION['usuario'], $datos['usuario_revisor'], 'Revisar Analisis Externo: '.$datos['numero_registro']
     //         //Añadir documento en vez de id 
@@ -337,3 +337,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo json_encode(["exito" => false, "mensaje" => "Método inválido"]);
 }
+?>
