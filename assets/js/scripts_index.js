@@ -495,8 +495,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                             url: 'LABORATORIO_preparacion_solicitud.php',
                             type: 'POST',
                             data: { 
-                                analisisExterno,
-                                especificacion,
+                                'analisisExterno': analisisExterno,
+                                'especificacion': especificacion,
                                 'accion': accion
                             },
                             success: function(response) {

@@ -408,7 +408,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
     function cargarDatosEspecificacion() {
         var data = {
-            id: idEspecificacion,
+            idEspecificacion: idEspecificacion,
             id_analisis_externo: idAnalisisExterno, 
             accion: accion
         };
