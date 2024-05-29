@@ -4,11 +4,12 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Validación y saneamiento del ID
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
-$accion = isset($_GET['accion']) ? intval($_GET['accion']) : 0;
-$valor_buscado='';
-if ($accion==='prepararSolicitud'){
+$accion = isset($_GET['accion']) ? $_GET['accion'] : '';
+$valor_buscado = 0;
+$query = '';
+
+if ($accion === 'prepararSolicitud') {
     $idEspecificacion = isset($_GET['idEspecificacion']) ? intval($_GET['idEspecificacion']) : 0;
-    // Consulta para obtener los productos, especificaciones y análisis asociados
     $query = "SELECT 
             cp.id as id_producto,
             cp.nombre_producto AS producto,
@@ -29,38 +30,45 @@ if ($accion==='prepararSolicitud'){
         FROM calidad_productos as cp 
         INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
-        WHERE cep.id_especificacion = ?;"; 
-    $valor_buscado=$idEspecificacion;
-} else if ($accion==='prepararSolicitud') {
-// Consulta para obtener los productos, especificaciones y análisis asociados
-            $query = "SELECT 
-                        cp.id as id_producto,
-                        cp.nombre_producto AS producto,
-                        cp.identificador_producto,
-                        cp.tipo_producto,
-                        cp.concentracion,
-                        cp.formato,
-                        cp.documento_ingreso as documento_producto,
-                        cp.elaborado_por, 
-                        cp.tipo_concentracion,
-                        cp.pais_origen,
-                        cp.proveedor,
-                        cep.id_especificacion,
-                        cep.documento,
-                        cep.fecha_expiracion,
-                        cep.fecha_edicion,
-                        cep.version
-                    FROM calidad_productos as cp 
-                    INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
-                    LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
-                    WHERE cep.id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
-            $valor_buscado=$id_analisis_externo;
+        WHERE cep.id_especificacion = ?"; 
+    $valor_buscado = $idEspecificacion;
+} else if ($accion === 'revisar') {
+    $query = "SELECT 
+            cp.id as id_producto,
+            cp.nombre_producto AS producto,
+            cp.identificador_producto,
+            cp.tipo_producto,
+            cp.concentracion,
+            cp.formato,
+            cp.documento_ingreso as documento_producto,
+            cp.elaborado_por, 
+            cp.tipo_concentracion,
+            cp.pais_origen,
+            cp.proveedor,
+            cep.id_especificacion,
+            cep.documento,
+            cep.fecha_expiracion,
+            cep.fecha_edicion,
+            cep.version
+        FROM calidad_productos as cp 
+        INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
+        LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
+        WHERE cep.id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
+    $valor_buscado = $id_analisis_externo;
 }
 
-
-
-
-
+if ($query !== '') {
+    $stmt = mysqli_prepare($link, $query);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $valor_buscado);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+    } else {
+        die("Error en la preparación de la consulta: " . mysqli_error($link));
+    }
+} else {
+    die("Acción no reconocida.");
+}
 
 $queryAnalisisExterno = "SELECT 
                             an.*,
@@ -80,46 +88,42 @@ $queryAnalisisExterno = "SELECT
 
 $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
 
-$stmt = mysqli_prepare($link, $query);
-mysqli_stmt_bind_param($stmt, "i", $valor_buscado);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
-
 $analisis = [];
 $analisis_count = 0;
 $productos = [];
 
 if ($id_analisis_externo !== 0) {
     $stmtAnali = mysqli_prepare($link, $queryAnalisisExterno);
-    mysqli_stmt_bind_param($stmtAnali, "i", $id_analisis_externo);
-    mysqli_stmt_execute($stmtAnali);
-
-    $resultAnali = mysqli_stmt_get_result($stmtAnali);
-    if ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
-        $analisis = $rowAnali;
+    if ($stmtAnali) {
+        mysqli_stmt_bind_param($stmtAnali, "i", $id_analisis_externo);
+        mysqli_stmt_execute($stmtAnali);
+        $resultAnali = mysqli_stmt_get_result($stmtAnali);
+        if ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
+            $analisis = $rowAnali;
+        }
+        mysqli_stmt_close($stmtAnali);
+    } else {
+        die("Error en la preparación de la consulta de análisis externo: " . mysqli_error($link));
     }
-    mysqli_stmt_close($stmtAnali);
 }
-
-//----------
 
 $stmtAnaliCount = mysqli_prepare($link, $queryAnalisisMany);
-mysqli_stmt_bind_param($stmtAnaliCount, "i", $id_analisis_externo);
-mysqli_stmt_execute($stmtAnaliCount);
-
-$resultAnaliCount = mysqli_stmt_get_result($stmtAnaliCount);
-if ($rowAnaliCount = mysqli_fetch_assoc($resultAnaliCount)) {
-    $analisis_count = $rowAnaliCount['analisis_externo_count'];
+if ($stmtAnaliCount) {
+    mysqli_stmt_bind_param($stmtAnaliCount, "i", $id_analisis_externo);
+    mysqli_stmt_execute($stmtAnaliCount);
+    $resultAnaliCount = mysqli_stmt_get_result($stmtAnaliCount);
+    if ($rowAnaliCount = mysqli_fetch_assoc($resultAnaliCount)) {
+        $analisis_count = $rowAnaliCount['analisis_externo_count'];
+    }
+    mysqli_stmt_close($stmtAnaliCount);
+} else {
+    die("Error en la preparación de la consulta de conteo de análisis: " . mysqli_error($link));
 }
-mysqli_stmt_close($stmtAnaliCount);
-
-//----------
 
 while ($row = mysqli_fetch_assoc($result)) {
     $producto_id = $row['id_producto'];
     $especificacion_id = $row['id_especificacion'];
 
-    // Si el producto no está en el arreglo, agregarlo
     if (!isset($productos[$producto_id])) {
         $productos[$producto_id] = [
             'id_producto' => $producto_id,
@@ -137,7 +141,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         ];
     }
 
-    // Si la especificación no está en el producto, agregarla
     if (!isset($productos[$producto_id]['especificaciones'][$especificacion_id])) {
         $productos[$producto_id]['especificaciones'][$especificacion_id] = [
             'id_especificacion' => $especificacion_id,
@@ -145,8 +148,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             'version' => $row['version']
         ];
     }
-
-
 }
 
 mysqli_stmt_close($stmt);
@@ -156,4 +157,3 @@ header('Content-Type: application/json; charset=utf-8');
 echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo' => $analisis_count], JSON_UNESCAPED_UNICODE);
 
 ?>
- 

@@ -634,7 +634,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         url: '../pages/LABORATORIO_preparacion_solicitud.php',
                         type: 'POST',
                         data: {
-                            'analisisExterno': id
+                            'analisisExterno': id,
+                            'accion': accion
                         },
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
