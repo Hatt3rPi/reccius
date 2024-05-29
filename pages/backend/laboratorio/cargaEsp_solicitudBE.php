@@ -4,11 +4,12 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Validación y saneamiento del ID
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
-
-
-
-// Consulta para obtener los productos, especificaciones y análisis asociados
-$query = "SELECT 
+$accion = isset($_GET['accion']) ? intval($_GET['accion']) : 0;
+$valor_buscado='';
+if ($accion==='prepararSolicitud'){
+    $idEspecificacion = isset($_GET['idEspecificacion']) ? intval($_GET['idEspecificacion']) : 0;
+    // Consulta para obtener los productos, especificaciones y análisis asociados
+    $query = "SELECT 
             cp.id as id_producto,
             cp.nombre_producto AS producto,
             cp.identificador_producto,
@@ -28,7 +29,38 @@ $query = "SELECT
         FROM calidad_productos as cp 
         INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
         LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
-        WHERE cep.id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
+        WHERE cep.id_especificacion = ?;"; 
+    $valor_buscado=$idEspecificacion;
+} else if ($accion==='prepararSolicitud') {
+// Consulta para obtener los productos, especificaciones y análisis asociados
+            $query = "SELECT 
+                        cp.id as id_producto,
+                        cp.nombre_producto AS producto,
+                        cp.identificador_producto,
+                        cp.tipo_producto,
+                        cp.concentracion,
+                        cp.formato,
+                        cp.documento_ingreso as documento_producto,
+                        cp.elaborado_por, 
+                        cp.tipo_concentracion,
+                        cp.pais_origen,
+                        cp.proveedor,
+                        cep.id_especificacion,
+                        cep.documento,
+                        cep.fecha_expiracion,
+                        cep.fecha_edicion,
+                        cep.version
+                    FROM calidad_productos as cp 
+                    INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto 
+                    LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
+                    WHERE cep.id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
+            $valor_buscado=$id_analisis_externo;
+}
+
+
+
+
+
 
 $queryAnalisisExterno = "SELECT 
                             an.*,
@@ -49,7 +81,7 @@ $queryAnalisisExterno = "SELECT
 $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
 
 $stmt = mysqli_prepare($link, $query);
-mysqli_stmt_bind_param($stmt, "i", $id_analisis_externo);
+mysqli_stmt_bind_param($stmt, "i", $valor_buscado);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
