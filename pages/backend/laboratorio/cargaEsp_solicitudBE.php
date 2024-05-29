@@ -7,6 +7,10 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
 $accion = isset($_GET['accion']) ? $_GET['accion'] : '';
 $valor_buscado = 0;
 $query = '';
+$QA = [];
+
+// Registro del paso de validación
+$QA[] = "1 ".$accion;
 
 if ($accion === 'prepararSolicitud') {
     $idEspecificacion = isset($_GET['idEspecificacion']) ? intval($_GET['idEspecificacion']) : 0;
@@ -32,6 +36,7 @@ if ($accion === 'prepararSolicitud') {
         LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
         WHERE cep.id_especificacion = ?"; 
     $valor_buscado = $idEspecificacion;
+    $QA[] = "2 - $idEspecificacion";
 } else if ($accion === 'revisar') {
     $query = "SELECT 
             cp.id as id_producto,
@@ -55,6 +60,7 @@ if ($accion === 'prepararSolicitud') {
         LEFT JOIN calidad_analisis as can ON cep.id_especificacion = can.id_especificacion_producto 
         WHERE cep.id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
     $valor_buscado = $id_analisis_externo;
+    $QA[] = "3 - $id_analisis_externo";
 }
 
 if ($query !== '') {
@@ -63,10 +69,13 @@ if ($query !== '') {
         mysqli_stmt_bind_param($stmt, "i", $valor_buscado);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
+        $QA[] = "4";
     } else {
+        $QA[] = "5 " . mysqli_error($link);
         die("Error en la preparación de la consulta: " . mysqli_error($link));
     }
 } else {
+    $QA[] = "6";
     die("Acción no reconocida.");
 }
 
@@ -102,7 +111,9 @@ if ($id_analisis_externo !== 0) {
             $analisis = $rowAnali;
         }
         mysqli_stmt_close($stmtAnali);
+        $QA[] = "7";
     } else {
+        $QA[] = "8: " . mysqli_error($link);
         die("Error en la preparación de la consulta de análisis externo: " . mysqli_error($link));
     }
 }
@@ -116,7 +127,9 @@ if ($stmtAnaliCount) {
         $analisis_count = $rowAnaliCount['analisis_externo_count'];
     }
     mysqli_stmt_close($stmtAnaliCount);
+    $QA[] = "9";
 } else {
+    $QA[] = "10: " . mysqli_error($link);
     die("Error en la preparación de la consulta de conteo de análisis: " . mysqli_error($link));
 }
 
@@ -139,6 +152,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'documento_producto' => $row['documento_producto'],
             'especificaciones' => []
         ];
+        $QA[] = "11 - $producto_id agregado";
     }
 
     if (!isset($productos[$producto_id]['especificaciones'][$especificacion_id])) {
@@ -147,6 +161,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'documento' => $row['documento'],
             'version' => $row['version']
         ];
+        $QA[] = "12 - ID $especificacion_id agregada al producto ID $producto_id";
     }
 }
 
@@ -154,6 +169,6 @@ mysqli_stmt_close($stmt);
 mysqli_close($link);
 
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo' => $analisis_count], JSON_UNESCAPED_UNICODE);
+echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo' => $analisis_count, 'pasos' => $QA], JSON_UNESCAPED_UNICODE);
 
 ?>
