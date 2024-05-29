@@ -404,10 +404,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
-
-
+    var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
     function cargarDatosEspecificacion() {
         var data = {
+            id: idEspecificacion,
             id_analisis_externo: idAnalisisExterno
         };
 
