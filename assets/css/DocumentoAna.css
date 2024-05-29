@@ -256,10 +256,9 @@ input[type="text"] {
     padding: 3%;
     /* Asegura que el input ocupe toda la celda */
     box-sizing: border-box;
+
 }
-input{
-    line-height: normal !important;
-}
+
 .tituloTabla {
     /* Asumiendo que quieres que el texto sea negrita */
     padding-right: 10px;
