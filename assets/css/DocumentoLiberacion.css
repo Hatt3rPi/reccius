@@ -251,14 +251,16 @@ table {
 
 input[type="text"] {
     width: 295px;
-    font-size: 12px;
+    font-size: 0.8rem;
     padding: 3%;
-    /* Asegura que el input ocupe toda la celda */
-}
-input {
-    line-height: normal !important;
-}
+    box-sizing: border-box;
+    overflow: hidden; /* Evita que el contenido se desborde */
+    white-space: nowrap; /* Evita que el texto se envuelva */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+    display: flex;
+    align-items: center; /* Centra verticalmente */
 
+}
 .tituloTabla {
     /* Asumiendo que quieres que el texto sea negrita */
     padding-right: 10px;
@@ -318,6 +320,7 @@ input[type="checkbox"].checkmark {
     transform: scale(1.5); /* Escala del checkbox */
     -webkit-transform: scale(1.5); /* Escala del checkbox para navegadores basados en WebKit */
     -moz-transform: scale(1.5); /* Escala del checkbox para navegadores basados en Mozilla */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 input[type="checkbox"].revision {
     width: 12px; /* Ancho del checkbox */
@@ -325,9 +328,11 @@ input[type="checkbox"].revision {
     transform: scale(1.5); /* Escala del checkbox */
     -webkit-transform: scale(1.5); /* Escala del checkbox para navegadores basados en WebKit */
     -moz-transform: scale(1.5); /* Escala del checkbox para navegadores basados en Mozilla */
+    
 }
 span.tamañoRevision {
     font-size: 1.1em; /* Ajusta el tamaño del texto según sea necesario */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 textarea{
     width: 295px;

@@ -1,16 +1,3 @@
-<?php
-session_start();
-
-// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirigir al usuario a la página de inicio de sesión.
-    header("Location: login.html");
-    exit;
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -22,7 +9,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -36,7 +25,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container formpadding" style="margin: 0 auto;">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
@@ -44,16 +34,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
                         Externo
                         Control de Calidad
                         <!-- Pretitulo -->
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="nombre_producto" id="nombre_producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="nombre_producto" id="nombre_producto"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -62,8 +56,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo"
+                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
                             <td name="numero_registro" id="numero_registro"></td>
@@ -79,7 +75,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha :</td>
                             <td>
-                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;" readonly>
+                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;"
+                                    readonly>
                             </td>
                         </tr>
                     </table>
@@ -87,7 +84,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </div>
             <!-- Body -->
-            <form>
+            <form id="section1">
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">I. INFORMACIÓN GENERAL</td>
@@ -136,7 +133,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
             <!-- Sección II: MUESTREO -->
-            <form>
+            <form id="section2">
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">II. INFORMACIÓN PRODUCTO TERMINADO</td>
@@ -207,7 +204,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
 
             </form>
-            <form>
+            <form id="section3">
                 <table id="analisis-solicitados">
                     <tr>
                         <td class="Subtitulos" colspan="4">III. ANÁLISIS SOLICITADOS</td>
@@ -224,55 +221,64 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <!-- Footer -->
             <br>
-            <div class="footer-container">
-                <div class="form-row" id="firma">
-                    <!-- Sección realizada por -->
-                    <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Solicitado por:</div>
-                        <div class="firma-box">
-                            <p id='realizadoPor' name='realizadoPor' class="bold"></p>
-                            <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
-                            <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
-                            <div class="signature" style="d-flex justify-content-center">
-                                <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
-                                <!-- acá debe ir el QR -->
+            <form id="footer-container">
+                <div class="footer-container">
+                    <div class="form-row" id="firma">
+                        <!-- Sección realizada por -->
+                        <div class="firma-section">
+                            <div class="firma-box-title" style="font-size: 10px; text-align: left;">Solicitado por:
                             </div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
+                            <div class="firma-box">
+                                <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                                <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
+                                <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
+                                <div class="signature" style="d-flex justify-content-center">
+                                    <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src=""
+                                        alt="firma_realizador" />
+                                    <!-- acá debe ir el QR -->
+                                </div>
+                                <p id='mensaje_realizador' name='mensaje_realizador'
+                                    style='text-align: center;display: none'>Firmado digitalmente</p>
+                            </div>
+                            <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                            <br>
                         </div>
-                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
-                        <br>
-                    </div>
 
-                    <!-- Sección realizada por -->
-                    <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Revisado por:</div>
-                        <div class="firma-box">
-                            <p id='responsable' name='responsable' class="bold"></p>
-                            <p id='user_responsable' name='user_responsable' style="display: none"></p>
-                            <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
-                            <div class="signature" style="d-flex justify-content-center">
-                                <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
-                                <!-- acá debe ir el QR -->
+                        <!-- Sección realizada por -->
+                        <div class="firma-section">
+                            <div class="firma-box-title" style="font-size: 10px; text-align: left;">Revisado por:</div>
+                            <div class="firma-box">
+                                <p id='responsable' name='responsable' class="bold"></p>
+                                <p id='user_responsable' name='user_responsable' style="display: none"></p>
+                                <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
+                                <div class="signature" style="d-flex justify-content-center">
+                                    <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src=""
+                                        alt="firma_responsable" />
+                                    <!-- acá debe ir el QR -->
+                                </div>
+                                <p id='mensaje_realizador' name='mensaje_realizador'
+                                    style='text-align: center;display: none'>Firmado digitalmente</p>
                             </div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
+                            <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date"
+                                style="font-size: 8px"></div>
+                            <br>
                         </div>
-                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
-                        <br>
                     </div>
                 </div>
-            </div>
 
-            <footer class="TextoBajo">
-                <p class="ParrafoBajo">
-                    (*) Campo Obligatorio<br>
-                    (**) Llenar según lista desplegable<br>
-                    (***) Hoja de Seguridad<br>
-                    La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
-                    válido. El certificado de análisis solo debe disponer de la información vertida en esta solicitud.
-                    La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
-                    INDUSTRIAL.
-                </p>
-            </footer>
+                <footer class="TextoBajo">
+                    <p class="ParrafoBajo">
+                        (*) Campo Obligatorio<br>
+                        (**) Llenar según lista desplegable<br>
+                        (***) Hoja de Seguridad<br>
+                        La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
+                        válido. El certificado de análisis solo debe disponer de la información vertida en esta
+                        solicitud.
+                        La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
+                        INDUSTRIAL.
+                    </p>
+                </footer>
+            </form>
 
 
 
@@ -295,53 +301,70 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-   document.getElementById('download-pdf').addEventListener('click', function () {
+document.getElementById('download-pdf').addEventListener('click', function () {
     const { jsPDF } = window.jspdf;
-    document.querySelector('.button-container').style.display = 'none';
-    const elementToExport = document.getElementById('form-container');
-    elementToExport.style.border = 'none';
-    elementToExport.style.boxShadow = 'none';
+    const pdf = new jsPDF('p', 'mm', [279, 216]);
+    const pageHeight = 279;
+    const margin = 10;
+    let currentY = margin;
 
-    // Asegurarte de que los campos de entrada tengan valores visibles
-    const inputs = elementToExport.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.setAttribute('value', input.value);
-    });
+    // Función para capturar y añadir una sección al PDF
+    const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
+        const elementToExport = document.getElementById(sectionId);
 
-    html2canvas(elementToExport, { scale: 2 }).then(canvas => { // Aumenta la escala para mayor resolución
-        document.querySelector('.button-container').style.display = 'block';
-        elementToExport.style.border = '1px solid #000';
-        elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        // Verificar si el elemento existe antes de acceder a sus propiedades
+        if (elementToExport) {
+            elementToExport.style.border = 'none';
+            elementToExport.style.boxShadow = 'none';
 
-        const imgData = canvas.toDataURL('image/jpeg', 1.0); // Usa la máxima calidad de imagen
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgWidth = 210;
-        const pageHeight = 297;
-        let imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
+            return html2canvas(elementToExport, { scale: 2 }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const imgWidth = 216 - 2 * margin;
+                const imgHeight = canvas.height * imgWidth / canvas.width;
 
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+                if (addNewPage) {
+                    pdf.addPage();
+                    currentY = margin;
+                }
 
-        while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
+                pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
+                currentY = yOffset + imgHeight + margin;
+            });
+        } else {
+            // Devolver una promesa resuelta si el elemento no existe
+            return Promise.resolve();
         }
+    };
 
-        var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
-        var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-        $.notify("PDF generado con éxito", "success");
-    });
+    // Captura y añade cada sección al PDF para la primera página
+    addSectionToPDF('header-container')
+        .then(() => addSectionToPDF('section1'))
+        .then(() => addSectionToPDF('section2'))
+        .then(() => {
+            // Colocar el footer al final de la primera página
+            return addSectionToPDF('footer-container', pageHeight - 50);
+        })
+        .then(() => {
+            // Añadir la segunda página
+            return addSectionToPDF('header-container', margin, true);
+        })
+        .then(() => addSectionToPDF('section3', currentY))
+        .then(() => {
+            // Colocar el footer al final de la segunda página
+            return addSectionToPDF('footer-container', pageHeight - 50);
+        })
+        .then(() => {
+            var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
+            var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            $.notify("PDF generado con éxito", "success");
+        });
 });
 
 </script>
 <script>
     // Agregar el evento click al botón con id 'Cambiante'
-    document.getElementById('Cambiante').addEventListener('click', function() {
+    document.getElementById('Cambiante').addEventListener('click', function () {
         cambio();
     });
 
@@ -371,7 +394,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 </script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Cargar datos iniciales
         loadData();
     });
@@ -388,7 +411,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 id_acta: idAnalisisExterno
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function(response) {
+            success: function (response) {
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
                 if (analisis.length > 0) {
@@ -447,7 +470,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function() {
+                    $("#FirmaAnalisisExternoRevisor").click(function () {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
                     });
                 }
@@ -456,7 +479,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const analisisSolicitados = response.analiDatos;
                 const table = $('#analisis-solicitados');
 
-                analisisSolicitados.forEach(function(analisis) {
+                analisisSolicitados.forEach(function (analisis) {
                     const row = `<tr class="bordeAbajo">
                     <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                     <td class="Metod">${analisis.anali_metodologia}</td>
@@ -479,7 +502,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Poblar campos adicionales de acta de muestreo si es necesario
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");

@@ -6,7 +6,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -18,7 +17,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -32,7 +33,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container formpadding">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
@@ -40,16 +42,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
                     </p>
                     </p>
                     <!-- Pretitulo -->
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="producto_completo" id="producto_completo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="producto_completo" id="producto_completo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -58,8 +64,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo"
+                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
                             <td name="nro_registro" id="nro_registro"></td>
@@ -84,7 +92,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <!-- Body -->
             <br>
-            <form>
+            <form id="section1">
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">I. IDENTIFICACIÓN DE LA MUESTRA</td>
@@ -129,7 +137,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
 
             <!-- Sección II: MUESTREO -->
-            <form>
+            <form id="section2">
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">II. MUESTREO Y ANALISIS</td>
@@ -168,7 +176,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </form>
             <br>
-            <form>
+            <form id="section3">
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">
@@ -259,7 +267,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
             <!-- Sección II: MUESTREO -->
             <br>
-            <form>
+            <form id="section4">
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">IV. MUESTREO Y ANALISIS</td>
@@ -300,57 +308,64 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <!-- Footer -->
             <br>
-            <div class="footer-container">
-                <div class="form-row" id="firma">
-                    <!-- Sección realizada por -->
-                    <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Estado Final:</div>
-                        <div class="firma-box">
-                            <p id='realizadoPor' name='realizadoPor' class="bold"></p>
-                            <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
-                            <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
-                            <div class="signature" style="d-flex justify-content-center">
-                                <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
-                                <!-- acá debe ir el QR -->
+            <form id="footer-container">
+                <div class="footer-container">
+                    <div class="form-row" id="firma">
+                        <!-- Sección realizada por -->
+                        <div class="firma-section">
+                            <div class="firma-box-title" style="font-size: 10px; text-align: left;">Estado Final:</div>
+                            <div class="firma-box">
+                                <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                                <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
+                                <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
+                                <div class="signature" style="d-flex justify-content-center">
+                                    <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src=""
+                                        alt="firma_realizador" />
+                                    <!-- acá debe ir el QR -->
+                                </div>
+                                <p id='mensaje_realizador' name='mensaje_realizador'
+                                    style='text-align: center;display: none'>Firmado digitalmente</p>
                             </div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
+                            <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                            <br>
                         </div>
-                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
-                        <br>
-                    </div>
 
-                    <!-- Sección realizada por -->
-                    <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
-                        <div class="firma-box">
-                            <p id='responsable' name='responsable' class="bold"></p>
-                            <p id='user_responsable' name='user_responsable' style="display: none"></p>
-                            <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
-                            <div class="signature" style="d-flex justify-content-center">
-                                <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
-                                <!-- acá debe ir el QR -->
+                        <!-- Sección realizada por -->
+                        <div class="firma-section">
+                            <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
+                            <div class="firma-box">
+                                <p id='responsable' name='responsable' class="bold"></p>
+                                <p id='user_responsable' name='user_responsable' style="display: none"></p>
+                                <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
+                                <div class="signature" style="d-flex justify-content-center">
+                                    <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src=""
+                                        alt="firma_responsable" />
+                                    <!-- acá debe ir el QR -->
+                                </div>
+                                <p id='mensaje_realizador' name='mensaje_realizador'
+                                    style='text-align: center;display: none'>Firmado digitalmente</p>
                             </div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
+                            <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date"
+                                style="font-size: 8px"></div>
+                            <br>
                         </div>
-                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
-                        <br>
                     </div>
                 </div>
-            </div>
 
 
-            <footer class="TextoBajo">
-                <p class="ParrafoBajo">
-                    (*) Campo Obligatorio<br>
-                    (**) Llenar según lista desplegable<br>
-                    (***) Hoja de Seguridad<br>
-                    La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
-                    válido. El certificado de análisis solo debe disponer de la información vertida en esta
-                    solicitud.
-                    La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
-                    INDUSTRIAL.
-                </p>
-            </footer>
+                <footer class="TextoBajo">
+                    <p class="ParrafoBajo">
+                        (*) Campo Obligatorio<br>
+                        (**) Llenar según lista desplegable<br>
+                        (***) Hoja de Seguridad<br>
+                        La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
+                        válido. El certificado de análisis solo debe disponer de la información vertida en esta
+                        solicitud.
+                        La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
+                        INDUSTRIAL.
+                    </p>
+                </footer>
+            </form>
         </div>
 
 
@@ -370,21 +385,34 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.getElementById('download-pdf').addEventListener('click', function() {
-        document.querySelector('.button-container').style.display = 'none';
+    document.getElementById('download-pdf').addEventListener('click', function () {
+        const buttonContainer = document.querySelector('.button-container');
         const elementToExport = document.getElementById('form-container');
 
+        // Guardar los estilos originales
+        const originalBorder = elementToExport.style.border;
+        const originalBoxShadow = elementToExport.style.boxShadow;
+
+        // Ocultar borde y sombra
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
+
+        buttonContainer.style.display = 'none';
 
         html2canvas(elementToExport, {
             scale: 2,
             logging: true,
             useCORS: true
         }).then(canvas => {
-            document.querySelector('.button-container').style.display = 'block';
-            elementToExport.style.border = '1px solid #000';
-            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+            // Restaurar los estilos originales
+            elementToExport.style.border = originalBorder;
+            elementToExport.style.boxShadow = originalBoxShadow;
 
-            const imgData = canvas.toDataURL('image/png');
+            buttonContainer.style.display = 'block';
+
+            // Ajusta la calidad de la imagen
+            const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
                 unit: 'mm',
@@ -398,13 +426,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             let heightLeft = imgHeight;
 
             let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
             heightLeft -= pageHeight;
 
             while (heightLeft > 0) {
                 position = heightLeft - imgHeight;
                 pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
                 heightLeft -= pageHeight;
             }
 
@@ -412,9 +440,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("PDF generado con éxito", "success");
         });
     });
+
 </script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Cargar datos iniciales
         loadData();
     });
@@ -432,7 +461,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 id_acta: idAnalisisExterno
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function(response) {
+            success: function (response) {
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
                 if (analisis.length > 0) {
@@ -489,12 +518,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function() {
+                    $("#FirmaAnalisisExternoRevisor").click(function () {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
                     });
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");

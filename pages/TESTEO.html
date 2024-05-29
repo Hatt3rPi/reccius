@@ -1,16 +1,3 @@
-<?php
-session_start();
-
-// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirigir al usuario a la página de inicio de sesión.
-    header("Location: login.html");
-    exit;
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -22,21 +9,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/notify.js"></script>
-    <link rel="stylesheet" href="../assets/css/DocumentoAna.css">
+    <link rel="stylesheet" href="../assets/css/DocumentoLiberacion.css">
 
 
 </head>
 
 <body>
-    <div id="form-container" class="form-container formpadding" style="margin: 0 auto;">
+    <div id="form-container" class="form-container formpadding">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
@@ -44,16 +34,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
-                        Externo
-                        Control de Calidad
-                        <!-- Pretitulo -->
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    </p>
+                    <!-- Pretitulo -->
+                    </p>
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="nombre_producto" id="nombre_producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="producto_completo" id="producto_completo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -62,24 +56,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo"
+                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
-                            <td name="numero_registro" id="numero_registro"></td>
+                            <td name="nro_registro" id="nro_registro"></td>
                         </tr>
                         <tr>
                             <td>N° Versión:</td>
-                            <td name="version" id="version"></td>
+                            <td name="nro_version" id="nro_version"></td>
                         </tr>
                         <tr>
-                            <td>N° Solicitud:</td>
-                            <td name="numero_solicitud" id="numero_solicitud"></td>
+                            <td>N° Acta:</td>
+                            <td name="nro_solicitud" id="nro_solicitud"></td>
                         </tr>
                         <tr>
-                            <td>Fecha :</td>
+                            <td>Fecha Liberación:</td>
                             <td>
-                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;" readonly>
+                                <input type="date" id="fecha_lib" name="fecha_lib" style="border: 0px;" readonly>
                             </td>
                         </tr>
                     </table>
@@ -87,206 +83,292 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </div>
             <!-- Body -->
-            <form>
+            <br>
+            <form id="section1">
                 <table>
                     <tr>
-                        <td class="Subtitulos" colspan="4">I. INFORMACIÓN GENERAL</td>
+                        <td class="Subtitulos" colspan="4">I. IDENTIFICACIÓN DE LA MUESTRA</td>
                     </tr>
                     <tr>
-                        <td class="titulo">1. Laboratorio Analista:(*)</td>
-                        <td><input type="text" id="laboratorio" name="laboratorio" required></td>
+                        <td class="titulo">1. Producto</td>
+                        <td>
+                            <textarea id="producto_completoT1" name="producto_completoT1" required></textarea>
+                        </td>
+                        <td class="titulo">2. Cond. Almacenamiento</td>
+                        <td><textarea id="cond_almacenamiento" name="cond_almacenamiento" required></textarea>
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">3. Tipo Producto:</td>
+                        <td><input type="text" id="tipo_producto" name="tipo_producto" required></td>
+                        <td class="titulo">4. Tamaño de Lote:</td>
+                        <td><input type="text" id="tamaño_lote" name="tamaño_lote" required></td>
 
                     </tr>
                     <tr>
-                        <td class="titulo">2. Fecha de Solicitud:(*)</td>
-                        <td><input type="text" id="fecha_solicitud" name="fecha_solicitud" required></td>
-
-                    </tr>
-                    <tr>
-                        <td class="titulo">3. Análisis según:(**)</td>
-                        <td><input type="text" id="analisis_segun" name="analisis_segun" required></td>
-                        <td class="titulo titulo-right">N° Documento:</td>
-                        <td><input type="text" id="numero_documento" name="numero_documento" required></td>
-                    </tr>
-
-                    <tr>
-                        <td class="titulo">4. Fecha de Cotización:(**)</td>
-                        <td><input type="text" id="fecha_cotizacion" name="fecha_cotizacion" required></td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">5. Estandar Provisto por:(**)</td>
-                        <td><input type="text" id="estandar_segun" name="estandar_segun" required></td>
-                        <td class="titulo titulo-right">Otro:</td>
-                        <td><input type="text" id="estandar_otro" name="estandar_otro"></td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">6. Adjunta HDS:(***)</td>
-                        <td><input type="text" id="hds_adjunto" name="hds_adjunto" required></td>
-                        <td class="titulo titulo-right">Otro:</td>
-                        <td><input type="text" id="hds_otro" name="hds_otro"></td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">7. Fecha de Entrega estimada:</td>
-                        <td><input type="text" id="fecha_entrega_estimada" name="fecha_entrega_estimada" required></td>
-                    </tr>
-                    <!-- Continúa agregando más filas según los campos requeridos -->
-                </table>
-
-            </form>
-
-
-            <!-- Sección II: MUESTREO -->
-            <form>
-                <table>
-                    <tr>
-                        <td class="Subtitulos" colspan="4">II. INFORMACIÓN PRODUCTO TERMINADO</td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">1. Nombre producto:</td>
-                        <td><input type="text" id="nombre_producto2" name="nombre_producto2" required></td>
-                        <td class="titulo titulo-right">10. T. de lote:</td>
-                        <td><input type="text" id="tamano_lote" name="tamano_lote" required></td>
-
-                    </tr>
-                    <tr>
-                        <td class="titulo">2. Presentación:</td>
-                        <td><input type="text" id="formato" name="formato" required></td>
-                        <td class="titulo titulo-right">11. Fecha Elab.:</td>
+                        <td class="titulo">5. Código Interno:</td>
+                        <td><input type="text" id="codigo_interno" name="codigo_interno" required></td>
+                        <td class="titulo">6. Fecha Elaboración:</td>
                         <td><input type="text" id="fecha_elaboracion" name="fecha_elaboracion" required></td>
 
                     </tr>
+
                     <tr>
-                        <td class="titulo">3. Serie o lote:</td>
-                        <td><input type="text" id="lote" name="lote" required></td>
-                        <td class="titulo titulo-right">12. Fecha Vence:</td>
+                        <td class="titulo">7. N°Lote:</td>
+                        <td><input type="text" id="nro_lote" name="nro_lote" required></td>
+                        <td class="titulo">8. Fecha de Vencimiento:</td>
                         <td><input type="text" id="fecha_vencimiento" name="fecha_vencimiento" required></td>
 
                     </tr>
-                    <tr>
-                        <td class="titulo">4. Código:</td>
-                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
 
-                        <td class="titulo titulo-right">13. Muestra:</td>
-                        <td><input type="text" id="tamano_muestra" name="tamano_muestra" required></td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">5. Muestreado según POS:</td>
-                        <td><input type="text" id="numero_pos" name="numero_pos" required></td>
-                        <td class="titulo titulo-right">14. Cta.muestra</td>
-                        <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">6. fabricante:</td>
-                        <td><input type="text" id="elaborado_por" name="elaborado_por" required></td>
-                        <td class="titulo titulo-right">Otro:</td>
-                        <td><input type="text" id="otro3" name="otro3"></td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">7. Muestreado por:</td>
-                        <td><input type="text" id="muestreado_por" name="muestreado_por" required></td>
-
-
-                    </tr>
-                    <tr>
-
-                        <td class="titulo">8. Condic. almacenamiento</td>
-                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
-                        </td>
-                        <td class="titulo titulo-right">Observaciones:</td>
-                        <td><textarea id="observaciones" name="observaciones" required></textarea></td>
-
-                    </tr>
-                    <tr>
-
-                        <td class="titulo">9. Registro I.S.P:</td>
-                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
-
-
-                    </tr>
-                    <!-- Continúa agregando más filas según los campos requeridos -->
                 </table>
 
             </form>
-            <form>
-                <table id="analisis-solicitados">
+            <br>
+
+            <!-- Sección II: MUESTREO -->
+            <form id="section2">
+                <table>
                     <tr>
-                        <td class="Subtitulos" colspan="4">III. ANÁLISIS SOLICITADOS</td>
+                        <td class="Subtitulos" colspan="4">II. MUESTREO Y ANALISIS</td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">1. N°Acta de Muestreo:</td>
+                        <td><input type="text" id="nro_acta_muestreo" name="nro_acta_muestreo" required></td>
+                        <td class="titulo">2. Fecha Acta Muestreo:</td>
+                        <td><input type="text" id="fecha_acta_muestreo" name="fecha_acta_muestreo" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">3. N° Solicitud de Análisis</td>
+                        <td><input type="text" id="nro_solicitud_analisis" name="nro_solicitud_analisis" required></td>
+                        <td class="titulo">4. Fecha Solicitud Análisis</td>
+                        <td><input type="text" id="fecha_solicitud_analisis" name="fecha_solicitud_analisis" required>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">5. Laboratorio Analista</td>
+                        <td><input type="text" id="laboratorio_analista" name="laboratorio_analista" required></td>
+                        <td class="titulo">6. Fecha de Envío</td>
+                        <td><input type="text" id="fecha_envio" name="fecha_envio" required></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="titulo">7. N° de Análisis:</td>
+                        <td><input type="text" id="nro_analisis" name="nro_analisis" required></td>
+                        <td class="titulo">8. Fecha de Revisión:</td>
+                        <td><input type="text" id="fecha_revision" name="fecha_revision" required></td>
+
+                    </tr>
+                </table>
+
+            </form>
+            <br>
+            <form id="section3">
+                <table>
+                    <tr>
+                        <td class="Subtitulos" colspan="4">
+                            III. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
-                        <th>Análisis</th>
-                        <th>Metodología</th>
-                        <th>Especificación</th>
-                        <th class="revision">Revisión</th>
+                        <th>Documento</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                        <th>Revisión</th>
+                    </tr>
+                    <tr class="bordeAbajo">
+                        <td class="tituloTabla">Planilla de fabricación</td>
+                        <td id="Estado1">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
+                        </td>
+                        <td class="Espec" id="Espec_Pfabricacion">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">cumple</span>
+                            <br><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">no cumple</span>
+                        </td>
+                    </tr>
+                    <tr class="bordeAbajo">
+                        <td class="tituloTabla">Acta de Muestreo</td>
+                        <td id="Estado2">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
+                        </td>
+                        <td class="Espec" id="Espec_Actamuestreo">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">cumple</span>
+                            <br><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">no cumple</span>
+                        </td>
+                    </tr>
+                    <tr class="bordeAbajo">
+                        <td class="tituloTabla">Solicitud de Análisis</td>
+                        <td id="Estado3">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
+                        </td>
+                        <td class="Espec" id="Espec_Solicitud">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">cumple</span>
+                            <br><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">no cumple</span>
+                        </td>
+                    </tr>
+                    <tr class="bordeAbajo">
+                        <td class="tituloTabla">Certificado de Análisis</td>
+                        <td id="Estado4">
+                            <div class="estado-container">
+                                <input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">cumple</span>
+                                <br><input type="checkbox" class="checkmark">
+                                <span class="tamañoRevision ">no cumple</span>
+                            </div>
+                        </td>
+                        <td class="Espec" id="Espec_Certificado">
+                        </td>
+                        <td class="revision"><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">cumple</span>
+                            <br><input type="checkbox" class="revision">
+                            <span class="tamañoRevision ">no cumple</span>
+                        </td>
+                    </tr>
+
+                    <!-- ... -->
+                </table>
+
+            </form>
+            <!-- Sección II: MUESTREO -->
+            <br>
+            <form id="section4">
+                <table>
+                    <tr>
+                        <td class="Subtitulos" colspan="4">IV. MUESTREO Y ANALISIS</td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">1. N°Acta de Liberacion:</td>
+                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" required></td>
+                        <td class="titulo">2. Fecha Liberacion:</td>
+                        <td><input type="text" id="fecha_lib" name="fecha_lib" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">3. Producto:</td>
+                        <td><input type="text" id="producto_completoT3" name="producto_completoT3" required></td>
+                        <td class="titulo">4. N° Lote:</td>
+                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" required></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">5. Fecha de Elaboración:</td>
+                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" required></td>
+                        <td class="titulo">6. Fecha de Vencimiento:</td>
+                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" required></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="titulo">7. Cantidad real Liberada:</td>
+                        <td><input type="text" id="cantidad_real" name="cantidad_real" required></td>
+                        <td class="titulo">8. N°Parte de Ingreso/Traspaso:</td>
+                        <td><input type="text" id="nro_traspaso" name="nro_traspaso" required></td>
+
                     </tr>
                 </table>
 
             </form>
+            <br>
 
             <!-- Footer -->
             <br>
-            <div class="footer-container">
-                <div class="form-row" id="firma">
-                    <!-- Sección realizada por -->
-                    <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Solicitado por:</div>
-                        <div class="firma-box">
-                            <p id='realizadoPor' name='realizadoPor' class="bold"></p>
-                            <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
-                            <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
-                            <div class="signature" style="d-flex justify-content-center">
-                                <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
-                                <!-- acá debe ir el QR -->
+            <form id="footer-container">
+                <div class="footer-container">
+                    <div class="form-row" id="firma">
+                        <!-- Sección realizada por -->
+                        <div class="firma-section">
+                            <div class="firma-box-title" style="font-size: 10px; text-align: left;">Estado Final:</div>
+                            <div class="firma-box">
+                                <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                                <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
+                                <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
+                                <div class="signature" style="d-flex justify-content-center">
+                                    <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src=""
+                                        alt="firma_realizador" />
+                                    <!-- acá debe ir el QR -->
+                                </div>
+                                <p id='mensaje_realizador' name='mensaje_realizador'
+                                    style='text-align: center;display: none'>Firmado digitalmente</p>
                             </div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
+                            <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                            <br>
                         </div>
-                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
-                        <br>
-                    </div>
 
-                    <!-- Sección realizada por -->
-                    <div class="firma-section">
-                        <div class="firma-box-title" style="font-size: 10px; text-align: left;">Revisado por:</div>
-                        <div class="firma-box">
-                            <p id='responsable' name='responsable' class="bold"></p>
-                            <p id='user_responsable' name='user_responsable' style="display: none"></p>
-                            <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
-                            <div class="signature" style="d-flex justify-content-center">
-                                <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
-                                <!-- acá debe ir el QR -->
+                        <!-- Sección realizada por -->
+                        <div class="firma-section">
+                            <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
+                            <div class="firma-box">
+                                <p id='responsable' name='responsable' class="bold"></p>
+                                <p id='user_responsable' name='user_responsable' style="display: none"></p>
+                                <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
+                                <div class="signature" style="d-flex justify-content-center">
+                                    <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src=""
+                                        alt="firma_responsable" />
+                                    <!-- acá debe ir el QR -->
+                                </div>
+                                <p id='mensaje_realizador' name='mensaje_realizador'
+                                    style='text-align: center;display: none'>Firmado digitalmente</p>
                             </div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado digitalmente</p>
+                            <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date"
+                                style="font-size: 8px"></div>
+                            <br>
                         </div>
-                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
-                        <br>
                     </div>
                 </div>
-            </div>
-
-            <footer class="TextoBajo">
-                <p class="ParrafoBajo">
-                    (*) Campo Obligatorio<br>
-                    (**) Llenar según lista desplegable<br>
-                    (***) Hoja de Seguridad<br>
-                    La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
-                    válido. El certificado de análisis solo debe disponer de la información vertida en esta solicitud.
-                    La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
-                    INDUSTRIAL.
-                </p>
-            </footer>
 
 
-
+                <footer class="TextoBajo">
+                    <p class="ParrafoBajo">
+                        (*) Campo Obligatorio<br>
+                        (**) Llenar según lista desplegable<br>
+                        (***) Hoja de Seguridad<br>
+                        La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
+                        válido. El certificado de análisis solo debe disponer de la información vertida en esta
+                        solicitud.
+                        La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
+                        INDUSTRIAL.
+                    </p>
+                </footer>
+            </form>
         </div>
+
+
+    </div>
 
 
 </body>
 <div class="button-container">
-
-    <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
-
-
-
+    <button class="botones" id="firma">Firmar Documento</button>
+    <button class="botones" id="guardar">Guardar Documento</button>
 </div>
 
 <div id="notification" class="notification-container notify" style="display: none;">
@@ -295,191 +377,145 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-   document.getElementById('download-pdf').addEventListener('click', function () {
-    const { jsPDF } = window.jspdf;
-    document.querySelector('.button-container').style.display = 'none';
-    const elementToExport = document.getElementById('form-container');
-    elementToExport.style.border = 'none';
-    elementToExport.style.boxShadow = 'none';
+    document.getElementById('download-pdf').addEventListener('click', function () {
+        const buttonContainer = document.querySelector('.button-container');
+        const elementToExport = document.getElementById('form-container');
 
-    // Asegurarte de que los campos de entrada tengan valores visibles
-    const inputs = elementToExport.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.setAttribute('value', input.value);
-    });
+        // Guardar los estilos originales
+        const originalBorder = elementToExport.style.border;
+        const originalBoxShadow = elementToExport.style.boxShadow;
 
-    html2canvas(elementToExport, { scale: 2 }).then(canvas => { // Aumenta la escala para mayor resolución
-        document.querySelector('.button-container').style.display = 'block';
-        elementToExport.style.border = '1px solid #000';
-        elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        // Ocultar borde y sombra
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
 
-        const imgData = canvas.toDataURL('image/jpeg', 1.0); // Usa la máxima calidad de imagen
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgWidth = 210;
-        const pageHeight = 297;
-        let imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
+        buttonContainer.style.display = 'none';
 
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+        html2canvas(elementToExport, {
+            scale: 2,
+            logging: true,
+            useCORS: true
+        }).then(canvas => {
+            // Restaurar los estilos originales
+            elementToExport.style.border = originalBorder;
+            elementToExport.style.boxShadow = originalBoxShadow;
 
-        while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            buttonContainer.style.display = 'block';
+
+            // Ajusta la calidad de la imagen
+            const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = pageWidth;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 0;
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
             heightLeft -= pageHeight;
-        }
 
-        var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
-        var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-        $.notify("PDF generado con éxito", "success");
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save('documento.pdf');
+            $.notify("PDF generado con éxito", "success");
+        });
     });
-});
 
 </script>
 <script>
-    // Agregar el evento click al botón con id 'Cambiante'
-    document.getElementById('Cambiante').addEventListener('click', function() {
-        cambio();
-    });
-
-    // Función para mostrar u ocultar la columna de revisión
-    function toggleRevisionColumn() {
-        // Seleccionar todas las celdas y el encabezado de la columna Revisión
-        const revisionCells = document.querySelectorAll('.revision');
-        const revisionHeader = document.querySelector('th.revision');
-
-        if (primeravez) {
-            // Ocultar las celdas y el encabezado si primeravez es true
-            revisionCells.forEach(cell => {
-                cell.style.display = 'none';
-            });
-            if (revisionHeader) {
-                revisionHeader.style.display = 'none';
-            }
-        } else {
-            // Mostrar las celdas y el encabezado si primeravez es false
-            revisionCells.forEach(cell => {
-                cell.style.display = '';
-            });
-            if (revisionHeader) {
-                revisionHeader.style.display = '';
-            }
-        }
-    }
-</script>
-<script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Cargar datos iniciales
         loadData();
     });
+
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
-    var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+    var idAnalisisExterno = <? php echo json_encode($_POST['id'] ?? ''); ?>;
 
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
     function loadData() {
         $.ajax({
-            url: './backend/analisis/ingresar_resultados_analisis.php',
+            url: './backend/acta_liberacion/ingresar_resultados_liberacion.php',
             type: 'GET',
             data: {
                 id_acta: idAnalisisExterno
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function(response) {
+            success: function (response) {
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
                 if (analisis.length > 0) {
                     const primerAnalisis = analisis[0];
 
-                    // Actualizar los inputs con los datos del análisis
-                    //TABLA HEADER
-                    $('#numero_registro').text(primerAnalisis.numero_registro);
-                    $('#version').text(primerAnalisis.version);
-                    $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
-                    $('#fecha_registro').val(primerAnalisis.fecha_registro);
-
-                    //
                     // Sumar los resultados de producto en un solo texto
                     var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
 
                     // Actualizar el elemento con el texto combinado
-                    $('#nombre_producto').text(productoCompleto);
+                    $('#producto_completo').text(productoCompleto);
                     // Actualizar el elemento con el texto combinado
-                    $('#nombre_producto2').val(productoCompleto);
-                    //TITULO TABLA
-                    $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
+                    $('#producto_completoT1').val(productoCompleto);
 
-                    //TABLA 1
-                    $('#laboratorio').val(primerAnalisis.laboratorio);
-                    $('#fecha_solicitud').val(primerAnalisis.fecha_solicitud);
-                    $('#analisis_segun').val(primerAnalisis.analisis_segun);
-                    $('#numero_documento').val(primerAnalisis.numero_documento);
-                    $('#fecha_cotizacion').val(primerAnalisis.fecha_cotizacion);
-                    $('#estandar_segun').val(primerAnalisis.estandar_segun);
-                    $('#estandar_otro').val(primerAnalisis.estandar_otro);
-                    $('#hds_adjunto').val(primerAnalisis.hds_adjunto);
-                    $('#hds_otro').val(primerAnalisis.hds_otro);
-                    $('#fecha_entrega_estimada').val(primerAnalisis.fecha_entrega_estimada);
+                    // Actualizar los inputs con los datos del análisis
+                    $('#nro_registro').val(primerAnalisis.numero_registro);
+                    $('#nro_version').val(primerAnalisis.version);
+                    $('#nro_solicitud').val(primerAnalisis.numero_solicitud);
+                    // FALTA LA FECHA DE LIBERACION
+
+                    $('#nro_lote').val(primerAnalisis.lote);
+                    $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
+                    $('#tamaño_lote').val(primerAnalisis.tamano_lote);
+                    $('#codigo_interno').val(primerAnalisis.codigo_interno);
+                    $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                    $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                    $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
 
                     //TABLA 2
-                    $('#formato').val(primerAnalisis.prod_formato);
-                    $('#lote').val(primerAnalisis.lote);
-                    $('#tamano_lote').val(primerAnalisis.tamano_lote);
-                    $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                    $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
-                    $('#registro_isp').val(primerAnalisis.registro_isp);
-                    $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
-                    $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
-                    $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
-                    $('#elaborado_por').val(primerAnalisis.elaborado_por);
-                    $('#muestreado_por').val(primerAnalisis.muestreado_por);
-                    $('#observaciones').val(primerAnalisis.observaciones);
-                    $('#numero_pos').val(primerAnalisis.numero_pos);
-                    $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
 
-                    // Otros campos
-                    $('#estado').val(primerAnalisis.estado);
-                    $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
+                    $('#laboratorio_analista').val(primerAnalisis.laboratorio);
+                    $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
+
+                    $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
+
+
+                    //LABORATORIO ANALISTA
+                    //FECHA ENVIO
+                    //NUMERO ANALISIS
+                    //FECHA REVISION
+
+                    //TABLA 3
+                    //NRO ACTA LIBERACION
+                    //FECHA LIBERACION
+
+                    $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                    $('#nro_loteT3').val(primerAnalisis.lote);
+                    $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
+                    $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
+                    // Actualizar el elemento con el texto combinado
+                    $('#producto_completoT3').val(productoCompleto);
+                    // CANTIDAD REAL LIBERADA
+                    // N°PARTE DE INGRESO/ TRASPASO
                 }
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function() {
+                    $("#FirmaAnalisisExternoRevisor").click(function () {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
                     });
                 }
-
-                // Poblar la tabla III. ANÁLISIS SOLICITADOS
-                const analisisSolicitados = response.analiDatos;
-                const table = $('#analisis-solicitados');
-
-                analisisSolicitados.forEach(function(analisis) {
-                    const row = `<tr class="bordeAbajo">
-                    <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
-                    <td class="Metod">${analisis.anali_metodologia}</td>
-                    <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                    <td class="revision">
-                        <input type="checkbox" class="checkmark">
-                        <span class="tamañoRevision">cumple</span>
-                        <br>
-                        <input type="checkbox" class="checkmark">
-                        <span class="tamañoRevision">no cumple</span>
-                    </td>
-                </tr>`;
-                    table.append(row);
-                });
-
-                // Manejo de Acta Muestreo
-                const actaMuestreo = response.Acta_Muestreo;
-                if (actaMuestreo.length > 0) {
-                    const ultimaActa = actaMuestreo[0];
-                    // Poblar campos adicionales de acta de muestreo si es necesario
-                }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");

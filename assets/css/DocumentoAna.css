@@ -252,10 +252,14 @@ table {
 
 input[type="text"] {
     width: 295px;
-    font-size: 12px;
+    font-size: 0.8rem;
     padding: 3%;
-    /* Asegura que el input ocupe toda la celda */
     box-sizing: border-box;
+    overflow: hidden; /* Evita que el contenido se desborde */
+    white-space: nowrap; /* Evita que el texto se envuelva */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+    display: flex;
+    align-items: center; /* Centra verticalmente */
 
 }
 
