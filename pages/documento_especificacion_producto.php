@@ -368,11 +368,11 @@ function mostrarImagenFirma(usuario, contenedorQR) {
 
     // Verifica si existe 'qr_documento' y construye la URL de la imagen de la firma
     if (usuario && usuario.qr_documento) {
-        firmaUrl = 'https://customware.cl/reccius/documentos_publicos/' + usuario.qr_documento;
+        firmaUrl =  usuario.qr_documento;
     }
     // Si 'qr_documento' no existe, pero sí existe 'foto_firma', usa 'foto_firma'
     else if (usuario && usuario.foto_firma) {
-        firmaUrl = 'https://customware.cl/reccius/documentos_publicos/' + usuario.foto_firma;
+        firmaUrl = usuario.foto_firma;
     }
 
     // Si se ha establecido la URL de la firma, crea o actualiza el elemento <img> con la URL de la imagen
