@@ -740,6 +740,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         success: function(response) {
                             console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito');
                             $('#dynamic-content').html(response, true);
+                            loadData();
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al enviar el recordatorio: ", status, error);

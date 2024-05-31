@@ -386,10 +386,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Estado Final:</div>
                         <div class="firma-boxes">
-                            <p id='realizado_por' name='realizado_por' class="bold">Inger Sumonte
-                            </p>
-                            <p id='realizado_por' name='realizado_por' class="bold">Director de Calidad
-                            </p>
+                            <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;"></p>
+                            <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;"></p>
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
@@ -399,18 +397,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         </div>
                         <div class="date-container">
-                            <div id='fecha_realizacion' name='fecha_realizacion' class="date">Fecha: dd/mm/yyyy</div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado digitalmente</p>
+                            <div id='fecha_realizacion' name='fecha_realizacion' class="date"></div>
+                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="visibility: hidden;">Firmado digitalmente</p>
                         </div>
                     </div>
                      <!-- Sección Realizado por -->
                      <div class="firma-section">
                         <div class="firma-box-title">Responsable:</div>
                         <div class="firma-boxes">
-                            <p id='realizado_por' name='realizado_por' class="bold">Inger Sumonte
-                            </p>
-                            <p id='realizado_por' name='realizado_por' class="bold">Director de Calidad
-                            </p>
+                            <p id='realizado_por' name='realizado_por' class="bold"></p>
+                            <p id='realizado_por' name='realizado_por' class="bold"></p>
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
@@ -420,7 +416,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         </div>
                         <div class="date-container">
-                            <div id='fecha_realizacion' name='fecha_realizacion' class="date">Fecha: dd/mm/yyyy</div>
+                            <div id='fecha_realizacion' name='fecha_realizacion' class="date"></div>
                             <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado digitalmente</p>
                         </div>
                     </div>
@@ -445,6 +441,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="download-pdf">Descargar PDF</button>
     <button class="botones" id="firma">Firmar Documento</button>
     <button class="botones" id="guardar">Guardar Documento</button>
+    <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
+    <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='numero_solicitud_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='solicitado_por_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
 </div>
 
 <div id="notification" class="notification-container notify" style="display: none;">
@@ -509,12 +509,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     });
 
-</script>
-<script>
-    $(document).ready(function () {
-        // Cargar datos iniciales
-        loadData();
-    });
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
@@ -523,7 +517,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function loadData() {
         $.ajax({
-            url: './backend/acta_liberacion/ingresar_resultados_liberacion.php',
+            url: './backend/acta_liberacion/carga_acta_liberacion.php',
             type: 'GET',
             data: {
                 id_acta: idAnalisisExterno
@@ -598,4 +592,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
     }
+
+    document.getElementById('firmar').addEventListener('click', function() {
+        // Hacer visibles los elementos de .formulario.resp
+        console.log('click firma')
+        
+        document.getElementById('firmar').style.display = 'none';
+        
+    });
 </script>
