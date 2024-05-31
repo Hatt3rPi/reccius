@@ -308,10 +308,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
 
             </form>
-            <br>
-
+           
             <!-- Footer -->
-            <br>
+            
             <form id="footer-container">
                 <div class="footer-containerDIV">
 
