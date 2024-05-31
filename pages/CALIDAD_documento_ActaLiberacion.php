@@ -26,7 +26,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="../assets/js/notify.js"></script>
     <link rel="stylesheet" href="../assets/css/DocumentoLiberacion.css">
     <style>
-        
+
     </style>
 
 
@@ -97,7 +97,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <!-- Body -->
             <br>
             <form id="section1">
-                <table>
+                <table id="seccion1" >
                     <tr>
                         <td class="Subtitulos" colspan="4">I. IDENTIFICACIÓN DE LA MUESTRA</td>
                     </tr>
@@ -105,7 +105,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">1. Producto</td>
                         <td>
                             <textarea id="producto_completoT1" name="producto_completoT1" required></textarea>
+                            <span> </span>
                         </td>
+                        <td class="titulo"> </td>
                         <td class="titulo">2. Cond. Almacenamiento</td>
                         <td><textarea id="cond_almacenamiento" name="cond_almacenamiento" required></textarea>
                         </td>
@@ -115,6 +117,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">3. Tipo Producto:</td>
                         <td><input type="text" id="tipo_producto" name="tipo_producto" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">4. Tamaño de Lote:</td>
                         <td><input type="text" id="tamaño_lote" name="tamaño_lote" required></td>
 
@@ -122,6 +125,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">5. Código Interno:</td>
                         <td><input type="text" id="codigo_interno" name="codigo_interno" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">6. Fecha Elaboración:</td>
                         <td><input type="text" id="fecha_elaboracion" name="fecha_elaboracion" required></td>
 
@@ -130,6 +134,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">7. N°Lote:</td>
                         <td><input type="text" id="nro_lote" name="nro_lote" required></td>
+                        <td class="titulo"></td>
                         <td class="titulo">8. Fecha de Vencimiento:</td>
                         <td><input type="text" id="fecha_vencimiento" name="fecha_vencimiento" required></td>
 
@@ -142,13 +147,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <!-- Sección II: MUESTREO -->
             <form id="section2">
-                <table>
+                <table id="seccion2">
                     <tr>
                         <td class="Subtitulos" colspan="4">II. MUESTREO Y ANALISIS</td>
                     </tr>
                     <tr>
                         <td class="titulo">1. N°Acta de Muestreo:</td>
                         <td><input type="text" id="nro_acta_muestreo" name="nro_acta_muestreo" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">2. Fecha Acta Muestreo:</td>
                         <td><input type="text" id="fecha_acta_muestreo" name="fecha_acta_muestreo" required></td>
 
@@ -156,6 +162,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">3. N° Solicitud de Análisis</td>
                         <td><input type="text" id="nro_solicitud_analisis" name="nro_solicitud_analisis" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">4. Fecha Solicitud Análisis</td>
                         <td><input type="text" id="fecha_solicitud_analisis" name="fecha_solicitud_analisis" required>
                         </td>
@@ -164,6 +171,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">5. Laboratorio Analista</td>
                         <td><input type="text" id="laboratorio_analista" name="laboratorio_analista" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">6. Fecha de Envío</td>
                         <td><input type="text" id="fecha_envio" name="fecha_envio" required></td>
 
@@ -172,6 +180,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">7. N° de Análisis:</td>
                         <td><input type="text" id="nro_analisis" name="nro_analisis" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">8. Fecha de Revisión:</td>
                         <td><input type="text" id="fecha_revision" name="fecha_revision" required></td>
 
@@ -181,9 +190,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
             <br>
             <form id="section3">
-                <table>
+                <table id="seccion3">
                     <tr>
-                        <td class="Subtitulos" colspan="4">
+                        <td class="Subtitulos" style="text-align: start;" colspan="4">
                             III. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
@@ -194,74 +203,126 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td id="Estado1">
-                            <div class="estado-container">
-                                <input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">cumple</span>
-                                <br><input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">no cumple</span>
+                        <td class="centrado">
+                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado1a">
+                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                    </label>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado1b">
+                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                    </label>
+                                </div>
                             </div>
                         </td>
-                        <td class="Espec" id="Espec_Pfabricacion">
+                        <td class="Espec centrado">
+                            <textarea id="form_textarea1"></textarea>
                         </td>
-                        <td class="revision"><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">no cumple</span>
+                        <td class="revision centrado">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion1b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                            </div>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td id="Estado2">
-                            <div class="estado-container">
-                                <input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">cumple</span>
-                                <br><input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">no cumple</span>
+                        <td class="centrado">
+                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado2a">
+                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                    </label>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado2b">
+                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                    </label>
+                                </div>
                             </div>
                         </td>
-                        <td class="Espec" id="Espec_Actamuestreo">
+                        <td class="Espec centrado">
+                            <textarea id="form_textarea2"></textarea>
                         </td>
-                        <td class="revision"><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">no cumple</span>
+                        <td class="revision centrado">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion2a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion2b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                            </div>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td id="Estado3">
-                            <div class="estado-container">
-                                <input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">cumple</span>
-                                <br><input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">no cumple</span>
+                        <td class="centrado">
+                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado3a">
+                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                    </label>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado3b">
+                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                    </label>
+                                </div>
                             </div>
                         </td>
-                        <td class="Espec" id="Espec_Solicitud">
+                        <td class="Espec centrado">
+                            <textarea id="form_textarea3"></textarea>
                         </td>
-                        <td class="revision"><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">no cumple</span>
+                        <td class="revision centrado">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion3a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion3b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                            </div>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td id="Estado4">
-                            <div class="estado-container">
-                                <input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">cumple</span>
-                                <br><input type="checkbox" class="checkmark">
-                                <span class="tamañoRevision ">no cumple</span>
+                        <td class="centrado">
+                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado4a">
+                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                    </label>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="flex-fill">
+                                    <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado4b">
+                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                    </label>
+                                </div>
                             </div>
                         </td>
-                        <td class="Espec" id="Espec_Certificado">
+                        <td class="Espec centrado">
+                            <textarea id="form_textarea4"></textarea>
                         </td>
-                        <td class="revision"><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">cumple</span>
-                            <br><input type="checkbox" class="revision">
-                            <span class="tamañoRevision ">no cumple</span>
+                        <td class="revision centrado">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion4a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion4b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                            </div>
                         </td>
                     </tr>
 
@@ -272,13 +333,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <!-- Sección II: MUESTREO -->
             <br>
             <form id="section4">
-                <table>
+                <table id="seccion4">
                     <tr>
                         <td class="Subtitulos" colspan="4">IV. MUESTREO Y ANALISIS</td>
                     </tr>
                     <tr>
                         <td class="titulo">1. N°Acta de Liberacion:</td>
                         <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">2. Fecha Liberacion:</td>
                         <td><input type="text" id="fecha_lib" name="fecha_lib" required></td>
 
@@ -286,6 +348,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">3. Producto:</td>
                         <td><input type="text" id="producto_completoT3" name="producto_completoT3" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">4. N° Lote:</td>
                         <td><input type="text" id="nro_loteT3" name="nro_loteT3" required></td>
 
@@ -293,6 +356,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">5. Fecha de Elaboración:</td>
                         <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">6. Fecha de Vencimiento:</td>
                         <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" required></td>
 
@@ -301,6 +365,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">7. Cantidad real Liberada:</td>
                         <td><input type="text" id="cantidad_real" name="cantidad_real" required></td>
+                        <td class="titulo"> </td>
                         <td class="titulo">8. N°Parte de Ingreso/Traspaso:</td>
                         <td><input type="text" id="nro_traspaso" name="nro_traspaso" required></td>
 
@@ -364,12 +429,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 <footer class="TextoBajo">
                     <p class="ParrafoBajo">
-                        (*) Campo Obligatorio<br>
-                        (**) Llenar según lista desplegable<br>
-                        (***) Hoja de Seguridad<br>
-                        La información contenida en esta solicitud de análisis se considerará como respaldo sanitario
-                        válido. El certificado de análisis solo debe disponer de la información vertida en esta
-                        solicitud.
                         La información contenida en esta solicitud es de carácter CONFIDENCIAL y es considerada SECRETO
                         INDUSTRIAL.
                     </p>
