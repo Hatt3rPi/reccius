@@ -208,14 +208,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado1a">
-                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                        <i class="fa-regular fa-circle-check"></i> Conforme
                                     </label>
                                 </div>
                                 <div class="divider"></div>
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1b" value="0" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado1b">
-                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
                                     </label>
                                 </div>
                             </div>
@@ -239,14 +239,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado2a">
-                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                        <i class="fa-regular fa-circle-check"></i> Conforme
                                     </label>
                                 </div>
                                 <div class="divider"></div>
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2b" value="0" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado2b">
-                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
                                     </label>
                                 </div>
                             </div>
@@ -270,14 +270,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado3a">
-                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                        <i class="fa-regular fa-circle-check"></i> Conforme
                                     </label>
                                 </div>
                                 <div class="divider"></div>
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3b" value="0" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado3b">
-                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
                                     </label>
                                 </div>
                             </div>
@@ -301,14 +301,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado4a">
-                                        <i class="fa-regular fa-circle-check"></i> Aprobado
+                                        <i class="fa-regular fa-circle-check"></i> Conforme
                                     </label>
                                 </div>
                                 <div class="divider"></div>
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4b" value="0" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado4b">
-                                        <i class="fa-regular fa-circle-xmark"></i> Rechazado
+                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
                                     </label>
                                 </div>
                             </div>
