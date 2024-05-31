@@ -362,9 +362,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     
                 </div>
 
-
-
-
                 <footer class="TextoBajo">
                     <p class="ParrafoBajo">
                         (*) Campo Obligatorio<br>

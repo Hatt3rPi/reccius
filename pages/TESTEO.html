@@ -306,29 +306,30 @@
             <br>
             <form id="footer-container">
                 <div class="footer-containerDIV">
-
-
                     
 
+                    
+                    
                     <!-- Sección Realizado por -->
                     <div class="firma-section">
                         <div class="firma-box-title">Estado Final:</div>
                         <div class="firma-boxes">
-                            <p id='realizado_por' name='realizado_por' class="bold">Inger Sumonte
+                            <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;">Inger Sumonte
                             </p>
-                            <p id='realizado_por' name='realizado_por' class="bold">Director de Calidad
+                            <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;">Director de Calidad
                             </p>
 
                             <div class="signature">
-                                <!-- Agregar la imagen aquí -->
-                                <img src="..\assets\images\TEST.png" alt="Firma" class="firma">
-
+                                <picture id="firma-picture">
+                                    <source srcset="" type="image/png">
+                                    <img src="" alt="Firma" class="firma">
+                                </picture>
                             </div>
 
                         </div>
                         <div class="date-container">
                             <div id='fecha_realizacion' name='fecha_realizacion' class="date">Fecha: dd/mm/yyyy</div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado digitalmente</p>
+                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="visibility: hidden;">Firmado digitalmente</p>
                         </div>
                     </div>
                      <!-- Sección Realizado por -->
@@ -389,6 +390,17 @@
 </div>
 
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var pictureElement = document.getElementById('firma-picture');
+        var imgElement = pictureElement.querySelector('img');
+
+        if (imgElement.src && imgElement.src.trim() !== "") {
+            pictureElement.classList.add('visible');
+        }
+    });
+</script>
+
 <script>
     document.getElementById('download-pdf').addEventListener('click', function () {
         const buttonContainer = document.querySelector('.button-container');
@@ -454,7 +466,7 @@
     });
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
-    var idAnalisisExterno = <? php echo json_encode($_POST['id'] ?? ''); ?>;
+    var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
