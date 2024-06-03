@@ -174,19 +174,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 
 
             if (d.estado === "Pendiente ingreso resultados laboratorio") {
-                acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
+                acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ingresar resultados de Laboratorio</button><a> </a>';
                 
             }
             if (d.muestreado_por === usuarioActual) {
-                acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i></button>';
+                acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button>';
             }
             
             if (d.revisado_por === usuarioActual && d.fecha_firma_revisor === null && d.estado === "En proceso de firmas") {
-                acciones += `<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" 
-                id="${d.id_analisisExterno}" 
-                name="generar_documento_solicitudes" 
-                onclick="botones(this.id, this.name, \'laboratorio\')">
-                <i class="fa fa-file-pdf-o"></i></button><a></a>`;
+                acciones += `<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar documento</button><a> </a>`;
                 
                 /*`<button class="accion-btn" 
                     title="WIP Firmar Solicitud Análisis Externo" 
@@ -196,7 +192,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <i class="fa fa-signature"></i> Firmar</button><a> 
                 </a>`*/
             }
-            acciones += '<button class="accion-btn" title="WIP Solicitud Liberacion" type="button" id="' + d.id_analisisExterno + '" name="Liberacion" onclick="botones({analisisExterno:this.id, especificacion:'+d.id_especificacion+'}, this.name, \'laboratorio\')"><i class="fas fa-search"></i></button><a> </a>';
+            acciones += '<button class="accion-btn" title="WIP Solicitud Liberacion" type="button" id="' + d.id_analisisExterno + '" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a> </a>';
             acciones += '</td></tr></table>';
             return acciones;
         }
