@@ -107,7 +107,6 @@ try {
     }
 
     mysqli_stmt_close($stmtActaMuestreo);
-    mysqli_close($link);
 
     $numero_registro = '';
     $numero_acta = '';
