@@ -1,4 +1,5 @@
 <?php
+// archivo: pages\CALIDAD_documento_ActaLiberacion.php
 session_start();
 
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
@@ -516,18 +517,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
     function loadData() {
-        console.log(idAnalisisExterno);
-        $.ajax({
-            url: './backend/acta_liberacion/carga_acta_liberacion.php',
-            type: 'GET',
-            data: {
-                id_acta: idAnalisisExterno
-            },
-            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function (response) {
-                // Suponiendo que la respuesta tiene dos partes principales
-                const analisis = response.analisis; // Datos del análisis externo
-                if (analisis.length > 0) {
+    console.log(idAnalisisExterno);
+    $.ajax({
+        url: './backend/acta_liberacion/carga_acta_liberacion.php',
+        type: 'GET',
+        data: {
+            id_acta: idAnalisisExterno
+        },
+        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+        success: function (response) {
+            if (response.success) {
+                if (response.analisis && response.analisis.length > 0) {
+                    const analisis = response.analisis; // Datos del análisis externo
                     const primerAnalisis = analisis[0];
 
                     // Sumar los resultados de producto en un solo texto
@@ -535,7 +536,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     // Actualizar el elemento con el texto combinado
                     $('#producto_completo').text(productoCompleto);
-                    // Actualizar el elemento con el texto combinado
                     $('#producto_completoT1').val(productoCompleto);
 
                     // Actualizar los inputs con los datos del análisis
@@ -552,48 +552,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
                     $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
 
-
-                    //TABLA 2
-
+                    // TABLA 2
                     $('#laboratorio_analista').val(primerAnalisis.laboratorio);
                     $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
-
                     $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
 
-
-                    //LABORATORIO ANALISTA
-                    //FECHA ENVIO
-                    //NUMERO ANALISIS
-                    //FECHA REVISION
-
-                    //TABLA 3
-                    //NRO ACTA LIBERACION
-                    //FECHA LIBERACION
-
+                    // TABLA 3
                     $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
                     $('#nro_loteT3').val(primerAnalisis.lote);
                     $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
                     $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
-                    // Actualizar el elemento con el texto combinado
                     $('#producto_completoT3').val(productoCompleto);
-                    // CANTIDAD REAL LIBERADA
-                    // N°PARTE DE INGRESO/ TRASPASO
-                }
 
-                if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
-                    $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function () {
-                        firmarDocumentoSolicitudExterna(idAnalisisExterno);
-                    });
+                    if (primerAnalisis.revisado_por === usuarioActual && primerAnalisis.fecha_firma_revisor === null && primerAnalisis.estado === "En proceso de firmas") {
+                        $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
+                        $("#FirmaAnalisisExternoRevisor").click(function () {
+                            firmarDocumentoSolicitudExterna(idAnalisisExterno);
+                        });
+                    }
+                } else {
+                    console.error('Estructura de la respuesta no es la esperada:', response);
+                    alert("Error en carga de datos. Revisa la consola para más detalles.");
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error cargando los datos: ' + error);
-                console.error('AJAX error: ' + status + ' : ' + error);
+            } else {
+                console.error('Error en la respuesta del servidor:', response.message);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
-        });
-    }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error cargando los datos: ' + error);
+            console.error('AJAX error: ' + status + ' : ' + error);
+            alert("Error en carga de datos. Revisa la consola para más detalles.");
+        }
+    });
+}
+
 
     function firmayguarda(){
         // Hacer visibles los elementos de .formulario.resp
