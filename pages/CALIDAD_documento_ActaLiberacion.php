@@ -530,7 +530,7 @@ function loadData() {
                 if (response.analisis && response.analisis.length > 0) {
                     const analisis = response.analisis; // Datos del análisis externo
                     const primerAnalisis = analisis[0];
-                    const acta_muestreo= Acta_Muestreo[0];
+                    const acta_muestreo= response.Acta_Muestreo[0];
 
                     // Sumar los resultados de producto en un solo texto
                     var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
