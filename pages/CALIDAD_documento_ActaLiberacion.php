@@ -204,7 +204,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td class="centrado">
+                        <td class="centrado verif">
                             <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1a" value="1" autocomplete="off">
@@ -221,10 +221,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </div>
                             </div>
                         </td>
-                        <td class="Espec centrado">
+                        <td class="Espec centrado verif">
                             <textarea id="form_textarea1"></textarea>
                         </td>
-                        <td class="revision centrado">
+                        <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -235,7 +235,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td class="centrado">
+                        <td class="centrado verif">
                             <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2a" value="1" autocomplete="off">
@@ -252,10 +252,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </div>
                             </div>
                         </td>
-                        <td class="Espec centrado">
+                        <td class="Espec centrado verif">
                             <textarea id="form_textarea2"></textarea>
                         </td>
-                        <td class="revision centrado">
+                        <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion2a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -266,7 +266,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td class="centrado">
+                        <td class="centrado verif">
                             <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3a" value="1" autocomplete="off">
@@ -283,10 +283,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </div>
                             </div>
                         </td>
-                        <td class="Espec centrado">
+                        <td class="Espec centrado verif">
                             <textarea id="form_textarea3"></textarea>
                         </td>
-                        <td class="revision centrado">
+                        <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion3a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -297,7 +297,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td class="centrado">
+                        <td class="centrado verif">
                             <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4a" value="1" autocomplete="off">
@@ -314,10 +314,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </div>
                             </div>
                         </td>
-                        <td class="Espec centrado">
+                        <td class="Espec centrado verif">
                             <textarea id="form_textarea4"></textarea>
                         </td>
-                        <td class="revision centrado">
+                        <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion4a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -365,10 +365,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="titulo">7. Cantidad real Liberada:</td>
-                        <td><input type="text" id="cantidad_real" name="cantidad_real" required></td>
+                        <td><input class="verif" type="text" id="cantidad_real" name="cantidad_real" required></td>
                         <td class="titulo"> </td>
                         <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
-                        <td><input type="text" id="nro_traspaso" name="nro_traspaso" required></td>
+                        <td><input class="verif" type="text" id="nro_traspaso" name="nro_traspaso" required></td>
 
                     </tr>
                 </table>
@@ -545,7 +545,7 @@ function loadData() {
                     $('#nro_acta').text(response.numero_acta);
                     $('#fecha_acta_lib').val(fecha_yoh);
                     $('#fecha_lib').val(fecha_yoh);
-                    $('#nro_acta_liberacion').text(response.numero_acta);
+                    $('#nro_acta_liberacion').val(response.numero_acta);
                     
                     
                     $('#nro_lote').val(primerAnalisis.lote);
@@ -573,7 +573,7 @@ function loadData() {
                     $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
                     $('#producto_completoT3').val(productoCompleto);
 
-
+                    $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
