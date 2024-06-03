@@ -540,12 +540,12 @@ function loadData() {
                     $('#producto_completoT1').val(productoCompleto);
 
                     // Actualizar los inputs con los datos del análisis
-                    $('#nro_registro').val(response.numero_registro);
-                    $('#nro_version').val(1);
-                    $('#nro_acta').val(response.numero_acta);
+                    $('#nro_registro').text(response.numero_registro);
+                    $('#nro_version').text(1);
+                    $('#nro_acta').text(response.numero_acta);
                     $('#fecha_acta_lib').val(fecha_yoh);
                     $('#fecha_lib').val(fecha_yoh);
-                    $('#nro_acta_liberacion').val(response.numero_acta);
+                    $('#nro_acta_liberacion').text(response.numero_acta);
                     
                     
                     $('#nro_lote').val(primerAnalisis.lote);
