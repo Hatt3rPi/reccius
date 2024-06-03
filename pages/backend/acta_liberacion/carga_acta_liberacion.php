@@ -21,12 +21,15 @@ $queryAnalisisExterno = "SELECT
                             anali.tipo_analisis AS 'anali_tipo_analisis', 
                             anali.metodologia AS 'anali_metodologia',
                             anali.descripcion_analisis AS 'anali_descripcion_analisis',
-                            anali.criterios_aceptacion AS 'anali_criterios_aceptacion'
+                            anali.criterios_aceptacion AS 'anali_criterios_aceptacion',
+                            am.fecha_muestreo,
+                            am.numero_acta
                         FROM calidad_analisis_externo AS an
                         JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
                         JOIN calidad_productos AS prod ON es.id_producto = prod.id
                         JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
-                        WHERE an.id = ?";
+                        JOIN calidad_acta_muestreo as am on an.id=am.id_analisisExterno and am.estado='vigente'
+                        WHERE an.id = ?;";
 
 $queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno = ? AND estado = 'Vigente'";
 
@@ -93,6 +96,7 @@ header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
     'Acta_Muestreo' => array_values($analisisActaMuestreo), 
     'analisis' => $analisis,
-    'analiDatos' => $analiDatos
+    'analiDatos' => $analiDatos,
+    'id_analisis_externo' => $id_acta
 ], JSON_UNESCAPED_UNICODE);
 ?>

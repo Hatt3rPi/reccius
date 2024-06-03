@@ -439,7 +439,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 <div class="button-container">
     <button class="botones" id="download-pdf">Descargar PDF</button>
-    <button class="botones" id="firma">Firmar Documento</button>
+    <button class="botones" id="firma" onclick="firmayguarda()">Firmar Documento</button>
     <button class="botones" id="guardar">Guardar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -516,6 +516,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
     function loadData() {
+        console.log(idAnalisisExterno);
         $.ajax({
             url: './backend/acta_liberacion/carga_acta_liberacion.php',
             type: 'GET',
@@ -550,6 +551,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
                     $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
                     $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+
 
                     //TABLA 2
 
@@ -593,11 +595,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
-    document.getElementById('firmar').addEventListener('click', function() {
+    function firmayguarda(){
         // Hacer visibles los elementos de .formulario.resp
         console.log('click firma')
         
         document.getElementById('firmar').style.display = 'none';
         
-    });
+    };
 </script>
