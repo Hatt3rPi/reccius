@@ -83,12 +83,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>N° Acta:</td>
-                            <td name="nro_solicitud" id="nro_solicitud"></td>
+                            <td name="nro_acta" id="nro_acta"></td>
                         </tr>
                         <tr>
                             <td>Fecha Liberación:</td>
                             <td>
-                                <input type="date" id="fecha_lib" name="fecha_lib" style="border: 0px;" readonly>
+                                <input type="date" id="fecha_acta_lib" name="fecha_acta_lib" style="border: 0px;" readonly>
                             </td>
                         </tr>
                     </table>
@@ -133,7 +133,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
 
                     <tr>
-                        <td class="titulo">7. N°Lote:</td>
+                        <td class="titulo">7. N° Lote:</td>
                         <td><input type="text" id="nro_lote" name="nro_lote" required></td>
                         <td class="titulo"></td>
                         <td class="titulo">8. Fecha de Vencimiento:</td>
@@ -153,7 +153,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="Subtitulos" colspan="4">II. MUESTREO Y ANALISIS</td>
                     </tr>
                     <tr>
-                        <td class="titulo">1. N°Acta de Muestreo:</td>
+                        <td class="titulo">1. N° Acta de Muestreo:</td>
                         <td><input type="text" id="nro_acta_muestreo" name="nro_acta_muestreo" required></td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Fecha Acta Muestreo:</td>
@@ -339,7 +339,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="Subtitulos" colspan="4">IV. MUESTREO Y ANALISIS</td>
                     </tr>
                     <tr>
-                        <td class="titulo">1. N°Acta de Liberacion:</td>
+                        <td class="titulo">1. N° Acta de Liberacion:</td>
                         <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" required></td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Fecha Liberacion:</td>
@@ -367,7 +367,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">7. Cantidad real Liberada:</td>
                         <td><input type="text" id="cantidad_real" name="cantidad_real" required></td>
                         <td class="titulo"> </td>
-                        <td class="titulo">8. N°Parte de Ingreso/Traspaso:</td>
+                        <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
                         <td><input type="text" id="nro_traspaso" name="nro_traspaso" required></td>
 
                     </tr>
@@ -516,7 +516,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     console.log("ID Analisis Externo:", idAnalisisExterno);
 
-    function loadData() {
+function loadData() {
     console.log(idAnalisisExterno);
     $.ajax({
         url: './backend/acta_liberacion/carga_acta_liberacion.php',
@@ -530,20 +530,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 if (response.analisis && response.analisis.length > 0) {
                     const analisis = response.analisis; // Datos del análisis externo
                     const primerAnalisis = analisis[0];
+                    const acta_muestreo= Acta_Muestreo[0];
 
                     // Sumar los resultados de producto en un solo texto
                     var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
-
+                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
                     // Actualizar el elemento con el texto combinado
                     $('#producto_completo').text(productoCompleto);
                     $('#producto_completoT1').val(productoCompleto);
 
                     // Actualizar los inputs con los datos del análisis
-                    $('#nro_registro').val(primerAnalisis.numero_registro);
-                    $('#nro_version').val(primerAnalisis.version);
-                    $('#nro_solicitud').val(primerAnalisis.numero_solicitud);
-                    // FALTA LA FECHA DE LIBERACION
-
+                    $('#nro_registro').val(response.numero_registro);
+                    $('#nro_version').val(1);
+                    $('#nro_acta').val(response.numero_acta);
+                    $('#fecha_acta_lib').val(fecha_yoh);
+                    $('#fecha_lib').val(fecha_yoh);
+                    $('#nro_acta_liberacion').val(response.numero_acta);
+                    
+                    
                     $('#nro_lote').val(primerAnalisis.lote);
                     $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
                     $('#tamaño_lote').val(primerAnalisis.tamano_lote);
@@ -553,9 +557,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
 
                     // TABLA 2
+                    $('#nro_acta_muestreo').val(acta_muestreo.numero_acta);
+                    $('#fecha_acta_muestreo').val(acta_muestreo.fecha_muestreo);
                     $('#laboratorio_analista').val(primerAnalisis.laboratorio);
                     $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
                     $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
+                    $('#nro_analisis').val(primerAnalisis.laboratorio_nro_analisis);
+                    $('#fecha_envio').val(primerAnalisis.fecha_envio);
+                    $('#fecha_revision').val(primerAnalisis.laboratorio_fecha_analisis);
 
                     // TABLA 3
                     $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
@@ -564,12 +573,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
                     $('#producto_completoT3').val(productoCompleto);
 
-                    if (primerAnalisis.revisado_por === usuarioActual && primerAnalisis.fecha_firma_revisor === null && primerAnalisis.estado === "En proceso de firmas") {
-                        $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                        $("#FirmaAnalisisExternoRevisor").click(function () {
-                            firmarDocumentoSolicitudExterna(idAnalisisExterno);
-                        });
-                    }
+
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
                     alert("Error en carga de datos. Revisa la consola para más detalles.");

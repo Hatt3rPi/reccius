@@ -57,6 +57,7 @@ try {
     $analisis = [];
     $analiDatos = [];
     $seenAnalisis = [];
+    $tipo_producto = '';
     $resultAnali = mysqli_stmt_get_result($stmtAnali);
     while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
         $filteredRow = [];
@@ -78,6 +79,11 @@ try {
 
         if (!empty($analiItem)) {
             $analiDatos[] = $analiItem;
+        }
+
+        // Poblar $tipo_producto
+        if (isset($filteredRow['prod_tipo_producto'])) {
+            $tipo_producto = $filteredRow['prod_tipo_producto'];
         }
     }
     mysqli_stmt_close($stmtAnali);
@@ -103,12 +109,56 @@ try {
     mysqli_stmt_close($stmtActaMuestreo);
     mysqli_close($link);
 
+    $numero_registro = '';
+    $numero_acta = '';
+    $year = date("y");
+    $month = date("m");
+    $aux_anomes = $year . $month;
+
+    $query_incrementales = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ? AND aux_tipo = ?";
+
+    $stmt_incrementales = mysqli_prepare($link, $query_incrementales);
+    mysqli_stmt_bind_param($stmt_incrementales, "ss", $aux_anomes, $tipo_producto);
+    mysqli_stmt_execute($stmt_incrementales);
+
+    $result_incrementales = mysqli_stmt_get_result($stmt_incrementales);
+    $row = mysqli_fetch_assoc($result_incrementales);
+    $correlativo = isset($row['max_correlativo']) ? $row['max_correlativo'] + 1 : 1;
+    $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
+
+    switch ($tipo_producto) {
+        case 'Material Envase y Empaque':
+            $numero_registro = 'DCAL-CC-ALMEE-' . $correlativoStr;
+            $numero_acta = "ALMEE-" . $year . $month . $correlativoStr;
+            break;
+        case 'Materia Prima':
+            $numero_registro = 'DCAL-CC-ALMP-' . $correlativoStr;
+            $numero_acta = "ALMP-" . $year . $month . $correlativoStr;
+            break;
+        case 'Producto Terminado':
+            $numero_registro = 'DCAL-CC-ALPT-' . $correlativoStr;
+            $numero_acta = "ALPT-" . $year . $month . $correlativoStr;
+            break;
+        case 'Insumo':
+            $numero_registro = 'DCAL-CC-ALINS-' . $correlativoStr;
+            $numero_acta = "ALINS-" . $year . $month . $correlativoStr;
+            break;
+        default:
+            $numero_registro = 'Desconocido';
+            $numero_acta = 'Desconocido';
+    }
+
+    mysqli_stmt_close($stmt_incrementales);
+    mysqli_close($link);
+
     // Preparar la respuesta
     $response['success'] = true;
     $response['analisis'] = $analisis;
     $response['Acta_Muestreo'] = array_values($analisisActaMuestreo);
     $response['analiDatos'] = $analiDatos;
     $response['id_analisis_externo'] = $id_acta;
+    $response['numero_registro'] = $numero_registro;
+    $response['numero_acta'] = $numero_acta;
 
 } catch (Exception $e) {
     $response['message'] = $e->getMessage();
