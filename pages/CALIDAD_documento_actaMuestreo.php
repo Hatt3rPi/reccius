@@ -10,6 +10,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -630,60 +631,64 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <!-- Footer -->
             <br>
-            <div class="form-row" id="firma">
+            <div class="footer-containerDIV">
+
                 <!-- Sección realizada por -->
                 <div class="firma-section">
-
-                    <div class="firma-box-title" style="font-size: 10px; text-align: left;">Muestreado por:</div>
-                    <div class="firma-box">
+                    <div class="firma-box-title">Muestreado por:</div>
+                    <div class="firma-boxes">
                         <p id='realizadoPor' name='realizadoPor' class="bold"></p>
                         <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
-                        <p id='cargo_realizador' name='cargo_realizador' class="bold">
-                        <div class="signature" style="d-flex justify-content-center">
-                            <img style="height: 64px;" id="firma_realizador" name="firma_realizador" src="" alt="firma_realizador" />
-                            <!-- acá debe ir el QR -->
+                        <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
+                        <div class="signature">
+                            <img id="firma_realizador" name="firma_realizador" src="" alt="Firma" class="firma">
                         </div>
-                        <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
+                    </div>
+                    <div class="date-container">
+                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                        <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="display: none">Firmado
                             digitalmente</p>
                     </div>
-                    <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
-                    <br>
                 </div>
+            
                 <!-- Sección realizada por -->
                 <div class="firma-section">
-
-                    <div class="firma-box-title" style="font-size: 10px; text-align: left;">Responsable:</div>
-                    <div class="firma-box">
+                    <div class="firma-box-title">Responsable:</div>
+                    <div class="firma-boxes">
                         <p id='responsable' name='responsable' class="bold"></p>
                         <p id='user_responsable' name='user_responsable' style="display: none"></p>
-                        <p id='cargo_responsable' name='cargo_responsable' class="bold">
-                        <div class="signature" style="d-flex justify-content-center">
-                            <img style="height: 64px;" id="firma_responsable" name="firma_responsable" src="" alt="firma_responsable" />
-                            <!-- acá debe ir el QR -->
+                        <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
+                        <div class="signature">
+                            <img id="firma_responsable" name="firma_responsable" src="" alt="Firma" class="firma">
                         </div>
-                        <p id='mensaje_realizador' name='mensaje_realizador' style='text-align: center;display: none'>Firmado
+                    </div>
+                    <div class="date-container">
+                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
+                        <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="display: none">Firmado
                             digitalmente</p>
                     </div>
-                    <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
-                    <br>
                 </div>
+            
                 <!-- Sección aprobada por -->
                 <div class="firma-section">
-                    <div class="firma-box-title" style="font-size: 10px; text-align: left;">Verificado por:</div>
-                    <div class="firma-box">
+                    <div class="firma-box-title">Verificado por:</div>
+                    <div class="firma-boxes">
                         <p id='verificadoPor' name='verificadoPor' class="bold"></p>
                         <p id='user_verificadoPor' name='user_verificadoPor' style="display: none"></p>
-                        <p id='cargo_verificador' name='cargo_verificador' class="bold">
-                        <div class="signature" style="d-flex justify-content-center">
-                            <img style="height: 64px;" id="firma_verificador" name="firma_verificador" src="" alt="firma_verificador" />
-                            <!-- acá debe ir el QR -->
+                        <p id='cargo_verificador' name='cargo_verificador' class="bold"></p>
+                        <div class="signature">
+                            <img id="firma_verificador" name="firma_verificador" src="" alt="Firma" class="firma">
                         </div>
-                        <p id='mensaje_verificador' name='mensaje_verificador' style='text-align: center;display: none'>
-                            Firmado digitalmente</p>
                     </div>
-                    <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date" style="font-size: 8px"></div>
+                    <div class="date-container">
+                        <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date" style="font-size: 8px"></div>
+                        <p id='mensaje_verificador' name='mensaje_verificador' class="text-bottom" style="display: none">Firmado
+                            digitalmente</p>
+                    </div>
                 </div>
+                
             </div>
+            
             <footer style="width: 100%; text-align: center; margin-top: 20px;bottom: 0;">
                 <!-- Nota de confidencialidad -->
                 <p style="margin-top: 10px;font-size: 10px;padding-bottom: 10px;">
