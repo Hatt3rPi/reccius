@@ -391,8 +391,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;"></p>
 
                             <div class="signature">
-                                <!-- Agregar la imagen aquí -->
-                                <img src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp" alt="Firma" class="firma">
+                                <!-- Agregar la imagen aquí 
+                                        aprobado: https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp
+                                        rechazado: https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp
+                                        pendiente: https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp
+                                -->
+                                <img src="" id="estado_liberacion" name="estado_liberacion" alt="Estado Final" class="firma">
 
                             </div>
 
@@ -411,7 +415,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="..\assets\images\TEST.png" alt="Firma" class="firma">
+                                <img src="" id="imagen_firma" name="imagen_firma" alt="Firma" class="firma">
 
                             </div>
 
@@ -572,7 +576,9 @@ function loadData() {
                     $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
                     $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
                     $('#producto_completoT3').val(productoCompleto);
-
+                    $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
+                    $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
+                    
                     $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
