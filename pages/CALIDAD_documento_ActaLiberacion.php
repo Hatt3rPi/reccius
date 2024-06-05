@@ -443,9 +443,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="download-pdf">Descargar PDF</button>
-    <button class="botones" id="firma" onclick="firmayguarda()">Firmar Documento</button>
-    <button class="botones" id="guardar" onclick="firmayguarda()">Guardar Documento</button>
+    <button class="botones" name="download-pdf" id="download-pdf">Descargar PDF</button>
+    <button class="botones" name="firma" id="firma" onclick="firmayguarda()">Firmar Documento</button>
+    <button class="botones" name="guardar" id="guardar" onclick="firmayguarda()">Guardar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
     <p id='numero_solicitud_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
