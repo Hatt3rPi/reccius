@@ -392,7 +392,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="..\assets\images\TEST.png" alt="Firma" class="firma">
+                                <img src="..\assets\images\APROBADO.png" alt="Firma" class="firma">
 
                             </div>
 
