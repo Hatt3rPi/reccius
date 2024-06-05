@@ -681,7 +681,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             </div>
             <!-- Sección III: Plan de Muestreo -->
-            <br>
             <section id="sampling-plan">
                 <h2 class="Subtitulos">III. PLAN DE MUESTREO</h2>
 
@@ -795,7 +794,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </section>
 
             <!-- Footer -->
-            <br>
             <div class="footer-containerDIV">
 
 
@@ -988,7 +986,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         html2canvas(elementToExport, {
-            scale: 2
+            scale: 1
         }).then(canvas => {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
