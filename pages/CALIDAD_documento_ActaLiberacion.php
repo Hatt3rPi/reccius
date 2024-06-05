@@ -205,7 +205,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado1a">
@@ -236,7 +236,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado2a">
@@ -267,7 +267,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado3a">
@@ -298,7 +298,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row" role="group" aria-label="Basic radio toggle button group">
+                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
                                 <div class="flex-fill">
                                     <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4a" value="1" autocomplete="off">
                                     <label class="btn btn-outline-secondary verificadores w-100" for="estado4a">
@@ -390,7 +390,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;"></p>
                             <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;"></p>
 
-                            <div class="signature">
+                            <div class="signature" style="width: 300px;">
                                 <!-- Agregar la imagen aquí 
                                         aprobado: https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp
                                         rechazado: https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp
@@ -445,7 +445,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div class="button-container">
     <button class="botones" id="download-pdf">Descargar PDF</button>
     <button class="botones" id="firma" onclick="firmayguarda()">Firmar Documento</button>
-    <button class="botones" id="guardar">Guardar Documento</button>
+    <button class="botones" id="guardar" onclick="firmayguarda()">Guardar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
     <p id='numero_solicitud_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -598,11 +598,35 @@ function loadData() {
 }
 
 
-    function firmayguarda(){
-        // Hacer visibles los elementos de .formulario.resp
-        console.log('click firma')
-        
-        document.getElementById('firmar').style.display = 'none';
-        
-    };
+function firmayguarda() {
+    // Hacer visibles los elementos de .formulario.resp
+    console.log('click firma');
+
+    // Obtener los resultados consolidados de los radiobuttons en divs con class "revision"
+    let revisionResults = '';
+    $('.revision input[type="radio"]:checked').each(function() {
+        revisionResults += $(this).val();
+    });
+
+    // Obtener los resultados consolidados de los radiobuttons en divs con class "doc-conforme"
+    let docConformeResults = '';
+    $('.doc-conforme input[type="radio"]:checked').each(function() {
+        docConformeResults += $(this).val();
+    });
+
+    // Mostrar los resultados consolidados en la consola
+    console.log('Revision Results:', revisionResults);
+    console.log('Doc Conforme Results:', docConformeResults);
+
+    // Crear un div para mostrar los resultados
+    let resultsDiv = document.createElement('div');
+    resultsDiv.className = 'results-div';
+    resultsDiv.innerHTML = `<p>Resultado Revisión: ${revisionResults}</p><p>Resultado Documento Conforme: ${docConformeResults}</p>`;
+    
+    // Añadir el div de resultados al body o a un contenedor específico
+    document.body.appendChild(resultsDiv);
+
+    document.getElementById('firmar').style.display = 'none';
+}
+
 </script>
