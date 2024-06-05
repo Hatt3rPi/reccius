@@ -806,7 +806,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-box-title">Muestreado por:</div>
                     <div class="firma-boxes">
                         <p id="realizadoPor" name="realizadoPor" class="bold">
-                        <p id="user_realizadoPor" name="user_realizadoPor" class="bold">
+                        
                         <p id="cargo_realizador" name="cargo_realizador" class="bold"></p>
                         </p>
                         <div class="signature">
@@ -826,8 +826,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-boxes">
                         <p id='responsable' name='responsable' class="bold">
                         </p>
-                        <p id='user_responsable' name='user_responsable' class="bold">
-                        </p>
+                        
                         <p id="cargo_responsable" name="cargo_responsable" class="bold">
                         </p>
                         <div class="signature">
@@ -849,8 +848,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-boxes">
                         <p id='verificadoPor' name='verificadoPor' class="bold">
                         </p>
-                        <p id='user_verificadoPor' name='user_verificadoPor' class="bold">
-                        </p>
+                        
                         <p id='cargo_verificador' name='cargo_verificador' class="bold">
                         </p>
 
