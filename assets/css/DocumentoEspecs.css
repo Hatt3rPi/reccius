@@ -330,3 +330,114 @@ p {
 #analisisMB.hide {
     display: none;
 }
+
+.footer-containerDIV {
+            
+    display: flex;
+    flex-wrap: nowrap;
+    /* Evita que las secciones bajen al siguiente renglón */
+    justify-content: space-between;
+    margin-top: 1px;
+    width: 100%;
+    /* Asegura que el contenedor tome todo el ancho disponible */
+    box-sizing: border-box;
+    /* Incluye el padding y border en el ancho total */
+}
+
+.firma-section {
+    
+    padding: 10px;
+    margin: 5px;
+    flex: 1;
+    /* Distribuye el espacio equitativamente entre las secciones */
+
+    max-width: 45%;
+    /* Limita el ancho máximo al 32% del contenedor para evitar desbordamiento */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Distribuye el contenido de manera uniforme */
+    height: 220px;
+    /* Ajusta según sea necesario */
+}
+
+.firma-box-title {
+    
+    font-size: 10px;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+    height: 21px;
+    width: 100%;
+    /* Ajusta según sea necesario */
+}
+
+.firma-boxes {
+    border: 1px solid #000000;
+    text-align: center;
+    flex: 1;
+    /* Permite que el contenido crezca para llenar el espacio */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Centra el contenido verticalmente */
+    height: 100%;
+    width: 100%;
+}
+
+.signature {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7px 0;
+    font-size: 10px;
+    /* Permite que la firma crezca para llenar el espacio */
+    height: 100px;
+    width: 100px;
+
+    /* Ajusta según sea necesario */
+}
+
+.date {
+    
+    text-align: center;
+    font-size: 10px;
+    margin-top: 5px;
+    height: 15px;
+    width: 100%;
+    /* Ajusta según sea necesario */
+}
+
+.bold {
+    
+    font-weight: bold;
+    width: 266px;
+    
+
+
+}
+
+
+.text-bottom {
+    text-align: center;
+    font-size: 10px;
+
+}
+
+.firma {
+    max-width: 100%;
+}
+
+.date-container {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    /* Ajusta según sea necesario */
+}
