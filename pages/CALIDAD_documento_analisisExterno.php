@@ -545,7 +545,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $(this).css("background-color", "transparent");
                 const cumpleChecked = $(this).find(".cumple").is(":checked");
                 const noCumpleChecked = $(this).find(".noCumple").is(":checked");
-                if (cumpleChecked !== noCumpleChecked) {
+                if (cumpleChecked === noCumpleChecked) {
                     cumple = false;
                     $(this).css("background-color", "#ff222d25");
                 } else {
