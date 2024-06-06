@@ -17,9 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -33,8 +31,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container formpadding" style="margin: 0 auto;">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container"
-                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
@@ -42,20 +39,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center"
-                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
+                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
                         Externo
                         Control de Calidad
                         <!-- Pretitulo -->
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto"
-                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="nombre_producto" id="nombre_producto"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="nombre_producto" id="nombre_producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -64,10 +57,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right"
-                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo"
-                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
                             <td name="numero_registro" id="numero_registro"></td>
@@ -83,8 +74,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha :</td>
                             <td>
-                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;"
-                                    readonly>
+                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;" readonly>
                             </td>
                         </tr>
                     </table>
@@ -138,8 +128,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
 
             </form>
-
-
             <!-- Sección II: MUESTREO -->
             <form id="section2">
                 <table>
@@ -212,10 +200,40 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
 
             </form>
+            <form id="section4">
+                <table>
+                    <tr>
+                        <td class="Subtitulos" colspan="4">III. IDATOS DEL ANÁLISIS SOLICITADO</td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">1. Numero de análisis:</td>
+                        <td>
+                            <input type="text" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
+                        </td>
+                        <td class="titulo titulo-right">3. Fecha de análisis:</td>
+                        <td>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">2. Fecha de Entrega:</td>
+                        <td>
+                            <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                        </td>
+                        <!--
+                            <td class="titulo titulo-right">4. T. de lote:</td>
+                            <td>
+                                <input type="text" id="tamano_lote" name="tamano_lote" required>
+                            </td>
+                            -->
+                    </tr>
+                </table>
+            </form>
+
             <form id="section3">
                 <table id="analisis-solicitados">
                     <tr>
-                        <td class="Subtitulos" colspan="4">III. ANÁLISIS SOLICITADOS</td>
+                        <td class="Subtitulos" colspan="4">IV. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
                         <th>Análisis</th>
@@ -226,7 +244,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
 
             </form>
-
             <!-- Footer -->
             <br>
             <form id="footer-container">
@@ -295,20 +312,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </p>
                 </footer>
             </form>
-
-
-
         </div>
 
 
 </body>
 <div class="button-container">
-
+    <button class="botones" id="revisar">Revisar</button>
     <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
-
-
-
 </div>
 
 <div id="notification" class="notification-container notify" style="display: none;">
@@ -317,8 +328,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.getElementById('download-pdf').addEventListener('click', function () {
-        const { jsPDF } = window.jspdf;
+    document.getElementById('download-pdf').addEventListener('click', function() {
+        const {
+            jsPDF
+        } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', [279, 216]);
         const pageHeight = 279;
         const margin = 10;
@@ -333,7 +346,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 elementToExport.style.border = 'none';
                 elementToExport.style.boxShadow = 'none';
 
-                return html2canvas(elementToExport, { scale: 2 }).then(canvas => {
+                return html2canvas(elementToExport, {
+                    scale: 2
+                }).then(canvas => {
                     const imgData = canvas.toDataURL('image/jpeg', 1.0);
                     const imgWidth = 216 - 2 * margin;
                     const imgHeight = canvas.height * imgWidth / canvas.width;
@@ -377,10 +392,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
     });
 
-</script>
-<script>
     // Agregar el evento click al botón con id 'Cambiante'
-    document.getElementById('Cambiante').addEventListener('click', function () {
+    document.getElementById('Cambiante').addEventListener('click', function() {
         cambio();
     });
 
@@ -408,16 +421,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
     }
-</script>
-<script>
-    $(document).ready(function () {
+
+    $(document).ready(function() {
         // Cargar datos iniciales
         loadData();
     });
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
-
-    console.log("ID Analisis Externo:", idAnalisisExterno);
 
     function loadData() {
         $.ajax({
@@ -427,7 +437,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 id_acta: idAnalisisExterno
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function (response) {
+            success: function(response) {
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
                 if (analisis.length > 0) {
@@ -486,7 +496,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function () {
+                    $("#FirmaAnalisisExternoRevisor").click(function() {
                         firmarDocumentoSolicitudExterna(idAnalisisExterno);
                     });
                 }
@@ -495,16 +505,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const analisisSolicitados = response.analiDatos;
                 const table = $('#analisis-solicitados');
 
-                analisisSolicitados.forEach(function (analisis) {
-                    const row = `<tr class="bordeAbajo">
+                analisisSolicitados.forEach(function(analisis) {
+                    const row = `<tr class="bordeAbajo checkLine">
                     <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                     <td class="Metod">${analisis.anali_metodologia}</td>
                     <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
                     <td class="revision">
-                        <input type="checkbox" class="checkmark">
+                        <input type="checkbox" class="checkmark cumple">
                         <span class="tamañoRevision">cumple</span>
                         <br>
-                        <input type="checkbox" class="checkmark">
+                        <input type="checkbox" class="checkmark noCumple">
                         <span class="tamañoRevision">no cumple</span>
                     </td>
                 </tr>`;
@@ -518,11 +528,68 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Poblar campos adicionales de acta de muestreo si es necesario
                 }
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
         });
     }
+
+    $(document).ready(function() {
+        $("#revisar").on("click", function() {
+            let cumple = true;
+            let results = [];
+
+            $(".checkLine").each(function() {
+                $(this).css("background-color", "transparent");
+                const cumpleChecked = $(this).find(".cumple").is(":checked");
+                const noCumpleChecked = $(this).find(".noCumple").is(":checked");
+                if (cumpleChecked !== noCumpleChecked) {
+                    cumple = false;
+                    $(this).css("background-color", "#ff222d25");
+                } else {
+                    results.push(cumpleChecked && 1);
+                }
+            });
+            if (!cumple) {
+                $.notify("Hay campos sin revisar.", "warning");
+                return;
+            }
+
+            var laboratorio_nro_analisis = $("#laboratorio_nro_analisis").val();
+            var laboratorio_fecha_analisis = $("#laboratorio_fecha_analisis").val();
+            var fecha_entrega = $("#fecha_entrega").val();
+
+            if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
+                $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
+                return;
+            }
+
+            var dataRevision = {
+                revision_resultados_laboratorio: results,
+                laboratorio_nro_analisis,
+                laboratorio_fecha_analisis,
+                fecha_entrega
+            }
+            console.log(dataRevision);
+            
+            /*
+            fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(results)
+            }).then(function(response) {
+                if (response.ok) {
+                    alert("Se revisaron los datos exitosamente.");
+                    location.reload();
+                } else {
+                    alert("Error al revisar los datos.");
+                }
+            });
+            */
+        });
+    });
 </script>

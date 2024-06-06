@@ -378,7 +378,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 contentType: false,
                 success: function(response) {
                     var res = JSON.parse(response);
-                    console.log(res);
+                    //reload and set session variables
+                    location.reload();
+
+
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error en la solicitud: ', textStatus, errorThrown);

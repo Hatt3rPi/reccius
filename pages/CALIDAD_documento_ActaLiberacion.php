@@ -26,6 +26,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="../assets/js/notify.js"></script>
     <link rel="stylesheet" href="../assets/css/DocumentoLiberacion.css">
+    <link rel="stylesheet" href="../assets/css/components/buttonContainer.css">
+    
     <style>
 
     </style>
@@ -379,10 +381,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             
             <form id="footer-container">
                 <div class="footer-containerDIV">
-
-
-                    
-
                     <!-- Sección Realizado por -->
                     <div class="firma-section">
                         <div class="firma-box-title">Estado Final:</div>
@@ -628,5 +626,10 @@ function firmayguarda() {
 
     document.getElementById('firmar').style.display = 'none';
 }
-
+$(document).ready(function() {
+    document.getElementById('firmar').addEventListener('click', function() {
+        console.log('click firma');
+        document.getElementById('firmar').style.display = 'none';
+    });
+});
 </script>

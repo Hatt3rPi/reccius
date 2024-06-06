@@ -101,13 +101,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </ol>
 
     </nav>
-
     <div class="container_fas">
-
         <aside class="sidebar c-scroll">
             <ul id="sidebarList">
-
-
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral">
@@ -251,8 +247,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="../assets/js/features_customware.js"></script>
     <script src="../assets/js/scripts_index.js"></script>
     <script src="../assets/js/botones.js"></script>
-
-
 </body>
 
 </html>
@@ -278,7 +272,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             .catch(error => console.error('Error:', error));
     }
 
-    function reloadPageBypassCacheHash() { 
+    function reloadPageBypassCacheHash() {
         const PageVersion = window.localStorage.getItem("PageVersion")
         if (PageVersion == null) {
             window.localStorage.setItem("PageVersion", AppConfig.VERSION);
@@ -343,5 +337,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 updateBreadcrumb(path);
             });
         });
+
+        var goTo = "<?php echo isset($_SESSION['go_to']) ? $_SESSION['go_to'] : ''; ?>"
+        unset($_SESSION['go_to']);
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        if (goTo == 'modificar_perfil.php') {
+            $('#dynamic-content').load(goTo, function() {
+                cargarInformacionExistente();
+            });
+
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        }
+
     });
 </script>

@@ -306,8 +306,12 @@ function updateUsuario()
     // Verificar y actualizar sesión si hay respuestas
     if (!empty($response)) {
         updateSession($_SESSION['usuario']);
+        unset($_SESSION['go_to']);
+        $_SESSION['go_to'] = 'modifica_perfil.php';
+        
         echo json_encode(['status' => 'partial success', 'response' => $response]);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
 }
+ 
