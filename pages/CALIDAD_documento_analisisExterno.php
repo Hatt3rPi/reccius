@@ -363,11 +363,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         };
 
-        // Captura y añade cada sección al PDF para la primera página
+        const distributeHeight = (totalHeight, numberOfSections) => {
+            return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
+        };
+
+        const availableHeight = pageHeight - (2 * margin + 50); // 50 is for the footer height
+        const sectionHeight = distributeHeight(availableHeight, 3);
+
         addSectionToPDF('header-container')
-            .then(() => addSectionToPDF('section1'))
-            .then(() => addSectionToPDF('section2'))
-            .then(() => addSectionToPDF('section4'))
+            .then(() => addSectionToPDF('section1', currentY, false, sectionHeight))
+            .then(() => addSectionToPDF('section2', currentY, false, sectionHeight))
+            .then(() => addSectionToPDF('section4', currentY, false, sectionHeight))
+
             .then(() => {
                 // Colocar el footer al final de la primera página
                 return addSectionToPDF('footer-container', pageHeight - 50);
