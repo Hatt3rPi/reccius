@@ -199,7 +199,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <form id="section4">
                 <table>
                     <tr>
-                        <td class="Subtitulos" colspan="4">III. IDATOS DEL ANÁLISIS SOLICITADO</td>
+                        <td class="Subtitulos" colspan="4">III. DATOS DEL ANÁLISIS SOLICITADO</td>
                     </tr>
                     <tr>
                         <td class="titulo">1. Numero de análisis:</td>
