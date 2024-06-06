@@ -13,7 +13,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Acta de Muestreo Control de Calidad</title>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -21,10 +20,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/notify.js"></script>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css">
-
-
 </head>
 
 <body>
@@ -571,11 +567,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var dataRevision = {
                 revision_resultados_laboratorio: results,
                 laboratorio_nro_analisis,
-                laboratorio_fecha_analisis,
-                fecha_entrega
+                laboratorio_fecha_analisis: moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+                fecha_entrega: moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD')
             }
             console.log(dataRevision);
-            
+
             /*
             fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
                 method: "POST",
