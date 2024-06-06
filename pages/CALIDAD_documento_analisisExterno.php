@@ -330,7 +330,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', [279, 216]);
         const pageHeight = 279;
-        const margin = 10;
+        const margin = 5;
         let currentY = margin;
 
         // Función para capturar y añadir una sección al PDF
