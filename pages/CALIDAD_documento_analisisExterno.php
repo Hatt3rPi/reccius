@@ -553,6 +553,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
             if (!cumple) {
+                console.log("Hay campos sin revisar.", "warning");
                 $.notify("Hay campos sin revisar.", "warning");
                 return;
             }
@@ -562,6 +563,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var fecha_entrega = $("#fecha_entrega").val();
 
             if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
+                console.log("Todos los campos de la sección IV deben estar llenos.", "warning");
                 $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
                 return;
             }
