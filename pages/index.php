@@ -339,7 +339,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         var goTo = "<?php echo isset($_SESSION['go_to']) ? $_SESSION['go_to'] : ''; ?>"
-        unset($_SESSION['go_to']);
+        <?php unset($_SESSION['go_to']); ?>
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         if (goTo == 'modificar_perfil.php') {
