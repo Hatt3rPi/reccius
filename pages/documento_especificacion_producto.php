@@ -9,7 +9,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -139,58 +138,54 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
             </div>
-            <div class="footer-containerDIV">
-
+            <div class="footer" id="footer">
                 <!-- Sección realizada por -->
-                <div class="firma-section">
-                    <div class="firma-box-title">Realizado por:</div>
-                    <div class="firma-boxes">
+                <div class="footer-section">
+                    <br>
+                    <div class="footer-box-title" style="font-size: 8px">Realizado por:</div>
+                    <div class="footer-box">
                         <p id='creadoPor' name='creadoPor' class="bold"></p>
-                        <p id='cargo_creador' name='cargo_creador' class="bold"></p>
+                        <p id='cargo_creador' name='cargo_creador' class="bold">
                         <div class="signature" id="QRcreador" name="QRcreador">
                             <!-- acá debe ir el QR -->
                         </div>
+                        <p id='mensaje_creador' name='mensaje_creador' style='text-align: center;display: none'>Firmado
+                            digitalmente</p>
                     </div>
-                    <div class="date-container">
-                        <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
-                        <p id='mensaje_creador' name='mensaje_creador' class="text-bottom" style="display: none">Firmado digitalmente</p>
-                    </div>
+                    <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
+                    <br>
                 </div>
-            
                 <!-- Sección revisada por -->
-                <div class="firma-section">
-                    <div class="firma-box-title">Revisado por:</div>
-                    <div class="firma-boxes">
+                <div class="footer-section">
+                    <div class="footer-box-title" style="font-size: 8px">Revisado por:</div>
+                    <div class="footer-box">
                         <p id='revisadoPor' name='revisadoPor' class="bold"></p>
-                        <p id='cargo_revisor' name='cargo_revisor' class="bold"></p>
+                        <p id='cargo_revisor' name='cargo_revisor' class="bold">
+                            Jefe de Producción
+                        </p>
                         <div class="signature" id="QRrevisor" name="QRrevisor">
                             <!-- acá debe ir el QR -->
                         </div>
+                        <p id='mensaje_revisor' name='mensaje_revisor' style='text-align: center;display: none'>Firmado
+                            digitalmente</p>
                     </div>
-                    <div class="date-container">
-                        <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
-                        <p id='mensaje_revisor' name='mensaje_revisor' class="text-bottom" style="display: none">Firmado digitalmente</p>
-                    </div>
+                    <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
                 </div>
-            
                 <!-- Sección aprobada por -->
-                <div class="firma-section">
-                    <div class="firma-box-title">Aprobado por:</div>
-                    <div class="firma-boxes">
+                <div class="footer-section">
+                    <div class="footer-box-title" style="font-size: 8px">Aprobado por:</div>
+                    <div class="footer-box">
                         <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
-                        <p id='cargo_aprobador' name='cargo_aprobador' class="bold"></p>
+                        <p id='cargo_aprobador' name='cargo_aprobador' class="bold">
                         <div class="signature" id="QRaprobador" name="QRaprobador">
                             <!-- acá debe ir el QR -->
                         </div>
+                        <p id='mensaje_aprobador' name='mensaje_aprobador' style='text-align: center;display: none'>
+                            Firmado digitalmente</p>
                     </div>
-                    <div class="date-container">
-                        <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>
-                        <p id='mensaje_aprobador' name='mensaje_aprobador' class="text-bottom" style="display: none">Firmado digitalmente</p>
-                    </div>
+                    <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>
                 </div>
-            
             </div>
-            
         </div>
     </div>
     <div class="button-container">

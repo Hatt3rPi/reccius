@@ -4,878 +4,1257 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Especificación Producto Terminado</title>
-    <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
-    <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="../assets/js/notify.js"></script>
+    <title>Acta de Muestreo Control de Calidad</title>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+    
+    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
+    JS de DataTables 
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/js/notify.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../assets/css/DocumentoActa.css">
+
 </head>
 
 <body>
-    <div id="form-container" class="ContenedorP">
+    <div id="form-container" class="form-container">
         <div id="Maincontainer">
-            <div id="header-container" style="width: 100%;">
-                <!-- Asegúrate de tener un contenedor para el header con display flex -->
-                <div id="header" class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <!-- Header -->
+            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
-                    <!-- Logo e Información Izquierda -->
-                    <div class="header-left">
-                        <img src="../assets/images/logo documentos.png" alt="Logo" style="height: 60px;" />
-                        <!-- Ajusta el tamaño según sea necesario -->
-                        <br>
-                    </div>
-                    <!-- Título Central -->
-                    <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                        <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
-                        </h1>
-                        <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
-                        <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
-                        <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
-                            Dirección de Calidad
-                        </div>
-                    </div>
-                    <!-- Información Derecha con Tabla -->
-                    <div class="header-right" style="font-size: 8px; font-family: 'Arial', sans-serif">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
-                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
-                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
-                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
-                                <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
-                                <td id="pagina-numero" class="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                        </table>
+                <!-- Logo a la izquierda -->
+                <div class="header-left" style="flex: 1;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
+                    <!-- Ajusta la altura según sea necesario -->
+                </div>
+                <!-- Título Central -->
+                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
+                        de
+                        Calidad
+                        <!-- Pretitulo -->
+                    </p>
+                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                        <!-- Título del documento -->
+                    </h1>
+                    <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                        <!-- Descripción del producto -->
+                    </p>
+                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        Dirección de Calidad
                     </div>
                 </div>
-                <!-- Fila adicional con dos columnas debajo del encabezado existente -->
-                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
-                    <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
-                        <div class="sub-info" style="font-size: 10px;text-align: left;">
-                            Producto de recetario magistral <br>
-                            Res. Ex. N° 2988/2018
-                        </div>
-                    </div>
-                    <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
-                        <div class="sub-info" style="font-size: 10px; text-align: right;">
-                            RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
-                        </div>
-                    </div>
+                <!-- Información Derecha con Tabla -->
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                        <tr>
+                            <td>N° Registro:</td>
+                            <td name="nro_registro" id="nro_registro"></td>
+                        </tr>
+                        <tr>
+                            <td>N° Versión:</td>
+                            <td name="nro_version" id="nro_version"></td>
+                        </tr>
+                        <tr>
+                            <td>N° Acta:</td>
+                            <td name="nro_acta" id="nro_acta"></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Muestreo:</td>
+                            <td>
+                                <input type="date" id="fecha_muestreo" name="fecha_muestreo" style="border: 0px;" readonly>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
 
-            <div class="watermark">TESTEO TESTESO</div>
-            <div id="contenido_main">
-                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
-                </h1>
-                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
-                </p>
-                <div id="content" class="content">
-                    <!-- Resto del contenido del cuerpo igual al HTML original -->
-                    <div class="table-section">
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
-                            I. Análisis Generales
-                        </div>
-                        <table id="analisisFQ" class="compact table-bordered" style="width:100%; font-size: 10px">
-                            <thead>
-                                <tr>
-                                    <th style="width: 170px; text-align: center">Análisis</th>
-                                    <th style="width: 106px; text-align: center">Metodología</th>
-                                    <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Las filas de la tabla se agregarán dinámicamente con JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="additionalContent" class="content">
-                    <div class="table-section">
-                        <!-- Sección de Análisis Microbiológico -->
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
-                            II. Análisis Microbiológico
-                        </div>
-                        <!-- Tabla de Análisis Microbiológico -->
-                        <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
-                            <thead>
-                                <tr>
-                                    <th style="width: 170px; text-align: center">Análisis</th>
-                                    <th style="width: 106px; text-align: center">Metodología</th>
-                                    <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
             </div>
+            <!-- Body -->
+            <br>
+            <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
+
+            <!-- Sección I: Identificación de la Muestra -->
+            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+                <!-- Tabla de identificación de la muestra -->
+                <table id="identificacion_muestra" name="identificacion_muestra">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th id="revision_actor1">Revisión Muestreador</th>
+                        <th></th>
+                        <th id="revision_actor2">Revisión Responsable</th>
+                        <th></th>
+                        <th>Rótulo General de Muestra</th>
+                    </tr>
+                    <tr>
+                        <td class="formulario-titulo">1. Producto:</td>
+                        <td class="formulario" id="form_producto" readonly>id="form_producto" </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-horizontal " role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="verificadores btn-check " name="identResp1" id="identResp1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp1" id="identResp1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-horizontal" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</i></label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</i></label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario" rowspan="9">
+                            <label>Pegar etiqueta de identificación general de la muestra</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">2. Tipo Producto:</td>
+                        <td class="formulario" id="form_tipo" readonly>id="form_tipo"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp2" id="identResp2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp2" id="identResp2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB2" id="identVB2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB2" id="identVB2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">3. Lote:</td>
+                        <td class="formulario" id="form_lote" readonly>id="form_lote"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp3" id="identResp3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp3" id="identResp3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB3" id="identVB3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB3" id="identVB3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">4. Tamaño de Lote:</td>
+                        <td class="formulario" id="form_tamano_lote" readonly>id="form_tamano_lote"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp4" id="identResp4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp4" id="identResp4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB4" id="identVB4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB4" id="identVB4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">5. Código Interno:</td>
+                        <td class="formulario" id="form_codigo_mastersoft" readonly>id="form_codigo_mastersoft"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp5" id="identResp5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp5" id="identResp5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB5" id="identVB5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB5" id="identVB5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">6. Cond. Almacenamiento:</td>
+                        <td class="formulario" id="form_condAlmacenamiento" readonly>id="form_condAlmacenamiento"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp6" id="identResp6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp6" id="identResp6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB6" id="identVB6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB6" id="identVB6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">7. Cantidad Muestra:</td>
+                        <td class="formulario" id="form_cant_muestra" readonly>id="form_cant_muestra"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp7" id="identResp7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp7" id="identResp7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB7" id="identVB7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB7" id="identVB7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">8. Cantidad Contramuestra:</td>
+                        <td class="formulario" id="form_cant_contramuestra" readonly>id="form_cant_contramuestra"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp8" id="identResp8a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp8a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp8" id="identResp8b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp8b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB8" id="identVB8a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB8a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB8" id="identVB8b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB8b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="formulario-titulo">9. Tipo de Análisis:</td>
+                        <td class="formulario" id="form_tipo_analisis" readonly>id="form_tipo_analisis"</td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp9" id="identResp9a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp9a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp9" id="identResp9b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp9b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB9" id="identVB9a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB9a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB9" id="identVB9b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB9b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+            <br>
+            <br>
+            <h2 class="Subtitulos">II. MUESTREO</h2>
+            <!-- Sección II: MUESTREO -->
+            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+                <!-- Tabla de identificación de la muestra -->
+                <table id="muestreo" name="muestreo">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th id="revision_actor1">Revisión Muestreador</th>
+                        <th></th>
+                        <th id="revision_actor2">Revisión Responsable</th>
+                        <th></th>
+                        <th>Rótulo General de Muestra</th>
+                    </tr>
+
+                    <tr>
+                        <td>1. La zona de esterilización se encuentra
+                            limpia y ordenada.</td>
+                        <td id="form_1" style="visibility: hidden;">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario" rowspan="9">
+                            <label>Pegar etiqueta de identificación general de la muestra</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>2. Verificar que la zona de muestreo se
+                            encuentre libre de otros productos.</td>
+                        <td id="form_2" style="visibility: hidden;">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>3. Evaluar el aspecto del producto en zona
+                            de revisión.</td>
+                        <td id="form_3" style="visibility: hidden;">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4. Verificar correcta identificación del lote y producto.</td>
+                        <td id="form_4" style="visibility: hidden;">
+                            <!-- CheckBoxes para Conforme y No Conforme -->
+                            <input type="checkbox" name="estado_Pro" value="Conforme">
+                            <label for="conforme_Pro">Conforme</label>
+                            <input type="checkbox" name="estado_Pro" value="No Conforme">
+                            <label for="noConforme_Pro">No Conforme</label>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5. Cantidad de ciclos de esterilización</td>
+                        <td class="formulario">
+                            <textarea id="form_textarea5"></textarea>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6. Cantidad bandejas esterilizadas por ciclo</td>
+                        <td class="formulario">
+                            <textarea id="form_textarea6"></textarea>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7. Cantidad de muestras por bandeja</td>
+                        <td class="formulario">
+                            <textarea id="form_textarea7"></textarea>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                        <td class="spacer"></td>
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+            <div style="margin-top: 10px; font-size: 12px;">
+                <br>
+                <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
+                    durante el proceso:</label>
+                <textarea id="form_textarea8" name="form_textarea8" rows="3" style="width: 99%;margin-left: 1%;"></textarea>
+
+
+            </div>
+            <!-- Sección III: Plan de Muestreo -->
+            <br>
+            <section id="sampling-plan">
+                <h2 class="Subtitulos">III. PLAN DE MUESTREO</h2>
+
+                <table id="seccion3" style="width:100%; border-collapse: collapse;">
+                    <!-- Encabezados de la tabla -->
+                    <tr>
+                        <th>Tamaño de Lote</th>
+                        <th>Muestra</th>
+                        <th>Contramuestra</th>
+                        <th>Total</th>
+                        <th id="revision_actor1">Revisión Muestreador</th>
+                        <th id="revision_actor2">Revisión Responsable</th>
+                    </tr>
+                    <!-- Fila para lotes de <= 500 unidades -->
+                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                        <td readonly>&le; 500 unidades</td>
+                        <td readonly>40 unidades</td>
+                        <td readonly>80 unidades</td>
+                        <td readonly>120 Unidades</td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Fila para lotes entre 501 y 4999 unidades -->
+                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                        <td contenteditable="true">501 - 4999 unidades</td>
+                        <td contenteditable="true">40 unidades</td>
+                        <td contenteditable="true">80 unidades</td>
+                        <td contenteditable="true">420 Unidades</td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Fila para lotes de >= 1000 unidades -->
+                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                        <td contenteditable="true">&ge; 1000 unidades</td>
+                        <td contenteditable="true">50 unidades</td>
+                        <td contenteditable="true">100 unidades</td>
+                        <td contenteditable="true">150 Unidades</td>
+                        <td class="formulario resp">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+
+                        <td class="formulario verif">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Footer -->
+            <br>
             <div class="footer-containerDIV">
 
                 <!-- Sección realizada por -->
                 <div class="firma-section">
-                    <div class="firma-box-title">Realizado por:</div>
+                    <div class="firma-box-title">Muestreado por:</div>
                     <div class="firma-boxes">
-                        <p id='creadoPor' name='creadoPor' class="bold"></p>
-                        <p id='cargo_creador' name='cargo_creador' class="bold"></p>
-                        <div class="signature" id="QRcreador" name="QRcreador">
-                            <!-- acá debe ir el QR -->
+                        <p id='realizadoPor' name='realizadoPor' class="bold"></p>
+                        <p id='user_realizadoPor' name='user_realizadoPor' style="display: none"></p>
+                        <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
+                        <div class="signature">
+                            <img id="firma_realizador" name="firma_realizador" src="" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
                         <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
-                        <p id='mensaje_creador' name='mensaje_creador' class="text-bottom" style="display: none">Firmado digitalmente</p>
+                        <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="display: none">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
             
-                <!-- Sección revisada por -->
+                <!-- Sección realizada por -->
                 <div class="firma-section">
-                    <div class="firma-box-title">Revisado por:</div>
+                    <div class="firma-box-title">Responsable:</div>
                     <div class="firma-boxes">
-                        <p id='revisadoPor' name='revisadoPor' class="bold"></p>
-                        <p id='cargo_revisor' name='cargo_revisor' class="bold"></p>
-                        <div class="signature" id="QRrevisor" name="QRrevisor">
-                            <!-- acá debe ir el QR -->
+                        <p id='responsable' name='responsable' class="bold"></p>
+                        <p id='user_responsable' name='user_responsable' style="display: none"></p>
+                        <p id='cargo_responsable' name='cargo_responsable' class="bold"></p>
+                        <div class="signature">
+                            <img id="firma_responsable" name="firma_responsable" src="" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
-                        <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
-                        <p id='mensaje_revisor' name='mensaje_revisor' class="text-bottom" style="display: none">Firmado digitalmente</p>
+                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date" style="font-size: 8px"></div>
+                        <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="display: none">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
             
                 <!-- Sección aprobada por -->
                 <div class="firma-section">
-                    <div class="firma-box-title">Aprobado por:</div>
+                    <div class="firma-box-title">Verificado por:</div>
                     <div class="firma-boxes">
-                        <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
-                        <p id='cargo_aprobador' name='cargo_aprobador' class="bold"></p>
-                        <div class="signature" id="QRaprobador" name="QRaprobador">
-                            <!-- acá debe ir el QR -->
+                        <p id='verificadoPor' name='verificadoPor' class="bold"></p>
+                        <p id='user_verificadoPor' name='user_verificadoPor' style="display: none"></p>
+                        <p id='cargo_verificador' name='cargo_verificador' class="bold"></p>
+                        <div class="signature">
+                            <img id="firma_verificador" name="firma_verificador" src="" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
-                        <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>
-                        <p id='mensaje_aprobador' name='mensaje_aprobador' class="text-bottom" style="display: none">Firmado digitalmente</p>
+                        <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date" style="font-size: 8px"></div>
+                        <p id='mensaje_verificador' name='mensaje_verificador' class="text-bottom" style="display: none">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
-            
+                
             </div>
             
+            <footer style="width: 100%; text-align: center; margin-top: 20px;bottom: 0;">
+                <!-- Nota de confidencialidad -->
+                <p style="margin-top: 10px;font-size: 10px;padding-bottom: 10px;">
+                    La información contenida en esta acta es de carácter CONFIDENCIAL y es considerada SECRETO
+                    INDUSTRIAL.
+                </p>
+            </footer>
+
+
+
         </div>
-    </div>
-    <div class="button-container">
-        <button id="sign-document" style="display: none;">Firmar Documento</button>
-        <button id="download-pdf">Descargar PDF</button>
-        
-        <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
-    </div>
-    <div id="notification" class="notification-container notify" style="display: none;">
-        <p id="notification-message">Este es un mensaje de notificación.</p>
-    </div>
-    <script>
-        var Wcontent = 2;
-        var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
-        var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('download-pdf').addEventListener('click', async function() {
 
-            obtenerAlturaElementosYCalcularEspacioDisponible();
-            ocultarContenedorPrincipal();
-            actualizarContadorPaginas();
-            $.notify("Creando PDF", "warn");
-             // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
-            await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
-
-
-            var pdf = new jspdf.jsPDF({
-                orientation: 'portrait',
-                unit: 'pt',
-                format: 'letter'
-            });
-
-            // Seleccionar todos los contenedores que deben incluirse en el PDF
-            var containers = document.querySelectorAll('.document-cloned-container');
-
-            for (let i = 0; i < containers.length; i++) {
-                if (i > 0) {
-                    pdf.addPage();
-                }
-
-                await html2canvas(containers[i], {
-                    scale: 2
-                }).then(canvas => {
-                    var imgData = canvas.toDataURL('image/png');
-                    var pdfWidth = pdf.internal.pageSize.getWidth();
-                    var pdfHeight = pdf.internal.pageSize.getHeight();
-
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                });
-            }
-
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('documento').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con exito", "success");
-});
-
-function cargarDatosEspecificacion(id) {
-    console.log("A1")
-    $.ajax({
-        url: './backend/calidad/documento_especificacion_productoBE.php',
-        type: 'GET',
-        data: {
-            id: id
-        },
-        success: function(response) {
-            procesarDatosEspecificacion(response);
-
-            verificarYMostrarBotonFirma(response);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error en la solicitud: ", status, error);
-        }
-    });
-}
-
-async function procesarDatosEspecificacion(response) {
-    console.log("A2")
-    // Validación de la respuesta
-    if (!response || !response.productos || !Array.isArray(response.productos)) {
-        console.error('Los datos recibidos no son válidos:', response);
-        return;
-    }
-    // Procesamiento de cada producto
-    response.productos.forEach(function(producto) {
-        poblarYDeshabilitarCamposProducto(producto);
-
-        let especificaciones = Object.values(producto.especificaciones || {});
-        if (especificaciones.length > 0) {
-            let especificacion = especificaciones[0];
-
-            let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
-            if (analisisFQ.length > 0) {
-                mostrarAnalisisFQ(analisisFQ);
-            } else {
-                // Si no hay datos, oculta la sección del análisis FQ
-                $('#content').hide();
-
-            }
-
-            let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
-            if (analisisMB.length > 0) {
-                mostrarAnalisisMB(analisisMB);
-            } else {
-                // Si no hay datos, oculta la sección del análisis FQ
-                $('#additionalContent').hide();
-
-            }
-        }
-    });
-    
-
-}
-
-function poblarYDeshabilitarCamposProducto(producto) {
-    console.log("A3")
-    if (producto) {
-        // Usando .text() para elementos h2, h3 y p
-        $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
-        $('#producto').text(producto.nombre_producto);
-        $('#Tipo_Producto2').text('Especificación ' + producto.tipo_producto);
-        $('#producto2').text(producto.nombre_producto);
-        $('#concentracion').text(producto.concentracion);
-        $('#formato').text(producto.formato);
-        $('#documento').text(producto.documento_producto);
-
-        //$('#elaboradoPor').text(producto.creado_por);
-
-        let especificacion = Object.values(producto.especificaciones)[0];
-        if (especificacion) {
-            cargo_creador
-            $('#id_especificacion').text(especificacion.id);
-            $('#cargo_creador').text(especificacion.creado_por.cargo);
-            $('#cargo_revisor').text(especificacion.revisado_por.cargo);
-            $('#cargo_aprobador').text(especificacion.aprobado_por.cargo);
-            $('#elaboradoPor').text(especificacion.creado_por.nombre_corto);
-            $('#supervisadoPor').text(especificacion.revisado_por.nombre_corto);
-            $('#autorizadoPor').text(especificacion.aprobado_por.nombre_corto);
-            $('#fechaEdicion').text(especificacion.fecha_edicion);
-            $('#version').text(especificacion.version);
-            $('#periodosVigencia').text(especificacion.vigencia);
-            $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
-            $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
-            $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
-
-            // Actualizar fechas de revisión y aprobación
-            if (especificacion.fecha_edicion) {
-                document.getElementById('mensaje_creador').style.display = 'block';
-                $('#fecha_Edicion').text('Fecha: ' + especificacion.fecha_edicion);
-                mostrarImagenFirma(especificacion.creado_por, 'QRcreador');
-            } else {
-                document.getElementById('mensaje_creador').style.display = 'none';
-                $('#fecha_Edicion').text('Firma Pendiente');
-            }
-            if (especificacion.revisado_por.fecha_revision) {
-                document.getElementById('mensaje_revisor').style.display = 'block';
-                $('#fechaRevision').text('Fecha: ' + especificacion.revisado_por.fecha_revision);
-                mostrarImagenFirma(especificacion.revisado_por, 'QRrevisor');
-            } else {
-                document.getElementById('mensaje_revisor').style.display = 'none';
-                $('#fechaRevision').text('Firma Pendiente');
-            }
-            if (especificacion.aprobado_por.fecha_aprobacion) {
-                document.getElementById('mensaje_aprobador').style.display = 'block';
-                $('#fechaAprobacion').text('Fecha: ' + especificacion.aprobado_por.fecha_aprobacion);
-                mostrarImagenFirma(especificacion.aprobado_por, 'QRaprobador');
-            } else {
-                document.getElementById('mensaje_aprobador').style.display = 'none';
-                $('#fechaAprobacion').text('Firma Pendiente');
-            }
-        }
-        actualizarEstadoDocumento();
-    }
-}
-
-function mostrarImagenFirma(usuario, contenedorQR) {
-    console.log("A4")
-    // Variable para almacenar la URL de la imagen de la firma
-    var firmaUrl;
-
-    // Verifica si existe 'qr_documento' y construye la URL de la imagen de la firma
-    if (usuario && usuario.qr_documento) {
-        firmaUrl =  usuario.qr_documento;
-    }
-    // Si 'qr_documento' no existe, pero sí existe 'foto_firma', usa 'foto_firma'
-    else if (usuario && usuario.foto_firma) {
-        firmaUrl = usuario.foto_firma;
-    }
-
-    // Si se ha establecido la URL de la firma, crea o actualiza el elemento <img> con la URL de la imagen
-    if (firmaUrl) {
-        var imgElement = document.getElementById(contenedorQR).querySelector('img');
-        if (!imgElement) {
-            imgElement = document.createElement('img');
-            imgElement.style.width = '64px';
-            imgElement.style.height = '64px';
-            document.getElementById(contenedorQR).appendChild(imgElement);
-        }
-        imgElement.src = firmaUrl;
-    } else {
-        // Si no hay 'qr_documento' ni 'foto_firma', muestra un mensaje de "Firma no disponible"
-        var contenedor = document.getElementById(contenedorQR);
-        contenedor.innerHTML = '<span style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;">Firma no disponible</span>';
-        
-    }
-}
-
-
-
-function mostrarAnalisisFQ(analisis) {
-    console.log("A5")
-    // Verifica si hay datos para el análisis FQ
-    console.log(analisis)
-    if (analisis.length > 0) {
-        // Si hay datos, muestra la tabla y procesa los datos
-        if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-            $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
-        } else {
-            $('#analisisFQ').DataTable({
-                data: analisis,
-                columns: [{
-                        title: 'Análisis',
-                        data: 'descripcion_analisis',
-                        width: '170px',
-                        createdCell: function(td) {
-                            $(td).css('font-weight', 'bold');
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Metodología',
-                        data: 'metodologia',
-                        width: '106px',
-                        createdCell: function(td) {
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Criterio aceptación',
-                        data: 'criterios_aceptacion',
-                        width: '404px'
-                    }
-                ],
-                paging: false,
-                info: false,
-                searching: false,
-                lengthChange: false,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                }
-            });
-        }
-        // Muestra la sección del análisis FQ
-        $('#content').show();
-    } else {
-        // Si no hay datos, oculta la sección del análisis FQ
-        $('#content').hide();
-    }
-}
-
-function mostrarAnalisisMB(analisis) {
-    console.log("A6")
-    // Verifica si hay datos para el análisis microbiológico
-    if (analisis.length > 0) {
-        // Si hay datos, muestra la tabla y procesa los datos
-        if ($.fn.DataTable.isDataTable('#analisisMB')) {
-            $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
-        } else {
-            $('#analisisMB').DataTable({
-                data: analisis,
-                columns: [{
-                        title: 'Análisis',
-                        data: 'descripcion_analisis',
-                        width: '170px',
-                        createdCell: function(td) {
-                            $(td).css('font-weight', 'bold');
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Metodología',
-                        data: 'metodologia',
-                        width: '106px',
-                        createdCell: function(td) {
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Criterio aceptación',
-                        data: 'criterios_aceptacion',
-                        width: '404px'
-                    }
-                ],
-                paging: false,
-                info: false,
-                searching: false,
-                lengthChange: false,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                }
-            });
-        }
-        // Muestra la sección del análisis microbiológico
-        $('#additionalContent').show();
-    } else {
-        // Si no hay datos, oculta la sección del análisis microbiológico
-        $('#additionalContent').hide();
-    }
-}
-
-
-
-
-
-document.getElementById('sign-document').addEventListener('click', function() {
-    // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
-    var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
-    if (puedeFirmar && confirm("¿Estás seguro que deseas firmar el documento?")) {
-        // Aquí va el código para firmar el documento
-        firmarDocumento();
-    }
-});
-
-function esRevisorYFirmaPendiente() {
-    console.log("A7")
-    return $('#revisadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaRevision').text() === 'Firma Pendiente';
-}
-
-function esAprobadorYFirmaPendiente() {
-    console.log("A8")
-    return $('#aprobadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaAprobacion').text() === 'Firma Pendiente';
-}
-
-function firmarDocumento() {
-    console.log("A9")
-    // Obten los datos necesarios para la firmaid_especificacion
-    var idEspecificacion = $('#id_especificacion').text().trim();
-    var rolUsuario = '';
-    if (esRevisorYFirmaPendiente()) {
-        rolUsuario = 'revisado_por';
-    } else if (esAprobadorYFirmaPendiente()) {
-        rolUsuario = 'aprobado_por';
-    } else {
-        // En caso de que no se pueda determinar el rol, mostrar un error o tomar una acción adecuada
-        console.error("No se puede determinar el rol del usuario para la firma.");
-        return;
-    }
-
-    // Llamada AJAX al backend
-    $.ajax({
-        url: './backend/calidad/firma_documentoBE.php',
-        type: 'POST',
-        data: {
-            idEspecificacion: idEspecificacion,
-            rolUsuario: rolUsuario
-        },
-        success: function(response) {
-            // Aquí manejas la respuesta del backend
-            console.log('Firma actualizada correctamente:', response);
-            // Actualiza el estado del documento en el frontend
-            actualizarEstadoDocumento();
-            cargarDatosEspecificacion(idEspecificacion);
-            // Mostrar notificaciones de éxito y advertencia
-            $.notify("Documento firmado con éxito.", "success");
-            $.notify("Tarea terminada con éxito", "success");
-        },
-        error: function(xhr, status, error) {
-            console.error('Error al firmar documento:', status, error);
-            $.notify("Error al firmar documento:", "error");
-        }
-    });
-}
-
-function verificarYMostrarBotonFirma(response) {
-    console.log("A10")
-    console.log("Respuesta recibida:", response);
-
-    if (!response || !response.productos || !Array.isArray(response.productos)) {
-        console.log("Respuesta no válida o sin productos");
-        return; // Si la respuesta no es válida, no hacer nada
-    }
-
-    // Considerando que la respuesta tiene una estructura esperada
-    let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
-    console.log("Especificación procesada:", especificacion);
-    let esAprobador = especificacion.aprobado_por.nombre === usuarioNombre;
-    let esRevisorPendiente = especificacion.revisado_por.nombre === usuarioNombre && especificacion.revisado_por.fecha_revision === null;
-    let esAprobadorPendiente = especificacion.aprobado_por.nombre === usuarioNombre && especificacion.aprobado_por.fecha_aprobacion === null;
-    let revisorHaFirmado = especificacion.revisado_por.fecha_revision !== null;
-
-    console.log("Es Revisor y Firma Pendiente:", esRevisorPendiente);
-    console.log("Es Aprobador y Firma Pendiente:", esAprobadorPendiente);
-    console.log("Revisor ha firmado:", revisorHaFirmado);
-
-    if (esRevisorPendiente || (esAprobadorPendiente && revisorHaFirmado)) {
-        console.log("Mostrar botón de firma (habilitado)");
-        document.getElementById('sign-document').style.display = 'block';
-        document.getElementById('sign-document').disabled = false;
-        Wcontent = 2;
-    } else if (esAprobadorPendiente && !revisorHaFirmado) {
-        console.log("Mostrar botón de firma (deshabilitado)");
-        document.getElementById('sign-document').style.display = 'block';
-        document.getElementById('sign-document').disabled = true;
-        document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
-        Wcontent = 2;
-    } else {
-        console.log("No mostrar botón de firma");
-        document.getElementById('sign-document').style.display = 'none';
-        
-    }
-    if (esAprobador && especificacion.revisado_por.fecha_revision === null) {
-        console.log("Usuario es revisor y la firma del aprobador está pendiente.");
-        $.notify("Es necesario que el usuario Revisor firme antes que tú.", "warn");
-        // Aquí puedes realizar acciones adicionales basadas en esta condición.
-    }
-}
-
-
-
-
-function actualizarEstadoDocumento() {
-    console.log("A11")
-    var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
-    var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
-    var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
-
-    var watermarks = document.querySelectorAll('.watermark'); // Cambio aquí: usar clase en lugar de id
-
-    watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
-        if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-            watermark.textContent = 'CONFIDENCIAL';
-            watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-            Wcontent = 1;
-        } else {
-            watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-            watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
-            
-        }
-    });
-}
-
-
-function obtenerAlturaElementosYCalcularEspacioDisponible() {
-    console.log("A12")
-    const alturaTotal = 792; // Altura total de la página en puntos
-    const alturaHeader = 123; // Altura del encabezado
-    const alturaFooter = 224; // Altura del pie de página
-
-    // Funciones auxiliares dentro de la función
-    const $ = (selector) => document.querySelector(selector);
-    const $$ = (selector) => document.querySelectorAll(selector);
-
-    // Contenedores
-    const contentContainer = $('#content');
-    const additionalContentContainer = $('#additionalContent');
-
-    // Aquí puedes incluir cualquier lógica adicional de cálculo de altura si es necesario
-
-    // Seleccionar los elementos tr dentro de la tabla específica de #content y #additionalContent
-    const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
-    const trsDeAdditionalContent = Array.from(document.querySelectorAll("#additionalContent table tbody tr"));
-    newTabla("new-table", trsDeContent, trsDeAdditionalContent);
-}
-
-
-async function newTabla(id, trsContent, trsAdditionalContent) {
-    console.log("A13")
-    let tableContainer = createTableContainer();
-    let alturaTotalDisponible = 700; // Altura disponible antes de necesitar un nuevo contenedor.
-
-    // Crea contenedores iniciales para 'content' y 'additionalContent'.
-    let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-    let alturaActualTabla = 0; // Altura acumulada actual en el contenedor.
-
-    // Procesa trs de 'content'.
-    for (let tr of trsContent) {
-        [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
-            tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
-        );
-    }
-
-    // Asegura que 'additionalContent' comience en el contenedor actual si hay espacio, o en un nuevo contenedor si es necesario.
-    let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-    for (let tr of trsAdditionalContent) {
-        [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
-            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
-        );
-    }
-
-    // Asegura agregar el último contenedor al documento.
-    document.querySelector("#form-container").appendChild(tableContainer);
-}
-
-
-
-
-
-
-async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
-    console.log("A14")
-    tr.querySelectorAll("td").forEach(td => {
-        td.style.fontSize = "10px"; // Ajusta el tamaño de la fuente
-        td.style.borderLeft = "none"; // Elimina el borde izquierdo
-        td.style.borderRight = "none"; // Elimina el borde derecho
-    });
-    let alturaTr = tr.getBoundingClientRect().height; // Asume que esta altura se puede determinar así, lo cual puede no ser siempre preciso en un entorno no renderizado.
-
-    if (alturaActualTabla + alturaTr > alturaTotalDisponible) {
-        // Si agregar esta fila excede el espacio disponible, primero agregar el contenedor actual al DOM.
-        document.querySelector("#form-container").appendChild(tableContainer);
-
-        // Crea un nuevo contenedor y tbody para continuar.
-        tableContainer = createTableContainer();
-        newTbody = createTableBody(id + "-" + sectionId, tableContainer, sectionId);
-        alturaActualTabla = 0; // Restablece la altura acumulada para el nuevo contenedor.
-    }
-
-    // Añade la fila al tbody actual y actualiza la altura acumulada.
-    newTbody.appendChild(tr);
-    alturaActualTabla += alturaTr;
-
-    return [alturaActualTabla, tableContainer, newTbody];
-}
-
-
-function createTableContainer() {
-    console.log("A15")
-    // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
-
-    const container = document.createElement("div");
-    container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
-    // Estilos y configuraciones para el contenedor
-    container.style.width = "612pt";
-    container.style.height = "792pt";
-    container.style.padding = "10pt";
-    container.style.boxSizing = "border-box";
-    container.style.backgroundColor = "#FFF";
-    container.style.border = "1px solid #000";
-    container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-    container.style.marginLeft = "auto";
-    container.style.marginRight = "auto";
-    container.style.position = "relative";
-    container.style.marginTop = "30px";
-
-
-    // Clonar y añadir elementos de encabezado y pie de página
-    const headerClone = document.querySelector("#header-container").cloneNode(true);
-    container.appendChild(headerClone);
-
-
-    // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
-    const h1Clone = document.querySelector("#Tipo_Producto2").cloneNode(true);
-    const pClone = document.querySelector("#producto2").cloneNode(true);
-
-    // Asegúrate de actualizar los IDs si es necesario para evitar IDs duplicados en el DOM
-    h1Clone.id = "Tipo_Producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
-    pClone.id = "producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
-
-    // Añadir los elementos clonados al contenedor
-    container.appendChild(h1Clone);
-    container.appendChild(pClone);
-
-
-    // Añadir la marca de agua
-    const watermark = document.createElement("div");
-    watermark.setAttribute("class", "watermark");
-    console.log(Wcontent);
-    if (Wcontent === 1) {
-        watermark.textContent = 'CONFIDENCIAL';
-        watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-    }
-    else{
-        watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-        watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-    }
-    container.appendChild(watermark);
-
-
-
-
-    const footerClone = document.querySelector("#footer").cloneNode(true);
-    footerClone.style.marginTop = "5px"; // Reduce el margen superior
-    container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
-
-
-
-    return container; // Devuelve el contenedor principal con todo dentro
-}
-
-// Esta función actualiza el contador de páginas para el contenedor actual.
-function actualizarContadorPaginas() {
-    console.log("A16")
-    // Seleccionar todos los contenedores clonados y actualizar sus contadores
-    const contenedores = document.querySelectorAll(".pagina-numero");
-    const cantidadPaginas = contenedores.length
-
-    contenedores.forEach((contenedor, index) => {
-        // Encuentra el elemento del número de página dentro de cada contenedor
-        contenedor.innerHTML = `${index} de ${cantidadPaginas - 1}`;
-    });
-
-    console.log("documento clonado ");
-}
-
-function createAnalysisSection(title) {
-    console.log("A17")
-    const analysisSection = document.createElement("div");
-    analysisSection.className = "analysis-section";
-    analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
-    analysisSection.textContent = title;
-    return analysisSection;
-}
-
-function createTableBody(id, container, sectionId) {
-    console.log("A18")
-    const newTable = document.createElement("table");
-    newTable.setAttribute("id", id);
-    newTable.classList.add("table", "table-bordered");
-
-    // Crear un div con texto basado en la sección antes del thead
-    const analysisTitleDiv = document.createElement("div");
-    analysisTitleDiv.className = "analysis-title"; // Asegúrate de definir este estilo en tu CSS
-    analysisTitleDiv.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
-    if (sectionId === "content") {
-        analysisTitleDiv.textContent = "I. Análisis Generales";
-    } else if (sectionId === "additionalContent") {
-        analysisTitleDiv.textContent = "II. Análisis Microbiológico";
-    }
-    // Inserta el div antes de la tabla en el contenedor
-    container.appendChild(analysisTitleDiv);
-
-    // Continúa con la creación del thead y tbody como antes
-    const newThead = document.createElement("thead");
-    newThead.style.fontSize = "10px";
-    newThead.style.borderLeft= "none" ;
-    newThead.style.borderRight= "none" ;
-
-    newTable.appendChild(newThead);
-
-    const tr = document.createElement("tr");
-    tr.style.fontSize = "10px";
-    newThead.style.borderLeft= "none" ;
-    newThead.style.borderRight= "none" ;
-    newThead.appendChild(tr);
-
-    if (sectionId === "content") {
-        // Define los encabezados específicos para la tabla de 'content'
-        const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
-        headers.forEach(text => {
-            const th = document.createElement("th");
-            th.textContent = text;
-            tr.appendChild(th);
-        });
-    } else if (sectionId === "additionalContent") {
-        // Define los encabezados específicos para la tabla de 'additionalContent'
-        const headers = ["Análisis", "Metodología", "Resultado"];
-        headers.forEach(text => {
-            const th = document.createElement("th");
-            th.textContent = text;
-            tr.appendChild(th);
-        });
-    }
-
-    // Crear tbody y aplicar estilo a los <td> cuando se agreguen
-    const newTbody = document.createElement("tbody");
-    newTbody.style.fontSize = "10px";
-    newTable.appendChild(newTbody);
-
-    // Ubicar el newTable en el div correspondiente después del div del título
-    container.appendChild(newTable);
-
-    return newTbody;
-}
-
-
-
-
-function ocultarContenedorPrincipal() {
-    console.log("A19")
-    var contenedorPrincipal = document.getElementById('Maincontainer');
-    var contenedorForm = document.getElementById('form-container');
-    contenedorPrincipal.style.display = 'none';
-    contenedorForm.style.border = 'none';
-    contenedorForm.style.boxShadow = 'none';
-}
-
-window.onload = function() {
-    cargarDatosEspecificacion(id);
-    verificarYMostrarBotonFirma();
-
-};
-    </script>
 </body>
+<div class="button-container">
+    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
+    <button class="botones" id="guardar" style="display: none">Guardar</button>
+    <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
+    <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
+    <p id='etapa' name='etapa' style="display: none;"></p>
+    <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
+    <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='numero_solicitud_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='solicitado_por_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
+          <label class="form-check-label" for="muestreoManual">
+            Acta de Muestreo Manual (en papel)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
+          <label class="form-check-label" for="muestreoDigital">
+            Acta de Muestreo Digital (en tablet)
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="notification" class="notification-container notify" style="display: none;">
+    <p id="notification-message">Este es un mensaje de notificación.</p>
+</div>
 
 </html>
+<script>
+
+document.getElementById('confirmarMetodo').addEventListener('click', function() {
+    const metodoManual = document.getElementById('muestreoManual').checked;
+    const metodoDigital = document.getElementById('muestreoDigital').checked;
+
+    // Cerrar el modal después de seleccionar la opción
+    $('#modalMetodoMuestreo').modal('hide');
+    $("#modalMetodoMuestreo").css("z-index", "-1");
+    if (metodoManual) {
+        // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
+        document.getElementById('download-pdf').click();
+    } else if (metodoDigital) {
+        $('#etapa').text('ingresa resultados y firma1');
+        // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
+        document.querySelectorAll('.formulario.resp *').forEach(function(element) {
+            element.style.visibility = 'visible';
+        });
+        document.getElementById('metodo_muestreo').style.display = 'none';
+        document.getElementById('firmar').style.display = 'none';
+        document.getElementById('guardar').style.display = 'block';
+        $('.resp').css('background-color', '#f4fac2');
+        var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+        var cargo = "<?php echo $_SESSION['cargo']; ?>";
+        var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
+        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+        $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+        $('#fecha_Edicion').text(fecha_hoy);
+        $('#cargo_realizador').text(cargo);
+        $('#realizadoPor').text(nombre_ejecutor);
+
+    }
+});
+
+document.getElementById('download-pdf').addEventListener('click', function() {
+
+
+    // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
+    const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
+
+    allButtonGroups.forEach(group => {
+        const buttons = group.querySelectorAll('.btn-check');
+        buttons.forEach(button => {
+            // Si el botón no está chequeado, ocultar el label asociado
+            if (!button.checked) {
+                button.nextElementSibling.style.display = 'none';
+            }
+        });
+    });
+
+    // Continúa con el proceso de descarga del PDF como antes
+    document.querySelector('.button-container').style.display = 'none';
+    const elementToExport = document.getElementById('form-container');
+    elementToExport.style.border = 'none'; // Establecer el borde a none
+    elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
+    
+
+    html2canvas(elementToExport, {
+        scale: 2
+    }).then(canvas => {
+        // Mostrar botones después de la captura
+        document.querySelector('.button-container').style.display = 'block';
+        // Establecer los estilos originales después de generar el PDF
+        elementToExport.style.border = '1px solid #000';
+        elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+        // Restablecer la visibilidad de todos los botones después de generar el PDF
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                // Solo mostrar los labels de los botones seleccionados
+                if (button.checked) {
+                    button.style.display = 'block';
+                }
+            });
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const imgWidth = 210;
+        const pageHeight = 297;
+        let imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        let position = 0;
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+
+        var nombreProducto = document.getElementById('producto').textContent.trim();
+        var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+        $.notify("PDF generado con éxito", "success");
+
+        // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                // Mostrar todos los botones nuevamente
+                button.style.display = 'block';
+            });
+        });
+
+
+    });
+});
+//cargarDatosEspecificacion(id, true, '0');
+function cargarDatosEspecificacion(id, resultados, etapa) {
+    console.log(id, resultados, etapa);
+    var id_actaM="<?php echo $_SESSION['nuevo_id']; ?>";
+    if (resultados) {
+        $.ajax({
+            url: './backend/acta_muestreo/consulta_resultados.php',
+            type: 'POST',
+            dataType: 'json', // Asegura que la respuesta se parsea como JSON
+            data: { id_actaMuestreo: id },
+            success: function(data) {
+                console.log('Datos recibidos:', data);
+                $('#id_actaMuestreo').text(id);
+                if (data.analisis_externos && data.analisis_externos.length > 0) {
+                    procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                } else {
+                    console.error("No se encontraron datos válidos: ", data);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+            }
+        });
+    } else {
+        // Solicitud GET para generar una nueva acta
+        $.ajax({
+            url: './backend/acta_muestreo/genera_acta.php',
+            type: 'GET',
+            dataType: 'json', // Asegura que la respuesta se parsea como JSON
+            data: { id_analisis_externo: id },
+            success: function(data) {
+                console.log('Datos recibidos para nueva acta:', data);
+                if (data.id_actaMuestreo) {
+                    $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                }
+                if (data.analisis_externos && data.analisis_externos.length > 0) {
+                    procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                } else {
+                    console.error("No se recibieron datos válidos: ", data);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+            }
+        });
+    }
+}
+
+function procesarDatosActa(response, resultados, etapa) {
+    console.log(resultados, etapa);
+    // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
+        // Aquí asignas los valores a los campos del formulario
+        // Asegúrate de que los ID de los elementos HTML coincidan con estos
+        $('#producto').text(response.nombre_producto + ' ' + response.concentracion + ' ' + response.formato);
+        $('#Tipo_Producto').text(response.tipo_producto);
+        $('#form_producto').text(response.nombre_producto + ' ' + response.concentracion + ' ' + response.formato);
+        $('#form_tipo').text('Magistral ' + response.tipo_producto);
+        $('#form_lote').text(response.lote);
+        $('#form_tamano_lote').text(response.tamano_lote);
+        $('#form_codigo_mastersoft').text(response.codigo_mastersoft);
+        $('#form_condAlmacenamiento').text(response.condicion_almacenamiento);
+        $('#form_cant_muestra').text(response.tamano_muestra);
+        $('#form_cant_contramuestra').text(response.tamano_contramuestra);
+        $('#form_tipo_analisis').text(response.tipo_analisis);
+        $('#nro_acta').text(response.numero_acta);
+        $('#realizadoPor').text(response.nombre_usr1);
+        $('#cargo_realizador').text(response.cargo_usr1);
+        $('#responsable').text(response.nombre_usr2);
+        $('#user_responsable').text(response.responsable);
+        $('#cargo_responsable').text(response.cargo_usr2);
+        $('#verificadoPor').text(response.nombre_usr3);
+        $('#user_verificadoPor').text(response.verificador);
+        $('#cargo_verificador').text(response.cargo_usr3);
+        $('#numero_solicitud_analisis_externo').text(response.aex_numero_solicitud);
+        $('#solicitado_por_analisis_externo').text(response.aex_solicitado_por);
+
+        console.log(resultados, etapa);
+        if (resultados) {
+                    let usuario_activo = "<?php echo $_SESSION['usuario']; ?>";
+                    $('#nro_registro').text(response.numero_registro);
+                    $('#nro_version').text(response.version_registro);
+                    $('#id_analisis_externo').text(response.id_analisis_externo);
+                    $('#user_realizadoPor').text(usuario_activo);
+            switch (response.cantidad_firmas) {
+                case 0:
+                    var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
+                    var cargo = "<?php echo $_SESSION['cargo']; ?>";
+                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                    $('#etapa').text('ingresa resultados y firma1');
+                    $('#realizadoPor').text(nombre_ejecutor);
+                    $('#cargo_realizador').text(cargo);
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+                    document.getElementById('metodo_muestreo').style.display = 'none';
+                    document.getElementById('guardar').style.display = 'block';
+                    $('.resp').css('background-color', '#f4fac2');
+                    document.querySelectorAll('.formulario.verif *').forEach(function(element) {
+                        element.style.visibility = 'hidden'; // Hacer invisible el contenido
+                    });
+                    break;
+                case 1:
+                    //documento firmado por muestreador. queda pendiente firma de responsable
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    firma1(response);
+                    $('#etapa').text('ingresa resultados y firma2');
+                    if ( usuario_activo==response.responsable){
+                        document.getElementById('metodo_muestreo').style.display = 'none';
+                        document.getElementById('guardar').style.display = 'block';
+                        $('.verif').css('background-color', '#f4fac2');
+                    }
+                    
+                    break;
+                case 2:
+                    //documento firmado por muestreador y responsable. queda pendiente firma de revisor
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    firma1(response);
+                    firma2(response);
+                    $('#etapa').text('firma3');
+                    if ( usuario_activo==response.verificador){
+                        document.getElementById('metodo_muestreo').style.display = 'none';
+                        document.getElementById('guardar').style.display = 'block';
+                        
+                    }
+                    break;
+                case 3:
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    firma1(response);
+                    firma2(response);
+                    firma3(response);
+                    document.getElementById('metodo_muestreo').style.display = 'none';
+                    document.getElementById('download-pdf').style.display = 'block';
+                    break;
+            }
+        } else {
+            switch (response.tipo_producto) {
+                case 'Material Envase y Empaque':
+                    $('#nro_registro').text('DCAL-CC-AMMEE-' + response.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Materia Prima':
+                    $('#nro_registro').text('DCAL-CC-AMMP-' + response.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Producto Terminado':
+                    $('#nro_registro').text('DCAL-CC-AMPT-' + response.identificador_producto.toString().padStart(3, '0'));
+                    break;
+                case 'Insumo':
+                    $('#nro_registro').text('DCAL-CC-AMINS-' + response.identificador_producto.toString().padStart(3, '0'));
+                    break;
+            }
+            $('#nro_version').text(1);
+            $('#realizadoPor').text('Nombre:');
+            document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
+            element.style.visibility = 'hidden'; // Hacer invisible el contenido
+            });
+        }
+}
+
+
+function firma1(response){
+    console.log('asignación 1');
+                    $('#firma_realizador').attr('src', response.foto_firma_usr1);
+                    $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+                    asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
+}
+function firma2(response){
+    console.log('asignación 2');
+                    $('#firma_responsable').attr('src', response.foto_firma_usr2);
+                    $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
+                    asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
+}
+function firma3(response){
+    console.log('asignación 2');
+                    $('#firma_verificador').attr('src', response.foto_firma_usr3);
+                    $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
+}
+function asignarValoresARadios(valores, selectorGrupos) {
+    // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
+    const grupos = document.querySelectorAll(selectorGrupos);
+    console.log("Cantidad de grupos encontrados:", grupos.length);
+    console.log("Longitud de valores esperados:", valores.length);
+
+    if (valores.length !== grupos.length) {
+        console.error("La cantidad de valores no coincide con la cantidad de grupos de botones.");
+        return;
+    }
+
+    // Iterar sobre cada grupo y asignar el valor correspondiente basado en el valor en la cadena 'valores'.
+    grupos.forEach((grupo, index) => {
+        // El valor para el grupo actual se obtiene del string de valores.
+        const valor = valores[index];
+
+        // Determinar el sufijo del botón basado en el valor ('a' para '1', 'b' para '0').
+        const suffix = valor === '1' ? 'a' : 'b';
+
+        // Intentar seleccionar el botón de radio correspondiente en el grupo.
+        const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
+
+        // Deshabilitar todos los botones dentro del grupo para evitar cambios adicionales.
+        const allRadios = grupo.querySelectorAll('input[type="radio"]');
+        allRadios.forEach(r => {
+            r.setAttribute('disabled', 'disabled');
+        });
+
+        if (radio) {
+            // Si se encuentra el botón, se marca como seleccionado.
+            radio.checked = true;
+        } else {
+            // Si no se encuentra el botón, se muestra un error en la consola.
+            console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
+        }
+    });
+}
+
+
+
+document.getElementById('firmar').addEventListener('click', function() {
+    // Hacer visibles los elementos de .formulario.resp
+    console.log('click firma')
+    document.querySelectorAll('.formulario.resp *').forEach(function(element) {
+        element.style.visibility = 'visible';
+    });
+    console.log('formulario resp cargado')
+    document.getElementById('guardar').style.display = 'none';
+    document.getElementById('firmar').style.display = 'none';
+    $('.resp').css('background-color', '#f4fac2');
+
+});
+function consolidarRespuestas(universo) {
+    let valorConsolidado = '';
+    // Selecciona todos los grupos de botones de radio dentro de la sección de respuesta
+    const grupos = document.querySelectorAll(universo);
+    
+    // Itera a través de cada grupo para ver cuál botón de radio está seleccionado
+    grupos.forEach(grupo => {
+        const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
+        
+        // Añadir al valor consolidado basado en el valor del botón seleccionado
+        if (radioSeleccionado) {
+            // Asumiendo que los valores son 'Cumple' y 'No Cumple' transformados a '1' y '0'
+            valorConsolidado += (radioSeleccionado.value === '1' ? '1' : '0');
+        } else {
+            // Si no se selecciona ninguno en el grupo, se podría considerar como no cumple o manejar como error
+            valorConsolidado += 'N'; // o manejar la situación de manera diferente
+        }
+    });
+
+    return valorConsolidado;
+}
+
+
+document.getElementById('guardar').addEventListener('click', function() {
+    
+    let etapa = $('#etapa').text();
+    switch (etapa){
+        case 'ingresa resultados y firma1':
+            guardar_firma('.formulario.resp', 1);
+            break;
+        case 'ingresa resultados y firma2':
+            guardar_firma('.formulario.verif', 2);
+            break;
+        case 'firma3':
+            guardar_firma3();
+            break;           
+    }
+});
+
+function guardar_firma(selector, etapa) {
+    let usuario = "<?php echo $_SESSION['usuario']; ?>";
+    let respuestas = consolidarRespuestas(selector);
+    let id_actaMuestreo = $('#id_actaMuestreo').text();
+    let firma2 = $('#user_responsable').text();
+    let firma3 = $('#user_verificadoPor').text();
+    let acta = $('#nro_acta').text();
+    let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
+    let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
+    let todosSeleccionados = true;
+    let dataToSave = {
+        id_actaMuestreo: id_actaMuestreo,
+        etapa: etapa,
+        usuario: usuario,
+        firma2: firma2,
+        firma3: firma3,
+        acta: acta,
+        numero_solicitud: numero_solicitud_analisis_externo,
+        solicitado_por_analisis_externo: solicitado_por_analisis_externo,
+        respuestas: respuestas,
+        textareaData: {}
+    };
+    let botonesNoSeleccionados = [];
+
+    // Verifica que todos los radio buttons en el selector especificado estén seleccionados
+    document.querySelectorAll(selector).forEach(function(grupo) {
+        const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
+        if (!radioSeleccionado) {
+            todosSeleccionados = false;
+            grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
+            });
+        }
+    });
+
+    if (!todosSeleccionados) {
+        console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
+        //alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
+        $.notify("Existen campos incompletos.", "warn");
+        return; // Detiene la función si no todos están seleccionados
+    }
+
+    // Recolecta datos de los textarea sólo si la firma es 1
+    if (etapa === 1) {
+        ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
+            let textarea = document.getElementById(id);
+            if (textarea.value.trim() === '') {
+                //alert(`El campo ${id} está vacío y es obligatorio.`);
+                $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
+                todosSeleccionados = false;
+                return;
+            } else {
+                dataToSave.textareaData[id] = textarea.value;
+            }
+        });
+
+        if (!todosSeleccionados) {
+            return; // Detiene la función si algún textarea está vacío
+        }
+    }
+
+    // Enviar datos al servidor usando AJAX
+    console.log(dataToSave);
+    $.ajax({
+        url: './backend/acta_muestreo/guardar_y_firmar.php',
+        type: 'POST',
+        data: JSON.stringify(dataToSave),
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log('Guardado exitoso: ', response);
+            //alert("Datos guardados correctamente.");
+            $.notify("Datos guardados correctamente.", "success");
+            $('#listado_acta_muestreo').click();
+
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al guardar: ", status, error);
+            //alert("Error al guardar los datos.");
+            $.notify("Error al guardar los datos.", "error");
+        }
+    });
+}
+
+function guardar_firma3() {
+    let id_actaMuestreo = $('#id_actaMuestreo').text();
+    let id_analisis_externo = $('#id_analisis_externo').text();
+    let firma2 = $('#user_responsable').text();
+    let firma3 = $('#user_verificadoPor').text();
+    let acta = $('#nro_acta').text();
+    let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
+    let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
+    let dataToSave = {
+        id_analisis_externo: id_analisis_externo,
+        id_actaMuestreo: id_actaMuestreo,
+        firma2: firma2,
+        firma3: firma3,
+        acta: acta,
+        numero_solicitud: numero_solicitud_analisis_externo,
+        solicitado_por_analisis_externo: solicitado_por_analisis_externo,
+        etapa: 3,
+        respuestas: 'no aplica'
+    };
+
+    // Enviar datos al servidor usando AJAX
+    console.log(dataToSave);
+    $.ajax({
+        url: './backend/acta_muestreo/guardar_y_firmar.php',
+        type: 'POST',
+        data: JSON.stringify(dataToSave),
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log('Firma guardada con éxito: ', response);
+            //alert("Firma guardada correctamente.");
+            $.notify("Documento firmado correctamente.", "success");
+            $('#listado_acta_muestreo').click();
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al guardar la firma: ", status, error);
+            //alert("Error al guardar la firma.");
+            $.notify("Error al firmar documento", "error");
+        }
+    });
+}
+</script>
