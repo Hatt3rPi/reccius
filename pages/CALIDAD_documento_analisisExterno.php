@@ -367,6 +367,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         addSectionToPDF('header-container')
             .then(() => addSectionToPDF('section1'))
             .then(() => addSectionToPDF('section2'))
+            .then(() => addSectionToPDF('section4'))
             .then(() => {
                 // Colocar el footer al final de la primera página
                 return addSectionToPDF('footer-container', pageHeight - 50);
@@ -375,8 +376,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Añadir la segunda página
                 return addSectionToPDF('header-container', margin, true);
             })
-            .then(() => addSectionToPDF('section3'))
-            .then(() => addSectionToPDF('section4', currentY))
+            .then(() => addSectionToPDF('section3', currentY))
             .then(() => {
                 // Colocar el footer al final de la segunda página
                 return addSectionToPDF('footer-container', pageHeight - 50);
