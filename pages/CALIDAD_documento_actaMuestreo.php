@@ -888,8 +888,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
-    <p id='numero_solicitud_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
-    <p id='solicitado_por_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='numero_solicitud_analisis_externo' name='numero_solicitud_analisis_externo' style="display: none;"></p>
+    <p id='solicitado_por_analisis_externo' name='solicitado_por_analisis_externo' style="display: none;"></p>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel"

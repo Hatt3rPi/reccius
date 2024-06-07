@@ -385,8 +385,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Estado Final:</div>
                         <div class="firma-boxes">
-                            <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;"></p>
-                            <p id='realizado_por' name='realizado_por' class="bold" style="visibility: hidden;"></p>
+                            <p class="bold" style="visibility: hidden;"></p>
+                            <p class="bold" style="visibility: hidden;"></p>
 
                             <div class="signature" style="width: 300px;">
                                 <!-- Agregar la imagen aquí 
@@ -395,7 +395,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                         pendiente: https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp
                                 -->
                                 <img src="" id="estado_liberacion" name="estado_liberacion" alt="Estado Final" class="firma">
-
+                                
                             </div>
 
                         </div>
@@ -446,8 +446,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" name="guardar" id="guardar" onclick="firmayguarda()">Guardar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
-    <p id='numero_solicitud_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
-    <p id='solicitado_por_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
+    <p id='id_producto' name='id_producto' style="display: none;"></p>
+    <p id='numero_solicitud_analisis_externo' name='numero_solicitud_analisis_externo' style="display: none;"></p>
+    <p id='solicitado_por_analisis_externo' name='solicitado_por_analisis_externo' style="display: none;"></p>
 </div>
 
 <div id="notification" class="notification-container notify" style="display: none;">
@@ -577,6 +579,10 @@ function loadData() {
                     $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
                     $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
                     
+
+                    //datos higienicos
+                    $('#id_analisis_externo').text(response.id_analisis_externo);
+                    $('#id_actaMuestreo').text(response.id_analisis_externo);
                     $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
@@ -615,21 +621,68 @@ function firmayguarda() {
     // Mostrar los resultados consolidados en la consola
     console.log('Revision Results:', revisionResults);
     console.log('Doc Conforme Results:', docConformeResults);
+    let id_especificacion = $('#id_analisis_externo').text();
+    let id_producto = $('#id_analisis_externo').text();
+    let id_analisis_externo = $('#id_analisis_externo').text();
+    let id_actaMuestreo = $('#id_actaMuestreo').text();
+    let nro_acta = $('#nro_acta').val();
+    let nro_registro = $('#nro_registro').val();
+    let nro_version = $('#nro_version').val();
+    let fecha_acta_lib = $('#fecha_acta_lib').val();
+    let tipo_producto = $('#tipo_producto').val();
+    //let estado = $('#estado').val();
 
-    // Crear un div para mostrar los resultados
-    let resultsDiv = document.createElement('div');
-    resultsDiv.className = 'results-div';
-    resultsDiv.innerHTML = `<p>Resultado Revisión: ${revisionResults}</p><p>Resultado Documento Conforme: ${docConformeResults}</p>`;
-    
-    // Añadir el div de resultados al body o a un contenedor específico
-    document.body.appendChild(resultsDiv);
+    let obs1 = $('#form_textarea1').val();
+    let obs2 = $('#form_textarea2').val();
+    let obs3 = $('#form_textarea3').val();
+    let obs4 = $('#form_textarea4').val();
+    let cant_real_liberada = $('#cantidad_real').val();
+    let parte_ingreso = $('#nro_traspaso').val();
+        let dataToSave = {
+            id_analisis_externo: id_analisis_externo,
+            id_especificacion: id_especificacion,
+            id_producto: id_producto,
+            id_actaMuestreo: id_actaMuestreo,
+            nro_acta: nro_acta,
+            nro_registro: nro_registro,
+            nro_version: nro_version,
+            fecha_acta_lib: fecha_acta_lib,
+            tipo_producto: tipo_producto,
+            obs1: obs1,
+            obs2: obs2,
+            obs3: obs3,
+            obs4: obs4,
+            cant_real_liberada:cant_real_liberada,
+            parte_ingreso:parte_ingreso,
+            docConformeResults: docConformeResults,
+            revisionResults: revisionResults,
+            fase: 1
+        };
+
+        // Enviar datos al servidor usando AJAX
+        console.log(dataToSave);
+        $.ajax({
+            url: './backend/acta_liberacion/carga_acta_liberacion.php',
+            type: 'POST',
+            data: JSON.stringify(dataToSave),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                console.log('Firma guardada con éxito: ', response);
+                $.notify("Documento firmado correctamente.", "success");
+                
+            },
+            error: function (xhr, status, error) {
+                console.error("Error al guardar la firma: ", status, error);
+                //alert("Error al guardar la firma.");
+                $.notify("Error al firmar documento", "error");
+            }
+        });
+
+
+
+
 
     document.getElementById('firmar').style.display = 'none';
 }
-$(document).ready(function() {
-    document.getElementById('firmar').addEventListener('click', function() {
-        console.log('click firma');
-        document.getElementById('firmar').style.display = 'none';
-    });
-});
+
 </script>

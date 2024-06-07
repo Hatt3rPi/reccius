@@ -114,7 +114,7 @@ try {
     $month = date("m");
     $aux_anomes = $year . $month;
 
-    $query_incrementales = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ? AND aux_tipo = ?";
+    $query_incrementales = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_liberacion WHERE aux_anomes = ? AND aux_tipo = ?";
 
     $stmt_incrementales = mysqli_prepare($link, $query_incrementales);
     mysqli_stmt_bind_param($stmt_incrementales, "ss", $aux_anomes, $tipo_producto);
