@@ -313,7 +313,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="revisar">Revisar</button>
+    <button class="botones" id="revisar" style="display: none;" >Revisar</button>
     <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
 </div>
@@ -496,6 +496,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Otros campos
                     $('#estado').val(primerAnalisis.estado);
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
+
+                    primerAnalisis.revisado_por === <?php echo $_SESSION['usuario'] ?> && $("#revisar").show();
                 }
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
@@ -553,7 +555,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     cumple = false;
                     $(this).css("background-color", "#ff222d25");
                 } else {
-                    results.push(cumpleChecked && 1);
+                    results.push(cumpleChecked ? 1 : 0);
                 }
             });
             if (!cumple) {
@@ -573,20 +575,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
 
             var dataRevision = {
-                revision_resultados_laboratorio: results,
+                resultados_analisis: results,
                 laboratorio_nro_analisis,
                 laboratorio_fecha_analisis: moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'),
-                fecha_entrega: moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD')
+                fecha_entrega: moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'),
             }
-            console.log(dataRevision);
 
-            /*
             fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(results)
+                body: JSON.stringify(dataRevision)
             }).then(function(response) {
                 if (response.ok) {
                     alert("Se revisaron los datos exitosamente.");
@@ -595,7 +595,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     alert("Error al revisar los datos.");
                 }
             });
-            */
+
         });
     });
 </script>
