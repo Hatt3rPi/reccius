@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\acta_liberacion\acta_liberacion_guardayfirma.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 

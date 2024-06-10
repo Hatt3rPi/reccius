@@ -664,7 +664,7 @@ function firmayguarda() {
         // Enviar datos al servidor usando AJAX
         console.log(dataToSave);
         $.ajax({
-            url: './backend/acta_liberacion/carga_acta_liberacion.php',
+            url: './backend/acta_liberacion/acta_liberacion_guardayfirma.php',
             type: 'POST',
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
@@ -684,7 +684,7 @@ function firmayguarda() {
 
 
 
-    document.getElementById('firmar').style.display = 'none';
+    //document.getElementById('firmar').style.display = 'none';
 }
 
 </script>
