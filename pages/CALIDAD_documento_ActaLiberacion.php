@@ -582,7 +582,7 @@ function loadData() {
 
                     //datos higienicos
                     $('#id_analisis_externo').text(response.id_analisis_externo);
-                    $('#id_actaMuestreo').text(acta_muestreo.id_actaMuestreo);
+                    $('#id_actaMuestreo').text(acta_muestreo.id);
                     $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
                     $('#id_producto').text(primerAnalisis.id_producto);
                     $('.verif').css('background-color', '#f4fac2');
@@ -627,9 +627,9 @@ function firmayguarda() {
     let id_producto = $('#id_producto').text();
     let id_analisis_externo = $('#id_analisis_externo').text();
     let id_actaMuestreo = $('#id_actaMuestreo').text();
-    let nro_acta = $('#nro_acta').val();
-    let nro_registro = $('#nro_registro').val();
-    let nro_version = $('#nro_version').val();
+    let nro_acta = $('#nro_acta').text();
+    let nro_registro = $('#nro_registro').text();
+    let nro_version = $('#nro_version').text();
     let fecha_acta_lib = $('#fecha_acta_lib').val();
     let tipo_producto = $('#tipo_producto').val();
     //let estado = $('#estado').val();
