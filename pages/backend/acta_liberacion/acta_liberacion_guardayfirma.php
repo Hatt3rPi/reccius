@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $aux_anomes = $year . $month;
     $usuario_firma1=$_SESSION['usuario'];
     $fecha_firma1= date("Y-m-d");
-    $query1 = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ? and aux_tipo=?";
+    $query1 = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_liberacion WHERE aux_anomes = ? and aux_tipo=?";
     $stmt1 = mysqli_prepare($link, $query1);
     mysqli_stmt_bind_param($stmt1, "ss", $aux_anomes, $tipo_producto);
     mysqli_stmt_execute($stmt1);
