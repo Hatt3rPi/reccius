@@ -632,6 +632,22 @@ function loadData() {
 }
 
 function resultado_liberacion() {
+    // Validar que los campos con la clase 'verif' estén poblados
+    let isValid = true;
+    $('.verif').each(function() {
+        if ($(this).is('textarea') || $(this).val().trim() !== '') {
+            $(this).css('border-color', ''); // Restablecer el borde si el campo está poblado
+        } else {
+            $(this).css('border-color', 'red'); // Marcar en rojo si el campo está vacío
+            isValid = false;
+        }
+    });
+
+    if (!isValid) {
+        $.notify("Por favor complete todos los campos requeridos.", "error");
+        return; // No mostrar el modal si hay campos vacíos
+    }
+
     $('#resultadoModal').modal('show');
 
     // Manejar la selección del resultado de liberación
@@ -704,7 +720,7 @@ function firmayguarda(resultado) {
         };
 
         // Enviar datos al servidor usando AJAX
-        console.log(dataToSave);
+        console.log('información enviada al BE: ', dataToSave);
         $.ajax({
             url: './backend/acta_liberacion/acta_liberacion_guardayfirma.php',
             type: 'POST',
@@ -717,16 +733,10 @@ function firmayguarda(resultado) {
             },
             error: function (xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
-                //alert("Error al guardar la firma.");
                 $.notify("Error al firmar documento", "error");
             }
         });
-
-
-
-
-
-    //document.getElementById('firmar').style.display = 'none';
 }
+
 
 </script>
