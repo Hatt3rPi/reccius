@@ -526,7 +526,7 @@ function loadData() {
         url: './backend/acta_liberacion/carga_acta_liberacion.php',
         type: 'GET',
         data: {
-            id_acta: idAnalisisExterno
+            idAnalisisExterno: idAnalisisExterno
         },
         dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
         success: function (response) {
@@ -582,7 +582,9 @@ function loadData() {
 
                     //datos higienicos
                     $('#id_analisis_externo').text(response.id_analisis_externo);
-                    $('#id_actaMuestreo').text(response.id_analisis_externo);
+                    $('#id_actaMuestreo').text(acta_muestreo.id_actaMuestreo);
+                    $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
+                    $('#id_producto').text(primerAnalisis.id_producto);
                     $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
@@ -621,8 +623,8 @@ function firmayguarda() {
     // Mostrar los resultados consolidados en la consola
     console.log('Revision Results:', revisionResults);
     console.log('Doc Conforme Results:', docConformeResults);
-    let id_especificacion = $('#id_analisis_externo').text();
-    let id_producto = $('#id_analisis_externo').text();
+    let id_especificacion = $('#id_especificacion').text();
+    let id_producto = $('#id_producto').text();
     let id_analisis_externo = $('#id_analisis_externo').text();
     let id_actaMuestreo = $('#id_actaMuestreo').text();
     let nro_acta = $('#nro_acta').val();

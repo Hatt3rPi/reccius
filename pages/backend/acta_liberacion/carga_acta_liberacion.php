@@ -13,15 +13,16 @@ $response = [
 
 try {
     // Validación y saneamiento del ID del análisis externo
-    $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
+    $idAnalisisExterno = isset($_GET['idAnalisisExterno']) ? intval($_GET['idAnalisisExterno']) : 0;
 
-    if ($id_acta === 0) {
+    if ($idAnalisisExterno === 0) {
         throw new Exception('ID de acta no válido.');
     }
 
     // Consulta para obtener los datos del análisis externo
     $queryAnalisisExterno = "SELECT 
                                 an.*,
+                                prod.id_producto AS 'id_producto', 
                                 prod.identificador_producto AS 'prod_identificador_producto', 
                                 prod.nombre_producto AS 'prod_nombre_producto', 
                                 prod.tipo_producto AS 'prod_tipo_producto', 
@@ -38,7 +39,8 @@ try {
                                 anali.descripcion_analisis AS 'anali_descripcion_analisis',
                                 anali.criterios_aceptacion AS 'anali_criterios_aceptacion',
                                 am.fecha_muestreo,
-                                am.numero_acta
+                                am.numero_acta,
+                                am.id as id_actaMuestreo
                             FROM calidad_analisis_externo AS an
                             JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
                             JOIN calidad_productos AS prod ON es.id_producto = prod.id
@@ -51,7 +53,7 @@ try {
     if (!$stmtAnali) {
         throw new Exception("Error en mysqli_prepare (queryAnalisisExterno): " . mysqli_error($link));
     }
-    mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
+    mysqli_stmt_bind_param($stmtAnali, "i", $idAnalisisExterno);
     mysqli_stmt_execute($stmtAnali);
 
     $analisis = [];
@@ -96,7 +98,7 @@ try {
     if (!$stmtActaMuestreo) {
         throw new Exception("Error en mysqli_prepare (queryActaMuestreo): " . mysqli_error($link));
     }
-    mysqli_stmt_bind_param($stmtActaMuestreo, "i", $id_acta);
+    mysqli_stmt_bind_param($stmtActaMuestreo, "i", $idAnalisisExterno);
     if (!mysqli_stmt_execute($stmtActaMuestreo)) {
         throw new Exception("Error en mysqli_stmt_execute (queryActaMuestreo): " . mysqli_stmt_error($stmtActaMuestreo));
     }
@@ -155,7 +157,7 @@ try {
     $response['analisis'] = $analisis;
     $response['Acta_Muestreo'] = array_values($analisisActaMuestreo);
     $response['analiDatos'] = $analiDatos;
-    $response['id_analisis_externo'] = $id_acta;
+    $response['id_analisis_externo'] = $idAnalisisExterno;
     $response['numero_registro'] = $numero_registro;
     $response['numero_acta'] = $numero_acta;
 
