@@ -442,8 +442,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 <div class="button-container">
     <button class="botones" name="download-pdf" id="download-pdf">Descargar PDF</button>
-    <button class="botones" name="firma" id="firma" onclick="firmayguarda()">Firmar Documento</button>
-    <button class="botones" name="guardar" id="guardar" onclick="firmayguarda()">Guardar Documento</button>
+    <button class="botones" name="firma" id="firma" onclick="resultado_liberacion()">Firmar Documento</button>
+    <button class="botones" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
     <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
@@ -455,6 +455,34 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div id="notification" class="notification-container notify" style="display: none;">
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="resultadoModal" tabindex="-1" aria-labelledby="resultadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resultadoModalLabel">Resultado de Liberación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Seleccione el resultado de liberación:</p>
+                <div class="d-flex justify-content-around">
+                    <div>
+                        <img src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp" alt="Aprobado" id="aprobadoImg" style="cursor: pointer;">
+                        <p>Aprobado</p>
+                    </div>
+                    <div>
+                        <img src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp" alt="Rechazado" id="rechazadoImg" style="cursor: pointer;">
+                        <p>Rechazado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </html>
 <script>
@@ -603,9 +631,22 @@ function loadData() {
     });
 }
 
+function resultado_liberacion() {
+    $('#resultadoModal').modal('show');
 
-function firmayguarda() {
+    // Manejar la selección del resultado de liberación
+    $('#aprobadoImg').off('click').on('click', function() {
+        firmayguarda('aprobado');
+    });
+
+    $('#rechazadoImg').off('click').on('click', function() {
+        firmayguarda('rechazado');
+    });
+}
+
+function firmayguarda(resultado) {
     // Hacer visibles los elementos de .formulario.resp
+    $('#resultadoModal').modal('hide');
     console.log('click firma');
 
     // Obtener los resultados consolidados de los radiobuttons en divs con class "revision"
@@ -632,7 +673,7 @@ function firmayguarda() {
     let nro_version = $('#nro_version').text();
     let fecha_acta_lib = $('#fecha_acta_lib').val();
     let tipo_producto = $('#tipo_producto').val();
-    //let estado = $('#estado').val();
+    let estado = resultado;
 
     let obs1 = $('#form_textarea1').val();
     let obs2 = $('#form_textarea2').val();
@@ -650,6 +691,7 @@ function firmayguarda() {
             nro_version: nro_version,
             fecha_acta_lib: fecha_acta_lib,
             tipo_producto: tipo_producto,
+            estado: estado,
             obs1: obs1,
             obs2: obs2,
             obs3: obs3,
@@ -658,7 +700,7 @@ function firmayguarda() {
             parte_ingreso:parte_ingreso,
             docConformeResults: docConformeResults,
             revisionResults: revisionResults,
-            fase: 1
+            fase: 'Firma 1'
         };
 
         // Enviar datos al servidor usando AJAX
