@@ -634,51 +634,52 @@ function loadData() {
     });
 }
 
-function resultado_liberacion() {
-    // Validar que los campos con la clase 'verif' estén poblados
-    let isValid = true;
-    $('.verif').each(function() {
-        if ($(this).is('textarea') || $(this).val().trim() !== '') {
-            $(this).css('border-color', ''); // Restablecer el borde si el campo está poblado
-        } else {
-            $(this).css('border-color', 'red'); // Marcar en rojo si el campo está vacío
-            isValid = false;
+        function resultado_liberacion() {
+            let revisionResults = '';
+            $('.revision input[type="radio"]:checked').each(function () {
+                revisionResults += $(this).val();
+            });
+
+            let docConformeResults = '';
+            $('.doc-conforme input[type="radio"]:checked').each(function () {
+                docConformeResults += $(this).val();
+            });
+
+            let cantidad_real = $('#cantidad_real').val().trim();
+            let nro_traspaso = $('#nro_traspaso').val().trim();
+
+            if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
+                $('.revision input[type="radio"]:checked').each(function () {
+                    if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
+                });
+
+                $('.doc-conforme input[type="radio"]:checked').each(function () {
+                    if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
+                });
+
+                if (!cantidad_real) $('#cantidad_real').css('border-color', 'red');
+                if (!nro_traspaso) $('#nro_traspaso').css('border-color', 'red');
+
+                $.notify("Por favor complete todos los campos requeridos.", "error");
+                return;
+            }
+
+            $('#resultadoModal').modal('show');
+
+            $('#aprobadoImg').off('click').on('click', function () {
+                firmayguarda('aprobado', revisionResults, docConformeResults);
+            });
+
+            $('#rechazadoImg').off('click').on('click', function () {
+                firmayguarda('rechazado', revisionResults, docConformeResults);
+            });
         }
-    });
 
-    if (!isValid) {
-        $.notify("Por favor complete todos los campos requeridos.", "error");
-        return; // No mostrar el modal si hay campos vacíos
-    }
-
-    $('#resultadoModal').modal('show');
-
-    // Manejar la selección del resultado de liberación
-    $('#aprobadoImg').off('click').on('click', function() {
-        firmayguarda('aprobado');
-    });
-
-    $('#rechazadoImg').off('click').on('click', function() {
-        firmayguarda('rechazado');
-    });
-}
-
-function firmayguarda(resultado) {
+function firmayguarda(resultado, revisionResults, docConformeResults) {
     // Hacer visibles los elementos de .formulario.resp
     $('#resultadoModal').modal('hide');
     console.log('click firma');
 
-    // Obtener los resultados consolidados de los radiobuttons en divs con class "revision"
-    let revisionResults = '';
-    $('.revision input[type="radio"]:checked').each(function() {
-        revisionResults += $(this).val();
-    });
-
-    // Obtener los resultados consolidados de los radiobuttons en divs con class "doc-conforme"
-    let docConformeResults = '';
-    $('.doc-conforme input[type="radio"]:checked').each(function() {
-        docConformeResults += $(this).val();
-    });
 
     // Mostrar los resultados consolidados en la consola
     console.log('Revision Results:', revisionResults);
