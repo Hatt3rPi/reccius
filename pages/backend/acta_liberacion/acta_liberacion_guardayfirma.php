@@ -3,6 +3,11 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
+// Check the connection
+if ($link->connect_error) {
+    die("Connection failed: " . $link->connect_error);
+}
+
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the JSON input
@@ -36,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $query = "INSERT INTO calidad_acta_liberacion (id_analisis_externo, id_especificacion, id_producto, id_actaMuestreo, nro_acta, nro_registro, nro_version, fecha_acta_lib, tipo_producto, estado, obs1, obs2, obs3, obs4, cant_real_liberada, parte_ingreso, revision_estados, revision_liberacion, aux_anomes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     // Prepare and execute the query
-    if ($stmt = $mysqli->prepare($query)) {
+    if ($stmt = $link->prepare($query)) {
         $stmt->bind_param("iiiiissiisssssssssi", $id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes);
         if ($stmt->execute()) {
             echo json_encode(['success' => 'Data saved successfully']);
@@ -45,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $stmt->close();
     } else {
-        echo json_encode(['error' => 'Failed to prepare statement: ' . $mysqli->error]);
+        echo json_encode(['error' => 'Failed to prepare statement: ' . $link->error]);
     }
-    $mysqli->close();
+    $link->close();
 } else {
     echo json_encode(['error' => 'Invalid request method']);
 }
