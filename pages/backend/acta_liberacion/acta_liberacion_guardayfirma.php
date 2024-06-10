@@ -37,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $year = date("y");
     $month = date("m");
     $aux_anomes = $year . $month;
-    
+    $usuario_firma1=$_SESSION['usuario'];
+    $fecha_firma1= date("Y-m-d");
     $query1 = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ? and aux_tipo=?";
     $stmt1 = mysqli_prepare($link, $query1);
     mysqli_stmt_bind_param($stmt1, "ss", $aux_anomes, $tipo_producto);
@@ -49,11 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_close($stmt1);
     // Insert/Update data in the database
     // Adjust the query according to your table structure and field names
-    $query = "INSERT INTO calidad_acta_liberacion (id_analisisExterno, id_especificacion, id_producto, id_actaMuestreo, numero_acta, numero_registro, version_registro, fecha_acta, aux_tipo, estado, obs1, obs2, obs3, obs4, cantidad_real_liberada, nro_parte_ingreso, revision_estados, revision_liberacion, aux_anomes, aux_autoincremental) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO calidad_acta_liberacion (id_analisisExterno, id_especificacion, id_producto, id_actaMuestreo, numero_acta, numero_registro, version_registro, fecha_acta, aux_tipo, estado, obs1, obs2, obs3, obs4, cantidad_real_liberada, nro_parte_ingreso, revision_estados, revision_liberacion, aux_anomes, aux_autoincremental, usuario_firma1, fecha_firma1) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     // Prepare and execute the query
     if ($stmt = $link->prepare($query)) {
-        $stmt->bind_param("iiiiissiisssssssssii", $id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo);
+        $stmt->bind_param("iiiissssssssssssssiiss", $id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo, $usuario_firma1, $fecha_firma1);
         if ($stmt->execute()) {
             // Registro de trazabilidad
             registrarTrazabilidad(
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'CALIDAD - Acta de Liberación',
                 $stmt->insert_id, // ID del registro insertado
                 $query,
-                [$id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo],
+                [$id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo, $usuario_firma1, $fecha_firma1],
                 1,
                 null
             );
@@ -77,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'CALIDAD - Acta de Liberación',
                 null, // ID no disponible por fallo en la inserción
                 $query,
-                [$id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo],
+                [$id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo, $usuario_firma1, $fecha_firma1],
                 0,
                 $stmt->error
             );
