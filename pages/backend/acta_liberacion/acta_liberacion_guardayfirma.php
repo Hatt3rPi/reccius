@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert/Update data in the database
     // Adjust the query according to your table structure and field names
     $query = "INSERT INTO calidad_acta_liberacion (id_analisisExterno, id_especificacion, id_producto, id_actaMuestreo, numero_acta, numero_registro, version_registro, fecha_acta, aux_tipo, estado, obs1, obs2, obs3, obs4, cantidad_real_liberada, nro_parte_ingreso, revision_estados, revision_liberacion, aux_anomes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $flujo= 'Firma 1'
+    $flujo= 'Firma 1';
     // Prepare and execute the query
     if ($stmt = $link->prepare($query)) {
         $stmt->bind_param("iiiiissiisssssssssi", $id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes);
