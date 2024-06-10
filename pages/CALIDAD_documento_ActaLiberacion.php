@@ -440,12 +440,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     </div>
-
+carga_acta_liberacion_firmado
 
 </body>
 <div class="button-container">
     <button class="botones" name="download-pdf" id="download-pdf">Descargar PDF</button>
-    <button class="botones" name="firma" id="firma" onclick="resultado_liberacion()">Firmar Documento</button>
+    <button class="botones" name="firma" id="firma" onclick="carga_acta_liberacion_firmado()">Firmar Documento</button>
     <button class="botones" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -639,15 +639,13 @@ function carga_acta_liberacion_firmado() {
         url: './backend/acta_liberacion/carga_acta_liberacion_firmada.php',
         type: 'GET',
         data: {
-            idAnalisisExterno: idAnalisisExterno
+            id_actaLiberacion: idAnalisisExterno
         },
         dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
         success: function (response) {
             if (response.success) {
                 if (response.analisis && response.analisis.length > 0) {
-                    const analisis = response.analisis; // Datos del análisis externo
-                    const primerAnalisis = analisis[0];
-                    const acta_muestreo= response.Acta_Muestreo[0];
+                    const campos = response.campos; // Datos del análisis externo
 
                     // Sumar los resultados de producto en un solo texto
                     var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
@@ -657,55 +655,55 @@ function carga_acta_liberacion_firmado() {
                     $('#producto_completoT1').val(productoCompleto);
 
                     // Actualizar los inputs con los datos del análisis
-                    $('#nro_registro').text(response.numero_registro);
+                    $('#nro_registro').text(campos.numero_registro);
                     $('#nro_version').text(1);
-                    $('#nro_acta').text(response.numero_acta);
+                    $('#nro_acta').text(campos.numero_acta);
                     $('#fecha_acta_lib').val(fecha_yoh);
                     $('#fecha_lib').val(fecha_yoh);
-                    $('#nro_acta_liberacion').val(response.numero_acta);
+                    $('#nro_acta_liberacion').val(campos.numero_acta);
                     
                     
-                    $('#nro_lote').val(primerAnalisis.lote);
-                    $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
-                    $('#tamaño_lote').val(primerAnalisis.tamano_lote);
-                    $('#codigo_interno').val(primerAnalisis.codigo_interno);
-                    $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                    $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
-                    $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+                    $('#nro_lote').val(campos.lote);
+                    $('#tipo_producto').val(campos.prod_tipo_producto);
+                    $('#tamaño_lote').val(campos.tamano_lote);
+                    $('#codigo_interno').val(campos.codigo_interno);
+                    $('#fecha_elaboracion').val(campos.fecha_elaboracion);
+                    $('#cond_almacenamiento').val(campos.condicion_almacenamiento);
+                    $('#fecha_vencimiento').val(campos.fecha_vencimiento);
 
                     // TABLA 2
                     $('#nro_acta_muestreo').val(acta_muestreo.numero_acta);
                     $('#fecha_acta_muestreo').val(acta_muestreo.fecha_muestreo);
-                    $('#laboratorio_analista').val(primerAnalisis.laboratorio);
-                    $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
-                    $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
-                    $('#nro_analisis').val(primerAnalisis.laboratorio_nro_analisis);
-                    $('#fecha_envio').val(primerAnalisis.fecha_envio);
-                    $('#fecha_revision').val(primerAnalisis.laboratorio_fecha_analisis);
+                    $('#laboratorio_analista').val(campos.laboratorio);
+                    $('#nro_solicitud_analisis').val(campos.numero_solicitud);
+                    $('#fecha_solicitud_analisis').val(campos.fecha_solicitud);
+                    $('#nro_analisis').val(campos.laboratorio_nro_analisis);
+                    $('#fecha_envio').val(campos.fecha_envio);
+                    $('#fecha_revision').val(campos.laboratorio_fecha_analisis);
 
                     // TABLA 3
-                    $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                    $('#nro_loteT3').val(primerAnalisis.lote);
-                    $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
-                    $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
+                    $('#nombre_producto').text(campos.prod_nombre_producto);
+                    $('#nro_loteT3').val(campos.lote);
+                    $('#fecha_elabT3').val(campos.fecha_elaboracion);
+                    $('#fecha_vencT3').val(campos.fecha_vencimiento);
                     $('#producto_completoT3').val(productoCompleto);
-                    if (response.resultado_liberacion=='aprobado'){
+                    if (campos.resultado_liberacion=='aprobado'){
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
                     }else {
                             $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
                             $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
                         }
-                        $('#fecha_realizacion').val(primerAnalisis.fecha_solicitud);
+                        $('#fecha_realizacion').val(campos.fecha_solicitud);
                         document.getElementById('mensaje_realizador').style.display = 'block';
                         
                     $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
                     
 
                     //datos higienicos
-                    $('#id_analisis_externo').text(response.id_analisis_externo);
+                    $('#id_analisis_externo').text(campos.id_analisis_externo);
                     $('#id_actaMuestreo').text(acta_muestreo.id);
-                    $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
-                    $('#id_producto').text(primerAnalisis.id_producto);
+                    $('#id_especificacion').text(campos.es_id_especificacion);
+                    $('#id_producto').text(campos.id_producto);
                     $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
