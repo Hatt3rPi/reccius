@@ -22,7 +22,7 @@ try {
     // Consulta para obtener los datos del análisis externo
     $queryAnalisisExterno = "SELECT 
                                 an.*,
-                                prod.id_producto AS 'id_producto', 
+                                prod.id AS 'id_producto', 
                                 prod.identificador_producto AS 'prod_identificador_producto', 
                                 prod.nombre_producto AS 'prod_nombre_producto', 
                                 prod.tipo_producto AS 'prod_tipo_producto', 
