@@ -641,15 +641,15 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
         data: {
             id_actaLiberacion: id_actaLiberacion
         },
-        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+        dataType: 'json',
         success: function (response) {
             if (response.success) {
-                if (response.campos && response.campos.length > 0) {
-                    const campos = response.campos; // Datos del análisis externo
-                    console.log('información recibida:', response)
+                const campos = response.campos[0]; // Accede al primer objeto en el array campos
+                if (campos) {
                     // Sumar los resultados de producto en un solo texto
                     var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
                     var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                    
                     // Actualizar el elemento con el texto combinado
                     $('#producto_completo').text(productoCompleto);
                     $('#producto_completoT1').val(productoCompleto);
@@ -661,7 +661,6 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                     $('#fecha_acta_lib').val(fecha_yoh);
                     $('#fecha_lib').val(fecha_yoh);
                     $('#nro_acta_liberacion').val(campos.numero_acta);
-                    
                     
                     $('#nro_lote').val(campos.lote);
                     $('#tipo_producto').val(campos.prod_tipo_producto);
@@ -695,22 +694,26 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                     $('#cantidad_real').val(campos.cantidad_real_liberada); 
                     $('#nro_traspaso').val(campos.nro_parte_ingreso); 
                     
-                    cargarResultadosGuardados(campos.revision_liberacion, campos.revision_estados)
+                    // Asegurarse de que los campos no sean undefined antes de llamar a la función
+                    if (campos.revision_liberacion && campos.revision_estados) {
+                        cargarResultadosGuardados(campos.revision_liberacion, campos.revision_estados);
+                    } else {
+                        console.error("Los resultados de revisión no están definidos.");
+                    }
 
-                    if (campos.resultado_liberacion=='aprobado'){
+                    if (campos.estado == 'aprobado'){
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
-                    }else {
-                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
-                            $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
-                        }
-                        $('#fecha_realizacion').val(campos.fecha_solicitud);
-                        document.getElementById('mensaje_realizador').style.display = 'block';
+                    } else {
+                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
+                        $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
+                    }
+                    $('#fecha_realizacion').val(campos.fecha_solicitud);
+                    document.getElementById('mensaje_realizador').style.display = 'block';
                         
                     $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
-                    
 
                     //datos higienicos
-                    $('#id_analisis_externo').text(campos.id_analisis_externo);
+                    $('#id_analisis_externo').text(campos.id_analisisExterno);
                     $('#id_actaMuestreo').text(campos.id_actaMuestreo);
                     $('#id_especificacion').text(campos.id_especificacion);
                     $('#id_producto').text(campos.id_producto);
@@ -730,6 +733,7 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
         }
     });
 }
+
 function cargarResultadosGuardados(revisionResults, docConformeResults) {
     // Asegúrate de que las cadenas tengan 4 caracteres
     if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
