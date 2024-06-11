@@ -862,9 +862,17 @@ function firmayguarda(resultado, revisionResults, docConformeResults) {
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                console.log('Firma guardada con éxito: ', response);
-                $.notify("Documento firmado correctamente.", "success");
-                carga_acta_liberacion_firmado(response.id_actaLiberacion);
+                let responseData = JSON.parse(response);
+                if (responseData.success) {
+                    console.log('Firma guardada con éxito: ', responseData);
+                    $.notify("Documento firmado correctamente.", "success");
+                    let id_actaLiberacion = responseData.id_actaLiberacion;
+                    console.log('ID Acta de Liberación: ', id_actaLiberacion);
+                    carga_acta_liberacion_firmado(id_actaLiberacion);
+                } else {
+                    console.error("Error al guardar la firma: ", responseData.error);
+                    $.notify("Error al firmar documento: " + responseData.error, "error");
+                }
             },
             error: function (xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
