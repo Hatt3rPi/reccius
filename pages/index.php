@@ -172,13 +172,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </span>
                             Listado de Actas de Muestreo
                         </a>
-                        <!-- Nuevo apartado para el listado de productos disponibles -->
-                        <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de productos disponibles">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                            </span>
-                            Listado de productos disponibles
-                        </a>
+
                     </div>
                 </li>
                 <li class="item" id="Acta_Liberacion_o_Rechazo">
@@ -193,13 +187,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <span>
                                 <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
-                            Acta liberación o rechazo
+                            Listado Acta liberación o rechazo
                         </a>
-                        <a id="resultados_laboratorio" href="#" data-breadcrumb="Home > Acta Liberación o Rechazo > Ingreso resultados de laboratorio">
+                        <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de productos disponibles">
                             <span>
-                                <img src="../assets/images/resultados.svg" alt="Icono de Resultados Laboratorio" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
-                            Ingreso resultados de laboratorio
+                            Listado de productos disponibles
                         </a>
                     </div>
                 </li>

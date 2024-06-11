@@ -440,13 +440,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     </div>
-carga_acta_liberacion_firmado
 
 </body>
 <div class="button-container">
-    <button class="botones" name="download-pdf" id="download-pdf">Descargar PDF</button>
-    <button class="botones" name="firma" id="firma" onclick="carga_acta_liberacion_firmado()">Firmar Documento</button>
-    <button class="botones" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar Documento</button>
+    <button class="botones" name="download-pdf" id="download-pdf" style="display: none;">Descargar PDF</button>
+    <button class="botones" name="firma" id="firma" onclick="resultado_liberacion()" style="display: none;">Firmar Documento</button>
+    <button class="botones" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar y Firmar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
     <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
@@ -716,6 +715,7 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                     $('#id_actaMuestreo').text(campos.id_actaMuestreo);
                     $('#id_especificacion').text(campos.id_especificacion);
                     $('#id_producto').text(campos.id_producto);
+                    $('.verif').css('background-color', '#ffffff').prop('readonly', true);;
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -872,6 +872,8 @@ function firmayguarda(resultado, revisionResults, docConformeResults) {
                     let id_actaLiberacion = responseData.id_actaLiberacion;
                     console.log('ID Acta de Liberación: ', id_actaLiberacion);
                     carga_acta_liberacion_firmado(id_actaLiberacion);
+                    $('#guardar').css('display', 'none');
+                    $('#download-pdf').css('display', 'block');
                 } else {
                     console.error("Error al guardar la firma: ", responseData.error);
                     $.notify("Error al firmar documento: " + responseData.error, "error");
