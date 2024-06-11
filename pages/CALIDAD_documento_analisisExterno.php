@@ -204,17 +204,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
+                            <input type="text" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required style="background-color: rgb(244, 250, 194);">
                         </td>
                         <td class="titulo titulo-right">3. Fecha de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required style="background-color: rgb(244, 250, 194);">
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">2. Fecha de Entrega:</td>
                         <td>
-                            <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required style="background-color: rgb(244, 250, 194);">
                         </td>
                         <!--
                             <td class="titulo titulo-right">4. T. de lote:</td>
@@ -313,7 +313,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="revisar" style="display: none;" >Revisar</button>
+    <!--Todo: style="display: none;" -->
+    <button class="botones" id="revisar">Revisar</button>
     <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
 </div>
