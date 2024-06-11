@@ -511,7 +511,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const analisisSolicitados = response.analiDatos;
                 const table = $('#analisis-solicitados');
 
-                analisisSolicitados.forEach(function(analisis) {
+                analisisSolicitados.forEach(function(analisis,index) {
                     const row = `
                     <tr class="bordeAbajo checkLine">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
