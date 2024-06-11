@@ -412,7 +412,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="firma-box-title">Responsable:</div>
                         <div class="firma-boxes">
                             <p id='realizado_por' name='realizado_por' class="bold"></p>
-                            <p id='realizado_por' name='realizado_por' class="bold"></p>
+                            <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
@@ -706,11 +706,12 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                     } else {
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
                     }
-                    $('#fecha_realizacion').val(campos.fecha_firma1);
+                    $('#fecha_realizacion').text(campos.fecha_firma1);
                     $('#mensaje_realizador').css('display', 'block');
                     $('#imagen_firma').attr('src', campos.foto_firma_usr1);
-                    
-                    //datos higienicos
+                    $('#realizado_por').text(campos.nombre_usr1);
+                    $('#cargo_realizador').text(campos.cargo_usr1);
+
                     $('#id_analisis_externo').text(campos.id_analisisExterno);
                     $('#id_actaMuestreo').text(campos.id_actaMuestreo);
                     $('#id_especificacion').text(campos.id_especificacion);
