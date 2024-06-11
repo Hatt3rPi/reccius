@@ -648,7 +648,7 @@ function carga_acta_liberacion_firmado() {
                     const campos = response.campos; // Datos del análisis externo
 
                     // Sumar los resultados de producto en un solo texto
-                    var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
+                    var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
                     var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
                     // Actualizar el elemento con el texto combinado
                     $('#producto_completo').text(productoCompleto);
@@ -656,7 +656,7 @@ function carga_acta_liberacion_firmado() {
 
                     // Actualizar los inputs con los datos del análisis
                     $('#nro_registro').text(campos.numero_registro);
-                    $('#nro_version').text(1);
+                    $('#nro_version').text(campos.version_registro);
                     $('#nro_acta').text(campos.numero_acta);
                     $('#fecha_acta_lib').val(fecha_yoh);
                     $('#fecha_lib').val(fecha_yoh);
@@ -672,8 +672,8 @@ function carga_acta_liberacion_firmado() {
                     $('#fecha_vencimiento').val(campos.fecha_vencimiento);
 
                     // TABLA 2
-                    $('#nro_acta_muestreo').val(acta_muestreo.numero_acta);
-                    $('#fecha_acta_muestreo').val(acta_muestreo.fecha_muestreo);
+                    $('#nro_acta_muestreo').val(campos.nro_actaMuestreo);
+                    $('#fecha_acta_muestreo').val(campos.fecha_muestreo);
                     $('#laboratorio_analista').val(campos.laboratorio);
                     $('#nro_solicitud_analisis').val(campos.numero_solicitud);
                     $('#fecha_solicitud_analisis').val(campos.fecha_solicitud);
@@ -686,7 +686,17 @@ function carga_acta_liberacion_firmado() {
                     $('#nro_loteT3').val(campos.lote);
                     $('#fecha_elabT3').val(campos.fecha_elaboracion);
                     $('#fecha_vencT3').val(campos.fecha_vencimiento);
-                    $('#producto_completoT3').val(productoCompleto);
+                    $('#producto_completoT3').val(productoCompleto); 
+
+                    $('#form_textarea1').val(campos.obs1); 
+                    $('#form_textarea2').val(campos.obs2); 
+                    $('#form_textarea3').val(campos.obs3); 
+                    $('#form_textarea4').val(campos.obs4); 
+                    $('#cantidad_real').val(campos.cantidad_real_liberada); 
+                    $('#nro_traspaso').val(campos.nro_parte_ingreso); 
+                    
+                    cargarResultadosGuardados(campos.revision_liberacion, campos.revision_estados)
+
                     if (campos.resultado_liberacion=='aprobado'){
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
                     }else {
@@ -701,10 +711,9 @@ function carga_acta_liberacion_firmado() {
 
                     //datos higienicos
                     $('#id_analisis_externo').text(campos.id_analisis_externo);
-                    $('#id_actaMuestreo').text(acta_muestreo.id);
-                    $('#id_especificacion').text(campos.es_id_especificacion);
+                    $('#id_actaMuestreo').text(campos.id_actaMuestreo);
+                    $('#id_especificacion').text(campos.id_especificacion);
                     $('#id_producto').text(campos.id_producto);
-                    $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -718,6 +727,41 @@ function carga_acta_liberacion_firmado() {
             console.error('Error cargando los datos: ' + error);
             console.error('AJAX error: ' + status + ' : ' + error);
             alert("Error en carga de datos. Revisa la consola para más detalles.");
+        }
+    });
+}
+function cargarResultadosGuardados(revisionResults, docConformeResults) {
+    // Asegúrate de que las cadenas tengan 4 caracteres
+    if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
+        console.error("Los resultados deben tener exactamente 4 caracteres.");
+        return;
+    }
+
+    // Seleccionar los inputs correspondientes para revisionResults
+    $('.revision input[type="radio"]').each(function(index) {
+        // Obtener el grupo de inputs de radio para este índice
+        let groupName = $(this).attr('name');
+
+        // Obtener el valor correspondiente de revisionResults
+        let value = revisionResults.charAt(Math.floor(index / 2));
+
+        // Seleccionar el input correcto basado en el valor
+        if ($(this).val() === value) {
+            $(this).prop('checked', true);
+        }
+    });
+
+    // Seleccionar los inputs correspondientes para docConformeResults
+    $('.doc-conforme input[type="radio"]').each(function(index) {
+        // Obtener el grupo de inputs de radio para este índice
+        let groupName = $(this).attr('name');
+
+        // Obtener el valor correspondiente de docConformeResults
+        let value = docConformeResults.charAt(Math.floor(index / 2));
+
+        // Seleccionar el input correcto basado en el valor
+        if ($(this).val() === value) {
+            $(this).prop('checked', true);
         }
     });
 }
