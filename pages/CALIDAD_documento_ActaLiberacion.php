@@ -403,8 +403,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         </div>
                         <div class="date-container">
-                            <div id='fecha_realizacion' name='fecha_realizacion' class="date"></div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="visibility: hidden;">Firmado digitalmente</p>
+                            <div class="date"></div>
+                            <p  class="text-bottom" style="visibility: hidden;">Firmado digitalmente</p>
                         </div>
                     </div>
                      <!-- Sección Realizado por -->
@@ -705,13 +705,11 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
                     } else {
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
-                        $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
                     }
-                    $('#fecha_realizacion').val(campos.fecha_solicitud);
-                    document.getElementById('mensaje_realizador').style.display = 'block';
-                        
-                    $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
-
+                    $('#fecha_realizacion').val(campos.fecha_firma1);
+                    $('#mensaje_realizador').css('display', 'block');
+                    $('#imagen_firma').attr('src', campos.foto_firma_usr1);
+                    
                     //datos higienicos
                     $('#id_analisis_externo').text(campos.id_analisisExterno);
                     $('#id_actaMuestreo').text(campos.id_actaMuestreo);
