@@ -27,9 +27,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/css/DocumentoActa.css">
 
 </head>
@@ -38,8 +36,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container"
-                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
@@ -47,20 +44,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center"
-                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
+                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
                         de
                         Calidad
                         <!-- Pretitulo -->
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto"
-                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="producto" id="producto"
-                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -69,10 +62,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right"
-                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo"
-                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
                             <td name="nro_registro" id="nro_registro"></td>
@@ -88,8 +79,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha Muestreo:</td>
                             <td>
-                                <input type="date" id="fecha_muestreo" name="fecha_muestreo" style="border: 0px;"
-                                    readonly>
+                                <input type="date" id="fecha_muestreo" name="fecha_muestreo" style="border: 0px;" readonly>
                             </td>
                         </tr>
                     </table>
@@ -101,8 +91,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
 
             <!-- Sección I: Identificación de la Muestra -->
-            <section id="sample-identification"
-                style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
                 <!-- Tabla de identificación de la muestra -->
                 <table id="identificacion_muestra" name="identificacion_muestra">
                     <tr>
@@ -120,29 +109,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="formulario" id="form_producto" readonly>id="form_producto" </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
-                            <div class="btn-group-horizontal " role="group"
-                                aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="verificadores btn-check "
-                                    name="identResp1" id="identResp1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp1a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp1" id="identResp1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp1b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            <div class="btn-group-horizontal " role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" style="display: none;" class="verificadores btn-check " name="identResp1" id="identResp1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp1" id="identResp1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-horizontal" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB1" id="identVB1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB1a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</i></label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB1" id="identVB1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB1b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</i></label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</i></label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</i></label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -157,27 +137,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp2" id="identResp2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp2a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp2" id="identResp2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp2b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp2" id="identResp2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp2" id="identResp2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB2" id="identVB2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB2a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB2" id="identVB2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB2b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB2" id="identVB2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB2" id="identVB2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -189,27 +161,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp3" id="identResp3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp3a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp3" id="identResp3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp3b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp3" id="identResp3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp3" id="identResp3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB3" id="identVB3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB3a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB3" id="identVB3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB3b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB3" id="identVB3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB3" id="identVB3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -220,27 +184,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp4" id="identResp4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp4a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp4" id="identResp4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp4b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp4" id="identResp4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp4" id="identResp4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB4" id="identVB4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB4a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB4" id="identVB4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB4b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB4" id="identVB4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB4" id="identVB4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -251,27 +207,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp5" id="identResp5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp5a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp5" id="identResp5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp5b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp5" id="identResp5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp5" id="identResp5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB5" id="identVB5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB5a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB5" id="identVB5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB5b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB5" id="identVB5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB5" id="identVB5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -282,27 +230,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp6" id="identResp6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp6a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp6" id="identResp6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp6b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp6" id="identResp6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp6" id="identResp6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB6" id="identVB6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB6a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB6" id="identVB6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB6b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB6" id="identVB6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB6" id="identVB6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -313,27 +253,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp7" id="identResp7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp7a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp7" id="identResp7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp7b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp7" id="identResp7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp7" id="identResp7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB7" id="identVB7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB7a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB7" id="identVB7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB7b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB7" id="identVB7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB7" id="identVB7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -344,27 +276,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp8" id="identResp8a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp8a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp8" id="identResp8b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp8b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp8" id="identResp8a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp8a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp8" id="identResp8b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp8b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB8" id="identVB8a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB8a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB8" id="identVB8b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB8b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB8" id="identVB8a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB8a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB8" id="identVB8b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB8b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -375,27 +299,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp9" id="identResp9a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp9a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identResp9" id="identResp9b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp9b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp9" id="identResp9a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identResp9a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp9" id="identResp9b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identResp9b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB9" id="identVB9a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB9a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="identVB9" id="identVB9b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB9b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB9" id="identVB9a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="identVB9a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB9" id="identVB9b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="identVB9b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -405,8 +321,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <h2 class="Subtitulos">II. MUESTREO</h2>
             <!-- Sección II: MUESTREO -->
-            <section id="sample-identification"
-                style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
                 <!-- Tabla de identificación de la muestra -->
                 <table id="muestreo" name="muestreo">
                     <tr>
@@ -433,27 +348,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp1" id="muestreoResp1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB1" id="muestreoVB1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB1a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB1" id="muestreoVB1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB1b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -475,27 +382,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp2" id="muestreoResp2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp2a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp2" id="muestreoResp2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp2b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB2" id="muestreoVB2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB2a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB2" id="muestreoVB2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB2b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -513,27 +412,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp3" id="muestreoResp3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp3a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp3" id="muestreoResp3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp3b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB3" id="muestreoVB3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB3a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB3" id="muestreoVB3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB3b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -549,27 +440,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp4" id="muestreoResp4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp4a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp4" id="muestreoResp4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp4b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB4" id="muestreoVB4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB4a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB4" id="muestreoVB4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB4b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -581,27 +464,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp5" id="muestreoResp5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp5a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp5" id="muestreoResp5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp5b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB5" id="muestreoVB5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB5a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB5" id="muestreoVB5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB5b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -613,27 +488,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp6" id="muestreoResp6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp6a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp6" id="muestreoResp6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp6b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB6" id="muestreoVB6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB6a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB6" id="muestreoVB6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB6b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -645,27 +512,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp7" id="muestreoResp7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp7a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoResp7" id="muestreoResp7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp7b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB7" id="muestreoVB7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB7a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores"
-                                    name="muestreoVB7" id="muestreoVB7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB7b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="muestreoVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -675,8 +534,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <textarea id="form_textarea8" name="form_textarea8" rows="3"
-                    style="width: 99%;margin-left: 1%;"></textarea>
+                <textarea id="form_textarea8" name="form_textarea8" rows="3" style="width: 99%;margin-left: 1%;"></textarea>
 
 
             </div>
@@ -702,27 +560,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td readonly>120 Unidades</td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp1"
-                                    id="planResp1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planResp1a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp1"
-                                    id="planResp1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planResp1b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
 
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB1"
-                                    id="planVB1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planVB1a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB1"
-                                    id="planVB1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planVB1b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -734,27 +584,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td contenteditable="true">420 Unidades</td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp2"
-                                    id="planResp2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planResp2a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp2"
-                                    id="planResp2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planResp2b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
 
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB2"
-                                    id="planVB2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planVB2a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB2"
-                                    id="planVB2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planVB2b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -766,27 +608,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td contenteditable="true">150 Unidades</td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp3"
-                                    id="planResp3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planResp3a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp3"
-                                    id="planResp3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planResp3b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
 
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB3"
-                                    id="planVB3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planVB3a"><i
-                                        class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB3"
-                                    id="planVB3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planVB3b"><i
-                                        class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="planVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
                     </tr>
@@ -804,12 +638,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-box-title">Muestreado por:</div>
                     <div class="firma-boxes">
                         <p id="realizadoPor" name="realizadoPor" class="bold">
-                        
+
                         <p id="cargo_realizador" name="cargo_realizador" class="bold"></p>
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                             <img id="firma_realizador" name="firma_realizador" src="" alt="Firma" class="firma">
+                            <img id="firma_realizador" name="firma_realizador" src="" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
@@ -824,7 +658,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-boxes">
                         <p id='responsable' name='responsable' class="bold">
                         </p>
-                        
+
                         <p id="cargo_responsable" name="cargo_responsable" class="bold">
                         </p>
                         <div class="signature">
@@ -846,13 +680,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-boxes">
                         <p id='verificadoPor' name='verificadoPor' class="bold">
                         </p>
-                        
+
                         <p id='cargo_verificador' name='cargo_verificador' class="bold">
                         </p>
 
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img  id="firma_verificador" name="firma_verificador" src="" alt="firma_verificador" class="firma"/>
+                            <img id="firma_verificador" name="firma_verificador" src="" alt="firma_verificador" class="firma" />
 
                         </div>
 
@@ -892,8 +726,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id='solicitado_por_analisis_externo' name='solicitado_por_analisis_externo' style="display: none;"></p>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -902,15 +735,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <div class="modal-body">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual"
-                        value="manual">
+                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
                     <label class="form-check-label" for="muestreoManual">
                         Acta de Muestreo Manual (en papel)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital"
-                        value="digital">
+                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
                     <label class="form-check-label" for="muestreoDigital">
                         Acta de Muestreo Digital (en tablet)
                     </label>
@@ -929,8 +760,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-
-    document.getElementById('confirmarMetodo').addEventListener('click', function () {
+    document.getElementById('confirmarMetodo').addEventListener('click', function() {
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
 
@@ -943,7 +773,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         } else if (metodoDigital) {
             $('#etapa').text('ingresa resultados y firma1');
             // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
-            document.querySelectorAll('.formulario.resp *').forEach(function (element) {
+            document.querySelectorAll('.formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'visible';
             });
             document.getElementById('metodo_muestreo').style.display = 'none';
@@ -962,7 +792,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     });
 
-    document.getElementById('download-pdf').addEventListener('click', function () {
+    document.getElementById('download-pdf').addEventListener('click', function() {
 
 
         // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
@@ -1055,8 +885,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 url: './backend/acta_muestreo/consulta_resultados.php',
                 type: 'POST',
                 dataType: 'json', // Asegura que la respuesta se parsea como JSON
-                data: { id_actaMuestreo: id },
-                success: function (data) {
+                data: {
+                    id_actaMuestreo: id
+                },
+                success: function(data) {
                     console.log('Datos recibidos:', data);
                     $('#id_actaMuestreo').text(id);
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
@@ -1065,7 +897,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.error("No se encontraron datos válidos: ", data);
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
                 }
             });
@@ -1075,8 +907,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 url: './backend/acta_muestreo/genera_acta.php',
                 type: 'GET',
                 dataType: 'json', // Asegura que la respuesta se parsea como JSON
-                data: { id_analisis_externo: id },
-                success: function (data) {
+                data: {
+                    id_analisis_externo: id
+                },
+                success: function(data) {
                     console.log('Datos recibidos para nueva acta:', data);
                     if (data.id_actaMuestreo) {
                         $('#id_actaMuestreo').text(data.id_actaMuestreo);
@@ -1087,7 +921,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.error("No se recibieron datos válidos: ", data);
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
                 }
             });
@@ -1145,7 +979,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
-                    document.querySelectorAll('.formulario.verif *').forEach(function (element) {
+                    document.querySelectorAll('.formulario.verif *').forEach(function(element) {
                         element.style.visibility = 'hidden'; // Hacer invisible el contenido
                     });
                     break;
@@ -1211,30 +1045,50 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             $('#nro_version').text(1);
             $('#realizadoPor').text('Nombre:');
-            document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function (element) {
+            document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'hidden'; // Hacer invisible el contenido
             });
         }
     }
 
+    function setFirmaImage(imgElement, firmaSrc) {
+        const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
+        const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
 
+        if (!firmaSrc) {
+            imgElement.src = nullImage;
+        } else {
+            imgElement.onerror = function() {
+                imgElement.src = noProvidedImage;
+            };
+            imgElement.src = firmaSrc;
+        }
+    }
+
+
+    // Cambio: Actualizar la función firma1 para usar setFirmaImage
     function firma1(response) {
         console.log('asignación 1');
-        $('#firma_realizador').attr('src', response.foto_firma_usr1);
+        setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
         $('#fecha_Edicion').text(response.fecha_firma_muestreador);
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
     }
+
+    // Cambio: Actualizar la función firma2 para usar setFirmaImage
     function firma2(response) {
         console.log('asignación 2');
-        $('#firma_responsable').attr('src', response.foto_firma_usr2);
+        setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
         $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
         asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
     }
+
+    // Cambio: Actualizar la función firma3 para usar setFirmaImage
     function firma3(response) {
-        console.log('asignación 2');
-        $('#firma_verificador').attr('src', response.foto_firma_usr3);
+        console.log('asignación 3');
+        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
         $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
     }
+
     function asignarValoresARadios(valores, selectorGrupos) {
         // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
         const grupos = document.querySelectorAll(selectorGrupos);
@@ -1275,10 +1129,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-    document.getElementById('firmar').addEventListener('click', function () {
+    document.getElementById('firmar').addEventListener('click', function() {
         // Hacer visibles los elementos de .formulario.resp
         console.log('click firma')
-        document.querySelectorAll('.formulario.resp *').forEach(function (element) {
+        document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
         });
         console.log('formulario resp cargado')
@@ -1287,6 +1141,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('.resp').css('background-color', '#f4fac2');
 
     });
+
     function consolidarRespuestas(universo) {
         let valorConsolidado = '';
         // Selecciona todos los grupos de botones de radio dentro de la sección de respuesta
@@ -1310,7 +1165,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
 
-    document.getElementById('guardar').addEventListener('click', function () {
+    document.getElementById('guardar').addEventListener('click', function() {
 
         let etapa = $('#etapa').text();
         switch (etapa) {
@@ -1351,11 +1206,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let botonesNoSeleccionados = [];
 
         // Verifica que todos los radio buttons en el selector especificado estén seleccionados
-        document.querySelectorAll(selector).forEach(function (grupo) {
+        document.querySelectorAll(selector).forEach(function(grupo) {
             const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
             if (!radioSeleccionado) {
                 todosSeleccionados = false;
-                grupo.querySelectorAll('input[type="radio"]').forEach(function (radio) {
+                grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
                     botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
                 });
             }
@@ -1370,7 +1225,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         // Recolecta datos de los textarea sólo si la firma es 1
         if (etapa === 1) {
-            ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function (id) {
+            ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
                 let textarea = document.getElementById(id);
                 if (textarea.value.trim() === '') {
                     //alert(`El campo ${id} está vacío y es obligatorio.`);
@@ -1394,14 +1249,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             type: 'POST',
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
-            success: function (response) {
+            success: function(response) {
                 console.log('Guardado exitoso: ', response);
                 //alert("Datos guardados correctamente.");
                 $.notify("Datos guardados correctamente.", "success");
                 $('#listado_acta_muestreo').click();
 
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error("Error al guardar: ", status, error);
                 //alert("Error al guardar los datos.");
                 $.notify("Error al guardar los datos.", "error");
@@ -1436,13 +1291,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             type: 'POST',
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
-            success: function (response) {
+            success: function(response) {
                 console.log('Firma guardada con éxito: ', response);
                 //alert("Firma guardada correctamente.");
                 $.notify("Documento firmado correctamente.", "success");
                 $('#listado_acta_muestreo').click();
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
                 //alert("Error al guardar la firma.");
                 $.notify("Error al firmar documento", "error");
