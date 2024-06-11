@@ -512,20 +512,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const table = $('#analisis-solicitados');
 
                 analisisSolicitados.forEach(function(analisis) {
-                    const row = `<tr class="bordeAbajo checkLine">
-                    <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
-                    <td class="Metod">${analisis.anali_metodologia}</td>
-                    <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                    <td class="revision">
-                        <input type="checkbox" class="checkmark cumple">
-                        <span class="tamañoRevision">cumple</span>
-                        <br>
-                        <input type="checkbox" class="checkmark noCumple">
-                        <span class="tamañoRevision">no cumple</span>
-                    </td>
-                </tr>`;
+                    const row = `
+                    <tr class="bordeAbajo checkLine">
+                        <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
+                        <td class="Metod">${analisis.anali_metodologia}</td>
+                        <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="revision">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" class="btn-check noCumple" name="btn-check-${index}" id="btn-check-b-${index}" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="btn-check-b-${index}"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
+                        </td>
+                    </tr>`;
                     table.append(row);
                 });
+
 
                 // Manejo de Acta Muestreo
                 const actaMuestreo = response.Acta_Muestreo;
@@ -541,61 +544,60 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
     }
-
     $(document).ready(function() {
-        $("#revisar").on("click", function() {
-            let cumple = true;
-            let results = [];
+    $("#revisar").on("click", function() {
+        let cumple = true;
+        let results = [];
 
-            $(".checkLine").each(function() {
-                $(this).css("background-color", "transparent");
-                const cumpleChecked = $(this).find(".cumple").is(":checked");
-                const noCumpleChecked = $(this).find(".noCumple").is(":checked");
-                if (cumpleChecked === noCumpleChecked) {
-                    cumple = false;
-                    $(this).css("background-color", "#ff222d25");
-                } else {
-                    results.push(cumpleChecked ? 1 : 0);
-                }
-            });
-            if (!cumple) {
-                console.log("Hay campos sin revisar.", "warning");
-                $.notify("Hay campos sin revisar.", "warning");
-                return;
+        $(".checkLine").each(function() {
+            $(this).css("background-color", "transparent");
+            const cumpleChecked = $(this).find(".cumple").is(":checked");
+            const noCumpleChecked = $(this).find(".noCumple").is(":checked");
+            if (cumpleChecked === noCumpleChecked) {
+                cumple = false;
+                $(this).css("background-color", "#ff222d25");
+            } else {
+                results.push(cumpleChecked ? 1 : 0);
             }
+        });
+        if (!cumple) {
+            console.log("Hay campos sin revisar.", "warning");
+            $.notify("Hay campos sin revisar.", "warning");
+            return;
+        }
 
-            var laboratorio_nro_analisis = $("#laboratorio_nro_analisis").val();
-            var laboratorio_fecha_analisis = $("#laboratorio_fecha_analisis").val();
-            var fecha_entrega = $("#fecha_entrega").val();
+        var laboratorio_nro_analisis = $("#laboratorio_nro_analisis").val();
+        var laboratorio_fecha_analisis = $("#laboratorio_fecha_analisis").val();
+        var fecha_entrega = $("#fecha_entrega").val();
 
-            if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
-                console.log("Todos los campos de la sección IV deben estar llenos.", "warning");
-                $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
-                return;
+        if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
+            console.log("Todos los campos de la sección IV deben estar llenos.", "warning");
+            $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
+            return;
+        }
+
+        var dataRevision = {
+            resultados_analisis: results,
+            laboratorio_nro_analisis,
+            laboratorio_fecha_analisis: moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+            fecha_entrega: moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+        };
+
+        fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataRevision)
+        }).then(function(response) {
+            if (response.ok) {
+                alert("Se revisaron los datos exitosamente.");
+                location.reload();
+            } else {
+                alert("Error al revisar los datos.");
             }
-
-            var dataRevision = {
-                resultados_analisis: results,
-                laboratorio_nro_analisis,
-                laboratorio_fecha_analisis: moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'),
-                fecha_entrega: moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'),
-            }
-
-            fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dataRevision)
-            }).then(function(response) {
-                if (response.ok) {
-                    alert("Se revisaron los datos exitosamente.");
-                    location.reload();
-                } else {
-                    alert("Error al revisar los datos.");
-                }
-            });
-
         });
     });
+});
+
 </script>
