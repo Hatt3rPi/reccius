@@ -403,8 +403,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         </div>
                         <div class="date-container">
-                            <div id='fecha_realizacion' name='fecha_realizacion' class="date"></div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="visibility: hidden;">Firmado digitalmente</p>
+                            <div class="date"></div>
+                            <p  class="text-bottom" style="visibility: hidden;">Firmado digitalmente</p>
                         </div>
                     </div>
                      <!-- Sección Realizado por -->
@@ -412,7 +412,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="firma-box-title">Responsable:</div>
                         <div class="firma-boxes">
                             <p id='realizado_por' name='realizado_por' class="bold"></p>
-                            <p id='realizado_por' name='realizado_por' class="bold"></p>
+                            <p id='cargo_realizador' name='cargo_realizador' class="bold"></p>
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
@@ -633,35 +633,34 @@ function loadData() {
         }
     });
 }
-function carga_acta_liberacion_firmado() {
-    console.log(idAnalisisExterno);
+function carga_acta_liberacion_firmado(id_actaLiberacion) {
+    console.log(id_actaLiberacion);
     $.ajax({
         url: './backend/acta_liberacion/carga_acta_liberacion_firmada.php',
         type: 'GET',
         data: {
-            id_actaLiberacion: idAnalisisExterno
+            id_actaLiberacion: id_actaLiberacion
         },
-        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+        dataType: 'json',
         success: function (response) {
             if (response.success) {
-                if (response.analisis && response.analisis.length > 0) {
-                    const campos = response.campos; // Datos del análisis externo
-
+                const campos = response.campos[0]; // Accede al primer objeto en el array campos
+                if (campos) {
                     // Sumar los resultados de producto en un solo texto
-                    var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
+                    var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
                     var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                    
                     // Actualizar el elemento con el texto combinado
                     $('#producto_completo').text(productoCompleto);
                     $('#producto_completoT1').val(productoCompleto);
 
                     // Actualizar los inputs con los datos del análisis
                     $('#nro_registro').text(campos.numero_registro);
-                    $('#nro_version').text(1);
+                    $('#nro_version').text(campos.version_registro);
                     $('#nro_acta').text(campos.numero_acta);
                     $('#fecha_acta_lib').val(fecha_yoh);
                     $('#fecha_lib').val(fecha_yoh);
                     $('#nro_acta_liberacion').val(campos.numero_acta);
-                    
                     
                     $('#nro_lote').val(campos.lote);
                     $('#tipo_producto').val(campos.prod_tipo_producto);
@@ -672,8 +671,8 @@ function carga_acta_liberacion_firmado() {
                     $('#fecha_vencimiento').val(campos.fecha_vencimiento);
 
                     // TABLA 2
-                    $('#nro_acta_muestreo').val(acta_muestreo.numero_acta);
-                    $('#fecha_acta_muestreo').val(acta_muestreo.fecha_muestreo);
+                    $('#nro_acta_muestreo').val(campos.nro_actaMuestreo);
+                    $('#fecha_acta_muestreo').val(campos.fecha_muestreo);
                     $('#laboratorio_analista').val(campos.laboratorio);
                     $('#nro_solicitud_analisis').val(campos.numero_solicitud);
                     $('#fecha_solicitud_analisis').val(campos.fecha_solicitud);
@@ -686,25 +685,37 @@ function carga_acta_liberacion_firmado() {
                     $('#nro_loteT3').val(campos.lote);
                     $('#fecha_elabT3').val(campos.fecha_elaboracion);
                     $('#fecha_vencT3').val(campos.fecha_vencimiento);
-                    $('#producto_completoT3').val(productoCompleto);
-                    if (campos.resultado_liberacion=='aprobado'){
-                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
-                    }else {
-                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
-                            $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
-                        }
-                        $('#fecha_realizacion').val(campos.fecha_solicitud);
-                        document.getElementById('mensaje_realizador').style.display = 'block';
-                        
-                    $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
-                    
+                    $('#producto_completoT3').val(productoCompleto); 
 
-                    //datos higienicos
-                    $('#id_analisis_externo').text(campos.id_analisis_externo);
-                    $('#id_actaMuestreo').text(acta_muestreo.id);
-                    $('#id_especificacion').text(campos.es_id_especificacion);
+                    $('#form_textarea1').val(campos.obs1); 
+                    $('#form_textarea2').val(campos.obs2); 
+                    $('#form_textarea3').val(campos.obs3); 
+                    $('#form_textarea4').val(campos.obs4); 
+                    $('#cantidad_real').val(campos.cantidad_real_liberada); 
+                    $('#nro_traspaso').val(campos.nro_parte_ingreso); 
+                    
+                    // Asegurarse de que los campos no sean undefined antes de llamar a la función
+                    if (campos.revision_liberacion && campos.revision_estados) {
+                        cargarResultadosGuardados(campos.revision_liberacion, campos.revision_estados);
+                    } else {
+                        console.error("Los resultados de revisión no están definidos.");
+                    }
+
+                    if (campos.estado == 'aprobado'){
+                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
+                    } else {
+                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
+                    }
+                    $('#fecha_realizacion').text(campos.fecha_firma1);
+                    $('#mensaje_realizador').css('display', 'block');
+                    $('#imagen_firma').attr('src', campos.foto_firma_usr1);
+                    $('#realizado_por').text(campos.nombre_usr1);
+                    $('#cargo_realizador').text(campos.cargo_usr1);
+
+                    $('#id_analisis_externo').text(campos.id_analisisExterno);
+                    $('#id_actaMuestreo').text(campos.id_actaMuestreo);
+                    $('#id_especificacion').text(campos.id_especificacion);
                     $('#id_producto').text(campos.id_producto);
-                    $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -718,6 +729,42 @@ function carga_acta_liberacion_firmado() {
             console.error('Error cargando los datos: ' + error);
             console.error('AJAX error: ' + status + ' : ' + error);
             alert("Error en carga de datos. Revisa la consola para más detalles.");
+        }
+    });
+}
+
+function cargarResultadosGuardados(revisionResults, docConformeResults) {
+    // Asegúrate de que las cadenas tengan 4 caracteres
+    if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
+        console.error("Los resultados deben tener exactamente 4 caracteres.");
+        return;
+    }
+
+    // Seleccionar los inputs correspondientes para revisionResults
+    $('.revision input[type="radio"]').each(function(index) {
+        // Obtener el grupo de inputs de radio para este índice
+        let groupName = $(this).attr('name');
+
+        // Obtener el valor correspondiente de revisionResults
+        let value = revisionResults.charAt(Math.floor(index / 2));
+
+        // Seleccionar el input correcto basado en el valor
+        if ($(this).val() === value) {
+            $(this).prop('checked', true);
+        }
+    });
+
+    // Seleccionar los inputs correspondientes para docConformeResults
+    $('.doc-conforme input[type="radio"]').each(function(index) {
+        // Obtener el grupo de inputs de radio para este índice
+        let groupName = $(this).attr('name');
+
+        // Obtener el valor correspondiente de docConformeResults
+        let value = docConformeResults.charAt(Math.floor(index / 2));
+
+        // Seleccionar el input correcto basado en el valor
+        if ($(this).val() === value) {
+            $(this).prop('checked', true);
         }
     });
 }
@@ -818,9 +865,17 @@ function firmayguarda(resultado, revisionResults, docConformeResults) {
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                console.log('Firma guardada con éxito: ', response);
-                $.notify("Documento firmado correctamente.", "success");
-                
+                let responseData = JSON.parse(response);
+                if (responseData.success) {
+                    console.log('Firma guardada con éxito: ', responseData);
+                    $.notify("Documento firmado correctamente.", "success");
+                    let id_actaLiberacion = responseData.id_actaLiberacion;
+                    console.log('ID Acta de Liberación: ', id_actaLiberacion);
+                    carga_acta_liberacion_firmado(id_actaLiberacion);
+                } else {
+                    console.error("Error al guardar la firma: ", responseData.error);
+                    $.notify("Error al firmar documento: " + responseData.error, "error");
+                }
             },
             error: function (xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
