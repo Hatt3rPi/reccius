@@ -644,7 +644,7 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
         dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
         success: function (response) {
             if (response.success) {
-                if (response.analisis && response.analisis.length > 0) {
+                if (response.campos && response.campos.length > 0) {
                     const campos = response.campos; // Datos del análisis externo
 
                     // Sumar los resultados de producto en un solo texto
