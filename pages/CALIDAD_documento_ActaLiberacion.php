@@ -646,7 +646,7 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
             if (response.success) {
                 if (response.campos && response.campos.length > 0) {
                     const campos = response.campos; // Datos del análisis externo
-
+                    console.log('información recibida:', response)
                     // Sumar los resultados de producto en un solo texto
                     var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
                     var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
