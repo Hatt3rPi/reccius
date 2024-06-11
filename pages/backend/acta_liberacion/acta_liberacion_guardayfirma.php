@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the JSON input
     $inputJSON = file_get_contents('php://input');
     $input = json_decode($inputJSON, TRUE); // Convert JSON to array
-
+    $id_actaLiberacion='';
     // Validate and sanitize the input data
     $id_analisis_externo = isset($input['id_analisis_externo']) ? intval($input['id_analisis_externo']) : null;
     $id_especificacion = isset($input['id_especificacion']) ? intval($input['id_especificacion']) : null;
@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("iiiissssssssssssssiiss", $id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo, $usuario_firma1, $fecha_firma1);
         if ($stmt->execute()) {
             // Registro de trazabilidad
+            $id_actaLiberacion=$stmt->insert_id;
             registrarTrazabilidad(
                 $usuario,
                 $_SERVER['PHP_SELF'],
@@ -68,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 1,
                 null
             );
-            echo json_encode(['success' => 'Data saved successfully']);
+            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion]);
         } else {
             // Registro de trazabilidad en caso de error
             registrarTrazabilidad(

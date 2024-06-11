@@ -633,13 +633,13 @@ function loadData() {
         }
     });
 }
-function carga_acta_liberacion_firmado() {
-    console.log(idAnalisisExterno);
+function carga_acta_liberacion_firmado(id_actaLiberacion) {
+    console.log(id_actaLiberacion);
     $.ajax({
         url: './backend/acta_liberacion/carga_acta_liberacion_firmada.php',
         type: 'GET',
         data: {
-            id_actaLiberacion: idAnalisisExterno
+            id_actaLiberacion: id_actaLiberacion
         },
         dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
         success: function (response) {
@@ -864,7 +864,7 @@ function firmayguarda(resultado, revisionResults, docConformeResults) {
             success: function (response) {
                 console.log('Firma guardada con éxito: ', response);
                 $.notify("Documento firmado correctamente.", "success");
-                
+                carga_acta_liberacion_firmado(response.id_actaLiberacion);
             },
             error: function (xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
