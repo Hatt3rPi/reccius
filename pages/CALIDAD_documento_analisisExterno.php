@@ -497,7 +497,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#estado').val(primerAnalisis.estado);
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
 
-                    primerAnalisis.revisado_por === <?php echo $_SESSION['usuario'] ?> && $("#revisar").show();
+                    primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
                 }
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
