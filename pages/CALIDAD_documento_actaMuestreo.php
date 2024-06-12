@@ -793,8 +793,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-
-
         // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
@@ -814,7 +812,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         elementToExport.style.border = 'none'; // Establecer el borde a none
         elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
 
+        // Esperar a que todas las imágenes se carguen antes de capturar la pantalla
+        const images = elementToExport.querySelectorAll('img');
+        let imagesLoaded = 0;
 
+        images.forEach(img => {
+            if (img.complete) {
+                imagesLoaded++;
+            } else {
+                img.onload = img.onerror = () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === images.length) {
+                        generatePDF(elementToExport, allButtonGroups);
+                    }
+                };
+            }
+        });
+
+        if (imagesLoaded === images.length) {
+            generatePDF(elementToExport, allButtonGroups);
+        }
+    });
+
+    function generatePDF(elementToExport, allButtonGroups) {
         html2canvas(elementToExport, {
             scale: 1
         }).then(canvas => {
@@ -858,7 +878,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 heightLeft -= pageHeight;
             }
 
-
             var nombreProducto = document.getElementById('producto').textContent.trim();
             var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
@@ -872,10 +891,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.style.display = 'block';
                 });
             });
-
-
         });
-    });
+    }
+
     //cargarDatosEspecificacion(id, true, '0');
     function cargarDatosEspecificacion(id, resultados, etapa) {
         console.log(id, resultados, etapa);
@@ -1052,7 +1070,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
 
-    
+
 
     // Función para establecer la imagen de la firma según la disponibilidad
     function setFirmaImage(imgElement, firmaSrc) {
