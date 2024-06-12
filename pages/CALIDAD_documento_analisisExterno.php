@@ -259,7 +259,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="..\assets\images\TEST.png" alt="Firma" class="firma">
+                                <img id="firma_solicitante" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
 
@@ -281,7 +281,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="..\assets\images\TEST.png" alt="Firma" class="firma">
+                                <img id="firma_revisador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
 
