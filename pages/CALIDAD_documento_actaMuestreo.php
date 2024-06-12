@@ -792,31 +792,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     });
 
-
-    function checkImagesLoaded() {
-        const images = document.querySelectorAll('img');
-        let loadedCount = 0;
-
-        return new Promise((resolve, reject) => {
-            images.forEach(img => {
-                if (img.complete) {
-                    loadedCount++;
-                } else {
-                    img.onload = img.onerror = () => {
-                        loadedCount++;
-                        if (loadedCount === images.length) {
-                            resolve();
-                        }
-                    };
-                }
-            });
-
-            if (loadedCount === images.length) {
-                resolve();
-            }
-        });
-    }
-
     document.getElementById('download-pdf').addEventListener('click', function() {
         // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
@@ -837,11 +812,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         elementToExport.style.border = 'none'; // Establecer el borde a none
         elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
 
-        checkImagesLoaded().then(() => {
-            generatePDF(elementToExport, allButtonGroups);
-        }).catch(err => {
-            console.error("Error loading images: ", err);
+        // Esperar a que todas las imágenes se carguen antes de capturar la pantalla
+        const images = elementToExport.querySelectorAll('img');
+        let imagesLoaded = 0;
+
+        images.forEach(img => {
+            if (img.complete) {
+                imagesLoaded++;
+            } else {
+                img.onload = img.onerror = () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === images.length) {
+                        generatePDF(elementToExport, allButtonGroups);
+                    }
+                };
+            }
         });
+
+        if (imagesLoaded === images.length) {
+            generatePDF(elementToExport, allButtonGroups);
+        }
     });
 
     function generatePDF(elementToExport, allButtonGroups) {
@@ -1078,23 +1068,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
     }
+
+
+
+
     // Función para establecer la imagen de la firma según la disponibilidad
     function setFirmaImage(imgElement, firmaSrc) {
         let noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
         if (firmaSrc) {
-            imgElement.crossOrigin = "Anonymous"; // Añadir esta línea para manejar CORS
             imgElement.onerror = function() {
                 imgElement.src = noProvidedImage;
                 console.log("Error al cargar la firma, usando imagen de firma no proporcionada.");
-            };
-            imgElement.onload = function() {
-                console.log("Firma cargada correctamente:", firmaSrc);
             };
             imgElement.src = firmaSrc;
             console.log("Intentando cargar firma desde:", firmaSrc);
         } else {
             imgElement.src = noProvidedImage;
-            console.log("Firma no disponible, usando imagen no proporcionada.");
+            console.log("Firma no disponible, usando imagen nula.");
         }
     }
 
@@ -1118,8 +1108,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
         document.getElementById('fecha_firma_verificador').textContent = response.fecha_firma_verificador;
     }
-
-
 
     function asignarValoresARadios(valores, selectorGrupos) {
         // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
