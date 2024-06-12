@@ -371,7 +371,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             const {
                 id,
                 val,
-                isDisabledinformacion_faltante
+                isDisabled
             } = el;
             var elem = $('#' + id);
 
@@ -522,7 +522,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     $("#editarGenerarVersion").hide();
                     $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
                     guardarYFirmarSolicitud = true
-                    $('#informacion_faltante').find('input, textarea, select').each(function() {
+                    $('#informacion_faltante').find('input, textarea, select').not('#informacion_faltante fieldset:eq(2) input, #informacion_faltante fieldset:eq(2) textarea, #informacion_faltante fieldset:eq(2) select').each(function() {
                         $(this).addClass('input-highlight');
                     });
 
