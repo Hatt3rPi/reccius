@@ -1051,68 +1051,47 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-    function setFirmaImage(imgElement, firmaSrc) {
-        const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
-        const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
+    const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
+    const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
 
-        if (!firmaSrc) {
-            imgElement.src = nullImage;
-            console.log("Firma no disponible, usando imagen nula.");
-        } else {
+    // Función para establecer la imagen de la firma según la disponibilidad
+    function setFirmaImage(imgElement, firmaSrc) {
+        // Establecer la imagen predeterminada
+        imgElement.src = nullImage;
+
+        if (firmaSrc) {
             imgElement.onerror = function() {
                 imgElement.src = noProvidedImage;
                 console.log("Error al cargar la firma, usando imagen de firma no proporcionada.");
             };
             imgElement.src = firmaSrc;
-            console.log("Cargando firma desde:", firmaSrc);
+            console.log("Intentando cargar firma desde:", firmaSrc);
+        } else {
+            console.log("Firma no disponible, usando imagen nula.");
         }
     }
 
-    // Cambio: Actualizar la función firma1 para usar setFirmaImage
+    // Función para asignar firmas y otros datos
     function firma1(response) {
         console.log('asignación 1');
         setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
-        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+        document.getElementById('fecha_Edicion').textContent = response.fecha_firma_muestreador;
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
     }
 
-    // Cambio: Actualizar la función firma2 para usar setFirmaImage
     function firma2(response) {
         console.log('asignación 2');
         setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
-        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
+        document.getElementById('fecha_firma_responsable').textContent = response.fecha_firma_responsable;
         asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
     }
 
-    // Cambio: Actualizar la función firma3 para usar setFirmaImage
     function firma3(response) {
         console.log('asignación 3');
         setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
-        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
+        document.getElementById('fecha_firma_verificador').textContent = response.fecha_firma_verificador;
     }
 
-    // Cambio: Actualizar la función firma1 para usar setFirmaImage
-    function firma1(response) {
-        console.log('asignación 1');
-        setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
-        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
-        asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
-    }
-
-    // Cambio: Actualizar la función firma2 para usar setFirmaImage
-    function firma2(response) {
-        console.log('asignación 2');
-        setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
-        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
-        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
-    }
-
-    // Cambio: Actualizar la función firma3 para usar setFirmaImage
-    function firma3(response) {
-        console.log('asignación 3');
-        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
-        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
-    }
 
     function asignarValoresARadios(valores, selectorGrupos) {
         // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
