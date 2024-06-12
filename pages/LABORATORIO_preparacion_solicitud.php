@@ -323,14 +323,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Usuario Solicitante:</label>
-                            <input class="form-control mx-0 w-90" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" readonly />
+                            <input class="form-control mx-0 w-100" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" readonly />
                             <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Revisión a cargo de:</label>
-                            <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-90" required>
+                            <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-100" required>
                                 <option>Selecciona el usuario supervisor:</option>
                                 <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
                                 <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
