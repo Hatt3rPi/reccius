@@ -252,9 +252,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Solicitado por:</div>
                         <div class="firma-boxes">
-                            <p id='solicitado_por' name='solicitado_por' class="bold">Inger Sumonte
+                            <p id='solicitado_por' name='solicitado_por' class="bold">
                             </p>
-                            <p id='solicitado_por_cargo' name='solicitado_por_cargo' class="bold">Director de Calidad
+                            <p id='solicitado_por_cargo' name='solicitado_por_cargo' class="bold">
                             </p>
 
                             <div class="signature">
@@ -274,9 +274,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Revisado por:</div>
                         <div class="firma-boxes">
-                            <p id='revisado_por' name='revisado_por' class="bold">Inger Sumonte
+                            <p id='revisado_por' name='revisado_por' class="bold">
                             </p>
-                            <p id='revisado_por_cargo' name='revisado_por_cargo' class="bold">Director de Calidad
+                            <p id='revisado_por_cargo' name='revisado_por_cargo' class="bold">
                             </p>
 
                             <div class="signature">
