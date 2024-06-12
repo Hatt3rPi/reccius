@@ -1051,7 +1051,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-    const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
+
     const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
 
     // Función para establecer la imagen de la firma según la disponibilidad
@@ -1064,7 +1064,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             imgElement.src = firmaSrc;
             console.log("Intentando cargar firma desde:", firmaSrc);
         } else {
-            imgElement.src = nullImage;
+            imgElement.src = noProvidedImage;
             console.log("Firma no disponible, usando imagen nula.");
         }
     }
