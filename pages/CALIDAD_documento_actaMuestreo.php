@@ -1052,10 +1052,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
 
-    const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
+    
 
     // Función para establecer la imagen de la firma según la disponibilidad
     function setFirmaImage(imgElement, firmaSrc) {
+        let noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
         if (firmaSrc) {
             imgElement.onerror = function() {
                 imgElement.src = noProvidedImage;
