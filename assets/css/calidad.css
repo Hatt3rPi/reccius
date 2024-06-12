@@ -322,3 +322,6 @@ input[readonly] {
 input[readonly]:hover {
     background-color: #dde2e6;
 }
+.input-highlight {
+    background-color: rgb(244, 250, 194);
+}

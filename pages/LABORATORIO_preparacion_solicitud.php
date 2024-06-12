@@ -371,7 +371,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             const {
                 id,
                 val,
-                isDisabled
+                isDisabledinformacion_faltante
             } = el;
             var elem = $('#' + id);
 
@@ -522,6 +522,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     $("#editarGenerarVersion").hide();
                     $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
                     guardarYFirmarSolicitud = true
+                    $('#informacion_faltante').find('input, textarea, select').each(function() {
+                        $(this).addClass('input-highlight');
+                    });
+
                 }
             }
 
