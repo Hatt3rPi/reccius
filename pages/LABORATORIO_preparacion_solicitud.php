@@ -522,10 +522,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     $("#editarGenerarVersion").hide();
                     $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
                     guardarYFirmarSolicitud = true
-                    $('#informacion_faltante').find('input, textarea, select').not('#informacion_faltante fieldset:eq(2) input, #informacion_faltante fieldset:eq(2) textarea, #informacion_faltante fieldset:eq(2) select').each(function() {
-                        $(this).addClass('input-highlight');
-                    });
-
                 }
             }
 
@@ -729,10 +725,18 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     }
 
     $(document).ready(function() {
+
+        function editarGenerarVersion(event) {
+            
+        }
+
         $("#agregarDatos").on('click', function(event) {
             event.preventDefault();
             $("#guardar").show();
             $("#agregarDatos").hide();
+            $('#informacion_faltante').find('input, textarea, select').each(function() {
+                        $(this).addClass('input-highlight');
+                    });
         })
 
         $('#editarGenerarVersion').on('click', function(event) {
