@@ -1054,6 +1054,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
     const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
 
+    function initializeSignatures() {
+        setFirmaImage(document.getElementById('firma_realizador'), null);
+        setFirmaImage(document.getElementById('firma_responsable'), null);
+        setFirmaImage(document.getElementById('firma_verificador'), null);
+    }
+
     // Función para establecer la imagen de la firma según la disponibilidad
     function setFirmaImage(imgElement, firmaSrc) {
         // Establecer la imagen predeterminada
@@ -1091,7 +1097,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
         document.getElementById('fecha_firma_verificador').textContent = response.fecha_firma_verificador;
     }
-
 
     function asignarValoresARadios(valores, selectorGrupos) {
         // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
