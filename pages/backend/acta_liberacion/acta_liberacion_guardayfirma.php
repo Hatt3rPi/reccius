@@ -82,11 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $estado_producto='descartado';
             }
             $query_productos="INSERT INTO calidad_productos_analizados ( id_especificacion,  id_producto, id_actaMuestreo, id_actaLiberacion, estado, cantidad_real_liberada, nro_parte_ingreso, id_analisisExterno, lote, tamano_lote, fecha_elaboracion, fecha_vencimiento)
-            SELECT ?, ?, ?, ?, ?, ?, ?, ?, id, lote, tamano_lote, fecha_elaboracion, fecha_vencimiento 
+            SELECT ?, ?, ?, ?, ?, ?, ?, id, lote, tamano_lote, fecha_elaboracion, fecha_vencimiento 
             FROM calidad_analisis_externo
             WHERE id = ?";
             $stmt4 = mysqli_prepare($link, $query_productos);
-            mysqli_stmt_bind_param($stmt4, "iiiisssissss", $id_especificacion, $id_producto, $id_actaMuestreo, $id_actaLiberacion, $estado_producto, $cant_real_liberada, $parte_ingreso, $id_analisis_externo );
+            mysqli_stmt_bind_param($stmt4, "iiiisssi", $id_especificacion, $id_producto, $id_actaMuestreo, $id_actaLiberacion, $estado_producto, $cant_real_liberada, $parte_ingreso, $id_analisis_externo );
             $exito=mysqli_stmt_execute($stmt4);
             $id_productoAnalizado= mysqli_insert_id($link);
             registrarTrazabilidad(
