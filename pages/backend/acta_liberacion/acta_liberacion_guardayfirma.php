@@ -69,7 +69,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 1,
                 null
             );
+            //cerrar tarea anterior
             echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion]);
+
+            $stmt3 = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='Finalizado' WHERE id=?");
+            mysqli_stmt_bind_param($stmt3, "i", $id_analisis_externo );
+            mysqli_stmt_execute($stmt3);
+            mysqli_stmt_close($stmt3);
+            if($estado=='aprobado'){
+                $estado_producto='liberado';
+            } else {
+                $estado_producto='descartado';
+            }
+            $query_productos="INSERT INTO calidad_productos_analizados ( id_especificacion,  id_producto, id_actaMuestreo, id_actaLiberacion, estado, cantidad_real_liberada, nro_parte_ingreso, id_analisisExterno, lote, tamano_lote, fecha_elaboracion, fecha_vencimiento)
+            SELECT ?, ?, ?, ?, ?, ?, ?, ?, id, lote, tamano_lote, fecha_elaboracion, fecha_vencimiento 
+            FROM calidad_analisis_externo
+            WHERE id = ?";
+            $stmt4 = mysqli_prepare($link, $query_productos);
+            mysqli_stmt_bind_param($stmt4, "iiiisssissss", $id_especificacion, $id_producto, $id_actaMuestreo, $id_actaLiberacion, $estado_producto, $cant_real_liberada, $parte_ingreso, $id_analisis_externo );
+            $exito=mysqli_stmt_execute($stmt4);
+            $id_productoAnalizado= mysqli_insert_id($link);
+            registrarTrazabilidad(
+                $usuario,
+                $_SERVER['PHP_SELF'],
+                'Creación producto liberado/rechazado',
+                'CALIDAD - Producto analizado',
+                $exito ? $id_productoAnalizado : null, 
+                $query_productos,
+                [$id_especificacion, $id_producto, $id_actaMuestreo, $id_actaLiberacion, $estado_producto, $cant_real_liberada, $parte_ingreso, $id_analisis_externo],
+                $exito ? 1 : 0, 
+                $exito ? null : mysqli_error($link)
+            );
+            mysqli_stmt_close($stmt4);
+
         } else {
             // Registro de trazabilidad en caso de error
             registrarTrazabilidad(
