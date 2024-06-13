@@ -79,7 +79,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "estado",
                     "title": "Estado",
-                    "width": "160px",
+                    "width": "80px",
                     "render": function(data, type, row) {
                         switch (data) {
                             case 'rechazado':
@@ -94,24 +94,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "producto",
                     "title": "Producto",
-                    "width": "170px"
+                    "width": "300px"
                 },
                 {
                     "data": "lote",
                     "title": "Nro Lote",
-                    "width": "65px"
+                    "width": "100px"
                 },
                 {
                     "data": "fecha_elaboracion",
-                    "title": "Fecha elaboración"
+                    "title": "Fecha elaboración",
+                    "width": "65px"
                 },
                 {
                     "data": "fecha_vencimiento",
-                    "title": "Fecha Vencimiento"
+                    "title": "Fecha Vencimiento",
+                    "width": "65px"
                 },
                 {
                     "data": "tipo_producto",
-                    "title": "Tipo producto"
+                    "title": "Tipo producto",
+                    "width": "100px"
                 },
                 {
                     "data": "id",
