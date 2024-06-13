@@ -874,6 +874,8 @@ function firmayguarda(resultado, revisionResults, docConformeResults) {
                     carga_acta_liberacion_firmado(id_actaLiberacion);
                     $('#guardar').css('display', 'none');
                     $('#download-pdf').css('display', 'block');
+
+                    $('#listado_productos_disponibles').click();
                 } else {
                     console.error("Error al guardar la firma: ", responseData.error);
                     $.notify("Error al firmar documento: " + responseData.error, "error");

@@ -1,5 +1,5 @@
 <?php
-//archivo: pages\CALIDAD_listado_actaLiberacion.php
+//archivo: pages\CALIDAD_listado_productosDisponibles.php
 session_start();
 
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
@@ -37,8 +37,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <thead>
                     <tr>
                         <th></th> <!-- Columna vacía para botones o checkboxes -->
-                        <th></th>
-                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -86,60 +84,39 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         switch (data) {
                             case 'rechazado':
                                 return '<span class="badge badge-warning">Rechazado</span>';
-                            case 'aprobado':
-                                return '<span class="badge badge-success">Aprobado</span>';
-                            case 'pendiente':
-                                return '<span class="badge badge-dark">Pendiente</span>';
+                            case 'liberado':
+                                return '<span class="badge badge-success">Liberado</span>';
                             default:
                                 return '<span class="badge">' + data + '</span>';
                         }
                     }
                 },
                 {
-                    "data": "numero_acta",
-                    "title": "N° Acta",
+                    "data": "producto",
+                    "title": "Producto",
                     "width": "170px"
                 },
                 {
-                    "data": "fecha_muestreo",
-                    "title": "Fecha documento",
+                    "data": "lote",
+                    "title": "Nro Lote",
                     "width": "65px"
                 },
                 {
-                    "data": "version_acta",
-                    "title": "Versión"
+                    "data": "fecha_elaboracion",
+                    "title": "Fecha elaboración"
                 },
                 {
-                    "data": "producto",
-                    "title": "Producto"
+                    "data": "fecha_vencimiento",
+                    "title": "Fecha Vencimiento"
                 },
                 {
                     "data": "tipo_producto",
                     "title": "Tipo producto"
                 },
                 {
-                    title: 'Responsable',
-                    data: 'responsable',
-                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-                    visible: false // Esto oculta la columna
-                },
-                {
-                    title: 'Muestreador',
-                    data: 'muestreador',
-                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-                    visible: false // Esto oculta la columna
-                },
-                {
-                    title: 'Verificador',
-                    data: 'verificador',
-                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-                    visible: false // Esto oculta la columna
-                },
-                {
-                    title: 'id_acta',
-                    data: 'id_acta',
-                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-                    visible: false // Esto oculta la columna
+                    "data": "id",
+                    "title": "ID producto",
+                    visible: false
                 }
             ],
 
@@ -166,19 +143,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // `d` es el objeto de datos original para la fila
             var acciones = '<table background-color="#F6F6F6" color="#FFF" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
-
-            // Botón para revisar siempre presente
-            if (d.estado === "Pendiente Muestreo") {
-                acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados</button><a></a>';
-            }
-            //acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_acta + '" name="generar_documento_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
-            if (d.estado === "En proceso de firma") {
-                acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
-            }
-            if (d.estado === "Vigente") {
-                acciones += '<button class="accion-btn" title="Ver documento" id="' + d.id_acta + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ver documento</button><a> </a>';
-            }
-
             acciones += '</td></tr></table>';
             return acciones;
         }
@@ -196,7 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <?php if (isset($_SESSION['nuevo_id'])) { ?>
             var buscar = '<?php echo $_SESSION['nuevo_id']; ?>';
             console.log('se intentará filtrar por id: ', buscar);
-            table.columns(10).search(buscar).draw();
+            table.columns(7).search(buscar).draw();
             //table.search(buscar).draw();
             <?php unset($_SESSION['nuevo_id']); ?>
         <?php } ?>

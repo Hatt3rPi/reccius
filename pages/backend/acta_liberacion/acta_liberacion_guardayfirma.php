@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 null
             );
             //cerrar tarea anterior
-            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion]);
+           
 
             $stmt3 = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='Finalizado' WHERE id=?");
             mysqli_stmt_bind_param($stmt3, "i", $id_analisis_externo );
@@ -100,8 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $exito ? 1 : 0, 
                 $exito ? null : mysqli_error($link)
             );
+            unset($_SESSION['nuevo_id']);
+            if ($exito) {
+                $_SESSION['nuevo_id'] = $id_productoAnalizado;
+            }
             mysqli_stmt_close($stmt4);
-
+            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_productoAnalizado]);
         } else {
             // Registro de trazabilidad en caso de error
             registrarTrazabilidad(
