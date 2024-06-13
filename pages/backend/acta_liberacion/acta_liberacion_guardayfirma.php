@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Registro de trazabilidad
             $id_actaLiberacion=$stmt->insert_id;
             registrarTrazabilidad(
-                $usuario,
+                $_SESSION['usuario'],
                 $_SERVER['PHP_SELF'],
                 $flujo,
                 'CALIDAD - Acta de Liberación',
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $exito=mysqli_stmt_execute($stmt4);
             $id_productoAnalizado= mysqli_insert_id($link);
             registrarTrazabilidad(
-                $usuario,
+                $_SESSION['usuario'],
                 $_SERVER['PHP_SELF'],
                 'Creación producto liberado/rechazado',
                 'CALIDAD - Producto analizado',
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Registro de trazabilidad en caso de error
             registrarTrazabilidad(
-                $usuario,
+                $_SESSION['usuario'],
                 $_SERVER['PHP_SELF'],
                 $flujo,
                 'CALIDAD - Acta de Liberación',

@@ -5,19 +5,12 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
-                lib.estado, 
-                CONCAT(lib.numero_acta, '-', LPAD(lib.version_acta, 2, '0')) AS numero_acta,
-                lib.fecha_muestreo, 
-                lib.responsable, 
-                lib.muestreador, 
-                lib.verificador, 
-                lib.version_acta,
-                concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
-                pr.tipo_producto,
-                lib.id as id_actaLiberacion
-            FROM `calidad_acta_liberacion` as lib
-            LEFT JOIN calidad_productos as pr 
-            on lib.id_producto=pr.id;";
+                a.*,
+                concat(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) as producto, 
+                b.tipo_producto
+            FROM `calidad_productos_analizados` as a
+            LEFT JOIN calidad_productos as b 
+            on a.id_producto=b.id;";
 $result = $link->query($query);
 
 $data = [];
