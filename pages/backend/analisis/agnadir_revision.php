@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+require_once "../cloud/R2_manager.php";
 header('Content-Type: application/json');
 
 $idAnalisisExterno = isset($_GET['id_analisis']) ? intval($_GET['id_analisis']) : null;
@@ -17,15 +18,20 @@ if ($idAnalisisExterno === null) {
     exit;
 }
 
+if (!isset($_FILES['certificado_de_analisis_externo']) || $_FILES['certificado_de_analisis_externo']['error'] !== UPLOAD_ERR_OK) {
+    echo json_encode(['error' => 'Error al subir el archivo.']);
+    exit;
+}
+
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
-
 
 if ($data === null) {
     echo json_encode(['error' => 'Datos inválidos o no proporcionados.']);
     exit;
 }
-if(
+
+if (
     !isset($data['resultados_analisis']) ||
     !isset($data['laboratorio_nro_analisis']) ||
     !isset($data['laboratorio_fecha_analisis']) ||
@@ -48,40 +54,61 @@ if ($row['count'] > 0) {
 }
 mysqli_stmt_close($stmtCheck);
 
+// Sube el archivo a Cloudflare R2
+$fileBinary = file_get_contents($_FILES['certificado_de_analisis_externo']['tmp_name']);
+$fileName = 'certificados/' . $_FILES['certificado_de_analisis_externo']['name'];
 
-$consultaSQL = "UPDATE calidad_analisis_externo SET  
-    resultados_analisis = ? 
-    laboratorio_nro_analisis ?
-    laboratorio_fecha_analisis ?
-    fecha_entrega = ?
-    WHERE id = ?";
+$params = [
+    'fileBinary' => $fileBinary,
+    'folder' => 'certificado_de_analisis_externo',
+    'fileName' => $fileName
+];
 
-$stmt = mysqli_prepare($link, $consultaSQL);
-if (!$stmt) {
-    echo json_encode(['error' => 'Error al preparar consulta.']);
-    exit;
-}
+$uploadStatus = setFile($params);
+$uploadResult = json_decode($uploadStatus, true);
 
-$resultados_analisis = limpiarDato($data['resultados_analisis']);
-$laboratorio_fecha_analisis = limpiarDato($data['laboratorio_fecha_analisis']); 
-$laboratorio_nro_analisis = limpiarDato($data['laboratorio_nro_analisis']); 
-$fecha_entrega = limpiarDato($data['fecha_entrega']);
+if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
+    $fileURL = $uploadResult['success']['ObjectURL'];
 
-mysqli_stmt_bind_param($stmt, 'ssssi', 
+    $consultaSQL = "UPDATE calidad_analisis_externo SET  
+        resultados_analisis = ?, 
+        laboratorio_nro_analisis = ?, 
+        laboratorio_fecha_analisis = ?, 
+        fecha_entrega = ?, 
+        url_certificado_de_analisis_externo = ?, 
+        estado = 'Pendiente liberación productos'
+        WHERE id = ?";
+
+    $stmt = mysqli_prepare($link, $consultaSQL);
+    if (!$stmt) {
+        echo json_encode(['error' => 'Error al preparar consulta.']);
+        exit;
+    }
+
+    $resultados_analisis = limpiarDato(json_encode($data['resultados_analisis']));
+    $laboratorio_nro_analisis = limpiarDato($data['laboratorio_nro_analisis']);
+    $laboratorio_fecha_analisis = limpiarDato($data['laboratorio_fecha_analisis']);
+    $fecha_entrega = limpiarDato($data['fecha_entrega']);
+
+    mysqli_stmt_bind_param($stmt, 'sssssi', 
         $resultados_analisis, 
         $laboratorio_nro_analisis, 
         $laboratorio_fecha_analisis, 
         $fecha_entrega, 
+        $fileURL, 
         $idAnalisisExterno
     );
-mysqli_stmt_execute($stmt);
-mysqli_stmt_close($stmt);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-if (mysqli_error($link)) {
-    echo json_encode(['error' => 'Error al ejecutar consulta.']);
-    exit;
+    if (mysqli_error($link)) {
+        echo json_encode(['error' => 'Error al ejecutar consulta.']);
+        exit;
+    }
+
+    echo json_encode(['exito' => true]);
+
+} else {
+    echo json_encode(['error' => 'Error al subir el certificado: ' . $uploadResult['error']]);
 }
-
-echo json_encode(['exito' => true]);
-
 ?>

@@ -249,6 +249,7 @@ input[type="text"] {
 .tituloTabla {
     /* Asumiendo que quieres que el texto sea negrita */
     padding-right: 10px;
+    padding-left: 10px;
     /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
     text-align: left;
     /* Alinea el texto a la izquierda */
@@ -277,7 +278,30 @@ input[type="text"] {
     font-size: 11px;
 }
 
-
+.revision{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 20px 5px 0;
+}
+.label__like-input{
+    width: 295px;
+    font-size: 0.8rem;
+    padding: 3%;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    height: 38px;
+    border: 1px solid;
+    cursor: pointer;
+}
+.input-highlight {
+    background-color: rgb(244, 250, 194)!important;
+}
 
 .TextoBajo {
     width: 100%;
