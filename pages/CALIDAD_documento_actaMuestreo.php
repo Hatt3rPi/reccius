@@ -40,7 +40,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
@@ -643,7 +643,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_realizador" name="firma_realizador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                            <img id="firma_realizador" name="firma_realizador" src="" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
@@ -663,7 +663,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_responsable" name="firma_responsable" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                            <img id="firma_responsable" name="firma_responsable" src="" alt="Firma" class="firma">
 
                         </div>
 
@@ -686,7 +686,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_verificador" name="firma_verificador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="firma_verificador" class="firma" />
+                            <img id="firma_verificador" name="firma_verificador" src="" alt="firma_verificador" class="firma" />
 
                         </div>
 
@@ -793,6 +793,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     document.getElementById('download-pdf').addEventListener('click', function() {
+
+
         // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
@@ -812,29 +814,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         elementToExport.style.border = 'none'; // Establecer el borde a none
         elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
 
-        // Esperar a que todas las imágenes se carguen antes de capturar la pantalla
-        const images = elementToExport.querySelectorAll('img');
-        let imagesLoaded = 0;
 
-        images.forEach(img => {
-            if (img.complete) {
-                imagesLoaded++;
-            } else {
-                img.onload = img.onerror = () => {
-                    imagesLoaded++;
-                    if (imagesLoaded === images.length) {
-                        generatePDF(elementToExport, allButtonGroups);
-                    }
-                };
-            }
-        });
-
-        if (imagesLoaded === images.length) {
-            generatePDF(elementToExport, allButtonGroups);
-        }
-    });
-
-    function generatePDF(elementToExport, allButtonGroups) {
         html2canvas(elementToExport, {
             scale: 1
         }).then(canvas => {
@@ -878,6 +858,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 heightLeft -= pageHeight;
             }
 
+
             var nombreProducto = document.getElementById('producto').textContent.trim();
             var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
@@ -891,9 +872,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.style.display = 'block';
                 });
             });
-        });
-    }
 
+
+        });
+    });
     //cargarDatosEspecificacion(id, true, '0');
     function cargarDatosEspecificacion(id, resultados, etapa) {
         console.log(id, resultados, etapa);
@@ -1069,44 +1051,67 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-
-
-
-    // Función para establecer la imagen de la firma según la disponibilidad
     function setFirmaImage(imgElement, firmaSrc) {
-        let noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
-        if (firmaSrc) {
+        const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
+        const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
+
+        if (!firmaSrc) {
+            imgElement.src = nullImage;
+            console.log("Firma no disponible, usando imagen nula.");
+        } else {
             imgElement.onerror = function() {
                 imgElement.src = noProvidedImage;
                 console.log("Error al cargar la firma, usando imagen de firma no proporcionada.");
             };
             imgElement.src = firmaSrc;
-            console.log("Intentando cargar firma desde:", firmaSrc);
-        } else {
-            imgElement.src = noProvidedImage;
-            console.log("Firma no disponible, usando imagen nula.");
+            console.log("Cargando firma desde:", firmaSrc);
         }
     }
 
-    // Función para asignar firmas y otros datos
+    // Cambio: Actualizar la función firma1 para usar setFirmaImage
     function firma1(response) {
         console.log('asignación 1');
         setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
-        document.getElementById('fecha_Edicion').textContent = response.fecha_firma_muestreador;
+        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
     }
 
+    // Cambio: Actualizar la función firma2 para usar setFirmaImage
     function firma2(response) {
         console.log('asignación 2');
         setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
-        document.getElementById('fecha_firma_responsable').textContent = response.fecha_firma_responsable;
+        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
         asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
     }
 
+    // Cambio: Actualizar la función firma3 para usar setFirmaImage
     function firma3(response) {
         console.log('asignación 3');
         setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
-        document.getElementById('fecha_firma_verificador').textContent = response.fecha_firma_verificador;
+        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
+    }
+
+    // Cambio: Actualizar la función firma1 para usar setFirmaImage
+    function firma1(response) {
+        console.log('asignación 1');
+        setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
+        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+        asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
+    }
+
+    // Cambio: Actualizar la función firma2 para usar setFirmaImage
+    function firma2(response) {
+        console.log('asignación 2');
+        setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
+        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
+        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
+    }
+
+    // Cambio: Actualizar la función firma3 para usar setFirmaImage
+    function firma3(response) {
+        console.log('asignación 3');
+        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
+        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
     }
 
     function asignarValoresARadios(valores, selectorGrupos) {

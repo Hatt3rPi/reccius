@@ -48,7 +48,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
@@ -416,7 +416,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" id="imagen_firma" name="imagen_firma" alt="Firma" class="firma">
+                                <img src="" id="imagen_firma" name="imagen_firma" alt="Firma" class="firma">
 
                             </div>
 

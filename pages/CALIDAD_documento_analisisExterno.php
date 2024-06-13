@@ -31,7 +31,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
@@ -252,14 +252,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Solicitado por:</div>
                         <div class="firma-boxes">
-                            <p id='solicitado_por' name='solicitado_por' class="bold">
+                            <p id='solicitado_por' name='solicitado_por' class="bold">Inger Sumonte
                             </p>
-                            <p id='solicitado_por_cargo' name='solicitado_por_cargo' class="bold">
+                            <p id='solicitado_por_cargo' name='solicitado_por_cargo' class="bold">Director de Calidad
                             </p>
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img id="firma_solicitante" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                                <img src="..\assets\images\TEST.png" alt="Firma" class="firma">
 
                             </div>
 
@@ -274,14 +274,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Revisado por:</div>
                         <div class="firma-boxes">
-                            <p id='revisado_por' name='revisado_por' class="bold">
+                            <p id='revisado_por' name='revisado_por' class="bold">Inger Sumonte
                             </p>
-                            <p id='revisado_por_cargo' name='revisado_por_cargo' class="bold">
+                            <p id='revisado_por_cargo' name='revisado_por_cargo' class="bold">Director de Calidad
                             </p>
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img id="firma_revisador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                                <img src="..\assets\images\TEST.png" alt="Firma" class="firma">
 
                             </div>
 
