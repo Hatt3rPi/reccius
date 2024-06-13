@@ -238,7 +238,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th>Análisis</th>
                         <th>Metodología</th>
                         <th>Especificación</th>
-                        <th class="revision">Revisión</th>
+                        <th>Revisión</th>
                     </tr>
                 </table>
 
