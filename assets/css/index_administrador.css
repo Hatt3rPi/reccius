@@ -1,0 +1,67 @@
+/* archivo:assets\css\index_administrador.css */
+body {
+    background-color: #f4f4f9;
+}
+
+.dashboard {
+    padding: 20px;
+}
+
+.section-title {
+    background-color: #6c757d87;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card-custom {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    color: #fff;
+}
+
+.card-custom:hover {
+    transform: scale(1.05);
+}
+
+.card-blue {
+    background-color: #1E90FF;
+}
+
+.card-green {
+    background-color: #3CB371;
+}
+
+.card-orange {
+    background-color: #FFA500;
+}
+
+.card-red {
+    background-color: #FF6347; /* Color rojo para indicar próximos vencimientos */
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 12px;
+}
+
+.chart-container {
+    position: relative;
+    height: 40vh;
+    width: 100%;
+}
+
+.chart-title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #333;
+}

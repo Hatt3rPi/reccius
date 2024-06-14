@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!-- pages/index_administrador.html -->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Productos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../assets/css/index_administrador.css">
+</head>
+
+<body>
+    <div class="container dashboard">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="section-title">Especificación de productos</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card card-custom card-blue">
+                            <div class="card-body">
+                                <h5 class="card-title">92.31M</h5>
+                                <p class="card-text">Especificaciones vigentes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-custom card-green">
+                            <div class="card-body">
+                                <h5 class="card-title">79.30M</h5>
+                                <p class="card-text">Especificaciones en curso</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-custom card-orange">
+                            <div class="card-body">
+                                <h5 class="card-title">13.02M</h5>
+                                <p class="card-text">Especificaciones con vencimiento &lt;30 días</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5 class="chart-title">Tipos de Productos</h5>
+                        <div class="chart-container">
+                            <canvas id="tipoProductosChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="chart-title">Estado especificaciones de productos</h5>
+                        <div class="chart-container">
+                            <canvas id="estadoEspecificacionesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-5">
+                <h2 class="section-title">Liberación o rechazo de productos</h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card card-custom card-blue">
+                            <div class="card-body">
+                                <h5 class="card-title">92.31M</h5>
+                                <p class="card-text">Liberados</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-custom card-green">
+                            <div class="card-body">
+                                <h5 class="card-title">79.30M</h5>
+                                <p class="card-text">En curso</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-custom card-orange">
+                            <div class="card-body">
+                                <h5 class="card-title">13.02M</h5>
+                                <p class="card-text">Rechazados</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-custom card-red">
+                            <div class="card-body">
+                                <h5 class="card-title">7.20M</h5>
+                                <p class="card-text">PRÓXIMOS VENCIMIENTOS (&lt;1 mes)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h5 class="chart-title">Evolución de productos</h5>
+                        <div class="chart-container">
+                            <canvas id="evolucionProductosChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de los gráficos con Chart.js
+        $(document).ready(function() {
+
+            
+            var ctxTipoProductos = document.getElementById('tipoProductosChart').getContext('2d');
+            var tipoProductosChart = new Chart(ctxTipoProductos, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4'],
+                    datasets: [{
+                        data: [10, 20, 30, 40],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            var ctxEstadoEspecificaciones = document.getElementById('estadoEspecificacionesChart').getContext('2d');
+            var estadoEspecificacionesChart = new Chart(ctxEstadoEspecificaciones, {
+                type: 'bar',
+                data: {
+                    labels: ['Estado 1', 'Estado 2', 'Estado 3', 'Estado 4'],
+                    datasets: [{
+                        label: 'Especificaciones',
+                        data: [12, 19, 3, 5],
+                        backgroundColor: '#36A2EB'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    maintainAspectRatio: false
+                }
+            });
+
+            var ctxEvolucionProductos = document.getElementById('evolucionProductosChart').getContext('2d');
+            var evolucionProductosChart = new Chart(ctxEvolucionProductos, {
+                type: 'line',
+                data: {
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                    datasets: [
+                        {
+                            label: 'Liberados',
+                            data: [65, 59, 80, 81, 56, 55],
+                            borderColor: '#36A2EB',
+                            fill: false
+                        },
+                        {
+                            label: 'Rechazados',
+                            data: [28, 48, 40, 19, 86, 27],
+                            borderColor: '#FF6384',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

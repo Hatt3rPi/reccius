@@ -71,7 +71,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         
         .bs-popover-auto[x-placement^=bottom]>.arrow::after, .bs-popover-bottom>.arrow::after {
             border-bottom-color: #dc3545 !important;
-            border: 2px solid red  !important;
+            /* border: 2px solid red  !important; */
         }
         .popover-header {
             display: flex;
@@ -276,6 +276,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 <script>
 
 $(document).ready(function() {
+        $('#dynamic-content').load('index_administrador.html');
         $('[data-toggle="popover"]').popover({
             placement: 'bottom',
             trigger: 'manual' // Popover se mostrará manualmente
