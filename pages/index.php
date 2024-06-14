@@ -289,7 +289,7 @@ $(document).ready(function() {
 
         // Cerrar el popover al hacer clic fuera del popover
         $(document).on('click', function (e) {
-            if (!$(e.target).closest('.popover').length && !$(e.target).closest('[data-toggle="popover"]').length) {
+            if (!$(e.target).closest('.popover').length && !$(e.target).closest('.dropbtn').length) {
                 $('[data-toggle="popover"]').popover('hide');
             }
         });
@@ -299,7 +299,6 @@ $(document).ready(function() {
             $('[data-toggle="popover"]').popover('hide');
         });
     });
-
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
