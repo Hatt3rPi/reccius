@@ -65,8 +65,8 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
         .popover {
             border: 2px solid red;
-            top: -70px;
-            border-bottom-color:'#dc3545';
+            top: -70px !important;
+            border-bottom-color:'#dc3545' !important;
         }
         .popover-header {
             display: flex;
