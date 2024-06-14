@@ -277,8 +277,7 @@ $(document).ready(function() {
             $('[data-toggle="popover"]').popover('show');
             $('[data-toggle="popover"]').on('shown.bs.popover', function () {
                 var popover = $(this).next('.popover');
-                var currentTop = parseInt(popover.css('top'), 10);
-                popover.css('top', (currentTop - 80) + 'px');
+                popover.css('top', '- 80 px');
             });
         <?php endif; ?>
 
