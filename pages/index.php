@@ -278,6 +278,7 @@ $(document).ready(function() {
             $('[data-toggle="popover"]').on('shown.bs.popover', function () {
                 var popover = $(this).next('.popover');
                 popover.css('top', '- 80 px');
+                popover.css('border-bottom-color', '#dc3545');
             });
         <?php endif; ?>
 
