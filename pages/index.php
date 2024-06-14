@@ -66,6 +66,10 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         .popover {
             border: 2px solid red;
             top: -70px !important;
+            
+        }
+        
+        .bs-popover-auto[x-placement^=bottom]>.arrow::after, .bs-popover-bottom>.arrow::after {
             border-bottom-color:'#dc3545' !important;
         }
         .popover-header {
