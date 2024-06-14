@@ -56,7 +56,8 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
 
-
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body class="position-relative">
@@ -248,16 +249,19 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
 </html>
 <script>
-            $('[data-toggle="popover"]').popover({
-                placement: 'bottom',
-                trigger: 'manual' // Popover se mostrará manualmente
-            });
 
-            // Si la firma no está ingresada, mostrar el popover automáticamente
-            <?php if ($firma_no_ingresada): ?>
-                $('[data-toggle="popover"]').popover('show');
-            <?php endif; ?>
-            
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+            placement: 'bottom',
+            trigger: 'manual' // Popover se mostrará manualmente
+        });
+
+        // Si la firma no está ingresada, mostrar el popover automáticamente
+        <?php if ($firma_no_ingresada): ?>
+            $('[data-toggle="popover"]').popover('show');
+        <?php endif; ?>
+    });
+
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
