@@ -65,11 +65,19 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
 <body class="position-relative">
     <header>
-    <style>
-    .popover {
-        border: 2px solid red;
-    }
-</style>
+        <style>
+            .popover {
+                border: 2px solid red;
+            }
+            .popover-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .popover-header .close {
+                cursor: pointer;
+            }
+        </style>
         <div class="header_estatico">
 
             <div class="logo-title-container">
@@ -88,7 +96,8 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
             <div class="user-info">
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
-                <div class="dropdown" <?php echo $firma_no_ingresada ? 'data-toggle="popover" title="Firma no ingresada" data-content="Favor adjuntar firma para poder firmar sus documentos cuando corresponda." data-trigger="focus"' : ''; ?>>
+                <div class="dropdown" <?php echo $firma_no_ingresada ? 'data-toggle="popover" data-html="true" title="Firma no ingresada <span class=\'close\'>&times;</span>" data-content="Favor adjuntar firma para poder firmar sus documentos cuando corresponda." data-trigger="manual"' : ''; ?>>
+
                     <button class="dropbtn">
                         <span class="username">usuario</span><br>
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
@@ -269,9 +278,26 @@ $(document).ready(function() {
             $('[data-toggle="popover"]').on('shown.bs.popover', function () {
                 var popover = $(this).next('.popover');
                 var currentTop = parseInt(popover.css('top'), 10);
-                popover.css('top', (currentTop - 70) + 'px');
+                popover.css('top', (currentTop - 80) + 'px');
             });
         <?php endif; ?>
+
+        // Cerrar el popover al hacer clic en el botón con clase dropbtn
+        $('.dropbtn').on('click', function() {
+            $('[data-toggle="popover"]').popover('hide');
+        });
+
+        // Cerrar el popover al hacer clic fuera del popover
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.popover').length && !$(e.target).closest('[data-toggle="popover"]').length) {
+                $('[data-toggle="popover"]').popover('hide');
+            }
+        });
+
+        // Cerrar el popover al hacer clic en el botón de cierre dentro del popover
+        $(document).on('click', '.popover .close', function() {
+            $('[data-toggle="popover"]').popover('hide');
+        });
     });
 
     function fetchUserInfo() {
