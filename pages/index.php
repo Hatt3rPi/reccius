@@ -61,26 +61,27 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+
+        .popover {
+            border: 2px solid red;
+            top: -70px;
+            border-bottom-color:'#dc3545';
+        }
+        .popover-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .popover-header .close {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body class="position-relative">
     <header>
-        <style>
 
-            .popover {
-                border: 2px solid red;
-                top: -70px;
-                border-bottom-color:'#dc3545';
-            }
-            .popover-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .popover-header .close {
-                cursor: pointer;
-            }
-        </style>
         <div class="header_estatico">
 
             <div class="logo-title-container">
