@@ -8,7 +8,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
-
+$firma_no_ingresada = false;
+if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
+    $firma_no_ingresada = true;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -77,7 +80,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <div class="user-info">
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
-                <div class="dropdown">
+                <div class="dropdown" <?php echo $firma_no_ingresada ? 'data-toggle="popover" title="Firma no ingresada" data-content="Favor adjuntar firma para poder firmar sus documentos cuando corresponda." data-trigger="focus"' : ''; ?>>
                     <button class="dropbtn">
                         <span class="username">usuario</span><br>
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
@@ -245,6 +248,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+            $('[data-toggle="popover"]').popover({
+                placement: 'bottom',
+                trigger: 'manual' // Popover se mostrará manualmente
+            });
+
+            // Si la firma no está ingresada, mostrar el popover automáticamente
+            <?php if ($firma_no_ingresada): ?>
+                $('[data-toggle="popover"]').popover('show');
+            <?php endif; ?>
+            
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
