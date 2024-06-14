@@ -25,7 +25,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <h2 class="section-title">Listado solicitudes de análisis:</h2>
         <div class="estado-filtros">
             <label> Filtrar por:</label>
-            <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
+            <button class="estado-filtro badge badge-success" onclick="filtrar_listado('completado')">Completado</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de Muestreo')">Pendiente Acta de Muestreo</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente ingreso resultados laboratorio')">Pendiente ingreso resultados laboratorio</button>
@@ -87,8 +87,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "80px",
                     "render": function(data, type, row) {
                         switch (data) {
-                            case 'Vigente':
-                                return '<span class="badge badge-success">Vigente</span>';
+                            case 'completado':
+                                return '<span class="badge badge-success">Completado</span>';
                             case 'Especificación obsoleta':
                                 return '<span class="badge badge-dark">Expirado</span>';
                             case 'Expirado':
@@ -103,8 +103,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 return '<span class="badge badge-warning">Pendiente Acta de Muestreo</span>';
                             case 'Pendiente de Revisión':
                                 return '<span class="badge badge-warning">Pendiente de Revisión</span>';
-                                case 'Pendiente ingreso resultados laboratorio':
-                                return '<span class="badge badge-warning">Pendiente ingreso resultados laboratorio</span>';
+                                case 'Pendiente ingreso resultados':
+                                return '<span class="badge badge-warning">Pendiente ingreso resultadosaboratorio</span>';
                             default:
                                 return '<span class="badge">' + data + '</span>';
                         }
