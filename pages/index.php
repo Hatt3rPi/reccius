@@ -65,7 +65,11 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
 <body class="position-relative">
     <header>
-
+    <style>
+    .popover {
+        border: 2px solid red;
+    }
+</style>
         <div class="header_estatico">
 
             <div class="logo-title-container">
@@ -253,7 +257,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 </html>
 <script>
 
-    $(document).ready(function() {
+$(document).ready(function() {
         $('[data-toggle="popover"]').popover({
             placement: 'bottom',
             trigger: 'manual' // Popover se mostrará manualmente
@@ -262,6 +266,11 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         // Si la firma no está ingresada, mostrar el popover automáticamente
         <?php if ($firma_no_ingresada): ?>
             $('[data-toggle="popover"]').popover('show');
+            $('[data-toggle="popover"]').on('shown.bs.popover', function () {
+                var popover = $(this).next('.popover');
+                var currentTop = parseInt(popover.css('top'), 10);
+                popover.css('top', (currentTop - 70) + 'px');
+            });
         <?php endif; ?>
     });
 
