@@ -30,27 +30,33 @@ body {
 
 .card-blue {
     background-color: #1E90FF;
+    height :80px
 }
 
 .card-green {
     background-color: #3CB371;
+    height :80px
 }
 
 .card-orange {
     background-color: #FFA500;
+    height :80px
 }
 
 .card-red {
     background-color: #FF6347; /* Color rojo para indicar próximos vencimientos */
+    height :80px
 }
 
 .card-title {
     font-size: 2rem;
     font-weight: bold;
+    text-align: center;
 }
 
 .card-text {
     font-size: 12px;
+    text-align: center;
 }
 
 .chart-container {
