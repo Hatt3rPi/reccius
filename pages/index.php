@@ -66,8 +66,11 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 <body class="position-relative">
     <header>
         <style>
+
             .popover {
                 border: 2px solid red;
+                top: -70px;
+                border-bottom-color:'#dc3545';
             }
             .popover-header {
                 display: flex;
@@ -277,8 +280,6 @@ $(document).ready(function() {
             $('[data-toggle="popover"]').popover('show');
             $('[data-toggle="popover"]').on('shown.bs.popover', function () {
                 var popover = $(this).next('.popover');
-                popover.css('top', '- 80 px');
-                popover.css('border-bottom-color', '#dc3545');
             });
         <?php endif; ?>
 
