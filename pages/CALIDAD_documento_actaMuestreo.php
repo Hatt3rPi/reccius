@@ -643,7 +643,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_realizador" name="firma_realizador" src="https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png" alt="Firma" class="firma">
+                            <img id="firma_realizador" name="firma_realizador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
@@ -663,7 +663,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_responsable" name="firma_responsable" src="https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png" alt="Firma" class="firma">
+                            <img id="firma_responsable" name="firma_responsable" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                         </div>
 
@@ -686,7 +686,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_verificador" name="firma_verificador" src="../assets/images/TEST.png" alt="firma_verificador" class="firma" />
+                            <img id="firma_verificador" name="firma_verificador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="firma_verificador" class="firma" />
 
                         </div>
 
@@ -719,7 +719,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="guardar" style="display: none">Guardar</button>
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
-    <button class="botones" id="TESTPDF" style="display: block">PRUEBA FOOTER PDF</button>
     <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
@@ -819,8 +818,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         console.log('Asignación de la firma del usuario:');
         console.log(fotoFirmaUsuario);
+        fetch(fotoFirmaUsuario).then(resp => resp.blob()).then((data) => {
+            console.log(data)
+            setFirmaImage(document.getElementById('firma_realizador'), data);
 
-        setFirmaImage(document.getElementById('firma_realizador'), fotoFirmaUsuario);
+        })
 
         $('#fecha_Edicion').text(response.fecha_firma_muestreador);
 
@@ -839,7 +841,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Cambio: Actualizar la función firma3 para usar setFirmaImage
     function firma3(response) {
         console.log('asignación 3');
-        //setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
+        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
         $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
     }
 
