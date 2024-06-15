@@ -1028,8 +1028,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     function procesarDatosActa(response, resultados, etapa) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
-        if (response.url_certificado_acta_de_muestreo === null || response.url_certificado_acta_de_muestreo === '' || response.url_certificado_acta_de_muestreo === undefined)
-            $('#upload-pdf').show();
 
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
         // Aquí asignas los valores a los campos del formulario
@@ -1127,6 +1125,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     firma3(response);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('download-pdf').style.display = 'block';
+                    $('#upload-pdf').show();
                     break;
             }
         } else {
