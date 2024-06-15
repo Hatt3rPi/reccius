@@ -839,7 +839,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Cambio: Actualizar la función firma3 para usar setFirmaImage
     function firma3(response) {
         console.log('asignación 3');
-        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
+        //setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
         $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
     }
 
