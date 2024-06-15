@@ -978,7 +978,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         html2canvas(elementToExport, {
             scale: 1,
-            useCORS: true
+            useCORS: false
         }).then(canvas => {
             // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
