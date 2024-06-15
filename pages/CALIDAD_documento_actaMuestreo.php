@@ -719,7 +719,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="guardar" style="display: none">Guardar</button>
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
-    <button class="botones" id="TESTPDF" style="display: none">PRUEBA FOOTER PDF</button>
+    <button class="botones" id="TESTPDF" style="display: block">PRUEBA FOOTER PDF</button>
     <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
@@ -798,9 +798,37 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
+    // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
     document.getElementById('TESTPDF').addEventListener('click', function() {
-        captureAndGeneratePDF('footer-containerDIV');
+        // Esperar a que todas las imágenes se carguen completamente antes de capturar
+        const imageElements = document.querySelectorAll('img');
+        let imagesLoaded = 0;
+
+        imageElements.forEach(img => {
+            if (img.complete) {
+                imagesLoaded++;
+            } else {
+                img.onload = () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === imageElements.length) {
+                        captureAndGeneratePDF('footer-containerDIV');
+                    }
+                };
+                img.onerror = () => {
+                    imagesLoaded++;
+                    if (imagesLoaded === imageElements.length) {
+                        captureAndGeneratePDF('footer-containerDIV');
+                    }
+                };
+            }
+        });
+
+        // Si todas las imágenes ya están cargadas
+        if (imagesLoaded === imageElements.length) {
+            captureAndGeneratePDF('footer-containerDIV');
+        }
     });
+
     // Función para capturar y generar PDF
     function captureAndGeneratePDF(elementId) {
         captureElement(elementId).then(imageDataURL => {
@@ -809,13 +837,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.error('Error al capturar el elemento y generar el PDF:', error);
         });
     }
+
     // Función para capturar un área específica de la página con html2canvas
     function captureElement(elementId) {
         const element = document.getElementById(elementId);
         return html2canvas(element).then(canvas => {
+            console.log('Canvas generado:', canvas);
             return canvas.toDataURL('image/png');
         });
     }
+
     // Función para generar un PDF con jspdf
     function generatePDF(imageDataURL) {
         const {
@@ -825,11 +856,100 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         // Agregar la imagen al PDF
         pdf.addImage(imageDataURL, 'PNG', 10, 10, 180, 160); // Ajustar las posiciones y el tamaño según tus necesidades
+        console.log('Imagen agregada al PDF:', imageDataURL);
 
         // Guardar el PDF
         pdf.save('documento.pdf');
     }
     // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
+
+
+    function setFirmaImage(imgElement, firmaSrc) {
+        const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
+        const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
+
+        if (!firmaSrc) {
+            imgElement.src = nullImage;
+            console.log("Firma no disponible, usando imagen nula.");
+        } else {
+            imgElement.onerror = function() {
+                imgElement.src = noProvidedImage;
+                console.log("Error al cargar la firma, usando imagen de firma no proporcionada.");
+            };
+            imgElement.src = firmaSrc;
+            console.log("Cargando firma desde:", firmaSrc);
+        }
+    }
+    // Cambio: Actualizar la función firma1 para usar setFirmaImage
+    // Función para manejar la respuesta y asignar valores a los elementos del DOM
+    function firma1(response) {
+        var fotoFirmaUsuario = response.foto_firma_usr1;
+
+        console.log('Asignación de la firma del usuario:');
+        console.log(fotoFirmaUsuario);
+
+        setFirmaImage(document.getElementById('firma_realizador'), fotoFirmaUsuario);
+
+        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+
+        asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
+    }
+
+
+    // Cambio: Actualizar la función firma2 para usar setFirmaImage
+    function firma2(response) {
+        console.log('asignación 2');
+        setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
+        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
+        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
+    }
+
+    // Cambio: Actualizar la función firma3 para usar setFirmaImage
+    function firma3(response) {
+        console.log('asignación 3');
+        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
+        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
+    }
+
+    function asignarValoresARadios(valores, selectorGrupos) {
+        // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
+        const grupos = document.querySelectorAll(selectorGrupos);
+        console.log("Cantidad de grupos encontrados:", grupos.length);
+        console.log("Longitud de valores esperados:", valores.length);
+
+        if (valores.length !== grupos.length) {
+            console.error("La cantidad de valores no coincide con la cantidad de grupos de botones.");
+            return;
+        }
+
+        // Iterar sobre cada grupo y asignar el valor correspondiente basado en el valor en la cadena 'valores'.
+        grupos.forEach((grupo, index) => {
+            // El valor para el grupo actual se obtiene del string de valores.
+            const valor = valores[index];
+
+            // Determinar el sufijo del botón basado en el valor ('a' para '1', 'b' para '0').
+            const suffix = valor === '1' ? 'a' : 'b';
+
+            // Intentar seleccionar el botón de radio correspondiente en el grupo.
+            const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
+
+            // Deshabilitar todos los botones dentro del grupo para evitar cambios adicionales.
+            const allRadios = grupo.querySelectorAll('input[type="radio"]');
+            allRadios.forEach(r => {
+                r.setAttribute('disabled', 'disabled');
+            });
+
+            if (radio) {
+                // Si se encuentra el botón, se marca como seleccionado.
+                radio.checked = true;
+            } else {
+                // Si no se encuentra el botón, se muestra un error en la consola.
+                console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
+            }
+        });
+    }
+
+
 
 
 
@@ -1189,96 +1309,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
     }
-
-    function setFirmaImage(imgElement, firmaSrc) {
-        const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
-        const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
-
-        if (!firmaSrc) {
-            imgElement.src = nullImage;
-            console.log("Firma no disponible, usando imagen nula.");
-        } else {
-            imgElement.onerror = function() {
-                imgElement.src = noProvidedImage;
-                console.log("Error al cargar la firma, usando imagen de firma no proporcionada.");
-            };
-            imgElement.src = firmaSrc;
-            console.log("Cargando firma desde:", firmaSrc);
-        }
-    }
-    // Cambio: Actualizar la función firma1 para usar setFirmaImage
-    // Función para manejar la respuesta y asignar valores a los elementos del DOM
-    function firma1(response) {
-        // Asignar la foto de la firma del usuario a una variable
-        var fotoFirmaUsuario = response.foto_firma_usr1;
-
-        // Imprimir en la consola para depuración
-        console.log('Asignación de la firma del usuario:');
-        console.log(fotoFirmaUsuario);
-
-        // Establecer la imagen de la firma en el elemento correspondiente
-        setFirmaImage(document.getElementById('firma_realizador'), fotoFirmaUsuario);
-
-        // Actualizar la fecha de edición en el elemento correspondiente
-        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
-
-        // Asignar valores a los radios en el formulario
-        asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
-    }
-
-    // Cambio: Actualizar la función firma2 para usar setFirmaImage
-    function firma2(response) {
-        console.log('asignación 2');
-        setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
-        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
-        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
-    }
-
-    // Cambio: Actualizar la función firma3 para usar setFirmaImage
-    function firma3(response) {
-        console.log('asignación 3');
-        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
-        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
-    }
-
-    function asignarValoresARadios(valores, selectorGrupos) {
-        // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
-        const grupos = document.querySelectorAll(selectorGrupos);
-        console.log("Cantidad de grupos encontrados:", grupos.length);
-        console.log("Longitud de valores esperados:", valores.length);
-
-        if (valores.length !== grupos.length) {
-            console.error("La cantidad de valores no coincide con la cantidad de grupos de botones.");
-            return;
-        }
-
-        // Iterar sobre cada grupo y asignar el valor correspondiente basado en el valor en la cadena 'valores'.
-        grupos.forEach((grupo, index) => {
-            // El valor para el grupo actual se obtiene del string de valores.
-            const valor = valores[index];
-
-            // Determinar el sufijo del botón basado en el valor ('a' para '1', 'b' para '0').
-            const suffix = valor === '1' ? 'a' : 'b';
-
-            // Intentar seleccionar el botón de radio correspondiente en el grupo.
-            const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
-
-            // Deshabilitar todos los botones dentro del grupo para evitar cambios adicionales.
-            const allRadios = grupo.querySelectorAll('input[type="radio"]');
-            allRadios.forEach(r => {
-                r.setAttribute('disabled', 'disabled');
-            });
-
-            if (radio) {
-                // Si se encuentra el botón, se marca como seleccionado.
-                radio.checked = true;
-            } else {
-                // Si no se encuentra el botón, se muestra un error en la consola.
-                console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
-            }
-        });
-    }
-
 
 
     document.getElementById('firmar').addEventListener('click', function() {
