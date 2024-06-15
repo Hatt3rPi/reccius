@@ -762,7 +762,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
 
-    let idAnalisisExterno = null;
+    var idAnalisisExterno = null;
     
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
         const metodoManual = document.getElementById('muestreoManual').checked;
