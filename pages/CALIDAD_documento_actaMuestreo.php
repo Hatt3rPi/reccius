@@ -643,7 +643,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_realizador" name="firma_realizador" src="" alt="Firma" class="firma">
+                            <img id="firma_realizador" name="firma_realizador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
@@ -663,7 +663,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_responsable" name="firma_responsable" src="" alt="Firma" class="firma">
+                            <img id="firma_responsable" name="firma_responsable" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                         </div>
 
@@ -686,7 +686,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_verificador" name="firma_verificador" src="" alt="firma_verificador" class="firma" />
+                            <img id="firma_verificador" name="firma_verificador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="firma_verificador" class="firma" />
 
                         </div>
 
@@ -1194,6 +1194,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Cambio: Actualizar la función firma1 para usar setFirmaImage
     function firma1(response) {
         console.log('asignación 1');
+        console.log(rsponse.foto_firma_usr1);
         setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
         $('#fecha_Edicion').text(response.fecha_firma_muestreador);
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
