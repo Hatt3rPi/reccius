@@ -762,7 +762,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
 
-    var idAnalisisExterno = null;
+    var idAnalisisExterno_acta = null;
     
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
         const metodoManual = document.getElementById('muestreoManual').checked;
@@ -940,7 +940,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const formData = new FormData();
                 formData.append('certificado', blob, 'documento.pdf');
                 formData.append('type', 'acta');
-                formData.append('id_solicitud', idAnalisisExterno); 
+                formData.append('id_solicitud', idAnalisisExterno_acta); 
 
                 fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
@@ -1024,7 +1024,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function procesarDatosActa(response, resultados, etapa) {
         console.log(resultados, etapa);
-        idAnalisisExterno = response.id_analisis_externo
+        idAnalisisExterno_acta = response.id_analisis_externo
         if(response.url_certificado_acta_de_muestreo === null|| response.url_certificado_acta_de_muestreo === '' || response.url_certificado_acta_de_muestreo === undefined)
             $('#upload-pdf').show();
 
