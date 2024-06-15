@@ -686,7 +686,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_verificador" name="firma_verificador" src="https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png" alt="firma_verificador" class="firma" />
+                            <img id="firma_verificador" name="firma_verificador" src="../assets/images/TEST.png" alt="firma_verificador" class="firma" />
 
                         </div>
 
