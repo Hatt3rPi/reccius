@@ -643,7 +643,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_realizador" name="firma_realizador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                            <img id="firma_realizador" name="firma_realizador" src="https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
@@ -663,7 +663,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_responsable" name="firma_responsable" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                            <img id="firma_responsable" name="firma_responsable" src="https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png" alt="Firma" class="firma">
 
                         </div>
 
@@ -686,7 +686,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_verificador" name="firma_verificador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="firma_verificador" class="firma" />
+                            <img id="firma_verificador" name="firma_verificador" src="https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png" alt="firma_verificador" class="firma" />
 
                         </div>
 
@@ -795,74 +795,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         }
     });
-
-
-    // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
-    // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
-    document.getElementById('TESTPDF').addEventListener('click', function() {
-        // Esperar a que todas las imágenes se carguen completamente antes de capturar
-        const imageElements = document.querySelectorAll('img');
-        let imagesLoaded = 0;
-
-        imageElements.forEach(img => {
-            if (img.complete) {
-                imagesLoaded++;
-            } else {
-                img.onload = () => {
-                    imagesLoaded++;
-                    if (imagesLoaded === imageElements.length) {
-                        captureAndGeneratePDF('footer-containerDIV');
-                    }
-                };
-                img.onerror = () => {
-                    imagesLoaded++;
-                    if (imagesLoaded === imageElements.length) {
-                        captureAndGeneratePDF('footer-containerDIV');
-                    }
-                };
-            }
-        });
-
-        // Si todas las imágenes ya están cargadas
-        if (imagesLoaded === imageElements.length) {
-            captureAndGeneratePDF('footer-containerDIV');
-        }
-    });
-
-    // Función para capturar y generar PDF
-    function captureAndGeneratePDF(elementId) {
-        captureElement(elementId).then(imageDataURL => {
-            generatePDF(imageDataURL);
-        }).catch(error => {
-            console.error('Error al capturar el elemento y generar el PDF:', error);
-        });
-    }
-
-    // Función para capturar un área específica de la página con html2canvas
-    function captureElement(elementId) {
-        const element = document.getElementById(elementId);
-        return html2canvas(element).then(canvas => {
-            console.log('Canvas generado:', canvas);
-            return canvas.toDataURL('image/png');
-        });
-    }
-
-    // Función para generar un PDF con jspdf
-    function generatePDF(imageDataURL) {
-        const {
-            jsPDF
-        } = window.jspdf;
-        const pdf = new jsPDF();
-
-        // Agregar la imagen al PDF
-        pdf.addImage(imageDataURL, 'PNG', 10, 10, 180, 160); // Ajustar las posiciones y el tamaño según tus necesidades
-        console.log('Imagen agregada al PDF:', imageDataURL);
-
-        // Guardar el PDF
-        pdf.save('documento.pdf');
-    }
-    // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
-
 
     function setFirmaImage(imgElement, firmaSrc) {
         const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
