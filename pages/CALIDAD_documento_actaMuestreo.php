@@ -761,8 +761,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    var idAnalisisExterno_acta = null;
 
+    var idAnalisisExterno_acta = null;
+    
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
@@ -935,29 +936,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 heightLeft -= pageHeight;
             }
 
-            const blob = pdf.output('blob');
+            pdf.output('blob').then(blob => {
+                const formData = new FormData();
+                formData.append('certificado', blob, 'documento.pdf');
+                formData.append('type', 'acta');
+                formData.append('id_solicitud', idAnalisisExterno_acta); 
 
-            const formData = new FormData();
-            formData.append('certificado', blob, 'documento.pdf');
-            formData.append('type', 'acta');
-            formData.append('id_solicitud', idAnalisisExterno_acta);
-
-            fetch('./backend/calidad/add_documentos.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        $.notify("PDF subido con éxito", "success");
-                    } else {
-                        $.notify("Error al subir el PDF: " + data.message, "error");
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    $.notify("Error al subir el PDF", "error");
-                });
+                fetch('./backend/calidad/add_documentos.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            $.notify("PDF subido con éxito", "success");
+                        } else {
+                            $.notify("Error al subir el PDF: " + data.message, "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        $.notify("Error al subir el PDF", "error");
+                    });
+            });
 
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
@@ -965,12 +966,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.style.display = 'block';
                 });
             });
-        }).catch(error => {
-            console.error('Error al generar el canvas:', error);
-            $.notify("Error al generar el PDF", "error");
         });
     });
-
 
     //cargarDatosEspecificacion(id, true, '0');
     function cargarDatosEspecificacion(id, resultados, etapa) {
@@ -1028,6 +1025,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     function procesarDatosActa(response, resultados, etapa) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
+        if(response.url_certificado_acta_de_muestreo === null|| response.url_certificado_acta_de_muestreo === '' || response.url_certificado_acta_de_muestreo === undefined)
+            $('#upload-pdf').show();
 
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
         // Aquí asignas los valores a los campos del formulario
@@ -1125,7 +1124,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     firma3(response);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('download-pdf').style.display = 'block';
-                    $('#upload-pdf').show();
                     break;
             }
         } else {
