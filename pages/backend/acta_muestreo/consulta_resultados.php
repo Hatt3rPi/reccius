@@ -15,7 +15,7 @@ $id_actaMuestreo = intval($_POST['id_actaMuestreo']);
 $query = "SELECT 
             aex.id as id_analisis_externo, aex.id_especificacion, aex.id_producto,
             pr.nombre_producto, pr.formato, pr.concentracion, pr.tipo_producto,
-            aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.revisado_por, aex.url_certificado_acta_de_muestreo
+            aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.revisado_por, aex.url_certificado_acta_de_muestreo,
             usr1.nombre as nombre_usr1, usr1.cargo as cargo_usr1, 
             CASE
                 WHEN usr1.qr_documento IS NOT NULL THEN usr1.qr_documento
