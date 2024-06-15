@@ -40,7 +40,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
+                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
@@ -1167,36 +1167,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.log("Cargando firma desde:", firmaSrc);
         }
     }
-
     // Cambio: Actualizar la función firma1 para usar setFirmaImage
+    // Función para manejar la respuesta y asignar valores a los elementos del DOM
     function firma1(response) {
-        console.log('asignación 1');
-        setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
+        // Asignar la foto de la firma del usuario a una variable
+        var fotoFirmaUsuario = response.foto_firma_usr1;
+
+        // Imprimir en la consola para depuración
+        console.log('Asignación de la firma del usuario:');
+        console.log(fotoFirmaUsuario);
+
+        // Establecer la imagen de la firma en el elemento correspondiente
+        setFirmaImage(document.getElementById('firma_realizador'), fotoFirmaUsuario);
+
+        // Actualizar la fecha de edición en el elemento correspondiente
         $('#fecha_Edicion').text(response.fecha_firma_muestreador);
-        asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
-    }
 
-    // Cambio: Actualizar la función firma2 para usar setFirmaImage
-    function firma2(response) {
-        console.log('asignación 2');
-        setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
-        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
-        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
-    }
-
-    // Cambio: Actualizar la función firma3 para usar setFirmaImage
-    function firma3(response) {
-        console.log('asignación 3');
-        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
-        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
-    }
-
-    // Cambio: Actualizar la función firma1 para usar setFirmaImage
-    function firma1(response) {
-        console.log('asignación 1');
-        console.log(response.foto_firma_usr1);
-        setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
-        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+        // Asignar valores a los radios en el formulario
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
     }
 
