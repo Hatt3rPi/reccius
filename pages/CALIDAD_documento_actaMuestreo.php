@@ -1194,7 +1194,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Cambio: Actualizar la función firma1 para usar setFirmaImage
     function firma1(response) {
         console.log('asignación 1');
-        console.log(rsponse.foto_firma_usr1);
+        console.log(response.foto_firma_usr1);
         setFirmaImage(document.getElementById('firma_realizador'), response.foto_firma_usr1);
         $('#fecha_Edicion').text(response.fecha_firma_muestreador);
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
