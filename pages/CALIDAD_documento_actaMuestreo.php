@@ -818,7 +818,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         console.log('Asignación de la firma del usuario:');
         console.log(fotoFirmaUsuario);
-        fetch(fotoFirmaUsuario).then(resp => resp.blob()).then((data) => {
+        fetch(fotoFirmaUsuario).then(resp => resp.blob()).then(blob => new URL.createObjectURL(blob) ).then((data) => {
             console.log(data)
             setFirmaImage(document.getElementById('firma_realizador'), data);
 
