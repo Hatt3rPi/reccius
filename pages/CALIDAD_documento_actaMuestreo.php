@@ -719,6 +719,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="guardar" style="display: none">Guardar</button>
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
+    <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -760,6 +761,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+
+    let idAnalisisExterno = null;
+    
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
@@ -793,7 +797,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-
 
         // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
@@ -873,9 +876,99 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 });
             });
 
-
         });
     });
+
+    document.getElementById('upload-pdf').addEventListener('click', function() {
+
+        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
+
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                if (!button.checked) {
+                    button.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
+
+        document.querySelector('.button-container').style.display = 'none';
+        const elementToExport = document.getElementById('form-container');
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
+
+        html2canvas(elementToExport, {
+            scale: 1
+        }).then(canvas => {
+            document.querySelector('.button-container').style.display = 'block';
+            elementToExport.style.border = '1px solid #000';
+            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    if (button.checked) {
+                        button.style.display = 'block';
+                    }
+                });
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const imgWidth = 210;
+            const pageHeight = 297;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 0;
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            pdf.output('blob').then(blob => {
+                const formData = new FormData();
+                formData.append('certificado', blob, 'documento.pdf');
+                formData.append('type', 'acta');
+                formData.append('id_solicitud', idAnalisisExterno); 
+
+                fetch('./backend/calidad/add_documentos.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            $.notify("PDF subido con éxito", "success");
+                        } else {
+                            $.notify("Error al subir el PDF: " + data.message, "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        $.notify("Error al subir el PDF", "error");
+                    });
+            });
+
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    button.style.display = 'block';
+                });
+            });
+        });
+    });
+
     //cargarDatosEspecificacion(id, true, '0');
     function cargarDatosEspecificacion(id, resultados, etapa) {
         console.log(id, resultados, etapa);
@@ -889,7 +982,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     id_actaMuestreo: id
                 },
                 success: function(data) {
-                    console.log('Datos recibidos:', data);
+                    console.log('Datos recibidos:', data)
+
                     $('#id_actaMuestreo').text(id);
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
                         procesarDatosActa(data.analisis_externos[0], resultados, etapa);
@@ -930,6 +1024,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function procesarDatosActa(response, resultados, etapa) {
         console.log(resultados, etapa);
+        idAnalisisExterno = response.id_analisis_externo
+        if(response.url_certificado_acta_de_muestreo === null|| response.url_certificado_acta_de_muestreo === '' || response.url_certificado_acta_de_muestreo === undefined)
+            $('#upload-pdf').show();
+
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
         // Aquí asignas los valores a los campos del formulario
         // Asegúrate de que los ID de los elementos HTML coincidan con estos
