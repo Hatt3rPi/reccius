@@ -628,7 +628,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </section>
 
             <!-- Footer -->
-            <div class="footer-containerDIV">
+            <div id="footer-containerDIV" class="footer-containerDIV">
 
 
 
@@ -719,6 +719,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="guardar" style="display: none">Guardar</button>
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
+    <button class="botones" id="TESTPDF" style="display: none">PRUEBA FOOTER PDF</button>
     <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
@@ -794,6 +795,44 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         }
     });
+
+
+    // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
+    document.getElementById('TESTPDF').addEventListener('click', function() {
+        captureAndGeneratePDF('footer-containerDIV');
+    });
+    // Función para capturar y generar PDF
+    function captureAndGeneratePDF(elementId) {
+        captureElement(elementId).then(imageDataURL => {
+            generatePDF(imageDataURL);
+        }).catch(error => {
+            console.error('Error al capturar el elemento y generar el PDF:', error);
+        });
+    }
+    // Función para capturar un área específica de la página con html2canvas
+    function captureElement(elementId) {
+        const element = document.getElementById(elementId);
+        return html2canvas(element).then(canvas => {
+            return canvas.toDataURL('image/png');
+        });
+    }
+    // Función para generar un PDF con jspdf
+    function generatePDF(imageDataURL) {
+        const {
+            jsPDF
+        } = window.jspdf;
+        const pdf = new jsPDF();
+
+        // Agregar la imagen al PDF
+        pdf.addImage(imageDataURL, 'PNG', 10, 10, 180, 160); // Ajustar las posiciones y el tamaño según tus necesidades
+
+        // Guardar el PDF
+        pdf.save('documento.pdf');
+    }
+    // TESTEO ZONE TESTEO ZOEN TESTEO ZOEN TESTEO ZOEN
+
+
+
 
     document.getElementById('download-pdf').addEventListener('click', function() {
 
