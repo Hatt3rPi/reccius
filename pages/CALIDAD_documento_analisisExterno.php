@@ -208,7 +208,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
-                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input input-highlight" > 
+                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input input-highlight">
                                 <span>
                                     <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                                 </span> &nbsp Seleccione un archivo
@@ -325,6 +325,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+    var idAnalisisExterno_acta = null;
+
     document.getElementById('download-pdf').addEventListener('click', function() {
         const {
             jsPDF
@@ -396,85 +398,87 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $.notify("PDF generado con éxito", "success");
             });
     });
-    
-    document.getElementById('upload-pdf').addEventListener('click', function () {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'mm', [279, 216]);
-    const pageHeight = 279;
-    const margin = 5;
-    let currentY = margin;
 
-    const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
-        const elementToExport = document.getElementById(sectionId);
-        if (elementToExport) {
-            elementToExport.style.border = 'none';
-            elementToExport.style.boxShadow = 'none';
+    document.getElementById('upload-pdf').addEventListener('click', function() {
+        const {
+            jsPDF
+        } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', [279, 216]);
+        const pageHeight = 279;
+        const margin = 5;
+        let currentY = margin;
 
-            return html2canvas(elementToExport, {
-                scale: 2
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                const imgWidth = 216 - 2 * margin;
-                const imgHeight = canvas.height * imgWidth / canvas.width;
+        const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
+            const elementToExport = document.getElementById(sectionId);
+            if (elementToExport) {
+                elementToExport.style.border = 'none';
+                elementToExport.style.boxShadow = 'none';
 
-                if (addNewPage) {
-                    pdf.addPage();
-                    currentY = margin;
-                }
+                return html2canvas(elementToExport, {
+                    scale: 2
+                }).then(canvas => {
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    const imgWidth = 216 - 2 * margin;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
 
-                pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
-                currentY = yOffset + imgHeight + margin;
+                    if (addNewPage) {
+                        pdf.addPage();
+                        currentY = margin;
+                    }
+
+                    pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
+                    currentY = yOffset + imgHeight + margin;
+                });
+            } else {
+                return Promise.resolve();
+            }
+        };
+
+        const distributeHeight = (totalHeight, numberOfSections) => {
+            return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
+        };
+
+        const availableHeight = pageHeight - (2 * margin + 50);
+        const sectionHeight = distributeHeight(availableHeight, 3);
+
+        addSectionToPDF('header-container')
+            .then(() => addSectionToPDF('section1', currentY, false, sectionHeight))
+            .then(() => addSectionToPDF('section2', currentY, false, sectionHeight))
+            .then(() => addSectionToPDF('section4', currentY, false, sectionHeight))
+            .then(() => addSectionToPDF('footer-container', pageHeight - 50))
+            .then(() => addSectionToPDF('header-container', margin, true))
+            .then(() => addSectionToPDF('section3', currentY))
+            .then(() => addSectionToPDF('footer-container', pageHeight - 50))
+            .then(() => {
+                const nombreProducto = document.getElementById('nombre_producto').textContent.trim();
+                const nombreDocumento = document.getElementById('numero_registro').textContent.trim();
+                const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
+
+                pdf.output('blob').then(blob => {
+                    const formData = new FormData();
+                    formData.append('certificado', blob, fileName);
+                    formData.append('type', 'analisis_externo');
+                    formData.append('id_solicitud', idAnalisisExterno_acta); // Asegúrate de que idAnalisisExterno_acta esté definido
+
+                    fetch('./backend/calidad/add_documentos.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                $.notify("PDF subido con éxito", "success");
+                            } else {
+                                $.notify("Error al subir el PDF: " + data.message, "error");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            $.notify("Error al subir el PDF", "error");
+                        });
+                });
             });
-        } else {
-            return Promise.resolve();
-        }
-    };
-
-    const distributeHeight = (totalHeight, numberOfSections) => {
-        return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
-    };
-
-    const availableHeight = pageHeight - (2 * margin + 50);
-    const sectionHeight = distributeHeight(availableHeight, 3);
-
-    addSectionToPDF('header-container')
-        .then(() => addSectionToPDF('section1', currentY, false, sectionHeight))
-        .then(() => addSectionToPDF('section2', currentY, false, sectionHeight))
-        .then(() => addSectionToPDF('section4', currentY, false, sectionHeight))
-        .then(() => addSectionToPDF('footer-container', pageHeight - 50))
-        .then(() => addSectionToPDF('header-container', margin, true))
-        .then(() => addSectionToPDF('section3', currentY))
-        .then(() => addSectionToPDF('footer-container', pageHeight - 50))
-        .then(() => {
-            const nombreProducto = document.getElementById('nombre_producto').textContent.trim();
-            const nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-            const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
-
-            pdf.output('blob').then(blob => {
-                const formData = new FormData();
-                formData.append('certificado', blob, fileName);
-                formData.append('type', 'analisis_externo');
-                formData.append('id_solicitud', idAnalisisExterno_acta); // Asegúrate de que idAnalisisExterno_acta esté definido
-
-                fetch('./backend/calidad/add_documentos.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            $.notify("PDF subido con éxito", "success");
-                        } else {
-                            $.notify("Error al subir el PDF: " + data.message, "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        $.notify("Error al subir el PDF", "error");
-                    });
-            });
-        });
-});
+    });
 
 
     // Agregar el evento click al botón con id 'Cambiante'
@@ -532,7 +536,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const analisis = response.analisis; // Datos del análisis externo
                 if (analisis.length > 0) {
                     const primerAnalisis = analisis[0];
-
+                    idAnalisisExterno_acta = primerAnalisis.id
                     // Actualizar los inputs con los datos del análisis
                     //TABLA HEADER
                     $('#numero_registro').text(primerAnalisis.numero_registro);
@@ -629,64 +633,63 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
     $(document).ready(function() {
-    $("#revisar").on("click", function() {
-        let cumple = true;
-        let results = [];
+        $("#revisar").on("click", function() {
+            let cumple = true;
+            let results = [];
 
-        $(".checkLine").each(function() {
-            $(this).css("background-color", "transparent");
-            const cumpleChecked = $(this).find(".cumple").is(":checked");
-            const noCumpleChecked = $(this).find(".noCumple").is(":checked");
-            if (cumpleChecked === noCumpleChecked) {
-                cumple = false;
-                $(this).css("background-color", "#ff222d25");
-            } else {
-                results.push(cumpleChecked ? 1 : 0);
+            $(".checkLine").each(function() {
+                $(this).css("background-color", "transparent");
+                const cumpleChecked = $(this).find(".cumple").is(":checked");
+                const noCumpleChecked = $(this).find(".noCumple").is(":checked");
+                if (cumpleChecked === noCumpleChecked) {
+                    cumple = false;
+                    $(this).css("background-color", "#ff222d25");
+                } else {
+                    results.push(cumpleChecked ? 1 : 0);
+                }
+            });
+
+            if (!cumple) {
+                console.log("Hay campos sin revisar.", "warning");
+                $.notify("Hay campos sin revisar.", "warning");
+                return;
             }
-        });
 
-        if (!cumple) {
-            console.log("Hay campos sin revisar.", "warning");
-            $.notify("Hay campos sin revisar.", "warning");
-            return;
-        }
+            var laboratorio_nro_analisis = $("#laboratorio_nro_analisis").val();
+            var laboratorio_fecha_analisis = $("#laboratorio_fecha_analisis").val();
+            var fecha_entrega = $("#fecha_entrega").val();
 
-        var laboratorio_nro_analisis = $("#laboratorio_nro_analisis").val();
-        var laboratorio_fecha_analisis = $("#laboratorio_fecha_analisis").val();
-        var fecha_entrega = $("#fecha_entrega").val();
-
-        if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
-            console.log("Todos los campos de la sección IV deben estar llenos.", "warning");
-            $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
-            return;
-        }
-
-        var certificadoDeAnalisisExterno = $("#certificado_de_analisis_externo")[0].files[0];
-        if (!certificadoDeAnalisisExterno) {
-            console.log("Debe cargar el certificado de análisis externo.", "warning");
-            $.notify("Debe cargar el certificado de análisis externo.", "warning");
-            return;
-        }
-
-        var formData = new FormData();
-        formData.append('certificado_de_analisis_externo', certificadoDeAnalisisExterno);
-        formData.append('laboratorio_nro_analisis', laboratorio_nro_analisis);
-        formData.append('laboratorio_fecha_analisis', laboratorio_fecha_analisis);
-        formData.append('fecha_entrega', fecha_entrega);
-        formData.append('resultados_analisis', JSON.stringify(results));
-
-        fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
-            method: "POST",
-            body: formData
-        }).then(function(response) {
-            if (response.ok) {
-                alert("Se revisaron los datos exitosamente.");
-                location.reload();
-            } else {
-                alert("Error al revisar los datos.");
+            if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
+                console.log("Todos los campos de la sección IV deben estar llenos.", "warning");
+                $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
+                return;
             }
+
+            var certificadoDeAnalisisExterno = $("#certificado_de_analisis_externo")[0].files[0];
+            if (!certificadoDeAnalisisExterno) {
+                console.log("Debe cargar el certificado de análisis externo.", "warning");
+                $.notify("Debe cargar el certificado de análisis externo.", "warning");
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('certificado_de_analisis_externo', certificadoDeAnalisisExterno);
+            formData.append('laboratorio_nro_analisis', laboratorio_nro_analisis);
+            formData.append('laboratorio_fecha_analisis', laboratorio_fecha_analisis);
+            formData.append('fecha_entrega', fecha_entrega);
+            formData.append('resultados_analisis', JSON.stringify(results));
+
+            fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
+                method: "POST",
+                body: formData
+            }).then(function(response) {
+                if (response.ok) {
+                    alert("Se revisaron los datos exitosamente.");
+                    location.reload();
+                } else {
+                    alert("Error al revisar los datos.");
+                }
+            });
         });
     });
-});
-
 </script>
