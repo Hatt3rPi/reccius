@@ -861,12 +861,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         $('#id_especificacion').val(idEspecificacion);
     });
 
-    $(document).ready(function() {
-        document.getElementById('upload-pdf').addEventListener('click', function(event) {
+    $(document).ready(function () {
+        document.getElementById('upload-pdf').addEventListener('click', function (event) {
             event.preventDefault();
-            const {
-                jsPDF
-            } = window.jspdf;
+            const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', [279, 216]);
             const pageHeight = 279;
             const margin = 5;
@@ -898,13 +896,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             };
 
-            const distributeHeight = (totalHeight, numberOfSections) => {
-                return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
-            };
-
-            const availableHeight = pageHeight - (2 * margin + 50);
-            const sectionHeight = distributeHeight(availableHeight, 3);
-
             addSectionToPDF('form-container')
                 .then(() => {
                     const nombreProducto = document.getElementById('producto').value.trim();
@@ -919,9 +910,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     formData.append('id_solicitud', idAnalisisExterno); // Asegúrate de que idAnalisisExterno esté definido
 
                     fetch('./backend/calidad/add_documentos.php', {
-                            method: 'POST',
-                            body: formData
-                        })
+                        method: 'POST',
+                        body: formData
+                    })
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'success') {
@@ -937,4 +928,5 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 });
         });
     });
+
 </script>
