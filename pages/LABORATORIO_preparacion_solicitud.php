@@ -60,7 +60,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../assets/css/calidad.css">
+    <link rel="stylesheet" href="../assets/css/calidad.css?version=<?php echo time(); ?>">
 </head>
 
 <body>
@@ -345,10 +345,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 </fieldset>
             </div>
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
+
+            <div class="button-container">
+                <button class="botones" id="upload-pdf" style="display: none;">Guardar como PDF</button>
+                <button type="submit" id="guardar" name="guardar" class="botones">GUARDAR SOLICITUD</button>
+                <button type="button" id="agregarDatos" name="agregarDatos" class="botones" style="background-color: red; color: white;">AGREGAR DATOS Y FIRMAR</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
+            </div>
             <div class="actions-container">
-                <button type="submit" id="guardar" name="guardar" class="action-button">GUARDAR SOLICITUD</button>
-                <button type="button" id="agregarDatos" name="agregarDatos" class="action-button" style="background-color: red; color: white;">AGREGAR DATOS DE SOLICITUD Y FIRMAR</button>
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
@@ -406,10 +410,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
     var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+
     function cargarDatosEspecificacion() {
         var data = {
             idEspecificacion: idEspecificacion,
-            id_analisis_externo: idAnalisisExterno, 
+            id_analisis_externo: idAnalisisExterno,
             accion: accion
         };
 
@@ -517,6 +522,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 if (analisis.estado !== "Pendiente completar análisis") {
                     //! Deja generar nueva version
                     $("#agregarDatos").hide();
+                    $("#upload-pdf").show();
                 } else {
                     //! llenar del 4 al 6 y firmar
                     $("#editarGenerarVersion").hide();
@@ -724,10 +730,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
     }
 
+
     $(document).ready(function() {
 
         function editarGenerarVersion(event) {
-            
+
         }
 
         $("#agregarDatos").on('click', function(event) {
@@ -735,8 +742,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#guardar").show();
             $("#agregarDatos").hide();
             $('#informacion_faltante').find('input, textarea, select').each(function() {
-                        $(this).addClass('input-highlight');
-                    });
+                $(this).addClass('input-highlight');
+            });
         })
 
         $('#editarGenerarVersion').on('click', function(event) {
@@ -852,5 +859,81 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         });
         var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
         $('#id_especificacion').val(idEspecificacion);
+    });
+
+    $(document).ready(function() {
+        document.getElementById('upload-pdf').addEventListener('click', function() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', [279, 216]);
+            const pageHeight = 279;
+            const margin = 5;
+            let currentY = margin;
+
+            const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
+                const elementToExport = document.getElementById(sectionId);
+                if (elementToExport) {
+                    elementToExport.style.border = 'none';
+                    elementToExport.style.boxShadow = 'none';
+
+                    return html2canvas(elementToExport, {
+                        scale: 2
+                    }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                        const imgWidth = 216 - 2 * margin;
+                        const imgHeight = canvas.height * imgWidth / canvas.width;
+
+                        if (addNewPage) {
+                            pdf.addPage();
+                            currentY = margin;
+                        }
+
+                        pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
+                        currentY = yOffset + imgHeight + margin;
+                    });
+                } else {
+                    return Promise.resolve();
+                }
+            };
+
+            const distributeHeight = (totalHeight, numberOfSections) => {
+                return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
+            };
+
+            const availableHeight = pageHeight - (2 * margin + 50);
+            const sectionHeight = distributeHeight(availableHeight, 3);
+
+            addSectionToPDF('form-container')
+                .then(() => {
+                    const nombreProducto = document.getElementById('producto').value.trim();
+                    const nombreDocumento = document.getElementById('numero_registro').value.trim();
+                    const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
+
+                    pdf.output('blob').then(blob => {
+                        const formData = new FormData();
+                        formData.append('certificado', blob, fileName);
+                        formData.append('type', 'analisis_externo');
+                        formData.append('id_solicitud', idAnalisisExterno); // Asegúrate de que idAnalisisExterno esté definido
+
+                        fetch('./backend/calidad/add_documentos.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    $.notify("PDF subido con éxito", "success");
+                                } else {
+                                    $.notify("Error al subir el PDF: " + data.message, "error");
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                $.notify("Error al subir el PDF", "error");
+                            });
+                    });
+                });
+        });
     });
 </script>
