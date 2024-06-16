@@ -862,7 +862,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     });
 
     $(document).ready(function() {
-        document.getElementById('upload-pdf').addEventListener('click', function() {
+        document.getElementById('upload-pdf').addEventListener('click', function( event ) {
+            event.preventDefault();
             const {
                 jsPDF
             } = window.jspdf;
