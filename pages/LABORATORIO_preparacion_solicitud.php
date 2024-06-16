@@ -862,7 +862,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     });
 
     $(document).ready(function() {
-        document.getElementById('upload-pdf').addEventListener('click', function( event ) {
+        document.getElementById('upload-pdf').addEventListener('click', function(event) {
             event.preventDefault();
             const {
                 jsPDF
@@ -911,29 +911,29 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     const nombreDocumento = document.getElementById('numero_registro').value.trim();
                     const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
 
-                    pdf.output('blob').then(blob => {
-                        const formData = new FormData();
-                        formData.append('certificado', blob, fileName);
-                        formData.append('type', 'analisis_externo');
-                        formData.append('id_solicitud', idAnalisisExterno); // Asegúrate de que idAnalisisExterno esté definido
+                    // Cambiar a la función `pdf.output` que no usa promesa
+                    const pdfBlob = pdf.output('blob');
+                    const formData = new FormData();
+                    formData.append('certificado', pdfBlob, fileName);
+                    formData.append('type', 'analisis_externo');
+                    formData.append('id_solicitud', idAnalisisExterno); // Asegúrate de que idAnalisisExterno esté definido
 
-                        fetch('./backend/calidad/add_documentos.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.status === 'success') {
-                                    $.notify("PDF subido con éxito", "success");
-                                } else {
-                                    $.notify("Error al subir el PDF: " + data.message, "error");
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                $.notify("Error al subir el PDF", "error");
-                            });
-                    });
+                    fetch('./backend/calidad/add_documentos.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                $.notify("PDF subido con éxito", "success");
+                            } else {
+                                $.notify("Error al subir el PDF: " + data.message, "error");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            $.notify("Error al subir el PDF", "error");
+                        });
                 });
         });
     });
