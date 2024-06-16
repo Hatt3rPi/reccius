@@ -826,26 +826,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.log(data)
             setFirmaImage(document.getElementById('firma_realizador'), data);
         })
-
         $('#fecha_Edicion').text(response.fecha_firma_muestreador);
-
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
     }
 
-
-    // Cambio: Actualizar la función firma2 para usar setFirmaImage
     function firma2(response) {
-        console.log('asignación 2');
-        setFirmaImage(document.getElementById('firma_responsable'), response.foto_firma_usr2);
-        $('#fecha_firma_responsable').text(response.fecha_firma_responsable);
-        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
+        var fotoFirmaReesponsable = response.foto_firma_usr2;
+
+        console.log('Asignación de la firma del usuario:');
+        console.log(fotoFirmaReesponsable);
+        fetch(fotoFirmaReesponsable).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        })).then((data) => {
+            console.log(data)
+            setFirmaImage(document.getElementById('firma_responsable'), data);
+        })
+        $('#fecha_firma_responsable').text(response.fecha_firma_muestreador);
+        asignarValoresARadios(response.resultados_muestrador, '.formulario.verif');
     }
 
-    // Cambio: Actualizar la función firma3 para usar setFirmaImage
     function firma3(response) {
-        console.log('asignación 3');
-        setFirmaImage(document.getElementById('firma_verificador'), response.foto_firma_usr3);
-        $('#fecha_firma_verificador').text(response.fecha_firma_verificador);
+        var fotoFirmaVerificador = response.foto_firma_usr3;
+
+        console.log('Asignación de la firma del usuario:');
+        console.log(fotoFirmaVerificador);
+        fetch(fotoFirmaVerificador).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+        })).then((data) => {
+            console.log(data)
+            setFirmaImage(document.getElementById('firma_verificador'), data);
+        })
+        $('#fecha_firma_verificador').text(response.fecha_firma_muestreador);
     }
 
     function asignarValoresARadios(valores, selectorGrupos) {
