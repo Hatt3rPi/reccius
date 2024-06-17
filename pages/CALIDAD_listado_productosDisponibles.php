@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <label> Filtrar por:</label>
             <button class="estado-filtro badge badge-success" onclick="filtrar_listado('liberado')">Liberado</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('rechazado')">Rechazado</button>
-            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('pendiente')">Pendiente</button>
+            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('En cuarentena')">En cuarentena</button>
             <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
         </div>
         <br>

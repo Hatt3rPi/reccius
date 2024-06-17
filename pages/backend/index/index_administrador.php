@@ -5,17 +5,20 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Consulta para obtener los datos de productos analizados
 $query = "SELECT 
-            id_especificacion, 
-            id_producto, 
-            id_analisisExterno, 
-            id_actaMuestreo, 
-            estado, 
-            lote, 
-            tamano_lote, 
-            fecha_in_cuarentena, 
-            fecha_elaboracion, 
-            fecha_vencimiento 
-          FROM calidad_productos_analizados";
+    a.id,
+    a.estado, 
+    a.lote, 
+    a.tamano_lote, 
+    a.fecha_in_cuarentena, 
+    a.fecha_out_cuarentena,
+    a.fecha_vencimiento,
+    CONCAT(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) AS producto,
+    CASE 
+        WHEN a.estado = 'En cuarentena' THEN DATEDIFF(CURDATE(), a.fecha_in_cuarentena)
+        ELSE DATEDIFF(a.fecha_out_cuarentena, a.fecha_in_cuarentena)
+    END AS dias_en_cuarentena
+FROM calidad_productos_analizados AS a 
+LEFT JOIN calidad_productos AS b ON a.id_producto = b.id;";
 
 $result = $link->query($query);
 

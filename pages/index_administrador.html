@@ -125,61 +125,56 @@
 
     <script>
         function actualizarGraficos(datos) {
-        const liberados = datos.filter(d => d.estado === 'liberado').length;
-        const enCurso = datos.filter(d => d.estado === 'En curso').length;
-        const rechazados = datos.filter(d => d.estado === 'rechazado').length;
-        const proximosVencimientos = datos.filter(d => {
-            const fechaVencimiento = new Date(d.fecha_vencimiento);
-            const hoy = new Date();
-            const diferencia = (fechaVencimiento - hoy) / (1000 * 60 * 60 * 24);
-            return diferencia < 30;
-        }).length;
+            const liberados = datos.filter(d => d.estado === 'liberado').length;
+            const enCurso = datos.filter(d => d.estado === 'En curso').length;
+            const rechazados = datos.filter(d => d.estado === 'rechazado').length;
+            const proximosVencimientos = datos.filter(d => {
+                const fechaVencimiento = new Date(d.fecha_vencimiento);
+                const hoy = new Date();
+                const diferencia = (fechaVencimiento - hoy) / (1000 * 60 * 60 * 24);
+                return diferencia < 30;
+            }).length;
 
-        $('#prod_liberados').text(liberados);
-        $('#prod_enCurso').text(enCurso);
-        $('#prod_rechazados').text(rechazados);
-        $('#prod_vencimientos').text(proximosVencimientos);
+            $('#prod_liberados').text(liberados);
+            $('#prod_enCurso').text(enCurso);
+            $('#prod_rechazados').text(rechazados);
+            $('#prod_vencimientos').text(proximosVencimientos);
 
-        // Datos para el gráfico de productos en cuarentena
         const productosCuarentena = datos
-            .filter(d => d.estado === 'En cuarentena')
-            .sort((a, b) => new Date(b.fecha_in_cuarentena) - new Date(a.fecha_in_cuarentena));
+                .filter(d => d.estado === 'En cuarentena')
+                .sort((a, b) => b.dias_en_cuarentena - a.dias_en_cuarentena);
 
-        const etiquetasCuarentena = productosCuarentena.map(d => `Producto ${d.id_producto}`);
-        const diasCuarentena = productosCuarentena.map(d => {
-            const fechaInCuarentena = new Date(d.fecha_in_cuarentena);
-            const hoy = new Date();
-            return Math.floor((hoy - fechaInCuarentena) / (1000 * 60 * 60 * 24));
-        });
+            const etiquetasCuarentena = productosCuarentena.map(d =>`${d.producto} - lote[${d.lote} ]`);
+            const diasCuarentena = productosCuarentena.map(d => d.dias_en_cuarentena);
 
-        var ctxProductosCuarentena = document.getElementById('productosCuarentenaChart').getContext('2d');
-        var productosCuarentenaChart = new Chart(ctxProductosCuarentena, {
-            type: 'bar',
-            data: {
-                labels: etiquetasCuarentena,
-                datasets: [{
-                    label: 'Días en Cuarentena',
-                    data: diasCuarentena,
-                    backgroundColor: '#FFCE56'
-                }]
-            },
-            options: {
-                responsive: true,
-                indexAxis: 'y',
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Productos'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Días en Cuarentena'
+            var ctxProductosCuarentena = document.getElementById('productosCuarentenaChart').getContext('2d');
+            var productosCuarentenaChart = new Chart(ctxProductosCuarentena, {
+                type: 'bar',
+                data: {
+                    labels: etiquetasCuarentena,
+                    datasets: [{
+                        label: 'Días en Cuarentena',
+                        data: diasCuarentena,
+                        backgroundColor: '#FFCE56'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Productos'
+                            }
                         },
-                        beginAtZero: true
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Días en Cuarentena'
+                            },
+                            beginAtZero: true
                     }
                 }
             }
