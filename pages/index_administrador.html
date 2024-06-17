@@ -124,7 +124,7 @@
     </div>
 
     <script>
-        function actualizarGraficos(datos) {
+         function actualizarGraficos(datos) {
             const liberados = datos.filter(d => d.estado === 'liberado').length;
             const enCurso = datos.filter(d => d.estado === 'En curso').length;
             const rechazados = datos.filter(d => d.estado === 'rechazado').length;
@@ -140,11 +140,11 @@
             $('#prod_rechazados').text(rechazados);
             $('#prod_vencimientos').text(proximosVencimientos);
 
-        const productosCuarentena = datos
+            const productosCuarentena = datos
                 .filter(d => d.estado === 'En cuarentena')
                 .sort((a, b) => b.dias_en_cuarentena - a.dias_en_cuarentena);
 
-            const etiquetasCuarentena = productosCuarentena.map(d =>`${d.producto} - lote[${d.lote} ]`);
+            const etiquetasCuarentena = productosCuarentena.map(d => `${d.producto} - lote[${d.lote}]`);
             const diasCuarentena = productosCuarentena.map(d => d.dias_en_cuarentena);
 
             var ctxProductosCuarentena = document.getElementById('productosCuarentenaChart').getContext('2d');
@@ -166,100 +166,103 @@
                         x: {
                             title: {
                                 display: true,
-                                text: 'Días en Cuarentena'
+                                text: 'Productos'
                             }
                         },
                         y: {
                             title: {
                                 display: true,
-                                text: 'Productos'
+                                text: 'Días en Cuarentena'
                             },
                             beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-        const productosLiberados = datos.filter(d => d.estado === 'liberado');
-    const productosRechazados = datos.filter(d => d.estado === 'rechazado');
+            });
 
-    const mesesLiberados = productosLiberados.reduce((acc, cur) => {
-        const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
-        acc[mes] = (acc[mes] || 0) + 1;
-        return acc;
-    }, {});
+            // Datos para el gráfico de evolución de productos
+            const productosLiberados = datos.filter(d => d.estado === 'liberado');
+            const productosRechazados = datos.filter(d => d.estado === 'rechazado');
 
-    const mesesRechazados = productosRechazados.reduce((acc, cur) => {
-        const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
-        acc[mes] = (acc[mes] || 0) + 1;
-        return acc;
-    }, {});
+            const mesesLiberados = productosLiberados.reduce((acc, cur) => {
+                const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
+                acc[mes] = (acc[mes] || 0) + 1;
+                return acc;
+            }, {});
 
-    const meses = [...new Set([...Object.keys(mesesLiberados), ...Object.keys(mesesRechazados)])].sort();
+            const mesesRechazados = productosRechazados.reduce((acc, cur) => {
+                const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
+                acc[mes] = (acc[mes] || 0) + 1;
+                return acc;
+            }, {});
 
-    const dataLiberados = meses.map(mes => mesesLiberados[mes] || 0);
-    const dataRechazados = meses.map(mes => mesesRechazados[mes] || 0);
+            const meses = [...new Set([...Object.keys(mesesLiberados), ...Object.keys(mesesRechazados)])].sort();
 
-    var ctxEvolucionProductos = document.getElementById('evolucionProductosChart').getContext('2d');
-    var evolucionProductosChart = new Chart(ctxEvolucionProductos, {
-        type: 'line',
-        data: {
-            labels: meses,
-            datasets: [
-                {
-                    label: 'Liberados',
-                    data: dataLiberados,
-                    borderColor: '#36A2EB',
-                    fill: false
+            const dataLiberados = meses.map(mes => mesesLiberados[mes] || 0);
+            const dataRechazados = meses.map(mes => mesesRechazados[mes] || 0);
+
+            var ctxEvolucionProductos = document.getElementById('evolucionProductosChart').getContext('2d');
+            var evolucionProductosChart = new Chart(ctxEvolucionProductos, {
+                type: 'line',
+                data: {
+                    labels: meses,
+                    datasets: [
+                        {
+                            label: 'Liberados',
+                            data: dataLiberados,
+                            borderColor: '#36A2EB',
+                            fill: false
+                        },
+                        {
+                            label: 'Rechazados',
+                            data: dataRechazados,
+                            borderColor: '#FF6384',
+                            fill: false
+                        }
+                    ]
                 },
-                {
-                    label: 'Rechazados',
-                    data: dataRechazados,
-                    borderColor: '#FF6384',
-                    fill: false
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
                 }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-    // Datos para el gráfico de evolución de cuarentena
-    const productosFueraCuarentena = datos.filter(d => d.estado !== 'En cuarentena');
+            });
 
-    const diasCuarentenaPorMes = productosFueraCuarentena.reduce((acc, cur) => {
-        const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
-        acc[mes] = (acc[mes] || []).concat(cur.dias_en_cuarentena);
-        return acc;
-    }, {});
+            // Datos para el gráfico de evolución de cuarentena
+            const productosFueraCuarentena = datos.filter(d => d.estado !== 'En cuarentena');
 
-    const mesesCuarentena = Object.keys(diasCuarentenaPorMes).sort();
+            const diasCuarentenaPorMes = productosFueraCuarentena.reduce((acc, cur) => {
+                const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
+                acc[mes] = (acc[mes] || []).concat(cur.dias_en_cuarentena);
+                return acc;
+            }, {});
 
-    const dataCuarentena = mesesCuarentena.map(mes => {
-        const dias = diasCuarentenaPorMes[mes];
-        return dias.reduce((sum, dia) => sum + dia, 0) / dias.length; // Promedio de días en cuarentena
-    });
+            const mesesCuarentena = Object.keys(diasCuarentenaPorMes).sort();
 
-    var ctxEvolucionCuarentena = document.getElementById('evolucionCuarentenaChart').getContext('2d');
-    var evolucionCuarentenasChart = new Chart(ctxEvolucionCuarentenas, {
-        type: 'line',
-        data: {
-            labels: mesesCuarentena,
-            datasets: [
-                {
-                    label: 'Promedio de Días en Cuarentena',
-                    data: dataCuarentena,
-                    borderColor: '#FF6384',
-                    fill: false
+            const dataCuarentena = mesesCuarentena.map(mes => {
+                const dias = diasCuarentenaPorMes[mes];
+                return dias.reduce((sum, dia) => sum + dia, 0) / dias.length; // Promedio de días en cuarentena
+            });
+
+            var ctxEvolucionCuarentena = document.getElementById('evolucionCuarentenaChart').getContext('2d');
+            var evolucionCuarentenasChart = new Chart(ctxEvolucionCuarentena, {
+                type: 'line',
+                data: {
+                    labels: mesesCuarentena,
+                    datasets: [
+                        {
+                            label: 'Promedio de Días en Cuarentena',
+                            data: dataCuarentena,
+                            borderColor: '#FF6384',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
                 }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
+            });
         }
-    });
-    }
         $(document).ready(function() {
 
             
