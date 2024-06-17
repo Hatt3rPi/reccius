@@ -198,8 +198,10 @@
 
             const meses = [...new Set([...Object.keys(mesesLiberados), ...Object.keys(mesesRechazados)])].sort();
 
-            const dataLiberados = meses.map(mes => mesesLiberados[mes] || 0);
-            const dataRechazados = meses.map(mes => mesesRechazados[mes] || 0);
+            let acumuladoLiberados = 0;
+            let acumuladoRechazados = 0;
+            const dataLiberados = meses.map(mes => acumuladoLiberados += (mesesLiberados[mes] || 0));
+            const dataRechazados = meses.map(mes => acumuladoRechazados += (mesesRechazados[mes] || 0));
 
             var ctxEvolucionProductos = document.getElementById('evolucionProductosChart').getContext('2d');
             var evolucionProductosChart = new Chart(ctxEvolucionProductos, {
@@ -208,13 +210,13 @@
                     labels: meses,
                     datasets: [
                         {
-                            label: 'Liberados',
+                            label: 'Liberados (Acumulado)',
                             data: dataLiberados,
                             borderColor: '#36A2EB',
                             fill: false
                         },
                         {
-                            label: 'Rechazados',
+                            label: 'Rechazados (Acumulado)',
                             data: dataRechazados,
                             borderColor: '#FF6384',
                             fill: false
