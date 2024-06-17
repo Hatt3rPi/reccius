@@ -16,7 +16,9 @@ $query = "SELECT
     CASE 
         WHEN a.estado = 'En cuarentena' THEN DATEDIFF(CURDATE(), a.fecha_in_cuarentena)
         ELSE DATEDIFF(a.fecha_out_cuarentena, a.fecha_in_cuarentena)
-    END AS dias_en_cuarentena
+    END AS dias_en_cuarentena,
+    DATE_FORMAT(a.fecha_out_cuarentena, '%Y-%m') AS mes_salida_cuarentena,
+    DATE_FORMAT(a.fecha_in_cuarentena, '%Y-%m') AS mes_entrada_cuarentena
 FROM calidad_productos_analizados AS a 
 LEFT JOIN calidad_productos AS b ON a.id_producto = b.id;";
 
