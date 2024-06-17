@@ -440,7 +440,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" name="download-pdf" id="download-pdf" style="display: none;">Descargar PDF</button>
+    <button class="botones" name="download-pdf" id="download-pdf" style="display: block;">Descargar PDF</button>
     <button class="botones" name="firma" id="firma" onclick="resultado_liberacion()" style="display: none;">Firmar Documento</button>
     <button class="botones" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar y Firmar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
