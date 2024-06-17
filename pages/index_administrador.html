@@ -19,7 +19,7 @@
                     <div class="col-md-3">
                         <div class="card card-custom card-blue">
                             <div class="card-body">
-                                <h5 class="card-title">92.31M</h5>
+                                <h5 class="card-title" id="prod_liberados" name="prod_liberados">92.31M</h5>
                                 <p class="card-text">LIBERADOS</p>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                     <div class="col-md-3">
                         <div class="card card-custom card-green">
                             <div class="card-body">
-                                <h5 class="card-title">79.30M</h5>
+                                <h5 class="card-title" id="prod_enCurso" name="prod_enCurso">79.30M</h5>
                                 <p class="card-text">EN CURSO</p>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                     <div class="col-md-3">
                         <div class="card card-custom card-orange">
                             <div class="card-body">
-                                <h5 class="card-title">13.02M</h5>
+                                <h5 class="card-title" id="prod_rechazados" name="prod_rechazados">13.02M</h5>
                                 <p class="card-text">RECHAZADOS</p>
                             </div>
                         </div>
@@ -43,8 +43,8 @@
                     <div class="col-md-3">
                         <div class="card card-custom card-red">
                             <div class="card-body">
-                                <h5 class="card-title">7.20M</h5>
-                                <p class="card-text">PRÓXIMOS VENCIMIENTOS (&lt;30 días)</p>
+                                <h5 class="card-title" id="prod_vencimientos" name="prod_vencimientos">7.20M</h5>
+                                <p class="card-text">PRÓXIMOS VENCIMIENTOS<br>(&lt;30 días)</p>
                             </div>
                         </div>
                     </div>
@@ -57,9 +57,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h5 class="chart-title">Productos en Cuarentena</h5>
+                        <div class="chart-container">
+                            <canvas id="productosCuarentenaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h5 class="chart-title">Evolución tiempo en cuarentena</h5>
+                        <div class="chart-container">
+                            <canvas id="evolucionCuarentenaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-12">
-
+                <br><br><br>
             </div>
             <div class="col-md-12">
                 <h2 class="section-title">ESPECIFICACIONES DE PRODUCTOS</h2>
@@ -67,7 +83,7 @@
                     <div class="col-md-4">
                         <div class="card card-custom card-blue">
                             <div class="card-body">
-                                <h5 class="card-title">92.31M</h5>
+                                <h5 class="card-title" id="esp_vigentes" name="esp_vigentes">92.31M</h5>
                                 <p class="card-text">VIGENTES</p>
                             </div>
                         </div>
@@ -75,7 +91,7 @@
                     <div class="col-md-4">
                         <div class="card card-custom card-green">
                             <div class="card-body">
-                                <h5 class="card-title">79.30M</h5>
+                                <h5 class="card-title" id="esp_enCurso" name="esp_enCurso">79.30M</h5>
                                 <p class="card-text">EN CURSO</p>
                             </div>
                         </div>
@@ -83,8 +99,8 @@
                     <div class="col-md-4">
                         <div class="card card-custom card-orange">
                             <div class="card-body">
-                                <h5 class="card-title">13.02M</h5>
-                                <p class="card-text">PRÓXIMOS VENCIMIENTOS (&lt;30 días)</p>
+                                <h5 class="card-title" id="esp_vencimientos" name="esp_vencimientos">13.02M</h5>
+                                <p class="card-text">PRÓXIMOS VENCIMIENTOS<br>(&lt;30 días)</p>
                             </div>
                         </div>
                     </div>
@@ -171,6 +187,58 @@
                     maintainAspectRatio: false
                 }
             });
+
+            var ctxEvolucionCuarentenas = document.getElementById('evolucionCuarentenaChart').getContext('2d');
+            var evolucionCuarentenasChart = new Chart(ctxEvolucionCuarentenas, {
+                type: 'line',
+                data: {
+                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                    datasets: [
+                        {
+                            label: 'Tiempo promedio en cuarentena',
+                            data: [28, 48, 40, 19, 86, 27],
+                            borderColor: '#FF6384',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            var ctxProductosCuarentena = document.getElementById('productosCuarentenaChart').getContext('2d');
+        var productosCuarentenaChart = new Chart(ctxProductosCuarentena, {
+            type: 'bar',
+            data: {
+                labels: ['Producto A', 'Producto B', 'Producto C', 'Producto D'], // Reemplaza con los nombres de tus productos
+                datasets: [{
+                    label: 'Días en Cuarentena',
+                    data: [45, 30, 15, 10], // Reemplaza con los días correspondientes
+                    backgroundColor: '#FFCE56'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Productos'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Días en Cuarentena'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
         });
     </script>
 </body>

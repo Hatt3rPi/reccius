@@ -30,22 +30,22 @@ body {
 
 .card-blue {
     background-color: #1E90FF;
-    height :80px
+    height :120px
 }
 
 .card-green {
     background-color: #3CB371;
-    height :80px
+    height :120px
 }
 
 .card-orange {
     background-color: #FFA500;
-    height :80px
+    height :120px
 }
 
 .card-red {
     background-color: #FF6347; /* Color rojo para indicar próximos vencimientos */
-    height :80px
+    height :120px
 }
 
 .card-title {
