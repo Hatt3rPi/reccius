@@ -137,6 +137,12 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <div class="container_fas">
         <aside class="sidebar c-scroll">
             <ul id="sidebarList">
+                <a id="home" href="#" data-breadcrumb="Home" class="">
+                    <span>
+                        <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                    </span>
+                    Home
+                </a>
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral">
