@@ -1,4 +1,5 @@
 <?php
+// archivo: pages\backend\calidad\listado_especificaciones_productoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 

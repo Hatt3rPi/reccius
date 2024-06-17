@@ -124,7 +124,67 @@
     </div>
 
     <script>
-        // Configuración de los gráficos con Chart.js
+        function actualizarGraficos(datos) {
+        const liberados = datos.filter(d => d.estado === 'liberado').length;
+        const enCurso = datos.filter(d => d.estado === 'En curso').length;
+        const rechazados = datos.filter(d => d.estado === 'rechazado').length;
+        const proximosVencimientos = datos.filter(d => {
+            const fechaVencimiento = new Date(d.fecha_vencimiento);
+            const hoy = new Date();
+            const diferencia = (fechaVencimiento - hoy) / (1000 * 60 * 60 * 24);
+            return diferencia < 30;
+        }).length;
+
+        $('#prod_liberados').text(liberados);
+        $('#prod_enCurso').text(enCurso);
+        $('#prod_rechazados').text(rechazados);
+        $('#prod_vencimientos').text(proximosVencimientos);
+
+        // Datos para el gráfico de productos en cuarentena
+        const productosCuarentena = datos
+            .filter(d => d.estado === 'En cuarentena')
+            .sort((a, b) => new Date(b.fecha_in_cuarentena) - new Date(a.fecha_in_cuarentena));
+
+        const etiquetasCuarentena = productosCuarentena.map(d => `Producto ${d.id_producto}`);
+        const diasCuarentena = productosCuarentena.map(d => {
+            const fechaInCuarentena = new Date(d.fecha_in_cuarentena);
+            const hoy = new Date();
+            return Math.floor((hoy - fechaInCuarentena) / (1000 * 60 * 60 * 24));
+        });
+
+        var ctxProductosCuarentena = document.getElementById('productosCuarentenaChart').getContext('2d');
+        var productosCuarentenaChart = new Chart(ctxProductosCuarentena, {
+            type: 'bar',
+            data: {
+                labels: etiquetasCuarentena,
+                datasets: [{
+                    label: 'Días en Cuarentena',
+                    data: diasCuarentena,
+                    backgroundColor: '#FFCE56'
+                }]
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Productos'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Días en Cuarentena'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
         $(document).ready(function() {
 
             
@@ -162,84 +222,18 @@
                 }
             });
 
-            var ctxEvolucionProductos = document.getElementById('evolucionProductosChart').getContext('2d');
-            var evolucionProductosChart = new Chart(ctxEvolucionProductos, {
-                type: 'line',
-                data: {
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-                    datasets: [
-                        {
-                            label: 'Liberados',
-                            data: [65, 59, 80, 81, 56, 55],
-                            borderColor: '#36A2EB',
-                            fill: false
-                        },
-                        {
-                            label: 'Rechazados',
-                            data: [28, 48, 40, 19, 86, 27],
-                            borderColor: '#FF6384',
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            var ctxEvolucionCuarentenas = document.getElementById('evolucionCuarentenaChart').getContext('2d');
-            var evolucionCuarentenasChart = new Chart(ctxEvolucionCuarentenas, {
-                type: 'line',
-                data: {
-                    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-                    datasets: [
-                        {
-                            label: 'Tiempo promedio en cuarentena',
-                            data: [28, 48, 40, 19, 86, 27],
-                            borderColor: '#FF6384',
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            var ctxProductosCuarentena = document.getElementById('productosCuarentenaChart').getContext('2d');
-        var productosCuarentenaChart = new Chart(ctxProductosCuarentena, {
-            type: 'bar',
-            data: {
-                labels: ['Producto A', 'Producto B', 'Producto C', 'Producto D'], // Reemplaza con los nombres de tus productos
-                datasets: [{
-                    label: 'Días en Cuarentena',
-                    data: [45, 30, 15, 10], // Reemplaza con los días correspondientes
-                    backgroundColor: '#FFCE56'
-                }]
+            $.ajax({
+            url: 'backend/index/index_administrador.php',
+            method: 'GET',
+            success: function(response) {
+                const datos = response.data;
+                actualizarGraficos(datos);
             },
-            options: {
-                responsive: true,
-                indexAxis: 'y',
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Productos'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Días en Cuarentena'
-                        },
-                        beginAtZero: true
-                    }
-                }
+            error: function(error) {
+                console.error('Error al obtener los datos:', error);
             }
         });
+
         });
     </script>
 </body>
