@@ -5,6 +5,10 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 // Validación y saneamiento del ID del análisis externo
 $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 
+if ($id_acta === 0) {
+    die(json_encode(['error' => 'ID de acta no válido']));
+}
+
 $queryAnalisisExterno = "SELECT 
                             an.*,
                             prod.identificador_producto AS 'prod_identificador_producto', 
@@ -23,9 +27,9 @@ $queryAnalisisExterno = "SELECT
                             anali.descripcion_analisis AS 'anali_descripcion_analisis',
                             anali.criterios_aceptacion AS 'anali_criterios_aceptacion'
                         FROM calidad_analisis_externo AS an
-                        JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
-                        JOIN calidad_productos AS prod ON es.id_producto = prod.id
-                        JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
+                        LEFT JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
+                        LEFT JOIN calidad_productos AS prod ON es.id_producto = prod.id
+                        LEFT JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
                         WHERE an.id = ?";
 
 $queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno = ?";
@@ -38,10 +42,16 @@ if (!$stmtAnali) {
 mysqli_stmt_bind_param($stmtAnali, "i", $id_acta);
 mysqli_stmt_execute($stmtAnali);
 
+$resultAnali = mysqli_stmt_get_result($stmtAnali);
+if (!$resultAnali) {
+    die(json_encode(['error' => "Error en mysqli_stmt_get_result: " . mysqli_stmt_error($stmtAnali)]));
+}
+
+
 $analisis = [];
 $analiDatos = [];
 $seenAnalisis = [];
-$resultAnali = mysqli_stmt_get_result($stmtAnali);
+
 while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
     $filteredRow = [];
     $analiItem = [];
