@@ -630,17 +630,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (primerAnalisis.firmas.revisado_por) {
                             if (primerAnalisis.revisado_por) {
                                 if (primerAnalisis.firmas.revisado_por.qr_documento) {
-                                    fotosToBase64(primerAnalisis.firmas.revisado_por.qr_documento)
-                                        .then(function(base64Image) {
-                                            $("#revisado_por_firma").attr("src", base64Image);
-                                        })
+                                    
+                                            $("#revisado_por_firma").attr("src", fotosToBase64(primerAnalisis.firmas.revisado_por.qr_documento));
+                                        
                                 }
                                 if (primerAnalisis.firmas.revisado_por.qr_documento === null &&
                                     primerAnalisis.firmas.revisado_por.foto_firma) {
-                                    fotosToBase64(primerAnalisis.firmas.revisado_por.foto_firma)
-                                        .then(function(base64Image) {
-                                            $("#revisado_por_firma").attr("src", base64Image);
-                                        })
+                                    
+                                    
+                                            $("#revisado_por_firma").attr("src", fotosToBase64(primerAnalisis.firmas.revisado_por.foto_firma));
+                                    
                                 }
                             }
                         }
