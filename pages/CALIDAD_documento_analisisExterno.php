@@ -518,7 +518,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     async function fotosToBase64(fotoUrl) {
-        return await fetch(fotoUrl)
+        return await fetch(fotoUrl, { mode: 'cors' })
             .then(resp => resp.blob())
             .then(blob => new Promise((resolve, _) => {
                 const reader = new FileReader();
