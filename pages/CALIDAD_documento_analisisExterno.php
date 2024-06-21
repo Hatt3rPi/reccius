@@ -248,45 +248,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Solicitado por:</div>
                         <div class="firma-boxes">
-                            <p id='solicitado_por' name='solicitado_por' class="bold">Inger Sumonte
+                            <p id='solicitado_por_name' name='solicitado_por_name' class="bold">Inger Sumonte
                             </p>
-                            <p id='solicitado_por_cargo' name='solicitado_por_cargo' class="bold">Director de Calidad
-                            </p>
+
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                                <img id="solicitado_por_firma" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
 
                         </div>
-                        <div class="date-container">
+                        <!-- <div class="date-container">
                             <div id='fecha_realizacion' name='fecha_realizacion' class="date">Fecha: dd/mm/yyyy</div>
                             <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado
                                 digitalmente</p>
-                        </div>
+                        </div> Sección Realizado por -->
                     </div>
                     <!-- Sección Realizado por -->
                     <div class="firma-section">
                         <div class="firma-box-title">Revisado por:</div>
                         <div class="firma-boxes">
-                            <p id='revisado_por' name='revisado_por' class="bold">
+                            <p id='revisado_por_name' name='revisado_por_name' class="bold">
                             </p>
-                            <p id='revisado_por_cargo' name='revisado_por_cargo' class="bold">
-                            </p>
-
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                                <img id="revisado_por_firma" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
 
                         </div>
-                        <div class="date-container">
+                        <!-- <div class="date-container">
                             <div id='fecha_realizacion' name='fecha_realizacion' class="date">Fecha: dd/mm/yyyy</div>
                             <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado
                                 digitalmente</p>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -520,6 +516,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
+
+    async function fotosToBase64(fotoUrl) {
+        return await fetch(fotoUrl)
+            .then(resp => resp.blob())
+            .then(blob => new Promise((resolve, _) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            }))
+    }
+
     function loadData() {
         $.ajax({
             url: './backend/analisis/ingresar_resultados_analisis.php',
@@ -584,8 +591,62 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#estado').val(primerAnalisis.estado);
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
 
+                    //III
+                    //$("#resultados_analisis").val(resultados_analisis)
+                    if(primerAnalisis.url_certificado_de_analisis_externo){
+                        $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis)//1
+                        $("#url_certificado_de_analisis_externo").attr("type", "text").val(primerAnalisis.url_certificado_de_analisis_externo)//2
+                        $("#fecha_entrega").val(primerAnalisis.fecha_entrega)//3
+                        $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis)//4
+                        
+                        
+                        $("#laboratorio_nro_analisis").prop( "disabled", true );
+                        $("#url_certificado_de_analisis_externo").prop( "disabled", true );
+                        $("#fecha_entrega").prop( "disabled", true );
+                        $("#laboratorio_fecha_analisis").prop( "disabled", true );
+
+                        
+                    }
+
                     primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
+                    if (primerAnalisis.firmas) {
+                        if (primerAnalisis.firmas.solicitado_por) {
+                            if (primerAnalisis.solicitado_por) {
+                                if (primerAnalisis.firmas.solicitado_por.qr_documento) {
+                                    fotosToBase64(primerAnalisis.firmas.solicitado_por.qr_documento)
+                                        .then(function(base64Image) {
+                                            $("#solicitado_por_firma").attr("src", base64Image);
+                                        })
+                                }
+                                if (primerAnalisis.firmas.solicitado_por.qr_documento === null &&
+                                    primerAnalisis.firmas.solicitado_por.foto_firma) {
+                                    fotosToBase64(primerAnalisis.firmas.solicitado_por.foto_firma)
+                                        .then(function(base64Image) {
+                                            $("#solicitado_por_firma").attr("src", base64Image);
+                                        })
+                                }
+                            }
+                        }
+                        if (primerAnalisis.firmas.revisado_por) {
+                            if (primerAnalisis.revisado_por) {
+                                if (primerAnalisis.firmas.revisado_por.qr_documento) {
+                                    fotosToBase64(primerAnalisis.firmas.revisado_por.qr_documento)
+                                        .then(function(base64Image) {
+                                            $("#revisado_por_firma").attr("src", base64Image);
+                                        })
+                                }
+                                if (primerAnalisis.firmas.revisado_por.qr_documento === null &&
+                                    primerAnalisis.firmas.revisado_por.foto_firma) {
+                                    fotosToBase64(primerAnalisis.firmas.revisado_por.foto_firma)
+                                        .then(function(base64Image) {
+                                            $("#revisado_por_firma").attr("src", base64Image);
+                                        })
+                                }
+                            }
+                        }
+                    }
                 }
+
 
                 if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
                     $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
