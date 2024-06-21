@@ -8,6 +8,19 @@ $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 if ($id_acta === 0) {
     die(json_encode(['error' => 'ID de acta no válido']));
 }
+function obtenerFirmas($link, $usuario) {
+    $queryFirmas = "SELECT qr_documento, foto_firma FROM usuarios WHERE usuario = ?";
+    $stmtFirmas = mysqli_prepare($link, $queryFirmas);
+    if (!$stmtFirmas) {
+        return ['error' => "Error en mysqli_prepare (queryFirmas): " . mysqli_error($link)];
+    }
+    mysqli_stmt_bind_param($stmtFirmas, "s", $usuario);
+    mysqli_stmt_execute($stmtFirmas);
+    $resultFirmas = mysqli_stmt_get_result($stmtFirmas);
+    $firmas = mysqli_fetch_assoc($resultFirmas);
+    mysqli_stmt_close($stmtFirmas);
+    return $firmas;
+}
 
 $queryAnalisisExterno = "SELECT 
                             an.*,
@@ -27,10 +40,14 @@ $queryAnalisisExterno = "SELECT
                             anali.descripcion_analisis AS 'anali_descripcion_analisis',
                             anali.criterios_aceptacion AS 'anali_criterios_aceptacion'
                         FROM calidad_analisis_externo AS an
-                        LEFT JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
-                        LEFT JOIN calidad_productos AS prod ON es.id_producto = prod.id
-                        LEFT JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
+                        LEFT JOIN calidad_especificacion_productos 
+                            AS es ON an.id_especificacion = es.id_especificacion
+                        LEFT JOIN calidad_productos 
+                            AS prod ON es.id_producto = prod.id
+                        LEFT JOIN calidad_analisis 
+                            AS anali ON es.id_especificacion = anali.id_especificacion_producto
                         WHERE an.id = ?";
+
 
 $queryActaMuestreo = "SELECT * FROM calidad_acta_muestreo WHERE id_analisisExterno = ?";
 
@@ -55,6 +72,7 @@ $seenAnalisis = [];
 while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
     $filteredRow = [];
     $analiItem = [];
+    $firmas = [];
 
     foreach ($rowAnali as $key => $value) {
         if (strpos($key, 'anali_') === 0) {
@@ -63,6 +81,14 @@ while ($rowAnali = mysqli_fetch_assoc($resultAnali)) {
             $filteredRow[$key] = $value;
         }
     }
+    if (!empty($filteredRow['solicitado_por'])) {
+        $firmas['solicitado_por'] = obtenerFirmas($link, $filteredRow['solicitado_por']);
+    }
+    if (!empty($filteredRow['revisado_por'])) {
+        $firmas['revisado_por'] = obtenerFirmas($link, $filteredRow['revisado_por']);
+    }
+
+    $filteredRow['firmas'] = $firmas;
 
     // Use the 'id' field to check for duplicates
     if (!isset($seenAnalisis[$rowAnali['id']])) {
@@ -78,6 +104,10 @@ mysqli_stmt_close($stmtAnali);
 
 // queryActaMuestreo
 $analisisActaMuestreo = [];
+
+if (empty($analisis)) {
+    die(json_encode(['error' => 'No se encontraron datos para el ID proporcionado']));
+}
 
 $stmtActaMuestreo = mysqli_prepare($link, $queryActaMuestreo);
 if (!$stmtActaMuestreo) {
