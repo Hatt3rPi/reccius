@@ -306,7 +306,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 <div class="button-container">
     <!--Todo: style="display: none;" -->
-    <button class="botones" id="revisar">Revisar</button>
+    <button class="botones" id="revisar" style="display: none;">Revisar</button>
     <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
     <button class="botones" id="upload-pdf">Guardar PDF</button>
@@ -582,9 +582,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     //III
                     //$("#resultados_analisis").val(resultados_analisis)
-                    if (primerAnalisis.url_certificado_de_analisis_externo) {
+                    if (primerAnalisis.url_certificado_de_analisis_externo!==null && primerAnalisis.url_certificado_de_analisis_externo!=="") {
                         $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis) //1
-                        $("#url_certificado_de_analisis_externo").attr("type", "text").val(primerAnalisis.url_certificado_de_analisis_externo) //2
+                        $("#certificado_de_analisis_externo").attr("type", "text").val(primerAnalisis.url_certificado_de_analisis_externo) //2
                         $("#fecha_entrega").val(primerAnalisis.fecha_entrega) //3
                         $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis) //4
 
@@ -593,8 +593,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $("#url_certificado_de_analisis_externo").prop("disabled", true);
                         $("#fecha_entrega").prop("disabled", true);
                         $("#laboratorio_fecha_analisis").prop("disabled", true);
-
-
                     }
 
                     primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
@@ -653,14 +651,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         }
 
                     }
-                }
-
-
-                if (analisis[0].revisado_por === usuarioActual && analisis[0].fecha_firma_revisor === null && analisis[0].estado === "En proceso de firmas") {
-                    $(".button-container").append('<button class="botones" id="FirmaAnalisisExternoRevisor">Firmar revisión análisis externo</button>');
-                    $("#FirmaAnalisisExternoRevisor").click(function() {
-                        firmarDocumentoSolicitudExterna(idAnalisisExterno);
-                    });
                 }
 
                 // Poblar la tabla III. ANÁLISIS SOLICITADOS

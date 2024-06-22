@@ -67,6 +67,7 @@ $params = [
 $uploadStatus = setFile($params);
 $uploadResult = json_decode($uploadStatus, true);
 
+
 if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     $fileURL = $uploadResult['success']['ObjectURL'];
 
