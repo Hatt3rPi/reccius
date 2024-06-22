@@ -731,8 +731,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var formData = new FormData();
             formData.append('certificado_de_analisis_externo', certificadoDeAnalisisExterno);
             formData.append('laboratorio_nro_analisis', laboratorio_nro_analisis);
-            formData.append('laboratorio_fecha_analisis', laboratorio_fecha_analisis);
-            formData.append('fecha_entrega', fecha_entrega);
+            formData.append('laboratorio_fecha_analisis',  moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+            formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('resultados_analisis', JSON.stringify(results));
 
             fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
