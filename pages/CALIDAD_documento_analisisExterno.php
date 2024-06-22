@@ -735,7 +735,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('resultados_analisis', JSON.stringify(results));
 
-            fetch("'./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
+            fetch("backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
                 method: "POST",
                 body: formData
             }).then(function(response) {
