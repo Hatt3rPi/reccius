@@ -607,7 +607,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                         reader.onloadend = () => resolve(reader.result);
                                         reader.readAsDataURL(blob);
                                     })).then((data) => {
-                                        console.log(data)
+                                        console.log("solicitado_por.qr_documento",data)
                                         $("#solicitado_por_firma").attr("src", data);
                                     })
                                 }
@@ -618,7 +618,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                         reader.onloadend = () => resolve(reader.result);
                                         reader.readAsDataURL(blob);
                                     })).then((data) => {
-                                        console.log(data)
+                                        console.log("solicitado_por.foto_firma",data)
                                         $("#solicitado_por_firma").attr("src", data);
                                     })
                                 }
@@ -632,7 +632,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                         reader.onloadend = () => resolve(reader.result);
                                         reader.readAsDataURL(blob);
                                     })).then((data) => {
-                                        console.log(data)
+                                        console.log("revisado_por.qr_documento",data)
                                         $("#revisado_por_firma").attr("src", data);
                                     })
                                 }
@@ -643,7 +643,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                         reader.onloadend = () => resolve(reader.result);
                                         reader.readAsDataURL(blob);
                                     })).then((data) => {
-                                        console.log(data)
+                                        console.log("revisado_por.foto_firma",data)
                                         $("#revisado_por_firma").attr("src", data);
                                     })
                                 }
