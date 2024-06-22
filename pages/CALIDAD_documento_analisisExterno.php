@@ -516,17 +516,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
-
-    async function fotosToBase64(fotoUrl) {
-        return await fetch(fotoUrl, { mode: 'cors' })
-            .then(resp => resp.blob())
-            .then(blob => new Promise((resolve, _) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.readAsDataURL(blob);
-            }))
-    }
-
     function loadData() {
         $.ajax({
             url: './backend/analisis/ingresar_resultados_analisis.php',
@@ -593,19 +582,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     //III
                     //$("#resultados_analisis").val(resultados_analisis)
-                    if(primerAnalisis.url_certificado_de_analisis_externo){
-                        $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis)//1
-                        $("#url_certificado_de_analisis_externo").attr("type", "text").val(primerAnalisis.url_certificado_de_analisis_externo)//2
-                        $("#fecha_entrega").val(primerAnalisis.fecha_entrega)//3
-                        $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis)//4
-                        
-                        
-                        $("#laboratorio_nro_analisis").prop( "disabled", true );
-                        $("#url_certificado_de_analisis_externo").prop( "disabled", true );
-                        $("#fecha_entrega").prop( "disabled", true );
-                        $("#laboratorio_fecha_analisis").prop( "disabled", true );
+                    if (primerAnalisis.url_certificado_de_analisis_externo) {
+                        $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis) //1
+                        $("#url_certificado_de_analisis_externo").attr("type", "text").val(primerAnalisis.url_certificado_de_analisis_externo) //2
+                        $("#fecha_entrega").val(primerAnalisis.fecha_entrega) //3
+                        $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis) //4
 
-                        
+
+                        $("#laboratorio_nro_analisis").prop("disabled", true);
+                        $("#url_certificado_de_analisis_externo").prop("disabled", true);
+                        $("#fecha_entrega").prop("disabled", true);
+                        $("#laboratorio_fecha_analisis").prop("disabled", true);
+
+
                     }
 
                     primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
@@ -613,16 +602,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (primerAnalisis.firmas.solicitado_por) {
                             if (primerAnalisis.solicitado_por) {
                                 if (primerAnalisis.firmas.solicitado_por.qr_documento) {
-                                    fotosToBase64(primerAnalisis.firmas.solicitado_por.qr_documento)
-                                        .then(function(base64Image) {
-                                            $("#solicitado_por_firma").attr("src", base64Image);
+                                    fetch(primerAnalisis.firmas.solicitado_por.qr_documento, {
+                                            mode: 'cors'
+                                        })
+                                        .then(resp => resp.blob())
+                                        .then(blob => new Promise((resolve, _) => {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => resolve(reader.result);
+                                            reader.readAsDataURL(blob);
+                                        })).then((data) => {
+                                            $("#solicitado_por_firma").attr("src", data);
                                         })
                                 }
                                 if (primerAnalisis.firmas.solicitado_por.qr_documento === null &&
                                     primerAnalisis.firmas.solicitado_por.foto_firma) {
-                                    fotosToBase64(primerAnalisis.firmas.solicitado_por.foto_firma)
-                                        .then(function(base64Image) {
-                                            $("#solicitado_por_firma").attr("src", base64Image);
+                                    fetch(primerAnalisis.firmas.solicitado_por.foto_firma, {
+                                            mode: 'cors'
+                                        })
+                                        .then(resp => resp.blob())
+                                        .then(blob => new Promise((resolve, _) => {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => resolve(reader.result);
+                                            reader.readAsDataURL(blob);
+                                        })).then((data) => {
+                                            $("#solicitado_por_firma").attr("src", data);
                                         })
                                 }
                             }
@@ -630,16 +633,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (primerAnalisis.firmas.revisado_por) {
                             if (primerAnalisis.revisado_por) {
                                 if (primerAnalisis.firmas.revisado_por.qr_documento) {
-                                    
-                                            $("#revisado_por_firma").attr("src", fotosToBase64(primerAnalisis.firmas.revisado_por.qr_documento));
-                                        
+                                    fetch(primerAnalisis.firmas.revisado_por.qr_documento, {
+                                            mode: 'cors'
+                                        })
+                                        .then(resp => resp.blob())
+                                        .then(blob => new Promise((resolve, _) => {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => resolve(reader.result);
+                                            reader.readAsDataURL(blob);
+                                        })).then((data) => {
+                                            $("#revisado_por_firma").attr("src", data);
+                                        })
                                 }
                                 if (primerAnalisis.firmas.revisado_por.qr_documento === null &&
                                     primerAnalisis.firmas.revisado_por.foto_firma) {
-                                    
-                                    
-                                            $("#revisado_por_firma").attr("src", fotosToBase64(primerAnalisis.firmas.revisado_por.foto_firma));
-                                    
+                                    fetch(primerAnalisis.firmas.revisado_por.foto_firma, {
+                                            mode: 'cors'
+                                        })
+                                        .then(resp => resp.blob())
+                                        .then(blob => new Promise((resolve, _) => {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => resolve(reader.result);
+                                            reader.readAsDataURL(blob);
+                                        })).then((data) => {
+                                            $("#revisado_por_firma").attr("src", data);
+                                        })
                                 }
                             }
                         }
