@@ -602,6 +602,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (primerAnalisis.firmas.solicitado_por) {
                             if (primerAnalisis.solicitado_por) {
                                 if (primerAnalisis.firmas.solicitado_por.qr_documento) {
+                                    console.log('1 ----');
+                                    
                                     fetch(primerAnalisis.firmas.solicitado_por.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                         const reader = new FileReader();
                                         reader.onloadend = () => resolve(reader.result);
@@ -613,6 +615,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 }
                                 if (primerAnalisis.firmas.solicitado_por.qr_documento === null &&
                                     primerAnalisis.firmas.solicitado_por.foto_firma) {
+                                        console.log('2 ----');
                                     fetch(primerAnalisis.firmas.solicitado_por.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                         const reader = new FileReader();
                                         reader.onloadend = () => resolve(reader.result);
