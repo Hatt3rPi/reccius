@@ -599,59 +599,59 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
                     if (primerAnalisis.firmas) {
-                        if (primerAnalisis.firmas.solicitado_por) {
-                            if (primerAnalisis.solicitado_por) {
-                                if (primerAnalisis.firmas.solicitado_por.qr_documento) {
-                                    console.log('1 ----');
-                                    
-                                    fetch(primerAnalisis.firmas.solicitado_por.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                                        const reader = new FileReader();
-                                        reader.onloadend = () => resolve(reader.result);
-                                        reader.readAsDataURL(blob);
-                                    })).then((data) => {
-                                        console.log("solicitado_por.qr_documento",data)
-                                        $("#solicitado_por_firma").attr("src", data);
-                                    })
-                                }
-                                if (primerAnalisis.firmas.solicitado_por.qr_documento === null &&
-                                    primerAnalisis.firmas.solicitado_por.foto_firma) {
-                                        console.log('2 ----');
-                                    fetch(primerAnalisis.firmas.solicitado_por.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                                        const reader = new FileReader();
-                                        reader.onloadend = () => resolve(reader.result);
-                                        reader.readAsDataURL(blob);
-                                    })).then((data) => {
-                                        console.log("solicitado_por.foto_firma",data)
-                                        $("#solicitado_por_firma").attr("src", data);
-                                    })
-                                }
+                        var soli = primerAnalisis.firmas.solicitado_por
+                        var revis = primerAnalisis.firmas.revisado_por
+                        if (primerAnalisis.solicitado_por) {
+                            if (soli.qr_documento) {
+                                var qr = soli.qr_documento
+                                console.log('1 ----', qr);
+                                fetch(qr).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("solicitado_por.qr_documento", data)
+                                    $("#solicitado_por_firma").attr("src", data);
+                                })
+                            }
+                            if (soli.qr_documento === null &&
+                                soli.foto_firma) {
+                                console.log('2 ----');
+                                fetch(soli.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("solicitado_por.foto_firma", data)
+                                    $("#solicitado_por_firma").attr("src", data);
+                                })
                             }
                         }
-                        if (primerAnalisis.firmas.revisado_por) {
-                            if (primerAnalisis.revisado_por) {
-                                if (primerAnalisis.firmas.revisado_por.qr_documento) {
-                                    fetch(primerAnalisis.revisado_por.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                                        const reader = new FileReader();
-                                        reader.onloadend = () => resolve(reader.result);
-                                        reader.readAsDataURL(blob);
-                                    })).then((data) => {
-                                        console.log("revisado_por.qr_documento",data)
-                                        $("#revisado_por_firma").attr("src", data);
-                                    })
-                                }
-                                if (primerAnalisis.firmas.revisado_por.qr_documento === null &&
-                                    primerAnalisis.firmas.revisado_por.foto_firma) {
-                                    fetch(primerAnalisis.revisado_por.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                                        const reader = new FileReader();
-                                        reader.onloadend = () => resolve(reader.result);
-                                        reader.readAsDataURL(blob);
-                                    })).then((data) => {
-                                        console.log("revisado_por.foto_firma",data)
-                                        $("#revisado_por_firma").attr("src", data);
-                                    })
-                                }
+
+                        if (primerAnalisis.revisado_por) {
+                            if (revis.qr_documento) {
+                                fetch(revis.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("revisado_por.qr_documento", data)
+                                    $("#revisado_por_firma").attr("src", data);
+                                })
+                            }
+                            if (revis.qr_documento === null &&
+                                revis.foto_firma) {
+                                fetch(revis.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("revisado_por.foto_firma", data)
+                                    $("#revisado_por_firma").attr("src", data);
+                                })
                             }
                         }
+
                     }
                 }
 
