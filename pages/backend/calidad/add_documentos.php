@@ -11,7 +11,7 @@ $idSolicitud = $_POST['id_solicitud'] ?? null;
 
 $types= [
     'acta' => 'url_certificado_acta_de_muestreo',
-    //'analisis_externo' => 'url_certificado_de_analisis_externo',
+    'analisis_externo' => 'url_certificado_de_analisis_externo',
     'solicitud' => 'url_certificado_solicitud_analisis_externo',
 ];
 
