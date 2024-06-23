@@ -93,6 +93,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 return '<span class="badge badge-dark">Expirado</span>';
                             case 'Expirado':
                                 return '<span class="badge badge-dark">Expirado</span>';
+                            case 'Pendiente liberación productos':
+                                return '<span class="badge badge-warning">Pendiente liberación productos</span>';
                             case 'Pendiente completar análisis':
                                 return '<span class="badge badge-warning">Pendiente completar análisis</span>';
                             case 'Pendiente envío a Laboratorio':

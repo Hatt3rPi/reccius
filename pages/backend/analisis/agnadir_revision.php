@@ -104,6 +104,8 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         exit;
     }
 
+    unset($_SESSION['buscar_por_ID']);
+    $_SESSION['buscar_por_ID'] = $idAnalisisExterno;
     echo json_encode(['exito' => true]);
 
 } else {
