@@ -616,7 +616,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </span> &nbsp; 
                         <a href="${primerAnalisis.url_certificado_de_analisis_externo}" target="_blank">Ver Certificado</a>`);
 
-                        var resultList = primerAnalisis.resultados_analisis.JSON()
+                        var resultList = primerAnalisis.resultados_analisis
                         resultList.forEach((res, index) => {
                             if (res === 1) {
                                 $(`#btn-check-a-${index}`).prop('checked', true)
