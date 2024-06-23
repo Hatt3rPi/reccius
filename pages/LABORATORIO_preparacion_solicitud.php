@@ -861,72 +861,70 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         $('#id_especificacion').val(idEspecificacion);
     });
 
-    $(document).ready(function () {
-        document.getElementById('upload-pdf').addEventListener('click', function (event) {
+    $(document).ready(function() {
+        document.getElementById('upload-pdf').addEventListener('click', function(event) {
             event.preventDefault();
-            const { jsPDF } = window.jspdf;
+            const {
+                jsPDF
+            } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', [279, 216]);
             const pageHeight = 279;
             const margin = 5;
             let currentY = margin;
 
-            const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
+            const addSectionToPDF = async (sectionId, yOffset = currentY, addNewPage = false) => {
                 const elementToExport = document.getElementById(sectionId);
                 if (elementToExport) {
                     elementToExport.style.border = 'none';
                     elementToExport.style.boxShadow = 'none';
 
-                    return html2canvas(elementToExport, {
+                    const canvas = await html2canvas(elementToExport, {
                         scale: 2
-                    }).then(canvas => {
-                        const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                        const imgWidth = 216 - 2 * margin;
-                        const imgHeight = canvas.height * imgWidth / canvas.width;
-
-                        if (addNewPage) {
-                            pdf.addPage();
-                            currentY = margin;
-                        }
-
-                        pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
-                        currentY = yOffset + imgHeight + margin;
                     });
-                } else {
-                    return Promise.resolve();
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    const imgWidth = 216 - 2 * margin;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+                    if (addNewPage) {
+                        pdf.addPage();
+                        currentY = margin;
+                    }
+
+                    pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
+                    currentY = yOffset + imgHeight + margin;
                 }
             };
 
-            addSectionToPDF('form-container')
-                .then(() => {
-                    const nombreProducto = document.getElementById('producto').value.trim();
-                    const nombreDocumento = document.getElementById('numero_registro').value.trim();
-                    const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
+            (async () => {
+                await addSectionToPDF('form-container');
 
-                    // Cambiar a la función `pdf.output` que no usa promesa
-                    const pdfBlob = pdf.output('blob');
-                    const formData = new FormData();
-                    formData.append('certificado', pdfBlob, fileName);
-                    formData.append('type', 'analisis_externo');
-                    formData.append('id_solicitud', idAnalisisExterno); // Asegúrate de que idAnalisisExterno esté definido
+                const nombreProducto = document.getElementById('producto').value.trim();
+                const nombreDocumento = document.getElementById('numero_registro').value.trim();
+                const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
 
-                    fetch('./backend/calidad/add_documentos.php', {
+                const pdfBlob = pdf.output('blob');
+                const formData = new FormData();
+                formData.append('certificado', pdfBlob, fileName);
+                formData.append('type', 'analisis_externo');
+                formData.append('id_solicitud', idAnalisisExterno); // Asegúrate de que idAnalisisExterno esté definido
+
+                fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
                         body: formData
                     })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                $.notify("PDF subido con éxito", "success");
-                            } else {
-                                $.notify("Error al subir el PDF: " + data.message, "error");
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            $.notify("Error al subir el PDF", "error");
-                        });
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            $.notify("PDF subido con éxito", "success");
+                        } else {
+                            $.notify("Error al subir el PDF: " + data.message, "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        $.notify("Error al subir el PDF", "error");
+                    });
+            })();
         });
     });
-
 </script>

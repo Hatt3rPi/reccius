@@ -309,7 +309,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="revisar" style="display: none;">Revisar</button>
     <button class="botones" id="Cambiante">cambio</button>
     <button class="botones" id="download-pdf">Descargar PDF</button>
-    <button class="botones" id="upload-pdf">Guardar PDF</button>
+    <!--<button class="botones" id="upload-pdf">Guardar PDF</button>-->
 </div>
 
 <div id="notification" class="notification-container notify" style="display: none;">
