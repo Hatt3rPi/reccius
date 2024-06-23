@@ -618,6 +618,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.log('primerAnalisis', primerAnalisis);
 
                         var resultList = JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
+                        console.log('resultList', resultList);
                         resultList.forEach((res, index) => {
                             if (res === 1) {
                                 $(`#btn-check-a-${index}`).prop('checked', true)
