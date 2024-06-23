@@ -23,12 +23,9 @@ if (!isset($_FILES['certificado_de_analisis_externo']) || $_FILES['certificado_d
     exit;
 }
 
-$input = file_get_contents('php://input');
-$data = json_decode($input, true);
-
-if ($data === null) {
-    echo json_encode(['error' => 'Datos inválidos o no proporcionados.', 'data'=>$data]);
-    exit;
+$data = [];
+foreach ($_POST as $key => $value) {
+    $data[$key] = limpiarDato($value);
 }
 
 if (
@@ -36,11 +33,12 @@ if (
     !isset($data['laboratorio_nro_analisis']) ||
     !isset($data['laboratorio_fecha_analisis']) ||
     !isset($data['fecha_entrega'])
-){
-    echo json_encode(['error' => 'Datos inválidos o no proporcionados.', 'data'=>$data]);
+) {
+    echo json_encode(['error' => 'Datos inválidos o no proporcionados.', 'data' => $data]);
     exit;
 }
 
+// Verificar si ya existen resultados para este análisis
 $checkQuery = "SELECT COUNT(*) as count FROM calidad_analisis_externo WHERE id = ? AND resultados_analisis IS NOT NULL";
 $stmtCheck = mysqli_prepare($link, $checkQuery);
 mysqli_stmt_bind_param($stmtCheck, 'i', $idAnalisisExterno);
@@ -67,7 +65,6 @@ $params = [
 $uploadStatus = setFile($params);
 $uploadResult = json_decode($uploadStatus, true);
 
-
 if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     $fileURL = $uploadResult['success']['ObjectURL'];
 
@@ -86,10 +83,10 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         exit;
     }
 
-    $resultados_analisis = limpiarDato(json_encode($data['resultados_analisis']));
-    $laboratorio_nro_analisis = limpiarDato($data['laboratorio_nro_analisis']);
-    $laboratorio_fecha_analisis = limpiarDato($data['laboratorio_fecha_analisis']);
-    $fecha_entrega = limpiarDato($data['fecha_entrega']);
+    $resultados_analisis = json_encode($data['resultados_analisis']);
+    $laboratorio_nro_analisis = $data['laboratorio_nro_analisis'];
+    $laboratorio_fecha_analisis = $data['laboratorio_fecha_analisis'];
+    $fecha_entrega = $data['fecha_entrega'];
 
     mysqli_stmt_bind_param($stmt, 'sssssi', 
         $resultados_analisis, 
@@ -103,7 +100,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     mysqli_stmt_close($stmt);
 
     if (mysqli_error($link)) {
-        echo json_encode(['error' => 'Error al ejecutar consulta.', 'data'=>$data]);
+        echo json_encode(['error' => 'Error al ejecutar consulta.']);
         exit;
     }
 

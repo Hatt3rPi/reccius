@@ -689,63 +689,69 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
     $(document).ready(function() {
-        $("#revisar").on("click", function() {
-            let cumple = true;
-            let results = [];
+    $("#revisar").on("click", function() {
+        let cumple = true;
+        let results = [];
 
-            $(".checkLine").each(function() {
-                $(this).css("background-color", "transparent");
-                const cumpleChecked = $(this).find(".cumple").is(":checked");
-                const noCumpleChecked = $(this).find(".noCumple").is(":checked");
-                if (cumpleChecked === noCumpleChecked) {
-                    cumple = false;
-                    $(this).css("background-color", "#ff222d25");
-                } else {
-                    results.push(cumpleChecked ? 1 : 0);
-                }
-            });
-
-            if (!cumple) {
-                console.log("Hay campos sin revisar.", "warning");
-                $.notify("Hay campos sin revisar.", "warning");
-                return;
+        $(".checkLine").each(function() {
+            $(this).css("background-color", "transparent");
+            const cumpleChecked = $(this).find(".cumple").is(":checked");
+            const noCumpleChecked = $(this).find(".noCumple").is(":checked");
+            if (cumpleChecked === noCumpleChecked) {
+                cumple = false;
+                $(this).css("background-color", "#ff222d25");
+            } else {
+                results.push(cumpleChecked ? 1 : 0);
             }
+        });
 
-            var laboratorio_nro_analisis = $("#laboratorio_nro_analisis").val();
-            var laboratorio_fecha_analisis = $("#laboratorio_fecha_analisis").val();
-            var fecha_entrega = $("#fecha_entrega").val();
+        if (!cumple) {
+            console.log("Hay campos sin revisar.", "warning");
+            $.notify("Hay campos sin revisar.", "warning");
+            return;
+        }
 
-            if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
-                console.log("Todos los campos de la sección IV deben estar llenos.", "warning");
-                $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
-                return;
+        var laboratorio_nro_analisis = $("#laboratorio_nro_analisis").val();
+        var laboratorio_fecha_analisis = $("#laboratorio_fecha_analisis").val();
+        var fecha_entrega = $("#fecha_entrega").val();
+
+        if (!laboratorio_nro_analisis || !laboratorio_fecha_analisis || !fecha_entrega) {
+            console.log("Todos los campos de la sección IV deben estar llenos.", "warning");
+            $.notify("Todos los campos de la sección IV deben estar llenos.", "warning");
+            return;
+        }
+
+        var certificadoDeAnalisisExterno = $("#certificado_de_analisis_externo")[0].files[0];
+        if (!certificadoDeAnalisisExterno) {
+            console.log("Debe cargar el certificado de análisis externo.", "warning");
+            $.notify("Debe cargar el certificado de análisis externo.", "warning");
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('certificado_de_analisis_externo', certificadoDeAnalisisExterno);
+        formData.append('laboratorio_nro_analisis', laboratorio_nro_analisis);
+        formData.append('laboratorio_fecha_analisis', moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+        formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+        formData.append('resultados_analisis', JSON.stringify(results));
+
+        fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
+            method: "POST",
+            body: formData
+        }).then(function(response) {
+            if (response.ok) {
+                alert("Se revisaron los datos exitosamente.");
+                location.reload();
+            } else {
+                response.json().then(data => {
+                    alert("Error al revisar los datos: " + (data.error || 'Unknown error'));
+                });
             }
-
-            var certificadoDeAnalisisExterno = $("#certificado_de_analisis_externo")[0].files[0];
-            if (!certificadoDeAnalisisExterno) {
-                console.log("Debe cargar el certificado de análisis externo.", "warning");
-                $.notify("Debe cargar el certificado de análisis externo.", "warning");
-                return;
-            }
-
-            var formData = new FormData();
-            formData.append('certificado_de_analisis_externo', certificadoDeAnalisisExterno);
-            formData.append('laboratorio_nro_analisis', laboratorio_nro_analisis);
-            formData.append('laboratorio_fecha_analisis',  moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'));
-            formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
-            formData.append('resultados_analisis', JSON.stringify(results));
-
-            fetch("backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
-                method: "POST",
-                body: formData
-            }).then(function(response) {
-                if (response.ok) {
-                    alert("Se revisaron los datos exitosamente.");
-                    location.reload();
-                } else {
-                    alert("Error al revisar los datos.");
-                }
-            });
+        }).catch(error => {
+            console.error('Error:', error);
+            alert("Error al revisar los datos.");
         });
     });
+});
+
 </script>
