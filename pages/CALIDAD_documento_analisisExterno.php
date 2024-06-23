@@ -617,7 +617,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a href="${primerAnalisis.url_certificado_de_analisis_externo}" target="_blank">Ver Certificado</a>`);
                         console.log('primerAnalisis', primerAnalisis);
 
-                        var resultList = primerAnalisis.resultados_analisis
+                        var resultList = JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
                         resultList.forEach((res, index) => {
                             if (res === 1) {
                                 $(`#btn-check-a-${index}`).prop('checked', true)
