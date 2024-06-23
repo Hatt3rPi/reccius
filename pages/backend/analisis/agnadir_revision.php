@@ -27,7 +27,7 @@ $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
 if ($data === null) {
-    echo json_encode(['error' => 'Datos inválidos o no proporcionados.']);
+    echo json_encode(['error' => 'Datos inválidos o no proporcionados.', 'data'=>$data]);
     exit;
 }
 
@@ -37,7 +37,7 @@ if (
     !isset($data['laboratorio_fecha_analisis']) ||
     !isset($data['fecha_entrega'])
 ){
-    echo json_encode(['error' => 'Datos inválidos o no proporcionados.']);
+    echo json_encode(['error' => 'Datos inválidos o no proporcionados.', 'data'=>$data]);
     exit;
 }
 
@@ -103,7 +103,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     mysqli_stmt_close($stmt);
 
     if (mysqli_error($link)) {
-        echo json_encode(['error' => 'Error al ejecutar consulta.']);
+        echo json_encode(['error' => 'Error al ejecutar consulta.', 'data'=>$data]);
         exit;
     }
 
