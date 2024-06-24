@@ -907,16 +907,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 await addSectionToPDF('header-container', margin, true);
                 await addSectionToPDF('section3', currentY);
                 await addSectionToPDF('footer-container', pageHeight - 50);
-
-                const nombreProducto = document.getElementById('nombre_producto').textContent.trim();
-                const nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-                const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
+                const fileName = `pdf_certificado_<?php echo $_SESSION['usuario']; ?>.pdf`;
 
                 const pdfBlob = pdf.output('blob');
                 const formData = new FormData();
                 formData.append('certificado', pdfBlob, fileName);
                 formData.append('type', 'analisis_externo');
-                formData.append('id_solicitud', idAnalisisExterno_acta); // Asegúrate de que idAnalisisExterno_acta esté definido
+                formData.append('id_solicitud', idAnalisisExterno_acta);
 
                 fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
