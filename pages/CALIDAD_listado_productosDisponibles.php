@@ -25,9 +25,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <h2 class="section-title">Listado de productos analizados:</h2>
         <div class="estado-filtros">
             <label> Filtrar por:</label>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En cuarentena')">En cuarentena</button>
             <button class="estado-filtro badge badge-success" onclick="filtrar_listado('liberado')">Liberado</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('rechazado')">Rechazado</button>
-            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('En cuarentena')">En cuarentena</button>
+            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('rechazado')">Rechazado</button>
             <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
         </div>
         <br>
@@ -83,7 +83,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "render": function(data, type, row) {
                         switch (data) {
                             case 'rechazado':
-                                return '<span class="badge badge-danger">Rechazado</span>';
+                                return '<span class="badge badge-dark">Rechazado</span>';
                             case 'liberado':
                                 return '<span class="badge badge-success">Liberado</span>';
                             case 'En cuarentena':
