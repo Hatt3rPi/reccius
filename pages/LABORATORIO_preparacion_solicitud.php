@@ -869,11 +869,16 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
 
-            const elementToExport = $('#form-container');
-            console.log('elementToExport', elementToExport);
-            
-            elementToExport.css("border", "none");
-            elementToExport.css("boxShadow", "none");
+            const elementToExport = document.getElementById('form-container');
+
+            if (!elementToExport) {
+                console.error('El elemento no está en el DOM.');
+                return;
+            }
+
+            // Asegurarse de que el elemento esté visible
+            elementToExport.style.border = 'none';
+            elementToExport.style.boxShadow = 'none';
 
             html2canvas(elementToExport, {
                 scale: 2
