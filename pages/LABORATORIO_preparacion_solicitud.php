@@ -898,40 +898,47 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             };
 
-            (async () => {
-                await addSectionToPDF('header-container');
-                await addSectionToPDF('section1', currentY);
-                await addSectionToPDF('section2', currentY, true);
-                await addSectionToPDF('section4', currentY);
-                await addSectionToPDF('footer-container', pageHeight - 50);
-                await addSectionToPDF('header-container', margin, true);
-                await addSectionToPDF('section3', currentY);
-                await addSectionToPDF('footer-container', pageHeight - 50);
-                const fileName = `pdf_certificado_<?php echo $_SESSION['usuario']; ?>.pdf`;
+            const distributeHeight = (totalHeight, numberOfSections) => {
+                return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
+            };
 
-                const pdfBlob = pdf.output('blob');
-                const formData = new FormData();
-                formData.append('certificado', pdfBlob, fileName);
-                formData.append('type', 'analisis_externo');
-                formData.append('id_solicitud', idAnalisisExterno);
+            const availableHeight = pageHeight - (2 * margin + 50);
+            const sectionHeight = distributeHeight(availableHeight, 3);
 
-                fetch('./backend/calidad/add_documentos.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            $.notify("PDF subido con éxito", "success");
-                        } else {
-                            $.notify("Error al subir el PDF: " + data.message, "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        $.notify("Error al subir el PDF", "error");
-                    });
-            })();
+            addSectionToPDF('header-container')
+                .then(() => addSectionToPDF('section1', currentY, false, sectionHeight))
+                .then(() => addSectionToPDF('section2', currentY, false, sectionHeight))
+                .then(() => addSectionToPDF('section4', currentY, false, sectionHeight))
+                .then(() => addSectionToPDF('footer-container', pageHeight - 50))
+                .then(() => addSectionToPDF('header-container', margin, true))
+                .then(() => addSectionToPDF('section3', currentY))
+                .then(() => addSectionToPDF('footer-container', pageHeight - 50))
+                .then(() => {
+                    const fileName = `pdf_certificado_<?php echo $_SESSION['usuario']; ?>.pdf`;;
+
+                    const pdfBlob = pdf.output('blob');
+                    const formData = new FormData();
+                    formData.append('certificado', pdfBlob, fileName);
+                    formData.append('type', 'analisis_externo');
+                    formData.append('id_solicitud', idAnalisisExterno);
+
+                    fetch('./backend/calidad/add_documentos.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                $.notify("PDF subido con éxito", "success");
+                            } else {
+                                $.notify("Error al subir el PDF: " + data.message, "error");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            $.notify("Error al subir el PDF", "error");
+                        });
+                });
         });
     });
 </script>
