@@ -613,7 +613,7 @@ function loadData() {
                     $('#id_actaMuestreo').text(acta_muestreo.id);
                     $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
                     $('#id_producto').text(primerAnalisis.id_producto);
-                    $('#id_producto').text(primerAnalisis.id_cuarentena);
+                    $('#id_cuarentena').text(primerAnalisis.id_cuarentena);
                     $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
@@ -714,7 +714,7 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                     $('#id_actaMuestreo').text(campos.id_actaMuestreo);
                     $('#id_especificacion').text(campos.id_especificacion);
                     $('#id_producto').text(campos.id_producto);
-                    $('#id_producto').text(campos.id_cuarentena);
+                    $('#id_cuarentena').text(campos.id_cuarentena);
                     $('.verif').css('background-color', '#ffffff').prop('readonly', true);;
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
