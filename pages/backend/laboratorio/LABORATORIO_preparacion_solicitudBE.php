@@ -326,9 +326,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             insertarRegistro($link, $datosLimpios);
         }
         mysqli_commit($link); // Aplicar cambios
-        echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
         
-        registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
+        
+    // Nueva inserción en calidad_productos_analizados
+    $query_productos_analizados = "INSERT INTO `calidad_productos_analizados` 
+        (id_especificacion, id_producto, id_analisisExterno, estado, lote, tamano_lote, fecha_in_cuarentena, fecha_elaboracion, fecha_vencimiento) 
+        VALUES (?, ?, ?, 'En cuarentena', ?, ?, NOW(), ?, ?)";
+    
+    $stmt_productos_analizados = mysqli_prepare($link, $query_productos_analizados);
+    if (!$stmt_productos_analizados) {
+        throw new Exception("Error en la preparación de la consulta de productos analizados: " . mysqli_error($link));
+    }
+    mysqli_stmt_bind_param(
+        $stmt_productos_analizados,
+        'iiissss',
+        $id_especificacion,
+        $id_producto,
+        $id_analisis_externo,
+        $lote,
+        $tamano_lote,
+        $fecha_elaboracion,
+        $fecha_vencimiento
+    );
+
+    
+
+    
+    echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
+    $exito_2 = mysqli_stmt_execute($stmt_productos_analizados);
+    $id_cuarentena = $exito_2 ? mysqli_insert_id($link) : 0;
+    registrarTrazabilidad(
+        $_SESSION['usuario'],
+        $_SERVER['PHP_SELF'],
+        'Envío de lote a cuarentena',
+        'calidad_productos_analizados',
+        $id_cuarentena,
+        $query_productos_analizados,
+        [$id_especificacion, $id_producto, $id_analisis_externo, 'En cuarentena', $lote, $tamano_lote, NOW(), $fecha_elaboracion, $fecha_vencimiento],
+        $exito_2 ? 1 : 0,
+        $exito_2 ? null : mysqli_error($link)
+    );
+    mysqli_stmt_close($stmt_productos_analizados);    
+    registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
     } catch (Exception $e) {
         mysqli_rollback($link); // Revertir cambios en caso de error
