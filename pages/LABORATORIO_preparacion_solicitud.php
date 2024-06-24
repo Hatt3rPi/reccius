@@ -869,7 +869,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
 
-            const elementToExport = document.getElementById('form-container');
+            const elementToExport = document.querySelector('#form-container');
 
             if (!elementToExport) {
                 console.error('El elemento no está en el DOM.');
