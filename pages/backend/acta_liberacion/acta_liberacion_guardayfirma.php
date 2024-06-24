@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_close($stmt1);
     // Insert/Update data in the database
     // Adjust the query according to your table structure and field names
-    $query = "INSERT INTO calidad_acta_liberacion (id_cuarentena, id_analisisExterno, id_especificacion, id_producto, id_actaMuestreo, numero_acta, numero_registro, version_registro, fecha_acta, aux_tipo, estado, obs1, obs2, obs3, obs4, cantidad_real_liberada, nro_parte_ingreso, revision_estados, revision_liberacion, aux_anomes, aux_autoincremental, usuario_firma1, fecha_firma1) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO calidad_acta_liberacion (id_cuarentena, id_analisisExterno, id_especificacion, id_producto, id_actaMuestreo, numero_acta, numero_registro, version_registro, fecha_acta, aux_tipo, estado, obs1, obs2, obs3, obs4, cantidad_real_liberada, nro_parte_ingreso, revision_estados, revision_liberacion, aux_anomes, aux_autoincremental, usuario_firma1, fecha_firma1) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     // Prepare and execute the query
     if ($stmt = $link->prepare($query)) {
