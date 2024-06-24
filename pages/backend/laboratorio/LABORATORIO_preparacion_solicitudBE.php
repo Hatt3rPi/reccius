@@ -368,8 +368,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $exito_2 ? 1 : 0,
         $exito_2 ? null : mysqli_error($link)
     );
-    mysqli_stmt_close($stmt_productos_analizados);    
+    mysqli_stmt_close($stmt_productos_analizados);
+    $query_update = "UPDATE calidad_analisis_externo SET id_cuarentena = '$id_cuarentena' WHERE id = '$id_analisis_externo'";
+
+    if (!mysqli_query($link, $query_update)) {
+        throw new Exception("Error en la actualización de calidad_analisis_externo: " . mysqli_error($link));
+    }    
     registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
+
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
     } catch (Exception $e) {
         mysqli_rollback($link); // Revertir cambios en caso de error

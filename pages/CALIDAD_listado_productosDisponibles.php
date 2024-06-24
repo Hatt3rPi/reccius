@@ -83,9 +83,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "render": function(data, type, row) {
                         switch (data) {
                             case 'rechazado':
-                                return '<span class="badge badge-warning">Rechazado</span>';
+                                return '<span class="badge badge-danger">Rechazado</span>';
                             case 'liberado':
                                 return '<span class="badge badge-success">Liberado</span>';
+                            case 'En cuarentena':
+                                return '<span class="badge badge-warning">En Cuarentena</span>';
                             default:
                                 return '<span class="badge">' + data + '</span>';
                         }
