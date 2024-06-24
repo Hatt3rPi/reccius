@@ -864,69 +864,93 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     $(document).ready(function() {
         document.getElementById('upload-pdf').addEventListener('click', function(event) {
             event.preventDefault();
-            const {
+            var {
                 jsPDF
             } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
+            var pdf = new jsPDF('p', 'mm', 'a4');
 
-            const elementToExport = document.querySelector('.form-container');
+            var elementToExport = document.querySelector('.form-container');
+            var buttonContainer = document.querySelector('.button-container');
+            var formControls = document.querySelectorAll('.form-control'); // Selecciona todos los controles del formulario
 
             if (!elementToExport) {
                 console.error('El elemento no está en el DOM.');
                 return;
             }
 
+            // Almacenar estilos originales
+            var originalStyles = [];
+            formControls.forEach(control => {
+                originalStyles.push({
+                    element: control,
+                    background: control.style.background,
+                    padding: control.style.padding
+                });
+
+                // Aplicar nuevos estilos
+                control.style.background = 'transparent';
+                control.style.padding = '5px'; // Ejemplo de menos padding
+            });
+
             // Asegurarse de que el elemento esté visible
             elementToExport.style.border = 'none';
             elementToExport.style.boxShadow = 'none';
+            buttonContainer.style.display = 'none';
 
             html2canvas(elementToExport, {
-                scale: 2
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                const imgWidth = 210; // A4 width in mm
-                const pageHeight = 297; // A4 height in mm
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 0;
+                    scale: 2
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    var imgWidth = 210; // A4 width in mm
+                    var pageHeight = 297; // A4 height in mm
+                    var imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
 
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
-                }
 
-                const blob = pdf.output('blob');
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
 
-                const formData = new FormData();
-                formData.append('certificado', blob, 'documento.pdf');
-                formData.append('type', 'analisis_externo');
-                formData.append('id_solicitud', idAnalisisExterno); // Usar idAnalisisExterno
+                    var blob = pdf.output('blob');
 
-                fetch('./backend/calidad/add_documentos.php', {
+                    var formData = new FormData();
+                    formData.append('certificado', blob, 'documento.pdf');
+                    formData.append('type', 'analisis_externo');
+                    formData.append('id_solicitud', idAnalisisExterno); // Usar idAnalisisExterno
+
+                    return fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
                         body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            $.notify("PDF subido con éxito", "success");
-                        } else {
-                            $.notify("Error al subir el PDF: " + data.message, "error");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        $.notify("Error al subir el PDF", "error");
                     });
-            }).catch(error => {
-                console.error('Error al generar el canvas:', error);
-                $.notify("Error al generar el PDF", "error");
-            });
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        $.notify("PDF subido con éxito", "success");
+                    } else {
+                        $.notify("Error al subir el PDF: " + data.message, "error");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al subir el PDF:', error);
+                    $.notify("Error al subir el PDF", "error");
+                })
+                .finally(() => {
+                    // Restaurar estilos originales
+                    originalStyles.forEach(style => {
+                        style.element.style.background = style.background;
+                        style.element.style.padding = style.padding;
+                    });
+
+                    elementToExport.style.border = '';
+                    elementToExport.style.boxShadow = '';
+                    buttonContainer.style.display = 'block';
+                });
         });
     });
 </script>
