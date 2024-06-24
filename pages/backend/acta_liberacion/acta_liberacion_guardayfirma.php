@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $estado_producto='rechazado';
             }
             $query_update = "UPDATE calidad_productos_analizados 
-            SET estado = ?, cantidad_real_liberada = ?, nro_parte_ingreso = ?, id_actaMuestreo=?, id_actaLiberacion=?
+            SET estado = ?, cantidad_real_liberada = ?, nro_parte_ingreso = ?, id_actaMuestreo=?, id_actaLiberacion=?, fecha_out_cuarentena=?
             WHERE id = ?";
 
             $stmt4 = mysqli_prepare($link, $query_update);
@@ -91,10 +91,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Error en la preparación de la consulta de actualización: " . mysqli_error($link));
             }
 
-            mysqli_stmt_bind_param($stmt4, "sssiii", $estado_producto, $cant_real_liberada, $parte_ingreso, $id_actaMuestreo, $id_actaLiberacion, $id_cuarentena);
+            mysqli_stmt_bind_param($stmt4, "sssiisi", $estado_producto, $cant_real_liberada, $parte_ingreso, $id_actaMuestreo, $id_actaLiberacion, $fecha_firma1,  $id_cuarentena);
 
-            $exito = mysqli_stmt_execute($stmt4);
-            if (!$exito) {
+            $exito_4 = mysqli_stmt_execute($stmt4);
+            registrarTrazabilidad(
+                $_SESSION['usuario'], 
+                $_SERVER['PHP_SELF'], 
+                'Acta de liberación o rechazo', 
+                'calidad_productos_analizados',  
+                $id_cuarentena, 
+                $query_update,  
+                [$estado_producto, $cant_real_liberada, $parte_ingreso, $id_actaMuestreo, $id_actaLiberacion, $fecha_firma1,  $id_cuarentena], 
+                $exito_4 ? 1 : 0, 
+                $exito_4 ? null : mysqli_error($link)
+            );
+            if (!$exito_4) {
             throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt4));
             }
 
