@@ -156,7 +156,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#acta_liberacion').click(function (event) {
+    $('#home').click(function (event) {
         if(AppConfig.FLAGS.acta_liberacion_rechazo){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
@@ -164,7 +164,7 @@ $(document).ready(function () {
         console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
-        $('#dynamic-content').load('acta_liberacion.html', function (response, status, xhr) {
+        $('#dynamic-content').load('index_administrador.html', function (response, status, xhr) {
             if (status == "error") {
                 console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
             } else {

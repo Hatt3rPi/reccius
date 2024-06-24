@@ -214,28 +214,12 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
                     </div>
                 </li>
-                <li class="item" id="Acta_Liberacion_o_Rechazo">
-                    <a href="#Acta_Liberacion_o_Rechazo" class="btn_lateral">
-                        <span>
-                            <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                        </span>
-                        Acta Liberación o Rechazo
-                    </a>
-                    <div class="smenu">
-                        <a id="acta_liberacion" href="#" data-breadcrumb="Home > Acta Liberación o Rechazo > Acta liberación o rechazo" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/liberacion.svg" alt="Icono de Acta Liberación" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                            </span>
-                            Listado Acta liberación o rechazo
-                        </a>
-                        <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de productos disponibles">
+                <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Calidad > Listado de productos disponibles">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
-                            Listado de productos disponibles
-                        </a>
-                    </div>
-                </li>
+                            Productos en cuarentena y liberados
+                </a>
 
                 <li class="title">Recetario magistral</li>
 
