@@ -1,5 +1,5 @@
 <?php
-
+//archivo: pages\backend\laboratorio\LABORATORIO_preparacion_solicitudBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 

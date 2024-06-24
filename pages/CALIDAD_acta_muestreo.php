@@ -1,5 +1,6 @@
 <?php
-
+// archivo: pages\CALIDAD_acta_muestreo.php
+// analizar eliminación
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
