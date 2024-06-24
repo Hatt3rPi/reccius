@@ -872,28 +872,29 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             const margin = 5;
             let currentY = margin;
 
-            const addSectionToPDF = async (sectionId, yOffset = currentY, addNewPage = false) => {
+            const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
                 const elementToExport = document.getElementById(sectionId);
                 if (elementToExport) {
                     elementToExport.style.border = 'none';
                     elementToExport.style.boxShadow = 'none';
 
-                    await new Promise(resolve => setTimeout(resolve, 500)); // Esperar 500ms
-
-                    const canvas = await html2canvas(elementToExport, {
+                    return html2canvas(elementToExport, {
                         scale: 2
+                    }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                        const imgWidth = 216 - 2 * margin;
+                        const imgHeight = canvas.height * imgWidth / canvas.width;
+
+                        if (addNewPage) {
+                            pdf.addPage();
+                            currentY = margin;
+                        }
+
+                        pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
+                        currentY = yOffset + imgHeight + margin;
                     });
-                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                    const imgWidth = 216 - 2 * margin;
-                    const imgHeight = canvas.height * imgWidth / canvas.width;
-
-                    if (addNewPage) {
-                        pdf.addPage();
-                        currentY = margin;
-                    }
-
-                    pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
-                    currentY = yOffset + imgHeight + margin;
+                } else {
+                    return Promise.resolve();
                 }
             };
 
@@ -901,19 +902,21 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 await addSectionToPDF('header-container');
                 await addSectionToPDF('section1', currentY);
                 await addSectionToPDF('section2', currentY, true);
-                await addSectionToPDF('section3', currentY, true);
                 await addSectionToPDF('section4', currentY);
-                await addSectionToPDF('footer-container', pageHeight - 50, true);
+                await addSectionToPDF('footer-container', pageHeight - 50);
+                await addSectionToPDF('header-container', margin, true);
+                await addSectionToPDF('section3', currentY);
+                await addSectionToPDF('footer-container', pageHeight - 50);
 
-                const nombreProducto = document.getElementById('producto').value.trim();
-                const nombreDocumento = document.getElementById('numero_registro').value.trim();
+                const nombreProducto = document.getElementById('nombre_producto').textContent.trim();
+                const nombreDocumento = document.getElementById('numero_registro').textContent.trim();
                 const fileName = `${nombreDocumento} ${nombreProducto}.pdf`;
 
                 const pdfBlob = pdf.output('blob');
                 const formData = new FormData();
                 formData.append('certificado', pdfBlob, fileName);
                 formData.append('type', 'analisis_externo');
-                formData.append('id_solicitud', idAnalisisExterno); // Asegúrate de que idAnalisisExterno esté definido
+                formData.append('id_solicitud', idAnalisisExterno_acta); // Asegúrate de que idAnalisisExterno_acta esté definido
 
                 fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
