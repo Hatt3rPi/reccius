@@ -97,6 +97,50 @@ function insertarRegistro($link, $datos)
     }
 }
 
+function enviar_aCuarentena($link, $id_especificacion, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
+        // Nueva inserción en calidad_productos_analizados
+        $query_productos_analizados = "INSERT INTO `calidad_productos_analizados` 
+            (id_especificacion, id_producto, id_analisisExterno, estado, lote, tamano_lote, fecha_in_cuarentena, fecha_elaboracion, fecha_vencimiento) 
+            VALUES (?, ?, ?, 'En cuarentena', ?, ?, ?, ?, ?)";
+
+        $stmt_productos_analizados = mysqli_prepare($link, $query_productos_analizados);
+        if (!$stmt_productos_analizados) {
+            throw new Exception("Error en la preparación de la consulta de productos analizados: " . mysqli_error($link));
+        }
+        $fechaActual = date('Y-m-d');
+        mysqli_stmt_bind_param(
+            $stmt_productos_analizados,
+            'iiisssss',
+            $id_especificacion,
+            $id_producto,
+            $id_analisis_externo,
+            $lote,
+            $tamano_lote,
+            $fechaActual,
+            $fecha_elaboracion,
+            $fecha_vencimiento
+        );
+        echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
+        $exito_2 = mysqli_stmt_execute($stmt_productos_analizados);
+        $id_cuarentena = $exito_2 ? mysqli_insert_id($link) : 0;
+        registrarTrazabilidad(
+            $_SESSION['usuario'],
+            $_SERVER['PHP_SELF'],
+            'Envío de lote a cuarentena',
+            'calidad_productos_analizados',
+            $id_cuarentena,
+            $query_productos_analizados,
+            [$id_especificacion, $id_producto, $id_analisis_externo, 'En cuarentena', $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento],
+            $exito_2 ? 1 : 0,
+            $exito_2 ? null : mysqli_error($link)
+        );
+        mysqli_stmt_close($stmt_productos_analizados);
+        $query_update = "UPDATE calidad_analisis_externo SET id_cuarentena = '$id_cuarentena' WHERE id = '$id_analisis_externo'";
+
+        if (!mysqli_query($link, $query_update)) {
+            throw new Exception("Error en la actualización de calidad_analisis_externo: " . mysqli_error($link));
+        }  
+}
 function agregarDatosPostFirma($link, $datos)
 {
     global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
@@ -224,7 +268,7 @@ function campoTipo($campo)
 
 // Procesar la solicitud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
+    //registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
     // Limpiar y validar datos recibidos del formulario
 
     $numero_registro = limpiarDato($_POST['numero_registro']);
@@ -324,56 +368,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             agregarDatosPostFirma($link, $datosLimpios);
         } else {
             insertarRegistro($link, $datosLimpios);
+            enviar_aCuarentena($link, $id_especificacion, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios
         
         
-    // Nueva inserción en calidad_productos_analizados
-    $query_productos_analizados = "INSERT INTO `calidad_productos_analizados` 
-        (id_especificacion, id_producto, id_analisisExterno, estado, lote, tamano_lote, fecha_in_cuarentena, fecha_elaboracion, fecha_vencimiento) 
-        VALUES (?, ?, ?, 'En cuarentena', ?, ?, ?, ?, ?)";
-    
-    $stmt_productos_analizados = mysqli_prepare($link, $query_productos_analizados);
-    if (!$stmt_productos_analizados) {
-        throw new Exception("Error en la preparación de la consulta de productos analizados: " . mysqli_error($link));
-    }
-    $fechaActual = date('Y-m-d');
-    mysqli_stmt_bind_param(
-        $stmt_productos_analizados,
-        'iiisssss',
-        $id_especificacion,
-        $id_producto,
-        $id_analisis_externo,
-        $lote,
-        $tamano_lote,
-        $fechaActual,
-        $fecha_elaboracion,
-        $fecha_vencimiento
-    );
-
-    
-
-    
-    echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
-    $exito_2 = mysqli_stmt_execute($stmt_productos_analizados);
-    $id_cuarentena = $exito_2 ? mysqli_insert_id($link) : 0;
-    registrarTrazabilidad(
-        $_SESSION['usuario'],
-        $_SERVER['PHP_SELF'],
-        'Envío de lote a cuarentena',
-        'calidad_productos_analizados',
-        $id_cuarentena,
-        $query_productos_analizados,
-        [$id_especificacion, $id_producto, $id_analisis_externo, 'En cuarentena', $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento],
-        $exito_2 ? 1 : 0,
-        $exito_2 ? null : mysqli_error($link)
-    );
-    mysqli_stmt_close($stmt_productos_analizados);
-    $query_update = "UPDATE calidad_analisis_externo SET id_cuarentena = '$id_cuarentena' WHERE id = '$id_analisis_externo'";
-
-    if (!mysqli_query($link, $query_update)) {
-        throw new Exception("Error en la actualización de calidad_analisis_externo: " . mysqli_error($link));
-    }    
+  
     registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
 
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
