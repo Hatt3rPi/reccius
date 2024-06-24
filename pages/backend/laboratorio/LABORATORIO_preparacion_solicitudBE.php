@@ -331,20 +331,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Nueva inserción en calidad_productos_analizados
     $query_productos_analizados = "INSERT INTO `calidad_productos_analizados` 
         (id_especificacion, id_producto, id_analisisExterno, estado, lote, tamano_lote, fecha_in_cuarentena, fecha_elaboracion, fecha_vencimiento) 
-        VALUES (?, ?, ?, 'En cuarentena', ?, ?, NOW(), ?, ?)";
+        VALUES (?, ?, ?, 'En cuarentena', ?, ?, ?, ?, ?)";
     
     $stmt_productos_analizados = mysqli_prepare($link, $query_productos_analizados);
     if (!$stmt_productos_analizados) {
         throw new Exception("Error en la preparación de la consulta de productos analizados: " . mysqli_error($link));
     }
+    $fechaActual = date('Y-m-d');
     mysqli_stmt_bind_param(
         $stmt_productos_analizados,
-        'iiissss',
+        'iiisssss',
         $id_especificacion,
         $id_producto,
         $id_analisis_externo,
         $lote,
         $tamano_lote,
+        $fechaActual,
         $fecha_elaboracion,
         $fecha_vencimiento
     );
@@ -362,7 +364,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'calidad_productos_analizados',
         $id_cuarentena,
         $query_productos_analizados,
-        [$id_especificacion, $id_producto, $id_analisis_externo, 'En cuarentena', $lote, $tamano_lote, NOW(), $fecha_elaboracion, $fecha_vencimiento],
+        [$id_especificacion, $id_producto, $id_analisis_externo, 'En cuarentena', $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento],
         $exito_2 ? 1 : 0,
         $exito_2 ? null : mysqli_error($link)
     );
