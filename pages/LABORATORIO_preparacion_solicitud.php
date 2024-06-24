@@ -869,7 +869,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
 
-            const elementToExport = $('$form-container');
+            const elementToExport = $('#form-container');
             console.log('elementToExport', elementToExport);
             
             elementToExport.css("border", "none");
