@@ -878,6 +878,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     elementToExport.style.border = 'none';
                     elementToExport.style.boxShadow = 'none';
 
+                    await new Promise(resolve => setTimeout(resolve, 500)); // Esperar 500ms
+
                     const canvas = await html2canvas(elementToExport, {
                         scale: 2
                     });
@@ -896,7 +898,12 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             };
 
             (async () => {
-                await addSectionToPDF('form-container');
+                await addSectionToPDF('header-container');
+                await addSectionToPDF('section1', currentY);
+                await addSectionToPDF('section2', currentY, true);
+                await addSectionToPDF('section3', currentY, true);
+                await addSectionToPDF('section4', currentY);
+                await addSectionToPDF('footer-container', pageHeight - 50, true);
 
                 const nombreProducto = document.getElementById('producto').value.trim();
                 const nombreDocumento = document.getElementById('numero_registro').value.trim();
