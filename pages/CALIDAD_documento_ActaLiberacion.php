@@ -447,6 +447,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
     <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
     <p id='id_producto' name='id_producto' style="display: none;"></p>
+    <p id='id_cuarentena' name='id_cuarentena' style="display: none;"></p>
     <p id='numero_solicitud_analisis_externo' name='numero_solicitud_analisis_externo' style="display: none;"></p>
     <p id='solicitado_por_analisis_externo' name='solicitado_por_analisis_externo' style="display: none;"></p>
 </div>
@@ -612,6 +613,7 @@ function loadData() {
                     $('#id_actaMuestreo').text(acta_muestreo.id);
                     $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
                     $('#id_producto').text(primerAnalisis.id_producto);
+                    $('#id_producto').text(primerAnalisis.id_cuarentena);
                     $('.verif').css('background-color', '#f4fac2');
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
@@ -712,6 +714,7 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                     $('#id_actaMuestreo').text(campos.id_actaMuestreo);
                     $('#id_especificacion').text(campos.id_especificacion);
                     $('#id_producto').text(campos.id_producto);
+                    $('#id_producto').text(campos.id_cuarentena);
                     $('.verif').css('background-color', '#ffffff').prop('readonly', true);;
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
@@ -817,6 +820,7 @@ function firmayguarda(resultado, revisionResults, docConformeResults) {
     console.log('Doc Conforme Results:', docConformeResults);
     let id_especificacion = $('#id_especificacion').text();
     let id_producto = $('#id_producto').text();
+    let id_cuarentena = $('#id_cuarentena').text();
     let id_analisis_externo = $('#id_analisis_externo').text();
     let id_actaMuestreo = $('#id_actaMuestreo').text();
     let nro_acta = $('#nro_acta').text();
@@ -837,6 +841,7 @@ function firmayguarda(resultado, revisionResults, docConformeResults) {
             id_especificacion: id_especificacion,
             id_producto: id_producto,
             id_actaMuestreo: id_actaMuestreo,
+            id_cuarentena: id_cuarentena, 
             nro_acta: nro_acta,
             nro_registro: nro_registro,
             nro_version: nro_version,
