@@ -1,5 +1,4 @@
 <?php
-//archivo: pages\LABORATORIO_preparacion_solicitud.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
@@ -868,78 +867,59 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             const {
                 jsPDF
             } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', [279, 216]);
-            const pageHeight = 279;
-            const margin = 5;
-            let currentY = margin;
+            const pdf = new jsPDF('p', 'mm', 'a4');
 
-            const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
-                const elementToExport = document.getElementById(sectionId);
-                if (elementToExport) {
-                    elementToExport.style.border = 'none';
-                    elementToExport.style.boxShadow = 'none';
+            const elementToExport = document.getElementById('form-container');
+            elementToExport.style.border = 'none';
+            elementToExport.style.boxShadow = 'none';
 
-                    return html2canvas(elementToExport, {
-                        scale: 2
-                    }).then(canvas => {
-                        const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                        const imgWidth = 216 - 2 * margin;
-                        const imgHeight = canvas.height * imgWidth / canvas.width;
+            html2canvas(elementToExport, {
+                scale: 2
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 297; // A4 height in mm
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
 
-                        if (addNewPage) {
-                            pdf.addPage();
-                            currentY = margin;
-                        }
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
 
-                        pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
-                        currentY = yOffset + imgHeight + margin;
-                    });
-                } else {
-                    return Promise.resolve();
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
                 }
-            };
 
-            const distributeHeight = (totalHeight, numberOfSections) => {
-                return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
-            };
+                const blob = pdf.output('blob');
 
-            const availableHeight = pageHeight - (2 * margin + 50);
-            const sectionHeight = distributeHeight(availableHeight, 3);
+                const formData = new FormData();
+                formData.append('certificado', blob, 'documento.pdf');
+                formData.append('type', 'analisis_externo');
+                formData.append('id_solicitud', idAnalisisExterno); // Usar idAnalisisExterno
 
-            addSectionToPDF('header-container')
-                .then(() => addSectionToPDF('section1', currentY, false, sectionHeight))
-                .then(() => addSectionToPDF('section2', currentY, false, sectionHeight))
-                .then(() => addSectionToPDF('section4', currentY, false, sectionHeight))
-                .then(() => addSectionToPDF('footer-container', pageHeight - 50))
-                .then(() => addSectionToPDF('header-container', margin, true))
-                .then(() => addSectionToPDF('section3', currentY))
-                .then(() => addSectionToPDF('footer-container', pageHeight - 50))
-                .then(() => {
-                    const fileName = `pdf_certificado_<?php echo $_SESSION['usuario']; ?>.pdf`;;
-
-                    const pdfBlob = pdf.output('blob');
-                    const formData = new FormData();
-                    formData.append('certificado', pdfBlob, fileName);
-                    formData.append('type', 'analisis_externo');
-                    formData.append('id_solicitud', idAnalisisExterno);
-
-                    fetch('./backend/calidad/add_documentos.php', {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                $.notify("PDF subido con éxito", "success");
-                            } else {
-                                $.notify("Error al subir el PDF: " + data.message, "error");
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            $.notify("Error al subir el PDF", "error");
-                        });
-                });
+                fetch('./backend/calidad/add_documentos.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            $.notify("PDF subido con éxito", "success");
+                        } else {
+                            $.notify("Error al subir el PDF: " + data.message, "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        $.notify("Error al subir el PDF", "error");
+                    });
+            }).catch(error => {
+                console.error('Error al generar el canvas:', error);
+                $.notify("Error al generar el PDF", "error");
+            });
         });
     });
 </script>
