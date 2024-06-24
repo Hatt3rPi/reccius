@@ -103,8 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($exito) {
                 $_SESSION['nuevo_id'] = $id_cuarentena;
             }
-            mysqli_stmt_close($stmt4);
-            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_productoAnalizado]);
+            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_cuarentena]);
         } else {
             // Registro de trazabilidad en caso de error
             registrarTrazabilidad(
