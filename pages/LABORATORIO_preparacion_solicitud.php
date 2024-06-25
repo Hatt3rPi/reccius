@@ -946,10 +946,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         style.element.style.background = style.background;
                         style.element.style.padding = style.padding;
                     });
-
-                    elementToExport.style.border = '';
-                    elementToExport.style.boxShadow = '';
-                    buttonContainer.style.display = 'block';
+                    buttonContainer.style.display = 'flex';
                 });
         });
     });
