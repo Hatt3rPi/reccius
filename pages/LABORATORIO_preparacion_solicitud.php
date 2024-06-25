@@ -484,11 +484,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     id: 'elaboradoPor',
                     val: producto.elaborado_por,
                     isDisabled: true
-                },
-                {
-                    id: 'numero_especificacion',
-                    val: producto.documento_producto,
-                    isDisabled: true
                 }
             ])
 
@@ -511,6 +506,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
             newVersion = response.count_analisis_externo + 1
             var analisis = response.analisis;
+            var primerProducto = response.productos[0];
 
             //Todo : Volver a validar cuando se pueda editar ||| en caso de que los datos este de 4 al 6 hacer la seccion de "nuevo analisis" y añadir nueva version
 
@@ -699,7 +695,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }
 
             //* V. Análisis
-            $('#numero_especificacion').val(analisis.documento).prop('disabled', true);
+            $('#numero_especificacion').val(primerProducto.documento_producto).prop('disabled', true);
             $('#version_especificacion').val(analisis.version_especificacion).prop('disabled', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion, ...arrToSetAdditionalInfo];
