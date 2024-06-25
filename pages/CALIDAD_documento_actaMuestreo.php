@@ -1258,6 +1258,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'hidden'; // Hacer invisible el contenido
             });
+            $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
         }
     }
 
