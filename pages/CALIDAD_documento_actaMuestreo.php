@@ -790,6 +790,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#cargo_realizador').text(cargo);
             $('#realizadoPor').text(nombre_ejecutor);
 
+            $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
         }
     });
 
@@ -1157,7 +1161,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#realizadoPor').text(response.nombre_usr1);
         $('#cargo_realizador').text(response.cargo_usr1);
         $('#responsable').text(response.nombre_usr2);
-        $('#user_responsable').text(response.responsable);
+        $('#user_responsable').text(response.usuario_firma2);
         $('#cargo_responsable').text(response.cargo_usr2);
         $('#verificadoPor').text(response.nombre_usr3);
         $('#user_verificadoPor').text(response.verificador);
@@ -1258,10 +1262,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'hidden'; // Hacer invisible el contenido
             });
-            $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
+
         }
     }
 

@@ -22,7 +22,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     usrMuest.nombre as nombre_usrMuest, usrMuest.cargo as cargo_usrMuest, usrMuest.foto_firma as foto_firma_usrMuest, usrMuest.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrMuest,
     LPAD(pr.identificador_producto, 3, '0') AS identificador_producto,
 	aex.solicitado_por,
-    aex.numero_solicitud
+    aex.numero_solicitud, usrMuest.usuario as usuario_firma2
     FROM `calidad_analisis_externo` as aex
     LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
     LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
@@ -67,6 +67,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
             'cargo_usr3'=> $row['cargo_usrRev'],
             'aex_solicitado_por'=> $row['solicitado_por'],
             'aex_numero_solicitud'=> $row['numero_solicitud'],
+            'usuario_firma2'=> $row['usuario_firma2'],
         ];
         $tipo_producto=$row['tipo_producto'];
         $identificador_producto=$row['identificador_producto'];
