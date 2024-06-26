@@ -425,10 +425,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             success: function(response) {
                 if (QA_solicitud_analisis_editing) {
                     procesarDatosActaUpdate(response);
-                    //$('#id_especificacion').val(response.productos[0].especificaciones[0].id_especificacion);
                 } else {
                     procesarDatosActa(response);
-                    //$('#id_especificacion').val(response.productos[0].especificaciones[0].id_especificacion);
                 }
             },
             error: function(xhr, status, error) {
@@ -447,8 +445,21 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     function procesarDatosActa(response) {
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
-
-            $('#version').val(response.count_analisis_externo + 1);
+            var newNumeroRegistro = response.count_analisis_externo + 1
+            var now = new Date();
+            $('#version').val(newNumeroRegistro);
+            $('#numero_registro').val(`DCAL-CC-SEPT-${
+                newNumeroRegistro > 99 ? '' : 
+                newNumeroRegistro > 9 ? '0' : 
+                '00'
+            }` + newNumeroRegistro).prop('readonly', true);
+            $('#numero_solicitud').val(`SAEPT-${
+                now.getFullYear().toString().substr(-2) +
+                now.getMonth() + 1 > 9 ? now.getMonth() +  1 : '0' + (now.getMonth() + 1) +
+                now.getDate() > 9 ? now.getDate() : '0' + now.getDate()
+            }-${
+                newVersion > 9 ? '00' : '0'
+            }` + newVersion).prop('readonly', true);
 
             setValuesToInputs([{
                     id: 'id_producto',
