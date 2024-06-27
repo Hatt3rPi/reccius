@@ -349,7 +349,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="button-container">
                 <button class="botones" id="upload-pdf" style="display: none;">Guardar como PDF</button>
                 <button type="submit" id="guardar" name="guardar" class="botones">GUARDAR SOLICITUD</button>
-                <button type="button" id="agregarDatos" name="agregarDatos" class="botones" style="background-color: red; color: white;">AGREGAR DATOS Y FIRMAR</button>
+                
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
             </div>
             <div class="actions-container">
@@ -402,7 +402,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             $("#guardar").hide();
         } else {
             $("#editarGenerarVersion").hide();
-            $("#agregarDatos").hide();
             $("#informacion_faltante").remove();
         }
     }
@@ -524,17 +523,18 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             if (analisis.estado == "Pendiente Acta de Muestreo") {
                 //!elimina del punto 4 al 6
                 $("#informacion_faltante").remove();
-                $("#agregarDatos").hide();
             } else {
                 if (analisis.estado !== "Pendiente completar análisis") {
                     //! Deja generar nueva version
-                    $("#agregarDatos").hide();
                     $("#upload-pdf").show();
                 } else {
                     //! llenar del 4 al 6 y firmar
                     $("#editarGenerarVersion").hide();
                     $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
                     guardarYFirmarSolicitud = true
+                    $('#informacion_faltante').find('input, textarea, select').each(function() {
+                        $(this).addClass('input-highlight');
+                    });
                 }
             }
 
@@ -743,15 +743,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         function editarGenerarVersion(event) {
 
         }
-
-        $("#agregarDatos").on('click', function(event) {
-            event.preventDefault();
-            $("#guardar").show();
-            $("#agregarDatos").hide();
-            $('#informacion_faltante').find('input, textarea, select').each(function() {
-                $(this).addClass('input-highlight');
-            });
-        })
 
         $('#editarGenerarVersion').on('click', function(event) {
             event.preventDefault();
