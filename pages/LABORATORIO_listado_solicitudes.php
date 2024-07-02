@@ -187,8 +187,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if (d.estado === "Pendiente envío a Laboratorio") {
                 acciones += `<button class="accion-btn" title="WIP Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Enviar Solicitud a Laboratorio</button><a> </a>`;
             }
-            if (d.muestreado_por === usuarioActual && d.estado === "Pendiente de acta de muestreo") {
+            if (d.muestreado_por === usuarioActual && d.estado === "Pendiente de acta de muestreo" && d.id_muestreo === null) {
                 acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
+            }
+
+            if (d.estado === "Pendiente de acta de muestreo" && d.id_muestreo !== null) {
+                if (d.estado_muestreo === "Pendiente Muestreo") {
+                    acciones += '<button class="accion-btn" title="Ingresar resultados Acta Muestreo" type="button" id="' + d.id_muestreo + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_muestreo + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados Acta Muestreo</button><a></a>';
+                }
+                if (d.estado_muestreo === "En proceso de firma") {
+                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_muestreo + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Ir a Firmar Acta Muestreo</button><a> </a>';
+                }
             }
 
             //obsoleto
