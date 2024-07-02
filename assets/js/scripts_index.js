@@ -589,6 +589,11 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
         }
         case "laboratorio": {
             switch (accion) {
+                case "enviarSolicitud_laboratorio": {
+                    console.log(accion);
+                    alert("PENDIENTE: generar envío por correo")
+                    break;
+                }
                 case "generar_acta_muestreo": {
                     console.log('generar_acta_muestreo');
                     $.ajax({
