@@ -790,10 +790,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#cargo_realizador').text(cargo);
             $('#realizadoPor').text(nombre_ejecutor);
 
-            $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea5').prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea6').prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea7').prop('readonly', false).css('background-color', '#f4fac2');
+            $('#form_textarea8').prop('readonly', false).css('background-color', '#f4fac2');
         }
     });
 
@@ -1184,10 +1184,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#etapa').text('ingresa resultados y firma1');
                     $('#realizadoPor').text(nombre_ejecutor);
                     $('#cargo_realizador').text(cargo);
-                    $('#form_textarea5').prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea6').prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea7').prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea8').prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
