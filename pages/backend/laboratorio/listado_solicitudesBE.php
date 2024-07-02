@@ -18,7 +18,7 @@ $query = "SELECT
     aex.solicitado_por,
     aex.muestreado_por,
     aex.lote,
-    cam.estado as estadoAM,
+    
     cam.id as id_muestreo,
     cam.estado as estado_muestreo
 FROM calidad_analisis_externo aex
