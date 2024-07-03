@@ -7,7 +7,7 @@ body {
     background-color: rgb(142, 179, 228);
     padding: 25px;
     max-width: 1400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 20px 19px 20px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 
 }
@@ -16,7 +16,7 @@ body {
     background-color: #dfe9f5;
     padding: 20px;
     margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 20px 20px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
@@ -32,6 +32,7 @@ body {
     font-size: 65px;
     font-weight: bold;
     font-family: 'Wittgenstein', sans-serif;
+    box-shadow: 1px 20px 20px 5px rgba(0, 0, 0, 0.1);
 }
 
 
