@@ -20,6 +20,8 @@ body {
     border-radius: 10px;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+
 .section-title {
     background-color: #0075ff17;
     color: #fff;
@@ -29,7 +31,9 @@ body {
     text-align: center;
     font-size: 65px;
     font-weight: bold;
+    font-family: 'Wittgenstein', sans-serif;
 }
+
 
 .card-custom {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
