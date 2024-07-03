@@ -573,7 +573,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                                     break;
                                 }
                                 case 'Firma 1': {
-                                    botones(id, 'resultados_actaMuestreo', 'laboratorio');
+                                    botones(id, 'revisar', 'laboratorio');
                                     break;
                                 }
                             }
