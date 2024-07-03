@@ -720,11 +720,11 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa': '2'
+                            'etapa': '3'
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response);
-                            cargarDatosEspecificacion(id, true, '2');
+                            cargarDatosEspecificacion(id, true, '3');
                             console.log('ver documento');
                         },
                         error: function(xhr, status, error) {
