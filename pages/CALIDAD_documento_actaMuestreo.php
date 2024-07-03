@@ -670,6 +670,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date">Fecha: dd/mm/yyyy</div>
                         <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado
                             digitalmente</p>
+                        <p id='user_firma2' name='user_firma2' style="display: none;"></p>
                     </div>
                 </div>
                 <!-- Sección Verificado por -->
@@ -693,6 +694,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date">Fecha: dd/mm/yyyy</div>
                         <p id='mensaje_verificador' name='mensaje_verificador' class="text-bottom">Firmado
                             digitalmente</p>
+                        <p id='user_firma3' name='user_firma3' style="display: none;"></p>
                     </div>
                 </div>
 
@@ -1161,10 +1163,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#realizadoPor').text(response.nombre_usr1);
         $('#cargo_realizador').text(response.cargo_usr1);
         $('#responsable').text(response.nombre_usr2);
-        $('#user_responsable').text(response.usuario_firma2);
+        $('#user_firma2').text(response.usuario_firma2);
         $('#cargo_responsable').text(response.cargo_usr2);
         $('#verificadoPor').text(response.nombre_usr3);
-        $('#user_verificadoPor').text(response.verificador);
+        $('#user_firma3').text(response.verificador);
         $('#cargo_verificador').text(response.cargo_usr3);
         $('#numero_solicitud_analisis_externo').text(response.aex_numero_solicitud);
         $('#solicitado_por_analisis_externo').text(response.aex_solicitado_por);
@@ -1323,8 +1325,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let usuario = "<?php echo $_SESSION['usuario']; ?>";
         let respuestas = consolidarRespuestas(selector);
         let id_actaMuestreo = $('#id_actaMuestreo').text();
-        let firma2 = $('#user_responsable').text();
-        let firma3 = $('#user_verificadoPor').text();
+        let firma2 = $('#user_firma2').text();
+        let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
@@ -1405,8 +1407,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     function guardar_firma3() {
         let id_actaMuestreo = $('#id_actaMuestreo').text();
         let id_analisis_externo = $('#id_analisis_externo').text();
-        let firma2 = $('#user_responsable').text();
-        let firma3 = $('#user_verificadoPor').text();
+        let firma2 = $('#user_firma2').text();
+        let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
