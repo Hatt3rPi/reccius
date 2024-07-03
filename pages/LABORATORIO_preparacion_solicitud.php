@@ -855,8 +855,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             todayHighlight: true,
             startDate: new Date()
         });
-        var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
-        $('#id_especificacion').val(idEspecificacion);
+        console.log('especificacion :<?php echo json_encode($_POST['especificacion'] ?? ''); ?>');
+        
     });
 
     $(document).ready(function() {

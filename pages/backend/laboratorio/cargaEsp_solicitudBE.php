@@ -96,9 +96,12 @@ $queryAnalisisExterno = "SELECT
                         WHERE an.id = ?";
 
 $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
+$queryTotalAnalisis = "SELECT COUNT(*) AS total_analisis FROM calidad_analisis";
+
 
 $analisis = [];
 $analisis_count = 0;
+$total_analisis = 0;
 $productos = [];
 
 if ($id_analisis_externo !== 0) {
@@ -131,6 +134,20 @@ if ($stmtAnaliCount) {
 } else {
     $QA[] = "10: " . mysqli_error($link);
     die("Error en la preparación de la consulta de conteo de análisis: " . mysqli_error($link));
+}
+
+$stmtTotalAnalisis = mysqli_prepare($link, $queryTotalAnalisis);
+if ($stmtTotalAnalisis) {
+    mysqli_stmt_execute($stmtTotalAnalisis);
+    $resultTotalAnalisis = mysqli_stmt_get_result($stmtTotalAnalisis);
+    if ($rowTotalAnalisis = mysqli_fetch_assoc($resultTotalAnalisis)) {
+        $total_analisis = $rowTotalAnalisis['total_analisis'];
+    }
+    mysqli_stmt_close($stmtTotalAnalisis);
+    $QA[] = "13";
+} else {
+    $QA[] = "14: " . mysqli_error($link);
+    die("Error en la preparación de la consulta del total de análisis: " . mysqli_error($link));
 }
 
 while ($row = mysqli_fetch_assoc($result)) {
@@ -169,6 +186,12 @@ mysqli_stmt_close($stmt);
 mysqli_close($link);
 
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['productos' => array_values($productos), 'analisis' => $analisis, 'count_analisis_externo' => $analisis_count, 'pasos' => $QA], JSON_UNESCAPED_UNICODE);
+echo json_encode([
+    'productos' => array_values($productos), 
+    'analisis' => $analisis, 
+    'count_analisis_externo' => $analisis_count,  
+    'total_analisis' => $total_analisis, 
+    'pasos' => $QA
+    ], JSON_UNESCAPED_UNICODE);
 
 ?>
