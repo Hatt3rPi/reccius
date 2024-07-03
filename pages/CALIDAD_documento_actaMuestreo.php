@@ -645,9 +645,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                     </div>
                     <div class="date-container">
-                        <div id='fecha_Edicion' name='fecha_Edicion' class="date">Fecha: dd/mm/yyyy</div>
-                        <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado
-                            digitalmente</p>
+                        <div id='fecha_firma1' name='fecha_firma1' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
+                        <p id='mensaje_firma1' name='mensaje_firma1' class="text-bottom" style="display: none;">Firmado digitalmente</p>
                     </div>
                 </div>
                 <!-- Sección Realizado por -->
@@ -667,9 +666,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <div id='fecha_firma_responsable' name='fecha_firma_responsable' class="date">Fecha: dd/mm/yyyy</div>
-                        <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado
-                            digitalmente</p>
+                        <div id='fecha_firma2' name='fecha_firma2' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
+                        <p id='mensaje_firma2' name='mensaje_firma2' class="text-bottom" style="display: none;">Firmado digitalmente</p>
                         <p id='user_firma2' name='user_firma2' style="display: none;"></p>
                     </div>
                 </div>
@@ -691,10 +689,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <div id='fecha_firma_verificador' name='fecha_firma_verificador' class="date">Fecha: dd/mm/yyyy</div>
-                        <p id='mensaje_verificador' name='mensaje_verificador' class="text-bottom">Firmado
-                            digitalmente</p>
-                        <p id='user_firma3' name='user_firma3' style="display: none;"></p>
+                        <div id='fecha_firma3' name='fecha_firma3' class="date">Fecha: dd/mm/yyyy</div>
+                        <p id='mensaje_firma3' name='mensaje_firma3' class="text-bottom" style="display: none;">Firmado digitalmente</p>
+                        <p id='user_firma3' name='user_firma3' style="display: none;" style="display: none;"></p>
                     </div>
                 </div>
 
@@ -788,7 +785,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
             var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
             $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
-            $('#fecha_Edicion').text(fecha_hoy);
+            $('#fecha_firma1').text(fecha_hoy);
+            document.getElementById('fecha_firma1').style.display = 'block';
+            document.getElementById('mensaje_firma1').style.display = 'block';
+            
             $('#cargo_realizador').text(cargo);
             $('#realizadoPor').text(nombre_ejecutor);
 
@@ -830,7 +830,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.log(data)
             setFirmaImage(document.getElementById('firma_realizador'), data);
         })
-        $('#fecha_Edicion').text(response.fecha_firma_muestreador);
+        $('#fecha_firma1').text(response.fecha_firma_muestreador);
+        document.getElementById('fecha_firma1').style.display = 'block';
+        document.getElementById('mensaje_firma1').style.display = 'block';
         asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
     }
 
@@ -847,7 +849,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.log(data)
             setFirmaImage(document.getElementById('firma_responsable'), data);
         })
-        $('#fecha_firma_responsable').text(response.fecha_firma_muestreador);
+        $('#fecha_firma2').text(response.fecha_firma_muestreador);
+        document.getElementById('fecha_firma2').style.display = 'block';
+        document.getElementById('mensaje_firma2').style.display = 'block';
         asignarValoresARadios(response.resultados_muestrador, '.formulario.verif');
     }
 
@@ -864,7 +868,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.log(data)
             setFirmaImage(document.getElementById('firma_verificador'), data);
         })
-        $('#fecha_firma_verificador').text(response.fecha_firma_muestreador);
+        $('#fecha_firma3').text(response.fecha_firma_muestreador);
+        document.getElementById('fecha_firma3').style.display = 'block';
+        document.getElementById('mensaje_firma3').style.display = 'block';
     }
 
     function asignarValoresARadios(valores, selectorGrupos) {
