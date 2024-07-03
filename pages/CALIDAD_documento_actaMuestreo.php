@@ -1226,8 +1226,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#etapa').text('firma3');
                     if (usuario_activo == response.verificador) {
                         document.getElementById('metodo_muestreo').style.display = 'none';
-                        document.getElementById('guardar').style.display = 'block';
-
                     }
                     break;
                 case 3:
