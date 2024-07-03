@@ -4,7 +4,15 @@ body {
 }
 
 .dashboard {
+    background-color: lightgray;
     padding: 20px;
+    margin-top: 20px;
+}
+
+.backgroundrow {
+    background-color: greenyellow;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .section-title {
@@ -30,22 +38,23 @@ body {
 
 .card-blue {
     background-color: #1E90FF;
-    height :120px
+    height: 120px
 }
 
 .card-green {
     background-color: #3CB371;
-    height :120px
+    height: 120px
 }
 
 .card-orange {
     background-color: #FFA500;
-    height :120px
+    height: 120px
 }
 
 .card-red {
-    background-color: #FF6347; /* Color rojo para indicar próximos vencimientos */
-    height :120px
+    background-color: #FF6347;
+    /* Color rojo para indicar próximos vencimientos */
+    height: 120px
 }
 
 .card-title {
