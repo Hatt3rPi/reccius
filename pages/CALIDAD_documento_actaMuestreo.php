@@ -107,7 +107,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="formulario" id="form_producto" readonly>id="form_producto" </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
-                            <div class="btn-group-horizontal " role="group" aria-label="Basic radio toggle button group">
+                            <div class="btn-group-vertical " role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="verificadores btn-check " name="identResp1" id="identResp1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="identResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp1" id="identResp1b" value="0" autocomplete="off">
@@ -116,7 +116,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario verif">
-                            <div class="btn-group-horizontal" role="group" aria-label="Basic radio toggle button group">
+                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="identVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</i></label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1b" value="0" autocomplete="off">
