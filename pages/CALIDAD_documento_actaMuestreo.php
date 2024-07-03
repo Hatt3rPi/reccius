@@ -1245,6 +1245,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     firma2(response);
                     firma3(response);
                     document.getElementById('metodo_muestreo').style.display = 'none';
+                    document.getElementById('guardar').style.display = 'none';
                     document.getElementById('download-pdf').style.display = 'block';
                     $('#upload-pdf').show();
                     break;
