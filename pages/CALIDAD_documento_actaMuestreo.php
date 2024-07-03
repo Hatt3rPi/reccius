@@ -689,7 +689,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <div id='fecha_firma3' name='fecha_firma3' class="date">Fecha: dd/mm/yyyy</div>
+                        <div id='fecha_firma3' name='fecha_firma3' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
                         <p id='mensaje_firma3' name='mensaje_firma3' class="text-bottom" style="display: none;">Firmado digitalmente</p>
                         <p id='user_firma3' name='user_firma3' style="display: none;" style="display: none;"></p>
                     </div>
