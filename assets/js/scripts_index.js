@@ -724,7 +724,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response);
-                            cargarDatosEspecificacion(id, true, '1');
+                            cargarDatosEspecificacion(id, true, '2');
                             console.log('ver documento');
                         },
                         error: function(xhr, status, error) {
