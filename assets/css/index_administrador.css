@@ -6,7 +6,7 @@ body {
 .dashboard {
     background-color: rgb(142, 179, 228);
     padding: 20px;
-    max-width: 1200px;
+    max-width: 100%;
 
 }
 
