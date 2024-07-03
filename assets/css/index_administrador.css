@@ -21,12 +21,14 @@ body {
 }
 
 .section-title {
-    background-color: #6c757d87;
+    background-color: #0075ff17;
     color: #fff;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
     text-align: center;
+    font-size: 65px;
+    font-weight: bold;
 }
 
 .card-custom {
