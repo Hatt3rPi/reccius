@@ -720,7 +720,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa': '1'
+                            'etapa': '2'
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response);
