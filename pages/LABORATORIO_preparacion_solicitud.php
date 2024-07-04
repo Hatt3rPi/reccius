@@ -399,7 +399,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
     function informacionFaltante() {
         if (QA_solicitud_analisis_editing) {
-            $("#guardar").hide();
+            $("#guardar").show();
         } else {
             $("#editarGenerarVersion").hide();
             $("#informacion_faltante").remove();
