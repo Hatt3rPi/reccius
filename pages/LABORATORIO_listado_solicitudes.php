@@ -176,11 +176,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 acciones += '<button class="accion-btn" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Completar información faltante</button><a> </a>';
             }
             //revisar analisis externo
-            if ( d.estado === "Pendiente ingreso resultados laboratorio" ||
-                d.estado === "Pendiente ingreso resultados"
-            ) {
+            if ( (d.estado === "Pendiente ingreso resultados laboratorio" ||
+                d.estado === "Pendiente ingreso resultados" ) && d.revisado_por === usuarioActual ) {
                 acciones +=  `<button class="accion-btn" title="Ingresar resultados Laboratorio" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ingresar resultados de Laboratorio</button><a> </a>`;
             }
+
             if (d.estado === "Finalizado") {
                 
             }
