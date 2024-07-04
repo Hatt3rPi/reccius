@@ -535,11 +535,6 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 }
             }
 
-
-           
-               
-
-
             //* I. Análisis:
             $("#version").val(analisis.version);
             var arrToSetAnalisis = [{
@@ -706,10 +701,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     },
                 ]
             }
-
+            $('#id_especificacion').val(analisis.id_especificacion);
+            $('#version_especificacion').val(analisis.version_especificacion).prop('disabled', true);
             //* V. Análisis
             $('#numero_especificacion').val(primerProducto.documento_producto).prop('disabled', true);
-            $('#version_especificacion').val(analisis.version_especificacion).prop('disabled', true);
 
             var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion, ...arrToSetAdditionalInfo];
 
