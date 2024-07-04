@@ -531,11 +531,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     $("#editarGenerarVersion").hide();
                     $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
                     guardarYFirmarSolicitud = true
-                    $('.highlight').find('input, textarea, select').each(function() {
-                        $(this).addClass('input-highlight');
-                    });
+                    $('.highlight').css('background-color', '#f4fac2');
                 }
             }
+
+
+           
+               
+
 
             //* I. Análisis:
             $("#version").val(analisis.version);
