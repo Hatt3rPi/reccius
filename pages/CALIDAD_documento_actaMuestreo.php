@@ -1247,7 +1247,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'none';
                     document.getElementById('download-pdf').style.display = 'block';
-                    //$('#upload-pdf').show();
+                    $('#upload-pdf').show();
                     break;
             }
         } else {
@@ -1411,76 +1411,43 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function guardar_firma3() {
-    let id_actaMuestreo = $('#id_actaMuestreo').text();
-    let id_analisis_externo = $('#id_analisis_externo').text();
-    let firma2 = $('#user_firma2').text();
-    let firma3 = $('#user_firma3').text();
-    let acta = $('#nro_acta').text();
-    let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
-    let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
-    let dataToSave = {
-        id_analisis_externo: id_analisis_externo,
-        id_actaMuestreo: id_actaMuestreo,
-        firma2: firma2,
-        firma3: firma3,
-        acta: acta,
-        numero_solicitud: numero_solicitud_analisis_externo,
-        solicitado_por_analisis_externo: solicitado_por_analisis_externo,
-        etapa: 3,
-        respuestas: 'no aplica'
-    };
+        let id_actaMuestreo = $('#id_actaMuestreo').text();
+        let id_analisis_externo = $('#id_analisis_externo').text();
+        let firma2 = $('#user_firma2').text();
+        let firma3 = $('#user_firma3').text();
+        let acta = $('#nro_acta').text();
+        let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
+        let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
+        let dataToSave = {
+            id_analisis_externo: id_analisis_externo,
+            id_actaMuestreo: id_actaMuestreo,
+            firma2: firma2,
+            firma3: firma3,
+            acta: acta,
+            numero_solicitud: numero_solicitud_analisis_externo,
+            solicitado_por_analisis_externo: solicitado_por_analisis_externo,
+            etapa: 3,
+            respuestas: 'no aplica'
+        };
 
-    // Enviar datos al servidor usando AJAX
-    console.log(dataToSave);
-    $.ajax({
-        url: './backend/acta_muestreo/guardar_y_firmar.php',
-        type: 'POST',
-        data: JSON.stringify(dataToSave),
-        contentType: 'application/json; charset=utf-8',
-        success: function(response) {
-            console.log('Firma guardada con éxito: ', response);
-            $.notify("Documento firmado correctamente.", "success");
-            $.notify("En proceso de generación de PDF.", "warning");
-
-            // Esperar a que el PDF se cargue antes de continuar
-            subirPDF().then(() => {
-                $.notify("Documento PDF almacenado correctamente.", "success");
+        // Enviar datos al servidor usando AJAX
+        console.log(dataToSave);
+        $.ajax({
+            url: './backend/acta_muestreo/guardar_y_firmar.php',
+            type: 'POST',
+            data: JSON.stringify(dataToSave),
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                console.log('Firma guardada con éxito: ', response);
+                //alert("Firma guardada correctamente.");
+                $.notify("Documento firmado correctamente.", "success");
                 $('#listado_acta_muestreo').click();
-            }).catch(error => {
-                console.error("Error al subir el PDF:", error);
-                $.notify("Error al subir el PDF, subir de forma manual", "error");
-                $('#upload-pdf').show();
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error("Error al guardar la firma: ", status, error);
-            $.notify("Error al firmar documento", "error");
-        }
-    });
-}
-
-function subirPDF() {
-    return new Promise((resolve, reject) => {
-        // Simular el clic en el botón de subir PDF
-        $('#upload-pdf').trigger('click');
-
-        // Esperar hasta que el PDF se haya subido correctamente
-        let checkInterval = setInterval(() => {
-            // Verificar alguna condición de éxito aquí
-            // Por ejemplo, podrías verificar algún estado o variable que indique el éxito de la carga
-            // Aquí se usa una simulación con una variable global, ajusta esto según tu implementación
-            if (pdfUploadSuccess) {
-                clearInterval(checkInterval);
-                resolve();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al guardar la firma: ", status, error);
+                //alert("Error al guardar la firma.");
+                $.notify("Error al firmar documento", "error");
             }
-        }, 1000);
-
-        // Opcionalmente, puedes agregar un timeout para rechazar la promesa si toma demasiado tiempo
-        setTimeout(() => {
-            clearInterval(checkInterval);
-            reject(new Error('El tiempo de carga del PDF se agotó.'));
-        }, 20000); // Esperar hasta 20 segundos
-    });
-}
-
+        });
+    }
 </script>
