@@ -106,7 +106,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             case 'Pendiente de Revisión':
                                 return '<span class="badge badge-warning">Pendiente de Revisión</span>';
                             case 'Pendiente ingreso resultados':
-                                return '<span class="badge badge-warning">Pendiente ingreso resultadosaboratorio</span>';
+                                return '<span class="badge badge-warning">Pendiente ingreso resultados</span>';
                             default:
                                 return '<span class="badge">' + data + '</span>';
                         }
