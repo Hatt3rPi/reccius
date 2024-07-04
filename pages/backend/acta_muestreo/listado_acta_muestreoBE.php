@@ -1,4 +1,5 @@
 <?php
+// archivo: pages\backend\acta_muestreo\listado_acta_muestreoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -15,7 +16,13 @@ $query = "SELECT
                 concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
                 pr.tipo_producto,
                 am.id as id_acta,
-                am.id_analisisExterno
+                am.id_analisisExterno,
+                am.muestreador as user_firma1,
+                am.responsable as user_firma2,
+                am.verificador as user_firma3,
+                (CASE WHEN am.fecha_firma_muestreador IS NOT NULL THEN 1 ELSE 0 END + 
+            CASE WHEN am.fecha_firma_responsable IS NOT NULL THEN 1 ELSE 0 END + 
+            CASE WHEN am.fecha_firma_verificador IS NOT NULL THEN 1 ELSE 0 END) AS cantidad_firmas
             FROM `calidad_acta_muestreo` as am
             LEFT JOIN calidad_productos as pr 
             on am.id_producto=pr.id;";
