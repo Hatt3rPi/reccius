@@ -307,8 +307,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div class="button-container">
     <!--Todo: style="display: none;" -->
     <button class="botones" id="revisar" style="display: none;">Revisar</button>
-    <button class="botones" id="Cambiante">cambio</button>
-    <button class="botones" id="download-pdf">Descargar PDF</button>
+    <button class="botones" id="download-pdf" style="display: none;">Descargar PDF</button>
     <!--<button class="botones" id="upload-pdf">Guardar PDF</button>-->
 </div>
 
@@ -474,10 +473,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     */
 
-    // Agregar el evento click al botón con id 'Cambiante'
-    document.getElementById('Cambiante').addEventListener('click', function() {
-        cambio();
-    });
+
 
     // Función para mostrar u ocultar la columna de revisión
     function toggleRevisionColumn() {
@@ -627,13 +623,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             }
                             $(`#btn-check-a-${index}`).prop('disabled', true);
                             $(`#btn-check-b-${index}`).prop('disabled', true);
-
+                            
                         });
 
                         $("#laboratorio_nro_analisis").prop("disabled", true);
                         $("#certificado_de_analisis_externo_label").prop("disabled", true);
                         $("#fecha_entrega").prop("disabled", true);
                         $("#laboratorio_fecha_analisis").prop("disabled", true);
+
+                        $("#download-pdf").show()
+                        $("#revisar").hide()
+
                     } else {
                         console.log('no hay certificado');
                         console.log(primerAnalisis.revisado_por, "<?php echo $_SESSION['usuario'] ?>");
