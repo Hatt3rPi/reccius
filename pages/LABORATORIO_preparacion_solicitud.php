@@ -445,7 +445,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             var producto = response.productos[0];
             var newNumeroRegistro = response.total_analisis + 1
             var now = new Date();
-            $('#version').val(newNumeroRegistro);
+            $('#version').val(1);
             $('#numero_registro').val(`DCAL-CC-SEPT-${
                 newNumeroRegistro > 99 ? '' : 
                 newNumeroRegistro > 9 ? '0' : 
