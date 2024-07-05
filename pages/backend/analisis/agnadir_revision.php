@@ -5,6 +5,11 @@ require_once "../cloud/R2_manager.php";
 header('Content-Type: application/json');
 
 $idAnalisisExterno = isset($_GET['id_analisis']) ? intval($_GET['id_analisis']) : null;
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado']);
+    exit;
+}
+$usuario = $_SESSION['usuario'];
 
 function limpiarDato($dato) {
     $dato = trim($dato);
@@ -51,6 +56,25 @@ if ($row['count'] > 0) {
     exit;
 }
 mysqli_stmt_close($stmtCheck);
+
+// Verificar que el usuario es el mismo que revisado_por en calidad_analisis_externo
+$revisadoPorQuery = "SELECT revisado_por FROM calidad_analisis_externo WHERE id = ?";
+$stmtRevisadoPor = mysqli_prepare($link, $revisadoPorQuery);
+if ($stmtRevisadoPor) {
+    mysqli_stmt_bind_param($stmtRevisadoPor, 'i', $idAnalisisExterno);
+    mysqli_stmt_execute($stmtRevisadoPor);
+    $resultRevisadoPor = mysqli_stmt_get_result($stmtRevisadoPor);
+    $rowRevisadoPor = mysqli_fetch_assoc($resultRevisadoPor);
+    mysqli_stmt_close($stmtRevisadoPor);
+
+    if ($rowRevisadoPor['revisado_por'] !== $usuario) {
+        echo json_encode(['error' => 'Acceso denegado: el usuario no tiene permiso para revisar este análisis.']);
+        exit;
+    }
+} else {
+    echo json_encode(['error' => 'Error al preparar consulta para verificar el usuario.']);
+    exit;
+}
 
 // Sube el archivo a Cloudflare R2
 $fileBinary = file_get_contents($_FILES['certificado_de_analisis_externo']['tmp_name']);
