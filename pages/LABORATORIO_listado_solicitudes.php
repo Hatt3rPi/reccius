@@ -27,10 +27,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <label> Filtrar por:</label>
             <button class="estado-filtro badge badge-success" onclick="filtrar_listado('completado')">Completado</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de Muestreo')">Pendiente Acta de Muestreo</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente ingreso resultados laboratorio')">Pendiente ingreso resultados laboratorio</button>
-            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
-            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente completar análisis')">Pendiente completar Análisis</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente envío a Laboratorio')">Pendiente envío a Laboratorio</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente ingreso resultados')">Pendiente ingreso resultados Laboratorio</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente liberación productos')">Pendiente liberación Productos</button>
             <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
         </div>
         <br>
