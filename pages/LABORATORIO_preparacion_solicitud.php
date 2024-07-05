@@ -819,9 +819,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: datosFormulario
-            }).then(function(response) {
-        return response.json();
-    }).then(function(data) {
+            }).then(function(data) {
         
         $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
           
