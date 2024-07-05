@@ -185,10 +185,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             //acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_acta + '" name="generar_documento_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
             if (d.estado === "En proceso de firma") {
-                if (d.cantidad_firmas==2 && d.user_firma2==usuarioActual){
+                if (d.cantidad_firmas==1 && d.user_firma2==usuarioActual){
                     acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
                 }
-                if (d.cantidad_firmas==3 && d.user_firma3==usuarioActual){
+                if (d.cantidad_firmas==2 && d.user_firma3==usuarioActual){
                     acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
                 }
             }
