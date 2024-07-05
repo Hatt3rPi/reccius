@@ -9,7 +9,7 @@ if ($id_acta === 0) {
     die(json_encode(['error' => 'ID de acta no válido']));
 }
 function obtenerFirmas($link, $usuario) {
-    $queryFirmas = "SELECT qr_documento, foto_firma FROM usuarios WHERE usuario = ?";
+    $queryFirmas = "SELECT nombre, cargo, qr_documento, foto_firma FROM usuarios WHERE usuario = ?";
     $stmtFirmas = mysqli_prepare($link, $queryFirmas);
     if (!$stmtFirmas) {
         return ['error' => "Error en mysqli_prepare (queryFirmas): " . mysqli_error($link)];
