@@ -97,7 +97,7 @@ function insertarRegistro($link, $datos)
     }
 }
 
-function enviar_aCuarentena($link, $id_especificacion, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
+function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
         // Nueva inserción en calidad_productos_analizados
         $query_productos_analizados = "INSERT INTO `calidad_productos_analizados` 
             (id_especificacion, id_producto, id_analisisExterno, estado, lote, tamano_lote, fecha_in_cuarentena, fecha_elaboracion, fecha_vencimiento) 
@@ -370,7 +370,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             agregarDatosPostFirma($link, $datosLimpios);
         } else {
             insertarRegistro($link, $datosLimpios);
-            enviar_aCuarentena($link, $id_especificacion, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
+            enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios
         
