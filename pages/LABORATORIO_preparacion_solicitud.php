@@ -823,11 +823,15 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         return response.json();
     }).then(function(data) {
         
-            $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-                
-                    carga_listado();
-                
-            });
+        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+          
+                obtenNotificaciones();
+                carga_listado();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
        
     }).catch(function(error) {
                 console.log("Error: " + error);
