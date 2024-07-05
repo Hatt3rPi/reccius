@@ -453,10 +453,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }` + newNumeroRegistro).prop('readonly', true);
             $('#numero_solicitud').val(`SAEPT-${
                 now.getFullYear().toString().substr(-2) +
-                (now.getMonth() + 1 > 9 ? now.getMonth() +  1 : '0' + (now.getMonth() + 1)).toString()
+                (now.getMonth() + 1 > 9 ? 
+                    now.getMonth() +  1 : 
+                    '0' + (now.getMonth() + 1))
+                .toString()
             }${
-                newVersion > 9 ? '00' : '0'
-            }-00` + newVersion).prop('readonly', true);
+                newNumeroRegistro > 9 ? '00' : '0'
+            }-00`).prop('readonly', true);
 
             setValuesToInputs([{
                     id: 'id_producto',
