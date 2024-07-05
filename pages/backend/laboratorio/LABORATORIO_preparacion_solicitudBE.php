@@ -172,6 +172,8 @@ function agregarDatosPostFirma($link, $datos)
         }
     } // * esto me ayuda a actualizar solo lo que le envio
 
+    unset($_SESSION['buscar_por_ID']);
+    $_SESSION['buscar_por_ID'] = $datos['id'];
 
     // Asegurarte de que haya algo que actualizar
     if (empty($partesConsulta)) {
