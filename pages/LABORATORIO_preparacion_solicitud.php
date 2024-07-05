@@ -443,7 +443,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     function procesarDatosActa(response) {
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
-            var newNumeroRegistro = response.count_analisis_externo + 1
+            var newNumeroRegistro = response.total_analisis + 1
             var now = new Date();
             $('#version').val(newNumeroRegistro);
             $('#numero_registro').val(`DCAL-CC-SEPT-${
@@ -453,11 +453,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             }` + newNumeroRegistro).prop('readonly', true);
             $('#numero_solicitud').val(`SAEPT-${
                 now.getFullYear().toString().substr(-2) +
-                (now.getMonth() + 1 > 9 ? now.getMonth() +  1 : '0' + (now.getMonth() + 1)).toString() +
-                (now.getDate() > 9 ? now.getDate() : '0' + now.getDate()).toString()
-            }-${
+                (now.getMonth() + 1 > 9 ? now.getMonth() +  1 : '0' + (now.getMonth() + 1)).toString()
+            }${
                 newVersion > 9 ? '00' : '0'
-            }` + newVersion).prop('readonly', true);
+            }-00` + newVersion).prop('readonly', true);
 
             setValuesToInputs([{
                     id: 'id_producto',
