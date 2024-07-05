@@ -511,6 +511,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
+    var datosFirma2 = {};
+
     function loadData() {
         $.ajax({
             url: './backend/analisis/ingresar_resultados_analisis.php',
@@ -701,6 +703,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     $("#revisado_por_firma").attr("src", data);
                                 })
                             }
+                        }else{
+                            datosFirma2 = {
+                                fecha:primerAnalisis.laboratorio_fecha_analisis,
+                                nombre: revis.nombre,
+                                cargo: revis.cargo,
+                                firma: revis.qr_documento?revis.qr_documento: revis.foto_firma
+                            }
                         }
                     }
                 }
@@ -721,10 +730,33 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
     }
+
     $(document).ready(function() {
+
+        function firma2Fn() {
+            $("#fecha_firma2").text(datosFirma2.fecha).show();
+            $("#mensaje_firma2").show();
+            $("#revisado_por_name").text(datosFirma2.nombre).show()
+            $("#cargo_revisador").text(datosFirma2.cargo).show()
+            
+            if (datosFirma2.firma) {
+                fetch(datosFirma2.firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.readAsDataURL(blob);
+                })).then((data) => {
+                    console.log("revisado_por.qr_documento", data)
+                    $("#revisado_por_firma").attr("src", data);
+                })
+            }
+        }
+        
+
         $("#revisar").on("click", function() {
             let cumple = true;
             let results = [];
+
+
 
             $(".checkLine").each(function() {
                 $(this).css("background-color", "transparent");
@@ -768,20 +800,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('resultados_analisis', JSON.stringify(results));
 
+            $("#revisar").hide();
             fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
                 method: "POST",
                 body: formData
             }).then(function(response) {
-                if (response.ok) {
-                    carga_listado();
-                } else {
-                    response.json().then(data => {
-                        alert("Error al revisar los datos: " + (data.error || 'Unknown error'));
-                    });
-                }
+                $.notify("Analisis de laboratorio guardado.", "success");
+                firma2Fn();
             }).catch(error => {
+                $("#revisar").show();
                 console.error('Error:', error);
                 alert("Error al revisar los datos.");
+
             });
         });
     });
