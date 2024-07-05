@@ -734,7 +734,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     $(document).ready(function() {
 
         function firma2Fn() {
-            $("#fecha_firma2").text(datosFirma2.fecha).show();
+            var now = new Date();
+            $("#fecha_firma2").text(datosFirma2.fecha || `${now.getFullYear()}-${now.getMonth() + 1 <10 ? `0${now.getMonth() + 1}-${now.getDate() <10 ? `0${now.getDate()}` : now.getDate()}` : now.getMonth() + 1 } `).show();
             $("#mensaje_firma2").show();
             $("#revisado_por_name").text(datosFirma2.nombre).show()
             $("#cargo_revisador").text(datosFirma2.cargo).show()
