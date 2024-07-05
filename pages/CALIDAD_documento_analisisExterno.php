@@ -248,22 +248,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="firma-section">
                         <div class="firma-box-title">Solicitado por:</div>
                         <div class="firma-boxes">
-                            <p id='solicitado_por_name' name='solicitado_por_name' class="bold">Inger Sumonte
+                            <p id='solicitado_por_name' name='solicitado_por_name' class="bold"></p>
+                            <p id="cargo_solicitador" name="cargo_solicitador" class="bold">
                             </p>
-
-
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
                                 <img id="solicitado_por_firma" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
-
                         </div>
-                        <!-- <div class="date-container">
-                            <div id='fecha_realizacion' name='fecha_realizacion' class="date">Fecha: dd/mm/yyyy</div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado
-                                digitalmente</p>
-                        </div> Sección Realizado por -->
+                        <div class="date-container">
+                            <div id='fecha_firma1' name='fecha_firma1' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
+                            <p id='mensaje_firma1' name='mensaje_firma1' class="text-bottom" style="display: none;">Firmado digitalmente</p>
+                            <p id='user_firma1' name='user_firma1' style="display: none;" style="display: none;"></p>
+                        </div>
                     </div>
                     <!-- Sección Realizado por -->
                     <div class="firma-section">
@@ -271,18 +269,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <div class="firma-boxes">
                             <p id='revisado_por_name' name='revisado_por_name' class="bold">
                             </p>
+                            <p id="cargo_revisador" name="cargo_revisador" class="bold">
+                            </p>
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
                                 <img id="revisado_por_firma" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
-
                         </div>
-                        <!-- <div class="date-container">
-                            <div id='fecha_realizacion' name='fecha_realizacion' class="date">Fecha: dd/mm/yyyy</div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom">Firmado
-                                digitalmente</p>
-                        </div> -->
+                        <div class="date-container">
+                            <div id='fecha_firma2' name='fecha_firma2' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
+                            <p id='mensaje_firma2' name='mensaje_firma2' class="text-bottom" style="display: none;">Firmado digitalmente</p>
+                            <p id='user_firma1' name='user_firma1' style="display: none;" style="display: none;"></p>
+                        </div>
                     </div>
 
                 </div>
@@ -639,11 +638,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.log(primerAnalisis.revisado_por, "<?php echo $_SESSION['usuario'] ?>");
                         primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
                     }
-
+                    
                     if (primerAnalisis.firmas) {
                         var soli = primerAnalisis.firmas.solicitado_por
                         var revis = primerAnalisis.firmas.revisado_por
                         if (primerAnalisis.solicitado_por) {
+                            $("#fecha_firma1").text(primerAnalisis.fecha_solicitud).show();
+                            $("#mensaje_firma1").show();
+                            $("#solicitado_por_name").text(soli.nombre).show()
+                            $("#cargo_solicitador").text(soli.cargo).show()
+
                             if (soli.qr_documento) {
                                 var qr = soli.qr_documento
                                 console.log('1 ----', qr);
@@ -669,7 +673,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 })
                             }
                         }
-                        if (primerAnalisis.revisado_por) {
+                        if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
+                            
+                            $("#fecha_firma2").text(primerAnalisis.laboratorio_fecha_analisis).show();
+                            $("#mensaje_firma2").show();
+                            $("#revisado_por_name").text(revis.nombre).show()
+                            $("#cargo_revisador").text(revis.cargo).show()
+                            
                             if (revis.qr_documento) {
                                 fetch(revis.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                     const reader = new FileReader();
