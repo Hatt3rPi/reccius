@@ -348,7 +348,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="button-container">
                 <button class="botones" id="upload-pdf" style="display: none;">Guardar como PDF</button>
                 <button type="submit" id="guardar" name="guardar" class="botones">GUARDAR SOLICITUD</button>
-                
+
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
             </div>
             <div class="actions-container">
@@ -813,28 +813,24 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 datosFormulario += '&id=' + idAnalisisExterno;
             }
 
-            $.ajax({
-                url: './backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php',
-                type: 'POST',
-                data: datosFormulario,
-                success: function(data) {
-                    var respuesta = JSON.parse(data);
-                    if (respuesta.exito) {
-                        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-                            if (status == "error") {
-                                console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
-                            } else {
-                                carga_listado();
-                            }
-                        });
+            fetch('../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php', {
+                method: 'POST',
+                body: datosFormulario
+            }).then(function(response) {
+                console.log({
+                    response
+                });
+
+                $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
+                    if (status == "error") {
+                        console.log("Error al cargar el formulario: " + xhr.status + " " + xhr.statusText);
                     } else {
-                        console.log(respuesta.mensaje); // Manejar el error
+                        carga_listado();
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error AJAX: " + error);
-                }
-            });
+                });
+            }).catch(function(error) {
+                console.log("Error: " + error);
+            })
 
             $('.datepicker').each(function() {
                 var isoDate = $(this).val();
@@ -853,7 +849,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             startDate: new Date()
         });
         console.log('especificacion :<?php echo json_encode($_POST['especificacion'] ?? ''); ?>');
-        
+
     });
 
     $(document).ready(function() {
