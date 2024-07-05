@@ -42,7 +42,8 @@ $query = "SELECT
             CASE WHEN am.fecha_firma_responsable IS NOT NULL THEN 1 ELSE 0 END + 
             CASE WHEN am.fecha_firma_verificador IS NOT NULL THEN 1 ELSE 0 END) AS cantidad_firmas,
             aex.solicitado_por as aex_solicitado_por,
-            aex.numero_solicitud as aex_numero_solicitud
+            aex.numero_solicitud as aex_numero_solicitud,
+            usr2.usuario as usuario_firma2
           FROM calidad_acta_muestreo as am 
           LEFT JOIN `calidad_analisis_externo` as aex ON am.id_analisisExterno=aex.id
           LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
