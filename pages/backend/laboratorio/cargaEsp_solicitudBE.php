@@ -99,12 +99,12 @@ $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_ana
 
 
 $total_analisis = 0;
-if ($accion === 'prepararSolicitud' && $id_analisis_externo !== 0) {
+if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
     $queryTotalAnalisis = "SELECT COUNT(*) AS total_analisis FROM calidad_analisis_externo WHERE id_especificacion = ?"; 
 
     $stmtTotalAnalisis = mysqli_prepare($link, $queryTotalAnalisis);
     if ($stmtTotalAnalisis) {
-        mysqli_stmt_bind_param($stmtTotalAnalisis, "i", $id_analisis_externo);
+        mysqli_stmt_bind_param($stmtTotalAnalisis, "i", $idEspecificacion);
         mysqli_stmt_execute($stmtTotalAnalisis);
         $resultTotalAnalisis = mysqli_stmt_get_result($stmtTotalAnalisis);
         if ($rowTotalAnalisis = mysqli_fetch_assoc($resultTotalAnalisis)) {
