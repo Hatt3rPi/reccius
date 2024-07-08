@@ -350,7 +350,7 @@ p {
     flex: 1;
     /* Distribuye el espacio equitativamente entre las secciones */
 
-    max-width: 45%;
+    max-width: 33%;
     /* Limita el ancho máximo al 32% del contenedor para evitar desbordamiento */
     box-sizing: border-box;
     display: flex;
