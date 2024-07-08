@@ -305,23 +305,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         }
 
-        function setFirmaImage(imgElement, firmaSrc) {
-            const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
-            const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
-
-            if (!firmaSrc) {
-                imgElement.src = nullImage;
-                console.log("Firma no disponible, usando imagen nula.");
-            } else {
-                imgElement.onerror = function() {
-                    imgElement.src = noProvidedImage;
-                    console.log("Error al cargar la firma, usando imagen de firma no proporcionada.");
-                };
-                imgElement.src = firmaSrc;
-                console.log("Cargando firma desde:", firmaSrc);
-            }
-        }
-
         function poblarYDeshabilitarCamposProducto(producto) {
             console.log("A3")
             if (producto) {
@@ -334,8 +317,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $('#formato').text(producto.formato);
                 $('#documento').text(producto.documento_producto);
 
+                //$('#elaboradoPor').text(producto.creado_por);
+
                 let especificacion = Object.values(producto.especificaciones)[0];
                 if (especificacion) {
+                    cargo_creador
                     $('#id_especificacion').text(especificacion.id);
                     $('#cargo_creador').text(especificacion.creado_por.cargo);
                     $('#cargo_revisor').text(especificacion.revisado_por.cargo);
@@ -403,14 +389,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     imgElement.style.height = '64px';
                     document.getElementById(contenedorQR).appendChild(imgElement);
                 }
-                setFirmaImage(imgElement, firmaUrl);
+                imgElement.src = firmaUrl;
             } else {
                 // Si no hay 'qr_documento' ni 'foto_firma', muestra un mensaje de "Firma no disponible"
                 var contenedor = document.getElementById(contenedorQR);
                 contenedor.innerHTML = '<span style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;">Firma no disponible</span>';
+
             }
         }
-
 
 
 
