@@ -45,7 +45,22 @@ $query = "SELECT cp.id as id_producto,
             can.tipo_analisis,
             can.descripcion_analisis,
             can.metodologia, 
-            can.criterios_aceptacion
+            can.criterios_aceptacion,
+            CASE
+                WHEN usrCreado.qr_documento IS NOT NULL THEN usrCreado.qr_documento
+                WHEN usrCreado.foto_firma IS NOT NULL THEN usrCreado.foto_firma
+                ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+            END as foto_firma_usr1,
+            CASE
+                WHEN usrRevisado.qr_documento IS NOT NULL THEN usrRevisado.qr_documento
+                WHEN usrRevisado.foto_firma IS NOT NULL THEN usrRevisado.foto_firma
+                ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+            END as foto_firma_usr2,
+            CASE
+                WHEN usrAprobado.qr_documento IS NOT NULL THEN usrAprobado.qr_documento
+                WHEN usrAprobado.foto_firma IS NOT NULL THEN usrAprobado.foto_firma
+                ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+            END as foto_firma_usr3
         FROM calidad_productos as cp 
         INNER JOIN calidad_especificacion_productos as cep 
         ON cp.id = cep.id_producto 
