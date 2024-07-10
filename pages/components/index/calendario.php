@@ -20,4 +20,4 @@
         <div class="calendar-days" id="calendar-days"></div>
     </div>
 </div>
-<script src="../assets/js/components/Index_components/Component_Calendario.js"></script>
+<script src="../assets/js/components/calendario.js"></script>
