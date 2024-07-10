@@ -142,7 +142,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('./backend/obtener_usuarioBE.php')
+            fetch('./backend/usuario/obtener_usuarioBE.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.nombre) {
