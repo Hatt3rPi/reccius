@@ -536,7 +536,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                 case "finalizar_tarea": {
                     console.log('El enlace de solicitud de análisis fue clickeado desde listado.');
                     switch (opcional) {
-                        case "calidad_especificacion_productos": {
+                        //botones(this.id, this.name, 'tareas', 'calidad_especificacion_producto', 'Firma 3')
+                        case "calidad_especificacion_producto": {
                             console.log(opcional, opcional2);
                             switch (opcional2) {
 
