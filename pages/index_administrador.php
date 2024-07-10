@@ -148,7 +148,7 @@
         });
 
         function fetchUserInfo() {
-            fetch('.backend/usuario/obtener_usuarioBE.php')
+            fetch('./backend/usuario/obtener_usuarioBE.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.nombre) {
