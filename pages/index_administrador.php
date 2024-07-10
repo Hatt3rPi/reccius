@@ -19,6 +19,9 @@
     <div id="tareas-component">
         <?php include 'components/index/tareas.php'; ?>
     </div>
+    <div id="clima-component">
+        <?php include 'components/index/clima.php'; ?>
+    </div>
     <div class="container dashboard">
         <div class="row">
             <div class="col-md-12 mt-5">
