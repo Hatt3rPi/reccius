@@ -154,7 +154,7 @@
                     if (data.nombre) {
                         document.querySelector('.usernameA').textContent = data.nombre;
                     } else {
-                        document.querySelector('.usernameA').textContent = 'Usuario';
+                        document.querySelector('.usernameA').textContent = 'Usuariossss';
                     }
                 })
                 .catch(error => console.error('Error al obtener el nombre de usuario:', error));
