@@ -64,7 +64,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Ahora puedes usar la sintaxis import
     function filtrar_listado(estado) {
         var table = $('#listado').DataTable();
-        table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
+        if (estado === '') {
+            // Eliminar todos los filtros
+            table.search('').columns().search('').draw();
+        } else {
+            // Aplicar filtro a la columna correspondiente
+            table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de estado
+        }
     }
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
 

@@ -786,8 +786,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
             $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
             $('#fecha_firma1').text(fecha_hoy);
-            document.getElementById('fecha_firma1').style.display = 'block';
-            document.getElementById('mensaje_firma1').style.display = 'block';
+            //document.getElementById('fecha_firma1').style.display = 'block';
+            //document.getElementById('mensaje_firma1').style.display = 'block';
             
             $('#cargo_realizador').text(cargo);
             $('#realizadoPor').text(nombre_ejecutor);
