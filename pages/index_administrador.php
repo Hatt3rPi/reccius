@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
-    
+
 </head>
 
 <body>
@@ -133,31 +133,7 @@
             </div>
         </div>
     </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inicialización del calendario
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'es',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: ''
-                },
-                contentHeight: 'auto',
-                dayMaxEvents: true,
-                views: {
-                    dayGridMonth: {
-                        titleFormat: { year: 'numeric', month: 'long' }
-                    }
-                }
-            });
 
-            calendar.render();
-        });
-    </script>
     <script>
         function actualizarGraficos(datos) {
             const liberados = datos.filter(d => d.estado === 'liberado').length;
