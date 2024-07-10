@@ -25,9 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tareas-component">
-                        <?php include 'components/index/tareas.php'; ?>
-                    </div>
+
                     <div class="col-md-3">
                         <div class="card card-custom card-green">
                             <div class="card-body">
@@ -53,7 +51,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div id="tareas-component">
+                    <?php include 'components/index/tareas.php'; ?>
+                </div>
 
                 <div class="row mt-4 backgroundrow">
                     <div class="col-md-12">
