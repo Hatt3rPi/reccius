@@ -3,12 +3,13 @@ body {
 }
 
 .calendar-container {
-    width: 300px;
-    margin: auto;
+    width: 350px;
+    margin: 20px auto;
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    text-align: center;
 }
 
 .calendar-header {
@@ -21,6 +22,11 @@ body {
 
 .month-change {
     cursor: pointer;
+    font-size: 24px;
+}
+
+.calendar-body {
+    margin-top: 10px;
 }
 
 .calendar-weekdays, .calendar-days {
@@ -32,6 +38,7 @@ body {
     width: 14.28%;
     text-align: center;
     padding: 10px 0;
+    margin: 2px 0;
 }
 
 .calendar-weekdays {
@@ -42,6 +49,7 @@ body {
 
 .calendar-days div {
     cursor: pointer;
+    border-radius: 50%;
 }
 
 .calendar-days div:hover {
@@ -58,4 +66,33 @@ body {
     background-color: #343a40;
     color: white;
     border-radius: 50%;
+}
+
+.calendar-days .holiday {
+    color: red;
+}
+
+.calendar-days .leave {
+    color: blue;
+}
+
+.calendar-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.legend {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.legend.holiday {
+    background-color: red;
+}
+
+.legend.leave {
+    background-color: blue;
 }

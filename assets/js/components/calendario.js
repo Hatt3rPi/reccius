@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (i === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                 day.classList.add('today');
             }
+            // Example of adding holiday or leave class
+            if (i % 7 === 0) { // Mock condition for holidays
+                day.classList.add('holiday');
+            } else if (i % 5 === 0) { // Mock condition for leave
+                day.classList.add('leave');
+            }
             calendarDays.appendChild(day);
         }
     }
