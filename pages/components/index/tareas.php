@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Listado de Tareas Activas</title>
-    <link rel="stylesheet" href="...\assets\css\components\Index_components\Component_Tarea.css">
+    <link rel="stylesheet" href="..\assets\css\components\Index_components\Component_Tarea.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>s
@@ -27,7 +27,7 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: '../../backend/tareas/Componente_tareasBE.php',
+                url: '../backend/tareas/Componente_tareasBE.php',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
