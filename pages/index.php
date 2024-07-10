@@ -17,7 +17,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reccius</title>
     <!-- jQuery -->
@@ -28,39 +28,39 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
     <script src="../assets/js/notify.js"></script>
-    
+
     <!-- Estilos CSS de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-    
+
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../assets/css/styles_dark.css">
-    
+
     <!-- Bootstrap Datepicker CSS / JS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
-    
+
     <!-- JS Moment Fechas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    
+
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    
+
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
-    
+
     <!-- usados para gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
-    
+
     <script src="../assets/js/jquery.redirect.js"></script>
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    
+
     <!-- jsPDF y html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
@@ -69,18 +69,21 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         .popover {
             border: 2px solid red;
             top: -70px !important;
-            
+
         }
-        
-        .bs-popover-auto[x-placement^=bottom]>.arrow::after, .bs-popover-bottom>.arrow::after {
+
+        .bs-popover-auto[x-placement^=bottom]>.arrow::after,
+        .bs-popover-bottom>.arrow::after {
             border-bottom-color: #dc3545 !important;
             /* border: 2px solid red  !important; */
         }
+
         .popover-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .popover-header .close {
             cursor: pointer;
         }
@@ -214,10 +217,10 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                     </div>
                 </li>
                 <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Calidad > Listado de productos disponibles">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
-                            </span>
-                            Productos en cuarentena y liberados
+                    <span>
+                        <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                    </span>
+                    Productos en cuarentena y liberados
                 </a>
 
                 <li class="title">Recetario magistral</li>
@@ -267,8 +270,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
 </html>
 <script>
-
-$(document).ready(function() {
+    $(document).ready(function() {
         $('#dynamic-content').load('index_administrador.php');
         $('[data-toggle="popover"]').popover({
             placement: 'bottom',
@@ -276,9 +278,9 @@ $(document).ready(function() {
         });
 
         // Si la firma no está ingresada, mostrar el popover automáticamente
-        <?php if ($firma_no_ingresada): ?>
+        <?php if ($firma_no_ingresada) : ?>
             $('[data-toggle="popover"]').popover('show');
-            $('[data-toggle="popover"]').on('shown.bs.popover', function () {
+            $('[data-toggle="popover"]').on('shown.bs.popover', function() {
                 var popover = $(this).next('.popover');
             });
         <?php endif; ?>
@@ -289,7 +291,7 @@ $(document).ready(function() {
         });
 
         // Cerrar el popover al hacer clic fuera del popover
-        $(document).on('click', function (e) {
+        $(document).on('click', function(e) {
             if (!$(e.target).closest('.popover').length && !$(e.target).closest('.dropbtn').length) {
                 $('[data-toggle="popover"]').popover('hide');
             }
@@ -300,6 +302,7 @@ $(document).ready(function() {
             $('[data-toggle="popover"]').popover('hide');
         });
     });
+
     function fetchUserInfo() {
         fetch('./backend/usuario/obtener_usuarioBE.php')
             .then(response => response.json())
