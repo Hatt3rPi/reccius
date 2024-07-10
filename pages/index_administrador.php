@@ -12,6 +12,12 @@
 </head>
 
 <body>
+    <div id="calendario-component">
+        <?php include 'components/index/calendario.php'; ?>
+    </div>
+    <div id="tareas-component">
+        <?php include 'components/index/tareas.php'; ?>
+    </div>
     <div class="container dashboard">
         <div class="row">
             <div class="col-md-12 mt-5">
@@ -51,13 +57,8 @@
                         </div>
                     </div>
                 </div>
-                <div id="calendario-component">
-                    <?php include 'components/index/calendario.php'; ?>
-                </div>
-                <div id="tareas-component">
-                    <?php include 'components/index/tareas.php'; ?>
-                </div>
-                
+
+
                 <div class="row mt-4 backgroundrow">
                     <div class="col-md-12">
                         <h5 class="chart-title">Productos en Cuarentena</h5>
