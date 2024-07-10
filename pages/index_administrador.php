@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
-    <!-- Calendario -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+    
 </head>
 
 <body>
@@ -134,8 +133,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Inicialización del calendario
