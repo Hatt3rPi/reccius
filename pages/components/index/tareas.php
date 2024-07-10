@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <title>Listado de Tareas Activas</title>
     <link rel="stylesheet" href="..\assets\css\components\Index_components\Component_Tarea.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>s
+<body>
     <div class="form-container">
         <h1>Listado de Tareas Activas</h1>
         <div id="contenedor_tareas">

@@ -271,7 +271,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 </html>
 <script>
     $(document).ready(function() {
-        $('#dynamic-content').load('index_administrador.html');
+        $('#dynamic-content').load('index_administrador.php');
         $('[data-toggle="popover"]').popover({
             placement: 'bottom',
             trigger: 'manual' // Popover se mostrará manualmente
