@@ -1,13 +1,10 @@
-<style>
-    #calendar {
-        max-width: 900px;
-        margin: 40px auto;
-        padding: 0 10px;
-    }
-</style>
+<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
 
+<div class="calendar-container">
+    <h2>Personal Calendar</h2>
+    <div id="calendar"></div>
+</div>
 
-<div id="calendar" class="calendar"></div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -20,6 +17,16 @@
                 left: 'prev,next today',
                 center: 'title',
                 right: ''
+            },
+            contentHeight: 'auto',
+            dayMaxEvents: true,
+            views: {
+                dayGridMonth: {
+                    titleFormat: {
+                        year: 'numeric',
+                        month: 'long'
+                    }
+                }
             }
         });
 
