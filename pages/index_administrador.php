@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Productos</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
 </head>
