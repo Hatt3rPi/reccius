@@ -14,7 +14,7 @@
 
 <body>
     <div class="container dashboard">
-        <h2 class="section-title">Bienvenido, <span id="usernameA">Usuario</span>!</h2>
+        <h2 class="section-title">Bienvenido, <span id="usernameA">{Usuario}</span>!</h2>
         <div class="grid-container">
             <div class="grid-item clima">
                 <?php include 'components/index/clima.php'; ?>
@@ -140,26 +140,7 @@
 
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchUserInfo();
-
-            // Resto de los scripts para los componentes
-        });
-
-        function fetchUserInfo() {
-            fetch('./backend/usuario/obtener_usuarioBE.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.nombre) {
-                        document.querySelector('.usernameA').textContent = data.nombre;
-                    } else {
-                        document.querySelector('.usernameA').textContent = 'Usuariossss';
-                    }
-                })
-                .catch(error => console.error('Error al obtener el nombre de usuario:', error));
-        }
-    </script>
+    
     <script>
         function actualizarGraficos(datos) {
             const liberados = datos.filter(d => d.estado === 'liberado').length;
