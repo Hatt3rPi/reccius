@@ -25,4 +25,4 @@
             <div><span class="legend leave"></span> Leave</div>
         </div>
     </div>
-<script src="../assets/js/components/calendario.js"></script>
+<script src="..\assets\js\components\calendario.js"></script>
