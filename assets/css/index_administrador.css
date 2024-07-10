@@ -31,12 +31,12 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
 
 .section-title {
-    background-color: #00000080;
-    color: #fff;
-    padding: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 6px;
     border-radius: 5px;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: left;
     font-size: 2rem;
     font-weight: bold;
     font-family: 'Wittgenstein', sans-serif;

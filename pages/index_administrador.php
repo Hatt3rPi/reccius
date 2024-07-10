@@ -14,7 +14,7 @@
 
 <body>
     <div class="container dashboard">
-        <h2 class="section-title">Dashboard</h2>
+        <h2 class="section-title">Bienvenido, <span id="username">Usuario</span>!</h2>
         <div class="grid-container">
             <div class="grid-item clima">
                 <?php include 'components/index/clima.php'; ?>
@@ -140,7 +140,24 @@
 
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('./backend/obtener_usuarioBE.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.nombre) {
+                        document.getElementById('username').textContent = data.nombre;
+                    } else {
+                        document.getElementById('username').textContent = 'Usuario';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener el nombre de usuario:', error);
+                });
 
+            // Resto de los scripts para los componentes
+        });
+    </script>
     <script>
         function actualizarGraficos(datos) {
             const liberados = datos.filter(d => d.estado === 'liberado').length;
