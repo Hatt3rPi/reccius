@@ -754,6 +754,34 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     });
                     break;
                 }
+                case "revisar_informe_laboratorio": {
+                    console.log("REVISAR INFORME LABORATORIO CLICKEADO CON EXITO");
+                    // Cargar el PDF en un iframe
+                    $.ajax({
+                        url: '../pages/backend/acta_liberacion/extrae_informe.php',
+                        type: 'GET',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response && response.url_certificado_de_analisis_externo) {
+                                const pdfUrl = response.url_certificado_de_analisis_externo;
+                                const iframeHtml = `<iframe src="${pdfUrl}" width="100%" height="600px"></iframe>`;
+                                
+                                $('#dynamic-content').hide();
+                                $('#loading-spinner').show();
+                                $('#dynamic-content').html(iframeHtml);
+                                $('#loading-spinner').hide();
+                                $('#dynamic-content').show();
+                            } else {
+                                console.error("No se encontró la URL del certificado de análisis externo.");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error en la solicitud AJAX: ", status, error);
+                        }
+                    });
+                    break;
+                }
                 case "firmar_solicitud_analisis_externo": {
                     fetch(`./backend/laboratorio/cargaEsp_solicitudBE.php?id=0&id_analisis_externo=${id}`, {
                         method: 'GET'
