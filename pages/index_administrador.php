@@ -8,6 +8,7 @@
     <title>Reporte de Productos</title>
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
+    <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
 </head>
 
 <body>
@@ -50,13 +51,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="tareas-component">
-                    <?php include 'components/index/tareas.php'; ?>
-                </div>
                 <div id="calendario-component">
                     <?php include 'components/index/calendario.php'; ?>
                 </div>
-
+                <div id="tareas-component">
+                    <?php include 'components/index/tareas.php'; ?>
+                </div>
+                
                 <div class="row mt-4 backgroundrow">
                     <div class="col-md-12">
                         <h5 class="chart-title">Productos en Cuarentena</h5>
