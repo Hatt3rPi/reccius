@@ -23,6 +23,18 @@
         <?php include 'components/index/clima.php'; ?>
     </div>
     <div class="container dashboard">
+        <h2 class="section-title">Dashboard</h2>
+        <div class="grid-container">
+            <div class="grid-item clima">
+                <?php include 'components/index/clima.php'; ?>
+            </div>
+            <div class="grid-item tareas">
+                <?php include 'components/index/tareas.php'; ?>
+            </div>
+            <div class="grid-item calendario">
+                <?php include 'components/index/calendario.php'; ?>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12 mt-5">
                 <h2 class="section-title">DISPONIBILIDAD DE PRODUCTOS</h2>
@@ -134,7 +146,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 

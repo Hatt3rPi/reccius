@@ -1,102 +1,51 @@
 body {
     background-color: #f4f4f9;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .dashboard {
-    background-color: rgb(142, 179, 228);
-    padding: 25px;
     max-width: 1400px;
     margin: auto;
+    padding: 25px;
     box-shadow: 20px 19px 20px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    background-color: rgb(142, 179, 228);
 }
 
-.content {
-    display: flex;
-    flex-wrap: wrap;
+.section-title {
+    text-align: center;
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
     gap: 20px;
 }
 
-.backgroundrow {
-    background-color: #dfe9f5;
+.grid-item {
+    background: #fff;
     padding: 20px;
-    margin-top: 20px;
-    box-shadow: 1px 20px 20px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
-
-.section-title {
-    background-color: #00000080;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 65px;
-    font-weight: bold;
-    font-family: 'Wittgenstein', sans-serif;
-    box-shadow: 1px 20px 20px 5px rgba(0, 0, 0, 0.1);
+.clima {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
 }
 
-.card-custom {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    color: #fff;
-    flex: 1;
-    min-width: 300px;
-    margin-bottom: 20px;
+.tareas {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
 }
 
-.card-custom:hover {
-    transform: scale(1.05);
-}
-
-.card-blue {
-    background-color: #1E90FF;
-    padding: 20px;
-}
-
-.card-green {
-    background-color: #3CB371;
-    padding: 20px;
-}
-
-.card-orange {
-    background-color: #FFA500;
-    padding: 20px;
-}
-
-.card-red {
-    background-color: #FF6347;
-    height: 120px;
-}
-
-.card-title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.card-text {
-    font-size: 12px;
-    text-align: center;
-}
-
-.chart-container {
-    position: relative;
-    height: 40vh;
-    width: 100%;
-}
-
-.chart-title {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 20px;
-    color: #333;
-    font-weight: bold;
+.calendario {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
 }
