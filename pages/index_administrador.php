@@ -134,29 +134,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <h2 class="section-title">COMPONENTES</h2>
-                <div class="row backgroundrow">
-                    <div class="col-md-4">
-                        <!-- Componente de Clima -->
-                        <div class="card-custom card-blue">
-                            <?php include 'components/index/clima.php'; ?>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <!-- Componente de Tareas -->
-                        <div class="card-custom card-green">
-                            <?php include 'components/index/tareas.php'; ?>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <!-- Componente de Calendario -->
-                        <div class="card-custom card-orange">
-                            <?php include 'components/index/calendario.php'; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 
