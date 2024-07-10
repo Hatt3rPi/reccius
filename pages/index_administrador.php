@@ -8,14 +8,15 @@
     <title>Reporte de Productos</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
+    <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
 </head>
 
 <body>
-    <div class="container dashboard" >
+    <div class="container dashboard">
         <div class="row">
             <div class="col-md-12 mt-5">
                 <h2 class="section-title">DISPONIBILIDAD DE PRODUCTOS</h2>
-                <div class="row backgroundrow" >
+                <div class="row backgroundrow">
                     <div class="col-md-3">
                         <div class="card card-custom card-blue">
                             <div class="card-body">
@@ -23,6 +24,9 @@
                                 <p class="card-text">LIBERADOS</p>
                             </div>
                         </div>
+                    </div>
+                    <div id="tareas-component">
+                        <?php include 'components/index/tareas.php'; ?>
                     </div>
                     <div class="col-md-3">
                         <div class="card card-custom card-green">
@@ -210,8 +214,7 @@
                 type: 'line',
                 data: {
                     labels: meses,
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Liberados (Acumulado)',
                             data: dataLiberados,
                             borderColor: '#36A2EB',
@@ -252,14 +255,12 @@
                 type: 'line',
                 data: {
                     labels: mesesCuarentena,
-                    datasets: [
-                        {
-                            label: 'Promedio de Días en Cuarentena',
-                            data: dataCuarentena,
-                            borderColor: '#FF6384',
-                            fill: false
-                        }
-                    ]
+                    datasets: [{
+                        label: 'Promedio de Días en Cuarentena',
+                        data: dataCuarentena,
+                        borderColor: '#FF6384',
+                        fill: false
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -267,7 +268,7 @@
                 }
             });
         }
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 
             var ctxTipoProductos = document.getElementById('tipoProductosChart').getContext('2d');
@@ -307,11 +308,11 @@
             $.ajax({
                 url: 'backend/index/index_administrador.php',
                 method: 'GET',
-                success: function (response) {
+                success: function(response) {
                     const datos = response.data;
                     actualizarGraficos(datos);
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error al obtener los datos:', error);
                 }
             });
