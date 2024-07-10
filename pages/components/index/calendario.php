@@ -5,10 +5,6 @@
     <div id="calendar"></div>
 </div>
 
-<!-- Calendario -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
