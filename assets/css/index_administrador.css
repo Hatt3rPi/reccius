@@ -1,25 +1,23 @@
-/* archivo:assets\css\index_administrador.css */
 body {
     background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
 }
 
 .dashboard {
     background-color: rgb(142, 179, 228);
     padding: 25px;
     max-width: 1400px;
+    margin: auto;
     box-shadow: 20px 19px 20px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-
 }
 
 .content {
-    margin-left: 250px;
-    flex: 1;
-    padding: 50px;
-    background: #69acff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
-  
-  }
 .backgroundrow {
     background-color: #dfe9f5;
     padding: 20px;
@@ -43,13 +41,15 @@ body {
     box-shadow: 1px 20px 20px 5px rgba(0, 0, 0, 0.1);
 }
 
-
 .card-custom {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: none;
     border-radius: 10px;
     transition: transform 0.2s;
     color: #fff;
+    flex: 1;
+    min-width: 300px;
+    margin-bottom: 20px;
 }
 
 .card-custom:hover {
@@ -58,23 +58,22 @@ body {
 
 .card-blue {
     background-color: #1E90FF;
-    height: 120px
+    padding: 20px;
 }
 
 .card-green {
     background-color: #3CB371;
-    height: 120px
+    padding: 20px;
 }
 
 .card-orange {
     background-color: #FFA500;
-    height: 120px
+    padding: 20px;
 }
 
 .card-red {
     background-color: #FF6347;
-    /* Color rojo para indicar próximos vencimientos */
-    height: 120px
+    height: 120px;
 }
 
 .card-title {

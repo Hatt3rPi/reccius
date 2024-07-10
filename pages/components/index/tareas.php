@@ -1,5 +1,5 @@
 <!-- Link a la hoja de estilos -->
-<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
+<link rel="stylesheet" href="../../assets/css/components/Index_components/Component_Tarea.css">
 
 <!-- Contenedor del componente -->
 <div class="form-container">
@@ -22,33 +22,32 @@
 
 <!-- Script para cargar los datos -->
 <script>
-    $(document).ready(function() {
-        $.ajax({
-            url: '../pages/backend/tareas/Componente_tareasBE.php',
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                var data = response.data;
-                var tbody = $('#listado tbody');
-                tbody.empty();
-                
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('../../pages/backend/tareas/Componente_tareasBE.php')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('#listado tbody');
+                tbody.innerHTML = '';
+
                 if (data.length > 0) {
-                    $.each(data, function(index, tarea) {
-                        var row = '<tr>' +
-                            '<td>' + tarea.prioridad + '</td>' +
-                            '<td>' + tarea.descripcion_tarea + '</td>' +
-                            '<td>' + tarea.fecha_vencimiento + '</td>' +
-                            '</tr>';
-                        tbody.append(row);
+                    data.forEach(tarea => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${tarea.prioridad}</td>
+                            <td>${tarea.descripcion_tarea}</td>
+                            <td>${tarea.fecha_vencimiento}</td>
+                        `;
+                        tbody.appendChild(row);
                     });
                 } else {
-                    var row = '<tr><td colspan="3">No hay tareas activas</td></tr>';
-                    tbody.append(row);
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="3">No hay tareas activas</td>';
+                    tbody.appendChild(row);
                 }
-            },
-            error: function() {
+            })
+            .catch(error => {
                 alert('Error al obtener los datos');
-            }
-        });
+                console.error('Error:', error);
+            });
     });
 </script>

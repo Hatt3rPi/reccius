@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Clima.css">
+<!-- components/index/clima.php -->
 <div class="attendance-component">
     <div class="weather">
         <span class="weather-icon">☁️</span>
