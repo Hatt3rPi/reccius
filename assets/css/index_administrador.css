@@ -6,12 +6,12 @@ body {
 }
 
 .dashboard {
-    max-width: 1400px;
+    max-width: 100%;
     margin: auto;
     padding: 25px;
     box-shadow: 20px 19px 20px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    background-color: rgb(142, 179, 228);
+    
 }
 
 .content {
@@ -111,9 +111,8 @@ body {
 
 .grid-item {
     background: #fff;
-    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 6px 8px 10px rgb(15 0 255 / 10%);
 }
 
 .clima {
