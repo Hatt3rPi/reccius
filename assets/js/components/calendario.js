@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const firstDay = (new Date(year, month)).getDay();
         const daysInMonth = 32 - new Date(year, month, 32).getDate();
         
+        console.log(`Rendering calendar for ${months[month]} ${year}`);
+        console.log(`Days in month: ${daysInMonth}, First day index: ${firstDay}`);
+
         for (let i = 0; i < firstDay; i++) {
             calendarDays.innerHTML += '<div class="empty"></div>';
         }
