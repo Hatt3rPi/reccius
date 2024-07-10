@@ -27,7 +27,7 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: '../backend/tareas/Componente_tareasBE.php',
+                url: '../pages/backend/tareas/Componente_tareasBE.php',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
