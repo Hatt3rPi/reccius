@@ -54,6 +54,9 @@
                 <div id="tareas-component">
                     <?php include 'components/index/tareas.php'; ?>
                 </div>
+                <div id="calendario-component">
+                    <?php include 'components/index/calendario.php'; ?>
+                </div>
 
                 <div class="row mt-4 backgroundrow">
                     <div class="col-md-12">
