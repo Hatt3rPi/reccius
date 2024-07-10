@@ -14,13 +14,94 @@ body {
     background-color: rgb(142, 179, 228);
 }
 
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.backgroundrow {
+    background-color: #dfe9f5;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 1px 20px 20px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+
 .section-title {
-    text-align: center;
+    background-color: #00000080;
     color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
     font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Wittgenstein', sans-serif;
+    box-shadow: 1px 20px 20px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-custom {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    color: #fff;
+    flex: 1;
+    min-width: 300px;
     margin-bottom: 20px;
 }
 
+.card-custom:hover {
+    transform: scale(1.05);
+}
+
+.card-blue {
+    background-color: #1E90FF;
+    padding: 20px;
+}
+
+.card-green {
+    background-color: #3CB371;
+    padding: 20px;
+}
+
+.card-orange {
+    background-color: #FFA500;
+    padding: 20px;
+}
+
+.card-red {
+    background-color: #FF6347;
+    height: 120px;
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-text {
+    font-size: 12px;
+    text-align: center;
+}
+
+.chart-container {
+    position: relative;
+    height: 40vh;
+    width: 100%;
+}
+
+.chart-title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;

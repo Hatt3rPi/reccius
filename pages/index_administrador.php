@@ -13,15 +13,6 @@
 </head>
 
 <body>
-    <div id="calendario-component">
-        <?php include 'components/index/calendario.php'; ?>
-    </div>
-    <div id="tareas-component">
-        <?php include 'components/index/tareas.php'; ?>
-    </div>
-    <div id="clima-component">
-        <?php include 'components/index/clima.php'; ?>
-    </div>
     <div class="container dashboard">
         <h2 class="section-title">Dashboard</h2>
         <div class="grid-container">
