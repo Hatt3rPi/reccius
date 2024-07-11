@@ -361,13 +361,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             agregarDatosPostFirma($link, $datosLimpios);
         } else {
             insertarRegistro($link, $datosLimpios);
+            registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
             enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios
         
         
   
-    registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
+    
 
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
     } catch (Exception $e) {
