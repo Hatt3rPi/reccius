@@ -206,16 +206,7 @@ function agregarDatosPostFirma($link, $datos)
     
     // registrar tarea
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
-    registrarTarea(7, $_SESSION['usuario'], $datos['usuario_revisor'], 'Revisar Analisis Externo: ' . $datos['numero_registro'], 2, 'Firma 2', $datos['id'], 'calidad_analisis_externo');
-    // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 2');
-    // registrarTarea(7, $_SESSION['usuario'], $datos['usuario_revisor'], 'Revisar Analisis Externo: '.$datos['numero_registro']
-    //         //Añadir documento en vez de id 
-    //         ,
-    //         1, 
-    //         'Firma 2', 
-    //         $datos['id'].';'.$datos['numero_registro'], 
-    //         'calidad_analisis_externo'
-    //     );
+    registrarTarea(7, $_SESSION['usuario'], $datos['solicitado_por'], 'Enviar Análisis externo a Laboratorio: '.$datos['numero_solicitud'], 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
 }
 
 function campoTipo($campo)
