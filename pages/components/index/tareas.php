@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../assets/css/components/Index_components/Component_Tarea.css">
+<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
 
 <div class="form-container">
     <h1>Listado de Tareas Activas</h1>
@@ -22,7 +22,7 @@
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: '../backend/tareas/Componente_tareasBE.php',
+            url: '../pages/backend/tareas/Componente_tareasBE.php',
             type: 'GET',
             dataType: 'json',
             success: function(response) {
