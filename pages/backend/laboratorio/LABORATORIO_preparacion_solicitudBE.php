@@ -358,6 +358,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($estaEditando) {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
+            $datosLimpios['numero_solicitud'] = limpiarDato($_POST['numero_solicitud']);
+            $datosLimpios['solicitado_por'] = limpiarDato($_POST['solicitado_por']);
             agregarDatosPostFirma($link, $datosLimpios);
         } else {
             insertarRegistro($link, $datosLimpios);
