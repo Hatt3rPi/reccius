@@ -2,7 +2,15 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-// Consulta para obtener las primeras 5 tareas más antiguas con estado "Activo"
+// Verifica si el usuario está en la sesión
+if (!isset($_SESSION['usuario_id'])) {
+    echo json_encode(['data' => []]);
+    exit();
+}
+
+$usuario_id = $_SESSION['usuario_id'];
+
+// Consulta para obtener las primeras 5 tareas más antiguas con estado "Activo" y relacionadas con el usuario
 $query = "
     SELECT 
         CASE prioridad 
@@ -14,12 +22,15 @@ $query = "
         descripcion_tarea,
         DATE_FORMAT(fecha_vencimiento, '%Y-%m-%d') as fecha_vencimiento
     FROM tareas 
-    WHERE estado = 'Activo'
+    WHERE estado = 'Activo' AND usuario_id = ?
     ORDER BY fecha_ingreso ASC
     LIMIT 5;
 ";
 
-$result = $link->query($query);
+$stmt = $link->prepare($query);
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$result = $stmt->get_result();
 $data = [];
 
 if ($result && $result->num_rows > 0) {
@@ -28,6 +39,7 @@ if ($result && $result->num_rows > 0) {
     }
 }
 
+$stmt->close();
 $link->close();
 
 header('Content-Type: application/json');
