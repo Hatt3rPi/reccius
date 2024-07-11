@@ -1,12 +1,9 @@
-<!-- Link a la hoja de estilos -->
-<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
+<link rel="stylesheet" href="../../assets/css/components/Index_components/Component_Tarea.css">
 
-<!-- Contenedor del componente -->
 <div class="form-container">
     <h1>Listado de Tareas Activas</h1>
-
     <div id="contenedor_tareas">
-        <a id="notificaciones"  class="btn-link">Ver todas las tareas</a>
+        <a href="../../pages/listado_tareas.php" id="notificaciones" class="btn-link">Ver todas las tareas</a>
         <table id="listado" class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -22,11 +19,10 @@
     </div>
 </div>
 
-<!-- Script para cargar los datos -->
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: '../pages/backend/tareas/Componente_tareasBE.php',
+            url: '../backend/tareas/Componente_tareasBE.php',
             type: 'GET',
             dataType: 'json',
             success: function(response) {
