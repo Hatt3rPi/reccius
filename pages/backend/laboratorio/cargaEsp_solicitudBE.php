@@ -122,10 +122,10 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
 $total_analisis_producto = 0;
 if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
 
-    $queryTotalAnalisisProd = "SELECT COUNT(*) AS total_analisis 
-                       FROM calidad_analisis_externo 
-                       WHERE fecha_solicitud IS NOT NULL 
-                       AND fecha_solicitud >= DATE_FORMAT(CURDATE(), '%Y-%m-01')"; 
+    $queryTotalAnalisisProd = "SELECT COUNT(cae.id) AS total_analisis
+            FROM calidad_analisis_externo cae
+            JOIN calidad_especificacion_productos cep ON cae.id_especificacion = cep.id_especificacion
+            WHERE cep.id_especificacion = ?"; 
     $stmtTotalAnalisisProd = mysqli_prepare($link, $queryTotalAnalisisProd);
     mysqli_stmt_bind_param($stmtTotalAnalisisProd, "i", $idEspecificacion);
     if ($stmtTotalAnalisisProd) {
