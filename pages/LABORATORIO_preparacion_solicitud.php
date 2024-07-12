@@ -444,6 +444,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
             var newNumeroRegistro = response.total_analisis + 1
+            var numeroSaept = response.total_analisis_producto + 1
             var now = new Date();
             $('#version').val(1);
             $('#numero_registro').val(`DCAL-CC-SEPT-${
@@ -458,8 +459,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     '0' + (now.getMonth() + 1))
                 .toString()
             }${
-                newNumeroRegistro > 9 ? '00' : '0'
-            }-00`).prop('readonly', true);
+                numeroSaept < 10 ? '00' + numeroSaept : 
+                numeroSaept < 100 ? '0' + numeroSaept : 
+                numeroSaept
+            }-01`).prop('readonly', true);
 
             setValuesToInputs([{
                     id: 'id_producto',

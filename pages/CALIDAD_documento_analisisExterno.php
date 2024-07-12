@@ -225,7 +225,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                 </table>
             </form>
-
             <form id="section3">
                 <table id="analisis-solicitados">
                     <tr>
@@ -506,6 +505,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#certificado_de_analisis_externo').on('change', function() {
             var fileName = $(this).val().split('\\').pop();
             $('#certificado_de_analisis_externo_label').text(fileName);
+        });
+
+        $('input[type="text"].datepicker').datepicker({
+            format: 'dd/mm/yyyy', // Formato global de fecha
+            language: 'es',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date()
         });
     });
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";

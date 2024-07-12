@@ -140,7 +140,6 @@
 
         </div>
     </div>
-    
     <script>
         function actualizarGraficos(datos) {
             const liberados = datos.filter(d => d.estado === 'liberado').length;
@@ -281,8 +280,6 @@
             });
         }
         $(document).ready(function() {
-
-
             var ctxTipoProductos = document.getElementById('tipoProductosChart').getContext('2d');
             var tipoProductosChart = new Chart(ctxTipoProductos, {
                 type: 'doughnut',

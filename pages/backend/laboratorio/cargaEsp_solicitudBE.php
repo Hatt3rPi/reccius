@@ -100,11 +100,12 @@ $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_ana
 
 $total_analisis = 0;
 if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
-    $queryTotalAnalisis = "SELECT COUNT(*) AS total_analisis FROM calidad_analisis_externo WHERE id_especificacion = ?"; 
-
+    $queryTotalAnalisis = "SELECT COUNT(*) AS total_analisis 
+                       FROM calidad_analisis_externo 
+                       WHERE fecha_solicitud IS NOT NULL 
+                       AND fecha_solicitud >= DATE_FORMAT(CURDATE(), '%Y-%m-01')"; 
     $stmtTotalAnalisis = mysqli_prepare($link, $queryTotalAnalisis);
     if ($stmtTotalAnalisis) {
-        mysqli_stmt_bind_param($stmtTotalAnalisis, "i", $idEspecificacion);
         mysqli_stmt_execute($stmtTotalAnalisis);
         $resultTotalAnalisis = mysqli_stmt_get_result($stmtTotalAnalisis);
         if ($rowTotalAnalisis = mysqli_fetch_assoc($resultTotalAnalisis)) {
@@ -115,7 +116,30 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
     } else {
         $QA[] = "14: " . mysqli_error($link);
         die("Error en la preparación de la consulta del total de análisis: " . mysqli_error($link));
+    }
 }
+
+$total_analisis_producto = 0;
+if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
+
+    $queryTotalAnalisisProd = "SELECT COUNT(*) AS total_analisis 
+                       FROM calidad_analisis_externo 
+                       WHERE fecha_solicitud IS NOT NULL 
+                       AND fecha_solicitud >= DATE_FORMAT(CURDATE(), '%Y-%m-01')"; 
+    $stmtTotalAnalisisProd = mysqli_prepare($link, $queryTotalAnalisisProd);
+    mysqli_stmt_bind_param($stmtTotalAnalisisProd, "i", $idEspecificacion);
+    if ($stmtTotalAnalisisProd) {
+        mysqli_stmt_execute($stmtTotalAnalisisProd);
+        $resultTotalAnalisisProd = mysqli_stmt_get_result($stmtTotalAnalisisProd);
+        if ($rowTotalAnalisisProd = mysqli_fetch_assoc($resultTotalAnalisisProd)) {
+            $total_analisis_producto = $rowTotalAnalisisProd['total_analisis'];
+        }
+        mysqli_stmt_close($stmtTotalAnalisisProd);
+        $QA[] = "13";
+    } else {
+        $QA[] = "14: " . mysqli_error($link);
+        die("Error en la preparación de la consulta del total de análisis: " . mysqli_error($link));
+    }
 }
 
 $analisis = [];
@@ -195,6 +219,7 @@ echo json_encode([
     'analisis' => $analisis, 
     'count_analisis_externo' => $analisis_count,  
     'total_analisis' => $total_analisis, 
+    'total_analisis_producto' => $total_analisis_producto,
     'pasos' => $QA
     ], JSON_UNESCAPED_UNICODE);
 
