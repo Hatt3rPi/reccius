@@ -19,9 +19,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container formpadding" style="margin: 0 auto;">
         <div id="Maincontainer">
             <!-- Header -->
-            <header>
+            <div>
                 <h1>Envío de resultados a laboratorio</h1>
-            </header>
+            </div>
             <!-- Body -->
             <form id="envioCorreoForm">
                 <table>
@@ -105,7 +105,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     destinatarios: destinatarios
                 };
 
-                fetch('./backend/analisis/enviar_correo.php', {
+                fetch('./backend/laboratorio/enviar_solicitud_externa.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
