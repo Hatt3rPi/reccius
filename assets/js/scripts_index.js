@@ -591,8 +591,19 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
         case "laboratorio": {
             switch (accion) {
                 case "enviarSolicitud_laboratorio": {
-                    console.log(accion);
-                    alert("PENDIENTE: generar envío por correo")
+                    $.ajax({
+                        url: '../pages/LABORATORIO_envio_laboratorio.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                        },
+                        success: function(response) {
+                            $('#dynamic-content').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al visualizar el documento: ", status, error);
+                        }
+                    });
                     break;
                 }
                 case "generar_acta_muestreo": {
