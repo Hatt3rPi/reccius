@@ -14,7 +14,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Envío de resultados a laboratorio</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
 </head>
-
 <body>
     <div id="form-container-mail" class="form-container formpadding" style="margin: 0 auto;">
         <h3>CALIDAD / Envío de resultados a laboratorio</h3>
@@ -22,22 +21,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <fieldset>
                 <legend>I. Información general</legend>
                 <br>
-               <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
-                    <div class="form-group"  style="width: 300px;">
+               <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                    <div class="form-group" style="width: 300px;">
                         <label for="laboratorio">Laboratorio de Analista:</label>
                         <input type="text" id="laboratorio" name="laboratorio" class="form-control mx-0 w-90" readonly required>
                     </div>
-                    <div class="form-group"  style="width: 300px;">
+                    <div class="form-group" style="width: 300px;">
                         <label for="fecha_registro">Fecha de solicitud:</label>
                         <input type="text" id="fecha_registro" name="fecha_registro" class="form-control mx-0 w-90" readonly required>
                     </div>
                 </div> 
-                <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
-                    <div class="form-group"  style="width: 300px;">
+                <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                    <div class="form-group" style="width: 300px;">
                         <label for="numero_registro">N° de registro:</label>
                         <input type="text" id="numero_registro" name="numero_registro" class="form-control mx-0 w-90" readonly required>
                     </div>
-                    <div class="form-group"  style="width: 300px;">
+                    <div class="form-group" style="width: 300px;">
                         <label for="numero_solicitud">N° de Solicitud:</label>
                         <input type="text" id="numero_solicitud" name="numero_solicitud" class="form-control mx-0 w-90" readonly required>
                     </div>
@@ -48,17 +47,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <legend>II. Destinatarios</legend>
                 <br> 
                 <div id="destinatarios-container">
-                <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
-                    <div class="form-group"  style="width: 300px;">
+                <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                    <div class="form-group" style="width: 300px;">
                         <label for="mail_solicitante">Solicitante:</label>
                         <input type="text" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
                     </div>
-                    <div class="form-group"  style="width: 300px;">
+                    <div class="form-group" style="width: 300px;">
                         <label for="mail_revisor">Revisor:</label>
                         <input type="text" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
                     </div>
                 </div>
-                    <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
+                    <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
                             <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
@@ -109,32 +108,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
 
             // Inicializar CKEditor
-            import('ckeditor5').then(({
-                ClassicEditor,
-                Essentials,
-                Bold,
-                Italic,
-                Font,
-                Paragraph,
-                List,
-                Link
-
-            }) => {
-                ClassicEditor
-                    .create(document.querySelector('#editor'), {
-                        plugins: [Essentials, Bold, Italic, Font, Paragraph, List, Link],
-                        toolbar: {
-                            items: [
-                                'undo', 'redo', '|', 'bold', 'italic', 'link', '|',
-                                'numberedList', 'bulletedList', '|',
-                                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-                            ]
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            });
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: {
+                        items: [
+                            'undo', 'redo', '|', 'bold', 'italic', 'link', '|',
+                            'numberedList', 'bulletedList', '|',
+                            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                        ]
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         });
 
         function loadData() {
@@ -149,8 +135,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     console.log(data);
                     var analisis = data.analisis;
                     var usuarios = data.usuarios;
-                    console.log('analisis',analisis);
-                    console.log('usuarios',usuarios);
                     
                     if (analisis) {
                         $('#laboratorio').val(analisis.laboratorio);
@@ -173,7 +157,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         function addDestinatario() {
             destinatarioCount++;
             var destinatarioHtml = `
-                <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
+                <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                     <div class="form-group" style="width: 300px;">
                         <label for="destinatario${destinatarioCount}_email">Email <span class="order_span_mail">${destinatarioCount}</span>:</label>
                         <input type="email" id="destinatario${destinatarioCount}_email" name="destinatarios[${destinatarioCount - 1}][email]" class="form-control mx-0 w-90" placeholder="Email destinatario ${destinatarioCount}" required>
@@ -259,5 +243,4 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     </script>
 </body>
-
 </html>

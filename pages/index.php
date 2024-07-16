@@ -71,16 +71,8 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.min.js"></script>
 
     <!-- CKEditor -->
-
-    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css" />
-    <script type="importmap">
-        {
-            "imports": {
-                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.js",
-                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.1/"
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/classic/ckeditor.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/42.0.1/classic/ckeditor.js"></script>
 
     <style>
         .popover {
