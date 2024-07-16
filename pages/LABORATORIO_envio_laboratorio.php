@@ -23,21 +23,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <legend>I. Información general</legend>
                 <br>
                <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
-                    <div class="form-group">
+                    <div class="form-group"  style="width: 300px;">
                         <label for="laboratorio">Laboratorio de Analista:</label>
                         <input type="text" id="laboratorio" name="laboratorio" class="form-control mx-0 w-90" readonly required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  style="width: 300px;">
                         <label for="fecha_registro">Fecha de solicitud:</label>
                         <input type="text" id="fecha_registro" name="fecha_registro" class="form-control mx-0 w-90" readonly required>
                     </div>
                 </div> 
                 <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
-                    <div class="form-group">
+                    <div class="form-group"  style="width: 300px;">
                         <label for="numero_registro">N° de registro:</label>
                         <input type="text" id="numero_registro" name="numero_registro" class="form-control mx-0 w-90" readonly required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  style="width: 300px;">
                         <label for="numero_solicitud">N° de Solicitud:</label>
                         <input type="text" id="numero_solicitud" name="numero_solicitud" class="form-control mx-0 w-90" readonly required>
                     </div>
@@ -46,15 +46,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <fieldset>
                 <legend>II. Destinatarios</legend>
-                <br>
-                solicitante 
+                <br> 
                 <div id="destinatarios-container">
                 <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
-                    <div class="form-group">
+                    <div class="form-group"  style="width: 300px;">
                         <label for="mail_solicitante">Solicitante:</label>
                         <input type="text" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  style="width: 300px;">
                         <label for="mail_revisor">Revisor:</label>
                         <input type="text" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
                     </div>
@@ -73,6 +72,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <button type="button" class="btn btn-primary" id="add-destinatario">Agregar destinatario</button>
             </fieldset>
+            <br>
             <fieldset>
                 <legend>III. Cuerpo</legend>
                 <br>
