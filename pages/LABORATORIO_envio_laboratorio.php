@@ -21,7 +21,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <fieldset>
                 <legend>I. Información general</legend>
                 <br>
-               <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                     <div class="form-group" style="width: 300px;">
                         <label for="laboratorio">Laboratorio de Analista:</label>
                         <input type="text" id="laboratorio" name="laboratorio" class="form-control mx-0 w-90" readonly required>
