@@ -22,7 +22,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <fieldset>
                 <legend>I. Información general</legend>
                 <br>
-               <div class="form-row destinatario-row justify-content-start align-items-center">
+               <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
                     <div class="form-group">
                         <label for="laboratorio">Laboratorio de Analista:</label>
                         <input type="text" id="laboratorio" name="laboratorio" class="form-control mx-0 w-90" readonly required>
@@ -32,7 +32,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <input type="text" id="fecha_registro" name="fecha_registro" class="form-control mx-0 w-90" readonly required>
                     </div>
                 </div> 
-                <div class="form-row destinatario-row justify-content-start align-items-center">
+                <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
                     <div class="form-group">
                         <label for="numero_registro">N° de registro:</label>
                         <input type="text" id="numero_registro" name="numero_registro" class="form-control mx-0 w-90" readonly required>
@@ -49,7 +49,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 solicitante 
                 <div id="destinatarios-container">
-                <div class="form-row destinatario-row justify-content-start align-items-center">
+                <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
                     <div class="form-group">
                         <label for="mail_solicitante">Solicitante:</label>
                         <input type="text" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
@@ -59,7 +59,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <input type="text" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
                     </div>
                 </div>
-                    <div class="form-row destinatario-row justify-content-start align-items-center">
+                    <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
                         <div class="form-group" style="width: 300px;">
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
                             <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
@@ -122,7 +122,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }) => {
                 ClassicEditor
                     .create(document.querySelector('#editor'), {
-                        plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                        plugins: [Essentials, Bold, Italic, Font, Paragraph, List, Link],
                         toolbar: {
                             items: [
                                 'undo', 'redo', '|', 'bold', 'italic', 'link', '|',
@@ -147,18 +147,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    if (data.analisis && data.analisis.length > 0) {
-                        $('#laboratorio').val(data.analisis.laboratorio);
-                        $('#numero_registro').val(data.analisis.numero_registro);
-                        $('#numero_solicitud').val(data.analisis.numero_solicitud);
-                        $('#fecha_registro').val(data.analisis.fecha_registro);
-                        
-                        $('#mail_solicitante').val(data.usuarios[0].correo);
-                        $('#mail_revisor').val(data.usuarios[1].correo);
-                        
-                        
+                    var analisis = data.analisis;
+                    var usuarios = data.usuarios;
+                    console.log('analisis',analisis);
+                    console.log('usuarios',usuarios);
+                    
+                    if (analisis) {
+                        $('#laboratorio').val(analisis.laboratorio);
+                        $('#numero_registro').val(analisis.numero_registro);
+                        $('#numero_solicitud').val(analisis.numero_solicitud);
+                        $('#fecha_registro').val(analisis.fecha_registro);
                         $('#id_analisis_externo').val(idAnalisisExterno);
-                        
+                    }
+
+                    if (usuarios) {
+                        $('#mail_solicitante').val(usuarios[0].correo);
+                        $('#mail_revisor').val(usuarios[1].correo);
                     }
                 })
                 .catch(error => {
@@ -169,7 +173,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         function addDestinatario() {
             destinatarioCount++;
             var destinatarioHtml = `
-                <div class="form-row destinatario-row justify-content-start align-items-center">
+                <div class="form-row destinatario-row justify-content-start align-items-center  gap-2">
                     <div class="form-group" style="width: 300px;">
                         <label for="destinatario${destinatarioCount}_email">Email <span class="order_span_mail">${destinatarioCount}</span>:</label>
                         <input type="email" id="destinatario${destinatarioCount}_email" name="destinatarios[${destinatarioCount - 1}][email]" class="form-control mx-0 w-90" placeholder="Email destinatario ${destinatarioCount}" required>
