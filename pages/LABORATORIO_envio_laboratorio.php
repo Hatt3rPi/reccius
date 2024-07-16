@@ -190,6 +190,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             Saluda atentamente,<br/>
                             Equipo Reccius
                             `
+
+                        $('#editor').html(bodyMail);
                     }
 
                     
