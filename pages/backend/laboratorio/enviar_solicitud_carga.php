@@ -34,8 +34,8 @@ function ejecutarConsulta($link, $query, $params, $param_types)
 // Obtener datos del análisis externo
 $queryAnalisis = "SELECT 
                     numero_registro, numero_solicitud, fecha_registro, 
-                    solicitado_por, revisado_por, laboratorio 
-                    url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo, 
+                    solicitado_por, revisado_por, laboratorio,
+                    url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo
                     FROM calidad_analisis_externo 
                     WHERE id = ?";
 $analisis = ejecutarConsulta($link, $queryAnalisis, [$id_acta], 'i');
