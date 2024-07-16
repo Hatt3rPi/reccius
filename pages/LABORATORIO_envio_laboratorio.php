@@ -90,14 +90,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 Bold,
                 Italic,
                 Font,
-                Paragraph
+                Paragraph,
+                List,
+                Link
+
             }) => {
                 ClassicEditor
                     .create(document.querySelector('#editor'), {
                         plugins: [Essentials, Bold, Italic, Font, Paragraph],
                         toolbar: {
                             items: [
-                                'undo', 'redo', '|', 'bold', 'italic', '|',
+                                'undo', 'redo', '|', 'bold', 'italic', 'link', '|',
+                                'numberedList', 'bulletedList', '|',
                                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
                             ]
                         }
