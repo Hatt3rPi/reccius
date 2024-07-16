@@ -14,6 +14,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Envío de resultados a laboratorio</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
 </head>
+
 <body>
     <div id="form-container-mail" class="form-container formpadding" style="margin: 0 auto;">
         <h3>CALIDAD / Envío de resultados a laboratorio</h3>
@@ -30,7 +31,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <label for="fecha_registro">Fecha de solicitud:</label>
                         <input type="text" id="fecha_registro" name="fecha_registro" class="form-control mx-0 w-90" readonly required>
                     </div>
-                </div> 
+                </div>
                 <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                     <div class="form-group" style="width: 300px;">
                         <label for="numero_registro">N° de registro:</label>
@@ -45,18 +46,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <fieldset>
                 <legend>II. Destinatarios</legend>
-                <br> 
+                <br>
                 <div id="destinatarios-container">
-                <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
-                    <div class="form-group" style="width: 300px;">
-                        <label for="mail_solicitante">Solicitante:</label>
-                        <input type="text" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
+                    <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                        <div class="form-group" style="width: 300px;">
+                            <label for="mail_solicitante">Solicitante:</label>
+                            <input type="text" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
+                        </div>
+                        <div class="form-group" style="width: 300px;">
+                            <label for="mail_revisor">Revisor:</label>
+                            <input type="text" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
+                        </div>
                     </div>
-                    <div class="form-group" style="width: 300px;">
-                        <label for="mail_revisor">Revisor:</label>
-                        <input type="text" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
-                    </div>
-                </div>
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
@@ -78,10 +79,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="form-row justify-content-start align-items-center">
                     <textarea id="editor" style="width: 600px; min-height: 300px;" name="cuerpo"></textarea>
                     <style>
-                        .ck.ck-editor{
+                        .ck.ck-editor {
                             min-width: 600px;
                         }
-                        .ck ck-editor__main{
+
+                        .ck ck-editor__main {
                             padding: auto !important;
                         }
                     </style>
@@ -97,10 +99,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script>
         var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
         var destinatarioCount = 1;
+        var editorInstance;
 
         $(document).ready(function() {
-            loadData();
-
             $('#enviarCorreo').on('click', function() {
                 enviarCorreo();
             });
@@ -124,18 +125,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 Paragraph,
                 List,
                 Link
-
             }) => {
                 ClassicEditor
                     .create(document.querySelector('#editor'), {
                         plugins: [Essentials, Bold, Italic, Font, Paragraph, List, Link],
                         toolbar: {
                             items: [
-                                'undo', 'redo', '|', 
-                                'bold', 'italic', 'link','fontSize', '|',
+                                'undo', 'redo', '|',
+                                'bold', 'italic', 'link', 'fontSize', '|',
                                 'numberedList', 'bulletedList', '|'
                             ]
                         }
+                    })
+                    .then(editor => {
+                        editorInstance = editor;
+                        loadData();
                     })
                     .catch(error => {
                         console.error(error);
@@ -155,7 +159,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     console.log(data);
                     var analisis = data.analisis;
                     var usuarios = data.usuarios;
-                    
+
                     if (analisis) {
                         $('#laboratorio').val(analisis.laboratorio);
                         $('#numero_registro').val(analisis.numero_registro);
@@ -191,10 +195,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             Equipo Reccius
                             `
 
-                        $('#editor').html(bodyMail);
+                        editorInstance.setData(bodyMail);
                     }
 
-                    
+
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -290,4 +294,5 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     </script>
 </body>
+
 </html>
