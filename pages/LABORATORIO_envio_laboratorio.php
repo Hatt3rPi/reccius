@@ -11,13 +11,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Ingreso de resultados</title>
+    <title>Envío de resultados a laboratorio</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <div id="form-container" class="form-container formpadding" style="margin: 0 auto;">
-    <h1>CALIDAD / Envío de resultados a laboratorio</h1>
+        <h3>CALIDAD / Envío de resultados a laboratorio</h3>
         <form id="envioCorreoForm" name="envioCorreoForm">
             <fieldset>
                 <legend>I. Información general</legend>
@@ -33,26 +34,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <fieldset>
                 <legend>II. Destinatarios</legend>
                 <br>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="destinatario1_email">Email destinatario 1:</label>
-                        <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="destinatario1_nombre">Nombre destinatario 1:</label>
-                        <input type="text" id="destinatario1_nombre" name="destinatarios[0][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario 1" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="destinatario2_email">Email destinatario 2:</label>
-                        <input type="email" id="destinatario2_email" name="destinatarios[1][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 2">
-                    </div>
-                    <div class="form-group">
-                        <label for="destinatario2_nombre">Nombre destinatario 2:</label>
-                        <input type="text" id="destinatario2_nombre" name="destinatarios[1][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario 2">
+                <div id="destinatarios-container">
+                    <div class="form-row destinatario-row justify-content-start">
+                        <div class="form-group" style="width: 300px;">
+                            <label for="destinatario1_email">Email 1:</label>
+                            <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
+                        </div>
+                        <div class="form-group" style="width: 300px;">
+                            <label for="destinatario1_nombre">Nombre 1:</label>
+                            <input type="text" id="destinatario1_nombre" name="destinatarios[0][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario 1" required>
+                        </div>
+                        <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
                     </div>
                 </div>
+                <button type="button" class="btn btn-primary" id="add-destinatario">Agregar destinatario</button>
             </fieldset>
             <br>
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
@@ -63,6 +58,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     </div>
     <script>
         var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+        var destinatarioCount = 1;
 
         $(document).ready(function() {
             loadData();
@@ -70,10 +66,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#enviarCorreo').on('click', function() {
                 enviarCorreo();
             });
+
+            $('#add-destinatario').on('click', function() {
+                addDestinatario();
+            });
+
+            $(document).on('click', '.remove-destinatario', function() {
+                $(this).closest('.destinatario-row').remove();
+                updateDestinatarioNames();
+            });
         });
 
         function loadData() {
-            fetch('./backend/analisis/ingresar_resultados_analisis.php?id_acta=<?php echo json_encode($_POST['id'] ?? ''); ?>', {
+            fetch('./backend/analisis/ingresar_resultados_analisis.php?id_acta=' + idAnalisisExterno, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -92,22 +97,53 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 });
         }
 
+        function addDestinatario() {
+            destinatarioCount++;
+            var destinatarioHtml = `
+                <div class="form-row destinatario-row justify-content-start">
+                    <div class="form-group" style="width: 300px;">
+                        <label for="destinatario${destinatarioCount}_email">Email ${destinatarioCount}:</label>
+                        <input type="email" id="destinatario${destinatarioCount}_email" name="destinatarios[${destinatarioCount - 1}][email]" class="form-control mx-0 w-90" placeholder="Email destinatario ${destinatarioCount}" required>
+                    </div>
+                    <div class="form-group" style="width: 300px;">
+                        <label for="destinatario${destinatarioCount}_nombre">Nombre ${destinatarioCount}:</label>
+                        <input type="text" id="destinatario${destinatarioCount}_nombre" name="destinatarios[${destinatarioCount - 1}][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario ${destinatarioCount}" required>
+                    </div>
+                    <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
+                </div>
+            `;
+            $('#destinatarios-container').append(destinatarioHtml);
+        }
+
+        function updateDestinatarioNames() {
+            $('#destinatarios-container .destinatario-row').each(function(index) {
+                $(this).find('input').each(function() {
+                    var name = $(this).attr('name');
+                    var newName = name.replace(/\d+/, index);
+                    $(this).attr('name', newName);
+                    var id = $(this).attr('id');
+                    var newId = id.replace(/\d+/, index + 1);
+                    $(this).attr('id', newId);
+                });
+                $(this).find('label').each(function() {
+                    var forAttr = $(this).attr('for');
+                    var newFor = forAttr.replace(/\d+/, index + 1);
+                    $(this).attr('for', newFor);
+                });
+            });
+            destinatarioCount = $('#destinatarios-container .destinatario-row').length;
+        }
+
         function enviarCorreo() {
             var destinatarios = [];
 
-            if ($('#destinatario1_email').val() && $('#destinatario1_nombre').val()) {
-                destinatarios.push({
-                    email: $('#destinatario1_email').val(),
-                    nombre: $('#destinatario1_nombre').val()
-                });
-            }
-
-            if ($('#destinatario2_email').val() && $('#destinatario2_nombre').val()) {
-                destinatarios.push({
-                    email: $('#destinatario2_email').val(),
-                    nombre: $('#destinatario2_nombre').val()
-                });
-            }
+            $('#destinatarios-container .destinatario-row').each(function() {
+                var email = $(this).find('input[type="email"]').val();
+                var nombre = $(this).find('input[type="text"]').val();
+                if (email && nombre) {
+                    destinatarios.push({ email: email, nombre: nombre });
+                }
+            });
 
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
