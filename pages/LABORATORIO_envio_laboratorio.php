@@ -107,20 +107,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 updateNumberDestinatario();
             });
 
-            // Inicializar CKEditor
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    toolbar: {
-                        items: [
-                            'undo', 'redo', '|', 'bold', 'italic', 'link', '|',
-                            'numberedList', 'bulletedList', '|',
-                            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
-                        ]
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            import('ckeditor5').then(({
+                ClassicEditor,
+                Essentials,
+                Bold,
+                Italic,
+                Font,
+                Paragraph,
+                List,
+                Link
+
+            }) => {
+                ClassicEditor
+                    .create(document.querySelector('#editor'), {
+                        plugins: [Essentials, Bold, Italic, Font, Paragraph, List, Link],
+                        toolbar: {
+                            items: [
+                                'undo', 'redo', '|', 
+                                'bold', 'italic', 'link','fontSize', '|',
+                                'numberedList', 'bulletedList', '|'
+                            ]
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            });
         });
 
         function loadData() {
