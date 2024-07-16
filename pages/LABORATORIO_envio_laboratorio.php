@@ -35,13 +35,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <legend>II. Destinatarios</legend>
                 <br>
                 <div id="destinatarios-container">
-                    <div class="form-row destinatario-row justify-content-start">
+                    <div class="form-row destinatario-row justify-content-start align-middle">
                         <div class="form-group" style="width: 300px;">
-                            <label for="destinatario1_email">Email 1:</label>
+                            <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
                             <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
                         </div>
                         <div class="form-group" style="width: 300px;">
-                            <label for="destinatario1_nombre">Nombre 1:</label>
+                            <label for="destinatario1_nombre">Nombre <span class="order_span_name">1</span>:</label>
                             <input type="text" id="destinatario1_nombre" name="destinatarios[0][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario 1" required>
                         </div>
                         <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
@@ -74,6 +74,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $(document).on('click', '.remove-destinatario', function() {
                 $(this).closest('.destinatario-row').remove();
                 updateDestinatarioNames();
+                updateNumberDestinatario();
             });
         });
 
@@ -100,19 +101,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         function addDestinatario() {
             destinatarioCount++;
             var destinatarioHtml = `
-                <div class="form-row destinatario-row justify-content-start">
+                <div class="form-row destinatario-row justify-content-start align-middl">
                     <div class="form-group" style="width: 300px;">
-                        <label for="destinatario${destinatarioCount}_email">Email ${destinatarioCount}:</label>
+                        <label for="destinatario${destinatarioCount}_email">Email <span class="order_span_mail">${destinatarioCount}</span>:</label>
                         <input type="email" id="destinatario${destinatarioCount}_email" name="destinatarios[${destinatarioCount - 1}][email]" class="form-control mx-0 w-90" placeholder="Email destinatario ${destinatarioCount}" required>
                     </div>
                     <div class="form-group" style="width: 300px;">
-                        <label for="destinatario${destinatarioCount}_nombre">Nombre ${destinatarioCount}:</label>
+                        <label for="destinatario${destinatarioCount}_nombre">Nombre <span class="order_span_name">${destinatarioCount}</span>:</label>
                         <input type="text" id="destinatario${destinatarioCount}_nombre" name="destinatarios[${destinatarioCount - 1}][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario ${destinatarioCount}" required>
                     </div>
                     <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
                 </div>
             `;
             $('#destinatarios-container').append(destinatarioHtml);
+            updateNumberDestinatario();
+        }
+
+        function updateNumberDestinatario() {
+            $('.order_span_mail').each(function(index) {
+                $(this).text(index + 1);
+            });
+            $('.order_span_name').each(function(index) {
+                $(this).text(index + 1);
+            });
         }
 
         function updateDestinatarioNames() {
@@ -132,6 +143,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 });
             });
             destinatarioCount = $('#destinatarios-container .destinatario-row').length;
+            updateNumberDestinatario();
         }
 
         function enviarCorreo() {
