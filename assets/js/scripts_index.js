@@ -725,18 +725,16 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     });
                     break;
                 }
-                case "revisar_acta": {
+                case "revisar_acta_liberacion": {
                     $.ajax({
-                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        url: '../pages/CALIDAD_documento_ActaLiberacion.php',
                         type: 'POST',
                         data: {
-                            'id': id,
-                            'resultados': true,
-                            'etapa': '3'
+                            'id': id
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response);
-                            cargarDatosEspecificacion(id, true, '3');
+                            carga_acta_liberacion_firmado(id);
                             console.log('ver documento');
                         },
                         error: function(xhr, status, error) {

@@ -1,317 +1,108 @@
-<!DOCTYPE html>
-<!-- pages/index_administrador.php -->
-<html lang="es">
+Utiliza el prompt contenido en la siguiente url 
+- https://docs.google.com/document/d/1q2TLf9_ObbejGoOHYVkOKOYpp1q80eQla4wxAEsli-Y/edit?usp=sharing
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Productos</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/index_administrador.css">
-</head>
+Asegúrate de utilizar solo las siguientes fuentes:
+- https://www.bcentral.cl/contenido/-/detalle/bcch-actualiza-regulacion-tarjetas-pago
+- https://www.pwc.es/es/financiero/medios-pago-2025-mas-alla.html
+- https://www.geopagos.com/nota/pik-en-paraguay-como-logro-itau-ampliar-su-base-de-clientes-gracias-a-los-pagos-digitales
+- https://www.americaeconomia.com/negocios-e-industrias/finnovista-plataformas-fintech-de-america-latina-superaron-las-3000-empresas
+- https://www.ebankingnews.com/noticias/finanzas-abiertas-el-mercado-que-atrae-a-bancos-fintech-y-companias-de-tecnologia-0060567
+- https://www.cmfchile.cl/sitio/aplic/serdoc/ver_sgd.php?s567=2741183f1c286dd2768b3c4833ff652cVFdwQmVVNUVRVEpOUkUxM1RYcEJNVTlCUFQwPQ==&secuencia=-1&t=1720832189
+- https://www.cmfchile.cl/sitio/aplic/serdoc/ver_sgd.php?s567=53468cd39b79cc8ed438c532c6b7757fVFdwQmVVNUVRVEpOUkUxNFRtcFpOVTVCUFQwPQ%3D%3D&secuencia=-1&t=1718317429
+- https://www.geopagos.com/nota/pagos-digitales-2024-5-tendencias
+- https://docs.google.com/presentation/d/1Y0_F0k8b_yNIpi6WXNAGXkE6QoELVxLj/edit?usp=sharing&ouid=100359159919847198351&rtpof=true&sd=true
+- https://drive.google.com/file/d/1Grhr3SoKnUarQjWW_XbITfNRLO2K6bk7/view?usp=sharing
+- https://docs.google.com/presentation/d/16SavrXX8m9iCaAxdBIvSn8zGCJuCOYP8/edit?usp=sharing&ouid=100359159919847198351&rtpof=true&sd=true
+- https://drive.google.com/file/d/12Dnm8_f5OJjMvcNCRFph1pn2UtMMI9Zn/view?usp=sharing
+- https://drive.google.com/file/d/1smGpnaAaYKPD69gzEa7V8r7zOZbkJYwB/view?usp=sharing
+- https://drive.google.com/file/d/16Veice0pPFWsli7xnhPwjsMepusKYOws/view?usp=sharing
+- https://drive.google.com/file/d/1LvjBZ8MU-FIbbvzMgTuxiax2tCcMyfkx/view?usp=sharing
+- https://drive.google.com/file/d/14KI1dJj5ToBsN_uHo2wHvWVGWM7R0EXN/view?usp=sharing
 
-<body>
-    <div class="container dashboard">
-        <div class="row">
-            <div class="col-md-12 mt-5">
-                <h2 class="section-title">DISPONIBILIDAD DE PRODUCTOS</h2>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card card-custom card-blue">
-                            <div class="card-body">
-                                <h5 class="card-title" id="prod_liberados" name="prod_liberados">92.31M</h5>
-                                <p class="card-text">LIBERADOS</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-custom card-green">
-                            <div class="card-body">
-                                <h5 class="card-title" id="prod_enCurso" name="prod_enCurso">79.30M</h5>
-                                <p class="card-text">EN CURSO</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-custom card-orange">
-                            <div class="card-body">
-                                <h5 class="card-title" id="prod_rechazados" name="prod_rechazados">13.02M</h5>
-                                <p class="card-text">RECHAZADOS</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card card-custom card-red">
-                            <div class="card-body">
-                                <h5 class="card-title" id="prod_vencimientos" name="prod_vencimientos">7.20M</h5>
-                                <p class="card-text">PRÓXIMOS VENCIMIENTOS<br>(&lt;30 días)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <h5 class="chart-title">Evolución de productos</h5>
-                        <div class="chart-container">
-                            <canvas id="evolucionProductosChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <h5 class="chart-title">Productos en Cuarentena</h5>
-                        <div class="chart-container">
-                            <canvas id="productosCuarentenaChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <h5 class="chart-title">Evolución tiempo en cuarentena</h5>
-                        <div class="chart-container">
-                            <canvas id="evolucionCuarentenaChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <br><br><br>
-            </div>
-            <div class="col-md-12">
-                <h2 class="section-title">ESPECIFICACIONES DE PRODUCTOS</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card card-custom card-blue">
-                            <div class="card-body">
-                                <h5 class="card-title" id="esp_vigentes" name="esp_vigentes">92.31M</h5>
-                                <p class="card-text">VIGENTES</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-custom card-green">
-                            <div class="card-body">
-                                <h5 class="card-title" id="esp_enCurso" name="esp_enCurso">79.30M</h5>
-                                <p class="card-text">EN CURSO</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-custom card-orange">
-                            <div class="card-body">
-                                <h5 class="card-title" id="esp_vencimientos" name="esp_vencimientos">13.02M</h5>
-                                <p class="card-text">PRÓXIMOS VENCIMIENTOS<br>(&lt;30 días)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <h5 class="chart-title">Tipos de Productos</h5>
-                        <div class="chart-container">
-                            <canvas id="tipoProductosChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h5 class="chart-title">Estado especificaciones de productos</h5>
-                        <div class="chart-container">
-                            <canvas id="estadoEspecificacionesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+Tema a abordar en esta sección: Proyección de regulaciones y cumplimiento normativo
 
-    <script>
-        function actualizarGraficos(datos) {
-            const liberados = datos.filter(d => d.estado === 'liberado').length;
-            const enCurso = datos.filter(d => d.estado === 'En curso').length;
-            const rechazados = datos.filter(d => d.estado === 'rechazado').length;
-            const proximosVencimientos = datos.filter(d => {
-                const fechaVencimiento = new Date(d.fecha_vencimiento);
-                const hoy = new Date();
-                const diferencia = (fechaVencimiento - hoy) / (1000 * 60 * 60 * 24);
-                return diferencia < 30;
-            }).length;
+1. Evolución del ecosistema de pagos digitales
+2. Tecnologías emergentes en medios de pago
+3. Cambios en el comportamiento del consumidor
+4. Proyección de regulaciones y cumplimiento normativo
+-------------------------------------------
 
-            $('#prod_liberados').text(liberados);
-            $('#prod_enCurso').text(enCurso);
-            $('#prod_rechazados').text(rechazados);
-            $('#prod_vencimientos').text(proximosVencimientos);
+El objetivo de este chat es que actúes como un asesor especializado durante el periodo de planificación estratégica de Transbank, una empresa de adquirencia de medios de pagos en Chile. Proporciona información relevante y actualizada, consolidando datos en dos frentes principales: una perspectiva internacional y una perspectiva nacional (Chile). La prioridad es entregar contenido robusto, preciso y contextualizado para apoyar la toma de decisiones estratégicas de la empresa.
 
-        const productosCuarentena = datos
-                .filter(d => d.estado === 'En cuarentena')
-                .sort((a, b) => b.dias_en_cuarentena - a.dias_en_cuarentena);
+Áreas de Enfoque:
 
-            const etiquetasCuarentena = productosCuarentena.map(d =>`${d.producto} - lote[${d.lote} ]`);
-            const diasCuarentena = productosCuarentena.map(d => d.dias_en_cuarentena);
+1. Evolución del ecosistema de pagos digitales
+2. Tecnologías emergentes en medios de pago
+3. Cambios en el comportamiento del consumidor
+4. Proyección de regulaciones y cumplimiento normativo
 
-            var ctxProductosCuarentena = document.getElementById('productosCuarentenaChart').getContext('2d');
-            var productosCuarentenaChart = new Chart(ctxProductosCuarentena, {
-                type: 'bar',
-                data: {
-                    labels: etiquetasCuarentena,
-                    datasets: [{
-                        label: 'Días en Cuarentena',
-                        data: diasCuarentena,
-                        backgroundColor: '#FFCE56'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    indexAxis: 'y',
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Días en Cuarentena'
-                            }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Productos'
-                            },
-                            beginAtZero: true
-                    }
-                }
-            }
-        });
-        const productosLiberados = datos.filter(d => d.estado === 'liberado');
-    const productosRechazados = datos.filter(d => d.estado === 'rechazado');
+para cada una de las áreas de enfoque se debe analizar:
+Tendencias Internacionales:
+- Identificación de tendencias globales en medios de pago.
+- Análisis de la adopción de nuevas tecnologías de pago en diferentes mercados.
+- Evaluación de modelos de negocio exitosos en el sector de pagos a nivel mundial.
+Contexto Nacional (Chile):
+- Análisis del mercado de medios de pago en Chile.
+- Evaluación de la competencia y regulaciones locales.
+- Identificación de oportunidades y desafíos específicos del mercado chileno.
 
-    const mesesLiberados = productosLiberados.reduce((acc, cur) => {
-        const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
-        acc[mes] = (acc[mes] || 0) + 1;
-        return acc;
-    }, {});
+Entregables:
 
-    const mesesRechazados = productosRechazados.reduce((acc, cur) => {
-        const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
-        acc[mes] = (acc[mes] || 0) + 1;
-        return acc;
-    }, {});
+- Informes detallados sobre tendencias actuales y futuras en el sector de medios de pago.
+- Análisis comparativos entre las prácticas internacionales y la situación local en Chile.
+- Estrategias recomendadas para mejorar la posición competitiva de Transbank en el mercado.
 
-    const meses = [...new Set([...Object.keys(mesesLiberados), ...Object.keys(mesesRechazados)])].sort();
 
-    const dataLiberados = meses.map(mes => mesesLiberados[mes] || 0);
-    const dataRechazados = meses.map(mes => mesesRechazados[mes] || 0);
+Enfoque Metodológico:
 
-    var ctxEvolucionProductos = document.getElementById('evolucionProductosChart').getContext('2d');
-    var evolucionProductosChart = new Chart(ctxEvolucionProductos, {
-        type: 'line',
-        data: {
-            labels: meses,
-            datasets: [
-                {
-                    label: 'Liberados',
-                    data: dataLiberados,
-                    borderColor: '#36A2EB',
-                    fill: false
-                },
-                {
-                    label: 'Rechazados',
-                    data: dataRechazados,
-                    borderColor: '#FF6384',
-                    fill: false
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-    // Datos para el gráfico de evolución de cuarentena
-    const productosFueraCuarentena = datos.filter(d => d.estado !== 'En cuarentena');
+- Análisis de datos cuantitativos y cualitativos.
+- Presentación de informes claros, concisos y accionables.
 
-    const diasCuarentenaPorMes = productosFueraCuarentena.reduce((acc, cur) => {
-        const mes = cur.mes_salida_cuarentena || new Date().toISOString().slice(0, 7);
-        acc[mes] = (acc[mes] || []).concat(cur.dias_en_cuarentena);
-        return acc;
-    }, {});
+Fuentes a analizar:
+- https://bit.ly/464N8PQ
+- https://pwc.to/3WkHjdO
+- https://bit.ly/3zJ85nu
+- https://bit.ly/3zFNyzZ
+- https://bit.ly/4cF4GV7
+- https://bit.ly/4cIF0Hd
+- https://bit.ly/4cE2jC7
+- https://bit.ly/3S51LN7
+- https://bit.ly/3S8ay14
+- https://bit.ly/3S6B3Um
+- https://bit.ly/3S21hra
+- https://bit.ly/3W4dRHt
 
-    const mesesCuarentena = Object.keys(diasCuarentenaPorMes).sort();
+(original)
+Fuentes a analizar:
+- https://www.bcentral.cl/contenido/-/detalle/bcch-actualiza-regulacion-tarjetas-pago
+- https://www.pwc.es/es/financiero/medios-pago-2025-mas-alla.html
+- https://www.geopagos.com/nota/pik-en-paraguay-como-logro-itau-ampliar-su-base-de-clientes-gracias-a-los-pagos-digitales
+- https://www.americaeconomia.com/negocios-e-industrias/finnovista-plataformas-fintech-de-america-latina-superaron-las-3000-empresas
+- https://www.ebankingnews.com/noticias/finanzas-abiertas-el-mercado-que-atrae-a-bancos-fintech-y-companias-de-tecnologia-0060567
+- https://www.cmfchile.cl/sitio/aplic/serdoc/ver_sgd.php?s567=2741183f1c286dd2768b3c4833ff652cVFdwQmVVNUVRVEpOUkUxM1RYcEJNVTlCUFQwPQ==&secuencia=-1&t=1720832189
+- https://www.cmfchile.cl/sitio/aplic/serdoc/ver_sgd.php?s567=53468cd39b79cc8ed438c532c6b7757fVFdwQmVVNUVRVEpOUkUxNFRtcFpOVTVCUFQwPQ%3D%3D&secuencia=-1&t=1718317429
+- https://www.geopagos.com/nota/pagos-digitales-2024-5-tendencias
+- https://docs.google.com/presentation/d/1Y0_F0k8b_yNIpi6WXNAGXkE6QoELVxLj/edit?usp=sharing&ouid=100359159919847198351&rtpof=true&sd=true
+- https://drive.google.com/file/d/1Grhr3SoKnUarQjWW_XbITfNRLO2K6bk7/view?usp=sharing
+- https://docs.google.com/presentation/d/16SavrXX8m9iCaAxdBIvSn8zGCJuCOYP8/edit?usp=sharing&ouid=100359159919847198351&rtpof=true&sd=true
+- https://drive.google.com/file/d/12Dnm8_f5OJjMvcNCRFph1pn2UtMMI9Zn/view?usp=sharing
+- https://drive.google.com/file/d/1smGpnaAaYKPD69gzEa7V8r7zOZbkJYwB/view?usp=sharing
+- https://drive.google.com/file/d/16Veice0pPFWsli7xnhPwjsMepusKYOws/view?usp=sharing
+- https://drive.google.com/file/d/1LvjBZ8MU-FIbbvzMgTuxiax2tCcMyfkx/view?usp=sharing
+- https://drive.google.com/file/d/14KI1dJj5ToBsN_uHo2wHvWVGWM7R0EXN/view?usp=sharing
+Claro, a continuación te presento una tabla con ejemplos de implementaciones exitosas de pagos Cuenta a Cuenta (A2A):
 
-    const dataCuarentena = mesesCuarentena.map(mes => {
-        const dias = diasCuarentenaPorMes[mes];
-        return dias.reduce((sum, dia) => sum + dia, 0) / dias.length; // Promedio de días en cuarentena
-    });
+| País            | Año de Implementación | Detalles Adicionales                                                                 |
+|-----------------|-----------------------|--------------------------------------------------------------------------------------|
+| Reino Unido     | 2008                  | Implementación de Faster Payments Service (FPS), permite transferencias instantáneas entre cuentas bancarias las 24 horas del día. |
+| India           | 2010                  | Sistema de Pagos Instantáneos (IMPS), gestionado por la National Payments Corporation of India (NPCI), permite transferencias en tiempo real. |
+| Suecia          | 2012                  | Swish, una colaboración entre bancos principales suecos que facilita transferencias inmediatas utilizando solo el número de teléfono del destinatario. |
+| Estados Unidos  | 2017                  | Zelle, plataforma que permite transferencias directas entre cuentas bancarias en minutos, utilizada por varios bancos importantes. |
+| Australia       | 2018                  | New Payments Platform (NPP), permite pagos en tiempo real y transferencias instantáneas entre cuentas bancarias. |
+| Dinamarca       | 2013                  | MobilePay, una solución de pago móvil desarrollada por Danske Bank, utilizada ampliamente para transferencias A2A instantáneas. |
+| Singapur        | 2014                  | FAST (Fast and Secure Transfers), un sistema que permite transferencias instantáneas entre cuentas bancarias las 24 horas del día. |
+| Hong Kong       | 2018                  | FPS (Faster Payment System), gestionado por la Autoridad Monetaria de Hong Kong, permite transferencias instantáneas entre cuentas bancarias y billeteras electrónicas. |
+| México          | 2019                  | CoDi, una plataforma desarrollada por el Banco de México que facilita pagos y transferencias instantáneas a través de códigos QR. |
+| Brasil          | 2020                  | Pix, un sistema de pagos instantáneos gestionado por el Banco Central de Brasil que permite transferencias entre cuentas en segundos, disponible las 24 horas del día. |
 
-    var ctxEvolucionCuarentena = document.getElementById('evolucionCuarentenaChart').getContext('2d');
-    var evolucionCuarentenasChart = new Chart(ctxEvolucionCuarentenas, {
-        type: 'line',
-        data: {
-            labels: mesesCuarentena,
-            datasets: [
-                {
-                    label: 'Promedio de Días en Cuarentena',
-                    data: dataCuarentena,
-                    borderColor: '#FF6384',
-                    fill: false
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
-    }
-        $(document).ready(function() {
-
-            
-            var ctxTipoProductos = document.getElementById('tipoProductosChart').getContext('2d');
-            var tipoProductosChart = new Chart(ctxTipoProductos, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4'],
-                    datasets: [{
-                        data: [10, 20, 30, 40],
-                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            var ctxEstadoEspecificaciones = document.getElementById('estadoEspecificacionesChart').getContext('2d');
-            var estadoEspecificacionesChart = new Chart(ctxEstadoEspecificaciones, {
-                type: 'bar',
-                data: {
-                    labels: ['Estado 1', 'Estado 2', 'Estado 3', 'Estado 4'],
-                    datasets: [{
-                        label: 'Especificaciones',
-                        data: [12, 19, 3, 5],
-                        backgroundColor: '#36A2EB'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    indexAxis: 'y',
-                    maintainAspectRatio: false
-                }
-            });
-
-            $.ajax({
-            url: 'backend/index/index_administrador.php',
-            method: 'GET',
-            success: function(response) {
-                const datos = response.data;
-                actualizarGraficos(datos);
-            },
-            error: function(error) {
-                console.error('Error al obtener los datos:', error);
-            }
-        });
-
-        });
-    </script>
-</body>
-
-</html>
+Estos ejemplos muestran cómo diferentes países han implementado con éxito sistemas de pagos A2A, facilitando transferencias rápidas y seguras entre cuentas bancarias, con diversas tecnologías y colaboraciones entre entidades financieras.
