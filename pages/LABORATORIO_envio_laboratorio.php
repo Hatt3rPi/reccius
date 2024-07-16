@@ -13,7 +13,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Envío de resultados a laboratorio</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -49,6 +48,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <button type="button" class="btn btn-primary" id="add-destinatario">Agregar destinatario</button>
             </fieldset>
+            <fieldset>
+                <legend>III. Cuerpo</legend>
+                <br>
+                <div class="form-row justify-content-start align-items-center">
+                    <textarea id="editor"></textarea>
+                </div>
+            </fieldset>
             <br>
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
             <div class="button-container">
@@ -75,6 +81,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $(this).closest('.destinatario-row').remove();
                 updateDestinatarioNames();
                 updateNumberDestinatario();
+            });
+
+            // Inicializar CKEditor
+            import('ckeditor5').then(({
+                ClassicEditor,
+                Essentials,
+                Bold,
+                Italic,
+                Font,
+                Paragraph
+            }) => {
+                ClassicEditor
+                    .create(document.querySelector('#editor'), {
+                        plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                        toolbar: {
+                            items: [
+                                'undo', 'redo', '|', 'bold', 'italic', '|',
+                                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                            ]
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             });
         });
 
@@ -153,13 +183,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 var email = $(this).find('input[type="email"]').val();
                 var nombre = $(this).find('input[type="text"]').val();
                 if (email && nombre) {
-                    destinatarios.push({ email: email, nombre: nombre });
+                    destinatarios.push({
+                        email: email,
+                        nombre: nombre
+                    });
                 }
             });
 
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
-                destinatarios: destinatarios
+                destinatarios: destinatarios,
+                mensaje: $('#editor').val()
             };
 
             fetch('./backend/laboratorio/enviar_solicitud_externa.php', {
