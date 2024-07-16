@@ -77,6 +77,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <div class="form-row justify-content-start align-items-center">
                     <textarea id="editor" style="width: 600px; min-height: 300px;" name="cuerpo"></textarea>
+                    <style>
+                        .ck.ck-editor{
+                            min-width: 600px;
+                        }
+                        .ck ck-editor__main{
+                            padding: auto !important;
+                        }
+                    </style>
                 </div>
             </fieldset>
             <br>
@@ -160,6 +168,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#mail_solicitante').val(usuarios[0].correo);
                         $('#mail_revisor').val(usuarios[1].correo);
                     }
+
+                    if (analisis && usuarios) {
+                        var hoy = moment(new Date()).format('DD/MM/YYYY');
+                        var bodyMail = `
+                            Estimados ${analisis.laboratorio},<br/>
+                            con fecha ${hoy}, enviamos solicitud de análisis externo para el documento ${analisis.numero_registro}.<br/><br/>
+
+                            Adjuntamos la información necesaria para ingresar a análisis:
+                            <ul>
+                                <li>
+                                Solicitud de análisis externo: ${analisis.url_certificado_solicitud_analisis_externo}
+                                </li>
+                                <li>
+                                Solicitud acta de muestreo: ${analisis.url_certificado_acta_de_muestreo}
+                                </li>
+                            </ul>
+                            
+                            <br/>
+                            PD: El correo fue generado de una casilla automática. favor derivar sus respuestas a ${usuarios[1].nombre} y ${usuarios[0].nombre}.<br/>
+                            Saluda atentamente,<br/>
+                            Equipo Reccius
+                            `
+                    }
+
+                    
                 })
                 .catch(error => {
                     console.error('Error:', error);
