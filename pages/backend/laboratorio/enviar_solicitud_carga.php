@@ -14,7 +14,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     exit;
 }
 
-function ejecutarConsulta($link, $query, $params, $param_types) {
+function ejecutarConsulta($link, $query, $params, $param_types)
+{
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
         return ['error' => 'Error en la preparación de la consulta: ' . mysqli_error($link)];
@@ -31,7 +32,12 @@ function ejecutarConsulta($link, $query, $params, $param_types) {
 }
 
 // Obtener datos del análisis externo
-$queryAnalisis = "SELECT solicitado_por, revisado_por, url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo, laboratorio FROM calidad_analisis_externo WHERE id = ?";
+$queryAnalisis = "SELECT 
+                    numero_registro, numero_solicitud, fecha_registro, 
+                    solicitado_por, revisado_por, laboratorio 
+                    url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo, 
+                    FROM calidad_analisis_externo 
+                    WHERE id = ?";
 $analisis = ejecutarConsulta($link, $queryAnalisis, [$id_acta], 'i');
 
 if (isset($analisis['error'])) {
@@ -62,4 +68,3 @@ echo json_encode([
 ], JSON_UNESCAPED_UNICODE);
 
 mysqli_close($link);
-?>
