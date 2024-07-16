@@ -16,16 +16,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </head>
 
 <body>
-    <div id="form-container" class="form-container formpadding" style="margin: 0 auto;">
+    <div id="form-container-mail" class="form-container formpadding" style="margin: 0 auto;">
         <h3>CALIDAD / Envío de resultados a laboratorio</h3>
         <form id="envioCorreoForm" name="envioCorreoForm">
             <fieldset>
                 <legend>I. Información general</legend>
                 <br>
-                <div class="form-row">
+               <div class="form-row destinatario-row justify-content-start align-items-center">
                     <div class="form-group">
-                        <label for="laboratorio">Laboratorio Analista:</label>
+                        <label for="laboratorio">Laboratorio de Analista:</label>
                         <input type="text" id="laboratorio" name="laboratorio" class="form-control mx-0 w-90" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_registro">Fecha de solicitud:</label>
+                        <input type="text" id="fecha_registro" name="fecha_registro" class="form-control mx-0 w-90" readonly required>
+                    </div>
+                </div> 
+                <div class="form-row destinatario-row justify-content-start align-items-center">
+                    <div class="form-group">
+                        <label for="numero_registro">N° de registro:</label>
+                        <input type="text" id="numero_registro" name="numero_registro" class="form-control mx-0 w-90" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="numero_solicitud">N° de Solicitud:</label>
+                        <input type="text" id="numero_solicitud" name="numero_solicitud" class="form-control mx-0 w-90" readonly required>
                     </div>
                 </div>
             </fieldset>
@@ -33,7 +47,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <fieldset>
                 <legend>II. Destinatarios</legend>
                 <br>
+                solicitante 
                 <div id="destinatarios-container">
+                <div class="form-row destinatario-row justify-content-start align-items-center">
+                    <div class="form-group">
+                        <label for="mail_solicitante">Solicitante:</label>
+                        <input type="text" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mail_revisor">Revisor:</label>
+                        <input type="text" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
+                    </div>
+                </div>
                     <div class="form-row destinatario-row justify-content-start align-items-center">
                         <div class="form-group" style="width: 300px;">
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
@@ -52,7 +77,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <legend>III. Cuerpo</legend>
                 <br>
                 <div class="form-row justify-content-start align-items-center">
-                    <textarea id="editor"></textarea>
+                    <textarea id="editor" style="width: 600px; min-height: 300px;" name="cuerpo"></textarea>
                 </div>
             </fieldset>
             <br>
@@ -113,7 +138,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         function loadData() {
-            fetch('./backend/analisis/ingresar_resultados_analisis.php?id_acta=' + idAnalisisExterno, {
+            fetch('./backend/laboratorio/enviar_solicitud_carga.php?id_acta=' + idAnalisisExterno, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -123,8 +148,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(data => {
                     console.log(data);
                     if (data.analisis && data.analisis.length > 0) {
-                        $('#laboratorio').val(data.analisis[0].laboratorio);
+                        $('#laboratorio').val(data.analisis.laboratorio);
+                        $('#numero_registro').val(data.analisis.numero_registro);
+                        $('#numero_solicitud').val(data.analisis.numero_solicitud);
+                        $('#fecha_registro').val(data.analisis.fecha_registro);
+                        
+                        $('#mail_solicitante').val(data.usuarios[0].correo);
+                        $('#mail_revisor').val(data.usuarios[1].correo);
+                        
+                        
                         $('#id_analisis_externo').val(idAnalisisExterno);
+                        
                     }
                 })
                 .catch(error => {
