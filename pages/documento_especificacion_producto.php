@@ -721,15 +721,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Estilos y configuraciones para el contenedor
             container.style.height = "792pt";
-            container.style.width = "722pt"
+            //container.style.width = "722pt"
             container.style.padding = "10pt";
             container.style.boxSizing = "border-box";
             container.style.border = "1px solid rgb(0, 0, 0)";
             container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            container.style.marginLeft = "-520px";
-            container.style.marginRight = "-50px";
+            //container.style.marginLeft = "-520px";
+            //container.style.marginRight = "-50px";
             container.style.position = "relative"; // Asegura que los elementos absolutamente posicionados dentro de este contenedor se posicionen respecto a este contenedor
-            container.style.marginTop = "30px";
+            //container.style.marginTop = "30px";
             container.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
             container.style.paddingBottom = "300px"; // Ajusta este valor según la altura de tu footer-containerDIV para asegurarte de que haya suficiente espacio
 
