@@ -333,7 +333,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     })
                     .catch(() => {
                         var contenedor = document.getElementById(contenedorQR);
-                        contenedor.innerHTML = '<span src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;"></span>';
+                        contenedor.innerHTML = '<span src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp" style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;"></span>';
                     });
             } else {
                 var contenedor = document.getElementById(contenedorQR);
@@ -726,8 +726,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             container.style.backgroundColor = "#ffffff";
             container.style.border = "1px solid rgb(0, 0, 0)";
             container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            container.style.marginLeft = "auto";
-            container.style.marginRight = "auto";
             container.style.position = "relative"; // Asegura que los elementos absolutamente posicionados dentro de este contenedor se posicionen respecto a este contenedor
             container.style.marginTop = "30px";
             container.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
