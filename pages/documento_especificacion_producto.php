@@ -717,7 +717,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
 
             const container = document.createElement("div");
-            container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
+            container.className = "form-container"; // Asigna la clase común a cada contenedor
 
             // Estilos y configuraciones para el contenedor
             container.style.height = "792pt";
