@@ -146,11 +146,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id="creadoPor" name="creadoPor" class="bold"></p>
                         <p id="cargo_creador" name="cargo_creador" class="bold"></p>
                         <div class="signature" id="QRcreador" name="QRcreador">
-                            <!-- acá debe ir el QR -->
+                        <img id="QRcreador" name="QRcreador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
                         </div>
-                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;">Firmado digitalmente</p>
+
                     </div>
                     <div class="date-container">
+                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;">Firmado digitalmente</p>
                         <div id="fecha_Edicion" name="fecha_Edicion" class="date" style="font-size: 8px"></div>
                     </div>
                 </div>
@@ -161,11 +162,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id="revisadoPor" name="revisadoPor" class="bold"></p>
                         <p id="cargo_revisor" name="cargo_revisor" class="bold"></p>
                         <div class="signature" id="QRrevisor" name="QRrevisor">
-                            <!-- acá debe ir el QR -->
+                             <img id="QRrevisor" name="QRrevisor" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
                         </div>
-                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;">Firmado digitalmente</p>
+
                     </div>
                     <div class="date-container">
+                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;">Firmado digitalmente</p>
                         <div id="fechaRevision" name="fechaRevision" class="date" style="font-size: 8px"></div>
                     </div>
                 </div>
@@ -176,11 +178,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id="aprobadoPor" name="aprobadoPor" class="bold"></p>
                         <p id="cargo_aprobador" name="cargo_aprobador" class="bold"></p>
                         <div class="signature" id="QRaprobador" name="QRaprobador">
-                            <!-- acá debe ir el QR -->
+                             <img id="QRaprobador" name="QRaprobador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
                         </div>
-                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;">Firmado digitalmente</p>
+
                     </div>
                     <div class="date-container">
+                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;">Firmado digitalmente</p>
                         <div id="fechaAprobacion" name="fechaAprobacion" class="date" style="font-size: 8px"></div>
                     </div>
                 </div>
