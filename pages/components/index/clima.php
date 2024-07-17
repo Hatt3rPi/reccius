@@ -23,4 +23,12 @@
             <span class="stat-label">Leave</span>
         </div>
     </div>
+    <div>
+        <label for="city">Ciudad:</label>
+        <input type="text" id="city" value="Santiago">
+        <button id="getWeatherBtn">Obtener Clima</button>
+    </div>
+    <div id="weatherResult"></div>
 </div>
+<script src=".../assets/js/components/clima.js"></script>
+
