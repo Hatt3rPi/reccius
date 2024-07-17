@@ -1,7 +1,13 @@
-document.getElementById('getWeatherBtn').addEventListener('click', getWeather);
+document.addEventListener('DOMContentLoaded', () => {
+    // Obtener el clima para una ciudad predeterminada al cargar la página
+    getWeather();
+
+    document.getElementById('getWeatherBtn').addEventListener('click', getWeather);
+});
 
 function getWeather() {
-    const city = document.getElementById('city').value;
+    const cityInput = document.getElementById('city');
+    const city = cityInput ? cityInput.value : 'Santiago';
     const apiKey = '0feabf126fec2094c8ad50be035553ef';
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
@@ -64,6 +70,8 @@ function getWeather() {
                 document.getElementById('humidity').innerText = `${data.main.humidity} %`;
                 document.getElementById('description').innerText = emoji;
                 document.getElementById('wind').innerText = `${data.wind.speed} m/s`;
+                document.getElementById('weather-icon').innerText = emoji;
+                document.getElementById('weather-date').innerText = new Date().toLocaleDateString();
             } else {
                 alert('Ciudad no encontrada');
             }

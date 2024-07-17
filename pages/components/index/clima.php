@@ -2,8 +2,8 @@
 <!-- components/index/clima.php -->
 <div class="attendance-component">
     <div class="weather">
-        <span class="weather-icon">☁️</span>
-        <span class="weather-date">21 September 2022</span>
+        <span class="weather-icon" id="weather-icon">☁️</span>
+        <span class="weather-date" id="weather-date">21 September 2022</span>
     </div>
     <div class="attendance-stats">
         <div class="stat">
