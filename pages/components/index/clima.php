@@ -3,7 +3,7 @@
 <div class="attendance-component">
     <div class="weather">
         <span class="weather-icon" id="description">☁️</span>
-        <span class="weather-date" id="weather-date">21 September 2022</span>
+        <span class="weather-date" id="weather-date"></span>
     </div>
     <div class="attendance-stats">
         <div class="stat">
