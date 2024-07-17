@@ -230,7 +230,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
 
                 await html2canvas(containers[i], {
-                    scale: 2
+                    scale: 1
                 }).then(canvas => {
                     var imgData = canvas.toDataURL('image/png');
                     var pdfWidth = pdf.internal.pageSize.getWidth();
