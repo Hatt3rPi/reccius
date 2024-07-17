@@ -723,7 +723,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             container.style.width = "722pt"
             container.style.padding = "10pt";
             container.style.boxSizing = "border-box";
-            container.style.backgroundColor = "rgb(255, 255, 255)";
+            container.style.backgroundColor = "#ffffff";
             container.style.border = "1px solid rgb(0, 0, 0)";
             container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
             container.style.marginLeft = "500px";
