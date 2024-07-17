@@ -6,21 +6,18 @@ body {
 }
 
 #form-container {
-    position: relative;
-    /* Asegura que los elementos absolutamente posicionados dentro de este contenedor se posicionen respecto a este contenedor */
-    height: 792pt;
-    padding: 10pt;
+    width: 1000px;
+    /* height: 792pt; */
+    padding: 20px;
     box-sizing: border-box;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(0, 0, 0);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-    margin-left: 500px;
-    margin-right: 10px;
-    margin-top: 30px;
+    background-color: #FFF;
+    border: 1px solid #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 100px;
+    position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding-bottom: 300px;
-    /* Ajusta este valor según la altura de tu footer-containerDIV para asegurarte de que haya suficiente espacio */
 }
+
 
 .content,
 #content,
@@ -415,20 +412,17 @@ p {
     position: absolute;
     bottom: 0;
     left: 0;
+    padding: 10px;
+    /* Ajusta según sea necesario */
     display: flex;
     flex-wrap: nowrap;
     /* Evita que las secciones bajen al siguiente renglón */
     justify-content: space-between;
+    margin-top: 1px;
     width: 100%;
     /* Asegura que el contenedor tome todo el ancho disponible */
     box-sizing: border-box;
     /* Incluye el padding y border en el ancho total */
-    padding: 10px;
-    /* Ajusta según sea necesario */
-    background-color: #fff;
-    /* Asegura que el fondo sea blanco */
-    border-top: 1px solid #000;
-    /* Opcional: añade un borde superior para el footer */
 }
 
 .firma-section {
@@ -448,6 +442,7 @@ p {
     height: 220px;
     /* Ajusta según sea necesario */
     position: relative;
+
 }
 
 .firma-box-title {
