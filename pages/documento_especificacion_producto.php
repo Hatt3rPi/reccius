@@ -206,14 +206,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
         document.getElementById('download-pdf').addEventListener('click', async function() {
-
             obtenerAlturaElementosYCalcularEspacioDisponible();
             ocultarContenedorPrincipal();
             actualizarContadorPaginas();
             $.notify("Creando PDF", "warn");
+
             // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
             await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
-
 
             var pdf = new jspdf.jsPDF({
                 orientation: 'portrait',
@@ -244,8 +243,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var nombreProducto = document.getElementById('producto').textContent.trim();
             var nombreDocumento = document.getElementById('documento').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con exito", "success");
+            $.notify("PDF generado con éxito", "success");
         });
+
 
         function cargarDatosEspecificacion(id) {
             console.log("A1")
