@@ -440,3 +440,84 @@ p {
     height: 40px;
     /* Ajusta según sea necesario */
 }
+.footer-containerDIV {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 1px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.firma-section {
+    padding: 10px;
+    margin: 5px;
+    flex: 1;
+    max-width: 45%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 220px;
+}
+
+.firma-box-title {
+    font-size: 10px;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    height: 21px;
+    width: 100%;
+}
+
+.firma-boxes {
+    border: 1px solid #000000;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.signature {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7px 0;
+    font-size: 10px;
+    height: 100px;
+    width: 100px;
+}
+
+.date {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 5px;
+    height: 15px;
+    width: 100%;
+}
+
+.bold {
+    font-weight: bold;
+    width: 266px;
+}
+
+.text-bottom {
+    text-align: center;
+    font-size: 10px;
+}
+
+.firma {
+    max-width: 100%;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
