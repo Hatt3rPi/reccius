@@ -212,12 +212,6 @@ td {
     /* Centra el contenedor en el espacio disponible */
 }
 
-.signature img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
-}
 
 
 .bold,
