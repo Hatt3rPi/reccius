@@ -6,7 +6,7 @@ body {
 }
 
 #form-container {
-    width: 612pt;
+    
     height: 792pt;
     padding: 10pt;
     box-sizing: border-box;
@@ -359,6 +359,8 @@ p {
     /* Distribuye el contenido de manera uniforme */
     height: 220px;
     /* Ajusta según sea necesario */
+    position: relative;
+    bottom: -350px;
 }
 
 .firma-box-title {
