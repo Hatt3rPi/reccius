@@ -1,25 +1,41 @@
 body {
-    
     margin: 0;
     padding: 0;
     background-color: #ffffff;
 }
 
 #form-container {
-    width: 612pt;
-    height: 792pt;
-    padding: 10pt;
+    width: 1000px;
+    /* height: 792pt; */
+    padding: 20px;
     box-sizing: border-box;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(0, 0, 0);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-    margin-left: 500px;
-    margin-right: 10px;
+    background-color: #FFF;
+    border: 1px solid #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 100px;
     position: relative;
-    margin-top: 30px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    /* Separa las columnas */
+}
+
+.firma-box {
+    border: 1px solid #000;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-right: 10px;
+    width: 200px;
+    height: 100px;
+    /* Ajusta el ancho para llenar la sección del footer */
+    text-align: center;
+}
+
+/* El resto de estilos permanece igual */
 
 .content, #content, #additionalContent, #mainContainer, #additionalContainer, .form-container, .footer-section, th, td, tr, thead tr {
     margin: 0;
@@ -27,6 +43,7 @@ body {
     border: none;
     background-color: #FFF;
 }
+
 .header, .header-bottom, .table-section, .footer-box, .footer {
     margin: 0;
     padding-top: 1px;
@@ -36,12 +53,14 @@ body {
     border: none;
     background-color: #FFF;
 }
+
 .footer, .additionalfooter {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     max-height: 276pt;
+    overflow: auto;
     display: flex;
     justify-content: center;
 }
@@ -93,7 +112,6 @@ tbody {
     padding-right: 10px;
 }
 
-
 .sub-info, .bold {
     font-size: 9px;
     color: #000;
@@ -115,7 +133,6 @@ th {
     padding: 8px; /* Espaciado dentro de las celdas del encabezado */
     border: none; /* Eliminar bordes de las celdas del encabezado */
 }
-
 
 td {
     text-align: center; /* Alineación del texto para las celdas */
@@ -176,7 +193,6 @@ td {
     object-fit: contain; /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
 }
 
-
 .bold, .signature, p {
     margin: 0;
 }
@@ -219,6 +235,7 @@ p {
 #contenido_main {
     align-items: center;
 }
+
 #contenido_main .table {
     margin-left: auto;
     margin-right: auto;
@@ -263,7 +280,6 @@ p {
     font-size: 70px;
 }
 
-
 .hidden {
     display: none !important; /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
@@ -295,6 +311,7 @@ p {
 #sign-document:hover {
     background-color: #aa0202; /* Color rojo oscuro al pasar el mouse por el botón Firmar Documento */
 }
+
 .button-container button {
     width: 200px; /* Establece un ancho fijo para ambos botones */
     padding: 15px 30px;
@@ -318,6 +335,7 @@ p {
     flex-direction: column;
     align-items: flex-end;
 }
+
 /* Clases específicas para las tablas de análisis FQ y MB */
 #analisisFQ,
 #analisisMB {
@@ -330,116 +348,7 @@ p {
 #analisisMB.hide {
     display: none;
 }
-.footer-containerDIV {
-            
-    display: flex;
-    flex-wrap: nowrap;
-    /* Evita que las secciones bajen al siguiente renglón */
-    justify-content: space-between;
-    margin-top: 1px;
-    width: 100%;
-    /* Asegura que el contenedor tome todo el ancho disponible */
-    box-sizing: border-box;
-    /* Incluye el padding y border en el ancho total */
-}
 
-.firma-section {
-    
-    padding: 10px;
-    margin: 5px;
-    flex: 1;
-    /* Distribuye el espacio equitativamente entre las secciones */
-
-    max-width: 33%;
-    /* Limita el ancho máximo al 32% del contenedor para evitar desbordamiento */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* Distribuye el contenido de manera uniforme */
-    height: 220px;
-    /* Ajusta según sea necesario */
-}
-
-.firma-box-title {
-    
-    font-size: 10px;
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 5px;
-
-    height: 21px;
-    width: 100%;
-    /* Ajusta según sea necesario */
-}
-
-.firma-boxes {
-    border: 1px solid #000000;
-    text-align: center;
-    flex: 1;
-    /* Permite que el contenido crezca para llenar el espacio */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* Centra el contenido verticalmente */
-    height: 100%;
-    width: 100%;
-}
-
-.signature {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 7px 0;
-    font-size: 10px;
-    /* Permite que la firma crezca para llenar el espacio */
-    height: 100px;
-    width: 100px;
-
-    /* Ajusta según sea necesario */
-}
-
-.date {
-    
-    text-align: center;
-    font-size: 10px;
-    margin-top: 5px;
-    height: 15px;
-    width: 100%;
-    /* Ajusta según sea necesario */
-}
-
-.bold {
-    
-    font-weight: bold;
-    width: 266px;
-    
-
-
-}
-
-
-.text-bottom {
-    text-align: center;
-    font-size: 10px;
-
-}
-
-.firma {
-    max-width: 100%;
-}
-
-.date-container {
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    /* Ajusta según sea necesario */
-}
 .footer-containerDIV {
     display: flex;
     flex-wrap: nowrap;
@@ -520,4 +429,192 @@ p {
     justify-content: center;
     align-items: center;
     height: 40px;
+}
+
+#identificacion_muestra th:first-child,
+#identificacion_muestra td:first-child {
+    width: 20%;
+}
+
+#identificacion_muestra th:nth-child(2),
+#identificacion_muestra td:nth-child(2) {
+    width: 40%;
+    padding: 5px;
+}
+
+#identificacion_muestra th:nth-child(4),
+#identificacion_muestra td:nth-child(4) {
+    width: 8% !important;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#identificacion_muestra th:nth-child(6),
+#identificacion_muestra td:nth-child(6) {
+    width: 8% !important;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#identificacion_muestra th:nth-child(8),
+#identificacion_muestra td:nth-child(8) {
+    width: 20%;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+}
+
+#identificacion_muestra {
+    width: 100%;
+}
+
+.formulario {
+    border: 1px solid #000;
+    font-size: 12px;
+}
+
+#muestreo .formulario {
+    font-size: 12px;
+}
+
+.formulario-titulo {
+    border: none;
+    font-size: 12px;
+}
+
+.spacer {
+    border: none;
+    width: 1% !important;
+    padding: 0px !important;
+}
+
+.verificadores {
+    font-size: 8px !important;
+    margin-bottom: 0px !important;
+    padding: 2px 2px !important;
+    /* Ajusta el espacio interno del botón */
+    border-radius: 3px !important;
+    width: 100% !important;
+}
+
+.button-container {
+    position: fixed;
+    gap: 10px;
+    bottom: 15px;
+    right: 15px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.button-container .botones {
+    position: relative;
+    right: 20px;
+    width: 100%;
+    padding: 15px 30px;
+    background-color: #0047b3;
+    color: white;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.resp {
+    background-color: #ffffff;
+}
+
+.verif {
+    background-color: #ffffff;
+}
+
+#muestreo th:first-child,
+#muestreo td:first-child {
+    width: 40%;
+}
+
+#muestreo th:nth-child(2),
+#muestreo td:nth-child(2) {
+    width: 20%;
+}
+
+#muestreo th:nth-child(4),
+#muestreo td:nth-child(4) {
+    width: 8%;
+    text-align: center;
+    align-items: center;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#muestreo th:nth-child(6),
+#muestreo td:nth-child(6) {
+    width: 8%;
+    font-size: 10px;
+    padding: 5px;
+}
+
+#muestreo th:nth-child(8),
+#muestreo td:nth-child(8) {
+    width: 20%;
+    font-size: 10px;
+}
+
+#muestreo,
+#seccion3 {
+    width: 100%;
+    font-size: 12px;
+}
+
+.formulario textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /* Incluye el padding y el border en la altura y anchura total */
+    border: 0px solid #ccc;
+    /* Opcional: Establece un borde para el textarea */
+    padding: 2px;
+    /* Opcional: Añade algo de espacio interior */
+    resize: none;
+    /* Opcional: Evita que el usuario redimensione el textarea */
+}
+
+#seccion3 th:nth-child(5),
+#muestreo td:nth-child(5) {
+    width: 8%;
+}
+
+#seccion3 th:nth-child(6),
+#muestreo td:nth-child(6) {
+    width: 8%;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
+}
+
+#fecha_muestreo {
+    box-sizing: border-box !important;
+    /* Incluye el padding y el border en la altura y anchura total */
+    border: 0px !important;
+}
+
+#fecha_Edicion, #fecha_firma_responsable, #fecha_firma_verificador {
+    margin-top: 0px !important;
+    text-align: center;
+}
+
+ol, ul {
+    padding-left: 0; /* o cualquier otro valor que necesites */
+}
+
+.Subtitulos {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 1px;
 }
