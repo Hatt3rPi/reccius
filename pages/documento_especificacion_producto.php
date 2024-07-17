@@ -717,22 +717,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
 
             const container = document.createElement("div");
-            container.className = "form-container"; // Asigna la clase común a cada contenedor
-
-            // Estilos y configuraciones para el contenedor
-            container.style.height = "792pt";
-            //container.style.width = "722pt"
-            container.style.padding = "10pt";
-            container.style.boxSizing = "border-box";
-            container.style.border = "1px solid rgb(0, 0, 0)";
-            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            //container.style.marginLeft = "-520px";
-            //container.style.marginRight = "-50px";
-            container.style.position = "relative"; // Asegura que los elementos absolutamente posicionados dentro de este contenedor se posicionen respecto a este contenedor
-            //container.style.marginTop = "30px";
-            container.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
-            container.style.paddingBottom = "300px"; // Ajusta este valor según la altura de tu footer-containerDIV para asegurarte de que haya suficiente espacio
-
+            container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
 
             // Clonar y añadir elementos de encabezado y pie de página
             const headerClone = document.querySelector("#header-container").cloneNode(true);
