@@ -30,5 +30,5 @@
     </div>
     <div id="weatherResult"></div>
 </div>
-<script src=".../assets/js/components/clima.js"></script>
+<script src="../assets/js/components/clima.js"></script>
 
