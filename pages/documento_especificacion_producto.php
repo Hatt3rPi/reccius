@@ -762,7 +762,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-            const footerClone = document.querySelector("#footer").cloneNode(true);
+            const footerClone = document.querySelector("#footer-containerDIV").cloneNode(true);
             footerClone.style.marginTop = "5px"; // Reduce el margen superior
             container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
 
