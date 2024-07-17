@@ -9,19 +9,16 @@ function getWeather() {
         .then(response => response.json())
         .then(data => {
             if (data.cod === 200) {
-                const weatherData = `
-                    <h2>Clima en ${data.name}</h2>
-                    <p>Temperatura: ${data.main.temp} °C</p>
-                    <p>Humedad: ${data.main.humidity}%</p>
-                    <p>Descripción: ${data.weather[0].description}</p>
-                `;
-                document.getElementById('weatherResult').innerHTML = weatherData;
+                document.getElementById('temp').innerText = data.main.temp;
+                document.getElementById('humidity').innerText = data.main.humidity;
+                document.getElementById('description').innerText = data.weather[0].description;
+                document.getElementById('wind').innerText = data.wind.speed;
             } else {
-                document.getElementById('weatherResult').innerHTML = `<p>Ciudad no encontrada</p>`;
+                alert('Ciudad no encontrada');
             }
         })
         .catch(error => {
             console.error('Error al obtener el clima:', error);
-            document.getElementById('weatherResult').innerHTML = `<p>Error al obtener el clima</p>`;
+            alert('Error al obtener el clima');
         });
 }

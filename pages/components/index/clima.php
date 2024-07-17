@@ -7,20 +7,20 @@
     </div>
     <div class="attendance-stats">
         <div class="stat">
-            <span class="stat-number">70</span>
-            <span class="stat-label">Present-on time</span>
+            <span class="stat-number" id="temp">70</span>
+            <span class="stat-label">Temperatura (°C)</span>
         </div>
         <div class="stat">
-            <span class="stat-number">20</span>
-            <span class="stat-label">Late</span>
+            <span class="stat-number" id="humidity">20</span>
+            <span class="stat-label">Humedad (%)</span>
         </div>
         <div class="stat">
-            <span class="stat-number">7</span>
-            <span class="stat-label">Absent</span>
+            <span class="stat-number" id="description">7</span>
+            <span class="stat-label">Descripción</span>
         </div>
         <div class="stat">
-            <span class="stat-number">3</span>
-            <span class="stat-label">Leave</span>
+            <span class="stat-number" id="wind">3</span>
+            <span class="stat-label">Viento (m/s)</span>
         </div>
     </div>
     <div>
@@ -28,7 +28,5 @@
         <input type="text" id="city" value="Santiago">
         <button id="getWeatherBtn">Obtener Clima</button>
     </div>
-    <div id="weatherResult"></div>
 </div>
 <script src="../assets/js/components/clima.js"></script>
-
