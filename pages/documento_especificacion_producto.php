@@ -230,7 +230,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
 
                 await html2canvas(containers[i], {
-                    scale: 1
+                    scale: 1,
+                    backgroundColor: '#ffffff' // Asegurar que el fondo sea blanco
                 }).then(canvas => {
                     var imgData = canvas.toDataURL('image/png');
                     var pdfWidth = pdf.internal.pageSize.getWidth();
