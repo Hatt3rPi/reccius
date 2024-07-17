@@ -337,7 +337,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     });
             } else {
                 var contenedor = document.getElementById(contenedorQR);
-                contenedor.innerHTML = '<span  src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;"></span>';
+                contenedor.innerHTML = '<span  src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp" style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;"></span>';
             }
         }
 
