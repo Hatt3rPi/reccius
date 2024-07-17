@@ -720,6 +720,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Estilos y configuraciones para el contenedor
             container.style.height = "792pt";
+            container.style.width = "722pt";
             container.style.padding = "10pt";
             container.style.boxSizing = "border-box";
             container.style.backgroundColor = "rgb(255, 255, 255)";
