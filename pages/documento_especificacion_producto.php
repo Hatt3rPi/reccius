@@ -230,7 +230,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 await html2canvas(containers[i], {
                     scale: 1,
-                    backgroundColor: 'red' // Asegurar que el fondo sea blanco
+                    backgroundColor: 'white' // Asegurar que el fondo sea blanco
                 }).then(canvas => {
                     var imgData = canvas.toDataURL('image/png');
                     var pdfWidth = pdf.internal.pageSize.getWidth();
@@ -724,7 +724,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             container.style.width = "722pt"
             container.style.padding = "10pt";
             container.style.boxSizing = "border-box";
-            container.style.backgroundColor = "red";
             container.style.border = "1px solid rgb(0, 0, 0)";
             container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
             container.style.marginLeft = "500px";
