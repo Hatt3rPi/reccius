@@ -720,17 +720,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Estilos y configuraciones para el contenedor
             container.style.height = "792pt";
-            container.style.width = "722pt";
+            container.style.width = "722pt"
             container.style.padding = "10pt";
             container.style.boxSizing = "border-box";
-            container.style.backgroundColor = "#ffffff";
+            container.style.backgroundColor = "rgb(255, 255, 255)";
             container.style.border = "1px solid rgb(0, 0, 0)";
             container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            container.style.marginLeft = "500px";
+            container.style.marginRight = "10px";
             container.style.position = "relative"; // Asegura que los elementos absolutamente posicionados dentro de este contenedor se posicionen respecto a este contenedor
             container.style.marginTop = "30px";
             container.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
             container.style.paddingBottom = "300px"; // Ajusta este valor según la altura de tu footer-containerDIV para asegurarte de que haya suficiente espacio
-
 
 
             // Clonar y añadir elementos de encabezado y pie de página
