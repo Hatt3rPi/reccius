@@ -725,6 +725,26 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     });
                     break;
                 }
+                case "revisar_acta": {
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': true,
+                            'etapa': '3'
+                        },
+                        success: function(response) {
+                            $('#dynamic-content').html(response);
+                            cargarDatosEspecificacion(id, true, '3');
+                            console.log('ver documento');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+                }
                 case "revisar_acta_liberacion": {
                     $.ajax({
                         url: '../pages/CALIDAD_documento_ActaLiberacion.php',
