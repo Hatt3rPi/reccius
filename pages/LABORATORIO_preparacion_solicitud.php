@@ -920,9 +920,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 
                     var formData = new FormData();
                     formData.append('certificado', blob, 'documento.pdf');
-                    formData.append('type', 'analisis_externo');
-                    formData.append('id_solicitud', idAnalisisExterno); // Usar idAnalisisExterno
-
+                    formData.append('type', 'solicitud');
+                    formData.append('id_solicitud', idAnalisisExterno);
                     return fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
                         body: formData

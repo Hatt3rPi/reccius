@@ -194,16 +194,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             $('#actaMuestreoExiste').text(analisis.url_certificado_acta_de_muestre ? '✅' : '⛔');
                             var acciones = '';
                             if (!analisis.url_certificado_solicitud_analisis_externo) {
-                                acciones += `<button class="btn btn-primary" title="Análisis Externo" type="button" id="${idAnalisisExterno}" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')">
-                                    <i class="fas fa-search"></i> Completar información faltante
+                                acciones += `<button class="btn btn-primary col-6" title="Análisis Externo" type="button" id="${idAnalisisExterno}" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                    <i class="fa-solid fa-file-pdf"></i> Análisis Externo
                                 </button>`;
                             }
                             if (!analisis.url_certificado_acta_de_muestre) {
-                                acciones += `<button class="btn btn-primary" title="Generar Acta de muestreo" id="${idAnalisisExterno}" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')">
-                                    <i class="fas fa-check"></i> Generar Acta de Muestreo
+                                acciones += `<button class="btn btn-primary col-6" title="Acta de muestreo" id="${idAnalisisExterno}" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                    <i class="fa-solid fa-file-pdf"></i> Acta de muestreo
                                 </button>`;
                             }
-                            $('#modalContent').append(' <div class="modal-footer" id="modalFooter">' + acciones + '</div>');
+                            $('#modalContent').append(' <div class="modal-footer row gap-2" id="modalFooter">' + acciones + '</div>');
                             
                         }
                     }
