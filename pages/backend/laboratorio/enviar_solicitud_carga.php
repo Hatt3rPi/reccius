@@ -33,12 +33,19 @@ function ejecutarConsulta($link, $query, $params, $param_types)
 
 // Obtener datos del análisis externo
 $queryAnalisis = "SELECT 
+                    numero_registro, numero_solicitud, fecha_registro, 
+                    solicitado_por, revisado_por, laboratorio,
+                    url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo
+                    FROM calidad_analisis_externo 
+                    WHERE id = ?";
+$analisis = ejecutarConsulta($link, $queryAnalisis, [$id_acta], 'i');
+// Obtener datos del acta de muestreo
+$queryActa = "SELECT 
                     id
                     FROM calidad_acta_muestreo 
                     WHERE id_analisisExterno  = ? 
                     AND estado = 'Vigente'";
-$analisis = ejecutarConsulta($link, $queryAnalisis, [$id_acta], 'i');
-$acta = ejecutarConsulta($link, $queryAnalisis, [$id_acta], 'i');
+$acta = ejecutarConsulta($link, $queryActa, [$id_acta], 'i');
 
 if (isset($analisis['error'])) {
     die(json_encode(['exito' => false, 'mensaje' => $analisis['error']]));
