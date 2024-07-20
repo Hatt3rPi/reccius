@@ -199,7 +199,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </button>`;
                             }
                             if (!analisis.url_certificado_acta_de_muestre) {
-                                acciones += `<button class="btn btn-primary col-6" title="Acta de muestreo" id="${idAnalisisExterno}" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                acciones += `<button class="btn btn-primary col-6" title="Acta de muestreo" id="${idAnalisisExterno}" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Acta de muestreo
                                 </button>`;
                             }
