@@ -97,7 +97,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </form>
         <div class="modal" id="modalInfo">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content" id="modalContent">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Verificación de documentos</h5>
                         <button type="button" class="close" id="closeModal">
@@ -107,8 +107,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="modal-body">
                         <p>Solicitud de análisis externo:<span id="analisisExternoExiste">✅⛔</span> </p>
                         <p>Solicitud acta de muestreo: <span id="actaMuestreoExiste">✅⛔</span> </p>
-                    </div>
-                    <div class="modal-footer" id="modalFooter">
                     </div>
                 </div>
             </div>
@@ -205,7 +203,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     <i class="fas fa-check"></i> Generar Acta de Muestreo
                                 </button>`;
                             }
-                            $('#modalFooter').child('<div>' + acciones + '</div>');
+                            $('#modalContent').append(' <div class="modal-footer" id="modalFooter">' + acciones + '</div>');
                             
                         }
                     }
