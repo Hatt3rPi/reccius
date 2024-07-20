@@ -96,7 +96,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </form>
         <div class="modal" id="modalInfo">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" id="modalContent">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Verificación de documentos</h5>
