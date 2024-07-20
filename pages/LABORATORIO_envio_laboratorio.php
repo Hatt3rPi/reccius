@@ -209,12 +209,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             var acciones = '';
 
                             if (!analisis.url_certificado_solicitud_analisis_externo) {
-                                acciones += `<button class="btn btn-primary col-5" title="Análisis Externo" type="button" id="${idAnalisisExterno}" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                acciones += `<button class="btn btn-primary col-5" 
+                                    type="button" 
+                                    title="Análisis Externo" 
+                                    id="${idAnalisisExterno}"
+                                    name="revisar" 
+                                    onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Análisis Externo
                                 </button>`;
                             }
                             if (!analisis.url_certificado_acta_de_muestreo) {
-                                acciones += `<button class="btn btn-primary col-5" title="Acta de muestreo" id="${idAnalisisExterno}" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                acciones += `<button class="btn btn-primary col-5" 
+                                    type="button" 
+                                    title="Acta de muestreo" 
+                                    id="${idAnalisisExterno}" 
+                                    name="revisar_acta" 
+                                    onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Acta de muestreo
                                 </button>`;
                             }
