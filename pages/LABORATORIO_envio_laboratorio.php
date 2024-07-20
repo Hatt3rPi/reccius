@@ -101,7 +101,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </fieldset>
             <br>
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
-            <div class="button-container">
+            <div id="buttonContainer" class="button-container">
                 <button type="submit" class="botones" id="enviarCorreo">Enviar</button>
             </div>
         </form>
@@ -200,7 +200,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#name_lab').val(analisis.laboratorio ?? '');
                         $('#mail_lab').val(analisis.correoLab ?? '');
 
-
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
                         } else {
@@ -211,7 +210,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             $('#actaMuestreoExiste').text(analisis.url_certificado_acta_de_muestreo ? '✅' : '⛔');
 
                             var acciones = '';
-
+                            var buttonContainer = '';
                             if (!analisis.url_certificado_solicitud_analisis_externo) {
                                 acciones += `<button class="btn btn-primary col-5" 
                                     type="button" 
@@ -221,6 +220,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Análisis Externo
                                 </button>`;
+                                buttonContainer += `<button 
+                                    type="button" 
+                                    class="botones" 
+                                    name="revisar"
+                                    onclick="botones(${idAnalisisExterno}, this.name, 'laboratorio')">Ir a guardar análisis Externo</button>`
                             }
                             if (!analisis.url_certificado_acta_de_muestreo) {
                                 acciones += `<button class="btn btn-primary col-5" 
@@ -231,9 +235,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Acta de muestreo
                                 </button>`;
+                                buttonContainer += `<button 
+                                    type="button" 
+                                    class="botones" 
+                                    name="revisar_acta"
+                                    onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')">Ir a guardar análisis Externo</button>`
                             }
-                            $('#modalContent').append(' <div class="modal-footer row gap-2 px-2 justify-content-center" id="modalFooter">' + acciones + '</div>');
-
+                            $('#modalContent')
+                                .append(' <div class="modal-footer row gap-2 px-2 justify-content-center" id="modalFooter">' + acciones + '</div>');
+                            $('#buttonContainer')
+                                .append(buttonContainer);
                         }
                     }
 
@@ -276,8 +287,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         editorInstance.setData(bodyMail);
                     }
-
-
                 })
                 .catch(error => {
                     console.error('Error:', error);
