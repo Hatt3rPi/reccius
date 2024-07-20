@@ -202,7 +202,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         } else {
                             $('#modalInfo').show();
                             $('#enviarCorreo').hide();
-                            
+
                             $('#analisisExternoExiste').text(analisis.url_certificado_solicitud_analisis_externo ? '✅' : '⛔');
                             $('#actaMuestreoExiste').text(analisis.url_certificado_acta_de_muestreo ? '✅' : '⛔');
 
@@ -229,13 +229,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </button>`;
                             }
                             $('#modalContent').append(' <div class="modal-footer row gap-2 px-2 justify-content-center" id="modalFooter">' + acciones + '</div>');
-                            
+
                         }
                     }
 
                     if (usuarios) {
                         $('#mail_solicitante').val(usuarios[0].correo);
-                        $('#mail_revisor').val(usuarios[1].correo);
+                        usuarios.length > 1 ?
+                            $('#mail_revisor').val(usuarios[1].correo) :
+                            $('#mail_revisor').val(usuarios[0].correo);
                     }
 
                     if (analisis && usuarios) {
@@ -338,11 +340,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
 
             destinatarios.push({
-                        email: $('#name_lab').val(),
-                        nombre: $('#mail_lab').val()
-                    });
-            
-            
+                email: $('#name_lab').val(),
+                nombre: $('#mail_lab').val()
+            });
+
+
 
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
