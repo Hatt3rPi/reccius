@@ -193,8 +193,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#numero_solicitud').val(analisis.numero_solicitud);
                         $('#fecha_registro').val(analisis.fecha_registro);
                         $('#id_analisis_externo').val(idAnalisisExterno);
-                        $('#name_lab').val(analisis.laboratorio | '');
-                        $('#mail_lab').val(analisis.correoLab | '');
+
+                        $('#name_lab').val(analisis.laboratorio ?? '');
+                        $('#mail_lab').val(analisis.correoLab ?? '');
 
 
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
@@ -249,15 +250,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             Adjuntamos la información necesaria para ingresar a análisis:
                             <ul>
                                 <li>
-                                Solicitud de análisis externo: ${analisis.url_certificado_solicitud_analisis_externo}
+                                Solicitud de análisis externo: <a href="${analisis.url_certificado_solicitud_analisis_externo}" target="_blank" >Ver archivo</a> 
                                 </li>
                                 <li>
-                                Solicitud acta de muestreo: ${analisis.url_certificado_acta_de_muestreo}
+                                Solicitud acta de muestreo: <a href="${analisis.url_certificado_acta_de_muestreo}" target="_blank" >Ver archivo</a> 
                                 </li>
                             </ul>
-                            
                             <br/>
-                            PD: El correo fue generado de una casilla automática. favor derivar sus respuestas a ${usuarios[1].nombre} y ${usuarios[0].nombre}.<br/>
+                            PD: El correo fue generado de una casilla automática. favor derivar sus respuestas a ${
+                                usuarios.length > 1 ?
+                                    `${usuarios[0].nombre} (${usuarios[0].correo}) y ${usuarios[1].nombre} (${usuarios[1].correo})` :
+                                    `${usuarios[0].nombre} (${usuarios[0].correo})`}.<br/>
                             Saluda atentamente,<br/>
                             Equipo Reccius
                             `
