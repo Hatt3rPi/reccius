@@ -95,6 +95,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <button type="button" class="botones" id="enviarCorreo">Enviar</button>
             </div>
         </form>
+        <div class="modal" id="modalInfo">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Verificación de documentos</h5>
+                        <button type="button" class="close" id="closeModal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Solicitud de análisis externo:<span id="analisisExternoExiste">✅⛔</span> </p>
+                        <p>Solicitud acta de muestreo: <span id="actaMuestreoExiste">✅⛔</span> </p>
+                    </div>
+                    <div class="modal-footer" id="modalFooter">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
@@ -147,6 +165,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
 
+
         function loadData() {
             fetch('./backend/laboratorio/enviar_solicitud_carga.php?id_acta=' + idAnalisisExterno, {
                     method: 'GET',
@@ -166,6 +185,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#numero_solicitud').val(analisis.numero_solicitud);
                         $('#fecha_registro').val(analisis.fecha_registro);
                         $('#id_analisis_externo').val(idAnalisisExterno);
+
+                        if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
+                            $('#modalInfo').hide();
+                        } else {
+                            $('#modalInfo').show();
+                            $('#enviarCorreo').hide();
+                            
+                            $('#analisisExternoExiste').text(analisis.url_certificado_solicitud_analisis_externo ? '✅' : '⛔');
+                            $('#actaMuestreoExiste').text(analisis.url_certificado_acta_de_muestre ? '✅' : '⛔');
+                            var acciones = '';
+                            if (!analisis.url_certificado_solicitud_analisis_externo) {
+                                acciones += `<button class="btn btn-primary" title="Análisis Externo" type="button" id="${idAnalisisExterno}" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                    <i class="fas fa-search"></i> Completar información faltante
+                                </button>`;
+                            }
+                            if (!analisis.url_certificado_acta_de_muestre) {
+                                acciones += `<button class="btn btn-primary" title="Generar Acta de muestreo" id="${idAnalisisExterno}" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                    <i class="fas fa-check"></i> Generar Acta de Muestreo
+                                </button>`;
+                            }
+                            $('#modalFooter').child('<div>' + acciones + '</div>');
+                            
+                        }
                     }
 
                     if (usuarios) {
@@ -202,6 +244,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                }).finally(() => {
+                    $('#closeModal').on('click', function() {
+                        $('#modalInfo').remove();
+                    })
+
                 });
         }
 
@@ -270,7 +317,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
                 destinatarios: destinatarios,
-                mensaje: $('#editor').val()
+                mensaje: editorInstance.getData()
             };
 
             fetch('./backend/laboratorio/enviar_solicitud_externa.php', {
