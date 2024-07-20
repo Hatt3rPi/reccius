@@ -336,7 +336,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             destinatarioCount = $('#destinatarios-container .destinatario-row').length;
             updateNumberDestinatario();
         }
+        function htmlToPlainText(html) {
+            let tempDiv = document.createElement("div");
+            tempDiv.innerHTML = html;
 
+            tempDiv.querySelectorAll("a").forEach(anchor => {
+                anchor.textContent = `${anchor.textContent} (${anchor.href})`;
+            });
+
+            tempDiv.querySelectorAll("ul").forEach(ul => {
+                ul.outerHTML = ul.innerHTML.replace(/<li>/g, "\n&bull ").replace(/<\/li>/g, "");
+            });
+
+            tempDiv.querySelectorAll("p").forEach(p => {
+                p.outerHTML = `${p.textContent}\n\n`;
+            });
+
+            return tempDiv.textContent || tempDiv.innerText || "";
+        }
         function enviarCorreo() {
 
             $('#destinatarios-container .destinatario-row').each(function() {
@@ -356,15 +373,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
 
 
+            var htmlMessage = editorInstance.getData();
+            var plainTextMessage = htmlToPlainText(htmlMessage);
 
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
                 destinatarios: destinatarios,
-                mensaje: editorInstance.getData()
+                mensaje: htmlMessage,
+                altMesaje: plainTextMessage
             };
             console.log(data);
-            
-            /*
 
             fetch('./backend/laboratorio/enviar_solicitud_externa.php', {
                     method: 'POST',
@@ -383,7 +401,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                }); */
+                }); 
         }
     </script>
 </body>

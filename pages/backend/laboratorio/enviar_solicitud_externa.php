@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($input['id_analisis_externo']) || !empty($input['mensaje'])  || !isset($input['destinatarios']) || !is_array($input['destinatarios'])) {
+if (!isset($input['id_analisis_externo']) || !empty($input['mensaje']) || !empty($input['altMesaje'])  || !isset($input['destinatarios']) || !is_array($input['destinatarios'])) {
     echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes']);
     exit;
 }
@@ -19,6 +19,7 @@ if (!isset($input['id_analisis_externo']) || !empty($input['mensaje'])  || !isse
 $id_analisis_externo = intval($input['id_analisis_externo']);
 $destinatarios = $input['destinatarios'];
 $mensaje = $input['mensaje'];
+$altMesaje = $input['altMesaje'];
 
 
 
@@ -59,6 +60,7 @@ if (empty($url_certificado_acta_de_muestreo) || empty($url_certificado_solicitud
 
 $asunto = "Solicitud de análisis externo";
 $cuerpo = $mensaje;
+$altBody = $altMesaje;
 
 if (enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody)) {
     echo json_encode(['exito' => true, 'mensaje' => 'Correo enviado con éxito']);
