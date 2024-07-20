@@ -102,7 +102,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
             <div class="button-container">
-                <button type="button" class="botones" id="enviarCorreo">Enviar</button>
+                <button type="submit" class="botones" id="enviarCorreo">Enviar</button>
             </div>
         </form>
         <div class="modal" id="modalInfo">
@@ -126,11 +126,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
         var destinatarioCount = 1;
         var editorInstance;
+        var destinatarios = [];
 
         $(document).ready(function() {
-            $('#enviarCorreo').on('click', function() {
-                enviarCorreo();
-            });
 
             $('#add-destinatario').on('click', function() {
                 addDestinatario();
@@ -171,6 +169,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.error(error);
                     });
             });
+            $('#envioCorreoForm').on('submit', function(e) {
+                e.preventDefault();
+                enviarCorreo();
+            })
         });
 
 
@@ -236,6 +238,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
 
                     if (usuarios) {
+                        usuarios.forEach(element => {
+                            destinatarios.push({
+                                email: element.correo,
+                                nombre: element.nombre
+                            })
+                        });
                         $('#mail_solicitante').val(usuarios[0].correo);
                         usuarios.length > 1 ?
                             $('#mail_revisor').val(usuarios[1].correo) :
@@ -330,7 +338,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function enviarCorreo() {
-            var destinatarios = [];
 
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
