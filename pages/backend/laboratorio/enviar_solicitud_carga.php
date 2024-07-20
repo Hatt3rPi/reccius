@@ -60,6 +60,13 @@ if (isset($usuarios['error'])) {
     die(json_encode(['exito' => false, 'mensaje' => $usuarios['error']]));
 }
 
+$correosLaboratorio = [
+    'reccius' => 'correo@reccius.cl',
+    'cequc' => 'correo@cequc.cl',
+    'pharmaisa' => 'correo@pharmaisa.cl',
+];
+$analisis['correoLab'] = $correosLaboratorio[$analisis['laboratorio']];
+
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([

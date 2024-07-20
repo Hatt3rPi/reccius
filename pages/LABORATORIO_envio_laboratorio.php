@@ -60,6 +60,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
+                            <label for="name_lab">Laboratorio:</label>
+                            <input type="text" id="name_lab" name="name_lab" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" required>
+                        </div>
+                        <div class="form-group" style="width: 300px;">
+                            <label for="mail_lab">Correo laboratorio:</label>
+                            <input type="text" id="mail_lab" name="mail_lab" class="form-control mx-0 w-90" placeholder="Correo laboratorio" required>
+                        </div>
+                    </div>
+                    <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                        <div class="form-group" style="width: 300px;">
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
                             <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
                         </div>
@@ -183,6 +193,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#numero_solicitud').val(analisis.numero_solicitud);
                         $('#fecha_registro').val(analisis.fecha_registro);
                         $('#id_analisis_externo').val(idAnalisisExterno);
+                        $('#name_lab').val(analisis.laboratorio | '');
+                        $('#mail_lab').val(analisis.correoLab | '');
+
 
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
@@ -191,19 +204,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             $('#enviarCorreo').hide();
                             
                             $('#analisisExternoExiste').text(analisis.url_certificado_solicitud_analisis_externo ? '✅' : '⛔');
-                            $('#actaMuestreoExiste').text(analisis.url_certificado_acta_de_muestre ? '✅' : '⛔');
+                            $('#actaMuestreoExiste').text(analisis.url_certificado_acta_de_muestreo ? '✅' : '⛔');
+
                             var acciones = '';
+
                             if (!analisis.url_certificado_solicitud_analisis_externo) {
-                                acciones += `<button class="btn btn-primary col-6" title="Análisis Externo" type="button" id="${idAnalisisExterno}" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')">
+                                acciones += `<button class="btn btn-primary col-5" title="Análisis Externo" type="button" id="${idAnalisisExterno}" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Análisis Externo
                                 </button>`;
                             }
-                            if (!analisis.url_certificado_acta_de_muestre) {
-                                acciones += `<button class="btn btn-primary col-6" title="Acta de muestreo" id="${idAnalisisExterno}" name="resultados_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')">
+                            if (!analisis.url_certificado_acta_de_muestreo) {
+                                acciones += `<button class="btn btn-primary col-5" title="Acta de muestreo" id="${idAnalisisExterno}" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Acta de muestreo
                                 </button>`;
                             }
-                            $('#modalContent').append(' <div class="modal-footer row gap-2" id="modalFooter">' + acciones + '</div>');
+                            $('#modalContent').append(' <div class="modal-footer row gap-2 px-2 justify-content-center" id="modalFooter">' + acciones + '</div>');
                             
                         }
                     }
@@ -312,11 +327,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
 
+            destinatarios.push({
+                        email: $('#name_lab').val(),
+                        nombre: $('#mail_lab').val()
+                    });
+            
+            
+
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
                 destinatarios: destinatarios,
                 mensaje: editorInstance.getData()
             };
+            /*
+           
 
             fetch('./backend/laboratorio/enviar_solicitud_externa.php', {
                     method: 'POST',
@@ -335,7 +359,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                });
+                }); */
         }
     </script>
 </body>
