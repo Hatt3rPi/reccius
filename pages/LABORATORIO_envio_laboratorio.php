@@ -184,6 +184,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
+                    var acta = data.acta;
                     var analisis = data.analisis;
                     var usuarios = data.usuarios;
 
@@ -223,7 +224,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 acciones += `<button class="btn btn-primary col-5" 
                                     type="button" 
                                     title="Acta de muestreo" 
-                                    id="${analisis.acta? analisis.acta[0].id : '' }" 
+                                    id="${ acta ? acta[0].id : '' }" 
                                     name="revisar_acta" 
                                     onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Acta de muestreo
