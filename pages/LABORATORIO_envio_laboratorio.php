@@ -355,8 +355,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 destinatarios: destinatarios,
                 mensaje: editorInstance.getData()
             };
+            console.log(data);
+            
             /*
-           
 
             fetch('./backend/laboratorio/enviar_solicitud_externa.php', {
                     method: 'POST',
