@@ -71,6 +71,11 @@ $cuerpo = $mensaje;
 $altBody = $altMesaje;
 
 if (enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody)) {
+    $stmt = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='Pendiente ingreso resultados laboratorio' WHERE id=?");
+    mysqli_stmt_bind_param($stmt, "i", $id_analisis_externo );
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
     echo json_encode(['exito' => true, 'mensaje' => 'Correo enviado con éxito']);
 } else {
     http_response_code(500);
