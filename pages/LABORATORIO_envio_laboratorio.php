@@ -102,7 +102,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
             <div id="buttonContainer" class="button-container">
-                <button type="submit" class="botones" id="enviarCorreo">Enviar</button>
+                
             </div>
         </form>
         <div class="modal" id="modalInfo">
@@ -202,9 +202,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
+                            $('#buttonContainer')
+                            .append('<button type="submit" class="botones" id="enviarCorreo">Enviar</button>');
+
                         } else {
                             $('#modalInfo').show();
-                            $('#enviarCorreo').hide();
 
                             $('#analisisExternoExiste').text(analisis.url_certificado_solicitud_analisis_externo ? '✅' : '⛔');
                             $('#actaMuestreoExiste').text(analisis.url_certificado_acta_de_muestreo ? '✅' : '⛔');
@@ -377,8 +379,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
 
             destinatarios.push({
-                email: $('#name_lab').val(),
-                nombre: $('#mail_lab').val()
+                email: $('#mail_lab').val(),
+                nombre: $('#name_lab').val()
             });
 
 
