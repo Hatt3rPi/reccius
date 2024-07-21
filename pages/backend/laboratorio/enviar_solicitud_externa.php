@@ -11,7 +11,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($input['id_analisis_externo']) || !empty($input['mensaje']) || !empty($input['altMesaje'])  || !isset($input['destinatarios']) || !is_array($input['destinatarios'])) {
+if (
+        !isset($input['id_analisis_externo']) || 
+        empty($input['mensaje']) || 
+        empty($input['altMesaje'])  || 
+        !isset($input['destinatarios']) || 
+        !is_array($input['destinatarios']) || 
+        empty($input['destinatarios'])
+    ) 
+{
     echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes', 'input' => $input]);
     exit;
 }
