@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
+
 <!-- Otros contenidos -->
 <div class="calendar-container">
     <div class="calendar-header">
