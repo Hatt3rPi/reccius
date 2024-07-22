@@ -96,7 +96,7 @@
             </tbody>
         </table>
     </div>
-    <script>
+    <script async>
         console.log("JavaScript is running!");
 
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -123,6 +123,7 @@
         });
 
         function renderCalendar(month, year) {
+            console.log("Executing renderCalendar function");
             const monthYear = document.getElementById('monthYear');
             monthYear.textContent = `${monthNames[month]} ${year}`;
 
