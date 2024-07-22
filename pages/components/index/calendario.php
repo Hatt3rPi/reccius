@@ -76,7 +76,7 @@
     <div class="calendar-container">
         <div class="calendar-header">
             <button id="prevMonth">Prev</button>
-            <h2 id="monthYear"></h2>
+            <h2 id="monthYear">Month Year</h2>
             <button id="nextMonth">Next</button>
         </div>
         <table id="calendar">
@@ -97,6 +97,8 @@
         </table>
     </div>
     <script>
+        console.log("JavaScript is running!");
+
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
         let currentMonth = new Date().getMonth();
