@@ -1,5 +1,10 @@
+console.log("JavaScript is running!");
+
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
+const daysInMonth = (month, year) => {
+    console.log(`Calculating days in month for month: ${month}, year: ${year}`);
+    return new Date(year, month + 1, 0).getDate();
+};
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 
@@ -22,10 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderCalendar(month, year) {
+    console.log("Executing renderCalendar function");
     const monthYear = document.getElementById('monthYear');
     monthYear.textContent = `${monthNames[month]} ${year}`;
 
     const calendarBody = document.getElementById('calendarBody');
+    console.log("Clearing calendar body");
     calendarBody.innerHTML = '';
 
     const firstDay = new Date(year, month).getDay();
