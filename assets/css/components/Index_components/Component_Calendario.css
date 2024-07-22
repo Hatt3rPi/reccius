@@ -12,62 +12,34 @@ h2 {
 }
 
 #calendar {
-    max-width: 900px;
+    width: 100%;
+    border-collapse: collapse;
     margin: 0 auto;
-    padding: 0 10px;
 }
 
-.fc .fc-toolbar {
-    margin-bottom: 20px;
-}
-
-.fc .fc-button {
+#calendar thead th {
     background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: bold;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-}
-
-.fc .fc-button:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.fc .fc-button-group > .fc-button:not(:last-child) {
-    margin-right: 5px;
-}
-
-.fc-daygrid-day-number {
-    color: #333;
-    font-weight: bold;
-}
-
-.fc-daygrid-day-top {
-    justify-content: center;
-    align-items: center;
-}
-
-.fc td, .fc th {
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
     border: 1px solid #dee2e6;
 }
 
-.fc .fc-daygrid-day {
+#calendar tbody td {
+    width: 14.28%;
+    height: 100px;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid #dee2e6;
     background-color: #ffffff;
 }
 
-.fc .fc-daygrid-day:hover {
+#calendar tbody td:hover {
     background-color: #f1f1f1;
 }
 
-.fc .fc-daygrid-day.fc-day-today {
+#calendar tbody td.fc-day-today {
     background-color: #007bff;
     color: white;
+    font-weight: bold;
 }
