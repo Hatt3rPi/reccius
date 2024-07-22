@@ -282,6 +282,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             </div>
         </main>
     </div>
+    <script src="../assets/js/components/calendario.js"></script>
     <script src="../assets/js/features_customware.js"></script>
     <script src="../assets/js/scripts_index.js?<?php echo time(); ?>"></script>
     <script src="../assets/js/botones.js"></script>
