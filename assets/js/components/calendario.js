@@ -7,8 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM fully loaded and parsed");
     renderCalendar(currentMonth, currentYear);
 
-    document.getElementById('prevMonth').addEventListener('click', () => changeMonth(-1));
-    document.getElementById('nextMonth').addEventListener('click', () => changeMonth(1));
+    const prevButton = document.getElementById('prevMonth');
+    const nextButton = document.getElementById('nextMonth');
+
+    console.log("Adding event listeners to buttons");
+    prevButton.addEventListener('click', () => {
+        console.log("Prev button clicked");
+        changeMonth(-1);
+    });
+    nextButton.addEventListener('click', () => {
+        console.log("Next button clicked");
+        changeMonth(1);
+    });
 });
 
 function renderCalendar(month, year) {
@@ -28,6 +38,7 @@ function renderCalendar(month, year) {
     let date = 1;
     for (let i = 0; i < 6; i++) {
         const row = document.createElement('tr');
+        console.log(`Creating row ${i}`);
 
         for (let j = 0; j < 7; j++) {
             const cell = document.createElement('td');
