@@ -33,9 +33,8 @@
         monthYear.textContent = `${monthNames[month]} ${year}`;
 
         const calendarBody = document.getElementById('calendarBody');
-        console.log("Clearing calendar body");
-        calendarBody.innerHTML = '';
-
+        const cells = calendarBody.getElementsByTagName('td');
+        
         const firstDay = new Date(year, month).getDay();
         const totalDays = daysInMonth(month, year);
 
@@ -44,28 +43,17 @@
         console.log(`Total days in the month: ${totalDays}`);
 
         let date = 1;
-        for (let i = 0; i < 6; i++) {
-            const row = document.createElement('tr');
-            console.log(`Creating row ${i}`);
+        for (let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
+            cell.textContent = '';  // Clear previous content
 
-            for (let j = 0; j < 7; j++) {
-                const cell = document.createElement('td');
-                if (i === 0 && j < firstDay) {
-                    cell.textContent = '';
-                    console.log(`Row ${i} Col ${j}: Empty`);
-                } else if (date > totalDays) {
-                    cell.textContent = '';
-                    console.log(`Row ${i} Col ${j}: Empty`);
-                } else {
-                    cell.textContent = date;
-                    console.log(`Row ${i} Col ${j}: ${date}`);
-                    date++;
-                }
-                row.appendChild(cell);
+            if (i >= firstDay && date <= totalDays) {
+                cell.textContent = date;
+                console.log(`Cell ${i}: ${date}`);
+                date++;
+            } else {
+                console.log(`Cell ${i}: Empty`);
             }
-
-            calendarBody.appendChild(row);
-            console.log(`Row ${i} added to calendar`);
         }
     }
 
