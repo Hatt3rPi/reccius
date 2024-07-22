@@ -5,6 +5,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 h2 {
     font-size: 24px;
     color: #333;
@@ -42,4 +49,17 @@ h2 {
     background-color: #007bff;
     color: white;
     font-weight: bold;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
