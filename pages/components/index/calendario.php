@@ -1,77 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calendar</title>
-    <style>
-        .calendar-container {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-size: 24px;
-            color: #333;
-            text-align: center;
-        }
-
-        #calendar {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-
-        #calendar thead th {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #dee2e6;
-        }
-
-        #calendar tbody td {
-            width: 14.28%;
-            height: 100px;
-            text-align: center;
-            vertical-align: top;
-            border: 1px solid #dee2e6;
-            background-color: #ffffff;
-        }
-
-        #calendar tbody td:hover {
-            background-color: #f1f1f1;
-        }
-
-        #calendar tbody td.fc-day-today {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Simple Calendar Test</title>
 </head>
+
 <body>
     <div class="calendar-container">
         <div class="calendar-header">
@@ -131,6 +66,7 @@
             monthYear.textContent = `${monthNames[month]} ${year}`;
 
             const calendarBody = document.getElementById('calendarBody');
+            console.log("Clearing calendar body");
             calendarBody.innerHTML = '';
 
             const firstDay = new Date(year, month).getDay();
@@ -147,8 +83,17 @@
 
                 for (let j = 0; j < 7; j++) {
                     const cell = document.createElement('td');
-                    cell.textContent = `Row ${i} Col ${j}`;
-                    console.log(`Adding cell: Row ${i} Col ${j}`);
+                    if (i === 0 && j < firstDay) {
+                        cell.textContent = '';
+                        console.log(`Row ${i} Col ${j}: Empty`);
+                    } else if (date > totalDays) {
+                        cell.textContent = '';
+                        console.log(`Row ${i} Col ${j}: Empty`);
+                    } else {
+                        cell.textContent = date;
+                        console.log(`Row ${i} Col ${j}: ${date}`);
+                        date++;
+                    }
                     row.appendChild(cell);
                 }
 
@@ -171,4 +116,5 @@
         }
     </script>
 </body>
+
 </html>
