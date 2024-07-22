@@ -25,7 +25,6 @@
             <div class="grid-item calendario">
                 <?php include 'components/index/calendario.php'; ?>
             </div>
-            <script src="../assets/js/components/calendario.js"></script>
         </div>
         <div class="row">
             <div class="col-md-12 mt-5">

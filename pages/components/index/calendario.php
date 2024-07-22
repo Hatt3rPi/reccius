@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Calendar</title>
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
 </head>
-
 <body>
     <div class="calendar-container">
         <div class="calendar-header">
@@ -32,7 +30,6 @@
             </tbody>
         </table>
     </div>
-
+    <script src="../assets/js/components/calendario.js"></script>
 </body>
-
 </html>
