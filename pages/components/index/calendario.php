@@ -96,11 +96,14 @@
             </tbody>
         </table>
     </div>
-    <script async>
+    <script>
         console.log("JavaScript is running!");
 
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
+        const daysInMonth = (month, year) => {
+            console.log(`Calculating days in month for month: ${month}, year: ${year}`);
+            return new Date(year, month + 1, 0).getDate();
+        };
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
 
@@ -144,17 +147,8 @@
 
                 for (let j = 0; j < 7; j++) {
                     const cell = document.createElement('td');
-                    if (i === 0 && j < firstDay) {
-                        cell.textContent = '';
-                        console.log(`Row ${i} Col ${j}: Empty`);
-                    } else if (date > totalDays) {
-                        cell.textContent = '';
-                        console.log(`Row ${i} Col ${j}: Empty`);
-                    } else {
-                        cell.textContent = date;
-                        console.log(`Row ${i} Col ${j}: ${date}`);
-                        date++;
-                    }
+                    cell.textContent = `Row ${i} Col ${j}`;
+                    console.log(`Adding cell: Row ${i} Col ${j}`);
                     row.appendChild(cell);
                 }
 
