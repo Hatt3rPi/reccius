@@ -8,7 +8,7 @@
     <title>Reporte de Productos</title>
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
-    <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
+    <!--<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">-->
 
 </head>
 
