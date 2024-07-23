@@ -40,8 +40,8 @@ function renderCalendar(month, year) {
 
                 // Destacar el día actual en verde
                 if (date === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
-                    cell.style.backgroundColor = 'green';
-                    cell.style.color = 'white';
+                    cell.style.backgroundColor = '#e9f5ff';
+                    cell.style.color = 'black';
                 }
 
                 date++;
