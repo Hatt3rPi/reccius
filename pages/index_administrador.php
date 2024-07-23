@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
-    <script src="../assets/js/components/calendario.js"></script>
+    
 
 </head>
 
@@ -329,6 +329,7 @@
 
         });
     </script>
+    <script src="../assets/js/components/calendario.js"></script>
 </body>
 
 </html>
