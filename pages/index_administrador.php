@@ -329,7 +329,6 @@
 
         });
     </script>
-    <script src="../assets/js/components/calendario.js"></script>
 </body>
 
 </html>

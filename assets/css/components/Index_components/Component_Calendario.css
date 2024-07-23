@@ -63,3 +63,10 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* Estilo para el día actual */
+#calendar tbody td.today {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}

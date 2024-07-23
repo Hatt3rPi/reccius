@@ -1,9 +1,14 @@
-const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
+const today = new Date();
 
 const prevButton = document.getElementById('prevMonth');
 const nextButton = document.getElementById('nextMonth');
+
+prevButton.textContent = "Anterior";
+nextButton.textContent = "Siguiente";
 
 prevButton.addEventListener('click', () => changeMonth(-1));
 nextButton.addEventListener('click', () => changeMonth(1));
@@ -32,6 +37,13 @@ function renderCalendar(month, year) {
                 break;
             } else {
                 cell.textContent = date;
+
+                // Destacar el día actual en verde
+                if (date === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    cell.style.backgroundColor = 'green';
+                    cell.style.color = 'white';
+                }
+
                 date++;
             }
             row.appendChild(cell);
