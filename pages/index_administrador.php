@@ -26,7 +26,7 @@
             <div class="grid-item calendario">
                 <?php include 'components/index/calendario.php'; ?>
             </div>
-            <div class="grid-item cartas">
+            <div>
             <?php include 'components/index/cartas.php'; ?>
         </div>
         </div>
