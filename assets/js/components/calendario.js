@@ -34,7 +34,7 @@
 
         const calendarBody = document.getElementById('calendarBody');
         const cells = calendarBody.getElementsByTagName('td');
-        
+
         const firstDay = new Date(year, month).getDay();
         const totalDays = daysInMonth(month, year);
 

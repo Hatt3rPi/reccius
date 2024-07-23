@@ -15,7 +15,6 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,27 +105,20 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
 <body class="position-relative">
     <header>
-
         <div class="header_estatico">
-
             <div class="logo-title-container">
                 <button id="toggle-sidebar-btn" class="buttonreset togglesibar"><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24" height="24"></button>
                 <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://customware.cl/reccius/pages/index.php" data-breadcrumb="Home > Data > Trazabilidad" class="logo" />
             </div>
-
-
-
             <div id="notificaciones" name="notificaciones" class="notifications" data-breadcrumb="Home > Notificaciones > Listado de Tareas">
                 <div class="notification_container">
                     <i class="fas fa-bell"></i>
                     <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
                 </div>
             </div>
-
             <div class="user-info">
                 <img src="../assets/images/perfil.png" alt="Foto de perfil" class="foto-perfil">
                 <div class="dropdown" <?php echo $firma_no_ingresada ? 'data-toggle="popover" data-html="true" title="Firma no ingresada <span class=\'close\'>&times;</span>" data-content="Favor adjuntar firma para poder firmar sus documentos cuando corresponda." data-trigger="manual"' : ''; ?>>
-
                     <button class="dropbtn">
                         <span class="username">usuario</span><br>
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
@@ -139,7 +131,6 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <img src="../assets/images/configuraciones.svg" alt="Foto de perfil" class="foto-config">
             </div>
         </div>
-
     </header>
     <!-- Breadcrumb que actuará como barra de navegación -->
     <nav aria-label="breadcrumb" class="breadcrumb-container">
@@ -148,7 +139,6 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             <li class="breadcrumb-item">Primer Nodo</li>
             <li class="breadcrumb-item">Segundo Nodo</li>
         </ol>
-
     </nav>
     <div class="container_fas">
         <aside class="sidebar c-scroll">
@@ -162,13 +152,12 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral">
-                        <spam>
+                        <span>
                             <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
-                        </spam> Usuarios y Roles
+                        </span> Usuarios y Roles
                     </a>
                     <div class="smenu">
                         <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
-
                             <span>
                                 <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
@@ -183,12 +172,11 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                     </div>
                 </li>
                 <li class="title">Calidad</li>
-
                 <li class="item" id="Especificaciones">
                     <a href="#Especificaciones" class="btn_lateral">
-                        <spam>
+                        <span>
                             <img src="../assets/images/especificaciones.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
-                        </spam> Especificaciones
+                        </span> Especificaciones
                     </a>
                     <div class="smenu">
                         <a id="especificacion_producto" href="#" data-breadcrumb="Home > Especificaciones > Crear especificaciones de producto" class="con-borde-inferior">
@@ -204,7 +192,6 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                             Listado de especificaciones de producto
                         </a>
                     </div>
-
                 </li>
                 <li class="item" id="Solicitudes_de_Analisi">
                     <a href="#Solicitudes_de_Analisi" class="btn_lateral">
@@ -214,7 +201,6 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-
                         <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
                             <span>
                                 <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
@@ -227,7 +213,6 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                             </span>
                             Listado de Actas de Muestreo
                         </a>
-
                     </div>
                 </li>
                 <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Calidad > Listado de productos disponibles">
@@ -236,9 +221,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                     </span>
                     Productos en cuarentena y liberados
                 </a>
-
                 <li class="title">Recetario magistral</li>
-
                 <li class="item" id="cotizador">
                     <a href="#Cotizador" class="btn_lateral">
                         <span>
@@ -261,13 +244,10 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                         </a>
                     </div>
                 </li>
-
             </ul>
         </aside>
-
         <main class="content">
             <div id="dynamic-content">
-
                 <!-- El contenido se cargará dinámicamente aquí -->
             </div>
             <div class="text-center" id="loading-spinner" style="display: none;">
@@ -277,13 +257,12 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             </div>
         </main>
     </div>
-    
     <script src="../assets/js/features_customware.js"></script>
     <script src="../assets/js/scripts_index.js?<?php echo time(); ?>"></script>
     <script src="../assets/js/botones.js"></script>
 </body>
-
 </html>
+
 <script>
     $(document).ready(function() {
         $('#dynamic-content').load('index_administrador.php');
@@ -417,6 +396,5 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         }
-
     });
 </script>
