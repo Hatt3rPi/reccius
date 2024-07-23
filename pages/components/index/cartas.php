@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Cartas.css">
 
+<!-- components/index/cartas.php -->
 <div class="row backgroundrow">
     <div class="col-md-3">
         <div class="card card-custom card-blue">
@@ -35,4 +36,3 @@
         </div>
     </div>
 </div>
-<script src="scripts.js"></script>

@@ -1,3 +1,4 @@
+/* ../assets/css/components/Index_components/Component_Cartas.css */
 .row {
     display: flex;
     margin: 0 -15px;
@@ -37,16 +38,3 @@
 .card-custom.card-green { background-color: #28a745; color: #fff; }
 .card-custom.card-orange { background-color: #fd7e14; color: #fff; }
 .card-custom.card-red { background-color: #dc3545; color: #fff; }
-
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
