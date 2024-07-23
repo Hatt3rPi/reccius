@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/index_administrador.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Tarea.css">
     <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Calendario.css">
-    
+
 
 </head>
 
@@ -26,6 +26,9 @@
             <div class="grid-item calendario">
                 <?php include 'components/index/calendario.php'; ?>
             </div>
+        </div>
+        <div>
+            <?php include 'components/index/cartas.php'; ?>
         </div>
         <div class="row">
             <div class="col-md-12 mt-5">
