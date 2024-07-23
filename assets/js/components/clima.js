@@ -1,53 +1,89 @@
-const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
+// Llamar a la función updateDate para establecer la fecha actual al cargar la página
+updateDate();
 
-const prevButton = document.getElementById('prevMonth');
-const nextButton = document.getElementById('nextMonth');
+document.getElementById('getWeatherBtn').addEventListener('click', getWeather);
 
-prevButton.addEventListener('click', () => changeMonth(-1));
-nextButton.addEventListener('click', () => changeMonth(1));
+function updateDate() {
+    const dateElement = document.getElementById('weather-date');
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = now.toLocaleDateString(undefined, options);
+    dateElement.innerText = formattedDate;
+}
 
-renderCalendar(currentMonth, currentYear);
+function getWeather() {
+    const city = document.getElementById('city').value;
+    const apiKey = '0feabf126fec2094c8ad50be035553ef';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-function renderCalendar(month, year) {
-    const monthYear = document.getElementById('monthYear');
-    monthYear.textContent = `${monthNames[month]} ${year}`;
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cod === 200) {
+                const weatherEmojis = {
+                    "clear sky": "☀️",
+                    "few clouds": "🌤️",
+                    "scattered clouds": "🌥️",
+                    "broken clouds": "☁️",
+                    "overcast clouds": "☁️",
+                    "light rain": "🌦️",
+                    "moderate rain": "🌧️",
+                    "heavy intensity rain": "🌧️",
+                    "very heavy rain": "🌧️",
+                    "extreme rain": "🌧️",
+                    "freezing rain": "🌧️❄️",
+                    "light intensity shower rain": "🌦️",
+                    "shower rain": "🌧️",
+                    "heavy intensity shower rain": "🌧️",
+                    "ragged shower rain": "🌧️",
+                    "light snow": "🌨️",
+                    "snow": "🌨️",
+                    "heavy snow": "❄️",
+                    "sleet": "🌨️",
+                    "light shower sleet": "🌨️",
+                    "shower sleet": "🌨️",
+                    "light rain and snow": "🌨️🌧️",
+                    "rain and snow": "🌨️🌧️",
+                    "light shower snow": "🌨️",
+                    "shower snow": "🌨️",
+                    "heavy shower snow": "❄️",
+                    "mist": "🌫️",
+                    "smoke": "🌫️",
+                    "haze": "🌫️",
+                    "sand/dust whirls": "🌫️",
+                    "fog": "🌫️",
+                    "sand": "🌫️",
+                    "dust": "🌫️",
+                    "volcanic ash": "🌋",
+                    "squalls": "🌬️",
+                    "tornado": "🌪️",
+                    "drizzle": "🌦️",
+                    "light intensity drizzle": "🌦️",
+                    "heavy intensity drizzle": "🌧️",
+                    "light intensity drizzle rain": "🌦️",
+                    "drizzle rain": "🌦️",
+                    "heavy intensity drizzle rain": "🌧️",
+                    "shower rain and drizzle": "🌧️",
+                    "heavy shower rain and drizzle": "🌧️",
+                    "shower drizzle": "🌦️"
+                };
 
-    const calendarBody = document.getElementById('calendarBody');
-    calendarBody.innerHTML = '';  // Clear previous content
+                const description = data.weather[0].description;
+                const emoji = weatherEmojis[description.toLowerCase()] || "❓";
 
-    const firstDay = new Date(year, month).getDay();
-    const totalDays = new Date(year, month + 1, 0).getDate();
-
-    let date = 1;
-    for (let i = 0; i < 6; i++) {
-        const row = document.createElement('tr');
-
-        for (let j = 0; j < 7; j++) {
-            const cell = document.createElement('td');
-            if (i === 0 && j < firstDay) {
-                cell.textContent = '';
-            } else if (date > totalDays) {
-                break;
+                document.getElementById('temp').innerText = `${data.main.temp} °C`;
+                document.getElementById('humidity').innerText = `${data.main.humidity} %`;
+                document.getElementById('description').innerText = emoji;
+                document.getElementById('wind').innerText = `${data.wind.speed} m/s`;
             } else {
-                cell.textContent = date;
-                date++;
+                alert('Ciudad no encontrada');
             }
-            row.appendChild(cell);
-        }
-        calendarBody.appendChild(row);
-    }
+        })
+        .catch(error => {
+            console.error('Error al obtener el clima:', error);
+            alert('Error al obtener el clima');
+        });
 }
 
-function changeMonth(step) {
-    currentMonth += step;
-    if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-    } else if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-    }
-    renderCalendar(currentMonth, currentYear);
-}
+// Llamar a la función getWeather para obtener el clima al cargar la página
+getWeather();
