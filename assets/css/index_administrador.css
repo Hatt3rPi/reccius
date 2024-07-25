@@ -114,6 +114,7 @@ body {
     border-radius: 8px;
     box-shadow: 6px 8px 10px rgb(15 0 255 / 10%);
     padding: 20px;
+    overflow: hidden;
 }
 
 .clima {
@@ -165,12 +166,17 @@ body {
     grid-column: 2 / 3;
     grid-row: 5 / 8;
 }
+
 .grafo1-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    max-height: 400px;
+    /* Ajusta esta altura según tus necesidades */
+    overflow: hidden;
+    /* Esto evitará que el contenido se desborde */
 }
 
 .grafo1-container h2 {
@@ -182,7 +188,8 @@ body {
 
 #pieChart {
     max-width: 100%;
-    height: 300px; /* Ajusta la altura según sea necesario */
+    height: 300px;
+    /* Ajusta la altura según sea necesario */
 }
 
 .grafo2-container {
@@ -194,5 +201,6 @@ body {
 
 #barChart {
     max-width: 100%;
-    height: 300px; /* Ajusta la altura según sea necesario */
+    height: 300px;
+    /* Ajusta la altura según sea necesario */
 }
