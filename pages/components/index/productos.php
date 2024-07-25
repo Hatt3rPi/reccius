@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Productos.css">
 <div class="grafo2-container">
     <canvas id="barChart"></canvas>
 </div>

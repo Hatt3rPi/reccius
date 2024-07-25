@@ -1,7 +1,8 @@
+<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Laboratorios.css">
 <div class="grafo1-container">
+    <h2>Laboratorios</h2>
     <canvas id="pieChart"></canvas>
 </div>
-
 
 <script>
     var ctx = document.getElementById('pieChart').getContext('2d');
