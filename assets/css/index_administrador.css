@@ -188,7 +188,7 @@ body {
 
 #pieChart {
     max-width: 100%;
-    height: 300px;
+    max-height: 100%;
     /* Ajusta la altura según sea necesario */
 }
 
@@ -201,6 +201,6 @@ body {
 
 #barChart {
     max-width: 100%;
-    height: 300px;
+    max-height: 100%;
     /* Ajusta la altura según sea necesario */
 }
