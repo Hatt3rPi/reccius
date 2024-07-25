@@ -30,7 +30,7 @@
                 <?php include 'components/index/cartas.php'; ?>
             </div>
             <div class="grid-item grafo1">
-                <h2>Clima</h2>
+            <h2 >DISPONIBILIDAD DE PRODUCTOS</h2>    
                 <?php include 'components/index/laboratorios.php'; ?>
             </div>
             <div class="grid-item grafo2">
