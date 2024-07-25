@@ -11,7 +11,6 @@ body {
     padding: 25px;
     box-shadow: 20px 19px 20px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    
 }
 
 .content {
@@ -102,10 +101,11 @@ body {
     color: #333;
     font-weight: bold;
 }
+
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, auto);
     gap: 20px;
 }
 
@@ -113,6 +113,7 @@ body {
     background: #fff;
     border-radius: 8px;
     box-shadow: 6px 8px 10px rgb(15 0 255 / 10%);
+    padding: 20px;
 }
 
 .clima {
@@ -128,4 +129,39 @@ body {
 .calendario {
     grid-column: 2 / 3;
     grid-row: 1 / 3;
+}
+
+.cartas {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
+
+.grafo1 {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+}
+
+.grafo2 {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+}
+
+.clas1 {
+    grid-column: 1 / 2;
+    grid-row: 5 / 6;
+}
+
+.clas2 {
+    grid-column: 1 / 2;
+    grid-row: 6 / 7;
+}
+
+.clas3 {
+    grid-column: 1 / 2;
+    grid-row: 7 / 8;
+}
+
+.clas4 {
+    grid-column: 2 / 3;
+    grid-row: 5 / 8;
 }

@@ -26,11 +26,11 @@
             <div class="grid-item calendario">
                 <?php include 'components/index/calendario.php'; ?>
             </div>
-            <div>
-            <?php include 'components/index/cartas.php'; ?>
+            <div class="grid-item cartas">
+                <?php include 'components/index/cartas.php'; ?>
+            </div>
         </div>
-        </div>
-        
+
         <div class="row">
             <div class="col-md-12 mt-5">
                 <h2 class="section-title">DISPONIBILIDAD DE PRODUCTOS</h2>
