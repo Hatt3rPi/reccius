@@ -133,7 +133,7 @@ body {
 
 .zona-control {
     grid-column: 1 / 3;
-    grid-row: 5;
+    grid-row: 8;
 }
 
 .clima {
@@ -168,7 +168,7 @@ body {
 
 .clas1 {
     grid-column: 1 / 2;
-    grid-row: 7 / 8;
+    grid-row: 9;
 }
 
 .clas2 {

@@ -45,6 +45,7 @@
                 ZONA DE CONTROL
             </div>
             <div class="grid-item clas1">
+            <h2>Estados: Especificaciones</h2>
                 <?php include 'components/index/especificaciones.php'; ?>
             </div>
 
