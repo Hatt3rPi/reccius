@@ -29,6 +29,7 @@
             <div class="grid-item cartas">
                 <?php include 'components/index/cartas.php'; ?>
             </div>
+            <div class="section-title">DISPONIBILIDAD DE PRODUCTOS</div>
             <div class="grid-item grafo1">
             <h2>Laboratorios Presentes</h2>    
                 <?php include 'components/index/laboratorios.php'; ?>
