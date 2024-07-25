@@ -1,5 +1,5 @@
 <div class="grafo1-container">
-    <h2>Laboratorios</h2>
+
     <canvas id="pieChart"></canvas>
 </div>
 
