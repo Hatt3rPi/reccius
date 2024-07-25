@@ -48,6 +48,14 @@
             <h2>Estados: Especificaciones</h2>
                 <?php include 'components/index/especificaciones.php'; ?>
             </div>
+            <div class="grid-item clas2">
+            <h2>Estados: Analisis</h2>
+                <?php include 'components/index/analisis.php'; ?>
+            </div>
+            <div class="grid-item clas3">
+            <h2>Estados: Actas</h2>
+                <?php include 'components/index/actas.php'; ?>
+            </div>
 
 
 
