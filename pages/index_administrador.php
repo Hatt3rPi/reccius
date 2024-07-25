@@ -38,6 +38,7 @@
                 <?php include 'components/index/laboratorios.php'; ?>
             </div>
             <div class="grid-item grafo2">
+                <h2>productos </h2>
                 <?php include 'components/index/productos.php'; ?>
             </div>
             <div class="section-title zona-control">
