@@ -9,13 +9,14 @@ $response = [
 ];
 
 try {
-    // Consulta para obtener los laboratorios y el contador de cada uno
+    // Consulta para obtener los laboratorios y el contador de cada uno, excluyendo los valores null
     $queryLaboratorios = "
         SELECT 
             laboratorio, 
             COUNT(*) as contador 
         FROM 
             calidad_analisis_externo 
+        WHERE laboratorio IS NOT NULL
         GROUP BY 
             laboratorio;
     ";
