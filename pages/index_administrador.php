@@ -25,8 +25,9 @@
             </div>
             <div class="grid-item calendario">
                 <?php include 'components/index/calendario.php'; ?>
+                <div class="section-title">DISPONIBILIDAD DE PRODUCTOS</div>
             </div>
-            <div class="section-title">DISPONIBILIDAD DE PRODUCTOS</div>
+            
             <div class="grid-item cartas">
                 <?php include 'components/index/cartas.php'; ?>
             </div>
