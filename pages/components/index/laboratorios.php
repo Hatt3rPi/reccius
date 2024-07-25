@@ -2,9 +2,8 @@
     <h2>Laboratorios</h2>
     <canvas id="pieChart"></canvas>
 </div>
-
 <script>
-    fetch("../../backend/analisis/Componente_laboratorios.php")
+    fetch("../pages/backend/analisis/Componente_laboratorios.php")
         .then(response => response.json())
         .then(data => {
             if (data.success) {
