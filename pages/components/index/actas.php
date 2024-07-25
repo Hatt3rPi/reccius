@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Especs.css">
 <div class="clas1-container">
-    <canvas id="barChartClas1"></canvas>
+    <canvas id="barChartClas3"></canvas>
 </div>
 <script>
-    var ctx = document.getElementById('barChartClas1').getContext('2d');
+    var ctx = document.getElementById('barChartClas3').getContext('2d');
     var barChart = new Chart(ctx, {
         type: 'bar',
         data: {
