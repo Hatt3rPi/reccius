@@ -35,6 +35,10 @@
             <div class="grid-item grafo2">
                 <?php include 'components/index/productos.php'; ?>
             </div>
+            <div class="grid-item clas1">
+                <?php include 'components/index/especificaciones.php'; ?>
+            </div>
+
 
 
         </div>
