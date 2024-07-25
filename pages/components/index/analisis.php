@@ -3,7 +3,7 @@
     <canvas id="barChartAnalisisExterno"></canvas>
 </div>
 <script>
-    fetch('../pages/backend/analisis/contar_estados_analisis_externo.php')
+    fetch('../pages/backend/components/analisis.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
