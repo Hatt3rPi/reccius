@@ -167,15 +167,24 @@ body {
 }
 .grafo1-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
+}
+
+.grafo1-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
 }
 
 #pieChart {
     max-width: 100%;
     height: 300px; /* Ajusta la altura según sea necesario */
 }
+
 .grafo2-container {
     display: flex;
     justify-content: center;
