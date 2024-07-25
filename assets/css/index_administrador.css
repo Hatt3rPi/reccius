@@ -41,51 +41,6 @@ body {
     text-align: center;
 }
 
-.card-custom {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    color: #fff;
-    flex: 1;
-    min-width: 300px;
-    margin-bottom: 20px;
-}
-
-.card-custom:hover {
-    transform: scale(1.05);
-}
-
-.card-blue {
-    background-color: #1E90FF;
-    padding: 20px;
-}
-
-.card-green {
-    background-color: #3CB371;
-    padding: 20px;
-}
-
-.card-orange {
-    background-color: #FFA500;
-    padding: 20px;
-}
-
-.card-red {
-    background-color: #FF6347;
-    height: 120px;
-}
-
-.card-title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.card-text {
-    font-size: 12px;
-    text-align: center;
-}
 
 .chart-container {
     position: relative;
