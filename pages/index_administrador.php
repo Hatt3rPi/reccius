@@ -29,6 +29,10 @@
             <div class="grid-item cartas">
                 <?php include 'components/index/cartas.php'; ?>
             </div>
+            <div class="grid-item grafo1">
+                <?php include 'components/index/laboratorios.php'; ?>
+            </div>
+
         </div>
 
         <div class="row">
