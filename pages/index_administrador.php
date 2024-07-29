@@ -15,7 +15,7 @@
 
 <body>
     <div class="container dashboard">
-        <h2 class="section-title">Bienvenido, <span id="usernameA">{Usuario}</span>!</h2>
+        <h2 class="section-title">Bienvenido, <span id="username">{Usuario}</span>!</h2>
         <div class="grid-container">
             <div class="grid-item clima">
                 <?php include 'components/index/clima.php'; ?>
@@ -88,6 +88,16 @@
             });
 
         });
+        function fetchUserInfo() {
+        fetch('./backend/usuario/obtener_usuarioBE.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.usuario) {
+                    document.querySelector('.username').textContent = data.nombre;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
     </script>
 </body>
 
