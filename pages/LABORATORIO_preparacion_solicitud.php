@@ -230,14 +230,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <div class="form-group">
                             <label>Laboratorio Analista:</label>
                             <select required name="laboratorio" id="laboratorio" class="highlight select-style mx-0 form__select w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
-                                <option value="">Selecciona un Laboratorio</option>
-                                <?php foreach ($opciones['laboratorio'] as $opcion) : ?>
-                                    <option value="<?php echo htmlspecialchars($opcion); ?>">
-                                        <?php echo htmlspecialchars($opcion); ?>
-                                    </option>
-                                <?php endforeach; ?>
                             </select>
-                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="highlight form-control mx-0 w-90" style="display: none" />
+                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" required placeholder="Especificar otro laboratorio" class="highlight form-control mx-0 w-90" style="display: none" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
@@ -706,6 +700,16 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     },
                 ]
             }
+            
+            var laboratorioOptions = '<option value="">Selecciona un Laboratorio</option>';
+            response.laboratorios.forEach(lab => {
+                laboratorioOptions += `<option value="${lab.name}">${lab.name}</option>`;
+            });
+            laboratorioOptions += `<option value="Otro">Otro</option>`;
+            $('#laboratorio').html(laboratorioOptions);
+
+
+
             $('#id_especificacion').val(analisis.id_especificacion);
             $('#version_especificacion').val(analisis.version_especificacion).prop('disabled', true);
             //* V. Análisis
@@ -816,6 +820,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 // Si el informacion_faltante no fue eliminada, entonces agregamos el id del analisis externo
                 // para que en el backend sepa que tiene que hacer un "update" de los datos faltantes
                 datosFormulario += '&id=' + idAnalisisExterno;
+            }
+
+            if($('#laboratorio').val() === 'Otro')
+            {
+                if($('#otro_laboratorio').val() == '') {
+                    $.notify('Tiene que escribir el nombre del nuevo laboratorio', 'warn');
+                    return;
+                }
             }
 
             fetch('../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php', {

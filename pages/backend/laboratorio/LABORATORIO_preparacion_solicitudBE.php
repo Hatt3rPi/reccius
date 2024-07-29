@@ -2,6 +2,7 @@
 //archivo: pages\backend\laboratorio\LABORATORIO_preparacion_solicitudBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+require_once "../otros/laboratorio.php";
 
 function limpiarDato($dato)
 {
@@ -144,6 +145,14 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
 function agregarDatosPostFirma($link, $datos)
 {
     global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
+    $laboratorio = new Laboratorio();
+    
+    
+    if($datos['otro_laboratorio'] !== ''){
+        $laboratorio->findOrCreateByName($datos['otro_laboratorio']);
+        $datos['laboratorio'] =$datos['otro_laboratorio'];
+    }
+
     $camposAActualizar = [
         'analisis_segun',
         'estandar_segun', // estandar_provisto_por
@@ -290,6 +299,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario_revisor = limpiarDato($_POST['usuario_revisor']);
     // datos extra
     $laboratorio = limpiarDato($_POST['laboratorio']);
+    $otro_laboratorio = limpiarDato($_POST['otro_laboratorio']);
     $fecha_solicitud = limpiarDato($_POST['fecha_solicitud']);
     $analisis_segun = limpiarDato($_POST['analisis_segun']);
     $fecha_cotizacion = limpiarDato($_POST['fecha_cotizacion']);
@@ -342,6 +352,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'version' => $version,
 
             'laboratorio' => $laboratorio,
+            'otro_laboratorio' => $otro_laboratorio,
             'fecha_solicitud' => $fecha_solicitud,
             'analisis_segun' => $analisis_segun,
             'fecha_cotizacion' => $fecha_cotizacion,
