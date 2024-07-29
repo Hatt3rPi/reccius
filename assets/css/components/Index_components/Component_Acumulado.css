@@ -2,6 +2,7 @@
 
 .clas5-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -25,4 +26,22 @@
     font-size: 1rem;
     color: #666;
     margin-top: 10px;
+}
+
+.buttons-container {
+    margin-top: 20px;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.filter-button:hover {
+    background-color: #0056b3;
 }

@@ -9,8 +9,14 @@ $response = [
 ];
 
 try {
-    // Consulta para obtener el total de productos analizados acumulados
+    $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
     $query = "SELECT COUNT(*) as total FROM calidad_productos_analizados WHERE fecha_in_cuarentena IS NOT NULL AND fecha_out_cuarentena IS NOT NULL";
+
+    if ($filter === 'month') {
+        $query .= " AND fecha_out_cuarentena >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+    } elseif ($filter === 'week') {
+        $query .= " AND fecha_out_cuarentena >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+    }
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
