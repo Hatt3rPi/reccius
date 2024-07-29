@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Especs.css">
 <div class="clas1-container">
-    <canvas id="barChartActaMuestreo"></canvas>
+    <canvas id="pieChartActaMuestreo"></canvas>
 </div>
 
 <script>
@@ -27,9 +27,9 @@
                     'rgba(255, 159, 64, 1)'
                 ];
 
-                var ctx = document.getElementById('barChartActaMuestreo').getContext('2d');
-                var barChart = new Chart(ctx, {
-                    type: 'bar',
+                var ctx = document.getElementById('pieChartActaMuestreo').getContext('2d');
+                var pieChart = new Chart(ctx, {
+                    type: 'pie',
                     data: {
                         labels: labels,
                         datasets: [{
@@ -43,11 +43,6 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
                         plugins: {
                             legend: {
                                 position: 'top',
@@ -55,12 +50,12 @@
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
-                                        var label = context.dataset.label || '';
+                                        var label = context.label || '';
                                         if (label) {
                                             label += ': ';
                                         }
-                                        if (context.parsed.y !== null) {
-                                            label += context.parsed.y;
+                                        if (context.parsed !== null) {
+                                            label += context.parsed;
                                         }
                                         return label;
                                     }

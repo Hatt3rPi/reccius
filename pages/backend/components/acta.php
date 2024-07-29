@@ -9,34 +9,20 @@ $response = [
 ];
 
 try {
-    // Consulta para obtener el conteo de todos los estados, excluyendo los valores null
-    $queryEstados = "
-        SELECT estado, COUNT(*) as contador 
-        FROM calidad_acta_muestreo 
-        WHERE estado IS NOT NULL 
-        GROUP BY estado;
-    ";
-
-    // Preparar y ejecutar la consulta
-    $stmtEstados = mysqli_prepare($link, $queryEstados);
-    if (!$stmtEstados) {
-        throw new Exception("Error en mysqli_prepare (queryEstados): " . mysqli_error($link));
+    $query = "SELECT estado, COUNT(*) as contador FROM calidad_acta_muestreo WHERE estado IS NOT NULL GROUP BY estado";
+    $stmt = mysqli_prepare($link, $query);
+    if (!$stmt) {
+        throw new Exception("Error en mysqli_prepare (query): " . mysqli_error($link));
     }
-    mysqli_stmt_execute($stmtEstados);
-
-    $resultEstados = mysqli_stmt_get_result($stmtEstados);
-    while ($row = mysqli_fetch_assoc($resultEstados)) {
-        $response['estados'][] = [
-            'estado' => $row['estado'],
-            'contador' => $row['contador']
-        ];
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $response['estados'][] = $row;
     }
-    mysqli_stmt_close($stmtEstados);
 
-    mysqli_close($link);
-
-    // Preparar la respuesta
     $response['success'] = true;
+    mysqli_stmt_close($stmt);
+    mysqli_close($link);
 
 } catch (Exception $e) {
     $response['message'] = $e->getMessage();
