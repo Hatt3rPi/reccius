@@ -56,6 +56,10 @@
             <h2>Estados: Actas</h2>
                 <?php include 'components/index/actas.php'; ?>
             </div>
+            <div class="grid-item clas4">
+            <h2>Tiempo Promedio:</h2>
+                <?php include 'components/index/promedio.php'; ?>
+            </div>
 
 
 

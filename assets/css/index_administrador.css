@@ -138,7 +138,17 @@ body {
 
 .clas4 {
     grid-column: 2 / 3;
-    grid-row: 7 / 10;
+    grid-row: 9;
+}
+
+.clas5 {
+    grid-column: 2 / 3;
+    grid-row: 10;
+}
+
+.clas6 {
+    grid-column: 2 / 3;
+    grid-row: 11;
 }
 
 .grafo1-container {
