@@ -193,7 +193,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Responsable Muestreo:</label>
-                        <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90">
+                        <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90 editable">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
@@ -208,7 +208,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Verificador Muestreo:</label>
-                        <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90">
+                        <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90 editable">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy">Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
