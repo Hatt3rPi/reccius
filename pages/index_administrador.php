@@ -64,6 +64,10 @@
             <h2>Productos Analizados:</h2>
                 <?php include 'components/index/acumulados.php'; ?>
             </div>
+            <div class="grid-item clas6">
+            <h2>Porcentaje de Aprobación/Rechazo:</h2>
+                <?php include 'components/index/porcentaje.php'; ?>
+            </div>
 
 
 
