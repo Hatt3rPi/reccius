@@ -2,32 +2,13 @@
 
 .clas6-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
     text-align: center;
 }
 
-.stats {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.stats-title {
-    font-size: 1.5rem;
-    color: #007bff;
-    margin-bottom: 10px;
-}
-
-.stats-value {
-    font-size: 1.25rem;
-    color: #333;
-    margin: 10px 0;
+.chart-container {
+    width: 100%;
+    max-width: 400px;
 }
