@@ -1,8 +1,3 @@
-// Llamar a la función updateDate para establecer la fecha actual al cargar la página
-updateDate();
-
-document.getElementById('getWeatherBtn').addEventListener('click', getWeather);
-
 function updateDate() {
     const dateElement = document.getElementById('weather-date');
     const now = new Date();
@@ -84,6 +79,9 @@ function getWeather() {
             alert('Error al obtener el clima');
         });
 }
+
+// Llamar a la función updateDate para establecer la fecha actual al cargar la página
+updateDate();
 
 // Llamar a la función getWeather para obtener el clima al cargar la página
 getWeather();
