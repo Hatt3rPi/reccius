@@ -64,7 +64,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro" type="date" value="<?php echo date('Y-m-d'); ?>">
+                        <input name="fecha_registro" class="form-control mx-0 w-90" id="fecha_registro" type="date" value="<?php echo date('d-m-Y'); ?>">
                     </div>
                 </div>
             </fieldset>

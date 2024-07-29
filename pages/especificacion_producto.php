@@ -142,7 +142,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="date" id="fechaEdicion" name="fechaEdicion" class="editable" value="<?php echo date('Y-m-d'); ?>" required>
+                        <input type="date" id="fechaEdicion" name="fechaEdicion" class="editable" value="<?php echo date('d-m-Y'); ?>" required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">

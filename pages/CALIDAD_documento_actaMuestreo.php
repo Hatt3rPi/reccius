@@ -783,7 +783,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
             var cargo = "<?php echo $_SESSION['cargo']; ?>";
             var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
-            var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+            var fecha_yoh = "<?php echo date('d-m-Y'); ?>";
             $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
             $('#fecha_firma1').text(fecha_hoy);
             //document.getElementById('fecha_firma1').style.display = 'block';
@@ -1188,7 +1188,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 case 0:
                     var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
                     var cargo = "<?php echo $_SESSION['cargo']; ?>";
-                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                    var fecha_yoh = "<?php echo date('d-m-Y'); ?>";
                     $('#etapa').text('ingresa resultados y firma1');
                     $('#realizadoPor').text(nombre_ejecutor);
                     $('#cargo_realizador').text(cargo);
