@@ -123,15 +123,15 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 style="text-align: right; background-color: #e9ecef;width: 80%" readonly>
                             <input type="text" id="documento" name="documento" style="display: none">
                             <input type="text" id="numeroProducto" name="numeroProducto" class="editable" placeholder="001"
-                                onchange="actualizarDocumento()" required class="col" style="width: 20px;margin-right: 150px;">
+                                onchange="actualizarDocumento()" required class="col" style="width: 80px;margin-right: 150px;">
                             
                         </div>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group" >
-                        <div class="form-group editable"id="contenedor_dealer" name="contenedor_dealer" style="display: none;">
+                        <div class="form-group"id="contenedor_dealer" name="contenedor_dealer" style="display: none;">
                             <label>Proveedor:</label>
-                            <input type="text" id="dealer" name="dealer" >
+                            <input type="text" id="dealer" name="dealer" class="editable" >
                         </div>  
                     </div>
                 </div>
