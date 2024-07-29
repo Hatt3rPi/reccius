@@ -5,44 +5,40 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 $response = [
     'success' => false,
     'message' => '',
-    'data' => []
+    'promedioDias' => 0
 ];
 
 try {
-    // Consulta para obtener los días entre fecha_in_cuarentena y fecha_out_cuarentena
+    $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
     $query = "
-        SELECT DATEDIFF(fecha_out_cuarentena, fecha_in_cuarentena) as dias
+        SELECT AVG(DATEDIFF(fecha_out_cuarentena, fecha_in_cuarentena)) as promedio
         FROM calidad_productos_analizados
-        WHERE fecha_in_cuarentena IS NOT NULL AND fecha_out_cuarentena IS NOT NULL;
+        WHERE fecha_in_cuarentena IS NOT NULL AND fecha_out_cuarentena IS NOT NULL
     ";
+
+    if ($filter === 'month') {
+        $query .= " AND fecha_out_cuarentena >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+    } elseif ($filter === 'week') {
+        $query .= " AND fecha_out_cuarentena >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+    }
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
         throw new Exception("Error en mysqli_prepare (query): " . mysqli_error($link));
     }
     mysqli_stmt_execute($stmt);
-
     $result = mysqli_stmt_get_result($stmt);
-    $totalDias = 0;
-    $count = 0;
+    $row = mysqli_fetch_assoc($result);
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $totalDias += $row['dias'];
-        $count++;
+    if ($row) {
+        $response['promedioDias'] = round($row['promedio'], 2);
+        $response['success'] = true;
+    } else {
+        $response['message'] = 'No se encontraron registros.';
     }
 
     mysqli_stmt_close($stmt);
     mysqli_close($link);
-
-    if ($count > 0) {
-        $promedioDias = $totalDias / $count;
-        $response['data'] = [
-            'promedioDias' => round($promedioDias, 2)
-        ];
-        $response['success'] = true;
-    } else {
-        $response['message'] = 'No se encontraron registros válidos para calcular el promedio.';
-    }
 
 } catch (Exception $e) {
     $response['message'] = $e->getMessage();

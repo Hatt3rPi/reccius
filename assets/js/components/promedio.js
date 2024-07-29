@@ -1,72 +1,31 @@
 (function() {
-    fetch('../pages/backend/components/promedio.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const labels = ['Promedio de días en cuarentena'];
-                const promedioDias = data.data.promedioDias;
-                const datasetInicial = [promedioDias];
-                const datasetFinal = [promedioDias]; // Puedes cambiar esto si tienes otros datos para el tiempo final
+    function updatePromedio(filter) {
+        let url = '../pages/backend/components/promedio.php';
+        if (filter === 'month') {
+            url += '?filter=month';
+        } else if (filter === 'week') {
+            url += '?filter=week';
+        }
 
-                const chartData = {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Tiempo Inicial',
-                            data: datasetInicial,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Tiempo Final',
-                            data: datasetFinal,
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            fill: false,
-                            tension: 0.1
-                        }
-                    ]
-                };
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('promedio_value').innerText = data.promedioDias;
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
-                const config = {
-                    type: 'line',
-                    data: chartData,
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        var label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.y !== null) {
-                                            label += context.parsed.y + ' días';
-                                        }
-                                        return label;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                };
+    document.querySelectorAll('.filter-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const filter = button.getAttribute('data-filter');
+            updatePromedio(filter);
+        });
+    });
 
-                var ctx = document.getElementById('timeComparisonChart').getContext('2d');
-                var timeComparisonChart = new Chart(ctx, config);
-            } else {
-                console.error(data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+    // Inicialmente mostrar el tiempo promedio de todos los productos analizados
+    updatePromedio('all');
 })();
