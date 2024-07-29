@@ -60,13 +60,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
                                 <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="revisadoPor" id="revisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
                                 <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="aprobadoPor" id="aprobadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
