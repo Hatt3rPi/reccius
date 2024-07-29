@@ -2,7 +2,4 @@
 <div class="clas1-container">
     <canvas id="barChartActaMuestreo"></canvas>
 </div>
-
-<script>
-   
-</script>
+<script src="../assets/js/components/acta.js"></script>
