@@ -1,5 +1,17 @@
 (function() {
     function initChart() {
+        var canvas = document.getElementById('pieChartActaMuestreo');
+        if (!canvas) {
+            console.error("Canvas element not found");
+            return;
+        }
+
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error("Failed to get 2D context");
+            return;
+        }
+
         fetch('../pages/backend/components/acta.php')
             .then(response => response.json())
             .then(data => {
@@ -23,7 +35,6 @@
                         'rgba(255, 159, 64, 1)'
                     ];
 
-                    var ctx = document.getElementById('pieChartActaMuestreo').getContext('2d');
                     var pieChart = new Chart(ctx, {
                         type: 'pie',
                         data: {
