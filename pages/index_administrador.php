@@ -60,6 +60,10 @@
             <h2>Tiempo Promedio:</h2>
                 <?php include 'components/index/promedio.php'; ?>
             </div>
+            <div class="grid-item clas5">
+            <h2>Productos Analizados:</h2>
+                <?php include 'components/index/acumulados.php'; ?>
+            </div>
 
 
 
