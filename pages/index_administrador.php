@@ -76,40 +76,6 @@
         
     <script>
         $(document).ready(function() {
-            var ctxTipoProductos = document.getElementById('tipoProductosChart').getContext('2d');
-            var tipoProductosChart = new Chart(ctxTipoProductos, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4'],
-                    datasets: [{
-                        data: [10, 20, 30, 40],
-                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4CAF50']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            var ctxEstadoEspecificaciones = document.getElementById('estadoEspecificacionesChart').getContext('2d');
-            var estadoEspecificacionesChart = new Chart(ctxEstadoEspecificaciones, {
-                type: 'bar',
-                data: {
-                    labels: ['Estado 1', 'Estado 2', 'Estado 3', 'Estado 4'],
-                    datasets: [{
-                        label: 'Especificaciones',
-                        data: [12, 19, 3, 5],
-                        backgroundColor: '#36A2EB'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    indexAxis: 'y',
-                    maintainAspectRatio: false
-                }
-            });
-
             $.ajax({
                 url: 'backend/index/index_administrador.php',
                 method: 'GET',
