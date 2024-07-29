@@ -54,7 +54,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
                                 <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="creadoPor" id="creadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
