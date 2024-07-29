@@ -11,7 +11,7 @@ $response = [
 
 try {
     // Consulta para obtener la cantidad de productos aprobados y rechazados
-    $queryAprobados = "SELECT COUNT(*) as total FROM calidad_productos_analizados WHERE estado = 'Aprobado'";
+    $queryAprobados = "SELECT COUNT(*) as total FROM calidad_productos_analizados WHERE estado = 'Liberado'";
     $queryRechazados = "SELECT COUNT(*) as total FROM calidad_productos_analizados WHERE estado = 'Rechazado'";
 
     $stmtAprobados = mysqli_prepare($link, $queryAprobados);
