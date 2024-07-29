@@ -7,7 +7,7 @@ function updateDate() {
 }
 
 function getWeather() {
-    const city = document.getElementById('city').value;
+    const city = "Santiago";
     const apiKey = '0feabf126fec2094c8ad50be035553ef';
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
