@@ -70,7 +70,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
-                                <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="vigencia" id="vigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
                                 <td id="pagina-numero" class="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
@@ -362,6 +362,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
                     $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
                     $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
+                    $('#vigencia').text(especificacion.vigencia || 'No disponible');
+                    $('#version').text(especificacion.version || 'No disponible');
 
                     if (especificacion.fecha_edicion) {
                         document.getElementById('mensaje_creador').style.display = 'block';
