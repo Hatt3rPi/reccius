@@ -33,7 +33,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <!-- Logo e Información Izquierda -->
                     <div class="header-left">
-                        <img src="../assets/images/logo documentos.png" alt="Logo" style="height: 60px;" />
+                        <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" style="height: 60px;" />
                         <!-- Ajusta el tamaño según sea necesario -->
                         <br>
                     </div>
