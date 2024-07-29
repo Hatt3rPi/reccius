@@ -15,7 +15,7 @@
 
 <body>
     <div class="container dashboard">
-        <h2 class="section-title">Bienvenido, <span id="username">{Usuario}</span>!</h2>
+        <h2 class="section-title">Bienvenido, <span id="username" class="username">{Usuario}</span>!</h2>
         <div class="grid-container">
             <div class="grid-item clima">
                 <?php include 'components/index/clima.php'; ?>
