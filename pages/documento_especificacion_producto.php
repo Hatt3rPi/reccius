@@ -58,7 +58,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
-                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="edicion" id="edicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
                                 <td name="revisadoPor" id="revisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
@@ -364,6 +364,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
                     $('#vigencia').text(especificacion.vigencia || 'No disponible');
                     $('#version').text(especificacion.version || 'No disponible');
+                    $('#edicion').text(especificacion.fecha_edicion || 'No disponible');
 
                     if (especificacion.fecha_edicion) {
                         document.getElementById('mensaje_creador').style.display = 'block';
