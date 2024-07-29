@@ -5,4 +5,4 @@
 </div>
 
 
-<script src="../assets/js/components/Index_components/promedio.js"></script>
+<script src="../assets/js/components/promedio.js"></script>
