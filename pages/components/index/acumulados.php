@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="../../assets/css/components/Index_components/Component_Acumulado.css">
+
+<link rel="stylesheet" href="../assets/css/components/Index_components/Component_Acumulado.css">
 
 <div class="clas5-container">
     <div class="card card-custom card-blue">
@@ -9,4 +10,5 @@
     </div>
 </div>
 
-<script src="../../assets/js/components/Index_components/acumulados.js"></script>
+
+<script src="../assets/js/components/acumulados.js"></script>
