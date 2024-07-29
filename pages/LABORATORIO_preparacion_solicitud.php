@@ -138,56 +138,56 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nro Lote:</label>
-                        <input required class="form-control mx-0 w-90" name="lote" id="lote" type="text" placeholder="RM-000000/00">
+                        <input required class="form-control mx-0 w-90 editable" name="lote" id="lote" type="text" placeholder="RM-000000/00">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Tamaño Lote:</label>
-                        <input required class="form-control mx-0 w-90" name="tamano_lote" id="tamano_lote" type="number" placeholder="20">
+                        <input required class="form-control mx-0 w-90 editable" name="tamano_lote" id="tamano_lote" type="number" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required class="form-control mx-0 w-90 datepicker" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('d/m/Y'); ?>" placeholder="dd/mm/aaaa" type="text">
+                        <input required class="form-control mx-0 w-90 datepicker editable" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('d/m/Y'); ?>" placeholder="dd/mm/aaaa" type="text">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input required class="form-control mx-0 w-90 datepicker" name="fecha_vencimiento" id="fecha_vencimiento" placeholder="dd/mm/aaaa" type="text">
+                        <input required class="form-control mx-0 w-90 datepicker editable" name="fecha_vencimiento" id="fecha_vencimiento" placeholder="dd/mm/aaaa" type="text">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo Analisis:</label>
-                        <input required class="form-control mx-0 w-90" name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
+                        <input required class="form-control mx-0 w-90 editable" name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
                     </div>
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" placeholder="..."></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm editable" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Cantidad Muestra:</label>
-                        <input required class="form-control mx-0 w-90" name="tamano_muestra" id="tamano_muestra" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90 editable" name="tamano_muestra" id="tamano_muestra" type="text" placeholder="...">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Cantidad Contra-muestra:</label>
-                        <input required class="form-control mx-0 w-90" name="tamano_contramuestra" id="tamano_contramuestra" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90 editable" name="tamano_contramuestra" id="tamano_contramuestra" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Registro ISP:</label>
-                        <input required class="form-control mx-0 w-90" name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
+                        <input required class="form-control mx-0 w-90 editable" name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
-                        <input required class="form-control mx-0 w-90" name="numero_pos" id="numero_pos" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90 editable" name="numero_pos" id="numero_pos" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
