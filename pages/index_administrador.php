@@ -81,7 +81,6 @@
                 method: 'GET',
                 success: function(response) {
                     const datos = response.data;
-                    actualizarGraficos(datos);
                 },
                 error: function(error) {
                     console.error('Error al obtener los datos:', error);
