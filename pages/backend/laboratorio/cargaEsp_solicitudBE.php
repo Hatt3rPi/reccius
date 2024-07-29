@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+require_once "../otros/laboratorio.php";
 
 // Validación y saneamiento del ID
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
@@ -211,6 +212,9 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 }
 
+$laboratorio = new Laboratorio();
+$labList = $laboratorio->findAll();
+
 mysqli_stmt_close($stmt);
 mysqli_close($link);
 
@@ -221,6 +225,7 @@ echo json_encode([
     'count_analisis_externo' => $analisis_count,  
     'total_analisis' => $total_analisis, 
     'total_analisis_producto' => $total_analisis_producto,
+    'laboratorios' => $labList,
     'pasos' => $QA
     ], JSON_UNESCAPED_UNICODE);
 
