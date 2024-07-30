@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+require_once "../otros/laboratorio.php";
 
 // Validación y saneamiento del ID del análisis externo
 $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
@@ -56,6 +57,7 @@ if (empty($analisis)) {
     exit;
 }
 $analisis = $analisis[0];
+
 $solicitado_por = $analisis['solicitado_por'];
 $revisado_por = $analisis['revisado_por'];
 
@@ -67,12 +69,9 @@ if (isset($usuarios['error'])) {
     die(json_encode(['exito' => false, 'mensaje' => $usuarios['error']]));
 }
 
-$correosLaboratorio = [
-    'reccius' => 'correo@reccius.cl',
-    'cequc' => 'correo@cequc.cl',
-    'pharmaisa' => 'correo@pharmaisa.cl',
-];
-$analisis['correoLab'] = $correosLaboratorio[$analisis['laboratorio']];
+$laboratorio = new Laboratorio();
+$lab = $laboratorio->findByName($analisis['laboratorio']);
+$analisis['correoLab'] = $lab['correo'];
 
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
