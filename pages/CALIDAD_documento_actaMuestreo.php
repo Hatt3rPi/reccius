@@ -917,6 +917,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
+        $.notify("Generando PDF", "warn");
 
         // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
