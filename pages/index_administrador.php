@@ -44,21 +44,21 @@
             <div class="section-title zona-control">
                 ZONA DE CONTROL
             </div>
-            <div class="grid-item clas1"> 
+            <div class="grid-item clas1">
             <h2>Estados: Especificaciones</h2>
                 <?php include 'components/index/especificaciones.php'; ?>
             </div>
-            <div class="grid-item clas3">
-            <h2>Estados: Analisis</h2>
-                <?php include 'components/index/analisis.php'; ?>
-            </div>
             <div class="grid-item clas2">
+            <h2>Estados: Analisis</h2>
+                <?php include 'components/index/promedio.php'; ?>
+            </div>
+            <div class="grid-item clas3">
             <h2>Estados: Actas</h2>
                 <?php include 'components/index/actas.php'; ?>
             </div>
             <div class="grid-item clas4">
             <h2>Tiempo Promedio:</h2>
-                <?php include 'components/index/promedio.php'; ?>
+                <?php include 'components/index/analisis.php'; ?>
             </div>
             <div class="grid-item clas5">
             <h2>Productos Analizados:</h2>
