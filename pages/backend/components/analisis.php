@@ -9,11 +9,15 @@ $response = [
 ];
 
 try {
-    // Consulta para obtener el conteo de todos los estados, excluyendo los valores null
+    // Estados específicos que necesitas
+    $estadosPermitidos = ['Completado', 'Pendiente Acta de Muestreo', 'Pendiente completar Análisis', 'Pendiente envio a Laboratorio', 'Pendiente ingreso resultados Laboratorio', 'Pendiente liberación Productos'];
+
+    // Preparar consulta con los estados específicos
+    $placeholders = implode(',', array_fill(0, count($estadosPermitidos), '?'));
     $queryEstados = "
         SELECT estado, COUNT(*) as contador 
         FROM calidad_analisis_externo 
-        WHERE estado IS NOT NULL 
+        WHERE estado IN ($placeholders)
         GROUP BY estado;
     ";
 
@@ -22,6 +26,7 @@ try {
     if (!$stmtEstados) {
         throw new Exception("Error en mysqli_prepare (queryEstados): " . mysqli_error($link));
     }
+    mysqli_stmt_bind_param($stmtEstados, str_repeat('s', count($estadosPermitidos)), ...$estadosPermitidos);
     mysqli_stmt_execute($stmtEstados);
 
     $resultEstados = mysqli_stmt_get_result($stmtEstados);
