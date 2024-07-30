@@ -3,7 +3,6 @@
 <div class="form-container">
     <h1>Listado de Tareas Activas</h1>
     <div id="contenedor_tareas">
-        <a href="../../pages/listado_tareas.php" id="notificaciones" class="btn-link">Ver todas las tareas</a>
         <table id="listado" class="table table-striped table-bordered">
             <thead>
                 <tr>

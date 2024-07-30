@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../assets/css/components/Index_components/Component_Especs.css">
 <div class="clas1-container">
-    <canvas id="barChartActaMuestreo"></canvas>
+    <canvas id="pieChartActaMuestreo"></canvas>
 </div>
 
 <script>
@@ -11,25 +11,23 @@
                 const labels = data.estados.map(item => item.estado);
                 const counts = data.estados.map(item => item.contador);
                 const colors = [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(54, 162, 235, 0.2)'
                 ];
                 const borderColors = [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 206, 86, 1)',
                     'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
+                    'rgba(54, 162, 235, 1)'
                 ];
 
-                var ctx = document.getElementById('barChartActaMuestreo').getContext('2d');
-                var barChart = new Chart(ctx, {
-                    type: 'bar',
+                var ctx = document.getElementById('pieChartActaMuestreo').getContext('2d');
+                var pieChart = new Chart(ctx, {
+                    type: 'pie',
                     data: {
                         labels: labels,
                         datasets: [{
@@ -43,11 +41,6 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
                         plugins: {
                             legend: {
                                 position: 'top',
@@ -55,12 +48,12 @@
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
-                                        var label = context.dataset.label || '';
+                                        var label = context.label || '';
                                         if (label) {
                                             label += ': ';
                                         }
-                                        if (context.parsed.y !== null) {
-                                            label += context.parsed.y;
+                                        if (context.parsed !== null) {
+                                            label += context.parsed;
                                         }
                                         return label;
                                     }

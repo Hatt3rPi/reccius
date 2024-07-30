@@ -349,3 +349,9 @@ input[readonly]:hover {
 .input-highlight {
     background-color: rgb(244, 250, 194)!important;
 }
+.editable {
+    background-color: rgb(244, 250, 194)!important;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

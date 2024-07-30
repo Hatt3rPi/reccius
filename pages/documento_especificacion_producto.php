@@ -33,7 +33,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <!-- Logo e Información Izquierda -->
                     <div class="header-left">
-                        <img src="../assets/images/logo documentos.png" alt="Logo" style="height: 60px;" />
+                        <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" style="height: 60px;" />
                         <!-- Ajusta el tamaño según sea necesario -->
                         <br>
                     </div>
@@ -54,23 +54,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
                                 <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="creadoPor" id="creadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
-                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="edicion" id="edicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="revisadoPor" id="revisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
                                 <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="aprobadoPor" id="aprobadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
                             <tr>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
-                                <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td name="vigencia" id="vigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                                 <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
                                 <td id="pagina-numero" class="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
                             </tr>
@@ -362,6 +362,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
                     $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
                     $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
+                    $('#vigencia').text(especificacion.vigencia || 'No disponible');
+                    $('#version').text(especificacion.version || 'No disponible');
+                    $('#edicion').text(especificacion.fecha_edicion || 'No disponible');
 
                     if (especificacion.fecha_edicion) {
                         document.getElementById('mensaje_creador').style.display = 'block';

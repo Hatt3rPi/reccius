@@ -19,10 +19,6 @@
             <span class="stat-label">Viento (m/s)</span>
         </div>
     </div>
-    <div>
-        <label for="city">Ciudad:</label>
-        <input type="text" id="city" value="Santiago">
-        <button id="getWeatherBtn">Obtener Clima</button>
-    </div>
+    
 </div>
 <script src="../assets/js/components/clima.js"></script>
