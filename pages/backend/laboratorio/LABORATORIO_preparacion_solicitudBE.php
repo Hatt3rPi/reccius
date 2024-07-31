@@ -3,7 +3,7 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
-
+global $numero_solicitud;
 function limpiarDato($dato)
 {
     $datoLimpio = trim($dato);
