@@ -3,7 +3,7 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
-
+global $numero_solicitud;
 function limpiarDato($dato)
 {
     $datoLimpio = trim($dato);
@@ -145,12 +145,24 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
 function agregarDatosPostFirma($link, $datos)
 {
     global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
+
+    // Consultar el numero_solicitud asociado al id en la tabla calidad_analisis_externo
+    $query_numero_solicitud = "SELECT numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
+    $stmt_numero_solicitud = mysqli_prepare($link, $query_numero_solicitud);
+    if (!$stmt_numero_solicitud) {
+        throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
+    }
+    mysqli_stmt_bind_param($stmt_numero_solicitud, 'i', $datos['id']);
+    mysqli_stmt_execute($stmt_numero_solicitud);
+    mysqli_stmt_bind_result($stmt_numero_solicitud, $numero_solicitud);
+    mysqli_stmt_fetch($stmt_numero_solicitud);
+    mysqli_stmt_close($stmt_numero_solicitud);
+
     $laboratorio = new Laboratorio();
-    
-    
-    if($datos['otro_laboratorio'] !== ''){
+
+    if ($datos['otro_laboratorio'] !== '') {
         $laboratorio->findOrCreateByName($datos['otro_laboratorio']);
-        $datos['laboratorio'] =$datos['otro_laboratorio'];
+        $datos['laboratorio'] = $datos['otro_laboratorio'];
     }
 
     $camposAActualizar = [
@@ -212,11 +224,13 @@ function agregarDatosPostFirma($link, $datos)
     }
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $datos['id'];
-    
+
     // registrar tarea
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
-    registrarTarea(7, $_SESSION['usuario'], $datos['solicitado_por'], 'Enviar Análisis externo a Laboratorio: '.$datos['numero_solicitud'], 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
+    registrarTarea(7, $_SESSION['usuario'], $datos['revisado_por'], 'Enviar Análisis externo a Laboratorio: ' . $numero_solicitud, 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
+    //["2024-08-06", "fabarca212", "", "Enviar Análisis externo a Laboratorio: ", 2, "Enviar a Laboratorio", "2024-07-30 21:05:15", "90", "calidad_analisis_externo"]
 }
+
 
 function campoTipo($campo)
 {
@@ -369,8 +383,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($estaEditando) {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
-            $datosLimpios['numero_solicitud'] = limpiarDato($_POST['numero_solicitud']);
-            $datosLimpios['solicitado_por'] = limpiarDato($_POST['solicitado_por']);
+            $datosLimpios['numero_solicitud'] = $numero_solicitud;
+
             agregarDatosPostFirma($link, $datosLimpios);
         } else {
             insertarRegistro($link, $datosLimpios);
