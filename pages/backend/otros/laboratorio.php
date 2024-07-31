@@ -28,9 +28,9 @@ class Laboratorio {
         $stmt->close();
     }
 
-    public function updateCorreo($id, $correo) {
-        $stmt = $this->conn->prepare("UPDATE laboratorio SET correo = ? WHERE id = ?");
-        $stmt->bind_param("si", $correo, $id);
+    public function updateCorreo($name, $correo) {
+        $stmt = $this->conn->prepare("UPDATE laboratorio SET correo = ? WHERE name = ?");
+        $stmt->bind_param("ss", $correo, $name);
         $stmt->execute();
         $stmt->close();
     }

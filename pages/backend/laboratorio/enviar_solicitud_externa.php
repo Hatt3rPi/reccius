@@ -2,6 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 include "../email/envia_correoBE.php";
+require_once "../otros/laboratorio.php";
 require_once "/home/customw2/conexiones/config_reccius.php";
 
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
@@ -14,7 +15,8 @@ $input = json_decode(file_get_contents('php://input'), true);
 if (
         !isset($input['id_analisis_externo']) || 
         empty($input['mensaje']) || 
-        empty($input['altMesaje'])  || 
+        empty($input['altMesaje'])  ||
+        empty($input['emailLab'])  ||
         !isset($input['destinatarios']) || 
         !is_array($input['destinatarios']) || 
         empty($input['destinatarios'])
@@ -28,7 +30,7 @@ $id_analisis_externo = intval($input['id_analisis_externo']);
 $destinatarios = $input['destinatarios'];
 $mensaje = $input['mensaje'];
 $altMesaje = $input['altMesaje'];
-
+$emailLab = $input['emailLab'];
 
 
 // Obtener el usuario actual
@@ -55,7 +57,7 @@ if (!$analisis) {
 // Obtener correos del solicitante y revisor
 $solicitado_por = $analisis['solicitado_por'];
 $revisado_por = $analisis['revisado_por'];
-$laboratorio = $analisis['laboratorio'];
+$lab = $analisis['laboratorio'];
 
 // Verificar si las URLs de los documentos están presentes
 $url_certificado_acta_de_muestreo = $analisis['url_certificado_acta_de_muestreo'];
@@ -69,6 +71,9 @@ if (empty($url_certificado_acta_de_muestreo) || empty($url_certificado_solicitud
 $asunto = "Solicitud de análisis externo";
 $cuerpo = $mensaje;
 $altBody = $altMesaje;
+
+$laboratorio = new Laboratorio();
+$laboratorio->updateCorreo($lab, $emailLab);
 
 if (enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody)) {
     $stmt = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='Pendiente ingreso resultados' WHERE id=?");

@@ -71,6 +71,7 @@ if (isset($usuarios['error'])) {
 
 $laboratorio = new Laboratorio();
 $lab = $laboratorio->findByName($analisis['laboratorio']);
+
 $analisis['correoLab'] = $lab['correo'];
 
 // Enviar los datos en formato JSON

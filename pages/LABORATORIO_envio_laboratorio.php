@@ -11,13 +11,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Envío de resultados a laboratorio</title>
+    <title>Envío de solicitud a laboratorio</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
 </head>
 
 <body>
     <div id="form-container-mail" class="form-container formpadding" style="margin: 0 auto;">
-        <h3>CALIDAD / Envío de resultados a laboratorio</h3>
+        <h3>Envío de solicitud a laboratorio externo</h3>
         <form id="envioCorreoForm" name="envioCorreoForm">
             <fieldset>
                 <legend>I. Información general</legend>
@@ -61,7 +61,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
                             <label for="name_lab">Laboratorio:</label>
-                            <input type="text" id="name_lab" name="name_lab" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" required>
+                            <input type="text" id="name_lab" name="name_lab" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" readonly required>
                         </div>
                         <div class="form-group" style="width: 300px;">
                             <label for="mail_lab">Correo laboratorio:</label>
@@ -218,14 +218,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     type="button" 
                                     title="Análisis Externo" 
                                     id="${idAnalisisExterno}"
-                                    name="revisar" 
+                                    name="generar_documento_solicitudes" 
                                     onclick="botones(this.id, this.name, \'laboratorio\')">
                                     <i class="fa-solid fa-file-pdf"></i> Análisis Externo
                                 </button>`;
                                 buttonContainer += `<button 
                                     type="button" 
                                     class="botones" 
-                                    name="revisar"
+                                    name="generar_documento_solicitudes"
                                     onclick="botones(${idAnalisisExterno}, this.name, 'laboratorio')">Ir a guardar análisis Externo</button>`
                             }
                             if (!analisis.url_certificado_acta_de_muestreo) {
@@ -241,7 +241,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     type="button" 
                                     class="botones" 
                                     name="revisar_acta"
-                                    onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')">Ir a guardar análisis Externo</button>`
+                                    onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')">Ir a guardar Acta de muestreo</button>`
                             }
                             $('#modalContent')
                                 .append(' <div class="modal-footer row gap-2 px-2 justify-content-center" id="modalFooter">' + acciones + '</div>');
@@ -391,7 +391,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 id_analisis_externo: $('#id_analisis_externo').val(),
                 destinatarios: destinatarios,
                 mensaje: htmlMessage,
-                altMesaje: plainTextMessage
+                altMesaje: plainTextMessage,
+                emailLab: $('#mail_lab').val(),
             };
             console.log(data);
 
