@@ -231,7 +231,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                             <label>Laboratorio Analista:</label>
                             <select required name="laboratorio" id="laboratorio" class="highlight select-style mx-0 form__select w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
                             </select>
-                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" required placeholder="Especificar otro laboratorio" class="highlight form-control mx-0 w-90" style="display: none" />
+                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="highlight form-control mx-0 w-90" style="display: none" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
@@ -729,9 +729,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         var input = document.getElementById(inputId);
         if (select.value === 'Otro') {
             input.style.display = 'block';
+            input.required = true; 
         } else {
             input.style.display = 'none';
-            input.value = ''; // Limpiar el campo si "Otro" no está seleccionado
+            input.required = false; 
+            input.value = '';
         }
     }
 

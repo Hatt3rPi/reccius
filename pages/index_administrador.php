@@ -89,17 +89,17 @@
                 }
             });
 
+            function fetchUserInfo() {
+                fetch('./backend/usuario/obtener_usuarioBE.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.usuario) {
+                            document.querySelector('.username').textContent = data.nombre;
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
-        function fetchUserInfo() {
-        fetch('./backend/usuario/obtener_usuarioBE.php')
-            .then(response => response.json())
-            .then(data => {
-                if (data.usuario) {
-                    document.querySelector('.username').textContent = data.nombre;
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
     </script>
 </body>
 
