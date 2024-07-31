@@ -215,7 +215,8 @@ function agregarDatosPostFirma($link, $datos)
     
     // registrar tarea
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
-    registrarTarea(7, $_SESSION['usuario'], $datos['solicitado_por'], 'Enviar Análisis externo a Laboratorio: '.$datos['numero_solicitud'], 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
+    registrarTarea(7, $_SESSION['usuario'], $datos['revisado_por'], 'Enviar Análisis externo a Laboratorio: '.$datos['numero_solicitud'], 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
+    //["2024-08-06", "fabarca212", "", "Enviar Análisis externo a Laboratorio: ", 2, "Enviar a Laboratorio", "2024-07-30 21:05:15", "90", "calidad_analisis_externo"]
 }
 
 function campoTipo($campo)
@@ -369,8 +370,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($estaEditando) {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
-            $datosLimpios['numero_solicitud'] = limpiarDato($_POST['numero_solicitud']);
-            $datosLimpios['solicitado_por'] = limpiarDato($_POST['solicitado_por']);
+            $datosLimpios['numero_solicitud'] = $numero_solicitud;
+
             agregarDatosPostFirma($link, $datosLimpios);
         } else {
             insertarRegistro($link, $datosLimpios);
