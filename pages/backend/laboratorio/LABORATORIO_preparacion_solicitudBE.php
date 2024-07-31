@@ -212,10 +212,11 @@ function agregarDatosPostFirma($link, $datos)
     }
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $datos['id'];
-    
+    global $numero_solicitud;
+
     // registrar tarea
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
-    registrarTarea(7, $_SESSION['usuario'], $datos['revisado_por'], 'Enviar Análisis externo a Laboratorio: '.$datos['numero_solicitud'], 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
+    registrarTarea(7, $_SESSION['usuario'], $datos['revisado_por'], 'Enviar Análisis externo a Laboratorio: '.$numero_solicitud, 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
     //["2024-08-06", "fabarca212", "", "Enviar Análisis externo a Laboratorio: ", 2, "Enviar a Laboratorio", "2024-07-30 21:05:15", "90", "calidad_analisis_externo"]
 }
 
