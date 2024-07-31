@@ -577,6 +577,10 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                                     botones(id, 'revisar', 'laboratorio');
                                     break;
                                 }
+                                case 'Enviar a Laboratorio': {
+                                    botones(id, 'enviarSolicitud_laboratorio','laboratorio');
+                                    break;
+                                }
                             }
                             break;
                         }
