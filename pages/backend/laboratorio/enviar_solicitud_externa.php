@@ -81,7 +81,23 @@ if (enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody)) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
+    unset($_SESSION['buscar_por_ID']);
+    $_SESSION['buscar_por_ID'] = $id_analisis_externo;
     echo json_encode(['exito' => true, 'mensaje' => 'Correo enviado con éxito']);
+    $query_numero_solicitud = "SELECT numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
+    $stmt_numero_solicitud = mysqli_prepare($link, $query_numero_solicitud);
+    if (!$stmt_numero_solicitud) {
+        throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
+    }
+    mysqli_stmt_bind_param($stmt_numero_solicitud, 'i', $id_analisis_externo);
+    mysqli_stmt_execute($stmt_numero_solicitud);
+    mysqli_stmt_bind_result($stmt_numero_solicitud, $numero_solicitud);
+    mysqli_stmt_fetch($stmt_numero_solicitud);
+    mysqli_stmt_close($stmt_numero_solicitud);
+    
+    finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Enviar a Laboratorio');
+    registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados Laboratorio de solicitud: ' . $numero_solicitud, 2, 'Ingresar resultados Laboratorio', $id_analisis_externo, 'calidad_analisis_externo');
+    
 } else {
     http_response_code(500);
     echo json_encode(['exito' => false, 'mensaje' => 'Error al enviar el correo']);
