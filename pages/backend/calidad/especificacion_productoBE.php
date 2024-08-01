@@ -100,8 +100,8 @@ function procesarFormulario($link) {
 
         mysqli_commit($link); // Aplica los cambios
         
-        registrarTarea(7, $_SESSION['usuario'], $_POST['usuario_revisor'], 'Revisar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 2', $idEspecificacion, 'calidad_especificacion_producto');
-        registrarTarea(14, $_SESSION['usuario'], $_POST['usuario_aprobador'], 'Aprobar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 3', $idEspecificacion, 'calidad_especificacion_producto');
+        registrarTarea(7, $_SESSION['usuario'], $_POST['usuario_revisor'], 'Revisar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 2', $idEspecificacion, 'calidad_especificacion_productos');
+        registrarTarea(14, $_SESSION['usuario'], $_POST['usuario_aprobador'], 'Aprobar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 3', $idEspecificacion, 'calidad_especificacion_productos');
         return ["exito" => true, "mensaje" => "Especificación y análisis creados con éxito.", "idEspecificacion" => $idEspecificacion];
     } catch (Exception $e) {
         // Aquí registramos el error en la trazabilidad antes de hacer rollback
