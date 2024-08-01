@@ -327,6 +327,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const {
             jsPDF
         } = window.jspdf;
+
+        $('#button-container').hide();
+        
+
         const pdf = new jsPDF('p', 'mm', [279, 216]);
         const pageHeight = 279;
         const margin = 5;
@@ -344,6 +348,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 return html2canvas(elementToExport, {
                     scale: 2
                 }).then(canvas => {
+                    $.notify("Generando PDF...", "warning");
                     const imgData = canvas.toDataURL('image/jpeg', 1.0);
                     const imgWidth = 216 - 2 * margin;
                     const imgHeight = canvas.height * imgWidth / canvas.width;
@@ -411,6 +416,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $.notify("Error al subir el PDF", "error");
                     });
             });
+            
+        $('#button-container').show();
     }
     $(document).ready(function() {
         document.getElementById('download-pdf').addEventListener('click', function() {
