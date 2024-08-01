@@ -630,6 +630,24 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     });
                     break;
                 }
+                case "generar_documento_pdf": {
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_analisisExterno.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': true,
+                            'etapa': '0'
+                        },
+                        success: function(response) {
+                            $('#dynamic-content').html(response, true);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+                }
                 case "generar_documento_solicitudes": {
                     $.ajax({
                         url: '../pages/CALIDAD_documento_analisisExterno.php',

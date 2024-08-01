@@ -217,31 +217,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 acciones += `<button class="btn btn-primary col-5" 
                                     type="button" 
                                     title="Análisis Externo" 
-                                    id="${idAnalisisExterno}"
-                                    name="generar_documento_solicitudes" 
-                                    onclick="botones(this.id, this.name, \'laboratorio\')">
-                                    <i class="fa-solid fa-file-pdf"></i> Análisis Externo
+                                    name="generar_documento_pdf" 
+                                    onclick="botones(${idAnalisisExterno}, this.name, 'laboratorio')"
+                                    ><i class="fa-solid fa-file-pdf"></i> Análisis Externo
                                 </button>`;
                                 buttonContainer += `<button 
                                     type="button" 
                                     class="botones" 
-                                    name="generar_documento_solicitudes"
-                                    onclick="botones(${idAnalisisExterno}, this.name, 'laboratorio')">Ir a guardar análisis Externo</button>`
+                                    name="generar_documento_pdf"
+                                    onclick="botones(${idAnalisisExterno}, this.name, 'laboratorio')"
+                                    >Ir a guardar análisis Externo</button>`
                             }
                             if (!analisis.url_certificado_acta_de_muestreo) {
                                 acciones += `<button class="btn btn-primary col-5" 
                                     type="button" 
                                     title="Acta de muestreo" 
-                                    id="${ acta ? acta[0].id : '' }" 
                                     name="revisar_acta" 
-                                    onclick="botones(this.id, this.name, \'laboratorio\')">
-                                    <i class="fa-solid fa-file-pdf"></i> Acta de muestreo
+                                    onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')"
+                                    ><i class="fa-solid fa-file-pdf"></i> Acta de muestreo
                                 </button>`;
                                 buttonContainer += `<button 
                                     type="button" 
                                     class="botones" 
                                     name="revisar_acta"
-                                    onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')">Ir a guardar Acta de muestreo</button>`
+                                    onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')"
+                                    >Ir a guardar Acta de muestreo</button>`
                             }
                             $('#modalContent')
                                 .append(' <div class="modal-footer row gap-2 px-2 justify-content-center" id="modalFooter">' + acciones + '</div>');

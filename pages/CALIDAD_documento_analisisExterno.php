@@ -299,8 +299,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 <div class="button-container">
     <!--Todo: style="display: none;" -->
-    <button class="botones" id="revisar" style="display: none;">Revisar</button>
-    <button class="botones" id="download-pdf" style="display: none;">Descargar PDF</button>
+    <?php
+    $etapa = $_POST['etapa'];
+    if ($etapa == '0') {
+        echo '<button class="botones" id="upload-pdf">Guardar PDF</button>';
+    }
+    if ($etapa == '1') {
+        echo '
+                <button class="botones" id="revisar" style="display: none;">Revisar</button>
+                <button class="botones" id="download-pdf" style="display: none;">Descargar PDF</button>
+            ';
+    }
+    ?>
+
     <!--<button class="botones" id="upload-pdf">Guardar PDF</button>-->
 </div>
 
@@ -312,7 +323,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     var idAnalisisExterno_acta = null;
 
-    document.getElementById('download-pdf').addEventListener('click', function() {
+    function downloadPDF(save) {
         const {
             jsPDF
         } = window.jspdf;
@@ -362,26 +373,53 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             .then(() => addSectionToPDF('section1', currentY, false, sectionHeight))
             .then(() => addSectionToPDF('section2', currentY, false, sectionHeight))
             .then(() => addSectionToPDF('section4', currentY, false, sectionHeight))
-
-            .then(() => {
-                // Colocar el footer al final de la primera página
-                return addSectionToPDF('footer-container', pageHeight - 50);
-            })
-            .then(() => {
-                // Añadir la segunda página
-                return addSectionToPDF('header-container', margin, true);
-            })
+            .then(() => addSectionToPDF('footer-container', pageHeight - 50))
+            .then(() => addSectionToPDF('header-container', margin, true))
             .then(() => addSectionToPDF('section3', currentY))
+            .then(() => addSectionToPDF('footer-container', pageHeight - 50))
             .then(() => {
-                // Colocar el footer al final de la segunda página
-                return addSectionToPDF('footer-container', pageHeight - 50);
-            })
-            .then(() => {
-                var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
-                var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
-                pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-                $.notify("PDF generado con éxito", "success");
+                var nombreProducto = document.getElementById('nombre_producto')
+                    .textContent.trim();
+                var nombreDocumento = document.getElementById('numero_registro')
+                    .textContent.trim();
+                if (!save) {
+                    pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+                    $.notify("PDF generado con éxito", "success");
+                    return;
+                }
+                var blob = pdf.output('blob');
+
+                var formData = new FormData();
+                formData.append('certificado', blob, `${nombreDocumento}_${nombreProducto}.pdf`);
+                formData.append('type', 'solicitud');
+                formData.append('id_solicitud', idAnalisisExterno);
+
+                fetch('./backend/calidad/add_documentos.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            $.notify("PDF subido con éxito", "success");
+                        } else {
+                            $.notify("Error al subir el PDF: " + data.message, "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al subir el PDF:', error);
+                        $.notify("Error al subir el PDF", "error");
+                    });
             });
+    }
+    $(document).ready(function() {
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            downloadPDF(false);
+        });
+
+        document.getElementById('upload-pdf').addEventListener('click', function() {
+            downloadPDF(true);
+        });
     });
     /*
         document.getElementById('upload-pdf').addEventListener('click', function() {
@@ -626,7 +664,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             }
                             $(`#btn-check-a-${index}`).prop('disabled', true);
                             $(`#btn-check-b-${index}`).prop('disabled', true);
-                            
+
                         });
 
                         $("#laboratorio_nro_analisis").prop("disabled", true);
@@ -642,7 +680,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.log(primerAnalisis.revisado_por, "<?php echo $_SESSION['usuario'] ?>");
                         primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
                     }
-                    
+
                     if (primerAnalisis.firmas) {
                         var soli = primerAnalisis.firmas.solicitado_por
                         var revis = primerAnalisis.firmas.revisado_por
@@ -678,12 +716,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             }
                         }
                         if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
-                            
+
                             $("#fecha_firma2").text(primerAnalisis.laboratorio_fecha_analisis).show();
                             $("#mensaje_firma2").show();
                             $("#revisado_por_name").text(revis.nombre).show()
                             $("#cargo_revisador").text(revis.cargo).show()
-                            
+
                             if (revis.qr_documento) {
                                 fetch(revis.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                     const reader = new FileReader();
@@ -705,12 +743,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     $("#revisado_por_firma").attr("src", data);
                                 })
                             }
-                        }else{
+                        } else {
                             datosFirma2 = {
-                                fecha:primerAnalisis.laboratorio_fecha_analisis,
+                                fecha: primerAnalisis.laboratorio_fecha_analisis,
                                 nombre: revis.nombre,
                                 cargo: revis.cargo,
-                                firma: revis.qr_documento?revis.qr_documento: revis.foto_firma
+                                firma: revis.qr_documento ? revis.qr_documento : revis.foto_firma
                             }
                         }
                     }
@@ -741,7 +779,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $("#mensaje_firma2").show();
             $("#revisado_por_name").text(datosFirma2.nombre).show()
             $("#cargo_revisador").text(datosFirma2.cargo).show()
-            
+
             if (datosFirma2.firma) {
                 fetch(datosFirma2.firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                     const reader = new FileReader();
@@ -753,7 +791,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 })
             }
         }
-        
+
 
         $("#revisar").on("click", function() {
             let cumple = true;

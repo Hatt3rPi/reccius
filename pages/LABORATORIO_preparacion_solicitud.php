@@ -340,10 +340,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
 
             <div class="button-container">
-                <button class="botones" id="upload-pdf" style="display: none;">Guardar como PDF</button>
-                <button type="submit" id="guardar" name="guardar" class="botones">GUARDAR SOLICITUD</button>
+               <!-- <button class="botones" id="upload-pdf" style="display: none;">
+                    Guardar como PDF</button> -->
+                <button type="submit" id="guardar" name="guardar" class="botones">
+                    Guardar Solicitud</button>
 
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">EDITAR SOLICITUD</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">
+                    Editar solicitud</button>
             </div>
             <div class="actions-container">
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
