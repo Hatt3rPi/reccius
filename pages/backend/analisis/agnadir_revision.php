@@ -1,4 +1,5 @@
 <?php
+// archivo pages\backend\analisis\agnadir_revision.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../cloud/R2_manager.php";
@@ -58,7 +59,7 @@ if ($row['count'] > 0) {
 mysqli_stmt_close($stmtCheck);
 
 // Verificar que el usuario es el mismo que revisado_por en calidad_analisis_externo
-$revisadoPorQuery = "SELECT revisado_por FROM calidad_analisis_externo WHERE id = ?";
+$revisadoPorQuery = "SELECT revisado_por, solicitado_por, numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
 $stmtRevisadoPor = mysqli_prepare($link, $revisadoPorQuery);
 if ($stmtRevisadoPor) {
     mysqli_stmt_bind_param($stmtRevisadoPor, 'i', $idAnalisisExterno);
@@ -71,10 +72,17 @@ if ($stmtRevisadoPor) {
         echo json_encode(['error' => 'Acceso denegado: el usuario no tiene permiso para revisar este análisis.']);
         exit;
     }
+
+    // Ahora tienes acceso a $rowRevisadoPor['solicitado_por'] y $rowRevisadoPor['numero_solicitud']
+    $solicitadoPor = $rowRevisadoPor['solicitado_por'];
+    $numero_solicitud = $rowRevisadoPor['numero_solicitud'];
+
+    // Puedes usar estos valores según sea necesario
 } else {
     echo json_encode(['error' => 'Error al preparar consulta para verificar el usuario.']);
     exit;
 }
+
 
 // Sube el archivo a Cloudflare R2
 $fileBinary = file_get_contents($_FILES['certificado_de_analisis_externo']['tmp_name']);
@@ -131,6 +139,9 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $idAnalisisExterno;
     echo json_encode(['exito' => true]);
+
+    finalizarTarea($_SESSION['usuario'], $idAnalisisExterno, 'calidad_analisis_externo', 'Ingresar resultados Laboratorio');
+    registrarTarea(7, $_SESSION['usuario'], $solicitadoPor, 'Emitir Acta de Liberación de solicitud: ' . $numero_solicitud, 2, 'Emitir acta de liberación', $idAnalisisExterno, 'calidad_analisis_externo');
 
 } else {
     echo json_encode(['error' => 'Error al subir el certificado: ' . $uploadResult['error']]);
