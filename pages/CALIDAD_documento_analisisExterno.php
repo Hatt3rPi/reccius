@@ -324,27 +324,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     $(document).ready(function() {
         function downloadPDF(save) {
-            const {
-                jsPDF
-            } = window.jspdf;
-    
+            const { jsPDF } = window.jspdf;
+
             $('#button-container').hide();
-            
-    
+
             const pdf = new jsPDF('p', 'mm', [279, 216]);
             const pageHeight = 279;
             const margin = 5;
             let currentY = margin;
-    
-            // Función para capturar y añadir una sección al PDF
+
             const addSectionToPDF = (sectionId, yOffset = currentY, addNewPage = false) => {
                 const elementToExport = document.getElementById(sectionId);
-    
-                // Verificar si el elemento existe antes de acceder a sus propiedades
+
                 if (elementToExport) {
                     elementToExport.style.border = 'none';
                     elementToExport.style.boxShadow = 'none';
-    
+
                     return html2canvas(elementToExport, {
                         scale: 2
                     }).then(canvas => {
@@ -352,28 +347,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         const imgData = canvas.toDataURL('image/jpeg', 1.0);
                         const imgWidth = 216 - 2 * margin;
                         const imgHeight = canvas.height * imgWidth / canvas.width;
-    
+
                         if (addNewPage) {
                             pdf.addPage();
                             currentY = margin;
                         }
-    
+
                         pdf.addImage(imgData, 'JPEG', margin, yOffset, imgWidth, imgHeight);
                         currentY = yOffset + imgHeight + margin;
                     });
                 } else {
-                    // Devolver una promesa resuelta si el elemento no existe
                     return Promise.resolve();
                 }
             };
-    
+
             const distributeHeight = (totalHeight, numberOfSections) => {
                 return (totalHeight - (margin * (numberOfSections + 1))) / numberOfSections;
             };
-    
-            const availableHeight = pageHeight - (2 * margin + 50); // 50 is for the footer height
+
+            const availableHeight = pageHeight - (2 * margin + 50);
             const sectionHeight = distributeHeight(availableHeight, 3);
-    
+
             addSectionToPDF('header-container')
                 .then(() => addSectionToPDF('section1', currentY, false, sectionHeight))
                 .then(() => addSectionToPDF('section2', currentY, false, sectionHeight))
@@ -383,22 +377,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(() => addSectionToPDF('section3', currentY))
                 .then(() => addSectionToPDF('footer-container', pageHeight - 50))
                 .then(() => {
-                    var nombreProducto = document.getElementById('nombre_producto')
-                        .textContent.trim();
-                    var nombreDocumento = document.getElementById('numero_registro')
-                        .textContent.trim();
+                    var nombreProducto = document.getElementById('nombre_producto').textContent.trim();
+                    var nombreDocumento = document.getElementById('numero_registro').textContent.trim();
                     if (!save) {
                         pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
                         $.notify("PDF generado con éxito", "success");
                         return;
                     }
                     var blob = pdf.output('blob');
-    
+
                     var formData = new FormData();
                     formData.append('certificado', blob, `${nombreDocumento}_${nombreProducto}.pdf`);
                     formData.append('type', 'solicitud');
                     formData.append('id_solicitud', idAnalisisExterno);
-    
+
                     fetch('./backend/calidad/add_documentos.php', {
                             method: 'POST',
                             body: formData
@@ -415,16 +407,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             console.error('Error al subir el PDF:', error);
                             $.notify("Error al subir el PDF", "error");
                         });
+                })
+                .finally(() => {
+                    $('#button-container').show();
                 });
-                
-            $('#button-container').show();
         }
-        document.getElementById('download-pdf').addEventListener('click', function() {
-            downloadPDF(false);
-        });
-        document.getElementById('upload-pdf').addEventListener('click', function() {
-            downloadPDF(true);
-        });
+        
+        const uploadButton = document.getElementById('upload-pdf');
+        if (uploadButton) {
+            uploadButton.addEventListener('click', function() {
+                downloadPDF(true);
+            });
+        }
+
+        const downloadButton = document.getElementById('download-pdf');
+        if (downloadButton) {
+            downloadButton.addEventListener('click', function() {
+                downloadPDF(false);
+            });
+        }
     });
    
     // Función para mostrar u ocultar la columna de revisión
