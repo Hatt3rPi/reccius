@@ -897,12 +897,12 @@ function actualizarCampos() {
         });
 
         // Mostrar y actualizar campos según la selección
-        if (['g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
+        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param2]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion.split('/')[0]).show();
             $('input[name=concentracion_param2_lbl]').val(seleccion.split('/')[1]).show();
-        } else if (['g', 'ml', 'UI'].includes(seleccion)) {
+        } else if (['mg','g', 'ml', 'UI'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion).show();
         }
@@ -914,7 +914,7 @@ function actualizarCampos() {
         var tipo = $('#tipo_concentracion').val();
 
         var concentracion = '';
-        if (['g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
+        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
             concentracion = param1 + tipo;
