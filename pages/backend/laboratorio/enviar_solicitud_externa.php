@@ -1,4 +1,5 @@
 <?php
+// archivo: pages\backend\laboratorio\enviar_solicitud_externa.php
 session_start();
 header('Content-Type: application/json');
 include "../email/envia_correoBE.php";
@@ -94,7 +95,8 @@ if (enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody)) {
     mysqli_stmt_bind_result($stmt_numero_solicitud, $numero_solicitud);
     mysqli_stmt_fetch($stmt_numero_solicitud);
     mysqli_stmt_close($stmt_numero_solicitud);
-    
+    unset($_SESSION['buscar_por_ID']);
+    $_SESSION['buscar_por_ID'] = $id_analisis_externo;
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Enviar a Laboratorio');
     registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados Laboratorio de solicitud: ' . $numero_solicitud, 2, 'Ingresar resultados Laboratorio', $id_analisis_externo, 'calidad_analisis_externo');
     

@@ -407,6 +407,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(data => {
                     if (data.exito) {
                         alert('Correo enviado con éxito');
+                        $('#listado_solicitudes_analisis').click();
                     } else {
                         alert('Error al enviar el correo: ' + data.mensaje);
                     }
