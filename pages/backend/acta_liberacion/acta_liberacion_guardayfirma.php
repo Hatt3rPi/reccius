@@ -110,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             mysqli_stmt_close($stmt4);
+            //acá
             unset($_SESSION['buscar_por_ID']);
             if ($exito) {
                 $_SESSION['buscar_por_ID'] = $id_cuarentena;
