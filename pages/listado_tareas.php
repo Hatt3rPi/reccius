@@ -46,8 +46,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <th>Usuario Creador</th>
                         <th>Usuario Ejecutor</th>
                         <th>Fecha Ingreso</th>
-                        <th>Fecha Vencimiento</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
