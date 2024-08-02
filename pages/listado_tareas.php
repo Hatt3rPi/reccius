@@ -124,18 +124,11 @@ function cargaListadoTareas() {
             },
             { "data": "descripcion_tarea" },
             {
-                "data": "usuario_creador",
-                "render": function (data, type, row) {
-                    return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
-                }
-            },
-            {
                 "data": "usuario_ejecutor",
                 "render": function (data, type, row) {
                     return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
                 }
             },
-            { "data": "fecha_ingreso", "width": "70px" },
             { "data": "fecha_vencimiento", "width": "70px"  },
 
             
@@ -164,7 +157,9 @@ function cargaListadoTareas() {
 
     function format(d) {
         // `d` es el objeto de datos original para la fila
-        var acciones = '<table background-color="#F6F6F6" color="#FFF" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        var acciones = '<table style="background-color:#F6F6F6; color:#000; padding-left:50px;" cellpadding="5" cellspacing="0" border="1">';
+        acciones += '<tr><td>Usuario Creador:</td><td>' + d.usuario_creador + '</td></tr>';
+        acciones += '<tr><td>Fecha Ingreso:</td><td>' + d.fecha_ingreso + '</td></tr>';
         acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
         // Agrega acciones según el estado de la tarea
