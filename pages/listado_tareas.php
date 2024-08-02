@@ -43,9 +43,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <th>Prioridad</th>
                         <th>Estado</th>
                         <th>Descripción</th>
-                        <th>Usuario Creador</th>
                         <th>Usuario Ejecutor</th>
-                        <th>Fecha Ingreso</th>
+                        <th>Fecha Vencimiento </th>
+                        <th>Nro Tarea</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -127,7 +127,7 @@ function cargaListadoTareas() {
                     return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
                 }
             },
-            { "data": "fecha_vencimiento", "width": "70px"  },
+            { "data": "fecha_vencimiento", "width": "100px"  },
 
             
             {
