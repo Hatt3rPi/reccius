@@ -59,7 +59,7 @@ if ($row['count'] > 0) {
 mysqli_stmt_close($stmtCheck);
 
 // Verificar que el usuario es el mismo que revisado_por en calidad_analisis_externo
-$revisadoPorQuery = "SELECT revisado_por, solicitado_por, numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
+$revisadoPorQuery = "SELECT revisado_por, solicitado_por, numero_solicitud, id_cuarentena FROM calidad_analisis_externo WHERE id = ?";
 $stmtRevisadoPor = mysqli_prepare($link, $revisadoPorQuery);
 if ($stmtRevisadoPor) {
     mysqli_stmt_bind_param($stmtRevisadoPor, 'i', $idAnalisisExterno);
@@ -76,7 +76,7 @@ if ($stmtRevisadoPor) {
     // Ahora tienes acceso a $rowRevisadoPor['solicitado_por'] y $rowRevisadoPor['numero_solicitud']
     $solicitadoPor = $rowRevisadoPor['solicitado_por'];
     $numero_solicitud = $rowRevisadoPor['numero_solicitud'];
-
+    $id_cuarentena = $rowRevisadoPor['id_cuarentena'];
     // Puedes usar estos valores según sea necesario
 } else {
     echo json_encode(['error' => 'Error al preparar consulta para verificar el usuario.']);
@@ -137,7 +137,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     }
 
     unset($_SESSION['buscar_por_ID']);
-    $_SESSION['buscar_por_ID'] = $idAnalisisExterno;
+    $_SESSION['buscar_por_ID'] = $id_cuarentena;
     echo json_encode(['exito' => true]);
 
     finalizarTarea($_SESSION['usuario'], $idAnalisisExterno, 'calidad_analisis_externo', 'Ingresar resultados Laboratorio');

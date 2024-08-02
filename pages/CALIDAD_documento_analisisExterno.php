@@ -770,6 +770,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }).then(function(response) {
                 $.notify("Analisis de laboratorio guardado.", "success");
                 firma2Fn();
+                $('#listado_productos_disponibles').click();
+                //acá
             }).catch(error => {
                 $("#revisar").show();
                 console.error('Error:', error);
