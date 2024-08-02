@@ -137,7 +137,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     }
 
     unset($_SESSION['buscar_por_ID']);
-    $_SESSION['buscar_por_ID'] = $id_cuarentena;
+    $_SESSION['buscar_por_ID'] = $idAnalisisExterno;
     echo json_encode(['exito' => true]);
 
     finalizarTarea($_SESSION['usuario'], $idAnalisisExterno, 'calidad_analisis_externo', 'Ingresar resultados Laboratorio');

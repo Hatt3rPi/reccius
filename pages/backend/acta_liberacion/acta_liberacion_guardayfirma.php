@@ -110,9 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             mysqli_stmt_close($stmt4);
-            unset($_SESSION['nuevo_id']);
+            unset($_SESSION['buscar_por_ID']);
             if ($exito) {
-                $_SESSION['nuevo_id'] = $id_cuarentena;
+                $_SESSION['buscar_por_ID'] = $id_cuarentena;
             }
             echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_cuarentena]);
             finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Emitir acta de liberación');
