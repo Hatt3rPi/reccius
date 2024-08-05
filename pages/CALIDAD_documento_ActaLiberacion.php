@@ -492,7 +492,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         buttonContainer.style.display = 'none';
 
         // Obtener imágenes en base64 desde el backend
-        fetch('../pages/backend/otros/converitr_imagenes.php')
+        fetch('./backend/otros/convertir_imagenes.php')
             .then(response => response.json())
             .then(data => {
                 const imagenFirmaBase64 = `data:image/png;base64,${data.imagen_firma}`;
