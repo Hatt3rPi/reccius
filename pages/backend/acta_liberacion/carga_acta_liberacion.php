@@ -40,7 +40,8 @@ try {
                                 anali.criterios_aceptacion AS 'anali_criterios_aceptacion',
                                 am.fecha_muestreo,
                                 am.numero_acta,
-                                am.id as id_actaMuestreo
+                                am.id as id_actaMuestreo,
+                                an.estado
                             FROM calidad_analisis_externo AS an
                             JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
                             JOIN calidad_productos AS prod ON es.id_producto = prod.id

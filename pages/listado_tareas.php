@@ -40,12 +40,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Nro Tarea</th>
                         <th>Prioridad</th>
                         <th>Estado</th>
                         <th>Descripción</th>
                         <th>Usuario Ejecutor</th>
                         <th>Fecha Vencimiento </th>
-                        <th>Nro Tarea</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -228,6 +228,7 @@ $('#formCambiarUsuario').on('submit', function(e) {
         url: './backend/tareas/tareasBE.php', // Asegúrate de ajustar esta URL
         type: 'POST',
         data: datosFormulario,
+        //acá
         success: function(response) {
             // Aquí puedes manejar la respuesta
             alert('Usuario Cambiado');
