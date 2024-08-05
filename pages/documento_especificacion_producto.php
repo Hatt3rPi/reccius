@@ -143,7 +143,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="firma-section">
                     <div class="firma-box-title">Realizado por:</div>
                     <div class="firma-boxes">
-                        <p id="creadoPor" name="creadoPor" class="bold"></p>
+                        <p id="creadoPor2" name="creadoPor2" class="bold"></p>
                         <p id="cargo_creador" name="cargo_creador" class="bold"></p>
                         <div class="signature" id="QRcreador" name="QRcreador">
                             <img id="QRcreador" name="QRcreador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
@@ -202,6 +202,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
     <script>
+
         var Wcontent = 2;
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
@@ -360,6 +361,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#cargo_revisor').text(especificacion.revisado_por.cargo);
                     $('#cargo_aprobador').text(especificacion.aprobado_por.cargo);
                     $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
+                    $('#creadoPor2').text(especificacion.creado_por.nombre || 'No disponible');
                     $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
                     $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
                     $('#vigencia').text(especificacion.vigencia || 'No disponible');
