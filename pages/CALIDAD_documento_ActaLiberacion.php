@@ -730,7 +730,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         // Convertir la imagen a Base64 y asignarla al elemento
                         convertImageToBase64('imagen_firma');
-                        
+                        //
                         $('#realizado_por').text(campos.nombre_usr1);
                         $('#cargo_realizador').text(campos.cargo_usr1);
 
