@@ -477,432 +477,453 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    const firmas = [
-    { id: 'estado_liberacion', url: 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp' },
-    { id: 'imagen_firma', url: 'https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png' },
-    // Agrega aquí más imágenes si es necesario
-];
-
-firmas.forEach(firma => {
-    loadImageAsBase64(firma.url, function(base64Image) {
-        document.getElementById(firma.id).src = base64Image;
-    });
-});
-
-function loadImageAsBase64(url, callback) {
-    fetch(url)
-        .then(response => response.blob())
-        .then(blob => {
-            const reader = new FileReader();
-            reader.onloadend = () => callback(reader.result);
-            reader.readAsDataURL(blob);
-        })
-        .catch(error => console.error('Error loading image as Base64:', error));
-}
-
-document.getElementById('download-pdf').addEventListener('click', function() {
-    const buttonContainer = document.querySelector('.button-container');
-    const elementToExport = document.getElementById('form-container');
-
-    // Guardar los estilos originales
-    const originalBorder = elementToExport.style.border;
-    const originalBoxShadow = elementToExport.style.boxShadow;
-
-    // Ocultar borde y sombra
-    elementToExport.style.border = 'none';
-    elementToExport.style.boxShadow = 'none';
-
-    buttonContainer.style.display = 'none';
-
-    html2canvas(elementToExport, {
-        scale: 2,
-        logging: true,
-        useCORS: true,
-        allowTaint: false
-    }).then(canvas => {
-        // Restaurar los estilos originales
-        elementToExport.style.border = originalBorder;
-        elementToExport.style.boxShadow = originalBoxShadow;
-
-        buttonContainer.style.display = 'block';
-
-        // Ajusta la calidad de la imagen
-        const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
-
-        const pdf = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'mm',
-            format: 'a4'
-        });
-
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = pageWidth;
-        let imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-
-        let position = 0;
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
-        heightLeft -= pageHeight;
-
-        while (heightLeft > 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
-            heightLeft -= pageHeight;
-        }
-
-        pdf.save('documento.pdf');
-        $.notify("PDF generado con éxito", "success");
-    });
-});
-
-var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
-var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
-
-console.log("ID Analisis Externo:", idAnalisisExterno);
-
-function loadData() {
-    console.log(idAnalisisExterno);
-    $.ajax({
-        url: './backend/acta_liberacion/carga_acta_liberacion.php',
-        type: 'GET',
-        data: {
-            idAnalisisExterno: idAnalisisExterno
+    const firmas = [{
+            id: 'estado_liberacion',
+            url: 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp'
         },
-        dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-        success: function(response) {
-            if (response.success) {
-                if (response.analisis && response.analisis.length > 0) {
-                    const analisis = response.analisis; // Datos del análisis externo
-                    const primerAnalisis = analisis[0];
-                    const acta_muestreo = response.Acta_Muestreo[0];
+        {
+            id: 'imagen_firma',
+            url: 'https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png'
+        },
+        // Agrega aquí más imágenes si es necesario
+    ];
 
-                    // Sumar los resultados de producto en un solo texto
-                    var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
-                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-                    // Actualizar el elemento con el texto combinado
-                    $('#producto_completo').text(productoCompleto);
-                    $('#producto_completoT1').val(productoCompleto);
+    firmas.forEach(firma => {
+        loadImageAsBase64(firma.url, function(base64Image) {
+            document.getElementById(firma.id).src = base64Image;
+        });
+    });
 
-                    // Actualizar los inputs con los datos del análisis
-                    $('#nro_registro').text(response.numero_registro);
-                    $('#nro_version').text(1);
-                    $('#nro_acta').text(response.numero_acta);
-                    $('#fecha_acta_lib').val(fecha_yoh);
-                    $('#fecha_lib').val(fecha_yoh);
-                    $('#nro_acta_liberacion').val(response.numero_acta);
+    function loadImageAsBase64(url) {
+        return fetch(url, {
+                mode: 'no-cors'
+            })
+            .then(response => response.blob())
+            .then(blob => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            }));
+    }
 
-                    $('#nro_lote').val(primerAnalisis.lote);
-                    $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
-                    $('#tamaño_lote').val(primerAnalisis.tamano_lote);
-                    $('#codigo_interno').val(primerAnalisis.codigo_interno);
-                    $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                    $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
-                    $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+    document.getElementById('download-pdf').addEventListener('click', function() {
+        const buttonContainer = document.querySelector('.button-container');
+        const elementToExport = document.getElementById('form-container');
 
-                    // TABLA 2
-                    $('#nro_acta_muestreo').val(acta_muestreo.numero_acta);
-                    $('#fecha_acta_muestreo').val(acta_muestreo.fecha_muestreo);
-                    $('#laboratorio_analista').val(primerAnalisis.laboratorio);
-                    $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
-                    $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
-                    $('#nro_analisis').val(primerAnalisis.laboratorio_nro_analisis);
-                    $('#fecha_envio').val(primerAnalisis.fecha_envio);
-                    $('#fecha_revision').val(primerAnalisis.laboratorio_fecha_analisis);
+        // Guardar los estilos originales
+        const originalBorder = elementToExport.style.border;
+        const originalBoxShadow = elementToExport.style.boxShadow;
 
-                    // TABLA 3
-                    $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
-                    $('#nro_loteT3').val(primerAnalisis.lote);
-                    $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
-                    $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
-                    $('#producto_completoT3').val(productoCompleto);
-                    $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
-                    $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
+        // Ocultar borde y sombra
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
 
-                    //datos higienicos
-                    $('#id_analisis_externo').text(response.id_analisis_externo);
-                    $('#id_actaMuestreo').text(acta_muestreo.id);
-                    $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
-                    $('#id_producto').text(primerAnalisis.id_producto);
-                    $('#id_cuarentena').text(primerAnalisis.id_cuarentena);
-                    $('.verif').css('background-color', '#f4fac2');
+        buttonContainer.style.display = 'none';
+
+        Promise.all([
+            loadImageAsBase64('https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp'),
+            loadImageAsBase64('https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp'),
+            loadImageAsBase64('https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png')
+        ]).then(([aprobado, rechazado, qr]) => {
+            document.getElementById('estado_liberacion').src = aprobado;
+            document.getElementById('imagen_firma').src = qr;
+
+            html2canvas(elementToExport, {
+                scale: 2,
+                logging: true,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                // Restaurar los estilos originales
+                elementToExport.style.border = originalBorder;
+                elementToExport.style.boxShadow = originalBoxShadow;
+
+                buttonContainer.style.display = 'block';
+
+                // Ajusta la calidad de la imagen
+                const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+
+                const pdf = new jspdf.jsPDF({
+                    orientation: 'p',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = pageWidth;
+                let imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+
+                let position = 0;
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                heightLeft -= pageHeight;
+
+                while (heightLeft > 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                    heightLeft -= pageHeight;
+                }
+
+                pdf.save('documento.pdf');
+                $.notify("PDF generado con éxito", "success");
+            }).catch(error => {
+                console.error("Error generating PDF:", error);
+                $.notify("Error al generar el PDF.", "error");
+            });
+        }).catch(error => {
+            console.error("Error loading image as Base64:", error);
+            $.notify("Error al cargar imágenes.", "error");
+        });
+    });
+
+    var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
+    var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
+
+    console.log("ID Analisis Externo:", idAnalisisExterno);
+
+    function loadData() {
+        console.log(idAnalisisExterno);
+        $.ajax({
+            url: './backend/acta_liberacion/carga_acta_liberacion.php',
+            type: 'GET',
+            data: {
+                idAnalisisExterno: idAnalisisExterno
+            },
+            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+            success: function(response) {
+                if (response.success) {
+                    if (response.analisis && response.analisis.length > 0) {
+                        const analisis = response.analisis; // Datos del análisis externo
+                        const primerAnalisis = analisis[0];
+                        const acta_muestreo = response.Acta_Muestreo[0];
+
+                        // Sumar los resultados de producto en un solo texto
+                        var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
+                        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                        // Actualizar el elemento con el texto combinado
+                        $('#producto_completo').text(productoCompleto);
+                        $('#producto_completoT1').val(productoCompleto);
+
+                        // Actualizar los inputs con los datos del análisis
+                        $('#nro_registro').text(response.numero_registro);
+                        $('#nro_version').text(1);
+                        $('#nro_acta').text(response.numero_acta);
+                        $('#fecha_acta_lib').val(fecha_yoh);
+                        $('#fecha_lib').val(fecha_yoh);
+                        $('#nro_acta_liberacion').val(response.numero_acta);
+
+                        $('#nro_lote').val(primerAnalisis.lote);
+                        $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
+                        $('#tamaño_lote').val(primerAnalisis.tamano_lote);
+                        $('#codigo_interno').val(primerAnalisis.codigo_interno);
+                        $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                        $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                        $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+
+                        // TABLA 2
+                        $('#nro_acta_muestreo').val(acta_muestreo.numero_acta);
+                        $('#fecha_acta_muestreo').val(acta_muestreo.fecha_muestreo);
+                        $('#laboratorio_analista').val(primerAnalisis.laboratorio);
+                        $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
+                        $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
+                        $('#nro_analisis').val(primerAnalisis.laboratorio_nro_analisis);
+                        $('#fecha_envio').val(primerAnalisis.fecha_envio);
+                        $('#fecha_revision').val(primerAnalisis.laboratorio_fecha_analisis);
+
+                        // TABLA 3
+                        $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                        $('#nro_loteT3').val(primerAnalisis.lote);
+                        $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
+                        $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
+                        $('#producto_completoT3').val(productoCompleto);
+                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
+                        $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
+
+                        //datos higienicos
+                        $('#id_analisis_externo').text(response.id_analisis_externo);
+                        $('#id_actaMuestreo').text(acta_muestreo.id);
+                        $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
+                        $('#id_producto').text(primerAnalisis.id_producto);
+                        $('#id_cuarentena').text(primerAnalisis.id_cuarentena);
+                        $('.verif').css('background-color', '#f4fac2');
+                    } else {
+                        console.error('Estructura de la respuesta no es la esperada:', response);
+                        alert("Error en carga de datos. Revisa la consola para más detalles.");
+                    }
                 } else {
-                    console.error('Estructura de la respuesta no es la esperada:', response);
+                    console.error('Error en la respuesta del servidor:', response.message);
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
                 }
-            } else {
-                console.error('Error en la respuesta del servidor:', response.message);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+                console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error cargando los datos: ' + error);
-            console.error('AJAX error: ' + status + ' : ' + error);
-            alert("Error en carga de datos. Revisa la consola para más detalles.");
+        });
+    }
+
+    function carga_acta_liberacion_firmado(id_actaLiberacion) {
+        console.log(id_actaLiberacion);
+        $.ajax({
+            url: './backend/acta_liberacion/carga_acta_liberacion_firmada.php',
+            type: 'GET',
+            data: {
+                id_actaLiberacion: id_actaLiberacion
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const campos = response.campos[0]; // Accede al primer objeto en el array campos
+                    if (campos) {
+                        // Sumar los resultados de producto en un solo texto
+                        var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
+                        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+
+                        // Actualizar el elemento con el texto combinado
+                        $('#producto_completo').text(productoCompleto);
+                        $('#producto_completoT1').val(productoCompleto);
+
+                        // Actualizar los inputs con los datos del análisis
+                        $('#nro_registro').text(campos.numero_registro);
+                        $('#nro_version').text(campos.version_registro);
+                        $('#nro_acta').text(campos.numero_acta);
+                        $('#fecha_acta_lib').val(fecha_yoh);
+                        $('#fecha_lib').val(fecha_yoh);
+                        $('#nro_acta_liberacion').val(campos.numero_acta);
+
+                        $('#nro_lote').val(campos.lote);
+                        $('#tipo_producto').val(campos.prod_tipo_producto);
+                        $('#tamaño_lote').val(campos.tamano_lote);
+                        $('#codigo_interno').val(campos.codigo_interno);
+                        $('#fecha_elaboracion').val(campos.fecha_elaboracion);
+                        $('#cond_almacenamiento').val(campos.condicion_almacenamiento);
+                        $('#fecha_vencimiento').val(campos.fecha_vencimiento);
+
+                        // TABLA 2
+                        $('#nro_acta_muestreo').val(campos.nro_actaMuestreo);
+                        $('#fecha_acta_muestreo').val(campos.fecha_muestreo);
+                        $('#laboratorio_analista').val(campos.laboratorio);
+                        $('#nro_solicitud_analisis').val(campos.numero_solicitud);
+                        $('#fecha_solicitud_analisis').val(campos.fecha_solicitud);
+                        $('#nro_analisis').val(campos.laboratorio_nro_analisis);
+                        $('#fecha_envio').val(campos.fecha_envio);
+                        $('#fecha_revision').val(campos.laboratorio_fecha_analisis);
+
+                        // TABLA 3
+                        $('#nombre_producto').text(campos.prod_nombre_producto);
+                        $('#nro_loteT3').val(campos.lote);
+                        $('#fecha_elabT3').val(campos.fecha_elaboracion);
+                        $('#fecha_vencT3').val(campos.fecha_vencimiento);
+                        $('#producto_completoT3').val(productoCompleto);
+
+                        $('#form_textarea1').val(campos.obs1);
+                        $('#form_textarea2').val(campos.obs2);
+                        $('#form_textarea3').val(campos.obs3);
+                        $('#form_textarea4').val(campos.obs4);
+                        $('#cantidad_real').val(campos.cantidad_real_liberada);
+                        $('#nro_traspaso').val(campos.nro_parte_ingreso);
+
+                        // Asegurarse de que los campos no sean undefined antes de llamar a la función
+                        if (campos.revision_liberacion && campos.revision_estados) {
+                            cargarResultadosGuardados(campos.revision_liberacion, campos.revision_estados);
+                        } else {
+                            console.error("Los resultados de revisión no están definidos.");
+                        }
+
+                        if (campos.estado == 'aprobado') {
+                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
+                        } else {
+                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
+                        }
+                        $('#fecha_realizacion').text(campos.fecha_firma1);
+                        $('#mensaje_realizador').css('display', 'block');
+                        $('#imagen_firma').attr('src', campos.foto_firma_usr1);
+                        $('#realizado_por').text(campos.nombre_usr1);
+                        $('#cargo_realizador').text(campos.cargo_usr1);
+
+                        $('#id_analisis_externo').text(campos.id_analisisExterno);
+                        $('#id_actaMuestreo').text(campos.id_actaMuestreo);
+                        $('#id_especificacion').text(campos.id_especificacion);
+                        $('#id_producto').text(campos.id_producto);
+                        $('#id_cuarentena').text(campos.id_cuarentena);
+                        $('#guardar').css('display', 'none');
+                        $('#download-pdf').css('display', 'block');
+                        $('.verif').css('background-color', '#ffffff').prop('readonly', true);
+                    } else {
+                        console.error('Estructura de la respuesta no es la esperada:', response);
+                        alert("Error en carga de datos. Revisa la consola para más detalles.");
+                    }
+                } else {
+                    console.error('Error en la respuesta del servidor:', response.message);
+                    alert("Error en carga de datos. Revisa la consola para más detalles.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+                console.error('AJAX error: ' + status + ' : ' + error);
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
+            }
+        });
+    }
+
+    function cargarResultadosGuardados(revisionResults, docConformeResults) {
+        // Asegúrate de que las cadenas tengan 4 caracteres
+        if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
+            console.error("Los resultados deben tener exactamente 4 caracteres.");
+            return;
         }
-    });
-}
 
-function carga_acta_liberacion_firmado(id_actaLiberacion) {
-    console.log(id_actaLiberacion);
-    $.ajax({
-        url: './backend/acta_liberacion/carga_acta_liberacion_firmada.php',
-        type: 'GET',
-        data: {
-            id_actaLiberacion: id_actaLiberacion
-        },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                const campos = response.campos[0]; // Accede al primer objeto en el array campos
-                if (campos) {
-                    // Sumar los resultados de producto en un solo texto
-                    var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
-                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+        // Seleccionar los inputs correspondientes para revisionResults
+        $('.revision input[type="radio"]').each(function(index) {
+            // Obtener el grupo de inputs de radio para este índice
+            let groupName = $(this).attr('name');
 
-                    // Actualizar el elemento con el texto combinado
-                    $('#producto_completo').text(productoCompleto);
-                    $('#producto_completoT1').val(productoCompleto);
+            // Obtener el valor correspondiente de revisionResults
+            let value = revisionResults.charAt(Math.floor(index / 2));
 
-                    // Actualizar los inputs con los datos del análisis
-                    $('#nro_registro').text(campos.numero_registro);
-                    $('#nro_version').text(campos.version_registro);
-                    $('#nro_acta').text(campos.numero_acta);
-                    $('#fecha_acta_lib').val(fecha_yoh);
-                    $('#fecha_lib').val(fecha_yoh);
-                    $('#nro_acta_liberacion').val(campos.numero_acta);
+            // Seleccionar el input correcto basado en el valor
+            if ($(this).val() === value) {
+                $(this).prop('checked', true);
+            }
+        });
 
-                    $('#nro_lote').val(campos.lote);
-                    $('#tipo_producto').val(campos.prod_tipo_producto);
-                    $('#tamaño_lote').val(campos.tamano_lote);
-                    $('#codigo_interno').val(campos.codigo_interno);
-                    $('#fecha_elaboracion').val(campos.fecha_elaboracion);
-                    $('#cond_almacenamiento').val(campos.condicion_almacenamiento);
-                    $('#fecha_vencimiento').val(campos.fecha_vencimiento);
+        // Seleccionar los inputs correspondientes para docConformeResults
+        $('.doc-conforme input[type="radio"]').each(function(index) {
+            // Obtener el grupo de inputs de radio para este índice
+            let groupName = $(this).attr('name');
 
-                    // TABLA 2
-                    $('#nro_acta_muestreo').val(campos.nro_actaMuestreo);
-                    $('#fecha_acta_muestreo').val(campos.fecha_muestreo);
-                    $('#laboratorio_analista').val(campos.laboratorio);
-                    $('#nro_solicitud_analisis').val(campos.numero_solicitud);
-                    $('#fecha_solicitud_analisis').val(campos.fecha_solicitud);
-                    $('#nro_analisis').val(campos.laboratorio_nro_analisis);
-                    $('#fecha_envio').val(campos.fecha_envio);
-                    $('#fecha_revision').val(campos.laboratorio_fecha_analisis);
+            // Obtener el valor correspondiente de docConformeResults
+            let value = docConformeResults.charAt(Math.floor(index / 2));
 
-                    // TABLA 3
-                    $('#nombre_producto').text(campos.prod_nombre_producto);
-                    $('#nro_loteT3').val(campos.lote);
-                    $('#fecha_elabT3').val(campos.fecha_elaboracion);
-                    $('#fecha_vencT3').val(campos.fecha_vencimiento);
-                    $('#producto_completoT3').val(productoCompleto);
+            // Seleccionar el input correcto basado en el valor
+            if ($(this).val() === value) {
+                $(this).prop('checked', true);
+            }
+        });
+    }
 
-                    $('#form_textarea1').val(campos.obs1);
-                    $('#form_textarea2').val(campos.obs2);
-                    $('#form_textarea3').val(campos.obs3);
-                    $('#form_textarea4').val(campos.obs4);
-                    $('#cantidad_real').val(campos.cantidad_real_liberada);
-                    $('#nro_traspaso').val(campos.nro_parte_ingreso);
+    function resultado_liberacion() {
+        let revisionResults = '';
+        $('.revision input[type="radio"]:checked').each(function() {
+            revisionResults += $(this).val();
+        });
 
-                    // Asegurarse de que los campos no sean undefined antes de llamar a la función
-                    if (campos.revision_liberacion && campos.revision_estados) {
-                        cargarResultadosGuardados(campos.revision_liberacion, campos.revision_estados);
-                    } else {
-                        console.error("Los resultados de revisión no están definidos.");
-                    }
+        let docConformeResults = '';
+        $('.doc-conforme input[type="radio"]:checked').each(function() {
+            docConformeResults += $(this).val();
+        });
 
-                    if (campos.estado == 'aprobado') {
-                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
-                    } else {
-                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
-                    }
-                    $('#fecha_realizacion').text(campos.fecha_firma1);
-                    $('#mensaje_realizador').css('display', 'block');
-                    $('#imagen_firma').attr('src', campos.foto_firma_usr1);
-                    $('#realizado_por').text(campos.nombre_usr1);
-                    $('#cargo_realizador').text(campos.cargo_usr1);
+        let cantidad_real = $('#cantidad_real').val().trim();
+        let nro_traspaso = $('#nro_traspaso').val().trim();
 
-                    $('#id_analisis_externo').text(campos.id_analisisExterno);
-                    $('#id_actaMuestreo').text(campos.id_actaMuestreo);
-                    $('#id_especificacion').text(campos.id_especificacion);
-                    $('#id_producto').text(campos.id_producto);
-                    $('#id_cuarentena').text(campos.id_cuarentena);
+        if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
+            $('.revision input[type="radio"]:checked').each(function() {
+                if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
+            });
+
+            $('.doc-conforme input[type="radio"]:checked').each(function() {
+                if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
+            });
+
+            if (!cantidad_real) $('#cantidad_real').css('border-color', 'red');
+            if (!nro_traspaso) $('#nro_traspaso').css('border-color', 'red');
+
+            $.notify("Por favor complete todos los campos requeridos.", "error");
+            return;
+        }
+
+        $('#resultadoModal').modal('show');
+
+        $('#aprobadoImg').off('click').on('click', function() {
+            firmayguarda('aprobado', revisionResults, docConformeResults);
+        });
+
+        $('#rechazadoImg').off('click').on('click', function() {
+            firmayguarda('rechazado', revisionResults, docConformeResults);
+        });
+    }
+
+    function firmayguarda(resultado, revisionResults, docConformeResults) {
+        // Hacer visibles los elementos de .formulario.resp
+        $('#resultadoModal').modal('hide');
+        console.log('click firma');
+
+        // Mostrar los resultados consolidados en la consola
+        console.log('Revision Results:', revisionResults);
+        console.log('Doc Conforme Results:', docConformeResults);
+        let id_especificacion = $('#id_especificacion').text();
+        let id_producto = $('#id_producto').text();
+        let id_cuarentena = $('#id_cuarentena').text();
+        let id_analisis_externo = $('#id_analisis_externo').text();
+        let id_actaMuestreo = $('#id_actaMuestreo').text();
+        let nro_acta = $('#nro_acta').text();
+        let nro_registro = $('#nro_registro').text();
+        let nro_version = $('#nro_version').text();
+        let fecha_acta_lib = $('#fecha_acta_lib').val();
+        let tipo_producto = $('#tipo_producto').val();
+        let estado = resultado;
+
+        let obs1 = $('#form_textarea1').val();
+        let obs2 = $('#form_textarea2').val();
+        let obs3 = $('#form_textarea3').val();
+        let obs4 = $('#form_textarea4').val();
+        let cant_real_liberada = $('#cantidad_real').val();
+        let parte_ingreso = $('#nro_traspaso').val();
+        let dataToSave = {
+            id_analisis_externo: id_analisis_externo,
+            id_especificacion: id_especificacion,
+            id_producto: id_producto,
+            id_actaMuestreo: id_actaMuestreo,
+            id_cuarentena: id_cuarentena,
+            nro_acta: nro_acta,
+            nro_registro: nro_registro,
+            nro_version: nro_version,
+            fecha_acta_lib: fecha_acta_lib,
+            tipo_producto: tipo_producto,
+            estado: estado,
+            obs1: obs1,
+            obs2: obs2,
+            obs3: obs3,
+            obs4: obs4,
+            cant_real_liberada: cant_real_liberada,
+            parte_ingreso: parte_ingreso,
+            docConformeResults: docConformeResults,
+            revisionResults: revisionResults,
+            fase: 'Firma 1'
+        };
+
+        // Enviar datos al servidor usando AJAX
+        console.log('información enviada al BE: ', dataToSave);
+        $.ajax({
+            url: './backend/acta_liberacion/acta_liberacion_guardayfirma.php',
+            type: 'POST',
+            data: JSON.stringify(dataToSave),
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                let responseData = JSON.parse(response);
+                if (responseData.success) {
+                    console.log('Firma guardada con éxito: ', responseData);
+                    $.notify("Documento firmado correctamente.", "success");
+                    let id_actaLiberacion = responseData.id_actaLiberacion;
+                    console.log('ID Acta de Liberación: ', id_actaLiberacion);
+                    carga_acta_liberacion_firmado(id_actaLiberacion);
                     $('#guardar').css('display', 'none');
                     $('#download-pdf').css('display', 'block');
-                    $('.verif').css('background-color', '#ffffff').prop('readonly', true);
+
+                    $('#listado_productos_disponibles').click();
                 } else {
-                    console.error('Estructura de la respuesta no es la esperada:', response);
-                    alert("Error en carga de datos. Revisa la consola para más detalles.");
+                    console.error("Error al guardar la firma: ", responseData.error);
+                    $.notify("Error al firmar documento: " + responseData.error, "error");
                 }
-            } else {
-                console.error('Error en la respuesta del servidor:', response.message);
-                alert("Error en carga de datos. Revisa la consola para más detalles.");
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al guardar la firma: ", status, error);
+                $.notify("Error al firmar documento", "error");
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error cargando los datos: ' + error);
-            console.error('AJAX error: ' + status + ' : ' + error);
-            alert("Error en carga de datos. Revisa la consola para más detalles.");
-        }
-    });
-}
-
-function cargarResultadosGuardados(revisionResults, docConformeResults) {
-    // Asegúrate de que las cadenas tengan 4 caracteres
-    if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
-        console.error("Los resultados deben tener exactamente 4 caracteres.");
-        return;
-    }
-
-    // Seleccionar los inputs correspondientes para revisionResults
-    $('.revision input[type="radio"]').each(function(index) {
-        // Obtener el grupo de inputs de radio para este índice
-        let groupName = $(this).attr('name');
-
-        // Obtener el valor correspondiente de revisionResults
-        let value = revisionResults.charAt(Math.floor(index / 2));
-
-        // Seleccionar el input correcto basado en el valor
-        if ($(this).val() === value) {
-            $(this).prop('checked', true);
-        }
-    });
-
-    // Seleccionar los inputs correspondientes para docConformeResults
-    $('.doc-conforme input[type="radio"]').each(function(index) {
-        // Obtener el grupo de inputs de radio para este índice
-        let groupName = $(this).attr('name');
-
-        // Obtener el valor correspondiente de docConformeResults
-        let value = docConformeResults.charAt(Math.floor(index / 2));
-
-        // Seleccionar el input correcto basado en el valor
-        if ($(this).val() === value) {
-            $(this).prop('checked', true);
-        }
-    });
-}
-
-function resultado_liberacion() {
-    let revisionResults = '';
-    $('.revision input[type="radio"]:checked').each(function() {
-        revisionResults += $(this).val();
-    });
-
-    let docConformeResults = '';
-    $('.doc-conforme input[type="radio"]:checked').each(function() {
-        docConformeResults += $(this).val();
-    });
-
-    let cantidad_real = $('#cantidad_real').val().trim();
-    let nro_traspaso = $('#nro_traspaso').val().trim();
-
-    if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
-        $('.revision input[type="radio"]:checked').each(function() {
-            if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
         });
-
-        $('.doc-conforme input[type="radio"]:checked').each(function() {
-            if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
-        });
-
-        if (!cantidad_real) $('#cantidad_real').css('border-color', 'red');
-        if (!nro_traspaso) $('#nro_traspaso').css('border-color', 'red');
-
-        $.notify("Por favor complete todos los campos requeridos.", "error");
-        return;
     }
-
-    $('#resultadoModal').modal('show');
-
-    $('#aprobadoImg').off('click').on('click', function() {
-        firmayguarda('aprobado', revisionResults, docConformeResults);
-    });
-
-    $('#rechazadoImg').off('click').on('click', function() {
-        firmayguarda('rechazado', revisionResults, docConformeResults);
-    });
-}
-
-function firmayguarda(resultado, revisionResults, docConformeResults) {
-    // Hacer visibles los elementos de .formulario.resp
-    $('#resultadoModal').modal('hide');
-    console.log('click firma');
-
-    // Mostrar los resultados consolidados en la consola
-    console.log('Revision Results:', revisionResults);
-    console.log('Doc Conforme Results:', docConformeResults);
-    let id_especificacion = $('#id_especificacion').text();
-    let id_producto = $('#id_producto').text();
-    let id_cuarentena = $('#id_cuarentena').text();
-    let id_analisis_externo = $('#id_analisis_externo').text();
-    let id_actaMuestreo = $('#id_actaMuestreo').text();
-    let nro_acta = $('#nro_acta').text();
-    let nro_registro = $('#nro_registro').text();
-    let nro_version = $('#nro_version').text();
-    let fecha_acta_lib = $('#fecha_acta_lib').val();
-    let tipo_producto = $('#tipo_producto').val();
-    let estado = resultado;
-
-    let obs1 = $('#form_textarea1').val();
-    let obs2 = $('#form_textarea2').val();
-    let obs3 = $('#form_textarea3').val();
-    let obs4 = $('#form_textarea4').val();
-    let cant_real_liberada = $('#cantidad_real').val();
-    let parte_ingreso = $('#nro_traspaso').val();
-    let dataToSave = {
-        id_analisis_externo: id_analisis_externo,
-        id_especificacion: id_especificacion,
-        id_producto: id_producto,
-        id_actaMuestreo: id_actaMuestreo,
-        id_cuarentena: id_cuarentena,
-        nro_acta: nro_acta,
-        nro_registro: nro_registro,
-        nro_version: nro_version,
-        fecha_acta_lib: fecha_acta_lib,
-        tipo_producto: tipo_producto,
-        estado: estado,
-        obs1: obs1,
-        obs2: obs2,
-        obs3: obs3,
-        obs4: obs4,
-        cant_real_liberada: cant_real_liberada,
-        parte_ingreso: parte_ingreso,
-        docConformeResults: docConformeResults,
-        revisionResults: revisionResults,
-        fase: 'Firma 1'
-    };
-
-    // Enviar datos al servidor usando AJAX
-    console.log('información enviada al BE: ', dataToSave);
-    $.ajax({
-        url: './backend/acta_liberacion/acta_liberacion_guardayfirma.php',
-        type: 'POST',
-        data: JSON.stringify(dataToSave),
-        contentType: 'application/json; charset=utf-8',
-        success: function(response) {
-            let responseData = JSON.parse(response);
-            if (responseData.success) {
-                console.log('Firma guardada con éxito: ', responseData);
-                $.notify("Documento firmado correctamente.", "success");
-                let id_actaLiberacion = responseData.id_actaLiberacion;
-                console.log('ID Acta de Liberación: ', id_actaLiberacion);
-                carga_acta_liberacion_firmado(id_actaLiberacion);
-                $('#guardar').css('display', 'none');
-                $('#download-pdf').css('display', 'block');
-
-                $('#listado_productos_disponibles').click();
-            } else {
-                console.error("Error al guardar la firma: ", responseData.error);
-                $.notify("Error al firmar documento: " + responseData.error, "error");
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Error al guardar la firma: ", status, error);
-            $.notify("Error al firmar documento", "error");
-        }
-    });
-}
-
 </script>
