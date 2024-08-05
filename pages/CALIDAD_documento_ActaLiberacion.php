@@ -496,9 +496,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function loadImageAsBase64(url) {
         return fetch(url, {
-                mode: 'no-cors'
+                mode: 'cors'
             })
-            .then(response => response.blob())
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.blob();
+            })
             .then(blob => new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onloadend = () => resolve(reader.result);
@@ -578,6 +581,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("Error al cargar imágenes.", "error");
         });
     });
+
+
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
