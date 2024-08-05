@@ -505,51 +505,56 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
-        // Convertir la imagen a base64 antes de generar el PDF
-        convertImageToBase64(campos.foto_firma_usr1, function(base64Image) {
-            $('#imagen_firma').attr('src', base64Image);
+        // Asegurarse de que campos está definido antes de usarlo
+        if (typeof campos !== 'undefined' && campos.foto_firma_usr1) {
+            convertImageToBase64(campos.foto_firma_usr1, function(base64Image) {
+                $('#imagen_firma').attr('src', base64Image);
 
-            html2canvas(elementToExport, {
-                scale: 2,
-                logging: true,
-                useCORS: true
-            }).then(canvas => {
-                // Restaurar los estilos originales
-                elementToExport.style.border = originalBorder;
-                elementToExport.style.boxShadow = originalBoxShadow;
+                html2canvas(elementToExport, {
+                    scale: 2,
+                    logging: true,
+                    useCORS: true
+                }).then(canvas => {
+                    // Restaurar los estilos originales
+                    elementToExport.style.border = originalBorder;
+                    elementToExport.style.boxShadow = originalBoxShadow;
 
-                buttonContainer.style.display = 'block';
+                    buttonContainer.style.display = 'block';
 
-                // Ajusta la calidad de la imagen
-                const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+                    // Ajusta la calidad de la imagen
+                    const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
 
-                const pdf = new jspdf.jsPDF({
-                    orientation: 'p',
-                    unit: 'mm',
-                    format: 'a4'
-                });
+                    const pdf = new jspdf.jsPDF({
+                        orientation: 'p',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
 
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                const imgWidth = pageWidth;
-                let imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const imgWidth = pageWidth;
+                    let imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
 
-                let position = 0;
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
-                heightLeft -= pageHeight;
-
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
+                    let position = 0;
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
                     heightLeft -= pageHeight;
-                }
 
-                pdf.save('documento.pdf');
-                $.notify("PDF generado con éxito", "success");
+                    while (heightLeft > 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                        heightLeft -= pageHeight;
+                    }
+
+                    pdf.save('documento.pdf');
+                    $.notify("PDF generado con éxito", "success");
+                });
             });
-        });
+        } else {
+            console.error('La variable campos no está definida o no contiene foto_firma_usr1');
+            $.notify("Error al generar PDF: datos incompletos.", "error");
+        }
     });
 
 
