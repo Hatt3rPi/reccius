@@ -404,7 +404,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img src="" id="imagen_firma" name="imagen_firma" alt="Firma" class="firma">
+                                <img src='https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp' id="imagen_firma" name="imagen_firma" alt="Firma" class="firma">
 
                             </div>
 
@@ -596,7 +596,7 @@ function loadData() {
                     $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
                     $('#producto_completoT3').val(productoCompleto);
                     $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
-                    $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
+                    
                     
 
                     //datos higienicos
