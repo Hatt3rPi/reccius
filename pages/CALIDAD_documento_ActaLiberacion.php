@@ -495,7 +495,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             scale: 2,
             logging: true,
             useCORS: true,
-            allowTaint: false,
+            allowTaint: true,
             useCORS: true,
             ignoreElements: (element) => {
                 // Ignorar cualquier elemento que no sea una imagen o no tenga src
