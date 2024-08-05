@@ -100,6 +100,12 @@ function cargaListadoTareas() {
                 "defaultContent": '<i class="fas fa-search-plus"></i>',
                 "width": "20px"
             },
+            {
+            title: 'Nro Tarea',
+            data: 'id',
+            defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+            visible: true // Esto oculta la columna
+            },
             { "data": "prioridad", "width": "50px" },
             {
                 "data": "estado",
@@ -127,15 +133,7 @@ function cargaListadoTareas() {
                     return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
                 }
             },
-            { "data": "fecha_vencimiento", "width": "100px"  },
-
-            
-            {
-            title: 'Nro Tarea',
-            data: 'id',
-            defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-            visible: true // Esto oculta la columna
-        }
+            { "data": "fecha_vencimiento", "width": "100px"  }
         ],
     });
     $('#listado tbody').on('click', 'td.details-control', function() {
