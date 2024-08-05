@@ -159,7 +159,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="firma-section">
                     <div class="firma-box-title">Revisado por:</div>
                     <div class="firma-boxes">
-                        <p id="revisadoPor" name="revisadoPor" class="bold"></p>
+                        <p id="revisadoPor2" name="revisadoPor2" class="bold"></p>
                         <p id="cargo_revisor" name="cargo_revisor" class="bold"></p>
                         <div class="signature" id="QRrevisor" name="QRrevisor">
                             <img id="QRrevisor" name="QRrevisor" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
@@ -175,7 +175,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="firma-section">
                     <div class="firma-box-title">Aprobado por:</div>
                     <div class="firma-boxes">
-                        <p id="aprobadoPor" name="aprobadoPor" class="bold"></p>
+                        <p id="aprobadoPor2" name="aprobadoPor2" class="bold"></p>
                         <p id="cargo_aprobador" name="cargo_aprobador" class="bold"></p>
                         <div class="signature" id="QRaprobador" name="QRaprobador">
                             <img id="QRaprobador" name="QRaprobador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
@@ -363,7 +363,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
                     $('#creadoPor2').text(especificacion.creado_por.nombre || 'No disponible');
                     $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
+                    $('#revisadoPor2').text(especificacion.revisado_por.nombre || 'No disponible');
                     $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
+                    $('#aprobadoPor2').text(especificacion.aprobado_por.nombre || 'No disponible');
                     $('#vigencia').text(especificacion.vigencia || 'No disponible');
                     $('#version').text(especificacion.version || 'No disponible');
                     $('#edicion').text(especificacion.fecha_edicion || 'No disponible');
