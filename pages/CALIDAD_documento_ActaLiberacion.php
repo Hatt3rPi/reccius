@@ -503,7 +503,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         html2canvas(elementToExport, {
             scale: 2,
             logging: true,
-            useCORS: true
+            useCORS: false
         }).then(canvas => {
             // Restaurar los estilos originales
             elementToExport.style.border = originalBorder;
