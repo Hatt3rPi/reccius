@@ -477,38 +477,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    const firmas = [{
-            id: 'estado_liberacion',
-            url: 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp'
-        },
-        {
-            id: 'imagen_firma',
-            url: 'https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png'
-        },
-        // Agrega aquí más imágenes si es necesario
-    ];
-
-    firmas.forEach(firma => {
-        loadImageAsBase64(firma.url, function(base64Image) {
-            document.getElementById(firma.id).src = base64Image;
-        });
-    });
-
-    function loadImageAsBase64(url) {
-        return fetch(url, {
-                mode: 'cors'
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.blob();
-            })
-            .then(blob => new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            }));
-    }
+    // Imágenes codificadas en Base64
+    const aprobadoBase64 = 'data:image/webp;base64,UklGRhYAAABXRUJQVlA4IBAAAABwAwCdASpEAQAAQUxQSQAAAAQABoJaQAAAYJaWAFEAUgBiAYAAAKQH4AAABhQSUAA4gAAAAAABcdKgQAAAAA';
+    const rechazadoBase64 = 'data:image/webp;base64,UklGRkoAAABXRUJQVlA4IBYAAABwAwCdASpEAQAAQUxQSQAAAAQABoJaQAAAYJaWAFEAUgBiAYAAAKQH4AAABhQSUAA4gAAAAAABcdKgQAAAAA';
+    const qrBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAIAAADkZ/HIAAAAcElEQVR4nO3BAQEAAACCoP6PbQ8HFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQFHrAAAB6g+pAAAAAElFTkSuQmCC';
 
     document.getElementById('download-pdf').addEventListener('click', function() {
         const buttonContainer = document.querySelector('.button-container');
@@ -524,65 +496,55 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
-        Promise.all([
-            loadImageAsBase64('https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp'),
-            loadImageAsBase64('https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp'),
-            loadImageAsBase64('https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png')
-        ]).then(([aprobado, rechazado, qr]) => {
-            document.getElementById('estado_liberacion').src = aprobado;
-            document.getElementById('imagen_firma').src = qr;
+        // Asignar imágenes en Base64
+        document.getElementById('estado_liberacion').src = aprobadoBase64;
+        document.getElementById('imagen_firma').src = qrBase64;
 
-            html2canvas(elementToExport, {
-                scale: 2,
-                logging: true,
-                useCORS: true,
-                allowTaint: true
-            }).then(canvas => {
-                // Restaurar los estilos originales
-                elementToExport.style.border = originalBorder;
-                elementToExport.style.boxShadow = originalBoxShadow;
+        html2canvas(elementToExport, {
+            scale: 2,
+            logging: true,
+            useCORS: true,
+            allowTaint: true
+        }).then(canvas => {
+            // Restaurar los estilos originales
+            elementToExport.style.border = originalBorder;
+            elementToExport.style.boxShadow = originalBoxShadow;
 
-                buttonContainer.style.display = 'block';
+            buttonContainer.style.display = 'block';
 
-                // Ajusta la calidad de la imagen
-                const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+            // Ajusta la calidad de la imagen
+            const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
 
-                const pdf = new jspdf.jsPDF({
-                    orientation: 'p',
-                    unit: 'mm',
-                    format: 'a4'
-                });
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
 
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                const imgWidth = pageWidth;
-                let imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = pageWidth;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
 
-                let position = 0;
+            let position = 0;
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+            heightLeft -= pageHeight;
+
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
                 pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
                 heightLeft -= pageHeight;
+            }
 
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
-                    heightLeft -= pageHeight;
-                }
-
-                pdf.save('documento.pdf');
-                $.notify("PDF generado con éxito", "success");
-            }).catch(error => {
-                console.error("Error generating PDF:", error);
-                $.notify("Error al generar el PDF.", "error");
-            });
+            pdf.save('documento.pdf');
+            $.notify("PDF generado con éxito", "success");
         }).catch(error => {
-            console.error("Error loading image as Base64:", error);
-            $.notify("Error al cargar imágenes.", "error");
+            console.error("Error generating PDF:", error);
+            $.notify("Error al generar el PDF.", "error");
         });
     });
-
-
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
@@ -740,9 +702,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         }
 
                         if (campos.estado == 'aprobado') {
-                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
+                            $('#estado_liberacion').attr('src', aprobadoBase64);
                         } else {
-                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
+                            $('#estado_liberacion').attr('src', rechazadoBase64);
                         }
                         $('#fecha_realizacion').text(campos.fecha_firma1);
                         $('#mensaje_realizador').css('display', 'block');
