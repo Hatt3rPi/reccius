@@ -477,7 +477,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.getElementById('download-pdf').addEventListener('click', function() {
+    document.getElementById('download-pdf').addEventListener('click', function () {
         const buttonContainer = document.querySelector('.button-container');
         const elementToExport = document.getElementById('form-container');
 
@@ -491,78 +491,61 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
-        Promise.all([
-            convertImageToBase64($('#imagen_firma').attr('src')),
-            convertImageToBase64($('#estado_liberacion').attr('src'))
-        ]).then(([imagenFirmaBase64, estadoLiberacionBase64]) => {
-            html2canvas(elementToExport, {
-                scale: 2,
-                logging: true,
-                useCORS: true
-            }).then(canvas => {
-                // Restaurar los estilos originales
-                elementToExport.style.border = originalBorder;
-                elementToExport.style.boxShadow = originalBoxShadow;
+        // Obtener imágenes en base64 desde el backend
+        fetch('../backend/otros/converitr_imagenes.php')
+            .then(response => response.json())
+            .then(data => {
+                const imagenFirmaBase64 = `data:image/png;base64,${data.imagen_firma}`;
+                const estadoLiberacionBase64 = campos.estado === 'aprobado' ? `data:image/webp;base64,${data.estado_liberacion_aprobado}` : `data:image/webp;base64,${data.estado_liberacion_rechazado}`;
 
-                buttonContainer.style.display = 'block';
+                html2canvas(elementToExport, {
+                    scale: 2,
+                    logging: true,
+                    useCORS: true
+                }).then(canvas => {
+                    // Restaurar los estilos originales
+                    elementToExport.style.border = originalBorder;
+                    elementToExport.style.boxShadow = originalBoxShadow;
 
-                // Ajusta la calidad de la imagen
-                const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+                    buttonContainer.style.display = 'block';
 
-                const pdf = new jspdf.jsPDF({
-                    orientation: 'p',
-                    unit: 'mm',
-                    format: 'a4'
-                });
+                    // Ajusta la calidad de la imagen
+                    const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
 
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                const imgWidth = pageWidth;
-                let imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
+                    const pdf = new jspdf.jsPDF({
+                        orientation: 'p',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
 
-                let position = 0;
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
-                heightLeft -= pageHeight;
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const imgWidth = pageWidth;
+                    let imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
 
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
+                    let position = 0;
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
                     heightLeft -= pageHeight;
-                }
 
-                // Agregar las imágenes convertidas a base64
-                pdf.addImage(imagenFirmaBase64, 'PNG', 10, 10, 50, 20); // Ajusta las posiciones y tamaños según sea necesario
-                pdf.addImage(estadoLiberacionBase64, 'PNG', 10, 40, 50, 20); // Ajusta las posiciones y tamaños según sea necesario
+                    while (heightLeft > 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                        heightLeft -= pageHeight;
+                    }
 
-                pdf.save('documento.pdf');
-                $.notify("PDF generado con éxito", "success");
+                    // Agregar las imágenes convertidas a base64
+                    pdf.addImage(imagenFirmaBase64, 'PNG', 10, 10, 50, 20); // Ajusta las posiciones y tamaños según sea necesario
+                    pdf.addImage(estadoLiberacionBase64, 'WEBP', 10, 40, 50, 20); // Ajusta las posiciones y tamaños según sea necesario
+
+                    pdf.save('documento.pdf');
+                    $.notify("PDF generado con éxito", "success");
+                }).catch(error => {
+                    console.error('Error al convertir imágenes a base64:', error);
+                });
             });
-        }).catch(error => {
-            console.error('Error al convertir imágenes a base64:', error);
-        });
     });
-
-    function convertImageToBase64(url) {
-        return new Promise((resolve, reject) => {
-            let img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.src = url;
-            img.onload = () => {
-                let canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                let ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                let dataURL = canvas.toDataURL('image/png');
-                resolve(dataURL);
-            };
-            img.onerror = (error) => {
-                reject(error);
-            };
-        });
-    }
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
@@ -578,7 +561,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 idAnalisisExterno: idAnalisisExterno
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     if (response.analisis && response.analisis.length > 0) {
                         const analisis = response.analisis;
@@ -638,7 +621,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -655,7 +638,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 id_actaLiberacion: id_actaLiberacion
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     const campos = response.campos[0];
                     if (campos) {
@@ -708,7 +691,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             console.error("Los resultados de revisión no están definidos.");
                         }
 
-                        if (campos.estado == 'aprobado') {
+                        if (campos.estado == 'aprobado'){
                             $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
                         } else {
                             $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
@@ -736,7 +719,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -771,12 +754,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function resultado_liberacion() {
         let revisionResults = '';
-        $('.revision input[type="radio"]:checked').each(function() {
+        $('.revision input[type="radio"]:checked').each(function () {
             revisionResults += $(this).val();
         });
 
         let docConformeResults = '';
-        $('.doc-conforme input[type="radio"]:checked').each(function() {
+        $('.doc-conforme input[type="radio"]:checked').each(function () {
             docConformeResults += $(this).val();
         });
 
@@ -784,11 +767,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let nro_traspaso = $('#nro_traspaso').val().trim();
 
         if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
-            $('.revision input[type="radio"]:checked').each(function() {
+            $('.revision input[type="radio"]:checked').each(function () {
                 if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
             });
 
-            $('.doc-conforme input[type="radio"]:checked').each(function() {
+            $('.doc-conforme input[type="radio"]:checked').each(function () {
                 if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
             });
 
@@ -801,11 +784,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         $('#resultadoModal').modal('show');
 
-        $('#aprobadoImg').off('click').on('click', function() {
+        $('#aprobadoImg').off('click').on('click', function () {
             firmayguarda('aprobado', revisionResults, docConformeResults);
         });
 
-        $('#rechazadoImg').off('click').on('click', function() {
+        $('#rechazadoImg').off('click').on('click', function () {
             firmayguarda('rechazado', revisionResults, docConformeResults);
         });
     }
@@ -839,7 +822,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             id_especificacion: id_especificacion,
             id_producto: id_producto,
             id_actaMuestreo: id_actaMuestreo,
-            id_cuarentena: id_cuarentena,
+            id_cuarentena: id_cuarentena, 
             nro_acta: nro_acta,
             nro_registro: nro_registro,
             nro_version: nro_version,
@@ -850,8 +833,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             obs2: obs2,
             obs3: obs3,
             obs4: obs4,
-            cant_real_liberada: cant_real_liberada,
-            parte_ingreso: parte_ingreso,
+            cant_real_liberada:cant_real_liberada,
+            parte_ingreso:parte_ingreso,
             docConformeResults: docConformeResults,
             revisionResults: revisionResults,
             fase: 'Firma 1'
@@ -863,7 +846,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             type: 'POST',
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
-            success: function(response) {
+            success: function (response) {
                 let responseData = JSON.parse(response);
                 if (responseData.success) {
                     console.log('Firma guardada con éxito: ', responseData);
@@ -880,7 +863,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $.notify("Error al firmar documento: " + responseData.error, "error");
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
                 $.notify("Error al firmar documento", "error");
             }
