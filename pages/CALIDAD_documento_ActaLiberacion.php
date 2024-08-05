@@ -615,11 +615,6 @@ function loadData() {
                     $('#id_producto').text(primerAnalisis.id_producto);
                     $('#id_cuarentena').text(primerAnalisis.id_cuarentena);
                     $('.verif').css('background-color', '#f4fac2');
-
-                    if(response.estado=='completado'){
-                        $('#guardar').css('display', 'none');
-                        $('#download-pdf').css('display', 'block');
-                    }
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -720,6 +715,8 @@ function carga_acta_liberacion_firmado(id_actaLiberacion) {
                     $('#id_especificacion').text(campos.id_especificacion);
                     $('#id_producto').text(campos.id_producto);
                     $('#id_cuarentena').text(campos.id_cuarentena);
+                    $('#guardar').css('display', 'none');
+                    $('#download-pdf').css('display', 'block');
                     $('.verif').css('background-color', '#ffffff').prop('readonly', true);;
                 } else {
                     console.error('Estructura de la respuesta no es la esperada:', response);
