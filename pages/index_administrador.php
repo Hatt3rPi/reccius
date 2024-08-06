@@ -86,18 +86,8 @@
                     console.error('Error al obtener los datos:', error);
                 }
             });
-
-            function fetchUserInfo() {
-                fetch('./backend/usuario/obtener_usuarioBE.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.usuario) {
-                            //document.querySelector('.username').textContent = data.nombre;
-                            $('#username').text(data.nombre);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
+            var nombre  = "<?php echo $_SESSION['nombre']; ?>";    
+            $('#username').text(nombre);
         });
     </script>
 </body>
