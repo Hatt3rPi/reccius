@@ -15,9 +15,7 @@
 
 <body>
     <div class="container dashboard">
-        <h2 class="section-title">Bienvenido, <span id="username" class="username"> 
-            <?php echo $_SESSION['usuario']; ?>
-        </span>!</h2>
+        <h2 class="section-title">Bienvenido, <span id="username" class="username"> </span>!</h2>
         <div class="grid-container">
             <div class="grid-item clima">
                 <?php include 'components/index/clima.php'; ?>
@@ -94,7 +92,8 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.usuario) {
-                            document.querySelector('.username').textContent = data.nombre;
+                            //document.querySelector('.username').textContent = data.nombre;
+                            $('#username').text(data.nombre);
                         }
                     })
                     .catch(error => console.error('Error:', error));
