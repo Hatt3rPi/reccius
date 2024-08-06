@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $correoElectronico = limpiarDato($_POST['correoElectronico']);
         $usuario = limpiarDato($_POST['usuario']);
         $rol = limpiarDato($_POST['rol']);
+        $cargo = limpiarDato($_POST['cargo']);
         if (!$link) {
             die("Conexión fallida: " . mysqli_connect_error());
         }
@@ -29,10 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_stmt_num_rows($stmt) > 0) {
             echo "Error: El usuario ya existe.";
         } else {
-            $query="INSERT INTO usuarios (nombre, correo, usuario, rol_id) VALUES (?, ?, ?, ?)";
-            $variables=[$nombreUsuario, $correoElectronico, $usuario, $rol];
+            $query="INSERT INTO usuarios (nombre, correo, usuario, rol_id, cargo) VALUES (?, ?, ?, ?, ?)";
+            $variables=[$nombreUsuario, $correoElectronico, $usuario, $rol, $cargo];
             $insert = mysqli_prepare($link, $query);
-            mysqli_stmt_bind_param($insert, "ssss", $nombreUsuario, $correoElectronico, $usuario, $rol);
+            mysqli_stmt_bind_param($insert, "sssss", $nombreUsuario, $correoElectronico, $usuario, $rol, $cargo);
             
             if (mysqli_stmt_execute($insert)) {
                 $last_id = mysqli_insert_id($link);

@@ -31,7 +31,7 @@ function insertarOpcionSiNoExiste($link, $categoria, $nuevoValor) {
 }
 function obtenerTareasActivas($link, $idEspecificacion) {
     $tareas = [];
-    $sql = "select id, tipo, usuario_ejecutor from tareas where tipo in ('Firma especificación: Revisor', 'Firma especificación: Aprobador') and id_relacion=?;";
+    $sql = "select id, tipo, usuario_ejecutor from tareas where tipo in ('Firma 2', 'Firma 3') and id_relacion=?;";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $idEspecificacion);
         mysqli_stmt_execute($stmt);
@@ -64,7 +64,9 @@ function actualizarEstadoEspecificacion($link, $idEspecificacion_obsoleta) {
     );
     $tareas = obtenerTareasActivas($link, $idEspecificacion_obsoleta);
     foreach ($tareas as $tarea) {
-        finalizarTarea($tarea['usuario_ejecutor'], $idEspecificacion_obsoleta, $tarea['tipo'], true);
+        // update 22052024
+        //function finalizarTarea($usuarioEjecutor, $id_relacion, $tabla_relacion, $tipoAccion, $esAutomatico = false)
+        finalizarTarea($tarea['usuario_ejecutor'], $idEspecificacion_obsoleta, $tarea['tipo'], 'calidad_especificacion_productos', true);
     }
     if (!$exito) {
         throw new Exception("Error al actualizar el estado de la especificación: " . mysqli_error($link));
@@ -85,6 +87,8 @@ function procesarFormulario($link) {
             $idProducto = $resultadoProducto['id'];
         }
         if ($estaEditando) {
+            // * editando
+            //Todo: revisar si esta es la última versión
             $idEspecificacion_editada = intval(limpiarDato($_POST['id_especificacion']));
             actualizarEstadoEspecificacion($link, $idEspecificacion_editada);
         }
@@ -96,8 +100,8 @@ function procesarFormulario($link) {
 
         mysqli_commit($link); // Aplica los cambios
         
-        registrarTarea(7, $_SESSION['usuario'], $_POST['usuario_revisor'], 'Revisar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma especificación: Revisor', $idEspecificacion);
-        registrarTarea(14, $_SESSION['usuario'], $_POST['usuario_aprobador'], 'Aprobar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma especificación: Aprobador', $idEspecificacion);
+        registrarTarea(7, $_SESSION['usuario'], $_POST['usuario_revisor'], 'Revisar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 2', $idEspecificacion, 'calidad_especificacion_productos');
+        registrarTarea(14, $_SESSION['usuario'], $_POST['usuario_aprobador'], 'Aprobar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 3', $idEspecificacion, 'calidad_especificacion_productos');
         return ["exito" => true, "mensaje" => "Especificación y análisis creados con éxito.", "idEspecificacion" => $idEspecificacion];
     } catch (Exception $e) {
         // Aquí registramos el error en la trazabilidad antes de hacer rollback

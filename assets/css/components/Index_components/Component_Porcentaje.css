@@ -1,0 +1,15 @@
+/* ../assets/css/components/Index_components/Component_Clas6.css */
+
+.clas6-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 400px;
+}

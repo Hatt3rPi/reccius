@@ -18,11 +18,13 @@ $query = "  SELECT
                     WHEN '3' THEN 'Baja'
                     ELSE 'Desconocida'
                 END AS prioridad,
-                a.id_relacion
+                a.id_relacion,
+                a.tipo,
+                a.tabla_relacion
             FROM tareas as a
             LEFT JOIN usuarios as b ON a.usuario_creador = b.usuario
             LEFT JOIN usuarios as c ON a.usuario_ejecutor = c.usuario
-            ORDER BY fecha_ingreso DESC;";
+            ORDER BY a.id DESC;";
 
 $result = $link->query($query);
 

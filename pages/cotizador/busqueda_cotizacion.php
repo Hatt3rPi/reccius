@@ -880,6 +880,5 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             precio: 10068
         }
     ]
-
     fillData();
 </script>

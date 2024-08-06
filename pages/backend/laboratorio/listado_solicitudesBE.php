@@ -1,25 +1,58 @@
 <?php
+// archivos: pages\backend\laboratorio\listado_solicitudesBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
-                aex.id as id_analisisExterno,
-                aex.estado, 
-                aex.numero_registro, 
-                aex.laboratorio, 
-                aex.fecha_registro,
-                aex.id_especificacion,
-                aex.id_producto, 
-                concat(pr.nombre_producto, ' ', pr.concentracion) as producto,
-                aex.revisado_por,
-                aex.solicitado_por,
-                aex.muestreado_por,
-                aex.lote
-            FROM `calidad_analisis_externo` as aex
-            left join calidad_productos as pr 
-            on aex.id_producto=pr.id;";
+    aex.id as id_analisisExterno,
+    aex.estado, 
+    aex.numero_registro, 
+    aex.laboratorio, 
+    aex.fecha_registro,
+    aex.id_especificacion,
+    aex.id_producto, 
+    CONCAT(pr.nombre_producto, ' ', pr.concentracion) as producto,
+    aex.revisado_por,
+    aex.fecha_firma_revisor,
+    aex.solicitado_por,
+    aex.muestreado_por,
+    aex.lote,
+    
+    cam.id as id_muestreo,
+    cam.estado as estado_muestreo
+FROM calidad_analisis_externo aex
+LEFT JOIN calidad_productos pr ON aex.id_producto = pr.id
+LEFT JOIN (
+    SELECT
+        a.id_analisisExterno,
+        a.id,
+        a.estado
+    FROM calidad_acta_muestreo a
+    INNER JOIN (
+        SELECT 
+            id_analisisExterno,
+            MAX(id) as max_id
+        FROM (
+            SELECT
+                id_analisisExterno,
+                id,
+                estado,
+                ROW_NUMBER() OVER (PARTITION BY id_analisisExterno ORDER BY 
+                    CASE 
+                        WHEN estado = 'vigente' THEN 1
+                        WHEN estado = 'En proceso de firma' THEN 2
+                        ELSE 3
+                    END, 
+                    id DESC) as row_num
+            FROM calidad_acta_muestreo
+        ) ranked
+        WHERE row_num = 1
+        GROUP BY id_analisisExterno
+    ) b ON a.id_analisisExterno = b.id_analisisExterno
+    AND a.id = b.max_id
+) cam ON aex.id = cam.id_analisisExterno;";
 
 $result = $link->query($query);
 

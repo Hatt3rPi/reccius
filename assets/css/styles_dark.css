@@ -79,8 +79,8 @@ header h1 {
 
 .container_fas {
   display: flex;
-  min-height: calc(100vh - 60px);
-  margin-top: 110px;
+  min-height: calc(100vh - 80px);
+  margin-top: 80px;
 
 }
 
@@ -128,10 +128,10 @@ header h1 {
 }
 
 .content {
-  margin-left: 250px;
+  margin-left: 320px;
   flex: 1;
   padding: 50px;
-  background-color: #f5f5f5;
+
 }
 
 @media (max-width: 767px) {
@@ -420,10 +420,12 @@ body {
   margin: 0;
   cursor:pointer;
   padding: 4px;
-
 }
 .togglesibar:hover{
   opacity: 0.9;
+}
+.togglesibar:focus{
+ outline: none;
 }
 .buttonreset{
   padding: 0;
@@ -477,8 +479,8 @@ body {
   position: relative;
 }
 .breadcrumb-container {
-  background-color: #cecece; /* Color de fondo azul para coincidir con la barra de navegación */
-  padding: 0; /* Elimina el padding para que la altura de 50px sea solo para el contenido */
+  background-color: #cecece !important; /* Color de fondo azul para coincidir con la barra de navegación */
+  padding: 0 !important;  /* Elimina el padding para que la altura de 50px sea solo para el contenido */
   height: 30px; /* Establece una altura fija de 50px */
   width: 100%;    
   line-height: 50px; /* Centra el contenido verticalmente */
@@ -491,6 +493,7 @@ body {
   overflow: hidden; /* Oculta cualquier contenido que exceda la altura del contenedor */
   box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.6);
   z-index: 100;
+  font-family: 'Arial', sans-serif !important;
 }
 
 .breadcrumb {
@@ -499,12 +502,15 @@ body {
   display: flex;
   align-items: center;
   border-radius: 25px; /* Esquinas redondeadas, puedes ajustar este valor según lo redondeado que lo desees */
+  margin-bottom: 0 !important; /* Anula el margin-bottom de Bootstrap */
+  font-family: 'Arial', sans-serif !important;
 }
 
 .breadcrumb-item,
 .breadcrumb-item a {
   font-size: 0.9rem; /* Reduce el tamaño de la fuente si es necesario */
-  color: rgb(0, 14, 78); /* Texto blanco para contraste */
+  font-family: 'Arial', sans-serif !important;
+  color: rgb(0, 14, 78) !important; /* Texto blanco para contraste */
   padding: 0 10px; /* Añade padding horizontal para el espaciado */
   white-space: nowrap; /* Asegura que el texto no se envuelva */
   background-color: #cecece;
@@ -541,3 +547,8 @@ body {
 .breadcrumbexpanded{
   left: 0px;
 }
+
+.w-90{
+  width: 90% !important;
+}
+

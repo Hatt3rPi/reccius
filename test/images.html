@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crop Image to 1:1 Aspect Ratio</title>
+  </head>
+  <body style="height: 100dvh; width: 100dvw; padding: 0; margin: 0">
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 100px;
+      "
+    >
+    <form id="form">
+        <input
+          class="switch_foto"
+          type="file"
+          id="fotoPerfil"
+          name="fotoPerfil"
+          accept="image/*"
+        />
+        <canvas style="display: none"></canvas>
+        <img id="preview" style="max-width: 300px" />
+        <button>Enviar</button>
+      </form>
+    </div>
+
+    <script>
+      window.localStorage.setItem("PageVersion", 123)
+      console.log(window.localStorage.getItem("PageVersion"))
+      console.log(window.localStorage.getItem("PageVersion") == 123)
+
+      function processImageSquare(inputFile, callback) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const img = new Image();
+          img.onload = function () {
+            const canvas = document.querySelector("canvas");
+            const ctx = canvas.getContext("2d");
+            const size = Math.min(img.width, img.height);
+            canvas.width = size;
+            canvas.height = size;
+            const x = (img.width - size) / 2;
+            const y = (img.height - size) / 2;
+            ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+
+            canvas.toBlob(
+              (blob) => {
+                if (blob) {
+                  const newProfilePhotoBlob = new File(
+                    [blob],
+                    "profile-photo.webp",
+                    {
+                      type: "image/webp",
+                    }
+                  );
+                  callback(null, {
+                    dataURL: canvas.toDataURL("image/webp"),
+                    blob: newProfilePhotoBlob,
+                  });
+                } else {
+                  callback(new Error("Error processing image"));
+                }
+              },
+              "image/webp",
+              1
+            );
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(inputFile);
+      }
+      
+      var blobImg = null;
+      document
+        .getElementById("fotoPerfil")
+        .addEventListener("change", function (e) {
+          if (e.target.files && e.target.files[0]) {
+            processImageSquare(e.target.files[0], function (error, result) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+              blobImg = result.blob;
+              document.getElementById("preview").src = result.dataURL;
+            });
+          }
+        });
+
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        formData.append("photo", blobImg);
+
+        var formObject = {};
+        formData.forEach(function(value, key) {
+            formObject[key] = value;
+        });
+        console.log(formObject);
+      });
+    </script>
+  </body>
+</html>

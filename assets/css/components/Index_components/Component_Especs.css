@@ -1,0 +1,22 @@
+.clas1-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    max-height: 400px; /* Ajusta esta altura según tus necesidades */
+    overflow: hidden; /* Esto evitará que el contenido se desborde */
+    height: 450px;
+}
+
+.clas1-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+#barChartClas1 {
+    max-width: 100%;
+    height: 400px; /* Ajusta la altura según sea necesario */
+}

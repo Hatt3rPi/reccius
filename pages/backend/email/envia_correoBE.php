@@ -48,4 +48,37 @@ function enviarCorreo($destinatario, $nombreDestinatario, $asunto, $cuerpo, $alt
         return false;
     }
 }
+
+function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USER;
+        $mail->Password = SMTP_PASS;
+        $mail->SMTPSecure = SMTP_SECURE;
+        $mail->Port = SMTP_PORT;
+        $mail->CharSet = 'UTF-8';
+
+        $mail->setFrom(SMTP_USER, 'Reccius');
+
+        foreach ($destinatarios as $destinatario) {
+            $mail->addAddress($destinatario['email'], $destinatario['nombre']);
+        }
+
+        $mail->isHTML(true);
+        $mail->Subject = $asunto;
+        $mail->Body    = $cuerpo;
+        $mail->AltBody = $altBody ?: strip_tags($cuerpo);
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        // Puedes optar por manejar el error como prefieras, por ejemplo, registrarlo
+        error_log("Error al enviar correo: {$mail->ErrorInfo}");
+        return false;
+    }
+}
+
 ?>

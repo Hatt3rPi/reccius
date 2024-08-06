@@ -1,4 +1,5 @@
 <?php
+//archivo pages\backend\acta_muestreo\genera_acta.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 $tipo_producto='';
@@ -8,6 +9,7 @@ $id_producto='';
 $id_analisis_externo='';
 $responsable='';
 $verificador='';
+$nuevo_id='';
 // Validación y saneamiento del ID del análisis externo
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
 
@@ -15,14 +17,16 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     // Consulta SQL para obtener los datos del análisis externo y el producto asociado
     $query = "SELECT aex.id as id_analisis_externo, aex.id_especificacion, aex.id_producto,
     pr.nombre_producto, pr.formato, pr.concentracion, pr.tipo_producto,
-    aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.revisado_por, 
+    aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.am_verificado_por, 
     usrRev.nombre as nombre_usrRev, usrRev.cargo as cargo_usrRev, usrRev.foto_firma as foto_firma_usrRev, usrRev.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrRev, 
     usrMuest.nombre as nombre_usrMuest, usrMuest.cargo as cargo_usrMuest, usrMuest.foto_firma as foto_firma_usrMuest, usrMuest.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrMuest,
-    LPAD(pr.identificador_producto, 3, '0') AS identificador_producto
+    LPAD(pr.identificador_producto, 3, '0') AS identificador_producto,
+	aex.solicitado_por,
+    aex.numero_solicitud, usrMuest.usuario as usuario_firma2
     FROM `calidad_analisis_externo` as aex
     LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
     LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
-    LEFT JOIN usuarios as usrRev ON aex.revisado_por=usrRev.usuario
+    LEFT JOIN usuarios as usrRev ON aex.am_verificado_por=usrRev.usuario
     WHERE aex.id = ?";
 
     $stmt = mysqli_prepare($link, $query);
@@ -57,6 +61,13 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
             'foto_firma_revisado_por' => $row['foto_firma_usrRev'],
             'identificador_producto' => $row['identificador_producto'],
             'ruta_registroPrestadoresSalud_revisado_por' => $row['ruta_registroPrestadoresSalud_usrRev'],
+            'nombre_usr2'=> $row['nombre_usrMuest'],
+            'cargo_usr2'=> $row['cargo_usrMuest'],
+            'nombre_usr3'=> $row['nombre_usrRev'],
+            'cargo_usr3'=> $row['cargo_usrRev'],
+            'aex_solicitado_por'=> $row['solicitado_por'],
+            'aex_numero_solicitud'=> $row['numero_solicitud'],
+            'usuario_firma2'=> $row['usuario_firma2'],
         ];
         $tipo_producto=$row['tipo_producto'];
         $identificador_producto=$row['identificador_producto'];
@@ -64,7 +75,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         $id_producto=$row['id_producto'];
         $id_analisis_externo=$row['id_analisis_externo'];
         $responsable=$row['muestreado_por'];
-        $verificador=$row['revisado_por'];
+        $verificador=$row['am_verificado_por'];
     }
     mysqli_stmt_close($stmt);
 
@@ -116,16 +127,46 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     
     $stmt = mysqli_prepare($link, $insertQuery);
     mysqli_stmt_bind_param($stmt, "ssiiiiisss", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto);
-    $result = mysqli_stmt_execute($stmt);
-    foreach ($analisis_externos as $key => &$value) {
-        $value['numero_acta'] = $numero_acta. "-01";
+    
+    $exito = mysqli_stmt_execute($stmt);
+    $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
+    unset($_SESSION['nuevo_id']);
+    $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
+    // Ejecutar la declaración
+    registrarTrazabilidad(
+        $_SESSION['usuario'], 
+        $_SERVER['PHP_SELF'], 
+        'Genera Acta de Muestreo', 
+        'acta de muestreo',  
+        $nuevo_id, 
+        $insertQuery,  
+        [$numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto], 
+        $exito ? 1 : 0, 
+        $exito ? null : mysqli_error($link)
+    );
+    if ($exito) {
+        
+        finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
+        registrarTarea(7, $_SESSION['usuario'], $responsable, 'Ingresar resultados de Acta de Muestreo: ' . $numero_acta , 2, 'Firma 1', $nuevo_id, 'calidad_acta_muestreo');
+        //tarea anterior se cierra: finalizarTarea($_SESSION['usuario'], $nuevo_id, 'calidad_acta_muestreo', 'Firma 1');
+        // Actualización de los datos con el nuevo número de acta
+        foreach ($analisis_externos as &$value) {
+            $value['numero_acta'] = $numero_acta . "-01";
+        }
+        unset($value);
+    } else {
+        // Manejo de errores en la inserción
+        echo json_encode(['error' => 'Error al insertar el acta muestreada']);
+        exit;
     }
-    unset($value); 
 
     mysqli_stmt_close($stmt);
- mysqli_close($link);
+    mysqli_close($link);
 
 // Devolver los resultados en formato JSON
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode(['analisis_externos' => $analisis_externos], JSON_UNESCAPED_UNICODE);
+echo json_encode([
+    'analisis_externos' => $analisis_externos,
+    'id_actaMuestreo' => $nuevo_id  // Asegúrate de que esta línea está incluida
+], JSON_UNESCAPED_UNICODE);
 ?>

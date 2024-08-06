@@ -48,7 +48,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo de Producto:</label>
-                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style" onchange="verificarOtro('Tipo_Producto', 'otroTipo_Producto')" style="width: 83%" required>
+                        <select id="Tipo_Producto" name="Tipo_Producto" class="select-style editable" onchange="verificarOtro('Tipo_Producto', 'otroTipo_Producto')" style="width: 83%" required>
                             <option value="">Selecciona el tipo de producto</option>
                             <?php foreach ($opciones['Tipo_Producto'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
@@ -59,18 +59,20 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Producto:</label>
-                        <input type="text" name="producto" placeholder="Ácido Ascórbico" required>
+                        <input type="text" name="producto" placeholder="Ácido Ascórbico" class="editable" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Concentración:</label>
-                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style"  style="width: 83%" required>
+                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style editable"  style="width: 83%" required>
                             <option>Selecciona estructura a utilizar:</option>
+                            <option value='mg/ml'>mg/ml</option>
                             <option value='g/ml'>g/ml</option>
                             <option value='%/ml'>%/ml</option>
                             <option value='UI/ml'>UI/ml</option>
                             <option value='g'>g</option>
+                            <option value='mg'>mg</option>
                             <option value='ml'>ml</option>
                             <option value='UI'>UI</option>
                         </select>
@@ -95,7 +97,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Formato:</label>
-                        <select name="formato" id="formato" class="select-style" onchange="verificarOtro('formato', 'otroFormato')" style="width: 83%" required>
+                        <select name="formato" id="formato" class="select-style editable" onchange="verificarOtro('formato', 'otroFormato')" style="width: 83%" required>
                             <option value="">Selecciona un formato</option>
                             <?php foreach ($opciones['Formato'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
@@ -107,12 +109,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Elaborado por:</label>
-                        <input type="text" name="elaboradoPor" Value="Reccius" required>
+                        <input type="text" name="elaboradoPor" Value="Reccius" class="editable" required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>País de origen:</label>
-                        <input type="text" name="paisOrigen" Value="Chile" required>
+                        <input type="text" name="paisOrigen" Value="Chile" class="editable" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -122,8 +124,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <input type="text" name="prefijoDocumento" id="prefijoDocumento" readonly class="col"
                                 style="text-align: right; background-color: #e9ecef;width: 80%" readonly>
                             <input type="text" id="documento" name="documento" style="display: none">
-                            <input type="text" id="numeroProducto" name="numeroProducto" placeholder="001"
-                                onchange="actualizarDocumento()" required class="col" style="width: 20px;margin-right: 150px;">
+                            <input type="text" id="numeroProducto" name="numeroProducto" class="editable" placeholder="001"
+                                onchange="actualizarDocumento()" required class="col" style="width: 80px;margin-right: 150px;">
                             
                         </div>
                     </div>
@@ -131,7 +133,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group" >
                         <div class="form-group"id="contenedor_dealer" name="contenedor_dealer" style="display: none;">
                             <label>Proveedor:</label>
-                            <input type="text" id="dealer" name="dealer" >
+                            <input type="text" id="dealer" name="dealer" class="editable" >
                         </div>  
                     </div>
                 </div>
@@ -142,18 +144,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha edición:</label>
-                        <input type="date" id="fechaEdicion" name="fechaEdicion" value="<?php echo date('Y-m-d'); ?>" required>
+                        <input type="date" id="fechaEdicion" name="fechaEdicion" class="editable" value="<?php echo date('Y-m-d'); ?>" required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Versión:</label>
-                        <input type="text" id="version" name="version" value="1" readonly>
+                        <input type="text" id="version" name="version" value="1"  readonly>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Vigencia:</label>
-                        <select name="periodosVigencia" id="periodosVigencia" class="select-style"  style="width: 38.5%" required>
+                        <select name="periodosVigencia" id="periodosVigencia" class="select-style editable"  style="width: 38.5%" required>
                             <option>Selecciona la vigencia de esta especificación:</option>
                             <option value=1>1 año</option>
                             <option value=2>2 años</option>
@@ -184,7 +186,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Revisión a cargo de:</label>
-                        <select name="usuario_revisor" id="usuario_revisor" class="select-style"  style="width: 38.5%" required>
+                        <select name="usuario_revisor" id="usuario_revisor" class="select-style editable"  style="width: 38.5%" required>
                             <option>Selecciona el usuario supervisor:</option>
                             <option value="isumonte" selected>Inger Sumonte Rodríguez - Director Calidad</option>
                             <option value="lcaques" >Lynnda Caques Segovia - Coordinador Calidad</option>
@@ -192,13 +194,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Aprobación a cargo de:</label>
-                        <select name="usuario_aprobador" id="usuario_aprobador" class="select-style"  style="width: 38.5%" required>
+                        <select name="usuario_aprobador" id="usuario_aprobador" class="select-style editable"  style="width: 38.5%" required>
                             <option>Selecciona el usuario aprobador:</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
                             <option value="lcaques">Lynnda Caques Segovia - Coordinador Calidad</option>
@@ -206,6 +209,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="lsepulveda" selected>Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
                         </select>
                     </div>
                 </div>
@@ -893,12 +897,12 @@ function actualizarCampos() {
         });
 
         // Mostrar y actualizar campos según la selección
-        if (['g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
+        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param2]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion.split('/')[0]).show();
             $('input[name=concentracion_param2_lbl]').val(seleccion.split('/')[1]).show();
-        } else if (['g', 'ml', 'UI'].includes(seleccion)) {
+        } else if (['mg','g', 'ml', 'UI'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion).show();
         }
@@ -910,7 +914,7 @@ function actualizarCampos() {
         var tipo = $('#tipo_concentracion').val();
 
         var concentracion = '';
-        if (['g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
+        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
             concentracion = param1 + tipo;

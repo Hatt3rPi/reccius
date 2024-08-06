@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <br />
+    <br />
+    <div class="editing">
+      <fieldset>
+        <legend>IV. Solicitud de Análisis Externo:</legend>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Laboratorio Analista:</label>
+            <select
+              name="laboratorio"
+              id="laboratorio"
+              class="select-style"
+              onchange="verificarOtro('laboratorio', 'otro_laboratorio')"
+              style="width: 83%"
+              required
+            >
+              <option value="">Selecciona un Laboratorio</option>
+              <?php foreach ($opciones['laboratorio'] as $opcion) : ?>
+              <option value="<?php echo htmlspecialchars($opcion); ?>">
+                <?php echo htmlspecialchars($opcion); ?>
+              </option>
+              <?php endforeach; ?>
+            </select>
+            <input
+              type="text"
+              name="otro_laboratorio"
+              id="otro_laboratorio"
+              placeholder="Especificar otro laboratorio"
+              style="display: none"
+            />
+          </div>
+          <div class="divider"></div>
+          <!-- Esta es la línea divisora -->
+          <div class="form-group">
+            <label>Fecha Solicitud:</label>
+            <input
+              name="fecha_solicitud"
+              id="fecha_solicitud"
+              type="date"
+              placeholder="06-07-2023"
+              style="width: 82.75%"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Análisis según:</label>
+            <input
+              name="analisis_segun"
+              id="analisis_segun"
+              type="text"
+              placeholder="Cotización"
+            />
+          </div>
+          <div class="divider"></div>
+          <!-- Esta es la línea divisora -->
+          <div class="form-group">
+            <label>Fecha Cotización:</label>
+            <input
+              name="fecha_cotizacion"
+              id="fecha_cotizacion"
+              type="date"
+              placeholder="06-07-2023"
+              style="width: 82.75%"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="estandar_provisto_por">Estándar Provisto por:</label>
+            <select
+              id="estandar_provisto_por"
+              name="estandar_provisto_por"
+              class="select-style"
+              style="width: 82.5%"
+            >
+              <option value="reccius">Reccius</option>
+              <option value="cequc">CEQUC</option>
+              <option value="pharmaisa">Pharma ISA</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="divider"></div>
+          <!-- Esta es la línea divisora -->
+          <div class="form-group">
+            <label>Adjunta Hoja de seguridad</label>
+            <input
+              name="adjunta_HDS"
+              id="adjunta_HDS"
+              type="text"
+              placeholder="No"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
+            <input
+              name="fecha_entrega_estimada"
+              id="fecha_entrega_estimada"
+              type="date"
+              value="<?php echo $fechaEntregaEstimadaFormato; ?>"
+              style="width: 82.75%"
+            />
+          </div>
+          <div class="divider"></div>
+          <!-- Esta es la línea divisora -->
+          <div class="form-group">
+            <label>N° Documento:</label>
+            <input
+              name="numero_documento"
+              id="numero_documento"
+              type="text"
+              placeholder="123456"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Observaciones:</label>
+            <textarea
+              name="observaciones"
+              id="observaciones"
+              rows="4"
+              placeholder="..."
+            ></textarea>
+          </div>
+          <div class="divider"></div>
+          <!-- Esta es la línea divisora -->
+          <div class="form-group"></div>
+        </div>
+      </fieldset>
+      <br />
+      <br />
+      <fieldset>
+        <legend>V. Análisis:</legend>
+        <br />
+        <div class="form-row">
+          <div class="form-group">
+            <label>Especificación de producto:</label>
+            <input
+              name="numero_especificacion"
+              id="numero_especificacion"
+              type="text"
+              placeholder="06-07-2023"
+              style="width: 82.75%"
+            />
+          </div>
+          <div class="divider"></div>
+          <!-- Esta es la línea divisora -->
+          <div class="form-group">
+            <label>Versión:</label>
+            <input
+              name="version_especificacion"
+              id="version_especificacion"
+              type="text"
+              placeholder="06-07-2023"
+              style="width: 82.75%"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <br />
+      <br />
+      <fieldset>
+        <legend>VI. Flujo de Aprobación:</legend>
+        <br />
+        <br />
+        <div class="form-row">
+          <div class="form-group">
+            <label>Usuario Solicitante:</label>
+            <input
+              type="text"
+              id="usuario_editor"
+              name="usuario_editor"
+              value="<?php echo $_SESSION['nombre']; ?>"
+              style="width: 38.5%"
+              readonly
+            />
+            <input
+              type="text"
+              id="user_editor"
+              name="user_editor"
+              value="<?php echo $_SESSION['usuario']; ?>"
+              style="display: none"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Revisión a cargo de:</label>
+            <select
+              name="usuario_revisor"
+              id="usuario_revisor"
+              class="select-style"
+              style="width: 38.5%"
+              required
+            >
+              <option>Selecciona el usuario supervisor:</option>
+              <option value="isumonte">
+                Inger Sumonte Rodríguez - Director Calidad
+              </option>
+              <option value="lcaques" selected>
+                Lynnda Caques Segovia - Coordinador Calidad
+              </option>
+              <option value="cpereira">
+                Catherine Pereira García - Jefe de Producción
+              </option>
+              <option value="lsepulveda">
+                Luis Sepúlveda Miranda - Director Técnico
+              </option>
+              <option value="fabarca212">Felipe Abarca</option>
+              <option value="lucianoalonso2000">Luciano Abarca</option>
+              <option value="javier2000asr">Javier Sabando</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </body>
+</html>

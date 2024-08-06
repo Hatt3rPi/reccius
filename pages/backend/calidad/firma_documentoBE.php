@@ -6,7 +6,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario']) || !isset($_POST['idEspecificacion']) || !isset($_POST['rolUsuario'])) {
     exit('Acceso denegado o datos insuficientes');
 }
-
+$tipo_tarea='';
 $idEspecificacion = intval($_POST['idEspecificacion']);
 $rolUsuario = $_POST['rolUsuario'];
 $usuario = $_SESSION['usuario'];
@@ -14,8 +14,10 @@ $fechaActual = date('Y-m-d'); // Obtiene la fecha actual en formato YYYY-MM-DD
 
 // Preparar la consulta dependiendo del rol del usuario (revisor o aprobador)
 if ($rolUsuario == 'revisado_por') {
+    $tipo_tarea='Firma 2';
     $query = "UPDATE calidad_especificacion_productos SET fecha_revision = ?, estado='Pendiente de Aprobación' WHERE id_especificacion = ? AND revisado_por = ?";
 } elseif ($rolUsuario == 'aprobado_por') {
+    $tipo_tarea='Firma 3';
     $query = "UPDATE calidad_especificacion_productos SET fecha_aprobacion = ?, estado='Vigente' WHERE id_especificacion = ? AND aprobado_por = ?";
 } else {
     exit('Rol no reconocido');
@@ -39,7 +41,9 @@ registrarTrazabilidad(
 );
 // Verificar si la actualización fue exitosa
 if ($exito) {
-    finalizarTarea($_SESSION['usuario'], $idEspecificacion, $rolUsuario);
+            // update 22052024
+        //function finalizarTarea($usuarioEjecutor, $id_relacion, $tabla_relacion, $tipoAccion, $esAutomatico = false)
+    finalizarTarea($_SESSION['usuario'], $idEspecificacion, 'calidad_especificacion_productos', $tipo_tarea);
     echo json_encode(['exito' => true, 'mensaje' => 'Documento firmado con éxito']);
 } else {
     echo json_encode(['exito' => false, 'mensaje' => 'Error al firmar el documento']);

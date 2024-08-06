@@ -1,0 +1,72 @@
+.calendar-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+#calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+#calendar thead th {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+#calendar tbody td {
+    width: 14.28%;
+    height: 100px;
+    text-align: center;
+    vertical-align: top;
+    border: 1px solid #dee2e6;
+    background-color: #ffffff;
+}
+
+#calendar tbody td:hover {
+    background-color: #f1f1f1;
+}
+
+#calendar tbody td.fc-day-today {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el día actual */
+#calendar tbody td.today {
+    background-color: #e9f5ff;
+    color: black;
+    font-weight: bold;
+}

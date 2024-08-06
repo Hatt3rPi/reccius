@@ -120,6 +120,9 @@
                     // Este bloque se ejecutará si la respuesta no es una advertencia, éxito o error conocido
                     $("#forgotPasswordForm")[0].reset();
                     $.notify(mensaje, "success");}
+                    setTimeout(function() {
+                        window.location.href = 'login.html'; // Ajusta la URL según sea necesario
+                    }, 2000); // Redirecciona después de 2 segundos
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 // Mostrar un mensaje de error

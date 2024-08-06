@@ -40,14 +40,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Nro Tarea</th>
                         <th>Prioridad</th>
                         <th>Estado</th>
                         <th>Descripción</th>
-                        <th>Usuario Creador</th>
                         <th>Usuario Ejecutor</th>
-                        <th>Fecha Ingreso</th>
-                        <th>Fecha Vencimiento</th>
-                        <th>Acciones</th>
+                        <th>Fecha Vencimiento </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,6 +100,12 @@ function cargaListadoTareas() {
                 "defaultContent": '<i class="fas fa-search-plus"></i>',
                 "width": "20px"
             },
+            {
+            title: 'Nro Tarea',
+            data: 'id',
+            defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+            visible: true // Esto oculta la columna
+            },
             { "data": "prioridad", "width": "50px" },
             {
                 "data": "estado",
@@ -124,27 +128,12 @@ function cargaListadoTareas() {
             },
             { "data": "descripcion_tarea" },
             {
-                "data": "usuario_creador",
-                "render": function (data, type, row) {
-                    return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
-                }
-            },
-            {
                 "data": "usuario_ejecutor",
                 "render": function (data, type, row) {
                     return data === usuarioActual ? '<span class="resaltar">' + data + '</span>' : data;
                 }
             },
-            { "data": "fecha_ingreso", "width": "70px" },
-            { "data": "fecha_vencimiento", "width": "70px"  },
-
-            
-            {
-            title: 'id_tarea',
-            data: 'id',
-            defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-            visible: false // Esto oculta la columna
-        }
+            { "data": "fecha_vencimiento", "width": "100px"  }
         ],
     });
     $('#listado tbody').on('click', 'td.details-control', function() {
@@ -164,7 +153,9 @@ function cargaListadoTareas() {
 
     function format(d) {
         // `d` es el objeto de datos original para la fila
-        var acciones = '<table background-color="#F6F6F6" color="#FFF" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+        var acciones = '<table style="background-color:#F6F6F6; color:#000; padding-left:50px;" cellpadding="5" cellspacing="0" border="1">';
+        acciones += '<tr><td>Usuario Creador:</td><td>' + d.usuario_creador + '</td></tr>';
+        acciones += '<tr><td>Fecha Ingreso:</td><td>' + d.fecha_ingreso + '</td></tr>';
         acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
         // Agrega acciones según el estado de la tarea
@@ -173,11 +164,11 @@ function cargaListadoTareas() {
 
             
             if (d.usuario_creador === usuarioActual) {
-                acciones += '<button class="accion-btn" title="Recordar Tarea" id="' + d.id + '" name="recordar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-envelope"></i></button><a> </a>';
-                acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario"  data-usuario_ejecutor="' + d.usuario_ejecutor + '" ><i class="fas fa-user-edit"></i></button><a> </a>';
+                acciones += '<button class="accion-btn" title="Recordar Tarea" id="' + d.id + '" name="recordar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-envelope"></i> Recordar tarea vía e-mail</button><a> </a>';
+                acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario"  data-usuario_ejecutor="' + d.usuario_ejecutor + '" ><i class="fas fa-user-edit"></i> Cambiar usuario ejecutor</button><a> </a>';
             }
             if (d.usuario_ejecutor === usuarioActual) {
-                acciones += '<button class="accion-btn" title="Finalizar Tarea" id="' + d.id_relacion + '" name="firmar_documento" onclick="botones(this.id, this.name, \'tareas\')"><i class="fas fa-check"></i></button>';
+                acciones += '<button class="accion-btn" title="Finalizar Tarea" id="' + d.id_relacion + '" name="finalizar_tarea" onclick="botones(this.id, this.name, \'tareas\', \'' + d.tabla_relacion + '\', \'' + d.tipo + '\')"><i class="fas fa-check"></i>  Ir a finalizar tarea</button>';
             }
         }
         
@@ -237,6 +228,7 @@ $('#formCambiarUsuario').on('submit', function(e) {
         url: './backend/tareas/tareasBE.php', // Asegúrate de ajustar esta URL
         type: 'POST',
         data: datosFormulario,
+        //acá
         success: function(response) {
             // Aquí puedes manejar la respuesta
             alert('Usuario Cambiado');

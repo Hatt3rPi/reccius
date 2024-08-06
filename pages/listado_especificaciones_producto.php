@@ -59,10 +59,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 
 <script>
+    // variable de main js
+    QA_solicitud_analisis_editing = false
 
     function filtrar_listado(estado) {
         var table = $('#listado').DataTable();
-        table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
+        if (estado === '') {
+            // Eliminar todos los filtros
+            table.search('').columns().search('').draw();
+        } else {
+            table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
+        }
     }
     function carga_listado_especificacionProducto() {
     var table = $('#listado').DataTable({
@@ -139,11 +146,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
     // Botón para revisar siempre presente
-    acciones += '<button class="accion-btn" title="Revisar Especificación" type="button" id="' + d.id_especificacion + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i></button><a> </a>';
-    acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
+    acciones += '<button class="accion-btn" title="Revisar Especificación" type="button" id="' + d.id_especificacion + '" name="revisar" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-search"></i> Ver Formulario de Especificación</button><a> </a>';
+    acciones += '<button class="accion-btn" title="Generar Documento" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Ver documento</button><a> </a>';
     // Botón para generar acta de muestreo, visible solo si el estado es 'Vigente'
     if (d.estado === 'Vigente') {
-        acciones += '<button class="accion-btn" title="Generar Solicitud de Análisis externo" id="' + d.id_especificacion + '" name="prepararSolicitud" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fas fa-vial"></i></button><a> </a>';
+        acciones += '<button class="accion-btn" title="Generar Solicitud de Análisis externo" id="' + d.id_especificacion + '" name="prepararSolicitud" onclick="botones({analisisExterno:0, especificacion:this.id}, this.name, \'especificacion\')"><i class="fas fa-vial"></i> Generar Solicitud de análisis externo</button><a> </a>';
     }
 
     acciones += '</td></tr></table>';

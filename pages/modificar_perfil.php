@@ -18,6 +18,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notify.js"></script>
+    <script src="../assets/js/image.js"></script>
 </head>
 
 <body>
@@ -60,14 +61,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <br>
                     <div>
                         <label for="fotoPerfil">Foto de Perfil:</label>
-                        <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled>
-                        <div id="fotoPerfilExistente">
+                        <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled onchange="handleImageUploadPerfil(event)">
+                        <div id="fotoPerfilPreview" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
+                        <button type="button" id="cancelFotoPerfil" style="display: none;">Eliminar foto</button>
                     </div>
                 </div>
                 <div class="seccion seccion-deshabilitada">
-
                     <h3>Editar información de Usuario</h3>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="switch_info" onclick="toggleInputs('switch_info')">
@@ -99,8 +100,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <br>
                     <div>
                         <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
-                        <input class="switch_certificado" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
-                        <div id="certificadoExistente">
+                        <input class="switch_certificado" onChange="handleCertificado(event)" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
+                        <div id="certificadoExistente" class="container-md d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
                     </div>
@@ -116,19 +117,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <br>
                     <div>
                         <label for="firma">Imagen de Firma:</label>
-                        <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled>
-                        <div id="firmaExistente">
+                        <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled onChange="handleFirma(event)">
+                        <div id="firmaExistente" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
+                        <button type="button" id="cancelFirma" style="display: none;">Eliminar firma</button>
                     </div>
                 </div>
+                <canvas style="display: none;"></canvas>
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
                 <button type="button" name="modificarPerfil" onclick="guardar()">Modificar Perfil</button>
             </form>
         </div>
     </div>
-
-
     <script>
         function cargarInformacionExistente() {
             $.ajax({
@@ -141,10 +142,38 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#cargo').val(usuario.cargo);
                     $('#nombre').val(usuario.nombre);
                     if (usuario.foto_perfil) {
-                        document.getElementById('fotoPerfilExistente').innerHTML = '<img src="../assets/uploads/perfiles/' + usuario.foto_perfil + '" alt="Foto de perfil" />';
+                        document.getElementById('fotoPerfilPreview').innerHTML = '<img height="250px" src="' + usuario.foto_perfil + '" alt="Foto de perfil" />';
                     }
+                    if (usuario.foto_firma) {
+                        document.getElementById('firmaExistente').innerHTML = '<img height="250px" src="' + usuario.foto_firma + '" alt="Foto de perfil" />';
+                    }
+
                     if (usuario.certificado) {
-                        document.getElementById('certificadoExistente').innerHTML = '<a href="https://customware.cl/reccius/documentos_publicos/' + usuario.certificado + '" target="_blank">Ver Certificado</a>';
+                        fetch(usuario.certificado)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                }
+                                return response.blob();
+                            })
+                            .then(blob => {
+                                const url = URL.createObjectURL(blob);
+                                document.getElementById('certificadoExistente').innerHTML = `
+                            <div class="d-flex justify-content-center flex-column w-100">
+                            <a href="${usuario.certificado}" target="_blank">
+                            <img height="120px" width="120px" src="${usuario.certificado_qr}" alt="Certificado" />
+                            </a>
+                            <iframe src="${url}" frameborder="0" style="width: 100%; height: 400px;"></iframe>
+                            </div>
+                            `;
+                            })
+                            .catch(error => {
+                                console.error('There was a problem with the fetch operation:', error);
+                                document.getElementById('certificadoExistente').innerHTML = `
+                                    <a href="${usuario.certificado}" target="_blank">Descargar Certificado</a>
+                                `;
+                            });
+
                     }
                 },
                 error: function(xhr, status, error) {
@@ -152,6 +181,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             });
         }
+
         document.getElementById('formPerfil').addEventListener('submit', function(event) {
             var password = document.getElementById('nuevaPassword').value;
             var confirmPassword = document.getElementById('confirmarPassword').value;
@@ -166,6 +196,81 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Validación adicional aquí si es necesario
         });
 
+        //edit foto de perfil
+        var fotoPerfilPreview = $('#fotoPerfilPreview');
+        var fotoPerfilCancel = $('#cancelFotoPerfil');
+        var blobImgPerfil = null;
+
+        function handleImageUploadPerfil(e) {
+            if (e.target.files && e.target.files[0]) {
+                processImageSquare(e.target.files[0], function(error, result) {
+                    if (error) {
+                        console.error(error);
+                        return;
+                    }
+                    fotoPerfilCancel.show();
+                    blobImgPerfil = result.blob;
+                    fotoPerfilPreview.html('<img class="img-thumbnail" src="' + result.dataURL + '" alt="Foto de perfil" />');
+                }, 100);
+            }
+        }
+        fotoPerfilCancel.on('click', function(e) {
+            e.preventDefault();
+            blobImgPerfil = null;
+            fotoPerfilPreview.empty();
+            fotoPerfilCancel.hide();
+            console.log({
+                fotoPerfilCancel,
+                blobImgPerfil,
+                fotoPerfilPreview
+            })
+        })
+
+
+        //edit foto de firma
+        var firmaExistente = $('#firmaExistente');
+        var cancelFirma = $('#cancelFirma');
+        var blobFirma = null;
+
+        function handleFirma(e) {
+            if (e.target.files && e.target.files[0]) {
+                processImageScale(e.target.files[0], function(error, result) {
+                    if (error) {
+                        console.error(error);
+                        return;
+                    }
+                    cancelFirma.show();
+                    blobFirma = result.blob;
+                    firmaExistente.html('<img class="img-thumbnail" src="' + result.dataURL + '" alt="Foto de firma" />');
+                }, 150);
+            }
+        }
+
+        cancelFirma.on('click', function(e) {
+            e.preventDefault();
+            blobFirma = null;
+            firmaExistente.empty();
+            cancelFirma.hide();
+        })
+
+        function handleCertificado(event) {
+            if (event.target.files && event.target.files[0]) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const result = reader.result;
+                    document.getElementById('certificadoExistente').innerHTML = `
+                    <div class="d-flex justify-content-center flex-column w-100">
+                    <iframe src="${result}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                    </div>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+
+        // edit switches certificado
         function toggleInputs(switchClass) {
             var inputs = document.querySelectorAll('.' + switchClass);
             // Determinar si los campos están deshabilitados o no
@@ -188,7 +293,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     document.getElementById('editarInfo').value = '1';
                 } else if (switchClass === 'switch_certificado') {
                     document.getElementById('editarCertificado').value = '1';
-                }else if (switchClass === 'switch_firma') {
+                } else if (switchClass === 'switch_firma') {
                     document.getElementById('editarfirma').value = '1';
                 }
             } else {
@@ -208,66 +313,81 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        function guardar(){
+        function guardar() {
+            event.preventDefault();
+            var formData = new FormData();
 
-                var mensajesAdvertencia = [
-                            "El archivo es demasiado grande.",
-                            "El archivo no es un PDF válido.",
-                            "Hubo un error al guardar el archivo.",
-                            "La nueva contraseña no cumple con los requisitos de seguridad y formato.",
-                            "La contraseña actual no es correcta o el usuario no fue encontrado.",
-                            "El archivo no es una imagen válida o no tiene un formato permitido.",
-                            "Formato de archivo no soportado.",
-                            "Hubo un error al guardar la imagen redimensionada.",
-                            "Las contraseñas no coinciden.",
-                            "Información de contraseña no proporcionada.",
-                            "Información de usuario incompleta.",
-                            "Archivo de foto de perfil no proporcionado.",
-                            "Archivo de certificado no proporcionado."
-                        ];
-                var mensajesExito = [
-                            "Información de usuario actualizada con éxito.",
-                            "La contraseña ha sido actualizada con éxito.",
-                            "Perfil actualizado con éxito.",
-                            "Firma actualizada con éxito.",
-                            "La firma ha sido actualizada con éxito."
-                        ];
+            if ($('#switch_contrasena').is(':checked')) {
+                var passwordActual = $('#nuevaPassword').val();
+                var nuevaPassword = $('#nuevaPassword').val();
+                var confirmarPassword = $('#confirmarPassword').val();
 
-                var mensajesError = [
-                            "Error al subir el archivo: ",
-                            "Error: El directorio de destino no es escribible o no existe.",
-                            "Error al actualizar la ruta del certificado en la base de datos.",
-                            "Error al procesar el archivo de imagen.",
-                            "Error al actualizar la foto de perfil en la base de datos."
-                        ]
+                if (nuevaPassword !== confirmarPassword || nuevaPassword.length < 8) {
+                    alert("Las contraseñas no coinciden o son muy cortas.");
+                    return;
+                }
+                formData.append('password', passwordActual);
+                formData.append('newPassword', nuevaPassword);
+            }
 
-                event.preventDefault(); // Prevenir el envío estándar del formulario
-                var form = document.getElementById('formPerfil'); // Obtiene el formulario por su ID
-                var formData = new FormData(form); // Usa FormData para construir los datos del formulario, incluyendo archivos
-                $.ajax({
-                    url: "../pages/backend/usuario/modificar_perfilBE.php", // Ajusta la URL según sea necesario
-                    type: "POST",
-                    data: formData,
-                    processData: false, // Necesario para FormData
-                    contentType: false, // Necesario para FormData. Asegúrate de no establecer ningún tipo de contenido para permitir que el navegador establezca el tipo de contenido y los límites correctamente
-                    success: function(response) {
-                        var data = JSON.parse(response); // Asegúrate de que la respuesta sea parseada correctamente como JSON
-                        if (data.success) {
-                            if (mensajesExito.includes(data.message)) {
-                                $.notify(data.message, "success");
-                            } else if (mensajesAdvertencia.includes(data.message)) {
-                                $.notify(data.message, "warn");
-                            } 
-                        } else {
-                                $.notify(data.message, "error");
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        // Mostrar un mensaje de error
-                        var errorMsg = jqXHR.responseJSON && jqXHR.responseJSON.message ? jqXHR.responseJSON.message : "Error al procesar la solicitud: " + textStatus + ", " + errorThrown;
-                        $.notify(errorMsg, "error");
-                    }
-                });
+            if ($('#switch_foto').is(':checked')) {
+                if (blobImgPerfil === null) {
+                    alert("Por favor, selecciona una imagen.");
+                    return;
+                }
+                formData.append('imagen', blobImgPerfil);
+            }
+
+            if ($('#switch_firma').is(':checked')) {
+                if (blobFirma === null) {
+                    alert("Por favor, selecciona una firma.");
+                    return;
+                }
+                formData.append('firma', blobFirma);
+
+            }
+
+            if ($('#switch_certificado').is(':checked')) {
+                var certificado = $('#certificado')[0].files[0];
+                if (certificado !== undefined && certificado !== null) {
+                    formData.append('certificado', certificado);
+                } else {
+                    alert("Por favor, selecciona un certificado.");
+                }
+            }
+
+            if ($('#switch_info').is(':checked')) {
+                var cargo = $('#cargo').val();
+                var nombre = $('#nombre').val();
+                var nombre_corto = $('#nombre_corto').val();
+                if (cargo === "" || nombre === "" || nombre_corto === "") {
+                    alert("Por favor, rellena todos los campos.");
+                    return;
+                }
+                formData.append('cargo', cargo);
+                formData.append('nombre', nombre);
+                formData.append('nombre_corto', nombre_corto);
+
+            }
+
+            $.ajax({
+                url: './backend/usuario/modifica_perfilFETCH.php',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var res = JSON.parse(response);
+                    //reload and set session variables
+                    location.reload();
+
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error en la solicitud: ', textStatus, errorThrown);
+                }
+            });
+
         };
     </script>
 

@@ -1,8 +1,36 @@
 #contenedor_cotizador {
-  overflow-x: auto; 
-  -webkit-overflow-scrolling: touch; 
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#contenedor_cotizador > article {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-#resume_cotizador{
+#resume_cotizador {
   background-color: #f0f7ff;
+}
+
+.form__select {
+  padding: 6px;
+}
+
+.modal__dialog {
+  max-height: 100dvh;
+  overflow-y: auto;
+}
+
+@media (max-width: 992px) {
+  .modal__dialog {
+    height: 100dvh;
+    width: 800px;
+    margin: auto;
+    max-width: calc(100% - 12px);
+  }
 }
