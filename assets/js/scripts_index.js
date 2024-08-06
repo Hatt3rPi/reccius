@@ -617,19 +617,20 @@ function botones(id, accion, base) {
                     });
                     break;
                 }
-                case "revisar": {
+                case "documento_actaMuestreo": {
                     // Llamar a una función que maneje la visualización del documento
-                    console.log("boton revisar oprimido")
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
                         data: {
                             'id': id,
-                            
+                            'resultados': false,
+                            'etapa': '0'
                         },
                         success: function(response) {
-                            console.log('Revision de Documento Acta Muestreo redirigido con éxito');
+                            console.log('Documento Acta Muestreo redirigido con éxito');
                             $('#dynamic-content').html(response);
+                            cargarDatosEspecificacion(id, false, '0');
                         },
                         error: function(xhr, status, error) {
                             console.error("Error al visualizar el documento: ", status, error);
