@@ -20,7 +20,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="../assets/js/notify.js"></script>
     <script src="../assets/js/image.js"></script>
 </head>
-
 <body>
     <div class="container">
         <div class="form-container">
