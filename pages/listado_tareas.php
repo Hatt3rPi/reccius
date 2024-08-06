@@ -183,7 +183,7 @@ function cargaListadoTareas() {
 }
 function filtrar_listado_estado(estado) {
     var table = $('#listado').DataTable();
-    table.column(2).search(estado).draw(); // Asumiendo que la columna 1 es la de
+    table.column(3).search(estado).draw(); // Asumiendo que la columna 1 es la de
     if (estado==""){
         table.column(5).search("").draw();
     }
