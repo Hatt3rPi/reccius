@@ -622,7 +622,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
-    function convertImageToBase64(imgElementId, callback) {
+    function convertImageToBase64(imgElementId) {
         var imgElement = document.getElementById(imgElementId);
         var imgURL = imgElement.src;
 
@@ -642,10 +642,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Asignar la imagen convertida al elemento img
             imgElement.src = dataURL;
-
-            if (callback) {
-                callback(dataURL);
-            }
         };
         img.onerror = function() {
             console.error('Error al cargar la imagen.');
@@ -725,10 +721,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         } else {
                             $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
                         }
-                        console.log('Imagen URL:', campos.estado);
-                        convertImageToBase64('estado_liberacion');
-
-                        
                         $('#fecha_realizacion').text(campos.fecha_firma1);
                         $('#mensaje_realizador').css('display', 'block');
 
