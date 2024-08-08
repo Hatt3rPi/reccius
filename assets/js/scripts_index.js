@@ -157,7 +157,6 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#home').click(function (event) {
-        if(AppConfig.FLAGS.acta_liberacion_rechazo){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
@@ -174,9 +173,6 @@ $(document).ready(function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });
-        } else {
-            featureNoDisponible();
-        }
     });
 });
 
