@@ -1,4 +1,5 @@
 <?php
+//documento: pages\backend\calidad\add_documentos.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 include '/home/customw2/librerias/phpqrcode/qrlib.php';

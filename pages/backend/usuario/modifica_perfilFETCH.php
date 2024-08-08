@@ -1,4 +1,5 @@
 <?php
+//archivo pages\backend\usuario\modifica_perfilFETCH.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 include '/home/customw2/librerias/phpqrcode/qrlib.php';

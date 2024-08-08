@@ -1,3 +1,15 @@
+<?php
+// archivo: pages\index.php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía. asda
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <!-- pages/index_administrador.php -->
 <html lang="es">
@@ -15,9 +27,7 @@
 
 <body>
     <div class="container dashboard">
-        <h2 class="section-title">Bienvenido, <span id="username" class="username"> 
-            <?php echo $_SESSION['usuario']; ?>
-        </span>!</h2>
+        <h2 class="section-title">Bienvenido, <span id="username" class="username"> </span>!</h2>
         <div class="grid-container">
             <div class="grid-item clima">
                 <?php include 'components/index/clima.php'; ?>
@@ -88,17 +98,8 @@
                     console.error('Error al obtener los datos:', error);
                 }
             });
-
-            function fetchUserInfo() {
-                fetch('./backend/usuario/obtener_usuarioBE.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.usuario) {
-                            document.querySelector('.username').textContent = data.nombre;
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
+            var nombre  = "<?php echo $_SESSION['nombre']; ?>";    
+            $('#username').text(nombre);
         });
     </script>
 </body>
