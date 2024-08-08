@@ -66,17 +66,18 @@ function setFile($params)
   $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
   $contentType = isset($mime_types[$fileExtension]) ? $mime_types[$fileExtension] : 'application/octet-stream';
 
+  $final_path = str_replace( ' ', '_', $folder . '/' . $fileName);
 
   try {
     $result = $R2_client->putObject([
       'Bucket' => $bucket_name,
-      'Key' => $folder . '/' . $fileName,
+      'Key' => $final_path,
       'Body' => $fileBinary,
       'ContentType' => $contentType,
       'ACL' => 'private'
     ]);
 
-    $objectURL = "$bucket_url$folder/$fileName";
+    $objectURL = "$bucket_url$final_path";
 
     return json_encode(['success' => [
       'ObjectURL' => $objectURL, 
