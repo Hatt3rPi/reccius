@@ -77,7 +77,7 @@ function setFile($params)
       'ACL' => 'private'
     ]);
 
-    $objectURL = "$bucket_url$folder/$fileName";
+    $objectURL = "$bucket_url$final_path";
 
     return json_encode(['success' => [
       'ObjectURL' => $objectURL, 
