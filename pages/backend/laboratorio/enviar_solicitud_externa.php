@@ -76,7 +76,9 @@ $altBody = $altMesaje;
 $laboratorio = new Laboratorio();
 $laboratorio->updateCorreo($lab, $emailLab);
 
-if (enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody)) {
+
+$resultado = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody);
+if ($resultado['status'] === 'success') {
     $stmt = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='Pendiente ingreso resultados' WHERE id=?");
     mysqli_stmt_bind_param($stmt, "i", $id_analisis_externo );
     mysqli_stmt_execute($stmt);
@@ -102,7 +104,7 @@ if (enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody)) {
     
 } else {
     http_response_code(500);
-    echo json_encode(['exito' => false, 'mensaje' => 'Error al enviar el correo']);
+    echo json_encode(['exito' => false, 'mensaje' => $resultado]);
 }
 
 mysqli_close($link);
