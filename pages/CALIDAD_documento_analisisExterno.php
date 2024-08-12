@@ -188,11 +188,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
 
             </form>
+<!--height: 0;-->
             <form id="section4"
             <?php
                 $etapa = $_POST['etapa'];
                 if ($etapa == '0') {
-                    echo 'style="visibility: hidden;height: 0;"';
+                    echo 'style="visibility: hidden;"';
                 }
             ?>
             >
