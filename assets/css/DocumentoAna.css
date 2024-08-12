@@ -468,7 +468,7 @@ input[type="radio"].btn-check {
 
 /* Estilo por defecto de los labels */
 label.btn {
-    border: 2px solid transparent;
+    border: 2px solid #ccc; /* Añadir un borde gris claro por defecto */
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
@@ -487,4 +487,9 @@ input[type="radio"].btn-check.noCumple:checked + label.btn-outline-danger {
     background-color: #dc3545;
     border-color: #dc3545;
     color: white;
+}
+
+/* Estilo cuando el botón no está seleccionado pero el label está activo (hover) */
+label.btn:hover {
+    border-color: #007bff; /* Borde azul al pasar el mouse */
 }
