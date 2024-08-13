@@ -188,7 +188,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
 
             </form>
-            <form id="section4">
+            <!--height: 0;-->
+            <form id="section4" <?php
+                                $etapa = $_POST['etapa'];
+                                if ($etapa == '0') {
+                                    echo 'style="visibility: hidden;"';
+                                }
+                                ?>>
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">III. DATOS DEL ANÁLISIS SOLICITADO</td>
@@ -226,10 +232,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="Subtitulos" colspan="4">IV. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
-                        <th>Análisis</th>
-                        <th>Metodología</th>
-                        <th>Especificación</th>
-                        <th>Revisión</th>
+                        <th class="tabla">Análisis</th>
+                        <th class="tabla">Metodología</th>
+                        <th class="tabla">Especificación</th>
+                        <th class="tabla">Revisión</th>
                     </tr>
                 </table>
 
@@ -302,8 +308,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     $etapa = $_POST['etapa'];
     if ($etapa == '0') {
         echo '<button class="botones" id="upload-pdf">Guardar PDF</button>';
-    }
-    else {
+    } else {
         echo '
                 <button class="botones" id="revisar" style="display: none;">Revisar</button>
                 <button class="botones" id="download-pdf" style="display: none;">Descargar PDF</button>
@@ -318,13 +323,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    
-    
     var idAnalisisExterno_acta = null;
 
     $(document).ready(function() {
         function downloadPDF(save) {
-            const { jsPDF } = window.jspdf;
+            const {
+                jsPDF
+            } = window.jspdf;
 
             $('#button-container').hide();
 
@@ -412,7 +417,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#button-container').show();
                 });
         }
-        
+
         const uploadButton = document.getElementById('upload-pdf');
         if (uploadButton) {
             uploadButton.addEventListener('click', function() {
@@ -427,7 +432,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
     });
-   
+
     // Función para mostrar u ocultar la columna de revisión
     function toggleRevisionColumn() {
         // Seleccionar todas las celdas y el encabezado de la columna Revisión
@@ -496,7 +501,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="revision">
+                        <td class="revision" <?php
+                                                $etapa = $_POST['etapa'];
+                                                if ($etapa == '0') {
+                                                    echo 'style="visibility: hidden;height: 0;"';
+                                                } ?>>
                         <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
                         <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                         <input type="radio" class="btn-check noCumple" name="btn-check-${index}" id="btn-check-b-${index}" value="0" autocomplete="off">

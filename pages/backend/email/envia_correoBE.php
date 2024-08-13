@@ -51,6 +51,9 @@ function enviarCorreo($destinatario, $nombreDestinatario, $asunto, $cuerpo, $alt
 
 function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
     $mail = new PHPMailer(true);
+    $errores = [];
+    $exitos = [];
+
     try {
         $mail->isSMTP();
         $mail->Host = SMTP_HOST;
@@ -64,21 +67,44 @@ function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
         $mail->setFrom(SMTP_USER, 'Reccius');
 
         foreach ($destinatarios as $destinatario) {
+            $mail->clearAddresses(); // Limpia las direcciones antes de añadir una nueva
             $mail->addAddress($destinatario['email'], $destinatario['nombre']);
+
+            try {
+                $mail->send();
+                $exitos[] = $destinatario['email'];
+            } catch (Exception $e) {
+                $errores[] = [
+                    'email' => $destinatario['email'],
+                    'error' => $mail->ErrorInfo
+                ];
+                error_log("Error al enviar correo a {$destinatario['email']}: {$mail->ErrorInfo}");
+            }
         }
 
-        $mail->isHTML(true);
-        $mail->Subject = $asunto;
-        $mail->Body    = $cuerpo;
-        $mail->AltBody = $altBody ?: strip_tags($cuerpo);
-
-        $mail->send();
-        return true;
+        if (empty($errores)) {
+            return [
+                'status' => 'success',
+                'message' => 'Todos los correos se enviaron con éxito.',
+                'enviados' => $exitos
+            ];
+        } else {
+            return [
+                'status' => 'partial success',
+                'message' => 'Algunos correos no se pudieron enviar.',
+                'enviados' => $exitos,
+                'errores' => $errores
+            ];
+        }
     } catch (Exception $e) {
-        // Puedes optar por manejar el error como prefieras, por ejemplo, registrarlo
-        error_log("Error al enviar correo: {$mail->ErrorInfo}");
-        return false;
+        error_log("Error general al enviar correos: {$mail->ErrorInfo}");
+        return [
+            'status' => 'error',
+            'message' => 'No se pudieron enviar los correos.',
+            'errores' => $errores
+        ];
     }
 }
+
 
 ?>
