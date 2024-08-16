@@ -217,7 +217,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const headerElement = document.getElementById('header-container');
             const contentElement = document.getElementById('contenido_main');
             const footerElement = document.getElementById('footer');
-            const watermarkText = document.getElementById('watermark').textContent.trim();
 
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
@@ -258,29 +257,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         // Ahora posiciona las imágenes en el PDF
                         let yOffset = 0;
 
-                        // Función para agregar la marca de agua en cada página
-                        function addWatermark() {
-                            pdf.setFont('Helvetica', 'normal');
-                            pdf.setFontSize(110);
-                            pdf.setTextColor(0, 0, 0, 0.2);
-
-                            pdf.saveGraphicsState();
-                            pdf.setGState(new pdf.GState({
-                                opacity: 0.2
-                            }));
-
-                            // Rotación y posición de la marca de agua
-                            pdf.text(watermarkText, pageWidth / 2, pageHeight / 2, {
-                                angle: -45,
-                                align: 'center'
-                            });
-
-                            pdf.restoreGraphicsState();
-                        }
-
                         // Agrega el header en la parte superior
                         pdf.addImage(headerImgData, 'JPEG', 0, yOffset, headerWidth, headerHeight);
-                        addWatermark(); // Agregar marca de agua en la primera página
                         yOffset += headerHeight;
 
                         // Agrega el contenido, asegurándose de que haya suficiente espacio para el footer
@@ -296,7 +274,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     pdf.addPage();
                                     position = 0; // reiniciamos el yOffset
                                     yOffset = 0;
-                                    addWatermark(); // Agregar marca de agua en cada nueva página
                                 }
 
                                 const availableHeight = pageHeight - yOffset - footerHeight;
@@ -316,7 +293,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         // Finalmente, agrega el footer en la parte inferior
                         pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
-                        addWatermark(); // Agregar marca de agua en la última página
 
                         const nombreProducto = document.getElementById('producto').textContent.trim();
                         const nombreDocumento = document.getElementById('documento').textContent.trim();
@@ -332,6 +308,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.error("Error generating PDF: ", error);
             });
         });
+
 
 
 
