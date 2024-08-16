@@ -125,7 +125,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <canvas style="display: none;"></canvas>
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
-                <button type="button" name="modificarPerfil" onclick="guardar()">Modificar Perfil</button>
+                <button type="button" name="modificarPerfil" onclick="guardar()">Guardar Cambios</button>
             </form>
         </div>
     </div>
