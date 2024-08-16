@@ -143,7 +143,7 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
                 $identificador_producto= $rowTotalAnalisisProd['identificador_producto'];
                 $correlativo = isset($rowTotalAnalisisProd['total_analisis']) ? $rowTotalAnalisisProd['total_analisis'] + 1 : 1;
                 $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
-                $QA[] = "8: tipo_producto=".$tipo_producto_preparacion." ("$rowTotalAnalisisProd['aux_tipo_cor'].")";
+                $QA[] = "8: tipo_producto=".$tipo_producto_preparacion." (".$rowTotalAnalisisProd['aux_tipo_cor'].")";
                 // inicio
                     switch ($tipo_producto_preparacion) {
                         case 'Material Envase y Empaque':
