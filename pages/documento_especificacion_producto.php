@@ -205,32 +205,78 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
 
-        document.getElementById('download-pdf').addEventListener('click', async function() {
-            $.notify("Creando PDF", "warn");
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            $.notify("Generando PDF", "warn");
 
-            // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
-            await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
+            // Ocultar botones no seleccionados en todos los grupos
+            const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    // Ocultar el label asociado si el botón no está seleccionado
+                    if (!button.checked) {
+                        button.nextElementSibling.style.display = 'none';
+                    }
+                });
+            });
 
-            var container = document.getElementById('Maincontainer');
+            // Ocultar la sección de botones antes de capturar la pantalla
+            document.querySelector('.button-container').style.display = 'none';
 
-            await html2canvas(container, {
-                scale: 2, // Ajuste de escala
-                backgroundColor: 'white'
+            // Seleccionar el contenedor principal para exportar
+            const elementToExport = document.getElementById('form-container');
+            elementToExport.style.border = 'none'; // Remover bordes para la captura
+            elementToExport.style.boxShadow = 'none'; // Remover sombras para la captura
+
+            html2canvas(elementToExport, {
+                scale: 1, // Ajustar la escala para calidad del PDF
+                useCORS: true // Configurar CORS para imágenes externas
             }).then(canvas => {
-                var pdf = new jspdf.jsPDF({
-                    orientation: 'portrait',
-                    unit: 'pt',
-                    format: [canvas.width, canvas.height] // Ajuste según el tamaño del contenedor
+                // Restaurar la visibilidad de la sección de botones después de la captura
+                document.querySelector('.button-container').style.display = 'block';
+                // Restaurar el borde y sombra después de la captura
+                elementToExport.style.border = '1px solid #000';
+                elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+                // Restaurar visibilidad de los labels de los botones
+                allButtonGroups.forEach(group => {
+                    const buttons = group.querySelectorAll('.btn-check');
+                    buttons.forEach(button => {
+                        button.nextElementSibling.style.display = 'block';
+                    });
                 });
 
-                var imgData = canvas.toDataURL('image/png');
-                pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-                var nombreProducto = document.getElementById('producto').textContent.trim();
-                var nombreDocumento = document.getElementById('documento').textContent.trim();
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jspdf.jsPDF({
+                    orientation: 'p',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                const imgWidth = 210;
+                const pageHeight = 297;
+                let imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+
+                let position = 0;
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                const nombreProducto = document.getElementById('producto').textContent.trim();
+                const nombreDocumento = document.getElementById('documento').textContent.trim();
                 pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
                 $.notify("PDF generado con éxito", "success");
             });
         });
+
 
 
         function cargarDatosEspecificacion(id) {
