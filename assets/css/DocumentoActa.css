@@ -1,5 +1,4 @@
 body {
-    
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -7,7 +6,6 @@ body {
 
 #form-container {
     width: 1000px;
-    /* height: 792pt; */
     padding: 20px;
     box-sizing: border-box;
     background-color: #FFF;
@@ -18,28 +16,18 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
 .form-row {
     display: flex;
     justify-content: space-between;
-    /* Separa las columnas */
 }
 
 .firma-box {
     border: 1px solid #000;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    padding-top: 0px;
-    padding-right: 10px;
+    padding: 10px;
     width: 200px;
     height: 100px;
-    /* Ajusta el ancho para llenar la sección del footer */
     text-align: center;
 }
-
-/* ... Resto de estilos ... */
-
-
 
 .header,
 .header-bottom,
@@ -47,10 +35,7 @@ body {
 .footer-box,
 .footer {
     margin: 0;
-    padding-top: 1px;
-    padding-bottom: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 1px 10px 0;
     border: none;
     background-color: #FFF;
 }
@@ -100,14 +85,6 @@ body {
     font-size: 10px;
 }
 
-.header-right th:nth-child(2),
-.header-right td:nth-child(2) {
-    text-align: left;
-    font-size: 10px;
-    padding-left: 5px;
-
-}
-
 .header-right table {
     width: 100%;
 }
@@ -115,20 +92,13 @@ body {
 .header-right table td,
 .header-right table th {
     font-size: 10px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 3px;
-    padding-right: 1px;
+    padding: 1px 3px;
     border: 1px dotted #000;
 }
 
 tbody {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 1px 10px;
 }
-
 
 .sub-info,
 .bold {
@@ -141,7 +111,6 @@ tbody {
 #seccion3 table {
     width: 100%;
     border-collapse: collapse;
-
 }
 
 #seccion3 th {
@@ -157,8 +126,6 @@ tbody {
     text-align: center;
     align-items: center;
 }
-
-
 
 .document-title h2,
 .document-title h3 {
@@ -182,8 +149,7 @@ tbody {
 
 .firma-section {
     margin: 0;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 50px;
     border: none;
     background-color: #FFF;
 }
@@ -194,10 +160,7 @@ tbody {
     font-size: 8px;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 1px 12px;
     border: 1px solid #000;
     height: auto;
     width: 220px;
@@ -212,16 +175,13 @@ tbody {
     height: 64px;
     width: 64px;
     margin: auto;
-    /* Centra el contenedor en el espacio disponible */
 }
 
 .signature img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* Esto asegura que la imagen se ajuste correctamente dentro del espacio sin deformarse */
 }
-
 
 .bold,
 .signature,
@@ -246,19 +206,24 @@ p {
     text-decoration: none;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
+
 #metodo_muestreo {
     bottom: 30px !important;
 }
+
 #guardar {
     bottom: 90px;
 }
+
 #firmar {
     bottom: 160px;
     background-color: #ff0000;
 }
+
 #download-pdf {
     bottom: 20px;
 }
+
 #download-pdf:hover {
     background-color: #003580;
 }
@@ -279,7 +244,6 @@ p {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    /* Ajusta esto según tus necesidades */
 }
 
 .no-border {
@@ -293,99 +257,61 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5);
-    /* Aumenta la escala verticalmente */
     transform-origin: center center;
     font-size: 110px;
-    /* Ajusta este valor según sea necesario */
     color: rgba(0, 0, 0, 0.2);
-    /* Semitransparente */
     pointer-events: none;
     z-index: 9999;
     width: 100%;
-    /* Asegúrate de que abarque todo el ancho del contenedor */
     text-align: center;
-    /* Centra el texto horizontalmente */
     white-space: nowrap;
-    /* Evita que el texto se envuelva en múltiples líneas */
 }
 
 #watermark.pendiente-approbacion {
     font-family: 'Arial', sans-serif;
-    /* Cambia a la fuente que corresponda */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
-    /* Mantén el texto en diagonal */
     transform-origin: 0 50%;
-    /* Ajusta el origen de la transformación si es necesario */
     font-size: 100px;
-    /* Ajusta este valor según el tamaño deseado */
     color: rgba(255, 0, 0, 0.5);
-    /* Cambia el color y la transparencia según sea necesario */
     pointer-events: none;
     z-index: 9999;
     width: 100vw;
-    /* Utiliza 100vw para que abarque todo el ancho de la ventana */
     text-align: center;
-    /* Centra el texto horizontalmente */
     white-space: nowrap;
-    /* Evita que el texto se envuelva en múltiples líneas */
     line-height: 1;
-    /* Ajusta el interlineado si es necesario */
     letter-spacing: -5px;
-    /* Ajusta el espaciado entre letras si es necesario */
 }
-
 
 .hidden {
     display: none !important;
-    /* La declaración '!important' asegura que esta regla tenga prioridad */
 }
 
-/* Estilo para todos los elementos th */
 .general-th {
     background-color: #0047b3;
-    /* Color de fondo azul */
     color: white;
-    /* Texto en color blanco */
     padding: 8px;
-    /* Relleno alrededor del texto */
 }
 
-/* Estilo para th dentro de .header-right table */
 .header-right-th {
     font-size: 8px;
-    /* Tamaño de fuente más pequeño para th */
     white-space: nowrap;
-    /* Asegura que el texto no se envuelva */
     overflow: hidden;
-    /* Oculta el contenido que desborde el tamaño del elemento */
     text-overflow: ellipsis;
-    /* Añade puntos suspensivos si el texto se desborda */
-    padding-top: 0px;
-    /* Relleno superior */
-    padding-bottom: 0px;
-    /* Relleno inferior */
-    padding-left: 3px;
-    /* Relleno izquierdo */
-    padding-right: 1px;
-    /* Relleno derecho */
+    padding: 0px 3px 0px 1px;
 }
-
-
 
 #identificacion_muestra th:first-child,
 #identificacion_muestra td:first-child {
     width: 20%;
-
 }
 
 #identificacion_muestra th:nth-child(2),
 #identificacion_muestra td:nth-child(2) {
     width: 40%;
     padding: 5px;
-
 }
 
 #identificacion_muestra th:nth-child(4),
@@ -421,12 +347,10 @@ p {
 .formulario {
     border: 1px solid #000;
     font-size: 12px;
-
 }
 
 #muestreo .formulario {
     font-size: 12px;
-
 }
 
 .formulario-titulo {
@@ -444,11 +368,10 @@ p {
     font-size: 8px !important;
     margin-bottom: 0px !important;
     padding: 2px 2px !important;
-    /* Ajusta el espacio interno del botón */
     border-radius: 3px !important;
     width: 100% !important;
-
 }
+
 .button-container {
     position: fixed;
     gap: 10px;
@@ -458,8 +381,8 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-
 }
+
 .button-container .botones {
     position: relative;
     right: 20px;
@@ -485,13 +408,11 @@ p {
 #muestreo th:first-child,
 #muestreo td:first-child {
     width: 40%;
-
 }
 
 #muestreo th:nth-child(2),
 #muestreo td:nth-child(2) {
     width: 20%;
-
 }
 
 #muestreo th:nth-child(4),
@@ -526,13 +447,9 @@ p {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    /* Incluye el padding y el border en la altura y anchura total */
     border: 0px solid #ccc;
-    /* Opcional: Establece un borde para el textarea */
     padding: 2px;
-    /* Opcional: Añade algo de espacio interior */
     resize: none;
-    /* Opcional: Evita que el usuario redimensione el textarea */
 }
 
 #seccion3 th:nth-child(5),
@@ -550,7 +467,6 @@ p {
 
 #fecha_muestreo {
     box-sizing: border-box !important;
-    /* Incluye el padding y el border en la altura y anchura total */
     border: 0px !important;
 }
 
@@ -560,109 +476,83 @@ p {
 }
 
 ol, ul {
-    padding-left: 0; /* o cualquier otro valor que necesites */
-  }
-  
+    padding-left: 0;
+}
+
 .Subtitulos {
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 1px;
 }
+
 .footer-containerDIV {
-            
     display: flex;
     flex-wrap: nowrap;
-    /* Evita que las secciones bajen al siguiente renglón */
     justify-content: space-between;
     margin-top: 1px;
     width: 100%;
-    /* Asegura que el contenedor tome todo el ancho disponible */
     box-sizing: border-box;
-    /* Incluye el padding y border en el ancho total */
 }
 
 .firma-section {
-    
     padding: 10px;
     margin: 5px;
     flex: 1;
-    /* Distribuye el espacio equitativamente entre las secciones */
-
     max-width: 45%;
-    /* Limita el ancho máximo al 32% del contenedor para evitar desbordamiento */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Distribuye el contenido de manera uniforme */
     height: 220px;
-    /* Ajusta según sea necesario */
 }
 
 .firma-box-title {
-    
     font-size: 10px;
     text-align: left;
     font-weight: bold;
     margin-bottom: 5px;
-
     height: 21px;
     width: 100%;
-    /* Ajusta según sea necesario */
 }
 
 .firma-boxes {
     border: 1px solid #000000;
     text-align: center;
     flex: 1;
-    /* Permite que el contenido crezca para llenar el espacio */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* Centra el contenido verticalmente */
     height: 100%;
     width: 100%;
 }
 
 .signature {
-    
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 7px 0;
     font-size: 10px;
-    /* Permite que la firma crezca para llenar el espacio */
     height: 100px;
     width: 100px;
-
-    /* Ajusta según sea necesario */
 }
 
 .date {
-    
     text-align: center;
     font-size: 10px;
     margin-top: 5px;
     height: 15px;
     width: 100%;
-    /* Ajusta según sea necesario */
 }
 
 .bold {
-    
     font-weight: bold;
     width: 266px;
-    
-
-
 }
-
 
 .text-bottom {
     text-align: center;
     font-size: 10px;
-
 }
 
 .firma {
@@ -670,11 +560,9 @@ ol, ul {
 }
 
 .date-container {
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 40px;
-    /* Ajusta según sea necesario */
 }

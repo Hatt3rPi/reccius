@@ -216,7 +216,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             elementToExport.style.boxShadow = 'none'; // Remover sombras para la captura
 
             html2canvas(elementToExport, {
-                scale: 2, // Ajusta la escala para una mejor calidad
+                scale: 1, // Ajusta la escala para una mejor calidad
                 useCORS: true, // Configurar CORS para imágenes externas
                 height: elementToExport.scrollHeight // Asegura que capture toda la altura del contenedor
             }).then(canvas => {
@@ -254,6 +254,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $.notify("PDF generado con éxito", "success");
             });
         });
+
 
 
 
