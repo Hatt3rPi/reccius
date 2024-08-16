@@ -226,6 +226,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
+            const paddingTop = 10; // Define el padding superior
 
             // Primero, captura el header
             html2canvas(headerElement, {
@@ -255,9 +256,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         const footerHeight = footerCanvas.height * footerWidth / footerCanvas.width;
 
                         // Ahora posiciona las imágenes en el PDF
-                        let yOffset = 0;
+                        let yOffset = paddingTop; // Agrega el padding superior al yOffset
 
-                        // Agrega el header en la parte superior
+                        // Agrega el header en la parte superior con padding
                         pdf.addImage(headerImgData, 'JPEG', 0, yOffset, headerWidth, headerHeight);
                         yOffset += headerHeight;
 
@@ -272,8 +273,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 // Si no es la primera página, agregamos una nueva página
                                 if (yOffset !== 0) {
                                     pdf.addPage();
-                                    position = 0; // reiniciamos el yOffset
-                                    yOffset = 0;
+                                    position = paddingTop; // reiniciamos el yOffset con padding superior
+                                    yOffset = paddingTop;
                                 }
 
                                 const availableHeight = pageHeight - yOffset - footerHeight;
