@@ -260,12 +260,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         // Función para agregar la marca de agua en cada página
                         function addWatermark() {
-                            pdf.setFontSize(40);
-                            pdf.setTextColor(150, 150, 150);
+                            pdf.setFont('Verdana', 'normal');
+                            pdf.setFontSize(110);
+                            pdf.setTextColor(0, 0, 0, 0.2);
+
+                            pdf.saveGraphicsState();
+                            pdf.setGState(new pdf.GState({
+                                opacity: 0.2
+                            }));
+
                             pdf.text(watermarkText, pageWidth / 2, pageHeight / 2, {
-                                angle: 45,
-                                align: 'center'
+                                angle: -45,
+                                align: 'center',
+                                scale: [1, 1.5] // Escala vertical aplicada
                             });
+
+                            pdf.restoreGraphicsState();
                         }
 
                         // Agrega el header en la parte superior
