@@ -222,8 +222,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             html2canvas(elementToExport, {
                 scale: 1, // Ajusta la escala para una mejor calidad
-                useCORS: true, // Configurar CORS para imágenes externas
-                height: elementToExport.scrollHeight // Capturar toda la altura del contenedor
+                useCORS: true // Configurar CORS para imágenes externas
             }).then(canvas => {
                 // Restaurar visibilidad y estilos
                 buttonContainer.style.display = 'block';
@@ -264,7 +263,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.error("Error generating PDF: ", error);
             });
         });
-
 
 
 
