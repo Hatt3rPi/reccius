@@ -15,7 +15,10 @@ function insertarRegistro($link, $datos)
 {
     global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
     //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
-    $query = "INSERT INTO calidad_analisis_externo (
+    $year = date("Y");
+    $month = date("m");
+    $aux_anomes = $year . $month;
+    $query= "INSERT INTO calidad_analisis_externo (
         version,
         id_especificacion,
         id_producto,
@@ -35,8 +38,43 @@ function insertarRegistro($link, $datos)
         muestreado_por,
         numero_pos,
         tipo_analisis,
-        am_verificado_por) 
-    VALUES (?, ?, ?, 'Pendiente Acta de Muestreo', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        am_verificado_por,
+        aux_autoincremental, 
+        aux_anomes, 
+        aux_tipo
+            ) 
+        SELECT 
+            ?, -- version
+            c.id_especificacion, 
+            c.id_producto, 
+            'Pendiente Acta de Muestreo', 
+            ?, -- numero_registro
+            ?, -- numero_solicitud
+            ?, -- fecha_registro
+            ?, -- solicitado_por
+            ?, -- lote
+            ?, -- tamano_lote
+            ?, -- fecha_elaboracion
+            ?, -- fecha_vencimiento
+            ?, -- tamano_muestra
+            ?, -- tamano_contramuestra
+            ?, -- registro_isp
+            ?, -- condicion_almacenamiento
+            ?, -- muestreado_por
+            ?, -- numero_pos
+            ?, -- tipo_analisis
+            ?, -- am_verificado_por
+            COALESCE(MAX(ae.aux_autoincremental) + 1, 1), -- aux_autoincremental
+            ?, -- aux_anomes
+            b.tipo_producto -- aux_tipo
+        FROM 
+            calidad_especificacion_productos AS c
+            LEFT JOIN calidad_productos AS b ON c.id_producto = b.id
+            LEFT JOIN calidad_analisis_externo AS ae ON ae.aux_anomes = ? AND ae.aux_tipo = b.tipo_producto
+        WHERE 
+            c.id_especificacion = ?
+        LIMIT 1;
+        ";
 
     $stmt = mysqli_prepare($link, $query);
     if (!$stmt) {
@@ -45,10 +83,8 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'iiissssssssssssssss',
+        'issssssssssssssssssi',
         $datos['version'],
-        $datos['id_especificacion'],
-        $datos['id_producto'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
         $datos['fecha_registro'],
@@ -64,7 +100,10 @@ function insertarRegistro($link, $datos)
         $datos['muestreado_por'],
         $datos['numero_pos'],
         $datos['tipo_analisis'],
-        $datos['am_verificado_por']
+        $datos['am_verificado_por'],
+        $aux_anomes,        // Se utiliza en la inserción como aux_anomes
+        $aux_anomes,        // Se utiliza en la subconsulta WHERE
+        $datos['id_especificacion']
     );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
@@ -79,13 +118,26 @@ function insertarRegistro($link, $datos)
         $id,
         $query,
         [
-            $datos['version'], $datos['id_especificacion'], $datos['id_producto'],
-            $datos['registro'], $datos['numero_solicitud'],
-            $datos['fecha_registro'], $_SESSION['usuario'],  $datos['usuario_revisor'],
-            $datos['lote'], $datos['tamano_lote'], $datos['fecha_elaboracion'],
-            $datos['fecha_vencimiento'], $datos['tamano_muestra'], $datos['tamano_contramuestra'],
-            $datos['registro_isp'], $datos['condicion_almacenamiento'], $datos['muestreado_por'],
-            $datos['numero_pos'], $datos['tipo_analisis'], $datos['am_verificado_por']
+            $datos['version'],
+            $datos['numero_registro'],
+            $datos['numero_solicitud'],
+            $datos['fecha_registro'],
+            $_SESSION['usuario'],
+            $datos['lote'],
+            $datos['tamano_lote'],
+            $datos['fecha_elaboracion'],
+            $datos['fecha_vencimiento'],
+            $datos['tamano_muestra'],
+            $datos['tamano_contramuestra'],
+            $datos['registro_isp'],
+            $datos['condicion_almacenamiento'],
+            $datos['muestreado_por'],
+            $datos['numero_pos'],
+            $datos['tipo_analisis'],
+            $datos['am_verificado_por'],
+            $aux_anomes,        // Se utiliza en la inserción como aux_anomes
+            $aux_anomes,        // Se utiliza en la subconsulta WHERE
+            $datos['id_especificacion']
         ],
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)

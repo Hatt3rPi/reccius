@@ -93,8 +93,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
 
-            <div class="watermark">TESTEO TESTESO</div>
+            <div class="watermark" id="watermark"></div>
             <div id="contenido_main">
+
                 <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
                 </h1>
                 <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
@@ -202,50 +203,120 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
     <script>
-
-        var Wcontent = 2;
-        var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
+        var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('download-pdf').addEventListener('click', async function() {
-            obtenerAlturaElementosYCalcularEspacioDisponible();
-            ocultarContenedorPrincipal();
-            actualizarContadorPaginas();
-            $.notify("Creando PDF", "warn");
 
-            // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
-            await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            $.notify("Generando PDF", "warn");
 
-            var pdf = new jspdf.jsPDF({
-                orientation: 'portrait',
-                unit: 'pt',
-                format: 'letter'
+            // Ocultar la sección de botones antes de capturar la pantalla
+            const buttonContainer = document.querySelector('.button-container');
+            buttonContainer.style.display = 'none';
+
+            // Captura las tres secciones de forma separada
+            const headerElement = document.getElementById('header-container');
+            const contentElement = document.getElementById('contenido_main');
+            const footerElement = document.getElementById('footer');
+
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4' // Especificar tamaño A4
             });
 
-            // Seleccionar todos los contenedores que deben incluirse en el PDF
-            var containers = document.querySelectorAll('.document-cloned-container');
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const paddingTop = 10; // Define el padding superior
 
-            for (let i = 0; i < containers.length; i++) {
-                if (i > 0) {
-                    pdf.addPage();
-                }
+            // Primero, captura el header
+            html2canvas(headerElement, {
+                scale: 2,
+                useCORS: true
+            }).then(headerCanvas => {
+                const headerImgData = headerCanvas.toDataURL('image/jpeg');
+                const headerWidth = pageWidth;
+                const headerHeight = headerCanvas.height * headerWidth / headerCanvas.width;
 
-                await html2canvas(containers[i], {
-                    scale: 1,
-                    backgroundColor: 'white' // Asegurar que el fondo sea blanco
-                }).then(canvas => {
-                    var imgData = canvas.toDataURL('image/png');
-                    var pdfWidth = pdf.internal.pageSize.getWidth();
-                    var pdfHeight = pdf.internal.pageSize.getHeight();
+                // Luego, captura el contenido
+                html2canvas(contentElement, {
+                    scale: 2,
+                    useCORS: true
+                }).then(contentCanvas => {
+                    const contentImgData = contentCanvas.toDataURL('image/jpeg');
+                    const contentWidth = pageWidth;
+                    const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
 
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    // Por último, captura el footer
+                    html2canvas(footerElement, {
+                        scale: 2,
+                        useCORS: true
+                    }).then(footerCanvas => {
+                        const footerImgData = footerCanvas.toDataURL('image/jpeg');
+                        const footerWidth = pageWidth;
+                        const footerHeight = footerCanvas.height * footerWidth / footerCanvas.width;
+
+                        // Ahora posiciona las imágenes en el PDF
+                        let yOffset = paddingTop; // Agrega el padding superior al yOffset
+
+                        // Agrega el header en la parte superior con padding
+                        pdf.addImage(headerImgData, 'JPEG', 0, yOffset, headerWidth, headerHeight);
+                        yOffset += headerHeight;
+
+                        // Agrega el contenido, asegurándose de que haya suficiente espacio para el footer
+                        if (yOffset + contentHeight > pageHeight - footerHeight) {
+                            // Si el contenido sobrepasa la página, lo manejamos en varias páginas
+                            let heightLeft = contentHeight;
+
+                            while (heightLeft > 0) {
+                                let position = yOffset;
+
+                                // Si no es la primera página, agregamos una nueva página
+                                if (yOffset !== 0) {
+                                    pdf.addPage();
+                                    position = paddingTop; // reiniciamos el yOffset con padding superior
+                                    yOffset = paddingTop;
+                                }
+
+                                const availableHeight = pageHeight - yOffset - footerHeight;
+
+                                const heightToPrint = Math.min(availableHeight, heightLeft);
+                                const widthToPrint = contentWidth;
+
+                                pdf.addImage(contentImgData, 'JPEG', 0, yOffset, widthToPrint, heightToPrint);
+
+                                heightLeft -= heightToPrint;
+                                yOffset += heightToPrint;
+                            }
+                        } else {
+                            pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
+                            yOffset += contentHeight;
+                        }
+
+                        // Finalmente, agrega el footer en la parte inferior
+                        pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
+
+                        const nombreProducto = document.getElementById('producto').textContent.trim();
+                        const nombreDocumento = document.getElementById('documento').textContent.trim();
+                        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
+                        // Restaurar visibilidad y estilos
+                        buttonContainer.style.display = 'block';
+                        $.notify("PDF generado con éxito", "success");
+                    });
                 });
-            }
-
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('documento').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
+            }).catch(error => {
+                $.notify("Error al generar el PDF", "error");
+                console.error("Error generating PDF: ", error);
+            });
         });
+
+
+
+
+
+
+
+
 
 
         function cargarDatosEspecificacion(id) {
@@ -258,7 +329,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 },
                 success: function(response) {
                     procesarDatosEspecificacion(response);
-
                     verificarYMostrarBotonFirma(response);
                 },
                 error: function(xhr, status, error) {
@@ -288,21 +358,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     } else {
                         // Si no hay datos, oculta la sección del análisis FQ
                         $('#content').hide();
-
                     }
 
                     let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
                     if (analisisMB.length > 0) {
                         mostrarAnalisisMB(analisisMB);
                     } else {
-                        // Si no hay datos, oculta la sección del análisis FQ
+                        // Si no hay datos, oculta la sección del análisis MB
                         $('#additionalContent').hide();
-
                     }
                 }
             });
-
-
         }
 
         function mostrarImagenFirma(usuario, contenedorQR) {
@@ -504,10 +570,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-
-
-
-
         document.getElementById('sign-document').addEventListener('click', function() {
             // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
             var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
@@ -592,27 +654,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.log("Mostrar botón de firma (habilitado)");
                 document.getElementById('sign-document').style.display = 'block';
                 document.getElementById('sign-document').disabled = false;
-                Wcontent = 2;
             } else if (esAprobadorPendiente && !revisorHaFirmado) {
                 console.log("Mostrar botón de firma (deshabilitado)");
                 document.getElementById('sign-document').style.display = 'block';
                 document.getElementById('sign-document').disabled = true;
                 document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
-                Wcontent = 2;
             } else {
                 console.log("No mostrar botón de firma");
                 document.getElementById('sign-document').style.display = 'none';
-
             }
             if (esAprobador && especificacion.revisado_por.fecha_revision === null) {
                 console.log("Usuario es revisor y la firma del aprobador está pendiente.");
                 $.notify("Es necesario que el usuario Revisor firme antes que tú.", "warn");
-                // Aquí puedes realizar acciones adicionales basadas en esta condición.
             }
         }
-
-
-
 
         function actualizarEstadoDocumento() {
             console.log("A11")
@@ -620,273 +675,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
             var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
 
-            var watermarks = document.querySelectorAll('.watermark'); // Cambio aquí: usar clase en lugar de id
+            var watermarks = document.querySelectorAll('.watermark');
 
-            watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
+            watermarks.forEach(function(watermark) {
                 if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
                     watermark.textContent = 'CONFIDENCIAL';
-                    watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-                    Wcontent = 1;
+                    watermark.classList.add('watermark');
                 } else {
                     watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-                    watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
-
+                    watermark.classList.add('pendiente-aprobacion');
                 }
             });
-        }
-
-
-        function obtenerAlturaElementosYCalcularEspacioDisponible() {
-            console.log("A12")
-            const alturaTotal = 792; // Altura total de la página en puntos
-            const alturaHeader = 123; // Altura del encabezado
-            const alturaFooter = 224; // Altura del pie de página
-
-            // Funciones auxiliares dentro de la función
-            const $ = (selector) => document.querySelector(selector);
-            const $$ = (selector) => document.querySelectorAll(selector);
-
-            // Contenedores
-            const contentContainer = $('#content');
-            const additionalContentContainer = $('#additionalContent');
-
-            // Aquí puedes incluir cualquier lógica adicional de cálculo de altura si es necesario
-
-            // Seleccionar los elementos tr dentro de la tabla específica de #content y #additionalContent
-            const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
-            const trsDeAdditionalContent = Array.from(document.querySelectorAll("#additionalContent table tbody tr"));
-            newTabla("new-table", trsDeContent, trsDeAdditionalContent);
-        }
-
-
-        async function newTabla(id, trsContent, trsAdditionalContent) {
-            console.log("A13")
-            let tableContainer = createTableContainer();
-            let alturaTotalDisponible = 700; // Altura disponible antes de necesitar un nuevo contenedor.
-
-            // Crea contenedores iniciales para 'content' y 'additionalContent'.
-            let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-            let alturaActualTabla = 0; // Altura acumulada actual en el contenedor.
-
-            // Procesa trs de 'content'.
-            for (let tr of trsContent) {
-                [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
-                );
-            }
-
-            // Asegura que 'additionalContent' comience en el contenedor actual si hay espacio, o en un nuevo contenedor si es necesario.
-            let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-            for (let tr of trsAdditionalContent) {
-                [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
-                    tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
-                );
-            }
-
-            // Asegura agregar el último contenedor al documento.
-            document.querySelector("#form-container").appendChild(tableContainer);
-        }
-
-
-
-
-
-
-        async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
-            console.log("A14")
-            tr.querySelectorAll("td").forEach(td => {
-                td.style.fontSize = "10px"; // Ajusta el tamaño de la fuente
-                td.style.borderLeft = "none"; // Elimina el borde izquierdo
-                td.style.borderRight = "none"; // Elimina el borde derecho
-            });
-            let alturaTr = tr.getBoundingClientRect().height; // Asume que esta altura se puede determinar así, lo cual puede no ser siempre preciso en un entorno no renderizado.
-
-            if (alturaActualTabla + alturaTr > alturaTotalDisponible) {
-                // Si agregar esta fila excede el espacio disponible, primero agregar el contenedor actual al DOM.
-                document.querySelector("#form-container").appendChild(tableContainer);
-
-                // Crea un nuevo contenedor y tbody para continuar.
-                tableContainer = createTableContainer();
-                newTbody = createTableBody(id + "-" + sectionId, tableContainer, sectionId);
-                alturaActualTabla = 0; // Restablece la altura acumulada para el nuevo contenedor.
-            }
-
-            // Añade la fila al tbody actual y actualiza la altura acumulada.
-            newTbody.appendChild(tr);
-            alturaActualTabla += alturaTr;
-
-            return [alturaActualTabla, tableContainer, newTbody];
-        }
-
-
-        function createTableContainer() {
-            console.log("A15")
-            // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
-
-            const container = document.createElement("div");
-            container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
-
-            // Estilos y configuraciones para el contenedor
-            container.style.height = "792pt";
-            //container.style.width = "722pt"
-            container.style.padding = "10pt";
-            container.style.boxSizing = "border-box";
-            container.style.border = "1px solid rgb(0, 0, 0)";
-            container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            //container.style.marginLeft = "-520px";
-            container.style.marginRight = "-50px";
-            container.style.position = "relative"; // Asegura que los elementos absolutamente posicionados dentro de este contenedor se posicionen respecto a este contenedor
-            container.style.marginTop = "30px";
-            container.style.fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
-            container.style.paddingBottom = "300px"; // Ajusta este valor según la altura de tu footer-containerDIV para asegurarte de que haya suficiente espacio
-
-
-            // Clonar y añadir elementos de encabezado y pie de página
-            const headerClone = document.querySelector("#header-container").cloneNode(true);
-            container.appendChild(headerClone);
-
-
-            // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
-            const h1Clone = document.querySelector("#Tipo_Producto2").cloneNode(true);
-            const pClone = document.querySelector("#producto2").cloneNode(true);
-
-            // Asegúrate de actualizar los IDs si es necesario para evitar IDs duplicados en el DOM
-            h1Clone.id = "Tipo_Producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
-            pClone.id = "producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
-
-            // Añadir los elementos clonados al contenedor
-            container.appendChild(h1Clone);
-            container.appendChild(pClone);
-
-
-            // Añadir la marca de agua
-            const watermark = document.createElement("div");
-            watermark.setAttribute("class", "watermark");
-            console.log(Wcontent);
-            if (Wcontent === 1) {
-                watermark.textContent = 'CONFIDENCIAL';
-                watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-            } else {
-                watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-                watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-            }
-            container.appendChild(watermark);
-
-
-
-
-            const footerClone = document.querySelector("#footer").cloneNode(true);
-            footerClone.style.marginTop = "5px"; // Reduce el margen superior
-            container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
-
-
-
-            return container; // Devuelve el contenedor principal con todo dentro
-        }
-
-        // Esta función actualiza el contador de páginas para el contenedor actual.
-        function actualizarContadorPaginas() {
-            console.log("A16")
-            // Seleccionar todos los contenedores clonados y actualizar sus contadores
-            const contenedores = document.querySelectorAll(".pagina-numero");
-            const cantidadPaginas = contenedores.length
-
-            contenedores.forEach((contenedor, index) => {
-                // Encuentra el elemento del número de página dentro de cada contenedor
-                contenedor.innerHTML = `${index} de ${cantidadPaginas - 1}`;
-            });
-
-            console.log("documento clonado ");
-        }
-
-        function createAnalysisSection(title) {
-            console.log("A17")
-            const analysisSection = document.createElement("div");
-            analysisSection.className = "analysis-section";
-            analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
-            analysisSection.textContent = title;
-            return analysisSection;
-        }
-
-        function createTableBody(id, container, sectionId) {
-            console.log("A18")
-            const newTable = document.createElement("table");
-            newTable.setAttribute("id", id);
-            newTable.classList.add("table", "table-bordered");
-
-            // Crear un div con texto basado en la sección antes del thead
-            const analysisTitleDiv = document.createElement("div");
-            analysisTitleDiv.className = "analysis-title"; // Asegúrate de definir este estilo en tu CSS
-            analysisTitleDiv.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
-            if (sectionId === "content") {
-                analysisTitleDiv.textContent = "I. Análisis Generales";
-            } else if (sectionId === "additionalContent") {
-                analysisTitleDiv.textContent = "II. Análisis Microbiológico";
-            }
-            // Inserta el div antes de la tabla en el contenedor
-            container.appendChild(analysisTitleDiv);
-
-            // Continúa con la creación del thead y tbody como antes
-            const newThead = document.createElement("thead");
-            newThead.style.fontSize = "10px";
-            newThead.style.borderLeft = "none";
-            newThead.style.borderRight = "none";
-
-            newTable.appendChild(newThead);
-
-            const tr = document.createElement("tr");
-            tr.style.fontSize = "10px";
-            newThead.style.borderLeft = "none";
-            newThead.style.borderRight = "none";
-            newThead.appendChild(tr);
-
-            if (sectionId === "content") {
-                // Define los encabezados específicos para la tabla de 'content'
-                const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
-                headers.forEach(text => {
-                    const th = document.createElement("th");
-                    th.textContent = text;
-                    tr.appendChild(th);
-                });
-            } else if (sectionId === "additionalContent") {
-                // Define los encabezados específicos para la tabla de 'additionalContent'
-                const headers = ["Análisis", "Metodología", "Resultado"];
-                headers.forEach(text => {
-                    const th = document.createElement("th");
-                    th.textContent = text;
-                    tr.appendChild(th);
-                });
-            }
-
-            // Crear tbody y aplicar estilo a los <td> cuando se agreguen
-            const newTbody = document.createElement("tbody");
-            newTbody.style.fontSize = "10px";
-            newTable.appendChild(newTbody);
-
-            // Ubicar el newTable en el div correspondiente después del div del título
-            container.appendChild(newTable);
-
-            return newTbody;
-        }
-
-
-
-
-        function ocultarContenedorPrincipal() {
-            console.log("A19")
-            var contenedorPrincipal = document.getElementById('Maincontainer');
-            var contenedorForm = document.getElementById('form-container');
-            contenedorPrincipal.style.display = 'none';
-            contenedorForm.style.border = 'none';
-            contenedorForm.style.boxShadow = 'none';
         }
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
-
         };
     </script>
+
 </body>
 
 </html>
