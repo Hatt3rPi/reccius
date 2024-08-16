@@ -209,20 +209,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("Generando PDF", "warn");
 
             // Ocultar la sección de botones antes de capturar la pantalla
-            document.querySelector('.button-container').style.display = 'none';
+            const buttonContainer = document.querySelector('.button-container');
+            buttonContainer.style.display = 'none';
 
             const elementToExport = document.getElementById('form-container');
-            elementToExport.style.border = 'none'; // Remover bordes para la captura
-            elementToExport.style.boxShadow = 'none'; // Remover sombras para la captura
+            const originalBorder = elementToExport.style.border;
+            const originalBoxShadow = elementToExport.style.boxShadow;
+
+            // Remover bordes y sombras antes de capturar
+            elementToExport.style.border = 'none';
+            elementToExport.style.boxShadow = 'none';
 
             html2canvas(elementToExport, {
                 scale: 1, // Ajusta la escala para una mejor calidad
                 useCORS: true, // Configurar CORS para imágenes externas
-                height: elementToExport.scrollHeight // Asegura que capture toda la altura del contenedor
+                height: elementToExport.scrollHeight // Capturar toda la altura del contenedor
             }).then(canvas => {
-                document.querySelector('.button-container').style.display = 'block'; // Restaurar visibilidad
-                elementToExport.style.border = '1px solid #000';
-                elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+                // Restaurar visibilidad y estilos
+                buttonContainer.style.display = 'block';
+                elementToExport.style.border = originalBorder;
+                elementToExport.style.boxShadow = originalBoxShadow;
 
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jspdf.jsPDF({
@@ -237,10 +243,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 let heightLeft = imgHeight;
 
                 let position = 0;
+
                 pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
 
-                while (heightLeft >= 0) {
+                while (heightLeft > 0) {
                     position = heightLeft - imgHeight;
                     pdf.addPage();
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
@@ -252,6 +259,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
 
                 $.notify("PDF generado con éxito", "success");
+            }).catch(error => {
+                $.notify("Error al generar el PDF", "error");
+                console.error("Error generating PDF: ", error);
             });
         });
 
