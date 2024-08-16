@@ -221,7 +221,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             elementToExport.style.boxShadow = 'none';
 
             html2canvas(elementToExport, {
-                scale: 1, // Ajusta la escala para una mejor calidad
+                scale: 1.25, // Ajuste de escala para que se adapte mejor al tamaño A4
                 useCORS: true // Configurar CORS para imágenes externas
             }).then(canvas => {
                 // Restaurar visibilidad y estilos
@@ -229,11 +229,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 elementToExport.style.border = originalBorder;
                 elementToExport.style.boxShadow = originalBoxShadow;
 
-                const imgData = canvas.toDataURL('image/png');
+                const imgData = canvas.toDataURL('image/jpeg');
                 const pdf = new jspdf.jsPDF({
                     orientation: 'p',
                     unit: 'mm',
-                    format: 'a4'
+                    format: 'a4' // Especificar tamaño A4
                 });
 
                 const pageWidth = pdf.internal.pageSize.getWidth();
@@ -241,11 +241,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const imgWidth = pageWidth;
                 let imgHeight = canvas.height * imgWidth / canvas.width;
 
-                if (imgHeight <= pageHeight) {
-                    // Si la altura de la imagen es menor o igual a la altura de la página, centramos verticalmente la imagen
-                    const yPosition = (pageHeight - imgHeight) / 2; // Ajusta esta fórmula si necesitas otro tipo de centrado
-                    pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, imgHeight);
-                } else {
+                if (imgHeight > pageHeight) {
                     let heightLeft = imgHeight;
                     let position = 0;
 
@@ -258,6 +254,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                         heightLeft -= pageHeight;
                     }
+                } else {
+                    // Centramos la imagen si es más pequeña que la página
+                    const yOffset = (pageHeight - imgHeight) / 2;
+                    pdf.addImage(imgData, 'JPEG', 0, yOffset, imgWidth, imgHeight);
                 }
 
                 const nombreProducto = document.getElementById('producto').textContent.trim();
