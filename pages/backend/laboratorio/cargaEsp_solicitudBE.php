@@ -102,6 +102,7 @@ $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_ana
 
 $numero_acta_cor = "" ;
 $numero_registro_cor ="";
+$tipo_producto_preparacion="";
 if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
 
 
@@ -110,7 +111,7 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
         $aux_anomes = $year . $month;
         $queryTotalAnalisisProd = "SELECT 
             MAX(aux_autoincremental) AS total_analisis, 
-            aux_tipo, 
+            aux_tipo as aux_tipo_cor, 
             (
                 SELECT b.identificador_producto 
                 FROM calidad_especificacion_productos AS c 
@@ -132,38 +133,40 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
         ";
         $stmtTotalAnalisisProd = mysqli_prepare($link, $queryTotalAnalisisProd);
         mysqli_stmt_bind_param($stmtTotalAnalisisProd, "iii", $idEspecificacion,  $aux_anomes, $idEspecificacion);
+        $QA[] = "7: idEspecificacion=".$idEspecificacion." y anomes=".$aux_anomes;
         if ($stmtTotalAnalisisProd) {
             mysqli_stmt_execute($stmtTotalAnalisisProd);
             $resultTotalAnalisisProd = mysqli_stmt_get_result($stmtTotalAnalisisProd);
             if ($rowTotalAnalisisProd = mysqli_fetch_assoc($resultTotalAnalisisProd)) {
                 $total_analisis_producto = $rowTotalAnalisisProd['total_analisis'];
-                $tipo_producto_preparacion= $rowTotalAnalisisProd['aux_tipo'];
+                $tipo_producto_preparacion= $rowTotalAnalisisProd['aux_tipo_cor'];
                 $identificador_producto= $rowTotalAnalisisProd['identificador_producto'];
                 $correlativo = isset($rowTotalAnalisisProd['total_analisis']) ? $rowTotalAnalisisProd['total_analisis'] + 1 : 1;
                 $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
-    // inicio
-        switch ($tipo_producto_preparacion) {
-            case 'Material Envase y Empaque':
-                $numero_acta_cor = "SAEMEE-" . $year . $month . $correlativoStr ;
-                $numero_registro_cor = 'DCAL-CC-SEMEE-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-                break;
-            case 'Materia Prima':
-                $numero_acta_cor = "SAEMP-" . $year . $month . $correlativoStr ;
-                $numero_registro_cor = 'DCAL-CC-SEMP-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-                break;
-            case 'Producto Terminado':
-                $numero_acta_cor = "SAEPT-" . $year . $month . $correlativoStr ;
-                $numero_registro_cor = 'DCAL-CC-SEPT-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-                break;
-            case 'Insumo':
-                $numero_acta_cor = "SAEINS-" . $year . $month . $correlativoStr ;
-                $numero_registro_cor = 'DCAL-CC-SEIND-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-                break;
-            default:
-                $numero_acta_cor= 'Desconocido';
-                $numero_registro_cor = 'Desconocido';
-        }
-    // fin
+                $QA[] = "8: tipo_producto=".$tipo_producto_preparacion." ("$rowTotalAnalisisProd['aux_tipo_cor'].")";
+                // inicio
+                    switch ($tipo_producto_preparacion) {
+                        case 'Material Envase y Empaque':
+                            $numero_acta_cor = "SAEMEE-" . $year . $month . $correlativoStr ;
+                            $numero_registro_cor = 'DCAL-CC-SEMEE-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                            break;
+                        case 'Materia Prima':
+                            $numero_acta_cor = "SAEMP-" . $year . $month . $correlativoStr ;
+                            $numero_registro_cor = 'DCAL-CC-SEMP-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                            break;
+                        case 'Producto Terminado':
+                            $numero_acta_cor = "SAEPT-" . $year . $month . $correlativoStr ;
+                            $numero_registro_cor = 'DCAL-CC-SEPT-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                            break;
+                        case 'Insumo':
+                            $numero_acta_cor = "SAEINS-" . $year . $month . $correlativoStr ;
+                            $numero_registro_cor = 'DCAL-CC-SEIND-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                            break;
+                        default:
+                            $numero_acta_cor= 'Desconocido';
+                            $numero_registro_cor = 'Desconocido';
+                    }
+                // fin
 
         }
         mysqli_stmt_close($stmtTotalAnalisisProd);
