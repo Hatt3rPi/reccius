@@ -236,21 +236,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     format: 'a4'
                 });
 
-                const imgWidth = 210;
-                const pageHeight = 297;
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const imgWidth = pageWidth;
                 let imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
 
-                let position = 0;
+                if (imgHeight <= pageHeight) {
+                    // Si la altura de la imagen es menor o igual a la altura de la página, centramos verticalmente la imagen
+                    const yPosition = (pageHeight - imgHeight) / 2; // Ajusta esta fórmula si necesitas otro tipo de centrado
+                    pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, imgHeight);
+                } else {
+                    let heightLeft = imgHeight;
+                    let position = 0;
 
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                while (heightLeft > 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
+
+                    while (heightLeft > 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
                 }
 
                 const nombreProducto = document.getElementById('producto').textContent.trim();
@@ -263,6 +270,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.error("Error generating PDF: ", error);
             });
         });
+
 
 
 
