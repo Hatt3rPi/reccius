@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\laboratorio\cargaEsp_solicitudBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
@@ -99,42 +100,71 @@ $queryAnalisisExterno = "SELECT
 $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
 
 
-$total_analisis = 0;
+$numero_acta_cor = "" ;
+$numero_registro_cor ="";
 if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
-    $queryTotalAnalisis = "SELECT COUNT(*) AS total_analisis 
-                       FROM calidad_analisis_externo 
-                       WHERE fecha_solicitud IS NOT NULL 
-                       AND fecha_solicitud >= DATE_FORMAT(CURDATE(), '%Y-%m-01')"; 
-    $stmtTotalAnalisis = mysqli_prepare($link, $queryTotalAnalisis);
-    if ($stmtTotalAnalisis) {
-        mysqli_stmt_execute($stmtTotalAnalisis);
-        $resultTotalAnalisis = mysqli_stmt_get_result($stmtTotalAnalisis);
-        if ($rowTotalAnalisis = mysqli_fetch_assoc($resultTotalAnalisis)) {
-            $total_analisis = $rowTotalAnalisis['total_analisis'];
+
+
+        $year = date("y");
+        $month = date("m");
+        $aux_anomes = $year . $month;
+        $queryTotalAnalisisProd = "SELECT 
+            MAX(aux_autoincremental) AS total_analisis, 
+            aux_tipo, 
+            (
+                SELECT b.identificador_producto 
+                FROM calidad_especificacion_productos AS c 
+                LEFT JOIN calidad_productos AS b ON c.id_producto = b.id 
+                WHERE c.id_especificacion = ?
+                LIMIT 1
+            ) AS identificador_producto
+        FROM 
+            calidad_analisis_externo 
+        WHERE 
+            aux_anomes = ? 
+            AND aux_tipo = (
+                SELECT tipo_producto 
+                FROM calidad_especificacion_productos AS c 
+                LEFT JOIN calidad_productos AS b ON c.id_producto = b.id 
+                WHERE c.id_especificacion = ?
+                LIMIT 1
+            );
+        ";
+        $stmtTotalAnalisisProd = mysqli_prepare($link, $queryTotalAnalisisProd);
+        mysqli_stmt_bind_param($stmtTotalAnalisisProd, "iii", $idEspecificacion,  $aux_anomes, $idEspecificacion);
+        if ($stmtTotalAnalisisProd) {
+            mysqli_stmt_execute($stmtTotalAnalisisProd);
+            $resultTotalAnalisisProd = mysqli_stmt_get_result($stmtTotalAnalisisProd);
+            if ($rowTotalAnalisisProd = mysqli_fetch_assoc($resultTotalAnalisisProd)) {
+                $total_analisis_producto = $rowTotalAnalisisProd['total_analisis'];
+                $tipo_producto_preparacion= $rowTotalAnalisisProd['aux_tipo'];
+                $identificador_producto= $rowTotalAnalisisProd['identificador_producto'];
+                $correlativo = isset($rowTotalAnalisisProd['total_analisis']) ? $rowTotalAnalisisProd['total_analisis'] + 1 : 1;
+                $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
+    // inicio
+        switch ($tipo_producto_preparacion) {
+            case 'Material Envase y Empaque':
+                $numero_acta_cor = "SAEMEE-" . $year . $month . $correlativoStr ;
+                $numero_registro_cor = 'DCAL-CC-SEMEE-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                break;
+            case 'Materia Prima':
+                $numero_acta_cor = "SAEMP-" . $year . $month . $correlativoStr ;
+                $numero_registro_cor = 'DCAL-CC-SEMP-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                break;
+            case 'Producto Terminado':
+                $numero_acta_cor = "SAEPT-" . $year . $month . $correlativoStr ;
+                $numero_registro_cor = 'DCAL-CC-SEPT-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                break;
+            case 'Insumo':
+                $numero_acta_cor = "SAEINS-" . $year . $month . $correlativoStr ;
+                $numero_registro_cor = 'DCAL-CC-SEIND-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
+                break;
+            default:
+                $numero_acta_cor= 'Desconocido';
+                $numero_registro_cor = 'Desconocido';
         }
-        mysqli_stmt_close($stmtTotalAnalisis);
-        $QA[] = "13";
-    } else {
-        $QA[] = "14: " . mysqli_error($link);
-        die("Error en la preparación de la consulta del total de análisis: " . mysqli_error($link));
-    }
-}
+    // fin
 
-$total_analisis_producto = 0;
-if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
-
-    $queryTotalAnalisisProd = "SELECT COUNT(cae.id) AS total_analisis
-            FROM calidad_analisis_externo cae
-            JOIN calidad_especificacion_productos cep 
-            ON cae.id_especificacion = cep.id_especificacion
-            WHERE cep.id_especificacion = ?"; //todo
-    $stmtTotalAnalisisProd = mysqli_prepare($link, $queryTotalAnalisisProd);
-    mysqli_stmt_bind_param($stmtTotalAnalisisProd, "i", $idEspecificacion);
-    if ($stmtTotalAnalisisProd) {
-        mysqli_stmt_execute($stmtTotalAnalisisProd);
-        $resultTotalAnalisisProd = mysqli_stmt_get_result($stmtTotalAnalisisProd);
-        if ($rowTotalAnalisisProd = mysqli_fetch_assoc($resultTotalAnalisisProd)) {
-            $total_analisis_producto = $rowTotalAnalisisProd['total_analisis'];
         }
         mysqli_stmt_close($stmtTotalAnalisisProd);
         $QA[] = "13";
@@ -223,8 +253,8 @@ echo json_encode([
     'productos' => array_values($productos), 
     'analisis' => $analisis, 
     'count_analisis_externo' => $analisis_count,  
-    'total_analisis' => $total_analisis, 
-    'total_analisis_producto' => $total_analisis_producto,
+    'numero_registro_cor' => $numero_registro_cor, 
+    'numero_acta_cor' => $numero_acta_cor,
     'laboratorios' => $labList,
     'pasos' => $QA
     ], JSON_UNESCAPED_UNICODE);
