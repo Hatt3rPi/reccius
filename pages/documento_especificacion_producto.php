@@ -211,32 +211,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
             await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
 
-            var pdf = new jspdf.jsPDF({
-                orientation: 'portrait',
-                unit: 'pt',
-                format: 'letter'
-            });
-
-            // Seleccionar el contenedor principal
             var container = document.getElementById('Maincontainer');
 
-            // Captura el contenedor original y genera el PDF
             await html2canvas(container, {
-                scale: 1,
-                backgroundColor: 'white' // Asegurar que el fondo sea blanco
+                scale: 2, // Ajuste de escala
+                backgroundColor: 'white'
             }).then(canvas => {
+                var pdf = new jspdf.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'pt',
+                    format: [canvas.width, canvas.height] // Ajuste según el tamaño del contenedor
+                });
+
                 var imgData = canvas.toDataURL('image/png');
-                var pdfWidth = pdf.internal.pageSize.getWidth();
-                var pdfHeight = pdf.internal.pageSize.getHeight();
-
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+                var nombreProducto = document.getElementById('producto').textContent.trim();
+                var nombreDocumento = document.getElementById('documento').textContent.trim();
+                pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+                $.notify("PDF generado con éxito", "success");
             });
-
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('documento').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
         });
+
 
         function cargarDatosEspecificacion(id) {
             console.log("A1")
