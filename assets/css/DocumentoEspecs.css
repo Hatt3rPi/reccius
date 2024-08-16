@@ -6,20 +6,26 @@ body {
 }
 
 #form-container {
-
-    height: 792pt;
+    height: 100%;
+    min-height: 100vh;
     width: 720pt;
     padding: 10pt;
     box-sizing: border-box;
     background-color: white;
     border: 1px solid rgb(0, 0, 0);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-    margin-left: 500px;
-    margin-right: 10px;
-    position: relative;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 30px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+#Maincontainer {
+    flex: 1;
+}
+
 
 
 .content,
@@ -406,20 +412,15 @@ p {
 }
 
 .footer-containerDIV {
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 0;
     padding: 10px;
-    /* Ajusta según sea necesario */
     display: flex;
     flex-wrap: nowrap;
-    /* Evita que las secciones bajen al siguiente renglón */
     justify-content: space-between;
-    margin-top: 1px;
     width: 100%;
-    /* Asegura que el contenedor tome todo el ancho disponible */
     box-sizing: border-box;
-    /* Incluye el padding y border en el ancho total */
 }
 
 .firma-section {

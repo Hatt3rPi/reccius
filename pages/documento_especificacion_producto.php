@@ -217,7 +217,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             html2canvas(elementToExport, {
                 scale: 2, // Ajusta la escala para una mejor calidad
-                useCORS: true // Configurar CORS para imágenes externas
+                useCORS: true, // Configurar CORS para imágenes externas
+                height: elementToExport.scrollHeight // Asegura que capture toda la altura del contenedor
             }).then(canvas => {
                 document.querySelector('.button-container').style.display = 'block'; // Restaurar visibilidad
                 elementToExport.style.border = '1px solid #000';
@@ -253,6 +254,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $.notify("PDF generado con éxito", "success");
             });
         });
+
 
 
 
