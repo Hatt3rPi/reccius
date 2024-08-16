@@ -106,23 +106,27 @@ $tipo_producto_preparacion="";
 if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
 
 
-        $year = date("y");
+        $year = date("Y");
         $month = date("m");
         $aux_anomes = $year . $month;
         $queryTotalAnalisisProd = "SELECT 
-            MAX(aux_autoincremental) AS total_analisis, 
-            aux_tipo as aux_tipo_cor, 
+            COALESCE(MAX(aux_autoincremental),0) AS total_analisis, 
+            (SELECT tipo_producto 
+                FROM calidad_especificacion_productos AS c 
+                LEFT JOIN calidad_productos AS b ON c.id_producto = b.id 
+                WHERE c.id_especificacion = ?
+                LIMIT 1) as aux_tipo_cor, 
             (
                 SELECT b.identificador_producto 
                 FROM calidad_especificacion_productos AS c 
                 LEFT JOIN calidad_productos AS b ON c.id_producto = b.id 
-                WHERE c.id_especificacion = ?
+                WHERE c.id_especificacion = ?'
                 LIMIT 1
             ) AS identificador_producto
         FROM 
             calidad_analisis_externo 
         WHERE 
-            aux_anomes = ? 
+            aux_anomes = ?
             AND aux_tipo = (
                 SELECT tipo_producto 
                 FROM calidad_especificacion_productos AS c 
@@ -132,7 +136,7 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
             );
         ";
         $stmtTotalAnalisisProd = mysqli_prepare($link, $queryTotalAnalisisProd);
-        mysqli_stmt_bind_param($stmtTotalAnalisisProd, "iii", $idEspecificacion,  $aux_anomes, $idEspecificacion);
+        mysqli_stmt_bind_param($stmtTotalAnalisisProd, "iisi", $idEspecificacion, $idEspecificacion,  $aux_anomes, $idEspecificacion);
         $QA[] = "7: idEspecificacion=".$idEspecificacion." y anomes=".$aux_anomes;
         if ($stmtTotalAnalisisProd) {
             mysqli_stmt_execute($stmtTotalAnalisisProd);

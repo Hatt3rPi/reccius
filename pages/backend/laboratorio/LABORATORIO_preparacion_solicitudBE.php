@@ -15,7 +15,7 @@ function insertarRegistro($link, $datos)
 {
     global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
     //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
-    $year = date("y");
+    $year = date("Y");
     $month = date("m");
     $aux_anomes = $year . $month;
     $query= "INSERT INTO calidad_analisis_externo (
