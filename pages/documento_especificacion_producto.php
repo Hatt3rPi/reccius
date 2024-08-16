@@ -93,8 +93,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
 
-            <div class="watermark">TESTEO TESTESO</div>
+
             <div id="contenido_main">
+                <div class="watermark"></div>
                 <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
                 </h1>
                 <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
@@ -212,64 +213,102 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const buttonContainer = document.querySelector('.button-container');
             buttonContainer.style.display = 'none';
 
-            const elementToExport = document.getElementById('form-container');
-            const originalBorder = elementToExport.style.border;
-            const originalBoxShadow = elementToExport.style.boxShadow;
+            // Captura las tres secciones de forma separada
+            const headerElement = document.getElementById('header-container');
+            const contentElement = document.getElementById('contenido_main');
+            const footerElement = document.getElementById('footer');
 
-            // Remover bordes y sombras antes de capturar
-            elementToExport.style.border = 'none';
-            elementToExport.style.boxShadow = 'none';
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4' // Especificar tamaño A4
+            });
 
-            html2canvas(elementToExport, {
-                scale: 1.25, // Ajuste de escala para que se adapte mejor al tamaño A4
-                useCORS: true // Configurar CORS para imágenes externas
-            }).then(canvas => {
-                // Restaurar visibilidad y estilos
-                buttonContainer.style.display = 'block';
-                elementToExport.style.border = originalBorder;
-                elementToExport.style.boxShadow = originalBoxShadow;
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
 
-                const imgData = canvas.toDataURL('image/jpeg');
-                const pdf = new jspdf.jsPDF({
-                    orientation: 'p',
-                    unit: 'mm',
-                    format: 'a4' // Especificar tamaño A4
+            // Primero, captura el header
+            html2canvas(headerElement, {
+                scale: 2,
+                useCORS: true
+            }).then(headerCanvas => {
+                const headerImgData = headerCanvas.toDataURL('image/jpeg');
+                const headerWidth = pageWidth;
+                const headerHeight = headerCanvas.height * headerWidth / headerCanvas.width;
+
+                // Luego, captura el contenido
+                html2canvas(contentElement, {
+                    scale: 2,
+                    useCORS: true
+                }).then(contentCanvas => {
+                    const contentImgData = contentCanvas.toDataURL('image/jpeg');
+                    const contentWidth = pageWidth;
+                    const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
+
+                    // Por último, captura el footer
+                    html2canvas(footerElement, {
+                        scale: 2,
+                        useCORS: true
+                    }).then(footerCanvas => {
+                        const footerImgData = footerCanvas.toDataURL('image/jpeg');
+                        const footerWidth = pageWidth;
+                        const footerHeight = footerCanvas.height * footerWidth / footerCanvas.width;
+
+                        // Ahora posiciona las imágenes en el PDF
+                        let yOffset = 0;
+
+                        // Agrega el header en la parte superior
+                        pdf.addImage(headerImgData, 'JPEG', 0, yOffset, headerWidth, headerHeight);
+                        yOffset += headerHeight;
+
+                        // Agrega el contenido, asegurándose de que haya suficiente espacio para el footer
+                        if (yOffset + contentHeight > pageHeight - footerHeight) {
+                            // Si el contenido sobrepasa la página, lo manejamos en varias páginas
+                            let heightLeft = contentHeight;
+
+                            while (heightLeft > 0) {
+                                let position = yOffset;
+
+                                // Si no es la primera página, agregamos una nueva página
+                                if (yOffset !== 0) {
+                                    pdf.addPage();
+                                    position = 0; // reiniciamos el yOffset
+                                    yOffset = 0;
+                                }
+
+                                const availableHeight = pageHeight - yOffset - footerHeight;
+
+                                const heightToPrint = Math.min(availableHeight, heightLeft);
+                                const widthToPrint = contentWidth;
+
+                                pdf.addImage(contentImgData, 'JPEG', 0, yOffset, widthToPrint, heightToPrint);
+
+                                heightLeft -= heightToPrint;
+                                yOffset += heightToPrint;
+                            }
+                        } else {
+                            pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
+                            yOffset += contentHeight;
+                        }
+
+                        // Finalmente, agrega el footer en la parte inferior
+                        pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
+
+                        const nombreProducto = document.getElementById('producto').textContent.trim();
+                        const nombreDocumento = document.getElementById('documento').textContent.trim();
+                        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
+                        // Restaurar visibilidad y estilos
+                        buttonContainer.style.display = 'block';
+                        $.notify("PDF generado con éxito", "success");
+                    });
                 });
-
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                const imgWidth = pageWidth;
-                let imgHeight = canvas.height * imgWidth / canvas.width;
-
-                if (imgHeight > pageHeight) {
-                    let heightLeft = imgHeight;
-                    let position = 0;
-
-                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-
-                    while (heightLeft > 0) {
-                        position = heightLeft - imgHeight;
-                        pdf.addPage();
-                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                        heightLeft -= pageHeight;
-                    }
-                } else {
-                    // Centramos la imagen si es más pequeña que la página
-                    const yOffset = (pageHeight - imgHeight) / 2;
-                    pdf.addImage(imgData, 'JPEG', 0, yOffset, imgWidth, imgHeight);
-                }
-
-                const nombreProducto = document.getElementById('producto').textContent.trim();
-                const nombreDocumento = document.getElementById('documento').textContent.trim();
-                pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-
-                $.notify("PDF generado con éxito", "success");
             }).catch(error => {
                 $.notify("Error al generar el PDF", "error");
                 console.error("Error generating PDF: ", error);
             });
         });
+
 
 
 
