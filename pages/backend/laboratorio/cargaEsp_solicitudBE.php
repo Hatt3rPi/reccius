@@ -120,7 +120,7 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
                 SELECT b.identificador_producto 
                 FROM calidad_especificacion_productos AS c 
                 LEFT JOIN calidad_productos AS b ON c.id_producto = b.id 
-                WHERE c.id_especificacion = ?'
+                WHERE c.id_especificacion = ?
                 LIMIT 1
             ) AS identificador_producto
         FROM 
