@@ -1,108 +1,118 @@
 <?php
+// archivo: pages\CALIDAD_documento_ActaLiberacion.php
 session_start();
 
-// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirigir al usuario a la página de inicio de sesión.
     header("Location: login.html");
     exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Especificación Producto Terminado</title>
-    <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
-    <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="../assets/js/notify.js"></script>
+    <title>Acta de Muestreo Control de Calidad</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!--
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
+     
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+     <script src="../assets/js/notify.js"></script> -->
+    <link rel="stylesheet" href="../assets/css/DocumentoLiberacion.css">
+    <link rel="stylesheet" href="../assets/css/components/buttonContainer.css">
+
+    <style>
+
+    </style>
+
+
+
 </head>
 
 <body>
-    <div id="form-container" class="ContenedorP">
+    <div id="form-container" class="form-container formpadding">
         <div id="Maincontainer">
-            <div id="header-container" style="width: 100%;">
-                <!-- Asegúrate de tener un contenedor para el header con display flex -->
-                <div id="header" class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <!-- Header -->
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
-                    <!-- Logo e Información Izquierda -->
-                    <div class="header-left">
-                        <img src="../assets/images/logo documentos.png" alt="Logo" style="height: 60px;" />
-                        <!-- Ajusta el tamaño según sea necesario -->
-                        <br>
-                    </div>
-                    <!-- Título Central -->
-                    <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                        <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
-                        </h1>
-                        <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
-                        <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
-                        <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
-                            Dirección de Calidad
-                        </div>
-                    </div>
-                    <!-- Información Derecha con Tabla -->
-                    <div class="header-right" style="font-size: 8px; font-family: 'Arial', sans-serif">
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
-                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                <td name="elaboradoPor" id="elaboradoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
-                                <td name="fechaEdicion" id="fechaEdicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                <td name="supervisadoPor" id="supervisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
-                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                <td name="autorizadoPor" id="autorizadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
-                                <td name="periodosVigencia" id="periodosVigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
-                                <td id="pagina-numero" class="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                            </tr>
-                        </table>
+                <!-- Logo a la izquierda -->
+                <div class="header-left" style="flex: 1;">
+                    <img src="../assets/images/logo documentos.png" alt="Logo Reccius" style="height: 100px;">
+                    <!-- Ajusta la altura según sea necesario -->
+                </div>
+                <!-- Título Central -->
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
+                    </p>
+                    </p>
+                    <!-- Pretitulo -->
+                    </p>
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                        <!-- Título del documento -->
+                    </h1>
+                    <p name="producto_completo" id="producto_completo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                        <!-- Descripción del producto -->
+                    </p>
+                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        Dirección de Calidad
                     </div>
                 </div>
-                <!-- Fila adicional con dos columnas debajo del encabezado existente -->
-                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
-                    <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
-                        <div class="sub-info" style="font-size: 10px;text-align: left;">
-                            Producto de recetario magistral <br>
-                            Res. Ex. N° 2988/2018
-                        </div>
-                    </div>
-                    <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
-                        <div class="sub-info" style="font-size: 10px; text-align: right;">
-                            RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
-                        </div>
-                    </div>
+                <!-- Información Derecha con Tabla -->
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo"
+                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                        <tr>
+                            <td>N° Registro:</td>
+                            <td name="nro_registro" id="nro_registro"></td>
+                        </tr>
+                        <tr>
+                            <td>N° Versión:</td>
+                            <td name="nro_version" id="nro_version"></td>
+                        </tr>
+                        <tr>
+                            <td>N° Acta:</td>
+                            <td name="nro_acta" id="nro_acta"></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Liberación:</td>
+                            <td>
+                                <input type="date" id="fecha_acta_lib" name="fecha_acta_lib" style="border: 0px;"
+                                    readonly>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
+
             </div>
-
+            <!-- Body -->
+            <br>
             <div class="watermark">TESTEO TESTESO</div>
             <div id="contenido_main">
-                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
+                <h1 id="Tipo_Producto2" name="Tipo_Producto2"
+                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
                 </h1>
-                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
+                <p name="producto2" id="producto2"
+                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
                 </p>
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
                             I. Análisis Generales
                         </div>
                         <table id="analisisFQ" class="compact table-bordered" style="width:100%; font-size: 10px">
@@ -122,11 +132,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div id="additionalContent" class="content">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
                             II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
-                        <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
+                        <table id="analisisMB" class="display compact table-bordered"
+                            style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
                                     <th style="width: 170px; text-align: center">Análisis</th>
@@ -138,750 +150,528 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
             </div>
-            <div class="footer" id="footer">
+            <div class="footer-containerDIV" id="footer">
                 <!-- Sección realizada por -->
-                <div class="footer-section">
-                    <br>
-                    <div class="footer-box-title" style="font-size: 8px">Realizado por:</div>
-                    <div class="footer-box">
-                        <p id='creadoPor' name='creadoPor' class="bold"></p>
-                        <p id='cargo_creador' name='cargo_creador' class="bold">
+                <div class="firma-section">
+                    <div class="firma-box-title">Realizado por:</div>
+                    <div class="firma-boxes">
+                        <p id="creadoPor2" name="creadoPor2" class="bold"></p>
+                        <p id="cargo_creador" name="cargo_creador" class="bold"></p>
                         <div class="signature" id="QRcreador" name="QRcreador">
-                            <!-- acá debe ir el QR -->
+                            <img id="QRcreador" name="QRcreador"
+                                src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma"
+                                class="firma">
                         </div>
-                        <p id='mensaje_creador' name='mensaje_creador' style='text-align: center;display: none'>Firmado
-                            digitalmente</p>
+
                     </div>
-                    <div id='fecha_Edicion' name='fecha_Edicion' class="date" style="font-size: 8px"></div>
-                    <br>
+                    <div class="date-container">
+                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;">Firmado digitalmente</p>
+                        <div id="fecha_Edicion" name="fecha_Edicion" class="date" style="font-size: 8px"></div>
+                    </div>
                 </div>
                 <!-- Sección revisada por -->
-                <div class="footer-section">
-                    <div class="footer-box-title" style="font-size: 8px">Revisado por:</div>
-                    <div class="footer-box">
-                        <p id='revisadoPor' name='revisadoPor' class="bold"></p>
-                        <p id='cargo_revisor' name='cargo_revisor' class="bold">
-                            Jefe de Producción
-                        </p>
+                <div class="firma-section">
+                    <div class="firma-box-title">Revisado por:</div>
+                    <div class="firma-boxes">
+                        <p id="revisadoPor2" name="revisadoPor2" class="bold"></p>
+                        <p id="cargo_revisor" name="cargo_revisor" class="bold"></p>
                         <div class="signature" id="QRrevisor" name="QRrevisor">
-                            <!-- acá debe ir el QR -->
+                            <img id="QRrevisor" name="QRrevisor"
+                                src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma"
+                                class="firma">
                         </div>
-                        <p id='mensaje_revisor' name='mensaje_revisor' style='text-align: center;display: none'>Firmado
-                            digitalmente</p>
+
                     </div>
-                    <div id='fechaRevision' name='fechaRevision' class="date" style="font-size: 8px"></div>
+                    <div class="date-container">
+                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;">Firmado digitalmente</p>
+                        <div id="fechaRevision" name="fechaRevision" class="date" style="font-size: 8px"></div>
+                    </div>
                 </div>
                 <!-- Sección aprobada por -->
-                <div class="footer-section">
-                    <div class="footer-box-title" style="font-size: 8px">Aprobado por:</div>
-                    <div class="footer-box">
-                        <p id='aprobadoPor' name='aprobadoPor' class="bold"></p>
-                        <p id='cargo_aprobador' name='cargo_aprobador' class="bold">
+                <div class="firma-section">
+                    <div class="firma-box-title">Aprobado por:</div>
+                    <div class="firma-boxes">
+                        <p id="aprobadoPor2" name="aprobadoPor2" class="bold"></p>
+                        <p id="cargo_aprobador" name="cargo_aprobador" class="bold"></p>
                         <div class="signature" id="QRaprobador" name="QRaprobador">
-                            <!-- acá debe ir el QR -->
+                            <img id="QRaprobador" name="QRaprobador"
+                                src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma"
+                                class="firma">
                         </div>
-                        <p id='mensaje_aprobador' name='mensaje_aprobador' style='text-align: center;display: none'>
-                            Firmado digitalmente</p>
+
                     </div>
-                    <div id='fechaAprobacion' name='fechaAprobacion' class="date" style="font-size: 8px"></div>
+                    <div class="date-container">
+                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;">Firmado digitalmente
+                        </p>
+                        <div id="fechaAprobacion" name="fechaAprobacion" class="date" style="font-size: 8px"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="button-container">
-        <button id="sign-document" style="display: none;">Firmar Documento</button>
-        <button id="download-pdf">Descargar PDF</button>
-        
-        <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
-    </div>
-    <div id="notification" class="notification-container notify" style="display: none;">
-        <p id="notification-message">Este es un mensaje de notificación.</p>
-    </div>
-    <script>
-        var Wcontent = 2;
-        var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";;
-        var usuario = "<?php echo $_SESSION['usuario']; ?>";
-        document.getElementById('download-pdf').addEventListener('click', async function() {
-
-            obtenerAlturaElementosYCalcularEspacioDisponible();
-            ocultarContenedorPrincipal();
-            actualizarContadorPaginas();
-            $.notify("Creando PDF", "warn");
-             // Introducir un pequeño retraso para asegurar que el DOM se ha actualizado completamente
-            await new Promise(resolve => setTimeout(resolve, 500)); // Espera 500 milisegundos
-
-
-            var pdf = new jspdf.jsPDF({
-                orientation: 'portrait',
-                unit: 'pt',
-                format: 'letter'
-            });
-
-            // Seleccionar todos los contenedores que deben incluirse en el PDF
-            var containers = document.querySelectorAll('.document-cloned-container');
-
-            for (let i = 0; i < containers.length; i++) {
-                if (i > 0) {
-                    pdf.addPage();
-                }
-
-                await html2canvas(containers[i], {
-                    scale: 2
-                }).then(canvas => {
-                    var imgData = canvas.toDataURL('image/png');
-                    var pdfWidth = pdf.internal.pageSize.getWidth();
-                    var pdfHeight = pdf.internal.pageSize.getHeight();
-
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                });
-            }
-
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('documento').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con exito", "success");
-});
-
-function cargarDatosEspecificacion(id) {
-    console.log("A1")
-    $.ajax({
-        url: './backend/calidad/documento_especificacion_productoBE.php',
-        type: 'GET',
-        data: {
-            id: id
-        },
-        success: function(response) {
-            procesarDatosEspecificacion(response);
-
-            verificarYMostrarBotonFirma(response);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error en la solicitud: ", status, error);
-        }
-    });
-}
-
-async function procesarDatosEspecificacion(response) {
-    console.log("A2")
-    // Validación de la respuesta
-    if (!response || !response.productos || !Array.isArray(response.productos)) {
-        console.error('Los datos recibidos no son válidos:', response);
-        return;
-    }
-    // Procesamiento de cada producto
-    response.productos.forEach(function(producto) {
-        poblarYDeshabilitarCamposProducto(producto);
-
-        let especificaciones = Object.values(producto.especificaciones || {});
-        if (especificaciones.length > 0) {
-            let especificacion = especificaciones[0];
-
-            let analisisFQ = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_FQ');
-            if (analisisFQ.length > 0) {
-                mostrarAnalisisFQ(analisisFQ);
-            } else {
-                // Si no hay datos, oculta la sección del análisis FQ
-                $('#content').hide();
-
-            }
-
-            let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
-            if (analisisMB.length > 0) {
-                mostrarAnalisisMB(analisisMB);
-            } else {
-                // Si no hay datos, oculta la sección del análisis FQ
-                $('#additionalContent').hide();
-
-            }
-        }
-    });
-    
-
-}
-
-function poblarYDeshabilitarCamposProducto(producto) {
-    console.log("A3")
-    if (producto) {
-        // Usando .text() para elementos h2, h3 y p
-        $('#Tipo_Producto').text('Especificación ' + producto.tipo_producto);
-        $('#producto').text(producto.nombre_producto);
-        $('#Tipo_Producto2').text('Especificación ' + producto.tipo_producto);
-        $('#producto2').text(producto.nombre_producto);
-        $('#concentracion').text(producto.concentracion);
-        $('#formato').text(producto.formato);
-        $('#documento').text(producto.documento_producto);
-
-        //$('#elaboradoPor').text(producto.creado_por);
-
-        let especificacion = Object.values(producto.especificaciones)[0];
-        if (especificacion) {
-            cargo_creador
-            $('#id_especificacion').text(especificacion.id);
-            $('#cargo_creador').text(especificacion.creado_por.cargo);
-            $('#cargo_revisor').text(especificacion.revisado_por.cargo);
-            $('#cargo_aprobador').text(especificacion.aprobado_por.cargo);
-            $('#elaboradoPor').text(especificacion.creado_por.nombre_corto);
-            $('#supervisadoPor').text(especificacion.revisado_por.nombre_corto);
-            $('#autorizadoPor').text(especificacion.aprobado_por.nombre_corto);
-            $('#fechaEdicion').text(especificacion.fecha_edicion);
-            $('#version').text(especificacion.version);
-            $('#periodosVigencia').text(especificacion.vigencia);
-            $('#creadoPor').text(especificacion.creado_por.nombre || 'No disponible');
-            $('#revisadoPor').text(especificacion.revisado_por.nombre || 'No disponible');
-            $('#aprobadoPor').text(especificacion.aprobado_por.nombre || 'No disponible');
-
-            // Actualizar fechas de revisión y aprobación
-            if (especificacion.fecha_edicion) {
-                document.getElementById('mensaje_creador').style.display = 'block';
-                $('#fecha_Edicion').text('Fecha: ' + especificacion.fecha_edicion);
-                mostrarImagenFirma(especificacion.creado_por, 'QRcreador');
-            } else {
-                document.getElementById('mensaje_creador').style.display = 'none';
-                $('#fecha_Edicion').text('Firma Pendiente');
-            }
-            if (especificacion.revisado_por.fecha_revision) {
-                document.getElementById('mensaje_revisor').style.display = 'block';
-                $('#fechaRevision').text('Fecha: ' + especificacion.revisado_por.fecha_revision);
-                mostrarImagenFirma(especificacion.revisado_por, 'QRrevisor');
-            } else {
-                document.getElementById('mensaje_revisor').style.display = 'none';
-                $('#fechaRevision').text('Firma Pendiente');
-            }
-            if (especificacion.aprobado_por.fecha_aprobacion) {
-                document.getElementById('mensaje_aprobador').style.display = 'block';
-                $('#fechaAprobacion').text('Fecha: ' + especificacion.aprobado_por.fecha_aprobacion);
-                mostrarImagenFirma(especificacion.aprobado_por, 'QRaprobador');
-            } else {
-                document.getElementById('mensaje_aprobador').style.display = 'none';
-                $('#fechaAprobacion').text('Firma Pendiente');
-            }
-        }
-        actualizarEstadoDocumento();
-    }
-}
-
-function mostrarImagenFirma(usuario, contenedorQR) {
-    console.log("A4")
-    // Variable para almacenar la URL de la imagen de la firma
-    var firmaUrl;
-
-    // Verifica si existe 'qr_documento' y construye la URL de la imagen de la firma
-    if (usuario && usuario.qr_documento) {
-        firmaUrl =  usuario.qr_documento;
-    }
-    // Si 'qr_documento' no existe, pero sí existe 'foto_firma', usa 'foto_firma'
-    else if (usuario && usuario.foto_firma) {
-        firmaUrl = usuario.foto_firma;
-    }
-
-    // Si se ha establecido la URL de la firma, crea o actualiza el elemento <img> con la URL de la imagen
-    if (firmaUrl) {
-        var imgElement = document.getElementById(contenedorQR).querySelector('img');
-        if (!imgElement) {
-            imgElement = document.createElement('img');
-            imgElement.style.width = '64px';
-            imgElement.style.height = '64px';
-            document.getElementById(contenedorQR).appendChild(imgElement);
-        }
-        imgElement.src = firmaUrl;
-    } else {
-        // Si no hay 'qr_documento' ni 'foto_firma', muestra un mensaje de "Firma no disponible"
-        var contenedor = document.getElementById(contenedorQR);
-        contenedor.innerHTML = '<span style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;">Firma no disponible</span>';
-        
-    }
-}
-
-
-
-function mostrarAnalisisFQ(analisis) {
-    console.log("A5")
-    // Verifica si hay datos para el análisis FQ
-    console.log(analisis)
-    if (analisis.length > 0) {
-        // Si hay datos, muestra la tabla y procesa los datos
-        if ($.fn.DataTable.isDataTable('#analisisFQ')) {
-            $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
-        } else {
-            $('#analisisFQ').DataTable({
-                data: analisis,
-                columns: [{
-                        title: 'Análisis',
-                        data: 'descripcion_analisis',
-                        width: '170px',
-                        createdCell: function(td) {
-                            $(td).css('font-weight', 'bold');
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Metodología',
-                        data: 'metodologia',
-                        width: '106px',
-                        createdCell: function(td) {
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Criterio aceptación',
-                        data: 'criterios_aceptacion',
-                        width: '404px'
-                    }
-                ],
-                paging: false,
-                info: false,
-                searching: false,
-                lengthChange: false,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                }
-            });
-        }
-        // Muestra la sección del análisis FQ
-        $('#content').show();
-    } else {
-        // Si no hay datos, oculta la sección del análisis FQ
-        $('#content').hide();
-    }
-}
-
-function mostrarAnalisisMB(analisis) {
-    console.log("A6")
-    // Verifica si hay datos para el análisis microbiológico
-    if (analisis.length > 0) {
-        // Si hay datos, muestra la tabla y procesa los datos
-        if ($.fn.DataTable.isDataTable('#analisisMB')) {
-            $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
-        } else {
-            $('#analisisMB').DataTable({
-                data: analisis,
-                columns: [{
-                        title: 'Análisis',
-                        data: 'descripcion_analisis',
-                        width: '170px',
-                        createdCell: function(td) {
-                            $(td).css('font-weight', 'bold');
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Metodología',
-                        data: 'metodologia',
-                        width: '106px',
-                        createdCell: function(td) {
-                            $(td).css('text-align', 'center');
-                            $(td).css('vertical-align', 'middle');
-                        }
-                    },
-                    {
-                        title: 'Criterio aceptación',
-                        data: 'criterios_aceptacion',
-                        width: '404px'
-                    }
-                ],
-                paging: false,
-                info: false,
-                searching: false,
-                lengthChange: false,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-                }
-            });
-        }
-        // Muestra la sección del análisis microbiológico
-        $('#additionalContent').show();
-    } else {
-        // Si no hay datos, oculta la sección del análisis microbiológico
-        $('#additionalContent').hide();
-    }
-}
-
-
-
-
-
-document.getElementById('sign-document').addEventListener('click', function() {
-    // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
-    var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
-    if (puedeFirmar && confirm("¿Estás seguro que deseas firmar el documento?")) {
-        // Aquí va el código para firmar el documento
-        firmarDocumento();
-    }
-});
-
-function esRevisorYFirmaPendiente() {
-    console.log("A7")
-    return $('#revisadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaRevision').text() === 'Firma Pendiente';
-}
-
-function esAprobadorYFirmaPendiente() {
-    console.log("A8")
-    return $('#aprobadoPor').text() === '<?php echo $_SESSION['nombre']; ?>' && $('#fechaAprobacion').text() === 'Firma Pendiente';
-}
-
-function firmarDocumento() {
-    console.log("A9")
-    // Obten los datos necesarios para la firmaid_especificacion
-    var idEspecificacion = $('#id_especificacion').text().trim();
-    var rolUsuario = '';
-    if (esRevisorYFirmaPendiente()) {
-        rolUsuario = 'revisado_por';
-    } else if (esAprobadorYFirmaPendiente()) {
-        rolUsuario = 'aprobado_por';
-    } else {
-        // En caso de que no se pueda determinar el rol, mostrar un error o tomar una acción adecuada
-        console.error("No se puede determinar el rol del usuario para la firma.");
-        return;
-    }
-
-    // Llamada AJAX al backend
-    $.ajax({
-        url: './backend/calidad/firma_documentoBE.php',
-        type: 'POST',
-        data: {
-            idEspecificacion: idEspecificacion,
-            rolUsuario: rolUsuario
-        },
-        success: function(response) {
-            // Aquí manejas la respuesta del backend
-            console.log('Firma actualizada correctamente:', response);
-            // Actualiza el estado del documento en el frontend
-            actualizarEstadoDocumento();
-            cargarDatosEspecificacion(idEspecificacion);
-            // Mostrar notificaciones de éxito y advertencia
-            $.notify("Documento firmado con éxito.", "success");
-            $.notify("Tarea terminada con éxito", "success");
-        },
-        error: function(xhr, status, error) {
-            console.error('Error al firmar documento:', status, error);
-            $.notify("Error al firmar documento:", "error");
-        }
-    });
-}
-
-function verificarYMostrarBotonFirma(response) {
-    console.log("A10")
-    console.log("Respuesta recibida:", response);
-
-    if (!response || !response.productos || !Array.isArray(response.productos)) {
-        console.log("Respuesta no válida o sin productos");
-        return; // Si la respuesta no es válida, no hacer nada
-    }
-
-    // Considerando que la respuesta tiene una estructura esperada
-    let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
-    console.log("Especificación procesada:", especificacion);
-    let esAprobador = especificacion.aprobado_por.nombre === usuarioNombre;
-    let esRevisorPendiente = especificacion.revisado_por.nombre === usuarioNombre && especificacion.revisado_por.fecha_revision === null;
-    let esAprobadorPendiente = especificacion.aprobado_por.nombre === usuarioNombre && especificacion.aprobado_por.fecha_aprobacion === null;
-    let revisorHaFirmado = especificacion.revisado_por.fecha_revision !== null;
-
-    console.log("Es Revisor y Firma Pendiente:", esRevisorPendiente);
-    console.log("Es Aprobador y Firma Pendiente:", esAprobadorPendiente);
-    console.log("Revisor ha firmado:", revisorHaFirmado);
-
-    if (esRevisorPendiente || (esAprobadorPendiente && revisorHaFirmado)) {
-        console.log("Mostrar botón de firma (habilitado)");
-        document.getElementById('sign-document').style.display = 'block';
-        document.getElementById('sign-document').disabled = false;
-        Wcontent = 2;
-    } else if (esAprobadorPendiente && !revisorHaFirmado) {
-        console.log("Mostrar botón de firma (deshabilitado)");
-        document.getElementById('sign-document').style.display = 'block';
-        document.getElementById('sign-document').disabled = true;
-        document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
-        Wcontent = 2;
-    } else {
-        console.log("No mostrar botón de firma");
-        document.getElementById('sign-document').style.display = 'none';
-        
-    }
-    if (esAprobador && especificacion.revisado_por.fecha_revision === null) {
-        console.log("Usuario es revisor y la firma del aprobador está pendiente.");
-        $.notify("Es necesario que el usuario Revisor firme antes que tú.", "warn");
-        // Aquí puedes realizar acciones adicionales basadas en esta condición.
-    }
-}
-
-
-
-
-function actualizarEstadoDocumento() {
-    console.log("A11")
-    var creadorFirmado = $('#fecha_Edicion').text() !== 'Firma Pendiente';
-    var revisorFirmado = $('#fechaRevision').text() !== 'Firma Pendiente';
-    var aprobadorFirmado = $('#fechaAprobacion').text() !== 'Firma Pendiente';
-
-    var watermarks = document.querySelectorAll('.watermark'); // Cambio aquí: usar clase en lugar de id
-
-    watermarks.forEach(function(watermark) { // Aplicar a todos los elementos encontrados
-        if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
-            watermark.textContent = 'CONFIDENCIAL';
-            watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-            Wcontent = 1;
-        } else {
-            watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-            watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSS
             
-        }
-    });
-}
+        </div>
 
 
-function obtenerAlturaElementosYCalcularEspacioDisponible() {
-    console.log("A12")
-    const alturaTotal = 792; // Altura total de la página en puntos
-    const alturaHeader = 123; // Altura del encabezado
-    const alturaFooter = 224; // Altura del pie de página
+    </div>
 
-    // Funciones auxiliares dentro de la función
-    const $ = (selector) => document.querySelector(selector);
-    const $$ = (selector) => document.querySelectorAll(selector);
-
-    // Contenedores
-    const contentContainer = $('#content');
-    const additionalContentContainer = $('#additionalContent');
-
-    // Aquí puedes incluir cualquier lógica adicional de cálculo de altura si es necesario
-
-    // Seleccionar los elementos tr dentro de la tabla específica de #content y #additionalContent
-    const trsDeContent = Array.from(document.querySelectorAll("#content table tbody tr"));
-    const trsDeAdditionalContent = Array.from(document.querySelectorAll("#additionalContent table tbody tr"));
-    newTabla("new-table", trsDeContent, trsDeAdditionalContent);
-}
-
-
-async function newTabla(id, trsContent, trsAdditionalContent) {
-    console.log("A13")
-    let tableContainer = createTableContainer();
-    let alturaTotalDisponible = 700; // Altura disponible antes de necesitar un nuevo contenedor.
-
-    // Crea contenedores iniciales para 'content' y 'additionalContent'.
-    let newTbodyContent = createTableBody(id + "-content", tableContainer, "content");
-    let alturaActualTabla = 0; // Altura acumulada actual en el contenedor.
-
-    // Procesa trs de 'content'.
-    for (let tr of trsContent) {
-        [alturaActualTabla, tableContainer, newTbodyContent] = await procesarTr(
-            tr, alturaTotalDisponible, newTbodyContent, tableContainer, alturaActualTabla, id, "content"
-        );
-    }
-
-    // Asegura que 'additionalContent' comience en el contenedor actual si hay espacio, o en un nuevo contenedor si es necesario.
-    let newTbodyAdditionalContent = createTableBody(id + "-additionalContent", tableContainer, "additionalContent");
-    for (let tr of trsAdditionalContent) {
-        [alturaActualTabla, tableContainer, newTbodyAdditionalContent] = await procesarTr(
-            tr, alturaTotalDisponible, newTbodyAdditionalContent, tableContainer, alturaActualTabla, id, "additionalContent"
-        );
-    }
-
-    // Asegura agregar el último contenedor al documento.
-    document.querySelector("#form-container").appendChild(tableContainer);
-}
-
-
-
-
-
-
-async function procesarTr(tr, alturaTotalDisponible, newTbody, tableContainer, alturaActualTabla, id, sectionId) {
-    console.log("A14")
-    tr.querySelectorAll("td").forEach(td => {
-        td.style.fontSize = "10px"; // Ajusta el tamaño de la fuente
-        td.style.borderLeft = "none"; // Elimina el borde izquierdo
-        td.style.borderRight = "none"; // Elimina el borde derecho
-    });
-    let alturaTr = tr.getBoundingClientRect().height; // Asume que esta altura se puede determinar así, lo cual puede no ser siempre preciso en un entorno no renderizado.
-
-    if (alturaActualTabla + alturaTr > alturaTotalDisponible) {
-        // Si agregar esta fila excede el espacio disponible, primero agregar el contenedor actual al DOM.
-        document.querySelector("#form-container").appendChild(tableContainer);
-
-        // Crea un nuevo contenedor y tbody para continuar.
-        tableContainer = createTableContainer();
-        newTbody = createTableBody(id + "-" + sectionId, tableContainer, sectionId);
-        alturaActualTabla = 0; // Restablece la altura acumulada para el nuevo contenedor.
-    }
-
-    // Añade la fila al tbody actual y actualiza la altura acumulada.
-    newTbody.appendChild(tr);
-    alturaActualTabla += alturaTr;
-
-    return [alturaActualTabla, tableContainer, newTbody];
-}
-
-
-function createTableContainer() {
-    console.log("A15")
-    // Incrementar el contador de páginas totales cada vez que se crea un nuevo contenedor
-
-    const container = document.createElement("div");
-    container.className = "document-cloned-container"; // Asigna la clase común a cada contenedor
-    // Estilos y configuraciones para el contenedor
-    container.style.width = "612pt";
-    container.style.height = "792pt";
-    container.style.padding = "10pt";
-    container.style.boxSizing = "border-box";
-    container.style.backgroundColor = "#FFF";
-    container.style.border = "1px solid #000";
-    container.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-    container.style.marginLeft = "auto";
-    container.style.marginRight = "auto";
-    container.style.position = "relative";
-    container.style.marginTop = "30px";
-
-
-    // Clonar y añadir elementos de encabezado y pie de página
-    const headerClone = document.querySelector("#header-container").cloneNode(true);
-    container.appendChild(headerClone);
-
-
-    // Clonar y añadir elementos específicos antes de añadir el contenedor de tablas
-    const h1Clone = document.querySelector("#Tipo_Producto2").cloneNode(true);
-    const pClone = document.querySelector("#producto2").cloneNode(true);
-
-    // Asegúrate de actualizar los IDs si es necesario para evitar IDs duplicados en el DOM
-    h1Clone.id = "Tipo_Producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
-    pClone.id = "producto2_" + new Date().getTime(); // Ejemplo para generar un ID único
-
-    // Añadir los elementos clonados al contenedor
-    container.appendChild(h1Clone);
-    container.appendChild(pClone);
-
-
-    // Añadir la marca de agua
-    const watermark = document.createElement("div");
-    watermark.setAttribute("class", "watermark");
-    console.log(Wcontent);
-    if (Wcontent === 1) {
-        watermark.textContent = 'CONFIDENCIAL';
-        watermark.classList.add('watermark'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-    }
-    else{
-        watermark.textContent = 'PENDIENTE DE APROBACIÓN';
-        watermark.classList.add('pendiente-aprobacion'); // Asegúrate de que la clase 'pendiente-aprobacion' exista en tus estilos CSSrmar
-    }
-    container.appendChild(watermark);
-
-
-
-
-    const footerClone = document.querySelector("#footer").cloneNode(true);
-    footerClone.style.marginTop = "5px"; // Reduce el margen superior
-    container.appendChild(footerClone); // El pie de página se añade al final después de 'maintablas'
-
-
-
-    return container; // Devuelve el contenedor principal con todo dentro
-}
-
-// Esta función actualiza el contador de páginas para el contenedor actual.
-function actualizarContadorPaginas() {
-    console.log("A16")
-    // Seleccionar todos los contenedores clonados y actualizar sus contadores
-    const contenedores = document.querySelectorAll(".pagina-numero");
-    const cantidadPaginas = contenedores.length
-
-    contenedores.forEach((contenedor, index) => {
-        // Encuentra el elemento del número de página dentro de cada contenedor
-        contenedor.innerHTML = `${index} de ${cantidadPaginas - 1}`;
-    });
-
-    console.log("documento clonado ");
-}
-
-function createAnalysisSection(title) {
-    console.log("A17")
-    const analysisSection = document.createElement("div");
-    analysisSection.className = "analysis-section";
-    analysisSection.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
-    analysisSection.textContent = title;
-    return analysisSection;
-}
-
-function createTableBody(id, container, sectionId) {
-    console.log("A18")
-    const newTable = document.createElement("table");
-    newTable.setAttribute("id", id);
-    newTable.classList.add("table", "table-bordered");
-
-    // Crear un div con texto basado en la sección antes del thead
-    const analysisTitleDiv = document.createElement("div");
-    analysisTitleDiv.className = "analysis-title"; // Asegúrate de definir este estilo en tu CSS
-    analysisTitleDiv.style.cssText = "font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;";
-    if (sectionId === "content") {
-        analysisTitleDiv.textContent = "I. Análisis Generales";
-    } else if (sectionId === "additionalContent") {
-        analysisTitleDiv.textContent = "II. Análisis Microbiológico";
-    }
-    // Inserta el div antes de la tabla en el contenedor
-    container.appendChild(analysisTitleDiv);
-
-    // Continúa con la creación del thead y tbody como antes
-    const newThead = document.createElement("thead");
-    newThead.style.fontSize = "10px";
-    newThead.style.borderLeft= "none" ;
-    newThead.style.borderRight= "none" ;
-
-    newTable.appendChild(newThead);
-
-    const tr = document.createElement("tr");
-    tr.style.fontSize = "10px";
-    newThead.style.borderLeft= "none" ;
-    newThead.style.borderRight= "none" ;
-    newThead.appendChild(tr);
-
-    if (sectionId === "content") {
-        // Define los encabezados específicos para la tabla de 'content'
-        const headers = ["Análisis", "Metodología", "Criterio de Aceptación"];
-        headers.forEach(text => {
-            const th = document.createElement("th");
-            th.textContent = text;
-            tr.appendChild(th);
-        });
-    } else if (sectionId === "additionalContent") {
-        // Define los encabezados específicos para la tabla de 'additionalContent'
-        const headers = ["Análisis", "Metodología", "Resultado"];
-        headers.forEach(text => {
-            const th = document.createElement("th");
-            th.textContent = text;
-            tr.appendChild(th);
-        });
-    }
-
-    // Crear tbody y aplicar estilo a los <td> cuando se agreguen
-    const newTbody = document.createElement("tbody");
-    newTbody.style.fontSize = "10px";
-    newTable.appendChild(newTbody);
-
-    // Ubicar el newTable en el div correspondiente después del div del título
-    container.appendChild(newTable);
-
-    return newTbody;
-}
-
-
-
-
-function ocultarContenedorPrincipal() {
-    console.log("A19")
-    var contenedorPrincipal = document.getElementById('Maincontainer');
-    var contenedorForm = document.getElementById('form-container');
-    contenedorPrincipal.style.display = 'none';
-    contenedorForm.style.border = 'none';
-    contenedorForm.style.boxShadow = 'none';
-}
-
-window.onload = function() {
-    cargarDatosEspecificacion(id);
-    verificarYMostrarBotonFirma();
-
-};
-    </script>
 </body>
+<div class="button-container">
+    <button class="botones" name="download-pdf" id="download-pdf" style="display: none;">Descargar PDF</button>
+    <button class="botones" name="firma" id="firma" onclick="resultado_liberacion()" style="display: none;">Firmar
+        Documento</button>
+    <button class="botones" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar y Firmar
+        Documento</button>
+    <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
+    <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
+    <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
+    <p id='id_producto' name='id_producto' style="display: none;"></p>
+    <p id='id_cuarentena' name='id_cuarentena' style="display: none;"></p>
+    <p id='numero_solicitud_analisis_externo' name='numero_solicitud_analisis_externo' style="display: none;"></p>
+    <p id='solicitado_por_analisis_externo' name='solicitado_por_analisis_externo' style="display: none;"></p>
+</div>
+
+<div id="notification" class="notification-container notify" style="display: none;">
+    <p id="notification-message">Este es un mensaje de notificación.</p>
+</div>
 
 </html>
+<script>
+    document.getElementById('download-pdf').addEventListener('click', function () {
+        const buttonContainer = document.querySelector('.button-container');
+        const elementToExport = document.getElementById('form-container');
+
+        // Guardar los estilos originales
+        const originalBorder = elementToExport.style.border;
+        const originalBoxShadow = elementToExport.style.boxShadow;
+
+        // Ocultar borde y sombra
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
+
+        buttonContainer.style.display = 'none';
+
+        html2canvas(elementToExport, {
+            scale: 2,
+            logging: true,
+            useCORS: true
+        }).then(canvas => {
+            // Restaurar los estilos originales
+            elementToExport.style.border = originalBorder;
+            elementToExport.style.boxShadow = originalBoxShadow;
+
+            buttonContainer.style.display = 'block';
+
+            // Ajusta la calidad de la imagen
+            const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = pageWidth;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 0;
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+            heightLeft -= pageHeight;
+
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save('documento.pdf');
+            $.notify("PDF generado con éxito", "success");
+        });
+    });
+
+    var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
+    var idAnalisisExterno = <? php echo json_encode($_POST['id'] ?? ''); ?>;
+
+    console.log("ID Analisis Externo:", idAnalisisExterno);
+
+    function loadData() {
+        console.log(idAnalisisExterno);
+        $.ajax({
+            url: './backend/acta_liberacion/carga_acta_liberacion.php',
+            type: 'GET',
+            data: {
+                idAnalisisExterno: idAnalisisExterno
+            },
+            dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
+            success: function (response) {
+                if (response.success) {
+                    if (response.analisis && response.analisis.length > 0) {
+                        const analisis = response.analisis; // Datos del análisis externo
+                        const primerAnalisis = analisis[0];
+                        const acta_muestreo = response.Acta_Muestreo[0];
+
+                        // Sumar los resultados de producto en un solo texto
+                        var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
+                        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+                        // Actualizar el elemento con el texto combinado
+                        $('#producto_completo').text(productoCompleto);
+                        $('#producto_completoT1').val(productoCompleto);
+
+                        // Actualizar los inputs con los datos del análisis
+                        $('#nro_registro').text(response.numero_registro);
+                        $('#nro_version').text(1);
+                        $('#nro_acta').text(response.numero_acta);
+                        $('#fecha_acta_lib').val(fecha_yoh);
+                        $('#fecha_lib').val(fecha_yoh);
+                        $('#nro_acta_liberacion').val(response.numero_acta);
+
+
+                        $('#nro_lote').val(primerAnalisis.lote);
+                        $('#tipo_producto').val(primerAnalisis.prod_tipo_producto);
+                        $('#tamaño_lote').val(primerAnalisis.tamano_lote);
+                        $('#codigo_interno').val(primerAnalisis.codigo_interno);
+                        $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
+                        $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                        $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
+
+                        // TABLA 2
+                        $('#nro_acta_muestreo').val(acta_muestreo.numero_acta);
+                        $('#fecha_acta_muestreo').val(acta_muestreo.fecha_muestreo);
+                        $('#laboratorio_analista').val(primerAnalisis.laboratorio);
+                        $('#nro_solicitud_analisis').val(primerAnalisis.numero_solicitud);
+                        $('#fecha_solicitud_analisis').val(primerAnalisis.fecha_solicitud);
+                        $('#nro_analisis').val(primerAnalisis.laboratorio_nro_analisis);
+                        $('#fecha_envio').val(primerAnalisis.fecha_envio);
+                        $('#fecha_revision').val(primerAnalisis.laboratorio_fecha_analisis);
+
+                        // TABLA 3
+                        $('#nombre_producto').text(primerAnalisis.prod_nombre_producto);
+                        $('#nro_loteT3').val(primerAnalisis.lote);
+                        $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
+                        $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
+                        $('#producto_completoT3').val(productoCompleto);
+                        $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
+                        $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
+
+
+                        //datos higienicos
+                        $('#id_analisis_externo').text(response.id_analisis_externo);
+                        $('#id_actaMuestreo').text(acta_muestreo.id);
+                        $('#id_especificacion').text(primerAnalisis.es_id_especificacion);
+                        $('#id_producto').text(primerAnalisis.id_producto);
+                        $('#id_cuarentena').text(primerAnalisis.id_cuarentena);
+                        $('.verif').css('background-color', '#f4fac2');
+                    } else {
+                        console.error('Estructura de la respuesta no es la esperada:', response);
+                        alert("Error en carga de datos. Revisa la consola para más detalles.");
+                    }
+                } else {
+                    console.error('Error en la respuesta del servidor:', response.message);
+                    alert("Error en carga de datos. Revisa la consola para más detalles.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+                console.error('AJAX error: ' + status + ' : ' + error);
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
+            }
+        });
+    }
+
+    function convertImageToBase64(imgElementId) {
+        var imgElement = document.getElementById(imgElementId);
+        var imgURL = imgElement.src;
+
+        var img = new Image();
+        img.crossOrigin = 'Anonymous'; // Necesario para evitar problemas de CORS
+        img.src = imgURL;
+        img.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            var dataURL = canvas.toDataURL('image/png'); // Puedes cambiar 'image/png' por 'image/jpeg' si lo prefieres
+            console.log('Base64:', dataURL);
+
+            // Asignar la imagen convertida al elemento img
+            imgElement.src = dataURL;
+        };
+        img.onerror = function () {
+            console.error('Error al cargar la imagen.');
+        };
+    }
+
+    function carga_acta_liberacion_firmado(id_actaLiberacion) {
+        console.log(id_actaLiberacion);
+        $.ajax({
+            url: './backend/acta_liberacion/carga_acta_liberacion_firmada.php',
+            type: 'GET',
+            data: {
+                id_actaLiberacion: id_actaLiberacion
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    const campos = response.campos[0]; // Accede al primer objeto en el array campos
+                    if (campos) {
+                        // Sumar los resultados de producto en un solo texto
+                        var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
+                        var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
+
+                        // Actualizar el elemento con el texto combinado
+                        $('#producto_completo').text(productoCompleto);
+                        $('#producto_completoT1').val(productoCompleto);
+
+                        // Actualizar los inputs con los datos del análisis
+                        $('#nro_registro').text(campos.numero_registro);
+                        $('#nro_version').text(campos.version_registro);
+                        $('#nro_acta').text(campos.numero_acta);
+                        $('#fecha_acta_lib').val(fecha_yoh);
+                        $('#fecha_lib').val(fecha_yoh);
+                        $('#nro_acta_liberacion').val(campos.numero_acta);
+
+                        $('#nro_lote').val(campos.lote);
+                        $('#tipo_producto').val(campos.prod_tipo_producto);
+                        $('#tamaño_lote').val(campos.tamano_lote);
+                        $('#codigo_interno').val(campos.codigo_interno);
+                        $('#fecha_elaboracion').val(campos.fecha_elaboracion);
+                        $('#cond_almacenamiento').val(campos.condicion_almacenamiento);
+                        $('#fecha_vencimiento').val(campos.fecha_vencimiento);
+
+                        // TABLA 2
+                        $('#nro_acta_muestreo').val(campos.nro_actaMuestreo);
+                        $('#fecha_acta_muestreo').val(campos.fecha_muestreo);
+                        $('#laboratorio_analista').val(campos.laboratorio);
+                        $('#nro_solicitud_analisis').val(campos.numero_solicitud);
+                        $('#fecha_solicitud_analisis').val(campos.fecha_solicitud);
+                        $('#nro_analisis').val(campos.laboratorio_nro_analisis);
+                        $('#fecha_envio').val(campos.fecha_envio);
+                        $('#fecha_revision').val(campos.laboratorio_fecha_analisis);
+
+                        // TABLA 3
+                        $('#nombre_producto').text(campos.prod_nombre_producto);
+                        $('#nro_loteT3').val(campos.lote);
+                        $('#fecha_elabT3').val(campos.fecha_elaboracion);
+                        $('#fecha_vencT3').val(campos.fecha_vencimiento);
+                        $('#producto_completoT3').val(productoCompleto);
+
+                        $('#form_textarea1').val(campos.obs1);
+                        $('#form_textarea2').val(campos.obs2);
+                        $('#form_textarea3').val(campos.obs3);
+                        $('#form_textarea4').val(campos.obs4);
+                        $('#cantidad_real').val(campos.cantidad_real_liberada);
+                        $('#nro_traspaso').val(campos.nro_parte_ingreso);
+
+                        // Asegurarse de que los campos no sean undefined antes de llamar a la función
+                        if (campos.revision_liberacion && campos.revision_estados) {
+                            cargarResultadosGuardados(campos.revision_liberacion, campos.revision_estados);
+                        } else {
+                            console.error("Los resultados de revisión no están definidos.");
+                        }
+
+                        if (campos.estado == 'aprobado') {
+                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp');
+                        } else {
+                            $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp');
+                        }
+                        $('#fecha_realizacion').text(campos.fecha_firma1);
+                        $('#mensaje_realizador').css('display', 'block');
+
+                        // Asignar la imagen de la firma desde los datos obtenidos
+                        $('#imagen_firma').attr('src', campos.foto_firma_usr1);
+                        console.log('Imagen URL:', campos.foto_firma_usr1);
+
+                        // Convertir la imagen a Base64 y asignarla al elemento
+                        convertImageToBase64('imagen_firma');
+                        //aa
+                        $('#realizado_por').text(campos.nombre_usr1);
+                        $('#cargo_realizador').text(campos.cargo_usr1);
+
+                        $('#id_analisis_externo').text(campos.id_analisisExterno);
+                        $('#id_actaMuestreo').text(campos.id_actaMuestreo);
+                        $('#id_especificacion').text(campos.id_especificacion);
+                        $('#id_producto').text(campos.id_producto);
+                        $('#id_cuarentena').text(campos.id_cuarentena);
+                        $('#guardar').css('display', 'none');
+                        $('#download-pdf').css('display', 'block');
+                        $('.verif').css('background-color', '#ffffff').prop('readonly', true);;
+                    } else {
+                        console.error('Estructura de la respuesta no es la esperada:', response);
+                        alert("Error en carga de datos. Revisa la consola para más detalles.");
+                    }
+                } else {
+                    console.error('Error en la respuesta del servidor:', response.message);
+                    alert("Error en carga de datos. Revisa la consola para más detalles.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error cargando los datos: ' + error);
+                console.error('AJAX error: ' + status + ' : ' + error);
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
+            }
+        });
+    }
+
+    function cargarResultadosGuardados(revisionResults, docConformeResults) {
+        // Asegúrate de que las cadenas tengan 4 caracteres
+        if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
+            console.error("Los resultados deben tener exactamente 4 caracteres.");
+            return;
+        }
+
+        // Seleccionar los inputs correspondientes para revisionResults
+        $('.revision input[type="radio"]').each(function (index) {
+            // Obtener el grupo de inputs de radio para este índice
+            let groupName = $(this).attr('name');
+
+            // Obtener el valor correspondiente de revisionResults
+            let value = revisionResults.charAt(Math.floor(index / 2));
+
+            // Seleccionar el input correcto basado en el valor
+            if ($(this).val() === value) {
+                $(this).prop('checked', true);
+            }
+        });
+
+        // Seleccionar los inputs correspondientes para docConformeResults
+        $('.doc-conforme input[type="radio"]').each(function (index) {
+            // Obtener el grupo de inputs de radio para este índice
+            let groupName = $(this).attr('name');
+
+            // Obtener el valor correspondiente de docConformeResults
+            let value = docConformeResults.charAt(Math.floor(index / 2));
+
+            // Seleccionar el input correcto basado en el valor
+            if ($(this).val() === value) {
+                $(this).prop('checked', true);
+            }
+        });
+    }
+
+    function resultado_liberacion() {
+        let revisionResults = '';
+        $('.revision input[type="radio"]:checked').each(function () {
+            revisionResults += $(this).val();
+        });
+
+        let docConformeResults = '';
+        $('.doc-conforme input[type="radio"]:checked').each(function () {
+            docConformeResults += $(this).val();
+        });
+
+        let cantidad_real = $('#cantidad_real').val().trim();
+        let nro_traspaso = $('#nro_traspaso').val().trim();
+
+        if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
+            $('.revision input[type="radio"]:checked').each(function () {
+                if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
+            });
+
+            $('.doc-conforme input[type="radio"]:checked').each(function () {
+                if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
+            });
+
+            if (!cantidad_real) $('#cantidad_real').css('border-color', 'red');
+            if (!nro_traspaso) $('#nro_traspaso').css('border-color', 'red');
+
+            $.notify("Por favor complete todos los campos requeridos.", "error");
+            return;
+        }
+
+        $('#resultadoModal').modal('show');
+
+        $('#aprobadoImg').off('click').on('click', function () {
+            firmayguarda('aprobado', revisionResults, docConformeResults);
+        });
+
+        $('#rechazadoImg').off('click').on('click', function () {
+            firmayguarda('rechazado', revisionResults, docConformeResults);
+        });
+    }
+
+    function firmayguarda(resultado, revisionResults, docConformeResults) {
+        // Hacer visibles los elementos de .formulario.resp
+        $('#resultadoModal').modal('hide');
+        console.log('click firma');
+
+        // Mostrar los resultados consolidados en la consola
+        console.log('Revision Results:', revisionResults);
+        console.log('Doc Conforme Results:', docConformeResults);
+        let id_especificacion = $('#id_especificacion').text();
+        let id_producto = $('#id_producto').text();
+        let id_cuarentena = $('#id_cuarentena').text();
+        let id_analisis_externo = $('#id_analisis_externo').text();
+        let id_actaMuestreo = $('#id_actaMuestreo').text();
+        let nro_acta = $('#nro_acta').text();
+        let nro_registro = $('#nro_registro').text();
+        let nro_version = $('#nro_version').text();
+        let fecha_acta_lib = $('#fecha_acta_lib').val();
+        let tipo_producto = $('#tipo_producto').val();
+        let estado = resultado;
+
+        let obs1 = $('#form_textarea1').val();
+        let obs2 = $('#form_textarea2').val();
+        let obs3 = $('#form_textarea3').val();
+        let obs4 = $('#form_textarea4').val();
+        let cant_real_liberada = $('#cantidad_real').val();
+        let parte_ingreso = $('#nro_traspaso').val();
+        let dataToSave = {
+            id_analisis_externo: id_analisis_externo,
+            id_especificacion: id_especificacion,
+            id_producto: id_producto,
+            id_actaMuestreo: id_actaMuestreo,
+            id_cuarentena: id_cuarentena,
+            nro_acta: nro_acta,
+            nro_registro: nro_registro,
+            nro_version: nro_version,
+            fecha_acta_lib: fecha_acta_lib,
+            tipo_producto: tipo_producto,
+            estado: estado,
+            obs1: obs1,
+            obs2: obs2,
+            obs3: obs3,
+            obs4: obs4,
+            cant_real_liberada: cant_real_liberada,
+            parte_ingreso: parte_ingreso,
+            docConformeResults: docConformeResults,
+            revisionResults: revisionResults,
+            fase: 'Firma 1'
+        };
+
+        // Enviar datos al servidor usando AJAX
+        console.log('información enviada al BE: ', dataToSave);
+        $.ajax({
+            url: './backend/acta_liberacion/acta_liberacion_guardayfirma.php',
+            type: 'POST',
+            data: JSON.stringify(dataToSave),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                let responseData = JSON.parse(response);
+                if (responseData.success) {
+                    console.log('Firma guardada con éxito: ', responseData);
+                    $.notify("Documento firmado correctamente.", "success");
+                    let id_actaLiberacion = responseData.id_actaLiberacion;
+                    console.log('ID Acta de Liberación: ', id_actaLiberacion);
+                    carga_acta_liberacion_firmado(id_actaLiberacion);
+                    $('#guardar').css('display', 'none');
+                    $('#download-pdf').css('display', 'block');
+
+                    $('#listado_productos_disponibles').click();
+                } else {
+                    console.error("Error al guardar la firma: ", responseData.error);
+                    $.notify("Error al firmar documento: " + responseData.error, "error");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error al guardar la firma: ", status, error);
+                $.notify("Error al firmar documento", "error");
+            }
+        });
+    }
+</script>
