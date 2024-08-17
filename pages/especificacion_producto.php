@@ -915,7 +915,9 @@ function actualizarCampos() {
         var tipo = $('#tipo_concentracion').val();
 
         var concentracion = '';
-        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
+        if (tipo === '') { // Caso "No Aplica"
+        concentracion = ''; // La concentración se establece en vacío
+        } else if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
             concentracion = param1 + tipo;
