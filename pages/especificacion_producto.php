@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Concentración:</label>
+                        <label>Unidad de Medida:</label>
                         <select name="tipo_concentracion" id="tipo_concentracion" class="select-style editable"  style="width: 83%" required>
                             <option>Selecciona estructura a utilizar:</option>
                             <option value='mg/ml'>mg/ml</option>
@@ -75,6 +75,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value='mg'>mg</option>
                             <option value='ml'>ml</option>
                             <option value='UI'>UI</option>
+                            <option value=''>No aplica</option>
                         </select>
 
                         <div class="form-row">
@@ -96,9 +97,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-                        <label>Formato:</label>
+                        <label>Forma farmacéutica:</label>
                         <select name="formato" id="formato" class="select-style editable" onchange="verificarOtro('formato', 'otroFormato')" style="width: 83%" required>
-                            <option value="">Selecciona un formato</option>
+                            <option value="">Selecciona una opción</option>
                             <?php foreach ($opciones['Formato'] as $opcion): ?>
                                 <option value="<?php echo htmlspecialchars($opcion); ?>"><?php echo htmlspecialchars($opcion); ?></option>
                             <?php endforeach; ?>
@@ -914,7 +915,9 @@ function actualizarCampos() {
         var tipo = $('#tipo_concentracion').val();
 
         var concentracion = '';
-        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
+        if (tipo === '') { // Caso "No Aplica"
+        concentracion = ''; // La concentración se establece en vacío
+        } else if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
             concentracion = param1 + tipo;

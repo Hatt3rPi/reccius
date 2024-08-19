@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <body>
     <div class="container dashboard">
-        <h2 class="section-title">Bienvenido, <span id="username" class="username"> </span>!</h2>
+        <h2 class="section-title">Bienvenido, <span id="username"> </span>!</h2>
         <div class="grid-container">
             <div class="grid-item clima">
                 <?php include 'components/index/clima.php'; ?>

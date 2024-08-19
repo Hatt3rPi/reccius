@@ -201,7 +201,7 @@ p {
     padding: 1%;
 }
 
-th {
+.tabla {
     background-color: #0047b3;
     text-align: center;
     color: white;
@@ -459,4 +459,37 @@ textarea{
     align-items: center;
     height: 40px;
     /* Ajusta según sea necesario */
+}
+
+/* Ocultar los botones de radio */
+input[type="radio"].btn-check {
+    display: none;
+}
+
+/* Estilo por defecto de los labels */
+label.btn {
+    border: 2px solid #ccc; /* Añadir un borde gris claro por defecto */
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Estilo cuando se selecciona el botón 'Cumple' */
+input[type="radio"].btn-check.cumple:checked + label.btn-outline-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+/* Estilo cuando se selecciona el botón 'No Cumple' */
+input[type="radio"].btn-check.noCumple:checked + label.btn-outline-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+/* Estilo cuando el botón no está seleccionado pero el label está activo (hover) */
+label.btn:hover {
+    border-color: #007bff; /* Borde azul al pasar el mouse */
 }

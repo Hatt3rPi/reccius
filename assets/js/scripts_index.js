@@ -584,7 +584,28 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     console.log('Proceso finalizado');
                     break;
                 }
-                
+                case "cambiar_usuario":{
+                    $.ajax({
+                        url: '../pages/backend/tareas/cambiar_usuarioBE.php',
+                        type: 'POST',
+                        data: {
+                            'idTarea': id,
+                            'usuarioNuevo': opcional
+
+                        },
+                        success: function(response) {
+                            if (response.exito) {
+                                alert("Usuario actualizado correctamente.");
+                            } else {
+                                alert("Error: " + response.mensaje);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al modificar usuario ejecutor: ", status, error);
+                        }
+                    });
+                    break;
+                }
             }
             break;
         }

@@ -1,4 +1,5 @@
 <?php
+//archivo pages\LABORATORIO_preparacion_solicitud.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
@@ -440,26 +441,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     function procesarDatosActa(response) {
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
+            var numero_acta = response.numero_acta_cor
+            var numero_registro = response.numero_registro_cor
             var newNumeroRegistro = response.total_analisis + 1
             var numeroSaept = response.total_analisis_producto + 1
             var now = new Date();
             $('#version').val(1);
-            $('#numero_registro').val(`DCAL-CC-SEPT-${
-                newNumeroRegistro > 99 ? '' : 
-                newNumeroRegistro > 9 ? '0' : 
-                '00'
-            }` + newNumeroRegistro).prop('readonly', true);
-            $('#numero_solicitud').val(`SAEPT-${
-                now.getFullYear().toString().substr(-2) +
-                (now.getMonth() + 1 > 9 ? 
-                    now.getMonth() +  1 : 
-                    '0' + (now.getMonth() + 1))
-                .toString()
-            }${
-                numeroSaept < 10 ? '00' + numeroSaept : 
-                numeroSaept < 100 ? '0' + numeroSaept : 
-                numeroSaept
-            }-01`).prop('readonly', true);
+            $('#numero_registro').val(numero_registro).prop('readonly', true);
+            $('#numero_solicitud').val(numero_acta).prop('readonly', true);
 
             setValuesToInputs([{
                     id: 'id_producto',
