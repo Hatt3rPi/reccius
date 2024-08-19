@@ -46,7 +46,7 @@ $idRelacion = $tarea['id_relacion'];
 $tipoTarea = $tarea['tipo'];
 
 // Mapeo de tabla_relacion/tipo a los campos correspondientes
-$campoUsuarioEjecutor = null;
+$updateRelacion = null;
 
 switch ($tablaRelacion) {
     case 'calidad_especificacion_productos':
@@ -80,7 +80,7 @@ switch ($tablaRelacion) {
 
 
 // Si se encontró el campo correspondiente
-if ($campoUsuarioEjecutor) {
+if ($updateRelacion) {
     // Actualizar la tabla tareas
     $updateTareas = "UPDATE tareas SET usuario_ejecutor = ? WHERE id = ?";
     $stmt = mysqli_prepare($link, $updateTareas);
