@@ -50,29 +50,29 @@ $campoUsuarioEjecutor = null;
 switch ($tablaRelacion) {
     case 'calidad_especificacion_productos':
         if ($tipoTarea == 'Firma 2') {
-            $campoUsuarioEjecutor = 'usuario_revisor';
+            $updateRelacion = "UPDATE calidad_especificacion_productos SET usuario_revisor = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Firma 3') {
-            $campoUsuarioEjecutor = 'usuario_aprobador';
+            $updateRelacion = "UPDATE calidad_especificacion_productos SET usuario_aprobador = ? WHERE id = ?";
         }
         break;
     case 'calidad_analisis_externo':
         if ($tipoTarea == 'Generar Acta Muestreo') {
-            $campoUsuarioEjecutor = 'muestreado_por';
+            $updateRelacion = "UPDATE calidad_analisis_externo SET muestreado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Enviar a Laboratorio') {
-            $campoUsuarioEjecutor = 'solicitado_por';
+            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Ingresar resultados Laboratorio') {
-            $campoUsuarioEjecutor = 'solicitado_por';
+            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Emitir acta de liberación') {
-            $campoUsuarioEjecutor = 'solicitado_por';
+            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
         }
         break;
     case 'calidad_acta_muestreo':
         if ($tipoTarea == 'Firma 1') {
-            $campoUsuarioEjecutor = 'muestreado_por';
+            $updateRelacion = "UPDATE calidad_acta_muestreo SET muestreado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Firma 2') {
-            $campoUsuarioEjecutor = 'muestreado_por';
+            $updateRelacion = "UPDATE calidad_acta_muestreo SET muestreado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Firma 3') {
-            $campoUsuarioEjecutor = 'verificado_por';
+            $updateRelacion = "UPDATE calidad_acta_muestreo SET verificado_por = ? WHERE id = ?";
         }
         break;
 }
@@ -89,7 +89,6 @@ if ($campoUsuarioEjecutor) {
 
     if ($exitoTarea) {
         // Actualizar la tabla relacionada
-        $updateRelacion = "UPDATE $tablaRelacion SET $campoUsuarioEjecutor = ? WHERE id = ?";
         $stmt = mysqli_prepare($link, $updateRelacion);
         mysqli_stmt_bind_param($stmt, "si", $usuarioNuevo, $idRelacion);
         $exitoRelacion = mysqli_stmt_execute($stmt);
