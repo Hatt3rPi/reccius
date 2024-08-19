@@ -1,5 +1,6 @@
 <?php
 //archivo: pages\backend\tareas\cambiar_usuarioBE.php
+//solución podría conllevar problemas del tipo de cambio de usuarios que firman
 session_start();
 header('Content-Type: application/json');
 require_once "/home/customw2/conexiones/config_reccius.php";
@@ -60,9 +61,9 @@ switch ($tablaRelacion) {
         if ($tipoTarea == 'Generar Acta Muestreo') {
             $updateRelacion = "UPDATE calidad_analisis_externo SET muestreado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Enviar a Laboratorio') {
-            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_analisis_externo SET revisado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Ingresar resultados Laboratorio') {
-            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_analisis_externo SET revisado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Emitir acta de liberación') {
             $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
         }
