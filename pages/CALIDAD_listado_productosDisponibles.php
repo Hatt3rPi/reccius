@@ -109,10 +109,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "100px"
                 },
                 {
-                    "data": "fecha_elaboracion",
-                    "title": "Fecha elaboración",
-                    "width": "65px"
-                },
+                    "data": "fecha_out_cuarentena",
+                    "title": "Fecha Liberación",
+                    "width": "65px",
+                    "render": function(data, type, row) {
+                        return data ? data : 'En proceso';
+                    }
+                }
                 {
                     "data": "fecha_vencimiento",
                     "title": "Fecha Vencimiento",
