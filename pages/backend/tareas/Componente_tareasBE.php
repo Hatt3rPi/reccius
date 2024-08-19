@@ -34,7 +34,7 @@ $query = "
     LEFT JOIN usuarios as b ON a.usuario_creador = b.usuario
     LEFT JOIN usuarios as c ON a.usuario_ejecutor = c.usuario
     WHERE a.usuario_ejecutor = ? AND a.estado = 'Activo'
-    ORDER BY fecha_ingreso DESC
+    ORDER BY fecha_ingreso ASC
     LIMIT 5;
 ";
 

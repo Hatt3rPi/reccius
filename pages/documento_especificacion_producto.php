@@ -152,7 +152,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;">Firmado digitalmente</p>
+                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;font-size: 8px">Firmado digitalmente</p>
                         <div id="fecha_Edicion" name="fecha_Edicion" class="date" style="font-size: 8px"></div>
                     </div>
                 </div>
@@ -168,7 +168,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;">Firmado digitalmente</p>
+                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;font-size: 8px">Firmado digitalmente</p>
                         <div id="fechaRevision" name="fechaRevision" class="date" style="font-size: 8px"></div>
                     </div>
                 </div>
@@ -184,7 +184,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;">Firmado digitalmente</p>
+                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;font-size: 8px">Firmado digitalmente</p>
                         <div id="fechaAprobacion" name="fechaAprobacion" class="date" style="font-size: 8px"></div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 <?php
-
+// archivo: pages\backend\tareas\tareasBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
