@@ -109,17 +109,17 @@ $numero_registro_cor ="";
 $tipo_producto_preparacion="";
 if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
     //todo
-    $queryTotalAnalisisProd = 
-                "SELECT COUNT(*) AS total_analisis 
+        /*
+        $queryTotalAnalisisProd = 
+            "SELECT COUNT(*) AS total_analisis 
                 FROM calidad_analisis_externo AS cae
                 JOIN calidad_especificacion_productos AS cep 
                     ON cae.id_especificacion = cep.id_especificacion
                 WHERE cae.fecha_solicitud IS NOT NULL 
                     AND cae.fecha_solicitud >= DATE_FORMAT(CURDATE(), '%Y-%m-01')
                     AND cep.id_especificacion = ?;
-                "; 
-
-
+            "; 
+        */
         $year = date("Y");
         $month = date("m");
         $aux_anomes = $year . $month;
