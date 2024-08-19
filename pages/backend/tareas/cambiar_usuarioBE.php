@@ -1,4 +1,6 @@
 <?php
+//archivo: pages\backend\tareas\cambiar_usuarioBE.php
+//solución podría conllevar problemas del tipo de cambio de usuarios que firman
 session_start();
 header('Content-Type: application/json');
 require_once "/home/customw2/conexiones/config_reccius.php";
@@ -10,12 +12,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($_POST['id_tarea']) || !isset($_POST['usuarioNuevo'])) {
+if (!isset($_POST['idTarea']) || !isset($_POST['usuarioNuevo'])) {
     echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes']);
     exit;
 }
 
-$idTarea = $_POST['id_tarea'];
+$idTarea = $_POST['idTarea'];
 $usuarioNuevo = $_POST['usuarioNuevo'];
 
 // Obtener la tarea específica
@@ -45,7 +47,7 @@ $idRelacion = $tarea['id_relacion'];
 $tipoTarea = $tarea['tipo'];
 
 // Mapeo de tabla_relacion/tipo a los campos correspondientes
-$campoUsuarioEjecutor = null;
+$updateRelacion = null;
 
 switch ($tablaRelacion) {
     case 'calidad_especificacion_productos':
@@ -59,9 +61,9 @@ switch ($tablaRelacion) {
         if ($tipoTarea == 'Generar Acta Muestreo') {
             $updateRelacion = "UPDATE calidad_analisis_externo SET muestreado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Enviar a Laboratorio') {
-            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_analisis_externo SET revisado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Ingresar resultados Laboratorio') {
-            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_analisis_externo SET revisado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Emitir acta de liberación') {
             $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
         }
@@ -79,7 +81,7 @@ switch ($tablaRelacion) {
 
 
 // Si se encontró el campo correspondiente
-if ($campoUsuarioEjecutor) {
+if ($updateRelacion) {
     // Actualizar la tabla tareas
     $updateTareas = "UPDATE tareas SET usuario_ejecutor = ? WHERE id = ?";
     $stmt = mysqli_prepare($link, $updateTareas);
@@ -101,8 +103,8 @@ if ($campoUsuarioEjecutor) {
                 $_SERVER['PHP_SELF'],
                 'Cambio de usuario ejecutor de tarea',
                 'tareas',
-                $idTarea,
-                $updateRelacion,
+                $idRelacion,
+                $tablaRelacion,
                 [$usuarioNuevo, $idRelacion],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
@@ -115,8 +117,8 @@ if ($campoUsuarioEjecutor) {
                 $_SERVER['PHP_SELF'],
                 'Cambio de usuario ejecutor de tarea',
                 'tareas',
-                $idTarea,
-                $updateRelacion,
+                $idRelacion,
+                $tablaRelacion,
                 [$usuarioNuevo, $idRelacion],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
