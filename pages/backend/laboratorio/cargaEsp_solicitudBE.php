@@ -96,7 +96,11 @@ $queryAnalisisExterno = "SELECT
                         JOIN calidad_especificacion_productos AS ep ON an.id_especificacion = ep.id_especificacion
                         WHERE an.id = ?";
 
-$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count FROM calidad_analisis_externo WHERE id_especificacion = (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
+
+$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count 
+                        FROM calidad_analisis_externo 
+                        WHERE id_especificacion = 
+                            (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
 
 
 $total_analisis = 0;
@@ -122,12 +126,17 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
 
 $total_analisis_producto = 0;
 if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
+    //todo
+    $queryTotalAnalisisProd = 
+                "SELECT COUNT(*) AS total_analisis 
+                FROM calidad_analisis_externo AS cae
+                JOIN calidad_especificacion_productos AS cep 
+                    ON cae.id_especificacion = cep.id_especificacion
+                WHERE cae.fecha_solicitud IS NOT NULL 
+                    AND cae.fecha_solicitud >= DATE_FORMAT(CURDATE(), '%Y-%m-01')
+                    AND cep.id_especificacion = ?;
+                "; 
 
-    $queryTotalAnalisisProd = "SELECT COUNT(cae.id) AS total_analisis
-            FROM calidad_analisis_externo cae
-            JOIN calidad_especificacion_productos cep 
-            ON cae.id_especificacion = cep.id_especificacion
-            WHERE cep.id_especificacion = ?"; //todo
     $stmtTotalAnalisisProd = mysqli_prepare($link, $queryTotalAnalisisProd);
     mysqli_stmt_bind_param($stmtTotalAnalisisProd, "i", $idEspecificacion);
     if ($stmtTotalAnalisisProd) {
