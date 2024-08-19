@@ -102,8 +102,8 @@ if ($updateRelacion) {
                 $_SERVER['PHP_SELF'],
                 'Cambio de usuario ejecutor de tarea',
                 'tareas',
-                $idTarea,
-                $updateRelacion,
+                $idRelacion,
+                $tablaRelacion,
                 [$usuarioNuevo, $idRelacion],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
@@ -116,8 +116,8 @@ if ($updateRelacion) {
                 $_SERVER['PHP_SELF'],
                 'Cambio de usuario ejecutor de tarea',
                 'tareas',
-                $idTarea,
-                $updateRelacion,
+                $idRelacion,
+                $tablaRelacion,
                 [$usuarioNuevo, $idRelacion],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
