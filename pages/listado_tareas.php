@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\listado_tareas.php
 session_start();
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
@@ -232,6 +233,24 @@ $('#formCambiarUsuario').on('submit', function(e) {
         success: function(response) {
             // Aquí puedes manejar la respuesta
             alert('Usuario Cambiado');
+
+            $.ajax({
+                        url: './backend/tareas/cambiar_usuarioBE.php',
+                        type: 'POST',
+                        data: datosFormulario,
+                        success: function(response) {
+                            var resultado2 = JSON.parse(response);
+                            if (resultado2.exito) {
+                                alert('Usuario actualizado en la tabla relacionada correctamente.');
+                            } else {
+                                alert('Error en la actualización de la tabla relacionada: ' + resultado2.mensaje);
+                            }
+                        },
+                        error: function() {
+                            alert('Error al ejecutar la segunda operación.');
+                        }
+                    });
+
             $('#modalCambiarUsuario').hide();
             // Aquí deberías también recargar o actualizar tu tabla de tareas
             $("#notificaciones").click();

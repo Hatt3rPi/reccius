@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\tareas\cambiar_usuarioBE.php
 session_start();
 header('Content-Type: application/json');
 require_once "/home/customw2/conexiones/config_reccius.php";
@@ -10,12 +11,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($_POST['id_tarea']) || !isset($_POST['usuarioNuevo'])) {
+if (!isset($_POST['idTarea']) || !isset($_POST['usuarioNuevo'])) {
     echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes']);
     exit;
 }
 
-$idTarea = $_POST['id_tarea'];
+$idTarea = $_POST['idTarea'];
 $usuarioNuevo = $_POST['usuarioNuevo'];
 
 // Obtener la tarea específica
