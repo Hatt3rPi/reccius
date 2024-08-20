@@ -72,6 +72,10 @@ function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
 
             try {
                 $mail->send();
+                $mail->CharSet = 'UTF-8';
+                $mail->Subject = $asunto;
+                $mail->Body    = $cuerpo;
+                $mail->AltBody = $altBody ?: strip_tags($cuerpo);
                 $exitos[] = $destinatario['email'];
             } catch (Exception $e) {
                 $errores[] = [

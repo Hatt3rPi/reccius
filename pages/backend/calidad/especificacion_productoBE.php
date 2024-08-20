@@ -1,7 +1,12 @@
 <?php
-
+// archivo: pages\backend\calidad\especificacion_productoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
+
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    echo json_encode(["exito" => false, "mensaje" => "Sesión no iniciada. Por favor, inicie sesión para continuar.", "idEspecificacion" => 0]);
+    exit(); // Detener la ejecución del script
+}
 
 function limpiarDato($dato) {
     $datoLimpio = trim($dato);
@@ -199,9 +204,15 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
     $error = $exito ? null : mysqli_error($link);
 
     if ($exito) {
-        insertarAnalisis($link, $idEspecificacion, 'analisis_FQ', $_POST['analisisFQ']);
-        insertarAnalisis($link, $idEspecificacion, 'analisis_MB', $_POST['analisisMB']);
+        if (!empty($_POST['analisisFQ'])) {
+            insertarAnalisis($link, $idEspecificacion, 'analisis_FQ', $_POST['analisisFQ']);
+        }
+    
+        if (!empty($_POST['analisisMB'])) {
+            insertarAnalisis($link, $idEspecificacion, 'analisis_MB', $_POST['analisisMB']);
+        }
     }
+    
 
     return ['exito' => $exito, 'id' => $idEspecificacion, 'query' => $queryEspecificacion, 'params' => $params, 'error' => $error];
 }

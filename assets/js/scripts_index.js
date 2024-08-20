@@ -160,7 +160,8 @@ $(document).ready(function () {
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
         $('#loading-spinner').show();
-        console.log('El enlace de solicitud de análisis fue clickeado.'); // Confirmar que el evento click funciona
+        console.log('El enlace de solicitud de análisis fue clickeado.'); 
+        // Confirmar que el evento click funciona
 
         // Cargar el formulario de configuración dentro del div #dynamic-content
         $('#dynamic-content').load('index_administrador.php', function (response, status, xhr) {
