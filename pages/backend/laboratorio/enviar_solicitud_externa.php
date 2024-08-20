@@ -71,7 +71,7 @@ if (empty($url_certificado_acta_de_muestreo) || empty($url_certificado_solicitud
 
 $asunto = "Solicitud de análisis externo";
 $cuerpo = $mensaje;
-$altBody = $altMesaje;
+$altBody = $altMesaje ?: strip_tags($cuerpo);
 
 $laboratorio = new Laboratorio();
 $laboratorio->updateCorreo($lab, $emailLab);
