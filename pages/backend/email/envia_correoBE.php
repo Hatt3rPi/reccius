@@ -63,19 +63,17 @@ function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
         $mail->SMTPSecure = SMTP_SECURE;
         $mail->Port = SMTP_PORT;
         $mail->CharSet = 'UTF-8';
-
         $mail->setFrom(SMTP_USER, 'Reccius');
 
         foreach ($destinatarios as $destinatario) {
-            $mail->clearAddresses(); // Limpia las direcciones antes de añadir una nueva
+            $mail->clearAddresses();
             $mail->addAddress($destinatario['email'], $destinatario['nombre']);
+            $mail->Subject = $asunto;
+            $mail->Body    = $cuerpo;
+            $mail->AltBody = $altBody ?: strip_tags($cuerpo);
 
             try {
                 $mail->send();
-                $mail->CharSet = 'UTF-8';
-                $mail->Subject = $asunto;
-                $mail->Body    = $cuerpo;
-                $mail->AltBody = $altBody ?: strip_tags($cuerpo);
                 $exitos[] = $destinatario['email'];
             } catch (Exception $e) {
                 $errores[] = [
