@@ -303,7 +303,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             .then(data => {
                 if (data.usuario) {
                     document.querySelector('.username').textContent = data.nombre;
-                    document.querySelector('.user-role').textContent = '(' + data.rol + ')';
+                    document.querySelector('.user-role').textContent = '(' + data.cargo + ')';
                     // Actualiza la imagen de perfil
                     const fotoPerfil = document.querySelector('.foto-perfil');
                     if (data.foto_perfil && data.foto_perfil.trim() !== "") {
