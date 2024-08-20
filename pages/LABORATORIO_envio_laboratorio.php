@@ -366,7 +366,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             return tempDiv.textContent || tempDiv.innerText || "";
         }
         function enviarCorreo() {
-
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
                 var nombre = $(this).find('input[type="text"]').val();
