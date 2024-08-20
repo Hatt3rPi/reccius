@@ -103,7 +103,7 @@ if ($resultado['status'] === 'success') {
     registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados Laboratorio de solicitud: ' . $numero_solicitud, 2, 'Ingresar resultados Laboratorio', $id_analisis_externo, 'calidad_analisis_externo');
     
 } else {
-    http_response_code(500);
+    http_response_code(400);
     echo json_encode(['exito' => false, 'mensaje' => $resultado]);
 }
 
