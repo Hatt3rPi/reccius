@@ -835,12 +835,17 @@ function guardar(){
                         console.log('Listado cargado correctamente cargado exitosamente.');
                         carga_listado_especificacionProducto();
                         console.log(respuesta.mensaje); // Manejar el error
+
                         //table.columns(9).search(buscarId).draw();
                         
                     }
                 });
             } else {
                 console.log(respuesta.mensaje); // Manejar el error
+                $.notify(respuesta.mensaje, "warn")
+                if(respuesta.mensaje=="Sesión no iniciada. Por favor, inicie sesión para continuar."){
+                    window.location.href = './backend/login/logoutBE.php';
+                }
             }
         },
         error: function(xhr, status, error) {
