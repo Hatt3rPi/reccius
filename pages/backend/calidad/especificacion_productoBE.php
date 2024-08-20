@@ -1,5 +1,5 @@
 <?php
-
+// archivo: pages\backend\calidad\especificacion_productoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -199,9 +199,15 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
     $error = $exito ? null : mysqli_error($link);
 
     if ($exito) {
-        insertarAnalisis($link, $idEspecificacion, 'analisis_FQ', $_POST['analisisFQ']);
-        insertarAnalisis($link, $idEspecificacion, 'analisis_MB', $_POST['analisisMB']);
+        if (!empty($_POST['analisisFQ'])) {
+            insertarAnalisis($link, $idEspecificacion, 'analisis_FQ', $_POST['analisisFQ']);
+        }
+    
+        if (!empty($_POST['analisisMB'])) {
+            insertarAnalisis($link, $idEspecificacion, 'analisis_MB', $_POST['analisisMB']);
+        }
     }
+    
 
     return ['exito' => $exito, 'id' => $idEspecificacion, 'query' => $queryEspecificacion, 'params' => $params, 'error' => $error];
 }
