@@ -1,5 +1,7 @@
 <?php
 // pages\backend\login\loginBE.php
+ini_set('session.gc_maxlifetime', 7200);
+ini_set('session.cookie_lifetime', 7200);
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -54,7 +56,6 @@ if (isset($_POST['login'])) {
         $_SESSION['foto_perfil'] = escape($usuario['foto_perfil']);
         $_SESSION['foto_firma'] = escape($usuario['foto_firma']);
         $_SESSION['cargo'] = escape($usuario['cargo']);
-        
         header("Location: ../../index.php");
         exit();
     } else {
