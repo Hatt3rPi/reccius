@@ -1,12 +1,5 @@
 <?php
 //archivo: pages\especificacion_producto.php
-//Mejoras: Formato debería seleccionarse de lista desplegable
-//Elaborato por
-//versión por defecto debería ser 1
-//que es el número de documento? 
-//cuando se selecciona Otros, se debe desplegar un input
-//validacion de campos antes de continuar
-// formato: Ampolla, Frasco Ampolla, Vial, Papelillo, Cápsula, Colirio, Ungüento, Jarabe, Crema, etc...
 
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
@@ -506,6 +499,10 @@ function calcularProximaRenovacion() {
 document.getElementById('guardar').addEventListener('click', function(e) {
     if (!validarFormulario()) {
         e.preventDefault(); // Previene el envío del formulario si la validación falla
+        $.notify("Revisa que los datos estén correctamente ingresados","warn");
+    } else {
+        guardar();
+        
     }
 });
 
@@ -572,6 +569,12 @@ function validarFormulario() {
 
     // Función para validar un conjunto de análisis
     function validarAnalisis(selector, tipoAnalisis) {
+        // Verifica si la tabla está vacía
+        if ($(selector).find('tbody tr td.dataTables_empty').length > 0) {
+            // Si la tabla está vacía, omitir la validación
+            return;
+        }
+
         $(selector).find('tbody tr').each(function() {
             var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
             var metodologia = $(this).find('select[name*="[metodologia]"]').val();
@@ -583,6 +586,7 @@ function validarFormulario() {
             }
         });
     }
+
 
     // Validar análisis Físico-Químicos si existen
     if ($('#analisisFQ').find('tbody tr').length > 0) {
@@ -844,9 +848,6 @@ function guardar(){
         }
     });
 }
-$('#guardar').click(function() {
-        guardar();
-    });
 
     $('#Tipo_Producto').on('change', function() {
     var tipoProducto = $(this).val();
