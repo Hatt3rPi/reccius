@@ -844,7 +844,9 @@ function guardar(){
                 console.log(respuesta.mensaje); // Manejar el error
                 $.notify(respuesta.mensaje, "warn")
                 if(respuesta.mensaje=="Sesión no iniciada. Por favor, inicie sesión para continuar."){
-                    window.location.href = './backend/login/logoutBE.php';
+                    setTimeout(function() {
+                        window.location.href = './backend/login/logoutBE.php';
+                    }, 2000);
                 }
             }
         },
