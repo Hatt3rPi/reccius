@@ -230,33 +230,33 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Laboratorio Analista:</label>
-                            <select required name="laboratorio" id="laboratorio" class="highlight select-style mx-0 form__select w-90" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
+                            <select required name="laboratorio" id="laboratorio" class="highlight select-style mx-0 form__select w-90 editable" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
                             </select>
-                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="highlight form-control mx-0 w-90" style="display: none" />
+                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="highlight form-control mx-0 w-90 editable" style="display: none" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Solicitud:</label>
-                            <input name="fecha_solicitud" class="highlight form-control mx-0 w-90 datepicker" id="fecha_solicitud" placeholder="dd/mm/aaaa" type="text" required />
+                            <input name="fecha_solicitud" class="highlight form-control mx-0 w-90 datepicker editable" id="fecha_solicitud" placeholder="dd/mm/aaaa" type="text" required />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Análisis según:</label>
-                            <input name="analisis_segun" id="analisis_segun" class="highlight form-control mx-0 w-90" type="text" required placeholder="Cotización" />
+                            <input name="analisis_segun" id="analisis_segun" class="highlight form-control mx-0 w-90 editable" type="text" required placeholder="Cotización" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Fecha Cotización:</label>
-                            <input name="fecha_cotizacion" id="fecha_cotizacion" placeholder="dd/mm/aaaa" type="text" required class="highlight form-control mx-0 w-90 datepicker" />
+                            <input name="fecha_cotizacion" id="fecha_cotizacion" placeholder="dd/mm/aaaa" type="text" required class="highlight form-control mx-0 w-90 datepicker editable" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="estandar_segun">Estándar Provisto por:</label>
-                            <select required id="estandar_segun" name="estandar_segun" class="highlight select-style mx-0 form__select w-90" style="width: 82.5%">
+                            <select required id="estandar_segun" name="estandar_segun" class="highlight select-style mx-0 form__select w-90 editable" style="width: 82.5%">
                                 <option value="reccius">Reccius</option>
                                 <option value="cequc">CEQUC</option>
                                 <option value="pharmaisa">Pharma ISA</option>
@@ -267,25 +267,25 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Adjunta Hoja de seguridad</label>
-                            <input name="hds_otro" id="hds_otro" type="text" required class="highlight form-control mx-0 w-90" placeholder="No" />
+                            <input name="hds_otro" id="hds_otro" type="text" required class="highlight form-control mx-0 w-90 editable" placeholder="No" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
-                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="highlight form-control mx-0 w-90 datepicker" />
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="highlight form-control mx-0 w-90 datepicker editable" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>N° Documento:</label>
-                            <input name="numero_documento" id="numero_documento" class="highlight form-control mx-0 w-90" type="text" required placeholder="123456" />
+                            <input name="numero_documento" id="numero_documento" class="highlight form-control mx-0 w-90 editable" type="text" required placeholder="123456" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Observaciones:</label>
-                            <textarea name="observaciones" id="observaciones" class="highlight form-control mx-0 w-90 border rounded-sm" rows="4" placeholder="..."></textarea>
+                            <textarea name="observaciones" id="observaciones" class="highlight form-control mx-0 w-90 border rounded-sm editable" rows="4" placeholder="..."></textarea>
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
@@ -299,13 +299,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Especificación de producto:</label>
-                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90" />
+                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90 editable" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Versión:</label>
-                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90" />
+                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90 editable" />
                         </div>
                     </div>
                 </fieldset>
@@ -317,14 +317,14 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Usuario Solicitante:</label>
-                            <input class="form-control mx-0 w-100" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" readonly />
+                            <input class="form-control mx-0 w-100 editable" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" readonly />
                             <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none" />
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Revisión a cargo de:</label>
-                            <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-100 highlight" required>
+                            <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-100 highlight editable" required>
                                 <option>Selecciona el usuario supervisor:</option>
                                 <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
                                 <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
