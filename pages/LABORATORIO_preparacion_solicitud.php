@@ -139,62 +139,62 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nro Lote:</label>
-                        <input required class="form-control mx-0 w-90 " name="lote" id="lote" type="text" placeholder="RM-000000/00">
+                        <input required class="form-control mx-0 w-90 editable" name="lote" id="lote" type="text" placeholder="RM-000000/00">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Tamaño Lote:</label>
-                        <input required class="form-control mx-0 w-90 " name="tamano_lote" id="tamano_lote" type="number" placeholder="20">
+                        <input required class="form-control mx-0 w-90 editable" name="tamano_lote" id="tamano_lote" type="number" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Fecha Elaboración:</label>
-                        <input required class="form-control mx-0 w-90 datepicker " name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('d/m/Y'); ?>" placeholder="dd/mm/aaaa" type="text">
+                        <input required class="form-control mx-0 w-90 datepicker editable" name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('d/m/Y'); ?>" placeholder="dd/mm/aaaa" type="text">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha Vencimiento:</label>
-                        <input required class="form-control mx-0 w-90 datepicker " name="fecha_vencimiento" id="fecha_vencimiento" placeholder="dd/mm/aaaa" type="text">
+                        <input required class="form-control mx-0 w-90 datepicker editable" name="fecha_vencimiento" id="fecha_vencimiento" placeholder="dd/mm/aaaa" type="text">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Tipo Analisis:</label>
-                        <input required class="form-control mx-0 w-90 " name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
+                        <input required class="form-control mx-0 w-90 editable" name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
                     </div>
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm " style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" placeholder="..."></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm editable" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" placeholder="..."></textarea>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Cantidad Muestra:</label>
-                        <input required class="form-control mx-0 w-90 " name="tamano_muestra" id="tamano_muestra" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90 editable" name="tamano_muestra" id="tamano_muestra" type="text" placeholder="...">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Cantidad Contra-muestra:</label>
-                        <input required class="form-control mx-0 w-90 " name="tamano_contramuestra" id="tamano_contramuestra" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90 editable" name="tamano_contramuestra" id="tamano_contramuestra" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Registro ISP:</label>
-                        <input required class="form-control mx-0 w-90 " name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
+                        <input required class="form-control mx-0 w-90 editable" name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
-                        <input required class="form-control mx-0 w-90 " name="numero_pos" id="numero_pos" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90 editable" name="numero_pos" id="numero_pos" type="text" placeholder="...">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Responsable Muestreo:</label>
-                        <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90 ">
+                        <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90 editable">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
@@ -209,7 +209,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Verificador Muestreo:</label>
-                        <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90 ">
+                        <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90 editable">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy">Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
@@ -341,7 +341,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
 
             <div class="button-container">
-                <!-- <button class="botones" id="upload-pdf" style="display: none;">
+               <!-- <button class="botones" id="upload-pdf" style="display: none;">
                     Guardar como PDF</button> -->
                 <button type="submit" id="guardar" name="guardar" class="botones">
                     Guardar Solicitud</button>
@@ -395,51 +395,11 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
     informacionFaltante();
 
     function informacionFaltante() {
-        const identificacionInputs = [
-            'lote',
-            'tamano_lote',
-            'fecha_elaboracion',
-            'fecha_vencimiento',
-            'tipo_analisis',
-            'condicion_almacenamiento',
-            'tamano_muestra',
-            'tamano_contramuestra',
-            'registro_isp',
-            'numero_pos',
-            'muestreado_por',
-            'am_verificado_por'
-        ];
-
-        const solicitudAnalisisInputs = [
-            'laboratorio',
-            'otro_laboratorio',
-            'fecha_solicitud',
-            'analisis_segun',
-            'fecha_cotizacion',
-            'estandar_segun',
-            'hds_otro',
-            'fecha_entrega_estimada',
-            'numero_documento',
-            'observaciones',
-            'numero_especificacion',
-            'version_especificacion',
-            'usuario_editor',
-            'revisado_por'
-        ];
         if (QA_solicitud_analisis_editing) {
             $("#guardar").show();
         } else {
             $("#editarGenerarVersion").hide();
             $("#informacion_faltante").remove();
-            // Aplicar color amarillo a los inputs de identificación
-            identificacionInputs.forEach(id => {
-                $('#' + id).addClass('editable');
-            });
-
-            // Desactivar color amarillo para los inputs de solicitud de análisis externo
-            solicitudAnalisisInputs.forEach(id => {
-                $('#' + id).removeClass('editable');
-            });
         }
     }
 
@@ -732,7 +692,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     },
                 ]
             }
-
+            
             var laboratorioOptions = '<option value="">Selecciona un Laboratorio</option>';
             response.laboratorios.forEach(lab => {
                 laboratorioOptions += `<option value="${lab.name}">${lab.name}</option>`;
@@ -761,10 +721,10 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
         var input = document.getElementById(inputId);
         if (select.value === 'Otro') {
             input.style.display = 'block';
-            input.required = true;
+            input.required = true; 
         } else {
             input.style.display = 'none';
-            input.required = false;
+            input.required = false; 
             input.value = '';
         }
     }
@@ -856,8 +816,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 datosFormulario += '&id=' + idAnalisisExterno;
             }
 
-            if ($('#laboratorio').val() === 'Otro') {
-                if ($('#otro_laboratorio').val() == '') {
+            if($('#laboratorio').val() === 'Otro')
+            {
+                if($('#otro_laboratorio').val() == '') {
                     $.notify('Tiene que escribir el nombre del nuevo laboratorio', 'warn');
                     return;
                 }
@@ -870,18 +831,18 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                 },
                 body: datosFormulario
             }).then(function(data) {
-
-                $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-
-                    obtenNotificaciones();
-                    carga_listado();
-                    console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-
-                    $('#loading-spinner').hide();
-                    $('#dynamic-content').show();
-                });
-
-            }).catch(function(error) {
+        
+        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+          
+                obtenNotificaciones();
+                carga_listado();
+                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+            
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+       
+    }).catch(function(error) {
                 console.log("Error: " + error);
             })
 
