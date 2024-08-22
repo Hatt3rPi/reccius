@@ -342,7 +342,7 @@ span.tamañoRevision {
 
 textarea {
     width: 295px;
-    field-sizing: content;
+    
     resize: none;
     overflow: hidden;
     font-size: 12px;
