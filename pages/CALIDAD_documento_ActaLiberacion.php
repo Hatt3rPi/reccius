@@ -80,10 +80,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Liberación:</td>
-                            <td>
-                                
-                                <td name="fecha_acta_lib" id="fecha_acta_lib"></td>
-                            </td>
+                            <td name="fecha_acta_lib" id="fecha_acta_lib"></td>
                         </tr>
                     </table>
                 </div>
