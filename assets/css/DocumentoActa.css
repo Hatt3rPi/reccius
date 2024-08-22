@@ -747,3 +747,18 @@ ul {
     font-size: 0.8rem; /* Tamaño de la fuente */
     min-height: 80px; /* Establece una altura mínima para el campo, ajustable según tus necesidades */
 }
+
+.editable-diva{
+    width: 100%;
+    height: auto;
+    min-height: 30px; /* Ajusta la altura mínima según sea necesario */
+    max-height: 80px; /* Establece una altura máxima si es necesario */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    outline: none; /* Elimina cualquier borde de enfoque */
+}
