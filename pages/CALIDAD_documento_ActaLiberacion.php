@@ -195,7 +195,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td class="centrado verif">
+                        <td >
                             <div class="toggle-container">
                                 <input type="radio" id="estado1_conforme" name="estado1" value="conforme">
                                 <label for="estado1_conforme">Conforme</label>
