@@ -350,6 +350,7 @@ textarea {
     resize: none; /* Evita que el usuario cambie el tamaño manualmente */
     font-size: 12px;
     padding: 5px; /* Espaciado interior para que el texto no quede pegado al borde */
+    line-height: 1.2em; /* Ajusta según sea necesario */
 }
 
 

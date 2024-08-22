@@ -442,167 +442,173 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     document.getElementById('download-pdf').addEventListener('click', function() {
-        const buttonContainer = document.querySelector('.button-container');
-        const elementToExport = document.getElementById('form-container');
+    const buttonContainer = document.querySelector('.button-container');
+    const elementToExport = document.getElementById('form-container');
 
-        // Guardar los estilos originales
-        const originalBorder = elementToExport.style.border;
-        const originalBoxShadow = elementToExport.style.boxShadow;
+    // Guardar los estilos originales
+    const originalBorder = elementToExport.style.border;
+    const originalBoxShadow = elementToExport.style.boxShadow;
 
-        // Ocultar borde y sombra
-        elementToExport.style.border = 'none';
-        elementToExport.style.boxShadow = 'none';
-        buttonContainer.style.display = 'none';
+    // Ocultar borde y sombra
+    elementToExport.style.border = 'none';
+    elementToExport.style.boxShadow = 'none';
+    buttonContainer.style.display = 'none';
 
-        // Ajustar el tamaño de los textarea para que muestren todo su contenido
-        const textareas = document.querySelectorAll('textarea');
-        textareas.forEach(textarea => {
-            textarea.style.height = 'auto'; // Primero restablece la altura
-            textarea.style.height = textarea.scrollHeight + 'px'; // Ajusta la altura al contenido
-            textarea.style.whiteSpace = 'normal'; // Asegura que el texto se ajusta y pasa a la siguiente línea
-            textarea.style.overflowWrap = 'break-word'; // Ajusta las palabras si son muy largas
-            textarea.style.wordWrap = 'break-word'; // Lo mismo que overflow-wrap pero para más compatibilidad
-            textarea.style.overflow = 'hidden'; // Opcional: Oculta las barras de desplazamiento
-        });
+    // Ajustar el tamaño de los textarea para que muestren todo su contenido
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(textarea => {
+        textarea.style.height = 'auto'; // Restablece la altura
+        textarea.style.height = (textarea.scrollHeight + 2) + 'px'; // Ajusta la altura al contenido
+        textarea.style.whiteSpace = 'normal'; // Asegura que el texto se ajusta y pasa a la siguiente línea
+        textarea.style.overflowWrap = 'break-word'; // Ajusta las palabras si son muy largas
+        textarea.style.wordWrap = 'break-word'; // Lo mismo que overflow-wrap pero para más compatibilidad
+        textarea.style.overflow = 'hidden'; // Oculta las barras de desplazamiento
 
-        // Ocultar los radio buttons no seleccionados y el marcador del seleccionado en la columna "Estado"
-        const radioGroups = document.querySelectorAll('.toggle-container');
-        radioGroups.forEach(group => {
-            const checkedRadio = group.querySelector('input[type="radio"]:checked');
-            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
-
-            // Ocultar los no seleccionados
-            uncheckedRadios.forEach(unchecked => {
-                const label = group.querySelector(`label[for="${unchecked.id}"]`);
-                unchecked.style.display = 'none';
-                if (label) {
-                    label.style.display = 'none';
-                }
-            });
-
-            // Quitar el marcador del seleccionado
-            if (checkedRadio) {
-                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
-                if (label) {
-                    label.style.display = 'inline';
-                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
-                }
-            }
-        });
-
-        // Ocultar los radio buttons no seleccionados y centrar la opción seleccionada en la columna "Revisión"
-        const revisionGroups = document.querySelectorAll('.revision');
-        revisionGroups.forEach(group => {
-            const checkedRadio = group.querySelector('input[type="radio"]:checked');
-            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
-
-            // Ocultar los no seleccionados
-            uncheckedRadios.forEach(unchecked => {
-                const label = group.querySelector(`label[for="${unchecked.id}"]`);
-                unchecked.style.display = 'none';
-                if (label) {
-                    label.style.display = 'none';
-                }
-            });
-
-            // Quitar el marcador del seleccionado y centrar verticalmente
-            if (checkedRadio) {
-                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
-                if (label) {
-                    label.style.display = 'inline-block';
-                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
-
-                    // Centrar verticalmente
-                    label.style.textAlign = 'center';
-                    group.style.display = 'flex';
-                    group.style.alignItems = 'center';
-                    group.style.justifyContent = 'center';
-                }
-            }
-        });
-
-        html2canvas(elementToExport, {
-            scale: 2,
-            logging: true,
-            useCORS: true
-        }).then(canvas => {
-            // Restaurar los estilos originales
-            elementToExport.style.border = originalBorder;
-            elementToExport.style.boxShadow = originalBoxShadow;
-
-            buttonContainer.style.display = 'block';
-
-            // Restaurar la visibilidad de los radio buttons no seleccionados en "Estado" y "Revisión"
-            radioGroups.forEach(group => {
-                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
-                uncheckedRadios.forEach(unchecked => {
-                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
-                    unchecked.style.display = 'inline';
-                    if (label) {
-                        label.style.display = 'inline';
-                    }
-                });
-
-                // Restaurar el radio button seleccionado en "Estado"
-                const checkedRadio = group.querySelector('input[type="radio"]:checked');
-                if (checkedRadio) {
-                    checkedRadio.style.display = 'inline';
-                }
-            });
-
-            revisionGroups.forEach(group => {
-                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
-                uncheckedRadios.forEach(unchecked => {
-                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
-                    unchecked.style.display = 'inline';
-                    if (label) {
-                        label.style.display = 'inline';
-                    }
-                });
-
-                // Restaurar el radio button seleccionado en "Revisión"
-                const checkedRadio = group.querySelector('input[type="radio"]:checked');
-                if (checkedRadio) {
-                    checkedRadio.style.display = 'inline';
-                }
-
-                // Restaurar el estilo original del grupo
-                group.style.display = '';
-                group.style.alignItems = '';
-                group.style.justifyContent = '';
-            });
-
-            // Ajusta la calidad de la imagen
-            const imgData = canvas.toDataURL('image/jpeg', 0.75);
-
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const imgWidth = pageWidth;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-
-            let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft > 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-
-            pdf.save('documento.pdf');
-            $.notify("PDF generado con éxito", "success");
-        });
+        // Forzar un redibujo del contenido para asegurar que todo se muestra correctamente
+        const tempValue = textarea.value;
+        textarea.value = '';
+        textarea.value = tempValue;
     });
 
+    // Ocultar los radio buttons no seleccionados y el marcador del seleccionado en la columna "Estado"
+    const radioGroups = document.querySelectorAll('.toggle-container');
+    radioGroups.forEach(group => {
+        const checkedRadio = group.querySelector('input[type="radio"]:checked');
+        const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+        // Ocultar los no seleccionados
+        uncheckedRadios.forEach(unchecked => {
+            const label = group.querySelector(`label[for="${unchecked.id}"]`);
+            unchecked.style.display = 'none';
+            if (label) {
+                label.style.display = 'none';
+            }
+        });
+
+        // Quitar el marcador del seleccionado
+        if (checkedRadio) {
+            const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+            if (label) {
+                label.style.display = 'inline';
+                checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+            }
+        }
+    });
+
+    // Ocultar los radio buttons no seleccionados y centrar la opción seleccionada en la columna "Revisión"
+    const revisionGroups = document.querySelectorAll('.revision');
+    revisionGroups.forEach(group => {
+        const checkedRadio = group.querySelector('input[type="radio"]:checked');
+        const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+        // Ocultar los no seleccionados
+        uncheckedRadios.forEach(unchecked => {
+            const label = group.querySelector(`label[for="${unchecked.id}"]`);
+            unchecked.style.display = 'none';
+            if (label) {
+                label.style.display = 'none';
+            }
+        });
+
+        // Quitar el marcador del seleccionado y centrar verticalmente
+        if (checkedRadio) {
+            const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+            if (label) {
+                label.style.display = 'inline-block';
+                checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+
+                // Centrar verticalmente
+                label.style.textAlign = 'center';
+                group.style.display = 'flex';
+                group.style.alignItems = 'center';
+                group.style.justifyContent = 'center';
+            }
+        }
+    });
+
+    // Generar el PDF
+    html2canvas(elementToExport, {
+        scale: 2,  // Mejora la calidad de la captura
+        logging: true,
+        useCORS: true,
+        scrollY: -window.scrollY, // Asegura que la captura incluye todo el contenido visible
+        scrollX: -window.scrollX
+    }).then(canvas => {
+        // Restaurar los estilos originales
+        elementToExport.style.border = originalBorder;
+        elementToExport.style.boxShadow = originalBoxShadow;
+        buttonContainer.style.display = 'block';
+
+        // Restaurar la visibilidad de los radio buttons no seleccionados en "Estado" y "Revisión"
+        radioGroups.forEach(group => {
+            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+            uncheckedRadios.forEach(unchecked => {
+                const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                unchecked.style.display = 'inline';
+                if (label) {
+                    label.style.display = 'inline';
+                }
+            });
+
+            // Restaurar el radio button seleccionado en "Estado"
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            if (checkedRadio) {
+                checkedRadio.style.display = 'inline';
+            }
+        });
+
+        revisionGroups.forEach(group => {
+            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+            uncheckedRadios.forEach(unchecked => {
+                const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                unchecked.style.display = 'inline';
+                if (label) {
+                    label.style.display = 'inline';
+                }
+            });
+
+            // Restaurar el radio button seleccionado en "Revisión"
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            if (checkedRadio) {
+                checkedRadio.style.display = 'inline';
+            }
+
+            // Restaurar el estilo original del grupo
+            group.style.display = '';
+            group.style.alignItems = '';
+            group.style.justifyContent = '';
+        });
+
+        // Ajusta la calidad de la imagen
+        const imgData = canvas.toDataURL('image/jpeg', 0.75);
+
+        const pdf = new jspdf.jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = pageWidth;
+        let imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        let position = 0;
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        pdf.save('documento.pdf');
+        $.notify("PDF generado con éxito", "success");
+    });
+});
 
 
 
