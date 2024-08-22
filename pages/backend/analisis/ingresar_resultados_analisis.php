@@ -24,7 +24,7 @@ function obtenerFirmas($link, $usuario) {
 
 $queryAnalisisExterno = "SELECT 
                             an.*,
-                            us.nombre,
+                            us.nombre as nombre_muestreado_por,
                             prod.identificador_producto AS 'prod_identificador_producto', 
                             prod.nombre_producto AS 'prod_nombre_producto', 
                             prod.tipo_producto AS 'prod_tipo_producto', 
