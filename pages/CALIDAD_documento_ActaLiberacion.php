@@ -457,10 +457,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
-        // Ocultar botones no seleccionados manteniendo el espacio en la columna
-        const buttonsToHide = document.querySelectorAll('.btn-group input[type="radio"]:not(:checked) + label');
-        buttonsToHide.forEach(button => {
-            button.classList.add('hidden');
+        // Ocultar los radio buttons no seleccionados
+        const radioGroups = document.querySelectorAll('.toggle-container');
+        radioGroups.forEach(group => {
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+            uncheckedRadios.forEach(unchecked => {
+                const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                unchecked.style.display = 'none';
+                if (label) {
+                    label.style.display = 'none';
+                }
+            });
         });
 
         html2canvas(elementToExport, {
@@ -474,9 +483,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             buttonContainer.style.display = 'block';
 
-            // Mostrar los botones nuevamente
-            buttonsToHide.forEach(button => {
-                button.classList.remove('hidden');
+            // Restaurar la visibilidad de los radio buttons no seleccionados
+            radioGroups.forEach(group => {
+                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+                uncheckedRadios.forEach(unchecked => {
+                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                    unchecked.style.display = 'inline';
+                    if (label) {
+                        label.style.display = 'inline';
+                    }
+                });
             });
 
             // Ajusta la calidad de la imagen
@@ -509,6 +525,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("PDF generado con éxito", "success");
         });
     });
+
 
 
 
