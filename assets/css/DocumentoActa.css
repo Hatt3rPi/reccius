@@ -529,18 +529,7 @@ p {
     font-size: 12px;
 }
 
-.formulario textarea {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    /* Incluye el padding y el border en la altura y anchura total */
-    border: 0px solid #ccc;
-    /* Opcional: Establece un borde para el textarea */
-    padding: 2px;
-    /* Opcional: Añade algo de espacio interior */
-    resize: none;
-    /* Opcional: Evita que el usuario redimensione el textarea */
-}
+
 
 #seccion3 th:nth-child(5),
 #muestreo td:nth-child(5) {
@@ -741,4 +730,17 @@ ul {
     /* Asegura que el padding esté incluido en la anchura */
     font-size: 0.8rem;
     /* Tamaño de la fuente */
+}
+
+.textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /* Incluye el padding y el border en la altura y anchura total */
+    border: 0px solid #ccc;
+    /* Opcional: Establece un borde para el textarea */
+    padding: 2px;
+    /* Opcional: Añade algo de espacio interior */
+    resize: none;
+    /* Opcional: Evita que el usuario redimensione el textarea */
 }

@@ -537,7 +537,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <div id="form_textarea8" name="form_textarea8" class="editable-div" contenteditable="true" rows="3" style="width: 99%;margin-left: 1%;"></div>
+                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true" rows="3" style="width: 99%;margin-left: 1%;"></div>
 
 
             </div>
