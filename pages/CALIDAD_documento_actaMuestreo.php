@@ -224,7 +224,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo">6. Cond. Almacenamiento:</td>
-                        <td class="formulario" id="form_condAlmacenamiento" readonly>id="form_condAlmacenamiento"</td>
+
+                        <td class="formulario">
+                            <div id="form_condAlmacenamiento" class="editable-div" contenteditable="true"></div>
+
+                        </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -457,7 +461,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>5. Cantidad de ciclos de esterilización</td>
                         <td class="formulario">
-                            <textarea id="form_textarea5"></textarea>
                             <div id="form_textarea5" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="spacer"></td>
@@ -482,7 +485,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>6. Cantidad bandejas esterilizadas por ciclo</td>
                         <td class="formulario">
-                            <textarea id="form_textarea6"></textarea>
+                            <div id="form_textarea6" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -506,7 +509,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>7. Cantidad de muestras por bandeja</td>
                         <td class="formulario">
-                            <textarea id="form_textarea7"></textarea>
+                            <div id="form_textarea7" class="editable-div" contenteditable="true"></div>
+
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -533,7 +537,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <textarea id="form_textarea8" name="form_textarea8" rows="3" style="width: 99%;margin-left: 1%;"></textarea>
+                <div id="form_textarea8" name="form_textarea8" class="editable-div" contenteditable="true" rows="3" style="width: 99%;margin-left: 1%;"></div>
 
 
             </div>
@@ -789,7 +793,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#fecha_firma1').text(fecha_hoy);
             //document.getElementById('fecha_firma1').style.display = 'block';
             //document.getElementById('mensaje_firma1').style.display = 'block';
-            
+
             $('#cargo_realizador').text(cargo);
             $('#realizadoPor').text(nombre_ejecutor);
 
