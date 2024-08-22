@@ -24,6 +24,7 @@ function obtenerFirmas($link, $usuario) {
 
 $queryAnalisisExterno = "SELECT 
                             an.*,
+                            us.nombre as nombre_muestreado_por,
                             prod.identificador_producto AS 'prod_identificador_producto', 
                             prod.nombre_producto AS 'prod_nombre_producto', 
                             prod.tipo_producto AS 'prod_tipo_producto', 
@@ -44,8 +45,8 @@ $queryAnalisisExterno = "SELECT
                             AS es ON an.id_especificacion = es.id_especificacion
                         LEFT JOIN calidad_productos 
                             AS prod ON es.id_producto = prod.id
-                        LEFT JOIN calidad_analisis 
-                            AS anali ON es.id_especificacion = anali.id_especificacion_producto
+                        LEFT JOIN calidad_analisis aS anali ON es.id_especificacion = anali.id_especificacion_producto
+                        LEFT JOIN usuarios as us ON an.muestreado_por=us.usuario
                         WHERE an.id = ?";
 
 

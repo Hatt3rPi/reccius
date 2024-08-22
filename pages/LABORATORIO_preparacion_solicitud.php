@@ -16,44 +16,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $opciones[$row['categoria']][] = $row['nombre_opcion'];
 }
 
-date_default_timezone_set('America/Santiago');
-$fechaActual = new DateTime();
-$fechaLimite = new DateTime('+30 days');
-
-// Formatear las fechas para la consulta
-$fechaActualFormato = $fechaActual->format('Y-m-d');
-$fechaLimiteFormato = $fechaLimite->format('Y-m-d');
-
-// Consulta SQL para obtener feriados entre las fechas
-$queryDate = "SELECT fecha FROM feriados_chile WHERE fecha BETWEEN '$fechaActualFormato' AND '$fechaLimiteFormato'";
-$resultDate = mysqli_query($link, $queryDate);
-
-// Construir el arreglo de feriados
-$feriados = [];
-while ($row = mysqli_fetch_assoc($resultDate)) {
-    $feriados[] = $row['fecha'];
-}
-function agregarDiasHabiles($fecha, $diasHabiles, $feriados)
-{
-    $contadorDias = 0;
-
-    while ($contadorDias < $diasHabiles) {
-        $fecha->modify('+1 day'); // Agregar un día
-
-        // Si es un fin de semana o un feriado, no contar este día
-        if ($fecha->format('N') < 6 && !in_array($fecha->format('Y-m-d'), $feriados)) {
-            $contadorDias++;
-        }
-    }
-
-    return $fecha;
-}
-
-// Calcular 10 días hábiles desde la fecha actual
-$fechaEntregaEstimada = agregarDiasHabiles($fechaActual, 10, $feriados);
-
-// Formatear para uso en HTML
-$fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
 ?>
 
 <!DOCTYPE html>
@@ -144,7 +106,7 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Tamaño Lote:</label>
-                        <input required class="form-control mx-0 w-90 " name="tamano_lote" id="tamano_lote" type="number" placeholder="20">
+                        <input required class="form-control mx-0 w-90 " name="tamano_lote" id="tamano_lote" type="text" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
@@ -257,9 +219,9 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                         <div class="form-group">
                             <label for="estandar_segun">Estándar Provisto por:</label>
                             <select required id="estandar_segun" name="estandar_segun" class="highlight select-style mx-0 form__select w-90 editable" style="width: 82.5%">
-                                <option value="reccius">Reccius</option>
-                                <option value="cequc">CEQUC</option>
-                                <option value="pharmaisa">Pharma ISA</option>
+                                <option value="Reccius">Reccius</option>
+                                <option value="CEQUC">CEQUC</option>
+                                <option value="Pharma ISA">Pharma ISA</option>
                                 <option value="otro">Otro</option>
                             </select>
                         </div>
@@ -272,13 +234,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Fecha Entrega Estimada <em>(10 días hábiles)</em>:</label>
-                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required value="<?php echo $fechaEntregaEstimadaFormato; ?>" class="highlight form-control mx-0 w-90 datepicker editable" />
+                            <label>Fecha Entrega Estimada <em>(21 días hábiles)</em>:</label>
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required class="highlight form-control mx-0 w-90 datepicker editable" />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
-                            <label>N° Documento:</label>
+                            <label>N° Cotización:</label>
                             <input name="numero_documento" id="numero_documento" class="highlight form-control mx-0 w-90 editable" type="text" required placeholder="123456" />
                         </div>
                     </div>
@@ -299,13 +261,13 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
                     <div class="form-row">
                         <div class="form-group">
                             <label>Especificación de producto:</label>
-                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90 editable" />
+                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90 " />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Versión:</label>
-                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90 editable" />
+                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90 " />
                         </div>
                     </div>
                 </fieldset>
@@ -898,14 +860,30 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             format: 'dd/mm/yyyy', // Formato global de fecha
             language: 'es',
             autoclose: true,
-            todayHighlight: true,
-            startDate: new Date()
+            todayHighlight: true
+            //,startDate: new Date()
         });
         console.log('especificacion :<?php echo json_encode($_POST['especificacion'] ?? ''); ?>');
 
     });
 
     $(document).ready(function() {
+                function agregarDiasCalendario(fecha, dias) {
+                fecha.setDate(fecha.getDate() + dias); // Agregar días calendario
+                return fecha;
+            }
+
+            // Obtener la fecha actual
+            var fechaActual = new Date();
+            
+            // Calcular la fecha de entrega estimada (21 días después de la fecha actual)
+            var fechaEntregaEstimada = agregarDiasCalendario(fechaActual, 21);
+
+            // Formatear la fecha a dd/mm/yyyy
+            var fechaEntregaEstimadaFormato = moment(fechaEntregaEstimada).format('DD/MM/YYYY');
+
+            // Establecer la fecha en el campo
+            $('#fecha_entrega_estimada').val(fechaEntregaEstimadaFormato);
         document.getElementById('upload-pdf').addEventListener('click', function(event) {
             event.preventDefault();
             var {

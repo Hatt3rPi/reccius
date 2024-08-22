@@ -186,8 +186,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <form id="section3">
                 <table id="seccion3">
                     <tr>
-                        <td class="Subtitulos" style="text-align: start;" colspan="4">
-                            III. ANÁLISIS SOLICITADOS</td>
+                        <td class="Subtitulos" style="text-align: start;" colspan="4">III. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
                         <th>Documento</th>
@@ -198,20 +197,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado1a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado1b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado1_conforme" name="estado1" value="conforme">
+                                <label for="estado1_conforme">Conforme</label>
+
+                                <input type="radio" id="estado1_noconforme" name="estado1" value="noconforme">
+                                <label for="estado1_noconforme">No Conforme</label>
                             </div>
                         </td>
                         <td class="Espec centrado verif">
@@ -229,20 +220,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado2a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado2b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado2_conforme" name="estado2" value="conforme">
+                                <label for="estado2_conforme">Conforme</label>
+
+                                <input type="radio" id="estado2_noconforme" name="estado2" value="noconforme">
+                                <label for="estado2_noconforme">No Conforme</label>
                             </div>
                         </td>
                         <td class="Espec centrado verif">
@@ -260,20 +243,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado3a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado3b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado3_conforme" name="estado3" value="conforme">
+                                <label for="estado3_conforme">Conforme</label>
+
+                                <input type="radio" id="estado3_noconforme" name="estado3" value="noconforme">
+                                <label for="estado3_noconforme">No Conforme</label>
                             </div>
                         </td>
                         <td class="Espec centrado verif">
@@ -291,20 +266,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado4a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado4b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado4_conforme" name="estado4" value="conforme">
+                                <label for="estado4_conforme">Conforme</label>
+
+                                <input type="radio" id="estado4_noconforme" name="estado4" value="noconforme">
+                                <label for="estado4_noconforme">No Conforme</label>
                             </div>
                         </td>
                         <td class="Espec centrado verif">
@@ -319,11 +286,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                     </tr>
-
-                    <!-- ... -->
                 </table>
-
             </form>
+
+
             <!-- Sección II: MUESTREO -->
             <br>
             <form id="section4">
@@ -491,6 +457,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
+        // Ocultar botones no seleccionados manteniendo el espacio en la columna
+        const buttonsToHide = document.querySelectorAll('.btn-group input[type="radio"]:not(:checked) + label');
+        buttonsToHide.forEach(button => {
+            button.classList.add('hidden');
+        });
+
         html2canvas(elementToExport, {
             scale: 2,
             logging: true,
@@ -502,8 +474,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             buttonContainer.style.display = 'block';
 
+            // Mostrar los botones nuevamente
+            buttonsToHide.forEach(button => {
+                button.classList.remove('hidden');
+            });
+
             // Ajusta la calidad de la imagen
-            const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+            const imgData = canvas.toDataURL('image/jpeg', 0.75);
 
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
@@ -518,13 +495,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             let heightLeft = imgHeight;
 
             let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
 
             while (heightLeft > 0) {
                 position = heightLeft - imgHeight;
                 pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
 
@@ -532,6 +509,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("PDF generado con éxito", "success");
         });
     });
+
+
+
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;

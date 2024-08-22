@@ -1,4 +1,3 @@
-
 /* archivo: assets\css\DocumentoLiberacion.css */
 body {
 
@@ -180,17 +179,27 @@ p {
 #download-pdf:hover {
     background-color: #003580;
 }
+.doc-conforme,
+.revision {
+    display: flex;
+    justify-content: center; /* Centrar los elementos en la columna */
+    align-items: center;
+    min-height: 40px; /* Altura mínima para mantener el espacio */
+    flex-direction: column; /* Alinea los elementos en columna */
+}
 
 .verificadores {
     font-size: 10px !important;
     margin-bottom: 0px !important;
-    padding: 2px 2px !important;
-    /* Ajusta el espacio interno del botón */
+    padding: 2px 2px !important; /* Ajusta el espacio interno del botón */
     border-radius: 3px !important;
     width: 100% !important;
-
+    text-align: center;
 }
 
+.verificadores.hidden {
+    visibility: hidden; /* Mantiene el espacio pero oculta el contenido */
+}
 
 
 .Subtitulos {
@@ -213,7 +222,7 @@ table {
 }
 
 .titulo {
-    
+
     /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
     text-align: left;
     /* Alinea el texto a la izquierda */
@@ -235,13 +244,18 @@ input[type="text"] {
     font-size: 0.8rem;
     padding: 3%;
     box-sizing: border-box;
-    overflow: hidden; /* Evita que el contenido se desborde */
-    white-space: nowrap; /* Evita que el texto se envuelva */
-    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+    overflow: hidden;
+    /* Evita que el contenido se desborde */
+    white-space: nowrap;
+    /* Evita que el texto se envuelva */
+    text-overflow: ellipsis;
+    /* Muestra puntos suspensivos si el texto es muy largo */
     display: flex;
-    align-items: center; /* Centra verticalmente */
+    align-items: center;
+    /* Centra verticalmente */
 
 }
+
 .tituloTabla {
     /* Asumiendo que quieres que el texto sea negrita */
     padding-right: 10px;
@@ -291,27 +305,42 @@ input[type="text"] {
     gap: 10px;
 
 }
+
 input[type="checkbox"].checkmark {
-    width: 15px; /* Ancho del checkbox */
-    height: 15px; /* Altura del checkbox */
-    transform: scale(1.5); /* Escala del checkbox */
-    -webkit-transform: scale(1.5); /* Escala del checkbox para navegadores basados en WebKit */
-    -moz-transform: scale(1.5); /* Escala del checkbox para navegadores basados en Mozilla */
+    width: 15px;
+    /* Ancho del checkbox */
+    height: 15px;
+    /* Altura del checkbox */
+    transform: scale(1.5);
+    /* Escala del checkbox */
+    -webkit-transform: scale(1.5);
+    /* Escala del checkbox para navegadores basados en WebKit */
+    -moz-transform: scale(1.5);
+    /* Escala del checkbox para navegadores basados en Mozilla */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 input[type="checkbox"].revision {
-    width: 12px; /* Ancho del checkbox */
-    height: 12px; /* Altura del checkbox */
-    transform: scale(1.5); /* Escala del checkbox */
-    -webkit-transform: scale(1.5); /* Escala del checkbox para navegadores basados en WebKit */
-    -moz-transform: scale(1.5); /* Escala del checkbox para navegadores basados en Mozilla */
-    
+    width: 12px;
+    /* Ancho del checkbox */
+    height: 12px;
+    /* Altura del checkbox */
+    transform: scale(1.5);
+    /* Escala del checkbox */
+    -webkit-transform: scale(1.5);
+    /* Escala del checkbox para navegadores basados en WebKit */
+    -moz-transform: scale(1.5);
+    /* Escala del checkbox para navegadores basados en Mozilla */
+
 }
+
 span.tamañoRevision {
-    font-size: 1.1em; /* Ajusta el tamaño del texto según sea necesario */
+    font-size: 1.1em;
+    /* Ajusta el tamaño del texto según sea necesario */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-textarea{
+
+textarea {
     width: 295px;
     field-sizing: content;
     resize: none;
@@ -320,11 +349,13 @@ textarea{
     padding: 3%;
     margin-bottom: -6px;
 }
-ul{
+
+ul {
     padding-left: 0px !important;
 }
+
 .footer-containerDIV {
-            
+
     display: flex;
     flex-wrap: nowrap;
     /* Evita que las secciones bajen al siguiente renglón */
@@ -337,7 +368,7 @@ ul{
 }
 
 .firma-section {
-    
+
     padding: 10px;
     margin: 5px;
     flex: 1;
@@ -355,7 +386,7 @@ ul{
 }
 
 .firma-box-title {
-    
+
     font-size: 10px;
     text-align: left;
     font-weight: bold;
@@ -381,7 +412,7 @@ ul{
 }
 
 .signature {
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -395,7 +426,7 @@ ul{
 }
 
 .date {
-    
+
     text-align: center;
     font-size: 10px;
     margin-top: 5px;
@@ -405,10 +436,10 @@ ul{
 }
 
 .bold {
-    
+
     font-weight: bold;
     width: 266px;
-    
+
 
 
 }
@@ -425,7 +456,7 @@ ul{
 }
 
 .date-container {
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -436,14 +467,19 @@ ul{
 
 .centrado {
     text-align: center;
-    }
+}
 
 .divider {
-    background-color: #d3c0c0; /* Código de color para amarillo */
-    width: 1px; /* Ancho de la línea divisora */
-    height: auto; /* Altura automática para que se ajuste al contenedor padre */
-    margin: 0 10px; /* Margen horizontal para separarla del contenido */
+    background-color: #d3c0c0;
+    /* Código de color para amarillo */
+    width: 1px;
+    /* Ancho de la línea divisora */
+    height: auto;
+    /* Altura automática para que se ajuste al contenedor padre */
+    margin: 0 10px;
+    /* Margen horizontal para separarla del contenido */
 }
+
 #seccion3 th {
     background-color: #0047b3;
     color: white;
@@ -457,6 +493,7 @@ ul{
     text-align: center;
     align-items: center;
 }
+
 #seccion3 table {
     width: 100%;
     border-collapse: collapse;
@@ -480,6 +517,7 @@ ul{
 #seccion4 td:nth-child(2) {
     width: 30%;
 }
+
 #seccion1 th:nth-child(3),
 #seccion1 td:nth-child(3),
 #seccion2 th:nth-child(3),
@@ -488,6 +526,7 @@ ul{
 #seccion4 td:nth-child(3) {
     width: 4%;
 }
+
 #seccion1 th:nth-child(4),
 #seccion1 td:nth-child(4),
 #seccion2 th:nth-child(4),
