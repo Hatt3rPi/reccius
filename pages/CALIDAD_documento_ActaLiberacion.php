@@ -204,7 +204,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec centrado verif">
-                            <textarea id="form_textarea1"></textarea>
+                            <textarea id="form_textarea1" style="white-space: normal; overflow-wrap: break-word;" wrap="hard"></textarea>
                         </td>
                         <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
