@@ -226,7 +226,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="formulario-titulo">6. Cond. Almacenamiento:</td>
 
                         <td class="formulario">
-                            <div id="form_condAlmacenamiento" class="editable-diva" contenteditable="true"></div>
+                            <div id="form_condAlmacenamiento" class="editable-diva" ></div>
 
                         </td>
                         <td class="spacer"></td>
@@ -537,7 +537,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea"  ></div>
+                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true" ></div>
 
 
             </div>
