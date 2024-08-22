@@ -898,8 +898,8 @@ $fechaEntregaEstimadaFormato = $fechaEntregaEstimada->format('Y-m-d');
             format: 'dd/mm/yyyy', // Formato global de fecha
             language: 'es',
             autoclose: true,
-            todayHighlight: true,
-            startDate: new Date()
+            todayHighlight: true
+            //,startDate: new Date()
         });
         console.log('especificacion :<?php echo json_encode($_POST['especificacion'] ?? ''); ?>');
 

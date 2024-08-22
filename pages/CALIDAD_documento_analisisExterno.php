@@ -471,8 +471,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             format: 'dd/mm/yyyy', // Formato global de fecha
             language: 'es',
             autoclose: true,
-            todayHighlight: true,
-            startDate: new Date()
+            todayHighlight: true
+            //,startDate: new Date()
         });
     });
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
