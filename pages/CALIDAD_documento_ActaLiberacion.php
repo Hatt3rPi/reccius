@@ -641,7 +641,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
                         // Actualizar el elemento con el texto combinado
                         $('#producto_completo').text(productoCompleto);
-                        $('#producto_completoT1').val(productoCompleto);
+                        $('#producto_completoT1').text(productoCompleto);
 
                         // Actualizar los inputs con los datos del análisis
                         $('#nro_registro').text(response.numero_registro);
@@ -657,7 +657,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#tamaño_lote').val(primerAnalisis.tamano_lote);
                         $('#codigo_interno').val(primerAnalisis.codigo_interno);
                         $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                        $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                        $('#cond_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
                         $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
 
                         // TABLA 2
@@ -749,7 +749,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         // Actualizar el elemento con el texto combinado
                         $('#producto_completo').text(productoCompleto);
-                        $('#producto_completoT1').val(productoCompleto);
+                        $('#producto_completoT1').text(productoCompleto);
 
                         // Actualizar los inputs con los datos del análisis
                         $('#nro_registro').text(campos.numero_registro);
