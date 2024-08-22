@@ -115,7 +115,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "render": function(data, type, row) {
                         return data ? data : 'En proceso';
                     }
-                }
+                },
                 {
                     "data": "fecha_vencimiento",
                     "title": "Fecha Vencimiento",
