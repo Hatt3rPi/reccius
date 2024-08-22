@@ -158,7 +158,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
                     </tr>
                     <tr>
-                        <td class="titulo">6. fabricante:</td>
+                        <td class="titulo">6. Fabricante:</td>
                         <td><input type="text" id="elaborado_por" name="elaborado_por" required></td>
                         <!-- <td class="titulo titulo-right">Otro:</td>
                         <td><input type="text" id="otro3" name="otro3"></td> -->
