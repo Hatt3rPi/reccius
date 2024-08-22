@@ -445,15 +445,7 @@ p {
     padding: 0px !important;
 }
 
-.verificadores {
-    font-size: 8px !important;
-    margin-bottom: 0px !important;
-    padding: 2px 2px !important;
-    /* Ajusta el espacio interno del botón */
-    border-radius: 3px !important;
-    width: 100% !important;
 
-}
 
 .button-container {
     position: fixed;
