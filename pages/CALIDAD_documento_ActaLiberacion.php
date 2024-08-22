@@ -457,12 +457,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
-        // Ocultar los radio buttons no seleccionados
+        // Ocultar los radio buttons no seleccionados y el marcador del seleccionado
         const radioGroups = document.querySelectorAll('.toggle-container');
         radioGroups.forEach(group => {
             const checkedRadio = group.querySelector('input[type="radio"]:checked');
             const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
 
+            // Ocultar los no seleccionados
             uncheckedRadios.forEach(unchecked => {
                 const label = group.querySelector(`label[for="${unchecked.id}"]`);
                 unchecked.style.display = 'none';
@@ -470,6 +471,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     label.style.display = 'none';
                 }
             });
+
+            // Quitar el marcador del seleccionado
+            if (checkedRadio) {
+                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+                if (label) {
+                    label.style.display = 'inline';
+                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+                }
+            }
         });
 
         html2canvas(elementToExport, {
@@ -493,6 +503,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         label.style.display = 'inline';
                     }
                 });
+
+                // Restaurar el radio button seleccionado
+                const checkedRadio = group.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.style.display = 'inline';
+                }
             });
 
             // Ajusta la calidad de la imagen
