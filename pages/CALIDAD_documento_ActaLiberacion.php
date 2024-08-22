@@ -491,10 +491,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
-        // Ocultar botones no seleccionados manteniendo el orden
+        // Ocultar botones no seleccionados manteniendo el espacio en la columna
         const buttonsToHide = document.querySelectorAll('.btn-group input[type="radio"]:not(:checked) + label');
         buttonsToHide.forEach(button => {
-            button.style.visibility = 'hidden';
+            button.classList.add('hidden');
         });
 
         html2canvas(elementToExport, {
@@ -510,7 +510,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Mostrar los botones nuevamente
             buttonsToHide.forEach(button => {
-                button.style.visibility = 'visible';
+                button.classList.remove('hidden');
             });
 
             // Ajusta la calidad de la imagen
@@ -543,6 +543,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("PDF generado con éxito", "success");
         });
     });
+
 
 
 
