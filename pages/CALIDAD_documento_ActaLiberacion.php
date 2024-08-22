@@ -491,6 +491,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         buttonContainer.style.display = 'none';
 
+        // Ocultar botones no seleccionados
+        const buttonsToHide = document.querySelectorAll('.btn-group input[type="radio"]:not(:checked) + label');
+        buttonsToHide.forEach(button => {
+            button.style.display = 'none';
+        });
+
         html2canvas(elementToExport, {
             scale: 2,
             logging: true,
@@ -502,8 +508,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             buttonContainer.style.display = 'block';
 
+            // Mostrar los botones nuevamente
+            buttonsToHide.forEach(button => {
+                button.style.display = 'inline-block';
+            });
+
             // Ajusta la calidad de la imagen
-            const imgData = canvas.toDataURL('image/jpeg', 0.75); // 0.75 es la calidad de la imagen (puedes ajustar este valor)
+            const imgData = canvas.toDataURL('image/jpeg', 0.75);
 
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
@@ -518,13 +529,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             let heightLeft = imgHeight;
 
             let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
 
             while (heightLeft > 0) {
                 position = heightLeft - imgHeight;
                 pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); // Cambia 'image/png' a 'JPEG'
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
 
@@ -532,6 +543,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("PDF generado con éxito", "success");
         });
     });
+
 
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
