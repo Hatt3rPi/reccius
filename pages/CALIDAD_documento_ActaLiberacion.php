@@ -197,10 +197,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
                         <td class="centrado verif">
-                            <label class="switch">
-                                <input type="checkbox" id="estado1" name="estado1">
-                                <span class="slider round"></span>
-                            </label>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado1_conforme" name="estado1" value="conforme">
+                                <label for="estado1_conforme">Conforme</label>
+
+                                <input type="radio" id="estado1_noconforme" name="estado1" value="noconforme">
+                                <label for="estado1_noconforme">No Conforme</label>
+                            </div>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea1"></textarea>
@@ -217,10 +220,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td class="centrado verif">
-                            <label class="switch">
-                                <input type="checkbox" id="estado2" name="estado2">
-                                <span class="slider round"></span>
-                            </label>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado2_conforme" name="estado2" value="conforme">
+                                <label for="estado2_conforme">Conforme</label>
+
+                                <input type="radio" id="estado2_noconforme" name="estado2" value="noconforme">
+                                <label for="estado2_noconforme">No Conforme</label>
+                            </div>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea2"></textarea>
@@ -237,10 +243,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td class="centrado verif">
-                            <label class="switch">
-                                <input type="checkbox" id="estado3" name="estado3">
-                                <span class="slider round"></span>
-                            </label>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado3_conforme" name="estado3" value="conforme">
+                                <label for="estado3_conforme">Conforme</label>
+
+                                <input type="radio" id="estado3_noconforme" name="estado3" value="noconforme">
+                                <label for="estado3_noconforme">No Conforme</label>
+                            </div>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea3"></textarea>
@@ -257,10 +266,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td class="centrado verif">
-                            <label class="switch">
-                                <input type="checkbox" id="estado4" name="estado4">
-                                <span class="slider round"></span>
-                            </label>
+                            <div class="toggle-container">
+                                <input type="radio" id="estado4_conforme" name="estado4" value="conforme">
+                                <label for="estado4_conforme">Conforme</label>
+
+                                <input type="radio" id="estado4_noconforme" name="estado4" value="noconforme">
+                                <label for="estado4_noconforme">No Conforme</label>
+                            </div>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea4"></textarea>
@@ -276,6 +288,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                 </table>
             </form>
+
 
             <!-- Sección II: MUESTREO -->
             <br>

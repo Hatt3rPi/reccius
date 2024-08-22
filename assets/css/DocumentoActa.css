@@ -1,5 +1,5 @@
 body {
-    
+
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -246,19 +246,24 @@ p {
     text-decoration: none;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
+
 #metodo_muestreo {
     bottom: 30px !important;
 }
+
 #guardar {
     bottom: 90px;
 }
+
 #firmar {
     bottom: 160px;
     background-color: #ff0000;
 }
+
 #download-pdf {
     bottom: 20px;
 }
+
 #download-pdf:hover {
     background-color: #003580;
 }
@@ -449,6 +454,7 @@ p {
     width: 100% !important;
 
 }
+
 .button-container {
     position: fixed;
     gap: 10px;
@@ -460,6 +466,7 @@ p {
     align-items: flex-end;
 
 }
+
 .button-container .botones {
     position: relative;
     right: 20px;
@@ -554,22 +561,27 @@ p {
     border: 0px !important;
 }
 
-#fecha_Edicion, #fecha_firma_responsable, #fecha_firma_verificador {
+#fecha_Edicion,
+#fecha_firma_responsable,
+#fecha_firma_verificador {
     margin-top: 0px !important;
     text-align: center;
 }
 
-ol, ul {
-    padding-left: 0; /* o cualquier otro valor que necesites */
-  }
-  
+ol,
+ul {
+    padding-left: 0;
+    /* o cualquier otro valor que necesites */
+}
+
 .Subtitulos {
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 1px;
 }
+
 .footer-containerDIV {
-            
+
     display: flex;
     flex-wrap: nowrap;
     /* Evita que las secciones bajen al siguiente renglón */
@@ -582,7 +594,7 @@ ol, ul {
 }
 
 .firma-section {
-    
+
     padding: 10px;
     margin: 5px;
     flex: 1;
@@ -600,7 +612,7 @@ ol, ul {
 }
 
 .firma-box-title {
-    
+
     font-size: 10px;
     text-align: left;
     font-weight: bold;
@@ -626,7 +638,7 @@ ol, ul {
 }
 
 .signature {
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -640,7 +652,7 @@ ol, ul {
 }
 
 .date {
-    
+
     text-align: center;
     font-size: 10px;
     margin-top: 5px;
@@ -650,10 +662,10 @@ ol, ul {
 }
 
 .bold {
-    
+
     font-weight: bold;
     width: 266px;
-    
+
 
 
 }
@@ -670,7 +682,7 @@ ol, ul {
 }
 
 .date-container {
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -678,61 +690,35 @@ ol, ul {
     height: 40px;
     /* Ajusta según sea necesario */
 }
-/* The switch - the box around the slider */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+.toggle-container input[type="radio"] {
+    display: none;
+    /* Ocultamos los radio buttons originales */
 }
 
-/* The slider */
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.toggle-container label {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: white;
     background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-}
-
-/* Checkbox checked - green background */
-input:checked + .slider {
+.toggle-container input[type="radio"]:checked+label {
     background-color: #4CAF50;
+    /* Verde para Conforme */
 }
 
-/* Move the slider */
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
+.toggle-container input[type="radio"]:checked+label+input+label {
+    background-color: #f44336;
+    /* Rojo para No Conforme */
 }
