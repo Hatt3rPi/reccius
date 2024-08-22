@@ -741,7 +741,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#nro_registro').text(campos.numero_registro);
                         $('#nro_version').text(campos.version_registro);
                         $('#nro_acta').text(campos.numero_acta);
-                        $('#fecha_acta_lib').val(fecha_yoh);
+                        $('#fecha_acta_lib').text(fecha_yoh);
                         $('#fecha_lib').val(fecha_yoh);
                         $('#nro_acta_liberacion').val(campos.numero_acta);
 
