@@ -75,7 +75,8 @@ $altBody = $altMesaje ?: strip_tags($cuerpo);
 
 $laboratorio = new Laboratorio();
 $laboratorio->updateCorreo($lab, $emailLab);
-
+//filtro de correo unico
+$destinatarios = array_map("unserialize", array_unique(array_map("serialize", $destinatarios)));
 
 $resultado = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody);
 if ($resultado['status'] === 'success') {
