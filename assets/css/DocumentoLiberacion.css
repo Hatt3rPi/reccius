@@ -382,6 +382,8 @@ textarea {
     /* Espaciado interno opcional */
     box-sizing: border-box;
     /* Asegura que el padding esté incluido en la anchura */
+    font-size: 0.8rem;
+    /* Tamaño de la fuente */
 }
 
 
