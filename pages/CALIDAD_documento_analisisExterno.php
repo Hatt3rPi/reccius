@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\CALIDAD_documento_analisisExterno.php
 session_start();
 
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
@@ -571,7 +572,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     //III
                     //$("#resultados_analisis").val(resultados_analisis)
                     if (
-                        primerAnalisis.url_certificado_de_analisis_externo !== null &&
+                        primerAnalisis.url_certificado_de_analisis_externo !== null ||
                         primerAnalisis.url_certificado_de_analisis_externo !== ""
                     ) {
                         $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis) //1

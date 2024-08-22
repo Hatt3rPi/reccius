@@ -76,9 +76,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td>
-                                <input type="date" id="fecha_muestreo" name="fecha_muestreo" style="border: 0px;" readonly>
-                            </td>
+                            <td id="fecha_muestreo" name="fecha_muestreo"></td>
+                            
                         </tr>
                     </table>
                 </div>
@@ -224,7 +223,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <tr>
                         <td class="formulario-titulo">6. Cond. Almacenamiento:</td>
-                        <td class="formulario" id="form_condAlmacenamiento" readonly>id="form_condAlmacenamiento"</td>
+
+                        <td class="formulario">
+                            <div id="form_condAlmacenamiento" class="editable-diva" ></div>
+
+                        </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -457,7 +460,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>5. Cantidad de ciclos de esterilización</td>
                         <td class="formulario">
-                            <textarea id="form_textarea5"></textarea>
+                            <div id="form_textarea5" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -481,7 +484,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>6. Cantidad bandejas esterilizadas por ciclo</td>
                         <td class="formulario">
-                            <textarea id="form_textarea6"></textarea>
+                            <div id="form_textarea6" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -505,7 +508,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td>7. Cantidad de muestras por bandeja</td>
                         <td class="formulario">
-                            <textarea id="form_textarea7"></textarea>
+                            <div id="form_textarea7" class="editable-div" contenteditable="true"></div>
+
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -532,7 +536,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <textarea id="form_textarea8" name="form_textarea8" rows="3" style="width: 99%;margin-left: 1%;"></textarea>
+                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true" ></div>
 
 
             </div>
@@ -784,11 +788,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var cargo = "<?php echo $_SESSION['cargo']; ?>";
             var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
             var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-            $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+            $('#fecha_muestreo').text(fecha_yoh).prop('readonly', false);
             $('#fecha_firma1').text(fecha_hoy);
             //document.getElementById('fecha_firma1').style.display = 'block';
             //document.getElementById('mensaje_firma1').style.display = 'block';
-            
+
             $('#cargo_realizador').text(cargo);
             $('#realizadoPor').text(nombre_ejecutor);
 
@@ -1197,7 +1201,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
+                    $('#fecha_muestreo').text(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
@@ -1211,7 +1215,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').text(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     $('#etapa').text('ingresa resultados y firma2');
                     if (usuario_activo == response.responsable) {
@@ -1227,7 +1231,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').text(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     firma2(response);
                     $('#etapa').text('firma3');
@@ -1241,7 +1245,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').text(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     firma2(response);
                     firma3(response);
