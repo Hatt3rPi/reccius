@@ -459,15 +459,68 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         textareas.forEach(textarea => {
             textarea.style.height = 'auto'; // Primero restablece la altura
             textarea.style.height = textarea.scrollHeight + 'px'; // Ajusta la altura al contenido
-            textarea.style.overflow = 'hidden'; // Oculta las barras de desplazamiento
+            textarea.style.whiteSpace = 'normal'; // Asegura que el texto se ajusta y pasa a la siguiente línea
+            textarea.style.overflowWrap = 'break-word'; // Ajusta las palabras si son muy largas
+            textarea.style.wordWrap = 'break-word'; // Lo mismo que overflow-wrap pero para más compatibilidad
+            textarea.style.overflow = 'hidden'; // Opcional: Oculta las barras de desplazamiento
         });
 
-        // Forzar el redibujado para asegurar que el textarea se vea correctamente
-        textareas.forEach(textarea => {
-            textarea.style.height = textarea.scrollHeight + 'px';
+        // Ocultar los radio buttons no seleccionados y el marcador del seleccionado en la columna "Estado"
+        const radioGroups = document.querySelectorAll('.toggle-container');
+        radioGroups.forEach(group => {
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+            // Ocultar los no seleccionados
+            uncheckedRadios.forEach(unchecked => {
+                const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                unchecked.style.display = 'none';
+                if (label) {
+                    label.style.display = 'none';
+                }
+            });
+
+            // Quitar el marcador del seleccionado
+            if (checkedRadio) {
+                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+                if (label) {
+                    label.style.display = 'inline';
+                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+                }
+            }
         });
 
-        // Capturar el contenido como imagen y generar el PDF
+        // Ocultar los radio buttons no seleccionados y centrar la opción seleccionada en la columna "Revisión"
+        const revisionGroups = document.querySelectorAll('.revision');
+        revisionGroups.forEach(group => {
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+            // Ocultar los no seleccionados
+            uncheckedRadios.forEach(unchecked => {
+                const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                unchecked.style.display = 'none';
+                if (label) {
+                    label.style.display = 'none';
+                }
+            });
+
+            // Quitar el marcador del seleccionado y centrar verticalmente
+            if (checkedRadio) {
+                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+                if (label) {
+                    label.style.display = 'inline-block';
+                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+
+                    // Centrar verticalmente
+                    label.style.textAlign = 'center';
+                    group.style.display = 'flex';
+                    group.style.alignItems = 'center';
+                    group.style.justifyContent = 'center';
+                }
+            }
+        });
+
         html2canvas(elementToExport, {
             scale: 2,
             logging: true,
@@ -479,9 +532,44 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             buttonContainer.style.display = 'block';
 
-            // Restaurar la visibilidad de los elementos no seleccionados
-            textareas.forEach(textarea => {
-                textarea.style.height = 'auto'; // Restablecer altura después de la captura
+            // Restaurar la visibilidad de los radio buttons no seleccionados en "Estado" y "Revisión"
+            radioGroups.forEach(group => {
+                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+                uncheckedRadios.forEach(unchecked => {
+                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                    unchecked.style.display = 'inline';
+                    if (label) {
+                        label.style.display = 'inline';
+                    }
+                });
+
+                // Restaurar el radio button seleccionado en "Estado"
+                const checkedRadio = group.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.style.display = 'inline';
+                }
+            });
+
+            revisionGroups.forEach(group => {
+                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+                uncheckedRadios.forEach(unchecked => {
+                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                    unchecked.style.display = 'inline';
+                    if (label) {
+                        label.style.display = 'inline';
+                    }
+                });
+
+                // Restaurar el radio button seleccionado en "Revisión"
+                const checkedRadio = group.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.style.display = 'inline';
+                }
+
+                // Restaurar el estilo original del grupo
+                group.style.display = '';
+                group.style.alignItems = '';
+                group.style.justifyContent = '';
             });
 
             // Ajusta la calidad de la imagen
@@ -514,7 +602,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("PDF generado con éxito", "success");
         });
     });
-
 
 
 

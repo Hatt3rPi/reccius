@@ -341,13 +341,17 @@ span.tamañoRevision {
 }
 
 textarea {
-    width: 100%; /* Ajusta el ancho para que el textarea se ajuste al contenedor */
-    height: auto; /* Permite que la altura sea automática */
-    overflow-y: hidden; /* Oculta el scrollbar vertical */
-    resize: none; /* Evita que el usuario redimensione manualmente el textarea */
-    min-height: 40px; /* Asegura que el textarea tenga una altura mínima */
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    white-space: normal; /* Permite que el texto se ajuste a la siguiente línea */
+    overflow-wrap: break-word; /* Ajusta las palabras si son muy largas */
+    word-wrap: break-word; /* Lo mismo que overflow-wrap pero para más compatibilidad */
+    resize: none; /* Evita que el usuario cambie el tamaño manualmente */
     font-size: 12px;
+    padding: 5px; /* Espaciado interior para que el texto no quede pegado al borde */
 }
+
 
 
 ul {
