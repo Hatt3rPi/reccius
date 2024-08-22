@@ -179,31 +179,26 @@ p {
 #download-pdf:hover {
     background-color: #003580;
 }
-
 .doc-conforme,
 .revision {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centrar los elementos en la columna */
     align-items: center;
-    min-height: 40px;
-    /* Altura mínima para mantener el espacio */
+    min-height: 40px; /* Altura mínima para mantener el espacio */
+    flex-direction: column; /* Alinea los elementos en columna */
 }
 
 .verificadores {
     font-size: 10px !important;
     margin-bottom: 0px !important;
-    padding: 2px 2px !important;
-    /* Ajusta el espacio interno del botón */
+    padding: 2px 2px !important; /* Ajusta el espacio interno del botón */
     border-radius: 3px !important;
     width: 100% !important;
-    flex: 1;
     text-align: center;
-
 }
 
 .verificadores.hidden {
-    display: none;
-    /* Oculta el botón no seleccionado */
+    visibility: hidden; /* Mantiene el espacio pero oculta el contenido */
 }
 
 
