@@ -512,7 +512,9 @@ p {
 
 #muestreo th:nth-child(6),
 #muestreo td:nth-child(6) {
-    width: 8%;
+    width: 8% !important;
+    text-align: center;
+    align-items: center;
     font-size: 10px;
     padding: 5px;
 }
@@ -520,6 +522,8 @@ p {
 #muestreo th:nth-child(8),
 #muestreo td:nth-child(8) {
     width: 20%;
+    text-align: center;
+    align-items: center;
     font-size: 10px;
 }
 
