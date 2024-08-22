@@ -764,7 +764,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#tamaño_lote').val(campos.tamano_lote);
                         $('#codigo_interno').val(campos.codigo_interno);
                         $('#fecha_elaboracion').val(campos.fecha_elaboracion);
-                        $('#cond_almacenamiento').val(campos.condicion_almacenamiento);
+                        $('#cond_almacenamiento').text(campos.condicion_almacenamiento);
                         $('#fecha_vencimiento').val(campos.fecha_vencimiento);
 
                         // TABLA 2
