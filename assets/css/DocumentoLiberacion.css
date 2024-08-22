@@ -352,6 +352,17 @@ textarea {
     padding: 5px; /* Espaciado interior para que el texto no quede pegado al borde */
     line-height: 1.2em; /* Ajusta según sea necesario */
 }
+.editable-div {
+    width: 100%;
+    min-height: 50px; /* Ajustar según sea necesario */
+    padding: 5px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap; /* Permite el uso de saltos de línea */
+}
+
 
 
 

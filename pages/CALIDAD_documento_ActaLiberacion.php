@@ -96,12 +96,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Producto</td>
                         <td>
-                            <textarea id="producto_completoT1" name="producto_completoT1" readonly></textarea>
+                            <div id="producto_completoT1" name="producto_completoT1" class="editable-div" contenteditable="true"></div>
                             <span> </span>
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Cond. Almacenamiento</td>
-                        <td><textarea id="cond_almacenamiento" name="cond_almacenamiento" readonly></textarea>
+                        <td>
+                            <div id="cond_almacenamiento" name="cond_almacenamiento" class="editable-div" contenteditable="true"></div>
                         </td>
 
 
@@ -204,7 +205,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec centrado verif">
-                            <textarea id="form_textarea1" style="white-space: normal; overflow-wrap: break-word;" wrap="hard"></textarea>
+                            <div id="form_textarea1" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -227,7 +228,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec centrado verif">
-                            <textarea id="form_textarea2"></textarea>
+                            <div id="form_textarea2" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -250,7 +251,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec centrado verif">
-                            <textarea id="form_textarea3"></textarea>
+                            <div id="form_textarea3" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -273,7 +274,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec centrado verif">
-                            <textarea id="form_textarea4"></textarea>
+                            <div id="form_textarea4" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="revision centrado verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -442,173 +443,174 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </html>
 <script>
     document.getElementById('download-pdf').addEventListener('click', function() {
-    const buttonContainer = document.querySelector('.button-container');
-    const elementToExport = document.getElementById('form-container');
+        const buttonContainer = document.querySelector('.button-container');
+        const elementToExport = document.getElementById('form-container');
 
-    // Guardar los estilos originales
-    const originalBorder = elementToExport.style.border;
-    const originalBoxShadow = elementToExport.style.boxShadow;
+        // Guardar los estilos originales
+        const originalBorder = elementToExport.style.border;
+        const originalBoxShadow = elementToExport.style.boxShadow;
 
-    // Ocultar borde y sombra
-    elementToExport.style.border = 'none';
-    elementToExport.style.boxShadow = 'none';
-    buttonContainer.style.display = 'none';
+        // Ocultar borde y sombra
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
+        buttonContainer.style.display = 'none';
 
-    // Ajustar el tamaño de los textarea para que muestren todo su contenido
-    const textareas = document.querySelectorAll('textarea');
-    textareas.forEach(textarea => {
-        textarea.style.height = 'auto'; // Restablece la altura
-        textarea.style.height = (textarea.scrollHeight + 2) + 'px'; // Ajusta la altura al contenido
-        textarea.style.whiteSpace = 'normal'; // Asegura que el texto se ajusta y pasa a la siguiente línea
-        textarea.style.overflowWrap = 'break-word'; // Ajusta las palabras si son muy largas
-        textarea.style.wordWrap = 'break-word'; // Lo mismo que overflow-wrap pero para más compatibilidad
-        textarea.style.overflow = 'hidden'; // Oculta las barras de desplazamiento
+        // Ajustar el tamaño de los div contenteditable para que muestren todo su contenido
+        const editableDivs = document.querySelectorAll('.editable-div');
+        editableDivs.forEach(div => {
+            div.style.height = 'auto'; // Restablece la altura
+            div.style.height = (div.scrollHeight + 2) + 'px'; // Ajusta la altura al contenido
+            div.style.whiteSpace = 'normal'; // Asegura que el texto se ajusta y pasa a la siguiente línea
+            div.style.overflowWrap = 'break-word'; // Ajusta las palabras si son muy largas
+            div.style.wordWrap = 'break-word'; // Lo mismo que overflow-wrap pero para más compatibilidad
+            div.style.overflow = 'hidden'; // Oculta las barras de desplazamiento
 
-        // Forzar un redibujo del contenido para asegurar que todo se muestra correctamente
-        const tempValue = textarea.value;
-        textarea.value = '';
-        textarea.value = tempValue;
-    });
-
-    // Ocultar los radio buttons no seleccionados y el marcador del seleccionado en la columna "Estado"
-    const radioGroups = document.querySelectorAll('.toggle-container');
-    radioGroups.forEach(group => {
-        const checkedRadio = group.querySelector('input[type="radio"]:checked');
-        const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
-
-        // Ocultar los no seleccionados
-        uncheckedRadios.forEach(unchecked => {
-            const label = group.querySelector(`label[for="${unchecked.id}"]`);
-            unchecked.style.display = 'none';
-            if (label) {
-                label.style.display = 'none';
-            }
+            // Forzar un redibujo del contenido para asegurar que todo se muestra correctamente
+            const tempValue = div.innerHTML;
+            div.innerHTML = '';
+            div.innerHTML = tempValue;
         });
 
-        // Quitar el marcador del seleccionado
-        if (checkedRadio) {
-            const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
-            if (label) {
-                label.style.display = 'inline';
-                checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
-            }
-        }
-    });
-
-    // Ocultar los radio buttons no seleccionados y centrar la opción seleccionada en la columna "Revisión"
-    const revisionGroups = document.querySelectorAll('.revision');
-    revisionGroups.forEach(group => {
-        const checkedRadio = group.querySelector('input[type="radio"]:checked');
-        const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
-
-        // Ocultar los no seleccionados
-        uncheckedRadios.forEach(unchecked => {
-            const label = group.querySelector(`label[for="${unchecked.id}"]`);
-            unchecked.style.display = 'none';
-            if (label) {
-                label.style.display = 'none';
-            }
-        });
-
-        // Quitar el marcador del seleccionado y centrar verticalmente
-        if (checkedRadio) {
-            const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
-            if (label) {
-                label.style.display = 'inline-block';
-                checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
-
-                // Centrar verticalmente
-                label.style.textAlign = 'center';
-                group.style.display = 'flex';
-                group.style.alignItems = 'center';
-                group.style.justifyContent = 'center';
-            }
-        }
-    });
-
-    // Generar el PDF
-    html2canvas(elementToExport, {
-        scale: 2,  // Mejora la calidad de la captura
-        logging: true,
-        useCORS: true,
-        scrollY: -window.scrollY, // Asegura que la captura incluye todo el contenido visible
-        scrollX: -window.scrollX
-    }).then(canvas => {
-        // Restaurar los estilos originales
-        elementToExport.style.border = originalBorder;
-        elementToExport.style.boxShadow = originalBoxShadow;
-        buttonContainer.style.display = 'block';
-
-        // Restaurar la visibilidad de los radio buttons no seleccionados en "Estado" y "Revisión"
+        // Ocultar los radio buttons no seleccionados y el marcador del seleccionado en la columna "Estado"
+        const radioGroups = document.querySelectorAll('.toggle-container');
         radioGroups.forEach(group => {
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
             const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+            // Ocultar los no seleccionados
             uncheckedRadios.forEach(unchecked => {
                 const label = group.querySelector(`label[for="${unchecked.id}"]`);
-                unchecked.style.display = 'inline';
+                unchecked.style.display = 'none';
                 if (label) {
-                    label.style.display = 'inline';
+                    label.style.display = 'none';
                 }
             });
 
-            // Restaurar el radio button seleccionado en "Estado"
-            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            // Quitar el marcador del seleccionado
             if (checkedRadio) {
-                checkedRadio.style.display = 'inline';
+                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+                if (label) {
+                    label.style.display = 'inline';
+                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+                }
             }
         });
 
+        // Ocultar los radio buttons no seleccionados y centrar la opción seleccionada en la columna "Revisión"
+        const revisionGroups = document.querySelectorAll('.revision');
         revisionGroups.forEach(group => {
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
             const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+            // Ocultar los no seleccionados
             uncheckedRadios.forEach(unchecked => {
                 const label = group.querySelector(`label[for="${unchecked.id}"]`);
-                unchecked.style.display = 'inline';
+                unchecked.style.display = 'none';
                 if (label) {
-                    label.style.display = 'inline';
+                    label.style.display = 'none';
                 }
             });
 
-            // Restaurar el radio button seleccionado en "Revisión"
-            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            // Quitar el marcador del seleccionado y centrar verticalmente
             if (checkedRadio) {
-                checkedRadio.style.display = 'inline';
+                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+                if (label) {
+                    label.style.display = 'inline-block';
+                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+
+                    // Centrar verticalmente
+                    label.style.textAlign = 'center';
+                    group.style.display = 'flex';
+                    group.style.alignItems = 'center';
+                    group.style.justifyContent = 'center';
+                }
             }
-
-            // Restaurar el estilo original del grupo
-            group.style.display = '';
-            group.style.alignItems = '';
-            group.style.justifyContent = '';
         });
 
-        // Ajusta la calidad de la imagen
-        const imgData = canvas.toDataURL('image/jpeg', 0.75);
+        // Generar el PDF
+        html2canvas(elementToExport, {
+            scale: 2, // Mejora la calidad de la captura
+            logging: true,
+            useCORS: true,
+            scrollY: -window.scrollY, // Asegura que la captura incluye todo el contenido visible
+            scrollX: -window.scrollX
+        }).then(canvas => {
+            // Restaurar los estilos originales
+            elementToExport.style.border = originalBorder;
+            elementToExport.style.boxShadow = originalBoxShadow;
+            buttonContainer.style.display = 'block';
 
-        const pdf = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'mm',
-            format: 'a4'
-        });
+            // Restaurar la visibilidad de los radio buttons no seleccionados en "Estado" y "Revisión"
+            radioGroups.forEach(group => {
+                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+                uncheckedRadios.forEach(unchecked => {
+                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                    unchecked.style.display = 'inline';
+                    if (label) {
+                        label.style.display = 'inline';
+                    }
+                });
 
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = pageWidth;
-        let imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
+                // Restaurar el radio button seleccionado en "Estado"
+                const checkedRadio = group.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.style.display = 'inline';
+                }
+            });
 
-        let position = 0;
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+            revisionGroups.forEach(group => {
+                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+                uncheckedRadios.forEach(unchecked => {
+                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                    unchecked.style.display = 'inline';
+                    if (label) {
+                        label.style.display = 'inline';
+                    }
+                });
 
-        while (heightLeft > 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
+                // Restaurar el radio button seleccionado en "Revisión"
+                const checkedRadio = group.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.style.display = 'inline';
+                }
+
+                // Restaurar el estilo original del grupo
+                group.style.display = '';
+                group.style.alignItems = '';
+                group.style.justifyContent = '';
+            });
+
+            // Ajusta la calidad de la imagen
+            const imgData = canvas.toDataURL('image/jpeg', 0.75);
+
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = pageWidth;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 0;
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
-        }
 
-        pdf.save('documento.pdf');
-        $.notify("PDF generado con éxito", "success");
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            pdf.save('documento.pdf');
+            $.notify("PDF generado con éxito", "success");
+        });
     });
-});
+
 
 
 
