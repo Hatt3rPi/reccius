@@ -240,7 +240,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
-                            <label>N° Documento:</label>
+                            <label>N° Cotización:</label>
                             <input name="numero_documento" id="numero_documento" class="highlight form-control mx-0 w-90 editable" type="text" required placeholder="123456" />
                         </div>
                     </div>

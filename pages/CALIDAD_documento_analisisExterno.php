@@ -88,24 +88,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">3. Análisis según:(**)</td>
                         <td><input type="text" id="analisis_segun" name="analisis_segun" required></td>
-                        <td class="titulo titulo-right">N° Cotización:</td>
-                        <td><input type="text" id="numero_documento" name="numero_documento" required></td>
                     </tr>
 
                     <tr>
                         <td class="titulo">4. Fecha de Cotización:(**)</td>
                         <td><input type="text" id="fecha_cotizacion" name="fecha_cotizacion" required></td>
+                        <td class="titulo titulo-right">N° Cotización:</td>
+                        <td><input type="text" id="numero_documento" name="numero_documento" required></td>
                     </tr>
                     <tr>
                         <td class="titulo">5. Estandar Provisto por:(**)</td>
                         <td><input type="text" id="estandar_segun" name="estandar_segun" required></td>
-                        <td class="titulo titulo-right">Otro:</td>
-                        <td><input type="text" id="estandar_otro" name="estandar_otro"></td>
+                        <!-- <td class="titulo titulo-right">Otro:</td>
+                        <td><input type="text" id="estandar_otro" name="estandar_otro"></td> -->
                     </tr>
                     <tr>
                         <td class="titulo">6. Adjunta HDS:(***)</td>
-                        <td><input type="text" id="hds_adjunto" name="hds_adjunto" required></td>
-                        <td class="titulo titulo-right">Otro:</td>
+                        <!-- <td><input type="text" id="hds_adjunto" name="hds_adjunto" required></td>
+                        <td class="titulo titulo-right">Otro:</td> -->
                         <td><input type="text" id="hds_otro" name="hds_otro"></td>
                     </tr>
                     <tr>
@@ -159,8 +159,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">6. fabricante:</td>
                         <td><input type="text" id="elaborado_por" name="elaborado_por" required></td>
-                        <td class="titulo titulo-right">Otro:</td>
-                        <td><input type="text" id="otro3" name="otro3"></td>
+                        <!-- <td class="titulo titulo-right">Otro:</td>
+                        <td><input type="text" id="otro3" name="otro3"></td> -->
                     </tr>
                     <tr>
                         <td class="titulo">7. Muestreado por:</td>
@@ -543,8 +543,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#numero_documento').val(primerAnalisis.numero_documento);
                     $('#fecha_cotizacion').val(moment(primerAnalisis.fecha_cotizacion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#estandar_segun').val(primerAnalisis.estandar_segun);
-                    $('#estandar_otro').val(primerAnalisis.estandar_otro);
-                    $('#hds_adjunto').val(primerAnalisis.hds_adjunto);
+                    //$('#estandar_otro').val(primerAnalisis.estandar_otro);
+                    //$('#hds_adjunto').val(primerAnalisis.hds_adjunto);
                     $('#hds_otro').val(primerAnalisis.hds_otro);
                     $('#fecha_entrega_estimada').val(moment(primerAnalisis.fecha_entrega_estimada, 'YYYY-MM-DD').format('DD/MM/YYYY'));
 
