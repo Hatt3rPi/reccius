@@ -454,10 +454,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         elementToExport.style.boxShadow = 'none';
         buttonContainer.style.display = 'none';
 
-        // Aumentar la altura de los textareas para mostrar todo el contenido
+        // Ajustar el tamaño de los textarea para que muestren todo su contenido
         const textareas = document.querySelectorAll('textarea');
         textareas.forEach(textarea => {
-            textarea.style.height = textarea.scrollHeight + 'px';
+            textarea.style.height = 'auto'; // Primero restablece la altura
+            textarea.style.height = textarea.scrollHeight + 'px'; // Ajusta la altura al contenido
+            textarea.style.overflow = 'hidden'; // Opcional: Oculta las barras de desplazamiento
         });
 
         // Ocultar los radio buttons no seleccionados y el marcador del seleccionado en la columna "Estado"
@@ -597,8 +599,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("PDF generado con éxito", "success");
         });
     });
-
-
 
 
 
