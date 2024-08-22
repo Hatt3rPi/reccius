@@ -261,13 +261,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-row">
                         <div class="form-group">
                             <label>Especificación de producto:</label>
-                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90 editable" />
+                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90 " />
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Versión:</label>
-                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90 editable" />
+                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90 " />
                         </div>
                     </div>
                 </fieldset>
