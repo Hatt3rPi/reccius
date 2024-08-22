@@ -761,4 +761,5 @@ ul {
     box-sizing: border-box;
     font-size: 0.8rem;
     outline: none; /* Elimina cualquier borde de enfoque */
+    border:none !important;
 }
