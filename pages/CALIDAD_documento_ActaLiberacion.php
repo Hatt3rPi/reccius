@@ -80,9 +80,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Liberación:</td>
-                            <td>
-                                <input type="date" id="fecha_acta_lib" name="fecha_acta_lib" style="border: 0px;" readonly>
-                            </td>
+                            <td name="fecha_acta_lib" id="fecha_acta_lib"></td>
                         </tr>
                     </table>
                 </div>
@@ -98,12 +96,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Producto</td>
                         <td>
-                            <textarea id="producto_completoT1" name="producto_completoT1" readonly></textarea>
+                            <div id="producto_completoT1" name="producto_completoT1" class="editable-div" contenteditable="true"></div>
                             <span> </span>
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Cond. Almacenamiento</td>
-                        <td><textarea id="cond_almacenamiento" name="cond_almacenamiento" readonly></textarea>
+                        <td>
+                            <div id="cond_almacenamiento" name="cond_almacenamiento" class="editable-div" contenteditable="true"></div>
                         </td>
 
 
@@ -196,7 +195,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td class="centrado verif">
+                        <td >
                             <div class="toggle-container">
                                 <input type="radio" id="estado1_conforme" name="estado1" value="conforme">
                                 <label for="estado1_conforme">Conforme</label>
@@ -205,10 +204,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado1_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec centrado verif">
-                            <textarea id="form_textarea1"></textarea>
+                        <td class="Espec ">
+                            <div id="form_textarea1" class="editable-div" contenteditable="true"></div>
                         </td>
-                        <td class="revision centrado verif">
+                        <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -219,7 +218,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td class="centrado verif">
+                        <td class="">
                             <div class="toggle-container">
                                 <input type="radio" id="estado2_conforme" name="estado2" value="conforme">
                                 <label for="estado2_conforme">Conforme</label>
@@ -228,10 +227,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado2_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec centrado verif">
-                            <textarea id="form_textarea2"></textarea>
+                        <td class="Espec ">
+                            <div id="form_textarea2" class="editable-div" contenteditable="true"></div>
                         </td>
-                        <td class="revision centrado verif">
+                        <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion2a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -242,7 +241,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td class="centrado verif">
+                        <td class="">
                             <div class="toggle-container">
                                 <input type="radio" id="estado3_conforme" name="estado3" value="conforme">
                                 <label for="estado3_conforme">Conforme</label>
@@ -251,10 +250,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado3_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec centrado verif">
-                            <textarea id="form_textarea3"></textarea>
+                        <td class="Espec ">
+                            <div id="form_textarea3" class="editable-div" contenteditable="true"></div>
                         </td>
-                        <td class="revision centrado verif">
+                        <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion3a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -265,7 +264,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td class="centrado verif">
+                        <td class="">
                             <div class="toggle-container">
                                 <input type="radio" id="estado4_conforme" name="estado4" value="conforme">
                                 <label for="estado4_conforme">Conforme</label>
@@ -274,10 +273,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado4_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec centrado verif">
-                            <textarea id="form_textarea4"></textarea>
+                        <td class="Espec ">
+                            <div id="form_textarea4" class="editable-div" contenteditable="true"></div>
                         </td>
-                        <td class="revision centrado verif">
+                        <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion4a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -454,29 +453,131 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Ocultar borde y sombra
         elementToExport.style.border = 'none';
         elementToExport.style.boxShadow = 'none';
-
         buttonContainer.style.display = 'none';
 
-        // Ocultar botones no seleccionados manteniendo el espacio en la columna
-        const buttonsToHide = document.querySelectorAll('.btn-group input[type="radio"]:not(:checked) + label');
-        buttonsToHide.forEach(button => {
-            button.classList.add('hidden');
+        // Ajustar el tamaño de los div contenteditable para que muestren todo su contenido
+        const editableDivs = document.querySelectorAll('.editable-div');
+        editableDivs.forEach(div => {
+            div.style.height = 'auto'; // Restablece la altura
+            div.style.height = (div.scrollHeight + 2) + 'px'; // Ajusta la altura al contenido
+            div.style.whiteSpace = 'normal'; // Asegura que el texto se ajusta y pasa a la siguiente línea
+            div.style.overflowWrap = 'break-word'; // Ajusta las palabras si son muy largas
+            div.style.wordWrap = 'break-word'; // Lo mismo que overflow-wrap pero para más compatibilidad
+            div.style.overflow = 'hidden'; // Oculta las barras de desplazamiento
+
+            // Forzar un redibujo del contenido para asegurar que todo se muestra correctamente
+            const tempValue = div.innerHTML;
+            div.innerHTML = '';
+            div.innerHTML = tempValue;
         });
 
+        // Ocultar los radio buttons no seleccionados y el marcador del seleccionado en la columna "Estado"
+        const radioGroups = document.querySelectorAll('.toggle-container');
+        radioGroups.forEach(group => {
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+            // Ocultar los no seleccionados
+            uncheckedRadios.forEach(unchecked => {
+                const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                unchecked.style.display = 'none';
+                if (label) {
+                    label.style.display = 'none';
+                }
+            });
+
+            // Quitar el marcador del seleccionado
+            if (checkedRadio) {
+                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+                if (label) {
+                    label.style.display = 'inline';
+                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+                }
+            }
+        });
+
+        // Ocultar los radio buttons no seleccionados y centrar la opción seleccionada en la columna "Revisión"
+        const revisionGroups = document.querySelectorAll('.revision');
+        revisionGroups.forEach(group => {
+            const checkedRadio = group.querySelector('input[type="radio"]:checked');
+            const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+
+            // Ocultar los no seleccionados
+            uncheckedRadios.forEach(unchecked => {
+                const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                unchecked.style.display = 'none';
+                if (label) {
+                    label.style.display = 'none';
+                }
+            });
+
+            // Quitar el marcador del seleccionado y centrar verticalmente
+            if (checkedRadio) {
+                const label = group.querySelector(`label[for="${checkedRadio.id}"]`);
+                if (label) {
+                    label.style.display = 'inline-block';
+                    checkedRadio.style.display = 'none'; // Ocultar el radio button seleccionado
+
+                    // Centrar verticalmente
+                    label.style.textAlign = 'center';
+                    group.style.display = 'flex';
+                    group.style.alignItems = 'center';
+                    group.style.justifyContent = 'center';
+                }
+            }
+        });
+
+        // Generar el PDF
         html2canvas(elementToExport, {
-            scale: 2,
+            scale: 2, // Mejora la calidad de la captura
             logging: true,
-            useCORS: true
+            useCORS: true,
+            scrollY: -window.scrollY, // Asegura que la captura incluye todo el contenido visible
+            scrollX: -window.scrollX
         }).then(canvas => {
             // Restaurar los estilos originales
             elementToExport.style.border = originalBorder;
             elementToExport.style.boxShadow = originalBoxShadow;
-
             buttonContainer.style.display = 'block';
 
-            // Mostrar los botones nuevamente
-            buttonsToHide.forEach(button => {
-                button.classList.remove('hidden');
+            // Restaurar la visibilidad de los radio buttons no seleccionados en "Estado" y "Revisión"
+            radioGroups.forEach(group => {
+                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+                uncheckedRadios.forEach(unchecked => {
+                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                    unchecked.style.display = 'inline';
+                    if (label) {
+                        label.style.display = 'inline';
+                    }
+                });
+
+                // Restaurar el radio button seleccionado en "Estado"
+                const checkedRadio = group.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.style.display = 'inline';
+                }
+            });
+
+            revisionGroups.forEach(group => {
+                const uncheckedRadios = group.querySelectorAll('input[type="radio"]:not(:checked)');
+                uncheckedRadios.forEach(unchecked => {
+                    const label = group.querySelector(`label[for="${unchecked.id}"]`);
+                    unchecked.style.display = 'inline';
+                    if (label) {
+                        label.style.display = 'inline';
+                    }
+                });
+
+                // Restaurar el radio button seleccionado en "Revisión"
+                const checkedRadio = group.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    checkedRadio.style.display = 'inline';
+                }
+
+                // Restaurar el estilo original del grupo
+                group.style.display = '';
+                group.style.alignItems = '';
+                group.style.justifyContent = '';
             });
 
             // Ajusta la calidad de la imagen
@@ -513,6 +614,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
+
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
     var idAnalisisExterno = <?php echo json_encode($_POST['id'] ?? ''); ?>;
 
@@ -539,7 +641,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
                         // Actualizar el elemento con el texto combinado
                         $('#producto_completo').text(productoCompleto);
-                        $('#producto_completoT1').val(productoCompleto);
+                        $('#producto_completoT1').text(productoCompleto);
 
                         // Actualizar los inputs con los datos del análisis
                         $('#nro_registro').text(response.numero_registro);
@@ -555,7 +657,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#tamaño_lote').val(primerAnalisis.tamano_lote);
                         $('#codigo_interno').val(primerAnalisis.codigo_interno);
                         $('#fecha_elaboracion').val(primerAnalisis.fecha_elaboracion);
-                        $('#cond_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                        $('#cond_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
                         $('#fecha_vencimiento').val(primerAnalisis.fecha_vencimiento);
 
                         // TABLA 2
@@ -647,13 +749,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         // Actualizar el elemento con el texto combinado
                         $('#producto_completo').text(productoCompleto);
-                        $('#producto_completoT1').val(productoCompleto);
+                        $('#producto_completoT1').text(productoCompleto);
 
                         // Actualizar los inputs con los datos del análisis
                         $('#nro_registro').text(campos.numero_registro);
                         $('#nro_version').text(campos.version_registro);
                         $('#nro_acta').text(campos.numero_acta);
-                        $('#fecha_acta_lib').val(fecha_yoh);
+                        $('#fecha_acta_lib').text(fecha_yoh);
                         $('#fecha_lib').val(fecha_yoh);
                         $('#nro_acta_liberacion').val(campos.numero_acta);
 
@@ -662,7 +764,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#tamaño_lote').val(campos.tamano_lote);
                         $('#codigo_interno').val(campos.codigo_interno);
                         $('#fecha_elaboracion').val(campos.fecha_elaboracion);
-                        $('#cond_almacenamiento').val(campos.condicion_almacenamiento);
+                        $('#cond_almacenamiento').text(campos.condicion_almacenamiento);
                         $('#fecha_vencimiento').val(campos.fecha_vencimiento);
 
                         // TABLA 2
