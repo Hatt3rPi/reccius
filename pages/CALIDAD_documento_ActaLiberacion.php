@@ -186,8 +186,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <form id="section3">
                 <table id="seccion3">
                     <tr>
-                        <td class="Subtitulos" style="text-align: start;" colspan="4">
-                            III. ANÁLISIS SOLICITADOS</td>
+                        <td class="Subtitulos" style="text-align: start;" colspan="4">III. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
                         <th>Documento</th>
@@ -198,21 +197,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado1a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado1" id="estado1b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado1b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
-                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="estado1" name="estado1">
+                                <span class="slider round"></span>
+                            </label>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea1"></textarea>
@@ -229,21 +217,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado2a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado2" id="estado2b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado2b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
-                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="estado2" name="estado2">
+                                <span class="slider round"></span>
+                            </label>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea2"></textarea>
@@ -260,21 +237,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado3a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado3" id="estado3b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado3b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
-                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="estado3" name="estado3">
+                                <span class="slider round"></span>
+                            </label>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea3"></textarea>
@@ -291,21 +257,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td class="centrado verif">
-                            <div class="btn-group d-flex flex-column flex-md-row doc-conforme" role="group" aria-label="Basic radio toggle button group">
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4a" value="1" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado4a">
-                                        <i class="fa-regular fa-circle-check"></i> Conforme
-                                    </label>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="flex-fill">
-                                    <input type="radio" style="display: none;" class="btn-check" name="estado4" id="estado4b" value="0" autocomplete="off">
-                                    <label class="btn btn-outline-secondary verificadores w-100" for="estado4b">
-                                        <i class="fa-regular fa-circle-xmark"></i> No Conforme
-                                    </label>
-                                </div>
-                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="estado4" name="estado4">
+                                <span class="slider round"></span>
+                            </label>
                         </td>
                         <td class="Espec centrado verif">
                             <textarea id="form_textarea4"></textarea>
@@ -319,11 +274,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                     </tr>
-
-                    <!-- ... -->
                 </table>
-
             </form>
+
             <!-- Sección II: MUESTREO -->
             <br>
             <form id="section4">
