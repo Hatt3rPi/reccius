@@ -583,3 +583,48 @@ ul {
 #seccion4 td:nth-child(5) {
     width: 30%;
 }
+@media print {
+    table {
+        width: 100%;
+        table-layout: fixed; /* Asegura que todas las columnas se mantengan alineadas */
+    }
+
+    th, td {
+        word-wrap: break-word; /* Permite que las palabras se ajusten si son muy largas */
+        overflow-wrap: break-word; /* Compatibilidad adicional */
+        white-space: normal; /* Asegura que el texto se ajusta a la siguiente línea */
+    }
+
+    .table .centrado {
+        text-align: center; /* Centra el texto en la columna de "Estado" */
+        vertical-align: middle; /* Alinea verticalmente en el medio */
+    }
+
+    .table .verif, .table .Espec {
+        width: auto; /* Asegura que la columna Observaciones se ajuste automáticamente */
+    }
+
+    .table .Espec {
+        padding: 5px; /* Añade un poco de espaciado interno para mejorar la legibilidad */
+    }
+
+    .table .verif {
+        padding: 5px; /* Añade un poco de espaciado interno */
+        text-align: center; /* Centra el texto de los estados */
+    }
+
+    /* Ajuste adicional para mantener la alineación entre columnas */
+    .table th, .table td {
+        padding: 10px 5px; /* Asegura que el espaciado sea consistente en todas las celdas */
+    }
+
+    /* Si usas bordes en la tabla, asegúrate de que se impriman correctamente */
+    .table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .table th, .table td {
+        border: 1px solid black; /* Asegura que los bordes se impriman */
+    }
+}
