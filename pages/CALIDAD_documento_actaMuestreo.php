@@ -458,6 +458,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td>5. Cantidad de ciclos de esterilización</td>
                         <td class="formulario">
                             <textarea id="form_textarea5"></textarea>
+                            <div id="form_textarea5" class="editable-div" contenteditable="true"></div>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
