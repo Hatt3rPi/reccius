@@ -559,7 +559,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
                     $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
                     $('#elaborado_por').val(primerAnalisis.elaborado_por);
-                    $('#muestreado_por').val(primerAnalisis.muestreado_por);
+                    $('#muestreado_por').val(primerAnalisis.nombre_muestreado_por);
                     $('#observaciones').val(primerAnalisis.observaciones);
                     $('#numero_pos').val(primerAnalisis.numero_pos);
                     $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
