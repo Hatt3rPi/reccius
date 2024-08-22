@@ -81,7 +81,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha Liberación:</td>
                             <td>
-                                <input type="date" id="fecha_acta_lib" name="fecha_acta_lib" style="border: 0px;" readonly>
+                                
+                                <td name="fecha_acta_lib" id="fecha_acta_lib"></td>
                             </td>
                         </tr>
                     </table>
