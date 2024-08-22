@@ -88,7 +88,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">3. Análisis según:(**)</td>
                         <td><input type="text" id="analisis_segun" name="analisis_segun" required></td>
-                        <td class="titulo titulo-right">N° Documento:</td>
+                        <td class="titulo titulo-right">N° Cotización:</td>
                         <td><input type="text" id="numero_documento" name="numero_documento" required></td>
                     </tr>
 

@@ -106,7 +106,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Tamaño Lote:</label>
-                        <input required class="form-control mx-0 w-90 " name="tamano_lote" id="tamano_lote" type="number" placeholder="20">
+                        <input required class="form-control mx-0 w-90 " name="tamano_lote" id="tamano_lote" type="text" placeholder="20">
                     </div>
                 </div>
                 <div class="form-row">
