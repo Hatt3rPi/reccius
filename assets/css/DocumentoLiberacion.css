@@ -345,7 +345,7 @@ textarea {
     height: auto; /* Permite que la altura sea automática */
     overflow-y: hidden; /* Oculta el scrollbar vertical */
     resize: none; /* Evita que el usuario redimensione manualmente el textarea */
-    min-height: 50px; /* Asegura que el textarea tenga una altura mínima */
+    min-height: 40px; /* Asegura que el textarea tenga una altura mínima */
     font-size: 12px;
 }
 
