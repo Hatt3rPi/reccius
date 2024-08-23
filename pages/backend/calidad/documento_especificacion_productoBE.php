@@ -7,7 +7,11 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Consulta para obtener los productos, especificaciones y análisis asociados
 $query = "SELECT cp.id as id_producto,
-            CONCAT(cp.nombre_producto, ' ', cp.concentracion, ' - ', cp.formato) AS producto,
+            CASE 
+                WHEN cp.concentracion IS NULL OR cp.concentracion = '' 
+                THEN cp.nombre_producto 
+                ELSE CONCAT(cp.nombre_producto, ' ', cp.concentracion, ' - ', cp.formato) 
+            END AS producto,
             cp.tipo_producto,
             cp.documento_ingreso as documento_producto,
             cp.elaborado_por, 
