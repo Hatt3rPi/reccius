@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\laboratorio\enviar_solicitud_carga.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";

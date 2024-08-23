@@ -267,15 +267,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         var hoy = moment(new Date()).format('DD/MM/YYYY');
                         var bodyMail = `
                             Estimados ${analisis.laboratorio},<br/>
-                            con fecha ${hoy}, enviamos solicitud de análisis externo para el documento ${analisis.numero_registro}.<br/><br/>
+                            Junto con saludar, comento que con fecha ${hoy}, enviamos solicitud de análisis externo para el documento ${analisis.numero_registro}.<br/><br/>
 
                             Adjuntamos la información necesaria para ingresar a análisis:
                             <ul>
                                 <li>
-                                Solicitud de análisis externo: <a href="${analisis.url_certificado_solicitud_analisis_externo}" target="_blank" >Ver archivo</a> 
+                                Solicitud de Análisis Externo: <a href="${analisis.url_certificado_solicitud_analisis_externo}" target="_blank" >Ver archivo</a> 
                                 </li>
                                 <li>
-                                Solicitud acta de muestreo: <a href="${analisis.url_certificado_acta_de_muestreo}" target="_blank" >Ver archivo</a> 
+                                Solicitud Acta de Muestreo: <a href="${analisis.url_certificado_acta_de_muestreo}" target="_blank" >Ver archivo</a> 
                                 </li>
                             </ul>
                             <br/>
