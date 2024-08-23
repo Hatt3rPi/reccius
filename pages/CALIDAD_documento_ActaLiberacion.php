@@ -195,7 +195,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td >
+                        <td>
                             <div class="toggle-container">
                                 <input type="radio" id="estado1_conforme" name="estado1" value="conforme">
                                 <label for="estado1_conforme">Conforme</label>
@@ -605,9 +605,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
-
-            pdf.save('documento.pdf');
+            // Aquí debes insertar tu código
+            var nombreDocumento = document.getElementById("Tipo_Producto").textContent.trim();
+            var registroDocumento = document.getElementById("nro_registro").textContent.trim();
+            pdf.save(`${nombreDocumento} ${registroDocumento}.pdf`);
             $.notify("PDF generado con éxito", "success");
+
         });
     });
 
