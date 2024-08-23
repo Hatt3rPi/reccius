@@ -736,7 +736,7 @@ ul {
     /* Asegura que el padding esté incluido en la anchura */
     font-size: 0.8rem;
     /* Tamaño de la fuente */
-    min-height: 45px;
+    min-height: 60px;
 }
 
 /* Estilo para asegurar que el div tome todo el ancho disponible */
