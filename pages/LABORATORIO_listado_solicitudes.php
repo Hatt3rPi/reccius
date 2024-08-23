@@ -208,14 +208,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_muestreo + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Ir a Firmar Acta Muestreo</button><a> </a>';
                 }
             }
-            if (
-                d.estado.toLowerCase() === "pendiente envío laboratorio" || 
-                d.estado.toLowerCase() === "pendiente ingreso resultados" || 
-                d.estado.toLowerCase() === "pendiente liberación producto" ||
-                d.estado.toLowerCase() === "finalizado"
-            ) {
-                acciones += `<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar analisis externo</button><a> </a>`;
-            }
+            // if (
+            //     d.estado.toLowerCase() === "pendiente envío laboratorio" || 
+            //     d.estado.toLowerCase() === "pendiente ingreso resultados" || 
+            //     d.estado.toLowerCase() === "pendiente liberación producto" ||
+            //     d.estado.toLowerCase() === "finalizado"
+            // ) {
+            //     acciones += `<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar analisis externo</button><a> </a>`;
+            // }
             
             if ( d.estado === "Pendiente liberación productos") {
             acciones += `<button class="accion-btn" title="Solicitud Liberacion" type="button" id="${d.id_analisisExterno}" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a></a>`;
