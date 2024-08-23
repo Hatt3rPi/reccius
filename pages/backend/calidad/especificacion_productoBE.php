@@ -107,7 +107,7 @@ function procesarFormulario($link) {
         
         registrarTarea(7, $_SESSION['usuario'], $_POST['usuario_revisor'], 'Revisar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 2', $idEspecificacion, 'calidad_especificacion_productos');
         //        finalizarTarea($_SESSION['usuario'], $idEspecificacion, 'calidad_especificacion_productos', 'Firma 2');
-        registrarTarea(14, $_SESSION['usuario'], $_POST['usuario_aprobador'], 'Aprobar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 3', $idEspecificacion, 'calidad_especificacion_productos');
+        //registrarTarea(14, $_SESSION['usuario'], $_POST['usuario_aprobador'], 'Aprobar especificación de producto: '.limpiarDato($_POST['documento']).' - versión:'.limpiarDato($_POST['version']), 1, 'Firma 3', $idEspecificacion, 'calidad_especificacion_productos');
         //        finalizarTarea($_SESSION['usuario'], $idEspecificacion, 'calidad_especificacion_productos', 'Firma 3');
         return ["exito" => true, "mensaje" => "Especificación y análisis creados con éxito.", "idEspecificacion" => $idEspecificacion];
     } catch (Exception $e) {
