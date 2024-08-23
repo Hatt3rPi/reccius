@@ -606,7 +606,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 heightLeft -= pageHeight;
             }
             // Aquí debes insertar tu código
-            var nombreDocumento = document.getElementById("productoCompleto").textContent.trim();
+            var nombreDocumento = document.getElementById("producto_completo").textContent.trim();
             var registroDocumento = document.getElementById("nro_registro").textContent.trim();
             pdf.save(`${nombreDocumento} ${registroDocumento}.pdf`);
             $.notify("PDF generado con éxito", "success");
