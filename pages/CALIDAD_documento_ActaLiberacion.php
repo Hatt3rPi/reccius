@@ -894,6 +894,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let cantidad_real = $('#cantidad_real').val().trim();
         let nro_traspaso = $('#nro_traspaso').val().trim();
 
+        console.log(revisionResults.length );
+        console.log(docConformeResults.length);
+        console.log(cantidad_real);
+        console.log(nro_traspaso);
         if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
             $('.revision input[type="radio"]:checked').each(function() {
                 if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
