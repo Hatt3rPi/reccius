@@ -483,10 +483,12 @@ p {
 
 .resp {
     background-color: #ffffff;
+    width: 102px;
 }
 
 .verif {
     background-color: #ffffff;
+    width: 102px
 }
 
 #muestreo th:first-child,
