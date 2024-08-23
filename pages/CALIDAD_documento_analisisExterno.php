@@ -63,7 +63,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha :</td>
                             <td id="fecha_registro" name="fecha_registro">
-                                
+
                             </td>
                         </tr>
                     </table>
@@ -172,17 +172,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
 
                         <td class="titulo">8. Condic. almacenamiento</td>
-                        <td><div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div" contenteditable="true"></div>
+                        <td>
+                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div" contenteditable="true"></div>
                         </td>
-                        
+
                         <td class="titulo titulo-right">Observaciones:</td>
-                        <td><div id="observaciones" name="observaciones" class="editable-div" contenteditable="true" required></div></td>
+                        <td>
+                            <div id="observaciones" name="observaciones" class="editable-div" contenteditable="true" required></div>
+                        </td>
 
                     </tr>
                     <tr>
 
                         <td class="titulo">9. Registro I.S.P:</td>
-                        <td><div id="registro_isp" name="registro_isp" class="editable-div" contenteditable="true" required></div></td>
+                        <td>
+                            <div id="registro_isp" name="registro_isp" class="editable-div" contenteditable="true" required></div>
+                        </td>
 
 
                     </tr>
@@ -306,6 +311,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container" id="button-container">
+    <button class="botones" id="upload-pdf">Guardar PDF</button>
     <?php
     $etapa = $_POST['etapa'];
     if ($etapa == '0') {
