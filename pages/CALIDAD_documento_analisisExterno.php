@@ -508,7 +508,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo checkLine">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
-                        <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="Espec editable-div" contenteditable="true">${analisis.anali_criterios_aceptacion}</td>
                         <td class="revision" <?php
                                                 $etapa = $_POST['etapa'];
                                                 if ($etapa == '0') {
