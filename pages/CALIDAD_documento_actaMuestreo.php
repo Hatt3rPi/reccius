@@ -603,6 +603,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="formulario verif">
@@ -611,6 +613,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planVB1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
@@ -632,6 +636,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planResp2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="formulario verif">
@@ -640,6 +646,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planVB2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
@@ -661,6 +669,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planResp3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="formulario verif">
@@ -669,6 +679,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planVB3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
