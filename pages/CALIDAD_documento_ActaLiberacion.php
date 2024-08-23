@@ -206,7 +206,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea1" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
                         </td>
                         <td class="Espec ">
                             <div id="form_textarea_resultados1" class="editable-divR" contenteditable="true"></div>
@@ -232,7 +232,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea2" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea2" class="editable-divO" contenteditable="true"></div>
                         </td>
                         <td class="Espec ">
                             <div id="form_textarea_resultados2" class="editable-divR" contenteditable="true"></div>
@@ -258,7 +258,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea3" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea3" class="editable-divO" contenteditable="true"></div>
                         </td>
                         <td class="Espec ">
                             <div id="form_textarea_resultados3" class="editable-divR" contenteditable="true"></div>
@@ -284,7 +284,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea4" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea4" class="editable-divO" contenteditable="true"></div>
                         </td>
                         <td class="Espec ">
                             <div id="form_textarea_resultados4" class="editable-divR" contenteditable="true"></div>
