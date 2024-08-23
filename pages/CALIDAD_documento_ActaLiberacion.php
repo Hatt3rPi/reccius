@@ -197,10 +197,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">Planilla de fabricación</td>
                         <td>
                             <div class="toggle-container">
-                                <input type="radio" id="estado1_conforme" name="estado1" value="conforme">
+                                <input type="radio" id="estado1_conforme" name="estado1" value="1">
                                 <label for="estado1_conforme">Conforme</label>
 
-                                <input type="radio" id="estado1_noconforme" name="estado1" value="noconforme">
+                                <input type="radio" id="estado1_noconforme" name="estado1" value="0">
                                 <label for="estado1_noconforme">No Conforme</label>
                             </div>
                         </td>
@@ -220,10 +220,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td class="">
                             <div class="toggle-container">
-                                <input type="radio" id="estado2_conforme" name="estado2" value="conforme">
+                                <input type="radio" id="estado2_conforme" name="estado2" value="1">
                                 <label for="estado2_conforme">Conforme</label>
 
-                                <input type="radio" id="estado2_noconforme" name="estado2" value="noconforme">
+                                <input type="radio" id="estado2_noconforme" name="estado2" value="0">
                                 <label for="estado2_noconforme">No Conforme</label>
                             </div>
                         </td>
@@ -243,10 +243,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td class="">
                             <div class="toggle-container">
-                                <input type="radio" id="estado3_conforme" name="estado3" value="conforme">
+                                <input type="radio" id="estado3_conforme" name="estado3" value="1">
                                 <label for="estado3_conforme">Conforme</label>
 
-                                <input type="radio" id="estado3_noconforme" name="estado3" value="noconforme">
+                                <input type="radio" id="estado3_noconforme" name="estado3" value="0">
                                 <label for="estado3_noconforme">No Conforme</label>
                             </div>
                         </td>
@@ -266,10 +266,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td class="">
                             <div class="toggle-container">
-                                <input type="radio" id="estado4_conforme" name="estado4" value="conforme">
+                                <input type="radio" id="estado4_conforme" name="estado4" value="1">
                                 <label for="estado4_conforme">Conforme</label>
 
-                                <input type="radio" id="estado4_noconforme" name="estado4" value="noconforme">
+                                <input type="radio" id="estado4_noconforme" name="estado4" value="0">
                                 <label for="estado4_noconforme">No Conforme</label>
                             </div>
                         </td>
