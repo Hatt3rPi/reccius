@@ -62,8 +62,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha :</td>
-                            <td>
-                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;" readonly>
+                            <td id="fecha_registro" name="fecha_registro">
+                                
                             </td>
                         </tr>
                     </table>
@@ -525,7 +525,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#numero_registro').text(primerAnalisis.numero_registro);
                     $('#version').text(primerAnalisis.version);
                     $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
-                    $('#fecha_registro').val(primerAnalisis.fecha_registro);
+                    $('#fecha_registro').text(primerAnalisis.fecha_registro);
 
                     //
                     // Sumar los resultados de producto en un solo texto
