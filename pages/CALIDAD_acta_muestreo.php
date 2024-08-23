@@ -141,7 +141,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" placeholder="..."></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm" style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" value="T° ambiente, lugar fresco y seco, protegido de la luz"></textarea>
                     </div>
                 </div>
                 <div class="form-row">
@@ -163,7 +163,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
-                        <input required class="form-control mx-0 w-90" name="muestreado_POS" id="muestreado_POS" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90" name="muestreado_POS" id="muestreado_POS" type="text" value="DCAL-CC-PO-007">
                     </div>
                 </div>
                 <div class="form-row">
