@@ -887,9 +887,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         let docConformeResults = '';
-        $('.doc-conforme input[type="radio"]:checked').each(function() {
+        $('.toggle-container input[type="radio"]:checked').each(function() {
             docConformeResults += $(this).val();
         });
+        console.log('docConformeResults:', docConformeResults);
 
         let cantidad_real = $('#cantidad_real').val().trim();
         let nro_traspaso = $('#nro_traspaso').val().trim();
