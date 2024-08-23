@@ -172,16 +172,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
 
                         <td class="titulo">8. Condic. almacenamiento</td>
-                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
+                        <td><div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div" contenteditable="true"></div>
                         </td>
+                        
                         <td class="titulo titulo-right">Observaciones:</td>
-                        <td><textarea id="observaciones" name="observaciones" required></textarea></td>
+                        <td><div id="observaciones" name="observaciones" class="editable-div" contenteditable="true" required></div></td>
 
                     </tr>
                     <tr>
 
                         <td class="titulo">9. Registro I.S.P:</td>
-                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
+                        <td><div id="registro_isp" name="registro_isp" class="editable-div" contenteditable="true" required></div></td>
 
 
                     </tr>
@@ -555,13 +556,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#tamano_lote').val(primerAnalisis.tamano_lote);
                     $('#fecha_elaboracion').val(moment(primerAnalisis.fecha_elaboracion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#fecha_vencimiento').val(moment(primerAnalisis.fecha_vencimiento, 'YYYY-MM-DD').format('DD/MM/YYYY'));
-                    $('#registro_isp').val(primerAnalisis.registro_isp);
+                    $('#registro_isp').text(primerAnalisis.registro_isp);
                     $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
-                    $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                    $('#condicion_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
                     $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
                     $('#elaborado_por').val(primerAnalisis.prod_elaborado_por);
                     $('#muestreado_por').val(primerAnalisis.nombre_muestreado_por);
-                    $('#observaciones').val(primerAnalisis.observaciones);
+                    $('#observaciones').text(primerAnalisis.observaciones);
                     $('#numero_pos').val(primerAnalisis.numero_pos);
                     $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
 
