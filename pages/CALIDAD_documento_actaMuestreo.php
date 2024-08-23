@@ -566,8 +566,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp4"  value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No aplica</label>
                             </div>
                         </td>
 
