@@ -80,7 +80,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Liberación:</td>
-                            <td name="fecha_acta_lib" id="fecha_acta_lib"></td>
+                            <td><input type="date" name="fecha_acta_lib" id="fecha_acta_lib"></td>
                         </tr>
                     </table>
                 </div>
@@ -195,12 +195,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td >
+                        <td>
                             <div class="toggle-container">
-                                <input type="radio" id="estado1_conforme" name="estado1" value="conforme">
+                                <input type="radio" id="estado1_conforme" name="estado1" value="1">
                                 <label for="estado1_conforme">Conforme</label>
 
-                                <input type="radio" id="estado1_noconforme" name="estado1" value="noconforme">
+                                <input type="radio" id="estado1_noconforme" name="estado1" value="0">
                                 <label for="estado1_noconforme">No Conforme</label>
                             </div>
                         </td>
@@ -220,10 +220,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td class="">
                             <div class="toggle-container">
-                                <input type="radio" id="estado2_conforme" name="estado2" value="conforme">
+                                <input type="radio" id="estado2_conforme" name="estado2" value="1">
                                 <label for="estado2_conforme">Conforme</label>
 
-                                <input type="radio" id="estado2_noconforme" name="estado2" value="noconforme">
+                                <input type="radio" id="estado2_noconforme" name="estado2" value="0">
                                 <label for="estado2_noconforme">No Conforme</label>
                             </div>
                         </td>
@@ -243,10 +243,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td class="">
                             <div class="toggle-container">
-                                <input type="radio" id="estado3_conforme" name="estado3" value="conforme">
+                                <input type="radio" id="estado3_conforme" name="estado3" value="1">
                                 <label for="estado3_conforme">Conforme</label>
 
-                                <input type="radio" id="estado3_noconforme" name="estado3" value="noconforme">
+                                <input type="radio" id="estado3_noconforme" name="estado3" value="0">
                                 <label for="estado3_noconforme">No Conforme</label>
                             </div>
                         </td>
@@ -266,10 +266,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td class="">
                             <div class="toggle-container">
-                                <input type="radio" id="estado4_conforme" name="estado4" value="conforme">
+                                <input type="radio" id="estado4_conforme" name="estado4" value="1">
                                 <label for="estado4_conforme">Conforme</label>
 
-                                <input type="radio" id="estado4_noconforme" name="estado4" value="noconforme">
+                                <input type="radio" id="estado4_noconforme" name="estado4" value="0">
                                 <label for="estado4_noconforme">No Conforme</label>
                             </div>
                         </td>
@@ -605,9 +605,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
-
-            pdf.save('documento.pdf');
+            // Aquí debes insertar tu código
+            var nombreDocumento = document.getElementById("producto_completo").textContent.trim();
+            var registroDocumento = document.getElementById("nro_registro").textContent.trim();
+            pdf.save(`${nombreDocumento} ${registroDocumento}.pdf`);
             $.notify("PDF generado con éxito", "success");
+
         });
     });
 
@@ -755,7 +758,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#nro_registro').text(campos.numero_registro);
                         $('#nro_version').text(campos.version_registro);
                         $('#nro_acta').text(campos.numero_acta);
-                        $('#fecha_acta_lib').text(fecha_yoh);
+                        $('#fecha_acta_lib').val(fecha_yoh);
                         $('#fecha_lib').val(fecha_yoh);
                         $('#nro_acta_liberacion').val(campos.numero_acta);
 
@@ -884,13 +887,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         let docConformeResults = '';
-        $('.doc-conforme input[type="radio"]:checked').each(function() {
+        $('.toggle-container input[type="radio"]:checked').each(function() {
             docConformeResults += $(this).val();
         });
+        console.log('docConformeResults:', docConformeResults);
 
         let cantidad_real = $('#cantidad_real').val().trim();
         let nro_traspaso = $('#nro_traspaso').val().trim();
 
+        console.log(revisionResults.length );
+        console.log(docConformeResults.length);
+        console.log(cantidad_real);
+        console.log(nro_traspaso);
         if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
             $('.revision input[type="radio"]:checked').each(function() {
                 if (!$(this).val()) $(this).closest('td').css('border-color', 'red');

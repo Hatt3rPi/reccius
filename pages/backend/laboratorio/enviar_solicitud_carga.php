@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\laboratorio\enviar_solicitud_carga.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
@@ -34,11 +35,12 @@ function ejecutarConsulta($link, $query, $params, $param_types)
 
 // Obtener datos del análisis externo
 $queryAnalisis = "SELECT 
-                    numero_registro, numero_solicitud, fecha_registro, 
-                    solicitado_por, revisado_por, laboratorio,
-                    url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo
-                    FROM calidad_analisis_externo 
-                    WHERE id = ?";
+                    aex.numero_registro, aex.numero_solicitud, aex.fecha_registro, 
+                    aex.solicitado_por, aex.revisado_por, aex.laboratorio,
+                    aex.url_certificado_acta_de_muestreo, aex.url_certificado_solicitud_analisis_externo,
+                    pr.nombre_producto, pr.tipo_producto, pr.tipo_concentracion, pr.formato, aex.url_documento_adicional
+                    FROM calidad_analisis_externo as aex left join calidad_productos as pr on aex.id_producto=pr.id
+                    WHERE aex.id = ?;";
 $analisis = ejecutarConsulta($link, $queryAnalisis, [$id_acta], 'i');
 // Obtener datos del acta de muestreo
 $queryActa = "SELECT 

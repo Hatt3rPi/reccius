@@ -8,10 +8,12 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 $query = "SELECT 
                 a.*,
                 concat(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) as producto, 
-                b.tipo_producto
+                b.tipo_producto,
+                c.url_documento_adicional
             FROM `calidad_productos_analizados` as a
             LEFT JOIN calidad_productos as b 
-            on a.id_producto=b.id;";
+            on a.id_producto=b.id
+            left join calidad_analisis_externo as c on a.id_analisisExterno=c.id;";
 $result = $link->query($query);
 
 $data = [];

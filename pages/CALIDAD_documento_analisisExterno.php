@@ -62,8 +62,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha :</td>
-                            <td>
-                                <input type="date" id="fecha_registro" name="fecha_registro" style="border: 0px;" readonly>
+                            <td id="fecha_registro" name="fecha_registro">
+
                             </td>
                         </tr>
                     </table>
@@ -158,7 +158,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
                     </tr>
                     <tr>
-                        <td class="titulo">6. fabricante:</td>
+                        <td class="titulo">6. Fabricante:</td>
                         <td><input type="text" id="elaborado_por" name="elaborado_por" required></td>
                         <!-- <td class="titulo titulo-right">Otro:</td>
                         <td><input type="text" id="otro3" name="otro3"></td> -->
@@ -172,16 +172,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
 
                         <td class="titulo">8. Condic. almacenamiento</td>
-                        <td><textarea id="condicion_almacenamiento" name="condicion_almacenamiento" required></textarea>
+                        <td>
+                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div" contenteditable="true"></div>
                         </td>
+
                         <td class="titulo titulo-right">Observaciones:</td>
-                        <td><textarea id="observaciones" name="observaciones" required></textarea></td>
+                        <td>
+                            <div id="observaciones" name="observaciones" class="editable-div" contenteditable="true" required></div>
+                        </td>
 
                     </tr>
                     <tr>
 
                         <td class="titulo">9. Registro I.S.P:</td>
-                        <td><textarea id="registro_isp" name="registro_isp" required></textarea></td>
+                        <td>
+                            <div id="registro_isp" name="registro_isp" class="editable-div" contenteditable="true" required></div>
+                        </td>
 
 
                     </tr>
@@ -301,7 +307,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </footer>
             </form>
         </div>
-
+ 
 
 </body>
 <div class="button-container" id="button-container">
@@ -501,7 +507,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo checkLine">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
-                        <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="Espec editable-div" contenteditable="true">${analisis.anali_criterios_aceptacion}</td>
                         <td class="revision" <?php
                                                 $etapa = $_POST['etapa'];
                                                 if ($etapa == '0') {
@@ -524,7 +530,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#numero_registro').text(primerAnalisis.numero_registro);
                     $('#version').text(primerAnalisis.version);
                     $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
-                    $('#fecha_registro').val(primerAnalisis.fecha_registro);
+                    $('#fecha_registro').text(primerAnalisis.fecha_registro);
 
                     //
                     // Sumar los resultados de producto en un solo texto
@@ -555,13 +561,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#tamano_lote').val(primerAnalisis.tamano_lote);
                     $('#fecha_elaboracion').val(moment(primerAnalisis.fecha_elaboracion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#fecha_vencimiento').val(moment(primerAnalisis.fecha_vencimiento, 'YYYY-MM-DD').format('DD/MM/YYYY'));
-                    $('#registro_isp').val(primerAnalisis.registro_isp);
+                    $('#registro_isp').text(primerAnalisis.registro_isp);
                     $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
-                    $('#condicion_almacenamiento').val(primerAnalisis.condicion_almacenamiento);
+                    $('#condicion_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
                     $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
                     $('#elaborado_por').val(primerAnalisis.prod_elaborado_por);
                     $('#muestreado_por').val(primerAnalisis.nombre_muestreado_por);
-                    $('#observaciones').val(primerAnalisis.observaciones);
+                    $('#observaciones').text(primerAnalisis.observaciones);
                     $('#numero_pos').val(primerAnalisis.numero_pos);
                     $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
 
@@ -572,8 +578,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     //III
                     //$("#resultados_analisis").val(resultados_analisis)
                     if (
-                        primerAnalisis.url_certificado_de_analisis_externo !== null ||
-                        primerAnalisis.url_certificado_de_analisis_externo !== ""
+                        primerAnalisis.estado !== "Pendiente ingreso resultados"
                     ) {
                         $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis) //1
                         $("#fecha_entrega").val(primerAnalisis.fecha_entrega) //3
@@ -584,9 +589,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                         </span> &nbsp; 
                         <a href="${primerAnalisis.url_certificado_de_analisis_externo}" target="_blank">Ver Certificado</a>`);
-                        console.log('primerAnalisis', primerAnalisis);
 
-                        var resultList = JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
+                        var resultList = primerAnalisis.resultados_analisis == null ? [] : JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
                         console.log('resultList', resultList);
                         resultList.forEach((res, index) => {
                             if (res === 1) {
@@ -610,6 +614,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     } else {
                         console.log('no hay certificado');
                         console.log(primerAnalisis.revisado_por, "<?php echo $_SESSION['usuario'] ?>");
+                        
                         primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
                     }
 

@@ -1377,16 +1377,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Recolecta datos de los textarea sólo si la firma es 1
         if (etapa === 1) {
             ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
-                let textarea = document.getElementById(id);
-                if (textarea.value.trim() === '') {
-                    //alert(`El campo ${id} está vacío y es obligatorio.`);
-                    $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
-                    todosSeleccionados = false;
-                    return;
-                } else {
-                    dataToSave.textareaData[id] = textarea.value;
-                }
-            });
+            let textarea = document.getElementById(id);
+            // Usa textContent o innerText en lugar de value para los divs con contenteditable
+            if (textarea.textContent.trim() === '') {
+                //alert(`El campo ${id} está vacío y es obligatorio.`);
+                $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
+                todosSeleccionados = false;
+                return;
+            } else {
+                dataToSave.textareaData[id] = textarea.textContent;
+            }
+        });
 
             if (!todosSeleccionados) {
                 return; // Detiene la función si algún textarea está vacío
