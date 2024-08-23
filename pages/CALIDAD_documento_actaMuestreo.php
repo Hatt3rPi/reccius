@@ -353,8 +353,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
+
                         <td class="spacer"></td>
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -894,7 +897,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function asignarValoresARadios(valores, selectorGrupos) {
-        // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
         const grupos = document.querySelectorAll(selectorGrupos);
         console.log("Cantidad de grupos encontrados:", grupos.length);
         console.log("Longitud de valores esperados:", valores.length);
@@ -904,32 +906,34 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             return;
         }
 
-        // Iterar sobre cada grupo y asignar el valor correspondiente basado en el valor en la cadena 'valores'.
         grupos.forEach((grupo, index) => {
-            // El valor para el grupo actual se obtiene del string de valores.
             const valor = valores[index];
+            let suffix;
 
-            // Determinar el sufijo del botón basado en el valor ('a' para '1', 'b' para '0').
-            const suffix = valor === '1' ? 'a' : 'b';
+            // Asignar el sufijo según el valor recibido
+            if (valor === '1') {
+                suffix = 'a';
+            } else if (valor === '0') {
+                suffix = 'b';
+            } else if (valor === '2') { // Nuevo valor para "No Aplica"
+                suffix = 'c';
+            }
 
-            // Intentar seleccionar el botón de radio correspondiente en el grupo.
             const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
 
-            // Deshabilitar todos los botones dentro del grupo para evitar cambios adicionales.
             const allRadios = grupo.querySelectorAll('input[type="radio"]');
             allRadios.forEach(r => {
                 r.setAttribute('disabled', 'disabled');
             });
 
             if (radio) {
-                // Si se encuentra el botón, se marca como seleccionado.
                 radio.checked = true;
             } else {
-                // Si no se encuentra el botón, se muestra un error en la consola.
                 console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
             }
         });
     }
+
 
 
 
@@ -1311,25 +1315,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function consolidarRespuestas(universo) {
         let valorConsolidado = '';
-        // Selecciona todos los grupos de botones de radio dentro de la sección de respuesta
         const grupos = document.querySelectorAll(universo);
 
-        // Itera a través de cada grupo para ver cuál botón de radio está seleccionado
         grupos.forEach(grupo => {
             const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
 
-            // Añadir al valor consolidado basado en el valor del botón seleccionado
             if (radioSeleccionado) {
-                // Asumiendo que los valores son 'Cumple' y 'No Cumple' transformados a '1' y '0'
-                valorConsolidado += (radioSeleccionado.value === '1' ? '1' : '0');
+                if (radioSeleccionado.id.endsWith('a')) {
+                    valorConsolidado += '1'; // Cumple
+                } else if (radioSeleccionado.id.endsWith('b')) {
+                    valorConsolidado += '0'; // No Cumple
+                } else if (radioSeleccionado.id.endsWith('c')) {
+                    valorConsolidado += '2'; // No Aplica
+                }
             } else {
-                // Si no se selecciona ninguno en el grupo, se podría considerar como no cumple o manejar como error
-                valorConsolidado += 'N'; // o manejar la situación de manera diferente
+                valorConsolidado += 'N'; // Ninguna opción seleccionada
             }
         });
 
         return valorConsolidado;
     }
+
 
 
     document.getElementById('guardar').addEventListener('click', function() {
