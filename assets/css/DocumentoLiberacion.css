@@ -386,6 +386,28 @@ textarea {
     /* Tamaño de la fuente */
 }
 
+.editable-divR {
+    width: 120px;
+    max-width: 130px;
+    word-wrap: break-word;
+    /* Permite que las palabras se ajusten si son muy largas */
+    overflow-wrap: break-word;
+    /* Para soporte adicional */
+    white-space: normal;
+    /* Asegura que el texto se ajusta a la siguiente línea */
+    height: auto;
+    /* Ajusta la altura automáticamente según el contenido */
+    border: 1px solid #ccc;
+    /* Opcional: Estilo de borde */
+    padding: 5px;
+    /* Espaciado interno opcional */
+    box-sizing: border-box;
+    /* Asegura que el padding esté incluido en la anchura */
+    font-size: 0.8rem;
+    /* Tamaño de la fuente */
+}
+
+
 
 
 
