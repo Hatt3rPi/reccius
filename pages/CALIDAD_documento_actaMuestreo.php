@@ -577,7 +577,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <table id="seccion3" style="width:100%; border-collapse: collapse;">
                     <!-- Encabezados de la tabla -->
                     <tr>
-                        <th>Aplica</th>
                         <th>Tamaño de Lote</th>
                         <th>Muestra</th>
                         <th>Contramuestra</th>
@@ -587,12 +586,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <!-- Fila para lotes de <= 500 unidades -->
                     <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" name="aplica1">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
                         <td readonly>&le; 500 unidades</td>
                         <td readonly>40 unidades</td>
                         <td readonly>80 unidades</td>
@@ -620,12 +613,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <!-- Fila para lotes entre 501 y 4999 unidades -->
                     <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" name="aplica2">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
                         <td contenteditable="true">501 - 4999 unidades</td>
                         <td contenteditable="true">40 unidades</td>
                         <td contenteditable="true">80 unidades</td>
@@ -653,12 +640,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <!-- Fila para lotes de >= 1000 unidades -->
                     <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" name="aplica3">
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
                         <td contenteditable="true">&ge; 1000 unidades</td>
                         <td contenteditable="true">50 unidades</td>
                         <td contenteditable="true">100 unidades</td>
@@ -686,6 +667,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                 </table>
             </section>
+
 
             <!-- Footer -->
             <div id="footer-containerDIV" class="footer-containerDIV">
