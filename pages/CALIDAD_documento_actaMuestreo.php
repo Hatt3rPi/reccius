@@ -77,7 +77,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha Muestreo:</td>
                             <td id="fecha_muestreo" name="fecha_muestreo"></td>
-                            
+
                         </tr>
                     </table>
                 </div>
@@ -225,7 +225,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="formulario-titulo">6. Cond. Almacenamiento:</td>
 
                         <td class="formulario">
-                            <div id="form_condAlmacenamiento" class="editable-diva" ></div>
+                            <div id="form_condAlmacenamiento" class="editable-diva"></div>
 
                         </td>
                         <td class="spacer"></td>
@@ -536,7 +536,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true" ></div>
+                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
 
 
             </div>
@@ -547,6 +547,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <table id="seccion3" style="width:100%; border-collapse: collapse;">
                     <!-- Encabezados de la tabla -->
                     <tr>
+                        <th>Aplica</th>
                         <th>Tamaño de Lote</th>
                         <th>Muestra</th>
                         <th>Contramuestra</th>
@@ -555,7 +556,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th id="revision_actor2">Revisión Responsable</th>
                     </tr>
                     <!-- Fila para lotes de <= 500 unidades -->
-                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" name="aplica1">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
                         <td readonly>&le; 500 unidades</td>
                         <td readonly>40 unidades</td>
                         <td readonly>80 unidades</td>
@@ -568,7 +575,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
-
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1a" value="1" autocomplete="off">
@@ -579,7 +585,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </td>
                     </tr>
                     <!-- Fila para lotes entre 501 y 4999 unidades -->
-                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" name="aplica2">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
                         <td contenteditable="true">501 - 4999 unidades</td>
                         <td contenteditable="true">40 unidades</td>
                         <td contenteditable="true">80 unidades</td>
@@ -592,7 +604,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-danger verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
-
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2a" value="1" autocomplete="off">
@@ -603,7 +614,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </td>
                     </tr>
                     <!-- Fila para lotes de >= 1000 unidades -->
-                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" name="aplica3">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
                         <td contenteditable="true">&ge; 1000 unidades</td>
                         <td contenteditable="true">50 unidades</td>
                         <td contenteditable="true">100 unidades</td>
@@ -616,7 +633,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-danger verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
                             </div>
                         </td>
-
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3a" value="1" autocomplete="off">
@@ -1377,17 +1393,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Recolecta datos de los textarea sólo si la firma es 1
         if (etapa === 1) {
             ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
-            let textarea = document.getElementById(id);
-            // Usa textContent o innerText en lugar de value para los divs con contenteditable
-            if (textarea.textContent.trim() === '') {
-                //alert(`El campo ${id} está vacío y es obligatorio.`);
-                $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
-                todosSeleccionados = false;
-                return;
-            } else {
-                dataToSave.textareaData[id] = textarea.textContent;
-            }
-        });
+                let textarea = document.getElementById(id);
+                // Usa textContent o innerText en lugar de value para los divs con contenteditable
+                if (textarea.textContent.trim() === '') {
+                    //alert(`El campo ${id} está vacío y es obligatorio.`);
+                    $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
+                    todosSeleccionados = false;
+                    return;
+                } else {
+                    dataToSave.textareaData[id] = textarea.textContent;
+                }
+            });
 
             if (!todosSeleccionados) {
                 return; // Detiene la función si algún textarea está vacío
