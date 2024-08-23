@@ -272,14 +272,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             Adjuntamos la información necesaria para ingresar a análisis:
                             <ul>
                                 <li>
-                                - Solicitud de Análisis Externo: <a href="${analisis.url_certificado_solicitud_analisis_externo}" target="_blank" >Ver archivo</a> 
+                                Solicitud de Análisis Externo: <a href="${analisis.url_certificado_solicitud_analisis_externo}" target="_blank" >Ver archivo</a> 
                                 </li>
                                 <li>
-                                - Solicitud Acta de Muestreo: <a href="${analisis.url_certificado_acta_de_muestreo}" target="_blank" >Ver archivo</a> 
+                                Solicitud Acta de Muestreo: <a href="${analisis.url_certificado_acta_de_muestreo}" target="_blank" >Ver archivo</a> 
                                 </li>
                                 ${analisis.url_documento_adicional ? `
                                 <li>
-                                - Documento adicional: <a href="${analisis.url_documento_adicional}" target="_blank" >Ver archivo</a> 
+                                Documento adicional: <a href="${analisis.url_documento_adicional}" target="_blank" >Ver archivo</a> 
                                 </li>
                                 ` : ''}
                             </ul>
