@@ -311,7 +311,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container" id="button-container">
-    <button class="botones" id="download-pdf">Guardar PDF</button>
     <?php
     $etapa = $_POST['etapa'];
     if ($etapa == '0') {
