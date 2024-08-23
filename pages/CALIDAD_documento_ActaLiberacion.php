@@ -185,12 +185,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <form id="section3">
                 <table id="seccion3">
                     <tr>
-                        <td class="Subtitulos" style="text-align: start;" colspan="4">III. ANÁLISIS SOLICITADOS</td>
+                        <td class="Subtitulos" style="text-align: start;" colspan="5">III. ANÁLISIS SOLICITADOS</td>
                     </tr>
                     <tr class="bordeAbajo">
                         <th>Documento</th>
                         <th>Estado</th>
                         <th>Observaciones</th>
+                        <th>Resultados</th>
                         <th>Revisión</th>
                     </tr>
                     <tr class="bordeAbajo">
@@ -205,7 +206,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea1" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
+                        </td>
+                        <td class="Espec ">
+                            <div id="form_textarea_resultados1" class="editable-divR" contenteditable="true"></div>
                         </td>
                         <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -228,7 +232,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea2" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea2" class="editable-divO" contenteditable="true"></div>
+                        </td>
+                        <td class="Espec ">
+                            <div id="form_textarea_resultados2" class="editable-divR" contenteditable="true"></div>
                         </td>
                         <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -251,7 +258,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea3" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea3" class="editable-divO" contenteditable="true"></div>
+                        </td>
+                        <td class="Espec ">
+                            <div id="form_textarea_resultados3" class="editable-divR" contenteditable="true"></div>
                         </td>
                         <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -274,7 +284,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea4" class="editable-div" contenteditable="true"></div>
+                            <div id="form_textarea4" class="editable-divO" contenteditable="true"></div>
+                        </td>
+                        <td class="Espec ">
+                            <div id="form_textarea_resultados4" class="editable-divR" contenteditable="true"></div>
                         </td>
                         <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -288,50 +301,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
             </form>
 
-
-            <!-- Sección II: MUESTREO -->
-            <br>
-            <form id="section4">
-                <table id="seccion4">
-                    <tr>
-                        <td class="Subtitulos" colspan="4">IV. MUESTREO Y ANALISIS</td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">1. N° Acta de Liberacion:</td>
-                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" readonly></td>
-                        <td class="titulo"> </td>
-                        <td class="titulo">2. Fecha Liberacion:</td>
-                        <td><input type="text" id="fecha_lib" name="fecha_lib" readonly></td>
-
-                    </tr>
-                    <tr>
-                        <td class="titulo">3. Producto:</td>
-                        <td><input type="text" id="producto_completoT3" name="producto_completoT3" readonly></td>
-                        <td class="titulo"> </td>
-                        <td class="titulo">4. N° Lote:</td>
-                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly></td>
-
-                    </tr>
-                    <tr>
-                        <td class="titulo">5. Fecha de Elaboración:</td>
-                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" readonly></td>
-                        <td class="titulo"> </td>
-                        <td class="titulo">6. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" readonly></td>
-
-                    </tr>
-
-                    <tr>
-                        <td class="titulo">7. Cantidad real Liberada:</td>
-                        <td><input class="verif" type="text" id="cantidad_real" name="cantidad_real" required></td>
-                        <td class="titulo"> </td>
-                        <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
-                        <td><input class="verif" type="text" id="nro_traspaso" name="nro_traspaso" required></td>
-
-                    </tr>
-                </table>
-
-            </form>
 
             <!-- Footer -->
 
@@ -895,7 +864,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let cantidad_real = $('#cantidad_real').val().trim();
         let nro_traspaso = $('#nro_traspaso').val().trim();
 
-        console.log(revisionResults.length );
+        console.log(revisionResults.length);
         console.log(docConformeResults.length);
         console.log(cantidad_real);
         console.log(nro_traspaso);
