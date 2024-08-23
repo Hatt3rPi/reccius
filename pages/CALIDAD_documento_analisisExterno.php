@@ -578,8 +578,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     //III
                     //$("#resultados_analisis").val(resultados_analisis)
                     if (
-                        primerAnalisis.url_certificado_de_analisis_externo !== null ||
-                        primerAnalisis.url_certificado_de_analisis_externo !== ""
+                        primerAnalisis.estado !== "Pendiente ingreso resultados"
                     ) {
                         $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis) //1
                         $("#fecha_entrega").val(primerAnalisis.fecha_entrega) //3
@@ -590,7 +589,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                         </span> &nbsp; 
                         <a href="${primerAnalisis.url_certificado_de_analisis_externo}" target="_blank">Ver Certificado</a>`);
-                        
+
                         var resultList = primerAnalisis.resultados_analisis == null ? [] : JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
                         console.log('resultList', resultList);
                         resultList.forEach((res, index) => {
@@ -615,6 +614,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     } else {
                         console.log('no hay certificado');
                         console.log(primerAnalisis.revisado_por, "<?php echo $_SESSION['usuario'] ?>");
+                        
                         primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
                     }
 
