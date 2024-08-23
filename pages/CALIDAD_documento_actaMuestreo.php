@@ -337,14 +337,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
 
                     <tr>
-                        <td>1. La zona de esterilización se encuentra
-                            limpia y ordenada.</td>
-                        <td id="form_1" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
+                        <td>
+                            1. La zona de esterilización se encuentra limpia y ordenada.
+                        </td>
+                        <td>
+                            <label class="switch">
+                                <input type="checkbox" name="aplica1">
+                                <span class="slider round"></span>
+                            </label>
                         </td>
                         <td class="spacer"></td>
                         <td class="formulario resp">
@@ -353,6 +353,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1"  value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -369,6 +371,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <label>Pegar etiqueta de identificación general de la muestra</label>
                         </td>
                     </tr>
+
 
                     <tr>
                         <td>2. Verificar que la zona de muestreo se
