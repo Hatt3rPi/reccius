@@ -590,9 +590,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                         </span> &nbsp; 
                         <a href="${primerAnalisis.url_certificado_de_analisis_externo}" target="_blank">Ver Certificado</a>`);
-                        console.log('primerAnalisis', primerAnalisis);
-
-                        var resultList = JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
+                        
+                        var resultList = primerAnalisis.resultados_analisis == null ? [] : JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
                         console.log('resultList', resultList);
                         resultList.forEach((res, index) => {
                             if (res === 1) {
