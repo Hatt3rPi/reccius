@@ -876,18 +876,22 @@ function validateForm() {
 
     fields.forEach(function(fieldId) {
         let field = document.getElementById(fieldId);
-        if (field && !field.value.trim()) {
-            allValid.push(fieldId)
-            field.classList.add('border');
-            field.classList.add('border-warning');
-        }else {
-            field.classList.remove('border');
-            field.classList.remove('border-warning');
+        
+        if (field) {
+            if (!field.value.trim()) {
+                allValid.push(fieldId);
+                field.classList.add('border');
+                field.classList.add('border-warning');
+            } else {
+                field.classList.remove('border');
+                field.classList.remove('border-warning');
+            }
         }
     });
 
     return allValid;
 }
+
 $('#Tipo_Producto').on('change', function() {
     var tipoProducto = $(this).val();
     var prefijo = '';
