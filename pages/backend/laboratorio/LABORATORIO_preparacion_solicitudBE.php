@@ -151,7 +151,6 @@ function insertarRegistro($link, $datos)
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
     }
-    echo json_encode(["exito" => true, "mensaje" => ""]);
 }
 
 function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
@@ -177,7 +176,6 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
             $fecha_elaboracion,
             $fecha_vencimiento
         );
-        echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
         $exito_2 = mysqli_stmt_execute($stmt_productos_analizados);
         $id_cuarentena = $exito_2 ? mysqli_insert_id($link) : 0;
         registrarTrazabilidad(
@@ -196,9 +194,7 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
 
         if (!mysqli_query($link, $query_update)) {
             throw new Exception("Error en la actualización de calidad_analisis_externo: " . mysqli_error($link));
-        }  
-        
-        echo json_encode(["exito" => true, "mensaje" => ""]);
+        }
 }
 function agregarDatosPostFirma($link, $datos,$archivo)
 {
@@ -317,8 +313,6 @@ function agregarDatosPostFirma($link, $datos,$archivo)
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
     registrarTarea(7, $_SESSION['usuario'], $datos['revisado_por'], 'Enviar Análisis externo a Laboratorio: ' . $numero_solicitud, 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
     //["2024-08-06", "fabarca212", "", "Enviar Análisis externo a Laboratorio: ", 2, "Enviar a Laboratorio", "2024-07-30 21:05:15", "90", "calidad_analisis_externo"]
-    
-    echo json_encode(["exito" => true, "mensaje" => ""]);
 }
 
 
@@ -485,10 +479,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios
-        
-        
-  
-    
+        echo json_encode(["exito" => true, "mensaje" => ""]);
+        exit;
 
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
     } catch (Exception $e) {
