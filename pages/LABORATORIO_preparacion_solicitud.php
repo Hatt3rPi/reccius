@@ -811,10 +811,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
             validateTextRequiredInputs(new FormData(this));
             var datosFormulario = $(this).serialize();
-
+            var fileInput = $('#url_documento_adicional')[0];
+            if (fileInput.files.length > 0) {
+                formData.append('url_documento_adicional', fileInput.files[0]);
+            }
+            //si es post firma
             if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
-                // Si el informacion_faltante no fue eliminada, entonces agregamos el id del analisis externo
-                // para que en el backend sepa que tiene que hacer un "update" de los datos faltantes
                 datosFormulario += '&id=' + idAnalisisExterno;
             }
 

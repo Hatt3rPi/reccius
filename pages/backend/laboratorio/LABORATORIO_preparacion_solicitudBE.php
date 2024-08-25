@@ -200,7 +200,7 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
         
         echo json_encode(["exito" => true, "mensaje" => ""]);
 }
-function agregarDatosPostFirma($link, $datos)
+function agregarDatosPostFirma($link, $datos,$archivo)
 {
     global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
 
@@ -223,15 +223,15 @@ function agregarDatosPostFirma($link, $datos)
         $datos['laboratorio'] = $datos['otro_laboratorio'];
     }
 
-    if (isset($_FILES['url_documento_adicional']) && $_FILES['url_documento_adicional']['error'] === UPLOAD_ERR_OK) {
-        $documentoAdicional = $_FILES['url_documento_adicional'];
-        $mimeType = mime_content_type($documentoAdicional['tmp_name']);
+    if (isset($archivo) && $archivo['error'] === UPLOAD_ERR_OK) {
+        $mimeType = mime_content_type($archivo['tmp_name']);
 
         if ($mimeType === 'application/pdf') {
-            $fileBinary = file_get_contents($documentoAdicional['tmp_name']);
+            $fileBinary = file_get_contents($archivo['tmp_name']);
             $timestamp = time();
             $newFileName = $id_analisis_externo . '_' . $_SESSION['usuario'] . '_' . $timestamp . '.pdf';
 
+            // Subir el archivo a S3
             $params = [
                 'fileBinary' => $fileBinary,
                 'folder' => 'url_documento_adicional',
@@ -375,6 +375,9 @@ function campoTipo($campo)
 // Procesar la solicitud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
+    
+    // Verificar si el anexo extra existe
+    $archivo = isset($_FILES['url_documento_adicional']) ? $_FILES['url_documento_adicional'] : null;
 
     // Limpiar y validar datos recibidos del formulario
     $numero_registro = limpiarDato($_POST['numero_registro']);
@@ -475,7 +478,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
             $datosLimpios['numero_solicitud'] = $numero_solicitud;
 
-            agregarDatosPostFirma($link, $datosLimpios);
+            agregarDatosPostFirma($link, $datosLimpios,$archivo);
         } else {
             insertarRegistro($link, $datosLimpios);
             registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
