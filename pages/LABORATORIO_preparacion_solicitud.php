@@ -251,7 +251,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
-                        <div class="form-group"></div>
+                        <div class="form-group">
+                            <label>Documento adiciona:</label>
+                            <input name="url_documento_adicional" id="url_documento_adicional" class="highlight form-control mx-0 w-90" type="file" accept="application/pdf">
+                        </div>
                     </div>
                 </fieldset>
                 <br />
@@ -303,11 +306,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
 
             <div class="button-container">
-                <!-- <button class="botones" id="upload-pdf" style="display: none;">
-                    Guardar como PDF</button> -->
                 <button type="submit" id="guardar" name="guardar" class="botones">
                     Guardar Solicitud</button>
-
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">
                     Editar solicitud</button>
             </div>
@@ -868,7 +868,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     });
 
     $(document).ready(function() {
-                function agregarDiasCalendario(fecha, dias) {
+        function agregarDiasCalendario(fecha, dias) {
                 fecha.setDate(fecha.getDate() + dias); // Agregar días calendario
                 return fecha;
             }

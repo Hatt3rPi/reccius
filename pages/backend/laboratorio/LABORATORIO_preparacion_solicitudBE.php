@@ -3,6 +3,8 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
+require_once "../cloud/R2_manager.php";
+
 global $numero_solicitud;
 function limpiarDato($dato)
 {
@@ -216,10 +218,38 @@ function agregarDatosPostFirma($link, $datos)
         $laboratorio->findOrCreateByName($datos['otro_laboratorio']);
         $datos['laboratorio'] = $datos['otro_laboratorio'];
     }
+    
+    if (isset($_FILES['url_documento_adicional']) && $_FILES['url_documento_adicional']['error'] === UPLOAD_ERR_OK) {
+        $documentoAdicional = $_FILES['url_documento_adicional'];
+        $mimeType = mime_content_type($documentoAdicional['tmp_name']);
+
+        if ($mimeType === 'application/pdf') {
+            $fileBinary = file_get_contents($documentoAdicional['tmp_name']);
+            $timestamp = time();
+            $newFileName = $id_analisis_externo . '_' . $_SESSION['usuario'] . '_' . $timestamp . '.pdf';
+
+            $params = [
+                'fileBinary' => $fileBinary,
+                'folder' => 'url_documento_adicional',
+                'fileName' => $newFileName
+            ];
+
+            $uploadStatus = setFile($params);
+            $uploadResult = json_decode($uploadStatus, true);
+
+            if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
+                $datos['url_documento_adicional'] = $uploadResult['success']['ObjectURL'];
+            } else {
+                throw new Exception('Error al subir el documento adicional: ' . $uploadResult['error']);
+            }
+        } else {
+            throw new Exception('El archivo no es un PDF válido');
+        }
+    }
 
     $camposAActualizar = [
         'analisis_segun',
-        'estandar_segun', // estandar_provisto_por
+        'estandar_segun',
         'fecha_cotizacion',
         'fecha_entrega_estimada',
         'fecha_solicitud',
@@ -337,8 +367,8 @@ function campoTipo($campo)
 // Procesar la solicitud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
-    // Limpiar y validar datos recibidos del formulario
 
+    // Limpiar y validar datos recibidos del formulario
     $numero_registro = limpiarDato($_POST['numero_registro']);
     $version = limpiarDato($_POST['version']);
     $numero_solicitud = limpiarDato($_POST['numero_solicitud']);
