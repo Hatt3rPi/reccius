@@ -4,6 +4,7 @@ session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
 require_once "../cloud/R2_manager.php";
+header('Content-Type: application/json');
 
 global $numero_solicitud;
 function limpiarDato($dato)
@@ -150,6 +151,7 @@ function insertarRegistro($link, $datos)
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
     }
+    echo json_encode(["exito" => true, "mensaje" => ""]);
 }
 
 function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
@@ -195,6 +197,8 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
         if (!mysqli_query($link, $query_update)) {
             throw new Exception("Error en la actualización de calidad_analisis_externo: " . mysqli_error($link));
         }  
+        
+        echo json_encode(["exito" => true, "mensaje" => ""]);
 }
 function agregarDatosPostFirma($link, $datos)
 {
@@ -218,7 +222,7 @@ function agregarDatosPostFirma($link, $datos)
         $laboratorio->findOrCreateByName($datos['otro_laboratorio']);
         $datos['laboratorio'] = $datos['otro_laboratorio'];
     }
-    
+
     if (isset($_FILES['url_documento_adicional']) && $_FILES['url_documento_adicional']['error'] === UPLOAD_ERR_OK) {
         $documentoAdicional = $_FILES['url_documento_adicional'];
         $mimeType = mime_content_type($documentoAdicional['tmp_name']);
@@ -240,10 +244,12 @@ function agregarDatosPostFirma($link, $datos)
             if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
                 $datos['url_documento_adicional'] = $uploadResult['success']['ObjectURL'];
             } else {
-                throw new Exception('Error al subir el documento adicional: ' . $uploadResult['error']);
+                echo json_encode(["exito" => false, "mensaje" => "Error al subir el documento adicional"]);
+                exit;
             }
         } else {
-            throw new Exception('El archivo no es un PDF válido');
+            echo json_encode(["exito" => false, "mensaje" => "El documento adicional debe ser un archivo PDF"]);
+            exit;
         }
     }
 
@@ -311,6 +317,8 @@ function agregarDatosPostFirma($link, $datos)
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
     registrarTarea(7, $_SESSION['usuario'], $datos['revisado_por'], 'Enviar Análisis externo a Laboratorio: ' . $numero_solicitud, 2, 'Enviar a Laboratorio', $datos['id'], 'calidad_analisis_externo');
     //["2024-08-06", "fabarca212", "", "Enviar Análisis externo a Laboratorio: ", 2, "Enviar a Laboratorio", "2024-07-30 21:05:15", "90", "calidad_analisis_externo"]
+    
+    echo json_encode(["exito" => true, "mensaje" => ""]);
 }
 
 

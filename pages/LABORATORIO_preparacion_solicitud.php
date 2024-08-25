@@ -832,16 +832,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                 },
                 body: datosFormulario
             }).then(function(data) {
-
+            if(data.exito){
                 $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-
                     obtenNotificaciones();
                     carga_listado();
                     console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-
                     $('#loading-spinner').hide();
                     $('#dynamic-content').show();
                 });
+            }else{
+                $.notify(data.mensaje, 'warn');
+            }
+
 
             }).catch(function(error) {
                 console.log("Error: " + error);
