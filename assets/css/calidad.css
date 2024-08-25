@@ -368,4 +368,5 @@ input[readonly]:hover {
     height: 38px;
     border: 1px solid;
     cursor: pointer;
+    border: 1px solid #ccc;
 }

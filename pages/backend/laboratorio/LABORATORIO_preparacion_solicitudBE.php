@@ -286,8 +286,8 @@ function agregarDatosPostFirma($link, $datos,$archivo)
     }
     //
     if (isset($datos['url_documento_adicional'])) {
-        $partesConsulta[] = "url_standard_adicional = ?";
-        $valoresParaVincular[] = $datos['url_standard_adicional'];
+        $partesConsulta[] = "url_documento_adicional = ?";
+        $valoresParaVincular[] = $datos['url_documento_adicional'];
         $tipos .= 's';
     }
     //nuevo estado 

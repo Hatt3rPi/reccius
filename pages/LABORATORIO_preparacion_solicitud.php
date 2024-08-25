@@ -253,13 +253,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Documento adiciona:</label>
-                            <label for="url_documento_adicional" id="url_documento_adicional_label" class="label__like-input highlight">
+                            <label for="url_documento_adicional" id="url_documento_adicional_label" class="label__like-input highlight w-90 d-flex">
                                 <span>
                                     <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                                 </span>
                                  &nbsp <span id="url_documento_adicional_label_text">Seleccione un archivo</span>
-                            </label>
-                            <input type="file" accept="application/pdf" id="url_documento_adicional" name="url_documento_adicional"  style="display: none;">
+                                </label>
+                                <input type="file" accept="application/pdf" id="url_documento_adicional" name="url_documento_adicional"  style="display: none;">
                         </div>
                     </div>
                 </fieldset>
