@@ -355,3 +355,17 @@ input[readonly]:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+.label__like-input{
+    width: 295px;
+    font-size: 0.8rem;
+    padding: 3%;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    height: 38px;
+    border: 1px solid;
+    cursor: pointer;
+}

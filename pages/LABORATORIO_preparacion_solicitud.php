@@ -253,7 +253,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
                             <label>Documento adiciona:</label>
-                            <input name="url_documento_adicional" id="url_documento_adicional" class="highlight form-control mx-0 w-90" type="file" accept="application/pdf">
+                            <label for="url_documento_adicional" id="url_documento_adicional_label" class="label__like-input highlight">
+                                <span>
+                                    <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
+                                </span>
+                                 &nbsp <span id="url_documento_adicional_label_text">Seleccione un archivo</span>
+                            </label>
+                            <input type="file" accept="application/pdf" id="url_documento_adicional" name="url_documento_adicional"  style="display: none;">
                         </div>
                     </div>
                 </fieldset>
@@ -740,6 +746,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
     $(document).ready(function() {
+        $('#url_documento_adicional').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $('#url_documento_adicional_label_text').text(fileName);
+        });
 
         function editarGenerarVersion(event) {
 
@@ -801,9 +811,11 @@ while ($row = mysqli_fetch_assoc($result)) {
         function formSubmit(event) {
 
             // Crear un nuevo objeto FormData
-            var formData = new FormData(this);
             //formatear las fechas
             event.preventDefault();
+            var formData = new FormData(this);
+            $('#guardar').prop('disabled', true);
+
             $('.datepicker').each(function() {
                 var dateValue = $(this).val();
                 if (dateValue) {
@@ -827,6 +839,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             if ($('#laboratorio').val() === 'Otro') {
                 if ($('#otro_laboratorio').val() == '') {
                     $.notify('Tiene que escribir el nombre del nuevo laboratorio', 'warn');
+                    $('#guardar').prop('disabled', false);
                     return;
                 }
             }
@@ -852,6 +865,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 
             }).catch(function(error) {
                 console.log("Error: " + error);
+            }).finally(function() {
+                $('#guardar').prop('disabled', false);
             })
 
             $('.datepicker').each(function() {

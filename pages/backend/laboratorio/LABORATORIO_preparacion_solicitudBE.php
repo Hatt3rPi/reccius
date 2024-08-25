@@ -284,7 +284,12 @@ function agregarDatosPostFirma($link, $datos,$archivo)
     if (empty($partesConsulta)) {
         throw new Exception("No hay datos para actualizar.");
     }
-
+    //
+    if (isset($datos['url_documento_adicional'])) {
+        $partesConsulta[] = "url_standard_adicional = ?";
+        $valoresParaVincular[] = $datos['url_standard_adicional'];
+        $tipos .= 's';
+    }
     //nuevo estado 
     $partesConsulta[] = "estado = ?";
     $valoresParaVincular[] = "Pendiente envío a Laboratorio";
