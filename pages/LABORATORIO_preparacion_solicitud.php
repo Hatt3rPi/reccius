@@ -735,7 +735,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
-            console.log(key, ' = ', value);
         });
     }
 
@@ -808,15 +807,15 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $(this).val(formattedDate);
                 }
             });
-
-            validateTextRequiredInputs(new FormData(this));
             var datosFormulario = $(this).serialize();
-            var fileInput = $('#url_documento_adicional')[0];
-            if (fileInput.files.length > 0) {
-                formData.append('url_documento_adicional', fileInput.files[0]);
-            }
+
             //si es post firma
             if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
+                var fileInput = $('#url_documento_adicional')[0];
+                if (fileInput.files.length > 0) {
+                    formData.append('url_documento_adicional', fileInput.files[0]);
+                }
+
                 datosFormulario += '&id=' + idAnalisisExterno;
             }
 
