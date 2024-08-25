@@ -799,6 +799,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#formulario_analisis_externo').on('submit', formSubmit);
 
         function formSubmit(event) {
+
+            // Crear un nuevo objeto FormData
+            var formData = new FormData(this);
+            //formatear las fechas
             event.preventDefault();
             $('.datepicker').each(function() {
                 var dateValue = $(this).val();
@@ -811,12 +815,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 
             //si es post firma
             if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
+                formData.append('id', idAnalisisExterno);
+
+                // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'
                 var fileInput = $('#url_documento_adicional')[0];
                 if (fileInput.files.length > 0) {
                     formData.append('url_documento_adicional', fileInput.files[0]);
                 }
-
-                datosFormulario += '&id=' + idAnalisisExterno;
             }
 
             if ($('#laboratorio').val() === 'Otro') {
@@ -831,7 +836,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: datosFormulario
+                body: formData
             })
             .then(response => response.json())
             .then(function(data) {
