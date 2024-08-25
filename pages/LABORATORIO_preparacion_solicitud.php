@@ -832,18 +832,20 @@ while ($row = mysqli_fetch_assoc($result)) {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: datosFormulario
-            }).then(function(data) {
-            if(data.exito){
-                $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-                    obtenNotificaciones();
-                    carga_listado();
-                    console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-                    $('#loading-spinner').hide();
-                    $('#dynamic-content').show();
-                });
-            }else{
-                $.notify(data.mensaje, 'warn');
-            }
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                if(data.exito){
+                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
+                        obtenNotificaciones();
+                        carga_listado();
+                        console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                        $('#loading-spinner').hide();
+                        $('#dynamic-content').show();
+                    });
+                }else{
+                    $.notify(data.mensaje, 'warn');
+                }
 
 
             }).catch(function(error) {
