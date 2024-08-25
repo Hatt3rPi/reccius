@@ -833,9 +833,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 
             fetch('../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
                 body: formData
             })
             .then(response => response.json())
