@@ -77,7 +77,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha Muestreo:</td>
                             <td id="fecha_muestreo" name="fecha_muestreo"></td>
-                            
+
                         </tr>
                     </table>
                 </div>
@@ -225,7 +225,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="formulario-titulo">6. Cond. Almacenamiento:</td>
 
                         <td class="formulario">
-                            <div id="form_condAlmacenamiento" class="editable-diva" ></div>
+                            <div id="form_condAlmacenamiento" class="editable-diva"></div>
 
                         </td>
                         <td class="spacer"></td>
@@ -337,8 +337,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
 
                     <tr>
-                        <td>1. La zona de esterilización se encuentra
-                            limpia y ordenada.</td>
+                        <td>1. La zona de esterilización se encuentra limpia y ordenada.</td>
                         <td id="form_1" style="visibility: hidden;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
@@ -353,6 +352,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -362,6 +363,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -371,8 +374,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
 
                     <tr>
-                        <td>2. Verificar que la zona de muestreo se
-                            encuentre libre de otros productos.</td>
+                        <td>2. Verificar que la zona de muestreo se encuentre libre de otros productos.</td>
                         <td id="form_2" style="visibility: hidden;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
@@ -387,6 +389,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -396,13 +400,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
-                        <td>3. Evaluar el aspecto del producto en zona
-                            de revisión.</td>
+                        <td>3. Evaluar el aspecto del producto en zona de revisión.</td>
                         <td id="form_3" style="visibility: hidden;">
                             <!-- CheckBoxes para Conforme y No Conforme -->
                             <input type="checkbox" name="estado_Pro" value="Conforme">
@@ -417,6 +422,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -426,9 +433,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>4. Verificar correcta identificación del lote y producto.</td>
                         <td id="form_4" style="visibility: hidden;">
@@ -445,6 +455,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -454,9 +466,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>5. Cantidad de ciclos de esterilización</td>
                         <td class="formulario">
@@ -469,6 +484,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -478,9 +495,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>6. Cantidad bandejas esterilizadas por ciclo</td>
                         <td class="formulario">
@@ -493,6 +513,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -502,9 +524,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>7. Cantidad de muestras por bandeja</td>
                         <td class="formulario">
@@ -518,6 +543,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                         <td class="spacer"></td>
@@ -527,16 +554,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="muestreoVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="muestreoVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
                 </table>
             </section>
+
             <div style="margin-top: 10px; font-size: 12px;">
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
                     durante el proceso:</label>
-                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true" ></div>
+                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
 
 
             </div>
@@ -555,7 +585,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th id="revision_actor2">Revisión Responsable</th>
                     </tr>
                     <!-- Fila para lotes de <= 500 unidades -->
-                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
                         <td readonly>&le; 500 unidades</td>
                         <td readonly>40 unidades</td>
                         <td readonly>80 unidades</td>
@@ -566,20 +596,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
-
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planVB1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
                     <!-- Fila para lotes entre 501 y 4999 unidades -->
-                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
                         <td contenteditable="true">501 - 4999 unidades</td>
                         <td contenteditable="true">40 unidades</td>
                         <td contenteditable="true">80 unidades</td>
@@ -590,20 +623,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planResp2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
-
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planVB2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
                     <!-- Fila para lotes de >= 1000 unidades -->
-                    <tr style=" border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
+                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
                         <td contenteditable="true">&ge; 1000 unidades</td>
                         <td contenteditable="true">50 unidades</td>
                         <td contenteditable="true">100 unidades</td>
@@ -614,20 +650,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label class="btn btn-outline-success verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planResp3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
-
                         <td class="formulario verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
                                 <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3b" value="0" autocomplete="off">
                                 <label class="btn btn-outline-danger verificadores" for="planVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3c" value="2" autocomplete="off">
+                                <label class="btn btn-outline-secondary verificadores" for="planVB3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
                             </div>
                         </td>
                     </tr>
                 </table>
             </section>
+
 
             <!-- Footer -->
             <div id="footer-containerDIV" class="footer-containerDIV">
@@ -878,7 +918,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function asignarValoresARadios(valores, selectorGrupos) {
-        // Selección de todos los grupos de botones dentro del documento que correspondan al selector.
         const grupos = document.querySelectorAll(selectorGrupos);
         console.log("Cantidad de grupos encontrados:", grupos.length);
         console.log("Longitud de valores esperados:", valores.length);
@@ -888,32 +927,34 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             return;
         }
 
-        // Iterar sobre cada grupo y asignar el valor correspondiente basado en el valor en la cadena 'valores'.
         grupos.forEach((grupo, index) => {
-            // El valor para el grupo actual se obtiene del string de valores.
             const valor = valores[index];
+            let suffix;
 
-            // Determinar el sufijo del botón basado en el valor ('a' para '1', 'b' para '0').
-            const suffix = valor === '1' ? 'a' : 'b';
+            // Asignar el sufijo según el valor recibido
+            if (valor === '1') {
+                suffix = 'a';
+            } else if (valor === '0') {
+                suffix = 'b';
+            } else if (valor === '2') { // Nuevo valor para "No Aplica"
+                suffix = 'c';
+            }
 
-            // Intentar seleccionar el botón de radio correspondiente en el grupo.
             const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
 
-            // Deshabilitar todos los botones dentro del grupo para evitar cambios adicionales.
             const allRadios = grupo.querySelectorAll('input[type="radio"]');
             allRadios.forEach(r => {
                 r.setAttribute('disabled', 'disabled');
             });
 
             if (radio) {
-                // Si se encuentra el botón, se marca como seleccionado.
                 radio.checked = true;
             } else {
-                // Si no se encuentra el botón, se muestra un error en la consola.
                 console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
             }
         });
     }
+
 
 
 
@@ -1295,25 +1336,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function consolidarRespuestas(universo) {
         let valorConsolidado = '';
-        // Selecciona todos los grupos de botones de radio dentro de la sección de respuesta
         const grupos = document.querySelectorAll(universo);
 
-        // Itera a través de cada grupo para ver cuál botón de radio está seleccionado
         grupos.forEach(grupo => {
             const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
 
-            // Añadir al valor consolidado basado en el valor del botón seleccionado
             if (radioSeleccionado) {
-                // Asumiendo que los valores son 'Cumple' y 'No Cumple' transformados a '1' y '0'
-                valorConsolidado += (radioSeleccionado.value === '1' ? '1' : '0');
+                if (radioSeleccionado.id.endsWith('a')) {
+                    valorConsolidado += '1'; // Cumple
+                } else if (radioSeleccionado.id.endsWith('b')) {
+                    valorConsolidado += '0'; // No Cumple
+                } else if (radioSeleccionado.id.endsWith('c')) {
+                    valorConsolidado += '2'; // No Aplica
+                }
             } else {
-                // Si no se selecciona ninguno en el grupo, se podría considerar como no cumple o manejar como error
-                valorConsolidado += 'N'; // o manejar la situación de manera diferente
+                valorConsolidado += 'N'; // Ninguna opción seleccionada
             }
         });
 
         return valorConsolidado;
     }
+
 
 
     document.getElementById('guardar').addEventListener('click', function() {
@@ -1377,17 +1420,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Recolecta datos de los textarea sólo si la firma es 1
         if (etapa === 1) {
             ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
-            let textarea = document.getElementById(id);
-            // Usa textContent o innerText en lugar de value para los divs con contenteditable
-            if (textarea.textContent.trim() === '') {
-                //alert(`El campo ${id} está vacío y es obligatorio.`);
-                $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
-                todosSeleccionados = false;
-                return;
-            } else {
-                dataToSave.textareaData[id] = textarea.textContent;
-            }
-        });
+                let textarea = document.getElementById(id);
+                // Usa textContent o innerText en lugar de value para los divs con contenteditable
+                if (textarea.textContent.trim() === '') {
+                    //alert(`El campo ${id} está vacío y es obligatorio.`);
+                    $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
+                    todosSeleccionados = false;
+                    return;
+                } else {
+                    dataToSave.textareaData[id] = textarea.textContent;
+                }
+            });
 
             if (!todosSeleccionados) {
                 return; // Detiene la función si algún textarea está vacío
