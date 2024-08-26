@@ -252,7 +252,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
                         <div class="form-group">
-                            <label>Documento adiciona:</label>
+                            <label>Documento adicional:</label>
                             <label for="url_documento_adicional" id="url_documento_adicional_label" class="label__like-input highlight w-90 d-flex">
                                 <span>
                                     <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
@@ -388,7 +388,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'hds_otro',
             'fecha_entrega_estimada',
             'numero_documento',
-            'observaciones',
+            // 'observaciones',
             'numero_especificacion',
             'version_especificacion',
             'usuario_editor',
