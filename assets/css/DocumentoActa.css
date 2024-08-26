@@ -815,10 +815,3 @@ ul {
     transform: translateX(14px);
   }
 
-  @media print {
-    .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
-        background-color: transparent !important;
-        color: black !important;
-        -webkit-print-color-adjust: exact;
-    }
-}

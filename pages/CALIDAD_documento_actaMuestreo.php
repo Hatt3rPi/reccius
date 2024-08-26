@@ -76,8 +76,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td id="fecha_muestreo" name="fecha_muestreo" ></td>
-                
+                            <td id="fecha_muestreo" name="fecha_muestreo"></td>
+
                         </tr>
                     </table>
                 </div>
@@ -962,43 +962,49 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
+        // Ajusta los estilos de los botones antes de generar el PDF
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = `
+        .btn-outline-success,
+        .btn-outline-danger,
+        .btn-outline-secondary {
+            background-color: transparent !important;
+            color: #000 !important;
+            border-color: #000 !important;
+        }
+    `;
+        document.head.appendChild(styleElement);
+
+        // Continúa con la generación del PDF
         $.notify("Generando PDF", "warn");
 
-        // Ocultar botones no seleccionados en todos los grupos, tanto horizontales como verticales
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.btn-check');
             buttons.forEach(button => {
-                // Si el botón no está chequeado, ocultar el label asociado
                 if (!button.checked) {
                     button.nextElementSibling.style.display = 'none';
                 }
             });
         });
 
-        // Continúa con el proceso de descarga del PDF como antes
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none'; // Establecer el borde a none
-        elementToExport.style.boxShadow = 'none'; // Establecer el borde a none
-
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
 
         html2canvas(elementToExport, {
             scale: 1,
             useCORS: false
         }).then(canvas => {
-            // Mostrar botones después de la captura
             document.querySelector('.button-container').style.display = 'block';
-            // Establecer los estilos originales después de generar el PDF
             elementToExport.style.border = '1px solid #000';
             elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
-            // Restablecer la visibilidad de todos los botones después de generar el PDF
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
                 buttons.forEach(button => {
-                    // Solo mostrar los labels de los botones seleccionados
                     if (button.checked) {
                         button.style.display = 'block';
                     }
@@ -1028,9 +1034,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 heightLeft -= pageHeight;
             }
 
-
-            var nombreProducto = document.getElementById('producto').textContent.trim();
-            var nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+            const nombreProducto = document.getElementById('producto').textContent.trim();
+            const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             $.notify("PDF generado con éxito", "success");
 
@@ -1038,13 +1043,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
                 buttons.forEach(button => {
-                    // Mostrar todos los botones nuevamente
                     button.style.display = 'block';
                 });
             });
 
+            // Remover el estilo temporal después de la generación del PDF
+            document.head.removeChild(styleElement);
         });
     });
+
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
 
