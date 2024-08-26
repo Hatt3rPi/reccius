@@ -481,18 +481,22 @@ p {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Aplicar una imagen de fondo repetitiva */
-.resp, .verif {
+.resp {
+    background-color: #ffffff;
+    width: 102px;
+}
+
+.verif {
+    background-color: #ffffff;
+    width: 102px
+}
+.btn-group-vertical {
     background-image: url('../images/fondo.png');
     background-repeat: repeat;
-    border: 1px solid #000;
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el área */
+    border: 1px solid #000; /* Añade un borde para mayor visibilidad */
     padding: 5px;
     opacity: 0.9; /* Ajusta la opacidad según sea necesario */
-}
-/* Opcional: hacer que los textos sean más visibles */
-.label {
-    color: #000;
-    font-weight: bold;
 }
 
 
