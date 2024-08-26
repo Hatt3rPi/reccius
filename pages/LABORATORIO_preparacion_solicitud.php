@@ -128,7 +128,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm " style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" value="T° ambiente, lugar fresco y seco, protegido de la luz"></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm " style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" >T° ambiente, lugar fresco y seco, protegido de la luz</textarea>
                     </div>
                 </div>
                 <div class="form-row">
