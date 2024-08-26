@@ -76,8 +76,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td id="fecha_muestreo" name="fecha_muestreo" class="date resp"></td>
-
+                            <td id="fecha_muestreo" name="fecha_muestreo" ></td>
+                
                         </tr>
                     </table>
                 </div>
