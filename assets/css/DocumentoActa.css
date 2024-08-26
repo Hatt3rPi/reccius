@@ -497,6 +497,7 @@ p {
     border: 1px solid #000; /* Añade un borde para mayor visibilidad */
     padding: 5px;
     opacity: 0.9; /* Ajusta la opacidad según sea necesario */
+    color: #000;
 }
 
 
