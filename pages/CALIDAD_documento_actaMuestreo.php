@@ -965,23 +965,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Ajusta los estilos de los botones e íconos antes de generar el PDF
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
-    .btn-outline-success,
-    .btn-outline-danger,
-    .btn-outline-secondary {
-        background-color: transparent !important;
-        color: #000 !important;
-        border-color: #000 !important;
-        font-weight: bold !important; /* Hace el texto bold */
-    }
+        .btn-outline-success,
+        .btn-outline-danger,
+        .btn-outline-secondary {
+            background-color: transparent !important;
+            color: #000 !important;
+            border-color: #000 !important;
+            font-weight: bold !important; /* Hace el texto bold */
+        }
 
-    .btn-outline-success .fa-circle-check,
-    .btn-outline-danger .fa-circle-xmark,
-    .btn-outline-secondary .fa-circle-xmark {
-        color: #000 !important;
-        font-weight: bold !important; /* Hace los íconos bold */
-    }
-`;
-
+        .btn-outline-success .fa-circle-check,
+        .btn-outline-danger .fa-circle-xmark,
+        .btn-outline-secondary .fa-circle-xmark {
+            color: #000 !important;
+            font-weight: bold !important; /* Hace el texto bold */
+        }
+    `;
         document.head.appendChild(styleElement);
 
         // Continúa con la generación del PDF
