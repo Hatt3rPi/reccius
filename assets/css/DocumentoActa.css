@@ -490,7 +490,7 @@ p {
     background-color: #ffffff;
     width: 102px
 }
-.btn-group-vertical {
+.btn-outline-success.verificadores  {
     background-image: url('../images/fondo.png');
     background-repeat: repeat;
     background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el área */
