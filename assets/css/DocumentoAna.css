@@ -1,517 +1,489 @@
 body {
-
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
 }
 
 #form-container {
-    width: 1000px;
-    /* height: 792pt; */
-    padding: 12px;
-    box-sizing: border-box;
-    background-color: #FFF;
-    border: 1px solid #000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 100px;
-    position: relative;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    top: 10px;
+  width: 1000px;
+  /* height: 792pt; */
+  padding: 12px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 100px;
+  position: relative;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  top: 10px;
 }
 
-
 .form-row {
-    display: flex;
-    justify-content: space-between;
-    /* Separa las columnas */
+  display: flex;
+  justify-content: space-between;
+  /* Separa las columnas */
 }
 
 .firma-box {
-    border: 1px solid #000;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    padding-top: 0px;
-    padding-right: 10px;
-    width: 350px;
-    height: 100px;
-    /* Ajusta el ancho para llenar la sección del footer */
-    text-align: center;
+  border: 1px solid #000;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 0px;
+  padding-right: 10px;
+  width: 350px;
+  height: 100px;
+  /* Ajusta el ancho para llenar la sección del footer */
+  text-align: center;
 }
 
 /* ... Resto de estilos ... */
-
-
 
 .header,
 .header-bottom,
 .table-section,
 .footer-box,
 .footer {
-    margin: 0;
-    padding-top: 1px;
-    padding-bottom: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border: none;
-    background-color: #FFF;
+  margin: 0;
+  padding-top: 1px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  background-color: #fff;
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-height: 276pt;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 276pt;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .header,
 .header-bottom,
 .content,
 .footer {
-    justify-content: space-between;
-    align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-bottom-left,
 .header-bottom-right,
 .footer-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .header-center {
-    flex: 2;
-    text-align: center;
+  flex: 2;
+  text-align: center;
 }
 
 .header-bottom-left,
 .header-bottom-right {
-    height: 50px;
+  height: 50px;
 }
 
 .header-right,
 .header-bottom-right,
 .footer-box {
-    text-align: right;
-    font-size: 10px;
+  text-align: right;
+  font-size: 10px;
 }
 
 .header-right th:nth-child(2),
 .header-right td:nth-child(2) {
-    text-align: left;
-    font-size: 10px;
-    padding-left: 5px;
-
+  text-align: left;
+  font-size: 10px;
+  padding-left: 5px;
 }
 
 .header-right table {
-    width: 100%;
+  width: 100%;
 }
 
 .header-right table td,
 .header-right table th {
-    font-size: 10px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 3px;
-    padding-right: 1px;
-    border: 1px dotted #000;
+  font-size: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 3px;
+  padding-right: 1px;
+  border: 1px dotted #000;
 }
 
 .bold {
-    font-size: 9px;
-    color: #000;
-    font-weight: bold;
-    text-align: center;
+  font-size: 9px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
 }
-
 
 .footer-section {
-    margin: 5px;
+  margin: 5px;
 }
-
-
-
 
 .bold,
 .signature,
 p {
-    margin: 0;
+  margin: 0;
 }
 
 p {
-    flex-grow: 0;
+  flex-grow: 0;
 }
 
 .botones {
-    position: fixed;
-    width: 200px;
-    right: 20px;
-    padding: 15px 30px;
-    background-color: #0047b3;
-    color: white;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  width: 200px;
+  right: 20px;
+  padding: 15px 30px;
+  background-color: #0047b3;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
 #metodo_muestreo {
-    bottom: 30px !important;
+  bottom: 30px !important;
 }
 
 #guardar {
-    bottom: 90px;
+  bottom: 90px;
 }
 
 #firmar {
-    bottom: 160px;
-    background-color: #ff0000;
+  bottom: 160px;
+  background-color: #ff0000;
 }
 
 #download-pdf {
-    bottom: auto;
+  bottom: auto;
 }
 
 #download-pdf:hover {
-    background-color: #003580;
+  background-color: #003580;
 }
 
 .verificadores {
-    font-size: 8px !important;
-    margin-bottom: 0px !important;
-    padding: 2px 2px !important;
-    /* Ajusta el espacio interno del botón */
-    border-radius: 3px !important;
-    width: 100% !important;
-
+  font-size: 8px !important;
+  margin-bottom: 0px !important;
+  padding: 2px 2px !important;
+  /* Ajusta el espacio interno del botón */
+  border-radius: 3px !important;
+  width: 100% !important;
 }
 
-
-
 .Subtitulos {
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 1px;
-    padding: 1%;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 1px;
+  padding: 1%;
 }
 
 .tabla {
-    background-color: #0047b3;
-    text-align: center;
-    color: white;
-    padding: 8px;
+  background-color: #0047b3;
+  text-align: center;
+  color: white;
+  padding: 8px;
 }
 
-
 table {
-    width: 100%;
-    border-collapse: collapse;
-    box-sizing: border-box;
-    /* Incluye el padding y border en el ancho de la tabla */
+  width: 100%;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  /* Incluye el padding y border en el ancho de la tabla */
 }
 
 .titulo {
-    
-    /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
-    text-align: left;
-    /* Alinea el texto a la izquierda */
-    font-size: 12px;
-    width: 270px;
-
+  /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
+  text-align: left;
+  /* Alinea el texto a la izquierda */
+  font-size: 12px;
+  width: 270px;
 }
 
 .titulo-right {
-    /* Alinea el texto a la derecha */
-    padding-left: 10px;
-    width: 155px;
-    /* Ajusta el espaciado a la izquierda para empujar el contenido hacia la derecha */
+  /* Alinea el texto a la derecha */
+  padding-left: 10px;
+  width: 155px;
+  /* Ajusta el espaciado a la izquierda para empujar el contenido hacia la derecha */
 }
 
 input[type="text"] {
-    width: 295px;
-    font-size: 0.8rem;
-    padding: 3%;
-    box-sizing: border-box;
-    overflow: hidden; /* Evita que el contenido se desborde */
-    white-space: nowrap; /* Evita que el texto se envuelva */
-    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
-    display: flex;
-    align-items: center; /* Centra verticalmente */
-
+  width: 295px;
+  font-size: 0.8rem;
+  padding: 3%;
+  box-sizing: border-box;
+  overflow: hidden; /* Evita que el contenido se desborde */
+  white-space: nowrap; /* Evita que el texto se envuelva */
+  text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
+  display: flex;
+  align-items: center; /* Centra verticalmente */
 }
 
 .tituloTabla {
-    /* Asumiendo que quieres que el texto sea negrita */
-    padding-right: 10px;
-    padding-left: 10px;
-    /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
-    text-align: left;
-    /* Alinea el texto a la izquierda */
-    font-weight: bold;
-    font-size: 14px;
-    
+  /* Asumiendo que quieres que el texto sea negrita */
+  padding-right: 10px;
+  padding-left: 10px;
+  /* Ajusta el espaciado a la derecha para alinear el texto a la izquierda */
+  text-align: left;
+  /* Alinea el texto a la izquierda */
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .bordeAbajo {
-
-    border: 1px dotted #000;
+  border: 1px dotted #000;
 }
 
 .Metod {
-    text-align: center;
-    font-size: 12px;
-
+  text-align: center;
+  font-size: 12px;
 }
 
 .Espec {
-    font-size: 12px;
+  font-size: 12px;
 }
-
 
 .tamañoRevision {
-    font-size: 11px;
+  font-size: 11px;
 }
 
-.revision{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 10px;
-    padding: 5px 20px 5px 0;
+.revision {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 20px 5px 0;
 }
-.label__like-input{
-    width: 295px;
-    font-size: 0.8rem;
-    padding: 3%;
-    box-sizing: border-box;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: flex;
-    align-items: center;
-    height: 38px;
-    border: 1px solid;
-    cursor: pointer;
+.label__like-input {
+  width: 295px;
+  font-size: 0.8rem;
+  padding: 3%;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  height: 38px;
+  border: 1px solid;
+  cursor: pointer;
 }
 .input-highlight {
-    background-color: rgb(244, 250, 194)!important;
+  background-color: rgb(244, 250, 194) !important;
 }
 
 .TextoBajo {
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .ParrafoBajo {
-    margin-top: 10px;
-    font-size: 10px;
+  margin-top: 10px;
+  font-size: 10px;
 }
-ul{
-    padding-left: 0px !important;
+ul {
+  padding-left: 0px !important;
 }
 
 .button-container {
-    position: fixed;
-    gap: 10px;
-    bottom: 15px;
-    right: 15px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
+  position: fixed;
+  gap: 10px;
+  bottom: 15px;
+  right: 15px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 .button-container .botones {
-    position: relative;
-    right: 20px;
-    width: 100%;
-    padding: 15px 30px;
-    background-color: #0047b3;
-    color: white;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  right: 20px;
+  width: 100%;
+  padding: 15px 30px;
+  background-color: #0047b3;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-textarea{
-    width: 295px;
-    field-sizing: content;
-    resize: none;
-    overflow: hidden;
-    font-size: 12px;
-    padding: 3%;
-    margin-bottom: -6px;
+textarea {
+  width: 295px;
+  field-sizing: content;
+  resize: none;
+  overflow: hidden;
+  font-size: 12px;
+  padding: 3%;
+  margin-bottom: -6px;
 }
 
 .footer-containerDIV {
-            
-    display: flex;
-    flex-wrap: nowrap;
-    /* Evita que las secciones bajen al siguiente renglón */
-    justify-content: space-between;
-    margin-top: 1px;
-    width: 100%;
-    /* Asegura que el contenedor tome todo el ancho disponible */
-    box-sizing: border-box;
-    /* Incluye el padding y border en el ancho total */
+  display: flex;
+  flex-wrap: nowrap;
+  /* Evita que las secciones bajen al siguiente renglón */
+  justify-content: space-between;
+  margin-top: 1px;
+  width: 100%;
+  /* Asegura que el contenedor tome todo el ancho disponible */
+  box-sizing: border-box;
+  /* Incluye el padding y border en el ancho total */
 }
 
 .firma-section {
-    
-    padding: 10px;
-    margin: 5px;
-    flex: 1;
-    /* Distribuye el espacio equitativamente entre las secciones */
+  padding: 10px;
+  margin: 5px;
+  flex: 1;
+  /* Distribuye el espacio equitativamente entre las secciones */
 
-    max-width: 45%;
-    /* Limita el ancho máximo al 32% del contenedor para evitar desbordamiento */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* Distribuye el contenido de manera uniforme */
-    height: 220px;
-    /* Ajusta según sea necesario */
+  max-width: 45%;
+  /* Limita el ancho máximo al 32% del contenedor para evitar desbordamiento */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* Distribuye el contenido de manera uniforme */
+  height: 220px;
+  /* Ajusta según sea necesario */
 }
 
 .firma-box-title {
-    
-    font-size: 10px;
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-size: 10px;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 5px;
 
-    height: 21px;
-    width: 100%;
-    /* Ajusta según sea necesario */
+  height: 21px;
+  width: 100%;
+  /* Ajusta según sea necesario */
 }
 
 .firma-boxes {
-    border: 1px solid #000000;
-    text-align: center;
-    flex: 1;
-    /* Permite que el contenido crezca para llenar el espacio */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* Centra el contenido verticalmente */
-    height: 100%;
-    width: 100%;
+  border: 1px solid #000000;
+  text-align: center;
+  flex: 1;
+  /* Permite que el contenido crezca para llenar el espacio */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* Centra el contenido verticalmente */
+  height: 100%;
+  width: 100%;
 }
 
 .signature {
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 7px 0;
-    font-size: 10px;
-    /* Permite que la firma crezca para llenar el espacio */
-    height: 100px;
-    width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7px 0;
+  font-size: 10px;
+  /* Permite que la firma crezca para llenar el espacio */
+  height: 100px;
+  width: 100px;
 
-    /* Ajusta según sea necesario */
+  /* Ajusta según sea necesario */
 }
 
 .date {
-    
-    text-align: center;
-    font-size: 10px;
-    margin-top: 5px;
-    height: 15px;
-    width: 100%;
-    /* Ajusta según sea necesario */
+  text-align: center;
+  font-size: 10px;
+  margin-top: 5px;
+  height: 15px;
+  width: 100%;
+  /* Ajusta según sea necesario */
 }
 
 .bold {
-    
-    font-weight: bold;
-    width: 266px;
-
-
+  font-weight: bold;
+  width: 266px;
 }
 
 .text-bottom {
-    text-align: center;
-    font-size: 10px;
-
+  text-align: center;
+  font-size: 10px;
 }
 
 .firma {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .date-container {
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    /* Ajusta según sea necesario */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  /* Ajusta según sea necesario */
 }
 
 /* Ocultar los botones de radio */
 input[type="radio"].btn-check {
-    display: none;
+  display: none;
 }
 
 /* Estilo por defecto de los labels */
 label.btn {
-    border: 2px solid #ccc; /* Añadir un borde gris claro por defecto */
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s, border-color 0.3s;
+  border: 2px solid #ccc; /* Añadir un borde gris claro por defecto */
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* Estilo cuando se selecciona el botón 'Cumple' */
 input[type="radio"].btn-check.cumple:checked + label.btn-outline-success {
-    background-color: #28a745;
-    border-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
 }
 
 /* Estilo cuando se selecciona el botón 'No Cumple' */
 input[type="radio"].btn-check.noCumple:checked + label.btn-outline-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
 }
 
 /* Estilo cuando el botón no está seleccionado pero el label está activo (hover) */
 label.btn:hover {
-    border-color: #007bff; /* Borde azul al pasar el mouse */
+  border-color: #007bff; /* Borde azul al pasar el mouse */
 }
 
 .editable-div {
-    width: 295px;
-    max-width: 295px;
-    word-wrap: break-word;
-    /* Permite que las palabras se ajusten si son muy largas */
-    overflow-wrap: break-word;
-    /* Para soporte adicional */
-    white-space: normal;
-    /* Asegura que el texto se ajusta a la siguiente línea */
-    height: auto;
-    /* Ajusta la altura automáticamente según el contenido */
-    border: 1px solid #ccc;
-    /* Opcional: Estilo de borde */
-    padding: 5px;
-    /* Espaciado interno opcional */
-    box-sizing: border-box;
-    /* Asegura que el padding esté incluido en la anchura */
-    font-size: 0.8rem;
-    /* Tamaño de la fuente */
-    min-height: 45px;
+  width: 295px;
+  max-width: 295px;
+  word-wrap: break-word;
+  /* Permite que las palabras se ajusten si son muy largas */
+  overflow-wrap: break-word;
+  /* Para soporte adicional */
+  white-space: normal;
+  /* Asegura que el texto se ajusta a la siguiente línea */
+  height: auto;
+  /* Ajusta la altura automáticamente según el contenido */
+  border: 1px solid #ccc;
+  /* Opcional: Estilo de borde */
+  padding: 5px;
+  /* Espaciado interno opcional */
+  box-sizing: border-box;
+  /* Asegura que el padding esté incluido en la anchura */
+  font-size: 0.8rem;
+  /* Tamaño de la fuente */
+  min-height: 45px;
+}
+.modal {
+  background-color: #000000c4 ;
 }
