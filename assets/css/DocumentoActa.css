@@ -490,16 +490,6 @@ p {
     background-color: #ffffff;
     width: 102px
 }
-.btn-outline-success.verificadores  {
-    background-image: url('../images/fondo.png');
-    background-repeat: repeat;
-    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el área */
-    border: 1px solid #000; /* Añade un borde para mayor visibilidad */
-    padding: 5px;
-    opacity: 0.9; /* Ajusta la opacidad según sea necesario */
-    color: #000;
-}
-
 
 #muestreo th:first-child,
 #muestreo td:first-child {
@@ -824,3 +814,11 @@ ul {
   input:checked + .slider:before {
     transform: translateX(14px);
   }
+
+  @media print {
+    .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
+        background-color: transparent !important;
+        color: black !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
