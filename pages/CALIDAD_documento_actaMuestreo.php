@@ -962,7 +962,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        // Ajusta los estilos de los botones antes de generar el PDF
+        // Ajusta los estilos de los botones e íconos antes de generar el PDF
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
         .btn-outline-success,
@@ -971,6 +971,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             background-color: transparent !important;
             color: #000 !important;
             border-color: #000 !important;
+        }
+
+        .btn-outline-success .fa-circle-check,
+        .btn-outline-danger .fa-circle-xmark,
+        .btn-outline-secondary .fa-circle-xmark {
+            color: #000 !important;
         }
     `;
         document.head.appendChild(styleElement);
@@ -1051,6 +1057,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             document.head.removeChild(styleElement);
         });
     });
+
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
