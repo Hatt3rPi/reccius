@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "estado",
                     "title": "Estado",
-                    "width": "45px",
+                    "width": "35px",
                     "render": function(data, type, row) {
                         switch (data) {
                             case 'completado':
@@ -123,7 +123,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "fecha_registro",
                     "title": "Fecha registro",
-                    "width": "65px"
+                    "width": "65px",
+                    "render": function(data, type, row) {
+                        return data ? data : '';
+                    }
                 },
                 {
                     "data": "numero_solicitud",
