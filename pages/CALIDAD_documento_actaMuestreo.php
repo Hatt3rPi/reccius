@@ -76,7 +76,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td id="fecha_muestreo" name="fecha_muestreo"></td>
+                            <td ><input type="date" id="fecha_muestreo" name="fecha_muestreo"  class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
 
                         </tr>
                     </table>
@@ -828,7 +828,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var cargo = "<?php echo $_SESSION['cargo']; ?>";
             var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
             var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-            $('#fecha_muestreo').text(fecha_yoh).prop('readonly', false);
+            $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
             $('#fecha_firma1').text(fecha_hoy);
             //document.getElementById('fecha_firma1').style.display = 'block';
             //document.getElementById('mensaje_firma1').style.display = 'block';
@@ -1263,7 +1263,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#fecha_muestreo').text(fecha_yoh).prop('readonly', false);
+                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
@@ -1277,7 +1277,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').text(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     $('#etapa').text('ingresa resultados y firma2');
                     if (usuario_activo == response.responsable) {
@@ -1293,7 +1293,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').text(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     firma2(response);
                     $('#etapa').text('firma3');
@@ -1307,7 +1307,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').text(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
                     firma1(response);
                     firma2(response);
                     firma3(response);
