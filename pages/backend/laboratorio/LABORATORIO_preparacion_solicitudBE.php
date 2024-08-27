@@ -272,13 +272,10 @@ function agregarDatosPostFirma($link, $datos,$archivo)
     foreach ($camposAActualizar as $campo) {
         if (isset($datos[$campo]) && $datos[$campo] !== '') {
             $partesConsulta[] = "$campo = ?";
-            $valoresParaVincular[] = $datos[$campo];
+            $valoresParaVincular[] = $datos[$campo] ?? null;
             $tipos .= campoTipo($campo);
         }
     } // * esto me ayuda a actualizar solo lo que le envio
-
-    unset($_SESSION['buscar_por_ID']);
-    $_SESSION['buscar_por_ID'] = $datos['id'];
 
     // Asegurarte de que haya algo que actualizar
     if (empty($partesConsulta)) {
