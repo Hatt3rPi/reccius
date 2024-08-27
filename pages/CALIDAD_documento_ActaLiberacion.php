@@ -607,9 +607,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         const analisis = response.analisis; // Datos del análisis externo
                         const primerAnalisis = analisis[0];
                         const acta_muestreo = response.Acta_Muestreo[0];
+                        var nombreProducto = primerAnalisis.prod_nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
+                        var concentracion = primerAnalisis.prod_concentracion ? ' ' + primerAnalisis.prod_concentracion : ''; // Añade un espacio antes solo si no es null
+                        var formato = primerAnalisis.prod_formato ? ' ' + primerAnalisis.prod_formato : ''; // Añade un espacio antes solo si no es null
 
+                        // Concatenar solo las partes que no sean nulas o vacías
+                        var productoCompleto = nombreProducto + concentracion + formato;
                         // Sumar los resultados de producto en un solo texto
-                        var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
+                        
                         var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
                         // Actualizar el elemento con el texto combinado
                         $('#producto_completo').text(productoCompleto);

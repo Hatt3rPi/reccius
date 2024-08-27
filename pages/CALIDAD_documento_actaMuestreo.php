@@ -1212,13 +1212,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     function procesarDatosActa(response, resultados, etapa) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
+        var nombreProducto = response.nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
+        var concentracion = response.concentracion ? ' ' + response.concentracion : ''; // Añade un espacio antes solo si no es null
+        var formato = response.formato ? ' ' + response.formato : ''; // Añade un espacio antes solo si no es null
 
+        // Concatenar solo las partes que no sean nulas o vacías
+        var productoTexto = nombreProducto + concentracion + formato;
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
         // Aquí asignas los valores a los campos del formulario
         // Asegúrate de que los ID de los elementos HTML coincidan con estos
-        $('#producto').text(response.nombre_producto + ' ' + response.concentracion + ' ' + response.formato);
+        $('#producto').text(productoTexto);
         $('#Tipo_Producto').text(response.tipo_producto);
-        $('#form_producto').text(response.nombre_producto + ' ' + response.concentracion + ' ' + response.formato);
+        $('#form_producto').text(productoTexto);
         $('#form_tipo').text('Magistral ' + response.tipo_producto);
         $('#form_lote').text(response.lote);
         $('#form_tamano_lote').text(response.tamano_lote);

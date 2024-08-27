@@ -12,7 +12,11 @@ $query = "SELECT
                 lib.muestreador, 
                 lib.verificador, 
                 lib.version_acta,
-                concat(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) as producto, 
+                CASE 
+                    WHEN pr.concentracion IS NULL OR pr.concentracion = '' 
+                    THEN pr.nombre_producto 
+                    ELSE CONCAT(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) 
+                END AS producto,
                 pr.tipo_producto,
                 lib.id as id_actaLiberacion
             FROM `calidad_acta_liberacion` as lib
