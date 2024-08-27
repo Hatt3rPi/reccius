@@ -616,7 +616,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td contenteditable="true">501 - 4999 unidades</td>
                         <td contenteditable="true">40 unidades</td>
                         <td contenteditable="true">80 unidades</td>
-                        <td contenteditable="true">420 Unidades</td>
+                        <td contenteditable="true">120 Unidades</td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off">
