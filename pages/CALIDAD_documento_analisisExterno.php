@@ -508,8 +508,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr class="bordeAbajo checkLine" data-id="${analisis.anali_id_analisis}">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
-                        <td class="Espec editable-div">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="resultados editable-div" contenteditable="true">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
+                        <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="resultados editable-div ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" contenteditable="true">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision" <?php
                                                 $etapa = $_POST['etapa'];
                                                 if ($etapa == '0') {
