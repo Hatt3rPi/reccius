@@ -7,7 +7,11 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
                 a.*,
-                concat(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) as producto, 
+                CASE 
+                    WHEN b.concentracion IS NULL OR b.concentracion = '' 
+                    THEN b.nombre_producto 
+                    ELSE CONCAT(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) 
+                END AS producto,
                 b.tipo_producto,
                 c.url_documento_adicional
             FROM `calidad_productos_analizados` as a

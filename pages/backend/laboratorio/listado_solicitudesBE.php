@@ -9,11 +9,16 @@ $query = "SELECT
     aex.id as id_analisisExterno,
     aex.estado, 
     aex.numero_registro, 
+    aex.numero_solicitud,
     aex.laboratorio, 
     aex.fecha_registro,
     aex.id_especificacion,
     aex.id_producto, 
-    CONCAT(pr.nombre_producto, ' ', pr.concentracion) as producto,
+    CASE 
+        WHEN pr.concentracion IS NULL OR pr.concentracion = '' 
+        THEN pr.nombre_producto 
+        ELSE CONCAT(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) 
+    END AS producto,
     aex.revisado_por,
     aex.fecha_firma_revisor,
     aex.solicitado_por,

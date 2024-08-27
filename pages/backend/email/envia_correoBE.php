@@ -71,7 +71,6 @@ function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
             $mail->Subject = $asunto;
             $mail->Body    = $cuerpo;
             $mail->AltBody = $altBody ?: strip_tags($cuerpo);
-
             try {
                 $mail->send();
                 $exitos[] = $destinatario['email'];

@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\calidad\firma_documentoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -44,6 +45,17 @@ if ($exito) {
             // update 22052024
         //function finalizarTarea($usuarioEjecutor, $id_relacion, $tabla_relacion, $tipoAccion, $esAutomatico = false)
     finalizarTarea($_SESSION['usuario'], $idEspecificacion, 'calidad_especificacion_productos', $tipo_tarea);
+    if($tipo_tarea=='Firma 2'){
+        $query = "SELECT a.aprobado_por, a.version, b.documento_ingreso FROM `calidad_especificacion_productos` as a left join calidad_productos as b on a.id_producto=b.id WHERE a.id_especificacion = ".$idEspecificacion." limit 1;";
+        $result = mysqli_query($link, $query);
+
+        $opciones = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            registrarTarea(7, $_SESSION['usuario'], $row['aprobado_por'], 'Aprobar especificación de producto: '.$row['documento_ingreso'].' - versión:'.$row['version'], 1, 'Firma 3', $idEspecificacion, 'calidad_especificacion_productos');
+        }
+        
+    }
+    
     echo json_encode(['exito' => true, 'mensaje' => 'Documento firmado con éxito']);
 } else {
     echo json_encode(['exito' => false, 'mensaje' => 'Error al firmar el documento']);

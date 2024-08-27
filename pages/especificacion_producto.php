@@ -34,8 +34,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         <h1>Calidad / Crear Especificación de Producto</h1>
         <form method="POST" id="formulario_especificacion" name="formulario_especificacion" >
             <fieldset>
-            <br>
-            <br>
+                <br>
+                <br>
                 <h2 class="section-title">Especificaciones del producto:</h2>
                 <br>
                 <div class="form-row">
@@ -118,9 +118,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <input type="text" name="prefijoDocumento" id="prefijoDocumento" readonly class="col"
                                 style="text-align: right; background-color: #e9ecef;width: 80%" readonly>
                             <input type="text" id="documento" name="documento" style="display: none">
-                            <input type="text" id="numeroProducto" name="numeroProducto" class="editable" placeholder="001"
+                            <input type="number" min="1" max="999" id="numeroProducto" name="numeroProducto" class="editable" placeholder="001"
                                 onchange="actualizarDocumento()" required class="col" style="width: 80px;margin-right: 150px;">
-                            
                         </div>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
@@ -818,9 +817,13 @@ function habilitarEdicionAnalisis(tabla) {
 
 
 function guardar(){
-    
+    if(validateForm().length > 0){
+        $.notify('Favor de completar los campos obligatorios', 'warn');
+        return;
+    }
+    var numeroProducto = $('#numeroProducto').val();
+    $('#numeroProducto').val(`${numeroProducto}`.padStart(3, '0'));
     var datosFormulario = $('#formulario_especificacion').serialize();
-    console.log(datosFormulario);
     $.ajax({
         url: 'backend/calidad/especificacion_productoBE.php',
         type: 'POST',
@@ -835,9 +838,7 @@ function guardar(){
                         console.log('Listado cargado correctamente cargado exitosamente.');
                         carga_listado_especificacionProducto();
                         console.log(respuesta.mensaje); // Manejar el error
-
                         //table.columns(9).search(buscarId).draw();
-                        
                     }
                 });
             } else {
@@ -855,8 +856,43 @@ function guardar(){
         }
     });
 }
+function validateForm() {
+    let allValid = [];
 
-    $('#Tipo_Producto').on('change', function() {
+    // Lista de IDs a validar
+    const fields = [
+        'Tipo_Producto',
+        'producto',
+        'tipo_concentracion',
+        'formato',
+        'elaboradoPor',
+        'paisOrigen',
+        'numeroProducto',
+        'fechaEdicion',
+        'periodosVigencia',
+        'usuario_revisor',
+        'usuario_aprobador'
+    ];
+
+    fields.forEach(function(fieldId) {
+        let field = document.getElementById(fieldId);
+        
+        if (field) {
+            if (!field.value.trim()) {
+                allValid.push(fieldId);
+                field.classList.add('border');
+                field.classList.add('border-warning');
+            } else {
+                field.classList.remove('border');
+                field.classList.remove('border-warning');
+            }
+        }
+    });
+
+    return allValid;
+}
+
+$('#Tipo_Producto').on('change', function() {
     var tipoProducto = $(this).val();
     var prefijo = '';
 

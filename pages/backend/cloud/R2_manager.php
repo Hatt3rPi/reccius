@@ -1,4 +1,5 @@
 <?php
+// pages\backend\cloud\R2_manager.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "/home/customw2/librerias/aws/aws-autoloader.php";

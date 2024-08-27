@@ -3,6 +3,9 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
+require_once "../cloud/R2_manager.php";
+header('Content-Type: application/json');
+
 global $numero_solicitud;
 function limpiarDato($dato)
 {
@@ -173,7 +176,6 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
             $fecha_elaboracion,
             $fecha_vencimiento
         );
-        echo json_encode(["exito" => true, "mensaje" => "Operación exitosa"]);
         $exito_2 = mysqli_stmt_execute($stmt_productos_analizados);
         $id_cuarentena = $exito_2 ? mysqli_insert_id($link) : 0;
         registrarTrazabilidad(
@@ -192,9 +194,9 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
 
         if (!mysqli_query($link, $query_update)) {
             throw new Exception("Error en la actualización de calidad_analisis_externo: " . mysqli_error($link));
-        }  
+        }
 }
-function agregarDatosPostFirma($link, $datos)
+function agregarDatosPostFirma($link, $datos,$archivo)
 {
     global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
 
@@ -217,9 +219,39 @@ function agregarDatosPostFirma($link, $datos)
         $datos['laboratorio'] = $datos['otro_laboratorio'];
     }
 
+    if (isset($archivo) && $archivo['error'] === UPLOAD_ERR_OK) {
+        $mimeType = mime_content_type($archivo['tmp_name']);
+
+        if ($mimeType === 'application/pdf') {
+            $fileBinary = file_get_contents($archivo['tmp_name']);
+            $timestamp = time();
+            $newFileName = $id_analisis_externo . '_' . $_SESSION['usuario'] . '_' . $timestamp . '.pdf';
+
+            // Subir el archivo a S3
+            $params = [
+                'fileBinary' => $fileBinary,
+                'folder' => 'url_documento_adicional',
+                'fileName' => $newFileName
+            ];
+
+            $uploadStatus = setFile($params);
+            $uploadResult = json_decode($uploadStatus, true);
+
+            if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
+                $datos['url_documento_adicional'] = $uploadResult['success']['ObjectURL'];
+            } else {
+                echo json_encode(["exito" => false, "mensaje" => "Error al subir el documento adicional"]);
+                exit;
+            }
+        } else {
+            echo json_encode(["exito" => false, "mensaje" => "El documento adicional debe ser un archivo PDF"]);
+            exit;
+        }
+    }
+
     $camposAActualizar = [
         'analisis_segun',
-        'estandar_segun', // estandar_provisto_por
+        'estandar_segun',
         'fecha_cotizacion',
         'fecha_entrega_estimada',
         'fecha_solicitud',
@@ -240,19 +272,21 @@ function agregarDatosPostFirma($link, $datos)
     foreach ($camposAActualizar as $campo) {
         if (isset($datos[$campo]) && $datos[$campo] !== '') {
             $partesConsulta[] = "$campo = ?";
-            $valoresParaVincular[] = $datos[$campo];
+            $valoresParaVincular[] = $datos[$campo] ?? null;
             $tipos .= campoTipo($campo);
         }
     } // * esto me ayuda a actualizar solo lo que le envio
-
-    unset($_SESSION['buscar_por_ID']);
-    $_SESSION['buscar_por_ID'] = $datos['id'];
 
     // Asegurarte de que haya algo que actualizar
     if (empty($partesConsulta)) {
         throw new Exception("No hay datos para actualizar.");
     }
-
+    //
+    if (isset($datos['url_documento_adicional'])) {
+        $partesConsulta[] = "url_documento_adicional = ?";
+        $valoresParaVincular[] = $datos['url_documento_adicional'];
+        $tipos .= 's';
+    }
     //nuevo estado 
     $partesConsulta[] = "estado = ?";
     $valoresParaVincular[] = "Pendiente envío a Laboratorio";
@@ -337,8 +371,11 @@ function campoTipo($campo)
 // Procesar la solicitud
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //registrarTrazabilidad($_SESSION['usuario'], $_SERVER['PHP_SELF'], 'INTENTO DE CARGA', 'LABORATORIO',  1, '', $_POST, '', '');
-    // Limpiar y validar datos recibidos del formulario
+    
+    // Verificar si el anexo extra existe
+    $archivo = isset($_FILES['url_documento_adicional']) ? $_FILES['url_documento_adicional'] : null;
 
+    // Limpiar y validar datos recibidos del formulario
     $numero_registro = limpiarDato($_POST['numero_registro']);
     $version = limpiarDato($_POST['version']);
     $numero_solicitud = limpiarDato($_POST['numero_solicitud']);
@@ -437,17 +474,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
             $datosLimpios['numero_solicitud'] = $numero_solicitud;
 
-            agregarDatosPostFirma($link, $datosLimpios);
+            agregarDatosPostFirma($link, $datosLimpios,$archivo);
         } else {
             insertarRegistro($link, $datosLimpios);
             registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
             enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios
-        
-        
-  
-    
+        echo json_encode(["exito" => true, "mensaje" => ""]);
+        exit;
 
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
     } catch (Exception $e) {

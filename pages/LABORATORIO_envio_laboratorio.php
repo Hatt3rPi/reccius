@@ -244,7 +244,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     >Ir a guardar Acta de muestreo</button>`
                             }
                             $('#modalContent')
-                                .append(' <div class="modal-footer row gap-2 px-2 justify-content-center" id="modalFooter">' + acciones + '</div>');
+                                .append(' <div class="modal-footer gap-2 px-0 w-100 justify-content-center" id="modalFooter">' + acciones + '</div>');
                             $('#buttonContainer')
                                 .append(buttonContainer);
                         }

@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\documento_especificacion_producto.php
 session_start();
 
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.

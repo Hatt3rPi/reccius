@@ -1,4 +1,5 @@
 <?php
+//archivos: pages\backend\analisis\ingresar_resultados_analisis.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -39,7 +40,8 @@ $queryAnalisisExterno = "SELECT
                             anali.tipo_analisis AS 'anali_tipo_analisis', 
                             anali.metodologia AS 'anali_metodologia',
                             anali.descripcion_analisis AS 'anali_descripcion_analisis',
-                            anali.criterios_aceptacion AS 'anali_criterios_aceptacion'
+                            anali.criterios_aceptacion AS 'anali_criterios_aceptacion',
+                            anali.resultado_laboratorio AS 'anali_resultado_laboratorio'
                         FROM calidad_analisis_externo AS an
                         LEFT JOIN calidad_especificacion_productos 
                             AS es ON an.id_especificacion = es.id_especificacion

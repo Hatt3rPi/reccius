@@ -128,7 +128,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div>
                     <div class="form-group">
                         <label>Condiciones Almacenamiento:</label>
-                        <textarea required class="form-control mx-0 w-90 border rounded-sm " style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" placeholder="..."></textarea>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm " style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" >T° ambiente, lugar fresco y seco, protegido de la luz</textarea>
                     </div>
                 </div>
                 <div class="form-row">
@@ -150,7 +150,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Muestreado según POS:</label>
-                        <input required class="form-control mx-0 w-90 " name="numero_pos" id="numero_pos" type="text" placeholder="...">
+                        <input required class="form-control mx-0 w-90 " name="numero_pos" id="numero_pos" type="text" value="DCAL-CC-PO-007">
                     </div>
                 </div>
                 <div class="form-row">
@@ -234,7 +234,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Fecha Entrega Estimada <em>(21 días hábiles)</em>:</label>
+                            <label>Fecha Entrega Estimada <em>(21 días corridos)</em>:</label>
                             <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required class="highlight form-control mx-0 w-90 datepicker editable" />
                         </div>
                         <div class="divider"></div>
@@ -251,7 +251,16 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </div>
                         <div class="divider"></div>
                         <!-- Esta es la línea divisora -->
-                        <div class="form-group"></div>
+                        <div class="form-group">
+                            <label>Documento adicional:</label>
+                            <label for="url_documento_adicional" id="url_documento_adicional_label" class="label__like-input highlight w-90 d-flex">
+                                <span>
+                                    <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
+                                </span>
+                                 &nbsp <span id="url_documento_adicional_label_text">Seleccione un archivo</span>
+                                </label>
+                                <input type="file" accept="application/pdf" id="url_documento_adicional" name="url_documento_adicional"  style="display: none;">
+                        </div>
                     </div>
                 </fieldset>
                 <br />
@@ -303,11 +312,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
 
             <div class="button-container">
-                <!-- <button class="botones" id="upload-pdf" style="display: none;">
-                    Guardar como PDF</button> -->
                 <button type="submit" id="guardar" name="guardar" class="botones">
                     Guardar Solicitud</button>
-
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">
                     Editar solicitud</button>
             </div>
@@ -382,7 +388,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'hds_otro',
             'fecha_entrega_estimada',
             'numero_documento',
-            'observaciones',
+            // 'observaciones',
             'numero_especificacion',
             'version_especificacion',
             'usuario_editor',
@@ -735,12 +741,15 @@ while ($row = mysqli_fetch_assoc($result)) {
         var formObject = {};
         formData.forEach(function(value, key) {
             formObject[key] = value;
-            console.log(key, ' = ', value);
         });
     }
 
 
     $(document).ready(function() {
+        $('#url_documento_adicional').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $('#url_documento_adicional_label_text').text(fileName);
+        });
 
         function editarGenerarVersion(event) {
 
@@ -800,6 +809,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#formulario_analisis_externo').on('submit', formSubmit);
 
         function formSubmit(event) {
+
+            // Crear un nuevo objeto FormData
+            //formatear las fechas
             event.preventDefault();
             $('.datepicker').each(function() {
                 var dateValue = $(this).val();
@@ -808,43 +820,54 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $(this).val(formattedDate);
                 }
             });
+            var formData = new FormData(this);
+            $('#guardar').prop('disabled', true);
 
-            validateTextRequiredInputs(new FormData(this));
+            
             var datosFormulario = $(this).serialize();
 
+            //si es post firma
             if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
-                // Si el informacion_faltante no fue eliminada, entonces agregamos el id del analisis externo
-                // para que en el backend sepa que tiene que hacer un "update" de los datos faltantes
-                datosFormulario += '&id=' + idAnalisisExterno;
+                formData.append('id', idAnalisisExterno);
+
+                // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'
+                var fileInput = $('#url_documento_adicional')[0];
+                if (fileInput.files.length > 0) {
+                    formData.append('url_documento_adicional', fileInput.files[0]);
+                }
             }
 
             if ($('#laboratorio').val() === 'Otro') {
                 if ($('#otro_laboratorio').val() == '') {
                     $.notify('Tiene que escribir el nombre del nuevo laboratorio', 'warn');
+                    $('#guardar').prop('disabled', false);
                     return;
                 }
             }
 
             fetch('../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: datosFormulario
-            }).then(function(data) {
+                body: formData
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                if(data.exito){
+                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
+                        obtenNotificaciones();
+                        carga_listado();
+                        console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                        $('#loading-spinner').hide();
+                        $('#dynamic-content').show();
+                    });
+                }else{
+                    $.notify(data.mensaje, 'warn');
+                }
 
-                $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
-
-                    obtenNotificaciones();
-                    carga_listado();
-                    console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-
-                    $('#loading-spinner').hide();
-                    $('#dynamic-content').show();
-                });
 
             }).catch(function(error) {
                 console.log("Error: " + error);
+            }).finally(function() {
+                $('#guardar').prop('disabled', false);
             })
 
             $('.datepicker').each(function() {
@@ -868,7 +891,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     });
 
     $(document).ready(function() {
-                function agregarDiasCalendario(fecha, dias) {
+        function agregarDiasCalendario(fecha, dias) {
                 fecha.setDate(fecha.getDate() + dias); // Agregar días calendario
                 return fecha;
             }

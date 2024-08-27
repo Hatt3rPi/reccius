@@ -12,7 +12,11 @@ $query = "SELECT
     a.fecha_in_cuarentena, 
     a.fecha_out_cuarentena,
     a.fecha_vencimiento,
-    CONCAT(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) AS producto,
+    CASE 
+        WHEN b.concentracion IS NULL OR b.concentracion = '' 
+        THEN b.nombre_producto 
+        ELSE CONCAT(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) 
+    END AS producto,
     CASE 
         WHEN a.estado = 'En cuarentena' THEN DATEDIFF(CURDATE(), a.fecha_in_cuarentena)
         ELSE DATEDIFF(a.fecha_out_cuarentena, a.fecha_in_cuarentena)

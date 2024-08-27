@@ -173,12 +173,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">8. Condic. almacenamiento</td>
                         <td>
-                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div" contenteditable="true"></div>
+                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div border-dark border" contenteditable="true"></div>
                         </td>
 
                         <td class="titulo titulo-right">Observaciones:</td>
                         <td>
-                            <div id="observaciones" name="observaciones" class="editable-div" contenteditable="true" required></div>
+                            <div id="observaciones" name="observaciones" class="editable-div border-dark border" contenteditable="true" required></div>
                         </td>
 
                     </tr>
@@ -186,7 +186,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">9. Registro I.S.P:</td>
                         <td>
-                            <div id="registro_isp" name="registro_isp" class="editable-div" contenteditable="true" required></div>
+                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border" contenteditable="true" required></div>
                         </td>
 
 
@@ -242,6 +242,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th class="tabla">Análisis</th>
                         <th class="tabla">Metodología</th>
                         <th class="tabla">Especificación</th>
+                        <th class="tabla">Resultados</th>
                         <th class="tabla">Revisión</th>
                     </tr>
                 </table>
@@ -504,19 +505,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 analisisSolicitados.forEach(function(analisis, index) {
                     const row = `
-                    <tr class="bordeAbajo checkLine">
+                    <tr class="bordeAbajo checkLine" data-id="${analisis.anali_id_analisis}">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
-                        <td class="Espec editable-div" contenteditable="true">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="resultados editable-div ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision" <?php
                                                 $etapa = $_POST['etapa'];
                                                 if ($etapa == '0') {
                                                     echo 'style="visibility: hidden;height: 0;"';
                                                 } ?>>
-                        <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
-                        <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                        <input type="radio" class="btn-check noCumple" name="btn-check-${index}" id="btn-check-b-${index}" value="0" autocomplete="off">
-                        <label class="btn btn-outline-danger verificadores" for="btn-check-b-${index}"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                        <div class="btn-group-vertical " role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
+                            <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                            <input type="radio" class="btn-check noCumple" name="btn-check-${index}" id="btn-check-b-${index}" value="0" autocomplete="off">
+                            <label class="btn btn-outline-danger verificadores" for="btn-check-b-${index}"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                        </div>
                         </td>
                     </tr>`;
                     table.append(row);
@@ -733,11 +737,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $("#revisar").on("click", function() {
             let cumple = true;
             let results = [];
+            let resultadoTextos = [];
 
 
 
             $(".checkLine").each(function() {
                 $(this).css("background-color", "transparent");
+                const resultadoText = $(this).find(".resultados").text().trim();
+                const idAnalisis = $(this).data('id');
                 const cumpleChecked = $(this).find(".cumple").is(":checked");
                 const noCumpleChecked = $(this).find(".noCumple").is(":checked");
                 if (cumpleChecked === noCumpleChecked) {
@@ -746,6 +753,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 } else {
                     results.push(cumpleChecked ? 1 : 0);
                 }
+                const resultado = {
+                    resultadoText,
+                    idAnalisis
+                };
+                resultadoTextos.push(resultado);
             });
 
             if (!cumple) {
@@ -777,7 +789,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             formData.append('laboratorio_fecha_analisis', moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('resultados_analisis', JSON.stringify(results));
-
+            formData.append('resultado_textos', JSON.stringify(resultadoTextos));
+            
             $("#revisar").hide();
             fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
                 method: "POST",
