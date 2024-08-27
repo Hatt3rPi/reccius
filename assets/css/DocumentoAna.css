@@ -473,9 +473,9 @@ label.btn:hover {
   white-space: normal;
   /* Asegura que el texto se ajusta a la siguiente línea */
   height: auto;
-  /* Ajusta la altura automáticamente según el contenido */
+  /* Ajusta la altura automáticamente según el contenido 
   border: 1px solid #ccc;
-  /* Opcional: Estilo de borde */
+  Opcional: Estilo de borde */
   padding: 5px;
   /* Espaciado interno opcional */
   box-sizing: border-box;
