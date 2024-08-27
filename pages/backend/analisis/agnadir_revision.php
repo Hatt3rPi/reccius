@@ -136,7 +136,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         echo json_encode(['error' => 'Error al ejecutar consulta.']);
         exit;
     } else {
-        $resultado_textos = json_decode($data['resultado_textos'], true); // Decodifica el JSON en un array PHP
+        $resultado_textos = json_decode($_POST['resultado_textos'], true); // Decodifica el JSON en un array PHP
 
         if (is_array($resultado_textos) && !empty($resultado_textos)) {
             $query = "UPDATE calidad_analisis SET resultado_laboratorio = ? WHERE id_analisis = ?;";
@@ -153,7 +153,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
             mysqli_stmt_close($stmt3);
         } else {
             $error_message = json_last_error_msg();
-            echo json_encode(['error' => 'No se logró cargar los resultados de los análisis. Error: ' . $error_message . '; valor_bruto: ' . $data['resultado_textos']]);
+            echo json_encode(['error' => 'No se logró cargar los resultados de los análisis. Error: ' . $error_message . '; valor_bruto: ' . print_r($data['resultado_textos'], true). '; valor_bruto: ' . print_r($_POST['resultado_textos'], true)]);
         }
         
     }
