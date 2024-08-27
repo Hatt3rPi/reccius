@@ -173,12 +173,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">8. Condic. almacenamiento</td>
                         <td>
-                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div" contenteditable="true"></div>
+                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div border-dark border" contenteditable="true"></div>
                         </td>
 
                         <td class="titulo titulo-right">Observaciones:</td>
                         <td>
-                            <div id="observaciones" name="observaciones" class="editable-div" contenteditable="true" required></div>
+                            <div id="observaciones" name="observaciones" class="editable-div border-dark border" contenteditable="true" required></div>
                         </td>
 
                     </tr>
@@ -186,7 +186,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">9. Registro I.S.P:</td>
                         <td>
-                            <div id="registro_isp" name="registro_isp" class="editable-div" contenteditable="true" required></div>
+                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border" contenteditable="true" required></div>
                         </td>
 
 
@@ -509,7 +509,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="resultados editable-div ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" contenteditable="true">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
+                        <td class="resultados editable-div ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision" <?php
                                                 $etapa = $_POST['etapa'];
                                                 if ($etapa == '0') {
