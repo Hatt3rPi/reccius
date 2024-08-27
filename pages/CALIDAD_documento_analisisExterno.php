@@ -242,6 +242,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th class="tabla">Análisis</th>
                         <th class="tabla">Metodología</th>
                         <th class="tabla">Especificación</th>
+                        <th class="tabla">Resultados</th>
                         <th class="tabla">Revisión</th>
                     </tr>
                 </table>
@@ -504,10 +505,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 analisisSolicitados.forEach(function(analisis, index) {
                     const row = `
-                    <tr class="bordeAbajo checkLine">
+                    <tr class="bordeAbajo checkLine" data-id="${analisis.anali_id_analisis}">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
-                        <td class="Espec editable-div" contenteditable="true">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="Espec editable-div">${analisis.anali_criterios_aceptacion}</td>
+                        <td class="resultados editable-div" contenteditable="true">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision" <?php
                                                 $etapa = $_POST['etapa'];
                                                 if ($etapa == '0') {
@@ -733,11 +735,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $("#revisar").on("click", function() {
             let cumple = true;
             let results = [];
+            let resultadoTextos = [];
 
 
 
             $(".checkLine").each(function() {
                 $(this).css("background-color", "transparent");
+                const resultadoText = $(this).find(".resultados").text().trim();
+                const idAnalisis = $(this).data('id');
                 const cumpleChecked = $(this).find(".cumple").is(":checked");
                 const noCumpleChecked = $(this).find(".noCumple").is(":checked");
                 if (cumpleChecked === noCumpleChecked) {
@@ -746,6 +751,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 } else {
                     results.push(cumpleChecked ? 1 : 0);
                 }
+                const resultado = {
+                    resultadoText,
+                    idAnalisis
+                };
+                resultadoTextos.push(resultado);
             });
 
             if (!cumple) {
@@ -777,6 +787,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             formData.append('laboratorio_fecha_analisis', moment(laboratorio_fecha_analisis, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('resultados_analisis', JSON.stringify(results));
+            formData.append('resultado_textos', JSON.stringify(resultadoTextos));
 
             $("#revisar").hide();
             fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {

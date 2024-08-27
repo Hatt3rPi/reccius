@@ -36,6 +36,7 @@ foreach ($_POST as $key => $value) {
 
 if (
     !isset($data['resultados_analisis']) ||
+    !isset($data['resultado_textos']) ||
     !isset($data['laboratorio_nro_analisis']) ||
     !isset($data['laboratorio_fecha_analisis']) ||
     !isset($data['fecha_entrega'])
@@ -134,7 +135,24 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     if (mysqli_error($link)) {
         echo json_encode(['error' => 'Error al ejecutar consulta.']);
         exit;
+    } else {
+            $resultado_textos = json_decode($data['resultado_textos'], true); // Decodifica el JSON en un array PHP
+
+            $query = "UPDATE calidad_analisis SET resultado_laboratorio = ? WHERE id_analisis = ?;";
+            $stmt3 = mysqli_prepare($link, $query);
+        
+            foreach ($resultado_textos as $resultado) {
+                $resultado_laboratorio = limpiarDato($resultado['resultadoText']); // Limpia el dato para evitar inyecciones SQL
+                $id_analisis = intval($resultado['idAnalisis']); // Asegúrate de que id_analisis sea un entero
+        
+                mysqli_stmt_bind_param($stmt3, "si", $resultado_laboratorio, $id_analisis);
+                mysqli_stmt_execute($stmt3);
+            }
+        
+            mysqli_stmt_close($stmt3);
+        
     }
+
 
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $idAnalisisExterno;
