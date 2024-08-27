@@ -610,10 +610,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         // Actualizar los inputs con los datos del análisis
                         $('#nro_registro').text(response.numero_registro);
                         $('#nro_version').text(1);
-                        $('#nro_acta').text(response.numero_acta);
+                        $('#nro_acta').text(response.numero_acta_liberacion);
                         $('#fecha_acta_lib').val(fecha_yoh);
                         $('#fecha_lib').val(fecha_yoh);
-                        $('#nro_acta_liberacion').val(response.numero_acta);
+                        $('#nro_acta_liberacion').val(response.numero_acta_liberacion);
 
 
                         $('#nro_lote').val(primerAnalisis.lote);
