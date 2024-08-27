@@ -896,7 +896,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#fecha_firma2').text(response.fecha_firma_muestreador);
         document.getElementById('fecha_firma2').style.display = 'block';
         document.getElementById('mensaje_firma2').style.display = 'block';
-        asignarValoresARadios(response.resultados_muestrador, '.formulario.verif');
+        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
     }
 
     function firma3(response) {
