@@ -813,9 +813,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             // Crear un nuevo objeto FormData
             //formatear las fechas
             event.preventDefault();
-            var formData = new FormData(this);
-            $('#guardar').prop('disabled', true);
-
             $('.datepicker').each(function() {
                 var dateValue = $(this).val();
                 if (dateValue) {
@@ -823,6 +820,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $(this).val(formattedDate);
                 }
             });
+            var formData = new FormData(this);
+            $('#guardar').prop('disabled', true);
+
+            
             var datosFormulario = $(this).serialize();
 
             //si es post firma
