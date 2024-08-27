@@ -9,6 +9,7 @@ $query = "SELECT
     aex.id as id_analisisExterno,
     aex.estado, 
     aex.numero_registro, 
+    aex.numero_solicitud,
     aex.laboratorio, 
     aex.fecha_registro,
     aex.id_especificacion,

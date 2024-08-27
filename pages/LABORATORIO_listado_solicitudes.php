@@ -47,6 +47,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,7 +92,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "estado",
                     "title": "Estado",
-                    "width": "80px",
+                    "width": "45px",
                     "render": function(data, type, row) {
                         switch (data) {
                             case 'completado':
@@ -125,9 +126,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "65px"
                 },
                 {
+                    "data": "numero_solicitud",
+                    "title": "Nro Solicitud",
+                    "width": "90px"
+                },
+                {
                     "data": "numero_registro",
                     "title": "Registro",
-                    "width": "70px"
+                    "width": "90px"
                 },
                 {
                     "data": "producto",
@@ -137,7 +143,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "lote",
                     "title": "Número Lote",
-                    "width": "170px"
+                    "width": "70px"
                 },
                 {
                     "data": "laboratorio",
