@@ -58,19 +58,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Unidad de Medida:</label>
-                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style editable"  style="width: 83%" required>
-                            <option>Selecciona estructura a utilizar:</option>
-                            <option value='mg/ml'>mg/ml</option>
-                            <option value='g/ml'>g/ml</option>
-                            <option value='%/ml'>%/ml</option>
-                            <option value='UI/ml'>UI/ml</option>
-                            <option value='g'>g</option>
-                            <option value='mg'>mg</option>
-                            <option value='ml'>ml</option>
-                            <option value='UI'>UI</option>
-                            <option value=''>No aplica</option>
+                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style editable" style="width: 83%" required>
+                            <option value="" disabled selected>Selecciona estructura a utilizar:</option>
+                            <option value="mg/ml">mg/ml</option>
+                            <option value="g/ml">g/ml</option>
+                            <option value="%/ml">%/ml</option>
+                            <option value="UI/ml">UI/ml</option>
+                            <option value="g">g</option>
+                            <option value="mg">mg</option>
+                            <option value="ml">ml</option>
+                            <option value="UI">UI</option>
+                            <option value="">No aplica</option>
                         </select>
-
                         <div class="form-row">
                         
                             <input type="text" name="concentracion_param1"  class="col" style="display: none;width: 40%;margin-left: 100px;margin-top: 9px;">
