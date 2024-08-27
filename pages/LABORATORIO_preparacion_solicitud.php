@@ -234,7 +234,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Fecha Entrega Estimada <em>(21 días hábiles)</em>:</label>
+                            <label>Fecha Entrega Estimada <em>(21 días corridos)</em>:</label>
                             <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required class="highlight form-control mx-0 w-90 datepicker editable" />
                         </div>
                         <div class="divider"></div>
