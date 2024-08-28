@@ -58,19 +58,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Unidad de Medida:</label>
-                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style editable"  style="width: 83%" required>
-                            <option>Selecciona estructura a utilizar:</option>
-                            <option value='mg/ml'>mg/ml</option>
-                            <option value='g/ml'>g/ml</option>
-                            <option value='%/ml'>%/ml</option>
-                            <option value='UI/ml'>UI/ml</option>
-                            <option value='g'>g</option>
-                            <option value='mg'>mg</option>
-                            <option value='ml'>ml</option>
-                            <option value='UI'>UI</option>
-                            <option value=''>No aplica</option>
+                        <select name="tipo_concentracion" id="tipo_concentracion" class="select-style editable" style="width: 83%" required>
+                            <option value="" disabled selected>Selecciona estructura a utilizar:</option>
+                            <option value="mg/ml">mg/ml</option>
+                            <option value="g/ml">g/ml</option>
+                            <option value="%/ml">%/ml</option>
+                            <option value="UI/ml">UI/ml</option>
+                            <option value="g">g</option>
+                            <option value="mg">mg</option>
+                            <option value="ml">ml</option>
+                            <option value="UI">UI</option>
+                            <option value="na">No aplica</option>
                         </select>
-
                         <div class="form-row">
                         
                             <input type="text" name="concentracion_param1"  class="col" style="display: none;width: 40%;margin-left: 100px;margin-top: 9px;">
@@ -521,8 +520,8 @@ function validarFormulario() {
         valido = false;
     }
 
-    // Validación para el campo 'Concentración'
-    if (document.forms[0]["concentracion"].value.trim() === '') {
+    // Validación para el campo 'Concentración' solo si el tipo_concentracion no es "No aplica" y no está vacío
+    if (document.forms[0]["tipo_concentracion"].value !== 'na' && document.forms[0]["concentracion"].value.trim() === '') {
         mensaje += 'El campo "Concentración" es obligatorio.\n';
         valido = false;
     }
@@ -959,8 +958,8 @@ function actualizarCampos() {
         var tipo = $('#tipo_concentracion').val();
 
         var concentracion = '';
-        if (tipo === '') { // Caso "No Aplica"
-        concentracion = ''; // La concentración se establece en vacío
+        if (tipo === 'na') { // Caso "No Aplica"
+            concentracion = ''; // La concentración se establece en vacío
         } else if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
@@ -968,6 +967,7 @@ function actualizarCampos() {
         }
         $('input[name=concentracion]').val(concentracion);
     }
+
 
     // Evento change para el select
     $('#tipo_concentracion').change(function() {

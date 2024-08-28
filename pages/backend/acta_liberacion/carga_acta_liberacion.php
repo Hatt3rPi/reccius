@@ -112,7 +112,7 @@ try {
     mysqli_stmt_close($stmtActaMuestreo);
 
     $numero_registro = '';
-    $numero_acta = '';
+    $numero_acta_liberacion = '';
     $year = date("y");
     $month = date("m");
     $aux_anomes = $year . $month;
@@ -131,23 +131,23 @@ try {
     switch ($tipo_producto) {
         case 'Material Envase y Empaque':
             $numero_registro = 'DCAL-CC-ALMEE-' . $correlativoStr;
-            $numero_acta = "ALMEE-" . $year . $month . $correlativoStr;
+            $numero_acta_liberacion = "ALMEE-" . $year . $month . $correlativoStr;
             break;
         case 'Materia Prima':
             $numero_registro = 'DCAL-CC-ALMP-' . $correlativoStr;
-            $numero_acta = "ALMP-" . $year . $month . $correlativoStr;
+            $numero_acta_liberacion = "ALMP-" . $year . $month . $correlativoStr;
             break;
         case 'Producto Terminado':
             $numero_registro = 'DCAL-CC-ALPT-' . $correlativoStr;
-            $numero_acta = "ALPT-" . $year . $month . $correlativoStr;
+            $numero_acta_liberacion = "ALPT-" . $year . $month . $correlativoStr;
             break;
         case 'Insumo':
             $numero_registro = 'DCAL-CC-ALINS-' . $correlativoStr;
-            $numero_acta = "ALINS-" . $year . $month . $correlativoStr;
+            $numero_acta_liberacion = "ALINS-" . $year . $month . $correlativoStr;
             break;
         default:
             $numero_registro = 'Desconocido';
-            $numero_acta = 'Desconocido';
+            $numero_acta_liberacion = 'Desconocido';
     }
 
     mysqli_stmt_close($stmt_incrementales);
@@ -160,7 +160,7 @@ try {
     $response['analiDatos'] = $analiDatos;
     $response['id_analisis_externo'] = $idAnalisisExterno;
     $response['numero_registro'] = $numero_registro;
-    $response['numero_acta'] = $numero_acta;
+    $response['numero_acta_liberacion'] = $numero_acta_liberacion;
 
 } catch (Exception $e) {
     $response['message'] = $e->getMessage();

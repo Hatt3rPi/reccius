@@ -96,13 +96,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Producto</td>
                         <td>
-                            <div id="producto_completoT1" name="producto_completoT1" class="editable-div" contenteditable="true"></div>
+                            <div id="producto_completoT1" name="producto_completoT1" class="editable-div border border-black" contenteditable="true"></div>
                             <span> </span>
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Cond. Almacenamiento</td>
                         <td>
-                            <div id="cond_almacenamiento" name="cond_almacenamiento" class="editable-div" contenteditable="true"></div>
+                            <div id="cond_almacenamiento" name="cond_almacenamiento" class="editable-div border border-black" contenteditable="true"></div>
                         </td>
 
 
@@ -610,10 +610,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         // Actualizar los inputs con los datos del análisis
                         $('#nro_registro').text(response.numero_registro);
                         $('#nro_version').text(1);
-                        $('#nro_acta').text(response.numero_acta);
+                        $('#nro_acta').text(response.numero_acta_liberacion);
                         $('#fecha_acta_lib').val(fecha_yoh);
                         $('#fecha_lib').val(fecha_yoh);
-                        $('#nro_acta_liberacion').val(response.numero_acta);
+                        $('#nro_acta_liberacion').val(response.numero_acta_liberacion);
 
 
                         $('#nro_lote').val(primerAnalisis.lote);

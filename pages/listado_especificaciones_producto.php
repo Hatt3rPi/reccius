@@ -24,13 +24,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <h2 class="section-title">Listado Especificaciones de Productos:</h2>
             <div class="estado-filtros">
                 <label>               Filtrar por:</label>
-                <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
-                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Revisión')">Pendiente de Revisión</button>
-                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación')">Pendiente de Aprobación</button>
-                <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
-                <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
-                <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+                <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente', 'estado')">Vigente</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Revisión', 'estado')">Pendiente de Revisión</button>
+                <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente de Aprobación', 'estado')">Pendiente de Aprobación</button>
+                <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta', 'estado')">Especificación obsoleta</button>
+                <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado', 'estado')">Expirado</button>
+                <button class="estado-filtro badge" onclick="filtrar_listado('', 'estado')">Todos</button>
             </div>
+            <div class="estado-filtros">
+            <label> Tipo de Producto </label>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Producto Terminado', 'tipo_producto')">Producto Terminado</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
+            
+        </div>
+        <div class="estado-filtros">
+            
+            <label> </label>
+            <button class="estado-filtro badge" onclick="filtrar_listado('','estado')">Limpiar Filtros</button>
+        </div>
             <br>
             <br>
             <div id="contenedor_listado">
@@ -62,14 +75,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // variable de main js
     QA_solicitud_analisis_editing = false
 
-    function filtrar_listado(estado) {
+    function filtrar_listado(valor, filtro) {
         var table = $('#listado').DataTable();
-        if (estado === '') {
-            // Eliminar todos los filtros
-            table.search('').columns().search('').draw();
-        } else {
-            table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
+        if(filtro=="estado"){
+            if (valor === '') {
+                // Eliminar todos los filtros
+                table.search('').columns().search('').draw();
+            } else {
+                table.column(1).search(valor).draw(); // Asumiendo que la columna 1 es la de
+            }
+        }else if(filtro=="tipo_producto"){
+            if (valor === '') {
+                // Eliminar todos los filtros
+                table.search('').columns().search('').draw();
+            } else {
+                table.column(5).search(valor).draw(); // Asumiendo que la columna 1 es la de
+            }
         }
+        
     }
     function carga_listado_especificacionProducto() {
     var table = $('#listado').DataTable({
