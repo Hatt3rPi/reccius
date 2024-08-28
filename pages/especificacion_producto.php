@@ -68,7 +68,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="mg">mg</option>
                             <option value="ml">ml</option>
                             <option value="UI">UI</option>
-                            <option value="">No aplica</option>
+                            <option value="na">No aplica</option>
                         </select>
                         <div class="form-row">
                         
@@ -520,8 +520,8 @@ function validarFormulario() {
         valido = false;
     }
 
-    // Validación para el campo 'Concentración' solo si el tipo_concentracion no es "No aplica"
-    if (document.forms[0]["tipo_concentracion"].value !== '' && document.forms[0]["tipo_concentracion"].value !== '' && document.forms[0]["concentracion"].value.trim() === '') {
+    // Validación para el campo 'Concentración' solo si el tipo_concentracion no es "No aplica" y no está vacío
+    if (document.forms[0]["tipo_concentracion"].value !== 'na' && document.forms[0]["concentracion"].value.trim() === '') {
         mensaje += 'El campo "Concentración" es obligatorio.\n';
         valido = false;
     }
@@ -958,7 +958,7 @@ function actualizarCampos() {
         var tipo = $('#tipo_concentracion').val();
 
         var concentracion = '';
-        if (tipo === '' || tipo === 'No aplica') { // Caso "No Aplica"
+        if (tipo === 'na') { // Caso "No Aplica"
             concentracion = ''; // La concentración se establece en vacío
         } else if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
@@ -967,6 +967,7 @@ function actualizarCampos() {
         }
         $('input[name=concentracion]').val(concentracion);
     }
+
 
     // Evento change para el select
     $('#tipo_concentracion').change(function() {
