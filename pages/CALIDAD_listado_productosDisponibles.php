@@ -27,13 +27,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <label> Filtrar por:</label>
         </div>        
         <div class="estado-filtros">
-            <label> Estados:</label>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En cuarentena','estado')">En cuarentena</button>
             <button class="estado-filtro badge badge-success" onclick="filtrar_listado('liberado','estado')">Liberado</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('rechazado','estado')">Rechazado</button>
         </div>
         <div class="estado-filtros">
-            <label> Tipo de Producto:</label>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Producto Terminado', 'tipo_producto')">Producto Terminado</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
