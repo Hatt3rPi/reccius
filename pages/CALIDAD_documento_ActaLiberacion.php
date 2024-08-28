@@ -287,6 +287,49 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                 </table>
             </form>
+                        <!-- Sección II: MUESTREO -->
+                        <br>
+            <form id="section4">
+                <table id="seccion4">
+                    <tr>
+                        <td class="Subtitulos" colspan="4">IV. MUESTREO Y ANALISIS</td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">1. N° Acta de Liberacion:</td>
+                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" readonly></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">2. Fecha Liberacion:</td>
+                        <td><input type="text" id="fecha_lib" name="fecha_lib" readonly></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">3. Producto:</td>
+                        <td><input type="text" id="producto_completoT3" name="producto_completoT3" readonly></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">4. N° Lote:</td>
+                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">5. Fecha de Elaboración:</td>
+                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" readonly></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">6. Fecha de Vencimiento:</td>
+                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" readonly></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="titulo">7. Cantidad real Liberada:</td>
+                        <td><input class="verif" type="text" id="cantidad_real" name="cantidad_real" required></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
+                        <td><input class="verif" type="text" id="nro_traspaso" name="nro_traspaso" required></td>
+
+                    </tr>
+                </table>
+
+            </form>
 
 
             <!-- Footer -->
