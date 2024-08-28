@@ -520,8 +520,8 @@ function validarFormulario() {
         valido = false;
     }
 
-    // Validación para el campo 'Concentración'
-    if (document.forms[0]["concentracion"].value.trim() === '') {
+    // Validación para el campo 'Concentración' solo si el tipo_concentracion no es "No aplica"
+    if (document.forms[0]["tipo_concentracion"].value !== '' && document.forms[0]["tipo_concentracion"].value !== '' && document.forms[0]["concentracion"].value.trim() === '') {
         mensaje += 'El campo "Concentración" es obligatorio.\n';
         valido = false;
     }
@@ -958,8 +958,8 @@ function actualizarCampos() {
         var tipo = $('#tipo_concentracion').val();
 
         var concentracion = '';
-        if (tipo === '') { // Caso "No Aplica"
-        concentracion = ''; // La concentración se establece en vacío
+        if (tipo === '' || tipo === 'No aplica') { // Caso "No Aplica"
+            concentracion = ''; // La concentración se establece en vacío
         } else if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
