@@ -36,7 +36,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+            <button class="estado-filtro badge" onclick="filtrar_listado('','tipo_producto')">Todos</button>
         </div>
         <br>
         <br>
