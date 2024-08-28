@@ -25,18 +25,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <h2 class="section-title">Listado de productos analizados:</h2>
         <div class="estado-filtros">
             <label> Filtrar por:</label>
+        </div>        
+        <div class="estado-filtros">
+            <label> Estados:</label>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En cuarentena','estado')">En cuarentena</button>
             <button class="estado-filtro badge badge-success" onclick="filtrar_listado('liberado','estado')">Liberado</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('rechazado','estado')">Rechazado</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('','estado')">Todos</button>
         </div>
         <div class="estado-filtros">
-            <label> Filtrar por:</label>
+            <label> Tipo de Producto:</label>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Producto Terminado', 'tipo_producto')">Producto Terminado</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('','tipo_producto')">Todos</button>
+            
+        </div>
+        <div class="estado-filtros">
+            <label> </label>
+            <button class="estado-filtro badge" onclick="filtrar_listado('','estado')">Limpiar Filtros</button>
+            
         </div>
         <br>
         <br>
