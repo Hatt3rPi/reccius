@@ -5,7 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
 require_once "../cloud/R2_manager.php";
 header('Content-Type: application/json');
-
+$mensaje='GO ';
 global $numero_solicitud;
 function limpiarDato($dato)
 {
@@ -16,11 +16,12 @@ function limpiarDato($dato)
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos)
 {
-    global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
+    global $id_analisis_externo, $mensaje; // Hacer la variable global para que se pueda acceder fuera de esta función
     //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
     $year = date("Y");
     $month = date("m");
     $aux_anomes = $year . $month;
+    $fecha_ymd=date("Y-m-d");
     $query= "INSERT INTO calidad_analisis_externo (
         version,
         id_especificacion,
@@ -44,7 +45,11 @@ function insertarRegistro($link, $datos)
         am_verificado_por,
         aux_autoincremental, 
         aux_anomes, 
-        aux_tipo
+        aux_tipo,
+        elaborado_por,
+        pais_origen,
+        proveedor,
+        fecha_firma_1 
             ) 
         SELECT 
             ?, -- version
@@ -69,7 +74,12 @@ function insertarRegistro($link, $datos)
             ?, -- am_verificado_por
             COALESCE(MAX(ae.aux_autoincremental) + 1, 1), -- aux_autoincremental
             ?, -- aux_anomes
-            b.tipo_producto -- aux_tipo
+            b.tipo_producto, -- aux_tipo
+            ?,
+            ?,
+            ?,
+            '".$fecha_ymd."'
+
         FROM 
             calidad_especificacion_productos AS c
             LEFT JOIN calidad_productos AS b ON c.id_producto = b.id
@@ -86,7 +96,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'issssssssssssssssssi',
+        'isssssssssssssssssssssi',
         $datos['version'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
@@ -105,6 +115,9 @@ function insertarRegistro($link, $datos)
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
         $aux_anomes,        // Se utiliza en la inserción como aux_anomes
+        $datos['elaboradoPor'],
+        $datos['paisOrigen'],
+        $datos['dealer'],
         $aux_anomes,        // Se utiliza en la subconsulta WHERE
         $datos['id_especificacion']
     );
@@ -139,6 +152,9 @@ function insertarRegistro($link, $datos)
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
             $aux_anomes,        // Se utiliza en la inserción como aux_anomes
+            $datos['elaboradoPor'],
+            $datos['paisOrigen'],
+            $datos['dealer'],
             $aux_anomes,        // Se utiliza en la subconsulta WHERE
             $datos['id_especificacion']
         ],
@@ -147,11 +163,13 @@ function insertarRegistro($link, $datos)
     );
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $id;
+    $mensaje.= " 1. se intentará guardar SESSION['buscar_por_ID']=".$id;
 
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
     }
 }
+
 
 function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
         // Nueva inserción en calidad_productos_analizados
@@ -198,7 +216,7 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
 }
 function agregarDatosPostFirma($link, $datos,$archivo)
 {
-    global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
+    global $id_analisis_externo, $mensaje; // Hacer la variable global para que se pueda acceder fuera de esta función
 
     // Consultar el numero_solicitud asociado al id en la tabla calidad_analisis_externo
     $query_numero_solicitud = "SELECT numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
@@ -310,6 +328,8 @@ function agregarDatosPostFirma($link, $datos,$archivo)
     }
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $datos['id'];
+    $mensaje.= " 2. se intentará guardar SESSION['buscar_por_ID']=".$datos['id'];
+
 
     // registrar tarea
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
@@ -327,7 +347,7 @@ function campoTipo($campo)
         'version' => 'i',
         'id_especificacion' => 'i',
         'id_producto' => 'i',
-
+        
         // Campos de tipo DATE
         'fecha_registro' => 's',  // Las fechas se manejan como strings en MySQL
         'fecha_solicitud' => 's',
@@ -337,6 +357,8 @@ function campoTipo($campo)
         'fecha_elaboracion' => 's',
         'fecha_vencimiento' => 's',
         'fecha_firma_revisor' => 's',
+        'fecha_firma1' => 's',
+        
 
         // Campos de tipo VARCHAR o cualquier tipo de texto
         'estado' => 's',
@@ -386,6 +408,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $concentracion = limpiarDato($_POST['concentracion']);
     $formato = limpiarDato($_POST['formato']);
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
+    $paisOrigen = limpiarDato($_POST['paisOrigen']);
+    $dealer = limpiarDato($_POST['dealer']);
     $lote = limpiarDato($_POST['lote']);
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
     $fecha_elaboracion = limpiarDato($_POST['fecha_elaboracion']);
@@ -431,6 +455,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'concentracion' => $concentracion,
             'condicion_almacenamiento' => $condicion_almacenamiento,
             'elaboradoPor' => $elaboradoPor,
+            'paisOrigen' => $paisOrigen,
+            'dealer' => $dealer,
             'fecha_elaboracion' => $fecha_elaboracion,
             'fecha_registro' => $fecha_registro,
             'fecha_vencimiento' => $fecha_vencimiento,
@@ -481,7 +507,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios
-        echo json_encode(["exito" => true, "mensaje" => ""]);
+        echo json_encode(["exito" => true, "mensaje" => $mensaje]);
         exit;
 
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');

@@ -145,7 +145,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </tr>
                     <tr>
-                        <td class="titulo">4. Código:</td>
+                        <td class="titulo">4. Código interno:</td>
                         <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
 
                         <td class="titulo titulo-right">13. Muestra:</td>
@@ -538,8 +538,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     //
                     // Sumar los resultados de producto en un solo texto
-                    var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
-
+                    
+                    var productoCompleto = 
+                        (primerAnalisis.prod_nombre_producto != null ? primerAnalisis.prod_nombre_producto : '') + ' ' +
+                        (primerAnalisis.prod_concentracion != null ? primerAnalisis.prod_concentracion : '') + ' ' +
+                        (primerAnalisis.prod_formato != null ? primerAnalisis.prod_formato : '');
                     // Actualizar el elemento con el texto combinado
                     $('#nombre_producto').text(productoCompleto);
                     // Actualizar el elemento con el texto combinado
@@ -554,6 +557,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#numero_documento').val(primerAnalisis.numero_documento);
                     $('#fecha_cotizacion').val(moment(primerAnalisis.fecha_cotizacion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#estandar_segun').val(primerAnalisis.estandar_segun);
+                    $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+                    
                     //$('#estandar_otro').val(primerAnalisis.estandar_otro);
                     //$('#hds_adjunto').val(primerAnalisis.hds_adjunto);
                     $('#hds_otro').val(primerAnalisis.hds_otro);
@@ -569,7 +574,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
                     $('#condicion_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
                     $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
-                    $('#elaborado_por').val(primerAnalisis.prod_elaborado_por);
+                    $('#elaborado_por').val(primerAnalisis.elaborado_por);
                     $('#muestreado_por').val(primerAnalisis.nombre_muestreado_por);
                     $('#observaciones').text(primerAnalisis.observaciones);
                     $('#numero_pos').val(primerAnalisis.numero_pos);
@@ -626,7 +631,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         var soli = primerAnalisis.firmas.solicitado_por
                         var revis = primerAnalisis.firmas.revisado_por
                         if (primerAnalisis.solicitado_por) {
-                            $("#fecha_firma1").text(primerAnalisis.fecha_solicitud).show();
+                            $("#fecha_firma1").text(primerAnalisis.fecha_firma_1).show();
                             $("#mensaje_firma1").show();
                             $("#solicitado_por_name").text(soli.nombre).show()
                             $("#cargo_solicitador").text(soli.cargo).show()
@@ -658,7 +663,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         }
                         if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
 
-                            $("#fecha_firma2").text(primerAnalisis.laboratorio_fecha_analisis).show();
+                            $("#fecha_firma2").text(primerAnalisis.fecha_firma_2).show();
                             $("#mensaje_firma2").show();
                             $("#revisado_por_name").text(revis.nombre).show()
                             $("#cargo_revisador").text(revis.cargo).show()
@@ -716,7 +721,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function firma2Fn() {
             var now = new Date();
-            $("#fecha_firma2").text(datosFirma2.fecha || `${now.getFullYear()}-${now.getMonth() + 1 <10 ? `0${now.getMonth() + 1}-${now.getDate() <10 ? `0${now.getDate()}` : now.getDate()}` : now.getMonth() + 1 } `).show();
+            $("#fecha_firma2").text('<?php echo date("Y-m-d"); ?>').show();
             $("#mensaje_firma2").show();
             $("#revisado_por_name").text(datosFirma2.nombre).show()
             $("#cargo_revisador").text(datosFirma2.cargo).show()

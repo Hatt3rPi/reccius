@@ -195,7 +195,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td>
+                        <td class="verif">
                             <div class="toggle-container">
                                 <input type="radio" id="estado1_conforme" name="estado1" value="1">
                                 <label for="estado1_conforme">Conforme</label>
@@ -204,10 +204,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado1_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif">
                             <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -218,7 +218,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td class="">
+                        <td class="verif">
                             <div class="toggle-container">
                                 <input type="radio" id="estado2_conforme" name="estado2" value="1">
                                 <label for="estado2_conforme">Conforme</label>
@@ -227,10 +227,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado2_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif ">
                             <div id="form_textarea2" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion2a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -241,7 +241,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td class="">
+                        <td class="verif">
                             <div class="toggle-container">
                                 <input type="radio" id="estado3_conforme" name="estado3" value="1">
                                 <label for="estado3_conforme">Conforme</label>
@@ -250,10 +250,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado3_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif">
                             <div id="form_textarea3" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion3a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -264,7 +264,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td class="">
+                        <td class="verif">
                             <div class="toggle-container">
                                 <input type="radio" id="estado4_conforme" name="estado4" value="1">
                                 <label for="estado4_conforme">Conforme</label>
@@ -273,10 +273,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado4_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif">
                             <div id="form_textarea4" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion4a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -286,6 +286,49 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </td>
                     </tr>
                 </table>
+            </form>
+                        <!-- Sección II: MUESTREO -->
+                        <br>
+            <form id="section4">
+                <table id="seccion4">
+                    <tr>
+                        <td class="Subtitulos" colspan="4">IV. MUESTREO Y ANALISIS</td>
+                    </tr>
+                    <tr>
+                        <td class="titulo">1. N° Acta de Liberacion:</td>
+                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" readonly></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">2. Fecha Liberacion:</td>
+                        <td><input type="text" id="fecha_lib" name="fecha_lib" readonly></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">3. Producto:</td>
+                        <td><input type="text" id="producto_completoT3" name="producto_completoT3" readonly></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">4. N° Lote:</td>
+                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly></td>
+
+                    </tr>
+                    <tr>
+                        <td class="titulo">5. Fecha de Elaboración:</td>
+                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" readonly></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">6. Fecha de Vencimiento:</td>
+                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" readonly></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="titulo">7. Cantidad real Liberada:</td>
+                        <td><input class="verif" type="text" id="cantidad_real" name="cantidad_real" required></td>
+                        <td class="titulo"> </td>
+                        <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
+                        <td><input class="verif" type="text" id="nro_traspaso" name="nro_traspaso" required></td>
+
+                    </tr>
+                </table>
+
             </form>
 
 
@@ -642,7 +685,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#producto_completoT3').val(productoCompleto);
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
                         $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
-
+            
 
                         //datos higienicos
                         $('#id_analisis_externo').text(response.id_analisis_externo);
@@ -709,6 +752,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (campos) {
                         // Sumar los resultados de producto en un solo texto
                         var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
+                        var productoCompleto = 
+                            (campos.prod_nombre_producto != null ? campos.prod_nombre_producto : '') + ' ' +
+                            (campos.prod_concentracion != null ? campos.prod_concentracion : '') + ' ' +
+                            (campos.prod_formato != null ? campos.prod_formato : '');
                         var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
 
                         // Actualizar el elemento con el texto combinado
@@ -719,8 +766,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#nro_registro').text(campos.numero_registro);
                         $('#nro_version').text(campos.version_registro);
                         $('#nro_acta').text(campos.numero_acta);
-                        $('#fecha_acta_lib').val(fecha_yoh);
-                        $('#fecha_lib').val(fecha_yoh);
+                        $('#fecha_acta_lib').val(campos.fecha_liberacion);
+                        $('#fecha_lib').val(campos.fecha_liberacion);
                         $('#nro_acta_liberacion').val(campos.numero_acta);
 
                         $('#nro_lote').val(campos.lote);
@@ -748,10 +795,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#fecha_vencT3').val(campos.fecha_vencimiento);
                         $('#producto_completoT3').val(productoCompleto);
 
-                        $('#form_textarea1').val(campos.obs1);
-                        $('#form_textarea2').val(campos.obs2);
-                        $('#form_textarea3').val(campos.obs3);
-                        $('#form_textarea4').val(campos.obs4);
+                        $('#form_textarea1').text(campos.obs1);
+                        $('#form_textarea2').text(campos.obs2);
+                        $('#form_textarea3').text(campos.obs3);
+                        $('#form_textarea4').text(campos.obs4);
                         $('#cantidad_real').val(campos.cantidad_real_liberada);
                         $('#nro_traspaso').val(campos.nro_parte_ingreso);
 
@@ -806,6 +853,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function cargarResultadosGuardados(revisionResults, docConformeResults) {
+        console.log("Resultados guardados:", revisionResults, docConformeResults);
+        
         // Asegúrate de que las cadenas tengan 4 caracteres
         if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
             console.error("Los resultados deben tener exactamente 4 caracteres.");
@@ -827,17 +876,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         // Seleccionar los inputs correspondientes para docConformeResults
-        $('.doc-conforme input[type="radio"]').each(function(index) {
-            // Obtener el grupo de inputs de radio para este índice
-            let groupName = $(this).attr('name');
+        $('.toggle-container').each(function(index) {
+            var inputsDentroDeEsteDiv = $(this).find('input');
+            var dataI = Number(docConformeResults[index]);
+            console.log({inputsDentroDeEsteDiv, dataI, docConformeResults: docConformeResults[index]});
+            inputsDentroDeEsteDiv[dataI=== 1 ? 0 : 1].checked = true;
 
-            // Obtener el valor correspondiente de docConformeResults
-            let value = docConformeResults.charAt(Math.floor(index / 2));
-
-            // Seleccionar el input correcto basado en el valor
-            if ($(this).val() === value) {
-                $(this).prop('checked', true);
-            }
+            /*
+                // Obtener el grupo de inputs de radio para este índice
+                let groupName = $(this).attr('name');
+                // Obtener el valor correspondiente de docConformeResults
+                let value = docConformeResults.charAt(Math.floor(index / 2));
+                // Seleccionar el input correcto basado en el valor
+                if ($(this).val() === value) {
+                    $(this).prop('checked', true);
+                }
+            */
         });
     }
 
@@ -907,10 +961,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let tipo_producto = $('#tipo_producto').val();
         let estado = resultado;
 
-        let obs1 = $('#form_textarea1').val();
-        let obs2 = $('#form_textarea2').val();
-        let obs3 = $('#form_textarea3').val();
-        let obs4 = $('#form_textarea4').val();
+        let obs1 = $('#form_textarea1').text();
+        let obs2 = $('#form_textarea2').text();
+        let obs3 = $('#form_textarea3').text();
+        let obs4 = $('#form_textarea4').text();
+
+        
+
+
         let cant_real_liberada = $('#cantidad_real').val();
         let parte_ingreso = $('#nro_traspaso').val();
         let dataToSave = {

@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Producto:</label>
-                        <input type="text" name="producto" placeholder="Ácido Ascórbico" class="editable" required>
+                        <input type="text" id="producto" name="producto" placeholder="Ácido Ascórbico" class="editable" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -101,17 +101,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Elaborado por:</label>
-                        <input type="text" name="elaboradoPor" Value="Reccius" class="editable" required>
-                    </div>
-                    <div class="divider"></div> <!-- Esta es la línea divisora -->
-                    <div class="form-group">
-                        <label>País de origen:</label>
-                        <input type="text" name="paisOrigen" Value="Chile" class="editable" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
                         <label>Documento:</label>
                         <div class="form-row">
                             <input type="text" name="prefijoDocumento" id="prefijoDocumento" readonly class="col"
@@ -123,9 +112,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group" >
-                        <div class="form-group"id="contenedor_dealer" name="contenedor_dealer" style="display: none;">
-                            <label>Proveedor:</label>
-                            <input type="text" id="dealer" name="dealer" class="editable" >
+                        <div class="form-group">
+                        <label>Código Interno/Mastersoft:</label>
+                        <input type="text" id="codigo_interno" name="codigo_interno" class="editable" required>
                         </div>  
                     </div>
                 </div>
@@ -532,11 +521,6 @@ function validarFormulario() {
         valido = false;
     }
 
-    // Validación para el campo 'Elaborado por'
-    if (document.forms[0]["elaboradoPor"].value.trim() === '') {
-        mensaje += 'El campo "Elaborado por" es obligatorio.\n';
-        valido = false;
-    }
 
     // Validación para el campo 'Número de documento'
     if (document.forms[0]["numeroProducto"].value.trim() === '') {
@@ -559,6 +543,11 @@ function validarFormulario() {
     // Validación para el campo 'Vigencia'
     if (document.forms[0]["periodosVigencia"].value.trim() === '') {
         mensaje += 'El campo "Vigencia" es obligatorio.\n';
+        valido = false;
+    }
+     // Validación para el campo 'Vigencia'
+        if (document.forms[0]["codigo_interno"].value.trim() === '') {
+        mensaje += 'El campo "codigo_interno" es obligatorio.\n';
         valido = false;
     }
     
@@ -663,21 +652,16 @@ function procesarDatosEspecificacion(response) {
     });
 }
 
-
 function poblarYDeshabilitarCamposProducto(producto) {
     
     $('#id_producto').val(producto.id_producto);
     $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
+    $('#codigo_interno').val(especificacion.codigo_interno).prop('disabled', true);
     $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
     $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true).show();
     $('#tipo_concentracion').hide();
     $('#formato').val(producto.formato).prop('disabled', true);
-    $('input[name="elaboradoPor"]').val(producto.elaborado_por).prop('disabled', true);
-    if (producto.tipo_producto=='Materia Prima'){
-        $('#contenedor_dealer').show();
-        $('input[name="dealer"]').val(producto.proveedor).prop('disabled', true);
-    }
-    $('input[name="paisOrigen"]').val(producto.pais_origen).prop('disabled', true);
+    console.log(producto.tipo_producto);
     switch (producto.tipo_producto) {
         case 'Material Envase y Empaque':
             $('input[name="prefijoDocumento"]').val('DCAL-CC-EMEE-');
@@ -864,13 +848,12 @@ function validateForm() {
         'producto',
         'tipo_concentracion',
         'formato',
-        'elaboradoPor',
-        'paisOrigen',
         'numeroProducto',
         'fechaEdicion',
         'periodosVigencia',
         'usuario_revisor',
-        'usuario_aprobador'
+        'usuario_aprobador',
+        'codigo_interno'
     ];
 
     fields.forEach(function(fieldId) {
@@ -890,7 +873,6 @@ function validateForm() {
 
     return allValid;
 }
-
 $('#Tipo_Producto').on('change', function() {
     var tipoProducto = $(this).val();
     var prefijo = '';
@@ -898,25 +880,21 @@ $('#Tipo_Producto').on('change', function() {
     switch (tipoProducto) {
         case 'Material Envase y Empaque':
             prefijo = 'DCAL-CC-EMEE-';
-            $('#contenedor_dealer').hide().prop('required', false);
             break;
         case 'Materia Prima':
-            prefijo = 'DCAL-CC-EMP-';
-            $('#contenedor_dealer').show().prop('required', true);
-            
+            prefijo = 'DCAL-CC-EMP-';            
             break;
         case 'Producto Terminado':
             prefijo = 'DCAL-CC-EPT-';
-            $('#contenedor_dealer').hide().prop('required', false);
             break;
         case 'Insumo':
             prefijo = 'DCAL-CC-EINS-';
-            $('#contenedor_dealer').hide().prop('required', false);
             break;
     }
 
     $('#prefijoDocumento').val(prefijo);
 });
+
 
 function verificarOtro(selectId, inputId) {
     var select = document.getElementById(selectId);

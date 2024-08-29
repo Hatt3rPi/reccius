@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker" id="fecha_registro" placeholder="dd/mm/aaaa" type="text" value="<?php echo date('d/m/Y'); ?>">
+                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker editable" id="fecha_registro" placeholder="dd/mm/aaaa" type="text" value="<?php echo date('d/m/Y'); ?>">
                     </div>
                 </div>
             </fieldset>
@@ -83,14 +83,26 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                 </div>
                 <div class="form-row">
+                <div class="form-group">
+                    <label>Formato:</label>
+                    <input class="form-control mx-0 w-90" name="formato" id="formato" type="text" placeholder="Ampolla">
+                </div>
+                <div class="divider"></div> <!-- Esta es la línea divisora -->
+                <div class="form-group" id="contenedor_dealer" name="contenedor_dealer" style="visibility: hidden;">
+                    <label>Proveedor:</label>
+                    <input type="text" id="dealer" name="dealer" class="form-control mx-0 w-90 editable">
+                </div> 
+            </div>
+
+                <div class="form-row">
                     <div class="form-group">
-                        <label>Formato:</label>
-                        <input class="form-control mx-0 w-90" name="formato" id="formato" type="text" placeholder="Ampolla">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" id="elaboradoPor" Value="Reccius" class="form-control mx-0 w-90 editable" required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
-                        <label>Elaborado por:</label>
-                        <input class="form-control mx-0 w-90" name="elaboradoPor" id="elaboradoPor" type="text" placeholder="Reccius">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" id="paisOrigen" Value="Chile" class="form-control mx-0 w-90 editable" required>
                     </div>
                 </div>
             </fieldset>
@@ -122,7 +134,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Tipo Analisis:</label>
+                        <label>Tipo Análisis:</label>
                         <input required class="form-control mx-0 w-90 " name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
                     </div>
                     <div class="divider"></div>
@@ -458,6 +470,24 @@ while ($row = mysqli_fetch_assoc($result)) {
             $('#numero_registro').val(numero_registro).prop('readonly', true);
             $('#numero_solicitud').val(numero_acta).prop('readonly', true);
 
+            switch (producto.tipo_producto) {
+                case 'Material Envase y Empaque':
+                    prefijo = 'DCAL-CC-EMEE-';
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
+                    break;
+                case 'Materia Prima':
+                    prefijo = 'DCAL-CC-EMP-';
+                    $('#contenedor_dealer').css('visibility', 'visible').prop('required', true);
+                    break;
+                case 'Producto Terminado':
+                    prefijo = 'DCAL-CC-EPT-';
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
+                    break;
+                case 'Insumo':
+                    prefijo = 'DCAL-CC-EINS-';
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
+                    break;
+            }
             setValuesToInputs([{
                     id: 'id_producto',
                     val: producto.id_producto,
@@ -486,11 +516,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                 {
                     id: 'formato',
                     val: producto.formato,
-                    isDisabled: true
-                },
-                {
-                    id: 'elaboradoPor',
-                    val: producto.elaborado_por,
                     isDisabled: true
                 }
             ])
@@ -584,7 +609,19 @@ while ($row = mysqli_fetch_assoc($result)) {
                 },
                 {
                     id: 'elaboradoPor',
-                    val: analisis.prod_elaborado_por,
+                    val: analisis.elaborado_por,
+                    isDisabled: true
+                }
+                ,
+                {
+                    id: 'dealer',
+                    val: producto.proveedor,
+                    isDisabled: true
+                }
+                ,
+                {
+                    id: 'paisOrigen',
+                    val: producto.pais_origen,
                     isDisabled: true
                 }
             ];
