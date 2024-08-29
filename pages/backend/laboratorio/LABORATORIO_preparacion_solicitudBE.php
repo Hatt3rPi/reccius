@@ -49,7 +49,7 @@ function insertarRegistro($link, $datos)
         elaborado_por,
         pais_origen,
         proveedor,
-        fecha_firma1
+        fecha_firma_1 
             ) 
         SELECT 
             ?, -- version
@@ -77,7 +77,8 @@ function insertarRegistro($link, $datos)
             b.tipo_producto, -- aux_tipo
             ?,
             ?,
-            ?,'".$fecha_ymd."'
+            ?,
+            '".$fecha_ymd."'
 
         FROM 
             calidad_especificacion_productos AS c
@@ -346,7 +347,7 @@ function campoTipo($campo)
         'version' => 'i',
         'id_especificacion' => 'i',
         'id_producto' => 'i',
-
+        
         // Campos de tipo DATE
         'fecha_registro' => 's',  // Las fechas se manejan como strings en MySQL
         'fecha_solicitud' => 's',
@@ -356,6 +357,8 @@ function campoTipo($campo)
         'fecha_elaboracion' => 's',
         'fecha_vencimiento' => 's',
         'fecha_firma_revisor' => 's',
+        'fecha_firma1' => 's',
+        
 
         // Campos de tipo VARCHAR o cualquier tipo de texto
         'estado' => 's',

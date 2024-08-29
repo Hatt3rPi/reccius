@@ -663,7 +663,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         }
                         if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
 
-                            $("#fecha_firma2").text(primerAnalisis.fecha_firma2).show();
+                            $("#fecha_firma2").text(primerAnalisis.fecha_firma_2).show();
                             $("#mensaje_firma2").show();
                             $("#revisado_por_name").text(revis.nombre).show()
                             $("#cargo_revisador").text(revis.cargo).show()
