@@ -145,7 +145,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </tr>
                     <tr>
-                        <td class="titulo">4. Código:</td>
+                        <td class="titulo">4. Código interno:</td>
                         <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
 
                         <td class="titulo titulo-right">13. Muestra:</td>
@@ -554,6 +554,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#numero_documento').val(primerAnalisis.numero_documento);
                     $('#fecha_cotizacion').val(moment(primerAnalisis.fecha_cotizacion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#estandar_segun').val(primerAnalisis.estandar_segun);
+                    $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+                    
                     //$('#estandar_otro').val(primerAnalisis.estandar_otro);
                     //$('#hds_adjunto').val(primerAnalisis.hds_adjunto);
                     $('#hds_otro').val(primerAnalisis.hds_otro);
@@ -569,7 +571,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
                     $('#condicion_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
                     $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
-                    $('#elaborado_por').val(primerAnalisis.prod_elaborado_por);
+                    $('#elaborado_por').val(primerAnalisis.elaborado_por);
                     $('#muestreado_por').val(primerAnalisis.nombre_muestreado_por);
                     $('#observaciones').text(primerAnalisis.observaciones);
                     $('#numero_pos').val(primerAnalisis.numero_pos);

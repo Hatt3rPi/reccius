@@ -22,7 +22,6 @@ function obtenerFirmas($link, $usuario) {
     mysqli_stmt_close($stmtFirmas);
     return $firmas;
 }
-
 $queryAnalisisExterno = "SELECT 
                             an.*,
                             us.nombre as nombre_muestreado_por,
@@ -36,6 +35,7 @@ $queryAnalisisExterno = "SELECT
                             es.id_especificacion AS 'es_id_especificacion', 
                             es.documento AS 'es_documento', 
                             es.version AS 'es_version', 
+                            es.codigo_mastersoft,
                             anali.id_analisis AS 'anali_id_analisis', 
                             anali.tipo_analisis AS 'anali_tipo_analisis', 
                             anali.metodologia AS 'anali_metodologia',
