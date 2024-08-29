@@ -685,12 +685,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#producto_completoT3').val(productoCompleto);
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
                         $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
-                        
-
-                        $('#form_textarea1').text(primerAnalisis.obs1);
-                        $('#form_textarea2').text(primerAnalisis.obs2);
-                        $('#form_textarea3').text(primerAnalisis.obs3);
-                        $('#form_textarea4').text(primerAnalisis.obs4);
+            
 
                         //datos higienicos
                         $('#id_analisis_externo').text(response.id_analisis_externo);
@@ -800,10 +795,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#fecha_vencT3').val(campos.fecha_vencimiento);
                         $('#producto_completoT3').val(productoCompleto);
 
-                        $('#form_textarea1').val(campos.obs1);
-                        $('#form_textarea2').val(campos.obs2);
-                        $('#form_textarea3').val(campos.obs3);
-                        $('#form_textarea4').val(campos.obs4);
+                        $('#form_textarea1').text(campos.obs1);
+                        $('#form_textarea2').text(campos.obs2);
+                        $('#form_textarea3').text(campos.obs3);
+                        $('#form_textarea4').text(campos.obs4);
                         $('#cantidad_real').val(campos.cantidad_real_liberada);
                         $('#nro_traspaso').val(campos.nro_parte_ingreso);
 
