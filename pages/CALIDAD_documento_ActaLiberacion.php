@@ -849,6 +849,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function cargarResultadosGuardados(revisionResults, docConformeResults) {
+        console.log("Resultados guardados:", revisionResults, docConformeResults);
+        
         // Asegúrate de que las cadenas tengan 4 caracteres
         if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
             console.error("Los resultados deben tener exactamente 4 caracteres.");
@@ -870,17 +872,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         // Seleccionar los inputs correspondientes para docConformeResults
-        $('.doc-conforme input[type="radio"]').each(function(index) {
-            // Obtener el grupo de inputs de radio para este índice
-            let groupName = $(this).attr('name');
+        $('.toggle-container').each(function(index) {
+            var inputsDentroDeEsteDiv = $(this).find('input');
+            var dataI = Number(docConformeResults[index]);
+            console.log({inputsDentroDeEsteDiv, dataI, docConformeResults: docConformeResults[index]});
+            inputsDentroDeEsteDiv[dataI].checked = true;
 
-            // Obtener el valor correspondiente de docConformeResults
-            let value = docConformeResults.charAt(Math.floor(index / 2));
-
-            // Seleccionar el input correcto basado en el valor
-            if ($(this).val() === value) {
-                $(this).prop('checked', true);
-            }
+            /*
+                // Obtener el grupo de inputs de radio para este índice
+                let groupName = $(this).attr('name');
+                // Obtener el valor correspondiente de docConformeResults
+                let value = docConformeResults.charAt(Math.floor(index / 2));
+                // Seleccionar el input correcto basado en el valor
+                if ($(this).val() === value) {
+                    $(this).prop('checked', true);
+                }
+            */
         });
     }
 
@@ -950,10 +957,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let tipo_producto = $('#tipo_producto').val();
         let estado = resultado;
 
-        let obs1 = $('#form_textarea1').val();
-        let obs2 = $('#form_textarea2').val();
-        let obs3 = $('#form_textarea3').val();
-        let obs4 = $('#form_textarea4').val();
+        let obs1 = $('#form_textarea1').text();
+        let obs2 = $('#form_textarea2').text();
+        let obs3 = $('#form_textarea3').text();
+        let obs4 = $('#form_textarea4').text();
+
         let cant_real_liberada = $('#cantidad_real').val();
         let parte_ingreso = $('#nro_traspaso').val();
         let dataToSave = {
