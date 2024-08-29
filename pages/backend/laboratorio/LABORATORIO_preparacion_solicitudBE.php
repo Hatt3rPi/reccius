@@ -111,9 +111,9 @@ function insertarRegistro($link, $datos)
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
         $aux_anomes,        // Se utiliza en la inserción como aux_anomes
-        $datos['dealer'],
         $datos['elaboradoPor'],
         $datos['paisOrigen'],
+        $datos['dealer'],
         $aux_anomes,        // Se utiliza en la subconsulta WHERE
         $datos['id_especificacion']
     );
@@ -148,9 +148,9 @@ function insertarRegistro($link, $datos)
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
             $aux_anomes,        // Se utiliza en la inserción como aux_anomes
-            $datos['dealer'],
             $datos['elaboradoPor'],
             $datos['paisOrigen'],
+            $datos['dealer'],
             $aux_anomes,        // Se utiliza en la subconsulta WHERE
             $datos['id_especificacion']
         ],

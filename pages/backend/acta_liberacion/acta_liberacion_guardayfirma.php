@@ -77,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //cerrar tarea anterior
            
 
-            $stmt3 = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='completado' WHERE id=?");
-            mysqli_stmt_bind_param($stmt3, "i", $id_analisis_externo );
+            $stmt3 = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='completado', fecha_liberacion=? WHERE id=?");
+            mysqli_stmt_bind_param($stmt3, "si",$fecha_acta_lib, $id_analisis_externo );
             mysqli_stmt_execute($stmt3);
             mysqli_stmt_close($stmt3);
             if($estado=='aprobado'){

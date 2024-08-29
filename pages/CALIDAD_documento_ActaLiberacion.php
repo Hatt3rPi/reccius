@@ -752,6 +752,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (campos) {
                         // Sumar los resultados de producto en un solo texto
                         var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
+                        var productoCompleto = 
+                            (campos.prod_nombre_producto != null ? campos.prod_nombre_producto : '') + ' ' +
+                            (campos.prod_concentracion != null ? campos.prod_concentracion : '') + ' ' +
+                            (campos.prod_formato != null ? campos.prod_formato : '');
                         var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
 
                         // Actualizar el elemento con el texto combinado
@@ -762,8 +766,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#nro_registro').text(campos.numero_registro);
                         $('#nro_version').text(campos.version_registro);
                         $('#nro_acta').text(campos.numero_acta);
-                        $('#fecha_acta_lib').val(fecha_yoh);
-                        $('#fecha_lib').val(fecha_yoh);
+                        $('#fecha_acta_lib').val(campos.fecha_liberacion);
+                        $('#fecha_lib').val(campos.fecha_liberacion);
                         $('#nro_acta_liberacion').val(campos.numero_acta);
 
                         $('#nro_lote').val(campos.lote);
