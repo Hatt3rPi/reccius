@@ -654,8 +654,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#nro_registro').text(response.numero_registro);
                         $('#nro_version').text(1);
                         $('#nro_acta').text(response.numero_acta_liberacion);
-                        $('#fecha_acta_lib').val(response.fecha_liberacion);
-                        $('#fecha_lib').val(response.fecha_liberacion);
+                        $('#fecha_acta_lib').val(fecha_yoh);
+                        $('#fecha_lib').val(fecha_yoh);
                         $('#nro_acta_liberacion').val(response.numero_acta_liberacion);
 
 
@@ -766,8 +766,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#nro_registro').text(campos.numero_registro);
                         $('#nro_version').text(campos.version_registro);
                         $('#nro_acta').text(campos.numero_acta);
-                        $('#fecha_acta_lib').val(fecha_yoh);
-                        $('#fecha_lib').val(fecha_yoh);
+                        $('#fecha_acta_lib').val(campos.fecha_liberacion);
+                        $('#fecha_lib').val(campos.fecha_liberacion);
                         $('#nro_acta_liberacion').val(campos.numero_acta);
 
                         $('#nro_lote').val(campos.lote);
