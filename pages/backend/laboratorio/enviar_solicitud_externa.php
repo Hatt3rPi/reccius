@@ -39,7 +39,9 @@ $usuario = $_SESSION['usuario'];
 $id_usuario = $_SESSION['id_usuario'];
 
 // Obtener datos del análisis externo
-$queryAnalisis = "SELECT solicitado_por, revisado_por, url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo, laboratorio FROM calidad_analisis_externo WHERE id = ?";
+$queryAnalisis = "SELECT 
+    solicitado_por, revisado_por, url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo, laboratorio
+    FROM calidad_analisis_externo WHERE id = ?";
 $stmtAnalisis = mysqli_prepare($link, $queryAnalisis);
 if (!$stmtAnalisis) {
     die(json_encode(['exito' => false, 'mensaje' => 'Error en la preparación de la consulta del análisis externo: ' . mysqli_error($link)]));
@@ -80,8 +82,11 @@ $destinatarios = array_map("unserialize", array_unique(array_map("serialize", $d
 
 $resultado = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody);
 if ($resultado['status'] === 'success') {
-    $stmt = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='Pendiente ingreso resultados' WHERE id=?");
-    mysqli_stmt_bind_param($stmt, "i", $id_analisis_externo );
+    $today = date('Y-m-d');
+    $stmt = mysqli_prepare($link, "UPDATE calidad_analisis_externo 
+        SET estado ='Pendiente ingreso resultados', fecha_envio = ?
+        WHERE id=?");
+    mysqli_stmt_bind_param($stmt, "si", $today, $id_analisis_externo );
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
