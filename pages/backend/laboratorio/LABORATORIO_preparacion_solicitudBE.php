@@ -44,7 +44,10 @@ function insertarRegistro($link, $datos)
         am_verificado_por,
         aux_autoincremental, 
         aux_anomes, 
-        aux_tipo
+        aux_tipo,
+        elaborado_por,
+        pais_origen,
+        proveedor
             ) 
         SELECT 
             ?, -- version
@@ -69,7 +72,10 @@ function insertarRegistro($link, $datos)
             ?, -- am_verificado_por
             COALESCE(MAX(ae.aux_autoincremental) + 1, 1), -- aux_autoincremental
             ?, -- aux_anomes
-            b.tipo_producto -- aux_tipo
+            b.tipo_producto, -- aux_tipo
+            ?,
+            ?,
+            ?
         FROM 
             calidad_especificacion_productos AS c
             LEFT JOIN calidad_productos AS b ON c.id_producto = b.id
@@ -86,7 +92,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'issssssssssssssssssi',
+        'isssssssssssssssssssssi',
         $datos['version'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
@@ -105,6 +111,9 @@ function insertarRegistro($link, $datos)
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
         $aux_anomes,        // Se utiliza en la inserción como aux_anomes
+        $datos['dealer'],
+        $datos['elaboradoPor'],
+        $datos['paisOrigen'],
         $aux_anomes,        // Se utiliza en la subconsulta WHERE
         $datos['id_especificacion']
     );
@@ -139,6 +148,9 @@ function insertarRegistro($link, $datos)
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
             $aux_anomes,        // Se utiliza en la inserción como aux_anomes
+            $datos['dealer'],
+            $datos['elaboradoPor'],
+            $datos['paisOrigen'],
             $aux_anomes,        // Se utiliza en la subconsulta WHERE
             $datos['id_especificacion']
         ],
@@ -386,6 +398,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $concentracion = limpiarDato($_POST['concentracion']);
     $formato = limpiarDato($_POST['formato']);
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
+    $paisOrigen = limpiarDato($_POST['paisOrigen']);
+    $dealer = limpiarDato($_POST['dealer']);
     $lote = limpiarDato($_POST['lote']);
     $tamano_lote = limpiarDato($_POST['tamano_lote']);
     $fecha_elaboracion = limpiarDato($_POST['fecha_elaboracion']);
@@ -431,6 +445,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'concentracion' => $concentracion,
             'condicion_almacenamiento' => $condicion_almacenamiento,
             'elaboradoPor' => $elaboradoPor,
+            'paisOrigen' => $paisOrigen,
+            'dealer' => $dealer,
             'fecha_elaboracion' => $fecha_elaboracion,
             'fecha_registro' => $fecha_registro,
             'fecha_vencimiento' => $fecha_vencimiento,
