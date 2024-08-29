@@ -520,11 +520,6 @@ function validarFormulario() {
         valido = false;
     }
 
-    // Validación para el campo 'Elaborado por'
-    if (document.forms[0]["elaboradoPor"].value.trim() === '') {
-        mensaje += 'El campo "Elaborado por" es obligatorio.\n';
-        valido = false;
-    }
 
     // Validación para el campo 'Número de documento'
     if (document.forms[0]["numeroProducto"].value.trim() === '') {
