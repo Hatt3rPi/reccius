@@ -35,6 +35,7 @@ try {
                                 an.fecha_envio,
                                 an.laboratorio_fecha_analisis,
                                 an.id_cuarentena,
+                                an.fecha_liberacion,
                                 prod.id AS 'id_producto',
                                 prod.identificador_producto AS 'prod_identificador_producto',
                                 prod.nombre_producto AS 'prod_nombre_producto',
