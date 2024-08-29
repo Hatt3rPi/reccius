@@ -159,19 +159,19 @@ if ($accion === 'prepararSolicitud' && $idEspecificacion !== 0) {
                 // inicio
                     switch ($tipo_producto_preparacion) {
                         case 'Material Envase y Empaque':
-                            $numero_acta_cor = "SAEMEE-" . $year . $month . $correlativoStr ;
+                            $numero_acta_cor = "SAEMEE-" . substr($year, 2) . $month . $correlativoStr ;
                             $numero_registro_cor = 'DCAL-CC-SEMEE-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
                             break;
                         case 'Materia Prima':
-                            $numero_acta_cor = "SAEMP-" . $year . $month . $correlativoStr ;
+                            $numero_acta_cor = "SAEMP-" . substr($year, 2) . $month . $correlativoStr ;
                             $numero_registro_cor = 'DCAL-CC-SEMP-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
                             break;
                         case 'Producto Terminado':
-                            $numero_acta_cor = "SAEPT-" . $year . $month . $correlativoStr ;
+                            $numero_acta_cor = "SAEPT-" . substr($year, 2) . $month . $correlativoStr ;
                             $numero_registro_cor = 'DCAL-CC-SEPT-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
                             break;
                         case 'Insumo':
-                            $numero_acta_cor = "SAEINS-" . $year . $month . $correlativoStr ;
+                            $numero_acta_cor = "SAEINS-" . substr($year, 2) . $month . $correlativoStr ;
                             $numero_registro_cor = 'DCAL-CC-SEIND-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
                             break;
                         default:
