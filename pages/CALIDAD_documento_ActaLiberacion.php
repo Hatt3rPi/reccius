@@ -752,6 +752,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (campos) {
                         // Sumar los resultados de producto en un solo texto
                         var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
+                        var productoCompleto = 
+                            (campos.prod_nombre_producto != null ? campos.prod_nombre_producto : '') + ' ' +
+                            (campos.prod_concentracion != null ? campos.prod_concentracion : '') + ' ' +
+                            (campos.prod_formato != null ? campos.prod_formato : '');
                         var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
 
                         // Actualizar el elemento con el texto combinado
