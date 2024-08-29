@@ -473,14 +473,11 @@ while ($row = mysqli_fetch_assoc($result)) {
             switch (producto.tipo_producto) {
                 case 'Material Envase y Empaque':
                     prefijo = 'DCAL-CC-EMEE-';
-                    $('#contenedor_dealer')..css('visibility', 'hidden').prop('required', false);
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
                     break;
                 case 'Materia Prima':
                     prefijo = 'DCAL-CC-EMP-';
-                    $('#contenedor_dealer').show().prop('required', true);
                     $('#contenedor_dealer').css('visibility', 'visible').prop('required', true);
-
-                    
                     break;
                 case 'Producto Terminado':
                     prefijo = 'DCAL-CC-EPT-';
