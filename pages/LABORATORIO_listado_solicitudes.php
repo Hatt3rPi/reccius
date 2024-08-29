@@ -248,7 +248,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         // Si se acaba de insertar una nueva especificación, establecer el valor del buscador de DataTables
         <?php if (isset($_SESSION['buscar_por_ID'])) { ?>
             var buscar = '<?php echo $_SESSION['buscar_por_ID']; ?>';
-            table.columns(7).search(buscar).draw();
+            table.columns(8).search(buscar).draw();
             //table.search(buscar).draw();
             <?php unset($_SESSION['buscar_por_ID']); ?>
         <?php } ?>

@@ -146,8 +146,6 @@ function insertarProducto($link) {
     $elaboradoPor = limpiarDato($_POST['elaboradoPor']);
     $numeroDocumento = limpiarDato($_POST['documento']);
     $numeroProducto = limpiarDato($_POST['numeroProducto']);
-    $paisOrigen = limpiarDato($_POST['paisOrigen']);
-    $dealer = limpiarDato($_POST['dealer']);
     $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, documento_ingreso, identificador_producto, tipo_concentracion) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, "sssssss", $producto, $tipoProducto, $concentracion, $formato, $numeroDocumento, $numeroProducto, $tipo_concentracion);
@@ -181,10 +179,11 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
     $editor = limpiarDato($_POST['user_editor']);
     $revisor = limpiarDato($_POST['usuario_revisor']);
     $aprobador = limpiarDato($_POST['usuario_aprobador']);
-
-    $queryEspecificacion = "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia, creado_por, revisado_por, aprobado_por) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $codigo_interno = limpiarDato($_POST['codigo_interno']);
+    
+    $queryEspecificacion = "INSERT INTO calidad_especificacion_productos (id_producto, documento, fecha_edicion, version, fecha_expiracion, vigencia, creado_por, revisado_por, aprobado_por, codigo_mastersoft) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmtEspecificacion = mysqli_prepare($link, $queryEspecificacion);
-    mysqli_stmt_bind_param($stmtEspecificacion, "issssisss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador);
+    mysqli_stmt_bind_param($stmtEspecificacion, "issssissss", $idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador, $codigo_interno);
 
     $exito = mysqli_stmt_execute($stmtEspecificacion);
     $idEspecificacion = $exito ? mysqli_insert_id($link) : 0;
@@ -198,11 +197,11 @@ function insertarEspecificacionYAnalisis($link, $idProducto) {
         '2. calidad_especificacion_productos', 
         $idEspecificacion, 
         $queryEspecificacion, 
-        [$idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador], 
+        [$idProducto, $numeroDocumento, $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador, $codigo_interno], 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
-    $params = [$idProducto, $_POST['documento'], $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador];
+    $params = [$idProducto, $_POST['documento'], $fechaEdicion, $version, $fechaExpiracion, $vigencia, $editor, $revisor, $aprobador, $codigo_interno];
     $error = $exito ? null : mysqli_error($link);
 
     if ($exito) {
