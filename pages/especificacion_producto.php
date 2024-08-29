@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Producto:</label>
-                        <input type="text" name="producto" placeholder="Ácido Ascórbico" class="editable" required>
+                        <input type="text" id="producto" name="producto" placeholder="Ácido Ascórbico" class="editable" required>
                     </div>
                 </div>
                 <div class="form-row">
