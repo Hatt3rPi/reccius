@@ -113,7 +113,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group" >
                         <div class="form-group" style="display: none;">
-                            <label></label>
+                        <label>Código Interno/Mastersoft:</label>
+                        <input type="text" id="codigo_interno" name="codigo_interno" class="editable" required>
                         </div>  
                     </div>
                 </div>
@@ -544,6 +545,11 @@ function validarFormulario() {
         mensaje += 'El campo "Vigencia" es obligatorio.\n';
         valido = false;
     }
+     // Validación para el campo 'Vigencia'
+        if (document.forms[0]["codigo_interno"].value.trim() === '') {
+        mensaje += 'El campo "codigo_interno" es obligatorio.\n';
+        valido = false;
+    }
     
     var valido = true;
     var mensaje = '';
@@ -845,7 +851,8 @@ function validateForm() {
         'fechaEdicion',
         'periodosVigencia',
         'usuario_revisor',
-        'usuario_aprobador'
+        'usuario_aprobador',
+        'codigo_interno'
     ];
 
     fields.forEach(function(fieldId) {
