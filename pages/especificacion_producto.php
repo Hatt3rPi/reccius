@@ -659,7 +659,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
     $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true).show();
     $('#tipo_concentracion').hide();
     $('#formato').val(producto.formato).prop('disabled', true);
-
+    console.log(producto.tipo_producto);
     switch (producto.tipo_producto) {
         case 'Material Envase y Empaque':
             $('input[name="prefijoDocumento"]').val('DCAL-CC-EMEE-');
@@ -870,7 +870,27 @@ function validateForm() {
 
     return allValid;
 }
+$('#Tipo_Producto').on('change', function() {
+    var tipoProducto = $(this).val();
+    var prefijo = '';
 
+    switch (tipoProducto) {
+        case 'Material Envase y Empaque':
+            prefijo = 'DCAL-CC-EMEE-';
+            break;
+        case 'Materia Prima':
+            prefijo = 'DCAL-CC-EMP-';            
+            break;
+        case 'Producto Terminado':
+            prefijo = 'DCAL-CC-EPT-';
+            break;
+        case 'Insumo':
+            prefijo = 'DCAL-CC-EINS-';
+            break;
+    }
+
+    $('#prefijoDocumento').val(prefijo);
+});
 
 
 function verificarOtro(selectId, inputId) {
