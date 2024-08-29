@@ -656,7 +656,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
     
     $('#id_producto').val(producto.id_producto);
     $('#Tipo_Producto').val(producto.tipo_producto).prop('disabled', true);
-    $('#codigo_interno').val(especificacion.codigo_interno).prop('disabled', true);
+    
     $('input[name="producto"]').val(producto.nombre_producto).prop('disabled', true);
     $('input[name="concentracion"]').val(producto.concentracion).prop('disabled', true).show();
     $('#tipo_concentracion').hide();
@@ -691,7 +691,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
         $('#usuario_editor').val(especificacion.nombre).prop('readonly', true);
         $('#usuario_revisor').val(especificacion.revisado_por).prop('readonly', true);
         $('#usuario_aprobador').val(especificacion.aprobado_por).prop('readonly', true);
-        
+        $('#codigo_interno').val(especificacion.codigo_interno).prop('disabled', true);
     }
     //console.log(producto.tipo_producto);
 }
