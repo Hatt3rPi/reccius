@@ -5,7 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
 require_once "../cloud/R2_manager.php";
 header('Content-Type: application/json');
-$mensaje='';
+$mensaje='GO ';
 global $numero_solicitud;
 function limpiarDato($dato)
 {
@@ -159,7 +159,7 @@ function insertarRegistro($link, $datos)
     );
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $id;
-    $mensaje=+ " 1. se intentará guardar SESSION['buscar_por_ID']=".$id;
+    $mensaje.= " 1. se intentará guardar SESSION['buscar_por_ID']=".$id;
 
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
@@ -324,7 +324,7 @@ function agregarDatosPostFirma($link, $datos,$archivo)
     }
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $datos['id'];
-    $mensaje=+ " 2. se intentará guardar SESSION['buscar_por_ID']=".$datos['id'];
+    $mensaje.= " 2. se intentará guardar SESSION['buscar_por_ID']=".$datos['id'];
 
 
     // registrar tarea
