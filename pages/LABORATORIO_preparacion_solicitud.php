@@ -481,11 +481,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     break;
                 case 'Producto Terminado':
                     prefijo = 'DCAL-CC-EPT-';
-                    $('#contenedor_dealer')..css('visibility', 'hidden').prop('required', false);
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
                     break;
                 case 'Insumo':
                     prefijo = 'DCAL-CC-EINS-';
-                    $('#contenedor_dealer')..css('visibility', 'hidden').prop('required', false);
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
                     break;
             }
             setValuesToInputs([{
