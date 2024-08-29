@@ -253,7 +253,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="Espec verif">
                             <div id="form_textarea3" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion3a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -264,7 +264,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td class="">
+                        <td class="verif">
                             <div class="toggle-container">
                                 <input type="radio" id="estado4_conforme" name="estado4" value="1">
                                 <label for="estado4_conforme">Conforme</label>
@@ -273,10 +273,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado4_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif">
                             <div id="form_textarea4" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion4a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
