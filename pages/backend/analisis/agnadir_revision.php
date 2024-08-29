@@ -100,14 +100,15 @@ $uploadResult = json_decode($uploadStatus, true);
 
 if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     $fileURL = $uploadResult['success']['ObjectURL'];
-
+    $fecha_ymd=date("Y-m-d");
     $consultaSQL = "UPDATE calidad_analisis_externo SET  
         resultados_analisis = ?, 
         laboratorio_nro_analisis = ?, 
         laboratorio_fecha_analisis = ?, 
         fecha_entrega = ?, 
         url_certificado_de_analisis_externo = ?, 
-        estado = 'Pendiente liberación productos'
+        estado = 'Pendiente liberación productos',
+        fecha_firma2= '".$fecha_ymd."'
         WHERE id = ?";
 
     $stmt = mysqli_prepare($link, $consultaSQL);

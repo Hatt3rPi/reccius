@@ -21,6 +21,7 @@ function insertarRegistro($link, $datos)
     $year = date("Y");
     $month = date("m");
     $aux_anomes = $year . $month;
+    $fecha_ymd=date("Y-m-d");
     $query= "INSERT INTO calidad_analisis_externo (
         version,
         id_especificacion,
@@ -47,7 +48,8 @@ function insertarRegistro($link, $datos)
         aux_tipo,
         elaborado_por,
         pais_origen,
-        proveedor
+        proveedor,
+        fecha_firma1
             ) 
         SELECT 
             ?, -- version
@@ -75,7 +77,8 @@ function insertarRegistro($link, $datos)
             b.tipo_producto, -- aux_tipo
             ?,
             ?,
-            ?
+            ?,'".$fecha_ymd."'
+
         FROM 
             calidad_especificacion_productos AS c
             LEFT JOIN calidad_productos AS b ON c.id_producto = b.id

@@ -631,7 +631,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         var soli = primerAnalisis.firmas.solicitado_por
                         var revis = primerAnalisis.firmas.revisado_por
                         if (primerAnalisis.solicitado_por) {
-                            $("#fecha_firma1").text(primerAnalisis.fecha_solicitud).show();
+                            $("#fecha_firma1").text(primerAnalisis.fecha_firma1).show();
                             $("#mensaje_firma1").show();
                             $("#solicitado_por_name").text(soli.nombre).show()
                             $("#cargo_solicitador").text(soli.cargo).show()
@@ -663,7 +663,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         }
                         if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
 
-                            $("#fecha_firma2").text(primerAnalisis.laboratorio_fecha_analisis).show();
+                            $("#fecha_firma2").text(primerAnalisis.fecha_firma2).show();
                             $("#mensaje_firma2").show();
                             $("#revisado_por_name").text(revis.nombre).show()
                             $("#cargo_revisador").text(revis.cargo).show()
@@ -721,7 +721,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function firma2Fn() {
             var now = new Date();
-            $("#fecha_firma2").text(datosFirma2.fecha || `${now.getFullYear()}-${now.getMonth() + 1 <10 ? `0${now.getMonth() + 1}-${now.getDate() <10 ? `0${now.getDate()}` : now.getDate()}` : now.getMonth() + 1 } `).show();
+            $("#fecha_firma2").text('<?php echo date("Y-m-d"); ?>').show();
             $("#mensaje_firma2").show();
             $("#revisado_por_name").text(datosFirma2.nombre).show()
             $("#cargo_revisador").text(datosFirma2.cargo).show()
