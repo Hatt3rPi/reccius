@@ -204,10 +204,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado1_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif">
                             <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -218,7 +218,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td class="">
+                        <td class="verif">
                             <div class="toggle-container">
                                 <input type="radio" id="estado2_conforme" name="estado2" value="1">
                                 <label for="estado2_conforme">Conforme</label>
@@ -227,10 +227,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado2_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif ">
                             <div id="form_textarea2" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision verif">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion2a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
@@ -241,7 +241,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td class="">
+                        <td class="verif">
                             <div class="toggle-container">
                                 <input type="radio" id="estado3_conforme" name="estado3" value="1">
                                 <label for="estado3_conforme">Conforme</label>
@@ -250,7 +250,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <label for="estado3_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec ">
+                        <td class="Espec verif">
                             <div id="form_textarea3" class="editable-divO" contenteditable="true"></div>
                         </td>
                         <td class="revision ">
