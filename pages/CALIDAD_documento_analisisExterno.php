@@ -538,8 +538,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     //
                     // Sumar los resultados de producto en un solo texto
-                    var productoCompleto = primerAnalisis.prod_nombre_producto + ' ' + primerAnalisis.prod_concentracion + ' ' + primerAnalisis.prod_formato;
-
+                    
+                    var productoCompleto = 
+                        (primerAnalisis.prod_nombre_producto != null ? primerAnalisis.prod_nombre_producto : '') + ' ' +
+                        (primerAnalisis.prod_concentracion != null ? primerAnalisis.prod_concentracion : '') + ' ' +
+                        (primerAnalisis.prod_formato != null ? primerAnalisis.prod_formato : '');
                     // Actualizar el elemento con el texto combinado
                     $('#nombre_producto').text(productoCompleto);
                     // Actualizar el elemento con el texto combinado
