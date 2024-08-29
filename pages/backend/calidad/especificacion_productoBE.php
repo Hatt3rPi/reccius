@@ -148,9 +148,9 @@ function insertarProducto($link) {
     $numeroProducto = limpiarDato($_POST['numeroProducto']);
     $paisOrigen = limpiarDato($_POST['paisOrigen']);
     $dealer = limpiarDato($_POST['dealer']);
-    $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, elaborado_por, documento_ingreso, identificador_producto, tipo_concentracion, pais_origen, proveedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO calidad_productos (nombre_producto, tipo_producto, concentracion, formato, documento_ingreso, identificador_producto, tipo_concentracion) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "ssssssssss", $producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen, $dealer);
+    mysqli_stmt_bind_param($stmt, "sssssss", $producto, $tipoProducto, $concentracion, $formato, $numeroDocumento, $numeroProducto, $tipo_concentracion);
 
     $exito = mysqli_stmt_execute($stmt);
     $idProducto = $exito ? mysqli_insert_id($link) : 0;
@@ -162,11 +162,11 @@ function insertarProducto($link) {
         '1. calidad_productos', 
         $idProducto, 
         $query, 
-        [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen, $dealer], 
+        [$producto, $tipoProducto, $concentracion, $formato, $numeroDocumento, $numeroProducto, $tipo_concentracion], 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
-    $params = [$producto, $tipoProducto, $concentracion, $formato, $elaboradoPor, $numeroDocumento, $numeroProducto, $tipo_concentracion, $paisOrigen, $dealer];
+    $params = [$producto, $tipoProducto, $concentracion, $formato, $numeroDocumento, $numeroProducto, $tipo_concentracion];
     $error = $exito ? null : mysqli_error($link);
 
     return ['exito' => $exito, 'id' => $idProducto, 'query' => $query, 'params' => $params, 'error' => $error];
