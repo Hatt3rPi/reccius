@@ -613,7 +613,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <!-- Fila para lotes entre 501 y 4999 unidades -->
                     <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td contenteditable="true">501 - 4999 unidades</td>
+                        <td contenteditable="true">501 - 999 unidades</td>
                         <td contenteditable="true">40 unidades</td>
                         <td contenteditable="true">80 unidades</td>
                         <td contenteditable="true">120 Unidades</td>
