@@ -691,7 +691,7 @@ function poblarYDeshabilitarCamposProducto(producto) {
         $('#usuario_editor').val(especificacion.nombre).prop('readonly', true);
         $('#usuario_revisor').val(especificacion.revisado_por).prop('readonly', true);
         $('#usuario_aprobador').val(especificacion.aprobado_por).prop('readonly', true);
-        $('#codigo_interno').val(especificacion.codigo_interno).prop('disabled', true);
+        $('#codigo_interno').val(especificacion.codigo_mastersoft).prop('disabled', true);
     }
     //console.log(producto.tipo_producto);
 }
