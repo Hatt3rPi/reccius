@@ -5,7 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
 require_once "../cloud/R2_manager.php";
 header('Content-Type: application/json');
-
+$mensaje='';
 global $numero_solicitud;
 function limpiarDato($dato)
 {
@@ -159,11 +159,13 @@ function insertarRegistro($link, $datos)
     );
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $id;
+    $mensaje=+ " 1. se intentará guardar SESSION['buscar_por_ID']=".$id;
 
     if (!$exito) {
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
     }
 }
+
 
 function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
         // Nueva inserción en calidad_productos_analizados
@@ -322,6 +324,8 @@ function agregarDatosPostFirma($link, $datos,$archivo)
     }
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $datos['id'];
+    $mensaje=+ " 2. se intentará guardar SESSION['buscar_por_ID']=".$datos['id'];
+
 
     // registrar tarea
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
@@ -497,7 +501,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios
-        echo json_encode(["exito" => true, "mensaje" => ""]);
+        echo json_encode(["exito" => true, "mensaje" => $mensaje]);
         exit;
 
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
