@@ -880,7 +880,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var inputsDentroDeEsteDiv = $(this).find('input');
             var dataI = Number(docConformeResults[index]);
             console.log({inputsDentroDeEsteDiv, dataI, docConformeResults: docConformeResults[index]});
-            inputsDentroDeEsteDiv[dataI].checked = true;
+            inputsDentroDeEsteDiv[dataI=== 1 ? 0 : 1].checked = true;
 
             /*
                 // Obtener el grupo de inputs de radio para este índice
