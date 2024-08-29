@@ -631,7 +631,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         var soli = primerAnalisis.firmas.solicitado_por
                         var revis = primerAnalisis.firmas.revisado_por
                         if (primerAnalisis.solicitado_por) {
-                            $("#fecha_firma1").text(primerAnalisis.fecha_firma1).show();
+                            $("#fecha_firma1").text(primerAnalisis.fecha_firma_1).show();
                             $("#mensaje_firma1").show();
                             $("#solicitado_por_name").text(soli.nombre).show()
                             $("#cargo_solicitador").text(soli.cargo).show()
