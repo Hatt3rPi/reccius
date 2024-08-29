@@ -134,7 +134,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Tipo Analisis:</label>
+                        <label>Tipo Análisis:</label>
                         <input required class="form-control mx-0 w-90 " name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
                     </div>
                     <div class="divider"></div>
