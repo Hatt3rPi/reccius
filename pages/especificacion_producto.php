@@ -112,7 +112,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group" >
-                        <div class="form-group" style="display: none;">
+                        <div class="form-group">
                         <label>Código Interno/Mastersoft:</label>
                         <input type="text" id="codigo_interno" name="codigo_interno" class="editable" required>
                         </div>  
