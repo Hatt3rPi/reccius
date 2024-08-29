@@ -16,7 +16,7 @@ function limpiarDato($dato)
 // Funciones para interactuar con la base de datos
 function insertarRegistro($link, $datos)
 {
-    global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
+    global $id_analisis_externo, $mensaje; // Hacer la variable global para que se pueda acceder fuera de esta función
     //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
     $year = date("Y");
     $month = date("m");
@@ -212,7 +212,7 @@ function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisi
 }
 function agregarDatosPostFirma($link, $datos,$archivo)
 {
-    global $id_analisis_externo; // Hacer la variable global para que se pueda acceder fuera de esta función
+    global $id_analisis_externo, $mensaje; // Hacer la variable global para que se pueda acceder fuera de esta función
 
     // Consultar el numero_solicitud asociado al id en la tabla calidad_analisis_externo
     $query_numero_solicitud = "SELECT numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
