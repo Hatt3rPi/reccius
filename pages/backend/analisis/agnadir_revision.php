@@ -112,7 +112,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         fecha_entrega = ?, 
         url_certificado_de_analisis_externo = ?, 
         estado = 'Pendiente liberación productos',
-        fecha_firma2= ?
+        fecha_firma_2= ?
         WHERE id = ?";
 
     $stmt = mysqli_prepare($link, $consultaSQL);
