@@ -58,11 +58,11 @@ try {
                                 END as foto_firma_usr1
                             FROM
                                 calidad_acta_liberacion AS lib
-                            JOIN calidad_analisis_externo AS an ON lib.id_analisisExterno = an.id
-                            JOIN calidad_especificacion_productos AS es ON lib.id_especificacion=es.id_especificacion
-                            JOIN calidad_productos AS prod ON lib.id_producto = prod.id
-                            JOIN calidad_acta_muestreo AS am ON lib.id_actaMuestreo = am.id
-                            JOIN usuarios as usr1 ON lib.usuario_firma1=usr1.usuario
+                            left JOIN calidad_analisis_externo AS an ON lib.id_analisisExterno = an.id
+                            left JOIN calidad_especificacion_productos AS es ON lib.id_especificacion=es.id_especificacion
+                            left JOIN calidad_productos AS prod ON lib.id_producto = prod.id
+                            left JOIN calidad_acta_muestreo AS am ON lib.id_actaMuestreo = am.id
+                            left JOIN usuarios as usr1 ON lib.usuario_firma1=usr1.usuario
                             WHERE
                                 lib.id = ?";
 
