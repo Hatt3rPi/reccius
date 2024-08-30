@@ -50,6 +50,7 @@ $checkQuery = "SELECT COUNT(*) as count FROM calidad_analisis_externo WHERE id =
 $stmtCheck = mysqli_prepare($link, $checkQuery);
 mysqli_stmt_bind_param($stmtCheck, 'i', $idAnalisisExterno);
 mysqli_stmt_execute($stmtCheck);
+
 $resultCheck = mysqli_stmt_get_result($stmtCheck);
 $row = mysqli_fetch_assoc($resultCheck);
 
@@ -130,7 +131,11 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $fileURL, 
         $idAnalisisExterno
     );
-    mysqli_stmt_execute($stmt);
+    if (mysqli_stmt_execute($stmt)) {
+
+    } else {
+        echo json_encode(['error' => 'Error al ejecutar la consulta: ' . mysqli_stmt_error($stmt)]);
+    }
     mysqli_stmt_close($stmt);
 
     if (mysqli_error($link)) {
@@ -148,7 +153,11 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
                 $id_analisis = intval($resultado['idAnalisis']); // Asegúrate de que id_analisis sea un entero
         
                 mysqli_stmt_bind_param($stmt3, "si", $resultado_laboratorio, $id_analisis);
-                mysqli_stmt_execute($stmt3);
+                if (mysqli_stmt_execute($stmt3)) {
+                    echo json_encode(['exito' => true]);
+                } else {
+                    echo json_encode(['error' => 'Error al ejecutar la consulta: ' . mysqli_stmt_error($stmt3)]);
+                }
             }
         
             mysqli_stmt_close($stmt3);

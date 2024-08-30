@@ -800,16 +800,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
                 method: "POST",
                 body: formData
-            }).then(function(response) {
-                $.notify("Analisis de laboratorio guardado.", "success");
-                firma2Fn();
-                $('#listado_solicitudes_analisis').click();
-                //$('#listado_productos_disponibles').click();
-            }).catch(error => {
-                $("#revisar").show();
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exito) {
+                    $.notify("Análisis de laboratorio guardado.", "success");
+                    firma2Fn();
+                    $('#listado_solicitudes_analisis').click();
+                } else {
+                    $.notify("Error al guardar: " + data.error, "error");
+                    $("#revisar").show();
+                }
+            })
+            .catch(error => {
                 console.error('Error:', error);
                 alert("Error al revisar los datos.");
-
+                $("#revisar").show();
             });
         });
     });
