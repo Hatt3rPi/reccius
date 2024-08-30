@@ -79,7 +79,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         $id_analisis_externo=$row['id_analisis_externo'];
         $responsable=$row['muestreado_por'];
         $verificador=$row['am_verificado_por'];
-        $ejecutor=$row['am_ejecutado_por'];
+        $ejecutor=$row['ejecutado_por'];
         
     }
     mysqli_stmt_close($stmt);

@@ -234,7 +234,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     Enviar Solicitud a Laboratorio
                 </button><a></a>`;
             }
-            if (d.muestreado_por === usuarioActual && d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo === null) {
+            if (d.am_ejecutado_por === usuarioActual && d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo === null) {
                 acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
             }
 
