@@ -70,6 +70,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
         }
     }
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            // Validar que el término de búsqueda no sea null o undefined
+            var searchTerm = $('#listado_filter input').val();
+            console.log(`valor buscado: ${searchTerm}`);
+            if (!searchTerm) {
+                console.log(`El término de búsqueda es nulo o indefinido en la fila ${dataIndex}. Se utilizará una cadena vacía.`);
+                searchTerm = ''; // Si es null o undefined, lo tratamos como una cadena vacía
+            } else {
+                searchTerm = searchTerm.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            }
+            var rowContent = data[11].normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); // Asegúrate de que '5' es el índice correcto para 'producto_filtrado'
+
+
+            // Compara el término de búsqueda con el contenido de la fila
+            console.log(`valor procesado: ${searchTerm} en la columna: ${rowContent}`);
+            return rowContent.includes(searchTerm);
+        }
+    );
 
     function carga_listado() {
         var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
