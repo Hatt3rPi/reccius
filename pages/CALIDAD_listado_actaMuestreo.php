@@ -60,8 +60,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     // Ahora puedes usar la sintaxis import
 
-    $(document).ready(function() {
-    carga_listado();
+
     function filtrar_listado(estado) {
         var table = $('#listado').DataTable();
         if (estado === '') {
@@ -71,10 +70,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
         }
     }
-});
-
-
-
 
     function carga_listado() {
         var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
@@ -179,22 +174,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             ],
 
-        });
-
-        $('#listado_filter input').on('input', function() {
-            var table = $('#listado').DataTable();
-            
-            var searchTerm = $('#listado_filter input').val();
-            console.log(`Valor entrada: ${searchTerm}`);
-            if (!searchTerm) {
-                console.log(`El término de búsqueda es nulo o indefinido. Se utilizará una cadena vacía.`);
-                searchTerm = ''; // Si es null o undefined, lo tratamos como una cadena vacía
-            } else {
-                searchTerm = searchTerm.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-            }
-            console.log(`Valor salida: ${searchTerm}`);
-            table.search(searchTerm).draw();
         });
 
         // Función para formatear el contenido expandido
