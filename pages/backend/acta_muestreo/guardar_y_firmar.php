@@ -119,6 +119,30 @@ if ($stmt = mysqli_prepare($link, $query)) {
                 finalizarTarea($_SESSION['usuario'], $id_actaMuestreo, 'calidad_acta_muestreo', 'Firma 3');
                 registrarTarea(7, $_SESSION['usuario'], $solicitado_por_analisis_externo, 'Finalizar Solicitud análisis externo: ' . $numero_solicitud , 2, 'Firma 1', $id_analisis_externo, 'calidad_analisis_externo');
                 // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Firma 1');
+                
+                $query_update = "UPDATE calidad_productos_analizados 
+                            SET id_actaMuestreo = (
+                                SELECT b.id 
+                                FROM calidad_analisis_externo AS a
+                                LEFT JOIN calidad_acta_muestreo AS b ON a.id = b.id_analisisExterno
+                                WHERE a.id = ?
+                                LIMIT 1
+                            )
+                            WHERE id = (
+                                SELECT a.id_cuarentena 
+                                FROM calidad_analisis_externo AS a
+                                WHERE a.id = ?
+                                LIMIT 1
+                            );
+                            ";
+
+                        $stmt4 = mysqli_prepare($link, $query_update);
+                        if (!$stmt4) {
+                        throw new Exception("Error en la preparación de la consulta de actualización: " .$query_update. mysqli_error($link));
+                        }
+                        mysqli_stmt_bind_param($stmt4, "ii", $id_analisis_externo, $id_analisis_externo);
+                        mysqli_stmt_execute($stmt4);
+
                 break;
             default:
                 // Manejo de caso por defecto si es necesario
