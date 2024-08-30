@@ -409,6 +409,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'tamano_contramuestra',
             'registro_isp',
             'numero_pos',
+            'ejecutado_por',
             'muestreado_por',
             'am_verificado_por'
         ];
@@ -700,6 +701,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     isDisabled: true
                 },
                 {
+                    id: 'ejecutado_por',
+                    val: analisis.am_ejecutado_por,
+                    isDisabled: true
+                },
+                {
                     id: 'muestreado_por',
                     val: analisis.muestreado_por,
                     isDisabled: true
@@ -857,6 +863,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     'tamano_contramuestra',
                     'registro_isp',
                     'numero_pos',
+                    'ejecutado_por',
                     'muestreado_por',
                     'am_verificado_por'
                 ].forEach(element => {

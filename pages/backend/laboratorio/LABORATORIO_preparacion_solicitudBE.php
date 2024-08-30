@@ -1,5 +1,6 @@
 <?php
 //archivo: pages\backend\laboratorio\LABORATORIO_preparacion_solicitudBE.php
+
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
@@ -43,6 +44,7 @@ function insertarRegistro($link, $datos)
         numero_pos,
         tipo_analisis,
         am_verificado_por,
+        am_ejecutado_por,
         aux_autoincremental, 
         aux_anomes, 
         aux_tipo,
@@ -72,6 +74,7 @@ function insertarRegistro($link, $datos)
             ?, -- numero_pos
             ?, -- tipo_analisis
             ?, -- am_verificado_por
+            ?,
             COALESCE(MAX(ae.aux_autoincremental) + 1, 1), -- aux_autoincremental
             ?, -- aux_anomes
             b.tipo_producto, -- aux_tipo
@@ -96,7 +99,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'isssssssssssssssssssssi',
+        'issssssssssssssssssssssi',
         $datos['version'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
@@ -114,6 +117,7 @@ function insertarRegistro($link, $datos)
         $datos['numero_pos'],
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
+        $datos['am_ejecutado_por'],
         $aux_anomes,        // Se utiliza en la inserción como aux_anomes
         $datos['elaboradoPor'],
         $datos['paisOrigen'],
@@ -151,6 +155,7 @@ function insertarRegistro($link, $datos)
             $datos['numero_pos'],
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
+            $datos['am_ejecutado_por'],
             $aux_anomes,        // Se utiliza en la inserción como aux_anomes
             $datos['elaboradoPor'],
             $datos['paisOrigen'],
@@ -427,6 +432,7 @@ function campoTipo($campo)
         'tipo_analisis' => 's',
         'muestreado_por' => 's',
         'am_verificado_por' => 's',
+        'am_ejecutado_por' => 's',
         'numero_pos' => 's',
         'codigo_mastersoft' => 's',
         'tamano_lote' => 's',
@@ -488,7 +494,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $solicitadoPor = limpiarDato($_POST['solicitado_por']);
     $revisadoPor = limpiarDato($_POST['revisado_por']);
     $am_verificado_por = limpiarDato($_POST['am_verificado_por']);
-
+    $am_ejecutado_por = limpiarDato($_POST['am_ejecutado_por']);
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
 
@@ -543,6 +549,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'solicitado_por' => $solicitadoPor,
             'revisado_por' => $revisadoPor,
             'am_verificado_por' => $am_verificado_por,
+            'am_ejecutado_por' =>$am_ejecutado_por,
 
         ];
 
