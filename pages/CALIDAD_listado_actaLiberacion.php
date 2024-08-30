@@ -69,20 +69,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
         }
     }
-    // Función para normalizar las cadenas de texto (eliminar tildes y acentos)
-    function normalizeText(text) {
-        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
 
-    // Sobrescribir la función de búsqueda global de DataTables
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var searchTerm = normalizeText($('#listado_filter input').val().toLowerCase());
-            var rowContent = normalizeText(data.join(' ').toLowerCase());
-
-            return rowContent.includes(searchTerm);
-        }
-    );
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_liberacion/listado_actaLiberacionBE.php",
@@ -158,6 +145,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     data: 'id_acta',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
+                }
+                ,
+                {
+                    "data": "producto",
+                    "title": "Producto_filtrado",
+                    visible: false,
+                    "render": function(data, type, row) {
+                        if (data) {
+                            // Si data no es null ni undefined, realiza la normalización
+                            return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        } else {
+                            // Si data es null o undefined, retorna una cadena vacía o un valor por defecto
+                            return '';
+                        }
+                    }
                 }
             ],
 
