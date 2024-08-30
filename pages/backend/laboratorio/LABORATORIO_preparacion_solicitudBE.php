@@ -161,6 +161,7 @@ function insertarRegistro($link, $datos)
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)
     );
+    insertarRegistroAnalisis($link, $id);
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $id;
     $mensaje.= " 1. se intentará guardar SESSION['buscar_por_ID']=".$id;
@@ -169,7 +170,56 @@ function insertarRegistro($link, $datos)
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
     }
 }
+function insertarRegistroAnalisis($link, $datos){
+    global $id_analisis_externo, $mensaje; // Hacer la variable global para que se pueda acceder fuera de esta función
+    //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
 
+    $query= "INSERT INTO calidad_resultados_analisis (
+        id_analisisExterno,
+        id_analisis,
+        id_especificacion_producto,
+        criterios_aceptacion,
+        descripcion_analisis,
+        metodologia,
+        tipo_analisis
+            ) 
+    select aex.id,
+        an.id_analisis,
+        an.id_especificacion_producto,
+        an.criterios_aceptacion,
+        an.descripcion_analisis,
+        an.metodologia,
+        an.tipo_analisis
+        from calidad_analisis_externo as aex 
+        left join calidad_analisis as an on aex.id_especificacion=an.id_especificacion_producto
+        where aex.id=?;";
+
+    $stmt = mysqli_prepare($link, $query);
+    if (!$stmt) {
+        throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
+    }
+
+    mysqli_stmt_bind_param($stmt,'i',$datos);
+    $exito = mysqli_stmt_execute($stmt);
+    $id = $exito ? mysqli_insert_id($link) : 0;
+    $id_analisis_externo = $id; // Asignar el ID a la variable global
+    mysqli_stmt_close($stmt);
+
+    registrarTrazabilidad(
+        $_SESSION['usuario'],
+        $_SERVER['PHP_SELF'],
+        'Preparación análisis para Solicitud análisis externo',
+        'calidad_resultados_analisis',
+        $id,
+        $query,
+        [$datos],
+        $exito ? 1 : 0,
+        $exito ? null : mysqli_error($link)
+    );
+    if (!$exito) {
+        throw new Exception("2 Error al ejecutar la inserción: " . mysqli_error($link));
+    }
+}
 
 function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
         // Nueva inserción en calidad_productos_analizados
