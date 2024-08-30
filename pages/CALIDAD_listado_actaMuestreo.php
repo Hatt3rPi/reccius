@@ -159,8 +159,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     visible: false // Esto oculta la columna
                 },
                 {
-                    "data": "producto_filtrado",
-                    "title": "Producto",
+                    "data": "producto",
+                    "title": "Producto_filtrado",
                     visible: false,
                     "render": function(data, type, row) {
                         if (data) {
