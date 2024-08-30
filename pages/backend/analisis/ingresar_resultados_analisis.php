@@ -46,7 +46,7 @@ $queryAnalisisExterno = "SELECT
                             AS es ON an.id_especificacion = es.id_especificacion
                         LEFT JOIN calidad_productos 
                             AS prod ON es.id_producto = prod.id
-                        LEFT JOIN calidad_analisis aS anali ON es.id_especificacion = anali.id_especificacion_producto
+                        LEFT JOIN calidad_resultados_analisis aS anali ON an.id=anali.id_analisisExterno
                         LEFT JOIN usuarios as us ON an.muestreado_por=us.usuario
                         WHERE an.id = ?";
 

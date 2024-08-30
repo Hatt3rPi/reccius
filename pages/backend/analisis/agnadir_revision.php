@@ -140,7 +140,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $resultado_textos = json_decode($_POST['resultado_textos'], true); // Decodifica el JSON en un array PHP
 
         if (is_array($resultado_textos) && !empty($resultado_textos)) {
-            $query = "UPDATE calidad_analisis SET resultado_laboratorio = ? WHERE id_analisis = ?;";
+            $query = "UPDATE calidad_resultados_analisis SET resultado_laboratorio = ? WHERE id = ?;";
             $stmt3 = mysqli_prepare($link, $query);
         
             foreach ($resultado_textos as $resultado) {
