@@ -94,6 +94,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
         
     }
+    function normalizeText(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    // Sobrescribir la función de búsqueda global de DataTables
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var searchTerm = normalizeText($('#listado_filter input').val().toLowerCase());
+            var rowContent = normalizeText(data.join(' ').toLowerCase());
+
+            return rowContent.includes(searchTerm);
+        }
+    );
     function carga_listado_especificacionProducto() {
     var table = $('#listado').DataTable({
         "ajax": "./backend/calidad/listado_especificaciones_productoBE.php",

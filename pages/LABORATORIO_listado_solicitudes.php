@@ -74,6 +74,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de estado
         }
     }
+    function normalizeText(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    // Sobrescribir la función de búsqueda global de DataTables
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var searchTerm = normalizeText($('#listado_filter input').val().toLowerCase());
+            var rowContent = normalizeText(data.join(' ').toLowerCase());
+
+            return rowContent.includes(searchTerm);
+        }
+    );
     var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
 
     function carga_listado() {
