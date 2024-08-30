@@ -695,7 +695,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#id_cuarentena').text(primerAnalisis.id_cuarentena);
                         $('.verif').css('background-color', '#f4fac2');
                     } else {
-                        console.error('Estructura de la respuesta no es la esperada:', response);
+                        console.error('1. Estructura de la respuesta no es la esperada:', response);
                         alert("Error en carga de datos. Revisa la consola para más detalles.");
                     }
                 } else {
@@ -836,7 +836,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#download-pdf').css('display', 'block');
                         $('.verif').css('background-color', '#ffffff').prop('readonly', true);;
                     } else {
-                        console.error('Estructura de la respuesta no es la esperada:', response);
+                        console.error('2. Estructura de la respuesta no es la esperada:', response);
                         alert("Error en carga de datos. Revisa la consola para más detalles.");
                     }
                 } else {

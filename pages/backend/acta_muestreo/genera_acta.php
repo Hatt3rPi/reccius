@@ -8,6 +8,7 @@ $id_especificacion='';
 $id_producto='';
 $id_analisis_externo='';
 $responsable='';
+$ejecutor='';
 $verificador='';
 $nuevo_id='';
 // Validación y saneamiento del ID del análisis externo
@@ -17,16 +18,18 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     // Consulta SQL para obtener los datos del análisis externo y el producto asociado
     $query = "SELECT aex.id as id_analisis_externo, aex.id_especificacion, aex.id_producto,
     pr.nombre_producto, pr.formato, pr.concentracion, pr.tipo_producto,
-    aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.am_verificado_por, 
+    aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.am_verificado_por, aex.am_ejecutado_por,
     usrRev.nombre as nombre_usrRev, usrRev.cargo as cargo_usrRev, usrRev.foto_firma as foto_firma_usrRev, usrRev.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrRev, 
     usrMuest.nombre as nombre_usrMuest, usrMuest.cargo as cargo_usrMuest, usrMuest.foto_firma as foto_firma_usrMuest, usrMuest.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrMuest,
+     usrEje.nombre as nombre_usrEje, usrEje.cargo as cargo_usrEje, usrEje.foto_firma as foto_firma_usrEje, usrEje.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrEje, 
     LPAD(pr.identificador_producto, 3, '0') AS identificador_producto,
 	aex.solicitado_por,
-    aex.numero_solicitud, usrMuest.usuario as usuario_firma2
+    aex.numero_solicitud, usrMuest.usuario as usuario_firma2, usrEje.usuario as usuario_firma1
     FROM `calidad_analisis_externo` as aex
     LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
     LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
     LEFT JOIN usuarios as usrRev ON aex.am_verificado_por=usrRev.usuario
+    LEFT JOIN usuarios as usrEje ON aex.am_ejecutado_por=usrEje.usuario
     WHERE aex.id = ?";
 
     $stmt = mysqli_prepare($link, $query);
@@ -76,6 +79,8 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         $id_analisis_externo=$row['id_analisis_externo'];
         $responsable=$row['muestreado_por'];
         $verificador=$row['am_verificado_por'];
+        $ejecutor=$row['ejecutado_por'];
+        
     }
     mysqli_stmt_close($stmt);
 
@@ -147,7 +152,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     if ($exito) {
         
         finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
-        registrarTarea(7, $_SESSION['usuario'], $responsable, 'Ingresar resultados de Acta de Muestreo: ' . $numero_acta , 2, 'Firma 1', $nuevo_id, 'calidad_acta_muestreo');
+        registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados de Acta de Muestreo: ' . $numero_acta , 2, 'Firma 1', $nuevo_id, 'calidad_acta_muestreo');
         //tarea anterior se cierra: finalizarTarea($_SESSION['usuario'], $nuevo_id, 'calidad_acta_muestreo', 'Firma 1');
         // Actualización de los datos con el nuevo número de acta
         foreach ($analisis_externos as &$value) {

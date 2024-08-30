@@ -44,12 +44,16 @@ if (
     echo json_encode(['error' => 'Datos inválidos o no proporcionados.', 'data' => $data]);
     exit;
 }
-
+if (!$link) {
+    echo json_encode(['error' => 'Error en la conexión a la base de datos: ' . mysqli_connect_error()]);
+    exit;
+}
 // Verificar si ya existen resultados para este análisis
 $checkQuery = "SELECT COUNT(*) as count FROM calidad_analisis_externo WHERE id = ? AND resultados_analisis IS NOT NULL";
 $stmtCheck = mysqli_prepare($link, $checkQuery);
 mysqli_stmt_bind_param($stmtCheck, 'i', $idAnalisisExterno);
 mysqli_stmt_execute($stmtCheck);
+
 $resultCheck = mysqli_stmt_get_result($stmtCheck);
 $row = mysqli_fetch_assoc($resultCheck);
 
@@ -108,12 +112,13 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         fecha_entrega = ?, 
         url_certificado_de_analisis_externo = ?, 
         estado = 'Pendiente liberación productos',
-        fecha_firma2= '".$fecha_ymd."'
+        fecha_firma_2= ?
         WHERE id = ?";
 
     $stmt = mysqli_prepare($link, $consultaSQL);
     if (!$stmt) {
         echo json_encode(['error' => 'Error al preparar consulta.']);
+        echo json_encode(['consultaSQL' => $consultaSQL]); 
         exit;
     }
 
@@ -122,15 +127,20 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     $laboratorio_fecha_analisis = $data['laboratorio_fecha_analisis'];
     $fecha_entrega = $data['fecha_entrega'];
 
-    mysqli_stmt_bind_param($stmt, 'sssssi', 
+    mysqli_stmt_bind_param($stmt, 'ssssssi', 
         $resultados_analisis, 
         $laboratorio_nro_analisis, 
         $laboratorio_fecha_analisis, 
         $fecha_entrega, 
         $fileURL, 
+        $fecha_ymd,
         $idAnalisisExterno
     );
-    mysqli_stmt_execute($stmt);
+    if (mysqli_stmt_execute($stmt)) {
+
+    } else {
+        echo json_encode(['error' => 'Error al ejecutar la consulta: ' . mysqli_stmt_error($stmt)]);
+    }
     mysqli_stmt_close($stmt);
 
     if (mysqli_error($link)) {
@@ -140,7 +150,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         $resultado_textos = json_decode($_POST['resultado_textos'], true); // Decodifica el JSON en un array PHP
 
         if (is_array($resultado_textos) && !empty($resultado_textos)) {
-            $query = "UPDATE calidad_analisis SET resultado_laboratorio = ? WHERE id_analisis = ?;";
+            $query = "UPDATE calidad_resultados_analisis SET resultado_laboratorio = ? WHERE id = ?;";
             $stmt3 = mysqli_prepare($link, $query);
         
             foreach ($resultado_textos as $resultado) {
@@ -148,7 +158,11 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
                 $id_analisis = intval($resultado['idAnalisis']); // Asegúrate de que id_analisis sea un entero
         
                 mysqli_stmt_bind_param($stmt3, "si", $resultado_laboratorio, $id_analisis);
-                mysqli_stmt_execute($stmt3);
+                if (mysqli_stmt_execute($stmt3)) {
+                    
+                } else {
+                    echo json_encode(['error' => 'Error al ejecutar la consulta: ' . mysqli_stmt_error($stmt3)]);
+                }
             }
         
             mysqli_stmt_close($stmt3);

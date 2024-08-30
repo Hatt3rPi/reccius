@@ -91,7 +91,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
         
     }
-
+    
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_liberacion/listado_productosDisponiblesBE.php",
@@ -154,6 +154,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "data": "id",
                     "title": "ID producto",
                     visible: false
+                }
+                ,
+                {
+                    "data": "producto",
+                    "title": "Producto_filtrado",
+                    visible: false,
+                    "render": function(data, type, row) {
+                        if (data) {
+                            // Si data no es null ni undefined, realiza la normalización
+                            return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        } else {
+                            // Si data es null o undefined, retorna una cadena vacía o un valor por defecto
+                            return '';
+                        }
+                    }
                 }
             ],
 

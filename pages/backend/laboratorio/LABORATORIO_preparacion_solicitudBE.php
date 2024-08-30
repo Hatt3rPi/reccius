@@ -1,5 +1,6 @@
 <?php
 //archivo: pages\backend\laboratorio\LABORATORIO_preparacion_solicitudBE.php
+
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
@@ -43,6 +44,7 @@ function insertarRegistro($link, $datos)
         numero_pos,
         tipo_analisis,
         am_verificado_por,
+        am_ejecutado_por,
         aux_autoincremental, 
         aux_anomes, 
         aux_tipo,
@@ -72,6 +74,7 @@ function insertarRegistro($link, $datos)
             ?, -- numero_pos
             ?, -- tipo_analisis
             ?, -- am_verificado_por
+            ?, -- am_ejecutado_por
             COALESCE(MAX(ae.aux_autoincremental) + 1, 1), -- aux_autoincremental
             ?, -- aux_anomes
             b.tipo_producto, -- aux_tipo
@@ -96,7 +99,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'isssssssssssssssssssssi',
+        'issssssssssssssssssssssi',
         $datos['version'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
@@ -114,6 +117,7 @@ function insertarRegistro($link, $datos)
         $datos['numero_pos'],
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
+        $datos['am_ejecutado_por'],
         $aux_anomes,        // Se utiliza en la inserción como aux_anomes
         $datos['elaboradoPor'],
         $datos['paisOrigen'],
@@ -151,6 +155,7 @@ function insertarRegistro($link, $datos)
             $datos['numero_pos'],
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
+            $datos['am_ejecutado_por'],
             $aux_anomes,        // Se utiliza en la inserción como aux_anomes
             $datos['elaboradoPor'],
             $datos['paisOrigen'],
@@ -161,6 +166,7 @@ function insertarRegistro($link, $datos)
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)
     );
+    insertarRegistroAnalisis($link, $id);
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $id;
     $mensaje.= " 1. se intentará guardar SESSION['buscar_por_ID']=".$id;
@@ -169,7 +175,55 @@ function insertarRegistro($link, $datos)
         throw new Exception("Error al ejecutar la inserción: " . mysqli_error($link));
     }
 }
+function insertarRegistroAnalisis($link, $datos){
+    global $id_analisis_externo, $mensaje; // Hacer la variable global para que se pueda acceder fuera de esta función
+    //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
 
+    $query= "INSERT INTO calidad_resultados_analisis (
+        id_analisisExterno,
+        id_analisis,
+        id_especificacion_producto,
+        criterios_aceptacion,
+        descripcion_analisis,
+        metodologia,
+        tipo_analisis
+            ) 
+    select aex.id,
+        an.id_analisis,
+        an.id_especificacion_producto,
+        an.criterios_aceptacion,
+        an.descripcion_analisis,
+        an.metodologia,
+        an.tipo_analisis
+        from calidad_analisis_externo as aex 
+        left join calidad_analisis as an on aex.id_especificacion=an.id_especificacion_producto
+        where aex.id=?;";
+
+    $stmt = mysqli_prepare($link, $query);
+    if (!$stmt) {
+        throw new Exception("Error en la preparación de la consulta: " . mysqli_error($link));
+    }
+
+    mysqli_stmt_bind_param($stmt,'i',$datos);
+    $exito = mysqli_stmt_execute($stmt);
+    $id = $exito ? mysqli_insert_id($link) : 0;
+     mysqli_stmt_close($stmt);
+
+    registrarTrazabilidad(
+        $_SESSION['usuario'],
+        $_SERVER['PHP_SELF'],
+        'Preparación análisis para Solicitud análisis externo',
+        'calidad_resultados_analisis',
+        $id,
+        $query,
+        [$datos],
+        $exito ? 1 : 0,
+        $exito ? null : mysqli_error($link)
+    );
+    if (!$exito) {
+        throw new Exception("2 Error al ejecutar la inserción: " . mysqli_error($link));
+    }
+}
 
 function enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento){
         // Nueva inserción en calidad_productos_analizados
@@ -377,6 +431,7 @@ function campoTipo($campo)
         'tipo_analisis' => 's',
         'muestreado_por' => 's',
         'am_verificado_por' => 's',
+        'am_ejecutado_por' => 's',
         'numero_pos' => 's',
         'codigo_mastersoft' => 's',
         'tamano_lote' => 's',
@@ -438,7 +493,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $solicitadoPor = limpiarDato($_POST['solicitado_por']);
     $revisadoPor = limpiarDato($_POST['revisado_por']);
     $am_verificado_por = limpiarDato($_POST['am_verificado_por']);
-
+    $am_ejecutado_por = limpiarDato($_POST['ejecutado_por']);
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
 
@@ -493,6 +548,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'solicitado_por' => $solicitadoPor,
             'revisado_por' => $revisadoPor,
             'am_verificado_por' => $am_verificado_por,
+            'am_ejecutado_por' =>$am_ejecutado_por,
 
         ];
 
@@ -503,7 +559,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             agregarDatosPostFirma($link, $datosLimpios,$archivo);
         } else {
             insertarRegistro($link, $datosLimpios);
-            registrarTarea(7, $_SESSION['usuario'], $muestreado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
+            registrarTarea(7, $_SESSION['usuario'], $am_ejecutado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
             enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
         }
         mysqli_commit($link); // Aplicar cambios

@@ -60,10 +60,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <label>Unidad de Medida:</label>
                         <select name="tipo_concentracion" id="tipo_concentracion" class="select-style editable" style="width: 83%" required>
                             <option value="" disabled selected>Selecciona estructura a utilizar:</option>
+                            <option value="ug/ml">ug/ml</option>
                             <option value="mg/ml">mg/ml</option>
                             <option value="g/ml">g/ml</option>
                             <option value="%/ml">%/ml</option>
                             <option value="UI/ml">UI/ml</option>
+                            <option value="%/g">%/g</option>
                             <option value="g">g</option>
                             <option value="mg">mg</option>
                             <option value="ml">ml</option>

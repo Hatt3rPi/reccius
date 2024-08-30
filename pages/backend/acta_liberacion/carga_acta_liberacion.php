@@ -33,7 +33,7 @@ try {
                                 es.id_especificacion AS 'es_id_especificacion', 
                                 es.documento AS 'es_documento', 
                                 es.version AS 'es_version', 
-                                anali.id_analisis AS 'anali_id_analisis', 
+                                anali.id AS 'anali_id_analisis', 
                                 anali.tipo_analisis AS 'anali_tipo_analisis', 
                                 anali.metodologia AS 'anali_metodologia',
                                 anali.descripcion_analisis AS 'anali_descripcion_analisis',
@@ -43,10 +43,10 @@ try {
                                 am.id as id_actaMuestreo,
                                 an.estado
                             FROM calidad_analisis_externo AS an
-                            JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
-                            JOIN calidad_productos AS prod ON es.id_producto = prod.id
-                            JOIN calidad_analisis AS anali ON es.id_especificacion = anali.id_especificacion_producto
-                            JOIN calidad_acta_muestreo as am on an.id=am.id_analisisExterno and am.estado='vigente'
+                            left JOIN calidad_especificacion_productos AS es ON an.id_especificacion = es.id_especificacion
+                            left JOIN calidad_productos AS prod ON es.id_producto = prod.id
+                            left JOIN calidad_resultados_analisis AS anali ON an.id=anali.id_analisisExterno
+                            left JOIN calidad_acta_muestreo as am on an.id=am.id_analisisExterno and am.estado='vigente'
                             WHERE an.id = ?;";
 
     // Preparar y ejecutar la consulta

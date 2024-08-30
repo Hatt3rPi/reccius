@@ -510,7 +510,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
                         <td class="resultados editable-div ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
-                        <td class="revision" <?php
+                        <td class="revision ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" <?php
                                                 $etapa = $_POST['etapa'];
                                                 if ($etapa == '0') {
                                                     echo 'style="visibility: hidden;height: 0;"';
@@ -800,16 +800,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
                 method: "POST",
                 body: formData
-            }).then(function(response) {
-                $.notify("Analisis de laboratorio guardado.", "success");
-                firma2Fn();
-                $('#listado_solicitudes_analisis').click();
-                //$('#listado_productos_disponibles').click();
-            }).catch(error => {
-                $("#revisar").show();
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exito) {
+                    $.notify("Análisis de laboratorio guardado.", "success");
+                    firma2Fn();
+                    $('#listado_solicitudes_analisis').click();
+                } else {
+                    $.notify("Error al guardar: " + data.error, "error");
+                    $("#revisar").show();
+                }
+            })
+            .catch(error => {
                 console.error('Error:', error);
                 alert("Error al revisar los datos.");
-
+                $("#revisar").show();
             });
         });
     });

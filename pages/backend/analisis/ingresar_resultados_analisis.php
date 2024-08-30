@@ -35,7 +35,7 @@ $queryAnalisisExterno = "SELECT
                             es.documento AS 'es_documento', 
                             es.version AS 'es_version', 
                             es.codigo_mastersoft,
-                            anali.id_analisis AS 'anali_id_analisis', 
+                            anali.id AS 'anali_id_analisis', 
                             anali.tipo_analisis AS 'anali_tipo_analisis', 
                             anali.metodologia AS 'anali_metodologia',
                             anali.descripcion_analisis AS 'anali_descripcion_analisis',
@@ -46,7 +46,7 @@ $queryAnalisisExterno = "SELECT
                             AS es ON an.id_especificacion = es.id_especificacion
                         LEFT JOIN calidad_productos 
                             AS prod ON es.id_producto = prod.id
-                        LEFT JOIN calidad_analisis aS anali ON es.id_especificacion = anali.id_especificacion_producto
+                        LEFT JOIN calidad_resultados_analisis aS anali ON an.id=anali.id_analisisExterno
                         LEFT JOIN usuarios as us ON an.muestreado_por=us.usuario
                         WHERE an.id = ?";
 
