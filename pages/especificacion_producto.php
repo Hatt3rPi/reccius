@@ -783,6 +783,13 @@ $('#editarGenerarVersion').click(function() {
     $('#usuario_editor').val("<?php echo $_SESSION['nombre']; ?>").prop('readonly', false);
     $('#usuario_revisor').prop('readonly', false);
     $('#usuario_aprobador').prop('readonly', false);
+    $('#codigo_interno').prop('disabled', false);
+    $('#documento').prop('disabled', false);
+    $('#concentracion').prop('disabled', false);
+    $('#producto').prop('disabled', false);
+    $('#formato').prop('disabled', false);
+    $('#producto').prop('disabled', false);
+    
 });
 
 function habilitarEdicionAnalisis(tabla) {
@@ -921,11 +928,12 @@ function actualizarCampos() {
         });
 
         // Mostrar y actualizar campos según la selección
-        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
+        if (['ug/ml','mg/ml','g/ml', '%/ml', 'UI/ml', '%/g'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param2]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion.split('/')[0]).show();
             $('input[name=concentracion_param2_lbl]').val(seleccion.split('/')[1]).show();
+
         } else if (['mg','g', 'ml', 'UI'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion).show();
@@ -940,7 +948,7 @@ function actualizarCampos() {
         var concentracion = '';
         if (tipo === 'na') { // Caso "No Aplica"
             concentracion = ''; // La concentración se establece en vacío
-        } else if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
+        } else if (['ug/ml','mg/ml','g/ml', '%/ml', 'UI/ml', '%/g'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
             concentracion = param1 + tipo;
