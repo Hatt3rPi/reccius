@@ -128,16 +128,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 },
                 {
                     "data": "producto",
-                    "title": "Producto",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            // Si data no es null ni undefined, realiza la normalización
-                            return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                        } else {
-                            // Si data es null o undefined, retorna una cadena vacía o un valor por defecto
-                            return '';
-                        }
-                    }
+                    "title": "Producto"
                 },
                 {
                     "data": "tipo_producto",
@@ -166,6 +157,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     data: 'id_acta',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
+                },
+                {
+                    "data": "producto_filtrado",
+                    "title": "Producto",
+                    visible: false,
+                    "render": function(data, type, row) {
+                        if (data) {
+                            // Si data no es null ni undefined, realiza la normalización
+                            return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        } else {
+                            // Si data es null o undefined, retorna una cadena vacía o un valor por defecto
+                            return '';
+                        }
+                    }
                 }
             ],
 
