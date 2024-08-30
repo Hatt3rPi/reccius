@@ -167,7 +167,22 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Responsable Muestreo:</label>
+                        <label>Muestreador:</label>
+                        <select required name="ejecutado_por" id="ejecutado_por" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                            <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
+                            <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques">Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira" selected>Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
+                        </select>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                    <label>Responsable Muestreo:</label>
                         <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90 ">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
@@ -180,9 +195,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="javier2000asr">Javier Sabando</option>
                         </select>
                     </div>
-                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                </div>
+                <div class="form-row">
                     <div class="form-group">
-                        <label>Verificador Muestreo:</label>
+                    <label>Verificador Muestreo:</label>
                         <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90 ">
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy">Macarena Godoy - Supervisor Calidad</option>
@@ -193,6 +209,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
                             <option value="javier2000asr">Javier Sabando</option>
+                        </select>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group" style="visibility: hidden;">
+                        <label>Verificador Muestreo:</label>
+                        <select required name="dummy" id="dummy" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
                         </select>
                     </div>
                 </div>

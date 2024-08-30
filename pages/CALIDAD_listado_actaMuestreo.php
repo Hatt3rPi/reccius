@@ -157,7 +157,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     data: 'id_acta',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
-                },
+                }
+                ,
                 {
                     "data": "producto",
                     "title": "Producto_filtrado",
@@ -174,6 +175,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             ],
 
+        });
+
+        // Event listener para el botón de detalles
+        $('#listado tbody').on('click', 'td.details-control', function() {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                // Esta fila ya está abierta - ciérrala
+                row.child.hide();
+                tr.removeClass('shown');
+            } else {
+                // Abre esta filaQ
+                row.child(format(row.data())).show(); // Aquí llamas a la función que formatea el contenido expandido
+                tr.addClass('shown');
+            }
         });
 
         // Función para formatear el contenido expandido
