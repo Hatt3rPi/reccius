@@ -130,7 +130,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "data": "producto",
                     "title": "Producto",
                     "render": function(data, type, row) {
-                        return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        if (data) {
+                            // Si data no es null ni undefined, realiza la normalización
+                            return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        } else {
+                            // Si data es null o undefined, retorna una cadena vacía o un valor por defecto
+                            return '';
+                        }
                     }
                 },
                 {
