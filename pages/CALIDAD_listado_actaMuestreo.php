@@ -70,23 +70,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
         }
     }
-    // Función para normalizar las cadenas de texto (eliminar tildes y acentos)
-    function normalizeText(text) {
-        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
 
-    // Sobrescribir la función de búsqueda global de DataTables
-    $.fn.dataTable.ext.search.push(
-        function(settings, data, dataIndex) {
-            var searchTerm = normalizeText($('#listado_filter input').val().toLowerCase());
-            var rowContent = normalizeText(data.join(' ').toLowerCase());
-
-            console.log("Search Term:", searchTerm);  // Verificar qué término de búsqueda se está utilizando
-            console.log("Row Content:", rowContent);  // Verificar el contenido de cada fila
-
-            return rowContent.includes(searchTerm);
-        }
-    );
     function carga_listado() {
         var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
         var table = $('#listado').DataTable({
@@ -144,7 +128,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 },
                 {
                     "data": "producto",
-                    "title": "Producto"
+                    "title": "Producto",
+                    "render": function(data, type, row) {
+                        return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    }
                 },
                 {
                     "data": "tipo_producto",
