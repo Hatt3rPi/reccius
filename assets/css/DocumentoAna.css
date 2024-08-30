@@ -280,7 +280,9 @@ input[type="text"] {
   cursor: pointer;
 }
 
-
+.input-highlight {
+  background-color: rgb(244, 250, 194)!important;
+}
 /* Aplica la clase input-highlight solo si el input está vacío */
 input.input-highlight:placeholder-shown {
   background-color: rgb(244, 250, 194) !important;
