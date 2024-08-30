@@ -60,7 +60,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     // Ahora puedes usar la sintaxis import
 
-
+    $(document).ready(function() {
+    carga_listado();
     function filtrar_listado(estado) {
         var table = $('#listado').DataTable();
         if (estado === '') {
@@ -70,6 +71,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
         }
     }
+});
+
+
 
 
     function carga_listado() {
