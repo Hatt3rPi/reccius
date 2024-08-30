@@ -33,7 +33,7 @@ try {
                                 es.id_especificacion AS 'es_id_especificacion', 
                                 es.documento AS 'es_documento', 
                                 es.version AS 'es_version', 
-                                anali.id_analisis AS 'anali_id_analisis', 
+                                anali.id AS 'anali_id_analisis', 
                                 anali.tipo_analisis AS 'anali_tipo_analisis', 
                                 anali.metodologia AS 'anali_metodologia',
                                 anali.descripcion_analisis AS 'anali_descripcion_analisis',
