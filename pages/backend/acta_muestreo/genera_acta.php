@@ -152,7 +152,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     if ($exito) {
         
         finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
-        registrarTarea(7, $_SESSION['usuario'], $ejecutor, 'Ingresar resultados de Acta de Muestreo: ' . $numero_acta , 2, 'Firma 1', $nuevo_id, 'calidad_acta_muestreo');
+        registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados de Acta de Muestreo: ' . $numero_acta , 2, 'Firma 1', $nuevo_id, 'calidad_acta_muestreo');
         //tarea anterior se cierra: finalizarTarea($_SESSION['usuario'], $nuevo_id, 'calidad_acta_muestreo', 'Firma 1');
         // Actualización de los datos con el nuevo número de acta
         foreach ($analisis_externos as &$value) {
