@@ -207,8 +207,7 @@ function insertarRegistroAnalisis($link, $datos){
     mysqli_stmt_bind_param($stmt,'i',$datos);
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
-    $id_analisis_externo = $id; // Asignar el ID a la variable global
-    mysqli_stmt_close($stmt);
+     mysqli_stmt_close($stmt);
 
     registrarTrazabilidad(
         $_SESSION['usuario'],
