@@ -44,7 +44,10 @@ if (
     echo json_encode(['error' => 'Datos inválidos o no proporcionados.', 'data' => $data]);
     exit;
 }
-
+if (!$link) {
+    echo json_encode(['error' => 'Error en la conexión a la base de datos: ' . mysqli_connect_error()]);
+    exit;
+}
 // Verificar si ya existen resultados para este análisis
 $checkQuery = "SELECT COUNT(*) as count FROM calidad_analisis_externo WHERE id = ? AND resultados_analisis IS NOT NULL";
 $stmtCheck = mysqli_prepare($link, $checkQuery);
@@ -109,12 +112,13 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         fecha_entrega = ?, 
         url_certificado_de_analisis_externo = ?, 
         estado = 'Pendiente liberación productos',
-        fecha_firma2= '".$fecha_ymd."'
+        fecha_firma2= ?
         WHERE id = ?";
 
     $stmt = mysqli_prepare($link, $consultaSQL);
     if (!$stmt) {
         echo json_encode(['error' => 'Error al preparar consulta.']);
+        echo json_encode(['consultaSQL' => $consultaSQL]); 
         exit;
     }
 
@@ -123,12 +127,13 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     $laboratorio_fecha_analisis = $data['laboratorio_fecha_analisis'];
     $fecha_entrega = $data['fecha_entrega'];
 
-    mysqli_stmt_bind_param($stmt, 'sssssi', 
+    mysqli_stmt_bind_param($stmt, 'ssssssi', 
         $resultados_analisis, 
         $laboratorio_nro_analisis, 
         $laboratorio_fecha_analisis, 
         $fecha_entrega, 
         $fileURL, 
+        $fecha_ymd,
         $idAnalisisExterno
     );
     if (mysqli_stmt_execute($stmt)) {
