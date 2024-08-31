@@ -216,7 +216,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             
             <div class="actions-container">
-                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
+                <button type="button" id="guardar" name="guardar" data-accion='crear' class="action-button">Guardar Especificación</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
@@ -498,102 +498,70 @@ document.getElementById('guardar').addEventListener('click', function(e) {
 function validarFormulario() {
     var valido = true;
     var mensaje = '';
+    var accion = $('#guardar').data('accion');
 
-    // Validación para el campo 'Tipo de Producto'
-    if (document.forms[0]["Tipo_Producto"].value.trim() === '') {
-        mensaje += 'El campo "Tipo de Producto" es obligatorio.\n';
-        valido = false;
-    }
+    // Lista de campos comunes a validar
+    var camposComunes = [
+        { id: 'Tipo_Producto', nombre: 'Tipo de Producto' },
+        { id: 'producto', nombre: 'Producto' },
+        { id: 'formato', nombre: 'Formato' },
+        { id: 'codigo_interno', nombre: 'Código Interno' },
+        { id: 'version', nombre: 'Versión' },
+        { id: 'periodosVigencia', nombre: 'Vigencia' }
+    ];
 
-    // Validación para el campo 'Producto'
-    if (document.forms[0]["producto"].value.trim() === '') {
-        mensaje += 'El campo "Producto" es obligatorio.\n';
-        valido = false;
-    }
+    // Campos específicos para la acción 'crear'
+    var camposCrear = [
+        { id: 'tipo_concentracion', nombre: 'Concentración', condicion: () => $('#tipo_concentracion').val() !== 'na' },
+        { id: 'numeroProducto', nombre: 'Número de Producto' },
+        { id: 'fechaEdicion', nombre: 'Fecha edición' }
+    ];
 
-    // Validación para el campo 'Concentración' solo si el tipo_concentracion no es "No aplica" y no está vacío
-    if (document.forms[0]["tipo_concentracion"].value !== 'na' && document.forms[0]["concentracion"].value.trim() === '') {
-        mensaje += 'El campo "Concentración" es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Formato'
-    if (document.forms[0]["formato"].value.trim() === '') {
-        mensaje += 'El campo "Formato" es obligatorio.\n';
-        valido = false;
-    }
-
-
-    // Validación para el campo 'Número de documento'
-    if (document.forms[0]["numeroProducto"].value.trim() === '') {
-        mensaje += 'El campo "Número de Producto es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Fecha edición'
-    if (document.forms[0]["fechaEdicion"].value.trim() === '') {
-        mensaje += 'El campo "Fecha edición" es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Versión'
-    if (document.forms[0]["version"].value.trim() === '') {
-        mensaje += 'El campo "Versión" es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Vigencia'
-    if (document.forms[0]["periodosVigencia"].value.trim() === '') {
-        mensaje += 'El campo "Vigencia" es obligatorio.\n';
-        valido = false;
-    }
-     // Validación para el campo 'Vigencia'
-        if (document.forms[0]["codigo_interno"].value.trim() === '') {
-        mensaje += 'El campo "codigo_interno" es obligatorio.\n';
-        valido = false;
-    }
-    
-    var valido = true;
-    var mensaje = '';
-
-    // Función para validar un conjunto de análisis
-    function validarAnalisis(selector, tipoAnalisis) {
-        // Verifica si la tabla está vacía
-        if ($(selector).find('tbody tr td.dataTables_empty').length > 0) {
-            // Si la tabla está vacía, omitir la validación
-            return;
-        }
-
-        $(selector).find('tbody tr').each(function() {
-            var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
-            var metodologia = $(this).find('select[name*="[metodologia]"]').val();
-            var criterio = $(this).find('textarea[name*="[criterio]"]').val();
-
-            if (tipo === '' || metodologia === '' || criterio.trim() === '') {
-                mensaje += 'Todos los campos de Análisis ' + tipoAnalisis + ' son obligatorios en cada fila.\n';
+    // Función para validar campos
+    function validarCampos(campos) {
+        campos.forEach(function(campo) {
+            if ((!campo.condicion || campo.condicion()) && !$(`#${campo.id}`).val().trim()) {
+                mensaje += `El campo "${campo.nombre}" es obligatorio.\n`;
                 valido = false;
             }
         });
     }
 
+    // Validar campos comunes
+    validarCampos(camposComunes);
 
-    // Validar análisis Físico-Químicos si existen
-    if ($('#analisisFQ').find('tbody tr').length > 0) {
-        validarAnalisis('#analisisFQ', 'Físico-Químicos');
+    // Validar campos específicos según la acción
+    if (accion === 'crear') {
+        validarCampos(camposCrear);
     }
 
-    // Validar análisis Microbiológicos si existen
-    if ($('#analisisMB').find('tbody tr').length > 0) {
-        validarAnalisis('#analisisMB', 'Microbiológicos');
+    // Validación de análisis
+    function validarAnalisis(selector, tipoAnalisis) {
+        if ($(selector).find('tbody tr td.dataTables_empty').length === 0) {
+            $(selector).find('tbody tr').each(function() {
+                var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
+                var metodologia = $(this).find('select[name*="[metodologia]"]').val();
+                var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+                if (!tipo || !metodologia || !criterio.trim()) {
+                    mensaje += `Todos los campos de Análisis ${tipoAnalisis} son obligatorios en cada fila.\n`;
+                    valido = false;
+                }
+            });
+        }
     }
 
-    // Procesar la validación
+    // Validar análisis si existen
+    validarAnalisis('#analisisFQ', 'Físico-Químicos');
+    validarAnalisis('#analisisMB', 'Microbiológicos');
+
     if (!valido) {
         alert(mensaje);
     }
 
     return valido;
 }
+
+
     function actualizarDocumento() {
         var prefijo = document.getElementById('prefijoDocumento').value;
         var numero = document.getElementById('numeroProducto').value;
@@ -919,6 +887,7 @@ function verificarOtro(selectId, inputId) {
 
 
 function actualizarCampos() {
+        $('#guardar').data('accion', 'modificar').attr('data-accion', 'modificar');
         var seleccion = $('#tipo_concentracion').val();
         var campos = ['concentracion_param1', 'concentracion_param2', 'concentracion_param1_lbl', 'concentracion_param2_lbl'];
         
