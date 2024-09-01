@@ -422,7 +422,7 @@ function validarFormulario() {
     var valido = true;
     var mensaje = '';
     var accion = $('#guardar').data('accion');
-
+    console.log("acción:", accion);
     // Lista de campos comunes a validar
     var camposComunes = [
         { id: 'codigo_interno', nombre: 'Código Interno' },
@@ -443,8 +443,9 @@ function validarFormulario() {
 
     // Función para validar campos
     function validarCampos(campos) {
-        console.log(`validando campo:${campos} con id: ${campos}`)
+        
     campos.forEach(function(campo) {
+        console.log('Campo actual:', campo);
         var campoElemento = $(`#${campo.id}`);
         if (campoElemento.length && (!campo.condicion || campo.condicion())) {
             var valorCampo = campoElemento.val();
