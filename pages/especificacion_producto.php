@@ -656,6 +656,7 @@ function mostrarAnalisisMB(analisis) {
 
 $('#editarGenerarVersion').click(function() {
     // Resto del código para habilitar edición del formulario...
+    $('#guardar').attr('data-accion', 'modificar');
     $('#guardar').show();
     $('#editarGenerarVersion').hide();
     $('input[name="fechaEdicion"]').prop('readonly', false).val(new Date().toISOString().split('T')[0]);
@@ -810,7 +811,7 @@ function verificarOtro(selectId, inputId) {
 
 
 function actualizarCampos() {
-        $('#guardar').data('accion', 'modificar');
+        //$('#guardar').data('accion', 'modificar');
         var seleccion = $('#tipo_concentracion').val();
         var campos = ['concentracion_param1', 'concentracion_param2', 'concentracion_param1_lbl', 'concentracion_param2_lbl'];
         
