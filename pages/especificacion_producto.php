@@ -810,7 +810,7 @@ function verificarOtro(selectId, inputId) {
 
 
 function actualizarCampos() {
-        $('#guardar').data('accion', 'modificar').attr('data-accion', 'modificar');
+        $('#guardar').data('accion', 'modificar');
         var seleccion = $('#tipo_concentracion').val();
         var campos = ['concentracion_param1', 'concentracion_param2', 'concentracion_param1_lbl', 'concentracion_param2_lbl'];
         
