@@ -299,83 +299,6 @@ function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
     return htmlSelect;
 }
 
-// function carga_tablaFQ(id = null, accion = null) {
-//     var tablaFQ;
-//     var contadorFilasFQ = 0;
-
-//     if (id === null) {
-//         tablaFQ = new DataTable('#analisisFQ', {
-//             "paging": false,
-//             "info": false,
-//             "searching": false,
-//             "lengthChange": false,
-//             language: {
-//                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-//             },
-//             columns: [
-//                 { title: 'Análisis' },
-//                 { title: 'Metodología' },
-//                 { title: 'Criterio de Aceptación' },
-//                 { title: 'Acciones' }
-//             ]
-//         });
-
-//         $('#boton_agrega_analisisFQ').on('click', function() {
-//             var filaNueva = [
-//                 crearSelectHtml('AnalisisFQ', contadorFilasFQ, 'descripcion_analisis', 'FQ'),
-//                 crearSelectHtml('metodologia', contadorFilasFQ, 'metodologia', 'FQ'),
-//                 '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
-//                 '<button type="button" class="btn-eliminar">Eliminar</button>'
-//             ];
-//             tablaFQ.row.add(filaNueva).draw(false);
-//             contadorFilasFQ++;
-//         });
-//     } else if (accion === 'editar') {
-//         tablaFQ = new DataTable('#analisisFQ', {
-//             "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_FQ',
-//             "columns": [
-//                 { "data": "descripcion_analisis", "title": "Análisis" },
-//                 { "data": "metodologia", "title": "Metodología" },
-//                 { "data": "criterios_aceptacion", "title": "Criterio aceptación" }
-//             //,
-//                // {
-//                //    "data": null,
-//                //     "defaultContent": '<button type="button" class="btn-eliminar">Eliminar</button>',
-//                //     "title": "Acciones"
-//                // }
-//             ],
-//             "paging": false,
-//             "info": false,
-//             "searching": false,
-//             "lengthChange": false,
-//             language: {
-//                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-//             }
-//         });
-
-//         // Evento para el botón eliminar en la tabla de edición
-//         $('#analisisFQ').on('click', '.btn-eliminar', function () {
-//             tablaFQ.row($(this).parents('tr')).remove().draw();
-//         });
-
-//         // Ocultar el botón de agregar análisis, si es necesario
-//         $("#boton_agrega_analisisFQ").hide();
-//     }
-// }
-
-// function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
-//     var opciones = opcionesDesplegables[categoria];
-//     var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" onchange="manejarOtro(this, \'' + tipoAnalisis + '\', ' + contador + ', \'' + campo + '\')" required>';
-//     htmlSelect += '<option value="">Selecciona una opción</option>';
-
-//     for (var i = 0; i < opciones.length; i++) {
-//         htmlSelect += '<option value="' + opciones[i] + '">' + opciones[i] + '</option>';
-//     }
-
-//     htmlSelect += '</select>';
-//     return htmlSelect;
-// }
-
 function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
     var valorSeleccionado = selectElement.value;
     var idCampoOtro = 'analisis' + tipoAnalisis + '[' + contador + '][otro' + campo + ']';
@@ -502,19 +425,20 @@ function validarFormulario() {
 
     // Lista de campos comunes a validar
     var camposComunes = [
-        { id: 'Tipo_Producto', nombre: 'Tipo de Producto' },
-        { id: 'producto', nombre: 'Producto' },
-        { id: 'formato', nombre: 'Formato' },
         { id: 'codigo_interno', nombre: 'Código Interno' },
         { id: 'version', nombre: 'Versión' },
-        { id: 'periodosVigencia', nombre: 'Vigencia' }
+        { id: 'periodosVigencia', nombre: 'Vigencia' },
+        { id: 'fechaEdicion', nombre: 'Fecha edición' }
     ];
 
     // Campos específicos para la acción 'crear'
     var camposCrear = [
+        { id: 'Tipo_Producto', nombre: 'Tipo de Producto' },
+        { id: 'producto', nombre: 'Producto' },
+        { id: 'formato', nombre: 'Formato' },
         { id: 'tipo_concentracion', nombre: 'Concentración', condicion: () => $('#tipo_concentracion').val() !== 'na' },
-        { id: 'numeroProducto', nombre: 'Número de Producto' },
-        { id: 'fechaEdicion', nombre: 'Fecha edición' }
+        { id: 'numeroProducto', nombre: 'Número de Producto' }
+        
     ];
 
     // Función para validar campos
@@ -752,11 +676,6 @@ $('#editarGenerarVersion').click(function() {
     $('#usuario_revisor').prop('readonly', false);
     $('#usuario_aprobador').prop('readonly', false);
     $('#codigo_interno').prop('disabled', false);
-    $('#documento').prop('disabled', false);
-    $('#concentracion').prop('disabled', false);
-    $('#producto').prop('disabled', false);
-    $('#formato').prop('disabled', false);
-    $('#producto').prop('disabled', false);
     
 });
 
@@ -777,10 +696,7 @@ function habilitarEdicionAnalisis(tabla) {
 
 
 function guardar(){
-    if(validateForm().length > 0){
-        $.notify('Favor de completar los campos obligatorios', 'warn');
-        return;
-    }
+
     var numeroProducto = $('#numeroProducto').val();
     $('#numeroProducto').val(`${numeroProducto}`.padStart(3, '0'));
     var datosFormulario = $('#formulario_especificacion').serialize();
