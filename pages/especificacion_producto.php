@@ -445,7 +445,6 @@ function validarFormulario() {
     function validarCampos(campos) {
         
     campos.forEach(function(campo) {
-        console.log('Campo actual:', campo);
         var campoElemento = $(`#${campo.id}`);
         if (campoElemento.length && (!campo.condicion || campo.condicion())) {
             var valorCampo = campoElemento.val();
@@ -454,6 +453,7 @@ function validarFormulario() {
                 valido = false;
             }
         }
+        console.log('Campo actual:', campo, 'resultado: ', valido);
     });
 }
 
@@ -468,6 +468,7 @@ function validarFormulario() {
 
     // Validación de análisis
     function validarAnalisis(selector, tipoAnalisis) {
+        
         if ($(selector).find('tbody tr td.dataTables_empty').length === 0) {
             $(selector).find('tbody tr').each(function() {
                 var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
@@ -481,7 +482,7 @@ function validarFormulario() {
         }
     }
 
-    // Validar análisis si existen
+    // Validar análisis si existen <---- revisar
     validarAnalisis('#analisisFQ', 'Físico-Químicos');
     validarAnalisis('#analisisMB', 'Microbiológicos');
 
