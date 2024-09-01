@@ -443,7 +443,7 @@ function validarFormulario() {
 
     // Función para validar campos
     function validarCampos(campos) {
-        console.log(`validando campo:${campo.nombre} con id: ${campo.id}`)
+        console.log(`validando campo:${campos} con id: ${campos}`)
     campos.forEach(function(campo) {
         var campoElemento = $(`#${campo.id}`);
         if (campoElemento.length && (!campo.condicion || campo.condicion())) {
