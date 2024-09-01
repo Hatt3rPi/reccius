@@ -468,19 +468,27 @@ function validarFormulario() {
 
     // Validación de análisis
     function validarAnalisis(selector, tipoAnalisis) {
-        
-        if ($(selector).find('tbody tr td.dataTables_empty').length === 0) {
-            $(selector).find('tbody tr').each(function() {
-                var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
-                var metodologia = $(this).find('select[name*="[metodologia]"]').val();
-                var criterio = $(this).find('textarea[name*="[criterio]"]').val();
-                if (!tipo || !metodologia || !criterio.trim()) {
-                    mensaje += `Todos los campos de Análisis ${tipoAnalisis} son obligatorios en cada fila.\n`;
-                    valido = false;
-                }
-            });
-        }
+    // Verificar si la tabla tiene filas válidas (excluyendo la fila de 'dataTables_empty')
+    if ($(selector).find('tbody tr td.dataTables_empty').length === 0) {
+        $(selector).find('tbody tr').each(function(index, element) {
+            var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
+            var metodologia = $(this).find('select[name*="[metodologia]"]').val();
+            var criterio = $(this).find('textarea[name*="[criterio]"]').val();
+
+            // Depuración: Verificar los valores de cada campo
+            console.log(`Fila ${index + 1} - Tipo: ${tipo}, Metodología: ${metodologia}, Criterio: ${criterio}`);
+
+            // Validar si algún campo está vacío o tiene un valor inválido
+            if (!tipo || !metodologia || !criterio.trim()) {
+                mensaje += `Todos los campos de Análisis ${tipoAnalisis} son obligatorios en cada fila.\n`;
+                valido = false;
+            }
+        });
+    } else {
+        console.log(`No se encontraron filas válidas en la tabla de ${tipoAnalisis}`);
     }
+}
+
 
     // Validar análisis si existen <---- revisar
     validarAnalisis('#analisisFQ', 'Físico-Químicos');
