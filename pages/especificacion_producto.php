@@ -443,13 +443,19 @@ function validarFormulario() {
 
     // Función para validar campos
     function validarCampos(campos) {
-        campos.forEach(function(campo) {
-            if ((!campo.condicion || campo.condicion()) && !$(`#${campo.id}`).val().trim()) {
+        console.log(`validando campo:${campo.nombre} con id: ${campo.id}`)
+    campos.forEach(function(campo) {
+        var campoElemento = $(`#${campo.id}`);
+        if (campoElemento.length && (!campo.condicion || campo.condicion())) {
+            var valorCampo = campoElemento.val();
+            if (!valorCampo || !valorCampo.trim()) {
                 mensaje += `El campo "${campo.nombre}" es obligatorio.\n`;
                 valido = false;
             }
-        });
-    }
+        }
+    });
+}
+
 
     // Validar campos comunes
     validarCampos(camposComunes);
