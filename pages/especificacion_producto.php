@@ -471,12 +471,16 @@ function validarFormulario() {
     // Verificar si la tabla tiene filas válidas (excluyendo la fila de 'dataTables_empty')
     if ($(selector).find('tbody tr td.dataTables_empty').length === 0) {
         $(selector).find('tbody tr').each(function(index, element) {
+            // Buscar los selectores específicos para Tipo y Metodología
             var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
             var metodologia = $(this).find('select[name*="[metodologia]"]').val();
             var criterio = $(this).find('textarea[name*="[criterio]"]').val();
 
-            // Depuración: Verificar los valores de cada campo
-            console.log(`Fila ${index + 1} - Tipo: ${tipo}, Metodología: ${metodologia}, Criterio: ${criterio}`);
+            // Depuración adicional
+            console.log(`Fila ${index + 1}:`);
+            console.log('Elemento select Tipo:', $(this).find('select[name*="[descripcion_analisis]"]'));
+            console.log('Elemento select Metodología:', $(this).find('select[name*="[metodologia]"]'));
+            console.log('Tipo:', tipo, 'Metodología:', metodologia, 'Criterio:', criterio);
 
             // Validar si algún campo está vacío o tiene un valor inválido
             if (!tipo || !metodologia || !criterio.trim()) {
@@ -488,6 +492,7 @@ function validarFormulario() {
         console.log(`No se encontraron filas válidas en la tabla de ${tipoAnalisis}`);
     }
 }
+
 
 
     // Validar análisis si existen <---- revisar
