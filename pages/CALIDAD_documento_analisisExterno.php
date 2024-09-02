@@ -649,10 +649,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         });
 
-                        $("#laboratorio_nro_analisis").prop("disabled", true);
-                        $("#certificado_de_analisis_externo_label").prop("disabled", true);
-                        $("#fecha_entrega").prop("disabled", true);
-                        $("#laboratorio_fecha_analisis").prop("disabled", true);
+                        $("#laboratorio_nro_analisis").prop("readonly", true);
+                        $("#certificado_de_analisis_externo_label").prop("readonly", true);
+                        $("#fecha_entrega").prop("readonly", true);
+                        $("#laboratorio_fecha_analisis").prop("readonly", true);
 
                         $("#download-pdf").show()
                         $("#revisar").hide()
