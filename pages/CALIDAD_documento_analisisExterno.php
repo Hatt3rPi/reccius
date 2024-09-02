@@ -541,8 +541,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const table = $('#analisis-solicitados');
                 const highlight = "<?php
                         $etapa = $_POST['etapa'];
-                        $result = $_POST['resultados'];
-                        if ($etapa == '1' && $result == 'true') {
+                        if ($etapa == '0') {
                             echo '';
                         }
                         else {
@@ -555,7 +554,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="resultados editable-div ${analisis.anali_resultado_laboratorio?'': highlight}" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
+                        <td class="resultados editable-div ${
+                            analisis.anali_resultado_laboratorio?'': highlight
+                        }" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" <?php
                                             $etapa = $_POST['etapa'];
                                             if ($etapa == '0') {
