@@ -32,7 +32,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente envío a Laboratorio', 'estado')">Pendiente envío a Laboratorio</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente ingreso resultados', 'estado')">Pendiente ingreso resultados Laboratorio</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente liberación productos', 'estado')">Pendiente liberación Productos</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+            <button class="estado-filtro badge" onclick="filtrar_listado('', 'estado')">Todos</button>
         </div>
         <div class="estado-filtros">
             <label> Tipo de Producto </label>
