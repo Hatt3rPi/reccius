@@ -14,6 +14,9 @@ $query = "SELECT
     aex.fecha_registro,
     aex.id_especificacion,
     aex.id_producto, 
+    aex.am_ejecutado_por ,
+        aex.muestreado_por,
+        aex.am_verificado_por,
     CASE 
         WHEN pr.concentracion IS NULL OR pr.concentracion = '' 
         THEN pr.nombre_producto 
@@ -22,7 +25,7 @@ $query = "SELECT
     aex.revisado_por,
     aex.fecha_firma_revisor,
     aex.solicitado_por,
-    aex.muestreado_por,
+
     aex.lote,
     pr.tipo_producto,
     cam.id as id_muestreo,
@@ -57,7 +60,9 @@ LEFT JOIN (
         GROUP BY id_analisisExterno
     ) b ON a.id_analisisExterno = b.id_analisisExterno
     AND a.id = b.max_id
-) cam ON aex.id = cam.id_analisisExterno;";
+) cam ON aex.id = cam.id_analisisExterno  
+ORDER BY `id_analisisExterno` DESC;";
+
 
 $result = $link->query($query);
 
