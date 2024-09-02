@@ -269,8 +269,8 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     } else { // Edición de una especificación existente
         datosAnalisis.forEach(function(analisis, index) {
             var fila = [
-                '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][descripcion_analisis]" value="' + analisis.descripcion_analisis + '" readonly>',
-                '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][metodologia]" value="' + analisis.metodologia + '" readonly>',
+                crearSelectHtml('Analisis' + tipoAnalisis, index, 'descripcion_analisis', tipoAnalisis, analisis.descripcion_analisis),
+                crearSelectHtml('metodologia', index, 'metodologia', tipoAnalisis, analisis.metodologia),
                 '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + index + '][criterio]" readonly>' + analisis.criterios_aceptacion + '</textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
@@ -286,18 +286,20 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     });
 }
 
-function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
+function crearSelectHtml(categoria, contador, campo, tipoAnalisis, valorSeleccionado = '') {
     var opciones = opcionesDesplegables[categoria];
     var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" onchange="manejarOtro(this, \'' + tipoAnalisis + '\', ' + contador + ', \'' + campo + '\')" required>';
     htmlSelect += '<option value="">Selecciona una opción</option>';
 
     for (var i = 0; i < opciones.length; i++) {
-        htmlSelect += '<option value="' + opciones[i] + '">' + opciones[i] + '</option>';
+        var selected = opciones[i] === valorSeleccionado ? ' selected' : '';
+        htmlSelect += '<option value="' + opciones[i] + '"' + selected + '>' + opciones[i] + '</option>';
     }
 
     htmlSelect += '</select>';
     return htmlSelect;
 }
+
 
 function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
     var valorSeleccionado = selectElement.value;
