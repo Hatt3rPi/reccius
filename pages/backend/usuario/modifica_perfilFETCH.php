@@ -63,7 +63,6 @@ function updateSession($usuario)
 }
 function getUsuario()
 {
-
     global $link, $usuario;
     $query = "SELECT id, nombre, nombre_corto, foto_perfil,foto_firma, ruta_registroPrestadoresSalud, 	qr_documento, cargo FROM `usuarios` WHERE usuario = ?";
     $stmt = mysqli_prepare($link, $query);
@@ -234,7 +233,6 @@ function updateCertificado($file)
     return json_encode($response);
 }
 
-
 function updatePassword($pass, $newPass)
 {
     global $link, $usuario;
@@ -242,7 +240,6 @@ function updatePassword($pass, $newPass)
     if ($newPass == '' || $newPass == null) {
         return json_encode(['status' => 'error', 'message' => 'Las contraseñas no coinciden.']);
     }
-
     $query = "SELECT id, contrasena FROM `usuarios`  WHERE usuario = ?";
 
     $stmt = mysqli_prepare($link, $query);
@@ -250,6 +247,7 @@ function updatePassword($pass, $newPass)
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $userFetch = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
 
     if ($usuario && password_verify($pass, $userFetch['contrasena'])) {
         $contrasenaHash = password_hash($newPass, PASSWORD_DEFAULT);
@@ -265,6 +263,35 @@ function updatePassword($pass, $newPass)
         return json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta.']);
     }
 }
+
+function updateDatosPersonal($cargo, $nombre, $nombre_corto) {
+    global $link, $usuario;
+
+    // Preparar la consulta para actualizar los datos personales del usuario
+    $query = "UPDATE `usuarios` SET nombre = ?, nombre_corto = ?, cargo = ? WHERE usuario = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, "ssss", $nombre, $nombre_corto, $cargo, $usuario);
+
+    // Ejecutar la consulta y verificar si fue exitosa
+    if (mysqli_stmt_execute($stmt)) {
+        $response = [
+            'status' => 'success',
+            'message' => 'Datos personales actualizados correctamente.'
+        ];
+    } else {
+        $response = [
+            'status' => 'error',
+            'message' => 'No se pudieron actualizar los datos personales.'
+        ];
+    }
+
+    // Cerrar la consulta preparada
+    mysqli_stmt_close($stmt);
+
+    // Devolver la respuesta como JSON
+    return json_encode($response);
+}
+
 
 function updateUsuario()
 {
@@ -304,13 +331,20 @@ function updateUsuario()
         $response['password'] = updatePassword($oldPassword, $newPassword);
     }
 
+    // Procesar actualización de datos personales
+    if (!empty($_POST['cargo']) && !empty($_POST['nombre']) && !empty($_POST['nombre_corto'])) {
+        $cargo = limpiarDato($_POST['cargo']);
+        $nombre = limpiarDato($_POST['nombre']);
+        $nombre_corto = limpiarDato($_POST['nombre_corto']);
+        $response['datos_personales'] = updateDatosPersonal($cargo, $nombre, $nombre_corto);
+    }
+
     // Verificar y actualizar sesión si hay respuestas
     if (!empty($response)) {
         updateSession($_SESSION['usuario']);
         unset($_SESSION['go_to']);
         $_SESSION['go_to'] = 'modifica_perfil.php';
-        
-        echo json_encode(['status' => 'partial success', 'response' => $response]);
+        echo json_encode(['status' => 'success', 'response' => $response]);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'No se pudieron procesar los archivos.']);
     }
