@@ -29,7 +29,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Muestreo','estado')">Pendiente Muestreo</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta','estado')">Especificación obsoleta</button>
             <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado','estado')">Expirado</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+            <button class="estado-filtro badge" onclick="filtrar_listado('','estado')">Todos</button>
         </div>
         <div class="estado-filtros">
             <label> Tipo de Producto </label>

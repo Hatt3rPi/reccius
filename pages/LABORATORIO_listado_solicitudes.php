@@ -56,6 +56,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,7 +87,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Eliminar todos los filtros
                 table.search('').columns().search('').draw();
             } else {
-                table.column(9).search(valor).draw(); // Asumiendo que la columna 1 es la de
+                table.column(10).search(valor).draw(); // Asumiendo que la columna 1 es la de
             }
         }
         
@@ -183,14 +184,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "title": "Laboratorio",
                     "width": "70px"
                 },
-
                 {
                     title: 'id',
                     data: 'id_analisisExterno',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
-                }
-                ,
+                },
                 {
                     "data": "producto",
                     "title": "Producto_filtrado",
@@ -204,9 +203,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             return '';
                         }
                     }
-                }
-                ,
-
+                },
                 {
                     title: 'tipo_producto',
                     data: 'tipo_producto',
