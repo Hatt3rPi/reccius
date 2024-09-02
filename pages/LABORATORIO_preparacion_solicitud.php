@@ -398,6 +398,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     function informacionFaltante() {
         const identificacionInputs = [
+            'fecha_registro',
             'lote',
             'tamano_lote',
             'fecha_elaboracion',
@@ -643,7 +644,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 }
                 ,{
                     id: 'paisOrigen',
-                    val: producto.pais_origen,
+                    val: analisis.pais_origen,
                     isDisabled: true
                 }
             ];

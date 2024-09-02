@@ -355,6 +355,8 @@ input[readonly]:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+
 .label__like-input{
     width: 295px;
     font-size: 0.8rem;
