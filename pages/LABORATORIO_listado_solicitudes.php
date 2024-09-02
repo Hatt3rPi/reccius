@@ -26,13 +26,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <h2 class="section-title">Listado solicitudes de análisis:</h2>
         <div class="estado-filtros">
             <label> Filtrar por:</label>
-            <button class="estado-filtro badge badge-success" onclick="filtrar_listado('completado')">Completado</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de Muestreo')">Pendiente Acta de Muestreo</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente completar análisis')">Pendiente completar Análisis</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente envío a Laboratorio')">Pendiente envío a Laboratorio</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente ingreso resultados')">Pendiente ingreso resultados Laboratorio</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente liberación productos')">Pendiente liberación Productos</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+            <button class="estado-filtro badge badge-success" onclick="filtrar_listado('completado', 'estado')">Completado</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Acta de Muestreo', 'estado')">Pendiente Acta de Muestreo</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente completar análisis', 'estado')">Pendiente completar Análisis</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente envío a Laboratorio', 'estado')">Pendiente envío a Laboratorio</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente ingreso resultados', 'estado')">Pendiente ingreso resultados Laboratorio</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente liberación productos', 'estado')">Pendiente liberación Productos</button>
+            <button class="estado-filtro badge" onclick="filtrar_listado('', 'estado')">Todos</button>
+        </div>
+        <div class="estado-filtros">
+            <label> Tipo de Producto </label>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Producto Terminado', 'tipo_producto')">Producto Terminado</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
+            
         </div>
         <br>
         <br>
@@ -41,6 +49,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <thead>
                     <tr>
                         <th></th> <!-- Columna vacía para botones o checkboxes -->
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -64,15 +73,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     QA_solicitud_analisis_editing = true
 
     // Ahora puedes usar la sintaxis import
-    function filtrar_listado(estado) {
+    function filtrar_listado(valor, filtro) {
         var table = $('#listado').DataTable();
-        if (estado === '') {
-            // Eliminar todos los filtros
-            table.search('').columns().search('').draw();
-        } else {
-            // Aplicar filtro a la columna correspondiente
-            table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de estado
+        if(filtro=="estado"){
+            if (valor === '') {
+                // Eliminar todos los filtros
+                table.search('').columns().search('').draw();
+            } else {
+                table.column(1).search(valor).draw(); // Asumiendo que la columna 1 es la de
+            }
+        }else if(filtro=="tipo_producto"){
+            if (valor === '') {
+                // Eliminar todos los filtros
+                table.search('').columns().search('').draw();
+            } else {
+                table.column(10).search(valor).draw(); // Asumiendo que la columna 1 es la de
+            }
         }
+        
     }
     function normalizeText(text) {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -166,14 +184,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "title": "Laboratorio",
                     "width": "70px"
                 },
-
                 {
                     title: 'id',
                     data: 'id_analisisExterno',
                     defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
                     visible: false // Esto oculta la columna
-                }
-                ,
+                },
                 {
                     "data": "producto",
                     "title": "Producto_filtrado",
@@ -187,6 +203,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             return '';
                         }
                     }
+                },
+                {
+                    title: 'tipo_producto',
+                    data: 'tipo_producto',
+                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
+                    visible: false // Esto oculta la columna
                 }
             ],
 

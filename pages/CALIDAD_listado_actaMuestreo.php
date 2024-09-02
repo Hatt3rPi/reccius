@@ -24,12 +24,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <h2 class="section-title">Listado de Actas de Muestreo:</h2>
         <div class="estado-filtros">
             <label> Filtrar por:</label>
-            <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente')">Vigente</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En Proceso de firma')">En Proceso de Firma</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Muestreo')">Pendiente Muestreo</button>
-            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta')">Especificación obsoleta</button>
-            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado')">Expirado</button>
-            <button class="estado-filtro badge" onclick="filtrar_listado('')">Todos</button>
+            <button class="estado-filtro badge badge-success" onclick="filtrar_listado('Vigente','estado')">Vigente</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En Proceso de firma','estado')">En Proceso de Firma</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Pendiente Muestreo','estado')">Pendiente Muestreo</button>
+            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Especificación obsoleta','estado')">Especificación obsoleta</button>
+            <button class="estado-filtro badge badge-dark" onclick="filtrar_listado('Expirado','estado')">Expirado</button>
+            <button class="estado-filtro badge" onclick="filtrar_listado('','estado')">Todos</button>
+        </div>
+        <div class="estado-filtros">
+            <label> Tipo de Producto </label>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Producto Terminado', 'tipo_producto')">Producto Terminado</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
+            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
+            
         </div>
         <br>
         <br>
@@ -61,16 +69,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Ahora puedes usar la sintaxis import
 
 
-    function filtrar_listado(estado) {
+    function filtrar_listado(valor, filtro) {
         var table = $('#listado').DataTable();
-        if (estado === '') {
-            // Eliminar todos los filtros
-            table.search('').columns().search('').draw();
-        } else {
-            table.column(1).search(estado).draw(); // Asumiendo que la columna 1 es la de
+        if(filtro=="estado"){
+            if (valor === '') {
+                // Eliminar todos los filtros
+                table.search('').columns().search('').draw();
+            } else {
+                table.column(1).search(valor).draw(); // Asumiendo que la columna 1 es la de
+            }
+        }else if(filtro=="tipo_producto"){
+            if (valor === '') {
+                // Eliminar todos los filtros
+                table.search('').columns().search('').draw();
+            } else {
+                table.column(6).search(valor).draw(); // Asumiendo que la columna 1 es la de
+            }
         }
+        
     }
-
     function carga_listado() {
         var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
         var table = $('#listado').DataTable({
@@ -123,8 +140,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "65px"
                 },
                 {
-                    "data": "version_acta",
-                    "title": "Versión"
+                    "data": "lote",
+                    "title": "Lote"
                 },
                 {
                     "data": "producto",

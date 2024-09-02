@@ -18,7 +18,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     // Consulta SQL para obtener los datos del análisis externo y el producto asociado
     $query = "SELECT aex.id as id_analisis_externo, aex.id_especificacion, aex.id_producto,
     pr.nombre_producto, pr.formato, pr.concentracion, pr.tipo_producto,
-    aex.lote, aex.tamano_lote, aex.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.am_verificado_por, aex.am_ejecutado_por,
+    aex.lote, aex.tamano_lote, ep.codigo_mastersoft, aex.condicion_almacenamiento, aex.tamano_muestra, aex.tamano_contramuestra, aex.tipo_analisis, aex.muestreado_por, aex.am_verificado_por, aex.am_ejecutado_por,
     usrRev.nombre as nombre_usrRev, usrRev.cargo as cargo_usrRev, usrRev.foto_firma as foto_firma_usrRev, usrRev.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrRev, 
     usrMuest.nombre as nombre_usrMuest, usrMuest.cargo as cargo_usrMuest, usrMuest.foto_firma as foto_firma_usrMuest, usrMuest.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrMuest,
      usrEje.nombre as nombre_usrEje, usrEje.cargo as cargo_usrEje, usrEje.foto_firma as foto_firma_usrEje, usrEje.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrEje, 
@@ -30,6 +30,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
     LEFT JOIN usuarios as usrRev ON aex.am_verificado_por=usrRev.usuario
     LEFT JOIN usuarios as usrEje ON aex.am_ejecutado_por=usrEje.usuario
+    left join calidad_especificacion_productos as ep on aex.id_especificacion=ep.id_especificacion
     WHERE aex.id = ?";
 
     $stmt = mysqli_prepare($link, $query);
