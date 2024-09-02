@@ -209,11 +209,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
-                            <input type="text" class="input-highlight" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
+                            <input type="text" class="<?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
-                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input input-highlight">
+                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input <?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>">
                                 <span>
                                     <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                                 </span> &nbsp Seleccione un archivo
@@ -224,11 +242,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">3. Fecha de Entrega:</td>
                         <td>
-                            <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker input-highlight" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker <?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>"
+                            placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                         <td class="titulo titulo-right">4. Fecha de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker input-highlight" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker <?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                     </tr>
                 </table>
