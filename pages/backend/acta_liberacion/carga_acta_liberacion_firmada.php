@@ -47,6 +47,7 @@ try {
                                 es.id_especificacion AS 'es_id_especificacion',
                                 es.documento AS 'es_documento',
                                 es.version AS 'es_version',
+                                es.codigo_mastersoft as 'codigo_mastersoft_interno',
                                 am.fecha_muestreo,
                                 am.numero_acta,
                                 am.id AS id_actaMuestreo,

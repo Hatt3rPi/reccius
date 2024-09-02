@@ -773,7 +773,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#nro_lote').val(campos.lote);
                         $('#tipo_producto').val(campos.prod_tipo_producto);
                         $('#tamaño_lote').val(campos.tamano_lote);
-                        $('#codigo_interno').val(campos.codigo_interno);
+                        $('#codigo_interno').val(campos.codigo_mastersoft_interno);
                         $('#fecha_elaboracion').val(campos.fecha_elaboracion);
                         $('#cond_almacenamiento').text(campos.condicion_almacenamiento);
                         $('#fecha_vencimiento').val(campos.fecha_vencimiento);
