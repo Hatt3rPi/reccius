@@ -209,11 +209,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
-                            <input type="text" class="input-highlight" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
+                            <input type="text" class="<?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
-                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input input-highlight">
+                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input <?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>">
                                 <span>
                                     <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                                 </span> &nbsp Seleccione un archivo
@@ -224,11 +242,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">3. Fecha de Entrega:</td>
                         <td>
-                            <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker input-highlight" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker <?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>"
+                            placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                         <td class="titulo titulo-right">4. Fecha de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker input-highlight" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker <?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                }
+                                else {
+                                    echo 'input-highlight';
+                                }
+                                ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                     </tr>
                 </table>
@@ -502,25 +539,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Poblar la tabla III. ANÁLISIS SOLICITADOS
                 const analisisSolicitados = response.analiDatos;
                 const table = $('#analisis-solicitados');
-
+                const highlight = "<?php
+                        $etapa = $_POST['etapa'];
+                        if ($etapa == '0') {
+                            echo '';
+                        }
+                        else {
+                            echo 'input-highlight';
+                        }
+                        ?>";
                 analisisSolicitados.forEach(function(analisis, index) {
                     const row = `
                     <tr class="bordeAbajo checkLine" data-id="${analisis.anali_id_analisis}">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="resultados editable-div ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
+                        <td class="resultados editable-div ${
+                            analisis.anali_resultado_laboratorio?'': highlight
+                        }" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" <?php
-                                                $etapa = $_POST['etapa'];
-                                                if ($etapa == '0') {
-                                                    echo 'style="visibility: hidden;height: 0;"';
-                                                } ?>>
-                        <div class="btn-group-vertical " role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
-                            <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                            <input type="radio" class="btn-check noCumple" name="btn-check-${index}" id="btn-check-b-${index}" value="0" autocomplete="off">
-                            <label class="btn btn-outline-danger verificadores" for="btn-check-b-${index}"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                        </div>
+                                            $etapa = $_POST['etapa'];
+                                            if ($etapa == '0') {
+                                                echo 'style="visibility: hidden;height: 0;"';
+                                            } ?>>
+                            <div class="btn-group-vertical " role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                <input type="radio" class="btn-check noCumple" name="btn-check-${index}" id="btn-check-b-${index}" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="btn-check-b-${index}"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                            </div>
                         </td>
                     </tr>`;
                     table.append(row);
@@ -612,10 +659,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         });
 
-                        $("#laboratorio_nro_analisis").prop("disabled", true);
-                        $("#certificado_de_analisis_externo_label").prop("disabled", true);
-                        $("#fecha_entrega").prop("disabled", true);
-                        $("#laboratorio_fecha_analisis").prop("disabled", true);
+                        $("#laboratorio_nro_analisis").prop("readonly", true);
+                        $("#certificado_de_analisis_externo_label").prop("readonly", true);
+                        $("#fecha_entrega").prop("readonly", true);
+                        $("#laboratorio_fecha_analisis").prop("readonly", true);
 
                         $("#download-pdf").show()
                         $("#revisar").hide()

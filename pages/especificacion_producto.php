@@ -216,7 +216,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             
             <div class="actions-container">
-                <button type="button" id="guardar" name="guardar" class="action-button">Guardar Especificación</button>
+                <button type="button" id="guardar" name="guardar" data-accion='crear' class="action-button">Guardar Especificación</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
@@ -269,8 +269,8 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     } else { // Edición de una especificación existente
         datosAnalisis.forEach(function(analisis, index) {
             var fila = [
-                '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][descripcion_analisis]" value="' + analisis.descripcion_analisis + '" readonly>',
-                '<input type="text" name="analisis' + tipoAnalisis + '[' + index + '][metodologia]" value="' + analisis.metodologia + '" readonly>',
+                crearSelectHtml('Analisis' + tipoAnalisis, index, 'descripcion_analisis', tipoAnalisis, analisis.descripcion_analisis),
+                crearSelectHtml('metodologia', index, 'metodologia', tipoAnalisis, analisis.metodologia),
                 '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + index + '][criterio]" readonly>' + analisis.criterios_aceptacion + '</textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
@@ -286,95 +286,20 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
     });
 }
 
-function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
+function crearSelectHtml(categoria, contador, campo, tipoAnalisis, valorSeleccionado = '') {
     var opciones = opcionesDesplegables[categoria];
     var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" onchange="manejarOtro(this, \'' + tipoAnalisis + '\', ' + contador + ', \'' + campo + '\')" required>';
     htmlSelect += '<option value="">Selecciona una opción</option>';
 
     for (var i = 0; i < opciones.length; i++) {
-        htmlSelect += '<option value="' + opciones[i] + '">' + opciones[i] + '</option>';
+        var selected = opciones[i] === valorSeleccionado ? ' selected' : '';
+        htmlSelect += '<option value="' + opciones[i] + '"' + selected + '>' + opciones[i] + '</option>';
     }
 
     htmlSelect += '</select>';
     return htmlSelect;
 }
 
-// function carga_tablaFQ(id = null, accion = null) {
-//     var tablaFQ;
-//     var contadorFilasFQ = 0;
-
-//     if (id === null) {
-//         tablaFQ = new DataTable('#analisisFQ', {
-//             "paging": false,
-//             "info": false,
-//             "searching": false,
-//             "lengthChange": false,
-//             language: {
-//                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-//             },
-//             columns: [
-//                 { title: 'Análisis' },
-//                 { title: 'Metodología' },
-//                 { title: 'Criterio de Aceptación' },
-//                 { title: 'Acciones' }
-//             ]
-//         });
-
-//         $('#boton_agrega_analisisFQ').on('click', function() {
-//             var filaNueva = [
-//                 crearSelectHtml('AnalisisFQ', contadorFilasFQ, 'descripcion_analisis', 'FQ'),
-//                 crearSelectHtml('metodologia', contadorFilasFQ, 'metodologia', 'FQ'),
-//                 '<textarea rows="4" cols="50" name="analisisFQ[' + contadorFilasFQ + '][criterio]" required></textarea>',
-//                 '<button type="button" class="btn-eliminar">Eliminar</button>'
-//             ];
-//             tablaFQ.row.add(filaNueva).draw(false);
-//             contadorFilasFQ++;
-//         });
-//     } else if (accion === 'editar') {
-//         tablaFQ = new DataTable('#analisisFQ', {
-//             "ajax": './backend/calidad/listado_analisis_por_especificacion.php?id=' + id + '&analisis=analisis_FQ',
-//             "columns": [
-//                 { "data": "descripcion_analisis", "title": "Análisis" },
-//                 { "data": "metodologia", "title": "Metodología" },
-//                 { "data": "criterios_aceptacion", "title": "Criterio aceptación" }
-//             //,
-//                // {
-//                //    "data": null,
-//                //     "defaultContent": '<button type="button" class="btn-eliminar">Eliminar</button>',
-//                //     "title": "Acciones"
-//                // }
-//             ],
-//             "paging": false,
-//             "info": false,
-//             "searching": false,
-//             "lengthChange": false,
-//             language: {
-//                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-//             }
-//         });
-
-//         // Evento para el botón eliminar en la tabla de edición
-//         $('#analisisFQ').on('click', '.btn-eliminar', function () {
-//             tablaFQ.row($(this).parents('tr')).remove().draw();
-//         });
-
-//         // Ocultar el botón de agregar análisis, si es necesario
-//         $("#boton_agrega_analisisFQ").hide();
-//     }
-// }
-
-// function crearSelectHtml(categoria, contador, campo, tipoAnalisis) {
-//     var opciones = opcionesDesplegables[categoria];
-//     var htmlSelect = '<select name="analisis' + tipoAnalisis + '[' + contador + '][' + campo + ']" class="select-style" onchange="manejarOtro(this, \'' + tipoAnalisis + '\', ' + contador + ', \'' + campo + '\')" required>';
-//     htmlSelect += '<option value="">Selecciona una opción</option>';
-
-//     for (var i = 0; i < opciones.length; i++) {
-//         htmlSelect += '<option value="' + opciones[i] + '">' + opciones[i] + '</option>';
-//     }
-
-//     htmlSelect += '</select>';
-//     return htmlSelect;
-// }
 
 function manejarOtro(selectElement, tipoAnalisis, contador, campo) {
     var valorSeleccionado = selectElement.value;
@@ -498,102 +423,92 @@ document.getElementById('guardar').addEventListener('click', function(e) {
 function validarFormulario() {
     var valido = true;
     var mensaje = '';
+    var accion = $('#guardar').data('accion');
+    console.log("acción:", accion);
+    // Lista de campos comunes a validar
+    var camposComunes = [
+        { id: 'codigo_interno', nombre: 'Código Interno' },
+        { id: 'version', nombre: 'Versión' },
+        { id: 'periodosVigencia', nombre: 'Vigencia' },
+        { id: 'fechaEdicion', nombre: 'Fecha edición' }
+    ];
 
-    // Validación para el campo 'Tipo de Producto'
-    if (document.forms[0]["Tipo_Producto"].value.trim() === '') {
-        mensaje += 'El campo "Tipo de Producto" es obligatorio.\n';
-        valido = false;
-    }
+    // Campos específicos para la acción 'crear'
+    var camposCrear = [
+        { id: 'Tipo_Producto', nombre: 'Tipo de Producto' },
+        { id: 'producto', nombre: 'Producto' },
+        { id: 'formato', nombre: 'Formato' },
+        { id: 'tipo_concentracion', nombre: 'Concentración', condicion: () => $('#tipo_concentracion').val() !== 'na' },
+        { id: 'numeroProducto', nombre: 'Número de Producto' }
+        
+    ];
 
-    // Validación para el campo 'Producto'
-    if (document.forms[0]["producto"].value.trim() === '') {
-        mensaje += 'El campo "Producto" es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Concentración' solo si el tipo_concentracion no es "No aplica" y no está vacío
-    if (document.forms[0]["tipo_concentracion"].value !== 'na' && document.forms[0]["concentracion"].value.trim() === '') {
-        mensaje += 'El campo "Concentración" es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Formato'
-    if (document.forms[0]["formato"].value.trim() === '') {
-        mensaje += 'El campo "Formato" es obligatorio.\n';
-        valido = false;
-    }
-
-
-    // Validación para el campo 'Número de documento'
-    if (document.forms[0]["numeroProducto"].value.trim() === '') {
-        mensaje += 'El campo "Número de Producto es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Fecha edición'
-    if (document.forms[0]["fechaEdicion"].value.trim() === '') {
-        mensaje += 'El campo "Fecha edición" es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Versión'
-    if (document.forms[0]["version"].value.trim() === '') {
-        mensaje += 'El campo "Versión" es obligatorio.\n';
-        valido = false;
-    }
-
-    // Validación para el campo 'Vigencia'
-    if (document.forms[0]["periodosVigencia"].value.trim() === '') {
-        mensaje += 'El campo "Vigencia" es obligatorio.\n';
-        valido = false;
-    }
-     // Validación para el campo 'Vigencia'
-        if (document.forms[0]["codigo_interno"].value.trim() === '') {
-        mensaje += 'El campo "codigo_interno" es obligatorio.\n';
-        valido = false;
-    }
-    
-    var valido = true;
-    var mensaje = '';
-
-    // Función para validar un conjunto de análisis
-    function validarAnalisis(selector, tipoAnalisis) {
-        // Verifica si la tabla está vacía
-        if ($(selector).find('tbody tr td.dataTables_empty').length > 0) {
-            // Si la tabla está vacía, omitir la validación
-            return;
+    // Función para validar campos
+    function validarCampos(campos) {
+        
+    campos.forEach(function(campo) {
+        var campoElemento = $(`#${campo.id}`);
+        if (campoElemento.length && (!campo.condicion || campo.condicion())) {
+            var valorCampo = campoElemento.val();
+            if (!valorCampo || !valorCampo.trim()) {
+                mensaje += `El campo "${campo.nombre}" es obligatorio.\n`;
+                valido = false;
+            }
         }
+        console.log('Campo actual:', campo, 'resultado: ', valido);
+    });
+}
 
-        $(selector).find('tbody tr').each(function() {
+
+    // Validar campos comunes
+    validarCampos(camposComunes);
+
+    // Validar campos específicos según la acción
+    if (accion === 'crear') {
+        validarCampos(camposCrear);
+    }
+
+    // Validación de análisis
+    function validarAnalisis(selector, tipoAnalisis) {
+    // Verificar si la tabla tiene filas válidas (excluyendo la fila de 'dataTables_empty')
+    if ($(selector).find('tbody tr td.dataTables_empty').length === 0) {
+        $(selector).find('tbody tr').each(function(index, element) {
+            // Buscar los selectores específicos para Tipo y Metodología
             var tipo = $(this).find('select[name*="[descripcion_analisis]"]').val();
             var metodologia = $(this).find('select[name*="[metodologia]"]').val();
             var criterio = $(this).find('textarea[name*="[criterio]"]').val();
 
-            if (tipo === '' || metodologia === '' || criterio.trim() === '') {
-                mensaje += 'Todos los campos de Análisis ' + tipoAnalisis + ' son obligatorios en cada fila.\n';
+            // Depuración adicional
+            console.log(`Fila ${index + 1}:`);
+            console.log('Elemento select Tipo:', $(this).find('select[name*="[descripcion_analisis]"]'));
+            console.log('Elemento select Metodología:', $(this).find('select[name*="[metodologia]"]'));
+            console.log('Tipo:', tipo, 'Metodología:', metodologia, 'Criterio:', criterio);
+
+            // Validar si algún campo está vacío o tiene un valor inválido
+            if (!tipo || !metodologia || !criterio.trim()) {
+                mensaje += `Todos los campos de Análisis ${tipoAnalisis} son obligatorios en cada fila.\n`;
                 valido = false;
             }
         });
+    } else {
+        console.log(`No se encontraron filas válidas en la tabla de ${tipoAnalisis}`);
     }
+}
 
 
-    // Validar análisis Físico-Químicos si existen
-    if ($('#analisisFQ').find('tbody tr').length > 0) {
-        validarAnalisis('#analisisFQ', 'Físico-Químicos');
-    }
 
-    // Validar análisis Microbiológicos si existen
-    if ($('#analisisMB').find('tbody tr').length > 0) {
-        validarAnalisis('#analisisMB', 'Microbiológicos');
-    }
+    // Validar análisis si existen <---- revisar
+    validarAnalisis('#analisisFQ', 'Físico-Químicos');
+    validarAnalisis('#analisisMB', 'Microbiológicos');
 
-    // Procesar la validación
     if (!valido) {
         alert(mensaje);
     }
 
     return valido;
 }
+
+
     function actualizarDocumento() {
         var prefijo = document.getElementById('prefijoDocumento').value;
         var numero = document.getElementById('numeroProducto').value;
@@ -757,6 +672,7 @@ function mostrarAnalisisMB(analisis) {
 
 $('#editarGenerarVersion').click(function() {
     // Resto del código para habilitar edición del formulario...
+    $('#guardar').attr('data-accion', 'modificar');
     $('#guardar').show();
     $('#editarGenerarVersion').hide();
     $('input[name="fechaEdicion"]').prop('readonly', false).val(new Date().toISOString().split('T')[0]);
@@ -783,6 +699,8 @@ $('#editarGenerarVersion').click(function() {
     $('#usuario_editor').val("<?php echo $_SESSION['nombre']; ?>").prop('readonly', false);
     $('#usuario_revisor').prop('readonly', false);
     $('#usuario_aprobador').prop('readonly', false);
+    $('#codigo_interno').prop('disabled', false);
+    
 });
 
 function habilitarEdicionAnalisis(tabla) {
@@ -802,10 +720,7 @@ function habilitarEdicionAnalisis(tabla) {
 
 
 function guardar(){
-    if(validateForm().length > 0){
-        $.notify('Favor de completar los campos obligatorios', 'warn');
-        return;
-    }
+
     var numeroProducto = $('#numeroProducto').val();
     $('#numeroProducto').val(`${numeroProducto}`.padStart(3, '0'));
     var datosFormulario = $('#formulario_especificacion').serialize();
@@ -912,6 +827,7 @@ function verificarOtro(selectId, inputId) {
 
 
 function actualizarCampos() {
+        //$('#guardar').data('accion', 'modificar');
         var seleccion = $('#tipo_concentracion').val();
         var campos = ['concentracion_param1', 'concentracion_param2', 'concentracion_param1_lbl', 'concentracion_param2_lbl'];
         
@@ -921,11 +837,12 @@ function actualizarCampos() {
         });
 
         // Mostrar y actualizar campos según la selección
-        if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(seleccion)) {
+        if (['ug/ml','mg/ml','g/ml', '%/ml', 'UI/ml', '%/g'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param2]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion.split('/')[0]).show();
             $('input[name=concentracion_param2_lbl]').val(seleccion.split('/')[1]).show();
+
         } else if (['mg','g', 'ml', 'UI'].includes(seleccion)) {
             $('input[name=concentracion_param1]').val('').show();
             $('input[name=concentracion_param1_lbl]').val(seleccion).show();
@@ -940,7 +857,7 @@ function actualizarCampos() {
         var concentracion = '';
         if (tipo === 'na') { // Caso "No Aplica"
             concentracion = ''; // La concentración se establece en vacío
-        } else if (['mg/ml','g/ml', '%/ml', 'UI/ml'].includes(tipo)) {
+        } else if (['ug/ml','mg/ml','g/ml', '%/ml', 'UI/ml', '%/g'].includes(tipo)) {
             concentracion = param1 + tipo.split('/')[0] + ' / ' + param2 + tipo.split('/')[1];
         } else {
             concentracion = param1 + tipo;

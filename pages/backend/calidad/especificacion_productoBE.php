@@ -36,7 +36,7 @@ function insertarOpcionSiNoExiste($link, $categoria, $nuevoValor) {
 }
 function obtenerTareasActivas($link, $idEspecificacion) {
     $tareas = [];
-    $sql = "select id, tipo, usuario_ejecutor from tareas where tipo in ('Firma 2', 'Firma 3') and id_relacion=?;";
+    $sql = "select id, tipo, usuario_ejecutor, tabla_relacion from tareas where tipo in ('Firma 2', 'Firma 3') and tabla_relacion='calidad_especificacion_productos' and id_relacion=?;";
     if ($stmt = mysqli_prepare($link, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $idEspecificacion);
         mysqli_stmt_execute($stmt);
@@ -71,7 +71,7 @@ function actualizarEstadoEspecificacion($link, $idEspecificacion_obsoleta) {
     foreach ($tareas as $tarea) {
         // update 22052024
         //function finalizarTarea($usuarioEjecutor, $id_relacion, $tabla_relacion, $tipoAccion, $esAutomatico = false)
-        finalizarTarea($tarea['usuario_ejecutor'], $idEspecificacion_obsoleta, $tarea['tipo'], 'calidad_especificacion_productos', true);
+        finalizarTarea($tarea['usuario_ejecutor'], $idEspecificacion_obsoleta, 'calidad_especificacion_productos', $tarea['tipo'], true);
     }
     if (!$exito) {
         throw new Exception("Error al actualizar el estado de la especificación: " . mysqli_error($link));

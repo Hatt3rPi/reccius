@@ -84,25 +84,24 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                 <div class="form-group">
-                    <label>Formato:</label>
-                    <input class="form-control mx-0 w-90" name="formato" id="formato" type="text" placeholder="Ampolla">
+                        <label>Formato:</label>
+                        <input class="form-control mx-0 w-90" name="formato" id="formato" type="text" placeholder="Ampolla">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group" id="contenedor_dealer" name="contenedor_dealer" style="visibility: hidden;">
+                        <label>Proveedor:</label>
+                        <input type="text" id="dealer" name="dealer" class="form-control mx-0 w-90 editable">
+                    </div> 
                 </div>
-                <div class="divider"></div> <!-- Esta es la línea divisora -->
-                <div class="form-group" id="contenedor_dealer" name="contenedor_dealer" style="visibility: hidden;">
-                    <label>Proveedor:</label>
-                    <input type="text" id="dealer" name="dealer" class="form-control mx-0 w-90 editable">
-                </div> 
-            </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label>Elaborado por:</label>
-                        <input type="text" name="elaboradoPor" id="elaboradoPor" Value="Reccius" class="form-control mx-0 w-90 editable" required>
+                        <input type="text" name="elaboradoPor" id="elaboradoPor" Value="Reccius" class="form-control mx-0 w-90" required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>País de origen:</label>
-                        <input type="text" name="paisOrigen" id="paisOrigen" Value="Chile" class="form-control mx-0 w-90 editable" required>
+                        <input type="text" name="paisOrigen" id="paisOrigen" Value="Chile" class="form-control mx-0 w-90" required>
                     </div>
                 </div>
             </fieldset>
@@ -399,6 +398,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     function informacionFaltante() {
         const identificacionInputs = [
+            'fecha_registro',
             'lote',
             'tamano_lote',
             'fecha_elaboracion',
@@ -642,10 +642,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                     val: producto.proveedor,
                     isDisabled: true
                 }
-                ,
-                {
+                ,{
                     id: 'paisOrigen',
-                    val: producto.pais_origen,
+                    val: analisis.pais_origen,
                     isDisabled: true
                 }
             ];
