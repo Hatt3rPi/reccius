@@ -790,7 +790,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         url: '../pages/CALIDAD_documento_ActaLiberacion.php',
                         type: 'POST',
                         data: {
-                            'id': id
+                            'id': id,
+                            'liberado':true
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response);
@@ -810,7 +811,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa': '1'
+                            'etapa': '1',
+                            'liberado':false
                         },
                         success: function(response) {
                             console.log('Solicitud de Análisis Externo Control de Calidad redirigida con éxito');

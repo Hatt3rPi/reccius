@@ -6,6 +6,33 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
+require_once "/home/customw2/conexiones/config_reccius.php";
+
+$id = isset($_POST['id']) ? $_POST['id'] : null;
+$modo_edicion = isset($_POST['liberado']) && $_POST['liberado'] === "true";
+
+// Inicializa la variable para la fecha de liberación
+$fecha_liberacion = "";
+
+// Realiza la consulta para obtener la fecha de liberación
+if ($id) {
+    // Preparar la consulta SQL con mysqli
+    $stmt = $link->prepare("SELECT aex.fecha_liberacion FROM calidad_productos_analizados as pa
+left join calidad_analisis_externo as aex   on aex.id_cuarentena=pa.id WHERE pa.id_actaLiberacion=?");
+    $stmt->bind_param("i", $id); // "i" indica que es un entero
+    $stmt->execute();
+    
+    // Vincular el resultado de la consulta a una variable
+    $stmt->bind_result($fecha_liberacion);
+    $stmt->fetch();
+    
+    // Cerrar el statement
+    $stmt->close();
+}
+
+// Cerrar la conexión
+$link->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -80,7 +107,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Liberación:</td>
-                            <td><input type="date" name="fecha_acta_lib" id="fecha_acta_lib"></td>
+                            <td>
+                                <?php if ($modo_edicion): ?>
+                                    <!-- Modo de visualización -->
+                                    <div id="fecha_acta_lib" name="fecha_acta_lib" class="fecha-visualizacion"><?php echo $fecha_liberacion; ?></div>
+                                    
+                                <?php else: ?>
+                                    <!-- Modo de creación -->
+                                    <input type="date" name="fecha_acta_lib" id="fecha_acta_lib">
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     </table>
                 </div>
