@@ -17,7 +17,8 @@ $fecha_liberacion = "";
 // Realiza la consulta para obtener la fecha de liberación
 if ($id) {
     // Preparar la consulta SQL con mysqli
-    $stmt = $link->prepare("SELECT fecha_liberacion FROM calidad_analisis_externo WHERE id = ?");
+    $stmt = $link->prepare("SELECT aex.fecha_liberacion FROM calidad_productos_analizados as pa
+left join calidad_analisis_externo as aex   on aex.id_cuarentena=pa.id WHERE pa.id_actaLiberacion=?");
     $stmt->bind_param("i", $id); // "i" indica que es un entero
     $stmt->execute();
     
