@@ -24,9 +24,9 @@ $resultados = [];
 
 try {
     // 1. Actualiza en calidad_analisis_externo si existe
-    $stmt = $link->prepare("UPDATE calidad_analisis_externo SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id = ? AND EXISTS (SELECT 1 FROM calidad_analisis_externo WHERE id = ?)");
+    $stmt = $link->prepare("UPDATE calidad_analisis_externo SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id = ?");
     if ($stmt) {
-        $stmt->bind_param("ssii", $motivo_eliminacion, $fecha_eliminacion , $id_analisisExterno, $id_analisisExterno);
+        $stmt->bind_param("ssi", $motivo_eliminacion, $fecha_eliminacion , $id_analisisExterno);
         $stmt->execute();
         $resultados[] = "calidad_analisis_externo: actualización exitosa";
         $stmt->close();
@@ -35,9 +35,9 @@ try {
     }
 
     // 2. Actualiza en calidad_acta_muestreo si existe
-    $stmt = $link->prepare("UPDATE calidad_acta_muestreo SET estado = 'eliminado_por_solicitud_usuario' WHERE id_analisisExterno = ? AND EXISTS (SELECT 1 FROM calidad_acta_muestreo WHERE id_analisisExterno = ?)");
+    $stmt = $link->prepare("UPDATE calidad_acta_muestreo SET estado = 'eliminado_por_solicitud_usuario' WHERE id_analisisExterno = ?");
     if ($stmt) {
-        $stmt->bind_param("ii", $id_analisisExterno, $id_analisisExterno);
+        $stmt->bind_param("i", $id_analisisExterno);
         $stmt->execute();
         $resultados[] = "calidad_acta_muestreo: actualización exitosa";
         $stmt->close();
@@ -46,9 +46,9 @@ try {
     }
 
     // 3. Actualiza en calidad_productos_analizados si existe
-    $stmt = $link->prepare("UPDATE calidad_productos_analizados SET estado = 'eliminado_por_solicitud_usuario' WHERE id_analisisExterno = ? AND EXISTS (SELECT 1 FROM calidad_productos_analizados WHERE id_analisisExterno = ?)");
+    $stmt = $link->prepare("UPDATE calidad_productos_analizados SET estado = 'eliminado_por_solicitud_usuario' WHERE id_analisisExterno = ?");
     if ($stmt) {
-        $stmt->bind_param("ii", $id_analisisExterno, $id_analisisExterno);
+        $stmt->bind_param("i", $id_analisisExterno);
         $stmt->execute();
         $resultados[] = "calidad_productos_analizados: actualización exitosa";
         $stmt->close();
@@ -57,15 +57,16 @@ try {
     }
 
     // 4. Actualiza en calidad_acta_liberacion si existe
-    $stmt = $link->prepare("UPDATE calidad_acta_liberacion SET estado = 'eliminado_por_solicitud_usuario' WHERE id_analisisExterno = ? AND EXISTS (SELECT 1 FROM calidad_acta_liberacion WHERE id_analisisExterno = ?)");
+    $stmt = $link->prepare("UPDATE calidad_acta_liberacion SET estado = 'eliminado_por_solicitud_usuario' WHERE id_analisisExterno = ?");
     if ($stmt) {
-        $stmt->bind_param("ii", $id_analisisExterno, $id_analisisExterno);
+        $stmt->bind_param("i", $id_analisisExterno);
         $stmt->execute();
         $resultados[] = "calidad_acta_liberacion: actualización exitosa";
         $stmt->close();
     } else {
         throw new Exception("Error al preparar la declaración para calidad_acta_liberacion: " . $link->error);
     }
+
 
     // 5. Actualiza en la tabla tareas relacionadas con calidad_analisis_externo
     $stmt = $link->prepare("UPDATE tareas t
