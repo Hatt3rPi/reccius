@@ -2,12 +2,73 @@
 //archivo: pages\backend\acta_liberacion\acta_liberacion_guardayfirma.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+include "../email/envia_correoBE.php";
 // Check the connection
 if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
+function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo) {
+    global $link;
 
+    // Ejecutar la query para obtener los detalles del producto
+    $query_producto = "SELECT b.nombre_producto, b.concentracion, b.tipo_producto, a.lote 
+                       FROM calidad_analisis_externo AS a 
+                       LEFT JOIN calidad_productos AS b ON a.id_producto = b.id 
+                       WHERE a.id = ?";
+    $stmt_producto = $link->prepare($query_producto);
+    $stmt_producto->bind_param("i", $id_analisis_externo);
+    $stmt_producto->execute();
+    $result_producto = $stmt_producto->get_result();
+    $producto_data = $result_producto->fetch_assoc();
+    $stmt_producto->close();
+
+    if ($producto_data) {
+        $producto = strtoupper($producto_data['nombre_producto'] . " " . $producto_data['concentracion']);
+        $tipo_producto = strtoupper($producto_data['tipo_producto']);
+        $lote = strtoupper($producto_data['lote']);
+    } else {
+        // Manejar el caso en el que no se encuentran datos
+        $producto = "DESCONOCIDO";
+        $tipo_producto = "DESCONOCIDO";
+        $lote = "DESCONOCIDO";
+    }
+
+    $asunto = "RECCIUS informa | Salida de Cuarentena de {$tipo_producto} - {$producto} - lote: {$lote}"; 
+    $estado = strtoupper($estado); // Asegurarse que el estado esté en mayúsculas
+    $fecha_liberacion = strtoupper($fecha_liberacion); // Convertir a mayúsculas
+
+    // Generar el cuerpo del correo
+    $cuerpo = "
+        <p>Estimados,</p>
+        <p>Se les informa que con fecha <strong>{$fecha_liberacion}</strong>, el producto <strong>{$producto}</strong> con lote <strong>{$lote}</strong> sale de cuarentena con el siguiente estado: <strong>{$estado}</strong>.</p>
+        <p>Favor realizar las acciones necesarias para continuar con el proceso.</p>
+        <p>Saludos,</p>
+        <p>Equipo Reccius</p>
+    ";
+
+    // Obtener el hostname actual
+    $hostname = gethostname();
+
+    // Seleccionar la lista de destinatarios según el hostname
+    if ($hostname === 'customware.cl') {
+        $destinatarios = [
+            ['email' => 'fabarca212@gmail.cl', 'nombre' => 'Felipe Abarca'],
+            ['email' => 'javier2000asr@gmail.com', 'nombre' => 'Javier Sabando'],
+            ['email' => 'lucianoalonso2000@gmail.cl', 'nombre' => 'Luciano Abarca']
+        ];
+    } elseif ($hostname === 'reccius.cl') {
+        $destinatarios = [
+            ['email' => 'mgodoy@reccius.cl', 'nombre' => 'Macarena Godoy'],
+            ['email' => 'isumonte@reccius.cl', 'nombre' => 'Inger Sumonte'],
+            ['email' => 'clpereir@reccius.cl', 'nombre' => 'Catherine Pereira']
+        ];
+    } else {
+        die("Error: Hostname no reconocido. No se puede enviar el correo.");
+    }
+
+    // Enviar el correo
+    enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+}
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the JSON input
@@ -121,6 +182,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_cuarentena]);
             finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Emitir acta de liberación');
+
+            
+
+            informativo_liberacion($fecha_firma1, $estado_producto, $id_analisis_externo) // ayúda GPT
         } else {
             // Registro de trazabilidad en caso de error
             registrarTrazabilidad(

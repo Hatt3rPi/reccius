@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\email\envia_correoBE.php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
