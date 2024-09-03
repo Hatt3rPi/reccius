@@ -48,8 +48,8 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     ";
 
     // Obtener el hostname actual
-    $hostname = gethostname();
-
+    $hostname = $_SERVER['SERVER_NAME'];
+    
     // Seleccionar la lista de destinatarios según el hostname
     if ($hostname === 'customware.cl') {
         $destinatarios = [
