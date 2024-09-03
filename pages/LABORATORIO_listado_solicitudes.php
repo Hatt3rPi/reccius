@@ -350,7 +350,7 @@ function confirmarEliminacion() {
   var fechaEliminacion = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
   // Enviar la solicitud POST al backend
-  $.post("pages/backend/analisis/eliminar_analisis_externoBE.php", {
+  $.post("./backend/backend/analisis/eliminar_analisis_externoBE.php", {
     id_analisisExterno: idAnalisisExternoAEliminar,
     motivo_eliminacion: motivoEliminacion,
     fecha_eliminacion: fechaEliminacion
