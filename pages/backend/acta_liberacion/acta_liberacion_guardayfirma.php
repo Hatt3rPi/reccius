@@ -1,12 +1,14 @@
 <?php
-//archivo: pages\backend\acta_liberacion\acta_liberacion_guardayfirma.php
+// archivo: pages\backend\acta_liberacion\acta_liberacion_guardayfirma.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 include "../email/envia_correoBE.php";
+
 // Check the connection
 if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
+
 function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo) {
     global $link;
 
@@ -27,15 +29,14 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
         $tipo_producto = strtoupper($producto_data['tipo_producto']);
         $lote = strtoupper($producto_data['lote']);
     } else {
-        // Manejar el caso en el que no se encuentran datos
         $producto = "DESCONOCIDO";
         $tipo_producto = "DESCONOCIDO";
         $lote = "DESCONOCIDO";
     }
 
-    $asunto = "RECCIUS informa | Salida de Cuarentena de {$tipo_producto} - {$producto} - lote: {$lote}"; 
-    $estado = strtoupper($estado); // Asegurarse que el estado esté en mayúsculas
-    $fecha_liberacion = strtoupper($fecha_liberacion); // Convertir a mayúsculas
+    $asunto = "RECCIUS informa | Salida de Cuarentena de {$tipo_producto} - {$producto} - lote: {$lote}";
+    $estado = strtoupper($estado);
+    $fecha_liberacion = strtoupper($fecha_liberacion);
 
     // Generar el cuerpo del correo
     $cuerpo = "
@@ -69,13 +70,12 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     // Enviar el correo
     enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
 }
+
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the JSON input
     $inputJSON = file_get_contents('php://input');
-    $input = json_decode($inputJSON, TRUE); // Convert JSON to array
-    $id_actaLiberacion='';
-    // Validate and sanitize the input data
+    $input = json_decode($inputJSON, TRUE);
+
     $id_analisis_externo = isset($input['id_analisis_externo']) ? intval($input['id_analisis_externo']) : null;
     $id_especificacion = isset($input['id_especificacion']) ? intval($input['id_especificacion']) : null;
     $id_producto = isset($input['id_producto']) ? intval($input['id_producto']) : null;
@@ -114,16 +114,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Adjust the query according to your table structure and field names
     $query = "INSERT INTO calidad_acta_liberacion (id_cuarentena, id_analisisExterno, id_especificacion, id_producto, id_actaMuestreo, numero_acta, numero_registro, version_registro, fecha_acta, aux_tipo, estado, obs1, obs2, obs3, obs4, cantidad_real_liberada, nro_parte_ingreso, 
     revision_estados, revision_liberacion, 
-    aux_anomes, aux_autoincremental, usuario_firma1, fecha_firma1) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    aux_anomes, aux_autoincremental, usuario_firma1, fecha_firma1) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-    // Prepare and execute the query
     if ($stmt = $link->prepare($query)) {
         $stmt->bind_param("iiiiissssssssssssssiiss", $id_cuarentena, $id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, 
         $docConformeResults, $revisionResults, 
         $aux_anomes, $correlativo, $usuario_firma1, $fecha_firma1);
+
         if ($stmt->execute()) {
-            // Registro de trazabilidad
-            $id_actaLiberacion=$stmt->insert_id;
+            $id_actaLiberacion = $stmt->insert_id;
             registrarTrazabilidad(
                 $_SESSION['usuario'],
                 $_SERVER['PHP_SELF'],
@@ -135,28 +134,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 1,
                 null
             );
-            //cerrar tarea anterior
-           
 
             $stmt3 = mysqli_prepare($link, "UPDATE calidad_analisis_externo SET estado='completado', fecha_liberacion=? WHERE id=?");
-            mysqli_stmt_bind_param($stmt3, "si",$fecha_acta_lib, $id_analisis_externo );
+            mysqli_stmt_bind_param($stmt3, "si", $fecha_acta_lib, $id_analisis_externo);
             mysqli_stmt_execute($stmt3);
             mysqli_stmt_close($stmt3);
-            if($estado=='aprobado'){
-                $estado_producto='liberado';
-            } else {
-                $estado_producto='rechazado';
-            }
+
+            $estado_producto = ($estado === 'aprobado') ? 'liberado' : 'rechazado';
             $query_update = "UPDATE calidad_productos_analizados 
-            SET estado = ?, cantidad_real_liberada = ?, nro_parte_ingreso = ?, id_actaMuestreo=?, id_actaLiberacion=?, fecha_out_cuarentena=?
-            WHERE id = ?";
+                             SET estado = ?, cantidad_real_liberada = ?, nro_parte_ingreso = ?, id_actaMuestreo = ?, id_actaLiberacion = ?, fecha_out_cuarentena = ?
+                             WHERE id = ?";
 
             $stmt4 = mysqli_prepare($link, $query_update);
             if (!$stmt4) {
-            throw new Exception("Error en la preparación de la consulta de actualización: " . mysqli_error($link));
+                throw new Exception("Error en la preparación de la consulta de actualización: " . mysqli_error($link));
             }
 
-            mysqli_stmt_bind_param($stmt4, "sssiisi", $estado_producto, $cant_real_liberada, $parte_ingreso, $id_actaMuestreo, $id_actaLiberacion, $fecha_firma1,  $id_cuarentena);
+            mysqli_stmt_bind_param($stmt4, "sssiisi", $estado_producto, $cant_real_liberada, $parte_ingreso, $id_actaMuestreo, $id_actaLiberacion, $fecha_firma1, $id_cuarentena);
 
             $exito_4 = mysqli_stmt_execute($stmt4);
             registrarTrazabilidad(
@@ -166,34 +160,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'calidad_productos_analizados',  
                 $id_cuarentena, 
                 $query_update,  
-                [$estado_producto, $cant_real_liberada, $parte_ingreso, $id_actaMuestreo, $id_actaLiberacion, $fecha_firma1,  $id_cuarentena], 
+                [$estado_producto, $cant_real_liberada, $parte_ingreso, $id_actaMuestreo, $id_actaLiberacion, $fecha_firma1, $id_cuarentena], 
                 $exito_4 ? 1 : 0, 
                 $exito_4 ? null : mysqli_error($link)
             );
             if (!$exito_4) {
-            throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt4));
+                throw new Exception("Error al ejecutar la actualización: " . mysqli_stmt_error($stmt4));
             }
 
             mysqli_stmt_close($stmt4);
-            //acá
             unset($_SESSION['buscar_por_ID']);
             if ($exito) {
                 $_SESSION['buscar_por_ID'] = $id_cuarentena;
             }
             echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_cuarentena]);
             finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Emitir acta de liberación');
-
-            
-
-            informativo_liberacion($fecha_firma1, $estado_producto, $id_analisis_externo) // ayúda GPT
+            informativo_liberacion($fecha_firma1, $estado_producto, $id_analisis_externo);
         } else {
-            // Registro de trazabilidad en caso de error
             registrarTrazabilidad(
                 $_SESSION['usuario'],
                 $_SERVER['PHP_SELF'],
                 $flujo,
                 'CALIDAD - Acta de Liberación',
-                null, // ID no disponible por fallo en la inserción
+                null,
                 $query,
                 [$id_analisis_externo, $id_especificacion, $id_producto, $id_actaMuestreo, $nro_acta, $nro_registro, $nro_version, $fecha_acta_lib, $tipo_producto, $estado, $obs1, $obs2, $obs3, $obs4, $cant_real_liberada, $parte_ingreso, $docConformeResults, $revisionResults, $aux_anomes, $correlativo, $usuario_firma1, $fecha_firma1],
                 0,
