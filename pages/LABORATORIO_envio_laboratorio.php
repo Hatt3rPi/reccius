@@ -92,10 +92,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </fieldset>
             <br>
             <fieldset>
-                <legend>III. Cuerpo</legend>
+                <legend>III. Asunto</legend>
                 <br>
                 <div class="form-row justify-content-start align-items-center">
-                    <input id="subject" style="width: 600px;" name="subject"></input>
+                    <input id="subject" style="width: 600px;" name="subject" class="form-control"></input>
                     <style>
                         .ck.ck-editor {
                             min-width: 600px;
@@ -106,6 +106,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         }
                     </style>
                 </div>
+                <br>
             </fieldset>
             <fieldset>
                 <legend>IV. Cuerpo</legend>
