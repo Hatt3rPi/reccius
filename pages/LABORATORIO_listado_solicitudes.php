@@ -356,15 +356,15 @@ function confirmarEliminacion() {
     id_analisisExterno: idAnalisisExternoAEliminar,
     motivo_eliminacion: motivoEliminacion,
     fecha_eliminacion: fechaEliminacion
-  }, function(response) {
-    // Manejar la respuesta del backend
-    if (response.success) {
-      alert("El análisis externo ha sido eliminado con éxito.");
-      location.reload(); // Recargar la página o refrescar la tabla
+}, function(response) {
+    // Verificar si hubo algún error en el proceso
+    if (response.error) {
+        alert("Hubo un error al eliminar el análisis externo: " + response.error);
     } else {
-      alert("Hubo un error al eliminar el análisis externo: " + response.message);
+        alert("El análisis externo ha sido eliminado con éxito.");
+        location.reload(); // Recargar la página o refrescar la tabla
     }
-  }, "json");
+}, "json");
 
   cerrarModal();
 }
