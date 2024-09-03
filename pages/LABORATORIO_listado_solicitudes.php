@@ -66,7 +66,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
     </div>
 </body>
-
+<!-- Modal de confirmación de eliminación -->
+<div id="modalEliminar" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <h2>Confirmar Eliminación</h2>
+    <p>Por favor, ingresa la palabra <strong>'eliminar'</strong> para confirmar la acción:</p>
+    <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'eliminar'" required>
+    <p>Motivo de la eliminación:</p>
+    <textarea id="motivoEliminacion" placeholder="Ingrese el motivo de la eliminación" required></textarea>
+    <button onclick="confirmarEliminacion()">Confirmar</button>
+  </div>
+</div>
 </html>
 <script>
     // variable de main js
@@ -280,7 +291,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if ( d.estado === "Pendiente liberación productos") {
             acciones += `<button class="accion-btn" title="Solicitud Liberacion" type="button" id="${d.id_analisisExterno}" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a></a>`;
             }
-            acciones += `<button class="accion-btn" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Eliminar Análisis Externo</button><a></a>`;
+            acciones += `<button class="accion-btn" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" onclick="botones_interno(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Eliminar Análisis Externo</button><a></a>`;
             acciones += '</td></tr></table>';
 
             return acciones;
@@ -303,4 +314,56 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <?php unset($_SESSION['buscar_por_ID']); ?>
         <?php } ?>
     }
+    var idAnalisisExternoAEliminar = null;
+
+function botones_interno(id, accion, modulo) {
+  if (accion === 'eliminar_analisis_externo') {
+    idAnalisisExternoAEliminar = id;
+    abrirModal();
+  } else {
+    // manejar otras acciones
+  }
+}
+
+function abrirModal() {
+  document.getElementById("modalEliminar").style.display = "block";
+}
+
+function cerrarModal() {
+  document.getElementById("modalEliminar").style.display = "none";
+}
+
+function confirmarEliminacion() {
+  var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
+  var motivoEliminacion = document.getElementById("motivoEliminacion").value;
+
+  if (palabraConfirmacion !== 'eliminar') {
+    alert("Debe ingresar la palabra 'eliminar' para confirmar.");
+    return;
+  }
+
+  if (motivoEliminacion.trim() === "") {
+    alert("Debe ingresar un motivo de eliminación.");
+    return;
+  }
+
+  var fechaEliminacion = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+  // Enviar la solicitud POST al backend
+  $.post("pages/backend/analisis/eliminar_analisis_externoBE.php", {
+    id_analisisExterno: idAnalisisExternoAEliminar,
+    motivo_eliminacion: motivoEliminacion,
+    fecha_eliminacion: fechaEliminacion
+  }, function(response) {
+    // Manejar la respuesta del backend
+    if (response.success) {
+      alert("El análisis externo ha sido eliminado con éxito.");
+      location.reload(); // Recargar la página o refrescar la tabla
+    } else {
+      alert("Hubo un error al eliminar el análisis externo: " + response.message);
+    }
+  }, "json");
+
+  cerrarModal();
+}
 </script>
