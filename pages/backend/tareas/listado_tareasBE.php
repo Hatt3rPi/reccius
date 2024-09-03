@@ -24,6 +24,7 @@ $query = "  SELECT
             FROM tareas as a
             LEFT JOIN usuarios as b ON a.usuario_creador = b.usuario
             LEFT JOIN usuarios as c ON a.usuario_ejecutor = c.usuario
+            where a.estado not in ('eliminado_por_solicitud_usuario')
             ORDER BY a.id DESC;";
 
 $result = $link->query($query);

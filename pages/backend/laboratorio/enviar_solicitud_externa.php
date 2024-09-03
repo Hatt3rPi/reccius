@@ -11,10 +11,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     exit;
 }
 
+$host = $_SERVER['HTTP_HOST'];
+
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (
         !isset($input['id_analisis_externo']) || 
+        empty($input['subject']) || 
         empty($input['mensaje']) || 
         empty($input['altMesaje'])  ||
         empty($input['emailLab'])  ||
@@ -29,6 +32,7 @@ if (
 
 $id_analisis_externo = intval($input['id_analisis_externo']);
 $destinatarios = $input['destinatarios'];
+$subject = $input['subject'];
 $mensaje = $input['mensaje'];
 $altMesaje = $input['altMesaje'];
 $emailLab = $input['emailLab'];
@@ -40,12 +44,21 @@ $id_usuario = $_SESSION['id_usuario'];
 
 // Obtener datos del análisis externo
 $queryAnalisis = "SELECT 
-    solicitado_por, revisado_por, url_certificado_acta_de_muestreo, url_certificado_solicitud_analisis_externo, laboratorio
-    FROM calidad_analisis_externo WHERE id = ?";
+        solicitado_por, 
+        revisado_por, 
+        url_certificado_acta_de_muestreo, 
+        url_certificado_solicitud_analisis_externo, 
+        laboratorio
+    FROM 
+        calidad_analisis_externo 
+    WHERE 
+        id = ?";
+
 $stmtAnalisis = mysqli_prepare($link, $queryAnalisis);
 if (!$stmtAnalisis) {
     die(json_encode(['exito' => false, 'mensaje' => 'Error en la preparación de la consulta del análisis externo: ' . mysqli_error($link)]));
 }
+
 mysqli_stmt_bind_param($stmtAnalisis, "i", $id_analisis_externo);
 mysqli_stmt_execute($stmtAnalisis);
 $resultAnalisis = mysqli_stmt_get_result($stmtAnalisis);
@@ -71,7 +84,6 @@ if (empty($url_certificado_acta_de_muestreo) || empty($url_certificado_solicitud
     exit;
 }
 
-$asunto = "Solicitud de análisis externo";
 $cuerpo = $mensaje;
 $altBody = $altMesaje ?: strip_tags($cuerpo);
 
@@ -80,7 +92,22 @@ $laboratorio->updateCorreo($lab, $emailLab);
 //filtro de correo unico
 $destinatarios = array_map("unserialize", array_unique(array_map("serialize", $destinatarios)));
 
-$resultado = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody);
+if($host == 'reccius.cl'){
+    $destinatarios[] = 
+    [
+        'email' => 'mgodoy@reccius.cl',
+        'nombre' => 'Macarena Alejandra Godoy Castro'
+    ];
+}
+if($host == 'customware.cl'){
+    $destinatarios[] = 
+    [
+        'nombre' => 'Luciano Copia',
+        'email' => 'lucianoalonso2000@gmail.com'
+    ];
+}
+
+$resultado = enviarCorreoMultiple($destinatarios, $subject, $cuerpo, $altBody);
 if ($resultado['status'] === 'success') {
     $today = date('Y-m-d');
     $stmt = mysqli_prepare($link, "UPDATE calidad_analisis_externo 
@@ -107,7 +134,6 @@ if ($resultado['status'] === 'success') {
     $_SESSION['buscar_por_ID'] = $id_analisis_externo;
     finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Enviar a Laboratorio');
     registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados Laboratorio de solicitud: ' . $numero_solicitud, 2, 'Ingresar resultados Laboratorio', $id_analisis_externo, 'calidad_analisis_externo');
-    
 } else {
     http_response_code(400);
     echo json_encode(['exito' => false, 'mensaje' => $resultado]);

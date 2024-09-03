@@ -61,6 +61,7 @@ LEFT JOIN (
     ) b ON a.id_analisisExterno = b.id_analisisExterno
     AND a.id = b.max_id
 ) cam ON aex.id = cam.id_analisisExterno  
+where aex.estado not in ('eliminado_por_solicitud_usuario')
 ORDER BY `id_analisisExterno` DESC;";
 
 

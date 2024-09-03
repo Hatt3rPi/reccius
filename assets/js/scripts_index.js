@@ -612,6 +612,10 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
         }
         case "laboratorio": {
             switch (accion) {
+                case "eliminar_analisis_externo": {
+
+                    break;
+                }
                 case "enviarSolicitud_laboratorio": {
                     $.ajax({
                         url: '../pages/LABORATORIO_envio_laboratorio.php',

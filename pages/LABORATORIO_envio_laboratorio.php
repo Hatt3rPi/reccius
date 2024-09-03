@@ -60,6 +60,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
+                            <label for="name_lab">Con copia a:</label>
+                            <input type="text" value="mgodoy@reccius.cl" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" readonly>
+                        </div>
+                        <div class="form-group" style="width: 300px;">
+                        </div>
+                    </div>
+                    <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                        <div class="form-group" style="width: 300px;">
                             <label for="name_lab">Laboratorio:</label>
                             <input type="text" id="name_lab" name="name_lab" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" readonly required>
                         </div>
@@ -84,7 +92,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </fieldset>
             <br>
             <fieldset>
-                <legend>III. Cuerpo</legend>
+                <legend>III. Asunto</legend>
+                <br>
+                <div class="form-row justify-content-start align-items-center">
+                    <input id="subject" style="width: 600px;" name="subject" class="form-control"></input>
+                    <style>
+                        .ck.ck-editor {
+                            min-width: 600px;
+                        }
+
+                        .ck ck-editor__main {
+                            padding: auto !important;
+                        }
+                    </style>
+                </div>
+                <br>
+            </fieldset>
+            <fieldset>
+                <legend>IV. Cuerpo</legend>
                 <br>
                 <div class="form-row justify-content-start align-items-center">
                     <textarea id="editor" style="width: 600px; min-height: 300px;" name="cuerpo"></textarea>
@@ -102,7 +127,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <br>
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
             <div id="buttonContainer" class="button-container">
-                
             </div>
         </form>
         <div class="modal" id="modalInfo">
@@ -175,7 +199,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             })
         });
 
-
         function loadData() {
             fetch('./backend/laboratorio/enviar_solicitud_carga.php?id_acta=' + idAnalisisExterno, {
                     method: 'GET',
@@ -200,11 +223,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#name_lab').val(analisis.laboratorio ?? '');
                         $('#mail_lab').val(analisis.correoLab ?? '');
 
+                        $('#subject')
+                            .val(`RECCIUS | Solicitud de análisis externo ${analisis.numero_documento} - ${analisis.nombre_producto}`)
+
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
                             $('#buttonContainer')
                             .append('<button type="submit" class="botones" id="enviarCorreo">Enviar</button>');
-
                         } else {
                             $('#modalInfo').show();
 
@@ -262,13 +287,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             $('#mail_revisor').val(usuarios[1].correo) :
                             $('#mail_revisor').val(usuarios[0].correo);
                     }
-// ${analisis.url_documento_adicional}
+                    // ${analisis.url_documento_adicional}
                     if (analisis && usuarios) {
                         var hoy = moment(new Date()).format('DD/MM/YYYY');
                         var bodyMail = `
                             Estimados ${analisis.laboratorio},<br/>
-                            Junto con saludar, comento que con fecha ${hoy}, enviamos solicitud de análisis externo para el producto:  ${analisis.nombre_producto} - ${analisis.tipo_producto}.<br/><br/>
-
+                            Junto con saludar, comento que con fecha ${hoy}, enviamos solicitud de análisis externo para el producto:  ${analisis.nombre_producto} - ${analisis.tipo_producto} - Lote: ${analisis.lote}<br/><br/>
                             Adjuntamos la información necesaria para ingresar a análisis:
                             <ul>
                                 <li>
@@ -286,12 +310,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <br/>
                             PD: El correo fue generado de una casilla automática. favor derivar sus respuestas a ${
                                 usuarios.length > 1 ?
-                                    `${usuarios[0].nombre} (${usuarios[0].correo}) y ${usuarios[1].nombre} (${usuarios[1].correo})` :
-                                    `${usuarios[0].nombre} (${usuarios[0].correo})`}.<br/>
+                                    `${usuarios[0].nombre} (${usuarios[0].correo}), ${usuarios[1].nombre} (${usuarios[1].correo})` :
+                                    `${usuarios[0].nombre} (${usuarios[0].correo})`} y Macarena Alejandra Godoy Castro (mgodoy@reccius.cl).<br/>
                             Saluda atentamente,<br/>
-                            Equipo Reccius
-                            `
-
+                            Farmacéutica Reccius SPA`
+                        
                         editorInstance.setData(bodyMail);
                     }
 
@@ -353,6 +376,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             destinatarioCount = $('#destinatarios-container .destinatario-row').length;
             updateNumberDestinatario();
         }
+
         function htmlToPlainText(html) {
             let tempDiv = document.createElement("div");
             tempDiv.innerHTML = html;
@@ -371,6 +395,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             return tempDiv.textContent || tempDiv.innerText || "";
         }
+
         function enviarCorreo() {
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
@@ -382,24 +407,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     });
                 }
             });
-
             destinatarios.push({
                 email: $('#mail_lab').val(),
                 nombre: $('#name_lab').val()
             });
 
-
             var htmlMessage = editorInstance.getData();
             var plainTextMessage = htmlToPlainText(htmlMessage);
-
+            var subject = $('#subject').val();
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
                 destinatarios: destinatarios,
+                subject:subject,
                 mensaje: htmlMessage,
                 altMesaje: plainTextMessage,
                 emailLab: $('#mail_lab').val(),
             };
-            console.log(data);
 
             fetch('./backend/laboratorio/enviar_solicitud_externa.php', {
                     method: 'POST',
