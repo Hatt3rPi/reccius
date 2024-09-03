@@ -30,7 +30,8 @@ $query = "SELECT
             aex.lote
             FROM `calidad_acta_muestreo` as am
             LEFT JOIN calidad_productos as pr on am.id_producto=pr.id
-            left join calidad_analisis_externo as aex on am.id_analisisExterno=aex.id;";
+            left join calidad_analisis_externo as aex on am.id_analisisExterno=aex.id
+            where am.estado not in ('eliminado_por_solicitud_usuario');";
 
 $result = $link->query($query);
 

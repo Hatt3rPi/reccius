@@ -21,7 +21,8 @@ $query = "SELECT
                 lib.id as id_actaLiberacion
             FROM `calidad_acta_liberacion` as lib
             LEFT JOIN calidad_productos as pr 
-            on lib.id_producto=pr.id;";
+            on lib.id_producto=pr.id
+            where lib.estado not in ('eliminado_por_solicitud_usuario') ;";
 $result = $link->query($query);
 
 $data = [];
