@@ -8,8 +8,9 @@ include "../email/envia_correoBE.php";
 if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
-$correo=[];
-$resultado_correo='';
+$correo = [];
+$resultado_correo = '';
+
 function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo) {
     global $link;
 
@@ -67,15 +68,17 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     } else {
         die("Error: Hostname no reconocido. No se puede enviar el correo.");
     }
+
     // Enviar el correo
-    $resultado_correo=enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
-    $correo=[
+    $resultado_correo = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+    $correo = [
         'destinatarios' => $destinatarios,
         'asunto' => $asunto,
         'cuerpo' => $cuerpo,
         'resultado' => $resultado_correo
-    ]
-        return $correo;
+    ];
+
+    return $correo;
 }
 
 // Check if the request method is POST
@@ -102,12 +105,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $parte_ingreso = isset($input['parte_ingreso']) ? $input['parte_ingreso'] : null;
     $docConformeResults = isset($input['docConformeResults']) ? $input['docConformeResults'] : null;
     $revisionResults = isset($input['revisionResults']) ? $input['revisionResults'] : null;
-    $flujo= isset($input['fase']) ? $input['fase'] : null;
+    $flujo = isset($input['fase']) ? $input['fase'] : null;
     $year = date("y");
     $month = date("m");
     $aux_anomes = $year . $month;
-    $usuario_firma1=$_SESSION['usuario'];
-    $fecha_firma1= date("Y-m-d");
+    $usuario_firma1 = $_SESSION['usuario'];
+    $fecha_firma1 = date("Y-m-d");
     $query1 = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_liberacion WHERE aux_anomes = ? and aux_tipo=?";
     $stmt1 = mysqli_prepare($link, $query1);
     mysqli_stmt_bind_param($stmt1, "ss", $aux_anomes, $tipo_producto);
@@ -117,8 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correlativo = isset($row['max_correlativo']) ? $row['max_correlativo'] + 1 : 1;
     $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
     mysqli_stmt_close($stmt1);
+    
     // Insert/Update data in the database
-    // Adjust the query according to your table structure and field names
     $query = "INSERT INTO calidad_acta_liberacion (id_cuarentena, id_analisisExterno, id_especificacion, id_producto, id_actaMuestreo, numero_acta, numero_registro, version_registro, fecha_acta, aux_tipo, estado, obs1, obs2, obs3, obs4, cantidad_real_liberada, nro_parte_ingreso, 
     revision_estados, revision_liberacion, 
     aux_anomes, aux_autoincremental, usuario_firma1, fecha_firma1) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -177,13 +180,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             mysqli_stmt_close($stmt4);
             unset($_SESSION['buscar_por_ID']);
-            if ($exito) {
+            if ($exito_4) {
                 $_SESSION['buscar_por_ID'] = $id_cuarentena;
             }
 
             finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Emitir acta de liberación');
-            $resultado_correo_f=informativo_liberacion($fecha_firma1, $estado_producto, $id_analisis_externo);
-            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_cuarentena], 'correo' => $resultado_correo_f);
+            $resultado_correo_f = informativo_liberacion($fecha_firma1, $estado_producto, $id_analisis_externo);
+            echo json_encode([
+                'success' => 'Data saved successfully',
+                'id_actaLiberacion' => $id_actaLiberacion,
+                'id_productoAnalizado' => $id_cuarentena,
+                'correo' => $resultado_correo_f
+            ]);
         } else {
             registrarTrazabilidad(
                 $_SESSION['usuario'],
