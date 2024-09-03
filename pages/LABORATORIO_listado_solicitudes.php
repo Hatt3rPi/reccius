@@ -350,19 +350,21 @@ function confirmarEliminacion() {
   var fechaEliminacion = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
   // Enviar la solicitud POST al backend
-  $.post("pages/backend/analisis/eliminar_analisis_externoBE.php", {
+  //archivo actual pages\LABORATORIO_listado_solicitudes.php
+  //archivo destiino: pages\backend\analisis\eliminar_analisis_externoBE.php
+  $.post("./backend/analisis/eliminar_analisis_externoBE.php", {
     id_analisisExterno: idAnalisisExternoAEliminar,
     motivo_eliminacion: motivoEliminacion,
     fecha_eliminacion: fechaEliminacion
-  }, function(response) {
-    // Manejar la respuesta del backend
-    if (response.success) {
-      alert("El análisis externo ha sido eliminado con éxito.");
-      location.reload(); // Recargar la página o refrescar la tabla
+}, function(response) {
+    // Verificar si hubo algún error en el proceso
+    if (response.error) {
+        alert("Hubo un error al eliminar el análisis externo: " + response.error);
     } else {
-      alert("Hubo un error al eliminar el análisis externo: " + response.message);
+        alert("El análisis externo ha sido eliminado con éxito.");
+        location.reload(); // Recargar la página o refrescar la tabla
     }
-  }, "json");
+}, "json");
 
   cerrarModal();
 }
