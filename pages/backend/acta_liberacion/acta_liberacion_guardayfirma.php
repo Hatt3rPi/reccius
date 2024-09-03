@@ -8,7 +8,8 @@ include "../email/envia_correoBE.php";
 if ($link->connect_error) {
     die("Connection failed: " . $link->connect_error);
 }
-
+$correo=[];
+$resultado_correo='';
 function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo) {
     global $link;
 
@@ -44,8 +45,7 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
         <p>Se les informa que con fecha <strong>{$fecha_liberacion}</strong>, el producto <strong>{$producto}</strong> con lote <strong>{$lote}</strong> sale de cuarentena con el siguiente estado: <strong>{$estado}</strong>.</p>
         <p>Favor realizar las acciones necesarias para continuar con el proceso.</p>
         <p>Saludos,</p>
-        <p>Equipo Reccius</p>
-    ";
+        <p>Equipo Reccius</p>";
 
     // Obtener el hostname actual
     //$hostname = $_SERVER['SERVER_NAME'];
@@ -67,9 +67,15 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     } else {
         die("Error: Hostname no reconocido. No se puede enviar el correo.");
     }
-
     // Enviar el correo
-    enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+    $resultado_correo=enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+    $correo=[
+        'destinatarios' => $destinatarios,
+        'asunto' => $asunto,
+        'cuerpo' => $cuerpo,
+        'resultado' => $resultado_correo
+    ]
+        return $correo;
 }
 
 // Check if the request method is POST
@@ -174,9 +180,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($exito) {
                 $_SESSION['buscar_por_ID'] = $id_cuarentena;
             }
-            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_cuarentena]);
+
             finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Emitir acta de liberación');
-            informativo_liberacion($fecha_firma1, $estado_producto, $id_analisis_externo);
+            $resultado_correo_f=informativo_liberacion($fecha_firma1, $estado_producto, $id_analisis_externo);
+            echo json_encode(['success' => 'Data saved successfully', 'id_actaLiberacion' => $id_actaLiberacion, 'id_productoAnalizado' => $id_cuarentena], 'correo' => $resultado_correo_f);
         } else {
             registrarTrazabilidad(
                 $_SESSION['usuario'],
