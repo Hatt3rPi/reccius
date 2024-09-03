@@ -35,12 +35,22 @@ function ejecutarConsulta($link, $query, $params, $param_types)
 
 // Obtener datos del análisis externo
 $queryAnalisis = "SELECT 
-                    aex.numero_registro, aex.numero_solicitud, aex.fecha_registro, 
-                    aex.solicitado_por, aex.revisado_por, aex.laboratorio,
-                    aex.url_certificado_acta_de_muestreo, aex.url_certificado_solicitud_analisis_externo,
-                    pr.nombre_producto, pr.tipo_producto, pr.tipo_concentracion, pr.formato, aex.url_documento_adicional
-                    FROM calidad_analisis_externo as aex left join calidad_productos as pr on aex.id_producto=pr.id
-                    WHERE aex.id = ?;";
+                    aex.numero_registro, aex.numero_solicitud, 
+                    aex.fecha_registro, aex.solicitado_por, 
+                    aex.revisado_por, aex.laboratorio,
+                    aex.url_certificado_acta_de_muestreo, 
+                    aex.url_certificado_solicitud_analisis_externo, 
+                    aex.url_documento_adicional, aex.numero_documento,
+                    aex.lote,
+                    pr.nombre_producto, pr.tipo_producto, 
+                    pr.tipo_concentracion, pr.formato
+                    FROM calidad_analisis_externo as aex 
+                        left join calidad_productos as pr 
+                    ON 
+                        aex.id_producto=pr.id
+                    WHERE 
+                        aex.id = ?;";
+
 $analisis = ejecutarConsulta($link, $queryAnalisis, [$id_acta], 'i');
 // Obtener datos del acta de muestreo
 $queryActa = "SELECT 
