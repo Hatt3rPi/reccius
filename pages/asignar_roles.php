@@ -52,15 +52,24 @@
 
             const table = $('#usuariosTable').DataTable({
                 data: usuariosData.data,
-                columns: [
-                    { data: 'id' },
-                    { data: 'usuario' },
-                    { data: 'nombre' },
-                    { data: 'correo' },
-                    { data: 'cargo' },
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'usuario'
+                    },
+                    {
+                        data: 'nombre'
+                    },
+                    {
+                        data: 'correo'
+                    },
+                    {
+                        data: 'cargo'
+                    },
                     {
                         data: 'rol',
-                        render: function (data, type, row) {
+                        render: function(data, type, row) {
                             return `<select class="rolSelect" data-id="${row.id}">
                                         ${getRolesOptions(row.rol_id)}
                                     </select>`;
@@ -68,19 +77,30 @@
                     },
                     {
                         data: null,
-                        defaultContent: '<button class="btnGuardar">Guardar</button>',
+                        render: function(data, type, row) {
+                            return `
+                                <button class="btnGuardar">Guardar</button>
+                                <button class="btnEliminar" data-id="${row.id}">Eliminar</button>
+                            `;
+                        },
                         orderable: false
                     }
                 ]
             });
 
             // Evento para guardar el rol seleccionado
-            $('#usuariosTable tbody').on('click', '.btnGuardar', function () {
+            $('#usuariosTable tbody').on('click', '.btnGuardar', function() {
                 const data = table.row($(this).parents('tr')).data();
                 const usuario_id = data.id;
                 const rol_id = $(this).parents('tr').find('.rolSelect').val();
 
                 actualizarRolUsuario(usuario_id, rol_id);
+            });
+
+            // Evento para eliminar un usuario
+            $('#usuariosTable tbody').on('click', '.btnEliminar', function() {
+                const usuario_id = $(this).data('id');
+                eliminarUsuario(usuario_id, table);
             });
 
         } catch (error) {
@@ -119,10 +139,39 @@
         }
     }
 
+    // Función para eliminar el usuario
+    async function eliminarUsuario(usuario_id, table) {
+        if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+            try {
+                const response = await fetch('./backend/administracion_usuarios/eliminar_usuarioBE.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `usuario_id=${usuario_id}`
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    alert('Usuario eliminado correctamente');
+                    // Eliminar la fila de la tabla
+                    table.row($(`[data-id="${usuario_id}"]`).parents('tr')).remove().draw();
+                } else {
+                    alert('Error al eliminar el usuario');
+                }
+
+            } catch (error) {
+                console.error('Error al eliminar el usuario:', error);
+            }
+        }
+    }
+
     // Cargar la tabla cuando el documento esté listo
-    $(document).ready(function () {
+    $(document).ready(function() {
         cargarUsuarios();
     });
 </script>
+
 
 </html>
