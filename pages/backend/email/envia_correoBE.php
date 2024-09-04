@@ -52,7 +52,11 @@ function enviarCorreo($destinatario, $nombreDestinatario, $asunto, $cuerpo, $alt
 
 function enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo, $altBody = '', $cc = []) {
     $mail = new PHPMailer(true);
+    $errores = [];
+    $exitos = [];
+
     try {
+        // Configuración del servidor SMTP
         $mail->isSMTP();
         $mail->Host = SMTP_HOST;
         $mail->SMTPAuth = true;
@@ -61,19 +65,41 @@ function enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo, $altBody = '
         $mail->SMTPSecure = SMTP_SECURE;
         $mail->Port = SMTP_PORT;
         $mail->CharSet = 'UTF-8';
-
         $mail->setFrom(SMTP_USER, 'Reccius - No responder');
 
-        // Agregar destinatarios
+        // Validación de destinatarios
+        if (empty($destinatarios)) {
+            throw new Exception("Error: La lista de destinatarios está vacía.");
+        }
+
         foreach ($destinatarios as $destinatario) {
+            if (!filter_var($destinatario['email'], FILTER_VALIDATE_EMAIL)) {
+                throw new Exception("Error: Dirección de correo no válida: " . $destinatario['email']);
+            }
+            if (empty($destinatario['nombre'])) {
+                throw new Exception("Error: Nombre vacío para el correo: " . $destinatario['email']);
+            }
             $mail->addAddress($destinatario['email'], $destinatario['nombre']);
         }
 
         // Agregar CC (si existen)
         if (!empty($cc)) {
             foreach ($cc as $copiado) {
+                if (!filter_var($copiado['email'], FILTER_VALIDATE_EMAIL)) {
+                    throw new Exception("Error: Dirección de correo CC no válida: " . $copiado['email']);
+                }
                 $mail->addCC($copiado['email'], $copiado['nombre']);
             }
+        }
+
+        // Validación del asunto
+        if (empty($asunto)) {
+            throw new Exception("Error: El asunto del correo está vacío.");
+        }
+
+        // Validación del cuerpo del mensaje
+        if (empty($cuerpo)) {
+            throw new Exception("Error: El cuerpo del correo está vacío.");
         }
 
         $mail->isHTML(true);
@@ -81,13 +107,33 @@ function enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo, $altBody = '
         $mail->Body    = $cuerpo;
         $mail->AltBody = $altBody ?: strip_tags($cuerpo);
 
-        $mail->send();
-        return true;
+        // Intentar enviar el correo
+        if (!$mail->send()) {
+            $errores[] = "Error al enviar correo: " . $mail->ErrorInfo;
+            error_log("Error al enviar correo: " . $mail->ErrorInfo);
+            return [
+                'status' => 'error',
+                'message' => 'No se pudo enviar el correo.',
+                'errores' => $errores
+            ];
+        } else {
+            $exitos[] = $destinatarios;
+            return [
+                'status' => 'success',
+                'message' => 'El correo se envió con éxito.',
+                'enviados' => $exitos
+            ];
+        }
     } catch (Exception $e) {
-        error_log("Error al enviar correo: {$mail->ErrorInfo}");
-        return false;
+        error_log("Excepción capturada: " . $e->getMessage());
+        return [
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'errores' => $errores
+        ];
     }
 }
+
 
 
 
