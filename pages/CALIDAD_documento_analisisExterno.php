@@ -79,6 +79,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Laboratorio Analista:(*)</td>
                         <td><input type="text" id="laboratorio" name="laboratorio" required></td>
+                        <td class="titulo titulo-right">Tipo de Analisis:</td>
+                        <td><input type="text" id="Tipo_Analisis" name="Tipo_Analisis" required></td>
 
                     </tr>
                     <tr>
