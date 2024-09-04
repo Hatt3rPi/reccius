@@ -50,6 +50,47 @@ function enviarCorreo($destinatario, $nombreDestinatario, $asunto, $cuerpo, $alt
     }
 }
 
+function enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo, $altBody = '', $cc = []) {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USER;
+        $mail->Password = SMTP_PASS;
+        $mail->SMTPSecure = SMTP_SECURE;
+        $mail->Port = SMTP_PORT;
+        $mail->CharSet = 'UTF-8';
+
+        $mail->setFrom(SMTP_USER, 'Reccius - No responder');
+
+        // Agregar destinatarios
+        foreach ($destinatarios as $destinatario) {
+            $mail->addAddress($destinatario['email'], $destinatario['nombre']);
+        }
+
+        // Agregar CC (si existen)
+        if (!empty($cc)) {
+            foreach ($cc as $copiado) {
+                $mail->addCC($copiado['email'], $copiado['nombre']);
+            }
+        }
+
+        $mail->isHTML(true);
+        $mail->Subject = $asunto;
+        $mail->Body    = $cuerpo;
+        $mail->AltBody = $altBody ?: strip_tags($cuerpo);
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        error_log("Error al enviar correo: {$mail->ErrorInfo}");
+        return false;
+    }
+}
+
+
+
 function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
     $mail = new PHPMailer(true);
     $errores = [];

@@ -36,7 +36,7 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
         $lote = "DESCONOCIDO";
     }
 
-    $asunto = "RECCIUS informa | Salida de Cuarentena de {$tipo_producto} - {$producto} - lote: {$lote}";
+    $asunto = "RECCIUS | Salida de Cuarentena de {$tipo_producto} - {$producto} - lote: {$lote}";
     $estado = strtoupper($estado);
     $fecha_liberacion = strtoupper($fecha_liberacion);
 
@@ -50,7 +50,8 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
 
     // Obtener el hostname actual
     //$hostname = $_SERVER['SERVER_NAME'];
-    $hostname = 'customware.cl';
+    $hostname = $_SERVER['HTTP_HOST'];
+    //$hostname = 'customware.cl';
 
     // Seleccionar la lista de destinatarios según el hostname
     if ($hostname === 'customware.cl') {
@@ -70,8 +71,8 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     }
 
     // Enviar el correo
-    //$resultado_correo = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
-    $resultado_correo = 'test'; //enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+    $resultado_correo = enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo);
+    //$resultado_correo = $_SERVER['SERVER_NAME']; //enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
 
     $correo = [
         'destinatarios' => $destinatarios,
