@@ -8,7 +8,7 @@ if (!$link) {
 
 // Consulta para obtener todos los usuarios con su rol asociado
 $query = "
-    SELECT u.id, u.usuario, u.nombre, u.correo, u.cargo, r.nombre AS rol 
+    SELECT u.id, u.usuario, u.nombre, u.correo, u.cargo, u.rol_id, r.nombre AS rol 
     FROM usuarios u 
     LEFT JOIN roles r ON u.rol_id = r.id
 ";

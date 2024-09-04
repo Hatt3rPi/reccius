@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="../assets/css/Listados.css">
+
 </head>
 
 <body>
@@ -33,7 +34,7 @@
 </body>
 
 <script>
-    // Función para cargar los usuarios y roles
+    // Función para cargar los usuarios en la tabla
     async function cargarUsuarios() {
         try {
             const response = await fetch('./backend/administracion_usuarios/obtener_usuariosBE.php');
@@ -82,7 +83,7 @@
     // Función para obtener las opciones de los roles
     async function getRolesOptions(rolActualId, rolActualNombre) {
         try {
-            const response = await fetch('./backend/administracion_usuarios/obtener_rolesBE.php'); // Debes crear esta ruta que devuelve los roles de la DB
+            const response = await fetch('./backend/administracion_usuarios/obtener_rolesBE.php'); // Ruta que devuelve los roles de la base de datos
             if (!response.ok) throw new Error('Error al cargar los roles');
 
             const roles = await response.json();
@@ -97,6 +98,7 @@
 
         } catch (error) {
             console.error('Error al obtener los roles:', error);
+            // Retornar una opción vacía si hay un error
             return `<option value="${rolActualId}" selected>${rolActualNombre}</option>`;
         }
     }
