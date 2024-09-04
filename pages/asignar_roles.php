@@ -46,7 +46,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // Función para cargar los usuarios en la tabla
     function cargarUsuarios() {
         var table = $('#usuariosTable').DataTable({
-            "ajax": "./backend/obtener_usuarios.php", // Ruta del archivo PHP que devuelve la lista de usuarios en JSON
+            "ajax": "./backend/administracion_usuarios/obtener_usuariosBE.php", // Ruta del archivo PHP que devuelve la lista de usuarios en JSON
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
             },
@@ -97,7 +97,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     // Función para actualizar el rol del usuario
     function actualizarRolUsuario(usuario_id, rol_id) {
-        fetch('./backend/asignar_permisosBE.php', {
+        fetch('./backend/administracion_usuarios/asignar_permisosBE.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
