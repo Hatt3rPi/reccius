@@ -70,16 +70,19 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     }
 
     // Enviar el correo
-    $resultado_correo = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+    //$resultado_correo = enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+    $resultado_correo = 'test'; //enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
+
     $correo = [
         'destinatarios' => $destinatarios,
         'asunto' => $asunto,
         'cuerpo' => $cuerpo,
         'resultado' => $resultado_correo
-    ];
+    ]; // Asegúrate de tener este punto y coma
 
     return $correo;
 }
+
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
