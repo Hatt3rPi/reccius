@@ -45,20 +45,29 @@
             .then(data => {
                 var table = $('#usuariosTable').DataTable({
                     data: data.data, // Los datos que vienen desde la respuesta del fetch
-                    columns: [
-                        { data: 'id' },
-                        { data: 'usuario' },
-                        { data: 'nombre' },
-                        { data: 'correo' },
-                        { data: 'cargo' },  // Añadimos la columna cargo
+                    columns: [{
+                            data: 'id'
+                        },
                         {
-                            data: 'rol',  // Ahora el rol viene desde la tabla roles
+                            data: 'usuario'
+                        },
+                        {
+                            data: 'nombre'
+                        },
+                        {
+                            data: 'correo'
+                        },
+                        {
+                            data: 'cargo'
+                        }, // Añadimos la columna cargo
+                        {
+                            data: 'rol', // Ahora el rol viene desde la tabla roles
                             render: function(data, type, row) {
                                 return `
-                                    <select class="rolSelect" data-id="${row.id}">
-                                        ${getRolesOptions(data)}
-                                    </select>
-                                `;
+            <select class="rolSelect" data-id="${row.id}">
+                ${getRolesOptions(data)}
+            </select>
+        `;
                             }
                         },
                         {
@@ -70,7 +79,7 @@
                 });
 
                 // Evento para guardar el rol seleccionado
-                $('#usuariosTable tbody').on('click', '.btnGuardar', function () {
+                $('#usuariosTable tbody').on('click', '.btnGuardar', function() {
                     var data = table.row($(this).parents('tr')).data();
                     var usuario_id = data.id;
                     var rol_id = $(this).parents('tr').find('.rolSelect').val();
@@ -97,24 +106,24 @@
     // Función para actualizar el rol del usuario
     function actualizarRolUsuario(usuario_id, rol_id) {
         fetch('./backend/administracion_usuarios/asignar_permisosBE.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `usuario_id=${usuario_id}&rol_id=${rol_id}`
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al actualizar el rol');
-            }
-            return response.text();
-        })
-        .then(data => {
-            alert('Rol actualizado correctamente');
-        })
-        .catch(error => {
-            console.error('Error al actualizar el rol:', error);
-        });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `usuario_id=${usuario_id}&rol_id=${rol_id}`
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al actualizar el rol');
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert('Rol actualizado correctamente');
+            })
+            .catch(error => {
+                console.error('Error al actualizar el rol:', error);
+            });
     }
 
     // Cargar la tabla cuando el documento esté listo

@@ -6,7 +6,7 @@ if (!$link) {
     die(json_encode(['error' => 'Error en la conexión a la base de datos.']));
 }
 
-// Consulta para obtener todos los usuarios y sus roles (incluyendo el cargo)
+// Consulta para obtener todos los usuarios con su rol asociado
 $query = "
     SELECT u.id, u.usuario, u.nombre, u.correo, u.cargo, r.nombre AS rol 
     FROM usuarios u 
