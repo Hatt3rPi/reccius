@@ -1,19 +1,11 @@
-<?php
-session_start();
-
-// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirigir al usuario a la página de inicio de sesión.
-    header("Location: login.html");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <link rel="stylesheet" href="../assets/css/Listados.css">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -30,6 +22,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th>Usuario</th>
                         <th>Nombre</th>
                         <th>Correo</th>
+                        <th>Cargo</th>
                         <th>Rol</th>
                         <th>Acción</th>
                     </tr>
@@ -45,43 +38,52 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     // Función para cargar los usuarios en la tabla
     function cargarUsuarios() {
-        var table = $('#usuariosTable').DataTable({
-            "ajax": "./backend/administracion_usuarios/obtener_usuariosBE.php", // Ruta del archivo PHP que devuelve la lista de usuarios en JSON
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
-            },
-            "columns": [
-                { "data": "id", "title": "ID" },
-                { "data": "usuario", "title": "Usuario" },
-                { "data": "nombre", "title": "Nombre" },
-                { "data": "correo", "title": "Correo" },
-                { 
-                    "data": "rol", 
-                    "title": "Rol",
-                    "render": function(data, type, row) {
-                        return `
-                            <select class="rolSelect" data-id="${row.id}">
-                                ${getRolesOptions(data)}
-                            </select>
-                        `;
-                    }
-                },
-                {
-                    "data": null,
-                    "defaultContent": '<button class="btnGuardar">Guardar</button>',
-                    "orderable": false
+        fetch('./backend/administracion_usuarios/obtener_usuariosBE.php') // Ruta del archivo PHP que devuelve la lista de usuarios en JSON
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
                 }
-            ]
-        });
+                return response.json(); // Convertir la respuesta en JSON
+            })
+            .then(data => {
+                var table = $('#usuariosTable').DataTable({
+                    data: data.data, // Los datos que vienen desde la respuesta del fetch
+                    columns: [
+                        { data: 'id' },
+                        { data: 'usuario' },
+                        { data: 'nombre' },
+                        { data: 'correo' },
+                        { data: 'cargo' },  // Añadimos la columna cargo
+                        {
+                            data: 'rol',  // Ahora el rol viene desde la tabla roles
+                            render: function(data, type, row) {
+                                return `
+                                    <select class="rolSelect" data-id="${row.id}">
+                                        ${getRolesOptions(data)}
+                                    </select>
+                                `;
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: '<button class="btnGuardar">Guardar</button>',
+                            orderable: false
+                        }
+                    ]
+                });
 
-        // Evento para guardar el rol seleccionado
-        $('#usuariosTable tbody').on('click', '.btnGuardar', function () {
-            var data = table.row($(this).parents('tr')).data();
-            var usuario_id = data.id;
-            var rol_id = $(this).parents('tr').find('.rolSelect').val();
+                // Evento para guardar el rol seleccionado
+                $('#usuariosTable tbody').on('click', '.btnGuardar', function () {
+                    var data = table.row($(this).parents('tr')).data();
+                    var usuario_id = data.id;
+                    var rol_id = $(this).parents('tr').find('.rolSelect').val();
 
-            actualizarRolUsuario(usuario_id, rol_id);
-        });
+                    actualizarRolUsuario(usuario_id, rol_id);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar los usuarios:', error);
+            });
     }
 
     // Función para obtener las opciones de los roles
@@ -104,7 +106,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             },
             body: `usuario_id=${usuario_id}&rol_id=${rol_id}`
         })
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al actualizar el rol');
+            }
+            return response.text();
+        })
         .then(data => {
             alert('Rol actualizado correctamente');
         })
