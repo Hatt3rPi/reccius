@@ -801,10 +801,10 @@ $link->close();
                         // Actualizar los inputs con los datos del análisis
                         $('#nro_registro').text(campos.numero_registro);
                         $('#nro_version').text(campos.version_registro);
-                        $('#nro_acta').text(campos.numero_acta);
+                        $('#nro_acta').text(campos.numero_acta_liberacion);
                         $('#fecha_acta_lib').val(campos.fecha_liberacion);
                         $('#fecha_lib').val(campos.fecha_liberacion);
-                        $('#nro_acta_liberacion').val(campos.numero_acta);
+                        $('#nro_acta_liberacion').val(campos.numero_acta_liberacion);
 
                         $('#nro_lote').val(campos.lote);
                         $('#tipo_producto').val(campos.prod_tipo_producto);

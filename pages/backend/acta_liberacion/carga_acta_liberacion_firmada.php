@@ -20,6 +20,7 @@ try {
     // Consulta para obtener los datos del análisis externo
     $query_liberacion = "SELECT
                                 lib.*,
+                                lib.numero_acta as acta_liberacion,
                                 an.lote, 
                                 an.tamano_lote,
                                 an.codigo_mastersoft,
@@ -49,7 +50,6 @@ try {
                                 es.version AS 'es_version',
                                 es.codigo_mastersoft as 'codigo_mastersoft_interno',
                                 am.fecha_muestreo,
-                                am.numero_acta,
                                 am.id AS id_actaMuestreo,
                                 usr1.nombre as nombre_usr1, usr1.cargo as cargo_usr1, 
                                 CASE
