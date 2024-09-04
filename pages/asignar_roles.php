@@ -3,7 +3,6 @@
 
 <head>
     <link rel="stylesheet" href="../assets/css/Listados.css">
-
 </head>
 
 <body>
@@ -34,27 +33,36 @@
 </body>
 
 <script>
-    // Función para cargar los usuarios en la tabla
+    let rolesCache = [];
+
+    // Función para cargar los usuarios y los roles (solo una solicitud para roles)
     async function cargarUsuarios() {
         try {
-            const response = await fetch('./backend/administracion_usuarios/obtener_usuariosBE.php');
-            if (!response.ok) throw new Error('Error en la respuesta del servidor');
+            const [usuariosResponse, rolesResponse] = await Promise.all([
+                fetch('./backend/administracion_usuarios/obtener_usuariosBE.php'),
+                fetch('./backend/administracion_usuarios/obtener_rolesBE.php')
+            ]);
 
-            const data = await response.json();
+            if (!usuariosResponse.ok || !rolesResponse.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+
+            const usuariosData = await usuariosResponse.json();
+            rolesCache = await rolesResponse.json(); // Guardar los roles en el cache
 
             const table = $('#usuariosTable').DataTable({
-                data: data.data,
+                data: usuariosData.data,
                 columns: [
                     { data: 'id' },
                     { data: 'usuario' },
                     { data: 'nombre' },
                     { data: 'correo' },
-                    { data: 'cargo' }, 
+                    { data: 'cargo' },
                     {
                         data: 'rol',
-                        render: function(data, type, row) {
+                        render: function (data, type, row) {
                             return `<select class="rolSelect" data-id="${row.id}">
-                                        ${getRolesOptions(row.rol_id, data)}
+                                        ${getRolesOptions(row.rol_id)}
                                     </select>`;
                         }
                     },
@@ -67,7 +75,7 @@
             });
 
             // Evento para guardar el rol seleccionado
-            $('#usuariosTable tbody').on('click', '.btnGuardar', function() {
+            $('#usuariosTable tbody').on('click', '.btnGuardar', function () {
                 const data = table.row($(this).parents('tr')).data();
                 const usuario_id = data.id;
                 const rol_id = $(this).parents('tr').find('.rolSelect').val();
@@ -76,31 +84,20 @@
             });
 
         } catch (error) {
-            console.error('Error al cargar los usuarios:', error);
+            console.error('Error al cargar los usuarios o roles:', error);
         }
     }
 
-    // Función para obtener las opciones de los roles
-    async function getRolesOptions(rolActualId, rolActualNombre) {
-        try {
-            const response = await fetch('./backend/administracion_usuarios/obtener_rolesBE.php'); // Ruta que devuelve los roles de la base de datos
-            if (!response.ok) throw new Error('Error al cargar los roles');
+    // Función para obtener las opciones de los roles desde el cache
+    function getRolesOptions(rolActualId) {
+        let options = '';
 
-            const roles = await response.json();
-            let options = '';
+        rolesCache.forEach(rol => {
+            const selected = rol.id == rolActualId ? 'selected' : '';
+            options += `<option value="${rol.id}" ${selected}>${rol.nombre}</option>`;
+        });
 
-            roles.forEach(rol => {
-                const selected = rol.id === rolActualId ? 'selected' : '';
-                options += `<option value="${rol.id}" ${selected}>${rol.nombre}</option>`;
-            });
-
-            return options;
-
-        } catch (error) {
-            console.error('Error al obtener los roles:', error);
-            // Retornar una opción vacía si hay un error
-            return `<option value="${rolActualId}" selected>${rolActualNombre}</option>`;
-        }
+        return options;
     }
 
     // Función para actualizar el rol del usuario
@@ -123,7 +120,7 @@
     }
 
     // Cargar la tabla cuando el documento esté listo
-    $(document).ready(function() {
+    $(document).ready(function () {
         cargarUsuarios();
     });
 </script>
