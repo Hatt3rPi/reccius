@@ -47,7 +47,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    
 
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
