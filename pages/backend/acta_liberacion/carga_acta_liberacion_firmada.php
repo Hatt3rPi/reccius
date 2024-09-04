@@ -20,6 +20,7 @@ try {
     // Consulta para obtener los datos del análisis externo
     $query_liberacion = "SELECT
                                 lib.*,
+                                lib.numero_acta as acta_liberacion,
                                 an.lote, 
                                 an.tamano_lote,
                                 an.codigo_mastersoft,
