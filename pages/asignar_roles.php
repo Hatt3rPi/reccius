@@ -33,97 +33,91 @@
 </body>
 
 <script>
-    // Función para cargar los usuarios en la tabla
-    function cargarUsuarios() {
-        fetch('./backend/administracion_usuarios/obtener_usuariosBE.php') // Ruta del archivo PHP que devuelve la lista de usuarios en JSON
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json(); // Convertir la respuesta en JSON
-            })
-            .then(data => {
-                var table = $('#usuariosTable').DataTable({
-                    data: data.data, // Los datos que vienen desde la respuesta del fetch
-                    columns: [{
-                            data: 'id'
-                        },
-                        {
-                            data: 'usuario'
-                        },
-                        {
-                            data: 'nombre'
-                        },
-                        {
-                            data: 'correo'
-                        },
-                        {
-                            data: 'cargo'
-                        }, // Añadimos la columna cargo
-                        {
-                            data: 'rol', // Ahora el rol viene desde la tabla roles
-                            render: function(data, type, row) {
-                                return `
-            <select class="rolSelect" data-id="${row.id}">
-                ${getRolesOptions(data)}
-            </select>
-        `;
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '<button class="btnGuardar">Guardar</button>',
-                            orderable: false
+    // Función para cargar los usuarios y roles
+    async function cargarUsuarios() {
+        try {
+            const response = await fetch('./backend/administracion_usuarios/obtener_usuariosBE.php');
+            if (!response.ok) throw new Error('Error en la respuesta del servidor');
+
+            const data = await response.json();
+
+            const table = $('#usuariosTable').DataTable({
+                data: data.data,
+                columns: [
+                    { data: 'id' },
+                    { data: 'usuario' },
+                    { data: 'nombre' },
+                    { data: 'correo' },
+                    { data: 'cargo' }, 
+                    {
+                        data: 'rol',
+                        render: function(data, type, row) {
+                            return `<select class="rolSelect" data-id="${row.id}">
+                                        ${getRolesOptions(row.rol_id, data)}
+                                    </select>`;
                         }
-                    ]
-                });
-
-                // Evento para guardar el rol seleccionado
-                $('#usuariosTable tbody').on('click', '.btnGuardar', function() {
-                    var data = table.row($(this).parents('tr')).data();
-                    var usuario_id = data.id;
-                    var rol_id = $(this).parents('tr').find('.rolSelect').val();
-
-                    actualizarRolUsuario(usuario_id, rol_id);
-                });
-            })
-            .catch(error => {
-                console.error('Error al cargar los usuarios:', error);
+                    },
+                    {
+                        data: null,
+                        defaultContent: '<button class="btnGuardar">Guardar</button>',
+                        orderable: false
+                    }
+                ]
             });
+
+            // Evento para guardar el rol seleccionado
+            $('#usuariosTable tbody').on('click', '.btnGuardar', function() {
+                const data = table.row($(this).parents('tr')).data();
+                const usuario_id = data.id;
+                const rol_id = $(this).parents('tr').find('.rolSelect').val();
+
+                actualizarRolUsuario(usuario_id, rol_id);
+            });
+
+        } catch (error) {
+            console.error('Error al cargar los usuarios:', error);
+        }
     }
 
     // Función para obtener las opciones de los roles
-    function getRolesOptions(rolActual) {
-        const roles = ['Administrador', 'Supervisor Calidad', 'Vendedor', 'Invitado']; // Aquí podrías hacer que se carguen dinámicamente también
-        let options = '';
-        roles.forEach(rol => {
-            const selected = rol === rolActual ? 'selected' : '';
-            options += `<option value="${rol}" ${selected}>${rol}</option>`;
-        });
-        return options;
+    async function getRolesOptions(rolActualId, rolActualNombre) {
+        try {
+            const response = await fetch('./backend/administracion_usuarios/obtener_rolesBE.php'); // Debes crear esta ruta que devuelve los roles de la DB
+            if (!response.ok) throw new Error('Error al cargar los roles');
+
+            const roles = await response.json();
+            let options = '';
+
+            roles.forEach(rol => {
+                const selected = rol.id === rolActualId ? 'selected' : '';
+                options += `<option value="${rol.id}" ${selected}>${rol.nombre}</option>`;
+            });
+
+            return options;
+
+        } catch (error) {
+            console.error('Error al obtener los roles:', error);
+            return `<option value="${rolActualId}" selected>${rolActualNombre}</option>`;
+        }
     }
 
     // Función para actualizar el rol del usuario
-    function actualizarRolUsuario(usuario_id, rol_id) {
-        fetch('./backend/administracion_usuarios/asignar_permisosBE.php', {
+    async function actualizarRolUsuario(usuario_id, rol_id) {
+        try {
+            const response = await fetch('./backend/administracion_usuarios/asignar_permisosBE.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: `usuario_id=${usuario_id}&rol_id=${rol_id}`
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error al actualizar el rol');
-                }
-                return response.text();
-            })
-            .then(data => {
-                alert('Rol actualizado correctamente');
-            })
-            .catch(error => {
-                console.error('Error al actualizar el rol:', error);
             });
+
+            if (!response.ok) throw new Error('Error al actualizar el rol');
+            alert('Rol actualizado correctamente');
+
+        } catch (error) {
+            console.error('Error al actualizar el rol:', error);
+        }
     }
 
     // Cargar la tabla cuando el documento esté listo
