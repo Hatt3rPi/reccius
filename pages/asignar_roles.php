@@ -29,6 +29,33 @@
                 </tbody>
             </table>
         </div>
+        <div id="rolesFormContainer" style="margin-top: 50px;">
+            <h3>Asignar Permisos a los Roles</h3>
+            <form id="formPermisos">
+                <label for="rolSelect">Selecciona un Rol:</label>
+                <select id="rolSelect" name="rol" style="width: 100%;">
+                    <!-- Aquí se insertarán dinámicamente los roles -->
+                </select>
+                <h4>Permisos disponibles:</h4>
+                <div class="form-group">
+                    <input type="checkbox" id="permiso1" name="permisos[]" value="ver_dashboard">
+                    <label for="permiso1">Ver Dashboard</label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="permiso2" name="permisos[]" value="gestionar_usuarios">
+                    <label for="permiso2">Gestionar Usuarios</label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="permiso3" name="permisos[]" value="ver_reportes">
+                    <label for="permiso3">Ver Reportes</label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="permiso4" name="permisos[]" value="administrar_productos">
+                    <label for="permiso4">Administrar Productos</label>
+                </div>
+                <button type="submit">Guardar Permisos</button>
+            </form>
+        </div>
     </div>
 </body>
 
