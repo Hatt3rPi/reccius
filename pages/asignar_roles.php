@@ -1,100 +1,122 @@
+<?php
+session_start();
+
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Usuarios</title>
     <link rel="stylesheet" href="../assets/css/Listados.css">
+
 </head>
+
 <body>
-    <div class="container">
-        <h2>Lista de Usuarios</h2>
-        <table id="usuariosTable" class="display">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Usuario</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Rol</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- El contenido de la tabla se llenará dinámicamente -->
-            </tbody>
-        </table>
+    <div class="form-container">
+        <h1>Administración / Gestión de Roles de Usuarios</h1>
+        <br><br>
+        <h2 class="section-title">Listado de Usuarios y Roles:</h2>
+
+        <div id="contenedor_listado">
+            <table id="usuariosTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los datos dinámicos de la tabla se insertarán aquí -->
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <script>
-        // Función para cargar los usuarios en la tabla
-        function cargarUsuarios() {
-            fetch('./backend/administracion_usuarios/obtener_usuariosBE.php') // Llama al archivo PHP que devuelve los usuarios
-                .then(response => response.json())
-                .then(data => {
-                    const table = $('#usuariosTable').DataTable();
-                    data.forEach(usuario => {
-                        // Crear las filas dinámicamente para cada usuario
-                        table.row.add([
-                            usuario.id,
-                            usuario.usuario,
-                            usuario.nombre,
-                            usuario.correo,
-                            `<select class="rolSelect" data-id="${usuario.id}">
-                                ${getRolesOptions(usuario.rol)}
-                             </select>`,
-                            `<button class="btnGuardar" data-id="${usuario.id}">Guardar</button>`
-                        ]).draw(false);
-                    });
-
-                    // Agregar event listeners para los botones "Guardar"
-                    document.querySelectorAll('.btnGuardar').forEach(button => {
-                        button.addEventListener('click', function () {
-                            const usuario_id = this.getAttribute('data-id');
-                            const rol_id = this.closest('tr').querySelector('.rolSelect').value;
-
-                            // Llamar a la función para actualizar el rol del usuario
-                            actualizarRolUsuario(usuario_id, rol_id);
-                        });
-                    });
-                })
-                .catch(error => console.error('Error al cargar los usuarios:', error));
-        }
-
-        // Función para generar el selector de roles dinámico
-        function getRolesOptions(rolActual) {
-            const roles = ['Administrador', 'Supervisor Calidad', 'Vendedor', 'Invitado']; // Puedes obtener estos roles dinámicamente si es necesario
-            let options = '';
-            roles.forEach(rol => {
-                const selected = rol === rolActual ? 'selected' : '';
-                options += `<option value="${rol}" ${selected}>${rol}</option>`;
-            });
-            return options;
-        }
-
-        // Función para actualizar el rol del usuario
-        function actualizarRolUsuario(usuario_id, rol_id) {
-            fetch('./backend/administracion_usuarios/asignar_permisosBE.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `usuario_id=${usuario_id}&rol_id=${rol_id}`
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert('Rol actualizado correctamente');
-            })
-            .catch(error => {
-                console.error('Error al actualizar el rol:', error);
-            });
-        }
-
-        // Inicializar DataTable y cargar los usuarios
-        $(document).ready(function() {
-            $('#usuariosTable').DataTable();
-            cargarUsuarios();
-        });
-    </script>
 </body>
+
+<script>
+    // Función para cargar los usuarios en la tabla
+    function cargarUsuarios() {
+        var table = $('#usuariosTable').DataTable({
+            "ajax": "./backend/obtener_usuarios.php", // Ruta del archivo PHP que devuelve la lista de usuarios en JSON
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
+            },
+            "columns": [
+                { "data": "id", "title": "ID" },
+                { "data": "usuario", "title": "Usuario" },
+                { "data": "nombre", "title": "Nombre" },
+                { "data": "correo", "title": "Correo" },
+                { 
+                    "data": "rol", 
+                    "title": "Rol",
+                    "render": function(data, type, row) {
+                        return `
+                            <select class="rolSelect" data-id="${row.id}">
+                                ${getRolesOptions(data)}
+                            </select>
+                        `;
+                    }
+                },
+                {
+                    "data": null,
+                    "defaultContent": '<button class="btnGuardar">Guardar</button>',
+                    "orderable": false
+                }
+            ]
+        });
+
+        // Evento para guardar el rol seleccionado
+        $('#usuariosTable tbody').on('click', '.btnGuardar', function () {
+            var data = table.row($(this).parents('tr')).data();
+            var usuario_id = data.id;
+            var rol_id = $(this).parents('tr').find('.rolSelect').val();
+
+            actualizarRolUsuario(usuario_id, rol_id);
+        });
+    }
+
+    // Función para obtener las opciones de los roles
+    function getRolesOptions(rolActual) {
+        const roles = ['Administrador', 'Supervisor Calidad', 'Vendedor', 'Invitado']; // Aquí podrías hacer que se carguen dinámicamente también
+        let options = '';
+        roles.forEach(rol => {
+            const selected = rol === rolActual ? 'selected' : '';
+            options += `<option value="${rol}" ${selected}>${rol}</option>`;
+        });
+        return options;
+    }
+
+    // Función para actualizar el rol del usuario
+    function actualizarRolUsuario(usuario_id, rol_id) {
+        fetch('./backend/asignar_permisosBE.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `usuario_id=${usuario_id}&rol_id=${rol_id}`
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert('Rol actualizado correctamente');
+        })
+        .catch(error => {
+            console.error('Error al actualizar el rol:', error);
+        });
+    }
+
+    // Cargar la tabla cuando el documento esté listo
+    $(document).ready(function() {
+        cargarUsuarios();
+    });
+</script>
+
 </html>

@@ -19,7 +19,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 // Devolver los usuarios en formato JSON
 header('Content-Type: application/json');
-echo json_encode($usuarios);
+echo json_encode([
+    "data" => $usuarios // El formato que espera DataTables es que los datos estén en una clave "data"
+]);
 
 // Cerrar la conexión
 mysqli_close($link);

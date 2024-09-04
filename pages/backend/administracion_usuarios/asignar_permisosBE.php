@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario_id = $_POST['usuario_id'];
     $rol_id = $_POST['rol_id'];
 
-    // Actualizar el rol del usuario en la base de datos
+    // Consulta para actualizar el rol del usuario en la base de datos
     $query = "UPDATE usuarios SET rol_id = ? WHERE id = ?";
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, 'ii', $rol_id, $usuario_id);
