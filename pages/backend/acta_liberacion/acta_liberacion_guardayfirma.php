@@ -56,9 +56,9 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     // Seleccionar la lista de destinatarios según el hostname
     if ($hostname === 'customware.cl') {
         $destinatarios = [
-            ['email' => 'fabarca212@gmail.cl', 'nombre' => 'Felipe Abarca'],
+            ['email' => 'fabarca212@gmail.com', 'nombre' => 'Felipe Abarca'],
             ['email' => 'javier2000asr@gmail.com', 'nombre' => 'Javier Sabando'],
-            ['email' => 'lucianoalonso2000@gmail.cl', 'nombre' => 'Luciano Abarca']
+            ['email' => 'lucianoalonso2000@gmail.com', 'nombre' => 'Luciano Abarca']
         ];
     } elseif ($hostname === 'reccius.cl') {
         $destinatarios = [
@@ -71,7 +71,7 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
     }
 
     // Enviar el correo
-    $resultado_correo = enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo);
+    $resultado_correo = enviarCorreo_transitorio($destinatarios,  $asunto, $cuerpo);
     //$resultado_correo = $_SERVER['SERVER_NAME']; //enviarCorreoMultiple($destinatarios, $asunto, $cuerpo);
 
     $correo = [
