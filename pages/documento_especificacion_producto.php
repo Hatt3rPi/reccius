@@ -631,44 +631,57 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function verificarYMostrarBotonFirma(response) {
-            console.log("A10")
-            console.log("Respuesta recibida:", response);
+        console.log("A10", "Respuesta recibida:", response);
 
-            if (!response || !response.productos || !Array.isArray(response.productos)) {
-                console.log("Respuesta no válida o sin productos");
-                return; // Si la respuesta no es válida, no hacer nada
-            }
-
-            // Considerando que la respuesta tiene una estructura esperada
-            let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
-            console.log("Especificación procesada:", especificacion);
-            let esAprobador = especificacion.aprobado_por.nombre === usuarioNombre;
-            let esRevisorPendiente = especificacion.revisado_por.nombre === usuarioNombre && especificacion.revisado_por.fecha_revision === null;
-            let esAprobadorPendiente = especificacion.aprobado_por.nombre === usuarioNombre && especificacion.aprobado_por.fecha_aprobacion === null;
-            let revisorHaFirmado = especificacion.revisado_por.fecha_revision !== null;
-
-            console.log("Es Revisor y Firma Pendiente:", esRevisorPendiente);
-            console.log("Es Aprobador y Firma Pendiente:", esAprobadorPendiente);
-            console.log("Revisor ha firmado:", revisorHaFirmado);
-
-            if (esRevisorPendiente || (esAprobadorPendiente && revisorHaFirmado)) {
-                console.log("Mostrar botón de firma (habilitado)");
-                document.getElementById('sign-document').style.display = 'block';
-                document.getElementById('sign-document').disabled = false;
-            } else if (esAprobadorPendiente && !revisorHaFirmado) {
-                console.log("Mostrar botón de firma (deshabilitado)");
-                document.getElementById('sign-document').style.display = 'block';
-                document.getElementById('sign-document').disabled = true;
-                document.getElementById('sign-document').title = "Documento debe estar firmado por revisor para poder aprobarlo";
-            } else {
-                console.log("No mostrar botón de firma");
-                document.getElementById('sign-document').style.display = 'none';
-            }
-            if (esAprobador && especificacion.revisado_por.fecha_revision === null) {
-                console.log("Usuario es revisor y la firma del aprobador está pendiente.");
-                $.notify("Es necesario que el usuario Revisor firme antes que tú.", "warn");
-            }
+        if (!response?.productos?.length || !Array.isArray(response.productos)) {
+            console.log("Respuesta no válida o sin productos");
+            return; // Si la respuesta no es válida, no hacer nada
         }
+
+        let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
+        let { nombre: nombreRevisor, fecha_revision } = especificacion.revisado_por;
+        let { nombre: nombreAprobador, fecha_aprobacion } = especificacion.aprobado_por;
+
+        let esAprobador = nombreAprobador === usuarioNombre;
+        let esRevisor = nombreRevisor === usuarioNombre;
+
+        let esRevisorPendiente = esRevisor && !fecha_revision;
+        let esAprobadorPendiente = esAprobador && !fecha_aprobacion;
+        let revisorHaFirmado = !!fecha_revision;
+
+        // Ocultar botón si no corresponde al usuario
+        let botonFirma = document.getElementById('sign-document');
+        if (!botonFirma) return;
+
+        // Si es el revisor y la firma del aprobador está pendiente, ocultar botón
+        if (esRevisor && fecha_aprobacion !== null) {
+            botonFirma.style.display = 'none';
+            return;
+        }
+
+        // Si es el aprobador y la firma del revisor está pendiente, ocultar botón
+        if (esAprobador && fecha_revision === null) {
+            botonFirma.style.display = 'none';
+            return;
+        }
+
+        // Mostrar botón según las condiciones establecidas
+        if (esRevisorPendiente) {
+            console.log("Mostrar botón de firma para Revisor (habilitado)");
+            botonFirma.style.display = 'block';
+            botonFirma.disabled = false;
+        } else if (esAprobadorPendiente && revisorHaFirmado) {
+            console.log("Mostrar botón de firma para Aprobador (habilitado)");
+            botonFirma.style.display = 'block';
+            botonFirma.disabled = false;
+        } else if (esAprobadorPendiente && !revisorHaFirmado) {
+            console.log("Mostrar botón de firma para Aprobador (deshabilitado)");
+            botonFirma.style.display = 'block';
+            botonFirma.disabled = true;
+            botonFirma.title = "Documento debe estar firmado por revisor para poder aprobarlo";
+        }
+    }
+
 
         function actualizarEstadoDocumento() {
             console.log("A11")

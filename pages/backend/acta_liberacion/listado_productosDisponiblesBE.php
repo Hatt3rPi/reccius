@@ -13,11 +13,13 @@ $query = "SELECT
                     ELSE CONCAT(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) 
                 END AS producto,
                 b.tipo_producto,
-                c.url_documento_adicional
-            FROM `calidad_productos_analizados` as a
-            LEFT JOIN calidad_productos as b 
-            on a.id_producto=b.id
+                c.url_documento_adicional,
+				c.estado as estado_aex,
+				d.estado as estado_amuestreo
+            FROM calidad_productos_analizados as a
+            LEFT JOIN calidad_productos as b on a.id_producto=b.id
             left join calidad_analisis_externo as c on a.id_analisisExterno=c.id
+            left join calidad_acta_muestreo as d on a.id_analisisExterno=d.id_analisisExterno
             where a.estado not in ('eliminado_por_solicitud_usuario');";
 $result = $link->query($query);
 

@@ -208,16 +208,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             }else{
                 acciones += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
-                if(d.id_actaMuestreo!==null || d.id_actaMuestreo!==""){
+                if (d.id_actaMuestreo !== null && d.id_actaMuestreo !== "" && d.estado_amuestreo === "Vigente") {
                     acciones += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';                    
                 }
-                if(d.id_analisisExterno!==null || d.id_analisisExterno!==""){
+
+                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Completado" || d.estado_aex === "Pendiente liberación Productos")) {
                     acciones += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
                 }
-                
-                if(d.url_documento_adicional !== null && d.url_documento_adicional !== ""){
+
+                if (d.url_documento_adicional !== null && d.url_documento_adicional !== "") {
                     acciones += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
                 }
+
             }
             acciones += '</td></tr></table>';
             return acciones;
