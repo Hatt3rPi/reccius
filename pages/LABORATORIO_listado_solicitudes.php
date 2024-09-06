@@ -261,7 +261,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if (d.estado === "Finalizado") {
                 
             }
-            if (d.estado === "Pendiente envío a Laboratorio" && d.revisado_por === usuarioActual) {
+            if (d.estado === "Pendiente envío a Laboratorio" && (d.revisado_por === usuarioActual || usuarioActual === 'isumonte')) {
                 acciones += `<button class="accion-btn" title="WIP Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')">
                     <i class="fa fa-file-pdf-o"></i> 
                     Enviar Solicitud a Laboratorio
@@ -273,7 +273,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             if (d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo !== null) {
                 if (d.estado_muestreo === "Pendiente Muestreo") {
-                    acciones += '<button class="accion-btn" title="Ingresar resultados Acta Muestreo" type="button" id="' + d.id_muestreo + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_muestreo + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados Acta Muestreo</button><a></a>';
+                    acciones += '<button class="accion-btn" title="Ingresar resultados Acta Muestreo" type="button" id="' + d.id_muestreo + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_muestreo + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados Acta Muestreo</button><a> </a>';
                 }
                 if (d.estado_muestreo === "En proceso de firma") {
                     acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_muestreo + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Ir a Firmar Acta Muestreo</button><a> </a>';
@@ -289,9 +289,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // }
             
             if ( d.estado === "Pendiente liberación productos") {
-            acciones += `<button class="accion-btn" title="Solicitud Liberacion" type="button" id="${d.id_analisisExterno}" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a></a>`;
+            acciones += `<button class="accion-btn" title="Solicitud Liberacion" type="button" id="${d.id_analisisExterno}" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a> </a>`;
             }
-            acciones += `<button class="accion-btn" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" onclick="botones_interno(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Eliminar Análisis Externo</button><a></a>`;
+            acciones += `<button class="accion-btn" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" style="background-color: red; color: white;" onclick="botones_interno(this.id, this.name, 'laboratorio')"> <i class="fas fa-trash"></i> Eliminar Análisis Externo</button><a> </a>`;
             acciones += '</td></tr></table>';
 
             return acciones;
