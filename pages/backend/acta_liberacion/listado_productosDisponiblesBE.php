@@ -15,6 +15,7 @@ $query = "SELECT
                 b.tipo_producto,
                 c.url_documento_adicional,
 				c.estado as estado_aex,
+				c.url_certificado_solicitud_analisis_externo,
 				d.estado as estado_amuestreo
             FROM calidad_productos_analizados as a
             LEFT JOIN calidad_productos as b on a.id_producto=b.id

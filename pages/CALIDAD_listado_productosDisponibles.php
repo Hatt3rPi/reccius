@@ -211,7 +211,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 if (d.id_actaMuestreo !== null && d.id_actaMuestreo !== "" && d.estado_amuestreo === "Vigente") {
                     acciones += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';                    
                 }
-
+                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && d.estado_aex === "Pendiente ingreso resultados" ) {
+                    acciones += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '"onclick="window.open(\'' + d.url_certificado_solicitud_analisis_externo + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                }
                 if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Completado" || d.estado_aex === "Pendiente liberación productos")) {
                     acciones += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
                 }
