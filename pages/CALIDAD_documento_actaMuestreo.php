@@ -1255,7 +1255,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#solicitado_por_analisis_externo').text(response.aex_solicitado_por);
         $('#form_fecha_vencimiento').text(response.fecha_vencimiento);
         $('#form_fecha_elaboracion').text(response.fecha_elaboracion);
-        $('#form_observaciones').text(response.observaciones);
+        $('#form_observaciones').html(response.observaciones);
         console.log(resultados, etapa);
         if (resultados) {
             let usuario_activo = "<?php echo $_SESSION['usuario']; ?>";
@@ -1412,10 +1412,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let usuario = "<?php echo $_SESSION['usuario']; ?>";
         let respuestas = consolidarRespuestas(selector);
         let id_actaMuestreo = $('#id_actaMuestreo').text();
+        let id_analisis_externo = $('#id_analisis_externo').html();
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
-        let observaciones = $('#form_observaciones').text();
+        let observaciones = $('#form_observaciones').html(); // Esto funcionará para texto plano.
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
         let todosSeleccionados = true;
@@ -1426,6 +1427,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             firma2: firma2,
             firma3: firma3,
             acta: acta,
+            id_analisis_externo: id_analisis_externo, 
             observaciones: observaciones,
             numero_solicitud: numero_solicitud_analisis_externo,
             solicitado_por_analisis_externo: solicitado_por_analisis_externo,
@@ -1496,7 +1498,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function guardar_firma3() {
         let id_actaMuestreo = $('#id_actaMuestreo').text();
-        let id_analisis_externo = $('#id_analisis_externo').text();
+        let id_analisis_externo = $('#id_analisis_externo').html();
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
