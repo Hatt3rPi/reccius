@@ -30,6 +30,20 @@ try {
         $stmt->execute();
         $resultados[] = "calidad_especificacion_productos: actualización exitosa";
         $stmt->close();
+
+
+        registrarTrazabilidad(
+            $_SESSION['usuario'],
+            $_SERVER['PHP_SELF'],
+            'Eliminación Especificación',
+            'CALIDAD - Especificación de Producto',
+            0, // ID del registro insertado
+            "UPDATE calidad_especificacion_productos SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id = ?",
+            [$motivo_eliminacion, $fecha_eliminacion , $id_especificacionProducto],
+            1,
+            null
+        );
+
     } else {
         throw new Exception("Error al preparar la declaración para calidad_especificacion_productos: " . $link->error);
     }

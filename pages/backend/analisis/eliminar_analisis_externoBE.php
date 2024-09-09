@@ -30,6 +30,18 @@ try {
         $stmt->execute();
         $resultados[] = "calidad_analisis_externo: actualización exitosa";
         $stmt->close();
+
+        registrarTrazabilidad(
+            $_SESSION['usuario'],
+            $_SERVER['PHP_SELF'],
+            'Eliminación AEX',
+            'CALIDAD - Solicitud Análisis Externo',
+            0, // ID del registro insertado
+            "UPDATE calidad_analisis_externo SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id = ?",
+            [$motivo_eliminacion, $fecha_eliminacion , $id_especificacionProducto],
+            1,
+            null
+        );
     } else {
         throw new Exception("Error al preparar la declaración para calidad_analisis_externo: " . $link->error);
     }
