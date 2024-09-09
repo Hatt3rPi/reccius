@@ -214,31 +214,63 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const buttonContainer = document.querySelector('.button-container');
             buttonContainer.style.display = 'none';
 
-            // Captura las tres secciones de forma separada
             const headerElement = document.getElementById('header-container');
             const contentElement = document.getElementById('contenido_main');
+            const additionalContentElement = document.getElementById('additionalContent');
             const footerElement = document.getElementById('footer');
+            const watermarkElement = document.getElementById('watermark');
 
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
                 unit: 'mm',
-                format: 'a4' // Especificar tamaño A4
+                format: 'a4'
             });
 
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
             const paddingTop = 10; // Define el padding superior
 
-            // Primero, captura el header
-            html2canvas(headerElement, {
-                scale: 2,
-                useCORS: true
-            }).then(headerCanvas => {
-                const headerImgData = headerCanvas.toDataURL('image/jpeg');
+            // Función para añadir el header, footer y watermark
+            function addHeaderFooterAndWatermark(pdf, headerImgData, footerImgData, watermarkImgData) {
                 const headerWidth = pageWidth;
-                const headerHeight = headerCanvas.height * headerWidth / headerCanvas.width;
+                const headerHeight = headerElement.scrollHeight * headerWidth / headerElement.scrollWidth;
 
-                // Luego, captura el contenido
+                const footerWidth = pageWidth;
+                const footerHeight = footerElement.scrollHeight * footerWidth / footerElement.scrollWidth;
+
+                const watermarkWidth = pageWidth;
+                const watermarkHeight = watermarkElement.scrollHeight * watermarkWidth / watermarkElement.scrollWidth;
+
+                // Añadir el header
+                pdf.addImage(headerImgData, 'JPEG', 0, paddingTop, headerWidth, headerHeight);
+
+                // Añadir el footer
+                pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
+
+                // Añadir la marca de agua
+                pdf.addImage(watermarkImgData, 'JPEG', 0, (pageHeight / 2) - (watermarkHeight / 2), watermarkWidth, watermarkHeight);
+            }
+
+            // Captura el header, footer y watermark para usarlos en ambas páginas
+            Promise.all([
+                html2canvas(headerElement, {
+                    scale: 2,
+                    useCORS: true
+                }),
+                html2canvas(footerElement, {
+                    scale: 2,
+                    useCORS: true
+                }),
+                html2canvas(watermarkElement, {
+                    scale: 2,
+                    useCORS: true
+                })
+            ]).then(([headerCanvas, footerCanvas, watermarkCanvas]) => {
+                const headerImgData = headerCanvas.toDataURL('image/jpeg');
+                const footerImgData = footerCanvas.toDataURL('image/jpeg');
+                const watermarkImgData = watermarkCanvas.toDataURL('image/jpeg');
+
+                // Página 1: `#contenido_main`
                 html2canvas(contentElement, {
                     scale: 2,
                     useCORS: true
@@ -247,55 +279,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     const contentWidth = pageWidth;
                     const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
 
-                    // Por último, captura el footer
-                    html2canvas(footerElement, {
+                    // Añadir header, footer y watermark a la primera página
+                    addHeaderFooterAndWatermark(pdf, headerImgData, footerImgData, watermarkImgData);
+
+                    // Añadir el contenido principal a la primera página
+                    let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
+                    pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
+
+                    // Página 2: `#additionalContent`
+                    pdf.addPage();
+                    html2canvas(additionalContentElement, {
                         scale: 2,
                         useCORS: true
-                    }).then(footerCanvas => {
-                        const footerImgData = footerCanvas.toDataURL('image/jpeg');
-                        const footerWidth = pageWidth;
-                        const footerHeight = footerCanvas.height * footerWidth / footerCanvas.width;
+                    }).then(additionalContentCanvas => {
+                        const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
+                        const additionalContentWidth = pageWidth;
+                        const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
 
-                        // Ahora posiciona las imágenes en el PDF
-                        let yOffset = paddingTop; // Agrega el padding superior al yOffset
+                        // Añadir header, footer y watermark a la segunda página
+                        addHeaderFooterAndWatermark(pdf, headerImgData, footerImgData, watermarkImgData);
 
-                        // Agrega el header en la parte superior con padding
-                        pdf.addImage(headerImgData, 'JPEG', 0, yOffset, headerWidth, headerHeight);
-                        yOffset += headerHeight;
+                        // Añadir el contenido adicional a la segunda página
+                        let yOffset2 = headerCanvas.height * additionalContentWidth / headerCanvas.width + paddingTop;
+                        pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
 
-                        // Agrega el contenido, asegurándose de que haya suficiente espacio para el footer
-                        if (yOffset + contentHeight > pageHeight - footerHeight) {
-                            // Si el contenido sobrepasa la página, lo manejamos en varias páginas
-                            let heightLeft = contentHeight;
-
-                            while (heightLeft > 0) {
-                                let position = yOffset;
-
-                                // Si no es la primera página, agregamos una nueva página
-                                if (yOffset !== 0) {
-                                    pdf.addPage();
-                                    position = paddingTop; // reiniciamos el yOffset con padding superior
-                                    yOffset = paddingTop;
-                                }
-
-                                const availableHeight = pageHeight - yOffset - footerHeight;
-
-                                const heightToPrint = Math.min(availableHeight, heightLeft);
-                                const widthToPrint = contentWidth;
-
-                                pdf.addImage(contentImgData, 'JPEG', 0, yOffset, widthToPrint, heightToPrint);
-
-                                heightLeft -= heightToPrint;
-                                yOffset += heightToPrint;
-                            }
-                        } else {
-                            pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
-                            yOffset += contentHeight;
-                        }
-
-                        // Finalmente, agrega el footer en la parte inferior
-                        pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
-
+                        // Descargar el PDF
                         const nombreProducto = document.getElementById('producto').textContent.trim();
                         const nombreDocumento = document.getElementById('documento').textContent.trim();
                         pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
@@ -310,6 +318,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.error("Error generating PDF: ", error);
             });
         });
+
 
 
 
@@ -631,56 +640,62 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function verificarYMostrarBotonFirma(response) {
-        console.log("A10", "Respuesta recibida:", response);
+            console.log("A10", "Respuesta recibida:", response);
 
-        if (!response?.productos?.length || !Array.isArray(response.productos)) {
-            console.log("Respuesta no válida o sin productos");
-            return; // Si la respuesta no es válida, no hacer nada
+            if (!response?.productos?.length || !Array.isArray(response.productos)) {
+                console.log("Respuesta no válida o sin productos");
+                return; // Si la respuesta no es válida, no hacer nada
+            }
+
+            let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
+            let {
+                nombre: nombreRevisor,
+                fecha_revision
+            } = especificacion.revisado_por;
+            let {
+                nombre: nombreAprobador,
+                fecha_aprobacion
+            } = especificacion.aprobado_por;
+
+            let esAprobador = nombreAprobador === usuarioNombre;
+            let esRevisor = nombreRevisor === usuarioNombre;
+
+            let esRevisorPendiente = esRevisor && !fecha_revision;
+            let esAprobadorPendiente = esAprobador && !fecha_aprobacion;
+            let revisorHaFirmado = !!fecha_revision;
+
+            // Ocultar botón si no corresponde al usuario
+            let botonFirma = document.getElementById('sign-document');
+            if (!botonFirma) return;
+
+            // Si es el revisor y la firma del aprobador está pendiente, ocultar botón
+            if (esRevisor && fecha_aprobacion !== null) {
+                botonFirma.style.display = 'none';
+                return;
+            }
+
+            // Si es el aprobador y la firma del revisor está pendiente, ocultar botón
+            if (esAprobador && fecha_revision === null) {
+                botonFirma.style.display = 'none';
+                return;
+            }
+
+            // Mostrar botón según las condiciones establecidas
+            if (esRevisorPendiente) {
+                console.log("Mostrar botón de firma para Revisor (habilitado)");
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = false;
+            } else if (esAprobadorPendiente && revisorHaFirmado) {
+                console.log("Mostrar botón de firma para Aprobador (habilitado)");
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = false;
+            } else if (esAprobadorPendiente && !revisorHaFirmado) {
+                console.log("Mostrar botón de firma para Aprobador (deshabilitado)");
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = true;
+                botonFirma.title = "Documento debe estar firmado por revisor para poder aprobarlo";
+            }
         }
-
-        let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
-        let { nombre: nombreRevisor, fecha_revision } = especificacion.revisado_por;
-        let { nombre: nombreAprobador, fecha_aprobacion } = especificacion.aprobado_por;
-
-        let esAprobador = nombreAprobador === usuarioNombre;
-        let esRevisor = nombreRevisor === usuarioNombre;
-
-        let esRevisorPendiente = esRevisor && !fecha_revision;
-        let esAprobadorPendiente = esAprobador && !fecha_aprobacion;
-        let revisorHaFirmado = !!fecha_revision;
-
-        // Ocultar botón si no corresponde al usuario
-        let botonFirma = document.getElementById('sign-document');
-        if (!botonFirma) return;
-
-        // Si es el revisor y la firma del aprobador está pendiente, ocultar botón
-        if (esRevisor && fecha_aprobacion !== null) {
-            botonFirma.style.display = 'none';
-            return;
-        }
-
-        // Si es el aprobador y la firma del revisor está pendiente, ocultar botón
-        if (esAprobador && fecha_revision === null) {
-            botonFirma.style.display = 'none';
-            return;
-        }
-
-        // Mostrar botón según las condiciones establecidas
-        if (esRevisorPendiente) {
-            console.log("Mostrar botón de firma para Revisor (habilitado)");
-            botonFirma.style.display = 'block';
-            botonFirma.disabled = false;
-        } else if (esAprobadorPendiente && revisorHaFirmado) {
-            console.log("Mostrar botón de firma para Aprobador (habilitado)");
-            botonFirma.style.display = 'block';
-            botonFirma.disabled = false;
-        } else if (esAprobadorPendiente && !revisorHaFirmado) {
-            console.log("Mostrar botón de firma para Aprobador (deshabilitado)");
-            botonFirma.style.display = 'block';
-            botonFirma.disabled = true;
-            botonFirma.title = "Documento debe estar firmado por revisor para poder aprobarlo";
-        }
-    }
 
 
         function actualizarEstadoDocumento() {
