@@ -276,6 +276,7 @@ function confirmarEliminacion() {
     motivo_eliminacion: motivoEliminacion,
     fecha_eliminacion: fechaEliminacion
 }, function(response) {
+    console.log(response);
     // Verificar si hubo algún error en el proceso
     if (response.error) {
         alert("Hubo un error al eliminar el análisis externo: " + response.error);
