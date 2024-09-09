@@ -218,7 +218,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const contentElement = document.getElementById('contenido_main');
             const additionalContentElement = document.getElementById('additionalContent');
             const footerElement = document.getElementById('footer');
-            const watermarkElement = document.getElementById('watermark');
 
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
@@ -241,16 +240,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Añadir el header
                 pdf.addImage(headerImgData, 'JPEG', 0, paddingTop, headerWidth, headerHeight);
 
+                // Añadir el contenido primero
+                let yOffset = headerHeight + paddingTop;
+
                 // Añadir el footer
                 pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
 
-                // Añadir el watermark en diagonal y más grande
+                // Añadir el watermark en diagonal, centrado, sobre el contenido
                 pdf.setFontSize(100); // Ajustar el tamaño de la fuente para el watermark
                 pdf.setTextColor(150, 150, 150); // Color gris claro
-                pdf.text('CONFIDENCIAL', pageWidth / 2, pageHeight / 2, {
-                    angle: 45, // Rotación en grados
+
+                // Centrar el texto en la página y rotarlo 45 grados
+                pdf.saveGraphicsState();
+                pdf.setFontSize(110); // Tamaño del watermark
+                pdf.setTextColor(150, 150, 150); // Color del watermark
+                pdf.textWithRotation('CONFIDENCIAL', pageWidth / 2, pageHeight / 2, {
+                    angle: 45, // Rotar 45 grados
                     align: 'center'
                 });
+                pdf.restoreGraphicsState();
             }
 
             // Captura el header y footer para usarlos en ambas páginas
@@ -315,6 +323,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.error("Error generating PDF: ", error);
             });
         });
+
 
 
 
