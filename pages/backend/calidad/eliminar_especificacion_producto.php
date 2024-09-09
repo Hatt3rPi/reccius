@@ -93,7 +93,7 @@ try {
 
     // 5.1 Actualiza en la tabla tareas relacionadas con calidad_especificacion_productos
     $stmt = $link->prepare("UPDATE tareas t
-                            JOIN calidad_especificacion_productos ep ON t.id_relacion = ep.id AND t.tabla_relacion = 'calidad_especificacion_productos'
+                            JOIN calidad_especificacion_productos ep ON t.id_relacion = ep.id_especificacion AND t.tabla_relacion = 'calidad_especificacion_productos'
                             SET t.estado = 'eliminado_por_solicitud_usuario'
                             WHERE ep.id_especificacion = ?");
     if ($stmt) {
