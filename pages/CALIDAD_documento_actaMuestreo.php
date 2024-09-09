@@ -76,7 +76,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
+                            <td ><input type="date" id="fecha_muestreo" name="fecha_muestreo"  class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
 
                         </tr>
                     </table>
@@ -576,7 +576,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual durante el proceso:</label>
                 <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
-                <br><br>
+            <br><br>
 
             </div>
             <!-- Sección III: Plan de Muestreo -->
@@ -971,108 +971,103 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        $.notify("Generando PDF", "warn");
-
-        // Ocultar la sección de botones antes de capturar la pantalla
-        const buttonContainer = document.querySelector('.button-container');
-        buttonContainer.style.display = 'none';
-
-        const headerElement = document.getElementById('header-container');
-        const contentElement = document.getElementById('Maincontainer');
-        const planMuestreoElement = document.getElementById('sampling-plan');
-        const footerElement = document.getElementById('footer-containerDIV');
-
-        const pdf = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'mm',
-            format: 'a4'
-        });
-
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const paddingTop = 10; // Define el padding superior
-
-        // Función para añadir el header y footer
-        function addHeaderAndFooter(pdf, headerImgData, footerImgData) {
-            const headerWidth = pageWidth;
-            const headerHeight = headerElement.scrollHeight * headerWidth / headerElement.scrollWidth;
-
-            const footerWidth = pageWidth;
-            const footerHeight = footerElement.scrollHeight * footerWidth / footerElement.scrollWidth;
-
-            // Añadir el header
-            pdf.addImage(headerImgData, 'JPEG', 0, paddingTop, headerWidth, headerHeight);
-
-            // Añadir el contenido primero
-            let yOffset = headerHeight + paddingTop;
-
-            // Añadir el footer
-            pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
+        // Ajusta los estilos de los botones e íconos antes de generar el PDF
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = `
+        .btn-outline-success,
+        .btn-outline-danger,
+        .btn-outline-secondary {
+            background-color: transparent !important;
+            color: #000 !important;
+            border-color: #000 !important;
+            font-weight: bold !important; /* Hace el texto bold */
         }
 
-        // Captura el header y footer para usarlos en ambas páginas
-        Promise.all([
-            html2canvas(headerElement, {
-                scale: 2,
-                useCORS: true
-            }),
-            html2canvas(footerElement, {
-                scale: 2,
-                useCORS: true
-            })
-        ]).then(([headerCanvas, footerCanvas]) => {
-            const headerImgData = headerCanvas.toDataURL('image/jpeg');
-            const footerImgData = footerCanvas.toDataURL('image/jpeg');
+        .btn-outline-success .fa-circle-check,
+        .btn-outline-danger .fa-circle-xmark,
+        .btn-outline-secondary .fa-circle-xmark {
+            color: #000 !important;
+            font-weight: bold !important; /* Hace el texto bold */
+        }
+    `;
+        document.head.appendChild(styleElement);
 
-            // Página 1: `#Maincontainer` (el contenido principal)
-            html2canvas(contentElement, {
-                scale: 2,
-                useCORS: true
-            }).then(contentCanvas => {
-                const contentImgData = contentCanvas.toDataURL('image/jpeg');
-                const contentWidth = pageWidth;
-                const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
+        // Continúa con la generación del PDF
+        $.notify("Generando PDF", "warn");
 
-                // Añadir header y footer a la primera página
-                addHeaderAndFooter(pdf, headerImgData, footerImgData);
+        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
-                // Añadir el contenido principal a la primera página
-                let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
-                pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                if (!button.checked) {
+                    button.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
 
-                // Página 2: `#sampling-plan` (el Plan de Muestreo en una nueva página)
-                pdf.addPage();
-                html2canvas(planMuestreoElement, {
-                    scale: 2,
-                    useCORS: true
-                }).then(planCanvas => {
-                    const planImgData = planCanvas.toDataURL('image/jpeg');
-                    const planWidth = pageWidth;
-                    const planHeight = planCanvas.height * planWidth / planCanvas.width;
+        document.querySelector('.button-container').style.display = 'none';
+        const elementToExport = document.getElementById('form-container');
+        elementToExport.style.border = 'none';
+        elementToExport.style.boxShadow = 'none';
 
-                    // Añadir header y footer a la segunda página
-                    addHeaderAndFooter(pdf, headerImgData, footerImgData);
+        html2canvas(elementToExport, {
+            scale: 1,
+            useCORS: false
+        }).then(canvas => {
+            document.querySelector('.button-container').style.display = 'block';
+            elementToExport.style.border = '1px solid #000';
+            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
 
-                    // Añadir el contenido del Plan de Muestreo a la segunda página
-                    let yOffset2 = headerCanvas.height * planWidth / headerCanvas.width + paddingTop;
-                    pdf.addImage(planImgData, 'JPEG', 0, yOffset2, planWidth, planHeight);
-
-                    // Descargar el PDF
-                    const nombreProducto = document.getElementById('producto').textContent.trim();
-                    const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-                    pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-
-                    // Restaurar visibilidad y estilos
-                    buttonContainer.style.display = 'block';
-                    $.notify("PDF generado con éxito", "success");
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    if (button.checked) {
+                        button.style.display = 'block';
+                    }
                 });
             });
-        }).catch(error => {
-            $.notify("Error al generar el PDF", "error");
-            console.error("Error generating PDF: ", error);
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            const imgWidth = 210;
+            const pageHeight = 297;
+            let imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+
+            let position = 0;
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            const nombreProducto = document.getElementById('producto').textContent.trim();
+            const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            $.notify("PDF generado con éxito", "success");
+
+            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    button.style.display = 'block';
+                });
+            });
+
+            // Remover el estilo temporal después de la generación del PDF
+            document.head.removeChild(styleElement);
         });
     });
-
 
 
 
@@ -1431,7 +1426,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             firma2: firma2,
             firma3: firma3,
             acta: acta,
-            id_analisis_externo: id_analisis_externo,
+            id_analisis_externo: id_analisis_externo, 
             observaciones: observaciones,
             numero_solicitud: numero_solicitud_analisis_externo,
             solicitado_por_analisis_externo: solicitado_por_analisis_externo,
