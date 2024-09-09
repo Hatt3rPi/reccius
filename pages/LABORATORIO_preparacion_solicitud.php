@@ -166,6 +166,19 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
+                        <label>Observaciones:</label>
+                        <textarea name="form_observaciones" id="form_observaciones" class="highlight form-control mx-0 w-90 border rounded-sm editable" rows="4" placeholder="..."></textarea>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group" style="visibility: hidden;">
+                        <label>Verificador Muestreo:</label>
+                        <select required name="dummy" id="dummy" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
                         <label>Muestreador:</label>
                         <select required name="ejecutado_por" id="ejecutado_por" class="select-style mx-0 form__select w-90 ">
                             <option>Selecciona el usuario:</option>

@@ -51,7 +51,8 @@ function insertarRegistro($link, $datos)
         elaborado_por,
         pais_origen,
         proveedor,
-        fecha_firma_1 
+        fecha_firma_1,
+        observaciones
             ) 
         SELECT 
             ?, -- version
@@ -81,7 +82,8 @@ function insertarRegistro($link, $datos)
             ?,
             ?,
             ?,
-            '".$fecha_ymd."'
+            '".$fecha_ymd."',
+            ?
 
         FROM 
             calidad_especificacion_productos AS c
@@ -99,7 +101,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'issssssssssssssssssssssi',
+        'isssssssssssssssssssssssi',
         $datos['version'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
@@ -122,6 +124,7 @@ function insertarRegistro($link, $datos)
         $datos['elaboradoPor'],
         $datos['paisOrigen'],
         $datos['dealer'],
+        $datos['observaciones_originales'],
         $aux_anomes,        // Se utiliza en la subconsulta WHERE
         $datos['id_especificacion']
     );
@@ -160,6 +163,7 @@ function insertarRegistro($link, $datos)
             $datos['elaboradoPor'],
             $datos['paisOrigen'],
             $datos['dealer'],
+            $datos['observaciones_originales'],
             $aux_anomes,        // Se utiliza en la subconsulta WHERE
             $datos['id_especificacion']
         ],
@@ -490,6 +494,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_entrega_estimada = limpiarDato($_POST['fecha_entrega_estimada']);
     $numero_documento = limpiarDato($_POST['numero_documento']);
     $observaciones = limpiarDato($_POST['observaciones']);
+    $observaciones_originales = limpiarDato($_POST['form_observaciones']);
     $solicitadoPor = limpiarDato($_POST['solicitado_por']);
     $revisadoPor = limpiarDato($_POST['revisado_por']);
     $am_verificado_por = limpiarDato($_POST['am_verificado_por']);
@@ -545,6 +550,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'fecha_entrega_estimada' => $fecha_entrega_estimada,
             'numero_documento' => $numero_documento,
             'observaciones' => $observaciones,
+            'observaciones_originales' => $observaciones_originales,
             'solicitado_por' => $solicitadoPor,
             'revisado_por' => $revisadoPor,
             'am_verificado_por' => $am_verificado_por,
