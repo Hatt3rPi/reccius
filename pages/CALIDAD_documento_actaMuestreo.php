@@ -85,11 +85,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <!-- Body -->
             <br>
-            
+
 
             <!-- Sección I: Identificación de la Muestra -->
             <section id="sample-identification1" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
-            <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
+                <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
                 <!-- Tabla de identificación de la muestra -->
                 <table id="identificacion_muestra" name="identificacion_muestra">
                     <tr>
@@ -972,50 +972,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        // Ajusta los estilos de los botones e íconos antes de generar el PDF
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
-        .btn-outline-success,
-        .btn-outline-danger,
-        .btn-outline-secondary {
+        .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
             background-color: transparent !important;
             color: #000 !important;
             border-color: #000 !important;
-            font-weight: bold !important; /* Hace el texto bold */
+            font-weight: bold !important;
         }
-
-        .btn-outline-success .fa-circle-check,
-        .btn-outline-danger .fa-circle-xmark,
-        .btn-outline-secondary .fa-circle-xmark {
+        .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
             color: #000 !important;
-            font-weight: bold !important; /* Hace el texto bold */
         }
     `;
         document.head.appendChild(styleElement);
 
-        // Continúa con la generación del PDF
         $.notify("Generando PDF", "warn");
 
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
-
-        allButtonGroups.forEach(group => {
-            const buttons = group.querySelectorAll('.btn-check');
-            buttons.forEach(button => {
-                if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none';
-                }
-            });
-        });
-
-        document.querySelector('.button-container').style.display = 'none';
-
-        // Obtener las secciones a exportar
-        const section1 = document.getElementById('sample-identification1'); // Asegúrate de tener un ID para la sección 1
-        const section2 = document.getElementById('sample-identification2'); // Asegúrate de tener un ID para la sección 2
-        const section3 = document.getElementById('sampling-plan'); // Asegúrate de tener un ID para la sección 3
-
-        const header = document.getElementById('header-container'); // ID del header
-        const footer = document.getElementById('footer-containerDIV'); // ID del footer
+        const section1 = document.getElementById('sample-identification1');
+        const section2 = document.getElementById('sample-identification2');
+        const section3 = document.getElementById('sampling-plan');
+        const header = document.getElementById('header-container');
+        const footer = document.getElementById('footer-containerDIV');
 
         const pdf = new jspdf.jsPDF({
             orientation: 'p',
@@ -1023,7 +1000,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             format: 'a4'
         });
 
-        // Generar canvas para la primera página (Sección 1 y Sección 2 con header y footer)
+        // Primer canvas para la primera página
         Promise.all([
             html2canvas(header, {
                 scale: 1,
@@ -1042,47 +1019,47 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 useCORS: false
             })
         ]).then(([headerCanvas, section1Canvas, section2Canvas, footerCanvas]) => {
-            const imgWidth = 210; // Ancho en mm para A4
-            const pageHeight = 297; // Altura en mm para A4
-            let yOffset = 0; // Desplazamiento vertical en la página
+            const imgWidth = 210;
+            const pageHeight = 297;
+            let yOffset = 10; // Espaciado superior en la página
 
             // Agregar el header
             const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
-            yOffset += headerHeight;
+            yOffset += headerHeight + 10; // Añadir espaciado entre secciones
 
-            // Agregar la Sección 1
+            // Sección 1
             const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
             pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
-            yOffset += section1Height;
+            yOffset += section1Height + 10;
 
-            // Agregar la Sección 2
+            // Sección 2
             const section2Height = (section2Canvas.height * imgWidth) / section2Canvas.width;
             pdf.addImage(section2Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section2Height);
-            yOffset += section2Height;
+            yOffset += section2Height + 10;
 
-            // Agregar el footer en la primera página
+            // Footer
             const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
             pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
-            // Agregar una nueva página para la Sección 3
+            // Nueva página para la sección 3
             pdf.addPage();
-            yOffset = 0;
+            yOffset = 10; // Reiniciar el desplazamiento vertical para la segunda página
 
-            // Agregar el header de nuevo
+            // Agregar el header en la segunda página
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
-            yOffset += headerHeight;
+            yOffset += headerHeight + 10;
 
-            // Generar canvas para la Sección 3
+            // Sección 3
             html2canvas(section3, {
                 scale: 1,
                 useCORS: false
             }).then(section3Canvas => {
                 const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
                 pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
-                yOffset += section3Height;
+                yOffset += section3Height + 10;
 
-                // Agregar el footer en la segunda página
+                // Footer en la segunda página
                 pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
                 // Guardar el PDF
@@ -1090,20 +1067,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
                 pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
                 $.notify("PDF generado con éxito", "success");
-
-                // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
-                allButtonGroups.forEach(group => {
-                    const buttons = group.querySelectorAll('.btn-check');
-                    buttons.forEach(button => {
-                        button.style.display = 'block';
-                    });
-                });
-
-                // Remover el estilo temporal después de la generación del PDF
-                document.head.removeChild(styleElement);
             });
         });
     });
+
 
 
 
