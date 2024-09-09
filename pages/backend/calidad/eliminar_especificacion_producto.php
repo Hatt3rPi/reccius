@@ -165,8 +165,9 @@ try {
     echo json_encode(['resultados' => $resultados], JSON_UNESCAPED_UNICODE);
 
 } catch (Exception $e) {
-    // Si algo falla, realiza un rollback
     $link->rollback();
+    error_log("Error durante la eliminación de la especificación: " . $e->getMessage());
+    error_log("Datos recibidos: id_especificacionProducto=" . $id_especificacionProducto . ", motivo_eliminacion=" . $motivo_eliminacion . ", fecha_eliminacion=" . $fecha_eliminacion);
     $resultados[] = "Error: " . $e->getMessage();
     echo json_encode(['resultados' => $resultados]);
 } finally {
