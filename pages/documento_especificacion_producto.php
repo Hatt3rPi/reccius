@@ -246,23 +246,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Añadir el footer
                 pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
 
-                // Añadir el watermark en diagonal, centrado, sobre el contenido
+                // Añadir el watermark en diagonal
                 pdf.setFontSize(110); // Ajustar el tamaño de la fuente para el watermark
                 pdf.setTextColor(150, 150, 150); // Color gris claro
 
-                // Guardar el estado gráfico antes de aplicar transformaciones
+                // Rotar el texto de la marca de agua 45 grados
                 pdf.saveGraphicsState();
-
-                // Centramos el texto rotado en el medio de la página
-                pdf.translate(pageWidth / 2, pageHeight / 2);
-                pdf.rotate(-45 * (Math.PI / 180)); // Rotar 45 grados en sentido antihorario
-
-                // Agregar el watermark
-                pdf.text('CONFIDENCIAL', 0, 0, {
+                pdf.rotate(45, {
+                    origin: [pageWidth / 2, pageHeight / 2]
+                }); // Rotar el texto 45 grados alrededor del centro de la página
+                pdf.text('CONFIDENCIAL', pageWidth / 2, pageHeight / 2, {
                     align: 'center'
                 });
-
-                // Restaurar el estado gráfico original
                 pdf.restoreGraphicsState();
             }
 
