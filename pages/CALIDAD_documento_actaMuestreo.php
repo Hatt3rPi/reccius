@@ -89,7 +89,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
             <!-- Sección I: Identificación de la Muestra -->
             <section id="sample-identification1" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
-                
+
                 <!-- Tabla de identificación de la muestra -->
                 <table id="identificacion_muestra" name="identificacion_muestra">
                     <tr>
@@ -974,15 +974,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     document.getElementById('download-pdf').addEventListener('click', function() {
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
-        .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
-            background-color: transparent !important;
-            color: #000 !important;
-            border-color: #000 !important;
-            font-weight: bold !important;
-        }
-        .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
-            color: #000 !important;
-        }
+    .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
+        background-color: transparent !important;
+        color: #000 !important;
+        border-color: #000 !important;
+        font-weight: bold !important;
+    }
+    .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
+        color: #000 !important;
+    }
     `;
         document.head.appendChild(styleElement);
 
@@ -1023,30 +1023,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const pageHeight = 297;
             let yOffset = 10; // Espaciado superior en la página
 
-            // Agregar el header
+            // Agregar el header en la primera página
             const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
-            yOffset += headerHeight + 10; // Añadir espaciado entre secciones
+            yOffset += headerHeight + 10;
 
-            // Sección 1
+            // Sección 1 en la primera página
             const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
             pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
             yOffset += section1Height + 10;
 
-            // Sección 2
+            // Agregar el footer en la primera página
+            const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
+            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+
+            // Segunda página para sección 2
+            pdf.addPage();
+            yOffset = 10; // Reiniciar el desplazamiento para la segunda página
+
+            // Agregar el header en la segunda página
+            pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
+            yOffset += headerHeight + 10;
+
+            // Sección 2 en la segunda página
             const section2Height = (section2Canvas.height * imgWidth) / section2Canvas.width;
             pdf.addImage(section2Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section2Height);
             yOffset += section2Height + 10;
 
-            // Footer
-            const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
+            // Agregar el footer en la segunda página
             pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
             // Nueva página para la sección 3
             pdf.addPage();
-            yOffset = 10; // Reiniciar el desplazamiento vertical para la segunda página
+            yOffset = 10; // Reiniciar el desplazamiento para la tercera página
 
-            // Agregar el header en la segunda página
+            // Agregar el header en la tercera página
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
             yOffset += headerHeight + 10;
 
@@ -1059,7 +1070,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
                 yOffset += section3Height + 10;
 
-                // Footer en la segunda página
+                // Agregar el footer en la tercera página
                 pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
                 // Guardar el PDF
@@ -1070,6 +1081,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
     });
+
 
 
 
