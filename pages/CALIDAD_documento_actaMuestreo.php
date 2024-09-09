@@ -85,10 +85,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
             <!-- Body -->
             <br>
-            <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
+            
 
             <!-- Sección I: Identificación de la Muestra -->
-            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+            <section id="sample-identification1" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+            <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
                 <!-- Tabla de identificación de la muestra -->
                 <table id="identificacion_muestra" name="identificacion_muestra">
                     <tr>
@@ -332,7 +333,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <h2 class="Subtitulos">II. MUESTREO</h2>
             <!-- Sección II: MUESTREO -->
-            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+            <section id="sample-identification2" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
                 <!-- Tabla de identificación de la muestra -->
                 <table id="muestreo" name="muestreo">
                     <tr>
@@ -1009,9 +1010,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         document.querySelector('.button-container').style.display = 'none';
 
         // Obtener las secciones a exportar
-        const section1 = document.getElementById('section1'); // Asegúrate de tener un ID para la sección 1
-        const section2 = document.getElementById('section2'); // Asegúrate de tener un ID para la sección 2
-        const section3 = document.getElementById('section3'); // Asegúrate de tener un ID para la sección 3
+        const section1 = document.getElementById('sample-identification1'); // Asegúrate de tener un ID para la sección 1
+        const section2 = document.getElementById('sample-identification2'); // Asegúrate de tener un ID para la sección 2
+        const section3 = document.getElementById('sampling-plan'); // Asegúrate de tener un ID para la sección 3
 
         const header = document.getElementById('header-container'); // ID del header
         const footer = document.getElementById('footer-containerDIV'); // ID del footer
