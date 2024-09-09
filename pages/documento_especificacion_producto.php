@@ -247,17 +247,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
 
                 // Añadir el watermark en diagonal, centrado, sobre el contenido
-                pdf.setFontSize(100); // Ajustar el tamaño de la fuente para el watermark
+                pdf.setFontSize(110); // Ajustar el tamaño de la fuente para el watermark
                 pdf.setTextColor(150, 150, 150); // Color gris claro
 
-                // Centrar el texto en la página y rotarlo 45 grados
+                // Guardar el estado gráfico antes de aplicar transformaciones
                 pdf.saveGraphicsState();
-                pdf.setFontSize(110); // Tamaño del watermark
-                pdf.setTextColor(150, 150, 150); // Color del watermark
-                pdf.textWithRotation('CONFIDENCIAL', pageWidth / 2, pageHeight / 2, {
-                    angle: 45, // Rotar 45 grados
+
+                // Centramos el texto rotado en el medio de la página
+                pdf.translate(pageWidth / 2, pageHeight / 2);
+                pdf.rotate(-45 * (Math.PI / 180)); // Rotar 45 grados en sentido antihorario
+
+                // Agregar el watermark
+                pdf.text('CONFIDENCIAL', 0, 0, {
                     align: 'center'
                 });
+
+                // Restaurar el estado gráfico original
                 pdf.restoreGraphicsState();
             }
 
