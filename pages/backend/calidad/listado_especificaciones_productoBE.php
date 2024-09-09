@@ -23,7 +23,7 @@ $query = "SELECT
             END as aprobacion,
             cep.fecha_expiracion 
         FROM calidad_productos as cp
-        INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto;";
+        INNER JOIN calidad_especificacion_productos as cep ON cp.id = cep.id_producto where estado not in ('eliminado_por_solicitud_usuario');";
 
 $result = $link->query($query);
 
