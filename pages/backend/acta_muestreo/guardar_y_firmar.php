@@ -17,6 +17,7 @@ $textareaData = isset($input['textareaData']) ? $input['textareaData'] : [];
 $firma2 = isset($input['firma2']) ? $input['firma2'] : null;
 $firma3 = isset($input['firma3']) ? $input['firma3'] : null;
 $acta = isset($input['acta']) ? $input['acta'] : null;
+$observaciones = isset($input['observaciones']) ? $input['observaciones'] : null;
 $numero_solicitud = isset($input['numero_solicitud']) ? $input['numero_solicitud'] : null;
 $solicitado_por_analisis_externo = isset($input['solicitado_por_analisis_externo']) ? $input['solicitado_por_analisis_externo'] : null;
 
@@ -24,6 +25,45 @@ $solicitado_por_analisis_externo = isset($input['solicitado_por_analisis_externo
 if (!$id_actaMuestreo || !$etapa || !$respuestas) {
     echo json_encode(['error' => 'Datos faltantes o incorrectos.']);
     exit;
+}
+// Verificar que se haya recibido el ID y las observaciones
+$id_analisis_externo_updt = intval($input['id_analisis_externo']);
+if (isset($observaciones) && $id_analisis_externo_updt) {
+    // Prepara la consulta de actualización
+    $query_update_observaciones = "UPDATE calidad_analisis_externo SET observaciones=? WHERE id=?";
+    $types_observaciones = "si"; // 's' para observaciones (string), 'i' para id (integer)
+
+    // Ejecutar la consulta preparada
+    if ($stmt_observaciones = mysqli_prepare($link, $query_update_observaciones)) {
+        mysqli_stmt_bind_param($stmt_observaciones, $types_observaciones, $observaciones, $id_analisis_externo_updt);
+        $exito_observaciones = mysqli_stmt_execute($stmt_observaciones);
+
+        // Registrar trazabilidad de la acción
+        registrarTrazabilidad(
+            $_SESSION['usuario'], 
+            $_SERVER['PHP_SELF'], 
+            'Actualización de observaciones en análisis externo', 
+            'CALIDAD - Análisis Externo',  
+            $id_analisis_externo_updt, 
+            $query_update_observaciones,  
+            [$observaciones, $id_analisis_externo_updt], 
+            $exito_observaciones ? 1 : 0, 
+            $exito_observaciones ? null : mysqli_error($link)
+        );
+
+        // Verificar si la consulta se ejecutó correctamente
+        if ($exito_observaciones) {
+            echo json_encode(['success' => 'Observaciones actualizadas correctamente.']);
+        } else {
+            echo json_encode(['error' => 'Error al actualizar observaciones: ' . mysqli_stmt_error($stmt_observaciones)]);
+        }
+
+        mysqli_stmt_close($stmt_observaciones);
+    } else {
+        echo json_encode(['error' => 'Error al preparar la declaración para observaciones: ' . mysqli_error($link)]);
+    }
+} else {
+    echo json_encode(['error' => 'ID de análisis externo o observaciones no definidas.']);
 }
 
 // Dependiendo de la etapa, los datos relevantes cambiarán
