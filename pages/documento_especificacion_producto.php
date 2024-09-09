@@ -229,8 +229,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const pageHeight = pdf.internal.pageSize.getHeight();
             const paddingTop = 10; // Define el padding superior
 
-            // Función para añadir el header, footer y watermark
-            function addHeaderFooterAndWatermark(pdf, headerImgData, footerImgData) {
+            // Función para añadir el header y footer
+            function addHeaderAndFooter(pdf, headerImgData, footerImgData) {
                 const headerWidth = pageWidth;
                 const headerHeight = headerElement.scrollHeight * headerWidth / headerElement.scrollWidth;
 
@@ -245,30 +245,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 // Añadir el footer
                 pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
-
-                // Añadir el watermark en diagonal
-                pdf.setFontSize(110); // Ajustar el tamaño de la fuente para el watermark
-                pdf.setTextColor(150, 150, 150); // Color gris claro
-
-                // Rotar el texto de la marca de agua 45 grados
-                pdf.saveGraphicsState();
-                pdf.rotate(45, {
-                    origin: [pageWidth / 2, pageHeight / 2]
-                }); // Rotar el texto 45 grados alrededor del centro de la página
-                pdf.text('CONFIDENCIAL', pageWidth / 2, pageHeight / 2, {
-                    align: 'center'
-                });
-                pdf.restoreGraphicsState();
             }
 
             // Captura el header y footer para usarlos en ambas páginas
             Promise.all([
                 html2canvas(headerElement, {
-                    scale: 2,
+                    scale: 1,
                     useCORS: true
                 }),
                 html2canvas(footerElement, {
-                    scale: 2,
+                    scale: 1,
                     useCORS: true
                 })
             ]).then(([headerCanvas, footerCanvas]) => {
@@ -277,15 +263,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 // Página 1: `#contenido_main`
                 html2canvas(contentElement, {
-                    scale: 2,
+                    scale: 1,
                     useCORS: true
                 }).then(contentCanvas => {
                     const contentImgData = contentCanvas.toDataURL('image/jpeg');
                     const contentWidth = pageWidth;
                     const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
 
-                    // Añadir header, footer y watermark a la primera página
-                    addHeaderFooterAndWatermark(pdf, headerImgData, footerImgData);
+                    // Añadir header y footer a la primera página
+                    addHeaderAndFooter(pdf, headerImgData, footerImgData);
 
                     // Añadir el contenido principal a la primera página
                     let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
@@ -294,15 +280,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Página 2: `#additionalContent`
                     pdf.addPage();
                     html2canvas(additionalContentElement, {
-                        scale: 2,
+                        scale: 1,
                         useCORS: true
                     }).then(additionalContentCanvas => {
                         const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
                         const additionalContentWidth = pageWidth;
                         const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
 
-                        // Añadir header, footer y watermark a la segunda página
-                        addHeaderFooterAndWatermark(pdf, headerImgData, footerImgData);
+                        // Añadir header y footer a la segunda página
+                        addHeaderAndFooter(pdf, headerImgData, footerImgData);
 
                         // Añadir el contenido adicional a la segunda página
                         let yOffset2 = headerCanvas.height * additionalContentWidth / headerCanvas.width + paddingTop;
@@ -323,8 +309,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.error("Error generating PDF: ", error);
             });
         });
-
-
 
 
 
