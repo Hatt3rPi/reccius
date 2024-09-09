@@ -316,10 +316,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                     </tr>
+                    <tr style="Height: 46.66666px;">
+                        <td class="formulario-titulo">10. Fecha Vencimiento:</td>
+                        <td class="formulario" id="form_fecha_vencimiento" name="form_fecha_vencimiento" readonly>id="form_fecha_vencimiento"</td>
+                    </tr>
+                    <tr style="Height: 46.66666px;">
+                        <td class="formulario-titulo">11. Fecha Elaboración:</td>
+                        <td class="formulario" id="form_fecha_elaboracion" name="form_fecha_elaboracion" readonly>id="form_fecha_elaboracion"</td>
+                    </tr>
                 </table>
             </section>
+            <label style="font-size: 12px" for="form_Inusual">12. Obs. del Análisis Externo:</label>
+            <div class="editable-div textarea" contenteditable="true" id="form_observaciones" name="form_observaciones">id="form_observaciones"</div>
             <br>
-            <br>
+
             <h2 class="Subtitulos">II. MUESTREO</h2>
             <!-- Sección II: MUESTREO -->
             <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
@@ -564,16 +574,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             <div style="margin-top: 10px; font-size: 12px;">
                 <br>
-                <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
-                    durante el proceso:</label>
+                <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual durante el proceso:</label>
                 <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
-
+            <br><br>
 
             </div>
             <!-- Sección III: Plan de Muestreo -->
             <section id="sampling-plan">
                 <h2 class="Subtitulos">III. PLAN DE MUESTREO</h2>
-
+                <br>
                 <table id="seccion3" style="width:100%; border-collapse: collapse;">
                     <!-- Encabezados de la tabla -->
                     <tr>
@@ -1243,7 +1252,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#cargo_verificador').text(response.cargo_usr3);
         $('#numero_solicitud_analisis_externo').text(response.aex_numero_solicitud);
         $('#solicitado_por_analisis_externo').text(response.aex_solicitado_por);
-
+        $('#form_fecha_vencimiento').text(response.fecha_vencimiento);
+        $('#form_fecha_elaboracion').text(response.fecha_elaboracion);
+        $('#form_observaciones').html(response.observaciones);
         console.log(resultados, etapa);
         if (resultados) {
             let usuario_activo = "<?php echo $_SESSION['usuario']; ?>";
@@ -1400,9 +1411,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let usuario = "<?php echo $_SESSION['usuario']; ?>";
         let respuestas = consolidarRespuestas(selector);
         let id_actaMuestreo = $('#id_actaMuestreo').text();
+        let id_analisis_externo = $('#id_analisis_externo').html();
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
+        let observaciones = $('#form_observaciones').html(); // Esto funcionará para texto plano.
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
         let todosSeleccionados = true;
@@ -1413,6 +1426,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             firma2: firma2,
             firma3: firma3,
             acta: acta,
+            id_analisis_externo: id_analisis_externo, 
+            observaciones: observaciones,
             numero_solicitud: numero_solicitud_analisis_externo,
             solicitado_por_analisis_externo: solicitado_por_analisis_externo,
             respuestas: respuestas,
@@ -1482,10 +1497,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function guardar_firma3() {
         let id_actaMuestreo = $('#id_actaMuestreo').text();
-        let id_analisis_externo = $('#id_analisis_externo').text();
+        let id_analisis_externo = $('#id_analisis_externo').html();
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
+        let observaciones = $('#form_observaciones').html();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
         let dataToSave = {
@@ -1494,6 +1510,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             firma2: firma2,
             firma3: firma3,
             acta: acta,
+            observaciones: observaciones,
             numero_solicitud: numero_solicitud_analisis_externo,
             solicitado_por_analisis_externo: solicitado_por_analisis_externo,
             etapa: 3,

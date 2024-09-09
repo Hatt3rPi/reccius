@@ -4,1134 +4,1039 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Acta de Muestreo Control de Calidad</title>
-
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    
-    <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
-    JS de DataTables 
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/notify.js"></script> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../assets/css/DocumentoActa.css?version=1">
-
+    <link rel="stylesheet" href="../assets/css/calidad.css?version=<?php echo time(); ?>">
 </head>
 
 <body>
-    <div id="form-container" class="form-container">
-        <div id="Maincontainer">
-            <!-- Header -->
-            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-
-                <!-- Logo a la izquierda -->
-                <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
-                    <!-- Ajusta la altura según sea necesario -->
-                </div>
-                <!-- Título Central -->
-                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
-                        de
-                        Calidad
-                        <!-- Pretitulo -->
-                    </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
-                        <!-- Título del documento -->
-                    </h1>
-                    <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
-                        <!-- Descripción del producto -->
-                    </p>
-                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
-                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
-                        Dirección de Calidad
-                    </div>
-                </div>
-                <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
-                        <tr>
-                            <td>N° Registro:</td>
-                            <td name="nro_registro" id="nro_registro"></td>
-                        </tr>
-                        <tr>
-                            <td>N° Versión:</td>
-                            <td name="nro_version" id="nro_version"></td>
-                        </tr>
-                        <tr>
-                            <td>N° Acta:</td>
-                            <td name="nro_acta" id="nro_acta"></td>
-                        </tr>
-                        <tr>
-                            <td>Fecha Muestreo:</td>
-                            <td ><input type="date" id="fecha_muestreo" name="fecha_muestreo"  class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
-
-                        </tr>
-                    </table>
-                </div>
-
-            </div>
-            <!-- Body -->
-            <br>
-            <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
-
-            <!-- Sección I: Identificación de la Muestra -->
-            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
-                <!-- Tabla de identificación de la muestra -->
-                <table id="identificacion_muestra" name="identificacion_muestra">
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th id="revision_actor1">Revisión Muestreador</th>
-                        <th></th>
-                        <th id="revision_actor2">Revisión Responsable</th>
-                        <th></th>
-                        <th>Rótulo General de Muestra</th>
-                    </tr>
-                    <tr>
-                        <td class="formulario-titulo">1. Producto:</td>
-                        <td class="formulario" id="form_producto" readonly>id="form_producto" </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical " role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="verificadores btn-check " name="identResp1" id="identResp1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp1" id="identResp1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</i></label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB1" id="identVB1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</i></label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario" rowspan="9">
-                            <label>Pegar etiqueta de identificación general de la muestra</label>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">2. Tipo Producto:</td>
-                        <td class="formulario" id="form_tipo" readonly>id="form_tipo"</td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp2" id="identResp2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp2" id="identResp2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB2" id="identVB2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB2" id="identVB2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">3. Lote:</td>
-                        <td class="formulario" id="form_lote" readonly>id="form_lote"</td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp3" id="identResp3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp3" id="identResp3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB3" id="identVB3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB3" id="identVB3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">4. Tamaño de Lote:</td>
-                        <td class="formulario" id="form_tamano_lote" readonly>id="form_tamano_lote"</td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp4" id="identResp4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp4" id="identResp4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB4" id="identVB4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB4" id="identVB4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">5. Código Interno:</td>
-                        <td class="formulario" id="form_codigo_mastersoft" readonly>id="form_codigo_mastersoft"</td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp5" id="identResp5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp5" id="identResp5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB5" id="identVB5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB5" id="identVB5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">6. Cond. Almacenamiento:</td>
-
-                        <td class="formulario">
-                            <div id="form_condAlmacenamiento" class="editable-diva"></div>
-
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp6" id="identResp6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp6" id="identResp6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB6" id="identVB6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB6" id="identVB6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">7. Cantidad Muestra:</td>
-                        <td class="formulario" id="form_cant_muestra" readonly>id="form_cant_muestra"</td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp7" id="identResp7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp7" id="identResp7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB7" id="identVB7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB7" id="identVB7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">8. Cantidad Contramuestra:</td>
-                        <td class="formulario" id="form_cant_contramuestra" readonly>id="form_cant_contramuestra"</td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp8" id="identResp8a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp8a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp8" id="identResp8b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp8b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB8" id="identVB8a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB8a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB8" id="identVB8b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB8b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="formulario-titulo">9. Tipo de Análisis:</td>
-                        <td class="formulario" id="form_tipo_analisis" readonly>id="form_tipo_analisis"</td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp9" id="identResp9a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identResp9a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identResp9" id="identResp9b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identResp9b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB9" id="identVB9a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="identVB9a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="identVB9" id="identVB9b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="identVB9b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr style="Height: 46.66666px;">
-                        <td class="formulario-titulo">10. Fecha Vencimiento:</td>
-                        <td class="formulario" id="form_fecha_vencimiento" name="form_fecha_vencimiento" readonly>id="form_fecha_vencimiento"</td>
-                    </tr>
-                    <tr style="Height: 46.66666px;">
-                        <td class="formulario-titulo">11. Fecha Elaboración:</td>
-                        <td class="formulario" id="form_fecha_elaboracion" name="form_fecha_elaboracion" readonly>id="form_fecha_elaboracion"</td>
-                    </tr>
-                </table>
-            </section>
-            <label class="font-size: 12px" for="form_Inusual">12. Obs. del Análisis Externo:</label>
-            <div class="editable-div textarea" contenteditable="true" id="form_observaciones" name="form_observaciones">id="form_observaciones"</div>
-
-            <br>
-            <br>
-            <h2 class="Subtitulos">II. MUESTREO</h2>
-            <!-- Sección II: MUESTREO -->
-            <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
-                <!-- Tabla de identificación de la muestra -->
-                <table id="muestreo" name="muestreo">
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th id="revision_actor1">Revisión Muestreador</th>
-                        <th></th>
-                        <th id="revision_actor2">Revisión Responsable</th>
-                        <th></th>
-                        <th>Rótulo General de Muestra</th>
-                    </tr>
-
-                    <tr>
-                        <td>1. La zona de esterilización se encuentra limpia y ordenada.</td>
-                        <td id="form_1" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario" rowspan="9">
-                            <label>Pegar etiqueta de identificación general de la muestra</label>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>2. Verificar que la zona de muestreo se encuentre libre de otros productos.</td>
-                        <td id="form_2" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>3. Evaluar el aspecto del producto en zona de revisión.</td>
-                        <td id="form_3" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>4. Verificar correcta identificación del lote y producto.</td>
-                        <td id="form_4" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>5. Cantidad de ciclos de esterilización</td>
-                        <td class="formulario">
-                            <div id="form_textarea5" class="editable-div" contenteditable="true"></div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>6. Cantidad bandejas esterilizadas por ciclo</td>
-                        <td class="formulario">
-                            <div id="form_textarea6" class="editable-div" contenteditable="true"></div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>7. Cantidad de muestras por bandeja</td>
-                        <td class="formulario">
-                            <div id="form_textarea7" class="editable-div" contenteditable="true"></div>
-
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </section>
-
-            <div style="margin-top: 10px; font-size: 12px;">
+    <div class="form-container">
+        <h1>CALIDAD / Preparación solicitud Análisis Externo</h1>
+        <form id="formulario_analisis_externo" name="formulario_analisis_externo">
+            <fieldset>
+                <legend>I. Análisis:</legend>
                 <br>
-                <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual
-                    durante el proceso:</label>
-                    
-                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
-
-
-            </div>
-            <!-- Sección III: Plan de Muestreo -->
-            <section id="sampling-plan">
-                <h2 class="Subtitulos">III. PLAN DE MUESTREO</h2>
-
-                <table id="seccion3" style="width:100%; border-collapse: collapse;">
-                    <!-- Encabezados de la tabla -->
-                    <tr>
-                        <th>Tamaño de Lote</th>
-                        <th>Muestra</th>
-                        <th>Contramuestra</th>
-                        <th>Total</th>
-                        <th id="revision_actor1">Revisión Muestreador</th>
-                        <th id="revision_actor2">Revisión Responsable</th>
-                    </tr>
-                    <!-- Fila para lotes de <= 500 unidades -->
-                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td readonly>&le; 500 unidades</td>
-                        <td readonly>40 unidades</td>
-                        <td readonly>80 unidades</td>
-                        <td readonly>120 Unidades</td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="planResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB1" id="planVB1c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="planVB1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Fila para lotes entre 501 y 4999 unidades -->
-                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td contenteditable="true">501 - 999 unidades</td>
-                        <td contenteditable="true">40 unidades</td>
-                        <td contenteditable="true">80 unidades</td>
-                        <td contenteditable="true">120 Unidades</td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp2" id="planResp2c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="planResp2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB2" id="planVB2c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="planVB2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Fila para lotes de >= 1000 unidades -->
-                    <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td contenteditable="true">&ge; 1000 unidades</td>
-                        <td contenteditable="true">50 unidades</td>
-                        <td contenteditable="true">100 unidades</td>
-                        <td contenteditable="true">150 Unidades</td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planResp3" id="planResp3c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="planResp3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="planVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="planVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="planVB3" id="planVB3c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="planVB3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </section>
-
-
-            <!-- Footer -->
-            <div id="footer-containerDIV" class="footer-containerDIV">
-
-
-
-
-                <!-- Sección Muestreado por -->
-                <div class="firma-section">
-                    <div class="firma-box-title">Muestreado por:</div>
-                    <div class="firma-boxes">
-                        <p id="realizadoPor" name="realizadoPor" class="bold">
-
-                        <p id="cargo_realizador" name="cargo_realizador" class="bold"></p>
-                        </p>
-                        <div class="signature">
-                            <!-- Agregar la imagen aquí -->
-                            <img id="firma_realizador" name="firma_realizador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>N° Registro:</label>
+                        <input required id="numero_registro" class="form-control mx-0 w-90" name="numero_registro" type="text" placeholder="DCAL-CC-ENE-001">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Versión:</label>
+                        <input id="version" name="version" type="text" class="form-control mx-0 w-90" value="1" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>N° Solicitud:</label>
+                        <input required id="numero_solicitud" class="form-control mx-0 w-90" name="numero_solicitud" type="text" placeholder="SAEPT-0101001-00">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Fecha registro:</label>
+                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker editable" id="fecha_registro" placeholder="dd/mm/aaaa" type="text" value="<?php echo date('d/m/Y'); ?>">
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>II. Especificaciones del producto:</legend>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Producto:</label>
+                        <input class="form-control mx-0 w-90" id="tipo_producto" name="tipo_producto" type="text" placeholder="Producto Terminado">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Código Producto:</label>
+                        <input class="form-control mx-0 w-90" id="codigo_producto" name="codigo_producto" type="text" placeholder="12345">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Producto:</label>
+                        <input class="form-control mx-0 w-90" id="producto" name="producto" type="text" placeholder="Ácido Ascórbico">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Concentración:</label>
+                        <input class="form-control mx-0 w-90" name="concentracion" id="concentracion" type="text" placeholder="1g / 10 ml">
+                    </div>
+                </div>
+                <div class="form-row">
+                <div class="form-group">
+                        <label>Formato:</label>
+                        <input class="form-control mx-0 w-90" name="formato" id="formato" type="text" placeholder="Ampolla">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group" id="contenedor_dealer" name="contenedor_dealer" style="visibility: hidden;">
+                        <label>Proveedor:</label>
+                        <input type="text" id="dealer" name="dealer" class="form-control mx-0 w-90 editable">
+                    </div> 
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Elaborado por:</label>
+                        <input type="text" name="elaboradoPor" id="elaboradoPor" Value="Reccius" class="form-control mx-0 w-90" required>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>País de origen:</label>
+                        <input type="text" name="paisOrigen" id="paisOrigen" Value="Chile" class="form-control mx-0 w-90" required>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>III. Identificación de la muestra:</legend>
+                <br>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nro Lote:</label>
+                        <input required class="form-control mx-0 w-90 " name="lote" id="lote" type="text" placeholder="RM-000000/00">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Tamaño Lote:</label>
+                        <input required class="form-control mx-0 w-90 " name="tamano_lote" id="tamano_lote" type="text" placeholder="20">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha Elaboración:</label>
+                        <input required class="form-control mx-0 w-90 datepicker " name="fecha_elaboracion" id="fecha_elaboracion" value="<?php echo date('d/m/Y'); ?>" placeholder="dd/mm/aaaa" type="text">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Fecha Vencimiento:</label>
+                        <input required class="form-control mx-0 w-90 datepicker " name="fecha_vencimiento" id="fecha_vencimiento" placeholder="dd/mm/aaaa" type="text">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo Análisis:</label>
+                        <input required class="form-control mx-0 w-90 " name="tipo_analisis" id="tipo_analisis" type="text" value="Análisis de rutina">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="form-group">
+                        <label>Condiciones Almacenamiento:</label>
+                        <textarea required class="form-control mx-0 w-90 border rounded-sm " style="field-sizing: content;" name="condicion_almacenamiento" id="condicion_almacenamiento" rows="2" >T° ambiente, lugar fresco y seco, protegido de la luz</textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cantidad Muestra:</label>
+                        <input required class="form-control mx-0 w-90 " name="tamano_muestra" id="tamano_muestra" type="text" placeholder="...">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Cantidad Contra-muestra:</label>
+                        <input required class="form-control mx-0 w-90 " name="tamano_contramuestra" id="tamano_contramuestra" type="text" placeholder="...">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Registro ISP:</label>
+                        <input required class="form-control mx-0 w-90 " name="registro_isp" id="registro_isp" type="text" value="N°2988/18. RF XIII 06/18. 1A, 2B, 2C, 3A, 3D, 4">
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                        <label>Muestreado según POS:</label>
+                        <input required class="form-control mx-0 w-90 " name="numero_pos" id="numero_pos" type="text" value="DCAL-CC-PO-007">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Observaciones:</label>
+                        <textarea name="form_observaciones" id="form_observaciones" class="highlight form-control mx-0 w-90 border rounded-sm editable" rows="4" placeholder="..."></textarea>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group" style="visibility: hidden;">
+                        <label>Verificador Muestreo:</label>
+                        <select required name="dummy" id="dummy" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Muestreador:</label>
+                        <select required name="ejecutado_por" id="ejecutado_por" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                            <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
+                            <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques">Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira" selected>Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
+                        </select>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group">
+                    <label>Responsable Muestreo:</label>
+                        <select required name="muestreado_por" id="muestreado_por" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                            <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
+                            <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques">Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                    <label>Verificador Muestreo:</label>
+                        <select required name="am_verificado_por" id="am_verificado_por" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                            <option value="mgodoy">Macarena Godoy - Supervisor Calidad</option>
+                            <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
+                            <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                            <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                            <option value="fabarca212">Felipe Abarca</option>
+                            <option value="lucianoalonso2000">Luciano Abarca</option>
+                            <option value="javier2000asr">Javier Sabando</option>
+                        </select>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group" style="visibility: hidden;">
+                        <label>Verificador Muestreo:</label>
+                        <select required name="dummy" id="dummy" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <div id="informacion_faltante">
+                <fieldset>
+                    <legend>IV. Solicitud de Análisis Externo:</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Laboratorio Analista:</label>
+                            <select required name="laboratorio" id="laboratorio" class="highlight select-style mx-0 form__select w-90 editable" onchange="verificarOtro('laboratorio', 'otro_laboratorio')" style="width: 90%" required>
+                            </select>
+                            <input type="text" name="otro_laboratorio" id="otro_laboratorio" placeholder="Especificar otro laboratorio" class="highlight form-control mx-0 w-90 editable" style="display: none" />
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Fecha Solicitud:</label>
+                            <input name="fecha_solicitud" class="highlight form-control mx-0 w-90 datepicker editable" id="fecha_solicitud" placeholder="dd/mm/aaaa" type="text" required />
                         </div>
                     </div>
-                    <div class="date-container">
-                        <div id='fecha_firma1' name='fecha_firma1' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
-                        <p id='mensaje_firma1' name='mensaje_firma1' class="text-bottom" style="display: none;">Firmado digitalmente</p>
-                    </div>
-                </div>
-                <!-- Sección Realizado por -->
-                <div class="firma-section">
-                    <div class="firma-box-title">Responsable:</div>
-                    <div class="firma-boxes">
-                        <p id='responsable' name='responsable' class="bold">
-                        </p>
-
-                        <p id="cargo_responsable" name="cargo_responsable" class="bold">
-                        </p>
-                        <div class="signature">
-                            <!-- Agregar la imagen aquí -->
-                            <img id="firma_responsable" name="firma_responsable" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
-
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Análisis según:</label>
+                            <input name="analisis_segun" id="analisis_segun" class="highlight form-control mx-0 w-90 editable" type="text" required placeholder="Cotización" />
                         </div>
-
-                    </div>
-                    <div class="date-container">
-                        <div id='fecha_firma2' name='fecha_firma2' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
-                        <p id='mensaje_firma2' name='mensaje_firma2' class="text-bottom" style="display: none;">Firmado digitalmente</p>
-                        <p id='user_firma2' name='user_firma2' style="display: none;"></p>
-                    </div>
-                </div>
-                <!-- Sección Verificado por -->
-                <div class="firma-section">
-                    <div class="firma-box-title">Revisado por:</div>
-                    <div class="firma-boxes">
-                        <p id='verificadoPor' name='verificadoPor' class="bold">
-                        </p>
-
-                        <p id='cargo_verificador' name='cargo_verificador' class="bold">
-                        </p>
-
-                        <div class="signature">
-                            <!-- Agregar la imagen aquí -->
-                            <img id="firma_verificador" name="firma_verificador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="firma_verificador" class="firma" />
-
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Fecha Cotización:</label>
+                            <input name="fecha_cotizacion" id="fecha_cotizacion" placeholder="dd/mm/aaaa" type="text" required class="highlight form-control mx-0 w-90 datepicker editable" />
                         </div>
-
                     </div>
-                    <div class="date-container">
-                        <div id='fecha_firma3' name='fecha_firma3' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
-                        <p id='mensaje_firma3' name='mensaje_firma3' class="text-bottom" style="display: none;">Firmado digitalmente</p>
-                        <p id='user_firma3' name='user_firma3' style="display: none;" style="display: none;"></p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estandar_segun">Estándar Provisto por:</label>
+                            <select required id="estandar_segun" name="estandar_segun" class="highlight select-style mx-0 form__select w-90 editable" style="width: 82.5%">
+                                <option value="Reccius">Reccius</option>
+                                <option value="CEQUC">CEQUC</option>
+                                <option value="Pharma ISA">Pharma ISA</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Adjunta Hoja de seguridad</label>
+                            <input name="hds_otro" id="hds_otro" type="text" required class="highlight form-control mx-0 w-90 editable" placeholder="No" />
+                        </div>
                     </div>
-                </div>
-
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha Entrega Estimada <em>(21 días corridos)</em>:</label>
+                            <input name="fecha_entrega_estimada" id="fecha_entrega_estimada" placeholder="dd/mm/aaaa" type="text" required class="highlight form-control mx-0 w-90 datepicker editable" />
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>N° Cotización:</label>
+                            <input name="numero_documento" id="numero_documento" class="highlight form-control mx-0 w-90 editable" type="text" required placeholder="123456" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Observaciones:</label>
+                            <textarea name="observaciones" id="observaciones" class="highlight form-control mx-0 w-90 border rounded-sm editable" rows="4" placeholder="..."></textarea>
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Documento adicional:</label>
+                            <label for="url_documento_adicional" id="url_documento_adicional_label" class="label__like-input highlight w-90 d-flex">
+                                <span>
+                                    <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
+                                </span>
+                                 &nbsp <span id="url_documento_adicional_label_text">Seleccione un archivo</span>
+                                </label>
+                                <input type="file" accept="application/pdf" id="url_documento_adicional" name="url_documento_adicional"  style="display: none;">
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+                <fieldset>
+                    <legend>V. Análisis:</legend>
+                    <br />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Especificación de producto:</label>
+                            <input name="numero_especificacion" id="numero_especificacion" type="text" placeholder="Numero de especificacion" class="form-control mx-0 w-90 " />
+                        </div>
+                        <div class="divider"></div>
+                        <!-- Esta es la línea divisora -->
+                        <div class="form-group">
+                            <label>Versión:</label>
+                            <input name="version_especificacion" id="version_especificacion" type="text" placeholder="06-07-2023" class="form-control mx-0 w-90 " />
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+                <fieldset>
+                    <legend>VI. Flujo de Aprobación:</legend>
+                    <br />
+                    <br />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Usuario Solicitante:</label>
+                            <input class="form-control mx-0 w-100 editable" type="text" id="usuario_editor" name="usuario_editor" value="<?php echo $_SESSION['nombre']; ?>" readonly />
+                            <input type="text" id="user_editor" name="user_editor" value="<?php echo $_SESSION['usuario']; ?>" style="display: none" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Revisión a cargo de:</label>
+                            <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-100 highlight editable" required>
+                                <option>Selecciona el usuario supervisor:</option>
+                                <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                                <option value="lcaques" selected>Lynnda Caques Segovia - Coordinador Calidad</option>
+                                <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
+                                <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
+                                <option value="fabarca212">Felipe Abarca</option>
+                                <option value="lucianoalonso2000">Luciano Abarca</option>
+                                <option value="javier2000asr">Javier Sabando</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
-            <footer style="width: 100%; text-align: center; margin-top: 20px;bottom: 0;">
-                <!-- Nota de confidencialidad -->
-                <p style="margin-top: 10px;font-size: 10px;padding-bottom: 10px;">
-                    La información contenida en esta acta es de carácter CONFIDENCIAL y es considerada SECRETO
-                    INDUSTRIAL.
-                </p>
-            </footer>
+            <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
 
-
-
-        </div>
-
-
-</body>
-<div class="button-container">
-    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método
-        Muestreo</button>
-    <button class="botones" id="guardar" style="display: none">Guardar</button>
-    <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
-    <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
-    <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
-    <p id='etapa' name='etapa' style="display: none;"></p>
-    <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
-    <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
-    <p id='numero_solicitud_analisis_externo' name='numero_solicitud_analisis_externo' style="display: none;"></p>
-    <p id='solicitado_por_analisis_externo' name='solicitado_por_analisis_externo' style="display: none;"></p>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="button-container">
+                <button type="submit" id="guardar" name="guardar" class="botones">
+                    Guardar Solicitud</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">
+                    Editar solicitud</button>
             </div>
-            <div class="modal-body">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
-                    <label class="form-check-label" for="muestreoManual">
-                        Acta de Muestreo Manual (en papel)
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
-                    <label class="form-check-label" for="muestreoDigital">
-                        Acta de Muestreo Digital (en tablet)
-                    </label>
-                </div>
+            <div class="actions-container">
+                <input type="text" id="id_producto" name="id_producto" style="display: none;">
+                <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
-            </div>
-        </div>
+        </form>
     </div>
-</div>
-<div id="notification" class="notification-container notify" style="display: none;">
-    <p id="notification-message">Este es un mensaje de notificación.</p>
-</div>
+</body>
 
 </html>
 <script>
-    var idAnalisisExterno_acta = null;
+    //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
+    /**
+     * Sets values to the given inputs.
+     *
+     * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
+     * @return {void}
+     */
 
-    document.getElementById('confirmarMetodo').addEventListener('click', function() {
-        const metodoManual = document.getElementById('muestreoManual').checked;
-        const metodoDigital = document.getElementById('muestreoDigital').checked;
+    function setValuesToInputs(arr) {
+        for (let el of arr) {
+            const {
+                id,
+                val,
+                isDisabled
+            } = el;
+            var elem = $('#' + id);
 
-        // Cerrar el modal después de seleccionar la opción
-        $('#modalMetodoMuestreo').modal('hide');
-        $("#modalMetodoMuestreo").css("z-index", "-1");
-        if (metodoManual) {
-            // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
-            document.getElementById('download-pdf').click();
-        } else if (metodoDigital) {
-            $('#etapa').text('ingresa resultados y firma1');
-            // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
-            document.querySelectorAll('.formulario.resp *').forEach(function(element) {
-                element.style.visibility = 'visible';
-            });
-            document.getElementById('metodo_muestreo').style.display = 'none';
-            document.getElementById('firmar').style.display = 'none';
-            document.getElementById('guardar').style.display = 'block';
-            $('.resp').css('background-color', '#f4fac2');
-            var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
-            var cargo = "<?php echo $_SESSION['cargo']; ?>";
-            var fecha_hoy = "<?php echo date('d-m-Y'); ?>";
-            var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-            $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
-            $('#fecha_firma1').text(fecha_hoy);
-            //document.getElementById('fecha_firma1').style.display = 'block';
-            //document.getElementById('mensaje_firma1').style.display = 'block';
-
-            $('#cargo_realizador').text(cargo);
-            $('#realizadoPor').text(nombre_ejecutor);
-
-            $('#form_textarea5').prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea6').prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea7').prop('readonly', false).css('background-color', '#f4fac2');
-            $('#form_textarea8').prop('readonly', false).css('background-color', '#f4fac2');
-        }
-    });
-
-    function setFirmaImage(imgElement, firmaSrc) {
-        const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
-        const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
-
-        if (!firmaSrc) {
-            imgElement.src = nullImage;
-            console.log("Firma no disponible, usando imagen nula.");
-        } else {
-            imgElement.onerror = function() {
-                imgElement.src = noProvidedImage;
-                console.log("Error al cargar la firma, usando imagen de firma no proporcionada.");
-            };
-            imgElement.src = firmaSrc;
-            console.log("Cargando firma desde:", firmaSrc);
-        }
-    }
-    // Cambio: Actualizar la función firma1 para usar setFirmaImage
-    // Función para manejar la respuesta y asignar valores a los elementos del DOM
-    function firma1(response) {
-        var fotoFirmaUsuario = response.foto_firma_usr1;
-
-        console.log('Asignación de la firma del usuario:');
-        console.log(fotoFirmaUsuario);
-        fetch(fotoFirmaUsuario).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(blob);
-        })).then((data) => {
-            console.log(data)
-            setFirmaImage(document.getElementById('firma_realizador'), data);
-        })
-        $('#fecha_firma1').text(response.fecha_firma_muestreador);
-        document.getElementById('fecha_firma1').style.display = 'block';
-        document.getElementById('mensaje_firma1').style.display = 'block';
-        asignarValoresARadios(response.resultados_muestrador, '.formulario.resp');
-    }
-
-    function firma2(response) {
-        var fotoFirmaReesponsable = response.foto_firma_usr2;
-
-        console.log('Asignación de la firma del usuario:');
-        console.log(fotoFirmaReesponsable);
-        fetch(fotoFirmaReesponsable).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(blob);
-        })).then((data) => {
-            console.log(data)
-            setFirmaImage(document.getElementById('firma_responsable'), data);
-        })
-        $('#fecha_firma2').text(response.fecha_firma_muestreador);
-        document.getElementById('fecha_firma2').style.display = 'block';
-        document.getElementById('mensaje_firma2').style.display = 'block';
-        asignarValoresARadios(response.resultados_responsable, '.formulario.verif');
-    }
-
-    function firma3(response) {
-        var fotoFirmaVerificador = response.foto_firma_usr3;
-
-        console.log('Asignación de la firma del usuario:');
-        console.log(fotoFirmaVerificador);
-        fetch(fotoFirmaVerificador).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(blob);
-        })).then((data) => {
-            console.log(data)
-            setFirmaImage(document.getElementById('firma_verificador'), data);
-        })
-        $('#fecha_firma3').text(response.fecha_firma_muestreador);
-        document.getElementById('fecha_firma3').style.display = 'block';
-        document.getElementById('mensaje_firma3').style.display = 'block';
-    }
-
-    function asignarValoresARadios(valores, selectorGrupos) {
-        const grupos = document.querySelectorAll(selectorGrupos);
-        console.log("Cantidad de grupos encontrados:", grupos.length);
-        console.log("Longitud de valores esperados:", valores.length);
-
-        if (valores.length !== grupos.length) {
-            console.error("La cantidad de valores no coincide con la cantidad de grupos de botones.");
-            return;
-        }
-
-        grupos.forEach((grupo, index) => {
-            const valor = valores[index];
-            let suffix;
-
-            // Asignar el sufijo según el valor recibido
-            if (valor === '1') {
-                suffix = 'a';
-            } else if (valor === '0') {
-                suffix = 'b';
-            } else if (valor === '2') { // Nuevo valor para "No Aplica"
-                suffix = 'c';
+            if (isDisabled) {
+                console.log('Elemento ' + id + ' deshabilitado');
+                elem.prop('disabled', true);
             }
 
-            const radio = grupo.querySelector(`input[type="radio"][id$="${suffix}"]`);
-
-            const allRadios = grupo.querySelectorAll('input[type="radio"]');
-            allRadios.forEach(r => {
-                r.setAttribute('disabled', 'disabled');
-            });
-
-            if (radio) {
-                radio.checked = true;
+            if (elem.hasClass('datepicker')) {
+                var formattedDate = moment(val).format('DD/MM/YYYY');
+                elem.val(formattedDate);
             } else {
-                console.error(`No se encontró el botón con id terminado en '${suffix}' en el grupo ${index + 1}`);
+                elem.val(val);
             }
+
+
+        }
+    }
+
+    informacionFaltante();
+
+    function informacionFaltante() {
+        const identificacionInputs = [
+            'fecha_registro',
+            'lote',
+            'tamano_lote',
+            'fecha_elaboracion',
+            'fecha_vencimiento',
+            'tipo_analisis',
+            'condicion_almacenamiento',
+            'tamano_muestra',
+            'tamano_contramuestra',
+            'registro_isp',
+            'numero_pos',
+            'ejecutado_por',
+            'muestreado_por',
+            'am_verificado_por'
+        ];
+
+        const solicitudAnalisisInputs = [
+            'laboratorio',
+            'otro_laboratorio',
+            'fecha_solicitud',
+            'analisis_segun',
+            'fecha_cotizacion',
+            'estandar_segun',
+            'hds_otro',
+            'fecha_entrega_estimada',
+            'numero_documento',
+            // 'observaciones',
+            'numero_especificacion',
+            'version_especificacion',
+            'usuario_editor',
+            'revisado_por'
+        ];
+        if (QA_solicitud_analisis_editing) {
+            $("#guardar").show();
+        } else {
+            $("#editarGenerarVersion").hide();
+            $("#informacion_faltante").remove();
+            // Aplicar color amarillo a los inputs de identificación
+            identificacionInputs.forEach(id => {
+                $('#' + id).addClass('editable');
+            });
+
+            // Desactivar color amarillo para los inputs de solicitud de análisis externo
+            solicitudAnalisisInputs.forEach(id => {
+                $('#' + id).removeClass('editable');
+            });
+        }
+    }
+
+    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
+    var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+    var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+
+    function cargarDatosEspecificacion() {
+        var data = {
+            idEspecificacion: idEspecificacion,
+            id_analisis_externo: idAnalisisExterno,
+            accion: accion
+        };
+
+        $.ajax({
+            url: './backend/laboratorio/cargaEsp_solicitudBE.php',
+            type: 'GET',
+            data,
+            success: function(response) {
+                if (QA_solicitud_analisis_editing) {
+                    procesarDatosActaUpdate(response);
+                } else {
+                    procesarDatosActa(response);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud: ", status, error);
+            }
+        });
+    }
+    cargarDatosEspecificacion();
+
+    $('#fecha_elaboracion').datepicker({
+        format: 'dd/mm/yyyy', // Formato de fecha
+    });
+
+    var newVersion = 1;
+
+    function procesarDatosActa(response) {
+        if (response && response.productos && response.productos.length > 0) {
+            var producto = response.productos[0];
+            var numero_acta = response.numero_acta_cor
+            var numero_registro = response.numero_registro_cor
+            var newNumeroRegistro = response.total_analisis + 1
+            var numeroSaept = response.total_analisis_producto + 1
+            var now = new Date();
+            $('#version').val(1);
+            $('#numero_registro').val(numero_registro).prop('readonly', true);
+            $('#numero_solicitud').val(numero_acta).prop('readonly', true);
+            switch (producto.tipo_producto) {
+                case 'Material Envase y Empaque':
+                    prefijo = 'DCAL-CC-EMEE-';
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
+                    break;
+                case 'Materia Prima':
+                    prefijo = 'DCAL-CC-EMP-';
+                    $('#contenedor_dealer').css('visibility', 'visible').prop('required', true);
+                    break;
+                case 'Producto Terminado':
+                    prefijo = 'DCAL-CC-EPT-';
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
+                    break;
+                case 'Insumo':
+                    prefijo = 'DCAL-CC-EINS-';
+                    $('#contenedor_dealer').css('visibility', 'hidden').prop('required', false);
+                    break;
+            }
+            setValuesToInputs([{
+                    id: 'id_producto',
+                    val: producto.id_producto,
+                    isDisabled: false
+                },
+                {
+                    id: 'tipo_producto',
+                    val: producto.tipo_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'codigo_producto',
+                    val: producto.identificador_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'producto',
+                    val: producto.nombre_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'concentracion',
+                    val: producto.concentracion,
+                    isDisabled: true
+                },
+                {
+                    id: 'formato',
+                    val: producto.formato,
+                    isDisabled: true
+                },
+                {
+                    id: 'observaciones',
+                    val: response.analisis.observaciones,
+                    isDisabled: true
+                }
+            ])
+
+            var especificaciones = Object.values(producto.especificaciones);
+            if (especificaciones.length > 0) {
+                var especificacion = especificaciones[0];
+                $('#id_especificacion').val(especificacion.id_especificacion);
+                $('#version_especificacion').val(especificacion.version);
+            }
+        } else {
+            console.error("No se recibieron datos válidos: ", response);
+        }
+    }
+
+    var guardarYFirmarSolicitud = false
+
+    function procesarDatosActaUpdate(response) {
+
+        if (response && response.analisis) {
+
+            newVersion = response.count_analisis_externo + 1
+            var analisis = response.analisis;
+            var primerProducto = response.productos[0];
+
+            //Todo : Volver a validar cuando se pueda editar ||| en caso de que los datos este de 4 al 6 hacer la seccion de "nuevo analisis" y añadir nueva version
+
+            if (analisis.estado == "Pendiente Acta de Muestreo") {
+                //!elimina del punto 4 al 6
+                $("#informacion_faltante").remove();
+            } else {
+                if (analisis.estado !== "Pendiente completar análisis") {
+                    //! Deja generar nueva version
+                    $("#upload-pdf").show();
+                } else {
+                    //! llenar del 4 al 6 y firmar
+                    $("#editarGenerarVersion").hide();
+                    $("#guardar").text("GUARDAR Y FIRMAR SOLICITUD");
+                    guardarYFirmarSolicitud = true
+                    $('.highlight').css('background-color', '#f4fac2');
+                }
+            }
+
+            //* I. Análisis:
+            $("#version").val(analisis.version);
+            var arrToSetAnalisis = [{
+                    id: 'numero_registro',
+                    val: analisis.numero_registro,
+                    isDisabled: true
+                }, {
+                    id: 'numero_solicitud',
+                    val: analisis.numero_solicitud,
+                    isDisabled: true
+                }, {
+                    id: 'fecha_registro',
+                    val: analisis.fecha_registro,
+                    isDisabled: true
+                }
+                //
+            ]
+            //* II. Especificaciones
+            var arrToSetEspecificaciones = [{
+                    id: 'id_producto',
+                    val: analisis.prod_identificador_producto,
+                    isDisabled: false
+                },
+                {
+                    id: 'tipo_producto',
+                    val: analisis.prod_tipo_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'codigo_producto',
+                    val: analisis.prod_identificador_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'producto',
+                    val: analisis.prod_nombre_producto,
+                    isDisabled: true
+                },
+                {
+                    id: 'formato',
+                    val: analisis.prod_formato,
+                    isDisabled: true
+                },
+                {
+                    id: 'concentracion',
+                    val: analisis.prod_concentracion,
+                    isDisabled: true
+                },
+                {
+                    id: 'elaboradoPor',
+                    val: analisis.elaborado_por,
+                    isDisabled: true
+                }
+                ,
+                {
+                    id: 'dealer',
+                    val: producto.proveedor,
+                    isDisabled: true
+                }
+                ,{
+                    id: 'paisOrigen',
+                    val: analisis.pais_origen,
+                    isDisabled: true
+                }
+            ];
+            //* III. Identificación
+            var arrToSetIdentificacion = [{
+                    id: 'lote',
+                    val: analisis.lote,
+                    isDisabled: true
+                },
+                {
+                    id: 'tamano_lote',
+                    val: analisis.tamano_lote,
+                    isDisabled: true
+                },
+                {
+                    id: 'fecha_elaboracion',
+                    val: analisis.fecha_elaboracion,
+                    isDisabled: true
+                },
+                {
+                    id: 'fecha_vencimiento',
+                    val: analisis.fecha_vencimiento,
+                    isDisabled: true
+                },
+                {
+                    id: 'tipo_analisis',
+                    val: analisis.tipo_analisis,
+                    isDisabled: true
+                },
+                {
+                    id: 'condicion_almacenamiento',
+                    val: analisis.condicion_almacenamiento,
+                    isDisabled: true
+                },
+                {
+                    id: 'tamano_muestra',
+                    val: analisis.tamano_muestra,
+                    isDisabled: true
+                },
+                {
+                    id: 'tamano_contramuestra',
+                    val: analisis.tamano_contramuestra,
+                    isDisabled: true
+                },
+                {
+                    id: 'registro_isp',
+                    val: analisis.registro_isp,
+                    isDisabled: true
+                },
+                {
+                    id: 'numero_pos',
+                    val: analisis.numero_pos,
+                    isDisabled: true
+                },
+                {
+                    id: 'ejecutado_por',
+                    val: analisis.am_ejecutado_por,
+                    isDisabled: true
+                },
+                {
+                    id: 'muestreado_por',
+                    val: analisis.muestreado_por,
+                    isDisabled: true
+                },
+                {
+                    id: 'am_verificado_por',
+                    val: analisis.am_verificado_por,
+                    isDisabled: true
+                },
+                {
+                        id: 'observaciones',
+                        val: analisis.observaciones,
+                        isDisabled: false
+                }
+            ];
+            //* IV. Solicitud de Análisis Externo
+            var arrToSetAdditionalInfo = [];
+            if (analisis.laboratorio) {
+                arrToSetAdditionalInfo = [{
+                        id: 'analisis_segun',
+                        val: analisis.analisis_segun,
+                        isDisabled: true
+                    },
+                    {
+                        id: 'estandar_segun',
+                        val: analisis.estandar_segun,
+                        isDisabled: true
+                    },
+                    {
+                        id: 'fecha_cotizacion',
+                        val: analisis.fecha_cotizacion,
+                        isDisabled: true
+                    },
+                    {
+                        id: 'fecha_entrega_estimada',
+                        val: analisis.fecha_entrega_estimada,
+                        isDisabled: true
+                    },
+                    {
+                        id: 'fecha_solicitud',
+                        val: analisis.fecha_solicitud,
+                        isDisabled: true
+                    },
+                    {
+                        id: 'hds_otro',
+                        val: analisis.hds_otro,
+                        isDisabled: true
+                    },
+                    {
+                        id: 'laboratorio',
+                        val: analisis.laboratorio,
+                        isDisabled: true
+                    },
+                    {
+                        id: 'numero_documento',
+                        val: analisis.numero_documento,
+                        isDisabled: true
+                    }
+                ]
+            }
+
+            var laboratorioOptions = '<option value="">Selecciona un Laboratorio</option>';
+            response.laboratorios.forEach(lab => {
+                laboratorioOptions += `<option value="${lab.name}">${lab.name}</option>`;
+            });
+            laboratorioOptions += `<option value="Otro">Otro</option>`;
+            $('#laboratorio').html(laboratorioOptions);
+
+
+
+            $('#id_especificacion').val(analisis.id_especificacion);
+            $('#version_especificacion').val(analisis.version_especificacion).prop('disabled', true);
+            //* V. Análisis
+            $('#numero_especificacion').val(primerProducto.documento_producto).prop('disabled', true);
+
+            var arrToSet = [...arrToSetAnalisis, ...arrToSetEspecificaciones, ...arrToSetIdentificacion, ...arrToSetAdditionalInfo];
+
+            setValuesToInputs(arrToSet)
+
+        } else {
+            console.error("No se recibieron datos válidos: ", response);
+        }
+    }
+
+    function verificarOtro(selectId, inputId) {
+        var select = document.getElementById(selectId);
+        var input = document.getElementById(inputId);
+        if (select.value === 'Otro') {
+            input.style.display = 'block';
+            input.required = true;
+        } else {
+            input.style.display = 'none';
+            input.required = false;
+            input.value = '';
+        }
+    }
+
+    function validateTextRequiredInputs(formData) {
+        var formObject = {};
+        formData.forEach(function(value, key) {
+            formObject[key] = value;
         });
     }
 
 
-
-
-
-
-
-    document.getElementById('download-pdf').addEventListener('click', function() {
-        // Ajusta los estilos de los botones e íconos antes de generar el PDF
-        const styleElement = document.createElement('style');
-        styleElement.innerHTML = `
-        .btn-outline-success,
-        .btn-outline-danger,
-        .btn-outline-secondary {
-            background-color: transparent !important;
-            color: #000 !important;
-            border-color: #000 !important;
-            font-weight: bold !important; /* Hace el texto bold */
-        }
-
-        .btn-outline-success .fa-circle-check,
-        .btn-outline-danger .fa-circle-xmark,
-        .btn-outline-secondary .fa-circle-xmark {
-            color: #000 !important;
-            font-weight: bold !important; /* Hace el texto bold */
-        }
-    `;
-        document.head.appendChild(styleElement);
-
-        // Continúa con la generación del PDF
-        $.notify("Generando PDF", "warn");
-
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
-
-        allButtonGroups.forEach(group => {
-            const buttons = group.querySelectorAll('.btn-check');
-            buttons.forEach(button => {
-                if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none';
-                }
-            });
+    $(document).ready(function() {
+        $('#url_documento_adicional').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $('#url_documento_adicional_label_text').text(fileName);
         });
 
-        document.querySelector('.button-container').style.display = 'none';
-        const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none';
-        elementToExport.style.boxShadow = 'none';
+        function editarGenerarVersion(event) {
 
-        html2canvas(elementToExport, {
-            scale: 1,
-            useCORS: false
-        }).then(canvas => {
-            document.querySelector('.button-container').style.display = 'block';
-            elementToExport.style.border = '1px solid #000';
-            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        }
 
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    if (button.checked) {
-                        button.style.display = 'block';
-                    }
+        $('#editarGenerarVersion').on('click', function(event) {
+            event.preventDefault();
+            console.log("Editar Generar Version");
+
+            $("#guardar").show();
+            $("#editarGenerarVersion").hide();
+            $("#version").val(newVersion);
+
+            var informacionFaltanteArr = []
+
+
+            if ($("#informacion_faltante").length > 0) {
+                informacionFaltanteArr = [
+                    'analisis_segun',
+                    'estandar_segun',
+                    'fecha_cotizacion',
+                    'fecha_entrega_estimada',
+                    'fecha_solicitud',
+                    'hds_otro',
+                    'laboratorio',
+                    'numero_documento',
+                    'observaciones'
+                ].forEach(element => {
+                    $("#" + element).prop('disabled', false);
                 });
-            });
-
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            const imgWidth = 210;
-            const pageHeight = 297;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-
-            let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
+            } else {
+                [
+                    // I. Analisis:
+                    'numero_registro',
+                    'numero_solicitud',
+                    'fecha_registro',
+                    // III. Identificacion de la muestra:
+                    'lote',
+                    'tamano_lote',
+                    'fecha_elaboracion',
+                    'fecha_vencimiento',
+                    'tipo_analisis',
+                    'condicion_almacenamiento',
+                    'tamano_muestra',
+                    'tamano_contramuestra',
+                    'registro_isp',
+                    'numero_pos',
+                    'ejecutado_por',
+                    'muestreado_por',
+                    'am_verificado_por'
+                ].forEach(element => {
+                    $("#" + element).prop('disabled', false);
+                });
             }
 
-            const nombreProducto = document.getElementById('producto').textContent.trim();
-            const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
-
-            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    button.style.display = 'block';
-                });
-            });
-
-            // Remover el estilo temporal después de la generación del PDF
-            document.head.removeChild(styleElement);
         });
+
+        $('#formulario_analisis_externo').on('submit', formSubmit);
+
+        function formSubmit(event) {
+
+            // Crear un nuevo objeto FormData
+            //formatear las fechas
+            event.preventDefault();
+            $('.datepicker').each(function() {
+                var dateValue = $(this).val();
+                if (dateValue) {
+                    var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                    $(this).val(formattedDate);
+                }
+            });
+            var formData = new FormData(this);
+            $('#guardar').prop('disabled', true);
+
+            
+            var datosFormulario = $(this).serialize();
+
+            //si es post firma
+            if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
+                formData.append('id', idAnalisisExterno);
+
+                // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'
+                var fileInput = $('#url_documento_adicional')[0];
+                if (fileInput.files.length > 0) {
+                    formData.append('url_documento_adicional', fileInput.files[0]);
+                }
+            }
+
+            if ($('#laboratorio').val() === 'Otro') {
+                if ($('#otro_laboratorio').val() == '') {
+                    $.notify('Tiene que escribir el nombre del nuevo laboratorio', 'warn');
+                    $('#guardar').prop('disabled', false);
+                    return;
+                }
+            }
+
+            fetch('../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(function(data) {
+                if(data.exito){
+                    $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function(response, status, xhr) {
+                        obtenNotificaciones();
+                        carga_listado();
+                        console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                        $('#loading-spinner').hide();
+                        $('#dynamic-content').show();
+                    });
+                }else{
+                    $.notify(data.mensaje, 'warn');
+                }
+
+
+            }).catch(function(error) {
+                console.log("Error: " + error);
+            }).finally(function() {
+                $('#guardar').prop('disabled', false);
+            })
+
+            $('.datepicker').each(function() {
+                var isoDate = $(this).val();
+                if (isoDate) {
+                    var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                    $(this).val(originalDate);
+                }
+            });
+        }
+
+        $('input[type="text"].datepicker').datepicker({
+            format: 'dd/mm/yyyy', // Formato global de fecha
+            language: 'es',
+            autoclose: true,
+            todayHighlight: true
+            //,startDate: new Date()
+        });
+        console.log('especificacion :<?php echo json_encode($_POST['especificacion'] ?? ''); ?>');
+
     });
 
-
-
-    document.getElementById('upload-pdf').addEventListener('click', function() {
-
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
-
-        allButtonGroups.forEach(group => {
-            const buttons = group.querySelectorAll('.btn-check');
-            buttons.forEach(button => {
-                if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none';
-                }
-            });
-        });
-
-        document.querySelector('.button-container').style.display = 'none';
-        const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none';
-        elementToExport.style.boxShadow = 'none';
-
-        html2canvas(elementToExport, {
-            scale: 1
-        }).then(canvas => {
-            document.querySelector('.button-container').style.display = 'block';
-            elementToExport.style.border = '1px solid #000';
-            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    if (button.checked) {
-                        button.style.display = 'block';
-                    }
-                });
-            });
-
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            const imgWidth = 210;
-            const pageHeight = 297;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-
-            let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
+    $(document).ready(function() {
+        function agregarDiasCalendario(fecha, dias) {
+                fecha.setDate(fecha.getDate() + dias); // Agregar días calendario
+                return fecha;
             }
 
-            const blob = pdf.output('blob');
+            // Obtener la fecha actual
+            var fechaActual = new Date();
+            
+            // Calcular la fecha de entrega estimada (21 días después de la fecha actual)
+            var fechaEntregaEstimada = agregarDiasCalendario(fechaActual, 21);
 
-            const formData = new FormData();
-            formData.append('certificado', blob, 'documento.pdf');
-            formData.append('type', 'acta');
-            formData.append('id_solicitud', idAnalisisExterno_acta);
+            // Formatear la fecha a dd/mm/yyyy
+            var fechaEntregaEstimadaFormato = moment(fechaEntregaEstimada).format('DD/MM/YYYY');
 
-            fetch('./backend/calidad/add_documentos.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
+            // Establecer la fecha en el campo
+            $('#fecha_entrega_estimada').val(fechaEntregaEstimadaFormato);
+        document.getElementById('upload-pdf').addEventListener('click', function(event) {
+            event.preventDefault();
+            var {
+                jsPDF
+            } = window.jspdf;
+            var pdf = new jsPDF('p', 'mm', 'a4');
+
+            var elementToExport = document.querySelector('.form-container');
+            var buttonContainer = document.querySelector('.button-container');
+            var formControls = document.querySelectorAll('.form-control'); // Selecciona todos los controles del formulario
+
+            if (!elementToExport) {
+                console.error('El elemento no está en el DOM.');
+                return;
+            }
+
+            // Almacenar estilos originales
+            var originalStyles = [];
+            formControls.forEach(control => {
+                originalStyles.push({
+                    element: control,
+                    background: control.style.background,
+                    padding: control.style.padding
+                });
+
+                // Aplicar nuevos estilos
+                control.style.background = 'transparent';
+                control.style.padding = '5px'; // Ejemplo de menos padding
+            });
+
+            // Asegurarse de que el elemento esté visible
+            elementToExport.style.border = 'none';
+            elementToExport.style.boxShadow = 'none';
+            buttonContainer.style.display = 'none';
+
+            html2canvas(elementToExport, {
+                    scale: 2
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    var imgWidth = 210; // A4 width in mm
+                    var pageHeight = 297; // A4 height in mm
+                    var imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    var blob = pdf.output('blob');
+
+                    var formData = new FormData();
+                    formData.append('certificado', blob, 'documento.pdf');
+                    formData.append('type', 'solicitud');
+                    formData.append('id_solicitud', idAnalisisExterno);
+                    return fetch('./backend/calidad/add_documentos.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                }).then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
                         $.notify("PDF subido con éxito", "success");
@@ -1140,385 +1045,17 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Error al subir el PDF:', error);
                     $.notify("Error al subir el PDF", "error");
-                });
-
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    button.style.display = 'block';
-                });
-            });
-        }).catch(error => {
-            console.error('Error al generar el canvas:', error);
-            $.notify("Error al generar el PDF", "error");
-        });
-    });
-
-
-    //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa) {
-        console.log(id, resultados, etapa);
-        var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
-        if (resultados) {
-            $.ajax({
-                url: './backend/acta_muestreo/consulta_resultados.php',
-                type: 'POST',
-                dataType: 'json', // Asegura que la respuesta se parsea como JSON
-                data: {
-                    id_actaMuestreo: id
-                },
-                success: function(data) {
-                    console.log('Datos recibidos:', data)
-
-                    $('#id_actaMuestreo').text(id);
-                    if (data.analisis_externos && data.analisis_externos.length > 0) {
-                        procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                    } else {
-                        console.error("No se encontraron datos válidos: ", data);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud: ", status, error);
-                }
-            });
-        } else {
-            // Solicitud GET para generar una nueva acta
-            $.ajax({
-                url: './backend/acta_muestreo/genera_acta.php',
-                type: 'GET',
-                dataType: 'json', // Asegura que la respuesta se parsea como JSON
-                data: {
-                    id_analisis_externo: id
-                },
-                success: function(data) {
-                    console.log('Datos recibidos para nueva acta:', data);
-                    if (data.id_actaMuestreo) {
-                        $('#id_actaMuestreo').text(data.id_actaMuestreo);
-                    }
-                    if (data.analisis_externos && data.analisis_externos.length > 0) {
-                        procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                    } else {
-                        console.error("No se recibieron datos válidos: ", data);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud: ", status, error);
-                }
-            });
-        }
-    }
-
-    function procesarDatosActa(response, resultados, etapa) {
-        console.log(resultados, etapa);
-        idAnalisisExterno_acta = response.id_analisis_externo
-        var nombreProducto = response.nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
-        var concentracion = response.concentracion ? ' ' + response.concentracion : ''; // Añade un espacio antes solo si no es null
-        var formato = response.formato ? ' ' + response.formato : ''; // Añade un espacio antes solo si no es null
-
-        // Concatenar solo las partes que no sean nulas o vacías
-        var productoTexto = nombreProducto + concentracion + formato;
-        // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
-        // Aquí asignas los valores a los campos del formulario
-        // Asegúrate de que los ID de los elementos HTML coincidan con estos
-        $('#producto').text(productoTexto);
-        $('#Tipo_Producto').text(response.tipo_producto);
-        $('#form_producto').text(productoTexto);
-        $('#form_tipo').text('Magistral ' + response.tipo_producto);
-        $('#form_lote').text(response.lote);
-        $('#form_tamano_lote').text(response.tamano_lote);
-        $('#form_codigo_mastersoft').text(response.codigo_mastersoft);
-        $('#form_condAlmacenamiento').text(response.condicion_almacenamiento);
-        $('#form_cant_muestra').text(response.tamano_muestra);
-        $('#form_cant_contramuestra').text(response.tamano_contramuestra);
-        $('#form_tipo_analisis').text(response.tipo_analisis);
-        $('#nro_acta').text(response.numero_acta);
-        $('#realizadoPor').text(response.nombre_usr1);
-        $('#cargo_realizador').text(response.cargo_usr1);
-        $('#responsable').text(response.nombre_usr2);
-        $('#user_firma2').text(response.usuario_firma2);
-        $('#cargo_responsable').text(response.cargo_usr2);
-        $('#verificadoPor').text(response.nombre_usr3);
-        $('#user_firma3').text(response.verificador);
-        $('#cargo_verificador').text(response.cargo_usr3);
-        $('#numero_solicitud_analisis_externo').text(response.aex_numero_solicitud);
-        $('#solicitado_por_analisis_externo').text(response.aex_solicitado_por);
-
-        console.log(resultados, etapa);
-        if (resultados) {
-            let usuario_activo = "<?php echo $_SESSION['usuario']; ?>";
-            $('#nro_registro').text(response.numero_registro);
-            $('#nro_version').text(response.version_registro);
-            $('#id_analisis_externo').text(response.id_analisis_externo);
-            $('#user_realizadoPor').text(usuario_activo);
-            switch (response.cantidad_firmas) {
-                case 0:
-                    var nombre_ejecutor = "<?php echo $_SESSION['nombre']; ?>";
-                    var cargo = "<?php echo $_SESSION['cargo']; ?>";
-                    var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
-                    $('#etapa').text('ingresa resultados y firma1');
-                    $('#realizadoPor').text(nombre_ejecutor);
-                    $('#cargo_realizador').text(cargo);
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
-                    document.getElementById('metodo_muestreo').style.display = 'none';
-                    document.getElementById('guardar').style.display = 'block';
-                    $('.resp').css('background-color', '#f4fac2');
-                    document.querySelectorAll('.formulario.verif *').forEach(function(element) {
-                        element.style.visibility = 'hidden'; // Hacer invisible el contenido
+                })
+                .finally(() => {
+                    // Restaurar estilos originales
+                    originalStyles.forEach(style => {
+                        style.element.style.background = style.background;
+                        style.element.style.padding = style.padding;
                     });
-                    break;
-                case 1:
-                    //documento firmado por muestreador. queda pendiente firma de responsable
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
-                    firma1(response);
-                    $('#etapa').text('ingresa resultados y firma2');
-                    if (usuario_activo == response.responsable) {
-                        document.getElementById('metodo_muestreo').style.display = 'none';
-                        document.getElementById('guardar').style.display = 'block';
-                        $('.verif').css('background-color', '#f4fac2');
-                    }
-
-                    break;
-                case 2:
-                    //documento firmado por muestreador y responsable. queda pendiente firma de revisor
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
-                    firma1(response);
-                    firma2(response);
-                    $('#etapa').text('firma3');
-                    if (usuario_activo == response.verificador) {
-                        document.getElementById('metodo_muestreo').style.display = 'none';
-                        document.getElementById('guardar').style.display = 'block';
-                    }
-                    break;
-                case 3:
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
-                    firma1(response);
-                    firma2(response);
-                    firma3(response);
-                    document.getElementById('metodo_muestreo').style.display = 'none';
-                    document.getElementById('guardar').style.display = 'none';
-                    document.getElementById('download-pdf').style.display = 'block';
-                    $('#upload-pdf').show();
-                    break;
-            }
-        } else {
-            switch (response.tipo_producto) {
-                case 'Material Envase y Empaque':
-                    $('#nro_registro').text('DCAL-CC-AMMEE-' + response.identificador_producto.toString().padStart(3, '0'));
-                    break;
-                case 'Materia Prima':
-                    $('#nro_registro').text('DCAL-CC-AMMP-' + response.identificador_producto.toString().padStart(3, '0'));
-                    break;
-                case 'Producto Terminado':
-                    $('#nro_registro').text('DCAL-CC-AMPT-' + response.identificador_producto.toString().padStart(3, '0'));
-                    break;
-                case 'Insumo':
-                    $('#nro_registro').text('DCAL-CC-AMINS-' + response.identificador_producto.toString().padStart(3, '0'));
-                    break;
-            }
-            $('#nro_version').text(1);
-            $('#realizadoPor').text('Nombre:');
-            document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
-                element.style.visibility = 'hidden'; // Hacer invisible el contenido
-            });
-
-        }
-    }
-
-
-    document.getElementById('firmar').addEventListener('click', function() {
-        // Hacer visibles los elementos de .formulario.resp
-        console.log('click firma')
-        document.querySelectorAll('.formulario.resp *').forEach(function(element) {
-            element.style.visibility = 'visible';
-        });
-        console.log('formulario resp cargado')
-        document.getElementById('guardar').style.display = 'none';
-        document.getElementById('firmar').style.display = 'none';
-        $('.resp').css('background-color', '#f4fac2');
-
-    });
-
-    function consolidarRespuestas(universo) {
-        let valorConsolidado = '';
-        const grupos = document.querySelectorAll(universo);
-
-        grupos.forEach(grupo => {
-            const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
-
-            if (radioSeleccionado) {
-                if (radioSeleccionado.id.endsWith('a')) {
-                    valorConsolidado += '1'; // Cumple
-                } else if (radioSeleccionado.id.endsWith('b')) {
-                    valorConsolidado += '0'; // No Cumple
-                } else if (radioSeleccionado.id.endsWith('c')) {
-                    valorConsolidado += '2'; // No Aplica
-                }
-            } else {
-                valorConsolidado += 'N'; // Ninguna opción seleccionada
-            }
-        });
-
-        return valorConsolidado;
-    }
-
-
-
-    document.getElementById('guardar').addEventListener('click', function() {
-
-        let etapa = $('#etapa').text();
-        switch (etapa) {
-            case 'ingresa resultados y firma1':
-                guardar_firma('.formulario.resp', 1);
-                break;
-            case 'ingresa resultados y firma2':
-                guardar_firma('.formulario.verif', 2);
-                break;
-            case 'firma3':
-                guardar_firma3();
-                break;
-        }
-    });
-
-    function guardar_firma(selector, etapa) {
-        let usuario = "<?php echo $_SESSION['usuario']; ?>";
-        let respuestas = consolidarRespuestas(selector);
-        let id_actaMuestreo = $('#id_actaMuestreo').text();
-        let firma2 = $('#user_firma2').text();
-        let firma3 = $('#user_firma3').text();
-        let acta = $('#nro_acta').text();
-        let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
-        let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
-        let todosSeleccionados = true;
-        let dataToSave = {
-            id_actaMuestreo: id_actaMuestreo,
-            etapa: etapa,
-            usuario: usuario,
-            firma2: firma2,
-            firma3: firma3,
-            acta: acta,
-            numero_solicitud: numero_solicitud_analisis_externo,
-            solicitado_por_analisis_externo: solicitado_por_analisis_externo,
-            respuestas: respuestas,
-            textareaData: {}
-        };
-        let botonesNoSeleccionados = [];
-
-        // Verifica que todos los radio buttons en el selector especificado estén seleccionados
-        document.querySelectorAll(selector).forEach(function(grupo) {
-            const radioSeleccionado = grupo.querySelector('input[type="radio"]:checked');
-            if (!radioSeleccionado) {
-                todosSeleccionados = false;
-                grupo.querySelectorAll('input[type="radio"]').forEach(function(radio) {
-                    botonesNoSeleccionados.push(radio.id); // Agregar ID de los radios no seleccionados
+                    buttonContainer.style.display = 'flex';
                 });
-            }
         });
-
-        if (!todosSeleccionados) {
-            console.log("Botones no seleccionados:", botonesNoSeleccionados.join(', '));
-            //alert("Por favor, asegúrate de que todos los campos han sido seleccionados.");
-            $.notify("Existen campos incompletos.", "warn");
-            return; // Detiene la función si no todos están seleccionados
-        }
-
-        // Recolecta datos de los textarea sólo si la firma es 1
-        if (etapa === 1) {
-            ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
-                let textarea = document.getElementById(id);
-                // Usa textContent o innerText en lugar de value para los divs con contenteditable
-                if (textarea.textContent.trim() === '') {
-                    //alert(`El campo ${id} está vacío y es obligatorio.`);
-                    $.notify(`El campo ${id} está vacío y es obligatorio.`, "warn");
-                    todosSeleccionados = false;
-                    return;
-                } else {
-                    dataToSave.textareaData[id] = textarea.textContent;
-                }
-            });
-
-            if (!todosSeleccionados) {
-                return; // Detiene la función si algún textarea está vacío
-            }
-        }
-
-        // Enviar datos al servidor usando AJAX
-        console.log(dataToSave);
-        $.ajax({
-            url: './backend/acta_muestreo/guardar_y_firmar.php',
-            type: 'POST',
-            data: JSON.stringify(dataToSave),
-            contentType: 'application/json; charset=utf-8',
-            success: function(response) {
-                console.log('Guardado exitoso: ', response);
-                //alert("Datos guardados correctamente.");
-                $.notify("Datos guardados correctamente.", "success");
-                $('#listado_acta_muestreo').click();
-
-            },
-            error: function(xhr, status, error) {
-                console.error("Error al guardar: ", status, error);
-                //alert("Error al guardar los datos.");
-                $.notify("Error al guardar los datos.", "error");
-            }
-        });
-    }
-
-    function guardar_firma3() {
-        let id_actaMuestreo = $('#id_actaMuestreo').text();
-        let id_analisis_externo = $('#id_analisis_externo').text();
-        let firma2 = $('#user_firma2').text();
-        let firma3 = $('#user_firma3').text();
-        let acta = $('#nro_acta').text();
-        let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
-        let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
-        let dataToSave = {
-            id_analisis_externo: id_analisis_externo,
-            id_actaMuestreo: id_actaMuestreo,
-            firma2: firma2,
-            firma3: firma3,
-            acta: acta,
-            numero_solicitud: numero_solicitud_analisis_externo,
-            solicitado_por_analisis_externo: solicitado_por_analisis_externo,
-            etapa: 3,
-            respuestas: 'no aplica'
-        };
-
-        // Enviar datos al servidor usando AJAX
-        console.log(dataToSave);
-        $.ajax({
-            url: './backend/acta_muestreo/guardar_y_firmar.php',
-            type: 'POST',
-            data: JSON.stringify(dataToSave),
-            contentType: 'application/json; charset=utf-8',
-            success: function(response) {
-                console.log('Firma guardada con éxito: ', response);
-                //alert("Firma guardada correctamente.");
-                $.notify("Documento firmado correctamente.", "success");
-                $('#listado_acta_muestreo').click();
-            },
-            error: function(xhr, status, error) {
-                console.error("Error al guardar la firma: ", status, error);
-                //alert("Error al guardar la firma.");
-                $.notify("Error al firmar documento", "error");
-            }
-        });
-    }
+    });
 </script>
