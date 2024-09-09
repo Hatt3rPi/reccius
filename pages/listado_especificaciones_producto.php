@@ -270,7 +270,7 @@ function confirmarEliminacion() {
   // Enviar la solicitud POST al backend
   //archivo actual pages\LABORATORIO_listado_solicitudes.php
   //archivo destiino: pages\backend\analisis\eliminar_analisis_externoBE.php
-  $.post("./backend/calidad/listado_especificaciones_producto.php", {
+  $.post("./backend/calidad/eliminar_especificacion_producto.php", {
     id_especificacionProducto: id_especificacionProducto,
     motivo_eliminacion: motivoEliminacion,
     fecha_eliminacion: fechaEliminacion
