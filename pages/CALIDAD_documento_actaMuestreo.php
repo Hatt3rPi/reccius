@@ -328,9 +328,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </section>
             <label style="font-size: 12px" for="form_Inusual">12. Obs. del Análisis Externo:</label>
             <div class="editable-div textarea" contenteditable="true" id="form_observaciones" name="form_observaciones">id="form_observaciones"</div>
+            <br>
 
-            <br>
-            <br>
             <h2 class="Subtitulos">II. MUESTREO</h2>
             <!-- Sección II: MUESTREO -->
             <section id="sample-identification" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
