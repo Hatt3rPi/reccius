@@ -969,6 +969,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
+    const { jsPDF } = window.jspdf;
 
     document.getElementById('download-pdf').addEventListener('click', function() {
         // Ajusta los estilos de los botones e íconos antes de generar el PDF
