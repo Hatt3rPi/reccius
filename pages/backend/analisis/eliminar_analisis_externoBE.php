@@ -38,7 +38,7 @@ try {
             'CALIDAD - Solicitud Análisis Externo',
             0, // ID del registro insertado
             "UPDATE calidad_analisis_externo SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id = ?",
-            [$motivo_eliminacion, $fecha_eliminacion , $id_especificacionProducto],
+            [$motivo_eliminacion, $fecha_eliminacion , $id_analisisExterno],
             1,
             null
         );
