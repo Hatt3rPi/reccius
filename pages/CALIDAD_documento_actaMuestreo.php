@@ -971,62 +971,138 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        const {
-            jsPDF
-        } = window.jspdf;
+        // Ajusta los estilos de los botones e íconos antes de generar el PDF
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = `
+        .btn-outline-success,
+        .btn-outline-danger,
+        .btn-outline-secondary {
+            background-color: transparent !important;
+            color: #000 !important;
+            border-color: #000 !important;
+            font-weight: bold !important; /* Hace el texto bold */
+        }
 
-        // Configuración inicial de jsPDF
-        const pdf = new jsPDF({
+        .btn-outline-success .fa-circle-check,
+        .btn-outline-danger .fa-circle-xmark,
+        .btn-outline-secondary .fa-circle-xmark {
+            color: #000 !important;
+            font-weight: bold !important; /* Hace el texto bold */
+        }
+    `;
+        document.head.appendChild(styleElement);
+
+        // Continúa con la generación del PDF
+        $.notify("Generando PDF", "warn");
+
+        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
+
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                if (!button.checked) {
+                    button.nextElementSibling.style.display = 'none';
+                }
+            });
+        });
+
+        document.querySelector('.button-container').style.display = 'none';
+
+        // Obtener las secciones a exportar
+        const section1 = document.getElementById('section1'); // Asegúrate de tener un ID para la sección 1
+        const section2 = document.getElementById('section2'); // Asegúrate de tener un ID para la sección 2
+        const section3 = document.getElementById('section3'); // Asegúrate de tener un ID para la sección 3
+
+        const header = document.getElementById('header-container'); // ID del header
+        const footer = document.getElementById('footer-containerDIV'); // ID del footer
+
+        const pdf = new jspdf.jsPDF({
             orientation: 'p',
             unit: 'mm',
             format: 'a4'
         });
 
-        const imgWidth = 210; // Ancho A4
-        const pageHeight = 297; // Alto A4
-        const marginTop = 20; // Margen superior para el contenido
+        // Generar canvas para la primera página (Sección 1 y Sección 2 con header y footer)
+        Promise.all([
+            html2canvas(header, {
+                scale: 1,
+                useCORS: false
+            }),
+            html2canvas(section1, {
+                scale: 1,
+                useCORS: false
+            }),
+            html2canvas(section2, {
+                scale: 1,
+                useCORS: false
+            }),
+            html2canvas(footer, {
+                scale: 1,
+                useCORS: false
+            })
+        ]).then(([headerCanvas, section1Canvas, section2Canvas, footerCanvas]) => {
+            const imgWidth = 210; // Ancho en mm para A4
+            const pageHeight = 297; // Altura en mm para A4
+            let yOffset = 0; // Desplazamiento vertical en la página
 
-        // Agregar el header manualmente
-        pdf.setFontSize(16);
-        pdf.text('Acta de Muestreo Control de Calidad', imgWidth / 2, marginTop, {
-            align: 'center'
+            // Agregar el header
+            const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
+            pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
+            yOffset += headerHeight;
+
+            // Agregar la Sección 1
+            const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
+            pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
+            yOffset += section1Height;
+
+            // Agregar la Sección 2
+            const section2Height = (section2Canvas.height * imgWidth) / section2Canvas.width;
+            pdf.addImage(section2Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section2Height);
+            yOffset += section2Height;
+
+            // Agregar el footer en la primera página
+            const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
+            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+
+            // Agregar una nueva página para la Sección 3
+            pdf.addPage();
+            yOffset = 0;
+
+            // Agregar el header de nuevo
+            pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
+            yOffset += headerHeight;
+
+            // Generar canvas para la Sección 3
+            html2canvas(section3, {
+                scale: 1,
+                useCORS: false
+            }).then(section3Canvas => {
+                const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
+                pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
+                yOffset += section3Height;
+
+                // Agregar el footer en la segunda página
+                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+
+                // Guardar el PDF
+                const nombreProducto = document.getElementById('producto').textContent.trim();
+                const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+                pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+                $.notify("PDF generado con éxito", "success");
+
+                // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
+                allButtonGroups.forEach(group => {
+                    const buttons = group.querySelectorAll('.btn-check');
+                    buttons.forEach(button => {
+                        button.style.display = 'block';
+                    });
+                });
+
+                // Remover el estilo temporal después de la generación del PDF
+                document.head.removeChild(styleElement);
+            });
         });
-
-        // Datos generales
-        const registro = document.getElementById('nro_registro').textContent || '';
-        const version = document.getElementById('nro_version').textContent || '';
-        const acta = document.getElementById('nro_acta').textContent || '';
-        const fecha = document.getElementById('fecha_muestreo').value || '';
-
-        pdf.setFontSize(12);
-        pdf.text(`N° Registro: ${registro}`, 10, marginTop + 20);
-        pdf.text(`N° Versión: ${version}`, 10, marginTop + 30);
-        pdf.text(`N° Acta: ${acta}`, 10, marginTop + 40);
-        pdf.text(`Fecha Muestreo: ${fecha}`, 10, marginTop + 50);
-
-        // Ejemplo de contenido del muestreo
-        const producto = document.getElementById('producto').textContent || '';
-        const tipoProducto = document.getElementById('Tipo_Producto').textContent || '';
-        const lote = document.getElementById('form_lote').textContent || '';
-
-        pdf.text(`Producto: ${producto}`, 10, marginTop + 70);
-        pdf.text(`Tipo Producto: ${tipoProducto}`, 10, marginTop + 80);
-        pdf.text(`Lote: ${lote}`, 10, marginTop + 90);
-
-        // Puedes agregar más datos según necesites aquí.
-
-        // Agregar el footer manualmente
-        pdf.setFontSize(10);
-        pdf.text('La información contenida en esta acta es de carácter CONFIDENCIAL', imgWidth / 2, pageHeight - 10, {
-            align: 'center'
-        });
-
-        // Guardar el PDF
-        const nombreProducto = producto || 'Acta';
-        const nombreDocumento = acta || 'Documento';
-        pdf.save(`${nombreDocumento}_${nombreProducto}.pdf`);
     });
-
 
 
 
