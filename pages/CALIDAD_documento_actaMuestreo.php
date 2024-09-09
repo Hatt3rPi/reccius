@@ -1502,7 +1502,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
-        let observaciones = $('#form_observaciones').text();
+        let observaciones = $('#form_observaciones').html();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
         let dataToSave = {

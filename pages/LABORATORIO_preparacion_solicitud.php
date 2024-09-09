@@ -493,7 +493,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             $('#version').val(1);
             $('#numero_registro').val(numero_registro).prop('readonly', true);
             $('#numero_solicitud').val(numero_acta).prop('readonly', true);
-
             switch (producto.tipo_producto) {
                 case 'Material Envase y Empaque':
                     prefijo = 'DCAL-CC-EMEE-';
@@ -540,6 +539,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                 {
                     id: 'formato',
                     val: producto.formato,
+                    isDisabled: true
+                },
+                {
+                    id: 'observaciones',
+                    val: response.analisis.observaciones,
                     isDisabled: true
                 }
             ])
@@ -713,6 +717,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     id: 'am_verificado_por',
                     val: analisis.am_verificado_por,
                     isDisabled: true
+                },
+                {
+                        id: 'observaciones',
+                        val: analisis.observaciones,
+                        isDisabled: false
                 }
             ];
             //* IV. Solicitud de Análisis Externo
@@ -757,12 +766,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         id: 'numero_documento',
                         val: analisis.numero_documento,
                         isDisabled: true
-                    },
-                    {
-                        id: 'observaciones',
-                        val: analisis.observaciones,
-                        isDisabled: true
-                    },
+                    }
                 ]
             }
 
