@@ -969,50 +969,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-    const { jsPDF } = window.jspdf;
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        // Ajusta los estilos de los botones e íconos antes de generar el PDF
-        const styleElement = document.createElement('style');
-        styleElement.innerHTML = `
-        .btn-outline-success,
-        .btn-outline-danger,
-        .btn-outline-secondary {
-            background-color: transparent !important;
-            color: #000 !important;
-            border-color: #000 !important;
-            font-weight: bold !important; /* Hace el texto bold */
-        }
-
-        .btn-outline-success .fa-circle-check,
-        .btn-outline-danger .fa-circle-xmark,
-        .btn-outline-secondary .fa-circle-xmark {
-            color: #000 !important;
-            font-weight: bold !important; /* Hace el texto bold */
-        }
-    `;
-        document.head.appendChild(styleElement);
-
-        // Notificación de que se está generando el PDF
-        $.notify("Generando PDF", "warn");
-
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
-        allButtonGroups.forEach(group => {
-            const buttons = group.querySelectorAll('.btn-check');
-            buttons.forEach(button => {
-                if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none';
-                }
-            });
-        });
-
-        // Ocultar los botones y ajustar el estilo
-        document.querySelector('.button-container').style.display = 'none';
-        const headerContainer = document.getElementById('header-container');
-        const footerContainer = document.getElementById('footer-containerDIV');
-        const identificacionMuestra = document.getElementById('sample-identification');
-        const muestreo = document.getElementById('muestreo');
-        const planDeMuestreo = document.getElementById('sampling-plan');
+        const {
+            jsPDF
+        } = window.jspdf;
 
         // Configuración inicial de jsPDF
         const pdf = new jsPDF({
@@ -1021,59 +982,51 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             format: 'a4'
         });
 
-        const imgWidth = 210; // A4 width
-        const pageHeight = 297; // A4 height
+        const imgWidth = 210; // Ancho A4
+        const pageHeight = 297; // Alto A4
+        const marginTop = 20; // Margen superior para el contenido
 
-        // Función para agregar header y footer
-        function addHeaderFooter(pdf, yPosition = 0) {
-            const headerImgData = headerContainer.toDataURL('image/png');
-            const footerImgData = footerContainer.toDataURL('image/png');
-
-            pdf.addImage(headerImgData, 'PNG', 0, yPosition, imgWidth, 30); // Header
-            pdf.addImage(footerImgData, 'PNG', 0, pageHeight - 30, imgWidth, 30); // Footer
-        }
-
-        // Renderizar primera página con I. IDENTIFICACIÓN DE LA MUESTRA y II. MUESTREO
-        html2canvas(identificacionMuestra).then(canvas1 => {
-            const imgData1 = canvas1.toDataURL('image/png');
-            pdf.addImage(imgData1, 'PNG', 0, 40, imgWidth, 130); // Content for first page (identificación muestra)
-
-            html2canvas(muestreo).then(canvas2 => {
-                const imgData2 = canvas2.toDataURL('image/png');
-                pdf.addImage(imgData2, 'PNG', 0, 170, imgWidth, 130); // Content for first page (muestreo)
-
-                // Add header and footer to the first page
-                addHeaderFooter(pdf);
-
-                // Renderizar segunda página con III. PLAN DE MUESTREO
-                pdf.addPage();
-                html2canvas(planDeMuestreo).then(canvas3 => {
-                    const imgData3 = canvas3.toDataURL('image/png');
-                    pdf.addImage(imgData3, 'PNG', 0, 40, imgWidth, 210); // Content for second page
-
-                    // Add header and footer to the second page
-                    addHeaderFooter(pdf);
-
-                    // Save the PDF
-                    const nombreProducto = document.getElementById('producto').textContent.trim();
-                    const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-                    pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-                    $.notify("PDF generado con éxito", "success");
-
-                    // Restaurar los botones y estilos después de la generación del PDF
-                    document.querySelector('.button-container').style.display = 'block';
-                    allButtonGroups.forEach(group => {
-                        const buttons = group.querySelectorAll('.btn-check');
-                        buttons.forEach(button => {
-                            button.style.display = 'block';
-                        });
-                    });
-
-                    document.head.removeChild(styleElement);
-                });
-            });
+        // Agregar el header manualmente
+        pdf.setFontSize(16);
+        pdf.text('Acta de Muestreo Control de Calidad', imgWidth / 2, marginTop, {
+            align: 'center'
         });
+
+        // Datos generales
+        const registro = document.getElementById('nro_registro').textContent || '';
+        const version = document.getElementById('nro_version').textContent || '';
+        const acta = document.getElementById('nro_acta').textContent || '';
+        const fecha = document.getElementById('fecha_muestreo').value || '';
+
+        pdf.setFontSize(12);
+        pdf.text(`N° Registro: ${registro}`, 10, marginTop + 20);
+        pdf.text(`N° Versión: ${version}`, 10, marginTop + 30);
+        pdf.text(`N° Acta: ${acta}`, 10, marginTop + 40);
+        pdf.text(`Fecha Muestreo: ${fecha}`, 10, marginTop + 50);
+
+        // Ejemplo de contenido del muestreo
+        const producto = document.getElementById('producto').textContent || '';
+        const tipoProducto = document.getElementById('Tipo_Producto').textContent || '';
+        const lote = document.getElementById('form_lote').textContent || '';
+
+        pdf.text(`Producto: ${producto}`, 10, marginTop + 70);
+        pdf.text(`Tipo Producto: ${tipoProducto}`, 10, marginTop + 80);
+        pdf.text(`Lote: ${lote}`, 10, marginTop + 90);
+
+        // Puedes agregar más datos según necesites aquí.
+
+        // Agregar el footer manualmente
+        pdf.setFontSize(10);
+        pdf.text('La información contenida en esta acta es de carácter CONFIDENCIAL', imgWidth / 2, pageHeight - 10, {
+            align: 'center'
+        });
+
+        // Guardar el PDF
+        const nombreProducto = producto || 'Acta';
+        const nombreDocumento = acta || 'Documento';
+        pdf.save(`${nombreDocumento}_${nombreProducto}.pdf`);
     });
+
 
 
 
