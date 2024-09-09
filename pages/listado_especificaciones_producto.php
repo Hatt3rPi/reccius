@@ -236,6 +236,7 @@ var id_especificacionProducto = null;
 
 function botones_interno(id, accion, modulo) {
   if (accion === 'eliminar_especificacion_producto') {
+    console.log(id, accion, modulo);
     id_especificacionProducto = id;
     abrirModal();
   } else {
