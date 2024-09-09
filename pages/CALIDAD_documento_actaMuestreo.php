@@ -86,10 +86,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <!-- Body -->
             <br>
 
-
+            <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
             <!-- Sección I: Identificación de la Muestra -->
             <section id="sample-identification1" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
-                <h2 class="Subtitulos">I. IDENTIFICACIÓN DE LA MUESTRA</h2>
+                
                 <!-- Tabla de identificación de la muestra -->
                 <table id="identificacion_muestra" name="identificacion_muestra">
                     <tr>
