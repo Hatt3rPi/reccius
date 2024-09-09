@@ -24,7 +24,7 @@ $resultados = [];
 
 try {
     // 0. Actualiza en calidad_especificacion_productos si existe
-    $stmt = $link->prepare("UPDATE calidad_especificacion_productos SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id = ?");
+    $stmt = $link->prepare("UPDATE calidad_especificacion_productos SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id_especificacion = ?");
     if ($stmt) {
         $stmt->bind_param("ssi", $motivo_eliminacion, $fecha_eliminacion , $id_especificacionProducto);
         $stmt->execute();
@@ -38,7 +38,7 @@ try {
             'Eliminación Especificación',
             'CALIDAD - Especificación de Producto',
             0, // ID del registro insertado
-            "UPDATE calidad_especificacion_productos SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id = ?",
+            "UPDATE calidad_especificacion_productos SET estado = 'eliminado_por_solicitud_usuario', motivo_eliminacion =?, fecha_eliminacion =? WHERE id_especificacion = ?",
             [$motivo_eliminacion, $fecha_eliminacion , $id_especificacionProducto],
             1,
             null
@@ -95,7 +95,7 @@ try {
     $stmt = $link->prepare("UPDATE tareas t
                             JOIN calidad_especificacion_productos ep ON t.id_relacion = ep.id AND t.tabla_relacion = 'calidad_especificacion_productos'
                             SET t.estado = 'eliminado_por_solicitud_usuario'
-                            WHERE ep.id = ?");
+                            WHERE ep.id_especificacion = ?");
     if ($stmt) {
         $stmt->bind_param("i", $id_especificacionProducto);
         $stmt->execute();
