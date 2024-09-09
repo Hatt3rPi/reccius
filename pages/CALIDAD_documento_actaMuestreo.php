@@ -331,255 +331,256 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="editable-div textarea" contenteditable="true" id="form_observaciones" name="form_observaciones">id="form_observaciones"</div>
                 <br>
             </div>
+            <div id="sample-identification2">
+                <h2 class="Subtitulos">II. MUESTREO</h2>
+                <!-- Sección II: MUESTREO -->
+                <section style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
+                    <!-- Tabla de identificación de la muestra -->
+                    <table id="muestreo" name="muestreo">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th id="revision_actor1">Revisión Muestreador</th>
+                            <th></th>
+                            <th id="revision_actor2">Revisión Responsable</th>
+                            <th></th>
+                            <th>Rótulo General de Muestra</th>
+                        </tr>
 
-            <h2 class="Subtitulos">II. MUESTREO</h2>
-            <!-- Sección II: MUESTREO -->
-            <section id="sample-identification2" style="display: flex; justify-content: space-between; align-items: stretch; gap: 5px;">
-                <!-- Tabla de identificación de la muestra -->
-                <table id="muestreo" name="muestreo">
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th id="revision_actor1">Revisión Muestreador</th>
-                        <th></th>
-                        <th id="revision_actor2">Revisión Responsable</th>
-                        <th></th>
-                        <th>Rótulo General de Muestra</th>
-                    </tr>
+                        <tr>
+                            <td>1. La zona de esterilización se encuentra limpia y ordenada.</td>
+                            <td id="form_1" style="visibility: hidden;">
+                                <!-- CheckBoxes para Conforme y No Conforme -->
+                                <input type="checkbox" name="estado_Pro" value="Conforme">
+                                <label for="conforme_Pro">Conforme</label>
+                                <input type="checkbox" name="estado_Pro" value="No Conforme">
+                                <label for="noConforme_Pro">No Conforme</label>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario resp">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario verif">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoVB1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario" rowspan="9">
+                                <label>Pegar etiqueta de identificación general de la muestra</label>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>1. La zona de esterilización se encuentra limpia y ordenada.</td>
-                        <td id="form_1" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp1" id="muestreoResp1c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB1a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB1b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB1" id="muestreoVB1c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB1c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario" rowspan="9">
-                            <label>Pegar etiqueta de identificación general de la muestra</label>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>2. Verificar que la zona de muestreo se encuentre libre de otros productos.</td>
+                            <td id="form_2" style="visibility: hidden;">
+                                <!-- CheckBoxes para Conforme y No Conforme -->
+                                <input type="checkbox" name="estado_Pro" value="Conforme">
+                                <label for="conforme_Pro">Conforme</label>
+                                <input type="checkbox" name="estado_Pro" value="No Conforme">
+                                <label for="noConforme_Pro">No Conforme</label>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario resp">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoResp2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario verif">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoVB2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>2. Verificar que la zona de muestreo se encuentre libre de otros productos.</td>
-                        <td id="form_2" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp2" id="muestreoResp2c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB2a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB2b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB2" id="muestreoVB2c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB2c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>3. Evaluar el aspecto del producto en zona de revisión.</td>
+                            <td id="form_3" style="visibility: hidden;">
+                                <!-- CheckBoxes para Conforme y No Conforme -->
+                                <input type="checkbox" name="estado_Pro" value="Conforme">
+                                <label for="conforme_Pro">Conforme</label>
+                                <input type="checkbox" name="estado_Pro" value="No Conforme">
+                                <label for="noConforme_Pro">No Conforme</label>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario resp">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoResp3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario verif">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoVB3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>3. Evaluar el aspecto del producto en zona de revisión.</td>
-                        <td id="form_3" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp3" id="muestreoResp3c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB3a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB3b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB3" id="muestreoVB3c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB3c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>4. Verificar correcta identificación del lote y producto.</td>
+                            <td id="form_4" style="visibility: hidden;">
+                                <!-- CheckBoxes para Conforme y No Conforme -->
+                                <input type="checkbox" name="estado_Pro" value="Conforme">
+                                <label for="conforme_Pro">Conforme</label>
+                                <input type="checkbox" name="estado_Pro" value="No Conforme">
+                                <label for="noConforme_Pro">No Conforme</label>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario resp">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoResp4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario verif">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoVB4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>4. Verificar correcta identificación del lote y producto.</td>
-                        <td id="form_4" style="visibility: hidden;">
-                            <!-- CheckBoxes para Conforme y No Conforme -->
-                            <input type="checkbox" name="estado_Pro" value="Conforme">
-                            <label for="conforme_Pro">Conforme</label>
-                            <input type="checkbox" name="estado_Pro" value="No Conforme">
-                            <label for="noConforme_Pro">No Conforme</label>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp4" id="muestreoResp4c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB4a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB4b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB4" id="muestreoVB4c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB4c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>5. Cantidad de ciclos de esterilización</td>
+                            <td class="formulario">
+                                <div id="form_textarea5" class="editable-div" contenteditable="true"></div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario resp">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoResp5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario verif">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoVB5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>5. Cantidad de ciclos de esterilización</td>
-                        <td class="formulario">
-                            <div id="form_textarea5" class="editable-div" contenteditable="true"></div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp5" id="muestreoResp5c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB5a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB5b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB5" id="muestreoVB5c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB5c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>6. Cantidad bandejas esterilizadas por ciclo</td>
+                            <td class="formulario">
+                                <div id="form_textarea6" class="editable-div" contenteditable="true"></div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario resp">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoResp6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario verif">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoVB6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td>6. Cantidad bandejas esterilizadas por ciclo</td>
-                        <td class="formulario">
-                            <div id="form_textarea6" class="editable-div" contenteditable="true"></div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp6" id="muestreoResp6c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB6a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB6b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB6" id="muestreoVB6c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB6c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>7. Cantidad de muestras por bandeja</td>
+                            <td class="formulario">
+                                <div id="form_textarea7" class="editable-div" contenteditable="true"></div>
 
-                    <tr>
-                        <td>7. Cantidad de muestras por bandeja</td>
-                        <td class="formulario">
-                            <div id="form_textarea7" class="editable-div" contenteditable="true"></div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario resp">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoResp7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                            <td class="spacer"></td>
+                            <td class="formulario verif">
+                                <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7a" value="1" autocomplete="off">
+                                    <label class="btn btn-outline-success verificadores" for="muestreoVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7b" value="0" autocomplete="off">
+                                    <label class="btn btn-outline-danger verificadores" for="muestreoVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
+                                    <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7c" value="2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary verificadores" for="muestreoVB7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
 
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario resp">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoResp7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoResp7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoResp7" id="muestreoResp7c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoResp7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                        <td class="spacer"></td>
-                        <td class="formulario verif">
-                            <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="muestreoVB7a"><i class="fa-regular fa-circle-check"></i> Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="muestreoVB7b"><i class="fa-regular fa-circle-xmark"></i> No Cumple</label>
-                                <input type="radio" style="display: none;" class="btn-check verificadores" name="muestreoVB7" id="muestreoVB7c" value="2" autocomplete="off">
-                                <label class="btn btn-outline-secondary verificadores" for="muestreoVB7c"><i class="fa-regular fa-circle-xmark"></i> No Aplica</label>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </section>
+                <div style="margin-top: 10px; font-size: 12px;">
+                    <br>
+                    <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual durante el proceso:</label>
+                    <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
+                    <br><br>
 
-            <div style="margin-top: 10px; font-size: 12px;">
-                <br>
-                <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual durante el proceso:</label>
-                <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
-                <br><br>
-
+                </div>
             </div>
             <!-- Sección III: Plan de Muestreo -->
             <section id="sampling-plan">
