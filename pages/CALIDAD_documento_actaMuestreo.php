@@ -76,7 +76,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td ><input type="date" id="fecha_muestreo" name="fecha_muestreo"  class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
+                            <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
 
                         </tr>
                     </table>
@@ -576,7 +576,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
                 <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual durante el proceso:</label>
                 <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
-            <br><br>
+                <br><br>
 
             </div>
             <!-- Sección III: Plan de Muestreo -->
@@ -992,11 +992,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     `;
         document.head.appendChild(styleElement);
 
-        // Continúa con la generación del PDF
+        // Notificación de que se está generando el PDF
         $.notify("Generando PDF", "warn");
 
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
-
         allButtonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.btn-check');
             buttons.forEach(button => {
@@ -1006,68 +1005,75 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
 
+        // Ocultar los botones y ajustar el estilo
         document.querySelector('.button-container').style.display = 'none';
-        const elementToExport = document.getElementById('form-container');
-        elementToExport.style.border = 'none';
-        elementToExport.style.boxShadow = 'none';
+        const headerContainer = document.getElementById('header-container');
+        const footerContainer = document.getElementById('footer-containerDIV');
+        const identificacionMuestra = document.getElementById('sample-identification');
+        const muestreo = document.getElementById('muestreo');
+        const planDeMuestreo = document.getElementById('sampling-plan');
 
-        html2canvas(elementToExport, {
-            scale: 1,
-            useCORS: false
-        }).then(canvas => {
-            document.querySelector('.button-container').style.display = 'block';
-            elementToExport.style.border = '1px solid #000';
-            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        // Configuración inicial de jsPDF
+        const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
 
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    if (button.checked) {
-                        button.style.display = 'block';
-                    }
-                });
-            });
+        const imgWidth = 210; // A4 width
+        const pageHeight = 297; // A4 height
 
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
+        // Función para agregar header y footer
+        function addHeaderFooter(pdf, yPosition = 0) {
+            const headerImgData = headerContainer.toDataURL('image/png');
+            const footerImgData = footerContainer.toDataURL('image/png');
 
-            const imgWidth = 210;
-            const pageHeight = 297;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
+            pdf.addImage(headerImgData, 'PNG', 0, yPosition, imgWidth, 30); // Header
+            pdf.addImage(footerImgData, 'PNG', 0, pageHeight - 30, imgWidth, 30); // Footer
+        }
 
-            let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
+        // Renderizar primera página con I. IDENTIFICACIÓN DE LA MUESTRA y II. MUESTREO
+        html2canvas(identificacionMuestra).then(canvas1 => {
+            const imgData1 = canvas1.toDataURL('image/png');
+            pdf.addImage(imgData1, 'PNG', 0, 40, imgWidth, 130); // Content for first page (identificación muestra)
 
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
+            html2canvas(muestreo).then(canvas2 => {
+                const imgData2 = canvas2.toDataURL('image/png');
+                pdf.addImage(imgData2, 'PNG', 0, 170, imgWidth, 130); // Content for first page (muestreo)
+
+                // Add header and footer to the first page
+                addHeaderFooter(pdf);
+
+                // Renderizar segunda página con III. PLAN DE MUESTREO
                 pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
+                html2canvas(planDeMuestreo).then(canvas3 => {
+                    const imgData3 = canvas3.toDataURL('image/png');
+                    pdf.addImage(imgData3, 'PNG', 0, 40, imgWidth, 210); // Content for second page
 
-            const nombreProducto = document.getElementById('producto').textContent.trim();
-            const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
+                    // Add header and footer to the second page
+                    addHeaderFooter(pdf);
 
-            // Restaurar la visibilidad de los botones después de iniciar la descarga del PDF
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    button.style.display = 'block';
+                    // Save the PDF
+                    const nombreProducto = document.getElementById('producto').textContent.trim();
+                    const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+                    pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+                    $.notify("PDF generado con éxito", "success");
+
+                    // Restaurar los botones y estilos después de la generación del PDF
+                    document.querySelector('.button-container').style.display = 'block';
+                    allButtonGroups.forEach(group => {
+                        const buttons = group.querySelectorAll('.btn-check');
+                        buttons.forEach(button => {
+                            button.style.display = 'block';
+                        });
+                    });
+
+                    document.head.removeChild(styleElement);
                 });
             });
-
-            // Remover el estilo temporal después de la generación del PDF
-            document.head.removeChild(styleElement);
         });
     });
+
 
 
 
@@ -1426,7 +1432,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             firma2: firma2,
             firma3: firma3,
             acta: acta,
-            id_analisis_externo: id_analisis_externo, 
+            id_analisis_externo: id_analisis_externo,
             observaciones: observaciones,
             numero_solicitud: numero_solicitud_analisis_externo,
             solicitado_por_analisis_externo: solicitado_por_analisis_externo,
