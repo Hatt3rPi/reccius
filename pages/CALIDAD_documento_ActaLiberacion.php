@@ -231,7 +231,7 @@ $link->close();
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td class="verif">
+                        <td >
                             <div class="toggle-container">
                                 <input type="radio" id="estado1_conforme" name="estado1" value="1">
                                 <label for="estado1_conforme">Conforme</label>
@@ -240,10 +240,10 @@ $link->close();
                                 <label for="estado1_noconforme">No Conforme</label>
                             </div>
                         </td>
-                        <td class="Espec verif">
+                        <td class="Espec ">
                             <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
                         </td>
-                        <td class="revision verif">
+                        <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1a" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>

@@ -642,11 +642,18 @@ ul {
         vertical-align: middle; /* Alinea verticalmente en el medio */
     }
 
+    .table .verif, .table .Espec {
+        width: auto; /* Asegura que la columna Observaciones se ajuste automáticamente */
+    }
 
     .table .Espec {
         padding: 5px; /* Añade un poco de espaciado interno para mejorar la legibilidad */
     }
 
+    .table .verif {
+        padding: 5px; /* Añade un poco de espaciado interno */
+        text-align: center; /* Centra el texto de los estados */
+    }
 
     /* Ajuste adicional para mantener la alineación entre columnas */
     .table th, .table td {
