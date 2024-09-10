@@ -328,10 +328,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                 </fieldset>
                 <br />
+                <br />
                 <fieldset>
                     <legend>VI. Flujo de Aprobación:</legend>
                     <br />
-                    <br />
+                    
                     <div class="form-row">
                         <div class="form-group">
                             <label>Usuario Solicitante:</label>
