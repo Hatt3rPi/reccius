@@ -204,13 +204,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <p id="notification-message">Este es un mensaje de notificación.</p>
     </div>
     <script>
+        // Función para contar las filas de una tabla
+        function contarFilasTabla(tableId) {
+            const table = document.getElementById(tableId);
+            return table ? table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length : 0;
+        }
+
+
+
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
 
         document.getElementById('download-pdf').addEventListener('click', function() {
             $.notify("Generando PDF", "warn");
 
-            // Ocultar la sección de botones antes de capturar la pantalla
             const buttonContainer = document.querySelector('.button-container');
             buttonContainer.style.display = 'none';
 
@@ -227,9 +234,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
-            const paddingTop = 10; // Define el padding superior
+            const paddingTop = 10; // Padding superior
 
-            // Función para añadir el header y footer
+            // Función para agregar header y footer
             function addHeaderAndFooter(pdf, headerImgData, footerImgData) {
                 const headerWidth = pageWidth;
                 const headerHeight = headerElement.scrollHeight * headerWidth / headerElement.scrollWidth;
@@ -237,17 +244,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const footerWidth = pageWidth;
                 const footerHeight = footerElement.scrollHeight * footerWidth / footerElement.scrollWidth;
 
-                // Añadir el header
                 pdf.addImage(headerImgData, 'JPEG', 0, paddingTop, headerWidth, headerHeight);
-
-                // Añadir el contenido primero
-                let yOffset = headerHeight + paddingTop;
-
-                // Añadir el footer
                 pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
             }
 
-            // Captura el header y footer para usarlos en ambas páginas
+            // Función para contar las filas de una tabla
+            function contarFilasTabla(tableId) {
+                const table = document.getElementById(tableId);
+                return table ? table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length : 0;
+            }
+
+            // Capturar header y footer
             Promise.all([
                 html2canvas(headerElement, {
                     scale: 1,
@@ -261,49 +268,90 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const headerImgData = headerCanvas.toDataURL('image/jpeg');
                 const footerImgData = footerCanvas.toDataURL('image/jpeg');
 
-                // Página 1: `#contenido_main`
-                html2canvas(contentElement, {
-                    scale: 1,
-                    useCORS: true
-                }).then(contentCanvas => {
-                    const contentImgData = contentCanvas.toDataURL('image/jpeg');
-                    const contentWidth = pageWidth;
-                    const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
+                // Contar filas en analisisFQ
+                const numFilasFQ = contarFilasTabla('analisisFQ');
 
-                    // Añadir header y footer a la primera página
-                    addHeaderAndFooter(pdf, headerImgData, footerImgData);
-
-                    // Añadir el contenido principal a la primera página
-                    let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
-                    pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
-
-                    // Página 2: `#additionalContent`
-                    pdf.addPage();
-                    html2canvas(additionalContentElement, {
+                // Si hay más de 6 filas en analisisFQ, mover analisisMB a una segunda página
+                if (numFilasFQ > 6) {
+                    // Página 1: contenido principal con solo analisisFQ
+                    html2canvas(contentElement, {
                         scale: 1,
                         useCORS: true
-                    }).then(additionalContentCanvas => {
-                        const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
-                        const additionalContentWidth = pageWidth;
-                        const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
+                    }).then(contentCanvas => {
+                        const contentImgData = contentCanvas.toDataURL('image/jpeg');
+                        const contentWidth = pageWidth;
+                        const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
 
-                        // Añadir header y footer a la segunda página
+                        // Agregar header y footer a la primera página
                         addHeaderAndFooter(pdf, headerImgData, footerImgData);
 
-                        // Añadir el contenido adicional a la segunda página
-                        let yOffset2 = headerCanvas.height * additionalContentWidth / headerCanvas.width + paddingTop;
-                        pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
+                        // Agregar el contenido principal a la primera página
+                        let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
+                        pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
 
-                        // Descargar el PDF
-                        const nombreProducto = document.getElementById('producto').textContent.trim();
-                        const nombreDocumento = document.getElementById('documento').textContent.trim();
-                        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+                        // Página 2: contenido adicional (analisisMB)
+                        pdf.addPage();
+                        html2canvas(additionalContentElement, {
+                            scale: 1,
+                            useCORS: true
+                        }).then(additionalContentCanvas => {
+                            const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
+                            const additionalContentWidth = pageWidth;
+                            const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
 
-                        // Restaurar visibilidad y estilos
-                        buttonContainer.style.display = 'block';
-                        $.notify("PDF generado con éxito", "success");
+                            // Agregar header y footer a la segunda página
+                            addHeaderAndFooter(pdf, headerImgData, footerImgData);
+
+                            // Agregar el contenido adicional (analisisMB) a la segunda página
+                            let yOffset2 = headerCanvas.height * additionalContentWidth / headerCanvas.width + paddingTop;
+                            pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
+
+                            // Descargar el PDF
+                            const nombreProducto = document.getElementById('producto').textContent.trim();
+                            const nombreDocumento = document.getElementById('documento').textContent.trim();
+                            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
+                            // Restaurar visibilidad de botones
+                            buttonContainer.style.display = 'block';
+                            $.notify("PDF generado con éxito", "success");
+                        });
                     });
-                });
+                } else {
+                    // Si no hay más de 6 filas, generar el PDF normalmente con ambas tablas en la misma página
+                    html2canvas(contentElement, {
+                        scale: 1,
+                        useCORS: true
+                    }).then(contentCanvas => {
+                        const contentImgData = contentCanvas.toDataURL('image/jpeg');
+                        const contentWidth = pageWidth;
+                        const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
+
+                        addHeaderAndFooter(pdf, headerImgData, footerImgData);
+                        let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
+                        pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
+
+                        html2canvas(additionalContentElement, {
+                            scale: 1,
+                            useCORS: true
+                        }).then(additionalContentCanvas => {
+                            const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
+                            const additionalContentWidth = pageWidth;
+                            const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
+
+                            // Agregar contenido adicional en la misma página si no hay más de 6 filas en analisisFQ
+                            pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset + contentHeight + 10, additionalContentWidth, additionalContentHeight);
+
+                            // Descargar el PDF
+                            const nombreProducto = document.getElementById('producto').textContent.trim();
+                            const nombreDocumento = document.getElementById('documento').textContent.trim();
+                            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
+                            // Restaurar visibilidad de botones
+                            buttonContainer.style.display = 'block';
+                            $.notify("PDF generado con éxito", "success");
+                        });
+                    });
+                }
             }).catch(error => {
                 $.notify("Error al generar el PDF", "error");
                 console.error("Error generating PDF: ", error);
