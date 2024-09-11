@@ -125,7 +125,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
-                            II. Análisis Microbiológico
+                            II. Análisis Microbiológico aaaaaaaaaaaaaaaaa
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
                         <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
