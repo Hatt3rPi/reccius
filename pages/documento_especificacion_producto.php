@@ -365,6 +365,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 success: function(response) {
                     procesarDatosEspecificacion(response);
                     verificarYMostrarBotonFirma(response);
+                    ajustarSeccionesPorFilas(); // Ajustar las secciones según la cantidad de filas
                 },
                 error: function(xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
@@ -372,17 +373,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
 
+        function ajustarSeccionesPorFilas() {
+            const analisisFQRows = document.querySelectorAll('#analisisFQ tbody tr').length;
+
+            // Mostrar u ocultar el contenido adicional en función de la cantidad de filas
+            if (analisisFQRows > 8) {
+                // Si hay más de 8 filas, el contenido adicional debe mostrarse en otra sección
+                document.getElementById('additionalContent').style.display = 'block';
+            } else {
+                // Si hay menos de 8 filas, el contenido adicional debe mostrarse en la misma página
+                document.getElementById('additionalContent').style.display = 'inline-block';
+            }
+        }
+
         async function procesarDatosEspecificacion(response) {
             console.log("A2")
-            // Validación de la respuesta
             if (!response || !response.productos || !Array.isArray(response.productos)) {
                 console.error('Los datos recibidos no son válidos:', response);
                 return;
             }
-            // Procesamiento de cada producto
+
             response.productos.forEach(function(producto) {
                 poblarYDeshabilitarCamposProducto(producto);
-
                 let especificaciones = Object.values(producto.especificaciones || {});
                 if (especificaciones.length > 0) {
                     let especificacion = especificaciones[0];
@@ -391,19 +403,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (analisisFQ.length > 0) {
                         mostrarAnalisisFQ(analisisFQ);
                     } else {
-                        // Si no hay datos, oculta la sección del análisis FQ
-                        $('#content').hide();
+                        $('#content').hide(); // Ocultar si no hay análisis FQ
                     }
 
                     let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
                     if (analisisMB.length > 0) {
                         mostrarAnalisisMB(analisisMB);
                     } else {
-                        // Si no hay datos, oculta la sección del análisis MB
-                        $('#additionalContent').hide();
+                        $('#additionalContent').hide(); // Ocultar si no hay análisis MB
                     }
                 }
             });
+
+            ajustarSeccionesPorFilas(); // Ajustar después de procesar la especificación
         }
 
         function mostrarImagenFirma(usuario, contenedorQR) {
@@ -502,10 +514,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function mostrarAnalisisFQ(analisis) {
             console.log("A5")
-            // Verifica si hay datos para el análisis FQ
-            console.log(analisis)
             if (analisis.length > 0) {
-                // Si hay datos, muestra la tabla y procesa los datos
                 if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                     $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
                 } else {
@@ -514,21 +523,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         columns: [{
                                 title: 'Análisis',
                                 data: 'descripcion_analisis',
-                                width: '170px',
-                                createdCell: function(td) {
-                                    $(td).css('font-weight', 'bold');
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '170px'
                             },
                             {
                                 title: 'Metodología',
                                 data: 'metodologia',
-                                width: '106px',
-                                createdCell: function(td) {
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '106px'
                             },
                             {
                                 title: 'Criterio aceptación',
@@ -541,23 +541,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         searching: false,
                         lengthChange: false,
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
                         }
                     });
                 }
-                // Muestra la sección del análisis FQ
                 $('#content').show();
             } else {
-                // Si no hay datos, oculta la sección del análisis FQ
                 $('#content').hide();
             }
+            ajustarSeccionesPorFilas(); // Ajustar el contenido una vez se muestre
         }
 
         function mostrarAnalisisMB(analisis) {
             console.log("A6")
-            // Verifica si hay datos para el análisis microbiológico
             if (analisis.length > 0) {
-                // Si hay datos, muestra la tabla y procesa los datos
                 if ($.fn.DataTable.isDataTable('#analisisMB')) {
                     $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
                 } else {
@@ -566,21 +563,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         columns: [{
                                 title: 'Análisis',
                                 data: 'descripcion_analisis',
-                                width: '170px',
-                                createdCell: function(td) {
-                                    $(td).css('font-weight', 'bold');
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '170px'
                             },
                             {
                                 title: 'Metodología',
                                 data: 'metodologia',
-                                width: '106px',
-                                createdCell: function(td) {
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '106px'
                             },
                             {
                                 title: 'Criterio aceptación',
@@ -593,16 +581,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         searching: false,
                         lengthChange: false,
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
                         }
                     });
                 }
-                // Muestra la sección del análisis microbiológico
                 $('#additionalContent').show();
             } else {
-                // Si no hay datos, oculta la sección del análisis microbiológico
                 $('#additionalContent').hide();
             }
+            ajustarSeccionesPorFilas(); // Ajustar el contenido una vez se muestre
         }
 
         document.getElementById('sign-document').addEventListener('click', function() {
@@ -744,7 +731,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
-            verificarYMostrarBotonFirma();
         };
     </script>
 
