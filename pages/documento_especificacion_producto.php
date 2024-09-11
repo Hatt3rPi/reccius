@@ -711,7 +711,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         window.onload = function() {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
+
+            // Añadir la lógica de ajuste dinámico al cargar la página
+            ajustarAnalisisMB();
         };
+
+        function ajustarAnalisisMB() {
+            const analisisFQTableBody = document.querySelector('#analisisFQ tbody');
+            const analisisMBSection = document.getElementById('additionalContent');
+
+            // Verificar si hay más de 6 filas en la tabla de análisis FQ
+            const fqRows = analisisFQTableBody ? analisisFQTableBody.rows.length : 0;
+
+            if (fqRows > 6) {
+                // Si hay más de 6 filas en el análisis FQ, mover la sección de análisis MB a una nueva página (sección)
+                const newPage = document.createElement('div');
+                newPage.classList.add('new-page');
+
+                // Clonar el header y el footer y agregarlos a la nueva página
+                const headerClone = document.getElementById('header-container').cloneNode(true);
+                const footerClone = document.getElementById('footer').cloneNode(true);
+
+                // Añadir el header, el contenido de análisis MB, y el footer a la nueva sección
+                newPage.appendChild(headerClone);
+                newPage.appendChild(analisisMBSection); // Mover el análisis MB
+                newPage.appendChild(footerClone);
+
+                // Agregar la nueva página al cuerpo del documento
+                document.body.appendChild(newPage);
+            }
+        }
     </script>
 
 </body>

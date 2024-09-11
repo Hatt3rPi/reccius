@@ -293,6 +293,12 @@ p {
     /* Evita que el texto se envuelva en múltiples líneas */
 }
 
+.new-page {
+    page-break-before: always;
+    margin-top: 20px;
+}
+
+
 .pendiente-aprobacion {
     font-family: 'Verdana', Geneva, Tahoma, sans-serif;
     position: absolute;
