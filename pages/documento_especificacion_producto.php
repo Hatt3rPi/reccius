@@ -261,7 +261,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const headerImgData = headerCanvas.toDataURL('image/jpeg');
                 const footerImgData = footerCanvas.toDataURL('image/jpeg');
 
-                // Página 1: `#contenido_main`
+                // Página 1: `#content`
                 html2canvas(contentElement, {
                     scale: 2,
                     useCORS: true
@@ -278,7 +278,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
 
                     // Si hay más de 6 filas, añadir una nueva página con el contenido adicional
-                    if (analisisFQRows > 10) {
+                    if (analisisFQRows > 6) {
                         pdf.addPage();
 
                         // Página 2: `#additionalContent`
@@ -307,14 +307,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             $.notify("PDF generado con éxito", "success");
                         });
                     } else {
-                        // Descargar el PDF sin segunda página
-                        const nombreProducto = document.getElementById('producto').textContent.trim();
-                        const nombreDocumento = document.getElementById('documento').textContent.trim();
-                        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+                        // Incluir `#additionalContent` dentro de la primera página si hay menos de 6 filas
+                        html2canvas(additionalContentElement, {
+                            scale: 2,
+                            useCORS: true
+                        }).then(additionalContentCanvas => {
+                            const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
+                            const additionalContentWidth = pageWidth;
+                            const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
 
-                        // Restaurar visibilidad y estilos
-                        buttonContainer.style.display = 'block';
-                        $.notify("PDF generado con éxito", "success");
+                            // Añadir el contenido adicional dentro de la misma página
+                            let yOffset2 = yOffset + contentHeight + 10; // Añadir un pequeño margen entre secciones
+                            if (yOffset2 + additionalContentHeight > pageHeight - 40) {
+                                pdf.addPage();
+                                yOffset2 = paddingTop;
+                            }
+                            pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
+
+                            // Descargar el PDF
+                            const nombreProducto = document.getElementById('producto').textContent.trim();
+                            const nombreDocumento = document.getElementById('documento').textContent.trim();
+                            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
+                            // Restaurar visibilidad y estilos
+                            buttonContainer.style.display = 'block';
+                            $.notify("PDF generado con éxito", "success");
+                        });
                     }
                 });
             }).catch(error => {
@@ -322,6 +340,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 console.error("Error generating PDF: ", error);
             });
         });
+
 
 
 
