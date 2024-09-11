@@ -310,7 +310,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
 
-        // Función para cargar los datos de la especificación
+
+
+
+
+
+
+
+
+
+
         function cargarDatosEspecificacion(id) {
             console.log("A1")
             $.ajax({
@@ -329,7 +338,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
 
-        // Procesar los datos de la especificación
         async function procesarDatosEspecificacion(response) {
             console.log("A2")
             // Validación de la respuesta
@@ -364,7 +372,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
 
-        // Función para mostrar la imagen de firma
         function mostrarImagenFirma(usuario, contenedorQR) {
             console.log("A4")
             var firmaUrl;
@@ -399,11 +406,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     });
             } else {
                 var contenedor = document.getElementById(contenedorQR);
-                contenedor.innerHTML = '<span src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp" style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;"></span>';
+                contenedor.innerHTML = '<span  src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp" style="display: inline-block; width: 64px; height: 64px; line-height: 64px; text-align: center;"></span>';
             }
         }
 
-        // Función para poblar los datos de los campos
         function poblarYDeshabilitarCamposProducto(producto) {
             console.log("A3")
             if (producto) {
@@ -460,7 +466,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        // Función para mostrar el análisis FQ
         function mostrarAnalisisFQ(analisis) {
             console.log("A5")
             // Verifica si hay datos para el análisis FQ
@@ -514,7 +519,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        // Función para mostrar el análisis MB
         function mostrarAnalisisMB(analisis) {
             console.log("A6")
             // Verifica si hay datos para el análisis microbiológico
@@ -588,7 +592,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function firmarDocumento() {
             console.log("A9")
-            // Obten los datos necesarios para la firma
+            // Obten los datos necesarios para la firmaid_especificacion
             var idEspecificacion = $('#id_especificacion').text().trim();
             var rolUsuario = '';
             if (esRevisorYFirmaPendiente()) {
@@ -596,6 +600,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             } else if (esAprobadorYFirmaPendiente()) {
                 rolUsuario = 'aprobado_por';
             } else {
+                // En caso de que no se pueda determinar el rol, mostrar un error o tomar una acción adecuada
                 console.error("No se puede determinar el rol del usuario para la firma.");
                 return;
             }
@@ -609,9 +614,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     rolUsuario: rolUsuario
                 },
                 success: function(response) {
+                    // Aquí manejas la respuesta del backend
                     console.log('Firma actualizada correctamente:', response);
+                    // Actualiza el estado del documento en el frontend
                     actualizarEstadoDocumento();
                     cargarDatosEspecificacion(idEspecificacion);
+                    // Mostrar notificaciones de éxito y advertencia
                     $.notify("Documento firmado con éxito.", "success");
                     $.notify("Tarea terminada con éxito", "success");
                 },
@@ -647,19 +655,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             let esAprobadorPendiente = esAprobador && !fecha_aprobacion;
             let revisorHaFirmado = !!fecha_revision;
 
+            // Ocultar botón si no corresponde al usuario
             let botonFirma = document.getElementById('sign-document');
             if (!botonFirma) return;
 
+            // Si es el revisor y la firma del aprobador está pendiente, ocultar botón
             if (esRevisor && fecha_aprobacion !== null) {
                 botonFirma.style.display = 'none';
                 return;
             }
 
+            // Si es el aprobador y la firma del revisor está pendiente, ocultar botón
             if (esAprobador && fecha_revision === null) {
                 botonFirma.style.display = 'none';
                 return;
             }
 
+            // Mostrar botón según las condiciones establecidas
             if (esRevisorPendiente) {
                 console.log("Mostrar botón de firma para Revisor (habilitado)");
                 botonFirma.style.display = 'block';
@@ -675,6 +687,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 botonFirma.title = "Documento debe estar firmado por revisor para poder aprobarlo";
             }
         }
+
 
         function actualizarEstadoDocumento() {
             console.log("A11")
@@ -698,38 +711,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         window.onload = function() {
             cargarDatosEspecificacion(id);
             verificarYMostrarBotonFirma();
-
-            // Añadir la lógica de ajuste dinámico al cargar la página
-            ajustarAnalisisMB();
         };
-
-        function ajustarAnalisisMB() {
-            const analisisFQTableBody = document.querySelector('#analisisFQ tbody');
-            const analisisMBSection = document.getElementById('additionalContent');
-
-            // Verificar si hay más de 6 filas en la tabla de análisis FQ
-            const fqRows = analisisFQTableBody ? analisisFQTableBody.rows.length : 0;
-
-            if (fqRows > 6) {
-                // Si hay más de 6 filas en el análisis FQ, mover la sección de análisis MB a una nueva página (sección)
-                const newPage = document.createElement('div');
-                newPage.classList.add('new-page');
-
-                // Clonar el header y el footer y agregarlos a la nueva página
-                const headerClone = document.getElementById('header-container').cloneNode(true);
-                const footerClone = document.getElementById('footer').cloneNode(true);
-
-                // Añadir el header, el contenido de análisis MB, y el footer a la nueva sección
-                newPage.appendChild(headerClone);
-                newPage.appendChild(analisisMBSection); // Mover el análisis MB
-                newPage.appendChild(footerClone);
-
-                // Agregar la nueva página al cuerpo del documento
-                document.body.appendChild(newPage);
-            }
-        }
     </script>
-
 
 </body>
 
