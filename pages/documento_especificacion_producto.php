@@ -278,7 +278,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
 
                     // Si hay más de 6 filas, añadir una nueva página con el contenido adicional
-                    if (analisisFQRows > 6) {
+                    if (analisisFQRows > 12) {
                         pdf.addPage();
 
                         // Página 2: `#additionalContent`
