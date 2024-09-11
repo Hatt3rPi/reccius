@@ -215,7 +215,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             buttonContainer.style.display = 'none';
 
             const headerElement = document.getElementById('header-container');
-            const contentElement = document.getElementById('contenido_main');
+            const contentElement = document.getElementById('content');
             const additionalContentElement = document.getElementById('additionalContent');
             const footerElement = document.getElementById('footer');
 
