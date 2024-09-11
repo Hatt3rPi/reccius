@@ -228,7 +228,8 @@ $(document).ready(function () {
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         obtenNotificaciones();
-        $('#dynamic-content').load('cotizador/busqueda_cotizacion.php?nuevo=true', function () {
+        //$('#dynamic-content').load('cotizador/busqueda_cotizacion.php?nuevo=true', function () {
+        $('#dynamic-content').load('TEST2.php', function () {
             $('#loading-spinner').hide();
             $('#dynamic-content').show();
         });

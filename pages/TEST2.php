@@ -196,7 +196,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 tr.addClass('shown');
             }
         });
-
         // Función para formatear el contenido expandido
         function format(d) {
             // `d` es el objeto de datos original para la fila
