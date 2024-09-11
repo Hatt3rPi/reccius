@@ -240,12 +240,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Añadir el header
                 pdf.addImage(headerImgData, 'JPEG', 0, paddingTop, headerWidth, headerHeight);
 
-                // Añadir el contenido primero
-                let yOffset = headerHeight + paddingTop;
-
                 // Añadir el footer
                 pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
             }
+
+            // Verifica cuántas filas hay en la tabla
+            const analisisFQRows = document.querySelectorAll('#analisisFQ tbody tr').length;
 
             // Captura el header y footer para usarlos en ambas páginas
             Promise.all([
@@ -277,24 +277,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
                     pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
 
-                    // Página 2: `#additionalContent`
-                    pdf.addPage();
-                    html2canvas(additionalContentElement, {
-                        scale: 1,
-                        useCORS: true
-                    }).then(additionalContentCanvas => {
-                        const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
-                        const additionalContentWidth = pageWidth;
-                        const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
+                    if (analisisFQRows > 6) {
+                        // Si hay más de 6 filas, añadir una nueva página con el contenido adicional
+                        pdf.addPage();
 
-                        // Añadir header y footer a la segunda página
-                        addHeaderAndFooter(pdf, headerImgData, footerImgData);
+                        html2canvas(additionalContentElement, {
+                            scale: 1,
+                            useCORS: true
+                        }).then(additionalContentCanvas => {
+                            const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
+                            const additionalContentWidth = pageWidth;
+                            const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
 
-                        // Añadir el contenido adicional a la segunda página
-                        let yOffset2 = headerCanvas.height * additionalContentWidth / headerCanvas.width + paddingTop;
-                        pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
+                            // Añadir header y footer a la segunda página
+                            addHeaderAndFooter(pdf, headerImgData, footerImgData);
 
-                        // Descargar el PDF
+                            // Añadir el contenido adicional a la segunda página
+                            let yOffset2 = headerCanvas.height * additionalContentWidth / headerCanvas.width + paddingTop;
+                            pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
+
+                            // Descargar el PDF
+                            const nombreProducto = document.getElementById('producto').textContent.trim();
+                            const nombreDocumento = document.getElementById('documento').textContent.trim();
+                            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
+                            // Restaurar visibilidad y estilos
+                            buttonContainer.style.display = 'block';
+                            $.notify("PDF generado con éxito", "success");
+                        });
+                    } else {
+                        // Descargar el PDF sin segunda página
                         const nombreProducto = document.getElementById('producto').textContent.trim();
                         const nombreDocumento = document.getElementById('documento').textContent.trim();
                         pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
@@ -302,13 +314,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         // Restaurar visibilidad y estilos
                         buttonContainer.style.display = 'block';
                         $.notify("PDF generado con éxito", "success");
-                    });
+                    }
                 });
             }).catch(error => {
                 $.notify("Error al generar el PDF", "error");
                 console.error("Error generating PDF: ", error);
             });
         });
+
 
 
 
