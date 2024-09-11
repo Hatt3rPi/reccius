@@ -125,7 +125,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
-                            II. Análisis Microbiológico aaaaaaaaaaaaaaaaa
+                            II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
                         <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
@@ -250,11 +250,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Captura el header y footer para usarlos en ambas páginas
             Promise.all([
                 html2canvas(headerElement, {
-                    scale: 1,
+                    scale: 2,
                     useCORS: true
                 }),
                 html2canvas(footerElement, {
-                    scale: 1,
+                    scale: 2,
                     useCORS: true
                 })
             ]).then(([headerCanvas, footerCanvas]) => {
@@ -263,7 +263,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 // Página 1: `#contenido_main`
                 html2canvas(contentElement, {
-                    scale: 1,
+                    scale: 2,
                     useCORS: true
                 }).then(contentCanvas => {
                     const contentImgData = contentCanvas.toDataURL('image/jpeg');
@@ -278,12 +278,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
 
                     // Si hay más de 6 filas, añadir una nueva página con el contenido adicional
-                    if (analisisFQRows > 6) {
+                    if (analisisFQRows > 10) {
                         pdf.addPage();
 
                         // Página 2: `#additionalContent`
                         html2canvas(additionalContentElement, {
-                            scale: 1,
+                            scale: 2,
                             useCORS: true
                         }).then(additionalContentCanvas => {
                             const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
