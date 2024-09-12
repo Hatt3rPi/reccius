@@ -254,11 +254,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     porcentaje_externo=60;
                     break;
                 }
-                case 'Pendiente Liberación productos': {
+                case 'Pendiente liberación productos': {
                     porcentaje_externo=80;
                     break;
                 }
-                case 'Completado': {
+                case 'completado': {
                     porcentaje_externo=100;
                     break;
                 }
