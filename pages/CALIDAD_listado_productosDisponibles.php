@@ -346,20 +346,33 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
                     <tr>
                         <td>Acta de Muestreo:</td>
-                        <td>` + progreso_acta_muestreo + `</td>
-                        <td>` + botones_acta_muestreo + `</td>
+                        <td style="width: 60%">` + progreso_acta_muestreo + `</td>
+                        <td>
+                            <div class="button-container">
+                                ` + botones_acta_muestreo + `
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>Análisis Externo:</td>
-                        <td>` + progreso_analisis_externo + `</td>
-                        <td>` + botones_analisis_externo + `</td>
+                        <td style="width: 60%">` + progreso_analisis_externo + `</td>
+                        <td>
+                            <div class="button-container">
+                                ` + botones_analisis_externo + `
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>Otros Documentos:</td>
-                        <td>` + botones_otros_documentos + `</td>
+                        <td>
+                            <div class="button-container">
+                                ` + botones_otros_documentos + `
+                            </div>
+                        </td>
                     </tr>
                 </table>
             `;
+
 
             return cuadro_informativo;
 
