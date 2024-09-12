@@ -120,6 +120,7 @@ function enviarCorreo_transitorio(
             ];
         } else {
             $exitos[] = $destinatarios;
+            error_log("Correo enviado con éxito a: " . json_encode($destinatarios)); 
             return [
                 'status' => 'success',
                 'message' => 'El correo se envió con éxito.',
