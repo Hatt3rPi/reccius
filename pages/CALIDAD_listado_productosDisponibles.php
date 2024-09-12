@@ -15,6 +15,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <head>
     <link rel="stylesheet" href="../assets/css/Listados.css">
+    <link rel="stylesheet" href="../assets/css/barra_progreso.css">
 </head>
 
 <body>
@@ -197,40 +198,171 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
 
         // Función para formatear el contenido expandido
-        function format(d) {
+    function format(d) {
             // `d` es el objeto de datos original para la fila
-            var acciones = '<table background-color="#F6F6F6" color="#FFF" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-            acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
-            if (d.estado === "liberado" || d.estado === "rechazado" ) {
-                acciones += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
-                acciones += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
-                acciones += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
-                if(d.url_documento_adicional !== null && d.url_documento_adicional !== ""){
-                    acciones += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
+            var botones_acta_muestreo='';
+            var botones_analisis_externo='';
+            var botones_otros_documentos='';
+            var progreso_acta_muestreo = `
+                        <div class="custom-progress-bar">
+                            <ul class="progress-bar">
+                                <li class="section pg_completado">
+                                    <div class="circle">1</div>
+                                    <div class="label">Creación Acta de Muestreo</div>
+                                    <div class="user_done">${d.am_generador}</div>
+                                </li>
+                                <li class="section ${d.am_fecha_muestreo ? 'pg_completado' : ''}">
+                                    <div class="circle">2</div>
+                                    <div class="label">Muestreo finalizado</div>
+                                    <div class="user_done">${d.am_muestreador}</div>
+                                </li>
+                                <li class="section ${d.am_fecha_firma_responsable ? 'pg_completado' : ''}">
+                                    <div class="circle">3</div>
+                                    <div class="label">Firma responsable</div>
+                                    <div class="user_done">${d.am_responsable}</div>
+                                </li>
+                                <li class="section ${d.am_fecha_firma_verificador ? 'pg_completado' : ''}">
+                                    <div class="circle">4</div>
+                                    <div class="label">Firma revisor</div>
+                                    <div class="user_done">${d.am_verificador} 4</div>
+                                </li>
+                                <li class="section ${d.am_fecha_firma_verificador ? 'pg_completado' : ''}">
+                                    <div class="circle">5</div>
+                                    <div class="label">Completado</div>
+                                    <div class="user_done"></div>
+                                </li>
+                                <div class="status-bar"></div>
+                                <div class="current-status" style="width: 60%;"></div> <!-- Ajusta el % según el progreso -->
+                            </ul>
+                        </div>
+                    `;
+            var porcentaje_externo=0;
+            switch (d.aex_estado){
+                case 'Pendiente Acta de Muestreo': {
+                    porcentaje_externo=0;
+                    break;
                 }
-                acciones += '<button class="accion-btn" title="Revisar Acta de liberación o rechazo" id="' + d.id_actaLiberacion + '" name="revisar_acta_liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisa Acta de Liberación/Rechazo</button><a> </a>';
-                acciones += '<button class="accion-btn" title="Revisar informe de Laboratorio" id="' + d.id_analisisExterno + '" name="revisar_informe_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar informe de Laboratorio</button><a> </a>';
-                
-
-            }else{
-                acciones += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
-                if (d.id_actaMuestreo !== null && d.id_actaMuestreo !== "" && d.estado_amuestreo === "Vigente") {
-                    acciones += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';                    
+                case 'Pendiente completar análisis' : {
+                    porcentaje_externo=20;
+                    break;
                 }
-                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && d.estado_aex === "Pendiente ingreso resultados" ) {
-                    acciones += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '"onclick="window.open(\'' + d.url_certificado_solicitud_analisis_externo + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                case 'Pendiente envío a Laboratorio': {
+                    porcentaje_externo=40;
+                    break;
                 }
-                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Completado" || d.estado_aex === "Pendiente liberación productos")) {
-                    acciones += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                case 'Pendiente ingreso resultados': {
+                    porcentaje_externo=60;
+                    break;
                 }
-
-                if (d.url_documento_adicional !== null && d.url_documento_adicional !== "") {
-                    acciones += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
+                case 'Pendiente Liberación productos': {
+                    porcentaje_externo=80;
+                    break;
+                }
+                case 'Completado': {
+                    porcentaje_externo=100;
+                    break;
                 }
 
             }
-            acciones += '</td></tr></table>';
-            return acciones;
+            
+            function determinarClase(porcentaje_externo, porcentaje_etapa) {
+                if (porcentaje_externo === porcentaje_etapa) {
+                    return 'pg_estado_actual';
+                } else if (porcentaje_externo > porcentaje_etapa) {
+                    return 'pg_completado';
+                } else {
+                    return '';
+                }
+            }
+
+            var progreso_analisis_externo = `
+                <div class="custom-progress-bar">
+                    <ul class="progress-bar">
+                        <li class="section ${determinarClase(porcentaje_externo, 0)}">
+                            <div class="circle">1</div>
+                            <div class="label">Creación Análisis Externo</div>
+                            <div class="user_done">${d.aex_firma1}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 20)}">
+                            <div class="circle">2</div>
+                            <div class="label">Pendiente completar análisis</div>
+                            <div class="user_done">${d.aex_firma1}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 40)}">
+                            <div class="circle">3</div>
+                            <div class="label">Pendiente envío a Laboratorio</div>
+                            <div class="user_done">${d.aex_revisado_por}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 60)}">
+                            <div class="circle">4</div>
+                            <div class="label">Pendiente ingreso resultados</div>
+                            <div class="user_done">${d.aex_revisado_por}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 80)}">
+                            <div class="circle">5</div>
+                            <div class="label">Pendiente Liberación productos</div>
+                            <div class="user_done">${d.aex_firma1}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 100)}">
+                            <div class="circle">6</div>
+                            <div class="label">Completado</div>
+                            <div class="user_done"></div>
+                        </li>
+                    </ul>
+                    <div class="status-bar"></div>
+                    <div class="current-status" style="width: ${porcentaje_externo}%;"></div>
+                </div>
+            `;
+
+            if (d.estado === "liberado" || d.estado === "rechazado" ) {
+                botones_otros_documentos += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+                botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
+                botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                if(d.url_documento_adicional !== null && d.url_documento_adicional !== ""){
+                    botones_analisis_externo += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
+                }
+                botones_analisis_externo += '<button class="accion-btn" title="Revisar Acta de liberación o rechazo" id="' + d.id_actaLiberacion + '" name="revisar_acta_liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisa Acta de Liberación/Rechazo</button><a> </a>';
+                botones_analisis_externo += '<button class="accion-btn" title="Revisar informe de Laboratorio" id="' + d.id_analisisExterno + '" name="revisar_informe_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar informe de Laboratorio</button><a> </a>';
+                
+
+            }else{
+                botones_otros_documentos += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+                if (d.id_actaMuestreo !== null && d.id_actaMuestreo !== "" && d.estado_amuestreo === "Vigente") {
+                    botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';                    
+                }
+                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && d.estado_aex === "Pendiente ingreso resultados" ) {
+                    botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '"onclick="window.open(\'' + d.url_certificado_solicitud_analisis_externo + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                }
+                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Completado" || d.estado_aex === "Pendiente liberación productos")) {
+                    botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                }
+
+                if (d.url_documento_adicional !== null && d.url_documento_adicional !== "") {
+                    botones_otros_documentos += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
+                }
+
+            }
+            var cuadro_informativo = `
+                <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
+                    <tr>
+                        <td>Acta de Muestreo:</td>
+                        <td>` + progreso_acta_muestreo + `</td>
+                        <td>` + botones_acta_muestreo + `</td>
+                    </tr>
+                    <tr>
+                        <td>Análisis Externo:</td>
+                        <td>` + progreso_analisis_externo + `</td>
+                        <td>` + botones_analisis_externo + `</td>
+                    </tr>
+                    <tr>
+                        <td>Otros Documentos:</td>
+                        <td>` + botones_otros_documentos + `</td>
+                    </tr>
+                </table>
+            `;
+
+            return cuadro_informativo;
+
         }
 
 
