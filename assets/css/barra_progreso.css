@@ -57,7 +57,7 @@
 }
 
 /* Línea de progreso (verde) */
-.custom-progress-bar .current-status {
+.custom-progress-bar .pg_estado_actual-status {
     height: 4px;
     background: mediumseagreen;
     position: absolute;
@@ -74,7 +74,7 @@
 }
 
 /* Etapa actual */
-.custom-progress-bar li.section.current:before {
+.custom-progress-bar li.section.pg_estado_actual:before {
     background: #00bfff; /* Celeste azulado */
     box-shadow: 0 0 0 2px #00bfff;
 }

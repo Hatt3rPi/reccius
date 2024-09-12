@@ -15,6 +15,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <head>
     <link rel="stylesheet" href="../assets/css/Listados.css">
+    <link rel="stylesheet" href="../assets/css/Listados.css">
 </head>
 
 <body>
@@ -208,7 +209,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <li class="section pg_completado">
                                     <div class="circle">1</div>
                                     <div class="label">Creación Acta de Muestreo</div>
-                                    <div class="user_done">Responsable 1</div>
+                                    <div class="user_done">${d.am_generador}</div>
                                 </li>
                                 <li class="section ${d.am_fecha_muestreo ? 'pg_completado' : ''}">
                                     <div class="circle">2</div>
@@ -225,7 +226,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     <div class="label">Firma revisor</div>
                                     <div class="user_done">${d.am_verificador} 4</div>
                                 </li>
-                                <li class="section pg_completado">
+                                <li class="section ${d.am_fecha_firma_verificador ? 'pg_completado' : ''}">
                                     <div class="circle">5</div>
                                     <div class="label">Completado</div>
                                     <div class="user_done"></div>
@@ -235,44 +236,84 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </ul>
                         </div>
                     `;
+            var porcentaje_externo=0;
+            switch (d.aex_estado){
+                case 'Pendiente Acta de Muestreo': {
+                    porcentaje_externo=0;
+                    break;
+                }
+                case 'Pendiente completar análisis' : {
+                    porcentaje_externo=20;
+                    break;
+                }
+                case 'Pendiente envío a Laboratorio': {
+                    porcentaje_externo=40;
+                    break;
+                }
+                case 'Pendiente ingreso resultados': {
+                    porcentaje_externo=60;
+                    break;
+                }
+                case 'Pendiente Liberación productos': {
+                    porcentaje_externo=80;
+                    break;
+                }
+                case 'Completado': {
+                    porcentaje_externo=100;
+                    break;
+                }
+
+            }
+            
+            function determinarClase(porcentaje_externo, porcentaje_etapa) {
+                if (porcentaje_externo === porcentaje_etapa) {
+                    return 'pg_estado_actual';
+                } else if (porcentaje_externo > porcentaje_etapa) {
+                    return 'pg_completado';
+                } else {
+                    return '';
+                }
+            }
+
             var progreso_analisis_externo = `
-                        <div class="custom-progress-bar">
-                            <ul class="progress-bar">
-                                <li class="section pg_completado">
-                                    <div class="circle">1</div>
-                                    <div class="label">Creación Análisis Externo</div>
-                                    <div class="user_done">Responsable 1</div>
-                                </li>
-                                <li class="section pg_completado">
-                                    <div class="circle">2</div>
-                                    <div class="label">Pendiente completar análisis</div>
-                                    <div class="user_done">Responsable 2</div>
-                                </li>
-                                <li class="section pg_completado">
-                                    <div class="circle">3</div>
-                                    <div class="label">Pendiente envío a Laboratorio</div>
-                                    <div class="user_done">Responsable 3</div>
-                                </li>
-                                <li class="section current">
-                                    <div class="circle">4</div>
-                                    <div class="label">Pendiente ingreso resultados</div>
-                                    <div class="user_done">Responsable 4</div>
-                                </li>
-                                <li class="section">
-                                    <div class="circle">5</div>
-                                    <div class="label">Pendiente Liberación productos</div>
-                                    <div class="user_done">Responsable 5</div>
-                                </li>
-                                <li class="section">
-                                    <div class="circle">6</div>
-                                    <div class="label">Completado</div>
-                                    <div class="user_done">Responsable 6</div>
-                                </li>
-                                <div class="status-bar"></div>
-                                <div class="current-status" style="width: 60%;"></div> <!-- Ajusta el % según el progreso -->
-                            </ul>
-                        </div>
-                    `;
+                <div class="custom-progress-bar">
+                    <ul class="progress-bar">
+                        <li class="section ${determinarClase(porcentaje_externo, 0)}">
+                            <div class="circle">1</div>
+                            <div class="label">Creación Análisis Externo</div>
+                            <div class="user_done">${d.aex_firma1}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 20)}">
+                            <div class="circle">2</div>
+                            <div class="label">Pendiente completar análisis</div>
+                            <div class="user_done">${d.aex_firma1}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 40)}">
+                            <div class="circle">3</div>
+                            <div class="label">Pendiente envío a Laboratorio</div>
+                            <div class="user_done">${d.aex_revisado_por}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 60)}">
+                            <div class="circle">4</div>
+                            <div class="label">Pendiente ingreso resultados</div>
+                            <div class="user_done">${d.aex_revisado_por}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 80)}">
+                            <div class="circle">5</div>
+                            <div class="label">Pendiente Liberación productos</div>
+                            <div class="user_done">${d.aex_firma1}</div>
+                        </li>
+                        <li class="section ${determinarClase(porcentaje_externo, 100)}">
+                            <div class="circle">6</div>
+                            <div class="label">Completado</div>
+                            <div class="user_done"></div>
+                        </li>
+                    </ul>
+                    <div class="status-bar"></div>
+                    <div class="current-status" style="width: ${porcentaje_externo}%;"></div>
+                </div>
+            `;
+
             if (d.estado === "liberado" || d.estado === "rechazado" ) {
                 botones_otros_documentos += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
                 botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
