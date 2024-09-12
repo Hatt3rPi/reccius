@@ -87,11 +87,14 @@
 /* Texto debajo de los círculos */
 .custom-barra_progreso li.section .label {
     margin-top: 10px;
+    font-weight: bold;
+    font-size: 10px;
+    color: #666;
 }
 
 /* Texto para mostrar quién ha completado la etapa */
 .custom-barra_progreso li.section .user_done {
-    font-size: 12px;
+    font-size: 10px;
     color: #666;
 }
 
