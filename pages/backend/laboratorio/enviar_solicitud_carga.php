@@ -83,9 +83,8 @@ if (isset($usuarios['error'])) {
 
 $laboratorio = new Laboratorio();
 $lab = $laboratorio->findByName($analisis['laboratorio']);
-$cc = $laboratorio->findByName($analisis['laboratorio']);
 $analisis['correoLab'] = $lab['correo'];
-
+$cc  = $laboratorio->getCorreosByLaboratorioName($lab['correo']);
 
 
 // Enviar los datos en formato JSON

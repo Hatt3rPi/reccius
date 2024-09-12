@@ -49,6 +49,7 @@ class Laboratorio
         $result = $this->conn->query("SELECT * FROM laboratorio");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
     public function findCCByCorreo($correo){
         $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE correo = ?");
         $stmt->bind_param("s", $correo);
@@ -89,7 +90,7 @@ class Laboratorio
         $stmt->close();
         return $correos;
     }
-
+    
     public function deleteCorreosCCByCorreo($correo){
         $laboratorio = $this->findCCByCorreo($correo);
         if ($laboratorio) {
