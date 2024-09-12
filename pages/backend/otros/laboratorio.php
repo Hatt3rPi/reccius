@@ -50,9 +50,9 @@ class Laboratorio
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function findCCByCorreo($correo){
-        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE correo = ?");
-        $stmt->bind_param("s", $correo);
+    public function findCCByCorreoAndLab($correo, $idLab){
+        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE correo = ?, laboratorio_id = ?");
+        $stmt->bind_param("si", $correo, $idLab);
         $stmt->execute();
         $result = $stmt->get_result();
         $laboratorio = $result->fetch_assoc();
@@ -90,13 +90,12 @@ class Laboratorio
         $stmt->close();
         return $correos;
     }
-    
-    public function deleteCorreosCCByCorreo($correo){
-        $laboratorio = $this->findCCByCorreo($correo);
+
+    public function deleteCorreosCCByCorreo($correo,$idLab){
+        $laboratorio = $this->findCCByCorreo($correo, $idLab);
         if ($laboratorio) {
-            $laboratorioId = $laboratorio['laboratorio_id'];
-            $stmt = $this->conn->prepare("DELETE FROM laboratorio_con_copia WHERE laboratorio_id = ?");
-            $stmt->bind_param("i", $laboratorioId);
+            $stmt = $this->conn->prepare("DELETE FROM laboratorio_con_copia WHERE laboratorio_id = ?, correo = ?");
+            $stmt->bind_param("is", $idLab, $correo);
             $stmt->execute();
             $stmt->close();
             return 'success';

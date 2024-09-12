@@ -13,16 +13,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (
+  !isset($input['id_cc']) ||
   empty($input['correo'])
 ) {
     echo json_encode(['exito' => false, 'mensaje' => 'Datos insuficientes', 'input' => $input]);
     exit;
 }
 
+$idCC = $input['id_cc'];
 $correo = $input['correo'];
 
+
 $laboratorio = new Laboratorio();
-$resp = $laboratorio->deleteCorreosCCByCorreo($correo);
+$resp = $laboratorio->deleteCorreosCCByCorreo($correo,$idCC);
 
 echo json_encode(['msg' => $resp]);
 

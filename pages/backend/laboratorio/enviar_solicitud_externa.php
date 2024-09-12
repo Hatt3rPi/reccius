@@ -97,6 +97,7 @@ if ($host == 'reccius.cl') {
             'nombre' => 'Macarena Alejandra Godoy Castro'
         ];
 }
+
 //En caso de quere ver los correos en ambiente de desarrollo
 //if($host == 'customware.cl'){
 //    $destinatarios[] = 
@@ -105,6 +106,7 @@ if ($host == 'reccius.cl') {
 //        'email' => 'lucianoalonso2000@gmail.com'
 //    ];
 //}
+
 function agregarCorreosCC($emailLab, $lab, $laboratorio)
 {
     global $link,$input;
@@ -114,33 +116,8 @@ function agregarCorreosCC($emailLab, $lab, $laboratorio)
         return !in_array($destinatario['email'], $correosExcluidos);
     });
 
-    // Lista para correos válidos
-    $correosValidos = [];
-
-    foreach ($destinatariosFiltrados as $destinatario) {
-        $correo = $destinatario['email'];
-
-        // Verificar si el correo existe en la tabla 'usuarios'
-        $queryUsuario = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
-        $stmtUsuario = mysqli_prepare($link, $queryUsuario);
-        mysqli_stmt_bind_param($stmtUsuario, "s", $correo);
-        mysqli_stmt_execute($stmtUsuario);
-        mysqli_stmt_bind_result($stmtUsuario, $existe);
-        mysqli_stmt_fetch($stmtUsuario);
-        mysqli_stmt_close($stmtUsuario);
-
-        // Si el correo existe en 'usuarios', no se añade como CC
-        if ($existe > 0) {
-            echo json_encode(['exito' => false, 'mensaje' => "El correo $correo ya está registrado en la tabla de usuarios y no se puede añadir como CC."]);
-            continue; // Saltar al siguiente destinatario
-        }
-
-        // Añadir a la lista de correos válidos
-        $correosValidos[] = $destinatario;
-    }
-
     // Añadir los correos válidos a la tabla 'laboratorio_con_copia'
-    foreach ($correosValidos as $destinatario) {
+    foreach ($destinatariosFiltrados as $destinatario) {
         $correo = $destinatario['email'];
         $nombre = $destinatario['nombre'];
         // Asegúrate de que el laboratorio está correctamente identificado
@@ -149,7 +126,7 @@ function agregarCorreosCC($emailLab, $lab, $laboratorio)
 
         // Añadir el correo si no existe ya para el laboratorio
         try {
-            $laboratorio->addCorreoToLaboratorioWithName($laboratorioId, $lab, $correo);
+            $laboratorio->addCorreoToLaboratorioWithName($laboratorioId, $nombre, $correo);
         } catch (mysqli_sql_exception $e) {
             if ($e->getCode() != 1062) { // Ignorar error de duplicado
                 echo json_encode(['exito' => false, 'mensaje' => 'Error al añadir correo: ' . $e->getMessage()]);
@@ -159,7 +136,19 @@ function agregarCorreosCC($emailLab, $lab, $laboratorio)
     }
 }
 
-$resultado = enviarCorreoMultiple($destinatarios, $subject, $cuerpo, $altBody);
+$correosFilter = [$emailLab];
+$cc = array_filter($destinatarios, function ($destinatario) use ($correosFilter) {
+    return !in_array($destinatario['email'], $correosFilter);
+});
+$destinatario = [
+    [
+        'email' => $emailLab,
+        'nombre' => $lab
+    ]
+    ];
+
+
+$resultado = enviarCorreo_transitorio($destinatario, $subject, $cuerpo, $altBody, $cc);
 if ($resultado['status'] === 'success') {
     // Llamar a la función para agregar los correos como CC
     agregarCorreosCC($emailLab, $lab, $laboratorio);
@@ -193,7 +182,6 @@ if ($resultado['status'] === 'success') {
     http_response_code(400);
     echo json_encode(['exito' => false, 'mensaje' => $resultado]);
 }
-
 mysqli_close($link);
 
 ?>
