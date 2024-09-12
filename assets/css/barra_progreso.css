@@ -1,4 +1,4 @@
-.custom-progress-bar {
+.custom-barra_progreso {
     width: 100%;
     margin: 20px 0;
     position: relative;
@@ -8,7 +8,7 @@
 }
 
 /* Barra de progreso principal */
-.custom-progress-bar ul.progress-bar {
+.custom-barra_progreso ul.barra_progreso {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -19,7 +19,7 @@
 }
 
 /* Secciones de la barra */
-.custom-progress-bar li.section {
+.custom-barra_progreso li.section {
     display: flex;
     flex-direction: column; /* Textos abajo de los círculos */
     align-items: center;
@@ -33,7 +33,7 @@
 }
 
 /* Círculos */
-.custom-progress-bar li.section:before {
+.custom-barra_progreso li.section:before {
     content: 'x';
     position: absolute;
     top: 0;
@@ -51,7 +51,7 @@
 }
 
 /* Línea de progreso (gris) */
-.custom-progress-bar .status-bar {
+.custom-barra_progreso .status-bar {
     position: absolute;
     top: 15px; /* Ajuste para centrar la línea respecto a los círculos */
     left: 0;
@@ -62,7 +62,7 @@
 }
 
 /* Línea de progreso (verde) */
-.custom-progress-bar .pg_estado_actual-status {
+.custom-barra_progreso .pg_estado_actual-status {
     height: 4px;
     background: mediumseagreen;
     position: absolute;
@@ -73,24 +73,24 @@
 }
 
 /* Círculos completados */
-.custom-progress-bar li.section.pg_completado:before {
+.custom-barra_progreso li.section.pg_completado:before {
     content: '\2714'; /* Checkmark para etapas completadas */
     background: mediumseagreen;
 }
 
 /* Etapa actual */
-.custom-progress-bar li.section.pg_estado_actual:before {
+.custom-barra_progreso li.section.pg_estado_actual:before {
     background: #00bfff; /* Celeste azulado */
     box-shadow: 0 0 0 2px #00bfff;
 }
 
 /* Texto debajo de los círculos */
-.custom-progress-bar li.section .label {
+.custom-barra_progreso li.section .label {
     margin-top: 10px;
 }
 
 /* Texto para mostrar quién ha completado la etapa */
-.custom-progress-bar li.section .user_done {
+.custom-barra_progreso li.section .user_done {
     font-size: 12px;
     color: #666;
 }
@@ -109,7 +109,7 @@
     padding: 10px 15px;
     font-size: 14px;
     color: white;
-    background-color: #007bff;
+    /* background-color: #007bff; */
     border: none;
     border-radius: 5px;
     cursor: pointer;

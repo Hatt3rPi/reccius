@@ -204,8 +204,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var botones_analisis_externo='';
             var botones_otros_documentos='';
             var progreso_acta_muestreo = `
-                        <div class="custom-progress-bar">
-                            <ul class="progress-bar">
+                        <div class="custom-barra_progreso">
+                            <ul class="barra_progreso">
                                 <li class="section pg_completado">
                                     <div class="circle">1</div>
                                     <div class="label">Creación Acta de Muestreo</div>
@@ -276,8 +276,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
 
             var progreso_analisis_externo = `
-                <div class="custom-progress-bar">
-                    <ul class="progress-bar">
+                <div class="custom-barra_progreso">
+                    <ul class="barra_progreso">
                         <li class="section ${determinarClase(porcentaje_externo, 0)}">
                             <div class="circle">1</div>
                             <div class="label">Creación Análisis Externo</div>
@@ -303,7 +303,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <div class="label">Pendiente Liberación productos</div>
                             <div class="user_done">${d.aex_firma1}</div>
                         </li>
-                        <li class="section ${determinarClase(porcentaje_externo, 100)}">
+                        <li class="section ${porcentaje_externo === 100 ? 'pg_completado' : ''}">
                             <div class="circle">6</div>
                             <div class="label">Completado</div>
                             <div class="user_done"></div>
