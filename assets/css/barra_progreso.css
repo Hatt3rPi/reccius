@@ -1,0 +1,90 @@
+.custom-progress-bar {
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+/* Barra de progreso principal */
+.custom-progress-bar ul.progress-bar {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    list-style: none;
+    position: relative;
+}
+
+/* Secciones de la barra */
+.custom-progress-bar li.section {
+    display: inline-block;
+    width: calc(100% / 6); /* Ajusta este valor según el número de etapas */
+    padding-top: 50px;
+    font-size: 13px;
+    font-weight: bold;
+    color: gray;
+    text-align: center;
+    position: relative;
+}
+
+/* Círculos */
+.custom-progress-bar li.section:before {
+    content: 'x';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    background: gray;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+/* Línea de progreso (gris) */
+.custom-progress-bar .status-bar {
+    position: absolute;
+    top: 15px; /* Ajuste para centrar la línea respecto a los círculos */
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: gray;
+    z-index: 0;
+}
+
+/* Línea de progreso (verde) */
+.custom-progress-bar .current-status {
+    height: 4px;
+    background: mediumseagreen;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    z-index: 0;
+    transition: width 0.5s ease;
+}
+
+/* Círculos completados */
+.custom-progress-bar li.section.pg_completado:before {
+    content: '\2714'; /* Checkmark para etapas completadas */
+    background: mediumseagreen;
+}
+
+/* Etapa actual */
+.custom-progress-bar li.section.current:before {
+    background: #00bfff; /* Celeste azulado */
+    box-shadow: 0 0 0 2px #00bfff;
+}
+
+/* Texto debajo de los círculos */
+.custom-progress-bar li.section .label {
+    margin-top: 10px;
+}
+
+.custom-progress-bar li.section .user_done {
+    font-size: 12px;
+    color: #666;
+}

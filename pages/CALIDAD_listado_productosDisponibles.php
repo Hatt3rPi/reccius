@@ -57,6 +57,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,7 +87,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Eliminar todos los filtros
                 table.search('').columns().search('').draw();
             } else {
-                table.column(6).search(valor).draw(); // Asumiendo que la columna 1 es la de
+                table.column(7).search(valor).draw(); // Asumiendo que la columna 1 es la de
             }
         }
         
@@ -128,6 +129,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "300px"
                 },
                 {
+                    "data": "numero_solicitud",
+                    "title": "Nro Solicitud",
+                    "width": "100px"
+                },
+                {
                     "data": "lote",
                     "title": "Nro Lote",
                     "width": "100px"
@@ -135,7 +141,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "fecha_out_cuarentena",
                     "title": "Fecha Liberación",
-                    "width": "65px",
+                    "width": "45px",
                     "render": function(data, type, row) {
                         return data ? data : 'En proceso';
                     }
@@ -143,7 +149,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "fecha_vencimiento",
                     "title": "Fecha Vencimiento",
-                    "width": "65px"
+                    "width": "45px"
                 },
                 {
                     "data": "tipo_producto",
@@ -238,7 +244,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <?php if (isset($_SESSION['buscar_por_ID'])) { ?>
             var buscar = '<?php echo $_SESSION['buscar_por_ID']; ?>';
             console.log('se intentará filtrar por id: ', buscar);
-            table.columns(7).search(buscar).draw();
+            table.columns(8).search(buscar).draw();
             //table.search(buscar).draw();
             <?php unset($_SESSION['buscar_por_ID']); ?>
         <?php } ?>

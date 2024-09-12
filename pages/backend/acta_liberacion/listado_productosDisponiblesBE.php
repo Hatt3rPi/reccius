@@ -16,7 +16,14 @@ $query = "SELECT
                 c.url_documento_adicional,
 				c.estado as estado_aex,
 				c.url_certificado_solicitud_analisis_externo,
-				d.estado as estado_amuestreo
+				c.numero_solicitud,
+				d.estado as estado_amuestreo,
+				d.responsable as 'am_responsable',
+                d.verificador as 'am_verificador',
+                d.muestreador as 'am_muestreador',
+                d.fecha_firma_responsable  as 'am_fecha_firma_responsable',
+                d.fecha_firma_verificador as 'am_fecha_firma_verificador',
+                d.fecha_muestreo  as 'am_fecha_muestreo'
             FROM calidad_productos_analizados as a
             LEFT JOIN calidad_productos as b on a.id_producto=b.id
             left join calidad_analisis_externo as c on a.id_analisisExterno=c.id

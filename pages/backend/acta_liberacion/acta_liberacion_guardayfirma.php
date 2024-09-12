@@ -64,7 +64,9 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
         $destinatarios = [
             ['email' => 'mgodoy@reccius.cl', 'nombre' => 'Macarena Godoy'],
             ['email' => 'isumonte@reccius.cl', 'nombre' => 'Inger Sumonte'],
-            ['email' => 'clpereir@reccius.cl', 'nombre' => 'Catherine Pereira']
+            ['email' => 'acurkovic@reccius.cl', 'nombre' => 'Andro Curcovic'],
+            ['email' => 'Lsepulveda@reccius.cl', 'nombre' => 'Luis Sepúlveda'],
+            ['email' => 'cpereira@reccius.cl', 'nombre' => 'Catherine Pereira']
         ];
     } else {
         die("Error: Hostname no reconocido. No se puede enviar el correo.");

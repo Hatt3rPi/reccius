@@ -166,6 +166,19 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="form-row">
                     <div class="form-group">
+                        <label>Observaciones:</label>
+                        <textarea name="form_observaciones" id="form_observaciones" class="highlight form-control mx-0 w-90 border rounded-sm editable" rows="4" placeholder="..."></textarea>
+                    </div>
+                    <div class="divider"></div> <!-- Esta es la línea divisora -->
+                    <div class="form-group" style="visibility: hidden;">
+                        <label>Verificador Muestreo:</label>
+                        <select required name="dummy" id="dummy" class="select-style mx-0 form__select w-90 ">
+                            <option>Selecciona el usuario:</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
                         <label>Muestreador:</label>
                         <select required name="ejecutado_por" id="ejecutado_por" class="select-style mx-0 form__select w-90 ">
                             <option>Selecciona el usuario:</option>
@@ -315,10 +328,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                 </fieldset>
                 <br />
+                <br />
                 <fieldset>
                     <legend>VI. Flujo de Aprobación:</legend>
                     <br />
-                    <br />
+                    
                     <div class="form-row">
                         <div class="form-group">
                             <label>Usuario Solicitante:</label>
@@ -493,7 +507,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             $('#version').val(1);
             $('#numero_registro').val(numero_registro).prop('readonly', true);
             $('#numero_solicitud').val(numero_acta).prop('readonly', true);
-
             switch (producto.tipo_producto) {
                 case 'Material Envase y Empaque':
                     prefijo = 'DCAL-CC-EMEE-';
@@ -540,6 +553,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                 {
                     id: 'formato',
                     val: producto.formato,
+                    isDisabled: true
+                },
+                {
+                    id: 'observaciones',
+                    val: response.analisis.observaciones,
                     isDisabled: true
                 }
             ])
@@ -713,6 +731,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     id: 'am_verificado_por',
                     val: analisis.am_verificado_por,
                     isDisabled: true
+                },
+                {
+                        id: 'observaciones',
+                        val: analisis.observaciones,
+                        isDisabled: false
                 }
             ];
             //* IV. Solicitud de Análisis Externo
@@ -757,12 +780,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         id: 'numero_documento',
                         val: analisis.numero_documento,
                         isDisabled: true
-                    },
-                    {
-                        id: 'observaciones',
-                        val: analisis.observaciones,
-                        isDisabled: true
-                    },
+                    }
                 ]
             }
 
