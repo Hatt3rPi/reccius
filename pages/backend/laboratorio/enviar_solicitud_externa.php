@@ -140,12 +140,14 @@ $correosFilter = [$emailLab];
 $cc = array_filter($destinatarios, function ($destinatario) use ($correosFilter) {
     return !in_array($destinatario['email'], $correosFilter);
 });
+
 $destinatario = [
     [
-        'email' => $emailLab,
-        'nombre' => $lab
+        'nombre' => $lab,
+        'email' => $emailLab
     ]
-    ];
+];
+
 
 
 $resultado = enviarCorreo_transitorio($destinatario, $subject, $cuerpo, $altBody, $cc);
@@ -166,7 +168,14 @@ if ($resultado['status'] === 'success') {
     echo json_encode([
             'exito' => true, 
             'mensaje' => 'Correo enviado con éxito',
-            'resultado' => $resultado
+            'resultado' => [
+                'destinatario' => $destinatario, 
+                'subject' => $subject, 
+                'cuerpo' => $cuerpo, 
+                'altBody' => $altBody, 
+                'cc' => $cc,
+                'resultado' =>$resultado
+            ]
         ]);
 
     $query_numero_solicitud = "SELECT numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
