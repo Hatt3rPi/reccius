@@ -3,6 +3,8 @@
     margin: 20px 0;
     position: relative;
     font-family: Arial, sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 /* Barra de progreso principal */
@@ -12,13 +14,16 @@
     padding: 0;
     font-size: 0;
     list-style: none;
-    position: relative;
+    display: flex; /* Asegurar alineación horizontal */
+    justify-content: space-between; /* Espacio uniforme entre los ítems */
 }
 
 /* Secciones de la barra */
 .custom-progress-bar li.section {
-    display: inline-block;
-    width: calc(100% / 6); /* Ajusta este valor según el número de etapas */
+    display: flex;
+    flex-direction: column; /* Textos abajo de los círculos */
+    align-items: center;
+    width: calc(100% / 6); /* Ajustar el ancho de las secciones según el número de etapas */
     padding-top: 50px;
     font-size: 13px;
     font-weight: bold;
@@ -84,6 +89,7 @@
     margin-top: 10px;
 }
 
+/* Texto para mostrar quién ha completado la etapa */
 .custom-progress-bar li.section .user_done {
     font-size: 12px;
     color: #666;
@@ -112,20 +118,4 @@
 
 .accion-btn:hover {
     background-color: #0056b3; /* Cambiar color al pasar el cursor */
-}
-
-.custom-progress-bar li.section {
-    display: inline-block;
-    width: calc(100% / 4); /* Cambia este valor para que las secciones sean más anchas */
-    padding-top: 50px;
-    font-size: 13px;
-    font-weight: bold;
-    color: gray;
-    text-align: center;
-    position: relative;
-}
-
-.custom-progress-bar {
-    padding-left: 10px;
-    padding-right: 10px;
 }
