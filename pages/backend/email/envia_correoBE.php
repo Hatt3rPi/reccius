@@ -50,7 +50,9 @@ function enviarCorreo($destinatario, $nombreDestinatario, $asunto, $cuerpo, $alt
     }
 }
 
-function enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo, $altBody = '', $cc = []) {
+function enviarCorreo_transitorio(
+    $destinatarios, $asunto, $cuerpo, $altBody = '', $cc = []
+    ) {
     $mail = new PHPMailer(true);
     $errores = [];
     $exitos = [];
@@ -133,8 +135,6 @@ function enviarCorreo_transitorio($destinatarios, $asunto, $cuerpo, $altBody = '
         ];
     }
 }
-
-
 
 
 function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
