@@ -309,7 +309,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <div class="user_done"></div>
                         </li>
                     </ul>
-                    <div class="barra_progreso"></div>
+                    <div class="status-bar"></div>
                     <div class="current-status" style="width: ${porcentaje_externo}%;"></div>
                 </div>
             `;
