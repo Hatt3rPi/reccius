@@ -224,7 +224,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <li class="section ${d.am_fecha_firma_verificador ? 'pg_completado' : ''}">
                                     <div class="circle">4</div>
                                     <div class="label">Firma revisor</div>
-                                    <div class="user_done">${d.am_verificador} 4</div>
+                                    <div class="user_done">${d.am_verificador}</div>
                                 </li>
                                 <li class="section ${d.am_fecha_firma_verificador ? 'pg_completado' : ''}">
                                     <div class="circle">5</div>
