@@ -163,7 +163,12 @@ if ($resultado['status'] === 'success') {
 
     unset($_SESSION['buscar_por_ID']);
     $_SESSION['buscar_por_ID'] = $id_analisis_externo;
-    echo json_encode(['exito' => true, 'mensaje' => 'Correo enviado con éxito']);
+    echo json_encode([
+            'exito' => true, 
+            'mensaje' => 'Correo enviado con éxito',
+            'resultado' => $resultado
+        ]);
+
     $query_numero_solicitud = "SELECT numero_solicitud FROM calidad_analisis_externo WHERE id = ?";
     $stmt_numero_solicitud = mysqli_prepare($link, $query_numero_solicitud);
     if (!$stmt_numero_solicitud) {
