@@ -717,6 +717,7 @@ ul {
     background-color: #f44336;
     /* Rojo para No Conforme */
 }
+
 .editable-div {
     width: 295px;
     max-width: 295px;
@@ -743,22 +744,33 @@ ul {
 .editable-div.textarea {
     width: 100%;
     max-width: 100%;
-    word-wrap: break-word; /* Permite que las palabras se ajusten si son muy largas */
-    overflow-wrap: break-word; /* Para soporte adicional */
-    white-space: normal; /* Asegura que el texto se ajusta a la siguiente línea */
-    height: auto; /* Ajusta la altura automáticamente según el contenido */
-    border: 1px solid #ccc; /* Opcional: Estilo de borde */
-    padding: 5px; /* Espaciado interno opcional */
-    box-sizing: border-box; /* Asegura que el padding esté incluido en la anchura */
-    font-size: 0.8rem; /* Tamaño de la fuente */
-    min-height: 80px; /* Establece una altura mínima para el campo, ajustable según tus necesidades */
+    word-wrap: break-word;
+    /* Permite que las palabras se ajusten si son muy largas */
+    overflow-wrap: break-word;
+    /* Para soporte adicional */
+    white-space: normal;
+    /* Asegura que el texto se ajusta a la siguiente línea */
+    height: auto;
+    /* Ajusta la altura automáticamente según el contenido */
+    border: 1px solid #ccc;
+    /* Opcional: Estilo de borde */
+    padding: 5px;
+    /* Espaciado interno opcional */
+    box-sizing: border-box;
+    /* Asegura que el padding esté incluido en la anchura */
+    font-size: 0.8rem;
+    /* Tamaño de la fuente */
+    min-height: 80px;
+    /* Establece una altura mínima para el campo, ajustable según tus necesidades */
 }
 
-.editable-diva{
+.editable-diva {
     width: 100%;
     height: auto;
-    min-height: 30px; /* Ajusta la altura mínima según sea necesario */
-    max-height: 80px; /* Establece una altura máxima si es necesario */
+    min-height: 30px;
+    /* Ajusta la altura mínima según sea necesario */
+    max-height: 80px;
+    /* Establece una altura máxima si es necesario */
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
@@ -766,8 +778,9 @@ ul {
     padding: 5px;
     box-sizing: border-box;
     font-size: 0.8rem;
-    outline: none; /* Elimina cualquier borde de enfoque */
-    border:none !important;
+    outline: none;
+    /* Elimina cualquier borde de enfoque */
+    border: none !important;
 }
 
 .switch {
@@ -775,15 +788,15 @@ ul {
     display: inline-block;
     width: 34px;
     height: 20px;
-  }
-  
-  .switch input {
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -793,9 +806,9 @@ ul {
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 14px;
@@ -805,13 +818,19 @@ ul {
     background-color: white;
     transition: .4s;
     border-radius: 50%;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    transform: translateX(14px);
-  }
+}
 
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(14px);
+}
+
+#sample-identification1,
+#sample-identification2,
+#sampling-plan {
+    padding: 20px;
+    margin: 20px;
+}

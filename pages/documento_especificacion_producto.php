@@ -214,31 +214,54 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const buttonContainer = document.querySelector('.button-container');
             buttonContainer.style.display = 'none';
 
-            // Captura las tres secciones de forma separada
             const headerElement = document.getElementById('header-container');
-            const contentElement = document.getElementById('contenido_main');
+            const contentElement = document.getElementById('content');
+            const additionalContentElement = document.getElementById('additionalContent');
             const footerElement = document.getElementById('footer');
 
             const pdf = new jspdf.jsPDF({
                 orientation: 'p',
                 unit: 'mm',
-                format: 'a4' // Especificar tamaño A4
+                format: 'a4'
             });
 
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
             const paddingTop = 10; // Define el padding superior
 
-            // Primero, captura el header
-            html2canvas(headerElement, {
-                scale: 2,
-                useCORS: true
-            }).then(headerCanvas => {
-                const headerImgData = headerCanvas.toDataURL('image/jpeg');
+            // Función para añadir el header y footer
+            function addHeaderAndFooter(pdf, headerImgData, footerImgData) {
                 const headerWidth = pageWidth;
-                const headerHeight = headerCanvas.height * headerWidth / headerCanvas.width;
+                const headerHeight = headerElement.scrollHeight * headerWidth / headerElement.scrollWidth;
 
-                // Luego, captura el contenido
+                const footerWidth = pageWidth;
+                const footerHeight = footerElement.scrollHeight * footerWidth / footerElement.scrollWidth;
+
+                // Añadir el header
+                pdf.addImage(headerImgData, 'JPEG', 0, paddingTop, headerWidth, headerHeight);
+
+                // Añadir el footer
+                pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
+            }
+
+            // Verifica cuántas filas hay en la tabla
+            const analisisFQRows = document.querySelectorAll('#analisisFQ tbody tr').length;
+
+            // Captura el header y footer para usarlos en ambas páginas
+            Promise.all([
+                html2canvas(headerElement, {
+                    scale: 2,
+                    useCORS: true
+                }),
+                html2canvas(footerElement, {
+                    scale: 2,
+                    useCORS: true
+                })
+            ]).then(([headerCanvas, footerCanvas]) => {
+                const headerImgData = headerCanvas.toDataURL('image/jpeg');
+                const footerImgData = footerCanvas.toDataURL('image/jpeg');
+
+                // Página 1: `#content`
                 html2canvas(contentElement, {
                     scale: 2,
                     useCORS: true
@@ -247,69 +270,80 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     const contentWidth = pageWidth;
                     const contentHeight = contentCanvas.height * contentWidth / contentCanvas.width;
 
-                    // Por último, captura el footer
-                    html2canvas(footerElement, {
-                        scale: 2,
-                        useCORS: true
-                    }).then(footerCanvas => {
-                        const footerImgData = footerCanvas.toDataURL('image/jpeg');
-                        const footerWidth = pageWidth;
-                        const footerHeight = footerCanvas.height * footerWidth / footerCanvas.width;
+                    // Añadir header y footer a la primera página
+                    addHeaderAndFooter(pdf, headerImgData, footerImgData);
 
-                        // Ahora posiciona las imágenes en el PDF
-                        let yOffset = paddingTop; // Agrega el padding superior al yOffset
+                    // Añadir el contenido principal a la primera página
+                    let yOffset = headerCanvas.height * contentWidth / headerCanvas.width + paddingTop;
+                    pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
 
-                        // Agrega el header en la parte superior con padding
-                        pdf.addImage(headerImgData, 'JPEG', 0, yOffset, headerWidth, headerHeight);
-                        yOffset += headerHeight;
+                    // Si hay más de 6 filas, añadir una nueva página con el contenido adicional
+                    if (analisisFQRows > 8) {
+                        pdf.addPage();
 
-                        // Agrega el contenido, asegurándose de que haya suficiente espacio para el footer
-                        if (yOffset + contentHeight > pageHeight - footerHeight) {
-                            // Si el contenido sobrepasa la página, lo manejamos en varias páginas
-                            let heightLeft = contentHeight;
+                        // Página 2: `#additionalContent`
+                        html2canvas(additionalContentElement, {
+                            scale: 2,
+                            useCORS: true
+                        }).then(additionalContentCanvas => {
+                            const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
+                            const additionalContentWidth = pageWidth;
+                            const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
 
-                            while (heightLeft > 0) {
-                                let position = yOffset;
+                            // Añadir header y footer a la segunda página
+                            addHeaderAndFooter(pdf, headerImgData, footerImgData);
 
-                                // Si no es la primera página, agregamos una nueva página
-                                if (yOffset !== 0) {
-                                    pdf.addPage();
-                                    position = paddingTop; // reiniciamos el yOffset con padding superior
-                                    yOffset = paddingTop;
-                                }
+                            // Añadir el contenido adicional a la segunda página
+                            let yOffset2 = headerCanvas.height * additionalContentWidth / headerCanvas.width + paddingTop;
+                            pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
 
-                                const availableHeight = pageHeight - yOffset - footerHeight;
+                            // Descargar el PDF
+                            const nombreProducto = document.getElementById('producto').textContent.trim();
+                            const nombreDocumento = document.getElementById('documento').textContent.trim();
+                            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
 
-                                const heightToPrint = Math.min(availableHeight, heightLeft);
-                                const widthToPrint = contentWidth;
+                            // Restaurar visibilidad y estilos
+                            buttonContainer.style.display = 'block';
+                            $.notify("PDF generado con éxito", "success");
+                        });
+                    } else {
+                        // Incluir `#additionalContent` dentro de la primera página si hay menos de 6 filas
+                        html2canvas(additionalContentElement, {
+                            scale: 2,
+                            useCORS: true
+                        }).then(additionalContentCanvas => {
+                            const additionalContentImgData = additionalContentCanvas.toDataURL('image/jpeg');
+                            const additionalContentWidth = pageWidth;
+                            const additionalContentHeight = additionalContentCanvas.height * additionalContentWidth / additionalContentCanvas.width;
 
-                                pdf.addImage(contentImgData, 'JPEG', 0, yOffset, widthToPrint, heightToPrint);
-
-                                heightLeft -= heightToPrint;
-                                yOffset += heightToPrint;
+                            // Añadir el contenido adicional dentro de la misma página
+                            let yOffset2 = yOffset + contentHeight + 10; // Añadir un pequeño margen entre secciones
+                            if (yOffset2 + additionalContentHeight > pageHeight - 40) {
+                                pdf.addPage();
+                                yOffset2 = paddingTop;
                             }
-                        } else {
-                            pdf.addImage(contentImgData, 'JPEG', 0, yOffset, contentWidth, contentHeight);
-                            yOffset += contentHeight;
-                        }
+                            pdf.addImage(additionalContentImgData, 'JPEG', 0, yOffset2, additionalContentWidth, additionalContentHeight);
 
-                        // Finalmente, agrega el footer en la parte inferior
-                        pdf.addImage(footerImgData, 'JPEG', 0, pageHeight - footerHeight, footerWidth, footerHeight);
+                            // Descargar el PDF
+                            const nombreProducto = document.getElementById('producto').textContent.trim();
+                            const nombreDocumento = document.getElementById('documento').textContent.trim();
+                            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
 
-                        const nombreProducto = document.getElementById('producto').textContent.trim();
-                        const nombreDocumento = document.getElementById('documento').textContent.trim();
-                        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-
-                        // Restaurar visibilidad y estilos
-                        buttonContainer.style.display = 'block';
-                        $.notify("PDF generado con éxito", "success");
-                    });
+                            // Restaurar visibilidad y estilos
+                            buttonContainer.style.display = 'block';
+                            $.notify("PDF generado con éxito", "success");
+                        });
+                    }
                 });
             }).catch(error => {
                 $.notify("Error al generar el PDF", "error");
                 console.error("Error generating PDF: ", error);
             });
         });
+
+
+
+
 
 
 
@@ -331,6 +365,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 success: function(response) {
                     procesarDatosEspecificacion(response);
                     verificarYMostrarBotonFirma(response);
+                    ajustarSeccionesPorFilas(); // Ajustar las secciones según la cantidad de filas
                 },
                 error: function(xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
@@ -338,17 +373,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
 
+        function ajustarSeccionesPorFilas() {
+            const analisisFQRows = document.querySelectorAll('#analisisFQ tbody tr').length;
+
+            // Mostrar u ocultar el contenido adicional en función de la cantidad de filas
+            if (analisisFQRows > 8) {
+                // Si hay más de 8 filas, el contenido adicional debe mostrarse en otra sección
+                document.getElementById('additionalContent').style.display = 'block';
+            } else {
+                // Si hay menos de 8 filas, el contenido adicional debe mostrarse en la misma página
+                document.getElementById('additionalContent').style.display = 'inline-block';
+            }
+        }
+
         async function procesarDatosEspecificacion(response) {
             console.log("A2")
-            // Validación de la respuesta
             if (!response || !response.productos || !Array.isArray(response.productos)) {
                 console.error('Los datos recibidos no son válidos:', response);
                 return;
             }
-            // Procesamiento de cada producto
+
             response.productos.forEach(function(producto) {
                 poblarYDeshabilitarCamposProducto(producto);
-
                 let especificaciones = Object.values(producto.especificaciones || {});
                 if (especificaciones.length > 0) {
                     let especificacion = especificaciones[0];
@@ -357,19 +403,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (analisisFQ.length > 0) {
                         mostrarAnalisisFQ(analisisFQ);
                     } else {
-                        // Si no hay datos, oculta la sección del análisis FQ
-                        $('#content').hide();
+                        $('#content').hide(); // Ocultar si no hay análisis FQ
                     }
 
                     let analisisMB = especificacion.analisis.filter(a => a.tipo_analisis === 'analisis_MB');
                     if (analisisMB.length > 0) {
                         mostrarAnalisisMB(analisisMB);
                     } else {
-                        // Si no hay datos, oculta la sección del análisis MB
-                        $('#additionalContent').hide();
+                        $('#additionalContent').hide(); // Ocultar si no hay análisis MB
                     }
                 }
             });
+
+            ajustarSeccionesPorFilas(); // Ajustar después de procesar la especificación
         }
 
         function mostrarImagenFirma(usuario, contenedorQR) {
@@ -468,10 +514,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function mostrarAnalisisFQ(analisis) {
             console.log("A5")
-            // Verifica si hay datos para el análisis FQ
-            console.log(analisis)
             if (analisis.length > 0) {
-                // Si hay datos, muestra la tabla y procesa los datos
                 if ($.fn.DataTable.isDataTable('#analisisFQ')) {
                     $('#analisisFQ').DataTable().clear().rows.add(analisis).draw();
                 } else {
@@ -480,21 +523,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         columns: [{
                                 title: 'Análisis',
                                 data: 'descripcion_analisis',
-                                width: '170px',
-                                createdCell: function(td) {
-                                    $(td).css('font-weight', 'bold');
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '170px'
                             },
                             {
                                 title: 'Metodología',
                                 data: 'metodologia',
-                                width: '106px',
-                                createdCell: function(td) {
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '106px'
                             },
                             {
                                 title: 'Criterio aceptación',
@@ -507,23 +541,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         searching: false,
                         lengthChange: false,
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
                         }
                     });
                 }
-                // Muestra la sección del análisis FQ
                 $('#content').show();
             } else {
-                // Si no hay datos, oculta la sección del análisis FQ
                 $('#content').hide();
             }
+            ajustarSeccionesPorFilas(); // Ajustar el contenido una vez se muestre
         }
 
         function mostrarAnalisisMB(analisis) {
             console.log("A6")
-            // Verifica si hay datos para el análisis microbiológico
             if (analisis.length > 0) {
-                // Si hay datos, muestra la tabla y procesa los datos
                 if ($.fn.DataTable.isDataTable('#analisisMB')) {
                     $('#analisisMB').DataTable().clear().rows.add(analisis).draw();
                 } else {
@@ -532,21 +563,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         columns: [{
                                 title: 'Análisis',
                                 data: 'descripcion_analisis',
-                                width: '170px',
-                                createdCell: function(td) {
-                                    $(td).css('font-weight', 'bold');
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '170px'
                             },
                             {
                                 title: 'Metodología',
                                 data: 'metodologia',
-                                width: '106px',
-                                createdCell: function(td) {
-                                    $(td).css('text-align', 'center');
-                                    $(td).css('vertical-align', 'middle');
-                                }
+                                width: '106px'
                             },
                             {
                                 title: 'Criterio aceptación',
@@ -559,16 +581,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         searching: false,
                         lengthChange: false,
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
                         }
                     });
                 }
-                // Muestra la sección del análisis microbiológico
                 $('#additionalContent').show();
             } else {
-                // Si no hay datos, oculta la sección del análisis microbiológico
                 $('#additionalContent').hide();
             }
+            ajustarSeccionesPorFilas(); // Ajustar el contenido una vez se muestre
         }
 
         document.getElementById('sign-document').addEventListener('click', function() {
@@ -631,56 +652,62 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
         function verificarYMostrarBotonFirma(response) {
-        console.log("A10", "Respuesta recibida:", response);
+            console.log("A10", "Respuesta recibida:", response);
 
-        if (!response?.productos?.length || !Array.isArray(response.productos)) {
-            console.log("Respuesta no válida o sin productos");
-            return; // Si la respuesta no es válida, no hacer nada
+            if (!response?.productos?.length || !Array.isArray(response.productos)) {
+                console.log("Respuesta no válida o sin productos");
+                return; // Si la respuesta no es válida, no hacer nada
+            }
+
+            let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
+            let {
+                nombre: nombreRevisor,
+                fecha_revision
+            } = especificacion.revisado_por;
+            let {
+                nombre: nombreAprobador,
+                fecha_aprobacion
+            } = especificacion.aprobado_por;
+
+            let esAprobador = nombreAprobador === usuarioNombre;
+            let esRevisor = nombreRevisor === usuarioNombre;
+
+            let esRevisorPendiente = esRevisor && !fecha_revision;
+            let esAprobadorPendiente = esAprobador && !fecha_aprobacion;
+            let revisorHaFirmado = !!fecha_revision;
+
+            // Ocultar botón si no corresponde al usuario
+            let botonFirma = document.getElementById('sign-document');
+            if (!botonFirma) return;
+
+            // Si es el revisor y la firma del aprobador está pendiente, ocultar botón
+            if (esRevisor && fecha_aprobacion !== null) {
+                botonFirma.style.display = 'none';
+                return;
+            }
+
+            // Si es el aprobador y la firma del revisor está pendiente, ocultar botón
+            if (esAprobador && fecha_revision === null) {
+                botonFirma.style.display = 'none';
+                return;
+            }
+
+            // Mostrar botón según las condiciones establecidas
+            if (esRevisorPendiente) {
+                console.log("Mostrar botón de firma para Revisor (habilitado)");
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = false;
+            } else if (esAprobadorPendiente && revisorHaFirmado) {
+                console.log("Mostrar botón de firma para Aprobador (habilitado)");
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = false;
+            } else if (esAprobadorPendiente && !revisorHaFirmado) {
+                console.log("Mostrar botón de firma para Aprobador (deshabilitado)");
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = true;
+                botonFirma.title = "Documento debe estar firmado por revisor para poder aprobarlo";
+            }
         }
-
-        let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
-        let { nombre: nombreRevisor, fecha_revision } = especificacion.revisado_por;
-        let { nombre: nombreAprobador, fecha_aprobacion } = especificacion.aprobado_por;
-
-        let esAprobador = nombreAprobador === usuarioNombre;
-        let esRevisor = nombreRevisor === usuarioNombre;
-
-        let esRevisorPendiente = esRevisor && !fecha_revision;
-        let esAprobadorPendiente = esAprobador && !fecha_aprobacion;
-        let revisorHaFirmado = !!fecha_revision;
-
-        // Ocultar botón si no corresponde al usuario
-        let botonFirma = document.getElementById('sign-document');
-        if (!botonFirma) return;
-
-        // Si es el revisor y la firma del aprobador está pendiente, ocultar botón
-        if (esRevisor && fecha_aprobacion !== null) {
-            botonFirma.style.display = 'none';
-            return;
-        }
-
-        // Si es el aprobador y la firma del revisor está pendiente, ocultar botón
-        if (esAprobador && fecha_revision === null) {
-            botonFirma.style.display = 'none';
-            return;
-        }
-
-        // Mostrar botón según las condiciones establecidas
-        if (esRevisorPendiente) {
-            console.log("Mostrar botón de firma para Revisor (habilitado)");
-            botonFirma.style.display = 'block';
-            botonFirma.disabled = false;
-        } else if (esAprobadorPendiente && revisorHaFirmado) {
-            console.log("Mostrar botón de firma para Aprobador (habilitado)");
-            botonFirma.style.display = 'block';
-            botonFirma.disabled = false;
-        } else if (esAprobadorPendiente && !revisorHaFirmado) {
-            console.log("Mostrar botón de firma para Aprobador (deshabilitado)");
-            botonFirma.style.display = 'block';
-            botonFirma.disabled = true;
-            botonFirma.title = "Documento debe estar firmado por revisor para poder aprobarlo";
-        }
-    }
 
 
         function actualizarEstadoDocumento() {
@@ -704,7 +731,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         window.onload = function() {
             cargarDatosEspecificacion(id);
-            verificarYMostrarBotonFirma();
         };
     </script>
 

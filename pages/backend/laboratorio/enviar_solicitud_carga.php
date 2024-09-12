@@ -83,15 +83,17 @@ if (isset($usuarios['error'])) {
 
 $laboratorio = new Laboratorio();
 $lab = $laboratorio->findByName($analisis['laboratorio']);
-
 $analisis['correoLab'] = $lab['correo'];
+$cc  = $laboratorio->getCorreosByLaboratorioName($lab['correo']);
+
 
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
     'analisis' => $analisis,
     'usuarios' => $usuarios,
-    'acta' => $acta
+    'acta' => $acta,
+    'cc'=>$cc
 ], JSON_UNESCAPED_UNICODE);
 
 mysqli_close($link);

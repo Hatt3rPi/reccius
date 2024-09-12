@@ -1,0 +1,121 @@
+.custom-barra_progreso {
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+    font-family: Arial, sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Barra de progreso principal */
+.custom-barra_progreso ul.barra_progreso {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    list-style: none;
+    display: flex; /* Asegurar alineación horizontal */
+    justify-content: space-between; /* Espacio uniforme entre los ítems */
+}
+
+/* Secciones de la barra */
+.custom-barra_progreso li.section {
+    display: flex;
+    flex-direction: column; /* Textos abajo de los círculos */
+    align-items: center;
+    width: calc(100% / 6); /* Ajustar el ancho de las secciones según el número de etapas */
+    padding-top: 50px;
+    font-size: 13px;
+    font-weight: bold;
+    color: gray;
+    text-align: center;
+    position: relative;
+}
+
+/* Círculos */
+.custom-barra_progreso li.section:before {
+    content: 'x';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    background: gray;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+/* Línea de progreso (gris) */
+.custom-barra_progreso .status-bar {
+    position: absolute;
+    top: 15px; /* Ajuste para centrar la línea respecto a los círculos */
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: gray;
+    z-index: 0;
+}
+
+/* Línea de progreso (verde) */
+.custom-barra_progreso .pg_estado_actual-status {
+    height: 4px;
+    background: mediumseagreen;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    z-index: 0;
+    transition: width 0.5s ease;
+}
+
+/* Círculos completados */
+.custom-barra_progreso li.section.pg_completado:before {
+    content: '\2714'; /* Checkmark para etapas completadas */
+    background: mediumseagreen;
+}
+
+/* Etapa actual */
+.custom-barra_progreso li.section.pg_estado_actual:before {
+    background: #00bfff; /* Celeste azulado */
+    box-shadow: 0 0 0 2px #00bfff;
+}
+
+/* Texto debajo de los círculos */
+.custom-barra_progreso li.section .label {
+    margin-top: 10px;
+}
+
+/* Texto para mostrar quién ha completado la etapa */
+.custom-barra_progreso li.section .user_done {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Contenedor para los botones */
+.button-container {
+    margin-top: 20px; /* Añadir espacio entre la barra de progreso y los botones */
+    clear: both; /* Asegurar que los botones queden debajo de la barra */
+    text-align: center; /* Alineación de los botones */
+}
+
+/* Estilo de los botones */
+.accion-btn {
+    display: inline-block;
+    margin: 10px; /* Añade espacio entre los botones */
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #666;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.accion-btn:hover {
+    background-color: #0056b3; /* Cambiar color al pasar el cursor */
+}
