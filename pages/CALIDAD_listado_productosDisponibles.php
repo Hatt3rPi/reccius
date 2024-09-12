@@ -209,22 +209,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 <li class="section pg_completado">
                                     <div class="circle">1</div>
                                     <div class="label">Creación Acta de Muestreo</div>
-                                    <div class="user_done">${d.am_generador}</div>
+                                    <div class="user_done">${d.am_generador ? d.am_generador : d.am_muestreador}</div>
                                 </li>
                                 <li class="section ${d.am_fecha_muestreo ? 'pg_completado' : ''}">
                                     <div class="circle">2</div>
                                     <div class="label">Muestreo finalizado</div>
-                                    <div class="user_done">${d.am_muestreador}</div>
+                                    <div class="user_done">${d.am_muestreador ? d.am_muestreador : 'Por definir'}</div>
                                 </li>
                                 <li class="section ${d.am_fecha_firma_responsable ? 'pg_completado' : ''}">
                                     <div class="circle">3</div>
                                     <div class="label">Firma responsable</div>
-                                    <div class="user_done">${d.am_responsable}</div>
+                                    <div class="user_done">${d.am_responsable ? d.am_responsable : 'Por definir'}</div>
                                 </li>
                                 <li class="section ${d.am_fecha_firma_verificador ? 'pg_completado' : ''}">
                                     <div class="circle">4</div>
                                     <div class="label">Firma revisor</div>
-                                    <div class="user_done">${d.am_verificador}</div>
+                                    <div class="user_done">${d.am_verificador ? d.am_verificador : 'Por definir'}</div>
                                 </li>
                                 <li class="section ${d.am_fecha_firma_verificador ? 'pg_completado' : ''}">
                                     <div class="circle">5</div>
