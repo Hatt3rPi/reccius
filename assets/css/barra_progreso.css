@@ -87,7 +87,7 @@
 /* Texto debajo de los círculos */
 .custom-barra_progreso li.section .label {
     margin-top: 10px;
-    font-weight: bold;
+    font-weight: bolder;
     font-size: 10px;
     color: #666;
 }
@@ -96,6 +96,7 @@
 .custom-barra_progreso li.section .user_done {
     font-size: 10px;
     color: #666;
+    font-weight: lighter;
 }
 
 /* Contenedor para los botones */
