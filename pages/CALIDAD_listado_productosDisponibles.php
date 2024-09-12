@@ -281,27 +281,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <li class="section ${determinarClase(porcentaje_externo, 0)}">
                             <div class="circle">1</div>
                             <div class="label">Creación Análisis Externo</div>
-                            <div class="user_done">${d.aex_firma1}</div>
+                            <div class="user_done">${d.aex_firma1 ? d.aex_firma1 : 'Por definir'}</div>
                         </li>
                         <li class="section ${determinarClase(porcentaje_externo, 20)}">
                             <div class="circle">2</div>
                             <div class="label">Pendiente completar análisis</div>
-                            <div class="user_done">${d.aex_firma1}</div>
+                            <div class="user_done">${d.aex_firma1 ? d.aex_firma1 : 'Por definir'}</div>
                         </li>
                         <li class="section ${determinarClase(porcentaje_externo, 40)}">
                             <div class="circle">3</div>
                             <div class="label">Pendiente envío a Laboratorio</div>
-                            <div class="user_done">${d.aex_revisado_por}</div>
+                            <div class="user_done">${d.aex_revisado_por ? d.aex_revisado_por : 'Por definir'}</div>
                         </li>
                         <li class="section ${determinarClase(porcentaje_externo, 60)}">
                             <div class="circle">4</div>
                             <div class="label">Pendiente ingreso resultados</div>
-                            <div class="user_done">${d.aex_revisado_por}</div>
+                            <div class="user_done">${d.aex_revisado_por ? d.aex_revisado_por : 'Por definir'}</div>
                         </li>
                         <li class="section ${determinarClase(porcentaje_externo, 80)}">
                             <div class="circle">5</div>
                             <div class="label">Pendiente Liberación productos</div>
-                            <div class="user_done">${d.aex_firma1}</div>
+                            <div class="user_done">${d.aex_firma1 ? d.aex_firma1 : 'Por definir'}</div>
                         </li>
                         <li class="section ${porcentaje_externo === 100 ? 'pg_completado' : ''}">
                             <div class="circle">6</div>
