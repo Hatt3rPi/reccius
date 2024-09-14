@@ -261,11 +261,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if (d.estado === "Finalizado") {
                 
             }
-            if (d.estado === "Pendiente envío a Laboratorio" && (d.revisado_por === usuarioActual || usuarioActual === 'isumonte')) {
-                acciones += `<button class="accion-btn" title="WIP Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')">
-                    <i class="fa fa-file-pdf-o"></i> 
-                    Enviar Solicitud a Laboratorio
-                </button><a></a>`;
+            if (d.estado === "Pendiente envío a Laboratorio" ) {
+                acciones += `<button class="accion-btn" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a></a>`;
+                if (d.revisado_por === usuarioActual || usuarioActual === 'isumonte'){
+                    acciones += `<button class="accion-btn" title="WIP Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Enviar Solicitud a Laboratorio</button><a></a>`;
+                }
             }
             if (d.am_ejecutado_por === usuarioActual && d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo === null) {
                 acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
