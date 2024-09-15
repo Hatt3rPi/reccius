@@ -81,11 +81,16 @@ if (isset($usuarios['error'])) {
     die(json_encode(['exito' => false, 'mensaje' => $usuarios['error']]));
 }
 
+
 $laboratorio = new Laboratorio();
 $lab = $laboratorio->findByName($analisis['laboratorio']);
-$analisis['correoLab'] = $lab['correo'];
-$cc  = $laboratorio->getCorreosByLaboratorioName($lab['correo']);
 
+if ($lab) {
+    $analisis['correoLab'] = $lab['correo'];
+    $cc = $laboratorio->getCorreosByLaboratorioName($lab['name']);
+} else {
+    $cc = [];
+}
 
 // Enviar los datos en formato JSON
 header('Content-Type: application/json; charset=utf-8');

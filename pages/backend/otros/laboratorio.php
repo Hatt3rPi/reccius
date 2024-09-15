@@ -79,11 +79,14 @@ class Laboratorio
     // Obtener los correos asociados por nombre de laboratorio
     public function getCorreosByLaboratorioName($name){
         $laboratorio = $this->findByName($name);
+        
+        if (!$laboratorio) {
+            return []; 
+        }
+        
         $laboratorioId = $laboratorio['id'];
-
-        $stmt = $this->conn->prepare("SELECT * 
-                FROM laboratorio_con_copia 
-                WHERE laboratorio_id = ?");
+    
+        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE laboratorio_id = ?");
         $stmt->bind_param("i", $laboratorioId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -91,6 +94,7 @@ class Laboratorio
         $stmt->close();
         return $correos;
     }
+    
 
     public function deleteCorreosCCByCorreo($correo,$idLab){
         $laboratorio = $this->findCCByCorreo($correo, $idLab);
