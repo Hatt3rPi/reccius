@@ -263,7 +263,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Completado" || d.estado_aex === "Pendiente liberación productos")) {
                     botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
                 }
-
+                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Pendiente ingreso resultados laboratorio" || d.estado_aex === "Pendiente envío a Laboratorio")) {
+                    acciones += `<button class="accion-btn" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
+                }
                 if (d.url_documento_adicional !== null && d.url_documento_adicional !== "") {
                     botones_otros_documentos += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
                 }
