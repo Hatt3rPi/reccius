@@ -47,6 +47,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <fieldset>
                 <legend>II. Destinatarios</legend>
                 <br>
+                <div id="destinatarios-container-lab">
+                    <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
+                        <div class="form-group" style="width: 300px;">
+                            <label for="name_lab">Laboratorio:</label>
+                            <input type="text" id="name_lab" name="name_lab" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" readonly required>
+                        </div>
+                        <div class="form-group" style="width: 300px;">
+                            <label for="mail_lab">Correo laboratorio:</label>
+                            <input type="text" id="mail_lab" name="mail_lab" class="form-control mx-0 w-90" placeholder="Correo laboratorio" required>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>III. Destinatarios con copia</legend>
+                <br>
                 <div id="destinatarios-container">
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
@@ -68,22 +84,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
-                            <label for="name_lab">Laboratorio:</label>
-                            <input type="text" id="name_lab" name="name_lab" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" readonly required>
+                            <label for="destinatario1_nombre">Nombre <span class="order_span_name">1</span>:</label>
+                            <input type="text" id="destinatario1_nombre" name="destinatarios[0][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario 1" required>
                         </div>
-                        <div class="form-group" style="width: 300px;">
-                            <label for="mail_lab">Correo laboratorio:</label>
-                            <input type="text" id="mail_lab" name="mail_lab" class="form-control mx-0 w-90" placeholder="Correo laboratorio" required>
-                        </div>
-                    </div>
-                    <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
                             <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
-                        </div>
-                        <div class="form-group" style="width: 300px;">
-                            <label for="destinatario1_nombre">Nombre <span class="order_span_name">1</span>:</label>
-                            <input type="text" id="destinatario1_nombre" name="destinatarios[0][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario 1" required>
                         </div>
                         <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
                     </div>
@@ -92,7 +98,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </fieldset>
             <br>
             <fieldset>
-                <legend>III. Asunto</legend>
+                <legend>IV. Asunto</legend>
                 <br>
                 <div class="form-row justify-content-start align-items-center">
                     <input id="subject" style="width: 600px;" name="subject" class="form-control"></input>
@@ -109,7 +115,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <br>
             </fieldset>
             <fieldset>
-                <legend>IV. Cuerpo</legend>
+                <legend>V. Cuerpo</legend>
                 <br>
                 <div class="form-row justify-content-start align-items-center">
                     <textarea id="editor" style="width: 600px; min-height: 300px;" name="cuerpo"></textarea>
@@ -151,6 +157,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var destinatarioCount = 1;
         var editorInstance;
         var destinatarios = [];
+        var destinatariosSolicitanteRevision = [];
 
         $(document).ready(function() {
 
@@ -209,9 +216,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    var acta = data.acta;
-                    var analisis = data.analisis;
-                    var usuarios = data.usuarios;
+                    var {
+                        acta,
+                        analisis,
+                        usuarios,
+                        cc
+                    } = data;
 
                     if (analisis) {
                         $('#laboratorio').val(analisis.laboratorio);
@@ -229,7 +239,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
                             $('#buttonContainer')
-                            .append('<button type="submit" class="botones" id="enviarCorreo">Enviar</button>');
+                                .append('<button type="submit" class="botones" id="enviarCorreo">Enviar</button>');
                         } else {
                             $('#modalInfo').show();
 
@@ -277,12 +287,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     if (usuarios) {
                         usuarios.forEach(element => {
-                            destinatarios.push({
+                            destinatariosSolicitanteRevision.push({
                                 email: element.correo,
                                 nombre: element.nombre
                             })
                         });
                         $('#mail_solicitante').val(usuarios[0].correo);
+
                         usuarios.length > 1 ?
                             $('#mail_revisor').val(usuarios[1].correo) :
                             $('#mail_revisor').val(usuarios[0].correo);
@@ -314,9 +325,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                     `${usuarios[0].nombre} (${usuarios[0].correo})`} y Macarena Alejandra Godoy Castro (mgodoy@reccius.cl).<br/>
                             Saluda atentamente,<br/>
                             Farmacéutica Reccius SPA`
-                        
+
                         editorInstance.setData(bodyMail);
                     }
+                    if (cc && cc.length > 0) {
+                        $('#destinatarios-container .destinatario-row').last().remove();
+                        cc.forEach(({
+                            correo,
+                            id,
+                            laboratorio_id,
+                            name
+                        }) => {
+                            addDestinatario(name, correo);
+                        });
+                    }
+
+
 
                 })
                 .catch(error => {
@@ -329,17 +353,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 });
         }
 
-        function addDestinatario() {
+
+        function addDestinatario(name = '', email = '') {
             destinatarioCount++;
             var destinatarioHtml = `
                 <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                     <div class="form-group" style="width: 300px;">
-                        <label for="destinatario${destinatarioCount}_email">Email <span class="order_span_mail">${destinatarioCount}</span>:</label>
-                        <input type="email" id="destinatario${destinatarioCount}_email" name="destinatarios[${destinatarioCount - 1}][email]" class="form-control mx-0 w-90" placeholder="Email destinatario ${destinatarioCount}" required>
-                    </div>
-                    <div class="form-group" style="width: 300px;">
                         <label for="destinatario${destinatarioCount}_nombre">Nombre <span class="order_span_name">${destinatarioCount}</span>:</label>
-                        <input type="text" id="destinatario${destinatarioCount}_nombre" name="destinatarios[${destinatarioCount - 1}][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario ${destinatarioCount}" required>
+                        <input type="text" id="destinatario${destinatarioCount}_nombre" ${ name!=='' ? `value="${name}"` : '' } name="destinatarios[${destinatarioCount - 1}][nombre]" class="form-control mx-0 w-90" placeholder="Nombre destinatario ${destinatarioCount}" required>
+                    </div>    
+                    <div class="form-group" style="width: 300px;">
+                        <label for="destinatario${destinatarioCount}_email">Email <span class="order_span_mail">${destinatarioCount}</span>:</label>
+                        <input type="email" id="destinatario${destinatarioCount}_email" ${ email!=='' ? `value="${email}"` : '' } name="destinatarios[${destinatarioCount - 1}][email]" class="form-control mx-0 w-90" placeholder="Email destinatario ${destinatarioCount}" required>
                     </div>
                     <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
                 </div>
@@ -396,15 +421,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             return tempDiv.textContent || tempDiv.innerText || "";
         }
 
+        function validateEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
         function enviarCorreo() {
+            destinatarios = [];
+
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
                 var nombre = $(this).find('input[type="text"]').val();
-                if (email && nombre) {
+                if (email && nombre && validateEmail(email)) {
                     destinatarios.push({
                         email: email,
                         nombre: nombre
                     });
+                } else {
+                    alert('Por favor, ingresa un correo válido y un nombre para todos los destinatarios.');
+                    return false;
                 }
             });
             destinatarios.push({
@@ -417,8 +452,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var subject = $('#subject').val();
             var data = {
                 id_analisis_externo: $('#id_analisis_externo').val(),
-                destinatarios: destinatarios,
-                subject:subject,
+                destinatarios: [...destinatarios, ...destinatariosSolicitanteRevision],
+                subject: subject,
                 mensaje: htmlMessage,
                 altMesaje: plainTextMessage,
                 emailLab: $('#mail_lab').val(),
@@ -442,7 +477,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                }); 
+                    alert('Hubo un problema al procesar tu solicitud. Por favor, intenta de nuevo.');
+                });
+
         }
     </script>
 </body>
