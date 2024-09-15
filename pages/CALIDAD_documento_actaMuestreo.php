@@ -767,12 +767,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método
-        Muestreo</button>
+    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
     <button class="botones" id="guardar" style="display: none">Guardar</button>
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
     <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
+    <button class="botones" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -811,7 +811,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div id="notification" class="notification-container notify" style="display: none;">
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
-
+<!-- Modal de confirmación de eliminación -->
+<div id="modalRechazar" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <h2>Confirmar Rechazo</h2>
+    <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
+    <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
+    <p>Motivo del Rechazo:</p>
+    <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
+    <button onclick="confirmarRechazo()">Confirmar</button>
+  </div>
+</div>
 </html>
 <script>
     var idAnalisisExterno_acta = null;
@@ -833,6 +844,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 element.style.visibility = 'visible';
             });
             document.getElementById('metodo_muestreo').style.display = 'none';
+            document.getElementById('rechazo').style.display = 'block';
             document.getElementById('firmar').style.display = 'none';
             document.getElementById('guardar').style.display = 'block';
             $('.resp').css('background-color', '#f4fac2');
@@ -1298,6 +1310,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
+                    document.getElementById('rechazo').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
                     document.querySelectorAll('.formulario.verif *').forEach(function(element) {
                         element.style.visibility = 'hidden'; // Hacer invisible el contenido
@@ -1315,6 +1328,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (usuario_activo == response.responsable) {
                         document.getElementById('metodo_muestreo').style.display = 'none';
                         document.getElementById('guardar').style.display = 'block';
+                        document.getElementById('rechazo').style.display = 'block';
                         $('.verif').css('background-color', '#f4fac2');
                     }
 
@@ -1332,6 +1346,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (usuario_activo == response.verificador) {
                         document.getElementById('metodo_muestreo').style.display = 'none';
                         document.getElementById('guardar').style.display = 'block';
+                        document.getElementById('rechazo').style.display = 'block';
                     }
                     break;
                 case 3:
@@ -1345,6 +1360,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     firma3(response);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'none';
+                    document.getElementById('rechazo').style.display = 'block';
                     document.getElementById('download-pdf').style.display = 'block';
                     $('#upload-pdf').show();
                     break;
@@ -1558,4 +1574,56 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         });
     }
+    var idActaMuestreo_rechazado = null;
+
+function botones_interno(accion) {
+  if (accion === 'rechazar_actaMuestreo') {
+    idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
+    abrirModal();
+  } else {
+    // manejar otras acciones
+  }
+}
+
+function abrirModal() {
+  document.getElementById("modalRechazar").style.display = "block";
+}
+
+function cerrarModal() {
+  document.getElementById("modalRechazar").style.display = "none";
+}
+
+function confirmarRechazo() {
+  var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
+  var motivoRechazo = document.getElementById("motivoRechazo").value;
+
+  if (palabraConfirmacion !== 'rechazar') {
+    alert("Debe ingresar la palabra 'rechazar' para confirmar.");
+    return;
+  }
+
+  if (motivoRechazo.trim() === "") {
+    alert("Debe ingresar un motivo de rechazo.");
+    return;
+  }
+
+  var fechaRechazo = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+  
+  $.post("./backend/acta_muestreo/rechazar_acta_muestreoBE.php", {
+    id: idActaMuestreo_rechazado,
+    motivo_rechazo: motivoRechazo,
+    fecha_rechazo: fechaRechazo
+}, function(response) {
+    // Verificar si hubo algún error en el proceso
+    if (response.error) {
+        alert("Hubo un error al rechazar el acta de muestreo: " + response.error);
+    } else {
+        alert("El acta de muestreo ha sido rechazado con éxito.");
+        location.reload(); // Recargar la página o refrescar la tabla
+    }
+}, "json");
+
+  cerrarModal();
+}
 </script>
