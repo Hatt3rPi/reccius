@@ -772,7 +772,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
     <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
-    <button class="botones" id="rechazo" style="display: none">Rechazar</button>
+    <button class="botones" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -1576,9 +1576,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
     var idActaMuestreo_rechazado = null;
 
-function botones_interno(id, accion, modulo) {
-  if (accion === 'eliminar_analisis_externo') {
-    idActaMuestreo_rechazado = id;
+function botones_interno(accion) {
+  if (accion === 'rechazar_actaMuestreo') {
+    idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
     abrirModal();
   } else {
     // manejar otras acciones
