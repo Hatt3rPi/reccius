@@ -51,7 +51,7 @@ class Laboratorio
     }
 
     public function findCCByCorreoAndLab($correo, $idLab){
-        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE correo = ?, laboratorio_id = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE correo = ? AND laboratorio_id = ?");
         $stmt->bind_param("si", $correo, $idLab);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -59,6 +59,7 @@ class Laboratorio
         $stmt->close();
         return $laboratorio;
     }
+    
     // Nuevo método para agregar correo a laboratorio_con_copia con el nombre del laboratorio
     public function addCorreoToLaboratorioWithName($laboratorioId, $name, $correo) {
         try {
