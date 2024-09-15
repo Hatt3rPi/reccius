@@ -80,7 +80,7 @@ class Laboratorio
         $laboratorio = $this->findByName($name);
         $laboratorioId = $laboratorio['id'];
 
-        $stmt = $this->conn->prepare("SELECT name, correo 
+        $stmt = $this->conn->prepare("SELECT * 
                 FROM laboratorio_con_copia 
                 WHERE laboratorio_id = ?");
         $stmt->bind_param("i", $laboratorioId);

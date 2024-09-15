@@ -93,7 +93,7 @@ echo json_encode([
     'analisis' => $analisis,
     'usuarios' => $usuarios,
     'acta' => $acta,
-    'cc'=>$cc
+    'cc'=> $cc
 ], JSON_UNESCAPED_UNICODE);
 
 mysqli_close($link);
