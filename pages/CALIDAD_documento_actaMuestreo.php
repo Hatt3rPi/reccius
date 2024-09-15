@@ -1612,8 +1612,8 @@ function confirmarRechazo() {
   
   $.post("./backend/acta_muestreo/rechazar_acta_muestreoBE.php", {
     id: idActaMuestreo_rechazado,
-    motivo_Rechazo: motivoRechazo,
-    fecha_Rechazo: fechaRechazo
+    motivo_rechazo: motivoRechazo,
+    fecha_rechazo: fechaRechazo
 }, function(response) {
     // Verificar si hubo algún error en el proceso
     if (response.error) {

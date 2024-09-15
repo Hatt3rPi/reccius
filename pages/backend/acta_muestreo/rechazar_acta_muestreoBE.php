@@ -34,7 +34,7 @@ try {
         registrarTrazabilidad(
             $_SESSION['usuario'],
             $_SERVER['PHP_SELF'],
-            'Eliminación AEX',
+            'Rechazo Acta Muestreo',
             'CALIDAD - Solicitud Análisis Externo',
             0, // ID del registro insertado
             "UPDATE calidad_acta_muestreo SET estado = 'rechazado', motivo_rechazo =?, fecha_rechazo =? WHERE id = ?",
@@ -45,7 +45,19 @@ try {
     } else {
         throw new Exception("Error al preparar la declaración para calidad_acta_muestreo: " . $link->error);
     }
-
+    // 6. Actualiza en la tabla tareas relacionadas con calidad_acta_muestreo
+    $stmt = $link->prepare("UPDATE tareas t
+    JOIN calidad_acta_muestreo cam ON t.id_relacion = cam.id AND t.tabla_relacion = 'calidad_acta_muestreo'
+    SET t.estado = 'eliminado_por_solicitud_usuario'
+    WHERE cam.id = ?");
+    if ($stmt) {
+    $stmt->bind_param("i", $id_analisisExterno);
+    $stmt->execute();
+    $resultados[] = "tareas relacionadas con calidad_acta_muestreo: actualización exitosa";
+    $stmt->close();
+    } else {
+    throw new Exception("Error al preparar la declaración para tareas relacionadas con calidad_acta_muestreo: " . $link->error);
+    }
     // Confirma la transacción
     $link->commit();
     echo json_encode(['resultados' => $resultados], JSON_UNESCAPED_UNICODE);
