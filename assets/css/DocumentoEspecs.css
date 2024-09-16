@@ -411,21 +411,15 @@ p {
     display: none;
 }
 
+/* Hacer que el footer se mantenga abajo */
 .footer-containerDIV {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    margin-top: auto;
     padding: 10px;
-    /* Ajusta según sea necesario */
-    display: flex;
-    flex-wrap: nowrap;
-    /* Evita que las secciones bajen al siguiente renglón */
-    justify-content: space-between;
-    margin-top: 1px;
     width: 100%;
-    /* Asegura que el contenedor tome todo el ancho disponible */
     box-sizing: border-box;
-    /* Incluye el padding y border en el ancho total */
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
 }
 
 .firma-section {
