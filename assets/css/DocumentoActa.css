@@ -1,4 +1,5 @@
 body {
+
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -6,6 +7,7 @@ body {
 
 #form-container {
     width: 1000px;
+    /* height: 792pt; */
     padding: 20px;
     box-sizing: border-box;
     background-color: #FFF;
@@ -16,116 +18,110 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* Nuevo CSS del Header */
-#header-container {
-    width: 100%;
-}
 
-#header {
+.form-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    /* Separa las columnas */
 }
 
-.header-left {
+.firma-box {
+    border: 1px solid #000;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-right: 10px;
+    width: 200px;
+    height: 100px;
+    /* Ajusta el ancho para llenar la sección del footer */
+    text-align: center;
+}
+
+/* ... Resto de estilos ... */
+
+
+
+.header,
+.header-bottom,
+.table-section,
+.footer-box,
+.footer {
+    margin: 0;
+    padding-top: 1px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    background-color: #FFF;
+}
+
+.footer,
+.additionalfooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 276pt;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.header,
+.header-bottom,
+.content,
+.footer {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-bottom-left,
+.header-bottom-right,
+.footer-box {
     flex: 1;
-}
-
-.header-left img {
-    height: 60px;
+    display: flex;
+    flex-direction: column;
 }
 
 .header-center {
     flex: 2;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    height: 100%;
 }
 
-.header-center h1 {
-    margin: 0;
-    font-size: 11px;
-    font-weight: normal;
-    color: #000;
-    line-height: 1.2;
+.header-bottom-left,
+.header-bottom-right {
+    height: 50px;
 }
 
-.header-center p {
-    margin: 0;
-    font-size: 11px;
-    font-weight: bold;
-    color: #000;
+.header-right,
+.header-bottom-right,
+.footer-box {
+    text-align: right;
+    font-size: 10px;
 }
 
-.header-center hr {
-    width: 75%;
-    margin-top: 2px;
-    margin-bottom: 1px;
-}
+.header-right th:nth-child(2),
+.header-right td:nth-child(2) {
+    text-align: left;
+    font-size: 10px;
+    padding-left: 5px;
 
-.header-center div {
-    position: relative;
-    font-size: 11px;
-    font-weight: bold;
-    color: #000;
-    margin-top: 2px;
-}
-
-.header-right {
-    font-size: 8px;
-    font-family: 'Arial', sans-serif;
-    flex: 1;
 }
 
 .header-right table {
     width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #000;
 }
 
-.header-right td {
-    border: 1px solid rgb(56, 53, 255);
-    text-align: center;
-}
-
-.header-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 10px;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-.header-bottom-left {
-    flex: 1;
-    background-color: #ffffff;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: left;
-}
-
-.header-bottom-left .sub-info {
+.header-right table td,
+.header-right table th {
     font-size: 10px;
-    text-align: left;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 1px;
+    border: 1px dotted #000;
 }
 
-.header-bottom-right {
-    flex: 1;
-    background-color: #ffffff;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: right;
-}
-
-.header-bottom-right .sub-info {
-    font-size: 10px;
-    text-align: right;
-}
 tbody {
     padding-top: 1px;
     padding-bottom: 1px;
