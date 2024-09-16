@@ -655,6 +655,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                 }
                 case "generar_acta_muestreo_versionado": {
                     console.log('generar_acta_muestreo_versionado', opcional, opcional2);
+                    console.log(opcional, opcional2);
                     $.ajax({
                         url: '../pages/CALIDAD_documento_actaMuestreo.php',
                         type: 'POST',
@@ -934,6 +935,10 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                 }
             }
             break;
+        }
+
+        default: {
+            console.log("Base no reconocida:", base);
         }
     }
 }
