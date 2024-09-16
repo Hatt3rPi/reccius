@@ -985,7 +985,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-
     document.getElementById('download-pdf').addEventListener('click', function() {
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
@@ -1001,6 +1000,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         table {
             table-layout: fixed; /* Fijar el layout de las tablas para evitar cambios en tamaño */
             width: 100%; /* Asegura que las tablas ocupen siempre el mismo ancho */
+        }
+        td {
+            text-align: center; /* Centrar el contenido horizontalmente en la celda */
+            vertical-align: middle; /* Centrar el contenido verticalmente en la celda */
+        }
+        .btn-group-vertical, .btn-group-horizontal {
+            display: flex;
+            justify-content: center; /* Centrar los botones horizontalmente */
+            align-items: center; /* Centrar los botones verticalmente */
+        }
+        .btn-check-label {
+            display: block;
+            text-align: center;
+            margin: auto;
         }
     `;
         document.head.appendChild(styleElement);
@@ -1120,7 +1133,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
     });
-
 
 
 
