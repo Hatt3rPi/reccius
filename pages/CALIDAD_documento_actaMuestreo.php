@@ -1199,7 +1199,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa) {
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional=null, opcional2=null) {
         console.log(id, resultados, etapa);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
@@ -1226,38 +1226,71 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         } else {
             // Solicitud GET para generar una nueva acta
-            $.ajax({
-                url: './backend/acta_muestreo/genera_acta.php',
-                type: 'GET',
-                dataType: 'json', // Asegura que la respuesta se parsea como JSON
-                data: {
-                    id_analisis_externo: id
-                },
-                success: function(data) {
-                    console.log('Datos recibidos para nueva acta:', data);
-                    if (data.id_actaMuestreo) {
-                        $('#id_actaMuestreo').text(data.id_actaMuestreo);
+            if (opcional==null){
+                    $.ajax({
+                    url: './backend/acta_muestreo/genera_acta.php',
+                    type: 'GET',
+                    dataType: 'json', // Asegura que la respuesta se parsea como JSON
+                    data: {
+                        id_analisis_externo: id
+                    },
+                    success: function(data) {
+                        console.log('Datos recibidos para nueva acta:', data);
+                        if (data.id_actaMuestreo) {
+                            $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                        }
+                        if (data.analisis_externos && data.analisis_externos.length > 0) {
+                            procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                        } else {
+                            console.error("No se recibieron datos válidos: ", data);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
                     }
-                    if (data.analisis_externos && data.analisis_externos.length > 0) {
-                        procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                    } else {
-                        console.error("No se recibieron datos válidos: ", data);
+                });
+            } else {
+                    $.ajax({
+                    url: './backend/acta_muestreo/versiona_acta.php',
+                    type: 'GET',
+                    dataType: 'json', // Asegura que la respuesta se parsea como JSON
+                    data: {
+                        id_analisis_externo: id,
+                        id_original: opcional,
+                        version: opcional2
+                    },
+                    success: function(data) {
+                        console.log('Datos recibidos para nueva acta:', data);
+                        if (data.id_actaMuestreo) {
+                            $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                        }
+                        if (data.analisis_externos && data.analisis_externos.length > 0) {
+                            procesarDatosActa(data.analisis_externos[0], resultados, etapa, opcional2);
+                        } else {
+                            console.error("No se recibieron datos válidos: ", data);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud: ", status, error);
-                }
-            });
+                });
+            }
+
         }
     }
 
-    function procesarDatosActa(response, resultados, etapa) {
+    function procesarDatosActa(response, resultados, etapa, version=null) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
         var nombreProducto = response.nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
         var concentracion = response.concentracion ? ' ' + response.concentracion : ''; // Añade un espacio antes solo si no es null
         var formato = response.formato ? ' ' + response.formato : ''; // Añade un espacio antes solo si no es null
-
+        let nuevaVersion;
+            if (version !== null) {
+                nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
+            } else {
+                nuevaVersion = 1; // Si es nulo, asignar 1
+            }
         // Concatenar solo las partes que no sean nulas o vacías
         var productoTexto = nombreProducto + concentracion + formato;
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
@@ -1380,7 +1413,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#nro_registro').text('DCAL-CC-AMINS-' + response.identificador_producto.toString().padStart(3, '0'));
                     break;
             }
-            $('#nro_version').text(1);
+            $('#nro_version').text(nuevaVersion);
             $('#realizadoPor').text('Nombre:');
             document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'hidden'; // Hacer invisible el contenido

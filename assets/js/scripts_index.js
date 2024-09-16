@@ -653,6 +653,29 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                     });
                     break;
                 }
+                case "generar_acta_muestreo_versionado": {
+                    console.log('generar_acta_muestreo_versionado', opcional, opcional2);
+                    console.log(opcional, opcional2);
+                    $.ajax({
+                        url: '../pages/CALIDAD_documento_actaMuestreo.php',
+                        type: 'POST',
+                        data: {
+                            'id': id,
+                            'resultados': false,
+                            'etapa': '0',
+                            'id_actaMuestreo': opcional,
+                            'version_actaMuestreo': opcional2
+                        },
+                        success: function(response) {
+                            $('#dynamic-content').html(response);
+                            cargarDatosEspecificacion(id, false, '0', opcional, opcional2);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al enviar el recordatorio: ", status, error);
+                        }
+                    });
+                    break;
+                }
                 case "generar_documento_pdf": {
                     $.ajax({
                         url: '../pages/CALIDAD_documento_analisisExterno.php',
@@ -912,6 +935,10 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                 }
             }
             break;
+        }
+
+        default: {
+            console.log("Base no reconocida:", base);
         }
     }
 }
