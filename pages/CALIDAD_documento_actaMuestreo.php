@@ -1288,6 +1288,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let nuevaVersion;
             if (version !== null) {
                 nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
+                $('#nro_acta').text(response.numero_acta);
             } else {
                 nuevaVersion = 1; // Si es nulo, asignar 1
             }
