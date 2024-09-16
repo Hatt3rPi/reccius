@@ -97,10 +97,10 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 :
 
 
     // Insertar en la base de datos
-    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, id_original,  numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno,   responsable, verificador) VALUES (?, ?, ?, ?, '01', NOW(), ?, ?, ?, ?, ?)";
+    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, id_original,  numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno,   responsable, verificador) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($link, $insertQuery);
-    mysqli_stmt_bind_param($stmt, "ssiiiiiss", $numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador);
+    mysqli_stmt_bind_param($stmt, "ssiiiiiiss", $numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $version_actaMuestreo, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador);
     
     $exito = mysqli_stmt_execute($stmt);
     $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
@@ -125,9 +125,6 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 :
         registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados de Acta de Muestreo: ' . $numero_acta , 2, 'Firma 1', $nuevo_id, 'calidad_acta_muestreo');
         //tarea anterior se cierra: finalizarTarea($_SESSION['usuario'], $nuevo_id, 'calidad_acta_muestreo', 'Firma 1');
         // Actualización de los datos con el nuevo número de acta
-        foreach ($analisis_externos as &$value) {
-            $value['numero_acta'] = $numero_acta . "-01";
-        }
         unset($value);
     } else {
         // Manejo de errores en la inserción
