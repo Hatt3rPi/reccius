@@ -109,7 +109,15 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 :
     unset($_SESSION['nuevo_id']);
     $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
 
-    // Ejecutar la declaración
+
+    // Update posterior a la inserción para actualizar el campo id_original
+        $updateQuery = "update calidad_productos_analizados SET id_actaMuestreo=? where id_analisisExterno=?;";
+        $updateStmt = mysqli_prepare($link, $updateQuery);
+        mysqli_stmt_bind_param($updateStmt, "ii", $nuevo_id, $id_analisis_externo); // Actualiza el campo id_original con el mismo nuevo_id
+        $updateExito = mysqli_stmt_execute($updateStmt);
+        mysqli_stmt_close($updateStmt); // Cierra el statement del update
+
+        // Ejecutar la declaración
     registrarTrazabilidad(
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
