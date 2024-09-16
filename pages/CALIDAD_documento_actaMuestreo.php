@@ -998,6 +998,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
             color: #000 !important;
         }
+        table {
+            table-layout: fixed; /* Fijar el layout de las tablas para evitar cambios en tamaño */
+            width: 100%; /* Asegura que las tablas ocupen siempre el mismo ancho */
+        }
     `;
         document.head.appendChild(styleElement);
 
@@ -1009,13 +1013,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const header = document.getElementById('header-container');
         const footer = document.getElementById('footer-containerDIV');
 
-        // Ocultar los botones no seleccionados
+        // Ocultar los botones no seleccionados sin cambiar el layout de la tabla
         const allButtonGroups = document.querySelectorAll('.btn-group-vertical, .btn-group-horizontal');
         allButtonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.btn-check');
             buttons.forEach(button => {
                 if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none'; // Ocultar el label del botón no seleccionado
+                    button.nextElementSibling.style.visibility = 'hidden'; // Ocultar el label sin cambiar el espacio que ocupa
                 }
             });
         });
@@ -1110,13 +1114,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 allButtonGroups.forEach(group => {
                     const buttons = group.querySelectorAll('.btn-check');
                     buttons.forEach(button => {
-                        button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
+                        button.nextElementSibling.style.visibility = 'visible'; // Mostrar el label del botón nuevamente
                     });
                 });
             });
         });
     });
-
 
 
 
