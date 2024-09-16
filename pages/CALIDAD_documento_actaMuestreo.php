@@ -34,55 +34,65 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container" style="width: 100%;">
+                <!-- Asegúrate de tener un contenedor para el header con display flex -->
+                <div id="header" class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
 
-                <!-- Logo a la izquierda -->
-                <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 60px;">
-                    <!-- Ajusta la altura según sea necesario -->
-                </div>
-                <!-- Título Central -->
-                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Muestreo Control
-                        de
-                        Calidad
-                        <!-- Pretitulo -->
-                    </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
-                        <!-- Título del documento -->
-                    </h1>
-                    <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
-                        <!-- Descripción del producto -->
-                    </p>
-                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
-                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
-                        Dirección de Calidad
+                    <!-- Logo e Información Izquierda -->
+                    <div class="header-left" style="flex: 1;">
+                        <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" style="height: 60px;" />
+                        <!-- Ajusta el tamaño según sea necesario -->
+                    </div>
+
+                    <!-- Título Central -->
+                    <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                        <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;"></h1>
+                        <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
+                        <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                        <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                            Dirección de Calidad
+                        </div>
+                    </div>
+
+                    <!-- Información Derecha con Tabla -->
+                    <div class="header-right" style="font-size: 8px; font-family: 'Arial', sans-serif; flex: 1;">
+                        <table style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255);">N° Registro:</td>
+                                <td name="nro_registro" id="nro_registro" style="border: 1px solid rgb(56, 53, 255); text-align: center;"></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255);">N° Versión:</td>
+                                <td name="nro_version" id="nro_version" style="border: 1px solid rgb(56, 53, 255); text-align: center;"></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255);">N° Acta:</td>
+                                <td name="nro_acta" id="nro_acta" style="border: 1px solid rgb(56, 53, 255); text-align: center;"></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid rgb(56, 53, 255);">Fecha Muestreo:</td>
+                                <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
-                        <tr>
-                            <td>N° Registro:</td>
-                            <td name="nro_registro" id="nro_registro"></td>
-                        </tr>
-                        <tr>
-                            <td>N° Versión:</td>
-                            <td name="nro_version" id="nro_version"></td>
-                        </tr>
-                        <tr>
-                            <td>N° Acta:</td>
-                            <td name="nro_acta" id="nro_acta"></td>
-                        </tr>
-                        <tr>
-                            <td>Fecha Muestreo:</td>
-                            <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
 
-                        </tr>
-                    </table>
+                <!-- Fila adicional con dos columnas debajo del encabezado existente -->
+                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif;">
+                    <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
+                        <div class="sub-info" style="font-size: 10px; text-align: left;">
+                            Producto de recetario magistral <br>
+                            Res. Ex. N° 2988/2018
+                        </div>
+                    </div>
+                    <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
+                        <div class="sub-info" style="font-size: 10px; text-align: right;">
+                            RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
+                        </div>
+                    </div>
                 </div>
-
             </div>
+
             <!-- Body -->
             <br>
             <div id="sample-identification1">
@@ -813,16 +823,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </div>
 <!-- Modal de confirmación de eliminación -->
 <div id="modalRechazar" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()">&times;</span>
-    <h2>Confirmar Rechazo</h2>
-    <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
-    <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
-    <p>Motivo del Rechazo:</p>
-    <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
-    <button onclick="confirmarRechazo()">Confirmar</button>
-  </div>
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>Confirmar Rechazo</h2>
+        <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
+        <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
+        <p>Motivo del Rechazo:</p>
+        <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
+        <button onclick="confirmarRechazo()">Confirmar</button>
+    </div>
 </div>
+
 </html>
 <script>
     var idAnalisisExterno_acta = null;
@@ -1199,7 +1210,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa, opcional=null, opcional2=null) {
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null) {
         console.log(id, resultados, etapa);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
@@ -1226,8 +1237,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         } else {
             // Solicitud GET para generar una nueva acta
-            if (opcional==null){
-                    $.ajax({
+            if (opcional == null) {
+                $.ajax({
                     url: './backend/acta_muestreo/genera_acta.php',
                     type: 'GET',
                     dataType: 'json', // Asegura que la respuesta se parsea como JSON
@@ -1250,7 +1261,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                 });
             } else {
-                    $.ajax({
+                $.ajax({
                     url: './backend/acta_muestreo/versiona_acta.php',
                     type: 'GET',
                     dataType: 'json', // Asegura que la respuesta se parsea como JSON
@@ -1279,19 +1290,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-    function procesarDatosActa(response, resultados, etapa, version=null) {
+    function procesarDatosActa(response, resultados, etapa, version = null) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
         var nombreProducto = response.nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
         var concentracion = response.concentracion ? ' ' + response.concentracion : ''; // Añade un espacio antes solo si no es null
         var formato = response.formato ? ' ' + response.formato : ''; // Añade un espacio antes solo si no es null
         let nuevaVersion;
-            if (version !== null) {
-                nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
-                $('#nro_acta').text(response.numero_acta);
-            } else {
-                nuevaVersion = 1; // Si es nulo, asignar 1
-            }
+        if (version !== null) {
+            nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
+            $('#nro_acta').text(response.numero_acta);
+        } else {
+            nuevaVersion = 1; // Si es nulo, asignar 1
+        }
         // Concatenar solo las partes que no sean nulas o vacías
         var productoTexto = nombreProducto + concentracion + formato;
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
@@ -1610,54 +1621,54 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
     var idActaMuestreo_rechazado = null;
 
-function botones_interno(accion) {
-  if (accion === 'rechazar_actaMuestreo') {
-    idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
-    abrirModal();
-  } else {
-    // manejar otras acciones
-  }
-}
-
-function abrirModal() {
-  document.getElementById("modalRechazar").style.display = "block";
-}
-
-function cerrarModal() {
-  document.getElementById("modalRechazar").style.display = "none";
-}
-
-function confirmarRechazo() {
-  var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
-  var motivoRechazo = document.getElementById("motivoRechazo").value;
-
-  if (palabraConfirmacion !== 'rechazar') {
-    alert("Debe ingresar la palabra 'rechazar' para confirmar.");
-    return;
-  }
-
-  if (motivoRechazo.trim() === "") {
-    alert("Debe ingresar un motivo de rechazo.");
-    return;
-  }
-
-  var fechaRechazo = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-  
-  $.post("./backend/acta_muestreo/rechazar_acta_muestreoBE.php", {
-    id: idActaMuestreo_rechazado,
-    motivo_rechazo: motivoRechazo,
-    fecha_rechazo: fechaRechazo
-}, function(response) {
-    // Verificar si hubo algún error en el proceso
-    if (response.error) {
-        alert("Hubo un error al rechazar el acta de muestreo: " + response.error);
-    } else {
-        alert("El acta de muestreo ha sido rechazado con éxito.");
-        location.reload(); // Recargar la página o refrescar la tabla
+    function botones_interno(accion) {
+        if (accion === 'rechazar_actaMuestreo') {
+            idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
+            abrirModal();
+        } else {
+            // manejar otras acciones
+        }
     }
-}, "json");
 
-  cerrarModal();
-}
+    function abrirModal() {
+        document.getElementById("modalRechazar").style.display = "block";
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalRechazar").style.display = "none";
+    }
+
+    function confirmarRechazo() {
+        var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
+        var motivoRechazo = document.getElementById("motivoRechazo").value;
+
+        if (palabraConfirmacion !== 'rechazar') {
+            alert("Debe ingresar la palabra 'rechazar' para confirmar.");
+            return;
+        }
+
+        if (motivoRechazo.trim() === "") {
+            alert("Debe ingresar un motivo de rechazo.");
+            return;
+        }
+
+        var fechaRechazo = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+
+        $.post("./backend/acta_muestreo/rechazar_acta_muestreoBE.php", {
+            id: idActaMuestreo_rechazado,
+            motivo_rechazo: motivoRechazo,
+            fecha_rechazo: fechaRechazo
+        }, function(response) {
+            // Verificar si hubo algún error en el proceso
+            if (response.error) {
+                alert("Hubo un error al rechazar el acta de muestreo: " + response.error);
+            } else {
+                alert("El acta de muestreo ha sido rechazado con éxito.");
+                location.reload(); // Recargar la página o refrescar la tabla
+            }
+        }, "json");
+
+        cerrarModal();
+    }
 </script>
