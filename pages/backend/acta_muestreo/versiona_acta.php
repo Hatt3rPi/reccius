@@ -14,7 +14,8 @@ $nuevo_id='';
 // Validación y saneamiento del ID del análisis externo
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
 $id_original = isset($_GET['id_original']) ? intval($_GET['id_original']) : 0;
-$version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) : 0;
+$version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 : 0;
+
 
 //OBTENCIÓN DE DATOS
     // Consulta SQL para obtener los datos del análisis externo y el producto asociado
@@ -26,17 +27,19 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) : 0;
      usrEje.nombre as nombre_usrEje, usrEje.cargo as cargo_usrEje, usrEje.foto_firma as foto_firma_usrEje, usrEje.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrEje, 
     LPAD(pr.identificador_producto, 3, '0') AS identificador_producto,
 	aex.solicitado_por,
-    aex.numero_solicitud, usrMuest.usuario as usuario_firma2, usrEje.usuario as usuario_firma1, aex.fecha_elaboracion, aex.fecha_vencimiento, aex.observaciones
+    aex.numero_solicitud, usrMuest.usuario as usuario_firma2, usrEje.usuario as usuario_firma1, aex.fecha_elaboracion, aex.fecha_vencimiento, aex.observaciones,
+	(select numero_acta from calidad_acta_muestreo where id=?) as numero_acta,
+    (select numero_registro from calidad_acta_muestreo where id=?) as numero_registro
     FROM `calidad_analisis_externo` as aex
     LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
     LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
     LEFT JOIN usuarios as usrRev ON aex.am_verificado_por=usrRev.usuario
     LEFT JOIN usuarios as usrEje ON aex.am_ejecutado_por=usrEje.usuario
     left join calidad_especificacion_productos as ep on aex.id_especificacion=ep.id_especificacion
-    WHERE aex.id = ?";
+    WHERE aex.id =?;";
 
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id_analisis_externo);
+    mysqli_stmt_bind_param($stmt, "iii", $id_original, $id_original, $id_analisis_externo);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -86,7 +89,8 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) : 0;
         $responsable=$row['muestreado_por'];
         $verificador=$row['am_verificado_por'];
         $ejecutor=$row['ejecutado_por'];
-        
+        $numero_acta=$row['numero_acta'];
+        $numero_registro=$row['numero_registro'];
     }
     mysqli_stmt_close($stmt);
 
@@ -106,32 +110,6 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) : 0;
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
-
-    $correlativo = isset($row['max_correlativo']) ? $row['max_correlativo'] + 1 : 1;
-    $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
-    
-    // Inserta el nuevo acta con el número de acta generado
-    switch ($tipo_producto) {
-        case 'Material Envase y Empaque':
-            $numero_registro = 'DCAL-CC-AMMEE-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMMEE-" . $year . $month . $correlativoStr ;
-            break;
-        case 'Materia Prima':
-            $numero_registro = 'DCAL-CC-AMMP-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMMP-" . $year . $month . $correlativoStr ;
-            break;
-        case 'Producto Terminado':
-            $numero_registro = 'DCAL-CC-AMPT-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMPT-" . $year . $month . $correlativoStr ;
-            break;
-        case 'Insumo':
-            $numero_registro = 'DCAL-CC-AMINS-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMINS-" . $year . $month . $correlativoStr ;
-            break;
-        default:
-            $numero_registro = 'Desconocido';
-            $numero_acta= 'Desconocido';
-    }
     
     // Insertar en la base de datos
     $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, id_original,  numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno, aux_autoincremental, aux_anomes, responsable, verificador, aux_tipo) VALUES (?, ?, ?, ?, '01', NOW(), ?, ?, ?, ?, ?, ?, ?, ?)";

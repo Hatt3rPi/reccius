@@ -30,13 +30,15 @@ $query = "SELECT
     pr.tipo_producto,
     cam.id as id_muestreo,
 	cam.version_registro,
-    cam.estado as estado_muestreo
+    cam.estado as estado_muestreo,
+    cam.id_original
 FROM calidad_analisis_externo aex
 LEFT JOIN calidad_productos pr ON aex.id_producto = pr.id
 LEFT JOIN (
     SELECT
         a.id_analisisExterno,
         a.id,
+        a.id_original,
     	a.version_registro,
         a.estado
     FROM calidad_acta_muestreo a
