@@ -512,23 +512,24 @@ p {
     height: 40px;
     /* Ajusta según sea necesario */
 }
+ 
 .footer-containerDIV {
     position: absolute;
+    /* Cambia de absolute a relative para que se ajuste dinámicamente al contenido */
     bottom: 0;
     left: 0;
-    padding: 10px;
-    /* Ajusta según sea necesario */
+    padding: 10pt;
     display: flex;
     flex-wrap: nowrap;
-    /* Evita que las secciones bajen al siguiente renglón */
     justify-content: space-between;
-    margin-top: 1px;
+    margin-top: 1pt;
     width: 100%;
-    /* Asegura que el contenedor tome todo el ancho disponible */
     box-sizing: border-box;
-    /* Incluye el padding y border en el ancho total */
+    background-color: white;
+    /* Asegura que el fondo sea blanco */
+    height: auto;
+    /* Asegura que el footer se ajuste dinámicamente a su contenido */
 }
-
 
 .firma-section {
     padding: 10pt;
