@@ -428,6 +428,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function enviarCorreo() {
             destinatarios = [];
+            var bad = []
 
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
@@ -438,10 +439,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         nombre: nombre
                     });
                 } else {
-                    alert('Por favor, ingresa un correo válido y un nombre para todos los destinatarios.');
-                    return false;
+                    bad.push($(this).find('input[type="email"]'));
                 }
             });
+            if(bad.length > 0) {
+                bad[0].focus();
+                alert('Por favor, ingresa un correo electrónico y un nombre para todos los destinatarios.');
+                return false;
+            }
             destinatarios.push({
                 email: $('#mail_lab').val(),
                 nombre: $('#name_lab').val()
