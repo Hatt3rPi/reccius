@@ -141,6 +141,8 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 :
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
     'analisis_externos' => $analisis_externos,
-    'id_actaMuestreo' => $nuevo_id
+    'id_actaMuestreo' => $nuevo_id,
+    'numero_acta' => $numero_acta,
+    'numero_registro' => $numero_registro
 ], JSON_UNESCAPED_UNICODE);
 ?>
