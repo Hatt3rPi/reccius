@@ -433,13 +433,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
                 var nombre = $(this).find('input[type="text"]').val();
-                if (email && validateEmail(email)) {
+                if (nombre && email && validateEmail(email)) {
                     destinatarios.push({
                         email: email,
                         nombre: nombre
                     });
                 } else {
-                    bad.push($(this).find('input[type="email"]'));
+                    if(!validateEmail(email)) bad.push($(this).find('input[type="email"]'));
                 }
             });
             if(bad.length > 0) {
