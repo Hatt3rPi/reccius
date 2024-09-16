@@ -1016,6 +1016,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
 
+        // Reemplazar input de fecha por texto estático
+        const fechaMuestreoInput = document.getElementById('fecha_muestreo');
+        const fechaMuestreoValue = fechaMuestreoInput.value;
+        const fechaMuestreoTd = fechaMuestreoInput.closest('td');
+        const originalHtml = fechaMuestreoTd.innerHTML;
+        fechaMuestreoTd.innerHTML = fechaMuestreoValue;
+
         const pdf = new jspdf.jsPDF({
             orientation: 'p',
             unit: 'mm',
@@ -1098,8 +1105,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
                 });
             });
+
+            // Restaurar el input de fecha
+            fechaMuestreoTd.innerHTML = originalHtml;
         });
     });
+
 
 
 
