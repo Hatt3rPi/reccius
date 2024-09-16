@@ -95,27 +95,12 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 :
     mysqli_stmt_close($stmt);
 
 
-//INGRESO DE ACTA
-    // Obtener el año y mes actuales
-    $year = date("y");
-    $month = date("m");
 
-    // Consulta para obtener el mayor aux_autoincremental para el año y mes actual
-    $query = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ? and aux_tipo=?";
-
-    $aux_anomes = $year . $month; // Concatenación de año y mes para la búsqueda
-
-    $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "ss", $aux_anomes, $tipo_producto);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
-    
     // Insertar en la base de datos
-    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, id_original,  numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno, aux_autoincremental, aux_anomes, responsable, verificador, aux_tipo) VALUES (?, ?, ?, ?, '01', NOW(), ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, id_original,  numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno,   responsable, verificador) VALUES (?, ?, ?, ?, '01', NOW(), ?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($link, $insertQuery);
-    mysqli_stmt_bind_param($stmt, "ssiiiiiiisss", $numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto);
+    mysqli_stmt_bind_param($stmt, "ssiiiiiss", $numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador);
     
     $exito = mysqli_stmt_execute($stmt);
     $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
