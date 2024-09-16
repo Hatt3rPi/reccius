@@ -29,6 +29,7 @@ $query = "SELECT
     aex.lote,
     pr.tipo_producto,
     cam.id as id_muestreo,
+	cam.version_registro,
     cam.estado as estado_muestreo
 FROM calidad_analisis_externo aex
 LEFT JOIN calidad_productos pr ON aex.id_producto = pr.id
@@ -36,6 +37,7 @@ LEFT JOIN (
     SELECT
         a.id_analisisExterno,
         a.id,
+    	a.version_registro,
         a.estado
     FROM calidad_acta_muestreo a
     INNER JOIN (

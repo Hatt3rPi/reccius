@@ -1199,7 +1199,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa) {
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional=null, opcional2=null) {
         console.log(id, resultados, etapa);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
@@ -1226,28 +1226,56 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         } else {
             // Solicitud GET para generar una nueva acta
-            $.ajax({
-                url: './backend/acta_muestreo/genera_acta.php',
-                type: 'GET',
-                dataType: 'json', // Asegura que la respuesta se parsea como JSON
-                data: {
-                    id_analisis_externo: id
-                },
-                success: function(data) {
-                    console.log('Datos recibidos para nueva acta:', data);
-                    if (data.id_actaMuestreo) {
-                        $('#id_actaMuestreo').text(data.id_actaMuestreo);
+            if (opcional==null){
+                    $.ajax({
+                    url: './backend/acta_muestreo/genera_acta.php',
+                    type: 'GET',
+                    dataType: 'json', // Asegura que la respuesta se parsea como JSON
+                    data: {
+                        id_analisis_externo: id
+                    },
+                    success: function(data) {
+                        console.log('Datos recibidos para nueva acta:', data);
+                        if (data.id_actaMuestreo) {
+                            $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                        }
+                        if (data.analisis_externos && data.analisis_externos.length > 0) {
+                            procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                        } else {
+                            console.error("No se recibieron datos válidos: ", data);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
                     }
-                    if (data.analisis_externos && data.analisis_externos.length > 0) {
-                        procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                    } else {
-                        console.error("No se recibieron datos válidos: ", data);
+                });
+            } else {
+                    $.ajax({
+                    url: './backend/acta_muestreo/versiona_acta.php',
+                    type: 'GET',
+                    dataType: 'json', // Asegura que la respuesta se parsea como JSON
+                    data: {
+                        id_analisis_externo: id,
+                        id_original: opcional,
+                        version: opcional2
+                    },
+                    success: function(data) {
+                        console.log('Datos recibidos para nueva acta:', data);
+                        if (data.id_actaMuestreo) {
+                            $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                        }
+                        if (data.analisis_externos && data.analisis_externos.length > 0) {
+                            procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                        } else {
+                            console.error("No se recibieron datos válidos: ", data);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud: ", status, error);
-                }
-            });
+                });
+            }
+
         }
     }
 
