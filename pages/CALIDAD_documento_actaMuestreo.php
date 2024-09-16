@@ -983,9 +983,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-
-
-
     document.getElementById('download-pdf').addEventListener('click', function() {
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
@@ -1002,6 +999,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             min-height: 900px;
             max-height: 900px;
             height: 900px;
+            overflow: hidden;
         }
     `;
         document.head.appendChild(styleElement);
@@ -1031,10 +1029,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             format: 'a4'
         });
 
-        const imgWidth = 210;
-        const pageHeight = 297;
+        const imgWidth = 210; // Ancho de página A4
+        const imgHeight = 297; // Alto de página A4
+        const fixedSectionHeight = 900; // Altura fija para la primera sección
 
-        // Primer canvas para la primera página con altura fija de 900px
+        // Forzar la altura de la primera sección (al menos 900px)
+        section1.style.minHeight = '900px';
+        section1.style.height = '900px';
+
+        // Primer canvas para la primera página con altura forzada de 900px
         Promise.all([
             html2canvas(header, {
                 scale: 1,
@@ -1043,8 +1046,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             html2canvas(section1, {
                 scale: 1,
                 useCORS: false,
-                height: 900
-            }), // Forzar altura de 900px para la primera sección
+                height: 900, // Ajustamos el tamaño de la sección a 900px en el PDF
+                windowHeight: 900, // Asegurarse de que el tamaño capturado sea 900px de alto
+            }),
             html2canvas(section2, {
                 scale: 1,
                 useCORS: false
@@ -1063,12 +1067,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             yOffset += headerHeight + 10;
 
             // Sección 1 en la primera página, con la altura forzada a 900px
-            const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
+            const section1Height = fixedSectionHeight;
             pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
             yOffset += section1Height + 10;
 
             // Agregar el footer en la primera página
-            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, imgHeight - footerHeight, imgWidth, footerHeight);
 
             // Segunda página para sección 2
             pdf.addPage();
@@ -1084,7 +1088,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             yOffset += section2Height + 10;
 
             // Agregar el footer en la segunda página
-            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, imgHeight - footerHeight, imgWidth, footerHeight);
 
             // Tercera página para sección 3
             pdf.addPage();
@@ -1104,7 +1108,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 yOffset += section3Height + 10;
 
                 // Agregar el footer en la tercera página
-                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, imgHeight - footerHeight, imgWidth, footerHeight);
 
                 // Guardar el PDF
                 const nombreProducto = document.getElementById('producto').textContent.trim();
