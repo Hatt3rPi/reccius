@@ -102,7 +102,7 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 :
     $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, id_original,  numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno,   responsable, verificador) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($link, $insertQuery);
-    mysqli_stmt_bind_param($stmt, "ssiiiiiiss", $numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $version_actaMuestreo, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador);
+    mysqli_stmt_bind_param($stmt, "ssisiiiiss", $numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $version_actaMuestreo, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador);
     
     $exito = mysqli_stmt_execute($stmt);
     $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
