@@ -272,7 +272,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
             }
             if (d.estado === "Pendiente Acta de Muestreo" && d.estado_muestreo === 'rechazado') {
-                acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo_versionado" onclick="botones(this.id, this.name, \'laboratorio\',"' + d.id_muestreo + '", "' + d.version_registro + '" )"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
+                acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo_versionado" onclick="botones(this.id, this.name, \'laboratorio\',' + d.id_muestreo + ',' + d.version_registro + ')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
             }
             if (d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo !== null) {
                 if (d.estado_muestreo === "Pendiente Muestreo") {
