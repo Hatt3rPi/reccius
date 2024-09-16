@@ -218,7 +218,7 @@ table {
   /* Ajusta el espaciado a la izquierda para empujar el contenido hacia la derecha */
 }
 
-input[type="text"] {
+input[type="email"],input[type="text"] {
   width: 295px;
   font-size: 0.8rem;
   padding: 3%;
