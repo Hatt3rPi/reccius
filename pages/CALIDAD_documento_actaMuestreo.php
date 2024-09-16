@@ -982,7 +982,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-
     document.getElementById('download-pdf').addEventListener('click', function() {
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
@@ -1040,11 +1039,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 scale: 1,
                 useCORS: false
             }),
+            html2canvas(section3, {
+                scale: 1,
+                useCORS: false
+            }), // Ahora también captura la sección 3
             html2canvas(footer, {
                 scale: 1,
                 useCORS: false
             })
-        ]).then(([headerCanvas, section1Canvas, section2Canvas, footerCanvas]) => {
+        ]).then(([headerCanvas, section1Canvas, section2Canvas, section3Canvas, footerCanvas]) => {
             const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
             const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
             let yOffset = 10;
@@ -1061,7 +1064,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Agregar el footer en la primera página
             pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
-            // Segunda página para sección 2
+            // Segunda página para secciones 2 y 3
             pdf.addPage();
             yOffset = 10;
 
@@ -1074,46 +1077,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             pdf.addImage(section2Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section2Height);
             yOffset += section2Height + 10;
 
+            // Sección 3 justo debajo de la sección 2 en la misma página
+            const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
+            pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
+            yOffset += section3Height + 10;
+
             // Agregar el footer en la segunda página
             pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
-            // Tercera página para sección 3
-            pdf.addPage();
-            yOffset = 10;
+            // Guardar el PDF
+            const nombreProducto = document.getElementById('producto').textContent.trim();
+            const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            $.notify("PDF generado con éxito", "success");
 
-            // Agregar el header en la tercera página
-            pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
-            yOffset += headerHeight + 10;
-
-            // Sección 3
-            html2canvas(section3, {
-                scale: 1,
-                useCORS: false
-            }).then(section3Canvas => {
-                const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
-                pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
-                yOffset += section3Height + 10;
-
-                // Agregar el footer en la tercera página
-                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
-
-                // Guardar el PDF
-                const nombreProducto = document.getElementById('producto').textContent.trim();
-                const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-                pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-                $.notify("PDF generado con éxito", "success");
-
-                // Restaurar los botones no seleccionados
-                allButtonGroups.forEach(group => {
-                    const buttons = group.querySelectorAll('.btn-check');
-                    buttons.forEach(button => {
-                        button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
-                    });
+            // Restaurar los botones no seleccionados
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
                 });
             });
         });
     });
-
 
 
 
