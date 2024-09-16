@@ -11,6 +11,8 @@ $responsable='';
 $ejecutor='';
 $verificador='';
 $nuevo_id='';
+$numero_acta='';
+$numero_registro='';
 // Validación y saneamiento del ID del análisis externo
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
 $id_original = isset($_GET['id_original']) ? intval($_GET['id_original']) : 0;
@@ -115,7 +117,7 @@ $version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 :
         'acta de muestreo',  
         $nuevo_id, 
         $insertQuery,  
-        [$numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto], 
+        [$numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $version_actaMuestreo, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador], 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
