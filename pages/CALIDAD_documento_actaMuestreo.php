@@ -996,9 +996,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             color: #000 !important;
         }
         #sample-identification1 {
-            min-height: 900px;
-            max-height: 900px;
-            height: 900px;
+            min-height: 500px;
+            max-height: 500px;
+            height: 500px;
             overflow: hidden;
         }
     `;
