@@ -1,29 +1,26 @@
-/* Asegurar que el body ocupe toda la ventana */
-html,
 body {
-    height: 100%;
+
     margin: 0;
     padding: 0;
     background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
 }
 
-
-/* Asegurar que el contenedor principal ocupe el espacio disponible */
 #form-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: white;
-    margin: 30pt auto;
-    /* Mantener centrado */
+    height: 842pt;
+    /* Altura estándar para A4 */
     width: 595pt;
     /* Ancho estándar para A4 */
     padding: 10pt;
     box-sizing: border-box;
+    background-color: white;
+    border: 1pt solid rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.1) 0pt 4pt 8pt;
+    margin: 30pt auto;
+    /* Centrar automáticamente en la página */
+    position: relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 
 .content,
 #content,
@@ -414,15 +411,21 @@ p {
     display: none;
 }
 
-/* Hacer que el footer se mantenga abajo */
 .footer-containerDIV {
-    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    /* Ajusta según sea necesario */
     display: flex;
+    flex-wrap: nowrap;
+    /* Evita que las secciones bajen al siguiente renglón */
     justify-content: space-between;
-    background-color: white;
+    margin-top: 1px;
+    width: 100%;
+    /* Asegura que el contenedor tome todo el ancho disponible */
+    box-sizing: border-box;
+    /* Incluye el padding y border en el ancho total */
 }
 
 .firma-section {
