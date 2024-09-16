@@ -1265,7 +1265,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             $('#id_actaMuestreo').text(data.id_actaMuestreo);
                         }
                         if (data.analisis_externos && data.analisis_externos.length > 0) {
-                            procesarDatosActa(data, resultados, etapa, opcional2);
+                            procesarDatosActa(data.analisis_externos[0], resultados, etapa, opcional2);
                         } else {
                             console.error("No se recibieron datos válidos: ", data);
                         }
@@ -1279,8 +1279,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-    function procesarDatosActa(data, resultados, etapa, version=null) {
-        let response=data.analisis_externos[0];
+    function procesarDatosActa(response, resultados, etapa, version=null) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
         var nombreProducto = response.nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
@@ -1289,7 +1288,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let nuevaVersion;
             if (version !== null) {
                 nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
-                $('#nro_acta').text(data.numero_acta);
+                $('#nro_acta').text(response.numero_acta);
             } else {
                 nuevaVersion = 1; // Si es nulo, asignar 1
             }
