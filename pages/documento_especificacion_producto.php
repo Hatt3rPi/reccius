@@ -367,15 +367,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     // Verificar y mostrar el botón de firma
                     try {
-                        // Verificar que response tenga especificaciones
-                        if (!response?.especificaciones || typeof response.especificaciones !== 'object') {
-                            console.log("Respuesta no válida o sin especificaciones");
+                        if (!response?.productos?.length || !Array.isArray(response.productos)) {
+                            console.log("Respuesta no válida o sin productos");
                             return; // Si la respuesta no es válida, no hacer nada
                         }
 
-                        // Obtener la especificación (asumiendo que solo hay una)
-                        let especificacionId = Object.keys(response.especificaciones)[0];
-                        let especificacion = response.especificaciones[especificacionId];
+                        let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
+
 
                         // Extraer los datos de firmas
                         let creado_por = {
