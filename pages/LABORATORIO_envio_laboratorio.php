@@ -432,7 +432,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
                 var nombre = $(this).find('input[type="text"]').val();
-                if (email && nombre && validateEmail(email)) {
+                if (email && validateEmail(email)) {
                     destinatarios.push({
                         email: email,
                         nombre: nombre
