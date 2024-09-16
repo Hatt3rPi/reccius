@@ -55,7 +55,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </div>
                         <div class="form-group" style="width: 300px;">
                             <label for="mail_lab">Correo laboratorio:</label>
-                            <input type="text" id="mail_lab" name="mail_lab" class="form-control mx-0 w-90" placeholder="Correo laboratorio" required>
+                            <input type="email" id="mail_lab" name="mail_lab" class="form-control mx-0 w-90" placeholder="Correo laboratorio" required>
                         </div>
                     </div>
                 </div>
@@ -67,17 +67,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
                             <label for="mail_solicitante">Solicitante:</label>
-                            <input type="text" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
+                            <input type="email" id="mail_solicitante" name="mail_solicitante" class="form-control mx-0 w-90" readonly required>
                         </div>
                         <div class="form-group" style="width: 300px;">
                             <label for="mail_revisor">Revisor:</label>
-                            <input type="text" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
+                            <input type="email" id="mail_revisor" name="mail_revisor" class="form-control mx-0 w-90" readonly required>
                         </div>
                     </div>
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
                         <div class="form-group" style="width: 300px;">
                             <label for="name_lab">Con copia a:</label>
-                            <input type="text" value="mgodoy@reccius.cl" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" readonly>
+                            <input type="email" value="mgodoy@reccius.cl" class="form-control mx-0 w-90" placeholder="Nombre laboratorio" readonly>
                         </div>
                         <div class="form-group" style="width: 300px;">
                         </div>
