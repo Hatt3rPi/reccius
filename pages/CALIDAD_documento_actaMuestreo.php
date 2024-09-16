@@ -989,15 +989,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     document.getElementById('download-pdf').addEventListener('click', function() {
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
-    .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
-        background-color: transparent !important;
-        color: #000 !important;
-        border-color: #000 !important;
-        font-weight: bold !important;
-    }
-    .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
-        color: #000 !important;
-    }
+        .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
+            background-color: transparent !important;
+            color: #000 !important;
+            border-color: #000 !important;
+            font-weight: bold !important;
+        }
+        .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
+            color: #000 !important;
+        }
     `;
         document.head.appendChild(styleElement);
 
@@ -1009,6 +1009,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const header = document.getElementById('header-container');
         const footer = document.getElementById('footer-containerDIV');
 
+        // Ocultar los botones no seleccionados
+        const allButtonGroups = document.querySelectorAll('.btn-group-vertical, .btn-group-horizontal');
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                if (!button.checked) {
+                    button.nextElementSibling.style.display = 'none'; // Ocultar el label del botón no seleccionado
+                }
+            });
+        });
+
         const pdf = new jspdf.jsPDF({
             orientation: 'p',
             unit: 'mm',
@@ -1017,7 +1028,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         const imgWidth = 210;
         const pageHeight = 297;
-        const margin = 20;
 
         // Primer canvas para la primera página
         Promise.all([
@@ -1040,7 +1050,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         ]).then(([headerCanvas, section1Canvas, section2Canvas, footerCanvas]) => {
             const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
             const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
-            let yOffset = 10; // Ajuste inicial del espaciado
+            let yOffset = 10;
 
             // Agregar el header en cada página
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
@@ -1056,7 +1066,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Segunda página para sección 2
             pdf.addPage();
-            yOffset = 10; // Reiniciar el desplazamiento para la segunda página
+            yOffset = 10;
 
             // Agregar el header en la segunda página
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
@@ -1072,7 +1082,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Tercera página para sección 3
             pdf.addPage();
-            yOffset = 10; // Reiniciar el desplazamiento para la tercera página
+            yOffset = 10;
 
             // Agregar el header en la tercera página
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
@@ -1095,6 +1105,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
                 pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
                 $.notify("PDF generado con éxito", "success");
+
+                // Restaurar los botones no seleccionados
+                allButtonGroups.forEach(group => {
+                    const buttons = group.querySelectorAll('.btn-check');
+                    buttons.forEach(button => {
+                        button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
+                    });
+                });
             });
         });
     });
