@@ -983,6 +983,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
+
+
+
     document.getElementById('download-pdf').addEventListener('click', function() {
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
@@ -994,12 +997,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
         .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
             color: #000 !important;
-        }
-        #sample-identification1 {
-            min-height: 500px;
-            max-height: 500px;
-            height: 500px;
-            overflow: hidden;
         }
     `;
         document.head.appendChild(styleElement);
@@ -1029,15 +1026,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             format: 'a4'
         });
 
-        const imgWidth = 210; // Ancho de página A4
-        const imgHeight = 297; // Alto de página A4
-        const fixedSectionHeight = 900; // Altura fija para la primera sección
+        const imgWidth = 210;
+        const pageHeight = 297;
 
-        // Forzar la altura de la primera sección (al menos 900px)
-        section1.style.minHeight = '900px';
-        section1.style.height = '900px';
-
-        // Primer canvas para la primera página con altura forzada de 900px
+        // Primer canvas para la primera página
         Promise.all([
             html2canvas(header, {
                 scale: 1,
@@ -1045,9 +1037,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }),
             html2canvas(section1, {
                 scale: 1,
-                useCORS: false,
-                height: 900, // Ajustamos el tamaño de la sección a 900px en el PDF
-                windowHeight: 900, // Asegurarse de que el tamaño capturado sea 900px de alto
+                useCORS: false
             }),
             html2canvas(section2, {
                 scale: 1,
@@ -1066,13 +1056,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
             yOffset += headerHeight + 10;
 
-            // Sección 1 en la primera página, con la altura forzada a 900px
-            const section1Height = fixedSectionHeight;
+            // Sección 1 en la primera página
+            const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
             pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
             yOffset += section1Height + 10;
 
             // Agregar el footer en la primera página
-            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, imgHeight - footerHeight, imgWidth, footerHeight);
+            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
             // Segunda página para sección 2
             pdf.addPage();
@@ -1088,7 +1078,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             yOffset += section2Height + 10;
 
             // Agregar el footer en la segunda página
-            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, imgHeight - footerHeight, imgWidth, footerHeight);
+            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
             // Tercera página para sección 3
             pdf.addPage();
@@ -1108,7 +1098,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 yOffset += section3Height + 10;
 
                 // Agregar el footer en la tercera página
-                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, imgHeight - footerHeight, imgWidth, footerHeight);
+                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
                 // Guardar el PDF
                 const nombreProducto = document.getElementById('producto').textContent.trim();
@@ -1126,6 +1116,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
     });
+
+
 
 
 
