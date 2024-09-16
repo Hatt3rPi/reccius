@@ -998,6 +998,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
             color: #000 !important;
         }
+        #sample-identification1 {
+            min-height: 900px;
+            max-height: 900px;
+            height: 900px;
+        }
     `;
         document.head.appendChild(styleElement);
 
@@ -1029,7 +1034,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const imgWidth = 210;
         const pageHeight = 297;
 
-        // Primer canvas para la primera página
+        // Primer canvas para la primera página con altura fija de 900px
         Promise.all([
             html2canvas(header, {
                 scale: 1,
@@ -1037,8 +1042,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }),
             html2canvas(section1, {
                 scale: 1,
-                useCORS: false
-            }),
+                useCORS: false,
+                height: 900
+            }), // Forzar altura de 900px para la primera sección
             html2canvas(section2, {
                 scale: 1,
                 useCORS: false
@@ -1056,7 +1062,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
             yOffset += headerHeight + 10;
 
-            // Sección 1 en la primera página
+            // Sección 1 en la primera página, con la altura forzada a 900px
             const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
             pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
             yOffset += section1Height + 10;
@@ -1116,8 +1122,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
     });
-
-
 
 
 
