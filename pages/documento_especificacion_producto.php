@@ -744,7 +744,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
         function verificarYMostrarBotonFirma2(creado_por, revisado_por, aprobado_por, usuarioNombre) {
-            console.log(creado_por, revisado_por, aprobado_por,usuarioNombre);
             let botonFirma = document.getElementById('sign-document');
             if (!botonFirma) return;
 
@@ -758,66 +757,45 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             let aprobadorUsuario = aprobado_por.usuario;
             let fechaAprobacion = aprobado_por.fecha_aprobacion;
 
-            // Determinar el rol del usuario actual
+            // Determinar los roles del usuario actual
             let esCreador = creadorUsuario === usuarioNombre;
             let esRevisor = revisorUsuario === usuarioNombre;
             let esAprobador = aprobadorUsuario === usuarioNombre;
 
+            // Variable para controlar si se muestra el botón
+            let mostrarBoton = false;
 
-            // Lógica para mostrar y habilitar/deshabilitar el botón
-            if (esCreador) {
-                if (!fechaEdicion) {
-                    // El creador aún no ha firmado
-                    botonFirma.style.display = 'block';
-                    botonFirma.disabled = false;
-                    console.log("Mostrar botón de firma para Creador (habilitado)");
-                } else {
-                    // El creador ya ha firmado
-                    botonFirma.style.display = 'none';
-                    console.log("Creador ya ha firmado");
-                }
-            } else if (esRevisor) {
-                if (fechaEdicion) {
-                    // El creador ha firmado
-                    if (!fechaRevision) {
-                        // El revisor aún no ha firmado
-                        botonFirma.style.display = 'block';
-                        botonFirma.disabled = false;
-                        console.log("Mostrar botón de firma para Revisor (habilitado)");
-                    } else {
-                        // El revisor ya ha firmado
-                        botonFirma.style.display = 'none';
-                        console.log("Revisor ya ha firmado");
-                    }
-                } else {
-                    // El creador aún no ha firmado
-                    botonFirma.style.display = 'none';
-                    console.log("Revisor: El creador aún no ha firmado");
-                }
-            } else if (esAprobador) {
-                if (fechaRevision) {
-                    // El revisor ha firmado
-                    if (!fechaAprobacion) {
-                        // El aprobador aún no ha firmado
-                        botonFirma.style.display = 'block';
-                        botonFirma.disabled = false;
-                        console.log("Mostrar botón de firma para Aprobador (habilitado)");
-                    } else {
-                        // El aprobador ya ha firmado
-                        botonFirma.style.display = 'none';
-                        console.log("Aprobador ya ha firmado");
-                    }
-                } else {
-                    // El revisor aún no ha firmado
-                    botonFirma.style.display = 'none';
-                    console.log("Aprobador: El revisor aún no ha firmado");
-                }
+            // Lógica para el Creador
+            if (esCreador && !fechaEdicion) {
+                // El creador aún no ha firmado
+                mostrarBoton = true;
+                console.log("Mostrar botón de firma para Creador (habilitado)");
+            }
+
+            // Lógica para el Revisor
+            if (esRevisor && fechaEdicion && !fechaRevision) {
+                // El revisor puede firmar después de que el creador ha firmado
+                mostrarBoton = true;
+                console.log("Mostrar botón de firma para Revisor (habilitado)");
+            }
+
+            // Lógica para el Aprobador
+            if (esAprobador && fechaRevision && !fechaAprobacion) {
+                // El aprobador puede firmar después de que el revisor ha firmado
+                mostrarBoton = true;
+                console.log("Mostrar botón de firma para Aprobador (habilitado)");
+            }
+
+            // Mostrar u ocultar el botón según corresponda
+            if (mostrarBoton) {
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = false;
             } else {
-                // El usuario no participa en el proceso de firma
                 botonFirma.style.display = 'none';
-                console.log("Usuario no tiene acciones de firma");
+                console.log("No hay acciones de firma disponibles para este usuario.");
             }
         }
+
 
 
         function actualizarEstadoDocumento() {
