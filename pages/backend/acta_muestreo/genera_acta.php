@@ -141,6 +141,13 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
     $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
     unset($_SESSION['nuevo_id']);
     $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
+    // Update posterior a la inserción para actualizar el campo id_original
+        $updateQuery = "UPDATE calidad_acta_muestreo SET id_original = ? WHERE id = ?";
+        $updateStmt = mysqli_prepare($link, $updateQuery);
+        mysqli_stmt_bind_param($updateStmt, "ii", $nuevo_id, $nuevo_id); // Actualiza el campo id_original con el mismo nuevo_id
+        $updateExito = mysqli_stmt_execute($updateStmt);
+
+        mysqli_stmt_close($updateStmt); // Cierra el statement del update
     // Ejecutar la declaración
     registrarTrazabilidad(
         $_SESSION['usuario'], 
@@ -176,6 +183,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
     'analisis_externos' => $analisis_externos,
-    'id_actaMuestreo' => $nuevo_id  // Asegúrate de que esta línea está incluida
+    'id_actaMuestreo' => $nuevo_id,  // Asegúrate de que esta línea está incluida
+    'updateExito' => $updateExito ? 'actualización exitosa' : 'fallo en actualización id_original'
 ], JSON_UNESCAPED_UNICODE);
 ?>
