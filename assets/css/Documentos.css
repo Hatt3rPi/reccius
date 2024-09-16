@@ -1,5 +1,4 @@
 body {
-
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -21,28 +20,9 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
-.content,
-#content,
-#additionalContent,
-#mainContainer,
-#additionalContainer,
-.form-container,
-.footer-section,
-th,
-td,
-tr,
-thead tr {
-    margin: 0;
-    padding: 10px;
-    border: none;
-    background-color: #FFF;
-}
-
+/* Estilos de header */
 .header,
 .header-bottom,
-.table-section,
-.footer-box,
 .footer {
     margin: 0;
     padding-top: 1px;
@@ -53,20 +33,8 @@ thead tr {
     background-color: #FFF;
 }
 
-.footer,
-.additionalfooter {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-height: 276pt;
-    display: flex;
-    justify-content: center;
-}
-
 .header,
 .header-bottom,
-.content,
 .footer {
     justify-content: space-between;
     align-items: center;
@@ -113,76 +81,16 @@ thead tr {
     padding-right: 1px;
 }
 
-tbody {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-
-.sub-info,
-.bold {
-    font-size: 9px;
-    color: #000;
-    font-weight: bold;
-    text-align: center;
-}
-
-table {
+/* Estilos de footer */
+.footer,
+.additionalfooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    border-collapse: collapse;
-    font-size: 10px;
-    /* Tamaño de fuente predeterminado para las tablas */
-}
-
-th {
-    background-color: #0047b3;
-    /* Color de fondo para los encabezados de las tablas */
-    color: white;
-    /* Color del texto para los encabezados de las tablas */
-    text-align: center;
-    /* Alineación del texto para los encabezados */
-    font-weight: bold;
-    /* Hacer que el texto de los encabezados sea en negrita */
-    padding: 8px;
-    /* Espaciado dentro de las celdas del encabezado */
-    border: none;
-    /* Eliminar bordes de las celdas del encabezado */
-}
-
-
-td {
-    text-align: center;
-    /* Alineación del texto para las celdas */
-    vertical-align: middle;
-    /* Alinear verticalmente el contenido de las celdas */
-    padding: 8px;
-    /* Espaciado dentro de las celdas */
-    border: 1px solid rgb(56, 53, 255);
-    /* Estilo de borde para las celdas */
-    font-size: 10px;
-    /* Tamaño de fuente para las celdas */
-}
-
-.document-title h2,
-.document-title h3 {
-    text-align: center;
-    font-weight: bold;
-}
-
-.document-title h2 {
-    font-size: 22px;
-    margin-top: 20px;
-}
-
-.document-title h3 {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-.footer-section {
-    margin: -5px;
+    max-height: 276pt;
+    display: flex;
+    justify-content: center;
 }
 
 .footer-box {
@@ -200,337 +108,8 @@ td {
     width: 220px;
 }
 
-.signature {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 0px dashed #000;
-    height: 64px;
-    width: 64px;
-    margin: auto;
-    /* Centra el contenedor en el espacio disponible */
-}
-
-
-
-.bold,
-.signature,
-p {
-    margin: 0;
-}
-
-p {
-    flex-grow: 0;
-}
-
-.date {
-    text-align: center;
-    margin-top: 10px;
-}
-
-#download-pdf {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px 30px;
-    background-color: #0047b3;
-    color: white;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-#download-pdf:hover {
-    background-color: #003580;
-}
-
-.pdf-header {
-    font-size: 12pt;
-}
-
-.pdf-footer {
-    font-size: 8pt;
-}
-
-#contenido_main {
-    align-items: center;
-}
-
-#contenido_main .table {
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    /* Ajusta esto según tus necesidades */
-}
-
-.no-border {
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.watermark {
-    font-family: 'Verdana', Geneva, Tahoma, sans-serif;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5);
-    /* Aumenta la escala verticalmente */
-    transform-origin: center center;
-    font-size: 110px;
-    /* Ajusta este valor según sea necesario */
-    color: rgba(0, 0, 0, 0.2);
-    /* Semitransparente */
-    pointer-events: none;
-    z-index: 1;
-    width: 100%;
-    /* Asegúrate de que abarque todo el ancho del contenedor */
-    text-align: center;
-    /* Centra el texto horizontalmente */
-    white-space: nowrap;
-    /* Evita que el texto se envuelva en múltiples líneas */
-}
-
-.new-page {
-    page-break-before: always;
-    margin-top: 20px;
-}
-
-
-.pendiente-aprobacion {
-    font-family: 'Verdana', Geneva, Tahoma, sans-serif;
-    position: absolute;
-    top: 50%;
-    left: 40%;
-    transform: translate(-50%, -50%) rotate(-45deg) scaleY(1.5);
-    /* Aumenta la escala verticalmente */
-    transform-origin: center center;
-    font-size: 110px;
-    /* Ajusta este valor según sea necesario */
-    color: rgba(0, 0, 0, 0.2);
-    /* Semitransparente */
-    pointer-events: none;
-    z-index: 1;
-    width: 100%;
-    /* Asegúrate de que abarque todo el ancho del contenedor */
-    text-align: center;
-    /* Centra el texto horizontalmente */
-    white-space: nowrap;
-    /* Evita que el texto se envuelva en múltiples líneas */
-    font-size: 70px;
-}
-
-
-.hidden {
-    display: none !important;
-    /* La declaración '!important' asegura que esta regla tenga prioridad */
-}
-
-/* Estilo para todos los elementos th */
-.general-th {
-    background-color: #0047b3;
-    /* Color de fondo azul */
-    color: white;
-    /* Texto en color blanco */
-    padding: 8px;
-    /* Relleno alrededor del texto */
-}
-
-/* Estilo para th dentro de .header-right table */
-.header-right-th {
-    font-size: 8px;
-    /* Tamaño de fuente más pequeño para th */
-    white-space: nowrap;
-    /* Asegura que el texto no se envuelva */
-    overflow: hidden;
-    /* Oculta el contenido que desborde el tamaño del elemento */
-    text-overflow: ellipsis;
-    /* Añade puntos suspensivos si el texto se desborda */
-    padding-top: 0px;
-    /* Relleno superior */
-    padding-bottom: 0px;
-    /* Relleno inferior */
-    padding-left: 3px;
-    /* Relleno izquierdo */
-    padding-right: 1px;
-    /* Relleno derecho */
-}
-
-#sign-document {
-    background-color: #ff0000;
-    /* Color rojo para el botón Firmar Documento */
-    margin-bottom: 75px;
-}
-
-#sign-document:hover {
-    background-color: #aa0202;
-    /* Color rojo oscuro al pasar el mouse por el botón Firmar Documento */
-}
-
-.button-container button {
-    width: 200px;
-    /* Establece un ancho fijo para ambos botones */
-    padding: 15px 30px;
-    margin-bottom: 10px;
-    /* Espacio entre los botones */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s;
-    /* Transición suave para el cambio de color */
-}
-
-.button-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-/* Clases específicas para las tablas de análisis FQ y MB */
-#analisisFQ,
-#analisisMB {
-    margin: 0 auto;
-    /* Centrar las tablas horizontalmente */
-    box-sizing: border-box;
-    /* Incluir el padding y el borde en el ancho total de las tablas */
-}
-
-/* Ocultar las tablas cuando no hay datos */
-#analisisFQ.hide,
-#analisisMB.hide {
-    display: none;
-}
-
-.footer-containerDIV {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
-    /* Ajusta según sea necesario */
-    display: flex;
-    flex-wrap: nowrap;
-    /* Evita que las secciones bajen al siguiente renglón */
-    justify-content: space-between;
-    margin-top: 1px;
-    width: 100%;
-    /* Asegura que el contenedor tome todo el ancho disponible */
-    box-sizing: border-box;
-    /* Incluye el padding y border en el ancho total */
-}
-
-.firma-section {
-
-    padding: 10px;
-    margin: 5px;
-    flex: 1;
-    /* Distribuye el espacio equitativamente entre las secciones */
-
-    max-width: 33%;
-    /* Limita el ancho máximo al 32% del contenedor para evitar desbordamiento */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* Distribuye el contenido de manera uniforme */
-    height: 220px;
-    /* Ajusta según sea necesario */
-    position: relative;
-
-}
-
-.firma-box-title {
-
-    font-size: 10px;
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 5px;
-
-    height: 21px;
-    width: 100%;
-    /* Ajusta según sea necesario */
-}
-
-.firma-boxes {
-    border: 1px solid #000000;
-    text-align: center;
-    flex: 1;
-    /* Permite que el contenido crezca para llenar el espacio */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* Centra el contenido verticalmente */
-    height: 100%;
-    width: 100%;
-}
-
-.signature {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 7px 0;
-    font-size: 10px;
-    /* Permite que la firma crezca para llenar el espacio */
-    height: 100px;
-    width: 100px;
-
-    /* Ajusta según sea necesario */
-}
-
-.date {
-
-    text-align: center;
-    font-size: 10px;
-    margin-top: 5px;
-    height: 15px;
-    width: 100%;
-    /* Ajusta según sea necesario */
-}
-
-.bold {
-
-    font-weight: bold;
-    width: 266px;
-
-
-
-}
-
-
-.text-bottom {
-    text-align: center;
-    font-size: 10px;
-
-}
-
-.firma {
-    max-width: 100%;
-}
-
-.date-container {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    /* Ajusta según sea necesario */
-}
-
 .footer-containerDIV {
     position: relative;
-    /* Cambia de absolute a relative para que se ajuste dinámicamente al contenido */
     bottom: 0;
     left: 0;
     padding: 10pt;
@@ -541,25 +120,21 @@ p {
     width: 100%;
     box-sizing: border-box;
     background-color: white;
-    /* Asegura que el fondo sea blanco */
     height: auto;
-    /* Asegura que el footer se ajuste dinámicamente a su contenido */
 }
 
+/* Estilos de firmas en el footer */
 .firma-section {
     padding: 10pt;
     margin: 5pt;
     flex: 1;
     max-width: 30%;
-    /* Ajusta el ancho para evitar el desbordamiento */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: auto;
-    /* Ajusta la altura según el contenido */
     align-items: center;
-    /* Centra los elementos */
 }
 
 .firma-box-title {
@@ -579,7 +154,6 @@ p {
     justify-content: center;
     align-items: center;
     height: 150pt;
-    /* Ajusta la altura según sea necesario */
     width: 100%;
     box-sizing: border-box;
 }
