@@ -60,7 +60,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif; flex: 2; text-align: right;">
                     <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
@@ -77,10 +77,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha Muestreo:</td>
                             <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
-
                         </tr>
                     </table>
                 </div>
+
 
             </div>
             <!-- Body -->
@@ -813,16 +813,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </div>
 <!-- Modal de confirmación de eliminación -->
 <div id="modalRechazar" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()">&times;</span>
-    <h2>Confirmar Rechazo</h2>
-    <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
-    <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
-    <p>Motivo del Rechazo:</p>
-    <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
-    <button onclick="confirmarRechazo()">Confirmar</button>
-  </div>
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>Confirmar Rechazo</h2>
+        <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
+        <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
+        <p>Motivo del Rechazo:</p>
+        <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
+        <button onclick="confirmarRechazo()">Confirmar</button>
+    </div>
 </div>
+
 </html>
 <script>
     var idAnalisisExterno_acta = null;
@@ -1199,7 +1200,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa, opcional=null, opcional2=null) {
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null) {
         console.log(id, resultados, etapa);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
@@ -1226,8 +1227,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         } else {
             // Solicitud GET para generar una nueva acta
-            if (opcional==null){
-                    $.ajax({
+            if (opcional == null) {
+                $.ajax({
                     url: './backend/acta_muestreo/genera_acta.php',
                     type: 'GET',
                     dataType: 'json', // Asegura que la respuesta se parsea como JSON
@@ -1250,7 +1251,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                 });
             } else {
-                    $.ajax({
+                $.ajax({
                     url: './backend/acta_muestreo/versiona_acta.php',
                     type: 'GET',
                     dataType: 'json', // Asegura que la respuesta se parsea como JSON
@@ -1279,19 +1280,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-    function procesarDatosActa(response, resultados, etapa, version=null) {
+    function procesarDatosActa(response, resultados, etapa, version = null) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
         var nombreProducto = response.nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
         var concentracion = response.concentracion ? ' ' + response.concentracion : ''; // Añade un espacio antes solo si no es null
         var formato = response.formato ? ' ' + response.formato : ''; // Añade un espacio antes solo si no es null
         let nuevaVersion;
-            if (version !== null) {
-                nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
-                $('#nro_acta').text(response.numero_acta);
-            } else {
-                nuevaVersion = 1; // Si es nulo, asignar 1
-            }
+        if (version !== null) {
+            nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
+            $('#nro_acta').text(response.numero_acta);
+        } else {
+            nuevaVersion = 1; // Si es nulo, asignar 1
+        }
         // Concatenar solo las partes que no sean nulas o vacías
         var productoTexto = nombreProducto + concentracion + formato;
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
@@ -1610,54 +1611,54 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
     var idActaMuestreo_rechazado = null;
 
-function botones_interno(accion) {
-  if (accion === 'rechazar_actaMuestreo') {
-    idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
-    abrirModal();
-  } else {
-    // manejar otras acciones
-  }
-}
-
-function abrirModal() {
-  document.getElementById("modalRechazar").style.display = "block";
-}
-
-function cerrarModal() {
-  document.getElementById("modalRechazar").style.display = "none";
-}
-
-function confirmarRechazo() {
-  var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
-  var motivoRechazo = document.getElementById("motivoRechazo").value;
-
-  if (palabraConfirmacion !== 'rechazar') {
-    alert("Debe ingresar la palabra 'rechazar' para confirmar.");
-    return;
-  }
-
-  if (motivoRechazo.trim() === "") {
-    alert("Debe ingresar un motivo de rechazo.");
-    return;
-  }
-
-  var fechaRechazo = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-  
-  $.post("./backend/acta_muestreo/rechazar_acta_muestreoBE.php", {
-    id: idActaMuestreo_rechazado,
-    motivo_rechazo: motivoRechazo,
-    fecha_rechazo: fechaRechazo
-}, function(response) {
-    // Verificar si hubo algún error en el proceso
-    if (response.error) {
-        alert("Hubo un error al rechazar el acta de muestreo: " + response.error);
-    } else {
-        alert("El acta de muestreo ha sido rechazado con éxito.");
-        location.reload(); // Recargar la página o refrescar la tabla
+    function botones_interno(accion) {
+        if (accion === 'rechazar_actaMuestreo') {
+            idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
+            abrirModal();
+        } else {
+            // manejar otras acciones
+        }
     }
-}, "json");
 
-  cerrarModal();
-}
+    function abrirModal() {
+        document.getElementById("modalRechazar").style.display = "block";
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalRechazar").style.display = "none";
+    }
+
+    function confirmarRechazo() {
+        var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
+        var motivoRechazo = document.getElementById("motivoRechazo").value;
+
+        if (palabraConfirmacion !== 'rechazar') {
+            alert("Debe ingresar la palabra 'rechazar' para confirmar.");
+            return;
+        }
+
+        if (motivoRechazo.trim() === "") {
+            alert("Debe ingresar un motivo de rechazo.");
+            return;
+        }
+
+        var fechaRechazo = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+
+        $.post("./backend/acta_muestreo/rechazar_acta_muestreoBE.php", {
+            id: idActaMuestreo_rechazado,
+            motivo_rechazo: motivoRechazo,
+            fecha_rechazo: fechaRechazo
+        }, function(response) {
+            // Verificar si hubo algún error en el proceso
+            if (response.error) {
+                alert("Hubo un error al rechazar el acta de muestreo: " + response.error);
+            } else {
+                alert("El acta de muestreo ha sido rechazado con éxito.");
+                location.reload(); // Recargar la página o refrescar la tabla
+            }
+        }, "json");
+
+        cerrarModal();
+    }
 </script>

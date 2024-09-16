@@ -93,25 +93,59 @@ body {
     height: 50px;
 }
 
-.header-right,
-.header-bottom-right,
-.footer-box {
+.header-right {
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    flex: 2;
     text-align: right;
+}
+
+.header-right table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+
+.header-right table td {
+    font-size: 10px;
+    padding: 5px;
+    border: 1px dotted #000;
+    text-align: left;
+}
+
+.header-right table td:first-child {
+    font-weight: bold;
+}
+
+.editable.resp {
+    width: 100px;
+    background-color: #ffffff;
+    border: 1px solid #000;
+    padding: 3px;
     font-size: 10px;
 }
 
+/* Esta regla es redundante ya que ya existe .header-right con text-align y font-size */
+.header-right,
+.header-bottom-right,
+.footer-box {
+    /* Puedes eliminar esta regla redundante */
+}
+
+/* Este bloque también es redundante ya que se ajusta en .header-right table td */
 .header-right th:nth-child(2),
 .header-right td:nth-child(2) {
     text-align: left;
     font-size: 10px;
     padding-left: 5px;
-
 }
 
+/* Ya está definido arriba en .header-right table, por lo tanto puedes eliminar esto */
 .header-right table {
-    width: 100%;
+    /* Elimina esta regla ya que es redundante */
 }
 
+/* Ya está definido en .header-right table td */
 .header-right table td,
 .header-right table th {
     font-size: 10px;
@@ -120,6 +154,18 @@ body {
     padding-left: 3px;
     padding-right: 1px;
     border: 1px dotted #000;
+}
+
+/* Mantener este bloque si es necesario el estilo específico para los encabezados */
+.header-right-th {
+    font-size: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 3px;
+    padding-right: 1px;
 }
 
 tbody {
@@ -358,25 +404,6 @@ p {
     /* Relleno alrededor del texto */
 }
 
-/* Estilo para th dentro de .header-right table */
-.header-right-th {
-    font-size: 8px;
-    /* Tamaño de fuente más pequeño para th */
-    white-space: nowrap;
-    /* Asegura que el texto no se envuelva */
-    overflow: hidden;
-    /* Oculta el contenido que desborde el tamaño del elemento */
-    text-overflow: ellipsis;
-    /* Añade puntos suspensivos si el texto se desborda */
-    padding-top: 0px;
-    /* Relleno superior */
-    padding-bottom: 0px;
-    /* Relleno inferior */
-    padding-left: 3px;
-    /* Relleno izquierdo */
-    padding-right: 1px;
-    /* Relleno derecho */
-}
 
 
 
