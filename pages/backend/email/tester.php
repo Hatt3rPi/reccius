@@ -39,7 +39,7 @@ Solicitud de Análisis Externo: Ver archivo
 Solicitud Acta de Muestreo: Ver archivo
 Documento adicional: Ver archivo
 
-PD: El correo fue generado de una casilla automática. favor derivar sus respuestas a Luciano Abarca (lucianoalonso2000@gmail.com) y Macarena Alejandra Godoy Castro (mgodoy@reccius.cl).
+PD: El correo fue generado de una casilla automática. favor derivar sus respuestas a .
 Saluda atentamente,
 Farmacéutica Reccius SPA";
     $altBody = "Este es un correo de prueba enviado a $i destinatario(s).";
