@@ -134,7 +134,11 @@ function enviarCorreo_transitorio(
             '',
             ''
         );
-
+        // Habilitar depuración SMTP
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = function($str, $level) {
+            error_log("Nivel de depuración $level: $str");
+        };
         // Intentar enviar el correo
         if (!$mail->send()) {
             $errores[] = "Error al enviar correo: " . $mail->ErrorInfo;
