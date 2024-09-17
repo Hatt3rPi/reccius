@@ -109,6 +109,32 @@ function enviarCorreo_transitorio(
         $mail->Body    = $cuerpo;
         $mail->AltBody = $altBody ?: strip_tags($cuerpo);
 
+        // Construir el arreglo de parámetros para trazabilidad
+        $parametros = [
+            'destinatarios' => $destinatarios,
+            'cc' => $cc,
+            'asunto' => $asunto,
+            'body' => $cuerpo,
+            'altBody' => $altBody,
+            'fecha_envio' => date('Y-m-d H:i:s'),
+            'usuario' => $_SESSION['usuario'] ?? 'Usuario no autenticado',
+            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'IP desconocida',
+            'navegador' => $_SERVER['HTTP_USER_AGENT'] ?? 'Navegador desconocido'
+        ];
+
+        // Registrar trazabilidad antes de enviar el correo
+        registrarTrazabilidad(
+            $_SESSION['usuario'],
+            $_SERVER['PHP_SELF'],
+            'Parámetros correo',
+            'Envío Análisis externo',
+            1,
+            '',
+            $parametros,
+            '',
+            ''
+        );
+
         // Intentar enviar el correo
         if (!$mail->send()) {
             $errores[] = "Error al enviar correo: " . $mail->ErrorInfo;
@@ -136,6 +162,7 @@ function enviarCorreo_transitorio(
         ];
     }
 }
+
 
 
 function enviarCorreoMultiple($destinatarios, $asunto, $cuerpo, $altBody = '') {
