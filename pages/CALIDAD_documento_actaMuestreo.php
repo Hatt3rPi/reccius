@@ -60,7 +60,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif; flex: 2; text-align: right;">
                     <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
@@ -77,10 +77,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>Fecha Muestreo:</td>
                             <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
-
                         </tr>
                     </table>
                 </div>
+
 
             </div>
             <!-- Body -->
@@ -767,12 +767,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método
-        Muestreo</button>
+    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
     <button class="botones" id="guardar" style="display: none">Guardar</button>
     <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
     <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
+    <button class="botones" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -811,6 +811,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div id="notification" class="notification-container notify" style="display: none;">
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
+<!-- Modal de confirmación de eliminación -->
+<div id="modalRechazar" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>Confirmar Rechazo</h2>
+        <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
+        <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
+        <p>Motivo del Rechazo:</p>
+        <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
+        <button onclick="confirmarRechazo()">Confirmar</button>
+    </div>
+</div>
 
 </html>
 <script>
@@ -833,6 +845,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 element.style.visibility = 'visible';
             });
             document.getElementById('metodo_muestreo').style.display = 'none';
+            document.getElementById('rechazo').style.display = 'block';
             document.getElementById('firmar').style.display = 'none';
             document.getElementById('guardar').style.display = 'block';
             $('.resp').css('background-color', '#f4fac2');
@@ -969,22 +982,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
 
-
-
-
-
     document.getElementById('download-pdf').addEventListener('click', function() {
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
-    .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
-        background-color: transparent !important;
-        color: #000 !important;
-        border-color: #000 !important;
-        font-weight: bold !important;
-    }
-    .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
-        color: #000 !important;
-    }
+        .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
+            background-color: transparent !important;
+            color: #000 !important;
+            border-color: #000 !important;
+            font-weight: bold !important;
+        }
+        .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
+            color: #000 !important;
+        }
     `;
         document.head.appendChild(styleElement);
 
@@ -996,6 +1005,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const header = document.getElementById('header-container');
         const footer = document.getElementById('footer-containerDIV');
 
+        // Ocultar los botones no seleccionados
+        const allButtonGroups = document.querySelectorAll('.btn-group-vertical, .btn-group-horizontal');
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                if (!button.checked) {
+                    button.nextElementSibling.style.display = 'none'; // Ocultar el label del botón no seleccionado
+                }
+            });
+        });
+
+        // Reemplazar input de fecha por texto estático
+        const fechaMuestreoInput = document.getElementById('fecha_muestreo');
+        const fechaMuestreoValue = fechaMuestreoInput.value;
+        const fechaMuestreoTd = fechaMuestreoInput.closest('td');
+        const originalHtml = fechaMuestreoTd.innerHTML;
+        fechaMuestreoTd.innerHTML = fechaMuestreoValue;
+
         const pdf = new jspdf.jsPDF({
             orientation: 'p',
             unit: 'mm',
@@ -1004,7 +1031,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         const imgWidth = 210;
         const pageHeight = 297;
-        const margin = 20;
 
         // Primer canvas para la primera página
         Promise.all([
@@ -1020,14 +1046,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 scale: 1,
                 useCORS: false
             }),
+            html2canvas(section3, {
+                scale: 1,
+                useCORS: false
+            }), // Ahora también captura la sección 3
             html2canvas(footer, {
                 scale: 1,
                 useCORS: false
             })
-        ]).then(([headerCanvas, section1Canvas, section2Canvas, footerCanvas]) => {
+        ]).then(([headerCanvas, section1Canvas, section2Canvas, section3Canvas, footerCanvas]) => {
             const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
             const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
-            let yOffset = 10; // Ajuste inicial del espaciado
+            let yOffset = 10;
 
             // Agregar el header en cada página
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
@@ -1041,9 +1071,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Agregar el footer en la primera página
             pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
-            // Segunda página para sección 2
+            // Segunda página para secciones 2 y 3
             pdf.addPage();
-            yOffset = 10; // Reiniciar el desplazamiento para la segunda página
+            yOffset = 10;
 
             // Agregar el header en la segunda página
             pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
@@ -1054,35 +1084,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             pdf.addImage(section2Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section2Height);
             yOffset += section2Height + 10;
 
+            // Sección 3 justo debajo de la sección 2 en la misma página
+            const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
+            pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
+            yOffset += section3Height + 10;
+
             // Agregar el footer en la segunda página
             pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
-            // Tercera página para sección 3
-            pdf.addPage();
-            yOffset = 10; // Reiniciar el desplazamiento para la tercera página
+            // Guardar el PDF
+            const nombreProducto = document.getElementById('producto').textContent.trim();
+            const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            $.notify("PDF generado con éxito", "success");
 
-            // Agregar el header en la tercera página
-            pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
-            yOffset += headerHeight + 10;
-
-            // Sección 3
-            html2canvas(section3, {
-                scale: 1,
-                useCORS: false
-            }).then(section3Canvas => {
-                const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
-                pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
-                yOffset += section3Height + 10;
-
-                // Agregar el footer en la tercera página
-                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
-
-                // Guardar el PDF
-                const nombreProducto = document.getElementById('producto').textContent.trim();
-                const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-                pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-                $.notify("PDF generado con éxito", "success");
+            // Restaurar los botones no seleccionados
+            allButtonGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.btn-check');
+                buttons.forEach(button => {
+                    button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
+                });
             });
+
+            // Restaurar el input de fecha
+            fechaMuestreoTd.innerHTML = originalHtml;
         });
     });
 
@@ -1187,7 +1212,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa) {
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null) {
         console.log(id, resultados, etapa);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
@@ -1214,38 +1239,72 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         } else {
             // Solicitud GET para generar una nueva acta
-            $.ajax({
-                url: './backend/acta_muestreo/genera_acta.php',
-                type: 'GET',
-                dataType: 'json', // Asegura que la respuesta se parsea como JSON
-                data: {
-                    id_analisis_externo: id
-                },
-                success: function(data) {
-                    console.log('Datos recibidos para nueva acta:', data);
-                    if (data.id_actaMuestreo) {
-                        $('#id_actaMuestreo').text(data.id_actaMuestreo);
+            if (opcional == null) {
+                $.ajax({
+                    url: './backend/acta_muestreo/genera_acta.php',
+                    type: 'GET',
+                    dataType: 'json', // Asegura que la respuesta se parsea como JSON
+                    data: {
+                        id_analisis_externo: id
+                    },
+                    success: function(data) {
+                        console.log('Datos recibidos para nueva acta:', data);
+                        if (data.id_actaMuestreo) {
+                            $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                        }
+                        if (data.analisis_externos && data.analisis_externos.length > 0) {
+                            procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                        } else {
+                            console.error("No se recibieron datos válidos: ", data);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
                     }
-                    if (data.analisis_externos && data.analisis_externos.length > 0) {
-                        procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                    } else {
-                        console.error("No se recibieron datos válidos: ", data);
+                });
+            } else {
+                $.ajax({
+                    url: './backend/acta_muestreo/versiona_acta.php',
+                    type: 'GET',
+                    dataType: 'json', // Asegura que la respuesta se parsea como JSON
+                    data: {
+                        id_analisis_externo: id,
+                        id_original: opcional,
+                        version: opcional2
+                    },
+                    success: function(data) {
+                        console.log('Datos recibidos para nueva acta:', data);
+                        if (data.id_actaMuestreo) {
+                            $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                        }
+                        if (data.analisis_externos && data.analisis_externos.length > 0) {
+                            procesarDatosActa(data.analisis_externos[0], resultados, etapa, opcional2);
+                        } else {
+                            console.error("No se recibieron datos válidos: ", data);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud: ", status, error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud: ", status, error);
-                }
-            });
+                });
+            }
+
         }
     }
 
-    function procesarDatosActa(response, resultados, etapa) {
+    function procesarDatosActa(response, resultados, etapa, version = null) {
         console.log(resultados, etapa);
         idAnalisisExterno_acta = response.id_analisis_externo
         var nombreProducto = response.nombre_producto || ''; // Si es null, lo reemplaza por un string vacío
         var concentracion = response.concentracion ? ' ' + response.concentracion : ''; // Añade un espacio antes solo si no es null
         var formato = response.formato ? ' ' + response.formato : ''; // Añade un espacio antes solo si no es null
-
+        let nuevaVersion;
+        if (version !== null) {
+            nuevaVersion = parseInt(version) + 1; // Incrementar la versión en 1
+            $('#nro_acta').text(response.numero_acta);
+        } else {
+            nuevaVersion = 1; // Si es nulo, asignar 1
+        }
         // Concatenar solo las partes que no sean nulas o vacías
         var productoTexto = nombreProducto + concentracion + formato;
         // Asumiendo que la respuesta es un objeto que contiene un array bajo la clave 'analisis_externos'
@@ -1298,6 +1357,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
+                    document.getElementById('rechazo').style.display = 'block';
                     $('.resp').css('background-color', '#f4fac2');
                     document.querySelectorAll('.formulario.verif *').forEach(function(element) {
                         element.style.visibility = 'hidden'; // Hacer invisible el contenido
@@ -1315,6 +1375,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (usuario_activo == response.responsable) {
                         document.getElementById('metodo_muestreo').style.display = 'none';
                         document.getElementById('guardar').style.display = 'block';
+                        document.getElementById('rechazo').style.display = 'block';
                         $('.verif').css('background-color', '#f4fac2');
                     }
 
@@ -1332,6 +1393,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (usuario_activo == response.verificador) {
                         document.getElementById('metodo_muestreo').style.display = 'none';
                         document.getElementById('guardar').style.display = 'block';
+                        document.getElementById('rechazo').style.display = 'block';
                     }
                     break;
                 case 3:
@@ -1345,6 +1407,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     firma3(response);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'none';
+                    document.getElementById('rechazo').style.display = 'block';
                     document.getElementById('download-pdf').style.display = 'block';
                     $('#upload-pdf').show();
                     break;
@@ -1364,7 +1427,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#nro_registro').text('DCAL-CC-AMINS-' + response.identificador_producto.toString().padStart(3, '0'));
                     break;
             }
-            $('#nro_version').text(1);
+            $('#nro_version').text(nuevaVersion);
             $('#realizadoPor').text('Nombre:');
             document.querySelectorAll('.formulario.verif *, .formulario.resp *').forEach(function(element) {
                 element.style.visibility = 'hidden'; // Hacer invisible el contenido
@@ -1557,5 +1620,57 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 $.notify("Error al firmar documento", "error");
             }
         });
+    }
+    var idActaMuestreo_rechazado = null;
+
+    function botones_interno(accion) {
+        if (accion === 'rechazar_actaMuestreo') {
+            idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
+            abrirModal();
+        } else {
+            // manejar otras acciones
+        }
+    }
+
+    function abrirModal() {
+        document.getElementById("modalRechazar").style.display = "block";
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalRechazar").style.display = "none";
+    }
+
+    function confirmarRechazo() {
+        var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
+        var motivoRechazo = document.getElementById("motivoRechazo").value;
+
+        if (palabraConfirmacion !== 'rechazar') {
+            alert("Debe ingresar la palabra 'rechazar' para confirmar.");
+            return;
+        }
+
+        if (motivoRechazo.trim() === "") {
+            alert("Debe ingresar un motivo de rechazo.");
+            return;
+        }
+
+        var fechaRechazo = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+
+        $.post("./backend/acta_muestreo/rechazar_acta_muestreoBE.php", {
+            id: idActaMuestreo_rechazado,
+            motivo_rechazo: motivoRechazo,
+            fecha_rechazo: fechaRechazo
+        }, function(response) {
+            // Verificar si hubo algún error en el proceso
+            if (response.error) {
+                alert("Hubo un error al rechazar el acta de muestreo: " + response.error);
+            } else {
+                alert("El acta de muestreo ha sido rechazado con éxito.");
+                location.reload(); // Recargar la página o refrescar la tabla
+            }
+        }, "json");
+
+        cerrarModal();
     }
 </script>

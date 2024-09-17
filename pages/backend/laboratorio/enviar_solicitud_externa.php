@@ -147,11 +147,11 @@ $destinatario = [
         'email' => $emailLab
     ]
 ];
-$combinado = array_merge($destinatario, $cc);
+//$combinado = array_merge($destinatario, $cc);
 
 
 
-$resultado = enviarCorreo_transitorio($combinado, $subject, $cuerpo, $altBody);
+$resultado = enviarCorreo_transitorio($destinatario, $subject, $cuerpo, $altBody, $cc);
 if ($resultado['status'] === 'success') {
     // Llamar a la función para agregar los correos como CC
     agregarCorreosCC($emailLab, $lab, $laboratorio);

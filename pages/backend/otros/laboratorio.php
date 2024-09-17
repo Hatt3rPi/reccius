@@ -51,7 +51,7 @@ class Laboratorio
     }
 
     public function findCCByCorreoAndLab($correo, $idLab){
-        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE correo = ?, laboratorio_id = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE correo = ? AND laboratorio_id = ?");
         $stmt->bind_param("si", $correo, $idLab);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -59,6 +59,7 @@ class Laboratorio
         $stmt->close();
         return $laboratorio;
     }
+    
     // Nuevo método para agregar correo a laboratorio_con_copia con el nombre del laboratorio
     public function addCorreoToLaboratorioWithName($laboratorioId, $name, $correo) {
         try {
@@ -78,11 +79,14 @@ class Laboratorio
     // Obtener los correos asociados por nombre de laboratorio
     public function getCorreosByLaboratorioName($name){
         $laboratorio = $this->findByName($name);
+        
+        if (!$laboratorio) {
+            return []; 
+        }
+        
         $laboratorioId = $laboratorio['id'];
-
-        $stmt = $this->conn->prepare("SELECT name, correo 
-                FROM laboratorio_con_copia 
-                WHERE laboratorio_id = ?");
+    
+        $stmt = $this->conn->prepare("SELECT * FROM laboratorio_con_copia WHERE laboratorio_id = ?");
         $stmt->bind_param("i", $laboratorioId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -90,6 +94,7 @@ class Laboratorio
         $stmt->close();
         return $correos;
     }
+    
 
     public function deleteCorreosCCByCorreo($correo,$idLab){
         $laboratorio = $this->findCCByCorreo($correo, $idLab);

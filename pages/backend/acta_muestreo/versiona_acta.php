@@ -11,8 +11,13 @@ $responsable='';
 $ejecutor='';
 $verificador='';
 $nuevo_id='';
+$numero_acta='';
+$numero_registro='';
 // Validación y saneamiento del ID del análisis externo
 $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_analisis_externo']) : 0;
+$id_original = isset($_GET['id_original']) ? intval($_GET['id_original']) : 0;
+$version_actaMuestreo = isset($_GET['version']) ? intval($_GET['version']) + 1 : 0;
+
 
 //OBTENCIÓN DE DATOS
     // Consulta SQL para obtener los datos del análisis externo y el producto asociado
@@ -24,17 +29,19 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
      usrEje.nombre as nombre_usrEje, usrEje.cargo as cargo_usrEje, usrEje.foto_firma as foto_firma_usrEje, usrEje.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usrEje, 
     LPAD(pr.identificador_producto, 3, '0') AS identificador_producto,
 	aex.solicitado_por,
-    aex.numero_solicitud, usrMuest.usuario as usuario_firma2, usrEje.usuario as usuario_firma1, aex.fecha_elaboracion, aex.fecha_vencimiento, aex.observaciones
+    aex.numero_solicitud, usrMuest.usuario as usuario_firma2, usrEje.usuario as usuario_firma1, aex.fecha_elaboracion, aex.fecha_vencimiento, aex.observaciones,
+	(select numero_acta from calidad_acta_muestreo where id=?) as numero_acta,
+    (select numero_registro from calidad_acta_muestreo where id=?) as numero_registro
     FROM `calidad_analisis_externo` as aex
     LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
     LEFT JOIN usuarios as usrMuest ON aex.muestreado_por=usrMuest.usuario
     LEFT JOIN usuarios as usrRev ON aex.am_verificado_por=usrRev.usuario
     LEFT JOIN usuarios as usrEje ON aex.am_ejecutado_por=usrEje.usuario
     left join calidad_especificacion_productos as ep on aex.id_especificacion=ep.id_especificacion
-    WHERE aex.id = ?";
+    WHERE aex.id =?;";
 
     $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id_analisis_externo);
+    mysqli_stmt_bind_param($stmt, "iii", $id_original, $id_original, $id_analisis_externo);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -84,71 +91,33 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         $responsable=$row['muestreado_por'];
         $verificador=$row['am_verificado_por'];
         $ejecutor=$row['ejecutado_por'];
-        
+        $numero_acta=$row['numero_acta'];
+        $numero_registro=$row['numero_registro'];
     }
     mysqli_stmt_close($stmt);
 
 
-//INGRESO DE ACTA
-    // Obtener el año y mes actuales
-    $year = date("y");
-    $month = date("m");
 
-    // Consulta para obtener el mayor aux_autoincremental para el año y mes actual
-    $query = "SELECT MAX(aux_autoincremental) AS max_correlativo FROM calidad_acta_muestreo WHERE aux_anomes = ? and aux_tipo=?";
-
-    $aux_anomes = $year . $month; // Concatenación de año y mes para la búsqueda
-
-    $stmt = mysqli_prepare($link, $query);
-    mysqli_stmt_bind_param($stmt, "ss", $aux_anomes, $tipo_producto);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_assoc($result);
-
-    $correlativo = isset($row['max_correlativo']) ? $row['max_correlativo'] + 1 : 1;
-    $correlativoStr = str_pad($correlativo, 3, '0', STR_PAD_LEFT); // Asegura que el correlativo tenga 3 dígitos
-    
-    // Inserta el nuevo acta con el número de acta generado
-    switch ($tipo_producto) {
-        case 'Material Envase y Empaque':
-            $numero_registro = 'DCAL-CC-AMMEE-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMMEE-" . $year . $month . $correlativoStr ;
-            break;
-        case 'Materia Prima':
-            $numero_registro = 'DCAL-CC-AMMP-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMMP-" . $year . $month . $correlativoStr ;
-            break;
-        case 'Producto Terminado':
-            $numero_registro = 'DCAL-CC-AMPT-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMPT-" . $year . $month . $correlativoStr ;
-            break;
-        case 'Insumo':
-            $numero_registro = 'DCAL-CC-AMINS-' . str_pad($identificador_producto, 3, '0', STR_PAD_LEFT);
-            $numero_acta = "AMINS-" . $year . $month . $correlativoStr ;
-            break;
-        default:
-            $numero_registro = 'Desconocido';
-            $numero_acta= 'Desconocido';
-    }
-    
     // Insertar en la base de datos
-    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno, aux_autoincremental, aux_anomes, responsable, verificador, aux_tipo) VALUES (?, 1, ?, '01', NOW(), ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertQuery = "INSERT INTO calidad_acta_muestreo (numero_registro, version_registro, id_original,  numero_acta, version_acta, fecha_muestreo, id_especificacion, id_producto, id_analisisExterno,   responsable, verificador) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($link, $insertQuery);
-    mysqli_stmt_bind_param($stmt, "ssiiiiisss", $numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto);
+    mysqli_stmt_bind_param($stmt, "ssisiiiiss", $numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $version_actaMuestreo, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador);
     
     $exito = mysqli_stmt_execute($stmt);
     $nuevo_id = mysqli_insert_id($link); // Obtiene el ID de la última fila insertada
     unset($_SESSION['nuevo_id']);
     $_SESSION['nuevo_id'] = $nuevo_id; // Almacena el nuevo ID en la sesión
-    // Update posterior a la inserción para actualizar el campo id_original
-        $updateQuery = "UPDATE calidad_acta_muestreo SET id_original = ? WHERE id = ?";
-        $updateStmt = mysqli_prepare($link, $updateQuery);
-        mysqli_stmt_bind_param($updateStmt, "ii", $nuevo_id, $nuevo_id); // Actualiza el campo id_original con el mismo nuevo_id
-        $updateExito = mysqli_stmt_execute($updateStmt);
 
+
+    // Update posterior a la inserción para actualizar el campo id_original
+        $updateQuery = "update calidad_productos_analizados SET id_actaMuestreo=? where id_analisisExterno=?;";
+        $updateStmt = mysqli_prepare($link, $updateQuery);
+        mysqli_stmt_bind_param($updateStmt, "ii", $nuevo_id, $id_analisis_externo); // Actualiza el campo id_original con el mismo nuevo_id
+        $updateExito = mysqli_stmt_execute($updateStmt);
         mysqli_stmt_close($updateStmt); // Cierra el statement del update
-    // Ejecutar la declaración
+
+        // Ejecutar la declaración
     registrarTrazabilidad(
         $_SESSION['usuario'], 
         $_SERVER['PHP_SELF'], 
@@ -156,7 +125,7 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         'acta de muestreo',  
         $nuevo_id, 
         $insertQuery,  
-        [$numero_registro, $numero_acta, $id_especificacion, $id_producto, $id_analisis_externo, $correlativo, $aux_anomes, $responsable, $verificador, $tipo_producto], 
+        [$numero_registro, $version_actaMuestreo, $id_original,  $numero_acta, $version_actaMuestreo, $id_especificacion, $id_producto, $id_analisis_externo,  $responsable, $verificador], 
         $exito ? 1 : 0, 
         $exito ? null : mysqli_error($link)
     );
@@ -166,9 +135,6 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         registrarTarea(7, $_SESSION['usuario'], $_SESSION['usuario'], 'Ingresar resultados de Acta de Muestreo: ' . $numero_acta , 2, 'Firma 1', $nuevo_id, 'calidad_acta_muestreo');
         //tarea anterior se cierra: finalizarTarea($_SESSION['usuario'], $nuevo_id, 'calidad_acta_muestreo', 'Firma 1');
         // Actualización de los datos con el nuevo número de acta
-        foreach ($analisis_externos as &$value) {
-            $value['numero_acta'] = $numero_acta . "-01";
-        }
         unset($value);
     } else {
         // Manejo de errores en la inserción
@@ -183,7 +149,8 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode([
     'analisis_externos' => $analisis_externos,
-    'id_actaMuestreo' => $nuevo_id,  // Asegúrate de que esta línea está incluida
-    'updateExito' => $updateExito ? 'actualización exitosa' : 'fallo en actualización id_original'
+    'id_actaMuestreo' => $nuevo_id,
+    'numero_acta' => $numero_acta,
+    'numero_registro' => $numero_registro
 ], JSON_UNESCAPED_UNICODE);
 ?>

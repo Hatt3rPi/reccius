@@ -1,5 +1,4 @@
 body {
-
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -7,7 +6,6 @@ body {
 
 #form-container {
     width: 1000px;
-    /* height: 792pt; */
     padding: 20px;
     box-sizing: border-box;
     background-color: #FFF;
@@ -17,7 +15,6 @@ body {
     position: relative;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
 
 .form-row {
     display: flex;
@@ -33,18 +30,12 @@ body {
     padding-right: 10px;
     width: 200px;
     height: 100px;
-    /* Ajusta el ancho para llenar la sección del footer */
     text-align: center;
 }
 
-/* ... Resto de estilos ... */
-
-
-
+/* Estilos de header */
 .header,
 .header-bottom,
-.table-section,
-.footer-box,
 .footer {
     margin: 0;
     padding-top: 1px;
@@ -55,21 +46,8 @@ body {
     background-color: #FFF;
 }
 
-.footer,
-.additionalfooter {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-height: 276pt;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-}
-
 .header,
 .header-bottom,
-.content,
 .footer {
     justify-content: space-between;
     align-items: center;
@@ -93,71 +71,19 @@ body {
     height: 50px;
 }
 
-.header-right {
-    font-size: 10px;
-    font-family: 'Arial', sans-serif;
-    flex: 2;
+.header-right,
+.header-bottom-right,
+.footer-box {
     text-align: right;
+    font-size: 10px;
 }
 
 .header-right table {
     width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #000;
 }
 
-.header-right table td {
-    font-size: 10px;
-    padding: 5px;
-    border: 1px dotted #000;
-    text-align: left;
-}
-
-.header-right table td:first-child {
-    font-weight: bold;
-}
-
-.editable.resp {
-    width: 100px;
-    background-color: #ffffff;
-    border: 1px solid #000;
-    padding: 3px;
-    font-size: 10px;
-}
-
-/* Esta regla es redundante ya que ya existe .header-right con text-align y font-size */
-.header-right,
-.header-bottom-right,
-.footer-box {
-    /* Puedes eliminar esta regla redundante */
-}
-
-/* Este bloque también es redundante ya que se ajusta en .header-right table td */
-.header-right th:nth-child(2),
-.header-right td:nth-child(2) {
-    text-align: left;
-    font-size: 10px;
-    padding-left: 5px;
-}
-
-/* Ya está definido arriba en .header-right table, por lo tanto puedes eliminar esto */
-.header-right table {
-    /* Elimina esta regla ya que es redundante */
-}
-
-/* Ya está definido en .header-right table td */
 .header-right table td,
 .header-right table th {
-    font-size: 10px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 3px;
-    padding-right: 1px;
-    border: 1px dotted #000;
-}
-
-/* Mantener este bloque si es necesario el estilo específico para los encabezados */
-.header-right-th {
     font-size: 8px;
     white-space: nowrap;
     overflow: hidden;
@@ -168,13 +94,123 @@ body {
     padding-right: 1px;
 }
 
-tbody {
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-left: 10px;
-    padding-right: 10px;
+/* Estilos de footer */
+.footer,
+.additionalfooter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 276pt;
+    display: flex;
+    justify-content: center;
 }
 
+.footer-box {
+    align-items: center;
+    display: flex;
+    font-size: 8px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border: 1px solid #000;
+    height: auto;
+    width: 220px;
+}
+
+.footer-containerDIV {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    padding: 10pt;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 1pt;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    height: auto;
+}
+
+/* Estilos de firmas en el footer */
+.firma-section {
+    padding: 10pt;
+    margin: 5pt;
+    flex: 1;
+    max-width: 30%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    align-items: center;
+}
+
+.firma-box-title {
+    font-size: 10px;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    height: 21px;
+    width: 100%;
+}
+
+.firma-boxes {
+    border: 1pt solid #000;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150pt;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.signature {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7pt 0;
+    font-size: 10pt;
+    height: 64pt;
+    width: 64pt;
+}
+
+.date {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 5px;
+    height: 15px;
+    width: 100%;
+}
+
+.bold {
+    font-weight: bold;
+    width: 266px;
+}
+
+.text-bottom {
+    text-align: center;
+    font-size: 10px;
+}
+
+.firma {
+    max-width: 100%;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    /* Ajusta dinámicamente */
+}
 
 .sub-info,
 .bold {
@@ -404,6 +440,25 @@ p {
     /* Relleno alrededor del texto */
 }
 
+/* Estilo para th dentro de .header-right table */
+.header-right-th {
+    font-size: 8px;
+    /* Tamaño de fuente más pequeño para th */
+    white-space: nowrap;
+    /* Asegura que el texto no se envuelva */
+    overflow: hidden;
+    /* Oculta el contenido que desborde el tamaño del elemento */
+    text-overflow: ellipsis;
+    /* Añade puntos suspensivos si el texto se desborda */
+    padding-top: 0px;
+    /* Relleno superior */
+    padding-bottom: 0px;
+    /* Relleno inferior */
+    padding-left: 3px;
+    /* Relleno izquierdo */
+    padding-right: 1px;
+    /* Relleno derecho */
+}
 
 
 

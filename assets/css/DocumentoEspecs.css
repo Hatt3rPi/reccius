@@ -529,7 +529,7 @@ p {
 }
 
 .footer-containerDIV {
-    position: relative;
+    position: absolute;
     /* Cambia de absolute a relative para que se ajuste dinámicamente al contenido */
     bottom: 0;
     left: 0;

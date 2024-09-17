@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -355,7 +354,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
         function cargarDatosEspecificacion(id) {
-            console.log("A1")
+            console.log("A1");
             $.ajax({
                 url: './backend/calidad/documento_especificacion_productoBE.php',
                 type: 'GET',
@@ -363,15 +362,51 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     id: id
                 },
                 success: function(response) {
+                    // Procesar los datos recibidos
                     procesarDatosEspecificacion(response);
-                    verificarYMostrarBotonFirma(response);
-                    ajustarSeccionesPorFilas(); // Ajustar las secciones según la cantidad de filas
+
+                    // Verificar y mostrar el botón de firma
+                    try {
+                        if (!response?.productos?.length || !Array.isArray(response.productos)) {
+                            console.log("Respuesta no válida o sin productos");
+                            return; // Si la respuesta no es válida, no hacer nada
+                        }
+
+                        let especificacion = response.productos[0].especificaciones[Object.keys(response.productos[0].especificaciones)[0]];
+
+
+                        // Extraer los datos de firmas
+                        let creado_por = {
+                            usuario: especificacion.creado_por.usuario,
+                            fecha_edicion: especificacion.fecha_edicion // Asegúrate de que esta propiedad exista
+                        };
+                        let revisado_por = {
+                            usuario: especificacion.revisado_por.usuario,
+                            fecha_revision: especificacion.revisado_por.fecha_revision
+                        };
+                        let aprobado_por = {
+                            usuario: especificacion.aprobado_por.usuario,
+                            fecha_aprobacion: especificacion.aprobado_por.fecha_aprobacion
+                        };
+
+                        // Obtener el nombre del usuario actual
+                        var usuarioNombre = "<?php echo $_SESSION['usuario']; ?>";
+                        // Llamar a la función para verificar y mostrar el botón de firma
+                        verificarYMostrarBotonFirma2(creado_por, revisado_por, aprobado_por, usuarioNombre);
+
+                    } catch (error) {
+                        console.error("Error al procesar los datos para la firma:", error);
+                    }
+
+                    // Ajustar las secciones según la cantidad de filas
+                    ajustarSeccionesPorFilas();
                 },
                 error: function(xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
                 }
             });
         }
+
 
         function ajustarSeccionesPorFilas() {
             const analisisFQRows = document.querySelectorAll('#analisisFQ tbody tr').length;
@@ -708,6 +743,59 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 botonFirma.title = "Documento debe estar firmado por revisor para poder aprobarlo";
             }
         }
+        function verificarYMostrarBotonFirma2(creado_por, revisado_por, aprobado_por, usuarioNombre) {
+            let botonFirma = document.getElementById('sign-document');
+            if (!botonFirma) return;
+
+            // Extraer información de los parámetros
+            let creadorUsuario = creado_por.usuario;
+            let fechaEdicion = creado_por.fecha_edicion;
+
+            let revisorUsuario = revisado_por.usuario;
+            let fechaRevision = revisado_por.fecha_revision;
+
+            let aprobadorUsuario = aprobado_por.usuario;
+            let fechaAprobacion = aprobado_por.fecha_aprobacion;
+
+            // Determinar los roles del usuario actual
+            let esCreador = creadorUsuario === usuarioNombre;
+            let esRevisor = revisorUsuario === usuarioNombre;
+            let esAprobador = aprobadorUsuario === usuarioNombre;
+
+            // Variable para controlar si se muestra el botón
+            let mostrarBoton = false;
+
+            // Lógica para el Creador
+            if (esCreador && !fechaEdicion) {
+                // El creador aún no ha firmado
+                mostrarBoton = true;
+                console.log("Mostrar botón de firma para Creador (habilitado)");
+            }
+
+            // Lógica para el Revisor
+            if (esRevisor && fechaEdicion && !fechaRevision) {
+                // El revisor puede firmar después de que el creador ha firmado
+                mostrarBoton = true;
+                console.log("Mostrar botón de firma para Revisor (habilitado)");
+            }
+
+            // Lógica para el Aprobador
+            if (esAprobador && fechaRevision && !fechaAprobacion) {
+                // El aprobador puede firmar después de que el revisor ha firmado
+                mostrarBoton = true;
+                console.log("Mostrar botón de firma para Aprobador (habilitado)");
+            }
+
+            // Mostrar u ocultar el botón según corresponda
+            if (mostrarBoton) {
+                botonFirma.style.display = 'block';
+                botonFirma.disabled = false;
+            } else {
+                botonFirma.style.display = 'none';
+                console.log("No hay acciones de firma disponibles para este usuario.");
+            }
+        }
+
 
 
         function actualizarEstadoDocumento() {
