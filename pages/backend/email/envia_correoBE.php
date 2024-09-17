@@ -90,7 +90,7 @@ function enviarCorreo_transitorio(
                 if (!filter_var($copiado['email'], FILTER_VALIDATE_EMAIL)) {
                     throw new Exception("Error: Dirección de correo CC no válida: " . $copiado['email']);
                 }
-                $mail->addCC($copiado['email'], $copiado['nombre']);
+                $mail->addCC($copiado['email']);
             }
         }
 
