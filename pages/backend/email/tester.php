@@ -30,7 +30,18 @@ for ($i = 1; $i <= $totalTests; $i++) {
 
     // Asunto y cuerpo del correo
     $asunto = "Test Email - $i Destinatario(s)";
-    $cuerpo = "<p>Este es un correo de prueba enviado a $i destinatario(s).</p>";
+    $cuerpo = "Estimados Pharma ISA,
+Junto con saludar, comento que con fecha 16/09/2024, enviamos solicitud de análisis externo para el producto: CORREOS TEST2 - Materia Prima - Lote: 121212
+
+Adjuntamos la información necesaria para ingresar a análisis:
+
+Solicitud de Análisis Externo: Ver archivo
+Solicitud Acta de Muestreo: Ver archivo
+Documento adicional: Ver archivo
+
+PD: El correo fue generado de una casilla automática. favor derivar sus respuestas a Luciano Abarca (lucianoalonso2000@gmail.com) y Macarena Alejandra Godoy Castro (mgodoy@reccius.cl).
+Saluda atentamente,
+Farmacéutica Reccius SPA";
     $altBody = "Este es un correo de prueba enviado a $i destinatario(s).";
 
     // Enviar el correo utilizando la función enviarCorreo_transitorio
