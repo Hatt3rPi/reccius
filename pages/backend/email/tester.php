@@ -4,7 +4,7 @@ require '/home/customw2/librerias/PHPMailer-6.9.1/src/Exception.php';
 require '/home/customw2/librerias/PHPMailer-6.9.1/src/PHPMailer.php';
 require '/home/customw2/librerias/PHPMailer-6.9.1/src/SMTP.php';
 require '/home/customw2/conexiones/config_correo_noreply.php';
-require '/home/customw2/pages/backend/email/envia_correoBE.php'; // Asegúrate de que este archivo contiene la función enviarCorreo_transitorio
+require './envia_correoBE.php'; // Asegúrate de que este archivo contiene la función enviarCorreo_transitorio
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
