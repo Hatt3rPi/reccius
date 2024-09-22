@@ -561,7 +561,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     isDisabled: true
                 }
             ])
-            $('#contenedor_obsOriginal').css('visibility', 'hidden');
+            
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
