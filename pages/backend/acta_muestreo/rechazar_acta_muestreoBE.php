@@ -46,23 +46,23 @@ try {
         throw new Exception("Error al preparar la declaración para calidad_acta_muestreo: " . $link->error);
     }
     // 2. Actualiza en la tabla tareas relacionadas con calidad_acta_muestreo
-    $stmt = $link->prepare("UPDATE calidad_productos_analizados SET id_actaMuestreo=null where id_analisisExterno=?;");
+    $stmt = $link->prepare("UPDATE calidad_productos_analizados SET id_actaMuestreo=null where id_actaMuestreo=?;");
     if ($stmt) {
-    $stmt->bind_param("i", $id_analisisExterno);
+    $stmt->bind_param("i", $id_actaMuestreo);
     $stmt->execute();
     $resultados[] = "calidad_productos_analizados relacionadas con calidad_acta_muestreo: actualización exitosa";
     $stmt->close();
     } else {
     throw new Exception("Error al preparar la declaración para calidad_productos_analizados relacionadas con calidad_acta_muestreo: " . $link->error);
     }
-    
+
     // 6. Actualiza en la tabla tareas relacionadas con calidad_acta_muestreo
     $stmt = $link->prepare("UPDATE tareas t
     JOIN calidad_acta_muestreo cam ON t.id_relacion = cam.id AND t.tabla_relacion = 'calidad_acta_muestreo'
     SET t.estado = 'eliminado_por_solicitud_usuario'
     WHERE cam.id = ?");
     if ($stmt) {
-    $stmt->bind_param("i", $id_analisisExterno);
+    $stmt->bind_param("i", $id_actaMuestreo);
     $stmt->execute();
     $resultados[] = "tareas relacionadas con calidad_acta_muestreo: actualización exitosa";
     $stmt->close();
