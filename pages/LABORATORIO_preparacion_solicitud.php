@@ -561,7 +561,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     isDisabled: true
                 }
             ])
-
+            $('#form_observaciones').style.display = 'none';
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
@@ -738,6 +738,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         isDisabled: false
                 }
             ];
+            $('#form_observaciones').style.display = 'none';
             //* IV. Solicitud de Análisis Externo
             var arrToSetAdditionalInfo = [];
             if (analisis.laboratorio) {
