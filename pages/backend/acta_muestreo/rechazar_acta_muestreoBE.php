@@ -58,9 +58,9 @@ try {
 
     // 6. Actualiza en la tabla tareas relacionadas con calidad_acta_muestreo
     $stmt = $link->prepare("UPDATE tareas t
-    JOIN calidad_acta_muestreo cam ON t.id_relacion = cam.id AND t.tabla_relacion = 'calidad_acta_muestreo'
-    SET t.estado = 'eliminado_por_solicitud_usuario'
-    WHERE cam.id = ?");
+                            JOIN calidad_acta_muestreo cam ON t.id_relacion = cam.id
+                            SET t.estado = 'eliminado_por_solicitud_usuario'
+                            WHERE t.tabla_relacion = 'calidad_acta_muestreo' AND t.id_relacion = ?");
     if ($stmt) {
     $stmt->bind_param("i", $id_actaMuestreo);
     $stmt->execute();
