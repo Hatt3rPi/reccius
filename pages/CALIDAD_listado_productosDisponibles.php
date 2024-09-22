@@ -271,7 +271,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
 
             }
-            var progreso_acta_muestreo = ` revisar
+            var progreso_acta_muestreo = ` 
                 <div class="custom-barra_progreso">
                     <ul class="barra_progreso">
                         <li class="section ${d.id_actaMuestreo ? 'pg_completado' : 'pg_estado_actual'}">

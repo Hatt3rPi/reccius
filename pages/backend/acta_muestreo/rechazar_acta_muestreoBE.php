@@ -1,5 +1,5 @@
 <?php
-// archivo: pages\backend\analisis\eliminar_analisis_externoBE.php
+// archivo: pages\backend\acta_muestreo\rechazar_acta_muestreoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
@@ -45,6 +45,17 @@ try {
     } else {
         throw new Exception("Error al preparar la declaración para calidad_acta_muestreo: " . $link->error);
     }
+    // 2. Actualiza en la tabla tareas relacionadas con calidad_acta_muestreo
+    $stmt = $link->prepare("UPDATE calidad_productos_analizados SET id_actaMuestreo=null where id_analisisExterno=?;");
+    if ($stmt) {
+    $stmt->bind_param("i", $id_analisisExterno);
+    $stmt->execute();
+    $resultados[] = "calidad_productos_analizados relacionadas con calidad_acta_muestreo: actualización exitosa";
+    $stmt->close();
+    } else {
+    throw new Exception("Error al preparar la declaración para calidad_productos_analizados relacionadas con calidad_acta_muestreo: " . $link->error);
+    }
+    
     // 6. Actualiza en la tabla tareas relacionadas con calidad_acta_muestreo
     $stmt = $link->prepare("UPDATE tareas t
     JOIN calidad_acta_muestreo cam ON t.id_relacion = cam.id AND t.tabla_relacion = 'calidad_acta_muestreo'
