@@ -255,8 +255,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             //revisar analisis externo
             if ( (d.estado === "Pendiente ingreso resultados laboratorio" ||
                 d.estado === "Pendiente ingreso resultados" ) && d.revisado_por === usuarioActual ) {
-                //acciones +=  `<button class="accion-btn" title="Ingresar resultados Laboratorio" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ingresar resultados de Laboratorio</button><a> </a>`;
-                acciones += `<button class="accion-btn" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
+                acciones +=  `<button class="accion-btn" title="Ingresar resultados Laboratorio" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ingresar resultados de Laboratorio</button><a> </a>`;
+                //acciones += `<button class="accion-btn" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
             }
 
             if (d.estado === "Finalizado") {

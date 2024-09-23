@@ -271,20 +271,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
 
             }
-            var progreso_acta_muestreo = `
+            var progreso_acta_muestreo = ` 
                 <div class="custom-barra_progreso">
                     <ul class="barra_progreso">
-                        <li class="section ${d.am_generador ? 'pg_completado' : 'pg_estado_actual'}">
+                        <li class="section ${d.id_actaMuestreo ? 'pg_completado' : 'pg_estado_actual'}">
                             <div class="circle">1</div>
                             <div class="label">Creación Acta de Muestreo</div>
                             <div class="user_done">${d.am_generador ? d.am_generador : d.am_muestreador}</div>
                         </li>
-                        <li class="section ${(d.am_fecha_muestreo && d.am_fecha_firma_responsable) ? 'pg_completado' : (!d.am_fecha_muestreo && d.am_generador) ? 'pg_estado_actual' : ''}">
+                        <li class="section ${(d.am_fecha_firma_muestreador) ? 'pg_completado' : (!d.am_fecha_firma_muestreador && d.id_actaMuestreo) ? 'pg_estado_actual' : ''}">
                             <div class="circle">2</div>
                             <div class="label">Muestreo finalizado</div>
                             <div class="user_done">${d.am_muestreador ? d.am_muestreador : 'Por definir'}</div>
                         </li>
-                        <li class="section ${(d.am_fecha_firma_responsable && d.am_fecha_firma_verificador) ? 'pg_completado' : (!d.am_fecha_firma_responsable && d.am_fecha_muestreo) ? 'pg_estado_actual' : ''}">
+                        <li class="section ${(d.am_fecha_firma_responsable && d.am_fecha_firma_verificador) ? 'pg_completado' : (!d.am_fecha_firma_responsable && d.am_fecha_firma_muestreador) ? 'pg_estado_actual' : ''}">
                             <div class="circle">3</div>
                             <div class="label">Firma responsable</div>
                             <div class="user_done">${d.am_responsable ? d.am_responsable : 'Por definir'}</div>

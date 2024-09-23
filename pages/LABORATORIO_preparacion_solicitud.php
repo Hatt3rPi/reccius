@@ -165,7 +165,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group" id="contenedor_obsOriginal">
                         <label>Observaciones:</label>
                         <textarea name="form_observaciones" id="form_observaciones" class="highlight form-control mx-0 w-90 border rounded-sm editable" rows="4" placeholder="..."></textarea>
                     </div>
@@ -561,7 +561,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     isDisabled: true
                 }
             ])
-
+            
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
                 var especificacion = especificaciones[0];
@@ -738,6 +738,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         isDisabled: false
                 }
             ];
+            $('#contenedor_obsOriginal').css('visibility', 'hidden');
             //* IV. Solicitud de Análisis Externo
             var arrToSetAdditionalInfo = [];
             if (analisis.laboratorio) {

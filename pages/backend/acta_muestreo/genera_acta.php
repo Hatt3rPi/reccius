@@ -148,6 +148,22 @@ $id_analisis_externo = isset($_GET['id_analisis_externo']) ? intval($_GET['id_an
         $updateExito = mysqli_stmt_execute($updateStmt);
 
         mysqli_stmt_close($updateStmt); // Cierra el statement del update
+        $updateQuery = "UPDATE calidad_productos_analizados SET id_actaMuestreo = ? WHERE id_analisisExterno = ?";
+        $update2Stmt = mysqli_prepare($link, $updateQuery);
+        mysqli_stmt_bind_param($update2Stmt, "ii", $nuevo_id, $id_analisis_externo); // Actualiza el campo id_original con el mismo nuevo_id
+        $updateExito = mysqli_stmt_execute($update2Stmt);
+        mysqli_stmt_close($update2Stmt); // Cierra el statemen
+        registrarTrazabilidad(
+            $_SESSION['usuario'], 
+            $_SERVER['PHP_SELF'], 
+            'Asigna Acta de Muestreo a Producto en Cuarententa', 
+            'acta de muestreo',  
+            $nuevo_id, 
+            $updateQuery,  
+            [$nuevo_id, $id_analisis_externo], 
+            $updateExito ? 1 : 0, 
+            $updateExito ? null : mysqli_error($link)
+        );
     // Ejecutar la declaración
     registrarTrazabilidad(
         $_SESSION['usuario'], 

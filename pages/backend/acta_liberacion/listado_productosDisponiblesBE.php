@@ -28,6 +28,7 @@ $query = "SELECT
 				c.revisado_por as 'aex_revisado_por', 
 				c.solicitado_por as 'aex_firma1',
 				c.estado as 'aex_estado',
+                d.fecha_firma_muestreador as 'am_fecha_firma_muestreador',
                 d.fecha_firma_responsable  as 'am_fecha_firma_responsable',
                 d.fecha_firma_verificador as 'am_fecha_firma_verificador',
                 d.fecha_muestreo  as 'am_fecha_muestreo'

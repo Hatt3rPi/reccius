@@ -1276,6 +1276,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.log('Datos recibidos para nueva acta:', data);
                         if (data.id_actaMuestreo) {
                             $('#id_actaMuestreo').text(data.id_actaMuestreo);
+                            $('#nro_acta').text(data.numero_acta);
                         }
                         if (data.analisis_externos && data.analisis_externos.length > 0) {
                             procesarDatosActa(data.analisis_externos[0], resultados, etapa, opcional2);

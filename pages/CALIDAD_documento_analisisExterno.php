@@ -529,6 +529,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var datosFirma2 = {};
 
     function loadData() {
+        console.log("Iniciando función loadData()");
         $.ajax({
             url: './backend/analisis/ingresar_resultados_analisis.php',
             type: 'GET',
@@ -537,10 +538,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
             success: function(response) {
+                console.log("AJAX Success:", response);
+
                 // Suponiendo que la respuesta tiene dos partes principales
                 const analisis = response.analisis; // Datos del análisis externo
+                console.log("Datos de 'analisis':", analisis);
+
                 // Poblar la tabla III. ANÁLISIS SOLICITADOS
                 const analisisSolicitados = response.analiDatos;
+                console.log("Datos de 'analisisSolicitados':", analisisSolicitados);
+
                 const table = $('#analisis-solicitados');
                 const highlight = "<?php
                         $etapa = $_POST['etapa'];
@@ -551,7 +558,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             echo 'input-highlight';
                         }
                         ?>";
+                console.log("Valor de 'highlight':", highlight);
+
                 analisisSolicitados.forEach(function(analisis, index) {
+                    console.log(`Procesando analisisSolicitados[${index}]:`, analisis);
                     const row = `
                     <tr class="bordeAbajo checkLine" data-id="${analisis.anali_id_analisis}">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
@@ -576,31 +586,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     table.append(row);
                 });
 
-                if (analisis.length > 0) {
+                if (analisis && analisis.length > 0) {
+                    console.log("Analisis tiene datos.");
                     const primerAnalisis = analisis[0];
-                    idAnalisisExterno_acta = primerAnalisis.id
+                    console.log("Datos de 'primerAnalisis':", primerAnalisis);
+
+                    idAnalisisExterno_acta = primerAnalisis.id;
+
                     // Actualizar los inputs con los datos del análisis
-                    //TABLA HEADER
+                    // TABLA HEADER
                     $('#numero_registro').text(primerAnalisis.numero_registro);
                     $('#version').text(primerAnalisis.version);
                     $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
                     $('#fecha_registro').text(primerAnalisis.fecha_registro);
 
-                    //
                     // Sumar los resultados de producto en un solo texto
-                    
                     var productoCompleto = 
                         (primerAnalisis.prod_nombre_producto != null ? primerAnalisis.prod_nombre_producto : '') + ' ' +
                         (primerAnalisis.prod_concentracion != null ? primerAnalisis.prod_concentracion : '') + ' ' +
                         (primerAnalisis.prod_formato != null ? primerAnalisis.prod_formato : '');
+                    console.log("Producto completo:", productoCompleto);
+
                     // Actualizar el elemento con el texto combinado
                     $('#nombre_producto').text(productoCompleto);
-                    // Actualizar el elemento con el texto combinado
                     $('#nombre_producto2').val(productoCompleto);
-                    //TITULO TABLA
+
+                    // TÍTULO TABLA
                     $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
 
-                    //TABLA 1
+                    // TABLA 1
                     $('#laboratorio').val(primerAnalisis.laboratorio);
                     $('#fecha_solicitud').val(moment(primerAnalisis.fecha_solicitud, 'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#analisis_segun').val(primerAnalisis.analisis_segun);
@@ -609,12 +623,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#estandar_segun').val(primerAnalisis.estandar_segun);
                     $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
                     
-                    //$('#estandar_otro').val(primerAnalisis.estandar_otro);
-                    //$('#hds_adjunto').val(primerAnalisis.hds_adjunto);
                     $('#hds_otro').val(primerAnalisis.hds_otro);
                     $('#fecha_entrega_estimada').val(moment(primerAnalisis.fecha_entrega_estimada, 'YYYY-MM-DD').format('DD/MM/YYYY'));
 
-                    //TABLA 2
+                    // TABLA 2
                     $('#formato').val(primerAnalisis.prod_formato);
                     $('#lote').val(primerAnalisis.lote);
                     $('#tamano_lote').val(primerAnalisis.tamano_lote);
@@ -634,14 +646,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#estado').val(primerAnalisis.estado);
                     $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
 
-                    //III
-                    //$("#resultados_analisis").val(resultados_analisis)
-                    if (
-                        primerAnalisis.estado !== "Pendiente ingreso resultados"
-                    ) {
-                        $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis) //1
-                        $("#fecha_entrega").val(primerAnalisis.fecha_entrega) //3
-                        $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis) //4
+                    // III
+                    if (primerAnalisis.estado !== "Pendiente ingreso resultados") {
+                        console.log("El estado no es 'Pendiente ingreso resultados'.");
+                        $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis);
+                        $("#fecha_entrega").val(primerAnalisis.fecha_entrega);
+                        $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis);
                         $("#certificado_de_analisis_externo_label")
                             .attr("type", "text")
                             .html(`<span>
@@ -650,16 +660,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <a href="${primerAnalisis.url_certificado_de_analisis_externo}" target="_blank">Ver Certificado</a>`);
 
                         var resultList = primerAnalisis.resultados_analisis == null ? [] : JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
-                        console.log('resultList', resultList);
+                        console.log('Lista de resultados:', resultList);
+
                         resultList.forEach((res, index) => {
+                            console.log(`Procesando resultList[${index}]:`, res);
                             if (res === 1) {
-                                $(`#btn-check-a-${index}`).prop('checked', true)
+                                $(`#btn-check-a-${index}`).prop('checked', true);
                             } else if (res === 0) {
-                                $(`#btn-check-b-${index}`).prop('checked', true)
+                                $(`#btn-check-b-${index}`).prop('checked', true);
                             }
                             $(`#btn-check-a-${index}`).prop('disabled', true);
                             $(`#btn-check-b-${index}`).prop('disabled', true);
-
                         });
 
                         $("#laboratorio_nro_analisis").prop("readonly", true);
@@ -667,105 +678,118 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $("#fecha_entrega").prop("readonly", true);
                         $("#laboratorio_fecha_analisis").prop("readonly", true);
 
-                        $("#download-pdf").show()
-                        $("#revisar").hide()
+                        $("#download-pdf").show();
+                        $("#revisar").hide();
 
                     } else {
-                        console.log('no hay certificado');
-                        console.log(primerAnalisis.revisado_por, "<?php echo $_SESSION['usuario'] ?>");
+                        console.log('Estado es "Pendiente ingreso resultados".');
+                        console.log('No hay certificado disponible.');
+                        console.log('Comparando primerAnalisis.revisado_por:', primerAnalisis.revisado_por, 'con usuario de sesión:', "<?php echo $_SESSION['usuario'] ?>");
                         
-                        primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>" && $("#revisar").show();
+                        if (primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>") {
+                            $("#revisar").show();
+                        }
                     }
 
                     if (primerAnalisis.firmas) {
-                        var soli = primerAnalisis.firmas.solicitado_por
-                        var revis = primerAnalisis.firmas.revisado_por
+                        console.log('Datos de firmas:', primerAnalisis.firmas);
+                        var soli = primerAnalisis.firmas.solicitado_por;
+                        var revis = primerAnalisis.firmas.revisado_por;
+                        console.log('Solicitado por:', soli);
+                        console.log('Revisado por:', revis);
+
                         if (primerAnalisis.solicitado_por) {
                             $("#fecha_firma1").text(primerAnalisis.fecha_firma_1).show();
                             $("#mensaje_firma1").show();
-                            $("#solicitado_por_name").text(soli.nombre).show()
-                            $("#cargo_solicitador").text(soli.cargo).show()
+                            $("#solicitado_por_name").text(soli.nombre).show();
+                            $("#cargo_solicitador").text(soli.cargo).show();
 
                             if (soli.qr_documento) {
-                                var qr = soli.qr_documento
-                                console.log('1 ----', qr);
+                                var qr = soli.qr_documento;
+                                console.log('QR del documento (solicitado_por):', qr);
                                 fetch(qr).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                     const reader = new FileReader();
                                     reader.onloadend = () => resolve(reader.result);
                                     reader.readAsDataURL(blob);
                                 })).then((data) => {
-                                    console.log("solicitado_por.qr_documento", data)
+                                    console.log("Datos del QR (solicitado_por):", data);
                                     $("#solicitado_por_firma").attr("src", data);
-                                })
+                                });
                             }
-                            if (soli.qr_documento === null &&
-                                soli.foto_firma) {
-                                console.log('2 ----');
+                            if (soli.qr_documento === null && soli.foto_firma) {
+                                console.log('Usando foto de firma (solicitado_por).');
                                 fetch(soli.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                     const reader = new FileReader();
                                     reader.onloadend = () => resolve(reader.result);
                                     reader.readAsDataURL(blob);
                                 })).then((data) => {
-                                    console.log("solicitado_por.foto_firma", data)
+                                    console.log("Datos de la foto de firma (solicitado_por):", data);
                                     $("#solicitado_por_firma").attr("src", data);
-                                })
+                                });
                             }
                         }
                         if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
-
                             $("#fecha_firma2").text(primerAnalisis.fecha_firma_2).show();
                             $("#mensaje_firma2").show();
-                            $("#revisado_por_name").text(revis.nombre).show()
-                            $("#cargo_revisador").text(revis.cargo).show()
+                            $("#revisado_por_name").text(revis.nombre).show();
+                            $("#cargo_revisador").text(revis.cargo).show();
 
                             if (revis.qr_documento) {
+                                console.log('QR del documento (revisado_por):', revis.qr_documento);
                                 fetch(revis.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                     const reader = new FileReader();
                                     reader.onloadend = () => resolve(reader.result);
                                     reader.readAsDataURL(blob);
                                 })).then((data) => {
-                                    console.log("revisado_por.qr_documento", data)
+                                    console.log("Datos del QR (revisado_por):", data);
                                     $("#revisado_por_firma").attr("src", data);
-                                })
+                                });
                             }
-                            if (revis.qr_documento === null &&
-                                revis.foto_firma) {
+                            if (revis.qr_documento === null && revis.foto_firma) {
+                                console.log('Usando foto de firma (revisado_por).');
                                 fetch(revis.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
                                     const reader = new FileReader();
                                     reader.onloadend = () => resolve(reader.result);
                                     reader.readAsDataURL(blob);
                                 })).then((data) => {
-                                    console.log("revisado_por.foto_firma", data)
+                                    console.log("Datos de la foto de firma (revisado_por):", data);
                                     $("#revisado_por_firma").attr("src", data);
-                                })
+                                });
                             }
                         } else {
-                            datosFirma2 = {
+                            var datosFirma2 = {
                                 fecha: primerAnalisis.laboratorio_fecha_analisis,
                                 nombre: revis.nombre,
                                 cargo: revis.cargo,
                                 firma: revis.qr_documento ? revis.qr_documento : revis.foto_firma
-                            }
+                            };
+                            console.log("Datos para firma 2:", datosFirma2);
                         }
                     }
+                } else {
+                    console.log("El array 'analisis' está vacío o es indefinido.");
                 }
-
-
 
                 // Manejo de Acta Muestreo
                 const actaMuestreo = response.Acta_Muestreo;
-                if (actaMuestreo.length > 0) {
+                console.log("Datos de 'Acta_Muestreo':", actaMuestreo);
+
+                if (actaMuestreo && actaMuestreo.length > 0) {
                     const ultimaActa = actaMuestreo[0];
+                    console.log("Última acta de muestreo:", ultimaActa);
                     // Poblar campos adicionales de acta de muestreo si es necesario
                 }
             },
             error: function(xhr, status, error) {
-                console.error('Error cargando los datos: ' + error);
-                console.error('AJAX error: ' + status + ' : ' + error);
+                console.error('Error en AJAX:', error);
+                console.error('Estado:', status);
+                console.error('Respuesta completa:', xhr);
+                console.error('Respuesta del servidor:', xhr.responseText);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
         });
     }
+
 
     $(document).ready(function() {
 
