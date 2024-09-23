@@ -6,23 +6,23 @@
     // Función para actualizar el gráfico
     function updateChart(data) {
         var ctx = document.getElementById('barChart').getContext('2d');
-        var labels = data.map(item => item.estado); // Extrae los nombres de los estados
+        var labels = data.map(item => item.tipo_producto); // Extrae los nombres de los tipos de productos
         var counts = data.map(item => item.contador); // Extrae los conteos de productos
 
-        var barChart = new Chart(ctx, {
-            type: 'bar',
+        var pieChart = new Chart(ctx, {
+            type: 'pie', // Cambia el tipo a 'pie' para gráfico de torta
             data: {
                 labels: labels,
                 datasets: [{
                     label: '# de Productos',
                     data: counts,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
@@ -38,11 +38,6 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
                 plugins: {
                     legend: {
                         position: 'top',
@@ -50,12 +45,12 @@
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                var label = context.dataset.label || '';
+                                var label = context.label || '';
                                 if (label) {
                                     label += ': ';
                                 }
-                                if (context.parsed.y !== null) {
-                                    label += context.parsed.y;
+                                if (context.raw !== null) {
+                                    label += context.raw;
                                 }
                                 return label;
                             }
