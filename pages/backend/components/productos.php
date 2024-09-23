@@ -9,10 +9,9 @@ $response = [
 ];
 
 try {
-    // Consulta con JOIN para obtener el tipo de producto
+    // Consulta con JOIN para obtener el tipo de producto agrupado por tipo_producto
     $query = "
         SELECT 
-            cpa.id_producto, 
             cp.tipo_producto, 
             COUNT(*) as contador 
         FROM 
@@ -24,7 +23,7 @@ try {
         WHERE 
             cpa.estado IS NOT NULL 
         GROUP BY 
-            cpa.id_producto, cp.tipo_producto;
+            cp.tipo_producto;
     ";
 
     // Preparar y ejecutar la consulta

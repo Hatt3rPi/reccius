@@ -10,7 +10,7 @@
         var counts = data.map(item => item.contador); // Extrae los conteos de productos
 
         var pieChart = new Chart(ctx, {
-            type: 'pie', // Cambia el tipo a 'pie' para gráfico de torta
+            type: 'pie', // Gráfico de torta
             data: {
                 labels: labels,
                 datasets: [{
@@ -22,7 +22,10 @@
                         'rgba(255, 206, 86, 0.6)',
                         'rgba(75, 192, 192, 0.6)',
                         'rgba(153, 102, 255, 0.6)',
-                        'rgba(255, 159, 64, 0.6)'
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 206, 150, 0.6)',
+                        'rgba(54, 162, 135, 0.6)',
+                        'rgba(75, 192, 222, 0.6)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
