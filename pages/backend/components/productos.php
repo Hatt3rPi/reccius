@@ -9,12 +9,22 @@ $response = [
 ];
 
 try {
-    // Consulta para obtener el conteo de los diferentes estados en la tabla calidad_productos_analizados
+    // Consulta con JOIN para obtener el tipo de producto
     $query = "
-        SELECT estado, COUNT(*) as contador 
-        FROM calidad_productos_analizados 
-        WHERE estado IS NOT NULL 
-        GROUP BY estado;
+        SELECT 
+            cpa.id_producto, 
+            cp.tipo_producto, 
+            COUNT(*) as contador 
+        FROM 
+            calidad_productos_analizados cpa
+        JOIN 
+            calidad_productos cp 
+        ON 
+            cpa.id_producto = cp.id
+        WHERE 
+            cpa.estado IS NOT NULL 
+        GROUP BY 
+            cpa.id_producto, cp.tipo_producto;
     ";
 
     // Preparar y ejecutar la consulta
@@ -27,7 +37,7 @@ try {
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
         $response['data'][] = [
-            'estado' => $row['estado'],
+            'tipo_producto' => $row['tipo_producto'],
             'contador' => $row['contador']
         ];
     }
