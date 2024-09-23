@@ -66,6 +66,9 @@ body {
     display: flex;
     justify-content: center;
 }
+#header-container {
+    padding: 10px;
+}
 
 .header,
 .header-bottom,
