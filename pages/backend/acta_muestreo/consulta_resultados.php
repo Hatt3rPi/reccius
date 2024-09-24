@@ -67,6 +67,16 @@ if ($stmt = mysqli_prepare($link, $query)) {
     if (empty($data)) {
         echo json_encode(['error' => 'No se encontraron datos para el ID proporcionado.']);
     } else {
+        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        foreach ($data as &$row) {
+            if (isset($row['plan_muestreo']) && !empty($row['plan_muestreo'])) {
+                // Remover slashes y decodificar JSON
+                $row['plan_muestreo'] = json_decode(stripslashes($row['plan_muestreo']), true);
+            } else {
+                $row['plan_muestreo'] = null;
+            }
+        }
         echo json_encode(['analisis_externos' => $data], JSON_UNESCAPED_UNICODE);
     }
 

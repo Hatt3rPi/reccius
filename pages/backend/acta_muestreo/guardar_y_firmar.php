@@ -21,10 +21,18 @@ $plan_muestreo = isset($input['plan_muestreo']) ? json_encode($input['plan_muest
 $observaciones = isset($input['observaciones']) ? $input['observaciones'] : null;
 $numero_solicitud = isset($input['numero_solicitud']) ? $input['numero_solicitud'] : null;
 $solicitado_por_analisis_externo = isset($input['solicitado_por_analisis_externo']) ? $input['solicitado_por_analisis_externo'] : null;
+// Procesar plan_muestreo
+$plan_muestreo = isset($input['plan_muestreo']) ? $input['plan_muestreo'] : null;
+
+// Verifica si plan_muestreo es un arreglo y conviértelo a JSON
 $plan_muestreo_json = null;
-if ($plan_muestreo !== null) {
-    $plan_muestreo_json = json_encode($plan_muestreo);
+if (is_array($plan_muestreo)) {
+    $plan_muestreo_json = json_encode($plan_muestreo, JSON_UNESCAPED_UNICODE);
+} elseif (is_string($plan_muestreo)) {
+    // Si ya es una cadena JSON, úsala directamente
+    $plan_muestreo_json = $plan_muestreo;
 }
+
 // Validar que los datos esenciales están presentes
 if (!$id_actaMuestreo || !$etapa || !$respuestas) {
     echo json_encode(['error' => 'Datos faltantes o incorrectos.']);

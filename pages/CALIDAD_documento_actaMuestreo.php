@@ -598,10 +598,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <!-- Fila para lotes de <= 500 unidades -->
                     <tr style="border-bottom: 1px solid #000;border-left: 1px solid;border-right: 1px solid;">
-                        <td readonly>&le; 500 unidades</td>
-                        <td readonly>40 unidades</td>
-                        <td readonly>80 unidades</td>
-                        <td readonly>120 Unidades</td>
+                        <td contenteditable="true">&le; 500 unidades</td>
+                        <td contenteditable="true">40 unidades</td>
+                        <td contenteditable="true">80 unidades</td>
+                        <td contenteditable="true">120 Unidades</td>
                         <td class="formulario resp">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="planResp1" id="planResp1a" value="1" autocomplete="off">
@@ -1379,7 +1379,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         document.getElementById('rechazo').style.display = 'block';
                         $('.verif').css('background-color', '#f4fac2');
                     }
-
+                    if (response.plan_muestreo) {
+                        var planMuestreoData = response.plan_muestreo;
+                        populatePlanMuestreoTable(planMuestreoData);
+                    }
                     break;
                 case 2:
                     //documento firmado por muestreador y responsable. queda pendiente firma de revisor
@@ -1396,6 +1399,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         document.getElementById('guardar').style.display = 'block';
                         document.getElementById('rechazo').style.display = 'block';
                     }
+                    if (response.plan_muestreo) {
+                        var planMuestreoData = response.plan_muestreo;
+                        populatePlanMuestreoTable(planMuestreoData);
+                    }
                     break;
                 case 3:
                     $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
@@ -1411,6 +1418,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     document.getElementById('rechazo').style.display = 'block';
                     document.getElementById('download-pdf').style.display = 'block';
                     $('#upload-pdf').show();
+                    if (response.plan_muestreo) {
+                        var planMuestreoData = response.plan_muestreo;
+                        populatePlanMuestreoTable(planMuestreoData);
+                    }
                     break;
             }
         } else {
@@ -1531,6 +1542,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     return data;
 }
+    function populatePlanMuestreoTable(planMuestreoData) {
+        var table = document.getElementById('seccion3');
+
+        // Eliminar filas existentes, excepto el encabezado
+        while (table.rows.length > 1) {
+            table.deleteRow(1);
+        }
+
+        planMuestreoData.forEach(function(item, index) {
+            var row = table.insertRow(-1);
+
+            // Crear celdas y asignar datos
+            var cell0 = row.insertCell(0);
+            cell0.innerText = item.tamanoLote;
+            cell0.contentEditable = true;
+
+            var cell1 = row.insertCell(1);
+            cell1.innerText = item.muestra;
+            cell1.contentEditable = true;
+
+            var cell2 = row.insertCell(2);
+            cell2.innerText = item.contramuestra;
+            cell2.contentEditable = true;
+
+            var cell3 = row.insertCell(3);
+            cell3.innerText = item.total;
+            cell3.contentEditable = true;
+        });
+    }
 
     function guardar_firma(selector, etapa) {
         let usuario = "<?php echo $_SESSION['usuario']; ?>";
