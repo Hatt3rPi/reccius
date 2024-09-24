@@ -62,13 +62,12 @@ if ($stmt = mysqli_prepare($link, $query)) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-    $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $data = mysqli_fetch_all($result, MYSQLI_ASSOC); // Solo una vez
 
     if (empty($data)) {
         echo json_encode(['error' => 'No se encontraron datos para el ID proporcionado.']);
     } else {
-        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
+        // Procesar plan_muestreo si está presente
         foreach ($data as &$row) {
             if (isset($row['plan_muestreo']) && !empty($row['plan_muestreo'])) {
                 // Remover slashes y decodificar JSON
