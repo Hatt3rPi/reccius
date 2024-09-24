@@ -1542,35 +1542,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     return data;
 }
-    function populatePlanMuestreoTable(planMuestreoData) {
-        var table = document.getElementById('seccion3');
+function populatePlanMuestreoTable(planMuestreoData) {
+    var table = document.getElementById('seccion3');
 
-        // Eliminar filas existentes, excepto el encabezado
-        while (table.rows.length > 1) {
-            table.deleteRow(1);
+    // Iterar sobre las 3 filas de la tabla que no incluyen el encabezado
+    for (var i = 1; i <= 3; i++) {
+        var row = table.rows[i]; // Obtener la fila correspondiente
+
+        // Verificar si hay datos para actualizar en planMuestreoData
+        if (planMuestreoData[i - 1]) {
+            var item = planMuestreoData[i - 1];
+
+            // Actualizar las celdas de la fila correspondiente
+            row.cells[0].innerText = item.tamanoLote || '';
+            row.cells[1].innerText = item.muestra || '';
+            row.cells[2].innerText = item.contramuestra || '';
+            row.cells[3].innerText = item.total || '';
         }
-
-        planMuestreoData.forEach(function(item, index) {
-            var row = table.insertRow(-1);
-
-            // Crear celdas y asignar datos
-            var cell0 = row.insertCell(0);
-            cell0.innerText = item.tamanoLote;
-            cell0.contentEditable = true;
-
-            var cell1 = row.insertCell(1);
-            cell1.innerText = item.muestra;
-            cell1.contentEditable = true;
-
-            var cell2 = row.insertCell(2);
-            cell2.innerText = item.contramuestra;
-            cell2.contentEditable = true;
-
-            var cell3 = row.insertCell(3);
-            cell3.innerText = item.total;
-            cell3.contentEditable = true;
-        });
     }
+}
+
 
     function guardar_firma(selector, etapa) {
         let usuario = "<?php echo $_SESSION['usuario']; ?>";
