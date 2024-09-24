@@ -46,7 +46,8 @@ $query = "SELECT
             usr2.usuario as usuario_firma2,
             aex.fecha_elaboracion, 
             aex.fecha_vencimiento,
-            aex.observaciones
+            aex.observaciones,
+            am.plan_muestreo 
           FROM calidad_acta_muestreo as am 
           LEFT JOIN `calidad_analisis_externo` as aex ON am.id_analisisExterno=aex.id
           LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
@@ -61,11 +62,20 @@ if ($stmt = mysqli_prepare($link, $query)) {
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-    $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $data = mysqli_fetch_all($result, MYSQLI_ASSOC); // Solo una vez
 
     if (empty($data)) {
         echo json_encode(['error' => 'No se encontraron datos para el ID proporcionado.']);
     } else {
+        // Procesar plan_muestreo si está presente
+        foreach ($data as &$row) {
+            if (isset($row['plan_muestreo']) && !empty($row['plan_muestreo'])) {
+                // Remover slashes y decodificar JSON
+                $row['plan_muestreo'] = json_decode(stripslashes($row['plan_muestreo']), true);
+            } else {
+                $row['plan_muestreo'] = null;
+            }
+        }
         echo json_encode(['analisis_externos' => $data], JSON_UNESCAPED_UNICODE);
     }
 
