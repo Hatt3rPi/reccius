@@ -1558,6 +1558,10 @@ function populatePlanMuestreoTable(planMuestreoData) {
             row.cells[1].innerText = item.muestra || '';
             row.cells[2].innerText = item.contramuestra || '';
             row.cells[3].innerText = item.total || '';
+            row.cells[0].contentEditable = false;
+            row.cells[1].contentEditable = false;
+            row.cells[2].contentEditable = false;
+            row.cells[3].contentEditable = false;
         }
     }
 }
