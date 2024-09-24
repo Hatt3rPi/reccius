@@ -17,10 +17,14 @@ $textareaData = isset($input['textareaData']) ? $input['textareaData'] : [];
 $firma2 = isset($input['firma2']) ? $input['firma2'] : null;
 $firma3 = isset($input['firma3']) ? $input['firma3'] : null;
 $acta = isset($input['acta']) ? $input['acta'] : null;
+$plan_muestreo = isset($input['plan_muestreo']) ? json_encode($input['plan_muestreo']) : null;
 $observaciones = isset($input['observaciones']) ? $input['observaciones'] : null;
 $numero_solicitud = isset($input['numero_solicitud']) ? $input['numero_solicitud'] : null;
 $solicitado_por_analisis_externo = isset($input['solicitado_por_analisis_externo']) ? $input['solicitado_por_analisis_externo'] : null;
-
+$plan_muestreo_json = null;
+if ($plan_muestreo !== null) {
+    $plan_muestreo_json = json_encode($plan_muestreo);
+}
 // Validar que los datos esenciales están presentes
 if (!$id_actaMuestreo || !$etapa || !$respuestas) {
     echo json_encode(['error' => 'Datos faltantes o incorrectos.']);
@@ -74,11 +78,15 @@ switch ($etapa) {
             echo json_encode(['error' => 'Datos de textarea faltantes para la etapa 1.']);
             exit;
         }
+        if ($plan_muestreo_json === null) {
+            echo json_encode(['error' => 'Datos del plan de muestreo faltantes para la etapa 1.']);
+            exit;
+        }
         $query = "UPDATE calidad_acta_muestreo SET
                     estado=?, resultados_muestrador=?, pregunta5=?, pregunta6=?, pregunta7=?, pregunta8=?,
-                    muestreador=?, fecha_firma_muestreador=?
+                    plan_muestreo=?, muestreador=?, fecha_firma_muestreador=?
                   WHERE id=?";
-        $types = "ssssssssi";
+        $types = "sssssssssi";
         $params = [
             $estado,
             $respuestas,
@@ -86,12 +94,14 @@ switch ($etapa) {
             $textareaData['form_textarea6'] ?? '',
             $textareaData['form_textarea7'] ?? '',
             $textareaData['form_textarea8'] ?? '',
+            $plan_muestreo_json,
             $usuario,
             $fechaActual,
             $id_actaMuestreo
         ];
         $flujo = 'Firma usuario 1 de 3';
         break;
+    
     case 2:
         $estado = 'En proceso de firma';
         $query = "UPDATE calidad_acta_muestreo SET

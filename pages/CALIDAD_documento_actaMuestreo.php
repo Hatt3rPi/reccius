@@ -1491,6 +1491,46 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 break;
         }
     });
+    function getPlanMuestreoData() {
+    var table = document.getElementById('seccion3');
+    var data = [];
+
+    // Obtener todas las filas de la tabla
+    var rows = table.getElementsByTagName('tr');
+
+    // Omitir la primera fila (encabezados)
+    for (var i = 1; i < rows.length; i++) {
+        var row = rows[i];
+
+        // Obtener todas las celdas de la fila
+        var cells = row.getElementsByTagName('td');
+
+        if (cells.length > 0) {
+            // Asumiendo la estructura:
+            // cells[0]: Tamaño de Lote
+            // cells[1]: Muestra
+            // cells[2]: Contramuestra
+            // cells[3]: Total
+            // cells[4]: Revisión Muestreador (radio buttons)
+            // cells[5]: Revisión Responsable (radio buttons)
+
+            var tamanoLote = cells[0].innerText.trim();
+            var muestra = cells[1].innerText.trim();
+            var contramuestra = cells[2].innerText.trim();
+            var total = cells[3].innerText.trim();
+
+            // Añadir los datos al array
+            data.push({
+                tamanoLote: tamanoLote,
+                muestra: muestra,
+                contramuestra: contramuestra,
+                total: total
+            });
+        }
+    }
+
+    return data;
+}
 
     function guardar_firma(selector, etapa) {
         let usuario = "<?php echo $_SESSION['usuario']; ?>";
@@ -1500,7 +1540,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
-        let observaciones = $('#form_observaciones').html(); // Esto funcionará para texto plano.
+        let observaciones = $('#form_observaciones').html();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
         let todosSeleccionados = true;
@@ -1518,6 +1558,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             respuestas: respuestas,
             textareaData: {}
         };
+
+        // Aquí agregamos el plan de muestreo al objeto dataToSave
+        dataToSave.plan_muestreo = getPlanMuestreoData();
+
         let botonesNoSeleccionados = [];
 
         // Verifica que todos los radio buttons en el selector especificado estén seleccionados
