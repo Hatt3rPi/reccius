@@ -47,7 +47,8 @@ $query = "SELECT
             aex.fecha_elaboracion, 
             aex.fecha_vencimiento,
             aex.observaciones,
-            am.plan_muestreo 
+            am.plan_muestreo,
+            am.estado
           FROM calidad_acta_muestreo as am 
           LEFT JOIN `calidad_analisis_externo` as aex ON am.id_analisisExterno=aex.id
           LEFT JOIN calidad_productos as pr ON aex.id_producto = pr.id
