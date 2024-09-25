@@ -339,8 +339,11 @@ $link->close();
 
                     </tr>
                     <tr>
-                        <td class="titulo">3. Producto:</td>
-                        <td><input type="text" id="producto_completoT3" name="producto_completoT3" readonly></td>
+                        <td class="titulo">3. Producto</td>
+                        <td>
+                            <div id="producto_completoT3" name="producto_completoT3" class="editable-div border border-black" ></div>
+                            <span> </span>
+                        </td>
                         <td class="titulo"> </td>
                         <td class="titulo">4. N° Lote:</td>
                         <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly></td>
@@ -718,7 +721,7 @@ $link->close();
                         $('#nro_loteT3').val(primerAnalisis.lote);
                         $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
                         $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
-                        $('#producto_completoT3').val(productoCompleto);
+                        $('#producto_completoT3').text(productoCompleto);
                         $('#estado_liberacion').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/PENDIENTE_WS.webp');
                         $('#imagen_firma').attr('src', 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp');
             
@@ -829,7 +832,7 @@ $link->close();
                         $('#nro_loteT3').val(campos.lote);
                         $('#fecha_elabT3').val(campos.fecha_elaboracion);
                         $('#fecha_vencT3').val(campos.fecha_vencimiento);
-                        $('#producto_completoT3').val(productoCompleto);
+                        $('#producto_completoT3').text(productoCompleto);
 
                         $('#form_textarea1').text(campos.obs1);
                         $('#form_textarea2').text(campos.obs2);

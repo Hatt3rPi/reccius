@@ -27,6 +27,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/css/DocumentoActa.css?version=1">
+    <link rel="stylesheet" href="../assets/css/Modal.css">
+    
 
 </head>
 
@@ -812,15 +814,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
 <!-- Modal de confirmación de eliminación -->
-<div id="modalRechazar" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <h2>Confirmar Rechazo</h2>
+<div id="modalRechazar" class="modalRechazo">
+    <div class="modal-contentRechazo">
+        <span class="closeRechazo" onclick="cerrarModal()">&times;</span>
+        <h2 class="textt">Confirmar Rechazo</h2>
         <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
         <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
         <p>Motivo del Rechazo:</p>
         <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
-        <button onclick="confirmarRechazo()">Confirmar</button>
+        <button class="confirmarRechazo" onclick="confirmarRechazo()">Confirmar</button>
     </div>
 </div>
 
