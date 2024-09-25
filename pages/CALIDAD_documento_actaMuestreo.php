@@ -1232,6 +1232,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         
                         if(data.analisis_externos[0].estado==="rechazado"){
                             document.getElementById('guardar').style.display = 'none';
+                            document.getElementById('rechazo').style.display = 'none';
                         }
                     } else {
                         console.error("No se encontraron datos válidos: ", data);
