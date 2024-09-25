@@ -439,7 +439,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var idProducto = button.data('id-producto');
         var modal = $(this);
         modal.find('#id_productos_analizados').val(idProducto);
-        $('.modal-backdrop').remove();
+        setTimeout(function() {
+            console.log('Cerrando modal');
+            $('.modal-backdrop').remove();
+        }
+        , 200);
     });
 
     $('#formAdjuntarArchivo').on('submit', function(event) {
