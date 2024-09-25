@@ -1229,7 +1229,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#id_actaMuestreo').text(id);
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
                         procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                        if(data.estado==="rechazado"){
+                        
+                        if(data.analisis_externos[0].estado==="rechazado"){
                             document.getElementById('guardar').style.display = 'none';
                         }
                     } else {
