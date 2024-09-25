@@ -67,9 +67,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </table>
         </div>
     </div>
-    <div class="modal fade" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAdjuntarArchivo" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="left: 0; right: 0;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalAdjuntarArchivoLabel">Adjuntar Documento Opcional</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -131,9 +133,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "className": 'details-control',
                     "orderable": false,
-                    "data": null,
                     "defaultContent": '<i class="fas fa-search-plus"></i>',
-                    "width": "20px"
+                    "width": "20px",
+                    "data": "id",
+                    "render": function(data, type, row) {
+                        return `<i class="fas fa-search-plus" data-id-producto="${ d.id }" ></i>`;
+                    }
                 },
                 {
                     "data": "estado",
@@ -401,7 +406,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td>Otros Documentos:</td>
-                        <td class="otros-documentos-container">
+                        <td class="otros-documentos-container" id="otros-documentos-container-${d.id}">
                             <p>Cargando documentos...</p>
                         </td>
                         <td>
@@ -412,8 +417,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                 </table>
             `;
-
-
             return cuadro_informativo;
 
         }
