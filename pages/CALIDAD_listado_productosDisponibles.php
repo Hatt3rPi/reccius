@@ -78,21 +78,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <div class="modal-body">
                     <form id="formAdjuntarArchivo" enctype="multipart/form-data">
-                    <input type="hidden" id="id_productos_analizados" name="id_productos_analizados" value="">
-                    
-                    <div class="form-group">
-                        <label for="nombre_documento">Nombre del Documento</label>
-                        <input type="text" class="form-control" id="nombre_documento" name="nombre_documento" required>
-                    </div>
+                        <input type="hidden" id="id_productos_analizados" name="id_productos_analizados" value="">
+                        
+                        <div class="form-group">
+                            <label for="nombre_documento">Nombre del Documento</label>
+                            <input type="text" class="form-control" id="nombre_documento" name="nombre_documento" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="documento">Seleccionar Archivo (PDF o Imagen)</label>
-                        <input type="file" class="form-control-file" id="documento" name="documento" accept=".pdf, image/jpeg, image/png" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="documento">Seleccionar Archivo (PDF o Imagen)</label>
+                            <input type="file" class="form-control-file" id="documento" name="documento" accept=".pdf, image/jpeg, image/png" required>
+                        </div>
 
-                    <div id="alertaArchivo" class="alert alert-danger" style="display: none;"></div>
+                        <div id="alertaArchivo" class="alert alert-danger" style="display: none;"></div>
 
-                    <button type="submit" class="btn btn-primary">Subir Documento</button>
+                        <button type="submit" class="btn btn-primary">Subir Documento</button>
                     </form>
                 </div>
             </div>
@@ -439,6 +439,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var idProducto = button.data('id-producto');
         var modal = $(this);
         modal.find('#id_productos_analizados').val(idProducto);
+        $('.modal-backdrop').remove();
     });
 
     $('#formAdjuntarArchivo').on('submit', function(event) {
