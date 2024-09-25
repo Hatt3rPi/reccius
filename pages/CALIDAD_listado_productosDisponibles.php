@@ -1,13 +1,13 @@
 <?php
-//archivo: pages\CALIDAD_listado_productosDisponibles.php
-session_start();
+    //archivo: pages\CALIDAD_listado_productosDisponibles.php
+    session_start();
 
-// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirigir al usuario a la página de inicio de sesión.
-    header("Location: login.html");
-    exit;
-}
+    // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+    if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+        // Redirigir al usuario a la página de inicio de sesión.
+        header("Location: login.html");
+        exit;
+    }
 
 ?>
 <!DOCTYPE html>
@@ -218,19 +218,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#listado tbody').on('click', 'td.details-control', function() {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
-
             if (row.child.isShown()) {
                 // Esta fila ya está abierta - ciérrala
                 row.child.hide();
                 tr.removeClass('shown');
             } else {
+                var rowData = row.data();
                 // Abre esta filaQ
-                row.child(format(row.data())).show(); // Aquí llamas a la función que formatea el contenido expandido
+                row.child(format(rowData)).show(); 
+                // Aquí llamas a la función que formatea el contenido expandido
                 tr.addClass('shown');
+                setAttachedDocuments(rowData.id)
             }
         });
 
-        // Función para formatear el contenido expandido
+    // Función para formatear el contenido expandido
     function format(d) {
             // `d` es el objeto de datos original para la fila
             var botones_acta_muestreo='';
@@ -437,6 +439,57 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <?php unset($_SESSION['buscar_por_ID']); ?>
         <?php } ?>
     }
+    function setAttachedDocuments(id){
+        var otrosDocumentosContainer = $(`#otros-documentos-container-${id}`);
+        otrosDocumentosContainer.empty();
+        otrosDocumentosContainer.append('<p>Cargando documentos...</p>');
+
+        fetch(`./backend/documentos/obtener_adjuntos_analisis.php?id_productos_analizados=${id}`).then(response => response.json()).then(data => {
+            otrosDocumentosContainer.empty();
+            if (data.exito) {
+                var bodyTable = '';
+                var headerTable = `
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cargado por</th>
+                        <th>Fecha de Carga</th>
+                        <th>Archivo</th>
+                    </tr>`
+                data.documentos.forEach(({
+                    id, 
+                    url, 
+                    nombre_documento, 
+                    usuario_carga, 
+                    fecha_carga
+                }) => {
+                    console.log('documento:', documento);
+                    bodyTable += `
+                        <tr id="row-document-${id}">
+                            <td>${nombre_documento}</td>
+                            <td>${usuario_carga}</td>
+                            <td>${fecha_carga}</td>
+                            <td>
+                                <a href="${url}" target="_blank">Ver</a>
+                            </td>
+                        </tr>` 
+                });
+                otrosDocumentosContainer.append(`
+                    <table class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            ${headerTable}
+                        </thead>
+                        <tbody>
+                            ${bodyTable}
+                        </tbody>
+                    </table>
+                `);
+            }else{
+                otrosDocumentosContainer.append('<p>No hay archivos adjuntos extra</p>');
+            }
+        }).catch(error => {
+            otrosDocumentosContainer.append('<p>Error al cargar los documentos</p>');
+        });
+    }
     $('#modalAdjuntarArchivo').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var idProducto = button.data('id-producto');
@@ -460,6 +513,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         .then(response => response.json())
         .then(data => {
             if (data.exito) {
+                setAttachedDocuments(formData.get('id_productos_analizados'));
                 alert('Documento subido con éxito');
                 $('#modalAdjuntarArchivo').modal('hide');
             } else {
@@ -470,4 +524,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
         });
     });
+
+
 </script>
