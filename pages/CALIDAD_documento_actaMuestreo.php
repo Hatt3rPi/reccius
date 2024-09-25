@@ -1224,11 +1224,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     id_actaMuestreo: id
                 },
                 success: function(data) {
-                    console.log('Datos recibidos:', data)
+                    //console.log('Datos recibidos:', data)
 
                     $('#id_actaMuestreo').text(id);
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
                         procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                        
+                        if(data.analisis_externos[0].estado==="rechazado"){
+                            document.getElementById('guardar').style.display = 'none';
+                            document.getElementById('rechazo').style.display = 'none';
+                        }
                     } else {
                         console.error("No se encontraron datos válidos: ", data);
                     }
