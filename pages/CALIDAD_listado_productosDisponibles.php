@@ -67,13 +67,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </table>
         </div>
     </div>
+    <div class="modal fade" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAdjuntarArchivoLabel">Adjuntar Documento Opcional</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAdjuntarArchivo" enctype="multipart/form-data">
+                    <input type="hidden" id="id_productos_analizados" name="id_productos_analizados" value="">
+                    
+                    <div class="form-group">
+                        <label for="nombre_documento">Nombre del Documento</label>
+                        <input type="text" class="form-control" id="nombre_documento" name="nombre_documento" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documento">Seleccionar Archivo (PDF o Imagen)</label>
+                        <input type="file" class="form-control-file" id="documento" name="documento" accept=".pdf, image/jpeg, image/png" required>
+                    </div>
+
+                    <div id="alertaArchivo" class="alert alert-danger" style="display: none;"></div>
+
+                    <button type="submit" class="btn btn-primary">Subir Documento</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <script>
-    // Ahora puedes usar la sintaxis import
-
-
     function filtrar_listado(valor, filtro) {
         var table = $('#listado').DataTable();
         if(filtro=="estado"){
@@ -92,15 +120,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
         
-    }
-    
+    }  
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_liberacion/listado_productosDisponiblesBE.php",
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
             },
-            "columns": [{
+            "columns": [
+                {
                     "className": 'details-control',
                     "orderable": false,
                     "data": null,
@@ -242,12 +270,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             }
             if (d.estado === "liberado" || d.estado === "rechazado" ) {
-                botones_otros_documentos += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+                botones_otros_documentos += 
+                '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+
+
+                botones_otros_documentos += '<button class="accion-btn" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="' + d.id + '"><i class="fa fa-plus"></i> Añadir Documento</button>';
+
                 botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
                 botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+
                 if(d.url_documento_adicional !== null && d.url_documento_adicional !== ""){
                     botones_analisis_externo += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
                 }
+
                 botones_analisis_externo += '<button class="accion-btn" title="Revisar Acta de liberación o rechazo" id="' + d.id_actaLiberacion + '" name="revisar_acta_liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisa Acta de Liberación/Rechazo</button><a> </a>';
                 botones_analisis_externo += '<button class="accion-btn" title="Revisar informe de Laboratorio" id="' + d.id_analisisExterno + '" name="revisar_informe_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar informe de Laboratorio</button><a> </a>';
                 
@@ -366,6 +401,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td>Otros Documentos:</td>
+                        <td class="otros-documentos-container">
+                            <p>Cargando documentos...</p>
+                        </td>
                         <td>
                             <div class="button-container">
                                 ` + botones_otros_documentos + `
@@ -396,4 +434,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <?php unset($_SESSION['buscar_por_ID']); ?>
         <?php } ?>
     }
+    $('#modalAdjuntarArchivo').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var idProducto = button.data('id-producto');
+        var modal = $(this);
+        modal.find('#id_productos_analizados').val(idProducto);
+    });
+
+    $('#formAdjuntarArchivo').on('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        fetch('./backend/documentos/opcionales_analisis.php', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exito) {
+                alert('Documento subido con éxito');
+                $('#modalAdjuntarArchivo').modal('hide');
+            } else {
+                $('#alertaArchivo').text(data.mensaje).show();
+            }
+        })
+        .catch(error => {
+            $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
+        });
+    });
 </script>
