@@ -816,12 +816,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div id="modalRechazar" class="modal">
     <div class="modal-content">
         <span class="close" onclick="cerrarModal()">&times;</span>
-        <h2 class="tttt">Confirmar Rechazo</h2>
+        <h2 class="textt">Confirmar Rechazo</h2>
         <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
         <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
         <p>Motivo del Rechazo:</p>
         <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
-        <button class="rechazoss" onclick="confirmarRechazo()">Confirmar</button>
+        <button class="confirmar" onclick="confirmarRechazo()">Confirmar</button>
     </div>
 </div>
 
