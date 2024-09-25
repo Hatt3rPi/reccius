@@ -1,6 +1,6 @@
 
 /* Estilos generales para el modal */
-.modal {
+.modalRechazo {
     display: block; /* Hazlo visible para mostrar */
     position: fixed; /* Fijo en la pantalla */
     z-index: 1; /* Asegura que esté encima de otros elementos */

@@ -814,7 +814,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
 <!-- Modal de confirmación de eliminación -->
-<div id="modalRechazar" class="modal">
+<div id="modalRechazar" class="modalRechazo">
     <div class="modal-contentRechazo">
         <span class="closeRechazo" onclick="cerrarModal()">&times;</span>
         <h2 class="textt">Confirmar Rechazo</h2>
