@@ -22,7 +22,7 @@
     background-color: rgba(0,0,0,0.4); /* Fondo semitransparente */
 }
 
-.modal-content {
+.modal-contentRechazo {
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
@@ -32,7 +32,7 @@
     text-align: center;
 }
 
-.close {
+.closeRechazo {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -62,7 +62,7 @@ textarea {
     font-size: 16px;
 }
 
-.confirmar {
+.confirmarRechazo {
     background-color: #5cb85c;
     color: white;
     border: none;
