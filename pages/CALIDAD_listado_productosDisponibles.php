@@ -137,7 +137,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "20px",
                     "data": "id",
                     "render": function(data, type, row) {
-                        return `<i class="fas fa-search-plus" data-id-producto="${ d.id }" ></i>`;
+                        return `<i class="fas fa-search-plus" data-id-producto="${ data }" ></i>`;
                     }
                 },
                 {
