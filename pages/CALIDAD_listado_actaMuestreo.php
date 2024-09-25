@@ -214,24 +214,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         function format(d) {
             // `d` es el objeto de datos original para la fila
             var acciones = '<table background-color="#F6F6F6" color="#FFF" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+
+            // Mostrar la fecha y motivo de rechazo si el estado es "rechazado"
+            if (d.estado === "rechazado") {
+                acciones += '<tr><td>Fecha Rechazo:</td><td>' + (d.fecha_rechazo || 'N/A') + '</td></tr>';
+                acciones += '<tr><td>Motivo Rechazo:</td><td>' + (d.motivo_rechazo || 'N/A') + '</td></tr>';
+                acciones += '<tr><td></td></tr>';
+            }
+
+            // Mostrar siempre la sección de Acciones
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
-            // Botón para revisar siempre presente
+            // Botón para "Ingresar resultados" si el estado es "Pendiente Muestreo"
             if (d.estado === "Pendiente Muestreo") {
                 acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados</button><a></a>';
             }
-            //acciones += '<button class="accion-btn" title="WIP Generar Documento" id="' + d.id_acta + '" name="generar_documento_actaMuestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i></button><a> </a>';
+
+            // Botón para "Firmar Acta de Muestreo" si está en proceso de firma
             if (d.estado === "En proceso de firma") {
-                if (d.cantidad_firmas==1 && d.user_firma2==usuarioActual){
-                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
+                if (d.cantidad_firmas == 1 && d.user_firma2 == usuarioActual) {
+                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a></a>';
                 }
-                if (d.cantidad_firmas==2 && d.user_firma3==usuarioActual){
-                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a> </a>';
+                if (d.cantidad_firmas == 2 && d.user_firma3 == usuarioActual) {
+                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a></a>';
                 }
             }
 
-            if (d.estado === "Vigente") {
-                acciones += '<button class="accion-btn" title="Ver documento" id="' + d.id_acta + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ver documento</button><a> </a>';
+            // Botón para "Ver documento" si el estado es "Vigente" o "rechazado"
+            if (d.estado === "Vigente" || d.estado === "rechazado") {
+                acciones += '<button class="accion-btn" title="Ver documento" id="' + d.id_acta + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ver documento</button><a></a>';
             }
 
             acciones += '</td></tr></table>';
