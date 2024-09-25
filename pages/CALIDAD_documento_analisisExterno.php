@@ -608,7 +608,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     // Actualizar el elemento con el texto combinado
                     $('#nombre_producto').text(productoCompleto);
-                    $('#nombre_producto2').val(productoCompleto);
+                    $('#nombre_producto2').text(productoCompleto);
 
                     // TÍTULO TABLA
                     $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
