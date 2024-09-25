@@ -128,8 +128,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Nombre producto:</td>
                         <td>
-                            <input type="text" id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border" required>
+                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border" contenteditable="true"></div>
                         </td>
+
 
                         <td class="titulo titulo-right">10. T. de lote:</td>
                         <td><input type="text" id="tamano_lote" name="tamano_lote" required></td>
