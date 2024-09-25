@@ -27,7 +27,9 @@ $query = "SELECT
                 (CASE WHEN am.fecha_firma_muestreador IS NOT NULL THEN 1 ELSE 0 END + 
             CASE WHEN am.fecha_firma_responsable IS NOT NULL THEN 1 ELSE 0 END + 
             CASE WHEN am.fecha_firma_verificador IS NOT NULL THEN 1 ELSE 0 END) AS cantidad_firmas,
-            aex.lote
+            aex.lote,
+            am.motivo_rechazo,
+            am.fecha_rechazo
             FROM `calidad_acta_muestreo` as am
             LEFT JOIN calidad_productos as pr on am.id_producto=pr.id
             left join calidad_analisis_externo as aex on am.id_analisisExterno=aex.id
