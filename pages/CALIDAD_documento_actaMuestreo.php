@@ -1110,7 +1110,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
             $.notify("PDF generado con éxito", "success");
-
+            
             // Restaurar los botones no seleccionados
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
@@ -1121,6 +1121,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Restaurar el input de fecha
             fechaMuestreoTd.innerHTML = originalHtml;
+            document.getElementById('modalLoading').style.display = 'none';
+            //$('#listado_acta_muestreo').click();
         });
     });
 
@@ -1218,8 +1220,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.style.display = 'block';
                 });
             });
-            document.getElementById('modalLoading').style.display = 'none';
-            $('#listado_acta_muestreo').click();
+            
         }).catch(error => {
             console.error('Error al generar el canvas:', error);
             $.notify("Error al generar el PDF", "error");
