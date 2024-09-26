@@ -831,7 +831,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var idAnalisisExterno_acta = null;
 
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
-        desactivar_boton_temporalmente('confirmarMetodo');
+        desactivar_boton_temporalmente(document.getElementById('confirmarMetodo'));
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
 
@@ -987,7 +987,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        desactivar_boton_temporalmente('download-pdf');
+        
+        desactivar_boton_temporalmente(document.getElementById('download-pdf'));
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
         .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
@@ -1123,7 +1124,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
-        desactivar_boton_temporalmente('upload-pdf');
+        
+        desactivar_boton_temporalmente(document.getElementById('upload-pdf'));
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
@@ -1503,7 +1505,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     document.getElementById('firmar').addEventListener('click', function() {
         // Hacer visibles los elementos de .formulario.resp
-        desactivar_boton_temporalmente('firmar');
+        
+        desactivar_boton_temporalmente(document.getElementById('firmar'));
         console.log('click firma')
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
@@ -1541,7 +1544,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('guardar').addEventListener('click', function() {
-        desactivar_boton_temporalmente('guardar');
+        
+        desactivar_boton_temporalmente(document.getElementById('guardar'));
 
         let etapa = $('#etapa').text();
         switch (etapa) {
@@ -1761,7 +1765,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var idActaMuestreo_rechazado = null;
 
     function botones_interno(accion) {
-        desactivar_boton_temporalmente('rechazo', 500);
+        desactivar_boton_temporalmente(document.getElementById('rechazo'), 500);
         if (accion === 'rechazar_actaMuestreo') {
             idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
             abrirModal();

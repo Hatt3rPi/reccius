@@ -11,15 +11,13 @@ function featureNoDisponible(){
 
 
 // Función para controlar la ansiedad de Inger
-function desactivar_boton_temporalmente(buttonId, duration = 2000) {
-    console.log(buttonId, ' inicia bloqueo temporal por ', duration, ' ms')
-    var button = document.getElementById(buttonId);
-    if (button) {
-        button.disabled = true; // Desactiva el botón
+function desactivar_boton_temporalmente(element, duration = 2000) {
+    if (element) {
+        element.disabled = true; // Desactiva el botón
         setTimeout(function() {
-            button.disabled = false; // Lo vuelve a activar después de la duración especificada
+            element.disabled = false; // Lo vuelve a activar después de la duración especificada
         }, duration);
-        console.log(buttonId, ' finaliza bloqueo temporal')
+        console.log(element, ' finaliza bloqueo temporal')
     }
 }
 
