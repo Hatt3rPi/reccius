@@ -19,6 +19,7 @@ function desactivar_boton_temporalmente(elemento, tiempo = 500) {
 
 // Usar delegación de eventos para los botones con clase 'ingControl'
 $(document).on('click', '.ingControl', function() {
+    event.preventDefault();
     desactivar_boton_temporalmente(this);
 });
 
