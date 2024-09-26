@@ -825,7 +825,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <button class="confirmarRechazo" onclick="confirmarRechazo()">Confirmar</button>
     </div>
 </div>
-
+<div id="modalLoading" class="modalRechazo">
+    <div class="modal-contentRechazo">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Procesando</span>
+        </div>
+    </div>
+</div>
 </html>
 <script>
     var idAnalisisExterno_acta = null;
@@ -1124,7 +1130,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
-        
+        document.getElementById('modalLoading').style.display = 'block';
         desactivar_boton_temporalmente(document.getElementById('upload-pdf'));
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
@@ -1216,6 +1222,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $.notify("Error al generar el PDF", "error");
         });
         //desactivar modal spiner
+        document.getElementById('modalLoading').style.display = 'none';
         $('#listado_acta_muestreo').click();
     });
 
