@@ -829,8 +829,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="modal-contentRechazo">
         <div class="spinner-border" role="status">
             <span class="sr-only"></span>
-            <p>Procesando documento</p>
+            
         </div>
+        <p>Procesando documento</p>
     </div>
 </div>
 </html>
@@ -1109,6 +1110,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const nombreProducto = document.getElementById('producto').textContent.trim();
             const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            document.getElementById('modalLoading').style.display = 'none';
             $.notify("PDF generado con éxito", "success");
             
             // Restaurar los botones no seleccionados
@@ -1121,7 +1123,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Restaurar el input de fecha
             fechaMuestreoTd.innerHTML = originalHtml;
-            document.getElementById('modalLoading').style.display = 'none';
+            
             //$('#listado_acta_muestreo').click();
         });
     });
