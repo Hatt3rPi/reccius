@@ -14,6 +14,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Ingreso de resultados</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="../assets/css/Modal.css">
 </head>
 
 <body>
@@ -368,13 +369,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div id="notification" class="notification-container notify" style="display: none;">
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
-
+<div id="modalLoading" class="modalRechazo" style="display: none">
+    <div class="modal-contentRechazo">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+            
+        </div>
+        <p>Procesando documento</p>
+    </div>
+</div>
 </html>
 <script>
     var idAnalisisExterno_acta = null;
 
     $(document).ready(function() {
         function downloadPDF(save) {
+            document.getElementById('modalLoading').style.display = 'block';
             const {
                 jsPDF
             } = window.jspdf;
@@ -435,6 +445,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (!save) {
                         pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
                         $.notify("PDF generado con éxito", "success");
+                        document.getElementById('modalLoading').style.display = 'none';
                         return;
                     }
                     var blob = pdf.output('blob');
@@ -452,13 +463,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         .then(data => {
                             if (data.status === 'success') {
                                 $.notify("PDF subido con éxito", "success");
+                                document.getElementById('modalLoading').style.display = 'none';
                             } else {
                                 $.notify("Error al subir el PDF: " + data.message, "error");
+                                document.getElementById('modalLoading').style.display = 'none';
                             }
                         })
                         .catch(error => {
                             console.error('Error al subir el PDF:', error);
                             $.notify("Error al subir el PDF", "error");
+                            document.getElementById('modalLoading').style.display = 'none';
                         });
                 })
                 .finally(() => {

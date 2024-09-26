@@ -250,7 +250,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
                             $('#buttonContainer')
-                                .append('<button type="submit" class="botones ingControl" id="enviarCorreo">Enviar</button>');
+                                .append('<button type="submit" class="botones" id="enviarCorreo">Enviar</button>');
                         } else {
                             $('#modalInfo').show();
 
