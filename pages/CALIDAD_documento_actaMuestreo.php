@@ -831,6 +831,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var idAnalisisExterno_acta = null;
 
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
+        disableButtonTemporarily('confirmarMetodo'); 
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
 
@@ -840,6 +841,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         if (metodoManual) {
             // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
             document.getElementById('download-pdf').click();
+
         } else if (metodoDigital) {
             $('#etapa').text('ingresa resultados y firma1');
             // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
@@ -985,6 +987,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
+        disableButtonTemporarily('download-pdf'); 
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
         .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
@@ -1120,7 +1123,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
-
+        disableButtonTemporarily('upload-pdf'); 
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
@@ -1458,6 +1461,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     document.getElementById('firmar').addEventListener('click', function() {
         // Hacer visibles los elementos de .formulario.resp
+        disableButtonTemporarily('firmar'); 
         console.log('click firma')
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
@@ -1495,6 +1499,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('guardar').addEventListener('click', function() {
+        disableButtonTemporarily('guardar'); 
 
         let etapa = $('#etapa').text();
         switch (etapa) {
@@ -1505,7 +1510,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 guardar_firma('.formulario.verif', 2);
                 break;
             case 'firma3':
-                guardar_firma3();
+                guardar_firma3(); // 
+                $('#upload-pdf').click();
+                $('#listado_acta_muestreo').click();
                 break;
         }
     });
@@ -1699,7 +1706,7 @@ function populatePlanMuestreoTable(planMuestreoData) {
                 console.log('Firma guardada con éxito: ', response);
                 //alert("Firma guardada correctamente.");
                 $.notify("Documento firmado correctamente.", "success");
-                $('#listado_acta_muestreo').click();
+                
             },
             error: function(xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
@@ -1711,6 +1718,7 @@ function populatePlanMuestreoTable(planMuestreoData) {
     var idActaMuestreo_rechazado = null;
 
     function botones_interno(accion) {
+        disableButtonTemporarily('rechazo', 500); 
         if (accion === 'rechazar_actaMuestreo') {
             idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
             abrirModal();
@@ -1760,4 +1768,15 @@ function populatePlanMuestreoTable(planMuestreoData) {
 
         cerrarModal();
     }
+    // Función para controlar la ansiedad de Inger
+function disableButtonTemporarily(buttonId, duration = 2000) {
+    var button = document.getElementById(buttonId);
+    if (button) {
+        button.disabled = true; // Desactiva el botón
+        setTimeout(function() {
+            button.disabled = false; // Lo vuelve a activar después de la duración especificada
+        }, duration);
+    }
+}
+
 </script>
