@@ -1265,12 +1265,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             // Hacer que los campos de texto y textarea sean solo lectura, pero no deshabilitarlos
                             $('input, textarea').attr('readonly', true); // Establecer los campos como solo lectura
                             $('select').attr('disabled', true); // Deshabilitar los campos de selección (select)
+                            // Establecer contenteditable a false
+                            $('.editable-div').attr('contenteditable', 'false');
                         } else {
                             console.log("El acta es editable.");
 
                             // Habilitar los campos si editable es true
                             $('input, textarea').attr('readonly', false); // Hacer los campos editables nuevamente
                             $('select').attr('disabled', false); // Habilitar los campos de selección
+                            // Establecer contenteditable a false
+                            $('.editable-div').attr('contenteditable', 'true');
                         }
 
                         if (data.analisis_externos[0].estado === "rechazado") {
@@ -1807,5 +1811,4 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         cerrarModal();
     }
-
 </script>
