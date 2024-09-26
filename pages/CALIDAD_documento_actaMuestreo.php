@@ -1123,7 +1123,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
+<<<<<<< Updated upstream
         disableButtonTemporarily('upload-pdf');
+=======
+        //activar modal spiner
+        disableButtonTemporarily('upload-pdf'); 
+>>>>>>> Stashed changes
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
@@ -1213,6 +1218,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             console.error('Error al generar el canvas:', error);
             $.notify("Error al generar el PDF", "error");
         });
+        //desactivar modal spiner
+        $('#listado_acta_muestreo').click();
     });
 
     function asa(editable) {
@@ -1534,7 +1541,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             case 'firma3':
                 guardar_firma3(); // 
                 $('#upload-pdf').click();
-                $('#listado_acta_muestreo').click();
                 break;
         }
     });
