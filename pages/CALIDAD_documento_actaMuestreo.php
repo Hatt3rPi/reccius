@@ -769,12 +769,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
-    <button class="botones" id="guardar" style="display: none">Guardar</button>
-    <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
-    <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
-    <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
-    <button class="botones" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
+    <button class="botones ingControl" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
+    <button class="botones ingControl" id="guardar" style="display: none">Guardar</button>
+    <button class="botones ingControl" id="firmar" style="display: none">Ingresar Resultados</button>
+    <button class="botones ingControl" id="download-pdf" style="display: none">Descargar PDF</button>
+    <button class="botones ingControl" id="upload-pdf" style="display: none">Guardar PDF</button>
+    <button class="botones ingControl" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
