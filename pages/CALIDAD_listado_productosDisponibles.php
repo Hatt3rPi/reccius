@@ -1,13 +1,13 @@
 <?php
-    //archivo: pages\CALIDAD_listado_productosDisponibles.php
-    session_start();
+//archivo: pages\CALIDAD_listado_productosDisponibles.php
+session_start();
 
-    // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
-    if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-        // Redirigir al usuario a la página de inicio de sesión.
-        header("Location: login.html");
-        exit;
-    }
+// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    // Redirigir al usuario a la página de inicio de sesión.
+    header("Location: login.html");
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
         <h2 class="section-title">Listado de productos analizados:</h2>
         <div class="estado-filtros">
             <label> Filtrar por:</label>
-        </div>        
+        </div>
         <div class="estado-filtros">
             <label> Estado </label>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('En cuarentena','estado')">En cuarentena</button>
@@ -39,7 +39,7 @@
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
             <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
-            
+
         </div>
         <div class="estado-filtros">
             <label> </label>
@@ -67,21 +67,21 @@
             </table>
         </div>
     </div>
-    <div class="modal fade" id="modalAdjuntarArchivo" 
-        tabindex="-1" role="dialog" 
+    <div class="modal fade" id="modalAdjuntarArchivo"
+        tabindex="-1" role="dialog"
         aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="left: 0; right: 0;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalAdjuntarArchivoLabel">Adjuntar Documento Opcional</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form id="formAdjuntarArchivo" enctype="multipart/form-data">
                         <input type="hidden" id="id_productos_analizados" name="id_productos_analizados" value="">
-                        
+
                         <div class="form-group">
                             <label for="nombre_documento">Nombre del Documento</label>
                             <input type="text" class="form-control" id="nombre_documento" name="nombre_documento" required>
@@ -106,14 +106,14 @@
 <script>
     function filtrar_listado(valor, filtro) {
         var table = $('#listado').DataTable();
-        if(filtro=="estado"){
+        if (filtro == "estado") {
             if (valor === '') {
                 // Eliminar todos los filtros
                 table.search('').columns().search('').draw();
             } else {
                 table.column(1).search(valor).draw(); // Asumiendo que la columna 1 es la de
             }
-        }else if(filtro=="tipo_producto"){
+        } else if (filtro == "tipo_producto") {
             if (valor === '') {
                 // Eliminar todos los filtros
                 table.search('').columns().search('').draw();
@@ -121,16 +121,16 @@
                 table.column(7).search(valor).draw(); // Asumiendo que la columna 1 es la de
             }
         }
-        
-    }  
+
+    }
+
     function carga_listado() {
         var table = $('#listado').DataTable({
             "ajax": "./backend/acta_liberacion/listado_productosDisponiblesBE.php",
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
             },
-            "columns": [
-                {
+            "columns": [{
                     "className": 'details-control',
                     "orderable": false,
                     "defaultContent": '<i class="fas fa-search-plus"></i>',
@@ -194,8 +194,7 @@
                     "data": "id",
                     "title": "ID producto",
                     visible: false
-                }
-                ,
+                },
                 {
                     "data": "producto",
                     "title": "Producto_filtrado",
@@ -225,48 +224,48 @@
             } else {
                 var rowData = row.data();
                 // Abre esta filaQ
-                row.child(format(rowData)).show(); 
+                row.child(format(rowData)).show();
                 // Aquí llamas a la función que formatea el contenido expandido
                 tr.addClass('shown');
                 setAttachedDocuments(rowData.id)
             }
         });
 
-    // Función para formatear el contenido expandido
-    function format(d) {
+        // Función para formatear el contenido expandido
+        function format(d) {
             // `d` es el objeto de datos original para la fila
-            var botones_acta_muestreo='';
-            var botones_analisis_externo='';
-            var botones_otros_documentos='';
-            var porcentaje_externo=0;
-            switch (d.aex_estado){
+            var botones_acta_muestreo = '';
+            var botones_analisis_externo = '';
+            var botones_otros_documentos = '';
+            var porcentaje_externo = 0;
+            switch (d.aex_estado) {
                 case 'Pendiente Acta de Muestreo': {
-                    porcentaje_externo=0;
+                    porcentaje_externo = 0;
                     break;
                 }
-                case 'Pendiente completar análisis' : {
-                    porcentaje_externo=20;
+                case 'Pendiente completar análisis': {
+                    porcentaje_externo = 20;
                     break;
                 }
                 case 'Pendiente envío a Laboratorio': {
-                    porcentaje_externo=40;
+                    porcentaje_externo = 40;
                     break;
                 }
                 case 'Pendiente ingreso resultados': {
-                    porcentaje_externo=60;
+                    porcentaje_externo = 60;
                     break;
                 }
                 case 'Pendiente liberación productos': {
-                    porcentaje_externo=80;
+                    porcentaje_externo = 80;
                     break;
                 }
                 case 'completado': {
-                    porcentaje_externo=100;
+                    porcentaje_externo = 100;
                     break;
                 }
 
             }
-            
+
             function determinarClase(porcentaje_externo, porcentaje_etapa) {
                 if (porcentaje_externo === porcentaje_etapa) {
                     return 'pg_estado_actual';
@@ -276,9 +275,9 @@
                     return '';
                 }
             }
-            if (d.estado === "liberado" || d.estado === "rechazado" ) {
-                botones_otros_documentos += 
-                '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+            if (d.estado === "liberado" || d.estado === "rechazado") {
+                botones_otros_documentos +=
+                    '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
 
 
                 botones_otros_documentos += '<button class="accion-btn" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="' + d.id + '"><i class="fa fa-plus"></i> Añadir Documento</button>';
@@ -286,20 +285,20 @@
                 botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
                 botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
 
-                if(d.url_documento_adicional !== null && d.url_documento_adicional !== ""){
+                if (d.url_documento_adicional !== null && d.url_documento_adicional !== "") {
                     botones_analisis_externo += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
                 }
 
                 botones_analisis_externo += '<button class="accion-btn" title="Revisar Acta de liberación o rechazo" id="' + d.id_actaLiberacion + '" name="revisar_acta_liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisa Acta de Liberación/Rechazo</button><a> </a>';
                 botones_analisis_externo += '<button class="accion-btn" title="Revisar informe de Laboratorio" id="' + d.id_analisisExterno + '" name="revisar_informe_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar informe de Laboratorio</button><a> </a>';
-                
 
-            }else{
+
+            } else {
                 botones_otros_documentos += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
                 if (d.id_actaMuestreo !== null && d.id_actaMuestreo !== "" && d.estado_amuestreo === "Vigente") {
-                    botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';                    
+                    botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
                 }
-                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && d.estado_aex === "Pendiente ingreso resultados" ) {
+                if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && d.estado_aex === "Pendiente ingreso resultados") {
                     botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '"onclick="window.open(\'' + d.url_certificado_solicitud_analisis_externo + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
                 }
                 if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Completado" || d.estado_aex === "Pendiente liberación productos")) {
@@ -439,7 +438,8 @@
             <?php unset($_SESSION['buscar_por_ID']); ?>
         <?php } ?>
     }
-    function setAttachedDocuments(id){
+
+    function setAttachedDocuments(id) {
         var otrosDocumentosContainer = $(`#otros-documentos-container-${id}`);
         otrosDocumentosContainer.empty();
         otrosDocumentosContainer.append('<p>Cargando documentos...</p>');
@@ -456,10 +456,10 @@
                         <th>Archivo</th>
                     </tr>`
                 data.documentos.forEach(({
-                    id, 
-                    url, 
-                    nombre_documento, 
-                    usuario_carga, 
+                    id,
+                    url,
+                    nombre_documento,
+                    usuario_carga,
                     fecha_carga
                 }) => {
                     console.log('documento:', documento);
@@ -471,7 +471,7 @@
                             <td>
                                 <a href="${url}" target="_blank">Ver</a>
                             </td>
-                        </tr>` 
+                        </tr>`
                 });
                 otrosDocumentosContainer.append(`
                     <table class="table table-striped table-bordered" style="width:100%">
@@ -483,14 +483,14 @@
                         </tbody>
                     </table>
                 `);
-            }else{
+            } else {
                 otrosDocumentosContainer.append('<p>No hay archivos adjuntos extra</p>');
             }
         }).catch(error => {
             otrosDocumentosContainer.append('<p>Error al cargar los documentos</p>');
         });
     }
-    $('#modalAdjuntarArchivo').on('show.bs.modal', function (event) {
+    $('#modalAdjuntarArchivo').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
         var idProducto = button.data('id-producto');
         var modal = $(this);
@@ -498,32 +498,33 @@
         setTimeout(function() {
             console.log('Cerrando modal');
             $('.modal-backdrop').remove();
-        }
-        , 200);
+        }, 200);
     });
 
     $('#formAdjuntarArchivo').on('submit', function(event) {
         event.preventDefault();
         var formData = new FormData(this);
+        var submitButton = $(this).find('button[type="submit"]');
+        submitButton.prop('disabled', true);
 
         fetch('./backend/documentos/opcionales_analisis.php', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.exito) {
-                setAttachedDocuments(formData.get('id_productos_analizados'));
-                alert('Documento subido con éxito');
-                $('#modalAdjuntarArchivo').modal('hide');
-            } else {
-                $('#alertaArchivo').text(data.mensaje).show();
-            }
-        })
-        .catch(error => {
-            $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
-        });
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exito) {
+                    setAttachedDocuments(formData.get('id_productos_analizados'));
+                    alert('Documento subido con éxito');
+                    $('#modalAdjuntarArchivo').modal('hide');
+                } else {
+                    $('#alertaArchivo').text(data.mensaje).show();
+                }
+            })
+            .catch(error => {
+                $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
+            }).finally(() => {
+                submitButton.prop('disabled', false);
+            });
     });
-
-
 </script>
