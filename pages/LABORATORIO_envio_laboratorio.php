@@ -92,10 +92,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
                             <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
                         </div>
-                        <button type="button" class="remove-destinatario btn btn-danger ingControl">Eliminar</button>
+                        <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary ingControl" id="add-destinatario">Agregar destinatario</button>
+                <button type="button" class="btn btn-primary" id="add-destinatario">Agregar destinatario</button>
             </fieldset>
             <br>
             <fieldset>
@@ -202,7 +202,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     });
             });
             $('#envioCorreoForm').on('submit', function(e) {
-                e.preventDefault();
+                e.preventDefault();  // Prevenir comportamiento por defecto del submit
+
+                var enviarBtn = $('#enviarCorreo');  // Obtener el botón de envío
+                console.log(enviarBtn, 'inhabilitado temporalmente');
+                // Desactivar el botón por 500ms
+                enviarBtn.prop('disabled', true);  // Desactivar el botón
+                setTimeout(function() {
+                    enviarBtn.prop('disabled', false);  // Rehabilitar el botón después de 500ms
+                }, 500);
+
+                // Llamar a la función de envío de correo
                 enviarCorreo();
             })
         });
@@ -250,7 +260,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             var acciones = '';
                             var buttonContainer = '';
                             if (!analisis.url_certificado_solicitud_analisis_externo) {
-                                acciones += `<button class="btn btn-primary col-5 ingControl" 
+                                acciones += `<button class="btn btn-primary col-5" 
                                     type="button" 
                                     title="Análisis Externo" 
                                     name="generar_documento_pdf" 
@@ -259,13 +269,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </button>`;
                                 buttonContainer += `<button 
                                     type="button" 
-                                    class="botones ingControl" 
+                                    class="botones" 
                                     name="generar_documento_pdf"
                                     onclick="botones(${idAnalisisExterno}, this.name, 'laboratorio')"
                                     >Ir a guardar análisis Externo</button>`
                             }
                             if (!analisis.url_certificado_acta_de_muestreo) {
-                                acciones += `<button class="btn btn-primary col-5 ingControl" 
+                                acciones += `<button class="btn btn-primary col-5" 
                                     type="button" 
                                     title="Acta de muestreo" 
                                     name="revisar_acta" 
@@ -274,7 +284,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </button>`;
                                 buttonContainer += `<button 
                                     type="button" 
-                                    class="botones ingControl" 
+                                    class="botones" 
                                     name="revisar_acta"
                                     onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')"
                                     >Ir a guardar Acta de muestreo</button>`
