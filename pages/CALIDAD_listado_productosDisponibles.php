@@ -277,40 +277,38 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             if (d.estado === "liberado" || d.estado === "rechazado") {
                 botones_otros_documentos +=
-                '<button class="accion-btn" title="Revisar Especificación de producto" id="' + 
-                d.id_especificacion + 
-                '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+                    '<button class="accion-btn ingControl" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
 
 
-                botones_otros_documentos += '<button class="accion-btn" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="' + d.id + '"><i class="fa fa-plus"></i> Añadir Documento</button>';
+                botones_otros_documentos += '<button class="accion-btn ingControl" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="' + d.id + '"><i class="fa fa-plus"></i> Añadir Documento</button>';
 
-                botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
-                botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                botones_acta_muestreo += '<button class="accion-btn ingControl" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
+                botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
 
                 if (d.url_documento_adicional !== null && d.url_documento_adicional !== "") {
-                    botones_analisis_externo += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
+                    botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
                 }
 
-                botones_analisis_externo += '<button class="accion-btn" title="Revisar Acta de liberación o rechazo" id="' + d.id_actaLiberacion + '" name="revisar_acta_liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisa Acta de Liberación/Rechazo</button><a> </a>';
-                botones_analisis_externo += '<button class="accion-btn" title="Revisar informe de Laboratorio" id="' + d.id_analisisExterno + '" name="revisar_informe_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar informe de Laboratorio</button><a> </a>';
+                botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar Acta de liberación o rechazo" id="' + d.id_actaLiberacion + '" name="revisar_acta_liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisa Acta de Liberación/Rechazo</button><a> </a>';
+                botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar informe de Laboratorio" id="' + d.id_analisisExterno + '" name="revisar_informe_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar informe de Laboratorio</button><a> </a>';
 
 
             } else {
-                botones_otros_documentos += '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+                botones_otros_documentos += '<button class="accion-btn ingControl" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
                 if (d.id_actaMuestreo !== null && d.id_actaMuestreo !== "" && d.estado_amuestreo === "Vigente") {
-                    botones_acta_muestreo += '<button class="accion-btn" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
+                    botones_acta_muestreo += '<button class="accion-btn ingControl" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
                 }
                 if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && d.estado_aex === "Pendiente ingreso resultados") {
-                    botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '"onclick="window.open(\'' + d.url_certificado_solicitud_analisis_externo + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                    botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '"onclick="window.open(\'' + d.url_certificado_solicitud_analisis_externo + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
                 }
                 if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Completado" || d.estado_aex === "Pendiente liberación productos")) {
-                    botones_analisis_externo += '<button class="accion-btn" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+                    botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
                 }
                 if (d.id_analisisExterno !== null && d.id_analisisExterno !== "" && (d.estado_aex === "Pendiente ingreso resultados laboratorio" || d.estado_aex === "Pendiente envío a Laboratorio")) {
-                    botones_analisis_externo += `<button class="accion-btn" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
+                    botones_analisis_externo += `<button class="accion-btn ingControl" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
                 }
                 if (d.url_documento_adicional !== null && d.url_documento_adicional !== "") {
-                    botones_otros_documentos += '<button class="accion-btn" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
+                    botones_otros_documentos += '<button class="accion-btn ingControl" title="Revisar Documento Adicional" onclick="window.open(\'' + d.url_documento_adicional + '\', \'_blank\')"><i class="fa fa-file-pdf-o"></i> Revisar Documento Adicional</button><a> </a>';
                 }
 
             }

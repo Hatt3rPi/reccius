@@ -11,14 +11,20 @@ function featureNoDisponible(){
 
 
 // Función para controlar la ansiedad de Inger
-function desactivar_boton_temporalmente(element, duration = 2000) {
-    if (element) {
-        element.disabled = true; // Desactiva el botón
-        setTimeout(function() {
-            element.disabled = false; // Lo vuelve a activar después de la duración especificada
-        }, duration);
-        console.log(element, ' finaliza bloqueo temporal')
-    }
+// function desactivar_boton_temporalmente(element, duration = 2000) {
+//     if (element) {
+//         element.disabled = true; // Desactiva el botón
+//         setTimeout(function() {
+//             element.disabled = false; // Lo vuelve a activar después de la duración especificada
+//         }, duration);
+//         console.log(element, ' finaliza bloqueo temporal')
+//     }
+// }
+function desactivar_boton_temporalmente(elemento, tiempo = 500) {
+    elemento.disabled = true;  // Deshabilitar el botón
+    setTimeout(function() {
+        elemento.disabled = false;  // Habilitar el botón nuevamente después de 'tiempo' milisegundos
+    }, tiempo);
 }
 
 function obtenNotificaciones() {

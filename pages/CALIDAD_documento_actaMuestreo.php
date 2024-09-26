@@ -769,12 +769,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
-    <button class="botones" id="guardar" style="display: none">Guardar</button>
-    <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
-    <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
-    <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
-    <button class="botones" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
+    <button class="botones ingControl" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
+    <button class="botones ingControl" id="guardar" style="display: none">Guardar</button>
+    <button class="botones ingControl" id="firmar" style="display: none">Ingresar Resultados</button>
+    <button class="botones ingControl" id="download-pdf" style="display: none">Descargar PDF</button>
+    <button class="botones ingControl" id="upload-pdf" style="display: none">Guardar PDF</button>
+    <button class="botones ingControl" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -825,7 +825,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <button class="confirmarRechazo" onclick="confirmarRechazo()">Confirmar</button>
     </div>
 </div>
-
+<div id="modalLoading" class="modalRechazo" style="display: none">
+    <div class="modal-contentRechazo">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+            
+        </div>
+        <p>Procesando documento</p>
+    </div>
+</div>
 </html>
 <script>
     var idAnalisisExterno_acta = null;
@@ -1102,8 +1110,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const nombreProducto = document.getElementById('producto').textContent.trim();
             const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
 
+            $.notify("PDF generado con éxito", "success");
+            
             // Restaurar los botones no seleccionados
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
@@ -1114,6 +1123,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Restaurar el input de fecha
             fechaMuestreoTd.innerHTML = originalHtml;
+            
+            //$('#listado_acta_muestreo').click();
         });
     });
 
@@ -1124,7 +1135,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
-        
+        document.getElementById('modalLoading').style.display = 'block';
         desactivar_boton_temporalmente(document.getElementById('upload-pdf'));
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
@@ -1196,13 +1207,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(data => {
                     if (data.status === 'success') {
                         $.notify("PDF subido con éxito", "success");
+                        console.log('fin spinner');
+                        document.getElementById('modalLoading').style.display = 'none';
                     } else {
                         $.notify("Error al subir el PDF: " + data.message, "error");
+                        console.log('fin spinner');
+                        document.getElementById('modalLoading').style.display = 'none';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     $.notify("Error al subir el PDF", "error");
+                    document.getElementById('modalLoading').style.display = 'none';
                 });
 
             allButtonGroups.forEach(group => {
@@ -1211,12 +1227,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.style.display = 'block';
                 });
             });
+            
         }).catch(error => {
             console.error('Error al generar el canvas:', error);
             $.notify("Error al generar el PDF", "error");
+            document.getElementById('modalLoading').style.display = 'none';
         });
         //desactivar modal spiner
-        $('#listado_acta_muestreo').click();
+
     });
 
     function SacarEditable(editable) {
