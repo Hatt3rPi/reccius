@@ -1110,6 +1110,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const nombreProducto = document.getElementById('producto').textContent.trim();
             const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+            console.log('fin spinner');
             document.getElementById('modalLoading').style.display = 'none';
             $.notify("PDF generado con éxito", "success");
             
