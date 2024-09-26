@@ -1217,7 +1217,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         $('#listado_acta_muestreo').click();
     });
 
-    function asa(editable) {
+    function SacarEditable(editable) {
         if (editable === false) {
             // Si editable es false, ejecuta el código aquí
             console.log("El contenido no es editable");
@@ -1241,8 +1241,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null) {
-        console.log(id, resultados, etapa);
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null, editable = true) {
+        console.log(id, resultados, etapa, editable);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
             $.ajax({
@@ -1258,6 +1258,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#id_actaMuestreo').text(id);
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
                         procesarDatosActa(data.analisis_externos[0], resultados, etapa);
+                        // Si editable es false, hacemos las acciones correspondientes
+                        if (editable === false) {
+                            console.log("El acta no es editable.");
+
+                            // Hacer que los campos de texto y textarea sean solo lectura, pero no deshabilitarlos
+                            $('input, textarea').attr('readonly', true); // Establecer los campos como solo lectura
+                            $('select').attr('disabled', true); // Deshabilitar los campos de selección (select)
+                        } else {
+                            console.log("El acta es editable.");
+
+                            // Habilitar los campos si editable es true
+                            $('input, textarea').attr('readonly', false); // Hacer los campos editables nuevamente
+                            $('select').attr('disabled', false); // Habilitar los campos de selección
+                        }
 
                         if (data.analisis_externos[0].estado === "rechazado") {
                             document.getElementById('guardar').style.display = 'none';
