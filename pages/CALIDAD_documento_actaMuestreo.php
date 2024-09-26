@@ -825,10 +825,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <button class="confirmarRechazo" onclick="confirmarRechazo()">Confirmar</button>
     </div>
 </div>
-<div id="modalLoading" class="modalRechazo">
+<div id="modalLoading" class="modalRechazo" style="display: none">
     <div class="modal-contentRechazo">
         <div class="spinner-border" role="status">
-            <span class="sr-only">Procesando</span>
+            <span class="sr-only"></span>
+            <p>Procesando documento</p>
         </div>
     </div>
 </div>
@@ -1220,6 +1221,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }).catch(error => {
             console.error('Error al generar el canvas:', error);
             $.notify("Error al generar el PDF", "error");
+            document.getElementById('modalLoading').style.display = 'none';
         });
         //desactivar modal spiner
         document.getElementById('modalLoading').style.display = 'none';
