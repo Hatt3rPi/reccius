@@ -28,7 +28,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/css/DocumentoActa.css?version=1">
     <link rel="stylesheet" href="../assets/css/Modal.css">
-    
+
 
 </head>
 
@@ -831,7 +831,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     var idAnalisisExterno_acta = null;
 
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
-        disableButtonTemporarily('confirmarMetodo'); 
+        disableButtonTemporarily('confirmarMetodo');
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
 
@@ -987,7 +987,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        disableButtonTemporarily('download-pdf'); 
+        disableButtonTemporarily('download-pdf');
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
         .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
@@ -1123,7 +1123,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
-        disableButtonTemporarily('upload-pdf'); 
+        disableButtonTemporarily('upload-pdf');
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
@@ -1215,6 +1215,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     });
 
+    function asa(editable) {
+        if (editable === false) {
+            // Si editable es false, ejecuta el código aquí
+            console.log("El contenido no es editable");
+
+            // Ejemplo de deshabilitar todos los campos de entrada en un formulario
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.setAttribute('disabled', true); // Deshabilitar los campos
+            });
+        } else {
+            // Si editable es true o cualquier otro valor, aquí podrías hacer otra cosa
+            console.log("El contenido es editable");
+
+            // Habilitar los campos
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.removeAttribute('disabled'); // Habilitar los campos
+            });
+        }
+    }
+
 
     //cargarDatosEspecificacion(id, true, '0');
     function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null) {
@@ -1234,8 +1256,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#id_actaMuestreo').text(id);
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
                         procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                        
-                        if(data.analisis_externos[0].estado==="rechazado"){
+
+                        if (data.analisis_externos[0].estado === "rechazado") {
                             document.getElementById('guardar').style.display = 'none';
                             document.getElementById('rechazo').style.display = 'none';
                         }
@@ -1461,7 +1483,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     document.getElementById('firmar').addEventListener('click', function() {
         // Hacer visibles los elementos de .formulario.resp
-        disableButtonTemporarily('firmar'); 
+        disableButtonTemporarily('firmar');
         console.log('click firma')
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
@@ -1499,7 +1521,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('guardar').addEventListener('click', function() {
-        disableButtonTemporarily('guardar'); 
+        disableButtonTemporarily('guardar');
 
         let etapa = $('#etapa').text();
         switch (etapa) {
@@ -1516,69 +1538,71 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 break;
         }
     });
+
     function getPlanMuestreoData() {
-    var table = document.getElementById('seccion3');
-    var data = [];
+        var table = document.getElementById('seccion3');
+        var data = [];
 
-    // Obtener todas las filas de la tabla
-    var rows = table.getElementsByTagName('tr');
+        // Obtener todas las filas de la tabla
+        var rows = table.getElementsByTagName('tr');
 
-    // Omitir la primera fila (encabezados)
-    for (var i = 1; i < rows.length; i++) {
-        var row = rows[i];
+        // Omitir la primera fila (encabezados)
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
 
-        // Obtener todas las celdas de la fila
-        var cells = row.getElementsByTagName('td');
+            // Obtener todas las celdas de la fila
+            var cells = row.getElementsByTagName('td');
 
-        if (cells.length > 0) {
-            // Asumiendo la estructura:
-            // cells[0]: Tamaño de Lote
-            // cells[1]: Muestra
-            // cells[2]: Contramuestra
-            // cells[3]: Total
-            // cells[4]: Revisión Muestreador (radio buttons)
-            // cells[5]: Revisión Responsable (radio buttons)
+            if (cells.length > 0) {
+                // Asumiendo la estructura:
+                // cells[0]: Tamaño de Lote
+                // cells[1]: Muestra
+                // cells[2]: Contramuestra
+                // cells[3]: Total
+                // cells[4]: Revisión Muestreador (radio buttons)
+                // cells[5]: Revisión Responsable (radio buttons)
 
-            var tamanoLote = cells[0].innerText.trim();
-            var muestra = cells[1].innerText.trim();
-            var contramuestra = cells[2].innerText.trim();
-            var total = cells[3].innerText.trim();
+                var tamanoLote = cells[0].innerText.trim();
+                var muestra = cells[1].innerText.trim();
+                var contramuestra = cells[2].innerText.trim();
+                var total = cells[3].innerText.trim();
 
-            // Añadir los datos al array
-            data.push({
-                tamanoLote: tamanoLote,
-                muestra: muestra,
-                contramuestra: contramuestra,
-                total: total
-            });
+                // Añadir los datos al array
+                data.push({
+                    tamanoLote: tamanoLote,
+                    muestra: muestra,
+                    contramuestra: contramuestra,
+                    total: total
+                });
+            }
         }
+
+        return data;
     }
 
-    return data;
-}
-function populatePlanMuestreoTable(planMuestreoData) {
-    var table = document.getElementById('seccion3');
+    function populatePlanMuestreoTable(planMuestreoData) {
+        var table = document.getElementById('seccion3');
 
-    // Iterar sobre las 3 filas de la tabla que no incluyen el encabezado
-    for (var i = 1; i <= 3; i++) {
-        var row = table.rows[i]; // Obtener la fila correspondiente
+        // Iterar sobre las 3 filas de la tabla que no incluyen el encabezado
+        for (var i = 1; i <= 3; i++) {
+            var row = table.rows[i]; // Obtener la fila correspondiente
 
-        // Verificar si hay datos para actualizar en planMuestreoData
-        if (planMuestreoData[i - 1]) {
-            var item = planMuestreoData[i - 1];
+            // Verificar si hay datos para actualizar en planMuestreoData
+            if (planMuestreoData[i - 1]) {
+                var item = planMuestreoData[i - 1];
 
-            // Actualizar las celdas de la fila correspondiente
-            row.cells[0].innerText = item.tamanoLote || '';
-            row.cells[1].innerText = item.muestra || '';
-            row.cells[2].innerText = item.contramuestra || '';
-            row.cells[3].innerText = item.total || '';
-            row.cells[0].contentEditable = false;
-            row.cells[1].contentEditable = false;
-            row.cells[2].contentEditable = false;
-            row.cells[3].contentEditable = false;
+                // Actualizar las celdas de la fila correspondiente
+                row.cells[0].innerText = item.tamanoLote || '';
+                row.cells[1].innerText = item.muestra || '';
+                row.cells[2].innerText = item.contramuestra || '';
+                row.cells[3].innerText = item.total || '';
+                row.cells[0].contentEditable = false;
+                row.cells[1].contentEditable = false;
+                row.cells[2].contentEditable = false;
+                row.cells[3].contentEditable = false;
+            }
         }
     }
-}
 
 
     function guardar_firma(selector, etapa) {
@@ -1706,7 +1730,7 @@ function populatePlanMuestreoTable(planMuestreoData) {
                 console.log('Firma guardada con éxito: ', response);
                 //alert("Firma guardada correctamente.");
                 $.notify("Documento firmado correctamente.", "success");
-                
+
             },
             error: function(xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
@@ -1718,7 +1742,7 @@ function populatePlanMuestreoTable(planMuestreoData) {
     var idActaMuestreo_rechazado = null;
 
     function botones_interno(accion) {
-        disableButtonTemporarily('rechazo', 500); 
+        disableButtonTemporarily('rechazo', 500);
         if (accion === 'rechazar_actaMuestreo') {
             idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
             abrirModal();
@@ -1769,14 +1793,13 @@ function populatePlanMuestreoTable(planMuestreoData) {
         cerrarModal();
     }
     // Función para controlar la ansiedad de Inger
-function disableButtonTemporarily(buttonId, duration = 2000) {
-    var button = document.getElementById(buttonId);
-    if (button) {
-        button.disabled = true; // Desactiva el botón
-        setTimeout(function() {
-            button.disabled = false; // Lo vuelve a activar después de la duración especificada
-        }, duration);
+    function disableButtonTemporarily(buttonId, duration = 2000) {
+        var button = document.getElementById(buttonId);
+        if (button) {
+            button.disabled = true; // Desactiva el botón
+            setTimeout(function() {
+                button.disabled = false; // Lo vuelve a activar después de la duración especificada
+            }, duration);
+        }
     }
-}
-
 </script>
