@@ -28,30 +28,35 @@ function desactivar_boton_temporalmente(elemento, tiempo = 500) {
     }, tiempo);
 }
 
-// Event listener para todos los botones con clase 'ingControl'
-function agregarEventosBotones() {
-    // Selecciona todos los elementos con clase 'ingControl'
-    var botones = document.querySelectorAll('.ingControl');
+// // Event listener para todos los botones con clase 'ingControl'
+// function agregarEventosBotones() {
+//     // Selecciona todos los elementos con clase 'ingControl'
+//     var botones = document.querySelectorAll('.ingControl');
     
-    botones.forEach(function(boton) {
-        boton.addEventListener('click', function(event) {
-            desactivar_boton_temporalmente(boton);  // Llama a la función cuando se hace clic en el botón
-        });
-    });
-}
+//     botones.forEach(function(boton) {
+//         boton.addEventListener('click', function(event) {
+//             desactivar_boton_temporalmente(boton);  // Llama a la función cuando se hace clic en el botón
+//         });
+//     });
+// }
 
-// Ejecutar cuando la página se carga inicialmente
-window.addEventListener('DOMContentLoaded', function() {
-    agregarEventosBotones();
-});
+// // Ejecutar cuando la página se carga inicialmente
+// window.addEventListener('DOMContentLoaded', function() {
+//     agregarEventosBotones();
+// });
 
-// Si se navega en el historial o cambia el hash, asegurarse de que los botones tengan el evento
-window.addEventListener('popstate', function(event) {
-    agregarEventosBotones();
-});
+// // Si se navega en el historial o cambia el hash, asegurarse de que los botones tengan el evento
+// window.addEventListener('popstate', function(event) {
+//     agregarEventosBotones();
+// });
 
-window.addEventListener('hashchange', function(event) {
-    agregarEventosBotones();
+// window.addEventListener('hashchange', function(event) {
+//     agregarEventosBotones();
+// });
+
+// Usar delegación de eventos para los botones con clase 'ingControl'
+$(document).on('click', '.ingControl', function() {
+    desactivar_boton_temporalmente(this);
 });
 
 
