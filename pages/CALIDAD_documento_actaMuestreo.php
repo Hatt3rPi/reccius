@@ -1218,14 +1218,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.style.display = 'block';
                 });
             });
+            document.getElementById('modalLoading').style.display = 'none';
+            $('#listado_acta_muestreo').click();
         }).catch(error => {
             console.error('Error al generar el canvas:', error);
             $.notify("Error al generar el PDF", "error");
             document.getElementById('modalLoading').style.display = 'none';
         });
         //desactivar modal spiner
-        document.getElementById('modalLoading').style.display = 'none';
-        $('#listado_acta_muestreo').click();
+
     });
 
     function SacarEditable(editable) {
