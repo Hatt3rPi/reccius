@@ -800,7 +800,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa': '3'
+                            'etapa': '3',
+                            'editable': false
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response);
