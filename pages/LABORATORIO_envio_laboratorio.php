@@ -91,10 +91,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <label for="destinatario1_email">Email <span class="order_span_mail">1</span>:</label>
                             <input type="email" id="destinatario1_email" name="destinatarios[0][email]" class="form-control mx-0 w-90" placeholder="Email destinatario 1" required>
                         </div>
-                        <button type="button" class="remove-destinatario btn btn-danger">Eliminar</button>
+                        <button type="button" class="remove-destinatario btn btn-danger ingControl">Eliminar</button>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" id="add-destinatario">Agregar destinatario</button>
+                <button type="button" class="btn btn-primary ingControl" id="add-destinatario">Agregar destinatario</button>
             </fieldset>
             <br>
             <fieldset>
@@ -239,7 +239,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
                             $('#buttonContainer')
-                                .append('<button type="submit" class="botones" id="enviarCorreo">Enviar</button>');
+                                .append('<button type="submit" class="botones ingControl" id="enviarCorreo">Enviar</button>');
                         } else {
                             $('#modalInfo').show();
 
@@ -249,7 +249,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             var acciones = '';
                             var buttonContainer = '';
                             if (!analisis.url_certificado_solicitud_analisis_externo) {
-                                acciones += `<button class="btn btn-primary col-5" 
+                                acciones += `<button class="btn btn-primary col-5 ingControl" 
                                     type="button" 
                                     title="Análisis Externo" 
                                     name="generar_documento_pdf" 
@@ -258,13 +258,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </button>`;
                                 buttonContainer += `<button 
                                     type="button" 
-                                    class="botones" 
+                                    class="botones ingControl" 
                                     name="generar_documento_pdf"
                                     onclick="botones(${idAnalisisExterno}, this.name, 'laboratorio')"
                                     >Ir a guardar análisis Externo</button>`
                             }
                             if (!analisis.url_certificado_acta_de_muestreo) {
-                                acciones += `<button class="btn btn-primary col-5" 
+                                acciones += `<button class="btn btn-primary col-5 ingControl" 
                                     type="button" 
                                     title="Acta de muestreo" 
                                     name="revisar_acta" 
@@ -273,7 +273,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 </button>`;
                                 buttonContainer += `<button 
                                     type="button" 
-                                    class="botones" 
+                                    class="botones ingControl" 
                                     name="revisar_acta"
                                     onclick="botones(${ acta ? acta[0].id : '' }, this.name, 'laboratorio')"
                                     >Ir a guardar Acta de muestreo</button>`

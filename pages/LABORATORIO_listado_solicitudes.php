@@ -250,36 +250,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Botón para revisar siempre presente
             
             if (d.estado === "Pendiente completar análisis" && d.solicitado_por === usuarioActual) {
-                acciones += '<button class="accion-btn" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Completar información faltante</button><a> </a>';
+                acciones += '<button class="accion-btn ingControl" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Completar información faltante</button><a> </a>';
             }
             //revisar analisis externo
             if ( (d.estado === "Pendiente ingreso resultados laboratorio" ||
                 d.estado === "Pendiente ingreso resultados" ) && d.revisado_por === usuarioActual ) {
-                acciones +=  `<button class="accion-btn" title="Ingresar resultados Laboratorio" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ingresar resultados de Laboratorio</button><a> </a>`;
-                //acciones += `<button class="accion-btn" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
+                acciones +=  `<button class="accion-btn ingControl" title="Ingresar resultados Laboratorio" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ingresar resultados de Laboratorio</button><a> </a>`;
+                //acciones += `<button class="accion-btn ingControl" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
             }
 
             if (d.estado === "Finalizado") {
                 
             }
             if (d.estado === "Pendiente envío a Laboratorio" ) {
-                acciones += `<button class="accion-btn" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
+                acciones += `<button class="accion-btn ingControl" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
                 if (d.revisado_por === usuarioActual || usuarioActual === 'isumonte'){
-                    acciones += `<button class="accion-btn" title="WIP Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Enviar Solicitud a Laboratorio</button><a> </a>`;
+                    acciones += `<button class="accion-btn ingControl" title="WIP Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Enviar Solicitud a Laboratorio</button><a> </a>`;
                 }
             }
             if (d.am_ejecutado_por === usuarioActual && d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo === null) {
-                acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
+                acciones += '<button class="accion-btn ingControl" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
             }
             if (d.estado === "Pendiente Acta de Muestreo" && d.estado_muestreo === 'rechazado') {
-                acciones += '<button class="accion-btn" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo_versionado" onclick="botones(this.id, this.name, \'laboratorio\',' + d.id_original + ',' + d.version_registro + ')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
+                acciones += '<button class="accion-btn ingControl" title="Generar Acta de muestreo" id="' + d.id_analisisExterno + '" name="generar_acta_muestreo_versionado" onclick="botones(this.id, this.name, \'laboratorio\',' + d.id_original + ',' + d.version_registro + ')"><i class="fas fa-check"></i> Generar Acta de Muestreo</button><a> </a>';
             }
             if (d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo !== null) {
                 if (d.estado_muestreo === "Pendiente Muestreo") {
-                    acciones += '<button class="accion-btn" title="Ingresar resultados Acta Muestreo" type="button" id="' + d.id_muestreo + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_muestreo + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados Acta Muestreo</button><a> </a>';
+                    acciones += '<button class="accion-btn ingControl" title="Ingresar resultados Acta Muestreo" type="button" id="' + d.id_muestreo + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_muestreo + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados Acta Muestreo</button><a> </a>';
                 }
                 if (d.estado_muestreo === "En proceso de firma") {
-                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_muestreo + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Ir a Firmar Acta Muestreo</button><a> </a>';
+                    acciones += '<button class="accion-btn ingControl" title="Firmar Acta de Muestreo" id="' + d.id_muestreo + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Ir a Firmar Acta Muestreo</button><a> </a>';
                 }
             }
             // if (
@@ -288,13 +288,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             //     d.estado.toLowerCase() === "pendiente liberación producto" ||
             //     d.estado.toLowerCase() === "finalizado"
             // ) {
-            //     acciones += `<button class="accion-btn" title="WIP Firmar Solicitud Análisis Externo" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar analisis externo</button><a> </a>`;
+            //     acciones += `<button class="accion-btn ingControl" title="WIP Firmar Solicitud Análisis Externo" id="${d.id_analisisExterno}" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar analisis externo</button><a> </a>`;
             // }
             
             if ( d.estado === "Pendiente liberación productos") {
-            acciones += `<button class="accion-btn" title="Solicitud Liberacion" type="button" id="${d.id_analisisExterno}" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a> </a>`;
+            acciones += `<button class="accion-btn ingControl" title="Solicitud Liberacion" type="button" id="${d.id_analisisExterno}" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a> </a>`;
             }
-            acciones += `<button class="accion-btn" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" style="background-color: red; color: white;" onclick="botones_interno(this.id, this.name, 'laboratorio')"> <i class="fas fa-trash"></i> Eliminar Análisis Externo</button><a> </a>`;
+            acciones += `<button class="accion-btn ingControl" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" style="background-color: red; color: white;" onclick="botones_interno(this.id, this.name, 'laboratorio')"> <i class="fas fa-trash"></i> Eliminar Análisis Externo</button><a> </a>`;
             acciones += '</td></tr></table>';
 
             return acciones;

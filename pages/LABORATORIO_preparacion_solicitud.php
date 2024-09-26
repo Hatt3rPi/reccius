@@ -356,9 +356,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="alert alert-warning mx-3 text-center p-2 m-0" id="alert_warning" style="display: none;"></div>
 
             <div class="button-container">
-                <button type="submit" id="guardar" name="guardar" class="botones">
+                <button type="submit" id="guardar" name="guardar" class="botones ingControl">
                     Guardar Solicitud</button>
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones" style="background-color: red; color: white;">
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="botones ingControl" style="background-color: red; color: white;">
                     Editar solicitud</button>
             </div>
             <div class="actions-container">

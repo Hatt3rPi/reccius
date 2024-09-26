@@ -227,22 +227,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Botón para "Ingresar resultados" si el estado es "Pendiente Muestreo"
             if (d.estado === "Pendiente Muestreo") {
-                acciones += '<button class="accion-btn" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados</button><a></a>';
+                acciones += '<button class="accion-btn ingControl" title="WIP Ingresar resultados Acta Muestreo" type="button" id="' + d.id_acta + '" name="resultados_actaMuestreo" onclick="botones(' + d.id_acta + ', this.name, \'laboratorio\')"><i class="fas fa-search"></i> Ingresar resultados</button><a></a>';
             }
 
             // Botón para "Firmar Acta de Muestreo" si está en proceso de firma
             if (d.estado === "En proceso de firma") {
                 if (d.cantidad_firmas == 1 && d.user_firma2 == usuarioActual) {
-                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a></a>';
+                    acciones += '<button class="accion-btn ingControl" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a></a>';
                 }
                 if (d.cantidad_firmas == 2 && d.user_firma3 == usuarioActual) {
-                    acciones += '<button class="accion-btn" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a></a>';
+                    acciones += '<button class="accion-btn ingControl" title="Firmar Acta de Muestreo" id="' + d.id_acta + '" name="firmar_acta_muestreo" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-signature"></i> Firmar</button><a></a>';
                 }
             }
 
             // Botón para "Ver documento" si el estado es "Vigente" o "rechazado"
             if (d.estado === "Vigente" || d.estado === "rechazado") {
-                acciones += '<button class="accion-btn" title="Ver documento" id="' + d.id_acta + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ver documento</button><a></a>';
+                acciones += '<button class="accion-btn ingControl" title="Ver documento" id="' + d.id_acta + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Ver documento</button><a></a>';
             }
 
             acciones += '</td></tr></table>';

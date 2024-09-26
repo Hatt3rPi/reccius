@@ -164,7 +164,7 @@
                 </div>
             </div>
         </div>
-        <button id="download-pdf">Descargar PDF</button>
+        <button class="ingControl" id="download-pdf">Descargar PDF</button>
         <script>
        
     function cargarDatosEspecificacion(id) {

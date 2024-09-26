@@ -354,12 +354,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <?php
     $etapa = $_POST['etapa'];
     if ($etapa == '0') {
-        echo '      <button class="botones" id="upload-pdf">Guardar PDF</button>
-                    <button class="botones" id="download-pdf" >Descargar PDF</button>';
+        echo '      <button class="botones ingControl" id="upload-pdf">Guardar PDF</button>
+                    <button class="botones ingControl" id="download-pdf" >Descargar PDF</button>';
     } else {
         echo '
-                <button class="botones" id="revisar" style="display: none;">Revisar</button>
-                <button class="botones" id="download-pdf" style="display: none;">Descargar PDF</button>
+                <button class="botones ingControl" id="revisar" style="display: none;">Revisar</button>
+                <button class="botones ingControl" id="download-pdf" style="display: none;">Descargar PDF</button>
             ';
     }
     ?>

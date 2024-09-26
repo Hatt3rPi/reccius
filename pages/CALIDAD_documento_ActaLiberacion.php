@@ -434,9 +434,9 @@ $link->close();
 
 </body>
 <div class="button-container">
-    <button class="botones" name="download-pdf" id="download-pdf" style="display: none;">Descargar PDF</button>
-    <button class="botones" name="firma" id="firma" onclick="resultado_liberacion()" style="display: none;">Firmar Documento</button>
-    <button class="botones" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar y Firmar Documento</button>
+    <button class="botones ingControl" name="download-pdf" id="download-pdf" style="display: none;">Descargar PDF</button>
+    <button class="botones ingControl" name="firma" id="firma" onclick="resultado_liberacion()" style="display: none;">Firmar Documento</button>
+    <button class="botones ingControl" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar y Firmar Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
     <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>

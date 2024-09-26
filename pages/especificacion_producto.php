@@ -214,8 +214,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
             
             <div class="actions-container">
-                <button type="button" id="guardar" name="guardar" data-accion='crear' class="action-button">Guardar Especificación</button>
-                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
+                <button type="button" id="guardar" name="guardar" data-accion='crear' class="action-button ingControl">Guardar Especificación</button>
+                <button type="button" id="editarGenerarVersion" name="editarGenerarVersion" class="action-button ingControl" style="background-color: red; color: white;display: none;">Editar y generar nueva versión</button>
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
             </div>
