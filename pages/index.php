@@ -398,16 +398,5 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             $('#dynamic-content').show();
         }
     });
-        // Event listener para todos los botones con clase 'ingControl'
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('algún click se apretó');
-        // Selecciona todos los elementos con clase 'ingControl'
-        var botones = document.querySelectorAll('.ingControl');
-        
-        botones.forEach(function(boton) {
-            boton.addEventListener('click', function(event) {
-                desactivar_boton_temporalmente(boton);  // Llama a la función cuando se hace clic en el botón
-            });
-        });
-    });
+
 </script>
