@@ -1259,7 +1259,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
                         procesarDatosActa(data.analisis_externos[0], resultados, etapa);
                         // Si editable es false, hacemos las acciones correspondientes
-                        if (editable === false) {
+                        if (editable === true) {
                             console.log("El acta no es editable.");
 
                             // Hacer que los campos de texto y textarea sean solo lectura, pero no deshabilitarlos
