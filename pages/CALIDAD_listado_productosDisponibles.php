@@ -277,7 +277,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             if (d.estado === "liberado" || d.estado === "rechazado") {
                 botones_otros_documentos +=
-                    '<button class="accion-btn" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
+                '<button class="accion-btn" title="Revisar Especificación de producto" id="' + 
+                d.id_especificacion + 
+                '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
 
 
                 botones_otros_documentos += '<button class="accion-btn" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="' + d.id + '"><i class="fa fa-plus"></i> Añadir Documento</button>';

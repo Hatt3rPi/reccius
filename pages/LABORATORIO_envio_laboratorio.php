@@ -428,7 +428,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function enviarCorreo() {
             destinatarios = [];
-            var bad = []
+            var bad = [];
+
+            var enviar = document.getElementById('enviarCorreo');
+            if(enviar) enviar.disabled = true;
+            
 
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
@@ -445,6 +449,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if(bad.length > 0) {
                 bad[0].focus();
                 alert('Por favor, ingresa un correo electrónico y un nombre para todos los destinatarios.');
+                if (enviar) enviar.disabled = false;
                 return false;
             }
             destinatarios.push({
@@ -483,6 +488,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Hubo un problema al procesar tu solicitud. Por favor, intenta de nuevo.');
+                }).finally(() => {
+                    if (enviar) enviar.disabled = false;
                 });
 
         }
