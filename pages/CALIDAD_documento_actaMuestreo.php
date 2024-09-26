@@ -1241,7 +1241,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null, editable = true) {
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null, editable) {
         console.log(id, resultados, etapa, editable);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
