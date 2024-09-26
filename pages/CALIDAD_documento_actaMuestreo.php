@@ -1110,8 +1110,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const nombreProducto = document.getElementById('producto').textContent.trim();
             const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            console.log('fin spinner');
-            document.getElementById('modalLoading').style.display = 'none';
+
             $.notify("PDF generado con éxito", "success");
             
             // Restaurar los botones no seleccionados
@@ -1208,13 +1207,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(data => {
                     if (data.status === 'success') {
                         $.notify("PDF subido con éxito", "success");
+                        console.log('fin spinner');
+                        document.getElementById('modalLoading').style.display = 'none';
                     } else {
                         $.notify("Error al subir el PDF: " + data.message, "error");
+                        console.log('fin spinner');
+                        document.getElementById('modalLoading').style.display = 'none';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     $.notify("Error al subir el PDF", "error");
+                    document.getElementById('modalLoading').style.display = 'none';
                 });
 
             allButtonGroups.forEach(group => {
