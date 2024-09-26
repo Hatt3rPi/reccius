@@ -452,7 +452,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Cargado por</th>
-                        <th>Fecha de Carga</th>
+                        <th>Fecha</th>
                         <th>Archivo</th>
                     </tr>`
                 data.documentos.forEach(({
@@ -467,7 +467,7 @@
                         <tr id="row-document-${id}">
                             <td>${nombre_documento}</td>
                             <td>${usuario_carga}</td>
-                            <td>${fecha_carga}</td>
+                            <td>${fecha_carga.split('-').reverse().join('/')}</td>
                             <td>
                                 <a href="${url}" target="_blank">Ver</a>
                             </td>
