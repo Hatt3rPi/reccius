@@ -1123,12 +1123,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
-<<<<<<< Updated upstream
         disableButtonTemporarily('upload-pdf');
-=======
-        //activar modal spiner
-        disableButtonTemporarily('upload-pdf'); 
->>>>>>> Stashed changes
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
