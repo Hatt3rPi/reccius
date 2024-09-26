@@ -774,6 +774,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <button class="botones ingControl" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones ingControl" id="download-pdf" style="display: none">Descargar PDF</button>
     <button class="botones ingControl" id="upload-pdf" style="display: none">Guardar PDF</button>
+    <button class="botones ingControl" id="test" style="display: none">test</button>
     <button class="botones ingControl" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
@@ -992,7 +993,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
-
+    document.getElementById('test').addEventListener('click', function() {
+    const timestamp = new Date().toLocaleTimeString();
+    console.log(`click a las ${timestamp}`);
+});
 
     document.getElementById('download-pdf').addEventListener('click', function() {
         
