@@ -9,19 +9,19 @@ function featureNoDisponible(){
     });
 }
 
-// function desactivar_boton_temporalmente(elemento, tiempo = 500) {
-//     console.log(elemento, ' inicia bloqueo temporal');
-//     elemento.disabled = true;  // Deshabilitar el botón
-//     setTimeout(function() {
-//         elemento.disabled = false;  // Habilitar el botón nuevamente después de 'tiempo' milisegundos
-//     }, tiempo);
-// }
+function desactivar_boton_temporalmente(elemento, tiempo = 500) {
+    console.log(elemento, ' inicia bloqueo temporal');
+    elemento.disabled = true;  // Deshabilitar el botón
+    setTimeout(function() {
+        elemento.disabled = false;  // Habilitar el botón nuevamente después de 'tiempo' milisegundos
+    }, tiempo);
+}
 
-// // Usar delegación de eventos para los botones con clase 'ingControl'
-// $(document).on('click', '.ingControl', function() {
-//     event.preventDefault();
-//     desactivar_boton_temporalmente(this);
-// });
+// Usar delegación de eventos para los botones con clase 'ingControl'
+$(document).on('click', '.ingControl', function() {
+    event.preventDefault();
+    desactivar_boton_temporalmente(this);
+});
 
 function obtenNotificaciones() {
         fetch('../pages/backend/login/notificaciones.php')
