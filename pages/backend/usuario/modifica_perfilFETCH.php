@@ -34,11 +34,16 @@ function limpiarDato($dato)
 }
 
 function updateSession($usuario)
-{
+{ 'aca'
     global $link;
     $query = "SELECT 
-            usr.id, usr.nombre, usr.foto_firma, usr.foto_perfil, 
-            usr.correo, usr.cargo, rol.nombre as rol
+            usr.id, usr.nombre, usr.foto_perfil, 
+            usr.correo, usr.cargo, rol.nombre as rol,
+            CASE
+                                    WHEN usr.qr_documento IS NOT NULL THEN usr.qr_documento
+                                    WHEN usr.foto_firma IS NOT NULL THEN usr.foto_firma
+                                    ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+                                END as foto_firma
             FROM `usuarios` as usr 
             LEFT JOIN roles as rol 
             ON usr.rol_id=rol.id WHERE usuario = ?";
