@@ -1587,7 +1587,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 };
 
                 firma3(response3);
-
+                document.getElementById('metodo_muestreo').style.display = 'none';
+                document.getElementById('guardar').style.display = 'none';
+                document.getElementById('rechazo').style.display = 'block';
+                document.getElementById('download-pdf').style.display = 'block';
+                $('#upload-pdf').show();
                 $('#upload-pdf').click();
                 break;
         }
