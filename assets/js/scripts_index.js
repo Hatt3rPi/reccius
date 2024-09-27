@@ -10,8 +10,18 @@ function featureNoDisponible(){
 }
 
 function desactivar_boton_temporalmente(elemento, tiempo = 500) {
-    console.log(elemento, ' inicia bloqueo temporal');
-    elemento.disabled = true;  // Deshabilitar el botón
+    console.log(elemento, 'inicia bloqueo temporal');
+
+    if (elemento.type === 'submit') {
+        // Deshabilitar el botón de submit después de un pequeño retraso
+        setTimeout(function() {
+            elemento.disabled = true;
+        }, 0);
+    } else {
+        elemento.disabled = true;  // Deshabilitar el botón inmediatamente
+    }
+
+    // Reactivar el botón después del tiempo especificado
     setTimeout(function() {
         elemento.disabled = false;  // Habilitar el botón nuevamente después de 'tiempo' milisegundos
     }, tiempo);
