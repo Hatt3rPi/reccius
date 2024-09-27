@@ -1579,6 +1579,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 break;
             case 'firma3':
                 guardar_firma3(); // 
+                var today = new Date().toLocaleDateString(); // Si "today" es la fecha actual
+                var response3 = {
+                    "foto_firma_usr3": "<?php echo $_SESSION['foto_firma']; ?>",
+                    "fecha_firma_muestreador": today
+                    // otros datos que necesites
+                };
+
+                firma3(response3);
+
                 $('#upload-pdf').click();
                 break;
         }
@@ -1765,7 +1774,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         };
 
         // Enviar datos al servidor usando AJAX
-        console.log(dataToSave);
+        //console.log(dataToSave);
         $.ajax({
             url: './backend/acta_muestreo/guardar_y_firmar.php',
             type: 'POST',
@@ -1780,6 +1789,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             error: function(xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
                 //alert("Error al guardar la firma.");
+
+                // $_SESSION['foto_firma']
                 $.notify("Error al firmar documento", "error");
             }
         });
