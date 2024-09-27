@@ -17,11 +17,17 @@ function desactivar_boton_temporalmente(elemento, tiempo = 500) {
     }, tiempo);
 }
 
-// Usar delegación de eventos para los botones con clase 'ingControl'
-$(document).on('click', '.ingControl', function() {
-    event.preventDefault();
+$(document).on('click', '.ingControl', function(event) {
+    // Verificar si el botón no es de tipo 'submit'
+    if ($(this).attr('type') !== 'submit') {
+        console.log('Botón tipo submit');
+       // event.preventDefault();  // Evitar la acción predeterminada solo para botones que no sean 'submit'
+    } else {
+        console.log('Botón tipo button');
+    }
     desactivar_boton_temporalmente(this);
 });
+
 
 function obtenNotificaciones() {
         fetch('../pages/backend/login/notificaciones.php')
