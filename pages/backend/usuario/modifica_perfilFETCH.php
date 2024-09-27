@@ -34,7 +34,7 @@ function limpiarDato($dato)
 }
 
 function updateSession($usuario)
-{ 'aca'
+{ 
     global $link;
     $query = "SELECT 
             usr.id, usr.nombre, usr.foto_perfil, 
