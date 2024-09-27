@@ -10,7 +10,7 @@ function featureNoDisponible(){
 }
 
 function desactivar_boton_temporalmente(elemento, tiempo = 500) {
-    console.log(elemento, 'inicia bloqueo temporal');
+    console.log('============== inicia bloqueo temporal ================');
 
     if (elemento.type === 'submit') {
         // Deshabilitar el botón de submit después de un pequeño retraso
