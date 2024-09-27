@@ -1579,10 +1579,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 break;
             case 'firma3':
                 guardar_firma3(); // 
-                var today = new Date().toLocaleDateString(); // Si "today" es la fecha actual
+                var today = new Date();
+                var formattedDate = today.getFullYear() + '-' + 
+                                    ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
+                                    ('0' + today.getDate()).slice(-2);
                 var response3 = {
                     "foto_firma_usr3": "<?php echo $_SESSION['foto_firma']; ?>",
-                    "fecha_firma_muestreador": today
+                    "fecha_firma_muestreador": formattedDate
                     // otros datos que necesites
                 };
 
