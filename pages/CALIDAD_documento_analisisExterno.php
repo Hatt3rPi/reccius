@@ -14,6 +14,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <title>Ingreso de resultados</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="../assets/css/Modal.css">
 </head>
 
 <body>
@@ -24,7 +25,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png"  alt="Logo Reccius" style="height: 100px;">
+                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
@@ -127,7 +128,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Nombre producto:</td>
-                        <td><input type="text" id="nombre_producto2" name="nombre_producto2" required></td>
+                        <td>
+                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border" contenteditable="true"></div>
+                        </td>
+
+
                         <td class="titulo titulo-right">10. T. de lote:</td>
                         <td><input type="text" id="tamano_lote" name="tamano_lote" required></td>
 
@@ -212,28 +217,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
                             <input type="text" class="<?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                }
-                                else {
-                                    echo 'input-highlight';
-                                }
-                                ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
+                                                        $etapa = $_POST['etapa'];
+                                                        $result = $_POST['resultados'];
+                                                        if ($etapa == '1' && $result == 'true') {
+                                                            echo '';
+                                                        } else {
+                                                            echo 'input-highlight';
+                                                        }
+                                                        ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
                             <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input <?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                }
-                                else {
-                                    echo 'input-highlight';
-                                }
-                                ?>">
+                                                                                                                                                $etapa = $_POST['etapa'];
+                                                                                                                                                $result = $_POST['resultados'];
+                                                                                                                                                if ($etapa == '1' && $result == 'true') {
+                                                                                                                                                    echo '';
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'input-highlight';
+                                                                                                                                                }
+                                                                                                                                                ?>">
                                 <span>
                                     <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                                 </span> &nbsp Seleccione un archivo
@@ -245,29 +248,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">3. Fecha de Entrega:</td>
                         <td>
                             <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker <?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                }
-                                else {
-                                    echo 'input-highlight';
-                                }
-                                ?>"
-                            placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                                                                                                            $etapa = $_POST['etapa'];
+                                                                                                            $result = $_POST['resultados'];
+                                                                                                            if ($etapa == '1' && $result == 'true') {
+                                                                                                                echo '';
+                                                                                                            } else {
+                                                                                                                echo 'input-highlight';
+                                                                                                            }
+                                                                                                            ?>"
+                                placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                         <td class="titulo titulo-right">4. Fecha de análisis:</td>
                         <td>
                             <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker <?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                }
-                                else {
-                                    echo 'input-highlight';
-                                }
-                                ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                                                                                                                                    $etapa = $_POST['etapa'];
+                                                                                                                                    $result = $_POST['resultados'];
+                                                                                                                                    if ($etapa == '1' && $result == 'true') {
+                                                                                                                                        echo '';
+                                                                                                                                    } else {
+                                                                                                                                        echo 'input-highlight';
+                                                                                                                                    }
+                                                                                                                                    ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                     </tr>
                 </table>
@@ -347,19 +348,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </footer>
             </form>
         </div>
- 
+
 
 </body>
 <div class="button-container" id="button-container">
     <?php
     $etapa = $_POST['etapa'];
     if ($etapa == '0') {
-        echo '      <button class="botones" id="upload-pdf">Guardar PDF</button>
-                    <button class="botones" id="download-pdf" >Descargar PDF</button>';
+        echo '      <button class="botones ingControl" id="upload-pdf">Guardar PDF</button>
+                    <button class="botones ingControl" id="download-pdf" >Descargar PDF</button>';
     } else {
         echo '
-                <button class="botones" id="revisar" style="display: none;">Revisar</button>
-                <button class="botones" id="download-pdf" style="display: none;">Descargar PDF</button>
+                <button class="botones ingControl" id="revisar" style="display: none;">Revisar</button>
+                <button class="botones ingControl" id="download-pdf" style="display: none;">Descargar PDF</button>
             ';
     }
     ?>
@@ -368,13 +369,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div id="notification" class="notification-container notify" style="display: none;">
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
-
+<div id="modalLoading" class="modalRechazo" style="display: none">
+    <div class="modal-contentRechazo">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+            
+        </div>
+        <p>Procesando documento</p>
+    </div>
+</div>
 </html>
 <script>
     var idAnalisisExterno_acta = null;
 
     $(document).ready(function() {
         function downloadPDF(save) {
+            document.getElementById('modalLoading').style.display = 'block';
             const {
                 jsPDF
             } = window.jspdf;
@@ -435,6 +445,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (!save) {
                         pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
                         $.notify("PDF generado con éxito", "success");
+                        document.getElementById('modalLoading').style.display = 'none';
                         return;
                     }
                     var blob = pdf.output('blob');
@@ -452,13 +463,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         .then(data => {
                             if (data.status === 'success') {
                                 $.notify("PDF subido con éxito", "success");
+                                document.getElementById('modalLoading').style.display = 'none';
                             } else {
                                 $.notify("Error al subir el PDF: " + data.message, "error");
+                                document.getElementById('modalLoading').style.display = 'none';
                             }
                         })
                         .catch(error => {
                             console.error('Error al subir el PDF:', error);
                             $.notify("Error al subir el PDF", "error");
+                            document.getElementById('modalLoading').style.display = 'none';
                         });
                 })
                 .finally(() => {
@@ -550,14 +564,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 const table = $('#analisis-solicitados');
                 const highlight = "<?php
-                        $etapa = $_POST['etapa'];
-                        if ($etapa == '0') {
-                            echo '';
-                        }
-                        else {
-                            echo 'input-highlight';
-                        }
-                        ?>";
+                                    $etapa = $_POST['etapa'];
+                                    if ($etapa == '0') {
+                                        echo '';
+                                    } else {
+                                        echo 'input-highlight';
+                                    }
+                                    ?>";
                 console.log("Valor de 'highlight':", highlight);
 
                 analisisSolicitados.forEach(function(analisis, index) {
@@ -571,10 +584,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             analisis.anali_resultado_laboratorio?'': highlight
                         }" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" <?php
-                                            $etapa = $_POST['etapa'];
-                                            if ($etapa == '0') {
-                                                echo 'style="visibility: hidden;height: 0;"';
-                                            } ?>>
+                                                                                                            $etapa = $_POST['etapa'];
+                                                                                                            if ($etapa == '0') {
+                                                                                                                echo 'style="visibility: hidden;height: 0;"';
+                                                                                                            } ?>>
                             <div class="btn-group-vertical " role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -601,7 +614,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#fecha_registro').text(primerAnalisis.fecha_registro);
 
                     // Sumar los resultados de producto en un solo texto
-                    var productoCompleto = 
+                    var productoCompleto =
                         (primerAnalisis.prod_nombre_producto != null ? primerAnalisis.prod_nombre_producto : '') + ' ' +
                         (primerAnalisis.prod_concentracion != null ? primerAnalisis.prod_concentracion : '') + ' ' +
                         (primerAnalisis.prod_formato != null ? primerAnalisis.prod_formato : '');
@@ -609,7 +622,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     // Actualizar el elemento con el texto combinado
                     $('#nombre_producto').text(productoCompleto);
-                    $('#nombre_producto2').val(productoCompleto);
+                    $('#nombre_producto2').text(productoCompleto);
 
                     // TÍTULO TABLA
                     $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
@@ -622,7 +635,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#fecha_cotizacion').val(moment(primerAnalisis.fecha_cotizacion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#estandar_segun').val(primerAnalisis.estandar_segun);
                     $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
-                    
+
                     $('#hds_otro').val(primerAnalisis.hds_otro);
                     $('#fecha_entrega_estimada').val(moment(primerAnalisis.fecha_entrega_estimada, 'YYYY-MM-DD').format('DD/MM/YYYY'));
 
@@ -685,7 +698,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         console.log('Estado es "Pendiente ingreso resultados".');
                         console.log('No hay certificado disponible.');
                         console.log('Comparando primerAnalisis.revisado_por:', primerAnalisis.revisado_por, 'con usuario de sesión:', "<?php echo $_SESSION['usuario'] ?>");
-                        
+
                         if (primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>") {
                             $("#revisar").show();
                         }
@@ -869,28 +882,28 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             formData.append('fecha_entrega', moment(fecha_entrega, 'DD/MM/YYYY').format('YYYY-MM-DD'));
             formData.append('resultados_analisis', JSON.stringify(results));
             formData.append('resultado_textos', JSON.stringify(resultadoTextos));
-            
+
             $("#revisar").hide();
             fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.exito) {
-                    $.notify("Análisis de laboratorio guardado.", "success");
-                    firma2Fn();
-                    $('#listado_solicitudes_analisis').click();
-                } else {
-                    $.notify("Error al guardar: " + data.error, "error");
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exito) {
+                        $.notify("Análisis de laboratorio guardado.", "success");
+                        firma2Fn();
+                        $('#listado_solicitudes_analisis').click();
+                    } else {
+                        $.notify("Error al guardar: " + data.error, "error");
+                        $("#revisar").show();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Error al revisar los datos.");
                     $("#revisar").show();
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Error al revisar los datos.");
-                $("#revisar").show();
-            });
+                });
         });
     });
 </script>

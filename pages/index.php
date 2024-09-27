@@ -398,4 +398,5 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             $('#dynamic-content').show();
         }
     });
+
 </script>

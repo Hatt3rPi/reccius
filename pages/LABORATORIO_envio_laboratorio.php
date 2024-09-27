@@ -1,4 +1,5 @@
 <?php
+// pages\LABORATORIO_envio_laboratorio.php
 session_start();
 
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
@@ -201,7 +202,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     });
             });
             $('#envioCorreoForm').on('submit', function(e) {
-                e.preventDefault();
+                e.preventDefault();  // Prevenir comportamiento por defecto del submit
+
+                var enviarBtn = $('#enviarCorreo');  // Obtener el botón de envío
+                console.log(enviarBtn, 'inhabilitado temporalmente');
+                // Desactivar el botón por 500ms
+                enviarBtn.prop('disabled', true);  // Desactivar el botón
+                setTimeout(function() {
+                    enviarBtn.prop('disabled', false);  // Rehabilitar el botón después de 500ms
+                }, 500);
+
+                // Llamar a la función de envío de correo
                 enviarCorreo();
             })
         });
@@ -428,7 +439,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function enviarCorreo() {
             destinatarios = [];
-            var bad = []
+            var bad = [];
+
+            var enviar = document.getElementById('enviarCorreo');
+            if(enviar) enviar.disabled = true;
+            
 
             $('#destinatarios-container .destinatario-row').each(function() {
                 var email = $(this).find('input[type="email"]').val();
@@ -445,6 +460,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if(bad.length > 0) {
                 bad[0].focus();
                 alert('Por favor, ingresa un correo electrónico y un nombre para todos los destinatarios.');
+                if (enviar) enviar.disabled = false;
                 return false;
             }
             destinatarios.push({
@@ -483,6 +499,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Hubo un problema al procesar tu solicitud. Por favor, intenta de nuevo.');
+                }).finally(() => {
+                    if (enviar) enviar.disabled = false;
                 });
 
         }

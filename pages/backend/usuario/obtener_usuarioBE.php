@@ -1,4 +1,5 @@
 <?php
+//archivo: pages\backend\usuario\obtener_usuarioBE.php
 session_start();
 header('Content-Type: application/json');
 
@@ -7,6 +8,7 @@ if(isset($_SESSION['usuario'])) {
         "usuario" => $_SESSION['usuario'],
         "nombre" => $_SESSION['nombre'],
         "foto_perfil" => $_SESSION['foto_perfil'],
+        "foto_firma" => $_SESSION['foto_firma'],
         "rol" => $_SESSION['rol'],
         "cargo" => $_SESSION['cargo']
     ]);

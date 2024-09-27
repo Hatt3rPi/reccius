@@ -9,6 +9,34 @@ function featureNoDisponible(){
     });
 }
 
+function desactivar_boton_temporalmente(elemento, tiempo = 500) {
+    console.log(elemento, 'inicia bloqueo temporal');
+
+    if (elemento.type === 'submit') {
+        // Deshabilitar el botón de submit después de un pequeño retraso
+        setTimeout(function() {
+            elemento.disabled = true;
+        }, 0);
+    } else {
+        elemento.disabled = true;  // Deshabilitar el botón inmediatamente
+    }
+
+    // Reactivar el botón después del tiempo especificado
+    setTimeout(function() {
+        elemento.disabled = false;  // Habilitar el botón nuevamente después de 'tiempo' milisegundos
+    }, tiempo);
+}
+
+$(document).on('click', '.ingControl', function(event) {
+    // Verificar si el botón no es de tipo 'submit'
+    if ($(this).attr('type') !== 'submit') {
+        console.log('Botón tipo submit');
+       // event.preventDefault();  // Evitar la acción predeterminada solo para botones que no sean 'submit'
+    } else {
+        console.log('Botón tipo button');
+    }
+    desactivar_boton_temporalmente(this);
+});
 
 
 function obtenNotificaciones() {
@@ -800,7 +828,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         data: {
                             'id': id,
                             'resultados': true,
-                            'etapa': '3'
+                            'etapa': '3',
+                            'editable': false
                         },
                         success: function(response) {
                             $('#dynamic-content').html(response);

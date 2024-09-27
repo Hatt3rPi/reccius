@@ -27,6 +27,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/css/DocumentoActa.css?version=1">
+    <link rel="stylesheet" href="../assets/css/Modal.css">
+
 
 </head>
 
@@ -767,12 +769,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
-    <button class="botones" id="guardar" style="display: none">Guardar</button>
-    <button class="botones" id="firmar" style="display: none">Ingresar Resultados</button>
-    <button class="botones" id="download-pdf" style="display: none">Descargar PDF</button>
-    <button class="botones" id="upload-pdf" style="display: none">Guardar PDF</button>
-    <button class="botones" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
+    <button class="botones ingControl" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
+    <button class="botones ingControl" id="guardar" style="display: none">Guardar</button>
+    <button class="botones ingControl" id="firmar" style="display: none">Ingresar Resultados</button>
+    <button class="botones ingControl" id="download-pdf" style="display: none">Descargar PDF</button>
+    <button class="botones ingControl" id="upload-pdf" style="display: none">Guardar PDF</button>
+    <button class="botones ingControl" id="test" style="display: none">test</button>
+    <button class="botones ingControl" id="rechazo" name style="display: none" onclick="botones_interno('rechazar_actaMuestreo')">Rechazar</button>
     <p id='etapa' name='etapa' style="display: none;"></p>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
@@ -812,23 +815,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
 <!-- Modal de confirmación de eliminación -->
-<div id="modalRechazar" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <h2>Confirmar Rechazo</h2>
+<div id="modalRechazar" class="modalRechazo">
+    <div class="modal-contentRechazo">
+        <span class="closeRechazo" onclick="cerrarModal()">&times;</span>
+        <h2 class="textt">Confirmar Rechazo</h2>
         <p>Por favor, ingresa la palabra <strong>'rechazar'</strong> para confirmar la acción:</p>
         <input type="text" id="confirmacionPalabra" placeholder="Ingrese 'rechazar'" required>
         <p>Motivo del Rechazo:</p>
         <textarea id="motivoRechazo" placeholder="Ingrese el motivo de la Rechazo" required></textarea>
-        <button onclick="confirmarRechazo()">Confirmar</button>
+        <button class="confirmarRechazo" onclick="confirmarRechazo()">Confirmar</button>
     </div>
 </div>
-
+<div id="modalLoading" class="modalRechazo" style="display: none">
+    <div class="modal-contentRechazo">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+            
+        </div>
+        <p>Procesando documento</p>
+    </div>
+</div>
 </html>
 <script>
     var idAnalisisExterno_acta = null;
 
     document.getElementById('confirmarMetodo').addEventListener('click', function() {
+        //desactivar_boton_temporalmente(document.getElementById('confirmarMetodo'));
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
 
@@ -838,6 +850,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         if (metodoManual) {
             // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
             document.getElementById('download-pdf').click();
+
         } else if (metodoDigital) {
             $('#etapa').text('ingresa resultados y firma1');
             // Hacer visible el contenido en formulario.resp si el método digital es seleccionado
@@ -980,9 +993,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
-
+    document.getElementById('test').addEventListener('click', function() {
+    const timestamp = new Date().toLocaleTimeString();
+    console.log(`click a las ${timestamp}`);
+});
 
     document.getElementById('download-pdf').addEventListener('click', function() {
+        
+        //desactivar_boton_temporalmente(document.getElementById('download-pdf'));
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
         .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
@@ -1096,8 +1114,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const nombreProducto = document.getElementById('producto').textContent.trim();
             const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-            $.notify("PDF generado con éxito", "success");
 
+            $.notify("PDF generado con éxito", "success");
+            
             // Restaurar los botones no seleccionados
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
@@ -1108,6 +1127,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Restaurar el input de fecha
             fechaMuestreoTd.innerHTML = originalHtml;
+            
+            //$('#listado_acta_muestreo').click();
         });
     });
 
@@ -1118,7 +1139,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
-
+        document.getElementById('modalLoading').style.display = 'block';
+        //desactivar_boton_temporalmente(document.getElementById('upload-pdf'));
         const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
         allButtonGroups.forEach(group => {
@@ -1189,13 +1211,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(data => {
                     if (data.status === 'success') {
                         $.notify("PDF subido con éxito", "success");
+                        console.log('fin spinner');
+                        document.getElementById('modalLoading').style.display = 'none';
                     } else {
                         $.notify("Error al subir el PDF: " + data.message, "error");
+                        console.log('fin spinner');
+                        document.getElementById('modalLoading').style.display = 'none';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     $.notify("Error al subir el PDF", "error");
+                    document.getElementById('modalLoading').style.display = 'none';
                 });
 
             allButtonGroups.forEach(group => {
@@ -1204,16 +1231,42 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     button.style.display = 'block';
                 });
             });
+            
         }).catch(error => {
             console.error('Error al generar el canvas:', error);
             $.notify("Error al generar el PDF", "error");
+            document.getElementById('modalLoading').style.display = 'none';
         });
+        //desactivar modal spiner
+
     });
+
+    function SacarEditable(editable) {
+        if (editable === false) {
+            // Si editable es false, ejecuta el código aquí
+            console.log("El contenido no es editable");
+
+            // Ejemplo de deshabilitar todos los campos de entrada en un formulario
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.setAttribute('disabled', true); // Deshabilitar los campos
+            });
+        } else {
+            // Si editable es true o cualquier otro valor, aquí podrías hacer otra cosa
+            console.log("El contenido es editable");
+
+            // Habilitar los campos
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.removeAttribute('disabled'); // Habilitar los campos
+            });
+        }
+    }
 
 
     //cargarDatosEspecificacion(id, true, '0');
-    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null) {
-        console.log(id, resultados, etapa);
+    function cargarDatosEspecificacion(id, resultados, etapa, opcional = null, opcional2 = null, editable = true) {
+        console.log(id, resultados, etapa, editable);
         var id_actaM = "<?php echo $_SESSION['nuevo_id']; ?>";
         if (resultados) {
             $.ajax({
@@ -1229,8 +1282,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#id_actaMuestreo').text(id);
                     if (data.analisis_externos && data.analisis_externos.length > 0) {
                         procesarDatosActa(data.analisis_externos[0], resultados, etapa);
-                        
-                        if(data.analisis_externos[0].estado==="rechazado"){
+                        // Si editable es false, hacemos las acciones correspondientes
+                        if (editable === false) {
+                            console.log("El acta no es editable.");
+
+                            // Hacer que los campos de texto y textarea sean solo lectura, pero no deshabilitarlos
+                            $('input, textarea').attr('readonly', true); // Establecer los campos como solo lectura
+                            $('select').attr('disabled', true); // Deshabilitar los campos de selección (select)
+                            // Establecer contenteditable a false
+                            $('.editable-div').attr('contenteditable', 'false');
+                        } else {
+                            console.log("El acta es editable.");
+
+                            // Habilitar los campos si editable es true
+                            $('input, textarea').attr('readonly', false); // Hacer los campos editables nuevamente
+                            $('select').attr('disabled', false); // Habilitar los campos de selección
+                            // Establecer contenteditable a false
+                            $('.editable-div').attr('contenteditable', 'true');
+                        }
+
+                        if (data.analisis_externos[0].estado === "rechazado") {
                             document.getElementById('guardar').style.display = 'none';
                             document.getElementById('rechazo').style.display = 'none';
                         }
@@ -1456,6 +1527,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     document.getElementById('firmar').addEventListener('click', function() {
         // Hacer visibles los elementos de .formulario.resp
+        
+        //desactivar_boton_temporalmente(document.getElementById('firmar'));
         console.log('click firma')
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
             element.style.visibility = 'visible';
@@ -1493,6 +1566,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('guardar').addEventListener('click', function() {
+        
+        //desactivar_boton_temporalmente(document.getElementById('guardar'));
 
         let etapa = $('#etapa').text();
         switch (etapa) {
@@ -1503,73 +1578,92 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 guardar_firma('.formulario.verif', 2);
                 break;
             case 'firma3':
-                guardar_firma3();
+                guardar_firma3(); // 
+                var today = new Date();
+                var formattedDate = today.getFullYear() + '-' + 
+                                    ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
+                                    ('0' + today.getDate()).slice(-2);
+                var response3 = {
+                    "foto_firma_usr3": "<?php echo $_SESSION['foto_firma']; ?>",
+                    "fecha_firma_muestreador": formattedDate
+                    // otros datos que necesites
+                };
+
+                firma3(response3);
+                document.getElementById('metodo_muestreo').style.display = 'none';
+                document.getElementById('guardar').style.display = 'none';
+                document.getElementById('rechazo').style.display = 'block';
+                document.getElementById('download-pdf').style.display = 'block';
+                $('#upload-pdf').show();
+                $('#upload-pdf').click();
                 break;
         }
     });
+
     function getPlanMuestreoData() {
-    var table = document.getElementById('seccion3');
-    var data = [];
+        var table = document.getElementById('seccion3');
+        var data = [];
 
-    // Obtener todas las filas de la tabla
-    var rows = table.getElementsByTagName('tr');
+        // Obtener todas las filas de la tabla
+        var rows = table.getElementsByTagName('tr');
 
-    // Omitir la primera fila (encabezados)
-    for (var i = 1; i < rows.length; i++) {
-        var row = rows[i];
+        // Omitir la primera fila (encabezados)
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
 
-        // Obtener todas las celdas de la fila
-        var cells = row.getElementsByTagName('td');
+            // Obtener todas las celdas de la fila
+            var cells = row.getElementsByTagName('td');
 
-        if (cells.length > 0) {
-            // Asumiendo la estructura:
-            // cells[0]: Tamaño de Lote
-            // cells[1]: Muestra
-            // cells[2]: Contramuestra
-            // cells[3]: Total
-            // cells[4]: Revisión Muestreador (radio buttons)
-            // cells[5]: Revisión Responsable (radio buttons)
+            if (cells.length > 0) {
+                // Asumiendo la estructura:
+                // cells[0]: Tamaño de Lote
+                // cells[1]: Muestra
+                // cells[2]: Contramuestra
+                // cells[3]: Total
+                // cells[4]: Revisión Muestreador (radio buttons)
+                // cells[5]: Revisión Responsable (radio buttons)
 
-            var tamanoLote = cells[0].innerText.trim();
-            var muestra = cells[1].innerText.trim();
-            var contramuestra = cells[2].innerText.trim();
-            var total = cells[3].innerText.trim();
+                var tamanoLote = cells[0].innerText.trim();
+                var muestra = cells[1].innerText.trim();
+                var contramuestra = cells[2].innerText.trim();
+                var total = cells[3].innerText.trim();
 
-            // Añadir los datos al array
-            data.push({
-                tamanoLote: tamanoLote,
-                muestra: muestra,
-                contramuestra: contramuestra,
-                total: total
-            });
+                // Añadir los datos al array
+                data.push({
+                    tamanoLote: tamanoLote,
+                    muestra: muestra,
+                    contramuestra: contramuestra,
+                    total: total
+                });
+            }
         }
+
+        return data;
     }
 
-    return data;
-}
-function populatePlanMuestreoTable(planMuestreoData) {
-    var table = document.getElementById('seccion3');
+    function populatePlanMuestreoTable(planMuestreoData) {
+        var table = document.getElementById('seccion3');
 
-    // Iterar sobre las 3 filas de la tabla que no incluyen el encabezado
-    for (var i = 1; i <= 3; i++) {
-        var row = table.rows[i]; // Obtener la fila correspondiente
+        // Iterar sobre las 3 filas de la tabla que no incluyen el encabezado
+        for (var i = 1; i <= 3; i++) {
+            var row = table.rows[i]; // Obtener la fila correspondiente
 
-        // Verificar si hay datos para actualizar en planMuestreoData
-        if (planMuestreoData[i - 1]) {
-            var item = planMuestreoData[i - 1];
+            // Verificar si hay datos para actualizar en planMuestreoData
+            if (planMuestreoData[i - 1]) {
+                var item = planMuestreoData[i - 1];
 
-            // Actualizar las celdas de la fila correspondiente
-            row.cells[0].innerText = item.tamanoLote || '';
-            row.cells[1].innerText = item.muestra || '';
-            row.cells[2].innerText = item.contramuestra || '';
-            row.cells[3].innerText = item.total || '';
-            row.cells[0].contentEditable = false;
-            row.cells[1].contentEditable = false;
-            row.cells[2].contentEditable = false;
-            row.cells[3].contentEditable = false;
+                // Actualizar las celdas de la fila correspondiente
+                row.cells[0].innerText = item.tamanoLote || '';
+                row.cells[1].innerText = item.muestra || '';
+                row.cells[2].innerText = item.contramuestra || '';
+                row.cells[3].innerText = item.total || '';
+                row.cells[0].contentEditable = false;
+                row.cells[1].contentEditable = false;
+                row.cells[2].contentEditable = false;
+                row.cells[3].contentEditable = false;
+            }
         }
     }
-}
 
 
     function guardar_firma(selector, etapa) {
@@ -1687,7 +1781,7 @@ function populatePlanMuestreoTable(planMuestreoData) {
         };
 
         // Enviar datos al servidor usando AJAX
-        console.log(dataToSave);
+        //console.log(dataToSave);
         $.ajax({
             url: './backend/acta_muestreo/guardar_y_firmar.php',
             type: 'POST',
@@ -1697,11 +1791,13 @@ function populatePlanMuestreoTable(planMuestreoData) {
                 console.log('Firma guardada con éxito: ', response);
                 //alert("Firma guardada correctamente.");
                 $.notify("Documento firmado correctamente.", "success");
-                $('#listado_acta_muestreo').click();
+
             },
             error: function(xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
                 //alert("Error al guardar la firma.");
+
+                // $_SESSION['foto_firma']
                 $.notify("Error al firmar documento", "error");
             }
         });
@@ -1709,6 +1805,7 @@ function populatePlanMuestreoTable(planMuestreoData) {
     var idActaMuestreo_rechazado = null;
 
     function botones_interno(accion) {
+        //desactivar_boton_temporalmente(document.getElementById('rechazo'), 500);
         if (accion === 'rechazar_actaMuestreo') {
             idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
             abrirModal();

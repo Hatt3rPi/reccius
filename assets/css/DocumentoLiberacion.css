@@ -384,6 +384,7 @@ textarea {
     /* Asegura que el padding esté incluido en la anchura */
     font-size: 0.8rem;
     /* Tamaño de la fuente */
+    min-height: 40.88px;
 }
 .editable-divO {
     width: 290px;
