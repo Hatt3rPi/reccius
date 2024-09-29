@@ -440,7 +440,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'usuario_editor',
             'revisado_por'
         ];
-        if (QA_solicitud_analisis_editing) {
+        if (ruta_edicion=='edicion') {
             $("#guardar").show();
         } else {
             $("#editarGenerarVersion").hide();
@@ -458,6 +458,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
+    var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
     var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
 
@@ -473,8 +474,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             type: 'GET',
             data,
             success: function(response) {
-                if (QA_solicitud_analisis_editing) {
-                    procesarDatosActaUpdate(response);
+                if (ruta_edicion=='edicion') {
+                    //procesarDatosActaUpdate(response);
+                    console.log('======ruta edición=====')
+                    procesarDatosActa(response);
                 } else {
                     procesarDatosActa(response);
                 }

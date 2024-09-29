@@ -247,7 +247,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             var acciones = '<table background-color="#F6F6F6" color="#FFF" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
-            // Botón para revisar siempre presente
+
+            if (d.estado === true ) {
+                acciones += '<button class="accion-btn ingControl" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\', \'edicion\')"><i class="fas fa-search"></i> Revisar Solicitud</button><a> </a>';
+            }
             
             if (d.estado === "Pendiente completar análisis" && d.solicitado_por === usuarioActual) {
                 acciones += '<button class="accion-btn ingControl" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Completar información faltante</button><a> </a>';

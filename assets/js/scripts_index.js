@@ -748,7 +748,8 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                         type: 'POST',
                         data: {
                             'analisisExterno': id,
-                            'accion': accion
+                            'accion': accion,
+                            'ruta_edicion':opcional
                         },
                         success: function(response) {
                             console.log('Revision de documento Acta Muestreo redirigido con éxito');
