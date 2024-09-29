@@ -248,9 +248,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
 
-            if (d.estado === true ) {
-                acciones += '<button class="accion-btn ingControl" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\', \'edicion\')"><i class="fas fa-search"></i> Revisar Solicitud</button><a> </a>';
-            }
+
+                acciones += '<button class="accion-btn ingControl" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" 
             
             if (d.estado === "Pendiente completar análisis" && d.solicitado_por === usuarioActual) {
                 acciones += '<button class="accion-btn ingControl" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Completar información faltante</button><a> </a>';
