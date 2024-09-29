@@ -475,9 +475,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             data,
             success: function(response) {
                 if (ruta_edicion=='edicion') {
-                    //procesarDatosActaUpdate(response);
+                    procesarDatosActaUpdate(response);
                     console.log('======ruta edición=====')
-                    procesarDatosActa(response);
+                    //procesarDatosActa(response);
                 } else {
                     procesarDatosActa(response);
                 }
