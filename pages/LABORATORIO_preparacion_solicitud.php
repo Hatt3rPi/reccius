@@ -443,7 +443,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'revisado_por'
         ];
         if (ruta_edicion=='edicion') {
-            
+            $("#guardar").hide();
         } else if (ruta_edicion=='poblar_info_faltante'){
             $("#informacion_faltante").show();
             $("#guardar").show();
