@@ -212,8 +212,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 },
                 {
                     "data": "tipo_analisis",
-                    "title": "Tipo Análisis",
-                    visible: true
+                    "title": "Tipo Análisis"
                 }
             ],
 
