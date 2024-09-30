@@ -482,7 +482,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                     console.log('======ruta edición=====')
                     //procesarDatosActa(response);
                 } else {
+                    console.log('======ruta completar info: inicio=====');
                     procesarDatosActa(response);
+                    console.log('======ruta completar info: fin=====');
                 }
             },
             error: function(xhr, status, error) {
