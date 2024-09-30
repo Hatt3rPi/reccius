@@ -101,7 +101,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'isssssssssssssssssssssssi',
+        'issssssssssssssssssssssi',
         $datos['version'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
@@ -125,7 +125,6 @@ function insertarRegistro($link, $datos)
         $datos['paisOrigen'],
         $datos['dealer'],
         $datos['observaciones_originales'],
-        $aux_anomes,        // Se utiliza en la subconsulta WHERE
         $datos['id_especificacion']
     );
     $exito = mysqli_stmt_execute($stmt);
