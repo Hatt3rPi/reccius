@@ -769,7 +769,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </body>
 <div class="button-container">
-    <button class="botones ingControl" id="metodo_muestreo" data-bs-toggle="modal" data-bs-target="#modalMetodoMuestreo">Método Muestreo</button>
+    <button class="botones ingControl" id="metodo_muestreo" onclick="botones_interno('metodo_muestreo')">Método Muestreo</button>
     <button class="botones ingControl" id="guardar" style="display: none">Guardar</button>
     <button class="botones ingControl" id="firmar" style="display: none">Ingresar Resultados</button>
     <button class="botones ingControl" id="download-pdf" style="display: none">Descargar PDF</button>
@@ -782,35 +782,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <p id='numero_solicitud_analisis_externo' name='numero_solicitud_analisis_externo' style="display: none;"></p>
     <p id='solicitado_por_analisis_externo' name='solicitado_por_analisis_externo' style="display: none;"></p>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="modalMetodoMuestreo" tabindex="-1" aria-labelledby="modalMetodoMuestreoLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
-                    <label class="form-check-label" for="muestreoManual">
-                        Acta de Muestreo Manual (en papel)
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
-                    <label class="form-check-label" for="muestreoDigital">
-                        Acta de Muestreo Digital (en tablet)
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div id="notification" class="notification-container notify" style="display: none;">
     <p id="notification-message">Este es un mensaje de notificación.</p>
 </div>
@@ -830,9 +802,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="modal-contentRechazo">
         <div class="spinner-border" role="status">
             <span class="sr-only"></span>
-            
         </div>
         <p>Procesando documento</p>
+    </div>
+</div>
+<div id="modalMetodoMuestreo" class="modalRechazo" style="display: none">
+    <div class="modal-contentRechazo">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
+                    <button type="button" class="btn-close" onclick="botones_interno('metodo_muestreo_close')" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
+                        <label class="form-check-label" for="muestreoManual">Acta de Muestreo Manual (en papel)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
+                        <label class="form-check-label" for="muestreoDigital">Acta de Muestreo Digital (en tablet)</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="botones_interno('metodo_muestreo_close')">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
+                </div>
     </div>
 </div>
 </html>
@@ -844,9 +837,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const metodoManual = document.getElementById('muestreoManual').checked;
         const metodoDigital = document.getElementById('muestreoDigital').checked;
 
-        // Cerrar el modal después de seleccionar la opción
-        $('#modalMetodoMuestreo').modal('hide');
-        $("#modalMetodoMuestreo").css("z-index", "-1");
+
+        document.getElementById('modalMetodoMuestreo').style.display = 'hide';
         if (metodoManual) {
             // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
             document.getElementById('download-pdf').click();
@@ -1808,14 +1800,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         //desactivar_boton_temporalmente(document.getElementById('rechazo'), 500);
         if (accion === 'rechazar_actaMuestreo') {
             idActaMuestreo_rechazado = $('#id_actaMuestreo').text();
-            abrirModal();
-        } else {
-            // manejar otras acciones
+            document.getElementById("modalRechazar").style.display = "block";
+        } else if (accion === 'metodo_muestreo') {
+            document.getElementById('modalMetodoMuestreo').style.display = 'block';
+        } else if (accion === 'metodo_muestreo_close'){
+            document.getElementById('modalMetodoMuestreo').style.display = 'hide';
         }
-    }
-
-    function abrirModal() {
-        document.getElementById("modalRechazar").style.display = "block";
     }
 
     function cerrarModal() {
