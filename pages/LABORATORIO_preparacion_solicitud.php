@@ -477,12 +477,13 @@ while ($row = mysqli_fetch_assoc($result)) {
             type: 'GET',
             data,
             success: function(response) {
-                if (ruta_edicion=='edicion') {
+                if (ruta_edicion=='edicion' || ruta_edicion=='poblar_info_faltante') {
                     procesarDatosActaUpdate(response);
                     console.log('======ruta edición=====')
                     //procesarDatosActa(response);
                 } else {
                     console.log('======ruta completar info: inicio=====');
+                    consol
                     procesarDatosActa(response);
                     console.log('======ruta completar info: fin=====');
                 }

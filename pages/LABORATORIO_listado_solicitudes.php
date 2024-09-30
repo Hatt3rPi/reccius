@@ -252,7 +252,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             
             if (d.estado === "Pendiente completar análisis" && d.solicitado_por === usuarioActual) {
-                acciones += '<button class="accion-btn ingControl" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Completar información faltante</button><a> </a>';
+                acciones += '<button class="accion-btn ingControl" title="WIP Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\', \'poblar_info_faltante\')"><i class="fas fa-search"></i> Completar información faltante</button><a> </a>';
             }
             //revisar analisis externo
             if ( (d.estado === "Pendiente ingreso resultados laboratorio" ||
