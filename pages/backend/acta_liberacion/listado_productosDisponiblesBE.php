@@ -17,6 +17,11 @@ $query = "SELECT
 				c.estado as estado_aex,
 				c.url_certificado_solicitud_analisis_externo,
 				c.numero_solicitud,
+                CONCAT(
+                    c.numero_solicitud, '-', 
+                    LPAD(c.version, 3, '0') 
+                ) AS numero_solicitud_version,
+                c.tipo_analisis,
 				c.muestreado_por,  
 				c.fecha_firma_1, c.fecha_firma_2, c.fecha_firma_revisor,
 				d.estado as estado_amuestreo,

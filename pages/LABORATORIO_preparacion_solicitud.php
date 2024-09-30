@@ -364,6 +364,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="actions-container">
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
+                <input type="text" id="id_analisisExterno" name="id_analisisExterno" style="display: none;">
+                <input type="text" id="ruta" name="ruta" style="display: none;">
             </div>
         </form>
     </div>
@@ -440,7 +442,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'usuario_editor',
             'revisado_por'
         ];
-        if (QA_solicitud_analisis_editing) {
+        if (ruta_edicion=='edicion') {
             $("#guardar").show();
         } else {
             $("#editarGenerarVersion").hide();
@@ -458,6 +460,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
+    $('#id_analisisExterno').val(idAnalisisExterno);
+    var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
     var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
 
@@ -473,8 +477,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             type: 'GET',
             data,
             success: function(response) {
-                if (QA_solicitud_analisis_editing) {
+                if (ruta_edicion=='edicion') {
                     procesarDatosActaUpdate(response);
+                    console.log('======ruta edición=====')
+                    //procesarDatosActa(response);
                 } else {
                     procesarDatosActa(response);
                 }
@@ -842,6 +848,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
+            $("#ruta").val('genera_version');
+
 
             var informacionFaltanteArr = []
 
@@ -925,8 +933,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                     return;
                 }
             }
+            var ruta = $("#ruta").val();
+            var url = '';
 
-            fetch('../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php', {
+            // Verificar si la ruta es 'genera_version', si es así, cambiar la URL
+            if (ruta === 'genera_version') {
+                console.log('--- acceso a genera versión ---');
+                url = '../pages/backend/laboratorio/genera_version.php';
+            } else {
+                url = '../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php';
+            }
+            fetch(url, {
                 method: 'POST',
                 body: formData
             })
@@ -967,7 +984,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             todayHighlight: true
             //,startDate: new Date()
         });
-        console.log('especificacion :<?php echo json_encode($_POST['especificacion'] ?? ''); ?>');
+
 
     });
 

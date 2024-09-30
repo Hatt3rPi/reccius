@@ -36,7 +36,7 @@ function informativo_liberacion($fecha_liberacion, $estado, $id_analisis_externo
         $lote = "DESCONOCIDO";
     }
 
-    $asunto = "RECCIUS | Salida de Cuarentena de {$tipo_producto} - {$producto} - lote: {$lote}";
+    $asunto = "RECCIUS | Cuarentena a {$estado}, {$tipo_producto} - {$producto} - lote: {$lote}";
     $estado = strtoupper($estado);
     $fecha_liberacion = strtoupper($fecha_liberacion);
 

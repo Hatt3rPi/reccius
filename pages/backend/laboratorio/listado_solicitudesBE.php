@@ -10,13 +10,19 @@ $query = "SELECT
     aex.estado, 
     aex.numero_registro, 
     aex.numero_solicitud,
+    aex.version,
+    -- Nuevo campo agregado aquí
+    CONCAT(
+        aex.numero_solicitud, '-', 
+		LPAD(aex.version, 3, '0') 
+    ) AS numero_solicitud_version,
     aex.laboratorio, 
     aex.fecha_registro,
     aex.id_especificacion,
     aex.id_producto, 
-    aex.am_ejecutado_por ,
-        aex.muestreado_por,
-        aex.am_verificado_por,
+    aex.am_ejecutado_por,
+    aex.muestreado_por,
+    aex.am_verificado_por,
     CASE 
         WHEN pr.concentracion IS NULL OR pr.concentracion = '' 
         THEN pr.nombre_producto 
@@ -25,11 +31,10 @@ $query = "SELECT
     aex.revisado_por,
     aex.fecha_firma_revisor,
     aex.solicitado_por,
-
     aex.lote,
     pr.tipo_producto,
     cam.id as id_muestreo,
-	cam.version_registro,
+    cam.version_registro,
     cam.estado as estado_muestreo,
     cam.id_original
 FROM calidad_analisis_externo aex
@@ -39,7 +44,7 @@ LEFT JOIN (
         a.id_analisisExterno,
         a.id,
         a.id_original,
-    	a.version_registro,
+        a.version_registro,
         a.estado
     FROM calidad_acta_muestreo a
     INNER JOIN (
@@ -65,7 +70,7 @@ LEFT JOIN (
     ) b ON a.id_analisisExterno = b.id_analisisExterno
     AND a.id = b.max_id
 ) cam ON aex.id = cam.id_analisisExterno  
-where aex.estado not in ('eliminado_por_solicitud_usuario')
+WHERE aex.estado NOT IN ('eliminado_por_solicitud_usuario')
 ORDER BY `id_analisisExterno` DESC;";
 
 

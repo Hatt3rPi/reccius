@@ -59,6 +59,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -163,7 +164,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "300px"
                 },
                 {
-                    "data": "numero_solicitud",
+                    "data": "numero_solicitud_version",
                     "title": "Nro Solicitud",
                     "width": "100px"
                 },
@@ -189,6 +190,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "data": "tipo_producto",
                     "title": "Tipo producto",
                     "width": "100px"
+                },
+                {
+                    "data": "tipo_analisis",
+                    "title": "Tipo Análisis"
                 },
                 {
                     "data": "id",
