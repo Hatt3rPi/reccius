@@ -45,9 +45,6 @@ function insertarRegistro($link, $datos)
         tipo_analisis,
         am_verificado_por,
         am_ejecutado_por,
-        aux_autoincremental, 
-        aux_anomes, 
-        aux_tipo,
         elaborado_por,
         pais_origen,
         proveedor,
@@ -60,8 +57,8 @@ function insertarRegistro($link, $datos)
             c.id_especificacion, 
             c.id_producto, 
             'Pendiente Acta de Muestreo', 
-            ?, -- numero_registro
-            ?, -- numero_solicitud
+            ae.numero_registro, -- numero_registro
+            ae.numero_solicitud, -- numero_solicitud
             ?, -- fecha_registro
             ?, -- solicitado_por
             ?, -- lote
@@ -77,14 +74,11 @@ function insertarRegistro($link, $datos)
             ?, -- tipo_analisis
             ?, -- am_verificado_por
             ?, -- am_ejecutado_por
-            COALESCE(MAX(ae.aux_autoincremental) + 1, 1), -- aux_autoincremental
-            ?, -- aux_anomes
-            b.tipo_producto, -- aux_tipo
-            ?,
-            ?,
-            ?,
+            ae.elaborado_por,
+            ae.pais_origen,
+            ae.proveedor,
             '".$fecha_ymd."',
-            ?
+            ae.observaciones
 
         FROM calidad_analisis_externo as ae
             left join calidad_especificacion_productos AS c on c.id_especificacion=ae.id_especificacion
@@ -101,10 +95,8 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'issssssssssssssssssssssi',
+        'isssssssssssssssi',
         $datos['version'],
-        $datos['numero_registro'],
-        $datos['numero_solicitud'],
         $datos['fecha_registro'],
         $_SESSION['usuario'],
         $datos['lote'],
@@ -120,11 +112,6 @@ function insertarRegistro($link, $datos)
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
         $datos['am_ejecutado_por'],
-        $aux_anomes,        // Se utiliza en la inserción como aux_anomes
-        $datos['elaboradoPor'],
-        $datos['paisOrigen'],
-        $datos['dealer'],
-        $datos['observaciones_originales'],
         $datos['id_analisisExterno']
     );
     $exito = mysqli_stmt_execute($stmt);
@@ -158,11 +145,6 @@ function insertarRegistro($link, $datos)
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
             $datos['am_ejecutado_por'],
-            $aux_anomes,        // Se utiliza en la inserción como aux_anomes
-            $datos['elaboradoPor'],
-            $datos['paisOrigen'],
-            $datos['dealer'],
-            $datos['observaciones_originales'],
             $datos['id_analisisExterno']
         ],
         $exito ? 1 : 0,
