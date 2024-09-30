@@ -442,9 +442,12 @@ while ($row = mysqli_fetch_assoc($result)) {
             'usuario_editor',
             'revisado_por'
         ];
-        if (ruta_edicion=='edicion'|| ruta_edicion=='poblar_info_faltante') {
+        if (ruta_edicion=='edicion') {
+            
+        } else if (ruta_edicion=='poblar_info_faltante'){
+            $("#informacion_faltante").show();
             $("#guardar").show();
-        } else {
+        }else {
             $("#editarGenerarVersion").hide();
             $("#informacion_faltante").remove();
             // Aplicar color amarillo a los inputs de identificación
