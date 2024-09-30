@@ -499,7 +499,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $am_ejecutado_por = limpiarDato($_POST['ejecutado_por']);
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
-
+    $id_analisisExterno=isset($_POST['id_analisisExterno']) ? limpiarDato($_POST['id_analisisExterno']) : null;
     // Determinar si se está insertando un nuevo registro o actualizando uno existente
     $estaEditando = isset($_POST['id']) && !empty($_POST['id']);
 
@@ -537,7 +537,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'usuario_revisor' => $usuario_revisor,
             'version_especificacion' => $version_especificacion,
             'version' => $version,
-            'id_analisisExterno' => $estaEditando,
+            'id_analisisExterno' => $id_analisisExterno,
 
             'laboratorio' => $laboratorio,
             'otro_laboratorio' => $otro_laboratorio,

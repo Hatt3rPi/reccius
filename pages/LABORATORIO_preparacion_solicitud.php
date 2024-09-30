@@ -364,6 +364,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="actions-container">
                 <input type="text" id="id_producto" name="id_producto" style="display: none;">
                 <input type="text" id="id_especificacion" name="id_especificacion" style="display: none;">
+                <input type="text" id="id_analisisExterno" name="id_analisisExterno" style="display: none;">
                 <input type="text" id="ruta" name="ruta" style="display: none;">
             </div>
         </form>
@@ -459,6 +460,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
+    $('#id_analisisExterno').val(idAnalisisExterno);
     var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
     var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
