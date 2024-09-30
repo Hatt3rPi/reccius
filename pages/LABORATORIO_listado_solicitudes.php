@@ -171,7 +171,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                 },
                 {
-                    "data": "numero_solicitud",
+                    "data": "numero_solicitud_version",
                     "title": "Nro Solicitud",
                     "width": "90px"
                 },

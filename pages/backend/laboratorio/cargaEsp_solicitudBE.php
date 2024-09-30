@@ -91,12 +91,16 @@ $queryAnalisisExterno = "SELECT
                         JOIN calidad_especificacion_productos AS ep ON an.id_especificacion = ep.id_especificacion
                         WHERE an.id = ?";
 
-
-$queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count 
+//versión antigua
+// $queryAnalisisMany = "SELECT COUNT(*) AS analisis_externo_count 
+//                         FROM calidad_analisis_externo 
+//                         WHERE id_especificacion = 
+//                             (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
+//versión nueva
+$queryAnalisisMany ="SELECT COUNT(*) AS analisis_externo_count 
                         FROM calidad_analisis_externo 
-                        WHERE id_especificacion = 
-                            (SELECT id_especificacion FROM calidad_analisis_externo WHERE id = ?)";
-
+                        WHERE id_original = 
+                            (SELECT id_original FROM calidad_analisis_externo WHERE id = ?);"
 
 $numero_acta_cor = "" ;
 $numero_registro_cor ="";
