@@ -192,6 +192,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "100px"
                 },
                 {
+                    "data": "tipo_analisis",
+                    "title": "Tipo Análisis"
+                },
+                {
                     "data": "id",
                     "title": "ID producto",
                     visible: false
@@ -209,10 +213,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             return '';
                         }
                     }
-                },
-                {
-                    "data": "tipo_analisis",
-                    "title": "Tipo Análisis"
                 }
             ],
 
