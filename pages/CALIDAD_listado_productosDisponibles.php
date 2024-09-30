@@ -163,7 +163,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     "width": "300px"
                 },
                 {
-                    "data": "numero_solicitud",
+                    "data": "numero_solicitud_version",
                     "title": "Nro Solicitud",
                     "width": "100px"
                 },
