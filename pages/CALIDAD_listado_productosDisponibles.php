@@ -208,6 +208,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             return '';
                         }
                     }
+                },
+                {
+                    "data": "tipo_analisis",
+                    "title": "Tipo Análisis",
+                    visible: true
                 }
             ],
 
