@@ -838,7 +838,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         const metodoDigital = document.getElementById('muestreoDigital').checked;
 
 
-        document.getElementById('modalMetodoMuestreo').style.display = 'hide';
+        document.getElementById('modalMetodoMuestreo').style.display = 'none';
         if (metodoManual) {
             // Simula un clic en el botón de descarga de PDF si el método manual es seleccionado
             document.getElementById('download-pdf').click();
@@ -1804,7 +1804,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         } else if (accion === 'metodo_muestreo') {
             document.getElementById('modalMetodoMuestreo').style.display = 'block';
         } else if (accion === 'metodo_muestreo_close'){
-            document.getElementById('modalMetodoMuestreo').style.display = 'hide';
+            document.getElementById('modalMetodoMuestreo').style.display = 'none';
         }
     }
 
