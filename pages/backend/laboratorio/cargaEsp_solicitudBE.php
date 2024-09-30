@@ -100,7 +100,7 @@ $queryAnalisisExterno = "SELECT
 $queryAnalisisMany ="SELECT COUNT(*) AS analisis_externo_count 
                         FROM calidad_analisis_externo 
                         WHERE id_original = 
-                            (SELECT id_original FROM calidad_analisis_externo WHERE id = ?);"
+                            (SELECT id_original FROM calidad_analisis_externo WHERE id = ?);";
 
 $numero_acta_cor = "" ;
 $numero_registro_cor ="";

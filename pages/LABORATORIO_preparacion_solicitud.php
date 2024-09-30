@@ -970,7 +970,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             todayHighlight: true
             //,startDate: new Date()
         });
-        console.log('especificacion :<?php echo json_encode($_POST['especificacion'] ?? ''); ?>');
+
 
     });
 
