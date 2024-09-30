@@ -125,7 +125,7 @@ function insertarRegistro($link, $datos)
         $datos['paisOrigen'],
         $datos['dealer'],
         $datos['observaciones_originales'],
-        $datos['id_especificacion']
+        $datos['id_analisisExterno']
     );
     $exito = mysqli_stmt_execute($stmt);
     $id = $exito ? mysqli_insert_id($link) : 0;
@@ -163,8 +163,7 @@ function insertarRegistro($link, $datos)
             $datos['paisOrigen'],
             $datos['dealer'],
             $datos['observaciones_originales'],
-            $aux_anomes,        // Se utiliza en la subconsulta WHERE
-            $datos['id_especificacion']
+            $datos['id_analisisExterno']
         ],
         $exito ? 1 : 0,
         $exito ? null : mysqli_error($link)
@@ -538,6 +537,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'usuario_revisor' => $usuario_revisor,
             'version_especificacion' => $version_especificacion,
             'version' => $version,
+            'id_analisisExterno' => $estaEditando,
 
             'laboratorio' => $laboratorio,
             'otro_laboratorio' => $otro_laboratorio,
