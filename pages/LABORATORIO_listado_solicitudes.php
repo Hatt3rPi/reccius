@@ -134,7 +134,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     "data": "estado",
                     "title": "Estado",
-                    "width": "35px",
                     "render": function(data, type, row) {
                         switch (data) {
                             case 'completado':
@@ -164,53 +163,42 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 },
                 {
                     "data": "fecha_registro",
-                    "title": "Fecha registro",
-                    "width": "65px",
-                    "render": function(data, type, row) {
-                        return data ? data : '';
-                    }
+                    "title": "Fecha registro"
                 },
                 {
                     "data": "numero_solicitud_version",
-                    "title": "Nro Solicitud",
-                    "width": "90px"
+                    "title": "Nro Solicitud"
                 },
                 {
                     "data": "numero_registro",
-                    "title": "Registro",
-                    "width": "90px"
+                    "title": "Registro"
                 },
                 {
                     "data": "producto",
-                    "title": "Producto",
-                    "width": "170px"
+                    "title": "Producto"
                 },
                 {
                     "data": "lote",
-                    "title": "Número Lote",
-                    "width": "70px"
+                    "title": "Número Lote"
                 },
                 {
                     "data": "laboratorio",
-                    "title": "Laboratorio",
-                    "width": "70px"
+                    "title": "Laboratorio"
                 },
                 {
                     title: 'id',
                     data: 'id_analisisExterno',
-                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-                    visible: false // Esto oculta la columna
+                    defaultContent: '',
+                    visible: false
                 },
                 {
-                    "data": "producto",
-                    "title": "Producto_filtrado",
+                    title: 'Producto_filtrado',
+                    data: 'producto',
                     visible: false,
                     "render": function(data, type, row) {
                         if (data) {
-                            // Si data no es null ni undefined, realiza la normalización
                             return data.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                         } else {
-                            // Si data es null o undefined, retorna una cadena vacía o un valor por defecto
                             return '';
                         }
                     }
@@ -218,11 +206,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 {
                     title: 'tipo_producto',
                     data: 'tipo_producto',
-                    defaultContent: '', // Puedes cambiar esto si deseas poner contenido por defecto
-                    visible: false // Esto oculta la columna
+                    defaultContent: '',
+                    visible: false
                 }
             ],
-
+            // Definición de los anchos de las columnas utilizando columnDefs
+            "columnDefs": [
+                { "width": "17px", "targets": 0 },  // Ancho de la columna de detalles
+                { "width": "80px", "targets": 1 },  // Ancho para la columna 'Estado'
+                { "width": "60px", "targets": 2 },  // Ancho para la columna 'Fecha registro'
+                { "width": "100px", "targets": 3 }, // Ancho para la columna 'Nro Solicitud'
+                { "width": "90px", "targets": 4 },  // Ancho para la columna 'Registro'
+                { "width": "150px", "targets": 5 }, // Ancho para la columna 'Producto'
+                { "width": "70px", "targets": 6 },  // Ancho para la columna 'Número Lote'
+                { "width": "70px", "targets": 7 }, // Ancho para la columna 'Laboratorio'
+            ],
+            "autoWidth": false, // Desactiva el ajuste automático de ancho de DataTables
         });
 
         // Event listener para el botón de detalles
