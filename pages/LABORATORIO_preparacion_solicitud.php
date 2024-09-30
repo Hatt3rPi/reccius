@@ -482,13 +482,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             success: function(response) {
                 if (ruta_edicion=='edicion' || ruta_edicion=='poblar_info_faltante') {
                     procesarDatosActaUpdate(response);
-                    console.log('======ruta edición=====')
+                    console.log('======',ruta_edicion,'=====');
                     //procesarDatosActa(response);
                 } else {
-                    console.log('======ruta completar info: inicio=====');
-                    consol
                     procesarDatosActa(response);
-                    console.log('======ruta completar info: fin=====');
                 }
             },
             error: function(xhr, status, error) {
