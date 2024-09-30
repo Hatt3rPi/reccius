@@ -442,7 +442,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             'usuario_editor',
             'revisado_por'
         ];
-        if (ruta_edicion=='edicion') {
+        if (ruta_edicion=='edicion'|| ruta_edicion=='poblar_info_faltante') {
             $("#guardar").show();
         } else {
             $("#editarGenerarVersion").hide();
