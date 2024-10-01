@@ -859,7 +859,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#editarGenerarVersion').on('click', function(event) {
             event.preventDefault();
             console.log("Editar Generar Version");
-
+            $('#contenedor_obsOriginal').css('visibility', 'visible');
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
@@ -902,7 +902,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     'numero_pos',
                     'ejecutado_por',
                     'muestreado_por',
-                    'am_verificado_por'
+                    'am_verificado_por',
+                    'form_observaciones'
                 ].forEach(element => {
                     $("#" + element).prop('disabled', false);
                 });
