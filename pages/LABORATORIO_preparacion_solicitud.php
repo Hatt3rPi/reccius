@@ -374,13 +374,18 @@ while ($row = mysqli_fetch_assoc($result)) {
 </html>
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
+    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
+    $('#id_analisisExterno').val(idAnalisisExterno);
+    var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
+    var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+    var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+    
     /**
      * Sets values to the given inputs.
      *
      * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
      * @return {void}
      */
-
     function setValuesToInputs(arr) {
         for (let el of arr) {
             const {
@@ -444,10 +449,12 @@ while ($row = mysqli_fetch_assoc($result)) {
         ];
         if (ruta_edicion=='edicion') {
             $("#guardar").hide();
-        } else if (ruta_edicion=='poblar_info_faltante'){
+        } 
+        if (ruta_edicion == 'poblar_info_faltante'){
             $("#informacion_faltante").show();
             $("#guardar").show();
-        }else {
+        }
+        if (ruta_edicion !== 'poblar_info_faltante' && ruta_edicion !== 'edicion') {
             $("#editarGenerarVersion").hide();
             $("#informacion_faltante").remove();
             // Aplicar color amarillo a los inputs de identificación
@@ -462,11 +469,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         }
     }
 
-    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
-    $('#id_analisisExterno').val(idAnalisisExterno);
-    var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
-    var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
-    var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+
 
     function cargarDatosEspecificacion() {
         var data = {
