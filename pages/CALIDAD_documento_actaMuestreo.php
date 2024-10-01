@@ -1160,6 +1160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
 
+        // Ocultar elementos no necesarios durante la generación del PDF
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
         elementToExport.style.border = 'none';
@@ -1253,12 +1254,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 } else {
                     $.notify("Error al subir el PDF: " + data.message, "error");
                 }
-                document.getElementById('modalLoading').style.display = 'none';
             })
             .catch(error => {
                 console.error('Error al generar o subir el PDF:', error);
                 $.notify("Error al generar o subir el PDF", "error");
-                document.getElementById('modalLoading').style.display = 'none';
             })
             .finally(() => {
                 // Restaurar los botones no seleccionados
@@ -1269,10 +1268,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     });
                 });
 
+                // Restaurar los estilos del contenedor y los botones
+                document.querySelector('.button-container').style.display = 'block';
+                elementToExport.style.border = '1px solid #000';
+                elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
                 // Restaurar el modal de carga
                 document.getElementById('modalLoading').style.display = 'none';
+
+                // Eliminar los estilos temporales aplicados
+                document.head.removeChild(styleElement);
             });
     });
+
 
 
     function SacarEditable(editable) {
