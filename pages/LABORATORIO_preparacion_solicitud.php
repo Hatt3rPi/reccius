@@ -478,6 +478,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
     function cargarDatosEspecificacion() {
+        console.log("ruta_edicion:",ruta_edicion);
         var data = {
             idEspecificacion: idEspecificacion,
             id_analisis_externo: idAnalisisExterno,
@@ -494,6 +495,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     console.log('======',ruta_edicion,'=====');
                     //procesarDatosActa(response);
                 } else {
+                    console.log('======procesarDatosActa=====');
                     procesarDatosActa(response);
                 }
             },
