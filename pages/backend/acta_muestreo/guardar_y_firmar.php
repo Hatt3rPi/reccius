@@ -8,7 +8,7 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); // convertir JSON a array
 $usuario = $_SESSION['usuario'] ?? 'Usuario no definido'; // Usa la clave correcta para 'usuario'
 $fechaActual = date("Y-m-d"); // Formato de fecha para SQL
-
+$fecha_muestreo=isset($input['fecha_muestreo']) ? $input['fecha_muestreo'] : null;
 // Validar y obtener los datos necesarios
 $id_actaMuestreo = isset($input['id_actaMuestreo']) ? intval($input['id_actaMuestreo']) : null;
 $etapa = isset($input['etapa']) ? intval($input['etapa']) : null;
@@ -92,9 +92,9 @@ switch ($etapa) {
         }
         $query = "UPDATE calidad_acta_muestreo SET
                     estado=?, resultados_muestrador=?, pregunta5=?, pregunta6=?, pregunta7=?, pregunta8=?,
-                    plan_muestreo=?, muestreador=?, fecha_firma_muestreador=?
+                    plan_muestreo=?, muestreador=?, fecha_firma_muestreador=?, fecha_muestreo=?
                   WHERE id=?";
-        $types = "sssssssssi";
+        $types = "ssssssssssi";
         $params = [
             $estado,
             $respuestas,
@@ -105,6 +105,7 @@ switch ($etapa) {
             $plan_muestreo_json,
             $usuario,
             $fechaActual,
+            $fecha_muestreo,
             $id_actaMuestreo
         ];
         $flujo = 'Firma usuario 1 de 3';

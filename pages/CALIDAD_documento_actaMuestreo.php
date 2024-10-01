@@ -78,7 +78,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" value="<?php echo date('Y-m-d'); ?>" required></td>
+                            <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" required></td>
                         </tr>
                     </table>
                 </div>
@@ -1666,6 +1666,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
+        let fecha_muestreo = $('#fecha_muestreo').val();
         let observaciones = $('#form_observaciones').html();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
@@ -1676,12 +1677,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             usuario: usuario,
             firma2: firma2,
             firma3: firma3,
+            fecha_muestreo: fecha_muestreo,
             acta: acta,
             id_analisis_externo: id_analisis_externo,
             observaciones: observaciones,
             numero_solicitud: numero_solicitud_analisis_externo,
             solicitado_por_analisis_externo: solicitado_por_analisis_externo,
             respuestas: respuestas,
+
             textareaData: {}
         };
 
