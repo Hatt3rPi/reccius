@@ -808,26 +808,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </div>
 <div id="modalMetodoMuestreo" class="modalRechazo" style="display: none">
     <div class="modal-contentRechazo">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
-                    <button type="button" class="btn-close" onclick="botones_interno('metodo_muestreo_close')" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
-                        <label class="form-check-label" for="muestreoManual">Acta de Muestreo Manual (en papel)</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
-                        <label class="form-check-label" for="muestreoDigital">Acta de Muestreo Digital (en tablet)</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="botones_interno('metodo_muestreo_close')">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
-                </div>
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
+            <button type="button" class="btn-close" onclick="botones_interno('metodo_muestreo_close')" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
+                <label class="form-check-label" for="muestreoManual">Acta de Muestreo Manual (en papel)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
+                <label class="form-check-label" for="muestreoDigital">Acta de Muestreo Digital (en tablet)</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="botones_interno('metodo_muestreo_close')">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
+        </div>
     </div>
 </div>
+
 </html>
 <script>
     var idAnalisisExterno_acta = null;
@@ -986,12 +987,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     document.getElementById('test').addEventListener('click', function() {
-    const timestamp = new Date().toLocaleTimeString();
-    console.log(`click a las ${timestamp}`);
-});
+        const timestamp = new Date().toLocaleTimeString();
+        console.log(`click a las ${timestamp}`);
+    });
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-        
+
         //desactivar_boton_temporalmente(document.getElementById('download-pdf'));
         const styleElement = document.createElement('style');
         styleElement.innerHTML = `
@@ -1108,7 +1109,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
 
             $.notify("PDF generado con éxito", "success");
-            
+
             // Restaurar los botones no seleccionados
             allButtonGroups.forEach(group => {
                 const buttons = group.querySelectorAll('.btn-check');
@@ -1119,7 +1120,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             // Restaurar el input de fecha
             fechaMuestreoTd.innerHTML = originalHtml;
-            
+
             //$('#listado_acta_muestreo').click();
         });
     });
@@ -1132,106 +1133,155 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     document.getElementById('upload-pdf').addEventListener('click', function() {
         document.getElementById('modalLoading').style.display = 'block';
-        //desactivar_boton_temporalmente(document.getElementById('upload-pdf'));
-        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
 
+        // Aplicar los estilos de los botones, similar al código de download-pdf
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = `
+        .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
+            background-color: transparent !important;
+            color: #000 !important;
+            border-color: #000 !important;
+            font-weight: bold !important;
+        }
+        .btn-outline-success .fa-circle-check, .btn-outline-danger .fa-circle-xmark, .btn-outline-secondary .fa-circle-xmark {
+            color: #000 !important;
+        }
+    `;
+        document.head.appendChild(styleElement);
+
+        // Ocultar los botones no seleccionados
+        const allButtonGroups = document.querySelectorAll('.btn-group-horizontal, .btn-group-vertical');
         allButtonGroups.forEach(group => {
             const buttons = group.querySelectorAll('.btn-check');
             buttons.forEach(button => {
                 if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none';
+                    button.nextElementSibling.style.display = 'none'; // Ocultar el label del botón no seleccionado
                 }
             });
         });
 
+        // Ocultar elementos no necesarios durante la generación del PDF
         document.querySelector('.button-container').style.display = 'none';
         const elementToExport = document.getElementById('form-container');
         elementToExport.style.border = 'none';
         elementToExport.style.boxShadow = 'none';
 
-        html2canvas(elementToExport, {
-            scale: 1
-        }).then(canvas => {
-            document.querySelector('.button-container').style.display = 'block';
-            elementToExport.style.border = '1px solid #000';
-            elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+        const section1 = document.getElementById('sample-identification1');
+        const section2 = document.getElementById('sample-identification2');
+        const section3 = document.getElementById('sampling-plan');
+        const header = document.getElementById('header-container');
+        const footer = document.getElementById('footer-containerDIV');
 
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    if (button.checked) {
-                        button.style.display = 'block';
-                    }
+        html2canvas(header, {
+                scale: 1
+            }).then(headerCanvas => {
+                return Promise.all([
+                    html2canvas(section1, {
+                        scale: 1
+                    }),
+                    html2canvas(section2, {
+                        scale: 1
+                    }),
+                    html2canvas(section3, {
+                        scale: 1
+                    }),
+                    html2canvas(footer, {
+                        scale: 1
+                    }),
+                    headerCanvas
+                ]);
+            }).then(([section1Canvas, section2Canvas, section3Canvas, footerCanvas, headerCanvas]) => {
+                const pdf = new jspdf.jsPDF({
+                    orientation: 'p',
+                    unit: 'mm',
+                    format: 'a4'
                 });
-            });
 
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jspdf.jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
+                const imgWidth = 210;
+                const pageHeight = 297;
+                let yOffset = 10;
 
-            const imgWidth = 210;
-            const pageHeight = 297;
-            let imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
+                // Header en la primera página
+                const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
+                pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
+                yOffset += headerHeight + 10;
 
-            let position = 0;
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
+                // Sección 1 en la primera página
+                const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
+                pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
+                yOffset += section1Height + 10;
 
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
+                // Footer en la primera página
+                const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
+                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+
+                // Segunda página para secciones 2 y 3
                 pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
+                yOffset = 10;
 
-            const blob = pdf.output('blob');
+                // Header en la segunda página
+                pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
+                yOffset += headerHeight + 10;
 
-            const formData = new FormData();
-            formData.append('certificado', blob, 'documento.pdf');
-            formData.append('type', 'acta');
-            formData.append('id_solicitud', idAnalisisExterno_acta);
+                // Sección 2 en la segunda página
+                const section2Height = (section2Canvas.height * imgWidth) / section2Canvas.width;
+                pdf.addImage(section2Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section2Height);
+                yOffset += section2Height + 10;
 
-            fetch('./backend/calidad/add_documentos.php', {
+                // Sección 3 debajo de la sección 2 en la misma página
+                const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
+                pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
+                yOffset += section3Height + 10;
+
+                // Footer en la segunda página
+                pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+
+                const blob = pdf.output('blob');
+
+                const formData = new FormData();
+                formData.append('certificado', blob, 'documento.pdf');
+                formData.append('type', 'acta');
+                formData.append('id_solicitud', idAnalisisExterno_acta);
+
+                return fetch('./backend/calidad/add_documentos.php', {
                     method: 'POST',
                     body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        $.notify("PDF subido con éxito", "success");
-                        console.log('fin spinner');
-                        document.getElementById('modalLoading').style.display = 'none';
-                    } else {
-                        $.notify("Error al subir el PDF: " + data.message, "error");
-                        console.log('fin spinner');
-                        document.getElementById('modalLoading').style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    $.notify("Error al subir el PDF", "error");
-                    document.getElementById('modalLoading').style.display = 'none';
+                });
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    $.notify("PDF subido con éxito", "success");
+                } else {
+                    $.notify("Error al subir el PDF: " + data.message, "error");
+                }
+            })
+            .catch(error => {
+                console.error('Error al generar o subir el PDF:', error);
+                $.notify("Error al generar o subir el PDF", "error");
+            })
+            .finally(() => {
+                // Restaurar los botones no seleccionados
+                allButtonGroups.forEach(group => {
+                    const buttons = group.querySelectorAll('.btn-check');
+                    buttons.forEach(button => {
+                        button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
+                    });
                 });
 
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    button.style.display = 'block';
-                });
+                // Restaurar los estilos del contenedor y los botones
+                document.querySelector('.button-container').style.display = 'block';
+                elementToExport.style.border = '1px solid #000';
+                elementToExport.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+
+                // Restaurar el modal de carga
+                document.getElementById('modalLoading').style.display = 'none';
+
+                // Eliminar los estilos temporales aplicados
+                document.head.removeChild(styleElement);
             });
-            
-        }).catch(error => {
-            console.error('Error al generar el canvas:', error);
-            $.notify("Error al generar el PDF", "error");
-            document.getElementById('modalLoading').style.display = 'none';
-        });
-        //desactivar modal spiner
-
     });
+
+
 
     function SacarEditable(editable) {
         if (editable === false) {
@@ -1519,7 +1569,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     document.getElementById('firmar').addEventListener('click', function() {
         // Hacer visibles los elementos de .formulario.resp
-        
+
         //desactivar_boton_temporalmente(document.getElementById('firmar'));
         console.log('click firma')
         document.querySelectorAll('.formulario.resp *').forEach(function(element) {
@@ -1558,7 +1608,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 
     document.getElementById('guardar').addEventListener('click', function() {
-        
+
         //desactivar_boton_temporalmente(document.getElementById('guardar'));
 
         let etapa = $('#etapa').text();
@@ -1572,9 +1622,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             case 'firma3':
                 guardar_firma3(); // 
                 var today = new Date();
-                var formattedDate = today.getFullYear() + '-' + 
-                                    ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
-                                    ('0' + today.getDate()).slice(-2);
+                var formattedDate = today.getFullYear() + '-' +
+                    ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + today.getDate()).slice(-2);
                 var response3 = {
                     "foto_firma_usr3": "<?php echo $_SESSION['foto_firma']; ?>",
                     "fecha_firma_muestreador": formattedDate
@@ -1806,7 +1856,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             document.getElementById("modalRechazar").style.display = "block";
         } else if (accion === 'metodo_muestreo') {
             document.getElementById('modalMetodoMuestreo').style.display = 'block';
-        } else if (accion === 'metodo_muestreo_close'){
+        } else if (accion === 'metodo_muestreo_close') {
             document.getElementById('modalMetodoMuestreo').style.display = 'none';
         }
     }
