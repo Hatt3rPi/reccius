@@ -78,7 +78,7 @@ function insertarRegistro($link, $datos)
             ae.pais_origen,
             ae.proveedor,
             '".$fecha_ymd."',
-            ae.observaciones
+            ? 
 
         FROM calidad_analisis_externo as ae
             left join calidad_especificacion_productos AS c on c.id_especificacion=ae.id_especificacion
@@ -95,7 +95,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'isssssssssssssssi',
+        'issssssssssssssssi',
         $datos['version'],
         $datos['fecha_registro'],
         $_SESSION['usuario'],
@@ -112,6 +112,7 @@ function insertarRegistro($link, $datos)
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
         $datos['am_ejecutado_por'],
+        $datos['observaciones_originales'].
         $datos['id_analisisExterno']
     );
     $exito = mysqli_stmt_execute($stmt);
@@ -128,8 +129,6 @@ function insertarRegistro($link, $datos)
         $query,
         [
             $datos['version'],
-            $datos['numero_registro'],
-            $datos['numero_solicitud'],
             $datos['fecha_registro'],
             $_SESSION['usuario'],
             $datos['lote'],
@@ -145,6 +144,7 @@ function insertarRegistro($link, $datos)
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
             $datos['am_ejecutado_por'],
+            $datos['observaciones_originales'].
             $datos['id_analisisExterno']
         ],
         $exito ? 1 : 0,
