@@ -927,6 +927,12 @@ while ($row = mysqli_fetch_assoc($result)) {
             
             var datosFormulario = $(this).serialize();
 
+            console.log(' >M< ');
+            console.log(' >M< informacion_faltante',$("#informacion_faltante").length);
+            console.log(' >M< version',$("#version").val());
+            console.log(' >M< newVersion',newVersion);
+            
+
             //si es post firma
             if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
                 formData.append('id', idAnalisisExterno);
