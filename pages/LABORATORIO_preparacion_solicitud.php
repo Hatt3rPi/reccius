@@ -457,7 +457,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             $("#guardar").hide();
         } 
         if (ruta_edicion == 'poblar_info_faltante'){
-            $("#informacion_faltante").show();
+            //$("#informacion_faltante").show();
             $("#guardar").show();
         }
         if (ruta_edicion !== 'poblar_info_faltante' && ruta_edicion !== 'edicion') {
@@ -936,7 +936,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             
 
             //si es post firma
-            if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
+            if ($("#informacion_faltante").length > 0) {
                 formData.append('id', idAnalisisExterno);
 
                 // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'
