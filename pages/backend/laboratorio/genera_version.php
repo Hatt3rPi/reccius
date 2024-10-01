@@ -112,7 +112,7 @@ function insertarRegistro($link, $datos)
         $datos['tipo_analisis'],
         $datos['am_verificado_por'],
         $datos['am_ejecutado_por'],
-        $datos['observaciones_originales'].
+        $datos['observaciones_originales'],
         $datos['id_analisisExterno']
     );
     $exito = mysqli_stmt_execute($stmt);
@@ -144,7 +144,7 @@ function insertarRegistro($link, $datos)
             $datos['tipo_analisis'],
             $datos['am_verificado_por'],
             $datos['am_ejecutado_por'],
-            $datos['observaciones_originales'].
+            $datos['observaciones_originales'],
             $datos['id_analisisExterno']
         ],
         $exito ? 1 : 0,
