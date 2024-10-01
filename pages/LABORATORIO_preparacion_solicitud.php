@@ -753,6 +753,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                         id: 'observaciones',
                         val: analisis.observaciones,
                         isDisabled: false
+                },
+                {
+                        id: 'form_observaciones',
+                        val: analisis.observaciones,
+                        isDisabled: false
                 }
             ];
             $('#contenedor_obsOriginal').css('visibility', 'hidden');
