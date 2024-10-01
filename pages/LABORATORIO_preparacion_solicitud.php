@@ -374,11 +374,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 </html>
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
-    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     $('#id_analisisExterno').val(idAnalisisExterno);
+    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
     var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+    console.log({
+        idAnalisisExterno
+        ,ruta_edicion
+        ,idEspecificacion
+        ,accion
+    });
     
     /**
      * Sets values to the given inputs.
