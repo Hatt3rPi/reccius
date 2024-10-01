@@ -19,7 +19,7 @@ $query = "SELECT
 				c.numero_solicitud,
                 CONCAT(
                     c.numero_solicitud, '-', 
-                    LPAD(c.version, 3, '0') 
+                    LPAD(c.version, 2, '0') 
                 ) AS numero_solicitud_version,
                 c.tipo_analisis,
 				c.muestreado_por,  
