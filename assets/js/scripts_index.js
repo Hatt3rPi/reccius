@@ -600,7 +600,7 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                                     break;
                                 }
                                 case 'Firma 1': {
-                                    botones(id, 'revisar', 'laboratorio');
+                                    botones(id, 'revisar', 'laboratorio', 'poblar_info_faltante');
                                     break;
                                 }
                                 case 'Enviar a Laboratorio': {
