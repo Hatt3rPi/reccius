@@ -374,13 +374,25 @@ while ($row = mysqli_fetch_assoc($result)) {
 </html>
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
+    
+    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
+    var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
+    var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
+    var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+    $('#id_analisisExterno').val(idAnalisisExterno);
+    console.log({
+        idAnalisisExterno
+        ,ruta_edicion
+        ,idEspecificacion
+        ,accion
+    });
+    
     /**
      * Sets values to the given inputs.
      *
      * @param {Array<{id: string, val: string, isDisabled: boolean}>} arr - Array of objects with 'id' (string), 'val' (string) and 'isDisabled' (boolean) properties.
      * @return {void}
      */
-
     function setValuesToInputs(arr) {
         for (let el of arr) {
             const {
@@ -443,8 +455,13 @@ while ($row = mysqli_fetch_assoc($result)) {
             'revisado_por'
         ];
         if (ruta_edicion=='edicion') {
+            $("#guardar").hide();
+        } 
+        if (ruta_edicion == 'poblar_info_faltante'){
+            //$("#informacion_faltante").show();
             $("#guardar").show();
-        } else {
+        }
+        if (ruta_edicion !== 'poblar_info_faltante' && ruta_edicion !== 'edicion') {
             $("#editarGenerarVersion").hide();
             $("#informacion_faltante").remove();
             // Aplicar color amarillo a los inputs de identificación
@@ -459,13 +476,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         }
     }
 
-    var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
-    $('#id_analisisExterno').val(idAnalisisExterno);
-    var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
-    var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
-    var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+
 
     function cargarDatosEspecificacion() {
+        console.log("ruta_edicion:",ruta_edicion);
         var data = {
             idEspecificacion: idEspecificacion,
             id_analisis_externo: idAnalisisExterno,
@@ -477,11 +491,12 @@ while ($row = mysqli_fetch_assoc($result)) {
             type: 'GET',
             data,
             success: function(response) {
-                if (ruta_edicion=='edicion') {
+                if (ruta_edicion=='edicion' || ruta_edicion=='poblar_info_faltante') {
                     procesarDatosActaUpdate(response);
-                    console.log('======ruta edición=====')
+                    console.log('======',ruta_edicion,'=====');
                     //procesarDatosActa(response);
                 } else {
+                    console.log('======procesarDatosActa=====');
                     procesarDatosActa(response);
                 }
             },
@@ -738,6 +753,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                         id: 'observaciones',
                         val: analisis.observaciones,
                         isDisabled: false
+                },
+                {
+                        id: 'form_observaciones',
+                        val: analisis.observaciones,
+                        isDisabled: false
                 }
             ];
             $('#contenedor_obsOriginal').css('visibility', 'hidden');
@@ -844,7 +864,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#editarGenerarVersion').on('click', function(event) {
             event.preventDefault();
             console.log("Editar Generar Version");
-
+            $('#contenedor_obsOriginal').css('visibility', 'visible');
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
@@ -887,7 +907,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     'numero_pos',
                     'ejecutado_por',
                     'muestreado_por',
-                    'am_verificado_por'
+                    'am_verificado_por',
+                    'form_observaciones'
                 ].forEach(element => {
                     $("#" + element).prop('disabled', false);
                 });
@@ -915,8 +936,14 @@ while ($row = mysqli_fetch_assoc($result)) {
             
             var datosFormulario = $(this).serialize();
 
+            console.log(' >M< ');
+            console.log(' >M< informacion_faltante',$("#informacion_faltante").length);
+            console.log(' >M< version',$("#version").val());
+            console.log(' >M< newVersion',newVersion);
+            
+
             //si es post firma
-            if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
+            if ($("#informacion_faltante").length > 0) {
                 formData.append('id', idAnalisisExterno);
 
                 // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'
