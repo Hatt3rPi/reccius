@@ -374,11 +374,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 </html>
 <script>
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
-    $('#id_analisisExterno').val(idAnalisisExterno);
+    
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
     var idEspecificacion = <?php echo json_encode($_POST['especificacion'] ?? ''); ?>;
     var accion = <?php echo json_encode($_POST['accion'] ?? ''); ?>;
+    $('#id_analisisExterno').val(idAnalisisExterno);
     console.log({
         idAnalisisExterno
         ,ruta_edicion
@@ -457,7 +458,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             $("#guardar").hide();
         } 
         if (ruta_edicion == 'poblar_info_faltante'){
-            $("#informacion_faltante").show();
+            //$("#informacion_faltante").show();
             $("#guardar").show();
         }
         if (ruta_edicion !== 'poblar_info_faltante' && ruta_edicion !== 'edicion') {
@@ -752,6 +753,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                         id: 'observaciones',
                         val: analisis.observaciones,
                         isDisabled: false
+                },
+                {
+                        id: 'form_observaciones',
+                        val: analisis.observaciones,
+                        isDisabled: false
                 }
             ];
             $('#contenedor_obsOriginal').css('visibility', 'hidden');
@@ -858,7 +864,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#editarGenerarVersion').on('click', function(event) {
             event.preventDefault();
             console.log("Editar Generar Version");
-
+            $('#contenedor_obsOriginal').css('visibility', 'visible');
             $("#guardar").show();
             $("#editarGenerarVersion").hide();
             $("#version").val(newVersion);
@@ -901,7 +907,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     'numero_pos',
                     'ejecutado_por',
                     'muestreado_por',
-                    'am_verificado_por'
+                    'am_verificado_por',
+                    'form_observaciones'
                 ].forEach(element => {
                     $("#" + element).prop('disabled', false);
                 });
@@ -936,7 +943,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             
 
             //si es post firma
-            if ($("#informacion_faltante").length > 0 && $("#version").val() != newVersion) {
+            if ($("#informacion_faltante").length > 0) {
                 formData.append('id', idAnalisisExterno);
 
                 // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'

@@ -14,7 +14,7 @@ $query = "SELECT
     -- Nuevo campo agregado aquí
     CONCAT(
         aex.numero_solicitud, '-', 
-		LPAD(aex.version, 3, '0') 
+		LPAD(aex.version, 2, '0') 
     ) AS numero_solicitud_version,
     aex.laboratorio, 
     aex.fecha_registro,

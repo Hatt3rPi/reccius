@@ -247,7 +247,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
 
-            if (d.estado === "Pendiente Acta de Muestreo") {
+            if (d.estado === "Pendiente Acta de Muestreo" || d.estado === "Pendiente completar análisis") {
                 acciones += '<button class="accion-btn ingControl" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\', \'edicion\')"><i class="fas fa-search"></i> Revisar Solicitud</button><a> </a>';
             }
             
