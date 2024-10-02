@@ -806,28 +806,29 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <p>Procesando documento</p>
     </div>
 </div>
-<div id="modalMetodoMuestreo" class="modalRechazo" style="display: none">
-    <div class="modal-contentRechazo">
-        <div class="modal-header">
-            <h5 class="modal-title" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
-            <button type="button" class="btn-close" onclick="botones_interno('metodo_muestreo_close')" aria-label="Close"></button>
+<div id="modalMetodoMuestreo" class="modalMuestreo" style="display: none;">
+    <div class="modal-contentMuestreo">
+        <div class="modal-headerMuestreo">
+            <h5 class="modal-titleMuestreo" id="modalMetodoMuestreoLabel">Seleccionar Método de Muestreo</h5>
+            <button type="button" class="btn-closeMuestreo" onclick="botones_interno('metodo_muestreo_close')" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
-                <label class="form-check-label" for="muestreoManual">Acta de Muestreo Manual (en papel)</label>
+        <div class="modal-bodyMuestreo">
+            <div class="form-checkMuestreo">
+                <input class="form-check-inputMuestreo" type="radio" name="metodoMuestreo" id="muestreoManual" value="manual">
+                <label class="form-check-labelMuestreo" for="muestreoManual">Acta de Muestreo Manual (en papel)</label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
-                <label class="form-check-label" for="muestreoDigital">Acta de Muestreo Digital (en tablet)</label>
+            <div class="form-checkMuestreo">
+                <input class="form-check-inputMuestreo" type="radio" name="metodoMuestreo" id="muestreoDigital" value="digital">
+                <label class="form-check-labelMuestreo" for="muestreoDigital">Acta de Muestreo Digital (en tablet)</label>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="botones_interno('metodo_muestreo_close')">Cerrar</button>
-            <button type="button" class="btn btn-primary" id="confirmarMetodo">Confirmar</button>
+        <div class="modal-footerMuestreo">
+            <button type="button" class="btn-cerrarMuestreo" onclick="botones_interno('metodo_muestreo_close')">Cerrar</button>
+            <button type="button" class="btn-confirmarMuestreo" id="confirmarMetodo">Confirmar</button>
         </div>
     </div>
 </div>
+
 
 </html>
 <script>
@@ -1722,14 +1723,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
-        let fecha_muestreo ='';
-        console.log('------ etapa:',etapa,'------')
-        if (etapa==1){
+        let fecha_muestreo = '';
+        console.log('------ etapa:', etapa, '------')
+        if (etapa == 1) {
             fecha_muestreo = $('#fecha_muestreo').val();
         } else {
-            fecha_muestreo =$('#td_fecha_muestreo').text();
+            fecha_muestreo = $('#td_fecha_muestreo').text();
         }
-        console.log('------ fecha_muestreo:',fecha_muestreo,', VAL:', $('#fecha_muestreo').val(), 'TEXT: ',$('#td_fecha_muestreo').text(),'------')
+        console.log('------ fecha_muestreo:', fecha_muestreo, ', VAL:', $('#fecha_muestreo').val(), 'TEXT: ', $('#td_fecha_muestreo').text(), '------')
         let observaciones = $('#form_observaciones').html();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();

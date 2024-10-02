@@ -80,3 +80,93 @@ textarea {
 button:hover {
     background-color: #4cae4c;
 }
+
+
+/* Estilos generales para el modal */
+.modalMuestreo {
+    display: block; /* Hazlo visible para mostrar */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 1; /* Asegura que esté encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* Fondo semitransparente */
+}
+
+.modal-contentMuestreo {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.modal-headerMuestreo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.modal-titleMuestreo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.btn-closeMuestreo {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-bodyMuestreo {
+    margin-top: 20px;
+}
+
+.form-checkMuestreo {
+    margin: 15px 0;
+}
+
+.form-check-inputMuestreo {
+    margin-right: 10px;
+}
+
+.form-check-labelMuestreo {
+    font-size: 16px;
+}
+
+.modal-footerMuestreo {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-cerrarMuestreo, .btn-confirmarMuestreo {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-cerrarMuestreo {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-confirmarMuestreo {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-cerrarMuestreo:hover {
+    background-color: #5a6268;
+}
+
+.btn-confirmarMuestreo:hover {
+    background-color: #0056b3;
+}
