@@ -78,7 +78,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                         <tr>
                             <td>Fecha Muestreo:</td>
-                            <td><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" required></td>
+                            <td name="td_fecha_muestreo" id="td_fecha_muestreo"><input type="date" id="fecha_muestreo" name="fecha_muestreo" class="editable resp" required></td>
                         </tr>
                     </table>
                 </div>
@@ -1347,6 +1347,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             document.getElementById('guardar').style.display = 'none';
                             document.getElementById('rechazo').style.display = 'none';
                         }
+                        if (data.analisis_externos[0].estado === "rechazado") {
+                            document.getElementById('rechazo').style.display = 'none';
+                        }
                     } else {
                         console.error("No se encontraron datos válidos: ", data);
                     }
@@ -1488,7 +1491,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').prop('readonly', true).css('display', 'none');
+                    $('#td_fecha_muestreo').text(response.fecha_muestreo);
                     firma1(response);
                     $('#etapa').text('ingresa resultados y firma2');
                     if (usuario_activo == response.responsable) {
@@ -1508,7 +1512,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').prop('readonly', true).css('display', 'none');
+                    $('#td_fecha_muestreo').text(response.fecha_muestreo);
                     firma1(response);
                     firma2(response);
                     $('#etapa').text('firma3');
@@ -1527,13 +1532,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
                     $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
-                    $('#fecha_muestreo').val(response.fecha_muestreo).prop('readonly', true);
+                    $('#fecha_muestreo').prop('readonly', true).css('display', 'none');
+                    $('#td_fecha_muestreo').text(response.fecha_muestreo);
                     firma1(response);
                     firma2(response);
                     firma3(response);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'none';
-                    document.getElementById('rechazo').style.display = 'block';
+                    document.getElementById('rechazo').style.display = 'none';
                     document.getElementById('download-pdf').style.display = 'block';
                     $('#upload-pdf').show();
                     if (response.plan_muestreo) {
@@ -1716,7 +1722,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
-        let fecha_muestreo = $('#fecha_muestreo').val();
+        if (etapa==1){
+            let fecha_muestreo = $('#fecha_muestreo').val();
+        } else {
+            let fecha_muestreo =$('#td_fecha_muestreo').text();
+        }
+        
         let observaciones = $('#form_observaciones').html();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
