@@ -1347,6 +1347,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             document.getElementById('guardar').style.display = 'none';
                             document.getElementById('rechazo').style.display = 'none';
                         }
+                        if (data.analisis_externos[0].estado === "rechazado") {
+                            document.getElementById('rechazo').style.display = 'none';
+                        }
                     } else {
                         console.error("No se encontraron datos válidos: ", data);
                     }
@@ -1536,7 +1539,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     firma3(response);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'none';
-                    document.getElementById('rechazo').style.display = 'block';
+                    document.getElementById('rechazo').style.display = 'none';
                     document.getElementById('download-pdf').style.display = 'block';
                     $('#upload-pdf').show();
                     if (response.plan_muestreo) {
