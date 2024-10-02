@@ -1722,12 +1722,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let firma2 = $('#user_firma2').text();
         let firma3 = $('#user_firma3').text();
         let acta = $('#nro_acta').text();
+        let fecha_muestreo ='';
+        console.log('------ etapa:',etapa,'------')
         if (etapa==1){
-            let fecha_muestreo = $('#fecha_muestreo').val();
+            fecha_muestreo = $('#fecha_muestreo').val();
         } else {
-            let fecha_muestreo =$('#td_fecha_muestreo').text();
+            fecha_muestreo =$('#td_fecha_muestreo').text();
         }
-        
+        console.log('------ fecha_muestreo:',fecha_muestreo,', VAL:', $('#fecha_muestreo').val(), 'TEXT: ',$('#td_fecha_muestreo').text(),'------')
         let observaciones = $('#form_observaciones').html();
         let numero_solicitud_analisis_externo = $('#numero_solicitud_analisis_externo').text();
         let solicitado_por_analisis_externo = $('#solicitado_por_analisis_externo').text();
