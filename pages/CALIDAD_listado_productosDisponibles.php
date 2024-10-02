@@ -456,7 +456,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             -----
             
         */
-
         var certificados = [
             {
                 name: 'Analisis externo', 
@@ -480,7 +479,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             },
         ];
 
-        var norDocsContainer = $(`#normal-documentos-container-${id}`);
+        var norDocsContainer = $(`#normal-documentos-container-${d.id}`);
         norDocsContainer.empty();
         norDocsContainer.append('<p>Cargando documentos...</p>');
         norDocsContainer.empty();
@@ -494,9 +493,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </tr>`
         certificados.forEach(({
             name, url
-        }) => {
+        },i) => {
             bodyTableNorm += `
-                <tr id="row-document-${id}">
+                <tr id="row-document-${i}-${d.id}">
                     <td>${name}</td>
                     <td>
                         <a href="${url}" target="_blank">Ver</a>
@@ -504,7 +503,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tr>`
         });
         bodyTableNorm += `
-                <tr id="row-document-${id}">
+                <tr id="row-document-${certificados.length}-${d.id}">
                     <td>${name}</td>
                     <td>
                         <button class="" title="Revisar Especificación de producto" id="${d.id_especificacion}" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')">Ver</button>
