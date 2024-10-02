@@ -1,25 +1,30 @@
-
 /* Estilos generales para el modal */
 .modalRechazo {
-    display: block; /* Hazlo visible para mostrar */
-    position: fixed; /* Fijo en la pantalla */
-    z-index: 1; /* Asegura que esté encima de otros elementos */
+    display: block;
+    /* Hazlo visible para mostrar */
+    position: fixed;
+    /* Fijo en la pantalla */
+    z-index: 1;
+    /* Asegura que esté encima de otros elementos */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4); /* Fondo semitransparente */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Fondo semitransparente */
 }
 
 #modalRechazar {
-    display: none; /* Ocultar el modal por defecto */
+    display: none;
+    /* Ocultar el modal por defecto */
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4); /* Fondo semitransparente */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Fondo semitransparente */
 }
 
 .modal-contentRechazo {
@@ -28,7 +33,7 @@
     padding: 20px;
     border-radius: 10px;
     width: 40%;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
 }
 
@@ -81,54 +86,74 @@ button:hover {
     background-color: #4cae4c;
 }
 
-
 /* Estilos generales para el modal */
 .modalMuestreo {
-    display: block; /* Hazlo visible para mostrar */
-    position: fixed; /* Fijo en la pantalla */
-    z-index: 1; /* Asegura que esté encima de otros elementos */
+    display: block;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4); /* Fondo semitransparente */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo más oscuro */
 }
 
 .modal-contentMuestreo {
     background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 15px;
+    /* Bordes más suaves */
     width: 40%;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    /* Sombra más suave */
     text-align: center;
 }
 
+/* Encabezado del modal */
 .modal-headerMuestreo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding-bottom: 20px;
 }
 
 .modal-titleMuestreo {
-    font-size: 24px;
+    font-size: 26px;
+    /* Fuente más grande */
     font-weight: bold;
+    color: #333;
+    /* Color del texto */
 }
 
+/* Botón de cierre */
 .btn-closeMuestreo {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
+    color: #555;
+    /* Color más claro */
 }
 
+.btn-closeMuestreo:hover {
+    color: #000;
+}
+
+/* Cuerpo del modal */
 .modal-bodyMuestreo {
     margin-top: 20px;
+    text-align: left;
+    /* Alineación a la izquierda */
+    font-size: 18px;
+    /* Tamaño de fuente más grande */
+    color: #444;
+    /* Color del texto */
 }
 
 .form-checkMuestreo {
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .form-check-inputMuestreo {
@@ -136,21 +161,26 @@ button:hover {
 }
 
 .form-check-labelMuestreo {
-    font-size: 16px;
+    font-size: 18px;
+    color: #333;
 }
 
+/* Footer del modal */
 .modal-footerMuestreo {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
-.btn-cerrarMuestreo, .btn-confirmarMuestreo {
-    padding: 10px 20px;
+.btn-cerrarMuestreo,
+.btn-confirmarMuestreo {
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 8px;
+    /* Bordes más redondeados */
+    font-size: 18px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .btn-cerrarMuestreo {
