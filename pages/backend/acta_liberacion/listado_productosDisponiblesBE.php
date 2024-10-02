@@ -13,26 +13,33 @@ $query = "SELECT
                     ELSE CONCAT(b.nombre_producto, ' ', b.concentracion, ' - ', b.formato) 
                 END AS producto,
                 b.tipo_producto,
-                c.url_documento_adicional,
-				c.estado as estado_aex,
-				c.url_certificado_solicitud_analisis_externo,
-				c.numero_solicitud,
+                an_externo.url_documento_adicional,
+				an_externo.estado as estado_aex,
+				an_externo.url_certificado_solicitud_analisis_externo,
+				an_externo.numero_solicitud,
                 CONCAT(
-                    c.numero_solicitud, '-', 
-                    LPAD(c.version, 3, '0') 
+                    an_externo.numero_solicitud, '-', 
+                    LPAD(an_externo.version, 3, '0') 
                 ) AS numero_solicitud_version,
-                c.tipo_analisis,
-				c.muestreado_por,  
-				c.fecha_firma_1, c.fecha_firma_2, c.fecha_firma_revisor,
+                an_externo.tipo_analisis,
+				an_externo.muestreado_por,  
+				an_externo.fecha_firma_1, 
+                an_externo.fecha_firma_2, 
+                an_externo.fecha_firma_revisor,
+                an_externo.am_verificado_por,
+				an_externo.am_ejecutado_por as 'am_generador',
+				an_externo.revisado_por as 'aex_revisado_por', 
+				an_externo.solicitado_por as 'aex_firma1',
+				an_externo.estado as 'aex_estado',
+                an_externo.url_certificado_de_analisis_externo,
+                an_externo.url_certificado_acta_de_muestreo,
+                an_externo.url_certificado_solicitud_analisis_externo,
+                an_externo.url_certificado_solicitud_analisis_externo_con_resultados,
+                an_externo.url_documento_adicional,
 				d.estado as estado_amuestreo,
 				d.responsable as 'am_responsable',
                 d.verificador as 'am_verificador',
-                c.am_verificado_por,
                 d.muestreador as 'am_muestreador',
-				c.am_ejecutado_por as 'am_generador',
-				c.revisado_por as 'aex_revisado_por', 
-				c.solicitado_por as 'aex_firma1',
-				c.estado as 'aex_estado',
                 d.fecha_firma_muestreador as 'am_fecha_firma_muestreador',
                 d.fecha_firma_responsable  as 'am_fecha_firma_responsable',
                 d.fecha_firma_verificador as 'am_fecha_firma_verificador',
@@ -40,7 +47,7 @@ $query = "SELECT
                 e.aprobado_por as 'ep_aprobado_por'
             FROM calidad_productos_analizados as a
             LEFT JOIN calidad_productos as b on a.id_producto=b.id
-            left join calidad_analisis_externo as c on a.id_analisisExterno=c.id
+            left join calidad_analisis_externo as an_externo on a.id_analisisExterno=an_externo.id
             left join calidad_acta_muestreo as d on a.id_actaMuestreo=d.id
             left join calidad_especificacion_productos as e on a.id_especificacion=e.id_especificacion
             where a.estado not in ('eliminado_por_solicitud_usuario');";

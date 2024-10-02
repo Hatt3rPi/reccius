@@ -350,8 +350,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </ul>
                 </div>
             `;
-
-
             var progreso_analisis_externo = `
                 <div class="custom-barra_progreso">
                     <ul class="barra_progreso">
@@ -412,8 +410,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td>Otros Documentos:</td>
-                        <td class="otros-documentos-container" id="otros-documentos-container-${d.id}">
-                            <p>Cargando documentos...</p>
+                        <td class="otros-documentos-container" >
+                            <section id="normal-documentos-container-${d.id}">
+                                <p>Cargando documentos opcionales...</p>
+                            </section>
+                            <section id="otros-documentos-container-${d.id}">
+                                <p>Cargando documentos opcionales...</p>
+                            </section>
                         </td>
                         <td>
                             <div class="button-container">
@@ -444,10 +447,89 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <?php } ?>
     }
 
+    function makeDocuments(d) {
+        /*
+            d.id_especificacion
+           ;
+
+            -----
+            
+        */
+
+        var certificados = [
+            {
+                name: 'Analisis externo', 
+                url: d.url_certificado_de_analisis_externo
+            },
+            {
+                name: 'Acta de Muestreo', 
+                url: d.url_certificado_acta_de_muestreo
+            },
+            {
+                name: 'Analisis externo sin resultados', 
+                url: d.url_certificado_solicitud_analisis_externo
+            },
+            {
+                name: 'Analisis externo con resultados', 
+                url: d.url_certificado_solicitud_analisis_externo_con_resultados
+            },
+            {
+                name: 'Adicional de analisis externo', 
+                url: d.url_documento_adicional
+            },
+        ];
+
+        var norDocsContainer = $(`#normal-documentos-container-${id}`);
+        norDocsContainer.empty();
+        norDocsContainer.append('<p>Cargando documentos...</p>');
+        norDocsContainer.empty();
+
+        var bodyTableNorm = '';
+        var headerTableNorm = `
+            <tr>
+                <th>Nombre</th>
+               
+                <th>Archivo</th>
+            </tr>`
+        certificados.forEach(({
+            name, url
+        }) => {
+            bodyTableNorm += `
+                <tr id="row-document-${id}">
+                    <td>${name}</td>
+                    <td>
+                        <a href="${url}" target="_blank">Ver</a>
+                    </td>
+                </tr>`
+        });
+        bodyTableNorm += `
+                <tr id="row-document-${id}">
+                    <td>${name}</td>
+                    <td>
+                        <button class="" title="Revisar Especificación de producto" id="${d.id_especificacion}" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')">Ver</button>
+                    </td>
+                </tr>`
+ 
+
+
+
+        norDocsContainer.append(`
+            <table class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    ${headerTableNorm}
+                </thead>
+                <tbody>
+                    ${bodyTableNorm}
+                </tbody>
+            </table>
+        `);
+        
+        
+    }
     function setAttachedDocuments(id) {
         var otrosDocumentosContainer = $(`#otros-documentos-container-${id}`);
         otrosDocumentosContainer.empty();
-        otrosDocumentosContainer.append('<p>Cargando documentos...</p>');
+        otrosDocumentosContainer.append('<p>Cargando documentos adicionales...</p>');
 
         fetch(`./backend/documentos/obtener_adjuntos_analisis.php?id_productos_analizados=${id}`).then(response => response.json()).then(data => {
             otrosDocumentosContainer.empty();
