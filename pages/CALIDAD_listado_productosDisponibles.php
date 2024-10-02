@@ -233,6 +233,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 // Aquí llamas a la función que formatea el contenido expandido
                 tr.addClass('shown');
                 setAttachedDocuments(rowData.id)
+                makeDocuments(rowData)
             }
         });
 
@@ -281,7 +282,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             }
             if (d.estado === "liberado" || d.estado === "rechazado") {
-                makeDocuments(d)
+                
                 botones_otros_documentos +=
                     '<button class="accion-btn ingControl" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
 
