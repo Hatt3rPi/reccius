@@ -1,6 +1,7 @@
 <?php
 //archivo: pages\CALIDAD_listado_productosDisponibles.php
 session_start();
+require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Verificar si la variable de sesión "usuario" no está establecida o está vacía.
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
@@ -491,7 +492,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 url: d.url_certificado_acta_de_muestreo,
                 form: `<button class="" title="Revisar acta de Muestreo" 
                         onclick="botones('${d.id_actaMuestreo}', 'revisar_acta', 'laboratorio')"> 
-                            Revisar Acta de Muestreo
+                            Ver
                         </button>`
             },
             {
