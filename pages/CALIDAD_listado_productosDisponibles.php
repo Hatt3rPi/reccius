@@ -684,7 +684,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             var selectedOption = $(this).find('option:selected').text();
             console.log(selectedOption);
             
-            if (selectedOption === 'Otro') {
+            if (selectedOption.trim() === 'Otro') {
                 $('#otro_tipo_adjunto_container').show();
                 $('#otro_tipo_adjunto').prop('required', true);
             } else {
