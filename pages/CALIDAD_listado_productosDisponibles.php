@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </div>
     <div class="modal fade" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalAdjuntarArchivoLabel">Adjuntar Documento Opcional</h5>
@@ -682,6 +682,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         // Mostrar o esconder el campo "Otro" en función de la selección
         $('#tipo_adjunto').on('change', function() {
             var selectedOption = $(this).find('option:selected').text();
+            console.log(selectedOption);
+            
             if (selectedOption === 'Otro') {
                 $('#otro_tipo_adjunto_container').show();
                 $('#otro_tipo_adjunto').prop('required', true);
