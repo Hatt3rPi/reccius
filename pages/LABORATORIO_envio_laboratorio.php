@@ -245,7 +245,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         $('#mail_lab').val(analisis.correoLab ?? '');
 
                         $('#subject')
-                            .val(`RECCIUS | Solicitud de análisis externo ${analisis.numero_documento} - ${analisis.nombre_producto}`)
+                            .val(`RECCIUS | Solicitud de análisis externo Lote: ${analisis.lote} - ${analisis.nombre_producto}`)
 
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
