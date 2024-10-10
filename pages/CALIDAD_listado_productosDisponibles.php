@@ -559,7 +559,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </td>
                     <td>
                         ${
-                            url !== '' && url !== null && url !== undefined ?
+                            form !== '' && form !== null && form !== undefined ?
                             form: ''
                         }
                     </td>
