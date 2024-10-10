@@ -546,7 +546,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             </tr>`
         certificados.forEach(({
             name,
-            url
+            url,
+            form
         }, i) => {
             bodyTableNorm += `
                 <tr id="row-document-${i}-${d.id}">
