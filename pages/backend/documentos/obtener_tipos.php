@@ -34,11 +34,7 @@ if (mysqli_stmt_num_rows($stmt) === 0) {
 mysqli_stmt_close($stmt);
 
 // Obtener todos los documentos relacionados con el `id_productos_analizados`
-$query = "SELECT ctd.*, od.nombre_opcion as categoria
-            FROM calidad_otros_documentos as ctd
-            JOIN calidad_opciones_desplegables as od ON 
-                id_opciones_desplegables = id
-            WHERE id_productos_analizados = ?";
+$query = "SELECT id, url, nombre_documento, usuario_carga, fecha_carga FROM calidad_otros_documentos WHERE id_productos_analizados = ?";
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, 'i', $id_productos_analizados);
 mysqli_stmt_execute($stmt);

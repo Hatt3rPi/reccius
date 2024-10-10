@@ -8,6 +8,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: login.html");
     exit;
 }
+$query = "SELECT id, nombre_opcion 
+          FROM calidad_opciones_desplegables 
+          WHERE categoria = 'tipo_documento_adjunto'
+          ORDER BY CASE WHEN nombre_opcion = 'Otro' THEN 1 ELSE 0 END, nombre_opcion ASC";
+$result = mysqli_query($link, $query);
+$opciones = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $opciones[] = $row;
+}
 
 ?>
 <!DOCTYPE html>
@@ -68,11 +78,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </table>
         </div>
     </div>
-    <div class="modal fade" id="modalAdjuntarArchivo"
-        tabindex="-1" role="dialog"
-        aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="left: 0; right: 0;">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalAdjuntarArchivoLabel">Adjuntar Documento Opcional</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -83,24 +91,47 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <form id="formAdjuntarArchivo" enctype="multipart/form-data">
                         <input type="hidden" id="id_productos_analizados" name="id_productos_analizados" value="">
 
-                        <div class="form-group">
-                            <label for="nombre_documento">Nombre del Documento</label>
-                            <input type="text" class="form-control" id="nombre_documento" name="nombre_documento" required>
-                        </div>
-
+                        <!-- Selección del archivo -->
                         <div class="form-group">
                             <label for="documento">Seleccionar Archivo (PDF o Imagen)</label>
                             <input type="file" class="form-control-file" id="documento" name="documento" accept=".pdf, image/jpeg, image/png" required>
                         </div>
 
+                        <!-- Nombre del documento -->
+                        <div class="form-group">
+                            <label for="nombre_documento">Nombre del Documento</label>
+                            <input type="text" class="form-control" id="nombre_documento" name="nombre_documento" required>
+                        </div>
+
+                        <!-- Tipo de adjunto y campo "Otro" -->
+                        <div class="form-group">
+                            <label for="tipo_adjunto">Tipo de Documento</label>
+                            <select name="tipo_adjunto" class="form-control" id="tipo_adjunto">
+                                <?php foreach ($opciones as $opcion): ?>
+                                    <option value="<?php echo htmlspecialchars($opcion['id']); ?>">
+                                        <?php echo htmlspecialchars($opcion['nombre_opcion']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <!-- Input adicional para "Otro" -->
+                        <div id="otro_tipo_adjunto_container" style="display: none;" class="form-group">
+                            <label for="otro_tipo_adjunto">Especificar otro tipo de documento:</label>
+                            <input type="text" name="otro_tipo_adjunto" id="otro_tipo_adjunto" class="form-control" placeholder="Especificar tipo de documento">
+                        </div>
+
+                        <!-- Alerta -->
                         <div id="alertaArchivo" class="alert alert-danger" style="display: none;"></div>
 
+                        <!-- Botón de enviar -->
                         <button type="submit" class="btn btn-primary">Subir Documento</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
@@ -282,7 +313,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }
             }
             if (d.estado === "liberado" || d.estado === "rechazado") {
-                
+
                 botones_otros_documentos +=
                     '<button class="accion-btn ingControl" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
 
@@ -411,7 +442,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </td>
                     </tr>
                     <tr>
-                        <td>Otros Documentos:</td>
+                        <td>Documentos:</td>
                         <td class="otros-documentos-container" >
                             <section id="normal-documentos-container-${d.id}">
                                 <p>Cargando documentos opcionales...</p>
@@ -450,35 +481,56 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function makeDocuments(d) {
-        /*
-            d.id_especificacion
-           ;
-
-            -----
-            
-        */
-        var certificados = [
-            {
-                name: 'Analisis externo', 
-                url: d.url_certificado_de_analisis_externo
+        var certificados = [{
+                name: 'Analisis externo',
+                url: d.url_certificado_de_analisis_externo,
+                form: ''
             },
             {
-                name: 'Acta de Muestreo', 
-                url: d.url_certificado_acta_de_muestreo
+                name: 'Acta de Muestreo',
+                url: d.url_certificado_acta_de_muestreo,
+                form: `<button class="" title="Revisar acta de Muestreo" 
+                        onclick="botones('${d.id_actaMuestreo}', 'revisar_acta', 'laboratorio')"> 
+                            Revisar Acta de Muestreo
+                        </button>`
             },
             {
-                name: 'Analisis externo sin resultados', 
-                url: d.url_certificado_solicitud_analisis_externo
+                name: 'Analisis externo sin resultados',
+                url: d.url_certificado_solicitud_analisis_externo,
+                form: `<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" 
+                        onclick="botones('${d.id_analisisExterno}', 'generar_documento_solicitudes', 'laboratorio')">
+                            Ver
+                        </button>`
             },
             {
-                name: 'Analisis externo con resultados', 
-                url: d.url_certificado_solicitud_analisis_externo_con_resultados
+                name: 'Analisis externo con resultados',
+                url: d.url_certificado_solicitud_analisis_externo_con_resultados,
+                form: ''
             },
             {
-                name: 'Adicional de analisis externo', 
-                url: d.url_documento_adicional
+                name: 'Acta de liberación o rechazo',
+                url: '',
+                form: `<button class="" title="Revisar Acta de liberación o rechazo" 
+                        onclick="botones('${d.id_actaLiberacion}', 'revisar_acta_liberacion', 'laboratorio')">
+                            Ver
+                       </button>`
             },
+            {
+                name: 'Revisar Especificación de Producto',
+                url: d.url_revisar_especificacion,
+                form: `<button class="" title="Revisar Especificación de producto" 
+                        onclick="botones('${d.id_especificacion}', 'generar_documento', 'especificacion')">
+                            Ver
+                       </button>`
+            }
         ];
+
+        /*
+        botones_acta_muestreo += ;
+
+        botones_analisis_externo += 
+        '<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
+        */
 
         var norDocsContainer = $(`#normal-documentos-container-${d.id}`);
         norDocsContainer.empty();
@@ -489,28 +541,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var headerTableNorm = `
             <tr>
                 <th>Nombre</th>
-               
-                <th>Archivo</th>
+                <th>Documento</th>
+                <th>Formulario Web</th>
             </tr>`
         certificados.forEach(({
-            name, url
-        },i) => {
+            name,
+            url
+        }, i) => {
             bodyTableNorm += `
                 <tr id="row-document-${i}-${d.id}">
                     <td>${name}</td>
                     <td>
-                        <a href="${url}" target="_blank">Ver</a>
+                        ${
+                            url !== '' && url !== null && url !== undefined?
+                            `<a href="${url}" target="_blank">Ver</a>`: 'Sin Documento'
+                        } 
+                    </td>
+                    <td>
+                        ${
+                            url !== '' && url !== null && url !== undefined ?
+                            form: ''
+                        }
                     </td>
                 </tr>`
         });
-        bodyTableNorm += `
-                <tr id="row-document-${certificados.length}-${d.id}">
-                    <td>${name}</td>
-                    <td>
-                        <button class="" title="Revisar Especificación de producto" id="${d.id_especificacion}" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')">Ver</button>
-                    </td>
-                </tr>`
- 
+
+
 
 
 
@@ -524,9 +580,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </tbody>
             </table>
         `);
-        
-        
+
+
     }
+    function obtenerTipoArchivo(url) {
+    const tiposMime = {
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'png': 'image/png',
+        'gif': 'image/gif',
+        'bmp': 'image/bmp',
+        'mp4': 'video/mp4',
+        'mov': 'video/quicktime',
+        'avi': 'video/x-msvideo',
+        'mp3': 'audio/mpeg',
+        'wav': 'audio/wav',
+        'pdf': 'application/pdf',
+        'doc': 'application/msword',
+        'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'xls': 'application/vnd.ms-excel',
+        'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'zip': 'application/zip',
+        'rar': 'application/x-rar-compressed'
+    };
+    const extension = url.split('.').pop().toLowerCase();
+    if (tiposMime[extension]) {
+        return tiposMime[extension];
+    } else {
+        return 'application/octet-stream';
+    }
+}
     function setAttachedDocuments(id) {
         var otrosDocumentosContainer = $(`#otros-documentos-container-${id}`);
         otrosDocumentosContainer.empty();
@@ -538,6 +621,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 var bodyTable = '';
                 var headerTable = `
                     <tr>
+                        <th>Categoria</th>
+                        <th>Tipo</th>
                         <th>Nombre</th>
                         <th>Cargado por</th>
                         <th>Fecha</th>
@@ -547,12 +632,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     id,
                     url,
                     nombre_documento,
+                    categoria,
                     usuario_carga,
                     fecha_carga
                 }) => {
                     console.log('documento:', documento);
                     bodyTable += `
                         <tr id="row-document-${id}">
+                            <td>${categoria}</td>
+                            <td>${obtenerTipoArchivo(url)}</td>
                             <td>${nombre_documento}</td>
                             <td>${usuario_carga}</td>
                             <td>${fecha_carga.split('-').reverse().join('/')}</td>
@@ -588,7 +676,49 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             $('.modal-backdrop').remove();
         }, 200);
     });
+    $(document).ready(function() {
+        // Mostrar o esconder el campo "Otro" en función de la selección
+        $('#tipo_adjunto').on('change', function() {
+            var selectedOption = $(this).find('option:selected').text();
+            if (selectedOption === 'Otro') {
+                $('#otro_tipo_adjunto_container').show();
+                $('#otro_tipo_adjunto').prop('required', true);
+            } else {
+                $('#otro_tipo_adjunto_container').hide();
+                $('#otro_tipo_adjunto').prop('required', false);
+            }
+        });
 
+        // Manejo del envío del formulario
+        $('#formAdjuntarArchivo').on('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            var submitButton = $(this).find('button[type="submit"]');
+            submitButton.prop('disabled', true); // Deshabilitar el botón
+
+            fetch('./backend/documentos/opcionales_analisis.php', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exito) {
+                        setAttachedDocuments(formData.get('id_productos_analizados'));
+                        alert('Documento subido con éxito');
+                        $('#modalAdjuntarArchivo').modal('hide');
+                        $('#formAdjuntarArchivo')[0].reset(); // Limpiar el formulario
+                    } else {
+                        $('#alertaArchivo').text(data.mensaje).show();
+                    }
+                })
+                .catch(error => {
+                    $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
+                })
+                .finally(() => {
+                    submitButton.prop('disabled', false); // Habilitar el botón
+                });
+        });
+    });
     $('#formAdjuntarArchivo').on('submit', function(event) {
         event.preventDefault();
         var formData = new FormData(this);
