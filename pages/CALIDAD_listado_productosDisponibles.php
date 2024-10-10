@@ -688,10 +688,19 @@ while ($row = mysqli_fetch_assoc($result)) {
                 $('#otro_tipo_adjunto_container').show();
                 $('#otro_tipo_adjunto').prop('required', true);
             } else {
+                $('#otro_tipo_adjunto_container').val('');
                 $('#otro_tipo_adjunto_container').hide();
                 $('#otro_tipo_adjunto').prop('required', false);
             }
         });
+
+        $('#documento').on('change', function() {
+            var archivo = $(this)[0].files[0]; // Acceder al archivo seleccionado
+            if (archivo) {
+                var nombreArchivo = archivo.name;
+                $('#nombre_documento').val(nombreArchivo);
+            }
+        })
 
         // Manejo del envío del formulario
         $('#formAdjuntarArchivo').on('submit', function(event) {
