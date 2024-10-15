@@ -184,7 +184,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
-                            <option value="cpereira" selected>Catherine Pereira García - Jefe de Producción</option>
+                            <option value="cpereira" >Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
                             <option value="lucianoalonso2000">Luciano Abarca</option>
