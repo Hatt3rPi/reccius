@@ -766,8 +766,6 @@ $link->close();
             ctx.drawImage(img, 0, 0);
 
             var dataURL = canvas.toDataURL('image/png'); // Puedes cambiar 'image/png' por 'image/jpeg' si lo prefieres
-            console.log('Base64:', dataURL);
-
             // Asignar la imagen convertida al elemento img
             imgElement.src = dataURL;
         };
@@ -862,6 +860,7 @@ $link->close();
 
                         // Convertir la imagen a Base64 y asignarla al elemento
                         convertImageToBase64('imagen_firma');
+                        convertImageToBase64('estado_liberacion');
                         //aa
                         $('#realizado_por').text(campos.nombre_usr1);
                         $('#cargo_realizador').text(campos.cargo_usr1);
