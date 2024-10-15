@@ -860,7 +860,7 @@ $link->close();
 
                         // Convertir la imagen a Base64 y asignarla al elemento
                         //convertImageToBase64('imagen_firma');
-                        //convertImageToBase64('estado_liberacion');
+                        convertImageToBase64('estado_liberacion');
                         //aa
                         $('#realizado_por').text(campos.nombre_usr1);
                         $('#cargo_realizador').text(campos.cargo_usr1);
