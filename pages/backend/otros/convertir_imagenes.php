@@ -11,9 +11,9 @@ function convertToBase64($url) {
 
 $response = [];
 
-$imagenFirmaUrl = 'https://pub-4017b86f75d04838b6e805cbb3235b10.r2.dev/certificados_qr/qr_documento_fabarca212_1716860564.png';
-$estadoLiberacionUrlAprobado = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/APROBADO.webp';
-$estadoLiberacionUrlRechazado = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/RECHAZADO_WS.webp';
+$imagenFirmaUrl = 'https://www.customwares.info/assets/certificados_qr/qr_documento_fabarca212_1716860564.png';
+$estadoLiberacionUrlAprobado = 'https://www.customwares.info/assets/APROBADO.webp';
+$estadoLiberacionUrlRechazado = 'https://www.customwares.info/assets/RECHAZADO_WS.webp';
 
 $response['imagen_firma'] = convertToBase64($imagenFirmaUrl);
 $response['estado_liberacion_aprobado'] = convertToBase64($estadoLiberacionUrlAprobado);
