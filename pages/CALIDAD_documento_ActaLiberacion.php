@@ -724,7 +724,8 @@ $link->close();
                         $('#producto_completoT3').text(productoCompleto);
                         $('#estado_liberacion').attr('src', 'https://www.customwares.info/assets/PENDIENTE_WS.webp');
                         $('#imagen_firma').attr('src', 'https://www.customwares.info/assets/firma_null.webp');
-            
+                        convertImageToBase64('imagen_firma');
+                        convertImageToBase64('estado_liberacion');
 
                         //datos higienicos
                         $('#id_analisis_externo').text(response.id_analisis_externo);
