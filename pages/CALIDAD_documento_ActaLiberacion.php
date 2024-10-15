@@ -384,9 +384,9 @@ $link->close();
 
                             <div class="signature" style="width: 300px;">
                                 <!-- Agregar la imagen aquí 
-                                        aprobado: https://www.customwares.info/assets/APROBADO.webp
-                                        rechazado: https://www.customwares.info/assets/RECHAZADO_WS.webp
-                                        pendiente: https://www.customwares.info/assets/PENDIENTE_WS.webp
+                                        aprobado: https://customware.fabarca212.workers.dev/assets/APROBADO.webp
+                                        rechazado: https://customware.fabarca212.workers.dev/assets/RECHAZADO_WS.webp
+                                        pendiente: https://customware.fabarca212.workers.dev/assets/PENDIENTE_WS.webp
                                 -->
                                 <img src="" id="estado_liberacion" name="estado_liberacion" alt="Estado Final" class="firma">
 
@@ -461,11 +461,11 @@ $link->close();
                 <p>Seleccione el resultado de liberación:</p>
                 <div class="d-flex justify-content-around">
                     <div>
-                        <img src="https://www.customwares.info/assets/APROBADO.webp" alt="Aprobado" id="aprobadoImg" style="cursor: pointer;">
+                        <img src="https://customware.fabarca212.workers.dev/assets/APROBADO.webp" alt="Aprobado" id="aprobadoImg" style="cursor: pointer;">
                         <p>Aprobado</p>
                     </div>
                     <div>
-                        <img src="https://www.customwares.info/assets/RECHAZADO_WS.webp" alt="Rechazado" id="rechazadoImg" style="cursor: pointer;">
+                        <img src="https://customware.fabarca212.workers.dev/assets/RECHAZADO_WS.webp" alt="Rechazado" id="rechazadoImg" style="cursor: pointer;">
                         <p>Rechazado</p>
                     </div>
                 </div>
@@ -723,8 +723,8 @@ $link->close();
                         $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
                         $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
                         $('#producto_completoT3').text(productoCompleto);
-                        $('#estado_liberacion').attr('src', 'https://www.customwares.info/assets/PENDIENTE_WS.webp');
-                        $('#imagen_firma').attr('src', 'https://www.customwares.info/assets/firma_null.webp');
+                        $('#estado_liberacion').attr('src', 'https://customware.fabarca212.workers.dev/assets/PENDIENTE_WS.webp');
+                        $('#imagen_firma').attr('src', 'https://customware.fabarca212.workers.dev/assets/firma_null.webp');
             
 
                         //datos higienicos
@@ -848,9 +848,9 @@ $link->close();
                         }
 
                         if (campos.estado == 'aprobado') {
-                            $('#estado_liberacion').attr('src', 'https://www.customwares.info/assets/APROBADO.webp');
+                            $('#estado_liberacion').attr('src', 'https://customware.fabarca212.workers.dev/assets/APROBADO.webp');
                         } else {
-                            $('#estado_liberacion').attr('src', 'https://www.customwares.info/assets/RECHAZADO_WS.webp');
+                            $('#estado_liberacion').attr('src', 'https://customware.fabarca212.workers.dev/assets/RECHAZADO_WS.webp');
                         }
                         $('#fecha_realizacion').text(campos.fecha_firma1);
                         $('#mensaje_realizador').css('display', 'block');
