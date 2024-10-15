@@ -569,10 +569,9 @@ $link->close();
         html2canvas(elementToExport, {
             scale: 2, // Mejora la calidad de la captura
             logging: true,
-            useCORS: true,
+            useCORS: false,
             scrollY: -window.scrollY, // Asegura que la captura incluye todo el contenido visible
-            scrollX: -window.scrollX,
-            allowTaint: true 
+            scrollX: -window.scrollX
         }).then(canvas => {
             // Restaurar los estilos originales
             elementToExport.style.border = originalBorder;
