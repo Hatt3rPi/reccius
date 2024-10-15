@@ -75,7 +75,10 @@ function setFile($params)
       'Key' => $final_path,
       'Body' => $fileBinary,
       'ContentType' => $contentType,
-      'ACL' => 'private'
+      'ACL' => 'public-read',
+      'Metadata' => [
+          'Access-Control-Allow-Origin' => '*'
+      ]
     ]);
 
     $objectURL = "$bucket_url$final_path";
