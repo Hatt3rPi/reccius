@@ -442,7 +442,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="d-none" >
                         <td>Documentos:</td>
                         <td class="otros-documentos-container" >
                             <section id="normal-documentos-container-${d.id}">
@@ -490,7 +490,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             {
                 name: 'Acta de Muestreo',
                 url: d.url_certificado_acta_de_muestreo,
-                form: `<button class="" title="Revisar acta de Muestreo" 
+                form: `<button class="accion-btn ingControl p-0" title="Revisar acta de Muestreo" 
                         onclick="botones('${d.id_actaMuestreo}', 'revisar_acta', 'laboratorio')"> 
                             Ver
                         </button>`
@@ -498,7 +498,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             {
                 name: 'Analisis externo sin resultados',
                 url: d.url_certificado_solicitud_analisis_externo,
-                form: `<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" 
+                form: `<button class="accion-btn ingControl p-0" title="Revisar Solicitud Análisis Externo" 
                         onclick="botones('${d.id_analisisExterno}', 'generar_documento_solicitudes', 'laboratorio')">
                             Ver
                         </button>`
@@ -511,7 +511,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             {
                 name: 'Acta de liberación o rechazo',
                 url: '',
-                form: `<button class="" title="Revisar Acta de liberación o rechazo" 
+                form: `<button class="accion-btn ingControl p-0" title="Revisar Acta de liberación o rechazo" 
                         onclick="botones('${d.id_actaLiberacion}', 'revisar_acta_liberacion', 'laboratorio')">
                             Ver
                        </button>`
@@ -519,7 +519,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             {
                 name: 'Revisar Especificación de Producto',
                 url: d.url_revisar_especificacion,
-                form: `<button class="" title="Revisar Especificación de producto" 
+                form: `<button class="accion-btn ingControl p-0" title="Revisar Especificación de producto" 
                         onclick="botones('${d.id_especificacion}', 'generar_documento', 'especificacion')">
                             Ver
                        </button>`
@@ -682,8 +682,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         // Mostrar o esconder el campo "Otro" en función de la selección
         $('#tipo_adjunto').on('change', function() {
             var selectedOption = $(this).find('option:selected').text();
-            console.log(selectedOption);
-            
             if (selectedOption.trim() === 'Otro') {
                 $('#otro_tipo_adjunto_container').show();
                 $('#otro_tipo_adjunto').prop('required', true);
@@ -712,6 +710,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             fetch('./backend/documentos/opcionales_analisis.php', {
                     method: 'POST',
                     body: formData,
+                    //TODO: Add seccion de otro_tipo_adjunto en el backend
                 })
                 .then(response => response.json())
                 .then(data => {

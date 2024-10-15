@@ -26,11 +26,10 @@ if (!in_array($mimeType, $allowedMimeTypes)) {
   echo json_encode(['exito' => false, 'mensaje' => 'Solo se permiten archivos PDF o imágenes (JPG - PNG)']);
   exit;
 }
+//$otro_documento = $_POST['otro_tipo_adjunto'];
+//$nombre_documento = $_POST['otro_tipo_adjunto'];
 
 
-$documento = $_FILES['documento'];
-$id_productos_analizados = $_POST['id_productos_analizados'] ?? null;
-$nombre_documento = $_POST['nombre_documento'] ?? $documento['name'];
 $usuario_carga = $_SESSION['usuario'];
 $fecha_carga = date('Y-m-d H:i:s');
 
