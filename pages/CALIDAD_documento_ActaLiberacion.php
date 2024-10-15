@@ -571,7 +571,8 @@ $link->close();
             logging: true,
             useCORS: true,
             scrollY: -window.scrollY, // Asegura que la captura incluye todo el contenido visible
-            scrollX: -window.scrollX
+            scrollX: -window.scrollX,
+            allowTaint: true 
         }).then(canvas => {
             // Restaurar los estilos originales
             elementToExport.style.border = originalBorder;
