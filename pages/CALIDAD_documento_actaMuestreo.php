@@ -1028,9 +1028,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         });
 
-        // Reemplazar input de fecha por texto estático
+        // Reemplazar input de fecha por texto estático td_fecha_muestreo
         const fechaMuestreoInput = document.getElementById('fecha_muestreo');
-        const fechaMuestreoValue = fechaMuestreoInput.value;
+        let fechaMuestreoValue = fechaMuestreoInput.value;
+
+        if (!fechaMuestreoValue) {
+            const tdFechaMuestreo = document.getElementById('td_fecha_muestreo');
+            fechaMuestreoValue = tdFechaMuestreo ? tdFechaMuestreo.textContent.trim() : '';
+        }
+
+        console.log(fechaMuestreoValue);
+
         const fechaMuestreoTd = fechaMuestreoInput.closest('td');
         const originalHtml = fechaMuestreoTd.innerHTML;
         fechaMuestreoTd.innerHTML = fechaMuestreoValue;
