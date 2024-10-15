@@ -993,10 +993,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     document.getElementById('download-pdf').addEventListener('click', function() {
-
-        //desactivar_boton_temporalmente(document.getElementById('download-pdf'));
-        const styleElement = document.createElement('style');
-        styleElement.innerHTML = `
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = `
         .btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
             background-color: transparent !important;
             color: #000 !important;
@@ -1007,43 +1005,46 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             color: #000 !important;
         }
     `;
-        document.head.appendChild(styleElement);
+    document.head.appendChild(styleElement);
 
-        $.notify("Generando PDF", "warn");
+    $.notify("Generando PDF", "warn");
 
-        const section1 = document.getElementById('sample-identification1');
-        const section2 = document.getElementById('sample-identification2');
-        const section3 = document.getElementById('sampling-plan');
-        const header = document.getElementById('header-container');
-        const footer = document.getElementById('footer-containerDIV');
+    const section1 = document.getElementById('sample-identification1');
+    const section2 = document.getElementById('sample-identification2');
+    const section3 = document.getElementById('sampling-plan');
+    const header = document.getElementById('header-container');
+    const footer = document.getElementById('footer-containerDIV');
 
-        // Ocultar los botones no seleccionados
-        const allButtonGroups = document.querySelectorAll('.btn-group-vertical, .btn-group-horizontal');
-        allButtonGroups.forEach(group => {
-            const buttons = group.querySelectorAll('.btn-check');
-            buttons.forEach(button => {
-                if (!button.checked) {
-                    button.nextElementSibling.style.display = 'none'; // Ocultar el label del botón no seleccionado
-                }
-            });
+    // Ocultar los botones no seleccionados
+    const allButtonGroups = document.querySelectorAll('.btn-group-vertical, .btn-group-horizontal');
+    allButtonGroups.forEach(group => {
+        const buttons = group.querySelectorAll('.btn-check');
+        buttons.forEach(button => {
+            if (!button.checked) {
+                button.nextElementSibling.style.display = 'none'; // Ocultar el label del botón no seleccionado
+            }
         });
+    });
 
-        // Reemplazar input de fecha por texto estático td_fecha_muestreo
-        const fechaMuestreoInput = document.getElementById('fecha_muestreo');
-        let fechaMuestreoValue = fechaMuestreoInput.value;
+    const fechaMuestreoInput = document.getElementById('fecha_muestreo');
+    let fechaMuestreoValue = '';
+    let fechaMuestreoTd;
 
-        if (!fechaMuestreoValue) {
-            const tdFechaMuestreo = document.getElementById('td_fecha_muestreo');
-            fechaMuestreoValue = tdFechaMuestreo ? tdFechaMuestreo.textContent.trim() : '';
-        }
+    if (fechaMuestreoInput) {
+        fechaMuestreoValue = fechaMuestreoInput.value;
+        fechaMuestreoTd = fechaMuestreoInput.closest('td');
+    } else {
+        const tdFechaMuestreo = document.getElementById('td_fecha_muestreo');
+        fechaMuestreoValue = tdFechaMuestreo ? tdFechaMuestreo.textContent.trim() : '';
+        fechaMuestreoTd = tdFechaMuestreo;
+    }
 
-        console.log(fechaMuestreoValue);
+    console.log(fechaMuestreoValue);
 
-        const fechaMuestreoTd = fechaMuestreoInput.closest('td');
-        const originalHtml = fechaMuestreoTd.innerHTML;
-        fechaMuestreoTd.innerHTML = fechaMuestreoValue;
+    const originalHtml = fechaMuestreoTd.innerHTML;
+    fechaMuestreoTd.innerHTML = fechaMuestreoValue;
 
-        const pdf = new jspdf.jsPDF({
+    const pdf = new jspdf.jsPDF({
             orientation: 'p',
             unit: 'mm',
             format: 'a4'
