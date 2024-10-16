@@ -51,7 +51,7 @@ $mime_types = [
 ];
 function setFile($params, $worker=false)
 {
-  global $R2_client, $bucket_name, $bucket_url, $mime_types;
+  global $R2_client, $bucket_name, $bucket_url, $mime_types, $worker_url;
 
   if (!is_array($params)) {
     throw new InvalidArgumentException('Se espera un arreglo.');
