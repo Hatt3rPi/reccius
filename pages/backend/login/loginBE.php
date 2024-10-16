@@ -31,7 +31,7 @@ if (isset($_POST['login'])) {
     $query="SELECT a.id, a.usuario, a.contrasena,a.ruta_registroPrestadoresSalud, a.qr_documento, b.nombre as rol, a.nombre, a.correo, a.foto_perfil, a.cargo, CASE
                                     WHEN a.qr_documento IS NOT NULL THEN a.qr_documento
                                     WHEN a.foto_firma IS NOT NULL THEN a.foto_firma
-                                    ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+                                    ELSE 'https://customware.fabarca212.workers.dev/assets/firma_no_proporcionada.webp'
                                 END foto_firma
                 FROM usuarios as a LEFT JOIN roles as b ON a.rol_id=b.id WHERE a.usuario = ? OR a.correo = ?";
     $variables = [$loginInput, $loginInput]; 
