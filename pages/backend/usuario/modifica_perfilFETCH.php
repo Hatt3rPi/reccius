@@ -42,7 +42,7 @@ function updateSession($usuario)
             CASE
                 WHEN usr.qr_documento IS NOT NULL THEN usr.qr_documento
                 WHEN usr.foto_firma IS NOT NULL THEN usr.foto_firma
-                ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+                ELSE 'https://customware.fabarca212.workers.dev/assets/firma_no_proporcionada.webp'
             END as foto_firma
             FROM `usuarios` as usr 
             LEFT JOIN roles as rol 
@@ -121,7 +121,7 @@ function updateImage($file, $type)
         'fileName' => $fileName
     ];
 
-    $uploadStatus = setFile($params);
+    $uploadStatus = setFile($params, true);
     $uploadResult = json_decode($uploadStatus, true);
 
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
@@ -182,7 +182,7 @@ function updateCertificado($file)
         'fileName' => $fileName
     ];
 
-    $uploadStatus = setFile($params);
+    $uploadStatus = setFile($params, true);
     $uploadResult = json_decode($uploadStatus, true);
 
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
@@ -203,7 +203,7 @@ function updateCertificado($file)
             'fileName' => $qrFileName
         ];
 
-        $qrUploadStatus = setFile($params);
+        $qrUploadStatus = setFile($params, true);
         $qrUploadResult = json_decode($qrUploadStatus, true);
 
         if (isset($qrUploadResult['success']) && $qrUploadResult['success'] !== false) {

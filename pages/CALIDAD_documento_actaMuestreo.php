@@ -699,7 +699,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_realizador" name="firma_realizador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                            <img id="firma_realizador" name="firma_realizador" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
                         </div>
                     </div>
                     <div class="date-container">
@@ -718,7 +718,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </p>
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_responsable" name="firma_responsable" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                            <img id="firma_responsable" name="firma_responsable" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
 
                         </div>
 
@@ -741,7 +741,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <div class="signature">
                             <!-- Agregar la imagen aquí -->
-                            <img id="firma_verificador" name="firma_verificador" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="firma_verificador" class="firma" />
+                            <img id="firma_verificador" name="firma_verificador" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="firma_verificador" class="firma" />
 
                         </div>
 
@@ -876,8 +876,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     });
 
     function setFirmaImage(imgElement, firmaSrc) {
-        const nullImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp';
-        const noProvidedImage = 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp';
+        const nullImage = 'https://customware.fabarca212.workers.dev/assets/firma_null.webp';
+        const noProvidedImage = 'https://customware.fabarca212.workers.dev/assets/firma_no_proporcionada.webp';
 
         if (!firmaSrc) {
             imgElement.src = nullImage;

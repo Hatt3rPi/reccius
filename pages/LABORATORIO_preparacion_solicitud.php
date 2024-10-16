@@ -184,6 +184,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira" >Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
@@ -198,6 +199,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy" selected>Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
@@ -213,6 +215,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option>Selecciona el usuario:</option>
                             <option value="mgodoy">Macarena Godoy - Supervisor Calidad</option>
                             <option value="isumonte" selected>Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
@@ -343,6 +346,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <select name="revisado_por" id="revisado_por" class="select-style mx-0 form__select w-100 highlight editable" required>
                                 <option>Selecciona el usuario supervisor:</option>
                                 <option value="isumonte" selected>Inger Sumonte Rodríguez - Director Calidad</option>
+                                <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                                 <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                                 <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                                 <option value="fabarca212">Felipe Abarca</option>
