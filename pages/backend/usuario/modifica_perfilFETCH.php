@@ -121,7 +121,7 @@ function updateImage($file, $type)
         'fileName' => $fileName
     ];
 
-    $uploadStatus = setFile($params);
+    $uploadStatus = setFile($params, true);
     $uploadResult = json_decode($uploadStatus, true);
 
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
@@ -182,7 +182,7 @@ function updateCertificado($file)
         'fileName' => $fileName
     ];
 
-    $uploadStatus = setFile($params);
+    $uploadStatus = setFile($params, true);
     $uploadResult = json_decode($uploadStatus, true);
 
     if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
@@ -203,7 +203,7 @@ function updateCertificado($file)
             'fileName' => $qrFileName
         ];
 
-        $qrUploadStatus = setFile($params);
+        $qrUploadStatus = setFile($params, true);
         $qrUploadResult = json_decode($qrUploadStatus, true);
 
         if (isset($qrUploadResult['success']) && $qrUploadResult['success'] !== false) {

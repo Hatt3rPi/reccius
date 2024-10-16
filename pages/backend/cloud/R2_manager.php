@@ -16,6 +16,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 $bucket_name        = getenv('BUCKET_NAME');
 $bucket_url         = getenv('BUCKET_URL');
+$worker_url         = getenv('WORKER_URL');
 $account_id         = getenv('ACCOUNT_ID');
 $access_key_id      = getenv('ACCESS_KEY_ID');
 $access_key_secret  = getenv('ACCESS_KEY_SECRET');
@@ -48,7 +49,7 @@ $mime_types = [
   'doc' => 'application/msword',
   'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
-function setFile($params)
+function setFile($params, $worker==false)
 {
   global $R2_client, $bucket_name, $bucket_url, $mime_types;
 
@@ -80,8 +81,12 @@ function setFile($params)
           'Access-Control-Allow-Origin' => '*'
       ]
     ]);
-
-    $objectURL = "$bucket_url$final_path";
+    if ($worker==true){
+      $objectURL = "$worker_url$final_path";
+    } else {
+      $objectURL = "$bucket_url$final_path";
+    }
+    
 
     return json_encode(['success' => [
       'ObjectURL' => $objectURL, 
