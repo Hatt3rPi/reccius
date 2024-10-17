@@ -1039,101 +1039,96 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         fechaMuestreoTd = tdFechaMuestreo;
     }
 
-    console.log(fechaMuestreoValue);
-
     const originalHtml = fechaMuestreoTd.innerHTML;
     fechaMuestreoTd.innerHTML = fechaMuestreoValue;
 
     const pdf = new jspdf.jsPDF({
-            orientation: 'p',
-            unit: 'mm',
-            format: 'a4'
-        });
-
-        const imgWidth = 210;
-        const pageHeight = 297;
-
-        // Primer canvas para la primera página
-        Promise.all([
-            html2canvas(header, {
-                scale: 1,
-                useCORS: false
-            }),
-            html2canvas(section1, {
-                scale: 1,
-                useCORS: false
-            }),
-            html2canvas(section2, {
-                scale: 1,
-                useCORS: false
-            }),
-            html2canvas(section3, {
-                scale: 1,
-                useCORS: false
-            }), // Ahora también captura la sección 3
-            html2canvas(footer, {
-                scale: 1,
-                useCORS: false
-            })
-        ]).then(([headerCanvas, section1Canvas, section2Canvas, section3Canvas, footerCanvas]) => {
-            const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
-            const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
-            let yOffset = 10;
-
-            // Agregar el header en cada página
-            pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
-            yOffset += headerHeight + 10;
-
-            // Sección 1 en la primera página
-            const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
-            pdf.addImage(section1Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section1Height);
-            yOffset += section1Height + 10;
-
-            // Agregar el footer en la primera página
-            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
-
-            // Segunda página para secciones 2 y 3
-            pdf.addPage();
-            yOffset = 10;
-
-            // Agregar el header en la segunda página
-            pdf.addImage(headerCanvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, headerHeight);
-            yOffset += headerHeight + 10;
-
-            // Sección 2 en la segunda página
-            const section2Height = (section2Canvas.height * imgWidth) / section2Canvas.width;
-            pdf.addImage(section2Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section2Height);
-            yOffset += section2Height + 10;
-
-            // Sección 3 justo debajo de la sección 2 en la misma página
-            const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
-            pdf.addImage(section3Canvas.toDataURL('image/png'), 'PNG', 0, yOffset, imgWidth, section3Height);
-            yOffset += section3Height + 10;
-
-            // Agregar el footer en la segunda página
-            pdf.addImage(footerCanvas.toDataURL('image/png'), 'PNG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
-
-            // Guardar el PDF
-            const nombreProducto = document.getElementById('producto').textContent.trim();
-            const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
-            pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
-
-            $.notify("PDF generado con éxito", "success");
-
-            // Restaurar los botones no seleccionados
-            allButtonGroups.forEach(group => {
-                const buttons = group.querySelectorAll('.btn-check');
-                buttons.forEach(button => {
-                    button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
-                });
-            });
-
-            // Restaurar el input de fecha
-            fechaMuestreoTd.innerHTML = originalHtml;
-
-            //$('#listado_acta_muestreo').click();
-        });
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4'
     });
+
+    const imgWidth = 210;
+    const pageHeight = 297;
+
+    Promise.all([
+        html2canvas(header, {
+            scale: 0.7, // Reducir la escala para disminuir la resolución
+            useCORS: false
+        }),
+        html2canvas(section1, {
+            scale: 0.7,
+            useCORS: false
+        }),
+        html2canvas(section2, {
+            scale: 0.7,
+            useCORS: false
+        }),
+        html2canvas(section3, {
+            scale: 0.7,
+            useCORS: false
+        }),
+        html2canvas(footer, {
+            scale: 0.7,
+            useCORS: false
+        })
+    ]).then(([headerCanvas, section1Canvas, section2Canvas, section3Canvas, footerCanvas]) => {
+        const headerHeight = (headerCanvas.height * imgWidth) / headerCanvas.width;
+        const footerHeight = (footerCanvas.height * imgWidth) / footerCanvas.width;
+        let yOffset = 10;
+
+        // Agregar el header en cada página con formato JPEG y calidad reducida
+        pdf.addImage(headerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, headerHeight);
+        yOffset += headerHeight + 10;
+
+        // Sección 1 en la primera página
+        const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
+        pdf.addImage(section1Canvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, section1Height);
+        yOffset += section1Height + 10;
+
+        // Agregar el footer en la primera página
+        pdf.addImage(footerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+
+        // Segunda página para secciones 2 y 3
+        pdf.addPage();
+        yOffset = 10;
+
+        // Agregar el header en la segunda página
+        pdf.addImage(headerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, headerHeight);
+        yOffset += headerHeight + 10;
+
+        // Sección 2 en la segunda página
+        const section2Height = (section2Canvas.height * imgWidth) / section2Canvas.width;
+        pdf.addImage(section2Canvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, section2Height);
+        yOffset += section2Height + 10;
+
+        // Sección 3 justo debajo de la sección 2 en la misma página
+        const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
+        pdf.addImage(section3Canvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, section3Height);
+        yOffset += section3Height + 10;
+
+        // Agregar el footer en la segunda página
+        pdf.addImage(footerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+
+        // Guardar el PDF
+        const nombreProducto = document.getElementById('producto').textContent.trim();
+        const nombreDocumento = document.getElementById('nro_registro').textContent.trim();
+        pdf.save(`${nombreDocumento} ${nombreProducto}.pdf`);
+
+        $.notify("PDF generado con éxito", "success");
+
+        // Restaurar los botones no seleccionados
+        allButtonGroups.forEach(group => {
+            const buttons = group.querySelectorAll('.btn-check');
+            buttons.forEach(button => {
+                button.nextElementSibling.style.display = 'block'; // Mostrar el label del botón nuevamente
+            });
+        });
+
+        // Restaurar el input de fecha
+        fechaMuestreoTd.innerHTML = originalHtml;
+    });
+});
 
 
 
