@@ -607,6 +607,10 @@ function botones(id, accion, base, opcional = null, opcional2 = null) {
                                     botones(id, 'enviarSolicitud_laboratorio','laboratorio');
                                     break;
                                 }
+                                case 'Emitir acta de liberación': {
+                                    botones(id, 'Liberacion', 'laboratorio');
+                                    break;
+                                }
                             }
                             break;
                         }
