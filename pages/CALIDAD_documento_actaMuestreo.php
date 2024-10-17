@@ -1078,37 +1078,37 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         let yOffset = 10;
 
         // Agregar el header en cada página con formato JPEG y calidad reducida
-        pdf.addImage(headerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, headerHeight);
+        pdf.addImage(headerCanvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, yOffset, imgWidth, headerHeight);
         yOffset += headerHeight + 10;
 
         // Sección 1 en la primera página
         const section1Height = (section1Canvas.height * imgWidth) / section1Canvas.width;
-        pdf.addImage(section1Canvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, section1Height);
+        pdf.addImage(section1Canvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, yOffset, imgWidth, section1Height);
         yOffset += section1Height + 10;
 
         // Agregar el footer en la primera página
-        pdf.addImage(footerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+        pdf.addImage(footerCanvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
         // Segunda página para secciones 2 y 3
         pdf.addPage();
         yOffset = 10;
 
         // Agregar el header en la segunda página
-        pdf.addImage(headerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, headerHeight);
+        pdf.addImage(headerCanvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, yOffset, imgWidth, headerHeight);
         yOffset += headerHeight + 10;
 
         // Sección 2 en la segunda página
         const section2Height = (section2Canvas.height * imgWidth) / section2Canvas.width;
-        pdf.addImage(section2Canvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, section2Height);
+        pdf.addImage(section2Canvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, yOffset, imgWidth, section2Height);
         yOffset += section2Height + 10;
 
         // Sección 3 justo debajo de la sección 2 en la misma página
         const section3Height = (section3Canvas.height * imgWidth) / section3Canvas.width;
-        pdf.addImage(section3Canvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, yOffset, imgWidth, section3Height);
+        pdf.addImage(section3Canvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, yOffset, imgWidth, section3Height);
         yOffset += section3Height + 10;
 
         // Agregar el footer en la segunda página
-        pdf.addImage(footerCanvas.toDataURL('image/jpeg', 0.5), 'JPEG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
+        pdf.addImage(footerCanvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, pageHeight - footerHeight, imgWidth, footerHeight);
 
         // Guardar el PDF
         const nombreProducto = document.getElementById('producto').textContent.trim();
