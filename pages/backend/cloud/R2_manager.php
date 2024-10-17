@@ -49,9 +49,9 @@ $mime_types = [
   'doc' => 'application/msword',
   'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
-function setFile($params, $worker==false)
+function setFile($params, $worker=false)
 {
-  global $R2_client, $bucket_name, $bucket_url, $mime_types;
+  global $R2_client, $bucket_name, $bucket_url, $mime_types, $worker_url;
 
   if (!is_array($params)) {
     throw new InvalidArgumentException('Se espera un arreglo.');
