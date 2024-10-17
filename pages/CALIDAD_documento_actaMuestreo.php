@@ -1053,23 +1053,23 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     Promise.all([
         html2canvas(header, {
-            scale: 0.9, // Reducir la escala para disminuir la resolución
+            scale: 1, // Reducir la escala para disminuir la resolución
             useCORS: false
         }),
         html2canvas(section1, {
-            scale: 0.9,
+            scale: 1,
             useCORS: false
         }),
         html2canvas(section2, {
-            scale: 0.9,
+            scale: 1,
             useCORS: false
         }),
         html2canvas(section3, {
-            scale: 0.9,
+            scale: 1,
             useCORS: false
         }),
         html2canvas(footer, {
-            scale: 0.9,
+            scale: 1,
             useCORS: false
         })
     ]).then(([headerCanvas, section1Canvas, section2Canvas, section3Canvas, footerCanvas]) => {
