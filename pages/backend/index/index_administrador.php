@@ -1,6 +1,10 @@
 <?php
 // archivo: pages\backend\index\index_administrador.php
 session_start();
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 require_once "/home/customw2/conexiones/config_reccius.php";
 
 // Consulta para obtener los datos de productos analizados
