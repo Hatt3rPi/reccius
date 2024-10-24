@@ -1,11 +1,9 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
-// Verifica si el usuario está en la sesión
-if (!isset($_SESSION['usuario'])) {
-    echo json_encode(['data' => []]);
-    exit();
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
 }
 
 $usuario_ejecutor = $_SESSION['usuario'];

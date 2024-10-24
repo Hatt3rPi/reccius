@@ -1,7 +1,10 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario_id = $_POST['usuario_id'];
     $rol_id = $_POST['rol_id'];

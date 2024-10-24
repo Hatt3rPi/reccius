@@ -1,12 +1,12 @@
 <?php
 session_start();
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+  header("Location: https://customware.cl/reccius/pages/login.html");
+  exit;
+}
 header('Content-Type: application/json');
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-  echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado']);
-  exit;
-}
 
 $input = json_decode(file_get_contents('php://input'), true);
 
