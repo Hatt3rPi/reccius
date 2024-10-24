@@ -5,7 +5,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     // http_response_code(403);
     // echo json_encode(['error' => 'Acceso denegado']);
-    header("Location: login.html");
+    header("Location: ../../login.html");
     exit;
 }
 // Leer los datos JSON enviados desde el frontend
