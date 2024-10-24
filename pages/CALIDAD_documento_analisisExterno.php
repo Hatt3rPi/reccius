@@ -301,7 +301,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </p>
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img id="solicitado_por_firma" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                                <img id="solicitado_por_firma" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
                         </div>
@@ -321,7 +321,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </p>
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img id="revisado_por_firma" src="https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_null.webp" alt="Firma" class="firma">
+                                <img id="revisado_por_firma" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
                         </div>

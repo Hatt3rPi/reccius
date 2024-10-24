@@ -172,6 +172,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <select name="usuario_revisor" id="usuario_revisor" class="select-style editable"  style="width: 38.5%" required>
                             <option>Selecciona el usuario supervisor:</option>
                             <option value="isumonte" selected>Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>
@@ -186,6 +187,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <select name="usuario_aprobador" id="usuario_aprobador" class="select-style editable"  style="width: 38.5%" required>
                             <option>Selecciona el usuario aprobador:</option>
                             <option value="isumonte">Inger Sumonte Rodríguez - Director Calidad</option>
+                            <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda" selected>Luis Sepúlveda Miranda - Director Técnico</option>
                             <option value="fabarca212">Felipe Abarca</option>

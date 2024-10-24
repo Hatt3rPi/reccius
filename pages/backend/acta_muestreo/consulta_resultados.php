@@ -20,21 +20,21 @@ $query = "SELECT
             CASE
                 WHEN usr1.qr_documento IS NOT NULL THEN usr1.qr_documento
                 WHEN usr1.foto_firma IS NOT NULL THEN usr1.foto_firma
-                ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+                ELSE 'https://customware.fabarca212.workers.dev/assets/firma_no_proporcionada.webp'
             END as foto_firma_usr1,
             usr1.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr1, 
             usr2.nombre as nombre_usr2, usr2.cargo as cargo_usr2, 
             CASE
                 WHEN usr2.qr_documento IS NOT NULL THEN usr2.qr_documento
                 WHEN usr2.foto_firma IS NOT NULL THEN usr2.foto_firma
-                ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+                ELSE 'https://customware.fabarca212.workers.dev/assets/firma_no_proporcionada.webp'
             END as foto_firma_usr2,
             usr2.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr2, 
             usr3.nombre as nombre_usr3, usr3.cargo as cargo_usr3, 
             CASE
                 WHEN usr3.qr_documento IS NOT NULL THEN usr3.qr_documento
                 WHEN usr3.foto_firma IS NOT NULL THEN usr3.foto_firma
-                ELSE 'https://pub-bde9ff3e851b4092bfe7076570692078.r2.dev/firma_no_proporcionada.webp'
+                ELSE 'https://customware.fabarca212.workers.dev/assets/firma_no_proporcionada.webp'
             END as foto_firma_usr3,
             usr3.ruta_registroPrestadoresSalud as ruta_registroPrestadoresSalud_usr3,
             am.id as id_actaMuestreo, am.numero_registro, am.version_registro, am.numero_acta, am.version_acta, am.fecha_muestreo, am.muestreador, am.responsable, am.verificador, am.fecha_firma_muestreador, am.fecha_firma_responsable, am.fecha_firma_verificador, am.resultados_muestrador, am.resultados_responsable, am.pregunta5, am.pregunta6, am.pregunta7, am.pregunta8,
