@@ -2,7 +2,10 @@
 session_start();
 // /pages/backend/otros/laboratorio.php
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 class Laboratorio
 {
     private $conn;

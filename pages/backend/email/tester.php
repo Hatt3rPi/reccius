@@ -1,5 +1,10 @@
 <?php
 // Incluir las dependencias necesarias
+session_start();
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 require '/home/customw2/librerias/PHPMailer-6.9.1/src/Exception.php';
 require '/home/customw2/librerias/PHPMailer-6.9.1/src/PHPMailer.php';
 require '/home/customw2/librerias/PHPMailer-6.9.1/src/SMTP.php';

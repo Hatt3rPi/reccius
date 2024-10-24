@@ -1,6 +1,10 @@
 <?php
 //archivo: pages\backend\laboratorio\enviar_solicitud_carga.php
 session_start();
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
 
@@ -9,11 +13,6 @@ $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 
 if ($id_acta === 0) {
     die(json_encode(['error' => 'ID de acta no válido']));
-}
-
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado']);
-    exit;
 }
 
 function ejecutarConsulta($link, $query, $params, $param_types)
