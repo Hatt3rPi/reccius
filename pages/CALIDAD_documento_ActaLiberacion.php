@@ -722,8 +722,8 @@ $link->close();
                         $('#fecha_elabT3').val(primerAnalisis.fecha_elaboracion);
                         $('#fecha_vencT3').val(primerAnalisis.fecha_vencimiento);
                         $('#producto_completoT3').text(productoCompleto);
-                        $('#estado_liberacion').attr('src', 'https://www.customwares.info/assets/PENDIENTE_WS.webp');
-                        $('#imagen_firma').attr('src', 'https://www.customwares.info/assets/firma_null.webp');
+                        $('#estado_liberacion').attr('src', 'https://customware.fabarca212.workers.dev/assets/PENDIENTE_WS.webp');
+                        $('#imagen_firma').attr('src', 'https://customware.fabarca212.workers.dev/assets/firma_null.webp');
                         convertImageToBase64('imagen_firma');
                         convertImageToBase64('estado_liberacion');
 
