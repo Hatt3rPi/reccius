@@ -3,9 +3,7 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    http_response_code(403);
-    echo json_encode(['error' => 'Acceso denegado']);
-    header("Location: login.html");
+    header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
 // Comprobar si el ID fue enviado por POST
