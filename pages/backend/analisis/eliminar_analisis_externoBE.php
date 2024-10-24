@@ -2,7 +2,12 @@
 // archivo: pages\backend\analisis\eliminar_analisis_externoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Acceso denegado']);
+    header("Location: login.html");
+    exit;
+}
 // Comprobar si el ID fue enviado por POST
 if (!isset($_POST['id_analisisExterno'])) {
     echo json_encode(['error' => 'No se proporcionó el ID necesario.']);

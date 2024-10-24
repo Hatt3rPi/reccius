@@ -4,7 +4,12 @@ session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../cloud/R2_manager.php";
 header('Content-Type: application/json');
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Acceso denegado']);
+    header("Location: login.html");
+    exit;
+}
 $idAnalisisExterno = isset($_GET['id_analisis']) ? intval($_GET['id_analisis']) : null;
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     echo json_encode(['exito' => false, 'mensaje' => 'Acceso denegado']);
