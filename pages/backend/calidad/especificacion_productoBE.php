@@ -2,10 +2,9 @@
 // archivo: pages\backend\calidad\especificacion_productoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    echo json_encode(["exito" => false, "mensaje" => "Sesión no iniciada. Por favor, inicie sesión para continuar.", "idEspecificacion" => 0]);
-    exit(); // Detener la ejecución del script
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
 }
 
 function limpiarDato($dato) {
