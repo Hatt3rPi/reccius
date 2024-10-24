@@ -2,7 +2,10 @@
 //archivos: pages\backend\analisis\ingresar_resultados_analisis.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 // Validación y saneamiento del ID del análisis externo
 $id_acta = isset($_GET['id_acta']) ? intval($_GET['id_acta']) : 0;
 

@@ -9,8 +9,7 @@ use  Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
 
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-  http_response_code(403);
-  echo json_encode(['error' => 'Acceso denegado']);
+  header("Location: https://customware.cl/reccius/pages/login.html");
   exit;
 }
 

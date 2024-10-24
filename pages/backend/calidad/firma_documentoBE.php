@@ -2,10 +2,13 @@
 //archivo: pages\backend\calidad\firma_documentoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 // Verificación básica para asegurarse de que el usuario está autenticado y los datos necesarios están presentes
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario']) || !isset($_POST['idEspecificacion']) || !isset($_POST['rolUsuario'])) {
-    exit('Acceso denegado o datos insuficientes');
+if (!isset($_POST['idEspecificacion']) || !isset($_POST['rolUsuario'])) {
+    exit('Datos insuficientes');
 }
 $tipo_tarea='';
 $idEspecificacion = intval($_POST['idEspecificacion']);

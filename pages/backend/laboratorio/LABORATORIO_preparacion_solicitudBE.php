@@ -2,6 +2,10 @@
 //archivo: pages\backend\laboratorio\LABORATORIO_preparacion_solicitudBE.php
 
 session_start();
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
 require_once "../cloud/R2_manager.php";

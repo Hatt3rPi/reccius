@@ -1,6 +1,10 @@
 <?php
 //archivo: pages\backend\laboratorio\cargaEsp_solicitudBE.php
 session_start();
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "../otros/laboratorio.php";
 

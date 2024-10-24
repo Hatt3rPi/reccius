@@ -1,8 +1,10 @@
 <?php
-
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 // Asegúrate de que el método sea POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Procesa el formulario

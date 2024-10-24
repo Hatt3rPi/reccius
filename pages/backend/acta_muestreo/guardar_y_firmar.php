@@ -2,7 +2,10 @@
 // archivo pages\backend\acta_muestreo\guardar_y_firmar.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 // Leer los datos JSON enviados desde el frontend
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE); // convertir JSON a array

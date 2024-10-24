@@ -1,7 +1,10 @@
 <?php
 require_once "/home/customw2/conexiones/config_reccius.php";
 include "../email/envia_correoBE.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 // Asegúrate de incluir la configuración de la base de datos o cualquier otra librería necesaria
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['idTarea'])) {

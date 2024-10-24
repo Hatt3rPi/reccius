@@ -2,7 +2,10 @@
 // archivo: pages\backend\calidad\listado_especificaciones_productoBE.php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 

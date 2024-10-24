@@ -4,8 +4,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    http_response_code(403);
-    echo json_encode(['error' => 'Acceso denegado']);
+    header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
 $id_a_buscar = isset($_GET['id']) ? mysqli_real_escape_string($link, $_GET['id']) : '';

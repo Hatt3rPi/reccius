@@ -1,7 +1,10 @@
 <?php
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: https://customware.cl/reccius/pages/login.html");
+    exit;
+}
 // Validación y saneamiento del ID
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
