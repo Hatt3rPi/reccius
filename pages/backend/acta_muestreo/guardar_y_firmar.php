@@ -3,7 +3,7 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    header("Location: https://customware.cl/reccius/pages/login.html");
+    header("Location: https://google.cl");
     exit;
 }
 // Leer los datos JSON enviados desde el frontend
