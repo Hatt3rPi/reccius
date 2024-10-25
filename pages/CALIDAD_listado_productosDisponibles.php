@@ -442,7 +442,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                         </td>
                     </tr>
-                    <tr class="d-none" >
+                    <tr>
                         <td>Documentos:</td>
                         <td class="otros-documentos-container" >
                             <section id="normal-documentos-container-${d.id}">
@@ -482,7 +482,16 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     function makeDocuments(d) {
-        var certificados = [{
+        var certificados = [
+            {
+                name: 'Revisar Especificación de Producto',
+                url: d.url_revisar_especificacion,
+                form: `<button class="accion-btn ingControl p-0" title="Revisar Especificación de producto" 
+                        onclick="botones('${d.id_especificacion}', 'generar_documento', 'especificacion')">
+                            Ver
+                       </button>`
+            },
+            {
                 name: 'Analisis externo',
                 url: d.url_certificado_de_analisis_externo,
                 form: ''
@@ -516,14 +525,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                             Ver
                        </button>`
             },
-            {
-                name: 'Revisar Especificación de Producto',
-                url: d.url_revisar_especificacion,
-                form: `<button class="accion-btn ingControl p-0" title="Revisar Especificación de producto" 
-                        onclick="botones('${d.id_especificacion}', 'generar_documento', 'especificacion')">
-                            Ver
-                       </button>`
-            }
         ];
 
         /*
