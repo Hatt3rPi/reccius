@@ -57,7 +57,7 @@ if (!in_array($mimeType, $allowedMimeTypes)) {
 
 $usuario_carga = $_SESSION['usuario'];
 $fecha_carga = date('Y-m-d H:i:s');
-
+$id_productos_analizados = $_POST['id_productos_analizados'];
 
 // Verificar que el `id_productos_analizados` exista en la tabla `calidad_productos_analizados`
 $query = "SELECT id FROM calidad_productos_analizados WHERE id = ?";
@@ -67,7 +67,7 @@ mysqli_stmt_execute($stmt);
 mysqli_stmt_store_result($stmt);
 
 if (mysqli_stmt_num_rows($stmt) === 0) {
-    echo json_encode(['exito' => false, 'mensaje' => 'El ID de producto analizado no existe']);
+    echo json_encode(['exito' => false, 'mensaje' => 'El ID ' . $id_productos_analizados . ' de producto analizado no existe']);
     mysqli_stmt_close($stmt);
     exit;
 }
