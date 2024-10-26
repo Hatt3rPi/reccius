@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             </table>
         </div>
     </div>
-    <div class="modal fade" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
+    <div class="modal fade fixed" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -737,7 +737,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         var formData = new FormData(this);
         var submitButton = $(this).find('button[type="submit"]');
         submitButton.prop('disabled', true);
-
+        console.log(formData.values());
+        /*
         fetch('./backend/documentos/opcionales_analisis.php', {
                 method: 'POST',
                 body: formData,
@@ -750,12 +751,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $('#modalAdjuntarArchivo').modal('hide');
                 } else {
                     $('#alertaArchivo').text(data.mensaje).show();
-                }
-            })
-            .catch(error => {
-                $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
-            }).finally(() => {
-                submitButton.prop('disabled', false);
-            });
-    });
+            }
+        })
+        .catch(error => {
+            $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
+        }).finally(() => {
+            submitButton.prop('disabled', false);
+        });
+        */
+});
 </script>
