@@ -700,18 +700,16 @@ while ($row = mysqli_fetch_assoc($result)) {
                 $('#nombre_documento').val(nombreArchivo);
             }
         })
-
-        // Manejo del envío del formulario
         $('#formAdjuntarArchivo').on('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(this);
             var submitButton = $(this).find('button[type="submit"]');
-            submitButton.prop('disabled', true); // Deshabilitar el botón
-
+            submitButton.prop('disabled', true);
+            console.log(formData.values());
+            /*
             fetch('./backend/documentos/opcionales_analisis.php', {
                     method: 'POST',
                     body: formData,
-                    //TODO: Add seccion de otro_tipo_adjunto en el backend
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -719,45 +717,16 @@ while ($row = mysqli_fetch_assoc($result)) {
                         setAttachedDocuments(formData.get('id_productos_analizados'));
                         alert('Documento subido con éxito');
                         $('#modalAdjuntarArchivo').modal('hide');
-                        $('#formAdjuntarArchivo')[0].reset(); // Limpiar el formulario
                     } else {
                         $('#alertaArchivo').text(data.mensaje).show();
-                    }
-                })
-                .catch(error => {
-                    $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
-                })
-                .finally(() => {
-                    submitButton.prop('disabled', false); // Habilitar el botón
-                });
-        });
-    });
-    $('#formAdjuntarArchivo').on('submit', function(event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        var submitButton = $(this).find('button[type="submit"]');
-        submitButton.prop('disabled', true);
-        console.log(formData.values());
-        /*
-        fetch('./backend/documentos/opcionales_analisis.php', {
-                method: 'POST',
-                body: formData,
+                }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.exito) {
-                    setAttachedDocuments(formData.get('id_productos_analizados'));
-                    alert('Documento subido con éxito');
-                    $('#modalAdjuntarArchivo').modal('hide');
-                } else {
-                    $('#alertaArchivo').text(data.mensaje).show();
-            }
-        })
-        .catch(error => {
-            $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
-        }).finally(() => {
-            submitButton.prop('disabled', false);
-        });
-        */
+            .catch(error => {
+                $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
+            }).finally(() => {
+                submitButton.prop('disabled', false);
+            });
+            */
+    });
 });
 </script>
