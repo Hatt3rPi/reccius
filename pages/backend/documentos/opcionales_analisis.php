@@ -16,6 +16,32 @@ if (!isset($_FILES['documento']) || $_FILES['documento']['error'] !== UPLOAD_ERR
 }
 //IDEA: mi idea es que se puedan cargar pdf e imagenes, supongo que el la farmacia tambien tendran fotos de los productos o los lotes
 
+$nuevo_tipo_adjunto = isset($_POST['nuevo_tipo_adjunto']) ? trim($_POST['nuevo_tipo_adjunto']) : null;
+$id_tipo_adjunto = isset($_POST['tipo_adjunto']) ? (int)$_POST['tipo_adjunto'] : null;
+
+if ($nuevo_tipo_adjunto) {
+    // Comprobar si el tipo de adjunto ya existe
+    $query = "SELECT id FROM calidad_opciones_desplegables WHERE categoria = 'tipo_documento_adjunto' AND nombre_opcion = ?";
+    $stmt = mysqli_prepare($link, $query);
+    mysqli_stmt_bind_param($stmt, 's', $nuevo_tipo_adjunto);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $id_tipo_adjunto);
+    mysqli_stmt_fetch($stmt);
+    mysqli_stmt_close($stmt);
+
+    // Si no existe, crearlo
+    if (!$id_tipo_adjunto) {
+        $query = "INSERT INTO calidad_opciones_desplegables (categoria, nombre_opcion) VALUES ('tipo_documento_adjunto', ?)";
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, 's', $nuevo_tipo_adjunto);
+        mysqli_stmt_execute($stmt);
+        $id_tipo_adjunto = mysqli_insert_id($link); // Obtener el ID del nuevo tipo
+        mysqli_stmt_close($stmt);
+    }
+}
+
+
+
 // Validar el tipo de archivo (solo PDF o imágenes)
 // el jepg tambien contempla el jpg 
 $allowedMimeTypes = ['application/pdf', 'image/jpeg', 'image/png'];
@@ -68,16 +94,16 @@ if (!$uploadResult || $uploadResult['success'] === false) {
 // Guardar en BD
 $fileUrl = $uploadResult['success']['ObjectURL'];
 
-$query = "INSERT INTO calidad_otros_documentos (id_productos_analizados, url, nombre_documento, usuario_carga, fecha_carga) 
-          VALUES (?, ?, ?, ?, ?)";
-
+$query = "INSERT INTO calidad_otros_documentos 
+          (id_productos_analizados, url, nombre_documento, usuario_carga, fecha_carga, tipo) 
+          VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($link, $query);
-mysqli_stmt_bind_param($stmt, 'issss', $id_productos_analizados, $fileUrl, $nombre_documento, $usuario_carga, $fecha_carga);
+mysqli_stmt_bind_param($stmt, 'issssi', $id_productos_analizados, $fileUrl, $nombre_documento, $usuario_carga, $fecha_carga, $id_tipo_adjunto);
 
 if (mysqli_stmt_execute($stmt)) {
-    echo json_encode(['exito' => true, 'mensaje' => 'Documento subido y registrado con éxito', 'url' => $fileUrl]);
+  echo json_encode(['exito' => true, 'mensaje' => 'Documento subido y registrado con éxito', 'url' => $fileUrl]);
 } else {
-    echo json_encode(['exito' => false, 'mensaje' => 'Error al registrar el documento en la base de datos']);
+  echo json_encode(['exito' => false, 'mensaje' => 'Error al registrar el documento en la base de datos']);
 }
 
 mysqli_stmt_close($stmt);

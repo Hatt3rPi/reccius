@@ -680,19 +680,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         }, 200);
     });
     $(document).ready(function() {
-        // Mostrar o esconder el campo "Otro" en función de la selección
-        $('#tipo_adjunto').on('change', function() {
-            var selectedOption = $(this).find('option:selected').text();
-            if (selectedOption.trim() === 'Otro') {
-                $('#otro_tipo_adjunto_container').show();
-                $('#otro_tipo_adjunto').prop('required', true);
-            } else {
-                $('#otro_tipo_adjunto_container').val('');
-                $('#otro_tipo_adjunto_container').hide();
-                $('#otro_tipo_adjunto').prop('required', false);
-            }
-        });
-
         $('#documento').on('change', function() {
             var archivo = $(this)[0].files[0]; // Acceder al archivo seleccionado
             if (archivo) {
@@ -700,33 +687,47 @@ while ($row = mysqli_fetch_assoc($result)) {
                 $('#nombre_documento').val(nombreArchivo);
             }
         })
+        // Mostrar u ocultar el campo "Otro" según la selección
+        $('#tipo_adjunto').on('change', function() {
+            var selectedOption = $(this).find('option:selected').text();
+            if (selectedOption.trim() === 'Otro') {
+                $('#otro_tipo_adjunto_container').show();
+                $('#otro_tipo_adjunto').prop('required', true);
+            } else {
+                $('#otro_tipo_adjunto_container').hide();
+                $('#otro_tipo_adjunto').val('');
+                $('#otro_tipo_adjunto').prop('required', false);
+            }
+        });
+
+        // Enviar el formulario
         $('#formAdjuntarArchivo').on('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(this);
-            var submitButton = $(this).find('button[type="submit"]');
-            submitButton.prop('disabled', true);
-            console.log(formData.values());
-            /*
+            var selectedOption = $('#tipo_adjunto').find('option:selected').text();
+
+            // Agregar el nuevo tipo de adjunto si es "Otro"
+            if (selectedOption.trim() === 'Otro') {
+                formData.append('nuevo_tipo_adjunto', $('#otro_tipo_adjunto').val());
+            }
+
             fetch('./backend/documentos/opcionales_analisis.php', {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.exito) {
-                        setAttachedDocuments(formData.get('id_productos_analizados'));
-                        alert('Documento subido con éxito');
-                        $('#modalAdjuntarArchivo').modal('hide');
-                    } else {
-                        $('#alertaArchivo').text(data.mensaje).show();
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exito) {
+                    alert('Documento subido con éxito');
+                    $('#modalAdjuntarArchivo').modal('hide');
+                } else {
+                    $('#alertaArchivo').text(data.mensaje).show();
                 }
             })
             .catch(error => {
                 $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
-            }).finally(() => {
-                submitButton.prop('disabled', false);
             });
-            */
-    });
+        });
+
 });
 </script>
