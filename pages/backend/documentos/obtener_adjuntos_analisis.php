@@ -18,7 +18,7 @@ if (!$id_productos_analizados) {
 }
 
 // Verificar que el `id_productos_analizados` exista en la tabla `calidad_productos_analizados`
-$query = "SELECT id FROM calidad_productos_analizados WHERE id = ?";
+$query = "SELECT id FROM calidad_productos_analizados WHERE id_productos_analizados = ?";
 $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, 'i', $id_productos_analizados);
 mysqli_stmt_execute($stmt);
