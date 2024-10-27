@@ -720,6 +720,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 if (data.exito) {
                     alert('Documento subido con éxito');
                     $('#modalAdjuntarArchivo').modal('hide');
+                    setAttachedDocuments(formData.get('id_productos_analizados'));
                 } else {
                     $('#alertaArchivo').text(data.mensaje).show();
                 }
