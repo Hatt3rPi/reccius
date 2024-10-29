@@ -318,9 +318,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                 botones_otros_documentos +=
                     '<button class="accion-btn ingControl" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
 
-
-                botones_otros_documentos += '<button class="accion-btn ingControl" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="' + d.id + '"><i class="fa fa-plus"></i> Añadir Documento</button>';
-
                 botones_acta_muestreo += '<button class="accion-btn ingControl" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
                 botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
 
@@ -443,18 +440,28 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </td>
                     </tr>
                     <tr>
-                        <td>Documentos:</td>
+                        <td>Documentos Flujo Calidad:</td>
                         <td class="otros-documentos-container" >
                             <section id="normal-documentos-container-${d.id}">
-                                <p>Cargando documentos opcionales...</p>
-                            </section>
-                            <section id="otros-documentos-container-${d.id}">
                                 <p>Cargando documentos opcionales...</p>
                             </section>
                         </td>
                         <td>
                             <div class="button-container">
                                 ` + botones_otros_documentos + `
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Otros Documentos:</td>
+                        <td class="otros-documentos-container" >
+                            <section id="otros-documentos-container-${d.id}">
+                                <p>Cargando documentos opcionales...</p>
+                            </section>
+                        </td>
+                        <td>
+                            <div class="button-container">
+                                <button class="accion-btn ingControl" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="${ d.id }"><i class="fa fa-plus"></i> Añadir Documento</button>
                             </div>
                         </td>
                     </tr>
