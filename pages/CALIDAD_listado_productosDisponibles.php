@@ -458,8 +458,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <section id="otros-documentos-container-${d.id}">
                                 <p>Cargando documentos opcionales...</p>
                             </section>
-                        </td>
-                        <td>
                             <div class="button-container">
                                 <button class="accion-btn ingControl" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="${ d.id }"><i class="fa fa-plus"></i> Añadir Documento</button>
                             </div>
