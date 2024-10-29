@@ -631,7 +631,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 var bodyTable = '';
                 var headerTable = `
                     <tr>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th>Tipo</th>
                         <th>Nombre</th>
                         <th>Cargado por</th>
