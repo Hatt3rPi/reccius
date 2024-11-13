@@ -745,14 +745,11 @@ while ($row = mysqli_fetch_assoc($result)) {
         }
 
         // Realizar la solicitud al backend para eliminar el documento
+        const data = new FormData();
+        data.append('id_documento', id);
         fetch(`./backend/documentos/eliminar_documento.php`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_documento: id
-                })
+                body: data
             })
             .then(response => response.json())
             .then(data => {
