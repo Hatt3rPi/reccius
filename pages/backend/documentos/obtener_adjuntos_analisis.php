@@ -42,7 +42,7 @@ $query = "SELECT ctd.*, od.nombre_opcion AS categoria
             JOIN calidad_opciones_desplegables AS od ON ctd.tipo = od.id
           WHERE 
             ctd.id_productos_analizados = ? 
-            AND ctd.estado != 'D'";
+            AND (ctd.estado IS NULL OR ctd.estado != 'D')";
 
 $stmt = mysqli_prepare($link, $query);
 if ($stmt === false) {
