@@ -39,8 +39,11 @@ mysqli_stmt_close($stmt);
 // Obtener todos los documentos relacionados con el `id_productos_analizados`
 $query = "SELECT ctd.*, od.nombre_opcion AS categoria
           FROM calidad_otros_documentos AS ctd
-          JOIN calidad_opciones_desplegables AS od ON ctd.tipo = od.id
-          WHERE ctd.id_productos_analizados = ?";
+            JOIN calidad_opciones_desplegables AS od ON ctd.tipo = od.id
+          WHERE 
+            ctd.id_productos_analizados = ? 
+            AND ctd.estado != 'D'";
+
 $stmt = mysqli_prepare($link, $query);
 if ($stmt === false) {
     echo json_encode(['exito' => false, 'mensaje' => 'Error en la preparación de la consulta.']);

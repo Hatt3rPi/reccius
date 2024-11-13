@@ -487,8 +487,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     function makeDocuments(d) {
-        var certificados = [
-            {
+        var certificados = [{
                 name: 'Revisar Especificación de Producto',
                 url: d.url_revisar_especificacion,
                 form: `<button class="accion-btn ingControl p-0" title="Revisar Especificación de producto" 
@@ -591,43 +590,46 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
     }
+
     function obtenerTipoArchivo(url) {
-    const tiposMime = {
-        'jpg': 'image/jpeg',
-        'jpeg': 'image/jpeg',
-        'png': 'image/png',
-        'gif': 'image/gif',
-        'bmp': 'image/bmp',
-        'mp4': 'video/mp4',
-        'mov': 'video/quicktime',
-        'avi': 'video/x-msvideo',
-        'mp3': 'audio/mpeg',
-        'wav': 'audio/wav',
-        'pdf': 'application/pdf',
-        'doc': 'application/msword',
-        'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'xls': 'application/vnd.ms-excel',
-        'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'zip': 'application/zip',
-        'rar': 'application/x-rar-compressed'
-    };
-    const extension = url.split('.').pop().toLowerCase();
-    if (tiposMime[extension]) {
-        return tiposMime[extension];
-    } else {
-        return 'application/octet-stream';
+        const tiposMime = {
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'bmp': 'image/bmp',
+            'mp4': 'video/mp4',
+            'mov': 'video/quicktime',
+            'avi': 'video/x-msvideo',
+            'mp3': 'audio/mpeg',
+            'wav': 'audio/wav',
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'zip': 'application/zip',
+            'rar': 'application/x-rar-compressed'
+        };
+        const extension = url.split('.').pop().toLowerCase();
+        if (tiposMime[extension]) {
+            return tiposMime[extension];
+        } else {
+            return 'application/octet-stream';
+        }
     }
-}
+
     function setAttachedDocuments(id) {
         var otrosDocumentosContainer = $(`#otros-documentos-container-${id}`);
         otrosDocumentosContainer.empty();
         otrosDocumentosContainer.append('<p>Cargando documentos adicionales...</p>');
 
-        fetch(`./backend/documentos/obtener_adjuntos_analisis.php?id_productos_analizados=${id}`).then(response => response.json()).then(data => {
-            otrosDocumentosContainer.empty();
-            if (data.exito) {
-                var bodyTable = '';
-                var headerTable = `
+        fetch(`./backend/documentos/obtener_adjuntos_analisis.php?id_productos_analizados=${id}`)
+            .then(response => response.json()).then(data => {
+                otrosDocumentosContainer.empty();
+                if (data.exito) {
+                    var bodyTable = '';
+                    var headerTable = `
                     <tr>
                         <th>Categoría</th>
                         <th>Tipo</th>
@@ -636,16 +638,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <th>Fecha</th>
                         <th>Archivo</th>
                     </tr>`
-                data.documentos.forEach(({
-                    id,
-                    url,
-                    nombre_documento,
-                    categoria,
-                    usuario_carga,
-                    fecha_carga
-                }) => {
-                    console.log('documento:', documento);
-                    bodyTable += `
+                    data.documentos.forEach(({
+                        id,
+                        id_productos_analizados,
+                        url,
+                        nombre_documento,
+                        categoria,
+                        usuario_carga,
+                        fecha_carga
+                    }) => {
+                        console.log('documento:', documento);
+                        bodyTable += `
                         <tr id="row-document-${id}">
                             <td>${categoria}</td>
                             <td>${obtenerTipoArchivo(url)}</td>
@@ -653,11 +656,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <td>${usuario_carga}</td>
                             <td>${fecha_carga.split('-').reverse().join('/')}</td>
                             <td>
-                                <a href="${url}" target="_blank">Ver</a>
+                                <a href="${url}" target="_blank">Ver</a>/
+                                <button class="btn btn-primary" onclick="eliminarAdjunto(${id}, ${id_productos_analizados})">Eliminar</button>
                             </td>
                         </tr>`
-                });
-                otrosDocumentosContainer.append(`
+                    });
+                    otrosDocumentosContainer.append(`
                     <table class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             ${headerTable}
@@ -667,12 +671,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </tbody>
                     </table>
                 `);
-            } else {
-                otrosDocumentosContainer.append('<p>No hay archivos adjuntos extra</p>');
-            }
-        }).catch(error => {
-            otrosDocumentosContainer.append('<p>Error al cargar los documentos</p>');
-        });
+                } else {
+                    otrosDocumentosContainer.append('<p>No hay archivos adjuntos extra</p>');
+                }
+            }).catch(error => {
+                otrosDocumentosContainer.append('<p>Error al cargar los documentos</p>');
+            });
     }
     $('#modalAdjuntarArchivo').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
@@ -704,7 +708,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                 $('#otro_tipo_adjunto').prop('required', false);
             }
         });
-
         // Enviar el formulario
         $('#formAdjuntarArchivo').on('submit', function(event) {
             event.preventDefault();
@@ -717,23 +720,53 @@ while ($row = mysqli_fetch_assoc($result)) {
             }
 
             fetch('./backend/documentos/opcionales_analisis.php', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exito) {
+                        alert('Documento subido con éxito');
+                        $('#modalAdjuntarArchivo').modal('hide');
+                        setAttachedDocuments(formData.get('id_productos_analizados'));
+                    } else {
+                        $('#alertaArchivo').text(data.mensaje).show();
+                    }
+                })
+                .catch(error => {
+                    $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
+                });
+        });
+    });
+
+    function eliminarAdjunto(id, id_productos_analizados) {
+        if (!confirm("¿Estás seguro de que deseas eliminar este documento?")) {
+            return;
+        }
+
+        // Realizar la solicitud al backend para eliminar el documento
+        fetch(`./backend/documentos/eliminar_documento.php`, {
                 method: 'POST',
-                body: formData,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_documento: id
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.exito) {
-                    alert('Documento subido con éxito');
-                    $('#modalAdjuntarArchivo').modal('hide');
-                    setAttachedDocuments(formData.get('id_productos_analizados'));
+                    alert("Documento eliminado con éxito");
+                    // Actualizar la lista de documentos después de eliminar
+                    setAttachedDocuments(id_productos_analizados);
                 } else {
-                    $('#alertaArchivo').text(data.mensaje).show();
+                    alert(`Error al eliminar el documento: ${data.mensaje}`);
                 }
             })
             .catch(error => {
-                $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
+                console.error("Error al eliminar el documento:", error);
+                alert("Hubo un problema al procesar la solicitud de eliminación.");
             });
-        });
-
-});
+    }
 </script>
