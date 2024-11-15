@@ -552,3 +552,14 @@ body {
   width: 90% !important;
 }
 
+.fixed{
+  position: fixed;
+}
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+}
+

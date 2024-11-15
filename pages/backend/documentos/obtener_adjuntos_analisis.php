@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 header('Content-Type: application/json');
 
-
 // Verificar que se haya enviado el id_productos_analizados
 $id_productos_analizados = $_GET['id_productos_analizados'] ?? null;
 
@@ -20,6 +19,11 @@ if (!$id_productos_analizados) {
 // Verificar que el `id_productos_analizados` exista en la tabla `calidad_productos_analizados`
 $query = "SELECT id FROM calidad_productos_analizados WHERE id = ?";
 $stmt = mysqli_prepare($link, $query);
+if ($stmt === false) {
+    echo json_encode(['exito' => false, 'mensaje' => 'Error en la preparación de la consulta.']);
+    exit;
+}
+
 mysqli_stmt_bind_param($stmt, 'i', $id_productos_analizados);
 mysqli_stmt_execute($stmt);
 mysqli_stmt_store_result($stmt);
@@ -33,12 +37,19 @@ if (mysqli_stmt_num_rows($stmt) === 0) {
 mysqli_stmt_close($stmt);
 
 // Obtener todos los documentos relacionados con el `id_productos_analizados`
-$query = "SELECT ctd.*, od.nombre_opcion as categoria
-            FROM calidad_otros_documentos as ctd
-            JOIN calidad_opciones_desplegables as od ON 
-                id_opciones_desplegables = id
-            WHERE id_productos_analizados = ?";
+$query = "SELECT ctd.*, od.nombre_opcion AS categoria
+          FROM calidad_otros_documentos AS ctd
+            JOIN calidad_opciones_desplegables AS od ON ctd.tipo = od.id
+          WHERE 
+            ctd.id_productos_analizados = ? 
+            AND (ctd.estado IS NULL OR ctd.estado != 'D')";
+
 $stmt = mysqli_prepare($link, $query);
+if ($stmt === false) {
+    echo json_encode(['exito' => false, 'mensaje' => 'Error en la preparación de la consulta.']);
+    exit;
+}
+
 mysqli_stmt_bind_param($stmt, 'i', $id_productos_analizados);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);

@@ -112,3 +112,22 @@ function deleteFile($folder, $fileName)
     return json_encode(['success' => false, 'error' => $e->getMessage()]);
   }
 }
+
+function deleteFileFromUrl($fileUrl)
+{
+  global $bucket_name, $R2_client;
+
+  // Extraer la ruta del archivo desde la URL
+  $parsedUrl = parse_url($fileUrl);
+  $filePath = ltrim($parsedUrl['path'], '/'); // Eliminar cualquier barra inicial
+
+  try {
+    $result = $R2_client->deleteObject([
+      'Bucket' => $bucket_name,
+      'Key' => $filePath
+    ]);
+    return ['success' => true, 'result' => $result];
+  } catch (Aws\Exception\AwsException $e) {
+    return ['success' => false, 'error' => $e->getMessage()];
+  }
+}

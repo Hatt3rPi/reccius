@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             </table>
         </div>
     </div>
-    <div class="modal fade" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
+    <div class="modal fade fixed" id="modalAdjuntarArchivo" tabindex="-1" role="dialog" aria-labelledby="modalAdjuntarArchivoLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -318,9 +318,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                 botones_otros_documentos +=
                     '<button class="accion-btn ingControl" title="Revisar Especificación de producto" id="' + d.id_especificacion + '" name="generar_documento" onclick="botones(this.id, this.name, \'especificacion\')"><i class="fa fa-file-pdf-o"></i> Revisa Especificación de Producto</button><a> </a>';
 
-
-                botones_otros_documentos += '<button class="accion-btn ingControl" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="' + d.id + '"><i class="fa fa-plus"></i> Añadir Documento</button>';
-
                 botones_acta_muestreo += '<button class="accion-btn ingControl" title="Revisar acta de Muestreo" id="' + d.id_actaMuestreo + '" name="revisar_acta" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Acta de Muestreo</button><a> </a>';
                 botones_analisis_externo += '<button class="accion-btn ingControl" title="Revisar Solicitud Análisis Externo" id="' + d.id_analisisExterno + '" name="generar_documento_solicitudes" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar Solicitud Análisis Externo</button><a> </a>';
 
@@ -442,19 +439,27 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                         </td>
                     </tr>
-                    <tr class="d-none" >
-                        <td>Documentos:</td>
+                    <tr>
+                        <td>Documentos Flujo Calidad:</td>
                         <td class="otros-documentos-container" >
                             <section id="normal-documentos-container-${d.id}">
-                                <p>Cargando documentos opcionales...</p>
-                            </section>
-                            <section id="otros-documentos-container-${d.id}">
                                 <p>Cargando documentos opcionales...</p>
                             </section>
                         </td>
                         <td>
                             <div class="button-container">
                                 ` + botones_otros_documentos + `
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Otros Documentos:</td>
+                        <td class="otros-documentos-container" >
+                            <section id="otros-documentos-container-${d.id}">
+                                <p>Cargando documentos opcionales...</p>
+                            </section>
+                            <div class="button-container">
+                                <button class="accion-btn ingControl" title="Añadir Documento Opcional" data-toggle="modal" data-target="#modalAdjuntarArchivo" data-id-producto="${ d.id }"><i class="fa fa-plus"></i> Añadir Documento</button>
                             </div>
                         </td>
                     </tr>
@@ -483,6 +488,14 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     function makeDocuments(d) {
         var certificados = [{
+                name: 'Revisar Especificación de Producto',
+                url: d.url_revisar_especificacion,
+                form: `<button class="accion-btn ingControl p-0" title="Revisar Especificación de producto" 
+                        onclick="botones('${d.id_especificacion}', 'generar_documento', 'especificacion')">
+                            Ver
+                       </button>`
+            },
+            {
                 name: 'Analisis externo',
                 url: d.url_certificado_de_analisis_externo,
                 form: ''
@@ -516,14 +529,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                             Ver
                        </button>`
             },
-            {
-                name: 'Revisar Especificación de Producto',
-                url: d.url_revisar_especificacion,
-                form: `<button class="accion-btn ingControl p-0" title="Revisar Especificación de producto" 
-                        onclick="botones('${d.id_especificacion}', 'generar_documento', 'especificacion')">
-                            Ver
-                       </button>`
-            }
         ];
 
         /*
@@ -585,61 +590,65 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
     }
+
     function obtenerTipoArchivo(url) {
-    const tiposMime = {
-        'jpg': 'image/jpeg',
-        'jpeg': 'image/jpeg',
-        'png': 'image/png',
-        'gif': 'image/gif',
-        'bmp': 'image/bmp',
-        'mp4': 'video/mp4',
-        'mov': 'video/quicktime',
-        'avi': 'video/x-msvideo',
-        'mp3': 'audio/mpeg',
-        'wav': 'audio/wav',
-        'pdf': 'application/pdf',
-        'doc': 'application/msword',
-        'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'xls': 'application/vnd.ms-excel',
-        'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'zip': 'application/zip',
-        'rar': 'application/x-rar-compressed'
-    };
-    const extension = url.split('.').pop().toLowerCase();
-    if (tiposMime[extension]) {
-        return tiposMime[extension];
-    } else {
-        return 'application/octet-stream';
+        const tiposMime = {
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'bmp': 'image/bmp',
+            'mp4': 'video/mp4',
+            'mov': 'video/quicktime',
+            'avi': 'video/x-msvideo',
+            'mp3': 'audio/mpeg',
+            'wav': 'audio/wav',
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'zip': 'application/zip',
+            'rar': 'application/x-rar-compressed'
+        };
+        const extension = url.split('.').pop().toLowerCase();
+        if (tiposMime[extension]) {
+            return tiposMime[extension];
+        } else {
+            return 'application/octet-stream';
+        }
     }
-}
+
     function setAttachedDocuments(id) {
         var otrosDocumentosContainer = $(`#otros-documentos-container-${id}`);
         otrosDocumentosContainer.empty();
         otrosDocumentosContainer.append('<p>Cargando documentos adicionales...</p>');
 
-        fetch(`./backend/documentos/obtener_adjuntos_analisis.php?id_productos_analizados=${id}`).then(response => response.json()).then(data => {
-            otrosDocumentosContainer.empty();
-            if (data.exito) {
-                var bodyTable = '';
-                var headerTable = `
+        fetch(`./backend/documentos/obtener_adjuntos_analisis.php?id_productos_analizados=${id}`)
+            .then(response => response.json()).then(data => {
+                otrosDocumentosContainer.empty();
+                if (data.exito) {
+                    var bodyTable = '';
+                    var headerTable = `
                     <tr>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th>Tipo</th>
                         <th>Nombre</th>
                         <th>Cargado por</th>
                         <th>Fecha</th>
                         <th>Archivo</th>
                     </tr>`
-                data.documentos.forEach(({
-                    id,
-                    url,
-                    nombre_documento,
-                    categoria,
-                    usuario_carga,
-                    fecha_carga
-                }) => {
-                    console.log('documento:', documento);
-                    bodyTable += `
+                    data.documentos.forEach(({
+                        id,
+                        id_productos_analizados,
+                        url,
+                        nombre_documento,
+                        categoria,
+                        usuario_carga,
+                        fecha_carga
+                    }) => {
+                        console.log('documento:', documento);
+                        bodyTable += `
                         <tr id="row-document-${id}">
                             <td>${categoria}</td>
                             <td>${obtenerTipoArchivo(url)}</td>
@@ -647,11 +656,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <td>${usuario_carga}</td>
                             <td>${fecha_carga.split('-').reverse().join('/')}</td>
                             <td>
-                                <a href="${url}" target="_blank">Ver</a>
+                                <a href="${url}" target="_blank">Ver</a>/
+                                <button class="btn btn-primary" onclick="eliminarAdjunto(${id}, ${id_productos_analizados})">Eliminar</button>
                             </td>
                         </tr>`
-                });
-                otrosDocumentosContainer.append(`
+                    });
+                    otrosDocumentosContainer.append(`
                     <table class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             ${headerTable}
@@ -661,12 +671,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </tbody>
                     </table>
                 `);
-            } else {
-                otrosDocumentosContainer.append('<p>No hay archivos adjuntos extra</p>');
-            }
-        }).catch(error => {
-            otrosDocumentosContainer.append('<p>Error al cargar los documentos</p>');
-        });
+                } else {
+                    otrosDocumentosContainer.append('<p>No hay archivos adjuntos extra</p>');
+                }
+            }).catch(error => {
+                otrosDocumentosContainer.append('<p>Error al cargar los documentos</p>');
+            });
     }
     $('#modalAdjuntarArchivo').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget);
@@ -679,19 +689,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         }, 200);
     });
     $(document).ready(function() {
-        // Mostrar o esconder el campo "Otro" en función de la selección
-        $('#tipo_adjunto').on('change', function() {
-            var selectedOption = $(this).find('option:selected').text();
-            if (selectedOption.trim() === 'Otro') {
-                $('#otro_tipo_adjunto_container').show();
-                $('#otro_tipo_adjunto').prop('required', true);
-            } else {
-                $('#otro_tipo_adjunto_container').val('');
-                $('#otro_tipo_adjunto_container').hide();
-                $('#otro_tipo_adjunto').prop('required', false);
-            }
-        });
-
         $('#documento').on('change', function() {
             var archivo = $(this)[0].files[0]; // Acceder al archivo seleccionado
             if (archivo) {
@@ -699,62 +696,74 @@ while ($row = mysqli_fetch_assoc($result)) {
                 $('#nombre_documento').val(nombreArchivo);
             }
         })
-
-        // Manejo del envío del formulario
+        // Mostrar u ocultar el campo "Otro" según la selección
+        $('#tipo_adjunto').on('change', function() {
+            var selectedOption = $(this).find('option:selected').text();
+            if (selectedOption.trim() === 'Otro') {
+                $('#otro_tipo_adjunto_container').show();
+                $('#otro_tipo_adjunto').prop('required', true);
+            } else {
+                $('#otro_tipo_adjunto_container').hide();
+                $('#otro_tipo_adjunto').val('');
+                $('#otro_tipo_adjunto').prop('required', false);
+            }
+        });
+        // Enviar el formulario
         $('#formAdjuntarArchivo').on('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(this);
-            var submitButton = $(this).find('button[type="submit"]');
-            submitButton.prop('disabled', true); // Deshabilitar el botón
+            var selectedOption = $('#tipo_adjunto').find('option:selected').text();
+
+            // Agregar el nuevo tipo de adjunto si es "Otro"
+            if (selectedOption.trim() === 'Otro') {
+                formData.append('nuevo_tipo_adjunto', $('#otro_tipo_adjunto').val());
+            }
 
             fetch('./backend/documentos/opcionales_analisis.php', {
                     method: 'POST',
                     body: formData,
-                    //TODO: Add seccion de otro_tipo_adjunto en el backend
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.exito) {
-                        setAttachedDocuments(formData.get('id_productos_analizados'));
                         alert('Documento subido con éxito');
                         $('#modalAdjuntarArchivo').modal('hide');
-                        $('#formAdjuntarArchivo')[0].reset(); // Limpiar el formulario
+                        setAttachedDocuments(formData.get('id_productos_analizados'));
                     } else {
                         $('#alertaArchivo').text(data.mensaje).show();
                     }
                 })
                 .catch(error => {
                     $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
-                })
-                .finally(() => {
-                    submitButton.prop('disabled', false); // Habilitar el botón
                 });
         });
     });
-    $('#formAdjuntarArchivo').on('submit', function(event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        var submitButton = $(this).find('button[type="submit"]');
-        submitButton.prop('disabled', true);
 
-        fetch('./backend/documentos/opcionales_analisis.php', {
+    function eliminarAdjunto(id, id_productos_analizados) {
+        if (!confirm("¿Estás seguro de que deseas eliminar este documento?")) {
+            return;
+        }
+
+        // Realizar la solicitud al backend para eliminar el documento
+        const data = new FormData();
+        data.append('id_documento', id);
+        fetch(`./backend/documentos/eliminar_documento.php`, {
                 method: 'POST',
-                body: formData,
+                body: data
             })
             .then(response => response.json())
             .then(data => {
                 if (data.exito) {
-                    setAttachedDocuments(formData.get('id_productos_analizados'));
-                    alert('Documento subido con éxito');
-                    $('#modalAdjuntarArchivo').modal('hide');
+                    alert("Documento eliminado con éxito");
+                    // Actualizar la lista de documentos después de eliminar
+                    setAttachedDocuments(id_productos_analizados);
                 } else {
-                    $('#alertaArchivo').text(data.mensaje).show();
+                    alert(`Error al eliminar el documento: ${data.mensaje}`);
                 }
             })
             .catch(error => {
-                $('#alertaArchivo').text('Error al subir el documento: ' + error).show();
-            }).finally(() => {
-                submitButton.prop('disabled', false);
+                console.error("Error al eliminar el documento:", error);
+                alert("Hubo un problema al procesar la solicitud de eliminación.");
             });
-    });
+    }
 </script>
