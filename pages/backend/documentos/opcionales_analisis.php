@@ -45,7 +45,7 @@ if ($nuevo_tipo_adjunto) {
     mysqli_stmt_bind_result($stmt, $id_tipo_adjunto);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
-    $debug=$query+"("+$nuevo_tipo_adjunto+" - "+$id_tipo_adjunto+")";
+    $debug= $query + "(" + $nuevo_tipo_adjunto + " - )";
     // Si no existe, crearlo
     if (!$id_tipo_adjunto) {
         $query = "INSERT INTO calidad_opciones_desplegables (categoria, nombre_opcion) VALUES ('tipo_documento_adjunto', ?)";
