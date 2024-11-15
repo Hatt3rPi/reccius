@@ -25,7 +25,7 @@ $id_productos_analizados = $_POST['id_productos_analizados'];
 $nuevo_tipo_adjunto = isset($_POST['nuevo_tipo_adjunto']) ? trim($_POST['nuevo_tipo_adjunto']) : null;
 $id_tipo_adjunto = isset($_POST['tipo_adjunto']) ? (int)$_POST['tipo_adjunto'] : null;
 $nombre_documento = $_POST['nombre_documento'] ?? pathinfo($documento['name'], PATHINFO_FILENAME);
-$debug='';
+$debug="";
 
 // Validar el tipo de archivo (solo PDF o imágenes)
 $allowedMimeTypes = ['application/pdf', 'image/jpeg', 'image/png'];
@@ -45,7 +45,7 @@ if ($nuevo_tipo_adjunto) {
     mysqli_stmt_bind_result($stmt, $id_tipo_adjunto);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
-    $debug= $query + "(" + $nuevo_tipo_adjunto + " - )";
+    $debug= $query."(".$nuevo_tipo_adjunto." - )";
     // Si no existe, crearlo
     if (!$id_tipo_adjunto) {
         $query = "INSERT INTO calidad_opciones_desplegables (categoria, nombre_opcion) VALUES ('tipo_documento_adjunto', ?)";
