@@ -25,6 +25,7 @@ $id_productos_analizados = $_POST['id_productos_analizados'];
 $nuevo_tipo_adjunto = isset($_POST['nuevo_tipo_adjunto']) ? trim($_POST['nuevo_tipo_adjunto']) : null;
 $id_tipo_adjunto = isset($_POST['tipo_adjunto']) ? (int)$_POST['tipo_adjunto'] : null;
 $nombre_documento = $_POST['nombre_documento'] ?? pathinfo($documento['name'], PATHINFO_FILENAME);
+$debug='';
 
 // Validar el tipo de archivo (solo PDF o imágenes)
 $allowedMimeTypes = ['application/pdf', 'image/jpeg', 'image/png'];
@@ -44,7 +45,7 @@ if ($nuevo_tipo_adjunto) {
     mysqli_stmt_bind_result($stmt, $id_tipo_adjunto);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
-
+    $debug=$query+"("+$nuevo_tipo_adjunto+" - "+$id_tipo_adjunto+")";
     // Si no existe, crearlo
     if (!$id_tipo_adjunto) {
         $query = "INSERT INTO calidad_opciones_desplegables (categoria, nombre_opcion) VALUES ('tipo_documento_adjunto', ?)";
@@ -98,7 +99,7 @@ $stmt = mysqli_prepare($link, $query);
 mysqli_stmt_bind_param($stmt, 'issssi', $id_productos_analizados, $fileUrl, $nombre_documento, $usuario_carga, $fecha_carga, $id_tipo_adjunto);
 
 if (mysqli_stmt_execute($stmt)) {
-    echo json_encode(['exito' => true, 'mensaje' => 'Documento subido y registrado con éxito', 'url' => $fileUrl]);
+    echo json_encode(['exito' => true, 'mensaje' => 'Documento subido y registrado con éxito', 'url' => $fileUrl, 'debug' => $debug]);
 } else {
     echo json_encode(['exito' => false, 'mensaje' => 'Error al registrar el documento en la base de datos']);
 }
