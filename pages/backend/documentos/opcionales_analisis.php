@@ -45,7 +45,7 @@ if ($nuevo_tipo_adjunto) {
     mysqli_stmt_bind_result($stmt, $id_tipo_adjunto);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
-    $debug= $query."(".$nuevo_tipo_adjunto." - )";
+    $debug= $query."(nuevo tipo:".$nuevo_tipo_adjunto." - id_anterior:".$id_tipo_adjunto." )";
     // Si no existe, crearlo
     if (!$id_tipo_adjunto) {
         $query = "INSERT INTO calidad_opciones_desplegables (categoria, nombre_opcion) VALUES ('tipo_documento_adjunto', ?)";
@@ -54,6 +54,7 @@ if ($nuevo_tipo_adjunto) {
         mysqli_stmt_execute($stmt);
         $id_tipo_adjunto = mysqli_insert_id($link); // Obtener el ID del nuevo tipo
         mysqli_stmt_close($stmt);
+        $debug+=" ----- nuevo_tipo:".$nuevo_tipo_adjunto." y id_creado: ". $id_tipo_adjunto;
     }
 }
 
