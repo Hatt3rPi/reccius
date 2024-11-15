@@ -34,6 +34,7 @@ if (!in_array($mimeType, $allowedMimeTypes)) {
     echo json_encode(['exito' => false, 'mensaje' => 'Solo se permiten archivos PDF o imágenes (JPG - PNG)']);
     exit;
 }
+$id_anterior="";
 
 // Verificar si es necesario crear un nuevo tipo de adjunto
 if ($nuevo_tipo_adjunto) {
@@ -42,12 +43,12 @@ if ($nuevo_tipo_adjunto) {
     $stmt = mysqli_prepare($link, $query);
     mysqli_stmt_bind_param($stmt, 's', $nuevo_tipo_adjunto);
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $id_tipo_adjunto);
+    mysqli_stmt_bind_result($stmt, $id_anterior);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
-    $debug= $query."(nuevo tipo:".$nuevo_tipo_adjunto." - id_anterior:".$id_tipo_adjunto." )";
+    $debug= $query."(nuevo tipo:".$nuevo_tipo_adjunto." - id_anterior:".$id_anterior." )";
     // Si no existe, crearlo
-    if (!$id_tipo_adjunto) {
+    if (!$id_anterior) {
         $query = "INSERT INTO calidad_opciones_desplegables (categoria, nombre_opcion) VALUES ('tipo_documento_adjunto', ?)";
         $stmt = mysqli_prepare($link, $query);
         mysqli_stmt_bind_param($stmt, 's', $nuevo_tipo_adjunto);
