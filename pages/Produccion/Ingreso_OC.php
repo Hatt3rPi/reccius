@@ -62,6 +62,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <div class="button-container">
             <button id="add-product" class="btn-add-product">Agregar Producto</button>
         </div>
+
         <!-- Contenedores de Productos -->
         <div id="products-container-wrapper">
             <div class="products-container">
@@ -97,56 +98,63 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
         </div>
-        <!-- Plantilla para nuevos contenedores -->
-        <template id="product-template">
-            <div class="products-container">
-                <h2>Productos</h2>
-                <div class="form-group">
-                    <label for="product1">Producto 1</label>
-                    <input type="text" name="product1">
-                </div>
-                <div class="form-group">
-                    <label for="product2">Producto 2</label>
-                    <input type="text" name="product2">
-                </div>
-                <div class="form-group">
-                    <label for="product3">Producto 3</label>
-                    <input type="text" name="product3">
-                </div>
-                <div class="form-group">
-                    <label for="product4">Producto 4</label>
-                    <input type="text" name="product4">
-                </div>
-                <div class="form-group">
-                    <label for="product5">Producto 5</label>
-                    <input type="text" name="product5">
-                </div>
-                <div class="form-group">
-                    <label for="product6">Producto 6</label>
-                    <input type="text" name="product6">
-                </div>
-                <div class="button-container">
-                    <button class="btn-save">Guardar</button>
-                    <button class="btn-edit">Editar</button>
-                    <button class="btn-delete">Eliminar</button>
-                </div>
+    </div>
+
+    <!-- Plantilla para nuevos contenedores -->
+    <template id="product-template">
+        <div class="products-container">
+            <h2>Productos</h2>
+            <div class="form-group">
+                <label for="product1">Producto 1</label>
+                <input type="text" name="product1">
             </div>
-        </template>
+            <div class="form-group">
+                <label for="product2">Producto 2</label>
+                <input type="text" name="product2">
+            </div>
+            <div class="form-group">
+                <label for="product3">Producto 3</label>
+                <input type="text" name="product3">
+            </div>
+            <div class="form-group">
+                <label for="product4">Producto 4</label>
+                <input type="text" name="product4">
+            </div>
+            <div class="form-group">
+                <label for="product5">Producto 5</label>
+                <input type="text" name="product5">
+            </div>
+            <div class="form-group">
+                <label for="product6">Producto 6</label>
+                <input type="text" name="product6">
+            </div>
+            <div class="button-container">
+                <button class="btn-save">Guardar</button>
+                <button class="btn-edit">Editar</button>
+                <button class="btn-delete">Eliminar</button>
+            </div>
+        </div>
+    </template>
 
-        <!-- Script para manejar la lógica -->
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const addProductButton = document.getElementById('add-product');
-                const productsContainerWrapper = document.getElementById('products-container-wrapper');
-                const productTemplate = document.getElementById('product-template');
+    <!-- Script para manejar la lógica -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addProductButton = document.getElementById('add-product');
+            const productsContainerWrapper = document.getElementById('products-container-wrapper');
+            const productTemplate = document.getElementById('product-template');
 
-                addProductButton.addEventListener('click', () => {
-                    // Clona la plantilla y agrega el nuevo contenedor al wrapper
-                    const newProductContainer = document.importNode(productTemplate.content, true);
-                    productsContainerWrapper.appendChild(newProductContainer);
-                });
+            // Agregar evento al botón y verificar con console.log
+            addProductButton.addEventListener('click', () => {
+                console.log("Botón 'Agregar Producto' activado."); // Verificar que el evento se activa
+
+                // Clona la plantilla y agrega el nuevo contenedor al wrapper
+                const newProductContainer = document.importNode(productTemplate.content, true);
+                productsContainerWrapper.appendChild(newProductContainer);
+
+                console.log("Nuevo contenedor de productos añadido.");
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>
