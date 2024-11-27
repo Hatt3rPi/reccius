@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-// Verificar si el usuario está autenticado
-if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    header("Location: login.html");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -19,6 +10,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <body>
     <div id="form-container">
+        <!-- Título de la categoría Orden de Compra -->
+        <h2>Orden de Compra</h2>
         <!-- Contenedor 1 -->
         <div id="container-1">
             <div class="column">
@@ -58,6 +51,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
         </div>
+
+        <!-- Título de la categoría Productos -->
+        <h2>Productos</h2>
         <!-- Botón para Agregar Producto -->
         <div class="button-container">
             <button id="add-product" class="btn-add-product">Agregar Producto</button>
@@ -66,36 +62,36 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <!-- Contenedores de Productos -->
         <div id="products-container-wrapper">
             <div class="products-container">
-                <h2>Productos</h2>
+                <h2>Producto: 1</h2>
                 <div class="form-group">
                     <label for="product1">Producto 1</label>
-                    <input type="text" name="product1">
+                    <input type="text" name="product1" disabled>
                 </div>
                 <div class="form-group">
                     <label for="product2">Producto 2</label>
-                    <input type="text" name="product2">
+                    <input type="text" name="product2" disabled>
                 </div>
                 <div class="form-group">
                     <label for="product3">Producto 3</label>
-                    <input type="text" name="product3">
+                    <input type="text" name="product3" disabled>
                 </div>
                 <div class="form-group">
                     <label for="product4">Producto 4</label>
-                    <input type="text" name="product4">
-                </div>
-                <div class="form-group">
-                    <label for="product5">Producto 5</label>
-                    <input type="text" name="product5">
-                </div>
-                <div class="form-group">
-                    <label for="product6">Producto 6</label>
-                    <input type="text" name="product6">
+                    <input type="text" name="product4" disabled>
                 </div>
                 <div class="button-container">
-                    <button class="btn-save">Guardar</button>
+                    <button class="btn-save" disabled>Guardar</button>
                     <button class="btn-edit">Editar</button>
                     <button class="btn-delete">Eliminar</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Contenedor de Comentarios -->
+        <div id="comments-container">
+            <h2>Deja un comentario</h2>
+            <div class="form-group">
+                <input type="text" id="comment" name="comment" placeholder="Escribe tu comentario aquí">
             </div>
         </div>
     </div>
@@ -103,33 +99,25 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Plantilla para nuevos contenedores -->
     <template id="product-template">
         <div class="products-container">
-            <h2>Productos</h2>
+            <h2>Producto: </h2>
             <div class="form-group">
                 <label for="product1">Producto 1</label>
-                <input type="text" name="product1">
+                <input type="text" name="product1" disabled>
             </div>
             <div class="form-group">
                 <label for="product2">Producto 2</label>
-                <input type="text" name="product2">
+                <input type="text" name="product2" disabled>
             </div>
             <div class="form-group">
                 <label for="product3">Producto 3</label>
-                <input type="text" name="product3">
+                <input type="text" name="product3" disabled>
             </div>
             <div class="form-group">
                 <label for="product4">Producto 4</label>
-                <input type="text" name="product4">
-            </div>
-            <div class="form-group">
-                <label for="product5">Producto 5</label>
-                <input type="text" name="product5">
-            </div>
-            <div class="form-group">
-                <label for="product6">Producto 6</label>
-                <input type="text" name="product6">
+                <input type="text" name="product4" disabled>
             </div>
             <div class="button-container">
-                <button class="btn-save">Guardar</button>
+                <button class="btn-save" disabled>Guardar</button>
                 <button class="btn-edit">Editar</button>
                 <button class="btn-delete">Eliminar</button>
             </div>
@@ -139,19 +127,65 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Script para manejar la lógica -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const button = document.getElementById('add-product');
-            button.style.pointerEvents = 'auto';
-            button.style.visibility = 'visible';
-            button.style.zIndex = '1000';
-            console.log("Botón encontrado:", button);
+            const addButton = document.getElementById('add-product');
+            const productTemplate = document.getElementById('product-template');
+            const productsContainerWrapper = document.getElementById('products-container-wrapper');
+            let productCount = 1; // Inicia el contador de productos
 
-            if (button) {
-                button.addEventListener('click', function () {
-                    console.log("Evento 'click' activado en el botón.");
-                    alert("El botón funciona correctamente.");
+            // Función para agregar funcionalidades a los botones
+            function addButtonFunctionalities(productContainer, productNumber) {
+                const saveButton = productContainer.querySelector('.btn-save');
+                const editButton = productContainer.querySelector('.btn-edit');
+                const deleteButton = productContainer.querySelector('.btn-delete');
+                const inputs = productContainer.querySelectorAll('input');
+
+                // Editar
+                editButton.addEventListener('click', () => {
+                    inputs.forEach(input => input.removeAttribute('disabled'));
+                    saveButton.removeAttribute('disabled');
+                    console.log(`Producto ${productNumber} editable.`);
+                });
+
+                // Guardar
+                saveButton.addEventListener('click', () => {
+                    inputs.forEach(input => input.setAttribute('disabled', ''));
+                    saveButton.setAttribute('disabled', '');
+                    console.log(`Producto ${productNumber} guardado.`);
+                    alert(`Producto ${productNumber} guardado con éxito.`);
+                });
+
+                // Eliminar
+                deleteButton.addEventListener('click', () => {
+                    productContainer.remove();
+                    console.log(`Producto ${productNumber} eliminado.`);
+                });
+            }
+
+            // Inicializar botones del primer producto
+            addButtonFunctionalities(document.querySelector('.products-container'), 1);
+
+            if (addButton) {
+                addButton.addEventListener('click', function () {
+                    console.log("Evento 'click' activado en 'Agregar Producto'.");
+
+                    // Incrementa el contador de productos
+                    productCount++;
+
+                    // Clonar el contenido de la plantilla
+                    const newProductContainer = productTemplate.content.cloneNode(true).querySelector('.products-container');
+
+                    // Actualizar el número del producto en el <h2>
+                    const newProductHeading = newProductContainer.querySelector('h2');
+                    newProductHeading.textContent = `Producto: ${productCount}`;
+
+                    // Agregar funcionalidades a los botones
+                    addButtonFunctionalities(newProductContainer, productCount);
+
+                    // Agregar al final del contenedor de productos
+                    productsContainerWrapper.appendChild(newProductContainer);
                 });
             } else {
-                console.error("No se encontró el botón.");
+                console.error("No se encontró el botón 'Agregar Producto'.");
             }
         });
     </script>
