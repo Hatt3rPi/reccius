@@ -72,9 +72,45 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
 
+            <!-- Botón de Agregar Producto -->
+            <div id="add-product-container" style="margin-bottom: 15px; text-align: center;">
+                <button id="add-product" class="ingControl" style="background-color: #28a745; color: white; padding: 10px 20px; border-radius: 4px; border: none; cursor: pointer;">
+                    Agregar Producto
+                </button>
+            </div>
+
             <!-- Segundo Contenedor -->
-            <div id="container-2" style="border: 1px solid #ccc; padding: 20px; height: 200px; margin-top: 30px;">
-                <p>Este contenedor está vacío por el momento.</p>
+            <div id="container-2" style="border: 1px solid #ccc; padding: 20px; margin-top: 10px; display: flex; flex-wrap: wrap; gap: 20px;">
+                <!-- Campo 1 -->
+                <div class="form-group" style="flex: 1 1 45%; display: flex; flex-direction: column;">
+                    <label for="product1">Producto 1</label>
+                    <input type="text" id="product1" name="product1" class="form-control">
+                </div>
+                <!-- Campo 2 -->
+                <div class="form-group" style="flex: 1 1 45%; display: flex; flex-direction: column;">
+                    <label for="product2">Producto 2</label>
+                    <input type="text" id="product2" name="product2" class="form-control">
+                </div>
+                <!-- Campo 3 -->
+                <div class="form-group" style="flex: 1 1 45%; display: flex; flex-direction: column;">
+                    <label for="product3">Producto 3</label>
+                    <input type="text" id="product3" name="product3" class="form-control">
+                </div>
+                <!-- Campo 4 -->
+                <div class="form-group" style="flex: 1 1 45%; display: flex; flex-direction: column;">
+                    <label for="product4">Producto 4</label>
+                    <input type="text" id="product4" name="product4" class="form-control">
+                </div>
+                <!-- Campo 5 -->
+                <div class="form-group" style="flex: 1 1 45%; display: flex; flex-direction: column;">
+                    <label for="product5">Producto 5</label>
+                    <input type="text" id="product5" name="product5" class="form-control">
+                </div>
+                <!-- Campo 6 -->
+                <div class="form-group" style="flex: 1 1 45%; display: flex; flex-direction: column;">
+                    <label for="product6">Producto 6</label>
+                    <input type="text" id="product6" name="product6" class="form-control">
+                </div>
             </div>
         </div>
     </div>
