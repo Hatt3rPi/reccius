@@ -257,23 +257,17 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         Producción
     </a>
     <div class="smenu">
-        <a id="Ingreso_OC" href="#" data-breadcrumb="Home > Producción > Ingreso Orden de Compra" class="con-borde-inferior">
-            <span>
-                <img src="../assets/images/search.svg" alt="Icono de Ingreso OC" class="icono-usuario" height="24" width="24" />
-            </span>
-            Listado de Clientes
-        </a>
-        <a id="Listado_OC" href="#" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
-            <span>
-                <img src="../assets/images/search.svg" alt="Icono de Ordenes de Compra" class="icono-usuario" height="24" width="24" />
-            </span>
-            Listado de Clientes
-        </a>
         <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
             <span>
                 <img src="../assets/images/search.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24" />
             </span>
             Listado de Clientes
+        </a>
+        <a id="Nuevo_Reporte" href="#" data-breadcrumb="Home > Producción > Nuevo Reporte" class="con-borde-inferior">
+            <span>
+                <img src="../assets/images/report.svg" alt="Icono de Nuevo Reporte" class="icono-usuario" height="24" width="24" />
+            </span>
+            Nuevo Reporte
         </a>
     </div>
 </li>

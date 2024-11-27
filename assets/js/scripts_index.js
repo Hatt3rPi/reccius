@@ -459,7 +459,7 @@ $(document).ready(function () {
     });
 
     // Manejo de clic para "Nuevo Reporte"
-    $('#Listado_OC').click(function (event) {
+    $('#Nuevo_Reporte').click(function (event) {
         if (AppConfig.FLAGS.nuevo_reporte) {
             event.preventDefault();
             $('#dynamic-content').hide();
@@ -467,7 +467,7 @@ $(document).ready(function () {
 
             console.log('El enlace Nuevo Reporte fue clickeado.');
 
-            $('#dynamic-content').load('Produccion/Listado_OC.php', function (response, status, xhr) {
+            $('#dynamic-content').load('Produccion/Nuevo_reporte.php', function (response, status, xhr) {
                 if (status === "error") {
                     console.error("Error al cargar Nuevo Reporte: " + xhr.status + " " + xhr.statusText);
                 } else {
@@ -481,30 +481,6 @@ $(document).ready(function () {
             featureNoDisponible();
         }
     });
-    // Manejo de clic para "Nuevo Reporte"
-    $('#Ingreso_OC').click(function (event) {
-        if (AppConfig.FLAGS.nuevo_reporte) {
-            event.preventDefault();
-            $('#dynamic-content').hide();
-            $('#loading-spinner').show();
-
-            console.log('El enlace Nuevo Reporte fue clickeado.');
-
-            $('#dynamic-content').load('Produccion/Ingreso_OC.php', function (response, status, xhr) {
-                if (status === "error") {
-                    console.error("Error al cargar Nuevo Reporte: " + xhr.status + " " + xhr.statusText);
-                } else {
-                    obtenNotificaciones();
-                    console.log('Nuevo Reporte cargado exitosamente.');
-                }
-                $('#loading-spinner').hide();
-                $('#dynamic-content').show();
-            });
-        } else {
-            featureNoDisponible();
-        }
-    });
-    
 });
 
 
