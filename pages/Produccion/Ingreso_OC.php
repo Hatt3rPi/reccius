@@ -109,7 +109,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const productContainers = document.getElementById("product-containers");
             const addProductButton = document.getElementById("add-product");
 
-            let productCount = 1; // Iniciar con 1 debido al contenedor inicial
+            let productCount = 1; // Contador inicial para productos
 
             addProductButton.addEventListener("click", () => {
                 productCount++;
@@ -134,7 +134,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 deleteButton.classList.add("btn-delete");
                 deleteButton.textContent = "Eliminar";
 
-                // Eventos para los botones
+                // Agregar eventos a los botones
                 saveButton.addEventListener("click", () => {
                     alert(`Producto ${productCount} guardado`);
                 });
@@ -160,7 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     formGroup.classList.add("form-group");
 
                     const label = document.createElement("label");
-                    label.textContent = `Producto ${i}`;
+                    label.textContent = `Producto ${productCount} - Campo ${i}`;
 
                     const input = document.createElement("input");
                     input.type = "text";
@@ -172,11 +172,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     productContainer.appendChild(formGroup);
                 }
 
-                // Agregar el nuevo contenedor al DOM
+                // Añadir el nuevo contenedor al DOM
                 productContainers.appendChild(productContainer);
             });
         });
-
     </script>
 </body>
 
