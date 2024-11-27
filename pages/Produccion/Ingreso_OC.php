@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-// Verificar si la variable de sesión "usuario" no está establecida o está vacía.
+// Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
-    // Redirigir al usuario a la página de inicio de sesión.
     header("Location: login.html");
     exit;
 }
@@ -14,7 +13,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso OC</title>
+    <title>Ingreso Orden de Compra (OC)</title>
     <link rel="stylesheet" href="../assets/css/Ingreso_OC.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notify.js"></script>
@@ -28,7 +27,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <h1>Ingreso Orden de Compra (OC)</h1>
             </div>
 
-            <!-- Primer Contenedor -->
+            <!-- Campos del Formulario Principal -->
             <div id="container-1" class="input-container">
                 <div class="form-group">
                     <label for="campo1">Campo 1</label>
@@ -56,14 +55,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
 
-            <!-- Botón de Agregar Producto -->
+            <!-- Botón para Agregar Productos -->
             <div id="add-product-container" class="button-container">
                 <button id="add-product" class="btn-blue">Agregar Producto</button>
             </div>
 
             <!-- Contenedores de Productos -->
             <div id="product-containers">
-                <!-- Contenedor por defecto siempre visible -->
+                <!-- Contenedor de Producto Predeterminado -->
                 <div class="product-container">
                     <div class="top-buttons">
                         <button class="btn-save">Guardar</button>
@@ -99,17 +98,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
     </div>
 
+    <!-- Botones Finales -->
     <div class="button-container">
         <button class="ingControl" id="save-oc">Guardar OC</button>
         <button class="ingControl" id="cancel-oc">Cancelar</button>
     </div>
 
+    <!-- Script para el Comportamiento Dinámico -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const productContainers = document.getElementById("product-containers");
             const addProductButton = document.getElementById("add-product");
 
-            let productCount = 1; // Contador inicial para productos
+            let productCount = 1; // Iniciar con 1 debido al contenedor inicial
 
             addProductButton.addEventListener("click", () => {
                 productCount++;
