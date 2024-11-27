@@ -15,7 +15,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingreso OC</title>
-    <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
+    <link rel="stylesheet" href="../assets/css/Ingreso_OC.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notify.js"></script>
 </head>
