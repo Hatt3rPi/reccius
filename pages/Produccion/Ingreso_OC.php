@@ -140,12 +140,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const button = document.getElementById('add-product');
+            button.style.pointerEvents = 'auto';
+            button.style.visibility = 'visible';
+            button.style.zIndex = '1000';
+            console.log("Botón encontrado:", button);
 
             if (button) {
-                console.log("Botón encontrado correctamente.");
-                button.addEventListener('click', () => {
-                    console.log("Botón clickeado.");
-                    alert("El botón funciona.");
+                button.addEventListener('click', function () {
+                    console.log("Evento 'click' activado en el botón.");
+                    alert("El botón funciona correctamente.");
                 });
             } else {
                 console.error("No se encontró el botón.");
