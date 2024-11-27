@@ -426,8 +426,6 @@ $(document).ready(function () {
         }
     });
 });
-
-
 // ================================
 //       SECCIÓN: Producción
 // ================================
@@ -435,76 +433,64 @@ $(document).ready(function () {
 $(document).ready(function () {
     // Manejo de clic para "Listado de Clientes"
     $('#Listado_Clientes').click(function (event) {
-        if (AppConfig.FLAGS.listado_clientes) {
-            event.preventDefault(); // Prevenir la navegación predeterminada
-            $('#dynamic-content').hide(); // Ocultar contenido actual
-            $('#loading-spinner').show(); // Mostrar spinner
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#dynamic-content').hide(); // Ocultar contenido actual
+        $('#loading-spinner').show(); // Mostrar spinner
 
-            console.log('El enlace Listado de Clientes fue clickeado.');
+        console.log('El enlace Listado de Clientes fue clickeado.');
 
-            $('#dynamic-content').load('Produccion/Listado_clientes.php', function (response, status, xhr) {
-                if (status === "error") {
-                    console.error("Error al cargar Listado de Clientes: " + xhr.status + " " + xhr.statusText);
-                } else {
-                    obtenNotificaciones(); // Actualizar notificaciones
-                    carga_listado(); // Llamar a la función para manejar la lista
-                    console.log('Listado de Clientes cargado exitosamente.');
-                }
-                $('#loading-spinner').hide(); // Ocultar spinner
-                $('#dynamic-content').show(); // Mostrar contenido
-            });
-        } else {
-            featureNoDisponible(); // Función no disponible
-        }
+        $('#dynamic-content').load('Produccion/Listado_clientes.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Listado de Clientes: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones(); // Actualizar notificaciones
+                carga_listado(); // Llamar a la función para manejar la lista
+                console.log('Listado de Clientes cargado exitosamente.');
+            }
+            $('#loading-spinner').hide(); // Ocultar spinner
+            $('#dynamic-content').show(); // Mostrar contenido
+        });
     });
 
-    // Manejo de clic para "Nuevo Reporte"
+    // Manejo de clic para "Listado OC"
     $('#Listado_OC').click(function (event) {
-        if (AppConfig.FLAGS.nuevo_reporte) {
-            event.preventDefault();
-            $('#dynamic-content').hide();
-            $('#loading-spinner').show();
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
 
-            console.log('El enlace Nuevo Reporte fue clickeado.');
+        console.log('El enlace Listado OC fue clickeado.');
 
-            $('#dynamic-content').load('Produccion/Listado_OC.php', function (response, status, xhr) {
-                if (status === "error") {
-                    console.error("Error al cargar Nuevo Reporte: " + xhr.status + " " + xhr.statusText);
-                } else {
-                    obtenNotificaciones();
-                    console.log('Nuevo Reporte cargado exitosamente.');
-                }
-                $('#loading-spinner').hide();
-                $('#dynamic-content').show();
-            });
-        } else {
-            featureNoDisponible();
-        }
+        $('#dynamic-content').load('Produccion/Listado_OC.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Listado OC: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Listado OC cargado exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
     });
-    // Manejo de clic para "Nuevo Reporte"
+
+    // Manejo de clic para "Ingreso OC"
     $('#Ingreso_OC').click(function (event) {
-        if (AppConfig.FLAGS.nuevo_reporte) {
-            event.preventDefault();
-            $('#dynamic-content').hide();
-            $('#loading-spinner').show();
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
 
-            console.log('El enlace Nuevo Reporte fue clickeado.');
+        console.log('El enlace Ingreso OC fue clickeado.');
 
-            $('#dynamic-content').load('Produccion/Ingreso_OC.php', function (response, status, xhr) {
-                if (status === "error") {
-                    console.error("Error al cargar Nuevo Reporte: " + xhr.status + " " + xhr.statusText);
-                } else {
-                    obtenNotificaciones();
-                    console.log('Nuevo Reporte cargado exitosamente.');
-                }
-                $('#loading-spinner').hide();
-                $('#dynamic-content').show();
-            });
-        } else {
-            featureNoDisponible();
-        }
+        $('#dynamic-content').load('Produccion/Ingreso_OC.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Ingreso OC: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Ingreso OC cargado exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
     });
-    
 });
 
 
