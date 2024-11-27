@@ -261,13 +261,13 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             <span>
                 <img src="../assets/images/search.svg" alt="Icono de Ingreso OC" class="icono-usuario" height="24" width="24" />
             </span>
-            Listado de Clientes
+            Ingreso Ordenes de Compra
         </a>
         <a id="Listado_OC" href="#" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
             <span>
                 <img src="../assets/images/search.svg" alt="Icono de Ordenes de Compra" class="icono-usuario" height="24" width="24" />
             </span>
-            Listado de Clientes
+            Listado de Ordenes de Compra
         </a>
         <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
             <span>
