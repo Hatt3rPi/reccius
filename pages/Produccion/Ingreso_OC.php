@@ -58,7 +58,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
         </div>
-
+        <!-- Botón para Agregar Producto -->
+        <div class="button-container">
+            <button id="add-product" class="btn-add-product">Agregar Producto</button>
+        </div>
         <!-- Contenedor de Productos -->
         <div id="products-container">
             <h2>Productos</h2>
@@ -95,6 +98,52 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
         </div>
     </div>
+
+    <!-- Script para agregar contenedores dinámicamente -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addProductButton = document.getElementById('add-product');
+            const productsContainerWrapper = document.getElementById('products-container-wrapper');
+
+            addProductButton.addEventListener('click', () => {
+                const newContainer = document.createElement('div');
+                newContainer.classList.add('products-container');
+                newContainer.innerHTML = `
+                    <h2>Productos</h2>
+                    <div class="form-group">
+                        <label for="product1">Producto 1</label>
+                        <input type="text" name="product1">
+                    </div>
+                    <div class="form-group">
+                        <label for="product2">Producto 2</label>
+                        <input type="text" name="product2">
+                    </div>
+                    <div class="form-group">
+                        <label for="product3">Producto 3</label>
+                        <input type="text" name="product3">
+                    </div>
+                    <div class="form-group">
+                        <label for="product4">Producto 4</label>
+                        <input type="text" name="product4">
+                    </div>
+                    <div class="form-group">
+                        <label for="product5">Producto 5</label>
+                        <input type="text" name="product5">
+                    </div>
+                    <div class="form-group">
+                        <label for="product6">Producto 6</label>
+                        <input type="text" name="product6">
+                    </div>
+                    <div class="button-container">
+                        <button class="btn-save">Guardar</button>
+                        <button class="btn-edit">Editar</button>
+                        <button class="btn-delete">Eliminar</button>
+                    </div>
+                `;
+                productsContainerWrapper.appendChild(newContainer);
+            });
+        });
+    </script>
 </body>
 
 </html>
