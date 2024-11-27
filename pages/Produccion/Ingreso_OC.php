@@ -18,7 +18,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <link rel="stylesheet" href="../assets/css/Ingreso_OC.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notify.js"></script>
-    
 </head>
 
 <body>
@@ -63,100 +62,95 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
             </div>
 
-            <!-- Botón de Agregar Producto -->
-            <div id="add-product-container" style="text-align: center;">
-                <button id="add-product">Agregar Producto</button>
+            <!-- Botón Agregar Producto -->
+            <div>
+                <button id="add-product" class="btn-blue">Agregar Producto</button>
             </div>
 
-<!-- Contenedores de Productos -->
-<div id="product-containers">
-    <button id="add-product" class="btn-blue" style="float: right; margin-bottom: 20px;">Agregar Producto</button>
-
-    <!-- Contenedor de Producto Ejemplo -->
-    <div class="product-container">
-        <!-- Botones superiores -->
-        <div class="top-buttons">
-            <button class="btn-save">Guardar</button>
-            <button class="btn-edit">Editar</button>
-            <button class="btn-delete">Eliminar</button>
-        </div>
-        <!-- Campos de Producto -->
-        <div class="form-group">
-            <label for="product1">Producto 1</label>
-            <input type="text" id="product1" name="product1" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="product2">Producto 2</label>
-            <input type="text" id="product2" name="product2" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="product3">Producto 3</label>
-            <input type="text" id="product3" name="product3" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="product4">Producto 4</label>
-            <input type="text" id="product4" name="product4" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="product5">Producto 5</label>
-            <input type="text" id="product5" name="product5" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="product6">Producto 6</label>
-            <input type="text" id="product6" name="product6" class="form-control">
-        </div>
-    </div>
-</div>
+            <!-- Contenedores de Productos -->
+            <div id="product-containers"></div>
         </div>
     </div>
 
-    <div class="button-container" style="margin-top: 20px; text-align: center;">
-        <button class="ingControl" id="save-oc" style="margin-right: 10px;">Guardar OC</button>
-        <button class="ingControl" id="cancel-oc">Cancelar</button>
+    <div class="button-container">
+        <button id="save-oc" class="btn-blue">Guardar OC</button>
+        <button id="cancel-oc" class="btn-delete">Cancelar</button>
     </div>
 
- 
-<script>
-    document.getElementById('add-product').addEventListener('click', function () {
-        // Crear un nuevo contenedor de productos
-        const newContainer = document.createElement('div');
-        newContainer.classList.add('product-container');
-        newContainer.innerHTML = `
-            <div class="top-buttons">
-                <button class="btn-save">Guardar</button>
-                <button class="btn-edit">Editar</button>
-                <button class="btn-delete">Eliminar</button>
-            </div>
-            <div class="form-group">
-                <label for="product1">Producto 1</label>
-                <input type="text" id="product1" name="product1" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="product2">Producto 2</label>
-                <input type="text" id="product2" name="product2" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="product3">Producto 3</label>
-                <input type="text" id="product3" name="product3" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="product4">Producto 4</label>
-                <input type="text" id="product4" name="product4" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="product5">Producto 5</label>
-                <input type="text" id="product5" name="product5" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="product6">Producto 6</label>
-                <input type="text" id="product6" name="product6" class="form-control">
-            </div>
-        `;
-
-        // Agregar el nuevo contenedor al contenedor principal
-        document.getElementById('product-containers').appendChild(newContainer);
-    });
-</script>
+    <script src="../assets/js/Ingreso_OC.js"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const productContainers = document.getElementById("product-containers");
+    const addProductButton = document.getElementById("add-product");
 
+    let productCount = 0;
+
+    addProductButton.addEventListener("click", () => {
+        productCount++;
+
+        // Crear nuevo contenedor de producto
+        const productContainer = document.createElement("div");
+        productContainer.classList.add("product-container");
+
+        // Agregar botones superiores
+        const topButtons = document.createElement("div");
+        topButtons.classList.add("top-buttons");
+
+        const saveButton = document.createElement("button");
+        saveButton.classList.add("btn-save");
+        saveButton.textContent = "Guardar";
+
+        const editButton = document.createElement("button");
+        editButton.classList.add("btn-edit");
+        editButton.textContent = "Editar";
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("btn-delete");
+        deleteButton.textContent = "Eliminar";
+
+        // Eventos para los botones
+        saveButton.addEventListener("click", () => {
+            alert(`Producto ${productCount} guardado`);
+        });
+
+        editButton.addEventListener("click", () => {
+            alert(`Editar Producto ${productCount}`);
+        });
+
+        deleteButton.addEventListener("click", () => {
+            if (confirm(`¿Estás seguro de eliminar el Producto ${productCount}?`)) {
+                productContainers.removeChild(productContainer);
+            }
+        });
+
+        topButtons.appendChild(saveButton);
+        topButtons.appendChild(editButton);
+        topButtons.appendChild(deleteButton);
+        productContainer.appendChild(topButtons);
+
+        // Agregar campos de producto
+        for (let i = 1; i <= 6; i++) {
+            const formGroup = document.createElement("div");
+            formGroup.classList.add("form-group");
+
+            const label = document.createElement("label");
+            label.textContent = `Producto ${i}`;
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = `product${productCount}-${i}`;
+            input.classList.add("form-control");
+
+            formGroup.appendChild(label);
+            formGroup.appendChild(input);
+            productContainer.appendChild(formGroup);
+        }
+
+        // Agregar el nuevo contenedor al DOM
+        productContainers.appendChild(productContainer);
+    });
+});
+
+</script>
 </html>

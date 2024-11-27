@@ -31,6 +31,7 @@
     border-radius: 8px;
     padding: 20px;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
 }
 
 /* Estilos para los grupos de formulario */
@@ -94,36 +95,9 @@
 .button-container #cancel-oc:hover {
     background-color: #a71d2a;
 }
-.product-container {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    background-color: #f2f2f2; /* Fondo gris claro */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    background: #f2f2f2;
-}
 
-.form-group {
-    flex: 1 1 45%;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: bold;
-}
-
-.form-group input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
- /* Contenedor principal */
- #product-containers {
+/* Contenedor principal de productos */
+#product-containers {
     margin-top: 20px;
 }
 
@@ -136,6 +110,8 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    float: right;
+    margin-bottom: 20px;
 }
 
 .btn-blue:hover {
@@ -144,15 +120,22 @@
 
 /* Contenedor de Producto */
 .product-container {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     padding: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    background-color: #f2f2f2; /* Fondo gris */
+    background-color: #f8f9fa; /* Fondo gris claro */
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más prominente */
     position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Botones superiores */
@@ -170,6 +153,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
+    transition: background-color 0.2s;
 }
 
 .btn-save {
@@ -200,21 +184,26 @@
 }
 
 /* Campos dentro del contenedor */
-.form-group {
+.product-container .form-group {
     flex: 1 1 45%;
-    display: flex;
-    flex-direction: column;
 }
 
-.form-group label {
+.product-container .form-group label {
     font-weight: bold;
+    color: #333;
 }
 
-.form-group input {
+.product-container .form-group input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: border-color 0.3s;
 }
+
+.product-container .form-group input:focus {
+    border-color: #004a99;
+}
+
 /* Estilo responsivo */
 @media (max-width: 768px) {
     #container-1 {
@@ -227,5 +216,11 @@
 
     #header-container h1 {
         font-size: 28px;
+    }
+
+    .top-buttons {
+        position: static;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 }
