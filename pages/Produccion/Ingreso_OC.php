@@ -112,70 +112,34 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             let productCount = 1; // Iniciar con 1 debido al contenedor inicial
 
-            addProductButton.addEventListener("click", () => {
+            addProductButton.onclick = function () {
                 productCount++;
 
                 // Crear nuevo contenedor de producto
-                const productContainer = document.createElement("div");
-                productContainer.classList.add("product-container");
+                const productContainer = `
+                    <div class="product-container">
+                        <div class="top-buttons">
+                            <button class="btn-save">Guardar</button>
+                            <button class="btn-edit">Editar</button>
+                            <button class="btn-delete">Eliminar</button>
+                        </div>
+                        ${[...Array(6)].map((_, i) => `
+                            <div class="form-group">
+                                <label>Producto ${productCount} - Campo ${i + 1}</label>
+                                <input type="text" name="product${productCount}-${i + 1}" class="form-control">
+                            </div>
+                        `).join("")}
+                    </div>
+                `;
 
-                // Agregar botones superiores
-                const topButtons = document.createElement("div");
-                topButtons.classList.add("top-buttons");
+                // Insertar el nuevo contenedor
+                productContainers.insertAdjacentHTML('beforeend', productContainer);
 
-                const saveButton = document.createElement("button");
-                saveButton.classList.add("btn-save");
-                saveButton.textContent = "Guardar";
-
-                const editButton = document.createElement("button");
-                editButton.classList.add("btn-edit");
-                editButton.textContent = "Editar";
-
-                const deleteButton = document.createElement("button");
-                deleteButton.classList.add("btn-delete");
-                deleteButton.textContent = "Eliminar";
-
-                // Agregar eventos a los botones
-                saveButton.addEventListener("click", () => {
-                    alert(`Producto ${productCount} guardado`);
-                });
-
-                editButton.addEventListener("click", () => {
-                    alert(`Editar Producto ${productCount}`);
-                });
-
-                deleteButton.addEventListener("click", () => {
-                    if (confirm(`¿Estás seguro de eliminar el Producto ${productCount}?`)) {
-                        productContainers.removeChild(productContainer);
-                    }
-                });
-
-                topButtons.appendChild(saveButton);
-                topButtons.appendChild(editButton);
-                topButtons.appendChild(deleteButton);
-                productContainer.appendChild(topButtons);
-
-                // Agregar campos de producto
-                for (let i = 1; i <= 6; i++) {
-                    const formGroup = document.createElement("div");
-                    formGroup.classList.add("form-group");
-
-                    const label = document.createElement("label");
-                    label.textContent = `Producto ${productCount} - Campo ${i}`;
-
-                    const input = document.createElement("input");
-                    input.type = "text";
-                    input.name = `product${productCount}-${i}`;
-                    input.classList.add("form-control");
-
-                    formGroup.appendChild(label);
-                    formGroup.appendChild(input);
-                    productContainer.appendChild(formGroup);
-                }
-
-                // Añadir el nuevo contenedor al DOM
-                productContainers.appendChild(productContainer);
-            });
+                // Añadir eventos a los nuevos botones
+                productContainers.lastElementChild.querySelector('.btn-delete').onclick = function () {
+                    productContainers.removeChild(this.parentNode.parentNode);
+                };
+            };
         });
     </script>
 </body>
