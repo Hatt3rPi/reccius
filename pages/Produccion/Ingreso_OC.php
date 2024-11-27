@@ -9,16 +9,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Productos</title>
     <link rel="stylesheet" href="../assets/css/Ingreso_OC.css">
 </head>
+
 <body>
     <div id="form-container">
-         <!-- Contenedor 1 -->
-         <div id="container-1">
+        <!-- Contenedor 1 -->
+        <div id="container-1">
             <div class="column">
                 <div class="form-group">
                     <label for="form1">Formulario 1</label>
@@ -60,6 +62,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <!-- Contenedor de Productos -->
         <div id="products-container">
             <h2>Productos</h2>
+            <!-- Botones dentro del contenedor de productos -->
+            <div class="button-container">
+                <button class="btn-save">Guardar</button>
+                <button class="btn-edit">Editar</button>
+                <button class="btn-delete">Eliminar</button>
+            </div>
+
             <div class="form-group">
                 <label for="product1">Producto 1</label>
                 <input type="text" id="product1" name="product1">
@@ -85,13 +94,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <input type="text" id="product6" name="product6">
             </div>
         </div>
-
-        <!-- Botones -->
-        <div class="button-container">
-            <button class="btn-save">Guardar</button>
-            <button class="btn-edit">Editar</button>
-            <button class="btn-delete">Eliminar</button>
-        </div>
     </div>
 </body>
+
 </html>
