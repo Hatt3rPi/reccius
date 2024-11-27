@@ -17,8 +17,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </head>
 <body>
     <div id="form-container">
-        <!-- Contenedor 1 -->
-        <div id="container-1">
+         <!-- Contenedor 1 -->
+         <div id="container-1">
             <div class="column">
                 <div class="form-group">
                     <label for="form1">Formulario 1</label>

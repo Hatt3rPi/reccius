@@ -1,4 +1,6 @@
+/* ========================= */
 /* Estilo General */
+/* ========================= */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,29 +8,33 @@ body {
     background-color: #f4f4f4;
 }
 
+/* ========================= */
 /* Contenedor Principal */
+/* ========================= */
 #form-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    margin: 20px auto; /* Centrado horizontal */
+    padding: 20px; /* Espaciado interno */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+    border-radius: 8px; /* Esquinas redondeadas */
 }
 
-/* Contenedor 1 */
+/* ========================= */
+/* Contenedor 1: Formulario Principal */
+/* ========================= */
 #container-1 {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 30px;
+    display: flex; /* Flexbox para organizar columnas */
+    justify-content: space-between; /* Espaciado uniforme entre columnas */
+    gap: 20px; /* Espaciado entre columnas */
+    margin-bottom: 30px; /* Separación del siguiente bloque */
 }
 
 .column {
-    flex: 1;
-    display: flex;
+    flex: 1; /* Cada columna ocupa el mismo espacio */
+    display: flex; /* Organizar elementos en columna */
     flex-direction: column;
-    gap: 15px;
+    gap: 15px; /* Espaciado entre inputs */
 }
 
 .form-group {
@@ -37,92 +43,101 @@ body {
 }
 
 .form-group label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
+    font-size: 14px; /* Tamaño del texto de la etiqueta */
+    font-weight: bold; /* Texto en negrita */
+    color: #555; /* Color gris para el texto */
+    margin-bottom: 5px; /* Separación con el input */
 }
 
 .form-group input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    transition: border-color 0.3s ease;
+    padding: 10px; /* Espaciado interno del campo */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Esquinas redondeadas */
+    background-color: #fff; /* Fondo blanco */
+    transition: border-color 0.3s ease; /* Transición suave en el enfoque */
 }
 
 .form-group input:focus {
-    border-color: #007bff;
-    outline: none;
+    border-color: #007bff; /* Borde azul en el enfoque */
+    outline: none; /* Quita el contorno predeterminado */
 }
 
+/* ========================= */
 /* Contenedor de Productos */
+/* ========================= */
 #products-container {
-    margin-top: 20px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border: 1px dashed #ccc;
-    border-radius: 8px;
+    margin-top: 20px; /* Separación del bloque anterior */
+    background-color: #f9f9f9; /* Fondo gris claro */
+    padding: 20px; /* Espaciado interno */
+    border: 1px dashed #ccc; /* Borde punteado */
+    border-radius: 8px; /* Esquinas redondeadas */
 }
 
 #products-container h2 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 18px; /* Tamaño del título */
+    color: #333; /* Color gris oscuro */
+    margin-bottom: 20px; /* Separación con los campos */
 }
 
+/* ========================= */
 /* Botones */
+/* ========================= */
 .button-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
+    display: flex; /* Flexbox para alinear botones */
+    justify-content: flex-end; /* Botones alineados a la derecha */
+    gap: 10px; /* Espaciado entre botones */
+    margin-top: 20px; /* Separación del contenido anterior */
 }
 
 .button-container button {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 10px 20px; /* Tamaño de los botones */
+    font-size: 14px; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    border: none; /* Quita los bordes predeterminados */
+    border-radius: 4px; /* Esquinas redondeadas */
+    cursor: pointer; /* Cursor en forma de mano */
+    transition: background-color 0.3s ease; /* Efecto hover */
 }
 
+/* Botón Guardar */
 .btn-save {
-    background-color: #28a745;
-    color: #fff;
+    background-color: #28a745; /* Verde */
+    color: #fff; /* Texto blanco */
 }
 
 .btn-save:hover {
-    background-color: #218838;
+    background-color: #218838; /* Verde oscuro en hover */
 }
 
+/* Botón Editar */
 .btn-edit {
-    background-color: #ffc107;
-    color: #fff;
+    background-color: #ffc107; /* Amarillo */
+    color: #fff; /* Texto blanco */
 }
 
 .btn-edit:hover {
-    background-color: #e0a800;
+    background-color: #e0a800; /* Amarillo oscuro en hover */
 }
 
+/* Botón Eliminar */
 .btn-delete {
-    background-color: #dc3545;
-    color: #fff;
+    background-color: #dc3545; /* Rojo */
+    color: #fff; /* Texto blanco */
 }
 
 .btn-delete:hover {
-    background-color: #c82333;
+    background-color: #c82333; /* Rojo oscuro en hover */
 }
 
+/* ========================= */
 /* Responsivo */
+/* ========================= */
 @media (max-width: 768px) {
     #container-1 {
-        flex-direction: column;
+        flex-direction: column; /* Apila las columnas verticalmente */
     }
 
     .button-container {
-        justify-content: center;
+        justify-content: center; /* Botones centrados */
     }
 }
