@@ -18,42 +18,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <link rel="stylesheet" href="../assets/css/Ingreso_OC.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="../assets/js/notify.js"></script>
-    <style>
-        .product-container {
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .form-group {
-            flex: 1 1 45%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .form-group input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        #add-product {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -103,35 +68,39 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <button id="add-product">Agregar Producto</button>
             </div>
 
-           <!-- Contenedores de Productos -->
+<!-- Contenedores de Productos -->
 <div id="product-containers">
+    <button id="add-product" class="btn-blue" style="float: right; margin-bottom: 20px;">Agregar Producto</button>
+
+    <!-- Contenedor de Producto Ejemplo -->
     <div class="product-container">
-        <!-- Campo 1 -->
+        <!-- Botones superiores -->
+        <div class="top-buttons">
+            <button class="btn-save">Guardar</button>
+            <button class="btn-edit">Editar</button>
+            <button class="btn-delete">Eliminar</button>
+        </div>
+        <!-- Campos de Producto -->
         <div class="form-group">
             <label for="product1">Producto 1</label>
             <input type="text" id="product1" name="product1" class="form-control">
         </div>
-        <!-- Campo 2 -->
         <div class="form-group">
             <label for="product2">Producto 2</label>
             <input type="text" id="product2" name="product2" class="form-control">
         </div>
-        <!-- Campo 3 -->
         <div class="form-group">
             <label for="product3">Producto 3</label>
             <input type="text" id="product3" name="product3" class="form-control">
         </div>
-        <!-- Campo 4 -->
         <div class="form-group">
             <label for="product4">Producto 4</label>
             <input type="text" id="product4" name="product4" class="form-control">
         </div>
-        <!-- Campo 5 -->
         <div class="form-group">
             <label for="product5">Producto 5</label>
             <input type="text" id="product5" name="product5" class="form-control">
         </div>
-        <!-- Campo 6 -->
         <div class="form-group">
             <label for="product6">Producto 6</label>
             <input type="text" id="product6" name="product6" class="form-control">
@@ -146,14 +115,48 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         <button class="ingControl" id="cancel-oc">Cancelar</button>
     </div>
 
-    <script>
-        // Función para clonar un contenedor de producto y agregarlo al DOM
-        document.getElementById('add-product').addEventListener('click', function () {
-            const container = document.querySelector('.product-container');
-            const newContainer = container.cloneNode(true); // Clonar el contenedor existente
-            document.getElementById('product-containers').appendChild(newContainer); // Agregarlo al contenedor padre
-        });
-    </script>
+ 
+<script>
+    document.getElementById('add-product').addEventListener('click', function () {
+        // Crear un nuevo contenedor de productos
+        const newContainer = document.createElement('div');
+        newContainer.classList.add('product-container');
+        newContainer.innerHTML = `
+            <div class="top-buttons">
+                <button class="btn-save">Guardar</button>
+                <button class="btn-edit">Editar</button>
+                <button class="btn-delete">Eliminar</button>
+            </div>
+            <div class="form-group">
+                <label for="product1">Producto 1</label>
+                <input type="text" id="product1" name="product1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="product2">Producto 2</label>
+                <input type="text" id="product2" name="product2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="product3">Producto 3</label>
+                <input type="text" id="product3" name="product3" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="product4">Producto 4</label>
+                <input type="text" id="product4" name="product4" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="product5">Producto 5</label>
+                <input type="text" id="product5" name="product5" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="product6">Producto 6</label>
+                <input type="text" id="product6" name="product6" class="form-control">
+            </div>
+        `;
+
+        // Agregar el nuevo contenedor al contenedor principal
+        document.getElementById('product-containers').appendChild(newContainer);
+    });
+</script>
 </body>
 
 </html>
