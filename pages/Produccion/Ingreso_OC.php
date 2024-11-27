@@ -144,16 +144,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             const productTemplate = document.getElementById('product-template');
 
             // Agregar evento al botón y verificar con console.log
-            addProductButton.addEventListener('click', () => {
-                console.log("Botón 'Agregar Producto' activado."); // Verificar que el evento se activa
+            if (addProductButton) {
+                console.log("Botón encontrado. Agregando evento...");
+                addProductButton.addEventListener('click', () => {
+                    console.log("Botón 'Agregar Producto' activado."); // Verificar que el evento se activa
 
-                // Clona la plantilla y agrega el nuevo contenedor al wrapper
-                const newProductContainer = document.importNode(productTemplate.content, true);
-                productsContainerWrapper.appendChild(newProductContainer);
+                    // Clona la plantilla y agrega el nuevo contenedor al wrapper
+                    const newProductContainer = document.importNode(productTemplate.content, true);
+                    productsContainerWrapper.appendChild(newProductContainer);
 
-                console.log("Nuevo contenedor de productos añadido.");
-            });
+                    console.log("Nuevo contenedor de productos añadido.");
+                });
+            } else {
+                console.error("No se encontró el botón con ID 'add-product'.");
+            }
         });
+
     </script>
 </body>
 
