@@ -427,6 +427,31 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('#reporte_ventas').click(function (event) {
+        if (AppConfig.FLAGS.reporte_ventas) { // Verificar si la funcionalidad está habilitada
+            event.preventDefault(); // Prevenir la navegación predeterminada
+            $('#dynamic-content').hide(); // Ocultar el contenido actual
+            $('#loading-spinner').show(); // Mostrar el spinner de carga
+            console.log('El enlace de Reporte de Ventas fue clickeado.'); // Confirmar que el evento funciona correctamente
+
+            // Cargar el contenido dinámico dentro del div #dynamic-content
+            $('#dynamic-content').load('Produccion/Listado_clientes.php', function (response, status, xhr) {
+                if (status === "error") {
+                    console.log("Error al cargar la página: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+                } else {
+                    obtenNotificaciones(); // Actualizar notificaciones
+                    carga_listado(); // Llamar a una función específica para manejar la lista si es necesario
+                    console.log('Página Reporte de Ventas cargada exitosamente.'); // Confirmar que la carga fue exitosa
+                }
+                $('#loading-spinner').hide(); // Ocultar el spinner de carga
+                $('#dynamic-content').show(); // Mostrar el contenido dinámico
+            });
+        } else {
+            featureNoDisponible(); // Mostrar mensaje de funcionalidad no disponible
+        }
+    });
+});
 
 
 
