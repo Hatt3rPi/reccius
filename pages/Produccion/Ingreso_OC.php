@@ -139,27 +139,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Script para manejar la lógica -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const addProductButton = document.getElementById('add-product');
-            const productsContainerWrapper = document.getElementById('products-container-wrapper');
-            const productTemplate = document.getElementById('product-template');
+            const button = document.getElementById('add-product');
 
-            // Agregar evento al botón y verificar con console.log
-            if (addProductButton) {
-                console.log("Botón encontrado. Agregando evento...");
-                addProductButton.addEventListener('click', () => {
-                    console.log("Botón 'Agregar Producto' activado."); // Verificar que el evento se activa
-
-                    // Clona la plantilla y agrega el nuevo contenedor al wrapper
-                    const newProductContainer = document.importNode(productTemplate.content, true);
-                    productsContainerWrapper.appendChild(newProductContainer);
-
-                    console.log("Nuevo contenedor de productos añadido.");
+            if (button) {
+                console.log("Botón encontrado correctamente.");
+                button.addEventListener('click', () => {
+                    console.log("Botón clickeado.");
+                    alert("El botón funciona.");
                 });
             } else {
-                console.error("No se encontró el botón con ID 'add-product'.");
+                console.error("No se encontró el botón.");
             }
         });
-
     </script>
 </body>
 
