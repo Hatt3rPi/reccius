@@ -103,41 +103,41 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <button id="add-product">Agregar Producto</button>
             </div>
 
-            <!-- Contenedores de Productos -->
-            <div id="product-containers">
-                <div class="product-container">
-                    <!-- Campo 1 -->
-                    <div class="form-group">
-                        <label for="product1">Producto 1</label>
-                        <input type="text" id="product1" name="product1" class="form-control">
-                    </div>
-                    <!-- Campo 2 -->
-                    <div class="form-group">
-                        <label for="product2">Producto 2</label>
-                        <input type="text" id="product2" name="product2" class="form-control">
-                    </div>
-                    <!-- Campo 3 -->
-                    <div class="form-group">
-                        <label for="product3">Producto 3</label>
-                        <input type="text" id="product3" name="product3" class="form-control">
-                    </div>
-                    <!-- Campo 4 -->
-                    <div class="form-group">
-                        <label for="product4">Producto 4</label>
-                        <input type="text" id="product4" name="product4" class="form-control">
-                    </div>
-                    <!-- Campo 5 -->
-                    <div class="form-group">
-                        <label for="product5">Producto 5</label>
-                        <input type="text" id="product5" name="product5" class="form-control">
-                    </div>
-                    <!-- Campo 6 -->
-                    <div class="form-group">
-                        <label for="product6">Producto 6</label>
-                        <input type="text" id="product6" name="product6" class="form-control">
-                    </div>
-                </div>
-            </div>
+           <!-- Contenedores de Productos -->
+<div id="product-containers">
+    <div class="product-container">
+        <!-- Campo 1 -->
+        <div class="form-group">
+            <label for="product1">Producto 1</label>
+            <input type="text" id="product1" name="product1" class="form-control">
+        </div>
+        <!-- Campo 2 -->
+        <div class="form-group">
+            <label for="product2">Producto 2</label>
+            <input type="text" id="product2" name="product2" class="form-control">
+        </div>
+        <!-- Campo 3 -->
+        <div class="form-group">
+            <label for="product3">Producto 3</label>
+            <input type="text" id="product3" name="product3" class="form-control">
+        </div>
+        <!-- Campo 4 -->
+        <div class="form-group">
+            <label for="product4">Producto 4</label>
+            <input type="text" id="product4" name="product4" class="form-control">
+        </div>
+        <!-- Campo 5 -->
+        <div class="form-group">
+            <label for="product5">Producto 5</label>
+            <input type="text" id="product5" name="product5" class="form-control">
+        </div>
+        <!-- Campo 6 -->
+        <div class="form-group">
+            <label for="product6">Producto 6</label>
+            <input type="text" id="product6" name="product6" class="form-control">
+        </div>
+    </div>
+</div>
         </div>
     </div>
 
