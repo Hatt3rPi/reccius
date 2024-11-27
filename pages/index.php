@@ -249,10 +249,16 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <li class="item" id="cotizador">
                     <a href="#Cotizador" class="btn_lateral">
                         <span>
-                            <img src="../assets/images/calculator.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" />
+                            <img src="../assets/images/calculator.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24" />
                         </span>
                         Cotizador
                     </a>
+                    <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Buscar" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/search.svg" alt="Icono de buscar dentro de cotizador" class="icono-usuario" height="24" width="24" />
+                            </span>
+                            Buscar
+                        </a>
                 </li>
             </ul>
         </aside>

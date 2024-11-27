@@ -428,7 +428,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#reporte_ventas').click(function (event) {
+    $('#Listado_Clientes').click(function (event) {
         if (AppConfig.FLAGS.reporte_ventas) { // Verificar si la funcionalidad está habilitada
             event.preventDefault(); // Prevenir la navegación predeterminada
             $('#dynamic-content').hide(); // Ocultar el contenido actual
