@@ -245,21 +245,33 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                         </a>
                     </div>
                 </li>
+                <!-- ============================= -->
+                <!--          PRODUCCIÓN        -->
+                <!-- ============================= -->
                 <li class="title">Producción</li>
-                <li class="item" id="cotizador">
-                    <a href="#Cotizador" class="btn_lateral">
-                        <span>
-                            <img src="../assets/images/calculator.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24" />
-                        </span>
-                        Cotizador
-                    </a>
-                    <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Buscar" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/search.svg" alt="Icono de buscar dentro de cotizador" class="icono-usuario" height="24" width="24" />
-                            </span>
-                            Buscar
-                        </a>
-                </li>
+                <li class="item" id="produccion">
+    <a href="#Produccion" class="btn_lateral">
+        <span>
+            <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario" height="24" width="24" />
+        </span>
+        Producción
+    </a>
+    <div class="smenu">
+        <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
+            <span>
+                <img src="../assets/images/search.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24" />
+            </span>
+            Listado de Clientes
+        </a>
+        <a id="Nuevo_Reporte" href="#" data-breadcrumb="Home > Producción > Nuevo Reporte" class="con-borde-inferior">
+            <span>
+                <img src="../assets/images/report.svg" alt="Icono de Nuevo Reporte" class="icono-usuario" height="24" width="24" />
+            </span>
+            Nuevo Reporte
+        </a>
+    </div>
+</li>
+
             </ul>
         </aside>
         <main class="content">

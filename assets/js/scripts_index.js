@@ -427,28 +427,58 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $('#Listado_Clientes').click(function (event) {
-        if (AppConfig.FLAGS.reporte_ventas) { // Verificar si la funcionalidad está habilitada
-            event.preventDefault(); // Prevenir la navegación predeterminada
-            $('#dynamic-content').hide(); // Ocultar el contenido actual
-            $('#loading-spinner').show(); // Mostrar el spinner de carga
-            console.log('El enlace de Reporte de Ventas fue clickeado.'); // Confirmar que el evento funciona correctamente
 
-            // Cargar el contenido dinámico dentro del div #dynamic-content
+// ================================
+//       SECCIÓN: Producción
+// ================================
+
+$(document).ready(function () {
+    // Manejo de clic para "Listado de Clientes"
+    $('#Listado_Clientes').click(function (event) {
+        if (AppConfig.FLAGS.listado_clientes) {
+            event.preventDefault(); // Prevenir la navegación predeterminada
+            $('#dynamic-content').hide(); // Ocultar contenido actual
+            $('#loading-spinner').show(); // Mostrar spinner
+
+            console.log('El enlace Listado de Clientes fue clickeado.');
+
             $('#dynamic-content').load('Produccion/Listado_clientes.php', function (response, status, xhr) {
                 if (status === "error") {
-                    console.log("Error al cargar la página: " + xhr.status + " " + xhr.statusText); // Mostrar errores de carga
+                    console.error("Error al cargar Listado de Clientes: " + xhr.status + " " + xhr.statusText);
                 } else {
                     obtenNotificaciones(); // Actualizar notificaciones
-                    carga_listado(); // Llamar a una función específica para manejar la lista si es necesario
-                    console.log('Página Reporte de Ventas cargada exitosamente.'); // Confirmar que la carga fue exitosa
+                    carga_listado(); // Llamar a la función para manejar la lista
+                    console.log('Listado de Clientes cargado exitosamente.');
                 }
-                $('#loading-spinner').hide(); // Ocultar el spinner de carga
-                $('#dynamic-content').show(); // Mostrar el contenido dinámico
+                $('#loading-spinner').hide(); // Ocultar spinner
+                $('#dynamic-content').show(); // Mostrar contenido
             });
         } else {
-            featureNoDisponible(); // Mostrar mensaje de funcionalidad no disponible
+            featureNoDisponible(); // Función no disponible
+        }
+    });
+
+    // Manejo de clic para "Nuevo Reporte"
+    $('#Nuevo_Reporte').click(function (event) {
+        if (AppConfig.FLAGS.nuevo_reporte) {
+            event.preventDefault();
+            $('#dynamic-content').hide();
+            $('#loading-spinner').show();
+
+            console.log('El enlace Nuevo Reporte fue clickeado.');
+
+            $('#dynamic-content').load('Produccion/Nuevo_reporte.php', function (response, status, xhr) {
+                if (status === "error") {
+                    console.error("Error al cargar Nuevo Reporte: " + xhr.status + " " + xhr.statusText);
+                } else {
+                    obtenNotificaciones();
+                    console.log('Nuevo Reporte cargado exitosamente.');
+                }
+                $('#loading-spinner').hide();
+                $('#dynamic-content').show();
+            });
+        } else {
+            featureNoDisponible();
         }
     });
 });
