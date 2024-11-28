@@ -444,7 +444,7 @@ $(document).ready(function () {
                 console.error("Error al cargar Listado de Clientes: " + xhr.status + " " + xhr.statusText);
             } else {
                 obtenNotificaciones(); // Actualizar notificaciones
-                carga_listado(); // Llamar a la función para manejar la lista
+               // carga_listado(); // Llamar a la función para manejar la lista
                 console.log('Listado de Clientes cargado exitosamente.');
             }
             $('#loading-spinner').hide(); // Ocultar spinner
