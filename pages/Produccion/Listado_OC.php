@@ -14,7 +14,7 @@
     <div class="form-container">
         <h1>Listado de Órdenes de Compra</h1>
         <h2 class="section-title">Órdenes Registradas</h2>
-        <table id="ordenes-listado" class="table table-bordered table-striped">
+        <table id="ordenes-listado">
             <thead>
                 <tr>
                     <th>ID Orden</th>
@@ -87,6 +87,8 @@
             </tbody>
         </table>
     </div>
+
+
     <!-- Inicialización de DataTables -->
     <script>
         $(document).ready(function () {
