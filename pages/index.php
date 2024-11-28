@@ -15,6 +15,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,9 +38,12 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <link rel="stylesheet" href="../assets/css/styles_dark.css">
 
     <!-- Bootstrap Datepicker CSS / JS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        rel="stylesheet">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
 
     <!-- JS Moment Fechas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -47,7 +51,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <!-- JS de DataTables -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    
+
 
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/7011384382.js" crossorigin="anonymous"></script>
@@ -68,7 +72,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <!-- CKEditor -->
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/classic/ckeditor.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/42.0.1/classic/ckeditor.js"></script>
-    
+
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css" />
     <script type="importmap">
         {
@@ -108,13 +112,18 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <header>
         <div class="header_estatico">
             <div class="logo-title-container">
-                <button id="toggle-sidebar-btn" class="buttonreset togglesibar"><img src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24" height="24"></button>
-                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo" href="https://customware.cl/reccius/pages/index.php" data-breadcrumb="Home > Data > Trazabilidad" class="logo" />
+                <button id="toggle-sidebar-btn" class="buttonreset togglesibar"><img
+                        src="../assets/images/menuburger.svg" alt="ocultar sidebar" width="24" height="24"></button>
+                <img src="../assets/images/logo_reccius_medicina_especializada-1.png" id="logo" name="logo" alt="Logo"
+                    href="https://customware.cl/reccius/pages/index.php" data-breadcrumb="Home > Data > Trazabilidad"
+                    class="logo" />
             </div>
-            <div id="notificaciones" name="notificaciones" class="notifications" data-breadcrumb="Home > Notificaciones > Listado de Tareas">
+            <div id="notificaciones" name="notificaciones" class="notifications"
+                data-breadcrumb="Home > Notificaciones > Listado de Tareas">
                 <div class="notification_container">
                     <i class="fas fa-bell"></i>
-                    <span id="contador_notificaciones" name="contador_notificaciones" class="notification-count">0</span> <!-- Contador inicializado en 0 -->
+                    <span id="contador_notificaciones" name="contador_notificaciones"
+                        class="notification-count">0</span> <!-- Contador inicializado en 0 -->
                 </div>
             </div>
             <div class="user-info">
@@ -125,7 +134,8 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                         <span class="user-role" style="font-style: italic;">(administrador)</span>
                     </button>
                     <div class="dropdown-content">
-                        <a id="configuracion" href="modificar_perfil.php" data-breadcrumb="Home > Configuraciones > Modificar perfil">Modificar Perfil</a>
+                        <a id="configuracion" href="modificar_perfil.php"
+                            data-breadcrumb="Home > Configuraciones > Modificar perfil">Modificar Perfil</a>
                         <a href="./backend/login/logoutBE.php">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -146,7 +156,8 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             <ul id="sidebarList">
                 <a id="home" href="#" data-breadcrumb="Home" class="">
                     <span>
-                        <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                        <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario"
+                            height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                     </span>
                     Home
                 </a>
@@ -154,19 +165,23 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <li class="item" id="usuarios">
                     <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral">
                         <span>
-                            <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
+                            <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario"
+                                height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
                         </span> Usuarios y Roles
                     </a>
                     <div class="smenu">
-                        <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
+                        <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario"
+                            class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario"
+                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Crear Usuario
                         </a>
                         <a id="asignar-roles" href="#" data-breadcrumb="Home > Usuarios y Roles > Asignar Roles">
                             <span>
-                                <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario"
+                                    height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Asignar Roles
                         </a>
@@ -176,19 +191,25 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <li class="item" id="Especificaciones">
                     <a href="#Especificaciones" class="btn_lateral">
                         <span>
-                            <img src="../assets/images/especificaciones.svg" alt="Icono de usuario" class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
+                            <img src="../assets/images/especificaciones.svg" alt="Icono de usuario"
+                                class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
                         </span> Especificaciones
                     </a>
                     <div class="smenu">
-                        <a id="especificacion_producto" href="#" data-breadcrumb="Home > Especificaciones > Crear especificaciones de producto" class="con-borde-inferior">
+                        <a id="especificacion_producto" href="#"
+                            data-breadcrumb="Home > Especificaciones > Crear especificaciones de producto"
+                            class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/crear_especificaciones.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/crear_especificaciones.svg" alt="Icono de usuario"
+                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Crear especificaciones de producto
                         </a>
-                        <a id="listado_especificacion_producto" href="#" data-breadcrumb="Home > Especificaciones > Listado de especificaciones de producto">
+                        <a id="listado_especificacion_producto" href="#"
+                            data-breadcrumb="Home > Especificaciones > Listado de especificaciones de producto">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de usuario" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de usuario" class="icono-usuario"
+                                    height="24" width="24" /> <!-- Icono SVG agregado aquí -->
                             </span>
                             Listado de especificaciones de producto
                         </a>
@@ -197,28 +218,37 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <li class="item" id="Solicitudes_de_Analisi">
                     <a href="#Solicitudes_de_Analisi" class="btn_lateral">
                         <span>
-                            <img src="../assets/images/analisis.svg" alt="Icono de solicitudes" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                            <img src="../assets/images/analisis.svg" alt="Icono de solicitudes" class="icono-usuario"
+                                height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                         </span>
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-                        <a id="listado_solicitudes_analisis" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
+                        <a id="listado_solicitudes_analisis" href="#"
+                            data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis"
+                            class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de listado de análisis" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de listado de análisis"
+                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de solicitudes de análisis
                         </a>
-                        <a id="listado_acta_muestreo" href="#" data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
+                        <a id="listado_acta_muestreo" href="#"
+                            data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo"
+                            class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo"
+                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                             </span>
                             Listado de Actas de Muestreo
                         </a>
                     </div>
                 </li>
-                <a id="listado_productos_disponibles" href="#" data-breadcrumb="Home > Calidad > Listado de productos disponibles">
+                <a id="listado_productos_disponibles" href="#"
+                    data-breadcrumb="Home > Calidad > Listado de productos disponibles">
                     <span>
-                        <img src="../assets/images/listado.svg" alt="Icono de productos disponibles" class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                        <img src="../assets/images/listado.svg" alt="Icono de productos disponibles"
+                            class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
                     </span>
                     Productos en cuarentena y liberados
                 </a>
@@ -226,20 +256,25 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <li class="item" id="cotizador">
                     <a href="#Cotizador" class="btn_lateral">
                         <span>
-                            <img src="../assets/images/calculator.svg" alt="Icono de Acta Liberación o Rechazo" class="icono-usuario" height="24" width="24" />
+                            <img src="../assets/images/calculator.svg" alt="Icono de Acta Liberación o Rechazo"
+                                class="icono-usuario" height="24" width="24" />
                         </span>
                         Cotizador
                     </a>
                     <div class="smenu">
-                        <a id="cotizador_ingreso" href="#" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
+                        <a id="cotizador_ingreso" href="#" data-breadcrumb="Home > Cotizador > Ingreso"
+                            class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/liberacion.svg" alt="Icono de ingresar dentro de cotizador" class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/liberacion.svg" alt="Icono de ingresar dentro de cotizador"
+                                    class="icono-usuario" height="24" width="24" />
                             </span>
                             Ingreso
                         </a>
-                        <a id="cotizador_busqueda" href="#" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
+                        <a id="cotizador_busqueda" href="#" data-breadcrumb="Home > Cotizador > Buscar"
+                            class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/search.svg" alt="Icono de buscar dentro de cotizador" class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/search.svg" alt="Icono de buscar dentro de cotizador"
+                                    class="icono-usuario" height="24" width="24" />
                             </span>
                             Buscar
                         </a>
@@ -250,33 +285,40 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 <!-- ============================= -->
                 <li class="title">Producción</li>
                 <li class="item" id="produccion">
-    <a href="#Produccion" class="btn_lateral">
-        <span>
-            <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario" height="24" width="24" />
-        </span>
-        Producción
-    </a>
-    <div class="smenu">
-        <a id="Ingreso_OC" href="#" data-breadcrumb="Home > Producción > Ingreso Orden de Compra" class="con-borde-inferior">
-            <span>
-                <img src="../assets/images/search.svg" alt="Icono de Ingreso OC" class="icono-usuario" height="24" width="24" />
-            </span>
-            Ingreso Ordenes de Compra
-        </a>
-        <a id="Listado_OC" href="#" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
-            <span>
-                <img src="../assets/images/search.svg" alt="Icono de Ordenes de Compra" class="icono-usuario" height="24" width="24" />
-            </span>
-            Listado de Ordenes de Compra
-        </a>
-        <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
-            <span>
-                <img src="../assets/images/search.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24" />
-            </span>
-            Listado de Clientes
-        </a>
-    </div>
-</li>
+                    <a href="#Produccion" class="btn_lateral">
+                        <span>
+                            <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario"
+                                height="24" width="24" />
+                        </span>
+                        Producción
+                    </a>
+                    <div class="smenu">
+                        <a id="Ingreso_OC" href="#" data-breadcrumb="Home > Producción > Ingreso Orden de Compra"
+                            class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/search.svg" alt="Icono de Ingreso OC" class="icono-usuario"
+                                    height="24" width="24" />
+                            </span>
+                            Ingreso Ordenes de Compra
+                        </a>
+                        <a id="Listado_OC" href="#" data-breadcrumb="Home > Producción > Listado Ordenes de Compra"
+                            class="con-borde-inferior">
+                            <span>
+                                <img  src="../assets/images/listado.svg" alt="Icono de Ordenes de Compra"
+                                    class="icono-usuario" height="24" width="24" />
+                            </span>
+                            Listado de Ordenes de Compra
+                        </a>
+                        <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Listado Clientes"
+                            class="con-borde-inferior">
+                            <span>
+                                <img  src="../assets/images/listado.svg" alt="Icono de Listado Clientes"
+                                    class="icono-usuario" height="24" width="24" />
+                            </span>
+                            Listado de Clientes
+                        </a>
+                    </div>
+                </li>
 
             </ul>
         </aside>
@@ -295,10 +337,11 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <script src="../assets/js/scripts_index.js?<?php echo time(); ?>"></script>
     <script src="../assets/js/botones.js"></script>
 </body>
+
 </html>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#dynamic-content').load('index_administrador.php');
         $('[data-toggle="popover"]').popover({
             placement: 'bottom',
@@ -306,27 +349,27 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         });
 
         // Si la firma no está ingresada, mostrar el popover automáticamente
-        <?php if ($firma_no_ingresada) : ?>
+        <?php if ($firma_no_ingresada): ?>
             $('[data-toggle="popover"]').popover('show');
-            $('[data-toggle="popover"]').on('shown.bs.popover', function() {
+            $('[data-toggle="popover"]').on('shown.bs.popover', function () {
                 var popover = $(this).next('.popover');
             });
         <?php endif; ?>
 
         // Cerrar el popover al hacer clic en el botón con clase dropbtn
-        $('.dropbtn').on('click', function() {
+        $('.dropbtn').on('click', function () {
             $('[data-toggle="popover"]').popover('hide');
         });
 
         // Cerrar el popover al hacer clic fuera del popover
-        $(document).on('click', function(e) {
+        $(document).on('click', function (e) {
             if (!$(e.target).closest('.popover').length && !$(e.target).closest('.dropbtn').length) {
                 $('[data-toggle="popover"]').popover('hide');
             }
         });
 
         // Cerrar el popover al hacer clic en el botón de cierre dentro del popover
-        $(document).on('click', '.popover .close', function() {
+        $(document).on('click', '.popover .close', function () {
             $('[data-toggle="popover"]').popover('hide');
         });
     });
@@ -368,7 +411,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     obtenNotificaciones();
     fetchUserInfo();
 
-    document.getElementById('toggle-sidebar-btn').addEventListener('click', function() {
+    document.getElementById('toggle-sidebar-btn').addEventListener('click', function () {
         var sidebar = document.querySelector('.sidebar');
         var content = document.querySelector('.content');
         var nav = document.querySelector('.breadcrumb-container');
@@ -379,7 +422,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Inicializa el breadcrumb al cargar la página
         inicializarBreadcrumb();
 
@@ -411,7 +454,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
         // Asigna el listener a cada enlace que afecte el breadcrumb
         breadcrumbLinks.forEach(link => {
-            link.addEventListener("click", function(e) {
+            link.addEventListener("click", function (e) {
                 e.preventDefault(); // Previene la acción por defecto
                 const path = this.getAttribute("data-breadcrumb");
                 updateBreadcrumb(path);
@@ -423,7 +466,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         if (goTo == 'modificar_perfil.php') {
-            $('#dynamic-content').load(goTo, function() {
+            $('#dynamic-content').load(goTo, function () {
                 cargarInformacionExistente();
             });
 
