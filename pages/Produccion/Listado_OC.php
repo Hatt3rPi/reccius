@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Órdenes de Compra</title>
+
     <link rel="stylesheet" href="../assets/css/Listados.css">
     <link rel="stylesheet" href="../assets/css/modal_produccion.css">
     <style>
@@ -127,7 +128,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        $(document).ready(function () {
             function formatDetails(rowData, productData) {
                 const maxProductsToShow = 3;
                 const totalProducts = productData.length;
