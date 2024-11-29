@@ -4,189 +4,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Productos</title>
-    <link rel="stylesheet" href="../assets/css/Ingreso_OC.css">
+    <title>Listado de Órdenes de Compra</title>
+    <!-- Incluye CSS de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <style>
+        .details-control {
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            color: #0056b3;
+        }
+
+        .details-control:hover {
+            color: #003366;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="form-container">
-        <!-- Título de la categoría Orden de Compra -->
-        <h2>Orden de Compra</h2>
-        <!-- Contenedor 1 -->
-        <div id="container-1">
-            <div class="column">
-                <div class="form-group">
-                    <label for="form1">Formulario 1</label>
-                    <input type="text" id="form1" name="form1">
-                </div>
-                <div class="form-group">
-                    <label for="form2">Formulario 2</label>
-                    <input type="text" id="form2" name="form2">
-                </div>
-                <div class="form-group">
-                    <label for="form3">Formulario 3</label>
-                    <input type="text" id="form3" name="form3">
-                </div>
-                <div class="form-group">
-                    <label for="form4">Formulario 4</label>
-                    <input type="text" id="form4" name="form4">
-                </div>
-            </div>
-            <div class="column">
-                <div class="form-group">
-                    <label for="form5">Formulario 5</label>
-                    <input type="text" id="form5" name="form5">
-                </div>
-                <div class="form-group">
-                    <label for="form6">Formulario 6</label>
-                    <input type="text" id="form6" name="form6">
-                </div>
-                <div class="form-group">
-                    <label for="form7">Formulario 7</label>
-                    <input type="text" id="form7" name="form7">
-                </div>
-                <div class="form-group">
-                    <label for="form8">Formulario 8</label>
-                    <input type="text" id="form8" name="form8">
-                </div>
-            </div>
-        </div>
-
-        <!-- Título de la categoría Productos -->
-        <h2>Productos</h2>
-        <!-- Botón para Agregar Producto -->
-        <div class="button-container">
-            <button id="add-product" class="btn-add-product">Agregar Producto</button>
-        </div>
-
-        <!-- Contenedores de Productos -->
-        <div id="products-container-wrapper">
-            <div class="products-container">
-                <h2>Producto: 1</h2>
-                <div class="form-group">
-                    <label for="product1">Producto 1</label>
-                    <input type="text" name="product1" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="product2">Producto 2</label>
-                    <input type="text" name="product2" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="product3">Producto 3</label>
-                    <input type="text" name="product3" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="product4">Producto 4</label>
-                    <input type="text" name="product4" disabled>
-                </div>
-                <div class="button-container">
-                    <button class="btn-save" disabled>Guardar</button>
-                    <button class="btn-edit">Editar</button>
-                    <button class="btn-delete">Eliminar</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contenedor de Comentarios -->
-        <div id="comments-container">
-            <h2>Deja un comentario</h2>
-            <div class="form-group">
-                <input type="text" id="comment" name="comment" placeholder="Escribe tu comentario aquí">
-            </div>
-        </div>
+    <div class="form-container">
+        <h1>Listado de Órdenes de Compra</h1>
+        <h2 class="section-title">Órdenes Registradas</h2>
+        <table id="listado" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Fecha Ingreso</th>
+                    <th>Estado</th>
+                    <th>OC</th>
+                    <th>Tipo Entrega</th>
+                    <th>Cliente</th>
+                    <th>Fecha Programada</th>
+                    <th>Zona Envío</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="details-control">+</td>
+                    <td>02/10/2024</td>
+                    <td>Producción</td>
+                    <td>OC123</td>
+                    <td>Total</td>
+                    <td>Clínica Santa María</td>
+                    <td>04/10/2024</td>
+                    <td>Santiago</td>
+                </tr>
+                <tr>
+                    <td class="details-control">+</td>
+                    <td>02/10/2024</td>
+                    <td>Pendiente</td>
+                    <td>OC124</td>
+                    <td>Parcial</td>
+                    <td>Clínica Alemana</td>
+                    <td>05/10/2024</td>
+                    <td>Región</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <!-- Plantilla para nuevos contenedores -->
-    <template id="product-template">
-        <div class="products-container">
-            <h2>Producto: </h2>
-            <div class="form-group">
-                <label for="product1">Producto 1</label>
-                <input type="text" name="product1" disabled>
-            </div>
-            <div class="form-group">
-                <label for="product2">Producto 2</label>
-                <input type="text" name="product2" disabled>
-            </div>
-            <div class="form-group">
-                <label for="product3">Producto 3</label>
-                <input type="text" name="product3" disabled>
-            </div>
-            <div class="form-group">
-                <label for="product4">Producto 4</label>
-                <input type="text" name="product4" disabled>
-            </div>
-            <div class="button-container">
-                <button class="btn-save" disabled>Guardar</button>
-                <button class="btn-edit">Editar</button>
-                <button class="btn-delete">Eliminar</button>
-            </div>
-        </div>
-    </template>
-
-    <!-- Script para manejar la lógica -->
+    <!-- Incluye jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluye DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Script para manejar DataTables -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const addButton = document.getElementById('add-product');
-            const productTemplate = document.getElementById('product-template');
-            const productsContainerWrapper = document.getElementById('products-container-wrapper');
-            let productCount = 1; // Inicia el contador de productos
-
-            // Función para agregar funcionalidades a los botones
-            function addButtonFunctionalities(productContainer, productNumber) {
-                const saveButton = productContainer.querySelector('.btn-save');
-                const editButton = productContainer.querySelector('.btn-edit');
-                const deleteButton = productContainer.querySelector('.btn-delete');
-                const inputs = productContainer.querySelectorAll('input');
-
-                // Editar
-                editButton.addEventListener('click', () => {
-                    inputs.forEach(input => input.removeAttribute('disabled'));
-                    saveButton.removeAttribute('disabled');
-                    console.log(`Producto ${productNumber} editable.`);
-                });
-
-                // Guardar
-                saveButton.addEventListener('click', () => {
-                    inputs.forEach(input => input.setAttribute('disabled', ''));
-                    saveButton.setAttribute('disabled', '');
-                    console.log(`Producto ${productNumber} guardado.`);
-                    alert(`Producto ${productNumber} guardado con éxito.`);
-                });
-
-                // Eliminar
-                deleteButton.addEventListener('click', () => {
-                    productContainer.remove();
-                    console.log(`Producto ${productNumber} eliminado.`);
-                });
+        $(document).ready(function () {
+            // Formato para los detalles de cada orden
+            function formatDetails(rowData) {
+                return `
+                    <table cellpadding="5" cellspacing="0" border="0" style="margin-left:50px;">
+                        <tr>
+                            <td>Producto:</td>
+                            <td>Polidocanol INY 1% 2ML</td>
+                        </tr>
+                        <tr>
+                            <td>Cantidad:</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>¿Aplica Receta?:</td>
+                            <td>Sí</td>
+                        </tr>
+                        <tr>
+                            <td>Tipo Preparación:</td>
+                            <td>Inyectable</td>
+                        </tr>
+                    </table>`;
             }
 
-            // Inicializar botones del primer producto
-            addButtonFunctionalities(document.querySelector('.products-container'), 1);
+            // Inicializa DataTables
+            var table = $('#listado').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                },
+                columnDefs: [
+                    { orderable: false, className: 'details-control', targets: 0 }
+                ],
+                order: [[1, 'asc']]
+            });
 
-            if (addButton) {
-                addButton.addEventListener('click', function () {
-                    console.log("Evento 'click' activado en 'Agregar Producto'.");
+            // Control de los detalles desplegables
+            $('#listado tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
 
-                    // Incrementa el contador de productos
-                    productCount++;
-
-                    // Clonar el contenido de la plantilla
-                    const newProductContainer = productTemplate.content.cloneNode(true).querySelector('.products-container');
-
-                    // Actualizar el número del producto en el <h2>
-                    const newProductHeading = newProductContainer.querySelector('h2');
-                    newProductHeading.textContent = `Producto: ${productCount}`;
-
-                    // Agregar funcionalidades a los botones
-                    addButtonFunctionalities(newProductContainer, productCount);
-
-                    // Agregar al final del contenedor de productos
-                    productsContainerWrapper.appendChild(newProductContainer);
-                });
-            } else {
-                console.error("No se encontró el botón 'Agregar Producto'.");
-            }
+                if (row.child.isShown()) {
+                    // Cierra la fila de detalles
+                    row.child.hide();
+                    $(this).text('+');
+                } else {
+                    // Muestra la fila de detalles
+                    row.child(formatDetails(row.data())).show();
+                    $(this).text('-');
+                }
+            });
         });
     </script>
 </body>

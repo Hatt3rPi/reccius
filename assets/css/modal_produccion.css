@@ -96,3 +96,13 @@
 .close:hover {
     color: #000;
 }
+.details-control {
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    color: #0056b3;
+}
+
+.details-control:hover {
+    color: #003366;
+}
