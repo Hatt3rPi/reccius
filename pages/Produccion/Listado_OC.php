@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Órdenes de Compra</title>
-
     <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="../assets/css/Listados.css">
 </head>
@@ -14,7 +13,7 @@
     <div class="form-container">
         <h1>Listado de Órdenes de Compra</h1>
         <h2 class="section-title">Órdenes Registradas</h2>
-        <table id="ordenes-listado">
+        <table id="listado" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID Orden</th>
@@ -92,7 +91,7 @@
     <!-- Inicialización de DataTables -->
     <script>
         $(document).ready(function () {
-            $('#ordenes-listado').DataTable({
+            $('#listado').DataTable({
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                 }
