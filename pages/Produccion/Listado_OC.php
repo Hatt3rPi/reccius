@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Órdenes de Compra</title>
     <link rel="stylesheet" href="../assets/css/Listados.css">
-</head>
+    </head>
 
 <body>
     <div class="form-container">
@@ -56,16 +56,6 @@
                     <td>06/10/2024</td>
                     <td>Santiago</td>
                 </tr>
-                <tr>
-                    <td class="details-control">+</td>
-                    <td>05/10/2024</td>
-                    <td>Entregado</td>
-                    <td>OC126</td>
-                    <td>Total</td>
-                    <td>Clínica Dávila</td>
-                    <td>10/10/2024</td>
-                    <td>Región</td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -73,7 +63,7 @@
     <script>
         $(document).ready(function () {
             function formatDetails(rowData, productData) {
-                let productCards = productData.map((product, index) => `
+                const productCards = productData.map((product, index) => `
                     <div class="product-card">
                         <h3>Producto: ${index + 1}</h3>
                         <label>Producto:</label><span>${product.nombre}</span>
@@ -84,7 +74,7 @@
                 `).join('');
 
                 return `
-                    <div class="carousel-container">
+                    <div class="details-container">
                         <button class="carousel-button prev-button">&lt;</button>
                         <div class="carousel">
                             ${productCards}
@@ -111,13 +101,8 @@
                 [
                     { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
                     { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
-                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
-                ],
-                [
-                    { nombre: "Producto A", cantidad: 120, receta: "No", tipo: "Jarabe" },
-                    { nombre: "Producto B", cantidad: 250, receta: "Sí", tipo: "Inyectable" },
-                    { nombre: "Producto C", cantidad: 300, receta: "Sí", tipo: "Tableta" },
-                    { nombre: "Producto D", cantidad: 100, receta: "No", tipo: "Cápsula" }
+                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" },
+                    { nombre: "Producto Extra", cantidad: 30, receta: "Sí", tipo: "Tableta" }
                 ]
             ];
 
