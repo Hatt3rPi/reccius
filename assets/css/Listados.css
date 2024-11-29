@@ -75,11 +75,7 @@ h1, h2.section-title {
     background-color: #003366; /* Oscurecer el botón al pasar el cursor */
 }
 
-/* Iconos con FontAwesome */
-#listado .fas {
-    cursor: pointer;
-    margin-right: 5px;
-}
+
 
 /* Responsive design */
 @media screen and (max-width: 768px) {
