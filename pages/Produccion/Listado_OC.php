@@ -195,38 +195,40 @@
         </table>
     </div>
     <!-- Modal para editar producto -->
-    <div id="modalEditarProducto" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span>
-            <h2>Editar Producto</h2>
-            <form id="formEditarProducto">
-                <label for="nombreProducto">Producto:</label>
-                <input type="text" id="nombreProducto" name="nombreProducto" required>
-
-                <label for="cantidadProducto">Cantidad:</label>
-                <input type="number" id="cantidadProducto" name="cantidadProducto" required>
-
-                <label for="recetaProducto">¿Aplica Receta?:</label>
-                <select id="recetaProducto" name="recetaProducto">
-                    <option value="Sí">Sí</option>
-                    <option value="No">No</option>
-                </select>
-
-                <label for="tipoProducto">Tipo Preparación:</label>
-                <input type="text" id="tipoProducto" name="tipoProducto" required>
-
-                <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
-            </form>
-        </div>
+<div id="modalEditarProducto" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>Editar Producto</h2>
+        <form id="formEditarProducto">
+            <label for="nombreProducto">Producto:</label>
+            <input type="text" id="nombreProducto" name="nombreProducto" required>
+            
+            <label for="cantidadProducto">Cantidad:</label>
+            <input type="number" id="cantidadProducto" name="cantidadProducto" required>
+            
+            <label for="recetaProducto">¿Aplica Receta?:</label>
+            <select id="recetaProducto" name="recetaProducto">
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+            </select>
+            
+            <label for="tipoProducto">Tipo Preparación:</label>
+            <input type="text" id="tipoProducto" name="tipoProducto" required>
+            
+            <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
+        </form>
     </div>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            let productoSeleccionado = null;
-            let indiceProductoSeleccionado = null;
+<script>
+    $(document).ready(function () {
+        let productoSeleccionado = null;
+        let indiceProductoSeleccionado = null;
+        let ordenActual = null;
 
-            function formatDetails(rowData, productData) {
-                let productCards = productData.map((product, index) => `
+        function formatDetails(rowData, productData) {
+            let orderNumber = rowData[2]; // OC number is in the third column (index 2)
+            let productCards = productData.map((product, index) => `
                 <div class="product-card">
                     <h3>Producto: ${index + 1}</h3>
                     <label>Producto:</label><span>${product.nombre}</span>
@@ -234,110 +236,122 @@
                     <label>¿Aplica Receta?:</label><span>${product.receta}</span>
                     <label>Tipo Preparación:</label><span>${product.tipo}</span>
                     <div class="product-actions">
-                        <button class="btn-edit" onclick="editarProducto(${index}, ${rowData[2]})">Editar</button>
-                        <button class="btn-delete" onclick="eliminarProducto(${index})">Eliminar</button>
+                        <button class="btn-edit" onclick="editarProducto(${index}, '${orderNumber}')">Editar</button>
+                        <button class="btn-delete" onclick="eliminarProducto(${index}, '${orderNumber}')">Eliminar</button>
                     </div>
                 </div>
             `).join('');
 
-                return `
+            return `
                 <div class="details-container">
                     ${productCards}
                 </div>
             `;
-            }
+        }
 
-            const table = $('#listado').DataTable({
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-                },
-                columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
-                order: [[1, 'asc']],
-            });
-
-            const productDataSimulated = [
-                [{ nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" }],
-                [
-                    { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
-                    { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
-                ],
-                [
-                    { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
-                    { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
-                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
-                ],
-                [
-                    { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
-                    { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" },
-                    { nombre: "Producto 3", cantidad: 150, receta: "No", tipo: "Jarabe" },
-                    { nombre: "Producto 4", cantidad: 200, receta: "Sí", tipo: "Polvo" },
-                    { nombre: "Producto 5", cantidad: 250, receta: "No", tipo: "Cápsula" },
-                    { nombre: "Producto 6", cantidad: 300, receta: "Sí", tipo: "Jarabe" }
-                ]
-            ];
-
-            $('#listado tbody').on('click', 'td.details-control', function () {
-                const tr = $(this).closest('tr');
-                const row = table.row(tr);
-
-                if (row.child.isShown()) {
-                    row.child.hide();
-                    $(this).html('<i class="icono-detalles fas fa-plus-circle"></i>');
-                } else {
-                    const rowIndex = table.row(tr).index();
-                    const productData = productDataSimulated[rowIndex];
-                    row.child(formatDetails(row.data(), productData)).show();
-                    $(this).html('<i class="icono-detalles fas fa-minus-circle"></i>');
-                }
-            });
-
-            // Función para abrir el modal de edición
-            window.editarProducto = function (index, order) {
-                productoSeleccionado = productDataSimulated[order]?.[index];
-                indiceProductoSeleccionado = index;
-
-                if (productoSeleccionado) {
-                    $('#nombreProducto').val(productoSeleccionado.nombre);
-                    $('#cantidadProducto').val(productoSeleccionado.cantidad);
-                    $('#recetaProducto').val(productoSeleccionado.receta);
-                    $('#tipoProducto').val(productoSeleccionado.tipo);
-
-                    $('#modalEditarProducto').fadeIn();
-                }
-            };
-
-            // Función para cerrar el modal
-            window.cerrarModal = function () {
-                $('#modalEditarProducto').fadeOut();
-            };
-
-            // Función para guardar los cambios
-            window.guardarCambios = function () {
-                if (productoSeleccionado) {
-                    productoSeleccionado.nombre = $('#nombreProducto').val();
-                    productoSeleccionado.cantidad = $('#cantidadProducto').val();
-                    productoSeleccionado.receta = $('#recetaProducto').val();
-                    productoSeleccionado.tipo = $('#tipoProducto').val();
-
-                    alert('Cambios guardados correctamente');
-                    $('#modalEditarProducto').fadeOut();
-
-                    // Aquí puedes actualizar la vista si es necesario
-                    $('#listado tbody').trigger('click');
-                }
-            };
-
-            // Función para eliminar el producto
-            window.eliminarProducto = function (index) {
-                alert(`Eliminar producto: ${index + 1}`);
-            };
-
-            // Función para filtrar por estado
-            window.filtrarPorEstado = function (estado) {
-                table.columns(1).search(estado).draw();
-            };
+        const table = $('#listado').DataTable({
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+            },
+            columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
+            order: [[1, 'asc']],
         });
-    </script>
+
+        const productDataSimulated = {
+            OC123: [{ nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" }],
+            OC124: [
+                { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
+                { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
+            ],
+            OC125: [
+                { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
+                { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
+                { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
+            ],
+            OC126: [
+                { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
+                { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" },
+                { nombre: "Producto 3", cantidad: 150, receta: "No", tipo: "Jarabe" },
+                { nombre: "Producto 4", cantidad: 200, receta: "Sí", tipo: "Polvo" },
+                { nombre: "Producto 5", cantidad: 250, receta: "No", tipo: "Cápsula" },
+                { nombre: "Producto 6", cantidad: 300, receta: "Sí", tipo: "Jarabe" }
+            ]
+        };
+
+        $('#listado tbody').on('click', 'td.details-control', function () {
+            const tr = $(this).closest('tr');
+            const row = table.row(tr);
+
+            if (row.child.isShown()) {
+                row.child.hide();
+                $(this).html('<i class="icono-detalles fas fa-plus-circle"></i>');
+            } else {
+                const rowData = row.data();
+                const orderNumber = rowData[2];
+                const productData = productDataSimulated[orderNumber] || [];
+                row.child(formatDetails(rowData, productData)).show();
+                $(this).html('<i class="icono-detalles fas fa-minus-circle"></i>');
+            }
+        });
+
+        // Función para abrir el modal de edición
+        window.editarProducto = function (index, orderNumber) {
+            ordenActual = orderNumber;
+            productoSeleccionado = productDataSimulated[orderNumber]?.[index];
+            indiceProductoSeleccionado = index;
+
+            if (productoSeleccionado) {
+                $('#nombreProducto').val(productoSeleccionado.nombre);
+                $('#cantidadProducto').val(productoSeleccionado.cantidad);
+                $('#recetaProducto').val(productoSeleccionado.receta);
+                $('#tipoProducto').val(productoSeleccionado.tipo);
+
+                $('#modalEditarProducto').fadeIn();
+            }
+        };
+
+        // Función para cerrar el modal
+        window.cerrarModal = function () {
+            $('#modalEditarProducto').fadeOut();
+        };
+
+        // Función para guardar los cambios
+        window.guardarCambios = function () {
+            if (productoSeleccionado) {
+                productoSeleccionado.nombre = $('#nombreProducto').val();
+                productoSeleccionado.cantidad = $('#cantidadProducto').val();
+                productoSeleccionado.receta = $('#recetaProducto').val();
+                productoSeleccionado.tipo = $('#tipoProducto').val();
+
+                alert('Cambios guardados correctamente');
+                $('#modalEditarProducto').fadeOut();
+
+                // Aquí puedes actualizar la vista si es necesario
+                const tr = $(`#listado tbody tr:contains(${ordenActual})`);
+                const row = table.row(tr);
+                row.child(formatDetails(row.data(), productDataSimulated[ordenActual])).show();
+            }
+        };
+
+        // Función para eliminar el producto
+        window.eliminarProducto = function (index, orderNumber) {
+            if (confirm(`¿Está seguro de eliminar el producto ${index + 1}?`)) {
+                productDataSimulated[orderNumber].splice(index, 1);
+                alert('Producto eliminado correctamente');
+
+                const tr = $(`#listado tbody tr:contains(${orderNumber})`);
+                const row = table.row(tr);
+                row.child(formatDetails(row.data(), productDataSimulated[orderNumber])).show();
+            }
+        };
+
+        // Función para filtrar por estado
+        window.filtrarPorEstado = function (estado) {
+            table.columns(1).search(estado).draw();
+        };
+    });
+</script>
+
 
 </body>
 
