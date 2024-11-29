@@ -15,62 +15,76 @@
             overflow-x: auto;
             padding: 10px;
             gap: 15px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
         }
 
         .product-card {
-            flex: 0 0 calc(33.33% - 15px);
-            min-width: calc(33.33% - 15px);
+            flex: 0 0 calc(16.66% - 15px);
+            /* Ajustado para que sean más pequeñas */
+            min-width: calc(16.66% - 15px);
+            /* Ajustado para que sean más pequeñas */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 15px;
+            padding: 10px;
+            /* Reducido para adaptarse al nuevo tamaño */
             background-color: #ffffff;
-            border-radius: 5px;
-            border: 1px solid #ddd;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
             text-align: left;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 12px;
+            /* Tamaño de fuente reducido */
         }
 
-        .empty-card {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         .product-card h3 {
             margin-top: 0;
-            font-size: 16px;
+            font-size: 14px;
+            /* Tamaño de fuente reducido */
             font-weight: bold;
-            color: #333;
+            color: #495057;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .product-card label {
             font-weight: bold;
-            color: #555;
+            color: #6c757d;
+            display: block;
+            margin-bottom: 3px;
         }
 
         .product-card span {
-            color: #777;
+            color: #343a40;
             display: block;
             margin-bottom: 5px;
         }
 
         .products-info {
-            font-size: 14px;
-            color: #888;
+            font-size: 12px;
+            /* Tamaño de fuente reducido */
+            color: #6c757d;
             margin-bottom: 10px;
             text-align: left;
         }
 
-        .details-control {
-            cursor: pointer;
+        .empty-card {
+            background-color: transparent;
+            border: 1px dashed #ced4da;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #adb5bd;
             text-align: center;
-            font-size: 16px;
-            color: #0056b3;
-        }
-
-        .details-control:hover {
-            color: #003366;
+            padding: 10px;
         }
     </style>
 </head>
