@@ -194,57 +194,29 @@
             </tbody>
         </table>
     </div>
-    <!-- Modal para editar producto -->
-    <div id="modalEditarProducto" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span>
-            <h2>Editar Producto</h2>
-            <form id="formEditarProducto">
-                <label for="nombreProducto">Producto:</label>
-                <input type="text" id="nombreProducto" name="nombreProducto" required>
-
-                <label for="cantidadProducto">Cantidad:</label>
-                <input type="number" id="cantidadProducto" name="cantidadProducto" required>
-
-                <label for="recetaProducto">¿Aplica Receta?:</label>
-                <select id="recetaProducto" name="recetaProducto">
-                    <option value="Sí">Sí</option>
-                    <option value="No">No</option>
-                </select>
-
-                <label for="tipoProducto">Tipo Preparación:</label>
-                <input type="text" id="tipoProducto" name="tipoProducto" required>
-
-                <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
-            </form>
-        </div>
-    </div>
 
     <script>
         $(document).ready(function () {
-            let productoSeleccionado = null;
-            let indiceProductoSeleccionado = null;
-
             function formatDetails(rowData, productData) {
                 let productCards = productData.map((product, index) => `
-                <div class="product-card">
-                    <h3>Producto: ${index + 1}</h3>
-                    <label>Producto:</label><span>${product.nombre}</span>
-                    <label>Cantidad:</label><span>${product.cantidad}</span>
-                    <label>¿Aplica Receta?:</label><span>${product.receta}</span>
-                    <label>Tipo Preparación:</label><span>${product.tipo}</span>
-                    <div class="product-actions">
-                        <button class="btn-edit" onclick="editarProducto(${index}, ${rowData[2]})">Editar</button>
-                        <button class="btn-delete" onclick="eliminarProducto(${index})">Eliminar</button>
+                    <div class="product-card">
+                        <h3>Producto: ${index + 1}</h3>
+                        <label>Producto:</label><span>${product.nombre}</span>
+                        <label>Cantidad:</label><span>${product.cantidad}</span>
+                        <label>¿Aplica Receta?:</label><span>${product.receta}</span>
+                        <label>Tipo Preparación:</label><span>${product.tipo}</span>
+                        <div class="product-actions">
+                            <button class="btn-edit" onclick="editarProducto(${index})">Editar</button>
+                            <button class="btn-delete" onclick="eliminarProducto(${index})">Eliminar</button>
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `).join('');
 
                 return `
-                <div class="details-container">
-                    ${productCards}
-                </div>
-            `;
+                    <div class="details-container">
+                        ${productCards}
+                    </div>
+                `;
             }
 
             const table = $('#listado').DataTable({
@@ -291,54 +263,21 @@
                 }
             });
 
-            // Función para abrir el modal de edición
-            window.editarProducto = function (index, order) {
-                productoSeleccionado = productDataSimulated[order]?.[index];
-                indiceProductoSeleccionado = index;
-
-                if (productoSeleccionado) {
-                    $('#nombreProducto').val(productoSeleccionado.nombre);
-                    $('#cantidadProducto').val(productoSeleccionado.cantidad);
-                    $('#recetaProducto').val(productoSeleccionado.receta);
-                    $('#tipoProducto').val(productoSeleccionado.tipo);
-
-                    $('#modalEditarProducto').fadeIn();
-                }
-            };
-
-            // Función para cerrar el modal
-            window.cerrarModal = function () {
-                $('#modalEditarProducto').fadeOut();
-            };
-
-            // Función para guardar los cambios
-            window.guardarCambios = function () {
-                if (productoSeleccionado) {
-                    productoSeleccionado.nombre = $('#nombreProducto').val();
-                    productoSeleccionado.cantidad = $('#cantidadProducto').val();
-                    productoSeleccionado.receta = $('#recetaProducto').val();
-                    productoSeleccionado.tipo = $('#tipoProducto').val();
-
-                    alert('Cambios guardados correctamente');
-                    $('#modalEditarProducto').fadeOut();
-
-                    // Aquí puedes actualizar la vista si es necesario
-                    $('#listado tbody').trigger('click');
-                }
-            };
-
-            // Función para eliminar el producto
-            window.eliminarProducto = function (index) {
-                alert(`Eliminar producto: ${index + 1}`);
-            };
-
             // Función para filtrar por estado
             window.filtrarPorEstado = function (estado) {
                 table.columns(1).search(estado).draw();
             };
+
+            // Funciones de producto
+            window.editarProducto = function (index) {
+                alert(`Editar producto: ${index + 1}`);
+            };
+
+            window.eliminarProducto = function (index) {
+                alert(`Eliminar producto: ${index + 1}`);
+            };
         });
     </script>
-
 </body>
 
 
