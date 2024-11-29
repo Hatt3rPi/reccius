@@ -125,11 +125,12 @@
             <!-- GIF integrado en el modal -->
             <div style="text-align: center; margin-bottom: 20px;">
                 <iframe src="https://giphy.com/embed/bLeARYYZSjAAz40cKU" width="100%" height="250"
-                    style="border-radius: 10px; border: none;" frameborder="0" class="giphy-embed" allowfullscreen>
+                    style="border-radius: 10px; border: none; pointer-events: none;" frameborder="0" class="giphy-embed"
+                    allowfullscreen>
                 </iframe>
                 <p style="font-size: 12px; color: #555;">
                     <a href="https://giphy.com/gifs/yuka-app-scan-yula-yuka-app-bLeARYYZSjAAz40cKU" target="_blank"
-                        style="text-decoration: none; color: #007bff;">Usa tu pistola lectora de codigos de barra</a>
+                        style="text-decoration: none; color: #007bff;">Usa tu pistola lectora de códigos de barra</a>
                 </p>
             </div>
 
