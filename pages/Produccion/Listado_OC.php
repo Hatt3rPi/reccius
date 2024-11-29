@@ -337,27 +337,25 @@
             let ordenActual = null;
 
             function formatDetails(rowData, productData) {
-                let orderNumber = rowData[2]; // OC number is in the third column (index 2)
                 let productCards = productData.map((product, index) => `
-                <div class="product-card">
-                    <h3>Producto: ${index + 1}</h3>
-                    <label>Producto:</label><span>${product.nombre}</span>
-                    <label>Cantidad:</label><span>${product.cantidad}</span>
-                    <label>¿Aplica Receta?:</label><span>${product.receta}</span>
-                    <label>Tipo Preparación:</label><span>${product.tipo}</span>
-                    <div class="product-actions">
-                        <button class="btn-edit" onclick="editarProducto(${index}, '${orderNumber}')">Editar</button>
-                        <button class="btn-delete" onclick="eliminarProducto(${index}, '${orderNumber}')">Eliminar</button>
-                    </div>
+        <div class="product-card">
+            <div class="product-header">
+                <h3>Producto: ${index + 1}</h3>
+                <div class="product-actions">
+                    <i class="icon-edit fas fa-pencil-alt" onclick="editarProducto(${index}, '${rowData[2]}')"></i>
+                    <i class="icon-delete fas fa-times" onclick="eliminarProducto(${index}, '${rowData[2]}')"></i>
                 </div>
-            `).join('');
+            </div>
+            <label>Producto:</label><span>${product.nombre}</span>
+            <label>Cantidad:</label><span>${product.cantidad}</span>
+            <label>¿Aplica Receta?:</label><span>${product.receta}</span>
+            <label>Tipo Preparación:</label><span>${product.tipo}</span>
+        </div>
+    `).join('');
 
-                return `
-                <div class="details-container">
-                    ${productCards}
-                </div>
-            `;
+                return `<div class="details-container">${productCards}</div>`;
             }
+
 
             const table = $('#listado').DataTable({
                 language: {
