@@ -357,6 +357,12 @@
                     <option value="No">No</option>
                 </select>
 
+                <!-- Contenedor para el campo de archivo -->
+                <div id="recetaArchivoContainer" style="display: none; margin-top: 15px;">
+                    <label for="archivoReceta">Subir Receta (PDF, Word o Imagen):</label>
+                    <input type="file" id="archivoReceta" name="archivoReceta" accept=".pdf, .doc, .docx, image/*">
+                </div>
+
                 <label for="tipoProducto">Tipo Preparación:</label>
                 <input type="text" id="tipoProducto" name="tipoProducto" required>
 
@@ -365,6 +371,7 @@
         </div>
     </div>
 
+
     <script>
         $(document).ready(function () {
             let productoSeleccionado = null;
@@ -372,25 +379,25 @@
             let ordenActual = null;
 
             function formatDetails(rowData, productData) {
+                let orderNumber = rowData[2];
                 let productCards = productData.map((product, index) => `
-        <div class="product-card">
-            <div class="product-header">
-                <h3>Producto: ${index + 1}</h3>
-                <div class="product-actions">
-                    <i class="icon-edit fas fa-pencil-alt" onclick="editarProducto(${index}, '${rowData[2]}')"></i>
-                    <i class="icon-delete fas fa-times" onclick="eliminarProducto(${index}, '${rowData[2]}')"></i>
+            <div class="product-card">
+                <div class="product-header">
+                    <h3>Producto: ${index + 1}</h3>
+                    <div class="product-actions">
+                        <i class="icon-edit fas fa-pencil-alt" onclick="editarProducto(${index}, '${orderNumber}')"></i>
+                        <i class="icon-delete fas fa-times" onclick="eliminarProducto(${index}, '${orderNumber}')"></i>
+                    </div>
                 </div>
+                <label>Producto:</label><span>${product.nombre}</span>
+                <label>Cantidad:</label><span>${product.cantidad}</span>
+                <label>¿Aplica Receta?:</label><span>${product.receta}</span>
+                <label>Tipo Preparación:</label><span>${product.tipo}</span>
             </div>
-            <label>Producto:</label><span>${product.nombre}</span>
-            <label>Cantidad:</label><span>${product.cantidad}</span>
-            <label>¿Aplica Receta?:</label><span>${product.receta}</span>
-            <label>Tipo Preparación:</label><span>${product.tipo}</span>
-        </div>
-    `).join('');
+        `).join('');
 
                 return `<div class="details-container">${productCards}</div>`;
             }
-
 
             const table = $('#listado').DataTable({
                 language: {
@@ -437,7 +444,7 @@
                 }
             });
 
-            // Función para abrir el modal de edición
+            // Abrir el modal de edición
             window.editarProducto = function (index, orderNumber) {
                 ordenActual = orderNumber;
                 productoSeleccionado = productDataSimulated[orderNumber]?.[index];
@@ -449,16 +456,33 @@
                     $('#recetaProducto').val(productoSeleccionado.receta);
                     $('#tipoProducto').val(productoSeleccionado.tipo);
 
+                    // Mostrar u ocultar el campo de archivo según la receta
+                    if (productoSeleccionado.receta === "Sí") {
+                        $('#recetaArchivoContainer').show();
+                    } else {
+                        $('#recetaArchivoContainer').hide();
+                    }
+
                     $('#modalEditarProducto').fadeIn();
                 }
             };
 
-            // Función para cerrar el modal
+            // Escuchar cambios en el campo de receta
+            $('#recetaProducto').on('change', function () {
+                const aplicaReceta = $(this).val();
+                if (aplicaReceta === "Sí") {
+                    $('#recetaArchivoContainer').fadeIn();
+                } else {
+                    $('#recetaArchivoContainer').fadeOut();
+                }
+            });
+
+            // Cerrar el modal
             window.cerrarModal = function () {
                 $('#modalEditarProducto').fadeOut();
             };
 
-            // Función para guardar los cambios
+            // Guardar los cambios
             window.guardarCambios = function () {
                 if (productoSeleccionado) {
                     productoSeleccionado.nombre = $('#nombreProducto').val();
@@ -469,14 +493,13 @@
                     alert('Cambios guardados correctamente');
                     $('#modalEditarProducto').fadeOut();
 
-                    // Aquí puedes actualizar la vista si es necesario
                     const tr = $(`#listado tbody tr:contains(${ordenActual})`);
                     const row = table.row(tr);
                     row.child(formatDetails(row.data(), productDataSimulated[ordenActual])).show();
                 }
             };
 
-            // Función para eliminar el producto
+            // Eliminar producto
             window.eliminarProducto = function (index, orderNumber) {
                 if (confirm(`¿Está seguro de eliminar el producto ${index + 1}?`)) {
                     productDataSimulated[orderNumber].splice(index, 1);
@@ -488,11 +511,12 @@
                 }
             };
 
-            // Función para filtrar por estado
+            // Filtrar por estado
             window.filtrarPorEstado = function (estado) {
                 table.columns(1).search(estado).draw();
             };
         });
+
     </script>
 
 
