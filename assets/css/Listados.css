@@ -157,3 +157,15 @@ th,td, thead {
     text-decoration: none;
     cursor: pointer;
 }
+/* Clase para el ícono de control de detalles en cada fila del DataTable */
+.details-control {
+    cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
+    text-align: center; /* Centra el ícono dentro de la celda */
+    font-size: 16px; /* Ajusta el tamaño del ícono */
+    color: #0056b3; /* Color inicial del ícono */
+}
+
+/* Efecto hover para el ícono de control de detalles */
+.details-control:hover {
+    color: #003366; /* Cambia el color del ícono al pasar el cursor */
+}
