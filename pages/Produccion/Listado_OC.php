@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Órdenes de Compra</title>
-
     <link rel="stylesheet" href="../assets/css/Listados.css">
-    
-    </head>
+</head>
 
 <body>
     <div class="form-container">
@@ -38,29 +36,42 @@
                     <td>04/10/2024</td>
                     <td>Santiago</td>
                 </tr>
+                <tr>
+                    <td class="details-control">+</td>
+                    <td>02/10/2024</td>
+                    <td>Pendiente</td>
+                    <td>OC124</td>
+                    <td>Parcial</td>
+                    <td>Clínica Alemana</td>
+                    <td>05/10/2024</td>
+                    <td>Región</td>
+                </tr>
+                <tr>
+                    <td class="details-control">+</td>
+                    <td>03/10/2024</td>
+                    <td>Pendiente</td>
+                    <td>OC125</td>
+                    <td>Total</td>
+                    <td>Hospital del Salvador</td>
+                    <td>06/10/2024</td>
+                    <td>Santiago</td>
+                </tr>
+                <tr>
+                    <td class="details-control">+</td>
+                    <td>05/10/2024</td>
+                    <td>Entregado</td>
+                    <td>OC126</td>
+                    <td>Total</td>
+                    <td>Clínica Dávila</td>
+                    <td>10/10/2024</td>
+                    <td>Región</td>
+                </tr>
             </tbody>
         </table>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const table = $('#listado').DataTable({
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-                },
-                columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
-                order: [[1, 'asc']],
-            });
-
-            const productDataSimulated = [
-                [
-                    { nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" },
-                    { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
-                    { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" },
-                    { nombre: "Producto D", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
-                ]
-            ];
-
+        $(document).ready(function () {
             function formatDetails(rowData, productData) {
                 let productCards = productData.map((product, index) => `
                     <div class="product-card">
@@ -73,15 +84,42 @@
                 `).join('');
 
                 return `
-                    <div class="details-container">
-                        <div class="carousel-controls">
-                            <div class="carousel-button prev-button">&lt;</div>
-                            <div class="carousel-button next-button">&gt;</div>
+                    <div class="carousel-container">
+                        <button class="carousel-button prev-button">&lt;</button>
+                        <div class="carousel">
+                            ${productCards}
                         </div>
-                        ${productCards}
+                        <button class="carousel-button next-button">&gt;</button>
                     </div>
                 `;
             }
+
+            const table = $('#listado').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                },
+                columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
+                order: [[1, 'asc']],
+            });
+
+            const productDataSimulated = [
+                [{ nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" }],
+                [
+                    { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
+                    { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
+                ],
+                [
+                    { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
+                    { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
+                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
+                ],
+                [
+                    { nombre: "Producto A", cantidad: 120, receta: "No", tipo: "Jarabe" },
+                    { nombre: "Producto B", cantidad: 250, receta: "Sí", tipo: "Inyectable" },
+                    { nombre: "Producto C", cantidad: 300, receta: "Sí", tipo: "Tableta" },
+                    { nombre: "Producto D", cantidad: 100, receta: "No", tipo: "Cápsula" }
+                ]
+            ];
 
             $('#listado tbody').on('click', 'td.details-control', function () {
                 const tr = $(this).closest('tr');
@@ -93,23 +131,22 @@
                 } else {
                     const rowIndex = table.row(tr).index();
                     const productData = productDataSimulated[rowIndex];
-                    const detailsHtml = formatDetails(row.data(), productData);
-
-                    row.child(detailsHtml).show();
+                    row.child(formatDetails(row.data(), productData)).show();
                     $(this).text('-');
 
-                    const container = row.child().find('.details-container');
-                    const products = container.find('.product-card');
+                    const carousel = row.child().find('.carousel');
+                    const prevButton = row.child().find('.prev-button');
+                    const nextButton = row.child().find('.next-button');
                     let scrollPosition = 0;
 
-                    container.find('.prev-button').on('click', function () {
+                    prevButton.on('click', function () {
                         scrollPosition = Math.max(0, scrollPosition - 300);
-                        container.scrollLeft(scrollPosition);
+                        carousel.scrollLeft(scrollPosition);
                     });
 
-                    container.find('.next-button').on('click', function () {
-                        scrollPosition = Math.min(container[0].scrollWidth - container[0].clientWidth, scrollPosition + 300);
-                        container.scrollLeft(scrollPosition);
+                    nextButton.on('click', function () {
+                        scrollPosition = Math.min(carousel[0].scrollWidth - carousel[0].clientWidth, scrollPosition + 300);
+                        carousel.scrollLeft(scrollPosition);
                     });
                 }
             });
