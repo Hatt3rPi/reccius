@@ -123,6 +123,116 @@
             background-color: #6c757d;
             color: #fff;
         }
+
+        /* Estilo general para el fondo del modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Fondo semi-transparente */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Estilo para el contenido del modal */
+        .modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            /* Bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Sombra */
+            width: 100%;
+            max-width: 500px;
+            /* Ancho máximo */
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out;
+            /* Animación */
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Botón para cerrar el modal */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #333;
+        }
+
+        /* Estilos del formulario */
+        #formEditarProducto label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        #formEditarProducto input,
+        #formEditarProducto select {
+            width: calc(100% - 20px);
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        #formEditarProducto input:focus,
+        #formEditarProducto select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        /* Botón de guardar cambios */
+        #formEditarProducto button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            display: block;
+            width: 100%;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #formEditarProducto button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -195,40 +305,40 @@
         </table>
     </div>
     <!-- Modal para editar producto -->
-<div id="modalEditarProducto" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <h2>Editar Producto</h2>
-        <form id="formEditarProducto">
-            <label for="nombreProducto">Producto:</label>
-            <input type="text" id="nombreProducto" name="nombreProducto" required>
-            
-            <label for="cantidadProducto">Cantidad:</label>
-            <input type="number" id="cantidadProducto" name="cantidadProducto" required>
-            
-            <label for="recetaProducto">¿Aplica Receta?:</label>
-            <select id="recetaProducto" name="recetaProducto">
-                <option value="Sí">Sí</option>
-                <option value="No">No</option>
-            </select>
-            
-            <label for="tipoProducto">Tipo Preparación:</label>
-            <input type="text" id="tipoProducto" name="tipoProducto" required>
-            
-            <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
-        </form>
+    <div id="modalEditarProducto" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2>Editar Producto</h2>
+            <form id="formEditarProducto">
+                <label for="nombreProducto">Producto:</label>
+                <input type="text" id="nombreProducto" name="nombreProducto" required>
+
+                <label for="cantidadProducto">Cantidad:</label>
+                <input type="number" id="cantidadProducto" name="cantidadProducto" required>
+
+                <label for="recetaProducto">¿Aplica Receta?:</label>
+                <select id="recetaProducto" name="recetaProducto">
+                    <option value="Sí">Sí</option>
+                    <option value="No">No</option>
+                </select>
+
+                <label for="tipoProducto">Tipo Preparación:</label>
+                <input type="text" id="tipoProducto" name="tipoProducto" required>
+
+                <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<script>
-    $(document).ready(function () {
-        let productoSeleccionado = null;
-        let indiceProductoSeleccionado = null;
-        let ordenActual = null;
+    <script>
+        $(document).ready(function () {
+            let productoSeleccionado = null;
+            let indiceProductoSeleccionado = null;
+            let ordenActual = null;
 
-        function formatDetails(rowData, productData) {
-            let orderNumber = rowData[2]; // OC number is in the third column (index 2)
-            let productCards = productData.map((product, index) => `
+            function formatDetails(rowData, productData) {
+                let orderNumber = rowData[2]; // OC number is in the third column (index 2)
+                let productCards = productData.map((product, index) => `
                 <div class="product-card">
                     <h3>Producto: ${index + 1}</h3>
                     <label>Producto:</label><span>${product.nombre}</span>
@@ -242,115 +352,115 @@
                 </div>
             `).join('');
 
-            return `
+                return `
                 <div class="details-container">
                     ${productCards}
                 </div>
             `;
-        }
-
-        const table = $('#listado').DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-            },
-            columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
-            order: [[1, 'asc']],
-        });
-
-        const productDataSimulated = {
-            OC123: [{ nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" }],
-            OC124: [
-                { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
-                { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
-            ],
-            OC125: [
-                { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
-                { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
-                { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
-            ],
-            OC126: [
-                { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
-                { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" },
-                { nombre: "Producto 3", cantidad: 150, receta: "No", tipo: "Jarabe" },
-                { nombre: "Producto 4", cantidad: 200, receta: "Sí", tipo: "Polvo" },
-                { nombre: "Producto 5", cantidad: 250, receta: "No", tipo: "Cápsula" },
-                { nombre: "Producto 6", cantidad: 300, receta: "Sí", tipo: "Jarabe" }
-            ]
-        };
-
-        $('#listado tbody').on('click', 'td.details-control', function () {
-            const tr = $(this).closest('tr');
-            const row = table.row(tr);
-
-            if (row.child.isShown()) {
-                row.child.hide();
-                $(this).html('<i class="icono-detalles fas fa-plus-circle"></i>');
-            } else {
-                const rowData = row.data();
-                const orderNumber = rowData[2];
-                const productData = productDataSimulated[orderNumber] || [];
-                row.child(formatDetails(rowData, productData)).show();
-                $(this).html('<i class="icono-detalles fas fa-minus-circle"></i>');
             }
-        });
 
-        // Función para abrir el modal de edición
-        window.editarProducto = function (index, orderNumber) {
-            ordenActual = orderNumber;
-            productoSeleccionado = productDataSimulated[orderNumber]?.[index];
-            indiceProductoSeleccionado = index;
+            const table = $('#listado').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                },
+                columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
+                order: [[1, 'asc']],
+            });
 
-            if (productoSeleccionado) {
-                $('#nombreProducto').val(productoSeleccionado.nombre);
-                $('#cantidadProducto').val(productoSeleccionado.cantidad);
-                $('#recetaProducto').val(productoSeleccionado.receta);
-                $('#tipoProducto').val(productoSeleccionado.tipo);
+            const productDataSimulated = {
+                OC123: [{ nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" }],
+                OC124: [
+                    { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
+                    { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
+                ],
+                OC125: [
+                    { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
+                    { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
+                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
+                ],
+                OC126: [
+                    { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
+                    { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" },
+                    { nombre: "Producto 3", cantidad: 150, receta: "No", tipo: "Jarabe" },
+                    { nombre: "Producto 4", cantidad: 200, receta: "Sí", tipo: "Polvo" },
+                    { nombre: "Producto 5", cantidad: 250, receta: "No", tipo: "Cápsula" },
+                    { nombre: "Producto 6", cantidad: 300, receta: "Sí", tipo: "Jarabe" }
+                ]
+            };
 
-                $('#modalEditarProducto').fadeIn();
-            }
-        };
+            $('#listado tbody').on('click', 'td.details-control', function () {
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
 
-        // Función para cerrar el modal
-        window.cerrarModal = function () {
-            $('#modalEditarProducto').fadeOut();
-        };
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    $(this).html('<i class="icono-detalles fas fa-plus-circle"></i>');
+                } else {
+                    const rowData = row.data();
+                    const orderNumber = rowData[2];
+                    const productData = productDataSimulated[orderNumber] || [];
+                    row.child(formatDetails(rowData, productData)).show();
+                    $(this).html('<i class="icono-detalles fas fa-minus-circle"></i>');
+                }
+            });
 
-        // Función para guardar los cambios
-        window.guardarCambios = function () {
-            if (productoSeleccionado) {
-                productoSeleccionado.nombre = $('#nombreProducto').val();
-                productoSeleccionado.cantidad = $('#cantidadProducto').val();
-                productoSeleccionado.receta = $('#recetaProducto').val();
-                productoSeleccionado.tipo = $('#tipoProducto').val();
+            // Función para abrir el modal de edición
+            window.editarProducto = function (index, orderNumber) {
+                ordenActual = orderNumber;
+                productoSeleccionado = productDataSimulated[orderNumber]?.[index];
+                indiceProductoSeleccionado = index;
 
-                alert('Cambios guardados correctamente');
+                if (productoSeleccionado) {
+                    $('#nombreProducto').val(productoSeleccionado.nombre);
+                    $('#cantidadProducto').val(productoSeleccionado.cantidad);
+                    $('#recetaProducto').val(productoSeleccionado.receta);
+                    $('#tipoProducto').val(productoSeleccionado.tipo);
+
+                    $('#modalEditarProducto').fadeIn();
+                }
+            };
+
+            // Función para cerrar el modal
+            window.cerrarModal = function () {
                 $('#modalEditarProducto').fadeOut();
+            };
 
-                // Aquí puedes actualizar la vista si es necesario
-                const tr = $(`#listado tbody tr:contains(${ordenActual})`);
-                const row = table.row(tr);
-                row.child(formatDetails(row.data(), productDataSimulated[ordenActual])).show();
-            }
-        };
+            // Función para guardar los cambios
+            window.guardarCambios = function () {
+                if (productoSeleccionado) {
+                    productoSeleccionado.nombre = $('#nombreProducto').val();
+                    productoSeleccionado.cantidad = $('#cantidadProducto').val();
+                    productoSeleccionado.receta = $('#recetaProducto').val();
+                    productoSeleccionado.tipo = $('#tipoProducto').val();
 
-        // Función para eliminar el producto
-        window.eliminarProducto = function (index, orderNumber) {
-            if (confirm(`¿Está seguro de eliminar el producto ${index + 1}?`)) {
-                productDataSimulated[orderNumber].splice(index, 1);
-                alert('Producto eliminado correctamente');
+                    alert('Cambios guardados correctamente');
+                    $('#modalEditarProducto').fadeOut();
 
-                const tr = $(`#listado tbody tr:contains(${orderNumber})`);
-                const row = table.row(tr);
-                row.child(formatDetails(row.data(), productDataSimulated[orderNumber])).show();
-            }
-        };
+                    // Aquí puedes actualizar la vista si es necesario
+                    const tr = $(`#listado tbody tr:contains(${ordenActual})`);
+                    const row = table.row(tr);
+                    row.child(formatDetails(row.data(), productDataSimulated[ordenActual])).show();
+                }
+            };
 
-        // Función para filtrar por estado
-        window.filtrarPorEstado = function (estado) {
-            table.columns(1).search(estado).draw();
-        };
-    });
-</script>
+            // Función para eliminar el producto
+            window.eliminarProducto = function (index, orderNumber) {
+                if (confirm(`¿Está seguro de eliminar el producto ${index + 1}?`)) {
+                    productDataSimulated[orderNumber].splice(index, 1);
+                    alert('Producto eliminado correctamente');
+
+                    const tr = $(`#listado tbody tr:contains(${orderNumber})`);
+                    const row = table.row(tr);
+                    row.child(formatDetails(row.data(), productDataSimulated[orderNumber])).show();
+                }
+            };
+
+            // Función para filtrar por estado
+            window.filtrarPorEstado = function (estado) {
+                table.columns(1).search(estado).draw();
+            };
+        });
+    </script>
 
 
 </body>
