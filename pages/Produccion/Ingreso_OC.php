@@ -11,46 +11,48 @@
 <body>
     <div id="form-container">
         <!-- Título de la categoría Orden de Compra -->
-        <h2>Orden de Compra</h2>
+        <h2>Orden de Compra Institucional</h2>
         <!-- Contenedor 1 -->
         <div id="container-1">
             <div class="column">
                 <div class="form-group">
-                    <label for="form1">Formulario 1</label>
-                    <input type="text" id="form1" name="form1">
+                    <label for="rut">Rut:</label>
+                    <input type="text" id="rut" name="rut" value="123456">
                 </div>
                 <div class="form-group">
-                    <label for="form2">Formulario 2</label>
-                    <input type="text" id="form2" name="form2">
+                    <label for="orden-compra">Orden de Compra:</label>
+                    <input type="text" id="orden-compra" name="orden-compra" value="OC45679">
                 </div>
                 <div class="form-group">
-                    <label for="form3">Formulario 3</label>
-                    <input type="text" id="form3" name="form3">
+                    <label for="tipo-entrega">Tipo Entrega:</label>
+                    <input type="text" id="tipo-entrega" name="tipo-entrega" value="Total / Parcial"
+                        style="background-color: red; color: white;">
                 </div>
                 <div class="form-group">
-                    <label for="form4">Formulario 4</label>
-                    <input type="text" id="form4" name="form4">
+                    <label for="fecha-entrega">Fecha Entrega Programada:</label>
+                    <input type="text" id="fecha-entrega" name="fecha-entrega">
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <label for="form5">Formulario 5</label>
-                    <input type="text" id="form5" name="form5">
+                    <label for="cliente">Cliente:</label>
+                    <input type="text" id="cliente" name="cliente" value="Clínica Alemana">
                 </div>
                 <div class="form-group">
-                    <label for="form6">Formulario 6</label>
-                    <input type="text" id="form6" name="form6">
+                    <label for="adjunta-receta">¿Adjunta Receta?:</label>
+                    <input type="text" id="adjunta-receta" name="adjunta-receta" value="Sí / No">
                 </div>
                 <div class="form-group">
-                    <label for="form7">Formulario 7</label>
-                    <input type="text" id="form7" name="form7">
+                    <label for="medio-despacho">Medio despacho:</label>
+                    <input type="text" id="medio-despacho" name="medio-despacho">
                 </div>
                 <div class="form-group">
-                    <label for="form8">Formulario 8</label>
-                    <input type="text" id="form8" name="form8">
+                    <label for="zona-entrega">Zona de Entrega:</label>
+                    <input type="text" id="zona-entrega" name="zona-entrega" value="Santiago / Región">
                 </div>
             </div>
         </div>
+
 
         <!-- Título de la categoría Productos -->
         <h2>Productos</h2>
@@ -64,28 +66,31 @@
             <div class="products-container">
                 <h2>Producto: 1</h2>
                 <div class="form-group">
-                    <label for="product1">Producto 1</label>
-                    <input type="text" name="product1" disabled>
+                    <label for="producto-nombre">Producto:</label>
+                    <input type="text" id="producto-nombre" name="producto-nombre" value="POLIDOCANOL INY 1% 2ML"
+                        disabled>
                 </div>
                 <div class="form-group">
-                    <label for="product2">Producto 2</label>
-                    <input type="text" name="product2" disabled>
+                    <label for="producto-cantidad">Cantidad:</label>
+                    <input type="text" id="producto-cantidad" name="producto-cantidad" value="1000" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="product3">Producto 3</label>
-                    <input type="text" name="product3" disabled>
+                    <label for="producto-receta">¿Aplica Receta?:</label>
+                    <input type="text" id="producto-receta" name="producto-receta" value="Sí / No" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="product4">Producto 4</label>
-                    <input type="text" name="product4" disabled>
+                    <label for="producto-tipo-preparacion">Tipo Preparación:</label>
+                    <input type="text" id="producto-tipo-preparacion" name="producto-tipo-preparacion"
+                        value="Inyectable" disabled>
                 </div>
                 <div class="button-container">
-                    <button class="btn-save" disabled>Guardar</button>
-                    <button class="btn-edit">Editar</button>
-                    <button class="btn-delete">Eliminar</button>
+                    <button class="btn-save" id="guardar-producto" disabled>Guardar</button>
+                    <button class="btn-edit" id="editar-producto">Editar</button>
+                    <button class="btn-delete" id="eliminar-producto">Eliminar</button>
                 </div>
             </div>
         </div>
+
 
         <!-- Contenedor de Comentarios -->
         <div id="comments-container">
@@ -95,26 +100,25 @@
             </div>
         </div>
     </div>
-
     <!-- Plantilla para nuevos contenedores -->
     <template id="product-template">
         <div class="products-container">
             <h2>Producto: </h2>
             <div class="form-group">
-                <label for="product1">Producto 1</label>
-                <input type="text" name="product1" disabled>
+                <label for="producto-nombre">Producto:</label>
+                <input type="text" id="producto-nombre" name="producto-nombre" disabled>
             </div>
             <div class="form-group">
-                <label for="product2">Producto 2</label>
-                <input type="text" name="product2" disabled>
+                <label for="producto-cantidad">Cantidad:</label>
+                <input type="text" id="producto-cantidad" name="producto-cantidad" disabled>
             </div>
             <div class="form-group">
-                <label for="product3">Producto 3</label>
-                <input type="text" name="product3" disabled>
+                <label for="producto-receta">¿Aplica Receta?:</label>
+                <input type="text" id="producto-receta" name="producto-receta" disabled>
             </div>
             <div class="form-group">
-                <label for="product4">Producto 4</label>
-                <input type="text" name="product4" disabled>
+                <label for="producto-tipo-preparacion">Tipo Preparación:</label>
+                <input type="text" id="producto-tipo-preparacion" name="producto-tipo-preparacion" disabled>
             </div>
             <div class="button-container">
                 <button class="btn-save" disabled>Guardar</button>
@@ -158,12 +162,14 @@
                 deleteButton.addEventListener('click', () => {
                     productContainer.remove();
                     console.log(`Producto ${productNumber} eliminado.`);
+                    alert(`Producto ${productNumber} eliminado.`);
                 });
             }
 
             // Inicializar botones del primer producto
             addButtonFunctionalities(document.querySelector('.products-container'), 1);
 
+            // Agregar funcionalidad al botón "Agregar Producto"
             if (addButton) {
                 addButton.addEventListener('click', function () {
                     console.log("Evento 'click' activado en 'Agregar Producto'.");
@@ -189,6 +195,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>
