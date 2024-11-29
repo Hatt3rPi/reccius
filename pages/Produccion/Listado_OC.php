@@ -18,7 +18,8 @@
         }
 
         .product-card {
-            flex: 1 1 calc(33.333% - 10px); /* Mantiene siempre 1/3 del ancho */
+            flex: 1 1 calc(33.333% - 10px);
+            /* Mantiene siempre 1/3 del ancho */
             background-color: #f8f9fa;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -49,7 +50,8 @@
         }
 
         .empty-card {
-            visibility: hidden; /* Oculta las tarjetas vacías pero mantiene el espacio */
+            visibility: hidden;
+            /* Oculta las tarjetas vacías pero mantiene el espacio */
         }
     </style>
 </head>
@@ -109,15 +111,15 @@
     <script>
         $(document).ready(function () {
             function formatDetails(rowData, productData) {
-                const productCards = productData.map((product, index) => `
-                    <div class="product-card">
-                        <h3>Producto: ${index + 1}</h3>
-                        <label>Producto:</label><span>${product.nombre}</span><br>
-                        <label>Cantidad:</label><span>${product.cantidad}</span><br>
-                        <label>¿Aplica Receta?:</label><span>${product.receta}</span><br>
-                        <label>Tipo Preparación:</label><span>${product.tipo}</span>
-                    </div>
-                `).join('');
+                let productCards = productData.map((product, index) => `
+        <div class="product-card">
+            <h3>Producto: ${index + 1}</h3>
+            <label>Producto:</label><span>${product.nombre}</span><br>
+            <label>Cantidad:</label><span>${product.cantidad}</span><br>
+            <label>¿Aplica Receta?:</label><span>${product.receta}</span><br>
+            <label>Tipo Preparación:</label><span>${product.tipo}</span>
+        </div>
+    `).join('');
 
                 // Agregar tarjetas vacías si faltan para completar 3 columnas
                 const emptyCards = 3 - productData.length;
