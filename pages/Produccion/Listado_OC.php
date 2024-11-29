@@ -67,6 +67,62 @@
             margin-bottom: 10px;
             text-align: left;
         }
+
+        .estado-completado {
+            background-color: #28a745;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .estado-pendiente {
+            background-color: #ffc107;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .icono-detalles {
+            font-size: 16px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .icono-detalles:hover {
+            color: #0056b3;
+        }
+
+        .filtros-container {
+            margin-bottom: 20px;
+        }
+
+        .filtro-boton {
+            margin-right: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filtro-boton.completado {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .filtro-boton.pendiente {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .filtro-boton.todos {
+            background-color: #6c757d;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -74,10 +130,17 @@
     <div class="form-container">
         <h1>Listado de Órdenes de Compra</h1>
         <h2 class="section-title">Órdenes Registradas</h2>
+
+        <div class="filtros-container">
+            <button class="filtro-boton completado" onclick="filtrarPorEstado('Producción')">Producción</button>
+            <button class="filtro-boton pendiente" onclick="filtrarPorEstado('Pendiente')">Pendiente</button>
+            <button class="filtro-boton todos" onclick="filtrarPorEstado('')">Todos</button>
+        </div>
+
         <table id="listado" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th></th>
+                    <th><i class="icono-detalles fas fa-search"></i></th>
                     <th>Estado</th>
                     <th>OC</th>
                     <th>Fecha Ingreso</th>
@@ -89,8 +152,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="details-control">+</td>
-                    <td>Producción</td>
+                    <td class="details-control"><i class="icono-detalles fas fa-plus-circle"></i></td>
+                    <td><span class="estado-completado">Producción</span></td>
                     <td>OC123</td>
                     <td>02/10/2024</td>
                     <td>Total</td>
@@ -99,8 +162,8 @@
                     <td>Santiago</td>
                 </tr>
                 <tr>
-                    <td class="details-control">+</td>
-                    <td>Pendiente</td>
+                    <td class="details-control"><i class="icono-detalles fas fa-plus-circle"></i></td>
+                    <td><span class="estado-pendiente">Pendiente</span></td>
                     <td>OC124</td>
                     <td>02/10/2024</td>
                     <td>Parcial</td>
@@ -109,8 +172,8 @@
                     <td>Región</td>
                 </tr>
                 <tr>
-                    <td class="details-control">+</td>
-                    <td>Pendiente</td>
+                    <td class="details-control"><i class="icono-detalles fas fa-plus-circle"></i></td>
+                    <td><span class="estado-pendiente">Pendiente</span></td>
                     <td>OC125</td>
                     <td>03/10/2024</td>
                     <td>Total</td>
@@ -119,8 +182,8 @@
                     <td>Santiago</td>
                 </tr>
                 <tr>
-                    <td class="details-control">+</td>
-                    <td>Pendiente</td>
+                    <td class="details-control"><i class="icono-detalles fas fa-plus-circle"></i></td>
+                    <td><span class="estado-pendiente">Pendiente</span></td>
                     <td>OC126</td>
                     <td>04/10/2024</td>
                     <td>Parcial</td>
@@ -129,28 +192,21 @@
                     <td>Región</td>
                 </tr>
             </tbody>
-
         </table>
     </div>
 
     <script>
         $(document).ready(function () {
-            function formatDetails(rowData, productData) {
-                let productCards = productData.map((product, index) => `
-                    <div class="product-card">
-                        <h3>Producto: ${index + 1}</h3>
-                        <label>Producto:</label><span>${product.nombre}</span>
-                        <label>Cantidad:</label><span>${product.cantidad}</span>
-                        <label>¿Aplica Receta?:</label><span>${product.receta}</span>
-                        <label>Tipo Preparación:</label><span>${product.tipo}</span>
-                    </div>
-                `).join('');
-
-                return `
-                    <div class="details-container">
-                        ${productCards}
-                    </div>
-                `;
+            function filtrarPorEstado(estado) {
+                const filas = document.querySelectorAll('#listado tbody tr');
+                filas.forEach(fila => {
+                    const estadoFila = fila.querySelector('td:nth-child(2)').textContent.trim();
+                    if (estado === '' || estadoFila === estado) {
+                        fila.style.display = '';
+                    } else {
+                        fila.style.display = 'none';
+                    }
+                });
             }
 
             const table = $('#listado').DataTable({
@@ -188,12 +244,12 @@
 
                 if (row.child.isShown()) {
                     row.child.hide();
-                    $(this).text('+');
+                    $(this).html('<i class="icono-detalles fas fa-plus-circle"></i>');
                 } else {
                     const rowIndex = table.row(tr).index();
                     const productData = productDataSimulated[rowIndex];
                     row.child(formatDetails(row.data(), productData)).show();
-                    $(this).text('-');
+                    $(this).html('<i class="icono-detalles fas fa-minus-circle"></i>');
                 }
             });
         });
