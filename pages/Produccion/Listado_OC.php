@@ -129,7 +129,7 @@
                 </iframe>
                 <p style="font-size: 12px; color: #555;">
                     <a href="https://giphy.com/gifs/yuka-app-scan-yula-yuka-app-bLeARYYZSjAAz40cKU" target="_blank"
-                        style="text-decoration: none; color: #007bff;">via GIPHY</a>
+                        style="text-decoration: none; color: #007bff;">Usa tu pistola lectora de codigos de barra</a>
                 </p>
             </div>
 
@@ -143,6 +143,9 @@
 
                 <label for="fechaRecepcion">Fecha de Recepción:</label>
                 <input type="date" id="fechaRecepcion" name="fechaRecepcion" required>
+
+                <label for="Comentario">Ingresar Comentario:</label>
+                <input type="text" id="Comentario" name="Comentario" placeholder="tu comentario.." required>
 
                 <button type="submit">Recepcionar</button>
             </form>
