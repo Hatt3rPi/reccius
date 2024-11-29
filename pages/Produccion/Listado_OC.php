@@ -153,27 +153,45 @@
         </div>
     </div>
 
+
+
     <script>
-    $(document).ready(function () {
-        let productoSeleccionado = null;
-        let indiceProductoSeleccionado = null;
-        let ordenActual = null;
+        $(document).ready(function () {
+            let productoSeleccionado = null;
+            let indiceProductoSeleccionado = null;
+            let ordenActual = null;
 
-        function formatDetails(rowData, productData, etapasEstado) {
-            const etapas = etapasEstado.map((etapa, index) => `
-                <div class="etapa ${etapa.completada ? 'completada' : ''}">
-                    <div class="icono-etapa"><i class="${etapa.completada ? 'fas fa-check-circle' : 'fas fa-circle'}"></i></div>
-                    <p>${etapa.nombre}</p>
+            function formatStages(rowData) {
+                const estado = rowData[1]; // Obtener el estado de la fila
+                const etapasHTML = `
+                <div class="etapas-container" style="margin-bottom: 20px;">
+                    <div class="etapa ${estado === 'Pendiente' || estado === 'Producción' || estado === 'Completado' ? 'completada' : ''}">
+                        <span class="icono-etapa fas fa-check-circle"></span>
+                        <p>Etapa 1</p>
+                    </div>
+                    <div class="etapa ${estado === 'Producción' || estado === 'Completado' ? 'completada' : ''}">
+                        <span class="icono-etapa fas fa-check-circle"></span>
+                        <p>Etapa 2</p>
+                    </div>
+                    <div class="etapa ${estado === 'Completado' ? 'completada' : ''}">
+                        <span class="icono-etapa fas fa-check-circle"></span>
+                        <p>Etapa 3</p>
+                    </div>
                 </div>
-            `).join('');
+            `;
+                return etapasHTML;
+            }
 
-            const productCards = productData.map((product, index) => `
+            function formatDetails(rowData, productData) {
+                const stagesHTML = formatStages(rowData); // Obtener el HTML de las etapas
+                const orderNumber = rowData[2];
+                const productCards = productData.map((product, index) => `
                 <div class="product-card">
                     <div class="product-header">
                         <h3>Producto: ${index + 1}</h3>
                         <div class="product-actions">
-                            <i class="icon-edit fas fa-pencil-alt" onclick="editarProducto(${index}, '${rowData[2]}')"></i>
-                            <i class="icon-delete fas fa-times" onclick="eliminarProducto(${index}, '${rowData[2]}')"></i>
+                            <i class="icon-edit fas fa-pencil-alt" onclick="editarProducto(${index}, '${orderNumber}')"></i>
+                            <i class="icon-delete fas fa-times" onclick="eliminarProducto(${index}, '${orderNumber}')"></i>
                         </div>
                     </div>
                     <label>Producto:</label><span>${product.nombre}</span>
@@ -183,138 +201,154 @@
                 </div>
             `).join('');
 
-            return `
-                <div class="details-container">
-                    <div class="etapas-container">${etapas}</div>
-                    <div class="productos-container">${productCards}</div>
-                </div>
+                return `
+                ${stagesHTML}
+                <div class="details-container">${productCards}</div>
             `;
-        }
-
-        const table = $('#listado').DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-            },
-            columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
-            order: [[1, 'asc']],
-        });
-
-        const productDataSimulated = {
-            OC123: [{ nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" }],
-            OC124: [
-                { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
-                { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
-            ],
-            OC125: [
-                { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
-                { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
-                { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
-            ],
-            OC126: [
-                { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
-                { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" }
-            ]
-        };
-
-        const etapasPorFila = {
-            OC123: [
-                { nombre: "Creación", completada: true },
-                { nombre: "Confirmación", completada: true },
-                { nombre: "Producción", completada: false },
-                { nombre: "Despacho", completada: false },
-                { nombre: "Entrega", completada: false }
-            ],
-            OC124: [
-                { nombre: "Creación", completada: true },
-                { nombre: "Confirmación", completada: true },
-                { nombre: "Producción", completada: true },
-                { nombre: "Despacho", completada: false },
-                { nombre: "Entrega", completada: false }
-            ]
-        };
-
-        $('#listado tbody').on('click', 'td.details-control', function () {
-            const tr = $(this).closest('tr');
-            const row = table.row(tr);
-
-            if (row.child.isShown()) {
-                row.child.hide();
-                $(this).html('<i class="icono-detalles fas fa-plus-circle"></i>');
-            } else {
-                const rowData = row.data();
-                const orderNumber = rowData[2];
-                const productData = productDataSimulated[orderNumber] || [];
-                const etapasEstado = etapasPorFila[orderNumber] || [];
-                row.child(formatDetails(rowData, productData, etapasEstado)).show();
-                $(this).html('<i class="icono-detalles fas fa-minus-circle"></i>');
             }
-        });
 
-        // Funciones de edición
-        window.editarProducto = function (index, orderNumber) {
-            ordenActual = orderNumber;
-            productoSeleccionado = productDataSimulated[orderNumber]?.[index];
-            indiceProductoSeleccionado = index;
+            const table = $('#listado').DataTable({
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                },
+                columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
+                order: [[1, 'asc']],
+            });
 
-            if (productoSeleccionado) {
-                $('#nombreProducto').val(productoSeleccionado.nombre);
-                $('#cantidadProducto').val(productoSeleccionado.cantidad);
-                $('#recetaProducto').val(productoSeleccionado.receta);
-                $('#tipoProducto').val(productoSeleccionado.tipo);
+            const productDataSimulated = {
+                OC123: [{ nombre: "Producto A", cantidad: 500, receta: "Sí", tipo: "Tableta" }],
+                OC124: [
+                    { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
+                    { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
+                ],
+                OC125: [
+                    { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
+                    { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
+                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
+                ],
+                OC126: [
+                    { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
+                    { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" },
+                    { nombre: "Producto 3", cantidad: 150, receta: "No", tipo: "Jarabe" },
+                    { nombre: "Producto 4", cantidad: 200, receta: "Sí", tipo: "Polvo" },
+                    { nombre: "Producto 5", cantidad: 250, receta: "No", tipo: "Cápsula" },
+                    { nombre: "Producto 6", cantidad: 300, receta: "Sí", tipo: "Jarabe" }
+                ]
+            };
 
-                if (productoSeleccionado.receta === "Sí") {
-                    $('#recetaArchivoContainer').show();
+            $('#listado tbody').on('click', 'td.details-control', function () {
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    $(this).html('<i class="icono-detalles fas fa-plus-circle"></i>');
                 } else {
-                    $('#recetaArchivoContainer').hide();
+                    const rowData = row.data();
+                    const orderNumber = rowData[2];
+                    const productData = productDataSimulated[orderNumber] || [];
+                    row.child(formatDetails(rowData, productData)).show();
+                    $(this).html('<i class="icono-detalles fas fa-minus-circle"></i>');
                 }
+            });
 
-                $('#modalEditarProducto').fadeIn();
-            }
-        };
+            // Abrir el modal de edición
+            window.editarProducto = function (index, orderNumber) {
+                ordenActual = orderNumber;
+                productoSeleccionado = productDataSimulated[orderNumber]?.[index];
+                indiceProductoSeleccionado = index;
 
-        // Escuchar cambios en el campo de receta
-        $('#recetaProducto').on('change', function () {
-            const aplicaReceta = $(this).val();
-            if (aplicaReceta === "Sí") {
-                $('#recetaArchivoContainer').fadeIn();
-            } else {
-                $('#recetaArchivoContainer').fadeOut();
-            }
-        });
+                if (productoSeleccionado) {
+                    $('#nombreProducto').val(productoSeleccionado.nombre);
+                    $('#cantidadProducto').val(productoSeleccionado.cantidad);
+                    $('#recetaProducto').val(productoSeleccionado.receta);
+                    $('#tipoProducto').val(productoSeleccionado.tipo);
 
-        window.guardarCambios = function () {
-            if (productoSeleccionado) {
-                productoSeleccionado.nombre = $('#nombreProducto').val();
-                productoSeleccionado.cantidad = $('#cantidadProducto').val();
-                productoSeleccionado.receta = $('#recetaProducto').val();
-                productoSeleccionado.tipo = $('#tipoProducto').val();
+                    // Mostrar u ocultar el campo de archivo según la receta
+                    if (productoSeleccionado.receta === "Sí") {
+                        $('#recetaArchivoContainer').show();
+                    } else {
+                        $('#recetaArchivoContainer').hide();
+                    }
 
-                const tr = $(`#listado tbody tr:contains(${ordenActual})`);
-                const row = table.row(tr);
-                const etapasEstado = etapasPorFila[ordenActual] || [];
-                row.child(formatDetails(row.data(), productDataSimulated[ordenActual], etapasEstado)).show();
-                alert('Cambios guardados correctamente.');
+                    $('#modalEditarProducto').fadeIn();
+                }
+            };
+
+            // Escuchar cambios en el campo de receta
+            $('#recetaProducto').on('change', function () {
+                const aplicaReceta = $(this).val();
+                if (aplicaReceta === "Sí") {
+                    $('#recetaArchivoContainer').fadeIn();
+                } else {
+                    $('#recetaArchivoContainer').fadeOut();
+                }
+            });
+
+            // Cerrar el modal
+            window.cerrarModal = function () {
                 $('#modalEditarProducto').fadeOut();
-            }
-        };
+            };
 
-        // Eliminar producto
-        window.eliminarProducto = function (index, orderNumber) {
-            if (confirm(`¿Está seguro de eliminar el producto ${index + 1}?`)) {
-                productDataSimulated[orderNumber].splice(index, 1);
-                const tr = $(`#listado tbody tr:contains(${orderNumber})`);
-                const row = table.row(tr);
-                const etapasEstado = etapasPorFila[orderNumber] || [];
-                row.child(formatDetails(row.data(), productDataSimulated[orderNumber], etapasEstado)).show();
-                alert('Producto eliminado correctamente.');
-            }
-        };
+            // Guardar los cambios
+            window.guardarCambios = function () {
+                if (productoSeleccionado) {
+                    productoSeleccionado.nombre = $('#nombreProducto').val();
+                    productoSeleccionado.cantidad = $('#cantidadProducto').val();
+                    productoSeleccionado.receta = $('#recetaProducto').val();
+                    productoSeleccionado.tipo = $('#tipoProducto').val();
 
-        // Filtrar por estado
-        window.filtrarPorEstado = function (estado) {
-            table.columns(1).search(estado).draw();
-        };
+                    // Manejar el archivo de receta si aplica
+                    if (productoSeleccionado.receta === "Sí") {
+                        const archivo = $('#archivoReceta')[0].files[0];
+                        if (archivo) {
+                            // Simular guardado del archivo
+                            const reader = new FileReader();
+                            reader.onload = function (event) {
+                                const archivoData = event.target.result;
+                                // Aquí simulamos el "guardado" almacenando el archivo en el objeto de producto
+                                productoSeleccionado.archivoReceta = {
+                                    nombre: archivo.name,
+                                    tipo: archivo.type,
+                                    contenido: archivoData
+                                };
+                                alert('Archivo cargado y guardado correctamente.');
+                            };
+                            reader.readAsDataURL(archivo); // Leer el archivo como base64 para simular el guardado
+                        } else {
+                            alert('Debe subir un archivo para la receta.');
+                            return;
+                        }
+                    }
 
+                    alert('Cambios guardados correctamente');
+                    $('#modalEditarProducto').fadeOut();
+
+                    // Actualizar la vista
+                    const tr = $(`#listado tbody tr:contains(${ordenActual})`);
+                    const row = table.row(tr);
+                    row.child(formatDetails(row.data(), productDataSimulated[ordenActual])).show();
+                }
+            };
+
+
+            // Eliminar producto
+            window.eliminarProducto = function (index, orderNumber) {
+                if (confirm(`¿Está seguro de eliminar el producto ${index + 1}?`)) {
+                    productDataSimulated[orderNumber].splice(index, 1);
+                    alert('Producto eliminado correctamente');
+
+                    const tr = $(`#listado tbody tr:contains(${orderNumber})`);
+                    const row = table.row(tr);
+                    row.child(formatDetails(row.data(), productDataSimulated[orderNumber])).show();
+                }
+            };
+
+            // Filtrar por estado
+            window.filtrarPorEstado = function (estado) {
+                table.columns(1).search(estado).draw();
+            };
+        });
         // Función para abrir el modal de recepción
         function abrirModalRecepcionar() {
             document.getElementById('modalRecepcionarOC').style.display = 'block';
@@ -331,8 +365,47 @@
             alert('Orden de Compra Recepcionada Exitosamente');
             cerrarModalRecepcionar();
         });
-    });
-</script>
+        function actualizarEtapas(estado) {
+            const etapas = document.querySelectorAll('.etapa');
+            etapas.forEach((etapa, index) => {
+                etapa.classList.remove('completada');
+                const icono = etapa.querySelector('.icono-etapa');
+                icono.className = 'icono-etapa fas fa-circle';
+            });
+
+            // Simula los estados completados
+            let etapaCompletada;
+            switch (estado) {
+                case 'Pendiente':
+                    etapaCompletada = 1;
+                    break;
+                case 'Producción':
+                    etapaCompletada = 3;
+                    break;
+                case 'Completado':
+                    etapaCompletada = 5;
+                    break;
+                default:
+                    etapaCompletada = 0;
+            }
+
+            for (let i = 0; i < etapaCompletada; i++) {
+                etapas[i].classList.add('completada');
+                const icono = etapas[i].querySelector('.icono-etapa');
+                icono.className = 'icono-etapa completada fas fa-check-circle';
+            }
+        }
+
+        // Llamar la función en cada fila al expandir detalles
+        document.querySelectorAll('.details-control').forEach((control, index) => {
+            control.addEventListener('click', () => {
+                const estado = document.querySelectorAll('td:nth-child(2) span')[index].innerText;
+                actualizarEtapas(estado);
+            });
+        });
+
+
+    </script>
 
 
 </body>
