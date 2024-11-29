@@ -233,6 +233,41 @@
         #formEditarProducto button:hover {
             background-color: #0056b3;
         }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .product-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-edit,
+        .icon-delete {
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .icon-edit:hover {
+            color: #007bff;
+            /* Color azul para editar */
+        }
+
+        .icon-delete:hover {
+            color: #dc3545;
+            /* Color rojo para eliminar */
+        }
     </style>
 </head>
 
