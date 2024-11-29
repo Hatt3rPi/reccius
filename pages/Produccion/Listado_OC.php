@@ -7,6 +7,52 @@
     <title>Listado de Órdenes de Compra</title>
     <link rel="stylesheet" href="../assets/css/Listados.css">
     <link rel="stylesheet" href="../assets/css/modal_produccion.css">
+    <style>
+        .details-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .product-card {
+            flex: 0 0 calc(33.33% - 15px); /* Ocupa 1/3 del contenedor con espacio */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .empty-card {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .product-card h3 {
+            margin-top: 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .product-card label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .products-info {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -57,121 +103,63 @@
                     <td>06/10/2024</td>
                     <td>Santiago</td>
                 </tr>
-                <tr>
-                    <td class="details-control">+</td>
-                    <td>04/10/2024</td>
-                    <td>Pendiente</td>
-                    <td>OC126</td>
-                    <td>Parcial</td>
-                    <td>Clínica Dávila</td>
-                    <td>07/10/2024</td>
-                    <td>Región</td>
-                </tr>
-                <tr>
-                    <td class="details-control">+</td>
-                    <td>05/10/2024</td>
-                    <td>Pendiente</td>
-                    <td>OC127</td>
-                    <td>Total</td>
-                    <td>Clínica Universidad de Chile</td>
-                    <td>08/10/2024</td>
-                    <td>Santiago</td>
-                </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Script para manejar DataTables -->
     <script>
-        $(document).ready(function () {
-            // Formato para los detalles de cada orden
+        document.addEventListener('DOMContentLoaded', function () {
             function formatDetails(rowData, productData) {
-                const maxProductsToShow = 3; // Número máximo de productos visibles inicialmente
-                const totalProducts = productData.length; // Total de productos
-
-                // Tomar los primeros N productos para mostrar
-                const visibleProducts = productData.slice(0, maxProductsToShow);
-
-                // Generar tarjetas de productos visibles
-                let productCards = visibleProducts.map((product, index) => `
+                let productsHtml = productData.map((product, index) => `
                     <div class="product-card">
                         <h3>Producto: ${index + 1}</h3>
-                        <label>Producto:</label><span>${product.nombre}</span><br>
-                        <label>Cantidad:</label><span>${product.cantidad}</span><br>
-                        <label>¿Aplica Receta?:</label><span>${product.receta}</span><br>
-                        <label>Tipo Preparación:</label><span>${product.tipo}</span>
+                        <label>Producto:</label> ${product.name}<br>
+                        <label>Cantidad:</label> ${product.quantity}<br>
+                        <label>¿Aplica Receta?:</label> ${product.prescription}<br>
+                        <label>Tipo Preparación:</label> ${product.preparation}
                     </div>
                 `).join('');
 
-                // Agregar tarjetas vacías si faltan para completar 3 columnas
-                const emptyCards = maxProductsToShow - visibleProducts.length;
-                for (let i = 0; i < emptyCards; i++) {
-                    productCards += `<div class="product-card empty-card"></div>`;
-                }
-
-                // Texto de productos mostrados y total
-                const productsInfoText = `<div class="products-info">Mostrando ${visibleProducts.length} de ${totalProducts} productos</div>`;
-
                 return `
-                    ${productsInfoText}
                     <div class="details-container">
-                        ${productCards}
+                        <div class="products-info">
+                            Mostrando ${productData.length} de ${productData.length} productos
+                        </div>
+                        ${productsHtml}
                     </div>
                 `;
             }
 
-            // Inicializa DataTables
-            var table = $('#listado').DataTable({
+            const table = $('#listado').DataTable({
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
                 },
-                columnDefs: [
-                    { orderable: false, className: 'details-control', targets: 0 }
-                ],
-                order: [[1, 'asc']]
+                columnDefs: [{ orderable: false, className: 'details-control', targets: 0 }],
+                order: [[1, 'asc']],
             });
 
-            // Datos simulados de productos para cada fila (a conectar con el backend)
-            const productDataSimulated = [
-                [{ nombre: "Polidocanol INY 1% 2ML", cantidad: 1000, receta: "Sí", tipo: "Inyectable" }],
-                [
-                    { nombre: "Producto A", cantidad: 500, receta: "No", tipo: "Tableta" },
-                    { nombre: "Producto B", cantidad: 300, receta: "Sí", tipo: "Inyectable" }
-                ],
-                [
-                    { nombre: "Producto X", cantidad: 200, receta: "Sí", tipo: "Jarabe" },
-                    { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Cápsula" },
-                    { nombre: "Producto Z", cantidad: 100, receta: "Sí", tipo: "Tableta" }
-                ],
-                [
-                    { nombre: "Producto 1", cantidad: 400, receta: "Sí", tipo: "Líquido" },
-                    { nombre: "Producto 2", cantidad: 250, receta: "No", tipo: "Polvo" },
-                    { nombre: "Producto 3", cantidad: 600, receta: "Sí", tipo: "Jarabe" },
-                    { nombre: "Producto 4", cantidad: 350, receta: "No", tipo: "Cápsula" }
-                ],
-                Array.from({ length: 20 }, (_, i) => ({
-                    nombre: `Producto ${i + 1}`,
-                    cantidad: Math.floor(Math.random() * 1000),
-                    receta: i % 2 === 0 ? "Sí" : "No",
-                    tipo: i % 3 === 0 ? "Tableta" : i % 3 === 1 ? "Jarabe" : "Cápsula"
-                }))
-            ];
-
-            // Control de los detalles desplegables
             $('#listado tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row(tr);
+                const tr = $(this).closest('tr');
+                const row = table.row(tr);
+
+                const sampleProducts = [
+                    [{ name: 'Producto A', quantity: 100, prescription: 'Sí', preparation: 'Inyectable' }],
+                    [
+                        { name: 'Producto B', quantity: 200, prescription: 'No', preparation: 'Tableta' },
+                        { name: 'Producto C', quantity: 150, prescription: 'Sí', preparation: 'Líquido' }
+                    ],
+                    Array(20).fill({ name: 'Producto Genérico', quantity: 50, prescription: 'No', preparation: 'Polvo' })
+                ];
+
+                const rowIndex = row.index();
+                const productData = sampleProducts[rowIndex % sampleProducts.length];
 
                 if (row.child.isShown()) {
-                    // Cierra la fila de detalles
                     row.child.hide();
-                    $(this).text('+');
+                    tr.find('.details-control').text('+');
                 } else {
-                    // Muestra la fila de detalles
-                    const rowIndex = table.row(tr).index();
-                    const productData = productDataSimulated[rowIndex];
                     row.child(formatDetails(row.data(), productData)).show();
-                    $(this).text('-');
+                    tr.find('.details-control').text('-');
                 }
             });
         });
