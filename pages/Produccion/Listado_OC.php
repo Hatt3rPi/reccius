@@ -12,24 +12,27 @@
         .details-container {
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-between;
             gap: 10px;
             margin: 10px 0;
         }
 
         .product-card {
-            flex: 1 1 calc(33.333% - 10px); /* Tres tarjetas por fila */
+            flex: 1 1 calc(33.333% - 10px); /* Mantiene siempre 1/3 del ancho */
             background-color: #f8f9fa;
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
+            min-height: 150px;
         }
 
         .product-card h3 {
             font-size: 16px;
             margin-bottom: 8px;
             color: #0056b3;
+            text-align: center;
         }
 
         .product-card label {
@@ -43,6 +46,10 @@
             display: inline-block;
             margin-bottom: 8px;
             color: #555;
+        }
+
+        .empty-card {
+            visibility: hidden; /* Oculta las tarjetas vacías pero mantiene el espacio */
         }
     </style>
 </head>
@@ -111,6 +118,13 @@
                         <label>Tipo Preparación:</label><span>${product.tipo}</span>
                     </div>
                 `).join('');
+
+                // Agregar tarjetas vacías si faltan para completar 3 columnas
+                const emptyCards = 3 - productData.length;
+                for (let i = 0; i < emptyCards; i++) {
+                    productCards += `<div class="product-card empty-card"></div>`;
+                }
+
                 return `<div class="details-container">${productCards}</div>`;
             }
 
