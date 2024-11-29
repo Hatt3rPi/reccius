@@ -7,7 +7,6 @@
     <title>Listado de Órdenes de Compra</title>
     <link rel="stylesheet" href="../assets/css/Listados.css">
     <link rel="stylesheet" href="../assets/css/modal_produccion.css">
-
 </head>
 
 <body>
@@ -55,27 +54,19 @@
     <!-- Script para manejar DataTables -->
     <script>
         $(document).ready(function () {
-            // Formato para los detalles de cada orden
+            // Función para el formato de los detalles de cada orden
             function formatDetails(rowData) {
                 return `
-                    <table cellpadding="5" cellspacing="0" border="0" style="margin-left:50px;">
-                        <tr>
-                            <td>Producto:</td>
-                            <td>Polidocanol INY 1% 2ML</td>
-                        </tr>
-                        <tr>
-                            <td>Cantidad:</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>¿Aplica Receta?:</td>
-                            <td>Sí</td>
-                        </tr>
-                        <tr>
-                            <td>Tipo Preparación:</td>
-                            <td>Inyectable</td>
-                        </tr>
-                    </table>`;
+                    <div class="details-container">
+                        <div class="product-card">
+                            <h3>Producto: 1</h3>
+                            <label>Producto:</label><span>Polidocanol INY 1% 2ML</span>
+                            <label>Cantidad:</label><span>1000</span>
+                            <label>¿Aplica Receta?:</label><span>Sí</span>
+                            <label>Tipo Preparación:</label><span>Inyectable</span>
+                        </div>
+                    </div>
+                `;
             }
 
             // Inicializa DataTables
@@ -89,17 +80,15 @@
                 order: [[1, 'asc']]
             });
 
-            // Control de los detalles desplegables
+            // Manejador para las filas desplegables
             $('#listado tbody').on('click', 'td.details-control', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row(tr);
 
                 if (row.child.isShown()) {
-                    // Cierra la fila de detalles
                     row.child.hide();
                     $(this).text('+');
                 } else {
-                    // Muestra la fila de detalles
                     row.child(formatDetails(row.data())).show();
                     $(this).text('-');
                 }
