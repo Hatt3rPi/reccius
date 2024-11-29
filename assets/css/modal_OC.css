@@ -362,9 +362,9 @@
     border-radius: 8px;
     position: relative;
     margin-bottom: 20px;
-    overflow: hidden; /* Evita cualquier desbordamiento */
-    width: 100%; /* Asegura que el contenedor ocupe el ancho disponible */
-    box-sizing: border-box; /* Incluye padding y borde en el tamaño total */
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .etapa-container::before {
@@ -379,12 +379,16 @@
 }
 
 .etapa {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el círculo horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
     position: relative;
     z-index: 2;
     text-align: center;
-    flex: 1; /* Hace que las etapas se distribuyan uniformemente */
-    max-width: calc(100% / 5); /* Ajusta para 5 etapas en el contenedor */
-    padding: 0 10px; /* Espaciado interno entre etapas */
+    flex: 1;
+    max-width: calc(100% / 5); /* Ajustado para 5 etapas */
+    padding: 10px;
     box-sizing: border-box;
 }
 
@@ -398,7 +402,7 @@
     justify-content: center;
     font-size: 20px;
     color: #6c757d;
-    margin: 0 auto 5px;
+    margin: 0 auto 5px; /* Espaciado inferior para el texto */
     border: 2px solid #dee2e6;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
