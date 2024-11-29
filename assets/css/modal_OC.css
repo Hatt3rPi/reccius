@@ -352,33 +352,31 @@
 .modal-content-recepcion form button:hover {
     background-color: #0056b3;
 }
-
 .etapa-container {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: space-between; /* Espacio uniforme entre etapas */
     align-items: center;
-    overflow-x: auto;
-    padding: 5px 10px; /* Menor altura */
-    gap: 10px;
+    padding: 10px;
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    height: 50px; /* Altura ajustada */
+    height: 60px; /* Ajuste de altura para que sea más bajo */
+    gap: 15px; /* Espaciado entre las etapas */
+    margin-bottom: 20px; /* Separación inferior */
+    overflow-x: auto; /* Manejo de desbordamiento horizontal */
 }
 
-/* Estilo específico para las etapas */
 .etapa {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Ícono arriba, texto abajo */
     align-items: center;
     justify-content: center;
     text-align: center;
-    flex: 1; /* Ocupan espacio equitativo */
-    max-width: 100px; /* Ancho máximo */
+    width: 80px; /* Ancho fijo para cada etapa */
     padding: 5px;
+    background-color: #e9ecef;
     border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .etapa.completada {
@@ -392,8 +390,8 @@
 }
 
 .icono-etapa {
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 16px; /* Tamaño ajustado para ícono */
+    margin-bottom: 5px; /* Separación entre ícono y texto */
 }
 
 .etapa p {
@@ -403,9 +401,9 @@
     color: inherit;
 }
 
-/* Añadimos un hover opcional para las etapas */
+/* Hover opcional para las etapas */
 .etapa:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Efecto de ampliación al pasar el cursor */
     background-color: #17a2b8;
     color: white;
 }
