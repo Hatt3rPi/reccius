@@ -129,8 +129,8 @@
                     allowfullscreen>
                 </iframe>
                 <p style="font-size: 12px; color: #555;">
-                    <a href="https://giphy.com/gifs/yuka-app-scan-yula-yuka-app-bLeARYYZSjAAz40cKU" target="_blank"
-                        style="text-decoration: none; color: #007bff;">Usa tu pistola lectora de códigos de barra</a>
+                    <a target="_blank" style="text-decoration: none; color: #007bff;">Usa tu pistola lectora de códigos
+                        de barra</a>
                 </p>
             </div>
 
