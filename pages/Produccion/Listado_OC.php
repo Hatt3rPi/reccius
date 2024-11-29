@@ -22,19 +22,15 @@
 
         .product-card {
             flex: 0 0 calc(16.66% - 15px);
-            /* Ajustado para que sean más pequeñas */
             min-width: calc(16.66% - 15px);
-            /* Ajustado para que sean más pequeñas */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 10px;
-            /* Reducido para adaptarse al nuevo tamaño */
             background-color: #ffffff;
             border-radius: 6px;
             border: 1px solid #ced4da;
             text-align: left;
             transition: transform 0.2s, box-shadow 0.2s;
             font-size: 12px;
-            /* Tamaño de fuente reducido */
         }
 
         .product-card:hover {
@@ -45,7 +41,6 @@
         .product-card h3 {
             margin-top: 0;
             font-size: 14px;
-            /* Tamaño de fuente reducido */
             font-weight: bold;
             color: #495057;
             border-bottom: 2px solid #e9ecef;
@@ -68,23 +63,9 @@
 
         .products-info {
             font-size: 12px;
-            /* Tamaño de fuente reducido */
             color: #6c757d;
             margin-bottom: 10px;
             text-align: left;
-        }
-
-        .empty-card {
-            background-color: transparent;
-            border: 1px dashed #ced4da;
-            box-shadow: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #adb5bd;
-            text-align: center;
-            padding: 10px;
         }
     </style>
 </head>
@@ -137,6 +118,16 @@
                     <td>06/10/2024</td>
                     <td>Santiago</td>
                 </tr>
+                <tr>
+                    <td class="details-control">+</td>
+                    <td>04/10/2024</td>
+                    <td>Enviado</td>
+                    <td>OC126</td>
+                    <td>Total</td>
+                    <td>Clínica Universidad</td>
+                    <td>07/10/2024</td>
+                    <td>Región</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -144,10 +135,7 @@
     <script>
         $(document).ready(function () {
             function formatDetails(rowData, productData) {
-                const maxProductsToShow = 3;
-                const totalProducts = productData.length;
-
-                let productCards = productData.slice(0, maxProductsToShow).map((product, index) => `
+                let productCards = productData.map((product, index) => `
                     <div class="product-card">
                         <h3>Producto: ${index + 1}</h3>
                         <label>Producto:</label><span>${product.nombre}</span>
@@ -157,15 +145,7 @@
                     </div>
                 `).join('');
 
-                const emptyCards = maxProductsToShow - productData.slice(0, maxProductsToShow).length;
-                for (let i = 0; i < emptyCards; i++) {
-                    productCards += `<div class="product-card empty-card"></div>`;
-                }
-
-                const productsInfoText = `<div class="products-info">Mostrando ${Math.min(maxProductsToShow, totalProducts)} de ${totalProducts} productos</div>`;
-
                 return `
-                    ${productsInfoText}
                     <div class="details-container">
                         ${productCards}
                     </div>
@@ -190,6 +170,14 @@
                     { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
                     { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
                     { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
+                ],
+                [
+                    { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
+                    { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" },
+                    { nombre: "Producto 3", cantidad: 150, receta: "No", tipo: "Jarabe" },
+                    { nombre: "Producto 4", cantidad: 200, receta: "Sí", tipo: "Polvo" },
+                    { nombre: "Producto 5", cantidad: 250, receta: "No", tipo: "Cápsula" },
+                    { nombre: "Producto 6", cantidad: 300, receta: "Sí", tipo: "Jarabe" }
                 ]
             ];
 
