@@ -192,7 +192,6 @@
                     <td>Región</td>
                 </tr>
             </tbody>
-
         </table>
     </div>
 
@@ -206,6 +205,10 @@
                         <label>Cantidad:</label><span>${product.cantidad}</span>
                         <label>¿Aplica Receta?:</label><span>${product.receta}</span>
                         <label>Tipo Preparación:</label><span>${product.tipo}</span>
+                        <div class="product-actions">
+                            <button class="btn-edit" onclick="editarProducto(${index})">Editar</button>
+                            <button class="btn-delete" onclick="eliminarProducto(${index})">Eliminar</button>
+                        </div>
                     </div>
                 `).join('');
 
@@ -245,7 +248,6 @@
                 ]
             ];
 
-
             $('#listado tbody').on('click', 'td.details-control', function () {
                 const tr = $(this).closest('tr');
                 const row = table.row(tr);
@@ -261,16 +263,22 @@
                 }
             });
 
-            $('.filtro').on('click', function () {
-                const estado = $(this).data('estado');
-                table.rows().every(function () {
-                    const tr = $(this.node());
-                    tr.toggle(estado === 'Todos' || tr.data('estado') === estado);
-                });
-            });
+            // Función para filtrar por estado
+            window.filtrarPorEstado = function (estado) {
+                table.columns(1).search(estado).draw();
+            };
+
+            // Funciones de producto
+            window.editarProducto = function (index) {
+                alert(`Editar producto: ${index + 1}`);
+            };
+
+            window.eliminarProducto = function (index) {
+                alert(`Eliminar producto: ${index + 1}`);
+            };
         });
     </script>
-
 </body>
+
 
 </html>
