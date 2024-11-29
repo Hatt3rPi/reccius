@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Clientes</title>
-    <!-- Tu CSS personalizado -->
+    <!-- Enlace al archivo CSS -->
     <link rel="stylesheet" href="../assets/css/Listados.css">
+    <link rel="stylesheet" href="../assets/css/modal_produccion.css">
 </head>
 
 <body>
@@ -40,49 +41,42 @@
                         </button>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>María González</td>
-                    <td>maria.gonzalez@example.com</td>
-                    <td>+56 9 8765 4321</td>
-                    <td>Avenida Siempre Viva 456, Valparaíso</td>
-                    <td>
-                        <button class="accion-btn action-button" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="accion-btn action-button" title="Eliminar">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Carlos Sánchez</td>
-                    <td>carlos.sanchez@example.com</td>
-                    <td>+56 9 5678 1234</td>
-                    <td>Camino Real 789, Concepción</td>
-                    <td>
-                        <button class="accion-btn action-button" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="accion-btn action-button" title="Eliminar">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>
-    <!-- Inicialización de DataTables -->
-    <script>
-        $(document).ready(function () {
-            $('#listado').DataTable({
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-                }
-            });
-        });
-    </script>
+
+    <!-- Botón para abrir el modal -->
+    <button id="btn-add-client" class="btn-add-client">Agregar Cliente</button>
+
+    <!-- Modal para agregar cliente -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ingreso de nuevo Cliente</h2>
+            <div class="form-group">
+                <label for="rut">Rut:</label>
+                <input type="text" id="rut" name="rut">
+            </div>
+            <div class="form-group">
+                <label for="cliente">Cliente:</label>
+                <input type="text" id="cliente" name="cliente">
+            </div>
+            <div class="form-group">
+                <label for="email-contacto">Email Contacto:</label>
+                <input type="email" id="email-contacto" name="email-contacto">
+            </div>
+            <div class="form-group">
+                <label for="condicion-pago">Condición de Pago:</label>
+                <input type="text" id="condicion-pago" name="condicion-pago">
+            </div>
+            <div class="modal-footer">
+                <button id="guardar-cliente">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlace al archivo JavaScript -->
+    <script src="../assets/js/modal_produccion.js"></script>
 </body>
 
 </html>
