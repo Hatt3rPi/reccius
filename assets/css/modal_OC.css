@@ -362,15 +362,17 @@
     border-radius: 8px;
     position: relative;
     margin-bottom: 20px;
-    overflow-x: auto;
+    overflow: hidden; /* Evita cualquier desbordamiento */
+    width: 100%; /* Asegura que el contenedor ocupe el ancho disponible */
+    box-sizing: border-box; /* Incluye padding y borde en el tamaño total */
 }
 
 .etapa-container::before {
     content: '';
     position: absolute;
     top: 50%;
-    left: 10px;
-    right: 10px;
+    left: 0;
+    right: 0;
     height: 2px;
     background-color: #dee2e6;
     z-index: 1;
@@ -380,15 +382,10 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    flex: 1;
-}
-
-.etapa:first-child {
-    margin-left: 0;
-}
-
-.etapa:last-child {
-    margin-right: 0;
+    flex: 1; /* Hace que las etapas se distribuyan uniformemente */
+    max-width: calc(100% / 5); /* Ajusta para 5 etapas en el contenedor */
+    padding: 0 10px; /* Espaciado interno entre etapas */
+    box-sizing: border-box;
 }
 
 .etapa .icono-etapa {
