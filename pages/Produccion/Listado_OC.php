@@ -490,14 +490,39 @@
                     productoSeleccionado.receta = $('#recetaProducto').val();
                     productoSeleccionado.tipo = $('#tipoProducto').val();
 
+                    // Manejar el archivo de receta si aplica
+                    if (productoSeleccionado.receta === "Sí") {
+                        const archivo = $('#archivoReceta')[0].files[0];
+                        if (archivo) {
+                            // Simular guardado del archivo
+                            const reader = new FileReader();
+                            reader.onload = function (event) {
+                                const archivoData = event.target.result;
+                                // Aquí simulamos el "guardado" almacenando el archivo en el objeto de producto
+                                productoSeleccionado.archivoReceta = {
+                                    nombre: archivo.name,
+                                    tipo: archivo.type,
+                                    contenido: archivoData
+                                };
+                                alert('Archivo cargado y guardado correctamente.');
+                            };
+                            reader.readAsDataURL(archivo); // Leer el archivo como base64 para simular el guardado
+                        } else {
+                            alert('Debe subir un archivo para la receta.');
+                            return;
+                        }
+                    }
+
                     alert('Cambios guardados correctamente');
                     $('#modalEditarProducto').fadeOut();
 
+                    // Actualizar la vista
                     const tr = $(`#listado tbody tr:contains(${ordenActual})`);
                     const row = table.row(tr);
                     row.child(formatDetails(row.data(), productDataSimulated[ordenActual])).show();
                 }
             };
+
 
             // Eliminar producto
             window.eliminarProducto = function (index, orderNumber) {
