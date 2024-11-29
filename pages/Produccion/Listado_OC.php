@@ -8,267 +8,8 @@
 
     <link rel="stylesheet" href="../assets/css/Listados.css">
     <link rel="stylesheet" href="../assets/css/modal_produccion.css">
-    <style>
-        .details-container {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            padding: 10px;
-            gap: 15px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-        }
+    <link rel="stylesheet" href="../assets/css/modal_OC.css">
 
-        .product-card {
-            flex: 0 0 calc(16.66% - 15px);
-            min-width: calc(16.66% - 15px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            background-color: #ffffff;
-            border-radius: 6px;
-            border: 1px solid #ced4da;
-            text-align: left;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 12px;
-        }
-
-        .product-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-card h3 {
-            margin-top: 0;
-            font-size: 14px;
-            font-weight: bold;
-            color: #495057;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 5px;
-            margin-bottom: 8px;
-        }
-
-        .product-card label {
-            font-weight: bold;
-            color: #6c757d;
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        .product-card span {
-            color: #343a40;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .products-info {
-            font-size: 12px;
-            color: #6c757d;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        .estado-completado {
-            background-color: #28a745;
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .estado-pendiente {
-            background-color: #ffc107;
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .icono-detalles {
-            font-size: 16px;
-            color: #007bff;
-            cursor: pointer;
-        }
-
-        .icono-detalles:hover {
-            color: #0056b3;
-        }
-
-        .filtros-container {
-            margin-bottom: 20px;
-        }
-
-        .filtro-boton {
-            margin-right: 10px;
-            padding: 5px 10px;
-            font-size: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .filtro-boton.completado {
-            background-color: #28a745;
-            color: #fff;
-        }
-
-        .filtro-boton.pendiente {
-            background-color: #ffc107;
-            color: #fff;
-        }
-
-        .filtro-boton.todos {
-            background-color: #6c757d;
-            color: #fff;
-        }
-
-        /* Estilo general para el fondo del modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Fondo semi-transparente */
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        /* Estilo para el contenido del modal */
-        .modal-content {
-            background-color: #ffffff;
-            margin: auto;
-            padding: 20px;
-            border-radius: 10px;
-            /* Bordes redondeados */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Sombra */
-            width: 100%;
-            max-width: 500px;
-            /* Ancho máximo */
-            position: relative;
-            animation: fadeIn 0.3s ease-in-out;
-            /* Animación */
-        }
-
-        /* Animación de entrada */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Botón para cerrar el modal */
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: #aaa;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s ease-in-out;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #333;
-        }
-
-        /* Estilos del formulario */
-        #formEditarProducto label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        #formEditarProducto input,
-        #formEditarProducto select {
-            width: calc(100% - 20px);
-            padding: 8px 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: border-color 0.2s ease-in-out;
-        }
-
-        #formEditarProducto input:focus,
-        #formEditarProducto select:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-
-        /* Botón de guardar cambios */
-        #formEditarProducto button {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-            display: block;
-            width: 100%;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        #formEditarProducto button:hover {
-            background-color: #0056b3;
-        }
-
-        .product-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .product-header h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .icon-edit,
-        .icon-delete {
-            font-size: 16px;
-            cursor: pointer;
-            transition: color 0.2s ease-in-out;
-        }
-
-        .icon-edit:hover {
-            color: #007bff;
-            /* Color azul para editar */
-        }
-
-        .icon-delete:hover {
-            color: #dc3545;
-            /* Color rojo para eliminar */
-        }
-    </style>
 </head>
 
 <body>
@@ -370,6 +111,44 @@
             </form>
         </div>
     </div>
+    <!-- Botón flotante -->
+    <button class="floating-button" onclick="abrirModalRecepcionar()">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Modal para recepcionar orden de compra -->
+    <div id="modalRecepcionarOC">
+        <div class="modal-content-recepcion">
+            <span class="close-recepcion" onclick="cerrarModalRecepcionar()">&times;</span>
+            <h2>Recepcionar Orden de Compra</h2>
+
+            <!-- GIF integrado en el modal -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <iframe src="https://giphy.com/embed/bLeARYYZSjAAz40cKU" width="100%" height="250"
+                    style="border-radius: 10px; border: none;" frameborder="0" class="giphy-embed" allowfullscreen>
+                </iframe>
+                <p style="font-size: 12px; color: #555;">
+                    <a href="https://giphy.com/gifs/yuka-app-scan-yula-yuka-app-bLeARYYZSjAAz40cKU" target="_blank"
+                        style="text-decoration: none; color: #007bff;">via GIPHY</a>
+                </p>
+            </div>
+
+            <form id="formRecepcionarOC">
+                <label for="ordenCompra">Número de OC:</label>
+                <input type="text" id="ordenCompra" name="ordenCompra" placeholder="Ingrese el número de OC" required>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" placeholder="Ingrese una descripción" rows="4"
+                    required></textarea>
+
+                <label for="fechaRecepcion">Fecha de Recepción:</label>
+                <input type="date" id="fechaRecepcion" name="fechaRecepcion" required>
+
+                <button type="submit">Recepcionar</button>
+            </form>
+        </div>
+    </div>
+
 
 
     <script>
@@ -540,6 +319,22 @@
             window.filtrarPorEstado = function (estado) {
                 table.columns(1).search(estado).draw();
             };
+        });
+        // Función para abrir el modal de recepción
+        function abrirModalRecepcionar() {
+            document.getElementById('modalRecepcionarOC').style.display = 'block';
+        }
+
+        // Función para cerrar el modal de recepción
+        function cerrarModalRecepcionar() {
+            document.getElementById('modalRecepcionarOC').style.display = 'none';
+        }
+
+        // Simular el envío del formulario de recepción
+        document.getElementById('formRecepcionarOC').addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Orden de Compra Recepcionada Exitosamente');
+            cerrarModalRecepcionar();
         });
 
     </script>
