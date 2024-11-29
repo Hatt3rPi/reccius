@@ -5,75 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Órdenes de Compra</title>
-
     <link rel="stylesheet" href="../assets/css/Listados.css">
-    <link rel="stylesheet" href="../assets/css/modal_produccion.css">
-    <style>
-        .details-container {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            padding: 10px;
-            gap: 15px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .product-card {
-            flex: 0 0 calc(33.33% - 15px);
-            min-width: calc(33.33% - 15px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        .empty-card {
-            background-color: transparent;
-            border: none;
-            box-shadow: none;
-        }
-
-        .product-card h3 {
-            margin-top: 0;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .product-card label {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .product-card span {
-            color: #777;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .products-info {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-
-        .details-control {
-            cursor: pointer;
-            text-align: center;
-            font-size: 16px;
-            color: #0056b3;
-        }
-
-        .details-control:hover {
-            color: #003366;
-        }
-    </style>
-</head>
+    </head>
 
 <body>
     <div class="form-container">
@@ -130,10 +63,7 @@
     <script>
         $(document).ready(function () {
             function formatDetails(rowData, productData) {
-                const maxProductsToShow = 3;
-                const totalProducts = productData.length;
-
-                let productCards = productData.slice(0, maxProductsToShow).map((product, index) => `
+                const productCards = productData.map((product, index) => `
                     <div class="product-card">
                         <h3>Producto: ${index + 1}</h3>
                         <label>Producto:</label><span>${product.nombre}</span>
@@ -143,17 +73,13 @@
                     </div>
                 `).join('');
 
-                const emptyCards = maxProductsToShow - productData.slice(0, maxProductsToShow).length;
-                for (let i = 0; i < emptyCards; i++) {
-                    productCards += `<div class="product-card empty-card"></div>`;
-                }
-
-                const productsInfoText = `<div class="products-info">Mostrando ${Math.min(maxProductsToShow, totalProducts)} de ${totalProducts} productos</div>`;
-
                 return `
-                    ${productsInfoText}
                     <div class="details-container">
-                        ${productCards}
+                        <button class="carousel-button prev-button">&lt;</button>
+                        <div class="carousel">
+                            ${productCards}
+                        </div>
+                        <button class="carousel-button next-button">&gt;</button>
                     </div>
                 `;
             }
@@ -175,7 +101,8 @@
                 [
                     { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
                     { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
-                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
+                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" },
+                    { nombre: "Producto Extra", cantidad: 30, receta: "Sí", tipo: "Tableta" }
                 ]
             ];
 
@@ -191,6 +118,21 @@
                     const productData = productDataSimulated[rowIndex];
                     row.child(formatDetails(row.data(), productData)).show();
                     $(this).text('-');
+
+                    const carousel = row.child().find('.carousel');
+                    const prevButton = row.child().find('.prev-button');
+                    const nextButton = row.child().find('.next-button');
+                    let scrollPosition = 0;
+
+                    prevButton.on('click', function () {
+                        scrollPosition = Math.max(0, scrollPosition - 300);
+                        carousel.scrollLeft(scrollPosition);
+                    });
+
+                    nextButton.on('click', function () {
+                        scrollPosition = Math.min(carousel[0].scrollWidth - carousel[0].clientWidth, scrollPosition + 300);
+                        carousel.scrollLeft(scrollPosition);
+                    });
                 }
             });
         });
