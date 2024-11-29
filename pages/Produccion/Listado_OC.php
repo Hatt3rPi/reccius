@@ -164,20 +164,34 @@
             function formatStages(rowData) {
                 const estado = rowData[1]; // Obtener el estado de la fila
                 const etapasHTML = `
-                <div class="etapa-container" style="margin-bottom: 20px;">
-                    <div class="etapa ${estado === 'Pendiente' || estado === 'Producción' || estado === 'Completado' ? 'completada' : ''}">
-                        <span class="icono-etapa fas fa-check-circle"></span>
-                        <p>Etapa 1</p>
-                    </div>
-                    <div class="etapa ${estado === 'Producción' || estado === 'Completado' ? 'completada' : ''}">
-                        <span class="icono-etapa fas fa-check-circle"></span>
-                        <p>Etapa 2</p>
-                    </div>
-                    <div class="etapa ${estado === 'Completado' ? 'completada' : ''}">
-                        <span class="icono-etapa fas fa-check-circle"></span>
-                        <p>Etapa 3</p>
-                    </div>
-                </div>
+                <div class="etapa-container">
+    <div class="etapa completada">
+        <div class="icono-etapa fas fa-check"></div>
+        <p>1</p>
+        <span class="etapa-descripcion">Creación Acta de Muestreo<br>fabarca212</span>
+    </div>
+    <div class="etapa completada">
+        <div class="icono-etapa fas fa-check"></div>
+        <p>2</p>
+        <span class="etapa-descripcion">Muestreo Finalizado<br>fabarca212</span>
+    </div>
+    <div class="etapa completada">
+        <div class="icono-etapa fas fa-check"></div>
+        <p>3</p>
+        <span class="etapa-descripcion">Firma Responsable<br>fabarca212</span>
+    </div>
+    <div class="etapa">
+        <div class="icono-etapa fas fa-circle"></div>
+        <p>4</p>
+        <span class="etapa-descripcion">Firma Revisor<br>javier2000asr</span>
+    </div>
+    <div class="etapa">
+        <div class="icono-etapa fas fa-circle"></div>
+        <p>5</p>
+        <span class="etapa-descripcion">Completado</span>
+    </div>
+</div>
+
             `;
                 return etapasHTML;
             }
