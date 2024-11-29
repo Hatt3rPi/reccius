@@ -352,3 +352,60 @@
 .modal-content-recepcion form button:hover {
     background-color: #0056b3;
 }
+
+.etapa-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    padding: 5px 10px; /* Menor altura */
+    gap: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    height: 50px; /* Altura ajustada */
+}
+
+/* Estilo específico para las etapas */
+.etapa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1; /* Ocupan espacio equitativo */
+    max-width: 100px; /* Ancho máximo */
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.etapa.completada {
+    background-color: #28a745;
+    color: white;
+}
+
+.etapa:not(.completada) {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.icono-etapa {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.etapa p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: inherit;
+}
+
+/* Añadimos un hover opcional para las etapas */
+.etapa:hover {
+    transform: scale(1.05);
+    background-color: #17a2b8;
+    color: white;
+}

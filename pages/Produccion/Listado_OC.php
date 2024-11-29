@@ -164,7 +164,7 @@
             function formatStages(rowData) {
                 const estado = rowData[1]; // Obtener el estado de la fila
                 const etapasHTML = `
-                <div class="etapas-container" style="margin-bottom: 20px;">
+                <div class="etapa-container" style="margin-bottom: 20px;">
                     <div class="etapa ${estado === 'Pendiente' || estado === 'Producción' || estado === 'Completado' ? 'completada' : ''}">
                         <span class="icono-etapa fas fa-check-circle"></span>
                         <p>Etapa 1</p>
