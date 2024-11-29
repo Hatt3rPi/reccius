@@ -78,9 +78,9 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Fecha Ingreso</th>
                     <th>Estado</th>
                     <th>OC</th>
+                    <th>Fecha Ingreso</th>
                     <th>Tipo Entrega</th>
                     <th>Cliente</th>
                     <th>Fecha Programada</th>
@@ -90,9 +90,9 @@
             <tbody>
                 <tr>
                     <td class="details-control">+</td>
-                    <td>02/10/2024</td>
                     <td>Producción</td>
                     <td>OC123</td>
+                    <td>02/10/2024</td>
                     <td>Total</td>
                     <td>Clínica Santa María</td>
                     <td>04/10/2024</td>
@@ -100,9 +100,9 @@
                 </tr>
                 <tr>
                     <td class="details-control">+</td>
-                    <td>02/10/2024</td>
                     <td>Pendiente</td>
                     <td>OC124</td>
+                    <td>02/10/2024</td>
                     <td>Parcial</td>
                     <td>Clínica Alemana</td>
                     <td>05/10/2024</td>
@@ -110,9 +110,9 @@
                 </tr>
                 <tr>
                     <td class="details-control">+</td>
-                    <td>03/10/2024</td>
                     <td>Pendiente</td>
                     <td>OC125</td>
+                    <td>03/10/2024</td>
                     <td>Total</td>
                     <td>Hospital del Salvador</td>
                     <td>06/10/2024</td>
@@ -120,15 +120,16 @@
                 </tr>
                 <tr>
                     <td class="details-control">+</td>
-                    <td>04/10/2024</td>
-                    <td>Enviado</td>
+                    <td>Pendiente</td>
                     <td>OC126</td>
-                    <td>Total</td>
-                    <td>Clínica Universidad</td>
+                    <td>04/10/2024</td>
+                    <td>Parcial</td>
+                    <td>Clínica Dávila</td>
                     <td>07/10/2024</td>
                     <td>Región</td>
                 </tr>
             </tbody>
+
         </table>
     </div>
 
