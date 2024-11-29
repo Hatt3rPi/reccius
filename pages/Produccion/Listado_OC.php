@@ -202,20 +202,20 @@
             $(document).ready(function () {
                 function formatDetails(rowData, productData) {
                     let productCards = productData.map((product, index) => `
-                    <div class="product-card">
-                        <h3>Producto: ${index + 1}</h3>
-                        <label>Producto:</label><span>${product.nombre}</span>
-                        <label>Cantidad:</label><span>${product.cantidad}</span>
-                        <label>¿Aplica Receta?:</label><span>${product.receta}</span>
-                        <label>Tipo Preparación:</label><span>${product.tipo}</span>
-                    </div>
-                `).join('');
+                <div class="product-card">
+                    <h3>Producto: ${index + 1}</h3>
+                    <label>Producto:</label><span>${product.nombre}</span>
+                    <label>Cantidad:</label><span>${product.cantidad}</span>
+                    <label>¿Aplica Receta?:</label><span>${product.receta}</span>
+                    <label>Tipo Preparación:</label><span>${product.tipo}</span>
+                </div>
+            `).join('');
 
                     return `
-                    <div class="details-container">
-                        ${productCards}
-                    </div>
-                `;
+                <div class="details-container">
+                    ${productCards}
+                </div>
+            `;
                 }
 
                 const table = $('#listado').DataTable({
@@ -247,7 +247,6 @@
                     ]
                 ];
 
-
                 $('#listado tbody').on('click', 'td.details-control', function () {
                     const tr = $(this).closest('tr');
                     const row = table.row(tr);
@@ -263,15 +262,13 @@
                     }
                 });
 
-                $('.filtro').on('click', function () {
-                    const estado = $(this).data('estado');
-                    table.rows().every(function () {
-                        const tr = $(this.node());
-                        tr.toggle(estado === 'Todos' || tr.data('estado') === estado);
-                    });
-                });
+                // Función para filtrar por estado
+                window.filtrarPorEstado = function (estado) {
+                    table.columns(1).search(estado).draw();
+                };
             });
         </script>
+
     </body>
 
 </html>
