@@ -123,50 +123,7 @@
             background-color: #6c757d;
             color: #fff;
         }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-            text-align: center;
-        }
-
-        .product-action {
-            margin: 5px;
-            padding: 5px 10px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .product-action.edit {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .product-action.delete {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .product-action.view {
-            background-color: #28a745;
-            color: white;
-        }
+        
     </style>
 </head>
 
@@ -215,42 +172,52 @@
                     <td>05/10/2024</td>
                     <td>Región</td>
                 </tr>
+                <tr>
+                    <td class="details-control"><i class="icono-detalles fas fa-plus-circle"></i></td>
+                    <td><span class="estado-pendiente">Pendiente</span></td>
+                    <td>OC125</td>
+                    <td>03/10/2024</td>
+                    <td>Total</td>
+                    <td>Hospital del Salvador</td>
+                    <td>06/10/2024</td>
+                    <td>Santiago</td>
+                </tr>
+                <tr>
+                    <td class="details-control"><i class="icono-detalles fas fa-plus-circle"></i></td>
+                    <td><span class="estado-pendiente">Pendiente</span></td>
+                    <td>OC126</td>
+                    <td>04/10/2024</td>
+                    <td>Parcial</td>
+                    <td>Clínica Dávila</td>
+                    <td>07/10/2024</td>
+                    <td>Región</td>
+                </tr>
             </tbody>
         </table>
     </div>
-
-    <!-- Modal para acciones por producto -->
-    <div id="productoModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span>
-            <h3 id="modalTitulo">Detalles del Producto</h3>
-            <p id="modalContenido"></p>
-            <button id="modalAccion">Confirmar</button>
-        </div>
-    </div>
-
 
     <script>
         $(document).ready(function () {
             function formatDetails(rowData, productData) {
                 let productCards = productData.map((product, index) => `
-                <div class="product-card">
-                    <h3>Producto: ${index + 1}</h3>
-                    <label>Producto:</label><span>${product.nombre}</span>
-                    <label>Cantidad:</label><span>${product.cantidad}</span>
-                    <label>¿Aplica Receta?:</label><span>${product.receta}</span>
-                    <label>Tipo Preparación:</label><span>${product.tipo}</span>
-                    <button class="product-action edit" onclick="editarProducto(${index})">Editar</button>
-                    <button class="product-action delete" onclick="eliminarProducto(${index})">Eliminar</button>
-                    <button class="product-action view" onclick="verProducto(${index})">Ver</button>
-                </div>
-            `).join('');
+                    <div class="product-card">
+                        <h3>Producto: ${index + 1}</h3>
+                        <label>Producto:</label><span>${product.nombre}</span>
+                        <label>Cantidad:</label><span>${product.cantidad}</span>
+                        <label>¿Aplica Receta?:</label><span>${product.receta}</span>
+                        <label>Tipo Preparación:</label><span>${product.tipo}</span>
+                        <div class="product-actions">
+                            <button class="btn-edit" onclick="editarProducto(${index})">Editar</button>
+                            <button class="btn-delete" onclick="eliminarProducto(${index})">Eliminar</button>
+                        </div>
+                    </div>
+                `).join('');
 
                 return `
-                <div class="details-container">
-                    ${productCards}
-                </div>
-            `;
+                    <div class="details-container">
+                        ${productCards}
+                    </div>
+                `;
             }
 
             const table = $('#listado').DataTable({
@@ -266,6 +233,19 @@
                 [
                     { nombre: "Producto B", cantidad: 300, receta: "No", tipo: "Inyectable" },
                     { nombre: "Producto C", cantidad: 200, receta: "Sí", tipo: "Jarabe" }
+                ],
+                [
+                    { nombre: "Producto X", cantidad: 100, receta: "Sí", tipo: "Cápsula" },
+                    { nombre: "Producto Y", cantidad: 150, receta: "No", tipo: "Polvo" },
+                    { nombre: "Producto Z", cantidad: 50, receta: "Sí", tipo: "Inyectable" }
+                ],
+                [
+                    { nombre: "Producto 1", cantidad: 50, receta: "No", tipo: "Tableta" },
+                    { nombre: "Producto 2", cantidad: 100, receta: "Sí", tipo: "Inyectable" },
+                    { nombre: "Producto 3", cantidad: 150, receta: "No", tipo: "Jarabe" },
+                    { nombre: "Producto 4", cantidad: 200, receta: "Sí", tipo: "Polvo" },
+                    { nombre: "Producto 5", cantidad: 250, receta: "No", tipo: "Cápsula" },
+                    { nombre: "Producto 6", cantidad: 300, receta: "Sí", tipo: "Jarabe" }
                 ]
             ];
 
@@ -288,31 +268,16 @@
             window.filtrarPorEstado = function (estado) {
                 table.columns(1).search(estado).draw();
             };
+
+            // Funciones de producto
+            window.editarProducto = function (index) {
+                alert(`Editar producto: ${index + 1}`);
+            };
+
+            window.eliminarProducto = function (index) {
+                alert(`Eliminar producto: ${index + 1}`);
+            };
         });
-
-        // Acciones por producto
-        function editarProducto(index) {
-            abrirModal("Editar Producto", `Editando el producto ${index + 1}`);
-        }
-
-        function eliminarProducto(index) {
-            abrirModal("Eliminar Producto", `¿Está seguro que desea eliminar el producto ${index + 1}?`);
-        }
-
-        function verProducto(index) {
-            abrirModal("Ver Producto", `Detalles del producto ${index + 1}`);
-        }
-
-        // Modal
-        function abrirModal(titulo, contenido) {
-            document.getElementById("modalTitulo").innerText = titulo;
-            document.getElementById("modalContenido").innerText = contenido;
-            document.getElementById("productoModal").style.display = "block";
-        }
-
-        function cerrarModal() {
-            document.getElementById("productoModal").style.display = "none";
-        }
     </script>
 </body>
 
