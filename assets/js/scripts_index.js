@@ -491,7 +491,109 @@ $(document).ready(function () {
             $('#dynamic-content').show();
         });
     });
+
+
+    // Manejo de clic para "Pantalla 5 (Producción)"
+    $('#Produccion').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 5 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Produccion.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 5: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 5 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 6 (Facturación)"
+    $('#Facturacion').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 6 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Facturacion.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 6: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 6 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 7 (Despacho)"
+    $('#Despacho').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 7 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Despacho.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 7: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 7 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 8 (Cobranza)"
+    $('#Cobranza').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 8 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Cobranza.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 8: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 8 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 9 (Vista General)"
+    $('#Vista_General').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 9 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Vista_General.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 9: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 9 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
 });
+
 
 
 

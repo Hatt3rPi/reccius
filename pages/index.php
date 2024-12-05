@@ -304,7 +304,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                         <a id="Listado_OC" href="#" data-breadcrumb="Home > Producción > Listado Ordenes de Compra"
                             class="con-borde-inferior">
                             <span>
-                                <img  src="../assets/images/listado.svg" alt="Icono de Ordenes de Compra"
+                                <img src="../assets/images/listado.svg" alt="Icono de Ordenes de Compra"
                                     class="icono-usuario" height="24" width="24" />
                             </span>
                             Listado de Ordenes de Compra
@@ -312,10 +312,51 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                         <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Listado Clientes"
                             class="con-borde-inferior">
                             <span>
-                                <img  src="../assets/images/listado.svg" alt="Icono de Listado Clientes"
+                                <img src="../assets/images/listado.svg" alt="Icono de Listado Clientes"
                                     class="icono-usuario" height="24" width="24" />
                             </span>
                             Listado de Clientes
+                        </a>
+
+                        <a id="Produccion" href="#" data-breadcrumb="Home > Producción > Pantalla 5 (Producción)"
+                            class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Producción" class="icono-usuario"
+                                    height="24" width="24" />
+                            </span>
+                            Pantalla 5 (Producción)
+                        </a>
+                        <a id="Facturacion" href="#" data-breadcrumb="Home > Producción > Pantalla 6 (Facturación)"
+                            class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Facturación" class="icono-usuario"
+                                    height="24" width="24" />
+                            </span>
+                            Pantalla 6 (Facturación)
+                        </a>
+                        <a id="Despacho" href="#" data-breadcrumb="Home > Producción > Pantalla 7 (Despacho)"
+                            class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Despacho" class="icono-usuario"
+                                    height="24" width="24" />
+                            </span>
+                            Pantalla 7 (Despacho)
+                        </a>
+                        <a id="Cobranza" href="#" data-breadcrumb="Home > Producción > Pantalla 8 (Cobranza)"
+                            class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Cobranza" class="icono-usuario"
+                                    height="24" width="24" />
+                            </span>
+                            Pantalla 8 (Cobranza)
+                        </a>
+                        <a id="Vista_General" href="#" data-breadcrumb="Home > Producción > Pantalla 9 (Vista General)"
+                            class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Vista General"
+                                    class="icono-usuario" height="24" width="24" />
+                            </span>
+                            Pantalla 9 (Vista General)
                         </a>
                     </div>
                 </li>
