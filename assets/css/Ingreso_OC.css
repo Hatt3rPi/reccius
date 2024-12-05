@@ -166,7 +166,7 @@ body {
 /* Estilo para inputs deshabilitados */
 /* ========================= */
 .input-disabled {
-    background-color: #e9ecef; /* Gris claro */
+    background-color: #999999; /* Gris claro */
     color: #6c757d; /* Texto gris */
     border: 1px solid #ced4da; /* Borde gris */
     cursor: not-allowed; /* Cursor no permitido */
