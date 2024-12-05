@@ -162,6 +162,38 @@ body {
     color: #333;
     margin-bottom: 20px;
 }
+/* ========================= */
+/* Estilo para inputs deshabilitados */
+/* ========================= */
+.input-disabled {
+    background-color: #e9ecef; /* Gris claro */
+    color: #6c757d; /* Texto gris */
+    border: 1px solid #ced4da; /* Borde gris */
+    cursor: not-allowed; /* Cursor no permitido */
+}
+
+/* ========================= */
+/* Estilo para el área de comentarios */
+/* ========================= */
+#comments-container {
+    margin-top: 20px;
+}
+
+#comments-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: none; /* No permitir cambiar el tamaño */
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+#comments-container textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
 
 
 /* ========================= */
