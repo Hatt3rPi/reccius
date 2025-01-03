@@ -407,7 +407,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <li class="section ${determinarClase(porcentaje_externo, 80)}">
                             <div class="circle">5</div>
                             <div class="label">Pendiente Liberación productos</div>
-                            <div class="user_done">${d.aex_firma1 ? d.aex_firma1 : 'Por definir'}</div>
+                            <div class="user_done">${d.aex_liberado_por ? d.aex_liberado_por : 'Por definir'}</div>
                         </li>
                         <li class="section ${porcentaje_externo === 100 ? 'pg_completado' : ''}">
                             <div class="circle">6</div>
