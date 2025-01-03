@@ -67,7 +67,7 @@ if ($row['count'] > 0) {
 mysqli_stmt_close($stmtCheck);
 
 // Verificar que el usuario es el mismo que revisado_por en calidad_analisis_externo
-$revisadoPorQuery = "SELECT revisado_por, solicitado_por, numero_solicitud, id_cuarentena FROM calidad_analisis_externo WHERE id = ?";
+$revisadoPorQuery = "SELECT revisado_por, solicitado_por, numero_solicitud, id_cuarentena, liberado_por FROM calidad_analisis_externo WHERE id = ?";
 $stmtRevisadoPor = mysqli_prepare($link, $revisadoPorQuery);
 if ($stmtRevisadoPor) {
     mysqli_stmt_bind_param($stmtRevisadoPor, 'i', $idAnalisisExterno);
@@ -85,6 +85,7 @@ if ($stmtRevisadoPor) {
     $solicitadoPor = $rowRevisadoPor['solicitado_por'];
     $numero_solicitud = $rowRevisadoPor['numero_solicitud'];
     $id_cuarentena = $rowRevisadoPor['id_cuarentena'];
+    $liberadoPor = $rowRevisadoPor['liberado_por'];
     // Puedes usar estos valores según sea necesario
 } else {
     echo json_encode(['error' => 'Error al preparar consulta para verificar el usuario.']);
@@ -182,7 +183,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
     echo json_encode(['exito' => true]);
 
     finalizarTarea($_SESSION['usuario'], $idAnalisisExterno, 'calidad_analisis_externo', 'Ingresar resultados Laboratorio');
-    registrarTarea(7, $_SESSION['usuario'], $solicitadoPor, 'Emitir Acta de Liberación de solicitud: ' . $numero_solicitud, 2, 'Emitir acta de liberación', $idAnalisisExterno, 'calidad_analisis_externo');
+    registrarTarea(7, $_SESSION['usuario'], $liberadoPor, 'Emitir Acta de Liberación de solicitud: ' . $numero_solicitud, 2, 'Emitir acta de liberación', $idAnalisisExterno, 'calidad_analisis_externo');
 
 } else {
     echo json_encode(['error' => 'Error al subir el certificado: ' . $uploadResult['error']]);
