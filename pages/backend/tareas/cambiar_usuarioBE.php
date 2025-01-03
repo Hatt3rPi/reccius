@@ -53,30 +53,36 @@ $updateRelacion = null;
 switch ($tablaRelacion) {
     case 'calidad_especificacion_productos':
         if ($tipoTarea == 'Firma 2') {
-            $updateRelacion = "UPDATE calidad_especificacion_productos SET usuario_revisor = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_especificacion_productos SET revisado_por = ? WHERE id_especificacion = ?";
         } elseif ($tipoTarea == 'Firma 3') {
-            $updateRelacion = "UPDATE calidad_especificacion_productos SET usuario_aprobador = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_especificacion_productos SET aprobado_por = ? WHERE id_especificacion = ?";
         }
         break;
     case 'calidad_analisis_externo':
         if ($tipoTarea == 'Generar Acta Muestreo') {
             $updateRelacion = "UPDATE calidad_analisis_externo SET muestreado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Enviar a Laboratorio') {
-            $updateRelacion = "UPDATE calidad_analisis_externo SET revisado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_analisis_externo SET enviado_lab_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Ingresar resultados Laboratorio') {
             $updateRelacion = "UPDATE calidad_analisis_externo SET revisado_por = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Emitir acta de liberación') {
-            $updateRelacion = "UPDATE calidad_analisis_externo SET solicitado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_analisis_externo SET liberado_por = ? WHERE id = ?";
         }
         break;
     case 'calidad_acta_muestreo':
         if ($tipoTarea == 'Firma 1') {
-            $updateRelacion = "UPDATE calidad_acta_muestreo SET muestreado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_acta_muestreo SET muestreador = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Firma 2') {
-            $updateRelacion = "UPDATE calidad_acta_muestreo SET muestreado_por = ? WHERE id = ?";
+            $updateRelacion = "UPDATE calidad_acta_muestreo SET responsable = ? WHERE id = ?";
         } elseif ($tipoTarea == 'Firma 3') {
-            $updateRelacion = "UPDATE calidad_acta_muestreo SET verificado_por = ? WHERE id = ?";
-        }
+            $updateRelacion = "UPDATE calidad_acta_muestreo SET verificador = ? WHERE id = ?";
+        // }        if ($tipoTarea == 'Firma 1') {
+        //     $updateRelacion = "UPDATE calidad_acta_muestreo SET muestreado_por = ? WHERE id = ?";
+        // } elseif ($tipoTarea == 'Firma 2') {
+        //     $updateRelacion = "UPDATE calidad_acta_muestreo SET muestreado_por = ? WHERE id = ?";
+        // } elseif ($tipoTarea == 'Firma 3') {
+        //     $updateRelacion = "UPDATE calidad_acta_muestreo SET verificado_por = ? WHERE id = ?";
+        // }
         break;
 }
 

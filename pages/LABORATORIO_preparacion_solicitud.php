@@ -202,9 +202,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
-                            <option value="fabarca212">Felipe Abarca</option>
-                            <option value="lucianoalonso2000">Luciano Abarca</option>
-                            <option value="javier2000asr">Javier Sabando</option>
+                            <option value="fabarca212">Felipe Abarca - Developer</option>
+                            <option value="lucianoalonso2000">Luciano Abarca  - Developer</option>
+                            <option value="javier2000asr">Javier Sabando  - Developer</option>
                         </select>
                     </div>
                 </div>
@@ -218,9 +218,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
-                            <option value="fabarca212">Felipe Abarca</option>
-                            <option value="lucianoalonso2000">Luciano Abarca</option>
-                            <option value="javier2000asr">Javier Sabando</option>
+                            <option value="fabarca212">Felipe Abarca - Developer</option>
+                            <option value="lucianoalonso2000">Luciano Abarca  - Developer</option>
+                            <option value="javier2000asr">Javier Sabando  - Developer</option>
                         </select>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
