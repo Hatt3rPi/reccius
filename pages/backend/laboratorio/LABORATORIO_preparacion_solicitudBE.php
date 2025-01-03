@@ -56,7 +56,8 @@ function insertarRegistro($link, $datos)
         pais_origen,
         proveedor,
         fecha_firma_1,
-        observaciones
+        observaciones,
+        liberado_por
             ) 
         SELECT 
             ?, -- version
@@ -87,7 +88,8 @@ function insertarRegistro($link, $datos)
             ?,
             ?,
             '".$fecha_ymd."',
-            ?
+            ?,
+            ?  -- liberado_por
 
         FROM 
             calidad_especificacion_productos AS c
@@ -105,7 +107,7 @@ function insertarRegistro($link, $datos)
 
     mysqli_stmt_bind_param(
         $stmt,
-        'isssssssssssssssssssssssi',
+        'issssssssssssssssssssssssi',
         $datos['version'],
         $datos['numero_registro'],
         $datos['numero_solicitud'],
@@ -129,6 +131,7 @@ function insertarRegistro($link, $datos)
         $datos['paisOrigen'],
         $datos['dealer'],
         $datos['observaciones_originales'],
+        $_SESSION['usuario'],
         $aux_anomes,        // Se utiliza en la subconsulta WHERE
         $datos['id_especificacion']
     );
@@ -168,6 +171,7 @@ function insertarRegistro($link, $datos)
             $datos['paisOrigen'],
             $datos['dealer'],
             $datos['observaciones_originales'],
+            $_SESSION['usuario'],
             $aux_anomes,        // Se utiliza en la subconsulta WHERE
             $datos['id_especificacion']
         ],
@@ -340,6 +344,7 @@ function agregarDatosPostFirma($link, $datos,$archivo)
         'numero_documento',
         'observaciones',
         'solicitado_por',
+        'liberado_por',
         'revisado_por',
     ];
 
@@ -447,6 +452,7 @@ function campoTipo($campo)
         'tamano_contramuestra' => 's',
         'observaciones' => 's',
         'solicitado_por' => 's',
+        'liberado_por' => 's',
         'revisado_por' => 's',
     ];
 
@@ -500,6 +506,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $observaciones = limpiarDato($_POST['observaciones']);
     $observaciones_originales = limpiarDato($_POST['form_observaciones']);
     $solicitadoPor = limpiarDato($_POST['solicitado_por']);
+    $liberadoPor = limpiarDato($_POST['liberado_por']);
     $revisadoPor = limpiarDato($_POST['revisado_por']);
     $am_verificado_por = limpiarDato($_POST['am_verificado_por']);
     $am_ejecutado_por = limpiarDato($_POST['ejecutado_por']);
@@ -556,6 +563,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'observaciones' => $observaciones,
             'observaciones_originales' => $observaciones_originales,
             'solicitado_por' => $solicitadoPor,
+            'liberado_por' => $liberadoPor,
             'revisado_por' => $revisadoPor,
             'am_verificado_por' => $am_verificado_por,
             'am_ejecutado_por' =>$am_ejecutado_por,

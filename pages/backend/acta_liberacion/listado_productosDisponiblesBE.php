@@ -6,7 +6,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
-
+ 
 // Consulta para obtener las especificaciones de productos
 $query = "SELECT 
                 a.*,
@@ -33,6 +33,7 @@ $query = "SELECT
 				an_externo.am_ejecutado_por as 'am_generador',
 				an_externo.revisado_por as 'aex_revisado_por', 
 				an_externo.solicitado_por as 'aex_firma1',
+                an_externo.liberado_por as 'aex_liberado_por',
 				an_externo.estado as 'aex_estado',
                 an_externo.url_certificado_de_analisis_externo,
                 an_externo.url_certificado_acta_de_muestreo,
