@@ -175,9 +175,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda">Luis Sepúlveda Miranda - Director Técnico</option>
-                            <option value="fabarca212">Felipe Abarca</option>
-                            <option value="lucianoalonso2000">Luciano Abarca</option>
-                            <option value="javier2000asr">Javier Sabando</option>
+                            <?php if (isset($_SESSION['usuario']) && in_array($_SESSION['usuario'], ['fabarca212','lucianoalonso2000','javier2000asr'])): ?>
+                            <option value="fabarca212">Felipe Abarca - Developer</option>
+                            <option value="lucianoalonso2000">Luciano Abarca - Developer</option>
+                            <option value="javier2000asr">Javier Sabando - Developer</option>
+                            <?php endif; ?>
                         </select>
                     </div>
                 </div>
@@ -190,9 +192,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <option value="ccamilla">Constanza Camilla Piña - Coordinador Calidad</option>
                             <option value="cpereira">Catherine Pereira García - Jefe de Producción</option>
                             <option value="lsepulveda" selected>Luis Sepúlveda Miranda - Director Técnico</option>
-                            <option value="fabarca212">Felipe Abarca</option>
-                            <option value="lucianoalonso2000">Luciano Abarca</option>
-                            <option value="javier2000asr">Javier Sabando</option>
+                            <?php if (isset($_SESSION['usuario']) && in_array($_SESSION['usuario'], ['fabarca212','lucianoalonso2000','javier2000asr'])): ?>
+                            <option value="fabarca212">Felipe Abarca - Developer</option>
+                            <option value="lucianoalonso2000">Luciano Abarca - Developer</option>
+                            <option value="javier2000asr">Javier Sabando - Developer</option>
+                            <?php endif; ?>
                         </select>
                     </div>
                 </div>
