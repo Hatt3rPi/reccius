@@ -455,7 +455,7 @@ function campoTipo($campo)
         'solicitado_por' => 's',
         'liberado_por' => 's',
         'revisado_por' => 's',
-        'enviado_lab_por' => 's', // Agregar el nuevo campo
+        'enviado_lab_por' => 's' // Agregar el nuevo campo
     ];
 
     return $tiposCampo[$campo] ?? 's';
@@ -510,6 +510,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $solicitadoPor = limpiarDato($_POST['solicitado_por']);
     $liberadoPor = limpiarDato($_POST['liberado_por']);
     $revisadoPor = limpiarDato($_POST['revisado_por']);
+    $enviado_lab_por = limpiarDato($_POST['enviado_lab_por']);
     $am_verificado_por = limpiarDato($_POST['am_verificado_por']);
     $am_ejecutado_por = limpiarDato($_POST['ejecutado_por']);
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
@@ -567,6 +568,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'solicitado_por' => $solicitadoPor,
             'liberado_por' => $liberadoPor,
             'revisado_por' => $revisadoPor,
+            'enviado_lab_por' => $enviado_lab_por,
             'am_verificado_por' => $am_verificado_por,
             'am_ejecutado_por' =>$am_ejecutado_por,
 
@@ -575,10 +577,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($estaEditando) {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
             $datosLimpios['numero_solicitud'] = $numero_solicitud;
-
-            if (isset($datos['revisado_por']) && $datos['revisado_por'] !== '') {
-                $datos['enviado_lab_por'] = $datos['revisado_por']; // Copiar el valor
-            }
 
             agregarDatosPostFirma($link, $datosLimpios,$archivo);
         } else {
