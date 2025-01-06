@@ -62,7 +62,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <h2>Re-asignar Tarea</h2>
             <form id="formCambiarUsuario">
                 <label for="">Ejecutor original:</label>
-                <input id="ejecutorOriginal" name="ejecutorOriginal">
+                <input id="ejecutorOriginal" name="ejecutorOriginal" readonly>
                 <br>
                 <label for="usuarioNuevo">Re-asignar tarea a:</label>
                 <select name="usuarioNuevo" id="usuarioNuevo">
@@ -73,6 +73,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <br>
+                <label for="motivo">Motivo del cambio:</label>
+                <textarea name="motivo" id="motivo" rows="3" required></textarea>
                 <br>
                 <input type="hidden" id="idTarea" name="idTarea">
                 <button type="submit">Aceptar</button>

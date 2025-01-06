@@ -33,10 +33,11 @@ try {
     }
 
     // 2. Registrar el cambio en tareas_cambio_usuarios
-    $insertCambio = "INSERT INTO tareas_cambio_usuarios (id_tarea, usuario_original, usuario_nuevo, fecha_cambio, motivo) 
-                     VALUES (?, ?, ?, NOW(), 'Cambio de usuario ejecutor')";
+    $motivo = $_POST['motivo'];
+    $insertCambio = "INSERT INTO tareas_cambio_usuarios (id_tarea, usuario_original, usuario_nuevo, fecha_cambio, motivo, cambiado_por) 
+                     VALUES (?, ?, ?, NOW(), ?, ?)";
     $stmt = mysqli_prepare($link, $insertCambio);
-    mysqli_stmt_bind_param($stmt, "iss", $idTarea, $usuarioOriginal, $usuarioNuevo);
+    mysqli_stmt_bind_param($stmt, "issss", $idTarea, $usuarioOriginal, $usuarioNuevo, $motivo, $_SESSION['usuario']);
     $exitoCambio = mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -110,7 +111,7 @@ try {
                 'tareas',
                 $idRelacion,
                 $insertCambio,
-                [$idTarea, $usuarioOriginal, $usuarioNuevo],
+                [$idTarea, $usuarioOriginal, $usuarioNuevo, $motivo, $_SESSION['usuario']],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
             );
@@ -123,7 +124,7 @@ try {
                 'tareas',
                 $idRelacion,
                 $insertCambio,
-                [$idTarea, $usuarioOriginal, $usuarioNuevo],
+                [$idTarea, $usuarioOriginal, $usuarioNuevo, $motivo, $_SESSION['usuario']],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
             );
