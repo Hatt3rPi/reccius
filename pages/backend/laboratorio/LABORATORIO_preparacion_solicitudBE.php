@@ -510,7 +510,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $solicitadoPor = limpiarDato($_POST['solicitado_por']);
     $liberadoPor = limpiarDato($_POST['liberado_por']);
     $revisadoPor = limpiarDato($_POST['revisado_por']);
-    $enviado_lab_por = limpiarDato($_POST['enviado_lab_por']);
+    $enviado_lab_por = limpiarDato($_POST['revisado_por']);
     $am_verificado_por = limpiarDato($_POST['am_verificado_por']);
     $am_ejecutado_por = limpiarDato($_POST['ejecutado_por']);
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
