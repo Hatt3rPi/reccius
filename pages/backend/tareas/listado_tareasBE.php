@@ -13,6 +13,7 @@ $query = "  SELECT
                 DATE_FORMAT(a.fecha_done, '%Y-%m-%d') as fecha_done,
                 b.nombre as usuario_creador,
                 c.nombre as usuario_ejecutor,
+                c.usuario as usuario_ejecutor_usuario,
                 a.descripcion_tarea,
                 a.estado,
                 CASE prioridad 

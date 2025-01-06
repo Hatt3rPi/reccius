@@ -169,7 +169,8 @@ function cargaListadoTareas() {
             
             
                 acciones += '<button class="accion-btn ingControl" title="Recordar Tarea" id="' + d.id + '" name="recordar" onclick="botones(this.id, this.name, \'tareas\')" ><i class="fas fa-envelope"></i> Recordar tarea vía e-mail</button><a> </a>';
-                acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario"  data-usuario_ejecutor="' + d.usuario_ejecutor + '" ><i class="fas fa-user-edit"></i> Cambiar usuario ejecutor</button><a> </a>';
+                //el siguiente botón debería ser visible solo para el usuario creador de la tarea o para el administrador
+                acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario"  data-usuario_ejecutor="' + d.usuario_ejecutor_usuario + '" ><i class="fas fa-user-edit"></i> Cambiar usuario ejecutor</button><a> </a>';
             
             if (d.usuario_ejecutor === usuarioActual) {
                 acciones += '<button class="accion-btn ingControl" title="Finalizar Tarea" id="' + d.id_relacion + '" name="finalizar_tarea" onclick="botones(this.id, this.name, \'tareas\', \'' + d.tabla_relacion + '\', \'' + d.tipo + '\')"><i class="fas fa-check"></i>  Ir a finalizar tarea</button>';
