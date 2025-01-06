@@ -33,6 +33,7 @@ $query = "SELECT
         ELSE CONCAT(pr.nombre_producto, ' ', pr.concentracion, ' - ', pr.formato) 
     END AS producto,
     aex.revisado_por,
+    aex.enviado_lab_por,
     aex.fecha_firma_revisor,
     aex.solicitado_por,
     aex.lote,

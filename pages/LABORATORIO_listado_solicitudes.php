@@ -266,8 +266,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             if (d.estado === "Pendiente envío a Laboratorio" ) {
                 acciones += `<button class="accion-btn ingControl" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
-                if (d.revisado_por === usuarioActual || usuarioActual === 'isumonte'){
-                    acciones += `<button class="accion-btn ingControl" title="WIP Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Enviar Solicitud a Laboratorio</button><a> </a>`;
+                if (d.enviado_lab_por === usuarioActual || usuarioActual === 'isumonte'){
+                    acciones += `<button class="accion-btn ingControl" title="Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Enviar Solicitud a Laboratorio</button><a> </a>`;
                 }
             }
             if (d.am_ejecutado_por === usuarioActual && d.estado === "Pendiente Acta de Muestreo" && d.id_muestreo === null) {
