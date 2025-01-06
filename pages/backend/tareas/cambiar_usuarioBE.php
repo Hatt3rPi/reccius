@@ -109,8 +109,8 @@ try {
                 'Cambio de usuario ejecutor de tarea',
                 'tareas',
                 $idRelacion,
-                $tablaRelacion,
-                [$usuarioNuevo, $idRelacion],
+                $insertCambio,
+                [$idTarea, $usuarioOriginal, $usuarioNuevo],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
             );
@@ -122,8 +122,8 @@ try {
                 'Cambio de usuario ejecutor de tarea',
                 'tareas',
                 $idRelacion,
-                $tablaRelacion,
-                [$usuarioNuevo, $idRelacion],
+                $insertCambio,
+                [$idTarea, $usuarioOriginal, $usuarioNuevo],
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
             );
