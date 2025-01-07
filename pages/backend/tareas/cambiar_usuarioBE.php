@@ -128,7 +128,7 @@ try {
                 $exitoRelacion ? 1 : 0,
                 $exitoRelacion ? null : mysqli_error($link)
             );
-            echo json_encode(['exito' => true, 'mensaje' => 'Usuario ejecutor actualizado correctamente.']);
+            
         } 
     }
 

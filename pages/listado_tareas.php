@@ -229,23 +229,19 @@ $('#formCambiarUsuario').on('submit', function(e) {
             url: './backend/tareas/cambiar_usuarioBE.php',
             type: 'POST',
             data: datosFormulario,
+            dataType: 'json', // Especificar que esperamos JSON
             success: function(response) {
-                if (typeof response === 'string') {
-                    response = JSON.parse(response);
-                }
-                
                 if (response.exito) {
-                    alert('Usuario actualizado correctamente');
+                    alert(response.mensaje);
                     $('#modalCambiarUsuario').hide();
-                    // Recargar la tabla
                     $('#listado').DataTable().ajax.reload();
                 } else {
                     alert('Error: ' + response.mensaje);
                 }
             },
             error: function(xhr, status, error) {
-                console.log('Error:', xhr, status, error);
-                alert('Error al cambiar el usuario');
+                console.error('Error:', xhr.responseText);
+                alert('Error al cambiar el usuario. Por favor, intente nuevamente.');
             }
         });
     }
