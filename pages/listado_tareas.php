@@ -211,58 +211,44 @@ $('.close').click(function() {
     $('#modalCambiarUsuario').hide();
 });
 
-// Manejar el envío del formulario
+// Reemplazar el manejador del formulario con esta versión:
 $('#formCambiarUsuario').on('submit', function(e) {
     e.preventDefault();
     var datosFormulario = $(this).serialize();
-    // Obtener los valores del formulario
     var usuarioNuevo = document.getElementById('usuarioNuevo').value;
     var usuarioOriginal = document.getElementById('ejecutorOriginal').value;
 
-    // Validar que el usuario nuevo no sea null y sea diferente del original
     if (!usuarioNuevo || usuarioNuevo === usuarioOriginal) {
         alert("Debes seleccionar un usuario diferente del actual.");
         return;
     }
 
-    // Preguntar al usuario si está seguro
     var confirmacion = confirm("¿Estás seguro de que deseas realizar este cambio?");
     if (confirmacion) {
-        // Si el usuario confirma, enviar el formulario
         $.ajax({
-        url: './backend/tareas/tareasBE.php', // Asegúrate de ajustar esta URL
-        type: 'POST',
-        data: datosFormulario,
-        //acá
-        success: function(response) {
-            // Aquí puedes manejar la respuesta
-            alert('Usuario Cambiado');
-
-            $.ajax({
-                        url: './backend/tareas/cambiar_usuarioBE.php',
-                        type: 'POST',
-                        data: datosFormulario,
-                        success: function(response) {
-                            var resultado2 = JSON.parse(response);
-                            if (resultado2.exito) {
-                                alert('Usuario actualizado en la tabla relacionada correctamente.');
-                            } else {
-                                alert('Error en la actualización de la tabla relacionada: ' + resultado2.mensaje);
-                            }
-                        },
-                        error: function() {
-                            alert('Error al ejecutar la segunda operación.');
-                        }
-                    });
-
-            $('#modalCambiarUsuario').hide();
-            // Aquí deberías también recargar o actualizar tu tabla de tareas
-            $("#notificaciones").click();
-        },
-        error: function() {
-            alert('Error al cambiar el usuario');
-        }
-    });
+            url: './backend/tareas/cambiar_usuarioBE.php',
+            type: 'POST',
+            data: datosFormulario,
+            success: function(response) {
+                if (typeof response === 'string') {
+                    response = JSON.parse(response);
+                }
+                
+                if (response.exito) {
+                    alert('Usuario actualizado correctamente');
+                    $('#modalCambiarUsuario').hide();
+                    // Recargar la tabla
+                    $('#listado').DataTable().ajax.reload();
+                } else {
+                    alert('Error: ' + response.mensaje);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', xhr, status, error);
+                alert('Error al cambiar el usuario');
+            }
+        });
     }
 });
+
 </script>
