@@ -1,118 +1,125 @@
-/* Encapsula los estilos específicos del modal */
-.modal-reasignar {
-    display: none;
+/* Estilo general del modal */
+.modal {
+    display: none; /* Oculta el modal por defecto */
     position: fixed;
     z-index: 1000;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    overflow: auto; /* Para manejar contenido largo */
 }
 
-.modal-reasignar .modal-content {
+/* Contenedor del contenido del modal */
+.modal-content {
     background-color: #fff;
-    margin: 5% auto;
-    padding: 20px 30px;
-    border-radius: 12px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
     width: 40%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     font-family: Arial, sans-serif;
 }
 
-.modal-reasignar .modal-title {
+/* Título del modal */
+.modal-title {
     font-size: 1.8rem;
     font-weight: bold;
     color: #333;
-    margin-bottom: 15px;
     text-align: center;
+    margin-bottom: 20px;
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
 }
 
-.modal-reasignar .form-group {
+/* Botón de cierre */
+.close {
+    color: #aaa;
+    font-size: 1.5rem;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Formulario y campos */
+.form-group {
     margin-bottom: 15px;
 }
 
-.modal-reasignar .form-label {
+.form-group label {
     font-weight: 600;
-    font-size: 1rem;
-    color: #555;
     display: block;
     margin-bottom: 5px;
+    font-size: 1rem;
+    color: #555;
 }
 
-.modal-reasignar .form-control {
+input[type="text"], select, textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-top: 5px;
+    border-radius: 5px;
     box-sizing: border-box;
-    font-size: 1rem; /* Aumenta el tamaño de fuente si es necesario */
-    overflow: visible; /* Evita cortar contenido */
+    font-size: 1rem;
 }
 
-
-
-
-.modal-reasignar .form-control:focus {
-    outline: none;
+input[type="text"]:focus, select:focus, textarea:focus {
     border-color: #007bff;
+    outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.modal-reasignar textarea.form-control {
-    resize: none;
+textarea {
+    resize: none; /* Evita el cambio de tamaño manual */
 }
 
-.modal-reasignar .form-actions {
+/* Botones de acción */
+.form-actions {
     text-align: right;
     margin-top: 20px;
 }
 
-.modal-reasignar .btn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+button {
+    padding: 10px 20px;
     font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.modal-reasignar .btn-primary {
+#btnAceptar {
     background-color: #007bff;
     color: #fff;
 }
 
-.modal-reasignar .btn-primary:hover {
+#btnAceptar:hover {
     background-color: #0056b3;
 }
 
-.modal-reasignar .btn-secondary {
-    background-color: #e0e0e0; /* Color gris claro */
+#btnCancelar {
+    background-color: #e0e0e0; /* Gris claro */
     color: #333; /* Texto oscuro */
+    margin-left: 10px;
 }
 
-.modal-reasignar .btn-secondary:hover {
-    background-color: #d6d6d6; /* Gris más oscuro al pasar el cursor */
-    color: #000; /* Texto más intenso */
+#btnCancelar:hover {
+    background-color: #d6d6d6; /* Gris oscuro */
 }
 
-/* Estilo específico para el desplegable */
-.modal-reasignar select {
-    appearance: none;
-    position: relative;
-    z-index: 10;
-}
+/* Responsivo */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%; /* Ajusta el ancho del modal en pantallas pequeñas */
+    }
 
-/* Forzar que el desplegable abra hacia abajo */
-.modal-reasignar select::-ms-expand {
-    display: none;
-}
-.modal-reasignar select.form-control {
-    height: auto; /* Ajusta la altura automáticamente */
-    padding-right: 20px; /* Espacio para íconos si es necesario */
-    white-space: nowrap; /* Evita cortar texto en líneas múltiples */
+    button {
+        width: 100%; /* Botones más grandes en dispositivos móviles */
+        margin-top: 10px; /* Separación entre botones */
+    }
 }

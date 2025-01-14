@@ -62,19 +62,23 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </div>
     <!-- Modal para Cambiar Usuario -->
-    <div id="modalCambiarUsuario" class="modal modal-reasignar">
+    <div id="modalCambiarUsuario" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2 class="modal-title">Re-asignar Tarea</h2>
             <form id="formCambiarUsuario">
+                <!-- Ejecutor original -->
                 <div class="form-group">
-                    <label for="ejecutorOriginal" class="form-label">Ejecutor original:</label>
-                    <input id="ejecutorOriginal" name="ejecutorOriginal" class="form-control" readonly>
+                    <label for="ejecutorOriginal">Ejecutor original:</label>
+                    <input id="ejecutorOriginal" name="ejecutorOriginal" type="text" readonly>
                 </div>
+
+                <!-- Reasignar tarea -->
                 <div class="form-group">
-                    <label for="usuarioNuevo" class="form-label">Re-asignar tarea a:</label>
-                    <select name="usuarioNuevo" id="usuarioNuevo" class="form-control">
+                    <label for="usuarioNuevo">Re-asignar tarea a:</label>
+                    <select name="usuarioNuevo" id="usuarioNuevo">
                         <option value="">Selecciona el nuevo ejecutor</option>
+                        <!-- Opciones generadas dinámicamente -->
                         <?php foreach ($usuarios as $usuario): ?>
                             <option value="<?php echo htmlspecialchars($usuario['usuario']); ?>">
                                 <?php echo htmlspecialchars($usuario['nombre']); ?>
@@ -82,18 +86,22 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <?php endforeach; ?>
                     </select>
                 </div>
+
+                <!-- Motivo del cambio -->
                 <div class="form-group">
-                    <label for="motivo" class="form-label">Motivo del cambio:</label>
-                    <textarea name="motivo" id="motivo" rows="3" class="form-control" required></textarea>
+                    <label for="motivo">Motivo del cambio:</label>
+                    <textarea id="motivo" name="motivo" rows="3" required></textarea>
                 </div>
-                <input type="hidden" id="idTarea" name="idTarea">
+
+                <!-- Botones de acción -->
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                    <button type="button" class="btn btn-secondary close">Cancelar</button>
+                    <button type="submit" id="btnAceptar">Aceptar</button>
+                    <button type="button" id="btnCancelar">Cancelar</button>
                 </div>
             </form>
         </div>
     </div>
+
 
 
 
