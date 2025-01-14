@@ -1478,11 +1478,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#etapa').text('ingresa resultados y firma1');
                     $('#realizadoPor').text(nombre_ejecutor);
                     $('#cargo_realizador').text(cargo);
-                    $('#form_observaciones').text(response.observaciones).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', false).css('background-color', '#f4fac2');
+                    $('#form_observaciones').text(response.observaciones).prop('contenteditable', false).css('background-color', '#f4fac2');
+                    $('#form_textarea5').text(response.pregunta5).prop('contenteditable', false).css('background-color', '#f4fac2');
+                    $('#form_textarea6').text(response.pregunta6).prop('contenteditable', false).css('background-color', '#f4fac2');
+                    $('#form_textarea7').text(response.pregunta7).prop('contenteditable', false).css('background-color', '#f4fac2');
+                    $('#form_textarea8').text(response.pregunta8).prop('contenteditable', false).css('background-color', '#f4fac2');
                     $('#fecha_muestreo').val(fecha_yoh).prop('readonly', false);
                     document.getElementById('metodo_muestreo').style.display = 'none';
                     document.getElementById('guardar').style.display = 'block';
@@ -1494,11 +1494,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     break;
                 case 1:
                     //documento firmado por muestreador. queda pendiente firma de responsable
-                    $('#form_observaciones').text(response.observaciones).prop('readonly', true);
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#form_observaciones').text(response.observaciones).prop('contenteditable', true);
+                    $('#form_textarea5').text(response.pregunta5).prop('contenteditable', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('contenteditable', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('contenteditable', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('contenteditable', true);
                     $('#fecha_muestreo').prop('readonly', true).css('display', 'none');
                     $('#td_fecha_muestreo').text(response.fecha_muestreo);
                     firma1(response);
@@ -1516,11 +1516,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     break;
                 case 2:
                     //documento firmado por muestreador y responsable. queda pendiente firma de revisor
-                    $('#form_observaciones').text(response.observaciones).prop('readonly', true);
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#form_observaciones').text(response.observaciones).prop('contenteditable', true);
+                    $('#form_textarea5').text(response.pregunta5).prop('contenteditable', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('contenteditable', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('contenteditable', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('contenteditable', true);
                     $('#fecha_muestreo').prop('readonly', true).css('display', 'none');
                     $('#td_fecha_muestreo').text(response.fecha_muestreo);
                     firma1(response);
@@ -1537,11 +1537,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                     break;
                 case 3:
-                    $('#form_observaciones').text(response.observaciones).prop('readonly', true);
-                    $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
-                    $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
-                    $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
-                    $('#form_textarea8').text(response.pregunta8).prop('readonly', true);
+                    $('#form_observaciones').text(response.observaciones).prop('contenteditable', true);
+                    $('#form_textarea5').text(response.pregunta5).prop('contenteditable', true);
+                    $('#form_textarea6').text(response.pregunta6).prop('contenteditable', true);
+                    $('#form_textarea7').text(response.pregunta7).prop('contenteditable', true);
+                    $('#form_textarea8').text(response.pregunta8).prop('contenteditable', true);
                     $('#fecha_muestreo').prop('readonly', true).css('display', 'none');
                     $('#td_fecha_muestreo').text(response.fecha_muestreo);
                     firma1(response);
