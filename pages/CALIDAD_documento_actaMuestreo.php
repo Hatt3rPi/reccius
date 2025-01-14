@@ -329,8 +329,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </tr>
                     </table>
                 </section>
-                <label style="font-size: 12px" for="form_Inusual">12. Obs. del Análisis Externo:</label>
-                <div class="editable-div textarea" contenteditable="true" id="form_observaciones" name="form_observaciones">id="form_observaciones"</div>
+                <label style="font-size: 12px" for="form_Inusual" >12. Obs. del Análisis Externo:</label>
+                <div class="editable-div textarea" contenteditable="true" id="form_observaciones" name="form_observaciones"  style="background-color: rgb(244, 250, 194);">id="form_observaciones"</div>
                 <br>
             </div>
             <div id="sample-identification2">
@@ -489,7 +489,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>5. Cantidad de ciclos de esterilización</td>
                             <td class="formulario">
-                                <div id="form_textarea5" class="editable-div" contenteditable="true"></div>
+                                <div id="form_textarea5" class="editable-div" contenteditable="true" style="background-color: rgb(244, 250, 194);"></div>
                             </td>
                             <td class="spacer"></td>
                             <td class="formulario resp">
@@ -518,7 +518,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>6. Cantidad bandejas esterilizadas por ciclo</td>
                             <td class="formulario">
-                                <div id="form_textarea6" class="editable-div" contenteditable="true"></div>
+                                <div id="form_textarea6" class="editable-div" contenteditable="true" style="background-color: rgb(244, 250, 194);"></div>
                             </td>
                             <td class="spacer"></td>
                             <td class="formulario resp">
@@ -547,7 +547,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <tr>
                             <td>7. Cantidad de muestras por bandeja</td>
                             <td class="formulario">
-                                <div id="form_textarea7" class="editable-div" contenteditable="true"></div>
+                                <div id="form_textarea7" class="editable-div" contenteditable="true" style="background-color: rgb(244, 250, 194);"></div>
 
                             </td>
                             <td class="spacer"></td>
@@ -579,7 +579,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div style="margin-top: 10px; font-size: 12px;">
                     <br>
                     <label for="form_Inusual">8. Registrar cualquier situación inesperada o inusual durante el proceso:</label>
-                    <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true"></div>
+                    <div id="form_textarea8" name="form_textarea8" class="editable-div textarea" contenteditable="true" style="background-color: rgb(244, 250, 194);"></div>
                     <br><br>
 
                 </div>
