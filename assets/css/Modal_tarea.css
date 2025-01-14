@@ -1,5 +1,5 @@
-/* Estilo general del modal */
-.modal {
+/* Encapsula los estilos específicos del modal */
+.modal-reasignar {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -11,89 +11,97 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Contenedor del contenido del modal */
-.modal-content {
+.modal-reasignar .modal-content {
     background-color: #fff;
     margin: 5% auto;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 20px 30px;
+    border-radius: 12px;
     width: 40%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-family: Arial, sans-serif;
 }
 
-/* Título del modal */
-.modal-content h2 {
-    margin-top: 0;
-    font-size: 1.5rem;
-    color: #333;
-}
-
-/* Botón de cierre */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 1.2rem;
+.modal-reasignar .modal-title {
+    font-size: 1.8rem;
     font-weight: bold;
-    cursor: pointer;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-}
-
-/* Estilo de los elementos del formulario */
-.form-group {
+.modal-reasignar .form-group {
     margin-bottom: 15px;
 }
 
-.form-control {
+.modal-reasignar .form-label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.modal-reasignar .form-control {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 6px;
+    margin-top: 5px;
     box-sizing: border-box;
 }
 
-.form-control:focus {
+.modal-reasignar .form-control:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-textarea.form-control {
+.modal-reasignar textarea.form-control {
     resize: none;
 }
 
-/* Botones de acción */
-.form-actions {
+.modal-reasignar .form-actions {
     text-align: right;
+    margin-top: 20px;
 }
 
-.btn {
+.modal-reasignar .btn {
     padding: 10px 15px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
 }
 
-.btn-primary {
+.modal-reasignar .btn-primary {
     background-color: #007bff;
     color: #fff;
 }
 
-.btn-primary:hover {
+.modal-reasignar .btn-primary:hover {
     background-color: #0056b3;
 }
 
-.btn-secondary {
+.modal-reasignar .btn-secondary {
     background-color: #6c757d;
     color: #fff;
 }
 
-.btn-secondary:hover {
+.modal-reasignar .btn-secondary:hover {
     background-color: #545b62;
+}
+
+/* Estilo específico para el desplegable */
+.modal-reasignar select {
+    appearance: none;
+    position: relative;
+    z-index: 10;
+}
+
+/* Forzar que el desplegable abra hacia abajo */
+.modal-reasignar select::-ms-expand {
+    display: none;
 }

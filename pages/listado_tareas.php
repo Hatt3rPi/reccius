@@ -62,17 +62,17 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </div>
     <!-- Modal para Cambiar Usuario -->
-    <div id="modalCambiarUsuario" class="modal">
+    <div id="modalCambiarUsuario" class="modal modal-reasignar">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Re-asignar Tarea</h2>
+            <h2 class="modal-title">Re-asignar Tarea</h2>
             <form id="formCambiarUsuario">
                 <div class="form-group">
-                    <label for="ejecutorOriginal">Ejecutor original:</label>
+                    <label for="ejecutorOriginal" class="form-label">Ejecutor original:</label>
                     <input id="ejecutorOriginal" name="ejecutorOriginal" class="form-control" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="usuarioNuevo">Re-asignar tarea a:</label>
+                    <label for="usuarioNuevo" class="form-label">Re-asignar tarea a:</label>
                     <select name="usuarioNuevo" id="usuarioNuevo" class="form-control">
                         <option value="">Selecciona el nuevo ejecutor</option>
                         <?php foreach ($usuarios as $usuario): ?>
@@ -83,7 +83,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="motivo">Motivo del cambio:</label>
+                    <label for="motivo" class="form-label">Motivo del cambio:</label>
                     <textarea name="motivo" id="motivo" rows="3" class="form-control" required></textarea>
                 </div>
                 <input type="hidden" id="idTarea" name="idTarea">
@@ -94,6 +94,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             </form>
         </div>
     </div>
+
+
 
 
 </body>
