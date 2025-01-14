@@ -1478,6 +1478,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#etapa').text('ingresa resultados y firma1');
                     $('#realizadoPor').text(nombre_ejecutor);
                     $('#cargo_realizador').text(cargo);
+                    $('#form_observaciones').text(response.observaciones).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#form_textarea5').text(response.pregunta5).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', false).css('background-color', '#f4fac2');
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', false).css('background-color', '#f4fac2');
@@ -1493,6 +1494,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     break;
                 case 1:
                     //documento firmado por muestreador. queda pendiente firma de responsable
+                    $('#form_observaciones').text(response.observaciones).prop('readonly', true);
                     $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
@@ -1514,6 +1516,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     break;
                 case 2:
                     //documento firmado por muestreador y responsable. queda pendiente firma de revisor
+                    $('#form_observaciones').text(response.observaciones).prop('readonly', true);
                     $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
@@ -1534,6 +1537,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     }
                     break;
                 case 3:
+                    $('#form_observaciones').text(response.observaciones).prop('readonly', true);
                     $('#form_textarea5').text(response.pregunta5).prop('readonly', true);
                     $('#form_textarea6').text(response.pregunta6).prop('readonly', true);
                     $('#form_textarea7').text(response.pregunta7).prop('readonly', true);
@@ -1782,7 +1786,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         // Recolecta datos de los textarea sólo si la firma es 1
         if (etapa === 1) {
-            ['form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
+            ['form_observaciones','form_textarea5', 'form_textarea6', 'form_textarea7', 'form_textarea8'].forEach(function(id) {
                 let textarea = document.getElementById(id);
                 // Usa textContent o innerText en lugar de value para los divs con contenteditable
                 if (textarea.textContent.trim() === '') {
