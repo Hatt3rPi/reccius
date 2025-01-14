@@ -769,6 +769,8 @@ ul {
     font-size: 0.8rem;
     /* Tamaño de la fuente */
     min-height: 60px;
+
+    background-color: #f4fac2;
 }
 
 /* Estilo para asegurar que el div tome todo el ancho disponible */
@@ -793,6 +795,7 @@ ul {
     /* Tamaño de la fuente */
     min-height: 80px;
     /* Establece una altura mínima para el campo, ajustable según tus necesidades */
+    background-color: rgb(244, 250, 194);
 }
 
 .editable-diva {
