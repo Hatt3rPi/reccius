@@ -96,12 +96,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Elaborado por:</label>
-                        <input type="text" name="elaboradoPor" id="elaboradoPor" Value="Reccius" class="form-control mx-0 w-90" required>
+                        <input type="text" name="elaboradoPor" id="elaboradoPor" Value="Reccius" class="form-control mx-0 w-90 editable"  required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>País de origen:</label>
-                        <input type="text" name="paisOrigen" id="paisOrigen" Value="Chile" class="form-control mx-0 w-90" required>
+                        <input type="text" name="paisOrigen" id="paisOrigen" Value="Chile" class="form-control mx-0 w-90 editable" required>
                     </div>
                 </div>
             </fieldset>
