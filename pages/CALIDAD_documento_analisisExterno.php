@@ -79,30 +79,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Laboratorio Analista:(*)</td>
-                        <td><input type="text" id="laboratorio" name="laboratorio" required></td>
+                        <td><input type="text" id="laboratorio" name="laboratorio" required readonly ></td>
                         <td class="titulo titulo-right">Tipo de Analisis:</td>
-                        <td><input type="text" id="tipo_analisis" name="tipo_analisis" required></td>
+                        <td><input type="text" id="tipo_analisis" name="tipo_analisis" required readonly ></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">2. Fecha de Solicitud:(*)</td>
-                        <td><input type="text" id="fecha_solicitud" name="fecha_solicitud" required></td>
+                        <td><input type="text" id="fecha_solicitud" name="fecha_solicitud" readonly required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">3. Análisis según:(**)</td>
-                        <td><input type="text" id="analisis_segun" name="analisis_segun" required></td>
+                        <td><input type="text" id="analisis_segun" name="analisis_segun" readonly required></td>
                     </tr>
 
                     <tr>
                         <td class="titulo">4. Fecha de Cotización:(**)</td>
-                        <td><input type="text" id="fecha_cotizacion" name="fecha_cotizacion" required></td>
+                        <td><input type="text" id="fecha_cotizacion" name="fecha_cotizacion" readonly required></td>
                         <td class="titulo titulo-right">N° Cotización:</td>
-                        <td><input type="text" id="numero_documento" name="numero_documento" required></td>
+                        <td><input type="text" id="numero_documento" name="numero_documento" readonly required></td>
                     </tr>
                     <tr>
                         <td class="titulo">5. Estandar Provisto por:(**)</td>
-                        <td><input type="text" id="estandar_segun" name="estandar_segun" required></td>
+                        <td><input type="text" id="estandar_segun" name="estandar_segun" readonly required></td>
                         <!-- <td class="titulo titulo-right">Otro:</td>
                         <td><input type="text" id="estandar_otro" name="estandar_otro"></td> -->
                     </tr>
@@ -114,7 +114,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">7. Fecha de Entrega estimada:</td>
-                        <td><input type="text" id="fecha_entrega_estimada" name="fecha_entrega_estimada" required></td>
+                        <td><input type="text" id="fecha_entrega_estimada" name="fecha_entrega_estimada" readonly required></td>
                     </tr>
                     <!-- Continúa agregando más filas según los campos requeridos -->
                 </table>
@@ -129,50 +129,50 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Nombre producto:</td>
                         <td>
-                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border" contenteditable="true"></div>
+                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border" contenteditable="true" readonly ></div>
                         </td>
 
 
                         <td class="titulo titulo-right">10. T. de lote:</td>
-                        <td><input type="text" id="tamano_lote" name="tamano_lote" required></td>
+                        <td><input type="text" id="tamano_lote" name="tamano_lote" required readonly ></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">2. Presentación:</td>
-                        <td><input type="text" id="formato" name="formato" required></td>
+                        <td><input type="text" id="formato" name="formato" required readonly ></td>
                         <td class="titulo titulo-right">11. Fecha Elab.:</td>
-                        <td><input type="text" id="fecha_elaboracion" name="fecha_elaboracion" required></td>
+                        <td><input type="text" id="fecha_elaboracion" name="fecha_elaboracion" readonly required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">3. Serie o lote:</td>
-                        <td><input type="text" id="lote" name="lote" required></td>
+                        <td><input type="text" id="lote" name="lote" readonly required></td>
                         <td class="titulo titulo-right">12. Fecha Vence:</td>
-                        <td><input type="text" id="fecha_vencimiento" name="fecha_vencimiento" required></td>
+                        <td><input type="text" id="fecha_vencimiento" name="fecha_vencimiento" readonly required></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">4. Código interno:</td>
-                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" required></td>
+                        <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" readonly required></td>
 
                         <td class="titulo titulo-right">13. Muestra:</td>
-                        <td><input type="text" id="tamano_muestra" name="tamano_muestra" required></td>
+                        <td><input type="text" id="tamano_muestra" name="tamano_muestra" readonly  required></td>
                     </tr>
                     <tr>
                         <td class="titulo">5. Muestreado según POS:</td>
-                        <td><input type="text" id="numero_pos" name="numero_pos" required></td>
+                        <td><input type="text" id="numero_pos" name="numero_pos" readonly required></td>
                         <td class="titulo titulo-right">14. Cta.muestra</td>
-                        <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra"></td>
+                        <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra" readonly ></td>
                     </tr>
                     <tr>
                         <td class="titulo">6. Fabricante:</td>
-                        <td><input type="text" id="elaborado_por" name="elaborado_por" required></td>
+                        <td><input type="text" id="elaborado_por" name="elaborado_por" readonly required></td>
                         <!-- <td class="titulo titulo-right">Otro:</td>
                         <td><input type="text" id="otro3" name="otro3"></td> -->
                     </tr>
                     <tr>
                         <td class="titulo">7. Muestreado por:</td>
-                        <td><input type="text" id="muestreado_por" name="muestreado_por" required></td>
+                        <td><input type="text" id="muestreado_por" name="muestreado_por" readonly  required></td>
 
 
                     </tr>
@@ -180,12 +180,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">8. Condic. almacenamiento</td>
                         <td>
-                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div border-dark border" contenteditable="true"></div>
+                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div border-dark border" contenteditable="true" readonly ></div>
                         </td>
 
                         <td class="titulo titulo-right">Observaciones:</td>
                         <td>
-                            <div id="observaciones" name="observaciones" class="editable-div border-dark border" contenteditable="true" required></div>
+                            <div id="observaciones" name="observaciones" class="editable-div border-dark border" contenteditable="true" readonly required></div>
                         </td>
 
                     </tr>
@@ -193,7 +193,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">9. Registro I.S.P:</td>
                         <td>
-                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border" contenteditable="true" required></div>
+                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border" contenteditable="true" readonly required></div>
                         </td>
 
 
