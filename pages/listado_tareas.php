@@ -70,7 +70,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <!-- Ejecutor original -->
                 <div class="form-group">
                     <label for="ejecutorOriginal">Ejecutor original:</label>
-                    <input id="ejecutorOriginal" name="ejecutorOriginal" type="text" readonly>
+                    <input id="ejecutorOriginal" name="ejecutorOriginal" type="text" readonly style="background-color: #e9ecef">
                 </div>
 
                 <!-- Reasignar tarea -->
