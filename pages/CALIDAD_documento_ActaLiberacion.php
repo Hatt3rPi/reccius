@@ -241,7 +241,7 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea1" class="editable-divO" contenteditable="true" ></div>
                         </td>
                         <td class="revision ">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
@@ -360,10 +360,10 @@ $link->close();
 
                     <tr>
                         <td class="titulo">7. Cantidad real Liberada:</td>
-                        <td><input  type="text" id="cantidad_real" name="cantidad_real" required></td>
+                        <td><input  type="text" id="cantidad_real" name="cantidad_real" readonly required></td>
                         <td class="titulo"> </td>
                         <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
-                        <td><input  type="text" id="nro_traspaso" name="nro_traspaso" required></td>
+                        <td><input  type="text" id="nro_traspaso" name="nro_traspaso" readonly required></td>
 
                     </tr>
                 </table>
