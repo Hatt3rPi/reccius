@@ -50,7 +50,12 @@
     border-radius: 6px;
     margin-top: 5px;
     box-sizing: border-box;
+    font-size: 1rem; /* Aumenta el tamaño de fuente si es necesario */
+    overflow: visible; /* Evita cortar contenido */
 }
+
+
+
 
 .modal-reasignar .form-control:focus {
     outline: none;
@@ -86,12 +91,13 @@
 }
 
 .modal-reasignar .btn-secondary {
-    background-color: #6c757d;
-    color: #fff;
+    background-color: #e0e0e0; /* Color gris claro */
+    color: #333; /* Texto oscuro */
 }
 
 .modal-reasignar .btn-secondary:hover {
-    background-color: #545b62;
+    background-color: #d6d6d6; /* Gris más oscuro al pasar el cursor */
+    color: #000; /* Texto más intenso */
 }
 
 /* Estilo específico para el desplegable */
@@ -104,4 +110,9 @@
 /* Forzar que el desplegable abra hacia abajo */
 .modal-reasignar select::-ms-expand {
     display: none;
+}
+.modal-reasignar select.form-control {
+    height: auto; /* Ajusta la altura automáticamente */
+    padding-right: 20px; /* Espacio para íconos si es necesario */
+    white-space: nowrap; /* Evita cortar texto en líneas múltiples */
 }
