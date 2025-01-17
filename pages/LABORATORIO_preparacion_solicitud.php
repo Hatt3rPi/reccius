@@ -526,8 +526,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     var newVersion = 1;
 
     function procesarDatosActa(response) {
+        console.log('procesarDatosActa - response:', response);
         if (response && response.productos && response.productos.length > 0) {
             var producto = response.productos[0];
+            console.log('procesarDatosActa - producto seleccionado:', producto);
             var numero_acta = response.numero_acta_cor
             var numero_registro = response.numero_registro_cor
             var newNumeroRegistro = response.total_analisis + 1
@@ -590,6 +592,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     isDisabled: true
                 }
             ])
+            console.log('procesarDatosActa - id_producto asignado:', $('#id_producto').val());
             
             var especificaciones = Object.values(producto.especificaciones);
             if (especificaciones.length > 0) {
@@ -605,12 +608,14 @@ while ($row = mysqli_fetch_assoc($result)) {
     var guardarYFirmarSolicitud = false
 
     function procesarDatosActaUpdate(response) {
-
+        console.log('procesarDatosActaUpdate - response:', response);
         if (response && response.analisis) {
 
             newVersion = response.count_analisis_externo + 1
             var analisis = response.analisis;
             var primerProducto = response.productos[0];
+            console.log('procesarDatosActaUpdate - analisis:', analisis);
+            console.log('procesarDatosActaUpdate - primerProducto:', primerProducto);
 
             //Todo : Volver a validar cuando se pueda editar ||| en caso de que los datos este de 4 al 6 hacer la seccion de "nuevo analisis" y añadir nueva version
 
