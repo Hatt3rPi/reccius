@@ -22,6 +22,9 @@ function limpiarDato($dato)
 function insertarRegistro($link, $datos)
 {
     global $id_analisis_externo, $mensaje; // Hacer la variable global para que se pueda acceder fuera de esta función
+    error_log("insertarRegistro - Datos recibidos: " . print_r($datos, true));
+    error_log("insertarRegistro - id_producto: " . $datos['id_producto']);
+    error_log("insertarRegistro - id_especificacion: " . $datos['id_especificacion']);
     //Todo: tomar las versiones anteriores y deprecarlas si les falta firmas
     $year = date("Y");
     $month = date("m");
@@ -516,6 +519,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_producto = isset($_POST['id_producto']) ? limpiarDato($_POST['id_producto']) : null;
     $id_especificacion = isset($_POST['id_especificacion']) ? limpiarDato($_POST['id_especificacion']) : null;
 
+    error_log("POST - Datos recibidos raw id_producto: " . print_r($_POST['id_producto'], true));
+    error_log("POST - Datos recibidos raw id_especificacion: " . print_r($_POST['id_especificacion'], true));
+    error_log("POST - id_producto limpio: " . $id_producto);
+    error_log("POST - id_especificacion limpio: " . $id_especificacion);
+
     // Determinar si se está insertando un nuevo registro o actualizando uno existente
     $estaEditando = isset($_POST['id']) && !empty($_POST['id']);
 
@@ -574,12 +582,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         ];
 
+        error_log("POST - datosLimpios array: " . print_r($datosLimpios, true));
+
         if ($estaEditando) {
             $datosLimpios['id'] = limpiarDato($_POST['id']);
             $datosLimpios['numero_solicitud'] = $numero_solicitud;
 
             agregarDatosPostFirma($link, $datosLimpios,$archivo);
         } else {
+            error_log("Iniciando inserción de nuevo registro con id_producto: " . $id_producto);
             insertarRegistro($link, $datosLimpios);
             registrarTarea(7, $_SESSION['usuario'], $am_ejecutado_por, 'Generar Acta Muestreo para análisis externo:' . $numero_solicitud , 2, 'Generar Acta Muestreo', $id_analisis_externo, 'calidad_analisis_externo');
             enviar_aCuarentena($link, $id_especificacion, $id_producto, $id_analisis_externo, $lote, $tamano_lote, $fechaActual, $fecha_elaboracion, $fecha_vencimiento);
@@ -591,6 +602,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // tarea anterior se cierra con: finalizarTarea($_SESSION['usuario'], $id_analisis_externo, 'calidad_analisis_externo', 'Generar Acta Muestreo');
     } catch (Exception $e) {
         mysqli_rollback($link); // Revertir cambios en caso de error
+        error_log("Error en el procesamiento: " . $e->getMessage());
         echo json_encode(["exito" => false, "mensaje" => "Error en la operación: " . $e->getMessage()]);
     }
 } else {
