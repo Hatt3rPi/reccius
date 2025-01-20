@@ -15,6 +15,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Ingreso de resultados</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="../assets/css/Modal.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
 </head>
 
 <body>

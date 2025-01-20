@@ -229,23 +229,7 @@ p {
     margin-top: 10px;
 }
 
-#download-pdf {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px 30px;
-    background-color: #0047b3;
-    color: white;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
 
-#download-pdf:hover {
-    background-color: #003580;
-}
 
 .pdf-header {
     font-size: 12pt;
