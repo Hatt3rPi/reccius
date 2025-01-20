@@ -1,0 +1,46 @@
+/* Contenedor de botones */
+.button-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    gap: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Estilo general para botones */
+.button-container .botones {
+    position: relative;
+    width: 200px;
+    padding: 15px 30px;
+    background-color: #0047b3; /* Color predeterminado */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin: 0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+}
+
+/* Efecto hover */
+.button-container .botones:hover {
+    background-color: #003580;
+    transform: translateY(-2px); /* Levanta ligeramente el botón al pasar el ratón */
+}
+
+/* Botón con estilo rojo */
+.button-container .botones.red {
+    background-color: red; /* Sobrescribe el color de fondo */
+    color: white; /* Color del texto */
+}
+
+/* Efecto hover para el botón rojo */
+.button-container .botones.red:hover {
+    background-color: #aa0202;
+}

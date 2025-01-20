@@ -17,6 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificación Producto Terminado</title>
     <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -193,8 +194,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
     </div>
     <div class="button-container">
-        <button class="ingControl" id="sign-document" style="display: none;">Firmar Documento</button>
-        <button class="ingControl" id="download-pdf">Descargar PDF</button>
+        <button class="botones ingControl" id="sign-document" style="display: none;">Firmar Documento</button>
+        <button class="botones ingControl" id="download-pdf">Descargar PDF</button>
 
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
