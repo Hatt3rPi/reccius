@@ -14,7 +14,7 @@
 .button-container .botones {
     width: 200px;
     padding: 15px 30px;
-    background-color: #0047b3; /* Azul por defecto */
+    background-color: #0047b3; /* Azul predeterminado */
     color: white;
     border: none;
     border-radius: 5px;
@@ -26,13 +26,13 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Efecto hover para todos los botones */
+/* Efecto hover para botones */
 .button-container .botones:hover {
     background-color: #003580;
     transform: translateY(-2px);
 }
 
-/* Botones específicos que están ocultos inicialmente */
+/* Botones ocultos por defecto */
 .button-container .botones[style*="display: none"] {
     display: none;
 }
