@@ -145,40 +145,8 @@ p {
     flex-grow: 0;
 }
 
-.botones {
-    position: fixed;
-    width: 200px;
-    right: 20px;
-    padding: 15px 30px;
-    background-color: #0047b3;
-    color: white;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
 
-#metodo_muestreo {
-    bottom: 30px !important;
-}
 
-#guardar {
-    bottom: 90px;
-}
-
-#firmar {
-    bottom: 160px;
-    background-color: #ff0000;
-}
-
-#download-pdf {
-    bottom: 20px;
-}
-
-#download-pdf:hover {
-    background-color: #003580;
-}
 
 .doc-conforme,
 .revision {
