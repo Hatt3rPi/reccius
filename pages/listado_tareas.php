@@ -70,7 +70,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <!-- Ejecutor original -->
                 <div class="form-group">
                     <label for="ejecutorOriginal">Ejecutor original:</label>
-                    <input id="ejecutorOriginal" name="ejecutorOriginal" type="text" readonly style="background-color: #e9ecef">
+                    <input id="ejecutorOriginal" name="ejecutorOriginal" type="text" readonly
+                        style="background-color: #e9ecef">
                 </div>
 
                 <!-- Reasignar tarea -->
@@ -234,6 +235,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     $('.close').click(function () {
         $('#modalCambiarUsuario').hide();
     });
+
+
+    // Cerrar el modal al hacer clic en el botón Cancelar
+    $('#btnCancelar').click(function () {
+        $('#modalCambiarUsuario').hide();
+    });
+
 
     // Reemplazar el manejador del formulario con esta versión:
     $('#formCambiarUsuario').on('submit', function (e) {
