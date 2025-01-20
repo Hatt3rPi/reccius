@@ -10,12 +10,11 @@
     align-items: flex-end;
 }
 
-/* Estilo general para botones */
+/* Botones generales */
 .button-container .botones {
-    position: relative;
     width: 200px;
     padding: 15px 30px;
-    background-color: #0047b3; /* Color predeterminado */
+    background-color: #0047b3; /* Azul por defecto */
     color: white;
     border: none;
     border-radius: 5px;
@@ -23,24 +22,36 @@
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    margin: 0;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Efecto hover */
+/* Efecto hover para todos los botones */
 .button-container .botones:hover {
     background-color: #003580;
-    transform: translateY(-2px); /* Levanta ligeramente el botón al pasar el ratón */
+    transform: translateY(-2px);
 }
 
-/* Botón con estilo rojo */
+/* Botones específicos que están ocultos inicialmente */
+.button-container .botones[style*="display: none"] {
+    display: none;
+}
+
+/* Botón rojo para acciones específicas */
 .button-container .botones.red {
-    background-color: red; /* Sobrescribe el color de fondo */
-    color: white; /* Color del texto */
+    background-color: red;
 }
 
-/* Efecto hover para el botón rojo */
 .button-container .botones.red:hover {
     background-color: #aa0202;
+}
+
+/* Botón para acciones destacadas */
+.button-container .botones.highlight {
+    background-color: #ffc107; /* Amarillo */
+    color: black;
+}
+
+.button-container .botones.highlight:hover {
+    background-color: #e0a800;
 }
