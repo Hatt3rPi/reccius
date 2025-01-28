@@ -67,6 +67,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <span class="close">&times;</span>
             <h2 class="modal-title">Re-asignar Tarea</h2>
             <form id="formCambiarUsuario">
+                <!-- Campo oculto para el ID de la tarea -->
+                <input type="hidden" id="idTarea" name="idTarea">
+                
                 <!-- Ejecutor original -->
                 <div class="form-group">
                     <label for="ejecutorOriginal">Ejecutor original:</label>
@@ -225,9 +228,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     $(document).on('click', 'button[name="cambiar_usuario"]', function () {
         var tareaId = $(this).attr('id');
         var usuarioEjecutorOriginal = $(this).data('usuario_ejecutor');
-        ejecutorOriginal
+        
+        // Establecer los valores en el formulario
         $('#ejecutorOriginal').val(usuarioEjecutorOriginal);
         $('#idTarea').val(tareaId);
+        
+        console.log('ID Tarea:', tareaId); // Debug
         $('#modalCambiarUsuario').show();
     });
 
@@ -246,9 +252,20 @@ while ($row = mysqli_fetch_assoc($result)) {
     // Reemplazar el manejador del formulario con esta versión:
     $('#formCambiarUsuario').on('submit', function (e) {
         e.preventDefault();
+        
+        // Verificar que el ID de la tarea esté presente
+        var idTarea = $('#idTarea').val();
+        if (!idTarea) {
+            console.error('Error: ID de tarea no encontrado');
+            alert('Error: ID de tarea no encontrado');
+            return;
+        }
+        
         var datosFormulario = $(this).serialize();
         var usuarioNuevo = document.getElementById('usuarioNuevo').value;
         var usuarioOriginal = document.getElementById('ejecutorOriginal').value;
+        
+        console.log('Datos a enviar:', datosFormulario); // Debug
 
         if (!usuarioNuevo || usuarioNuevo === usuarioOriginal) {
             alert("Debes seleccionar un usuario diferente del actual.");
