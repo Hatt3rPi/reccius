@@ -261,7 +261,7 @@ function carga_tabla(tipoAnalisis, id = null, datosAnalisis = null) {
             var filaNueva = [
                 crearSelectHtml('Analisis' + tipoAnalisis, contadorFilas, 'descripcion_analisis', tipoAnalisis),
                 crearSelectHtml('metodologia', contadorFilas, 'metodologia', tipoAnalisis),
-                '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + contadorFilas + '][criterio]" required></textarea>',
+                '<textarea rows="4" cols="50" name="analisis' + tipoAnalisis + '[' + contadorFilas + '][criterio]" required style="background-color: rgb(244, 250, 194) !important;"></textarea>',
                 '<button type="button" class="btn-eliminar">Eliminar</button>'
             ];
             tabla.row.add(filaNueva);
