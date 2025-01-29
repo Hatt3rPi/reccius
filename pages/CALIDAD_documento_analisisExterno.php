@@ -130,7 +130,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Nombre producto:</td>
                         <td>
-                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border" contenteditable="true" readonly ></div>
+                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border"  readonly ></div>
                         </td>
 
 
