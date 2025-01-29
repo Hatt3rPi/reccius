@@ -581,7 +581,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="resultados editable-div ${
+                        <td class="resultados editable-div" style="background-color: rgb(244, 250, 194) !important; ${
                             analisis.anali_resultado_laboratorio?'': highlight
                         }" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
                         <td class="revision ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" <?php
