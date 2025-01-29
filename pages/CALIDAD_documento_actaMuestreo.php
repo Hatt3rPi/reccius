@@ -45,7 +45,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
                     <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius"
-                        style="height: 100px;">
+                        style="height: 69px;">
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
