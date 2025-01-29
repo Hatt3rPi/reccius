@@ -231,15 +231,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
                             <input type="text" class="<?php
-                            $etapa = $_POST['etapa'];
-                            $result = $_POST['resultados'];
+                            $etapa = isset($_POST['etapa']) ? $_POST['etapa'] : '';
+                            $result = isset($_POST['resultados']) ? $_POST['resultados'] : '';
                             if ($etapa == '1' && $result == 'true') {
                                 echo '';
                             } else {
-                                echo 'background-color: rgb(244, 250, 194) !important;'; 
+                                echo 'input-highlight';
                             }
                             ?>" id="laboratorio_nro_analisis"
-                                name="laboratorio_nro_analisis" required>
+                                name="laboratorio_nro_analisis" editable required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
@@ -250,7 +250,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 if ($etapa == '1' && $result == 'true') {
                                     echo '';
                                 } else {
-                                    echo 'background-color: rgb(244, 250, 194) !important;'; 
+                                    echo 'input-highlight';
                                 }
                                 ?>">
                                 <span>
@@ -271,7 +271,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             if ($etapa == '1' && $result == 'true') {
                                 echo '';
                             } else {
-                                echo 'background-color: rgb(244, 250, 194) !important;'; 
+                                echo 'input-highlight';
                             }
                             ?>"
                                 placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
@@ -285,7 +285,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                                 if ($etapa == '1' && $result == 'true') {
                                     echo '';
                                 } else {
-                                    echo 'background-color: rgb(244, 250, 194) !important;'; 
+                                    echo 'input-highlight';
                                 }
                                 ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>"
                                 required>
@@ -597,7 +597,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 if ($etapa == '0') {
                     echo '';
                 } else {
-                    echo 'background-color: rgb(244, 250, 194) !important;'; 
+                    echo 'input-highlight';
                 }
                 ?>";
         console.log("Valor de 'highlight':", highlight);
