@@ -111,7 +111,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">6. Adjunta HDS:(***)</td>
                         <!-- <td><input type="text" id="hds_adjunto" name="hds_adjunto" required></td>
                         <td class="titulo titulo-right">Otro:</td> -->
-                        <td><input type="text" id="hds_otro" name="hds_otro"></td>
+                        <td><input type="text" id="hds_otro" name="hds_otro" readonly></td>
                     </tr>
                     <tr>
                         <td class="titulo">7. Fecha de Entrega estimada:</td>
@@ -181,12 +181,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">8. Condic. almacenamiento</td>
                         <td>
-                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div border-dark border" contenteditable="true" readonly ></div>
+                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div border-dark border" readonly ></div>
                         </td>
 
                         <td class="titulo titulo-right">Observaciones:</td>
                         <td>
-                            <div id="observaciones" name="observaciones" class="editable-div border-dark border" contenteditable="true" readonly required></div>
+                            <div id="observaciones" name="observaciones" class="editable-div border-dark border"  readonly required></div>
                         </td>
 
                     </tr>
@@ -194,7 +194,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">9. Registro I.S.P:</td>
                         <td>
-                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border" contenteditable="true" readonly required></div>
+                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border"  readonly required></div>
                         </td>
 
 
