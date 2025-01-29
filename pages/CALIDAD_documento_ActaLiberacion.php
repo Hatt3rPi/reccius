@@ -245,7 +245,7 @@ $link->close();
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
                         <td>
-                            <div class="toggle-container">
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;" >
                                 <input type="radio" id="estado1_conforme" name="estado1" value="1">
                                 <label for="estado1_conforme">Conforme</label>
 
@@ -254,9 +254,9 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea1" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1"
                                     id="revision_liberacion1a" value="1" autocomplete="off">
@@ -272,7 +272,7 @@ $link->close();
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
                         <td>
-                            <div class="toggle-container">
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;">
                                 <input type="radio" id="estado2_conforme" name="estado2" value="1">
                                 <label for="estado2_conforme">Conforme</label>
 
@@ -281,9 +281,9 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec  ">
-                            <div id="form_textarea2" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea2" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2"
                                     id="revision_liberacion2a" value="1" autocomplete="off">
@@ -299,7 +299,7 @@ $link->close();
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
                         <td>
-                            <div class="toggle-container">
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;">
                                 <input type="radio" id="estado3_conforme" name="estado3" value="1">
                                 <label for="estado3_conforme">Conforme</label>
 
@@ -308,9 +308,9 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea3" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea3" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3"
                                     id="revision_liberacion3a" value="1" autocomplete="off">
@@ -326,7 +326,7 @@ $link->close();
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
                         <td>
-                            <div class="toggle-container">
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;">
                                 <input type="radio" id="estado4_conforme" name="estado4" value="1">
                                 <label for="estado4_conforme">Conforme</label>
 
@@ -335,9 +335,9 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea4" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea4" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4"
                                     id="revision_liberacion4a" value="1" autocomplete="off">
