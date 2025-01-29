@@ -144,14 +144,14 @@ $link->close();
                         <td class="titulo">1. Producto</td>
                         <td>
                             <div id="producto_completoT1" name="producto_completoT1"
-                                class="editable-div border border-black" contenteditable="true"></div>
+                                class="editable-div border border-black" ></div>
                             <span> </span>
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Cond. Almacenamiento</td>
                         <td>
                             <div id="cond_almacenamiento" name="cond_almacenamiento"
-                                class="editable-div border border-black" contenteditable="true"></div>
+                                class="editable-div border border-black" ></div>
                         </td>
 
 
@@ -361,10 +361,10 @@ $link->close();
                     </tr>
                     <tr>
                         <td class="titulo">1. N° Acta de Liberacion:</td>
-                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" readonly></td>
+                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" ></td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Fecha Liberacion:</td>
-                        <td><input type="text" id="fecha_lib" name="fecha_lib" readonly></td>
+                        <td><input type="text" id="fecha_lib" name="fecha_lib" ></td>
 
                     </tr>
                     <tr>
@@ -376,24 +376,24 @@ $link->close();
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">4. N° Lote:</td>
-                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly></td>
+                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" ></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">5. Fecha de Elaboración:</td>
-                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" readonly></td>
+                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" ></td>
                         <td class="titulo"> </td>
                         <td class="titulo">6. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" readonly></td>
+                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" ></td>
 
                     </tr>
 
                     <tr>
                         <td class="titulo">7. Cantidad real Liberada:</td>
-                        <td><input type="text" id="cantidad_real" name="cantidad_real" readonly required></td>
+                        <td><input type="text" id="cantidad_real" name="cantidad_real"  required></td>
                         <td class="titulo"> </td>
                         <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
-                        <td><input type="text" id="nro_traspaso" name="nro_traspaso" readonly required></td>
+                        <td><input type="text" id="nro_traspaso" name="nro_traspaso"  required></td>
 
                     </tr>
                 </table>
