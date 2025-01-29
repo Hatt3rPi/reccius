@@ -15,6 +15,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <title>Envío de solicitud a laboratorio</title>
     <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="../assets/css/Botones.css">
+    <script src="../assets/js/notify.js"></script>
+
 </head>
 
 <body>
@@ -136,6 +138,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
             <div id="buttonContainer" class="button-container">
             </div>
+            <div id="notification" class="notification-container notify" style="display: none;"></div>
         </form>
         <div class="modal" id="modalInfo">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -454,6 +457,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         email: email,
                         nombre: nombre
                     });
+                    
                 } else {
                     if(!validateEmail(email)) bad.push($(this).find('input[type="email"]'));
                 }
@@ -492,6 +496,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(data => {
                     if (data.exito) {
                         alert('Correo enviado con éxito');
+                        $.notify("Correo enviado con éxito", "success");
                         $('#listado_solicitudes_analisis').click();
                     } else {
                         alert('Error al enviar el correo: ' + data.mensaje);
