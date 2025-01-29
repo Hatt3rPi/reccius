@@ -1,3 +1,11 @@
+/* Contenedor de botones a la derecha */
+.button-container {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px; /* Espacio alrededor del contenedor */
+}
 
 /* Botones de control específicos */
 .button-container .botones.ingControl {
@@ -5,6 +13,7 @@
     color: white;
     width: 200px; /* Ancho fijo */
     height: 50px; /* Alto fijo */
+    margin-bottom: 10px; /* Separación entre botones */
 }
 
 .button-container .botones.ingControl:hover {
