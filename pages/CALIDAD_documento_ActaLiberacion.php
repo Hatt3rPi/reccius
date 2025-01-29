@@ -361,10 +361,10 @@ $link->close();
                     </tr>
                     <tr>
                         <td class="titulo">1. N° Acta de Liberacion:</td>
-                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" ></td>
+                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" readonly ></td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Fecha Liberacion:</td>
-                        <td><input type="text" id="fecha_lib" name="fecha_lib" ></td>
+                        <td><input type="text" id="fecha_lib" name="fecha_lib" readonly ></td>
 
                     </tr>
                     <tr>
@@ -376,15 +376,15 @@ $link->close();
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">4. N° Lote:</td>
-                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" ></td>
+                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly ></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">5. Fecha de Elaboración:</td>
-                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" ></td>
+                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" readonly ></td>
                         <td class="titulo"> </td>
                         <td class="titulo">6. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" ></td>
+                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" readonly ></td>
 
                     </tr>
 
