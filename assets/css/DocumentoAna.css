@@ -276,29 +276,6 @@ ul {
   padding-left: 0px !important;
 }
 
-.button-container {
-  position: fixed;
-  gap: 10px;
-  bottom: 15px;
-  right: 15px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-.button-container .botones {
-  position: relative;
-  right: 20px;
-  width: 100%;
-  padding: 15px 30px;
-  background-color: #0047b3;
-  color: white;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
 
 textarea {
   width: 295px;
