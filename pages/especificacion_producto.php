@@ -478,7 +478,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             $.notify("Revisa que los datos estén correctamente ingresados", "warn");
         } else {
             guardar();
-
+            $.notify("Especificacion creada con exito", "success");
         }
     });
 
