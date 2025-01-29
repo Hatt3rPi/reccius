@@ -342,18 +342,6 @@ p {
     /* Relleno derecho */
 }
 
-#sign-document {
-    background-color: #ff0000;
-    /* Color rojo para el botón Firmar Documento */
-    margin-bottom: 75px;
-}
-
-#sign-document:hover {
-    background-color: #aa0202;
-    /* Color rojo oscuro al pasar el mouse por el botón Firmar Documento */
-}
-
-
 
 /* Clases específicas para las tablas de análisis FQ y MB */
 #analisisFQ,
