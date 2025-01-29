@@ -786,7 +786,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#editarGenerarVersion').hide();
         $('input[name="fechaEdicion"]').prop('readonly', false).val(new Date().toISOString().split('T')[0]);
         $('#periodosVigencia').prop('disabled', false).prop('required', true);
-
+        $.notify("Edicion iniciada", "warn");
         // Incrementar la versión en 1 y mantenerla no editable
         var versionActual = parseInt($('input[name="version"]').val()) || 0;
         $('input[name="version"]').val(versionActual + 1);
