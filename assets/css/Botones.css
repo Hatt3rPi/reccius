@@ -4,6 +4,7 @@
     right: 0;
     bottom: 0;
     padding: 10px; /* Espacio alrededor del contenedor */
+    z-index: 9999; /* Z-index más alto */
 }
 
 /* Botones de control específicos */
