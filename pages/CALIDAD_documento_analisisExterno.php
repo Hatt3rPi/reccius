@@ -231,8 +231,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
                             <input type="text" class="<?php
-                            $etapa = isset($_POST['etapa']) ? $_POST['etapa'] : '';
-                            $result = isset($_POST['resultados']) ? $_POST['resultados'] : '';
+                            $etapa = $_POST['etapa'];
+                            $result = $_POST['resultados'];
                             if ($etapa == '1' && $result == 'true') {
                                 echo '';
                             } else {
