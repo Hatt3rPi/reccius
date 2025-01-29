@@ -26,141 +26,184 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </head>
 
 <body>
-    <div id="form-container" class="form-container">
+    <div id="form-container" class="ContenedorP">
         <div id="Maincontainer">
-            <!-- Header -->
-            <div id="header-container" class="header">
-                <div class="header-left">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo"
-                        style="height: 100px;">
+            <!-- Contenedor Principal del Header -->
+            <div id="header-container" class="header-container">
+                <!-- Fila principal con logo, título y tabla informativa -->
+                <div id="header" class="header">
+                    <!-- Logo e Información Izquierda -->
+                    <div class="header-left">
+                        <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" />
+                    </div>
+
+                    <!-- Título Central -->
+                    <div class="header-center">
+                        <h1 id="Tipo_Producto"></h1>
+                        <p id="producto"></p>
+                        <hr>
+                        <div class="header-subtitle">Dirección de Calidad</div>
+                    </div>
+
+                    <!-- Información Derecha con Tabla -->
+                    <div class="header-right">
+                        <table id="panel_informativo">
+                            <tr>
+                                <td>Doc. N°:</td>
+                                <td id="documento"></td>
+                                <td>Elab. por:</td>
+                                <td id="creadoPor"></td>
+                            </tr>
+                            <tr>
+                                <td>Edición:</td>
+                                <td id="edicion"></td>
+                                <td>Rev. Por:</td>
+                                <td id="revisadoPor"></td>
+                            </tr>
+                            <tr>
+                                <td>Versión:</td>
+                                <td id="version"></td>
+                                <td>Aut. Por:</td>
+                                <td id="aprobadoPor"></td>
+                            </tr>
+                            <tr>
+                                <td>Vigencia:</td>
+                                <td id="vigencia"></td>
+                                <td>Página:</td>
+                                <td id="pagina-numero"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                <div class="header-center">
-                    <p id="pretitulo">Especificación Producto Terminado</p>
-                    <h1 id="Tipo_Producto"></h1>
-                    <p id="producto"></p>
-                    <hr>
-                    <div class="header-subtitle">Dirección de Calidad</div>
-                </div>
-                <div class="header-right">
-                    <table id="panel_informativo">
-                        <tr>
-                            <td>Doc. N°:</td>
-                            <td id="documento"></td>
-                        </tr>
-                        <tr>
-                            <td>Versión:</td>
-                            <td id="version"></td>
-                        </tr>
-                        <tr>
-                            <td>Vigencia:</td>
-                            <td id="vigencia"></td>
-                        </tr>
-                    </table>
+
+                <!-- Fila adicional debajo del encabezado -->
+                <div class="header-bottom">
+                    <div class="header-bottom-left">
+                        <div class="sub-info">
+                            Producto de recetario magistral <br>
+                            Res. Ex. N° 2988/2018
+                        </div>
+                    </div>
+                    <div class="header-bottom-right">
+                        <div class="sub-info">
+                            RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Body -->
-            <form id="section1">
-                <table>
-                    <tr>
-                        <td class="Subtitulos" colspan="3">I. INFORMACIÓN DEL PRODUCTO</td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">1. Nombre del Producto:</td>
-                        <td>
-                            <div id="producto2" class="editable-div" contenteditable="true" readonly></div>
-                        </td>
-                        <td class="titulo">Formato:</td>
-                        <td><input type="text" id="formato" readonly></td>
-                    </tr>
-                    <tr>
-                        <td class="titulo">2. Concentración:</td>
-                        <td><input type="text" id="concentracion" readonly></td>
-                        <td class="titulo">Código Interno:</td>
-                        <td><input type="text" id="codigo_interno" readonly></td>
-                    </tr>
-                </table>
-            </form>
 
-            <!-- Sección II: Análisis -->
-            <form id="section2">
-                <table id="analisisFQ">
-                    <tr>
-                        <td class="Subtitulos" colspan="3">II. ANÁLISIS FÍSICO-QUÍMICOS</td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <th class="tabla">Análisis</th>
-                        <th class="tabla">Metodología</th>
-                        <th class="tabla">Criterio de Aceptación</th>
-                    </tr>
-                </table>
-            </form>
+            <div class="watermark" id="watermark"></div>
+            <div id="contenido_main">
 
-            <form id="section3">
-                <table id="analisisMB">
-                    <tr>
-                        <td class="Subtitulos" colspan="3">III. ANÁLISIS MICROBIOLÓGICOS</td>
-                    </tr>
-                    <tr class="bordeAbajo">
-                        <th class="tabla">Análisis</th>
-                        <th class="tabla">Metodología</th>
-                        <th class="tabla">Criterio de Aceptación</th>
-                    </tr>
-                </table>
-            </form>
-
-            <!-- Footer -->
-            <form id="footer-container">
-                <div class="footer-containerDIV">
-                    <div class="firma-section">
-                        <div class="firma-box-title">Creado por:</div>
-                        <div class="firma-boxes">
-                            <p id="creadoPor" class="bold"></p>
-                            <p id="cargo_creador" class="bold"></p>
-                            <div class="signature">
-                                <img id="QRcreador"
-                                    src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
-                                    class="firma">
-                            </div>
+                <h1 id="Tipo_Producto2" name="Tipo_Producto2"
+                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
+                </h1>
+                <p name="producto2" id="producto2"
+                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
+                </p>
+                <div id="content" class="content">
+                    <!-- Resto del contenido del cuerpo igual al HTML original -->
+                    <div class="table-section">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
+                            I. Análisis Generales
                         </div>
-                        <div class="date-container">
-                            <p id="fechaEdicion" class="date">Fecha: --/--/----</p>
-                        </div>
-                    </div>
-
-                    <div class="firma-section">
-                        <div class="firma-box-title">Revisado por:</div>
-                        <div class="firma-boxes">
-                            <p id="revisadoPor" class="bold"></p>
-                            <p id="cargo_revisor" class="bold"></p>
-                            <div class="signature">
-                                <img id="QRrevisor"
-                                    src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
-                                    class="firma">
-                            </div>
-                        </div>
-                        <div class="date-container">
-                            <p id="fechaRevision" class="date">Fecha: --/--/----</p>
-                        </div>
-                    </div>
-
-                    <div class="firma-section">
-                        <div class="firma-box-title">Aprobado por:</div>
-                        <div class="firma-boxes">
-                            <p id="aprobadoPor" class="bold"></p>
-                            <p id="cargo_aprobador" class="bold"></p>
-                            <div class="signature">
-                                <img id="QRaprobador"
-                                    src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
-                                    class="firma">
-                            </div>
-                        </div>
-                        <div class="date-container">
-                            <p id="fechaAprobacion" class="date">Fecha: --/--/----</p>
-                        </div>
+                        <table id="analisisFQ" class="compact table-bordered" style="width:100%; font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th style="width: 170px; text-align: center">Análisis</th>
+                                    <th style="width: 106px; text-align: center">Metodología</th>
+                                    <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Las filas de la tabla se agregarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </form>
+                <div id="additionalContent" class="content">
+                    <div class="table-section">
+                        <!-- Sección de Análisis Microbiológico -->
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
+                            II. Análisis Microbiológico
+                        </div>
+                        <!-- Tabla de Análisis Microbiológico -->
+                        <table id="analisisMB" class="display compact table-bordered"
+                            style="width:100%; font-size: 10px">
+                            <thead>
+                                <tr>
+                                    <th style="width: 170px; text-align: center">Análisis</th>
+                                    <th style="width: 106px; text-align: center">Metodología</th>
+                                    <th style="width: 404px; text-align: center">Criterio de Aceptación</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-containerDIV" id="footer">
+                <!-- Sección realizada por -->
+                <div class="firma-section">
+                    <div class="firma-box-title">Realizado por:</div>
+                    <div class="firma-boxes">
+                        <p id="creadoPor2" name="creadoPor2" class="bold"></p>
+                        <p id="cargo_creador" name="cargo_creador" class="bold"></p>
+                        <div class="signature" id="QRcreador" name="QRcreador">
+                            <img id="QRcreador" name="QRcreador"
+                                src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
+                                class="firma">
+                        </div>
+
+                    </div>
+                    <div class="date-container">
+                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;font-size: 8px">Firmado
+                            digitalmente</p>
+                        <div id="fecha_Edicion" name="fecha_Edicion" class="date" style="font-size: 8px"></div>
+                    </div>
+                </div>
+                <!-- Sección revisada por -->
+                <div class="firma-section">
+                    <div class="firma-box-title">Revisado por:</div>
+                    <div class="firma-boxes">
+                        <p id="revisadoPor2" name="revisadoPor2" class="bold"></p>
+                        <p id="cargo_revisor" name="cargo_revisor" class="bold"></p>
+                        <div class="signature" id="QRrevisor" name="QRrevisor">
+                            <img id="QRrevisor" name="QRrevisor"
+                                src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
+                                class="firma">
+                        </div>
+
+                    </div>
+                    <div class="date-container">
+                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;font-size: 8px">Firmado
+                            digitalmente</p>
+                        <div id="fechaRevision" name="fechaRevision" class="date" style="font-size: 8px"></div>
+                    </div>
+                </div>
+                <!-- Sección aprobada por -->
+                <div class="firma-section">
+                    <div class="firma-box-title">Aprobado por:</div>
+                    <div class="firma-boxes">
+                        <p id="aprobadoPor2" name="aprobadoPor2" class="bold"></p>
+                        <p id="cargo_aprobador" name="cargo_aprobador" class="bold"></p>
+                        <div class="signature" id="QRaprobador" name="QRaprobador">
+                            <img id="QRaprobador" name="QRaprobador"
+                                src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
+                                class="firma">
+                        </div>
+
+                    </div>
+                    <div class="date-container">
+                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;font-size: 8px">Firmado
+                            digitalmente</p>
+                        <div id="fechaAprobacion" name="fechaAprobacion" class="date" style="font-size: 8px"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="button-container">
