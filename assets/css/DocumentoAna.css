@@ -50,6 +50,49 @@ body {
   display: flex;
   justify-content: center;
 }
+#header-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; /* Asegura que todos los hijos tengan la misma altura */
+}
+.header-left {
+  flex: 1;
+  display: flex;
+  align-items: center; /* Centra verticalmente la imagen */
+}
+
+.header-left img {
+  max-height: 100%; /* Ajusta la imagen al 100% del contenedor */
+  width: auto; /* Mantiene la proporción */
+  object-fit: contain; /* Evita distorsiones */
+}
+
+.header-center {
+  flex: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  height: 100%;
+}
+
+.header-right {
+  flex: 2;
+  font-size: 10px;
+  font-family: 'Arial', sans-serif;
+  text-align: right;
+  display: flex;
+  align-items: center;
+}
+
+.header-right table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #000;
+}
 .header,
 .header-bottom,
 .table-section,
@@ -80,10 +123,6 @@ body {
   flex-direction: column;
 }
 
-.header-center {
-  flex: 2;
-  text-align: center;
-}
 
 .header-bottom-left,
 .header-bottom-right {
@@ -104,9 +143,7 @@ body {
   padding-left: 5px;
 }
 
-.header-right table {
-  width: 100%;
-}
+
 
 .header-right table td,
 .header-right table th {
