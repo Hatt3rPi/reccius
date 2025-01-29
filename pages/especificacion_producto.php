@@ -811,8 +811,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#codigo_interno').prop('disabled', false);
 
         // Cambiar el color de fondo de los td en las tablas FQ y MB
-        $('#analisisFQ tbody td').css('background-color', 'rgb(244, 250, 194)');
-        $('#analisisMB tbody td').css('background-color', 'rgb(244, 250, 194)');
+        $('#analisisFQ tbody td textarea').css('background-color', 'rgb(244, 250, 194)');
+        $('#analisisMB tbody td select.select-style').css('background-color', 'rgb(244, 250, 194)');
     });
 
     function habilitarEdicionAnalisis(tabla) {
