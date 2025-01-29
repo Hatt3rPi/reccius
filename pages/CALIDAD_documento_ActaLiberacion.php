@@ -117,7 +117,7 @@ $link->close();
                         </tr>
                         <tr>
                             <td>Fecha Liberación:</td>
-                            <td>
+                            <td style="background-color: rgb(244, 250, 194)!important;">
                                 <?php if ($modo_edicion): ?>
                                     <!-- Modo de visualización -->
                                     <div id="fecha_acta_lib" name="fecha_acta_lib" class="fecha-visualizacion">
