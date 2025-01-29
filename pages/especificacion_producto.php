@@ -810,6 +810,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#usuario_aprobador').prop('readonly', false);
         $('#codigo_interno').prop('disabled', false);
 
+        // Cambiar el color de fondo de los td en las tablas FQ y MB
+        $('#analisisFQ tbody td').css('background-color', 'rgb(244, 250, 194)');
+        $('#analisisMB tbody td').css('background-color', 'rgb(244, 250, 194)');
     });
 
     function habilitarEdicionAnalisis(tabla) {
