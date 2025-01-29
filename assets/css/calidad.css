@@ -349,3 +349,11 @@ input[readonly]:hover {
     cursor: pointer;
     border: 1px solid #ccc;
 }
+
+table td textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 5px;
+    box-sizing: border-box;
+}
