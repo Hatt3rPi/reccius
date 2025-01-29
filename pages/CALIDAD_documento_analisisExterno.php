@@ -22,44 +22,56 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div id="form-container" class="form-container formpadding" style="margin: 0 auto;">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container">
+            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
                 <!-- Logo a la izquierda -->
-                <div class="header-left">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius">
+                <div class="header-left" style="flex: 1;">
+                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
+                    <!-- Ajusta la altura según sea necesario -->
                 </div>
-
                 <!-- Título Central -->
-                <div class="header-center">
-                    <p id="pretitulo">Solicitud de Análisis Externo Control de Calidad</p>
-                    <h1 id="Tipo_Producto"></h1>
-                    <p id="nombre_producto"></p>
-                    <hr>
-                    <div>Dirección de Calidad</div>
+                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Solicitud de Análisis
+                        Externo
+                        Control de Calidad
+                        <!-- Pretitulo -->
+                    </p>
+                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                        <!-- Título del documento -->
+                    </h1>
+                    <p name="nombre_producto" id="nombre_producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                        <!-- Descripción del producto -->
+                    </p>
+                    <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
+                    <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
+                        Dirección de Calidad
+                    </div>
                 </div>
-
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right">
-                    <table id="panel_informativo">
+                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
-                            <td id="numero_registro"></td>
+                            <td name="numero_registro" id="numero_registro"></td>
                         </tr>
                         <tr>
                             <td>N° Versión:</td>
-                            <td id="version"></td>
+                            <td name="version" id="version"></td>
                         </tr>
                         <tr>
                             <td>N° Solicitud:</td>
-                            <td id="numero_solicitud"></td>
+                            <td name="numero_solicitud" id="numero_solicitud"></td>
                         </tr>
                         <tr>
-                            <td>Fecha:</td>
-                            <td id="fecha_registro"></td>
+                            <td>Fecha :</td>
+                            <td id="fecha_registro" name="fecha_registro">
+
+                            </td>
                         </tr>
                     </table>
                 </div>
-            </div>
 
+            </div>
             <!-- Body -->
             <form id="section1">
                 <table>
@@ -68,9 +80,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">1. Laboratorio Analista:(*)</td>
-                        <td><input type="text" id="laboratorio" name="laboratorio" required readonly></td>
+                        <td><input type="text" id="laboratorio" name="laboratorio" required readonly ></td>
                         <td class="titulo titulo-right">Tipo de Analisis:</td>
-                        <td><input type="text" id="tipo_analisis" name="tipo_analisis" required readonly></td>
+                        <td><input type="text" id="tipo_analisis" name="tipo_analisis" required readonly ></td>
 
                     </tr>
                     <tr>
@@ -103,8 +115,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">7. Fecha de Entrega estimada:</td>
-                        <td><input type="text" id="fecha_entrega_estimada" name="fecha_entrega_estimada" readonly
-                                required></td>
+                        <td><input type="text" id="fecha_entrega_estimada" name="fecha_entrega_estimada" readonly required></td>
                     </tr>
                     <!-- Continúa agregando más filas según los campos requeridos -->
                 </table>
@@ -119,18 +130,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Nombre producto:</td>
                         <td>
-                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border"
-                                readonly></div>
+                            <div id="nombre_producto2" name="nombre_producto2" class="editable-div border-dark border"  readonly ></div>
                         </td>
 
 
                         <td class="titulo titulo-right">10. T. de lote:</td>
-                        <td><input type="text" id="tamano_lote" name="tamano_lote" required readonly></td>
+                        <td><input type="text" id="tamano_lote" name="tamano_lote" required readonly ></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">2. Presentación:</td>
-                        <td><input type="text" id="formato" name="formato" required readonly></td>
+                        <td><input type="text" id="formato" name="formato" required readonly ></td>
                         <td class="titulo titulo-right">11. Fecha Elab.:</td>
                         <td><input type="text" id="fecha_elaboracion" name="fecha_elaboracion" readonly required></td>
 
@@ -147,13 +157,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td><input type="text" id="codigo_mastersoft" name="codigo_mastersoft" readonly required></td>
 
                         <td class="titulo titulo-right">13. Muestra:</td>
-                        <td><input type="text" id="tamano_muestra" name="tamano_muestra" readonly required></td>
+                        <td><input type="text" id="tamano_muestra" name="tamano_muestra" readonly  required></td>
                     </tr>
                     <tr>
                         <td class="titulo">5. Muestreado según POS:</td>
                         <td><input type="text" id="numero_pos" name="numero_pos" readonly required></td>
                         <td class="titulo titulo-right">14. Cta.muestra</td>
-                        <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra" readonly></td>
+                        <td><input type="text" id="tamano_contramuestra" name="tamano_contramuestra" readonly ></td>
                     </tr>
                     <tr>
                         <td class="titulo">6. Fabricante:</td>
@@ -163,7 +173,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tr>
                     <tr>
                         <td class="titulo">7. Muestreado por:</td>
-                        <td><input type="text" id="muestreado_por" name="muestreado_por" readonly required></td>
+                        <td><input type="text" id="muestreado_por" name="muestreado_por" readonly  required></td>
 
 
                     </tr>
@@ -171,14 +181,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">8. Condic. almacenamiento</td>
                         <td>
-                            <div id="condicion_almacenamiento" name="condicion_almacenamiento"
-                                class="editable-div border-dark border" readonly></div>
+                            <div id="condicion_almacenamiento" name="condicion_almacenamiento" class="editable-div border-dark border" readonly ></div>
                         </td>
 
                         <td class="titulo titulo-right">Observaciones:</td>
                         <td>
-                            <div id="observaciones" name="observaciones" class="editable-div border-dark border"
-                                readonly required></div>
+                            <div id="observaciones" name="observaciones" class="editable-div border-dark border"  readonly required></div>
                         </td>
 
                     </tr>
@@ -186,8 +194,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                         <td class="titulo">9. Registro I.S.P:</td>
                         <td>
-                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border" readonly
-                                required></div>
+                            <div id="registro_isp" name="registro_isp" class="editable-div border-dark border"  readonly required></div>
                         </td>
 
 
@@ -198,11 +205,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </form>
             <!--height: 0;-->
             <form id="section4" <?php
-            $etapa = $_POST['etapa'];
-            if ($etapa == '0') {
-                echo 'style="visibility: hidden;"';
-            }
-            ?>>
+                                $etapa = $_POST['etapa'];
+                                if ($etapa == '0') {
+                                    echo 'style="visibility: hidden;"';
+                                }
+                                ?>>
                 <table>
                     <tr>
                         <td class="Subtitulos" colspan="4">III. DATOS DEL ANÁLISIS SOLICITADO</td>
@@ -211,64 +218,58 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
                             <input type="text" class="<?php
-                            $etapa = $_POST['etapa'];
-                            $result = $_POST['resultados'];
-                            if ($etapa == '1' && $result == 'true') {
-                                echo '';
-                            } else {
-                                echo 'input-highlight';
-                            }
-                            ?>" id="laboratorio_nro_analisis"
-                                name="laboratorio_nro_analisis" required>
+                                                        $etapa = $_POST['etapa'];
+                                                        $result = $_POST['resultados'];
+                                                        if ($etapa == '1' && $result == 'true') {
+                                                            echo '';
+                                                        } else {
+                                                            echo 'input-highlight';
+                                                        }
+                                                        ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
-                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label"
-                                class="label__like-input <?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                } else {
-                                    echo 'input-highlight';
-                                }
-                                ?>">
+                            <label for="certificado_de_analisis_externo" id="certificado_de_analisis_externo_label" class="label__like-input <?php
+                                                                                                                                                $etapa = $_POST['etapa'];
+                                                                                                                                                $result = $_POST['resultados'];
+                                                                                                                                                if ($etapa == '1' && $result == 'true') {
+                                                                                                                                                    echo '';
+                                                                                                                                                } else {
+                                                                                                                                                    echo 'input-highlight';
+                                                                                                                                                }
+                                                                                                                                                ?>">
                                 <span>
-                                    <img src="../assets/images/especificaciones.svg" height="20px" width="20px"
-                                        alt="file image">
+                                    <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                                 </span> &nbsp Seleccione un archivo
                             </label>
-                            <input type="file" accept="application/pdf" id="certificado_de_analisis_externo"
-                                name="certificado_de_analisis_externo" required style="display: none;">
+                            <input type="file" accept="application/pdf" id="certificado_de_analisis_externo" name="certificado_de_analisis_externo" required style="display: none;">
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">3. Fecha de Entrega:</td>
                         <td>
                             <input type="text" id="fecha_entrega" name="fecha_entrega" class="datepicker <?php
-                            $etapa = $_POST['etapa'];
-                            $result = $_POST['resultados'];
-                            if ($etapa == '1' && $result == 'true') {
-                                echo '';
-                            } else {
-                                echo 'input-highlight';
-                            }
-                            ?>"
+                                                                                                            $etapa = $_POST['etapa'];
+                                                                                                            $result = $_POST['resultados'];
+                                                                                                            if ($etapa == '1' && $result == 'true') {
+                                                                                                                echo '';
+                                                                                                            } else {
+                                                                                                                echo 'input-highlight';
+                                                                                                            }
+                                                                                                            ?>"
                                 placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                         <td class="titulo titulo-right">4. Fecha de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis"
-                                class="datepicker <?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                } else {
-                                    echo 'input-highlight';
-                                }
-                                ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>"
-                                required>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker <?php
+                                                                                                                                    $etapa = $_POST['etapa'];
+                                                                                                                                    $result = $_POST['resultados'];
+                                                                                                                                    if ($etapa == '1' && $result == 'true') {
+                                                                                                                                        echo '';
+                                                                                                                                    } else {
+                                                                                                                                        echo 'input-highlight';
+                                                                                                                                    }
+                                                                                                                                    ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                     </tr>
                 </table>
@@ -301,17 +302,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </p>
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img id="solicitado_por_firma"
-                                    src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
-                                    class="firma">
+                                <img id="solicitado_por_firma" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
                         </div>
                         <div class="date-container">
-                            <div id='fecha_firma1' name='fecha_firma1' class="date" style="display: none;">Fecha:
-                                dd/mm/yyyy</div>
-                            <p id='mensaje_firma1' name='mensaje_firma1' class="text-bottom" style="display: none;">
-                                Firmado digitalmente</p>
+                            <div id='fecha_firma1' name='fecha_firma1' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
+                            <p id='mensaje_firma1' name='mensaje_firma1' class="text-bottom" style="display: none;">Firmado digitalmente</p>
                             <p id='user_firma1' name='user_firma1' style="display: none;" style="display: none;"></p>
                         </div>
                     </div>
@@ -325,17 +322,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </p>
                             <div class="signature">
                                 <!-- Agregar la imagen aquí -->
-                                <img id="revisado_por_firma"
-                                    src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
-                                    class="firma">
+                                <img id="revisado_por_firma" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
 
                             </div>
                         </div>
                         <div class="date-container">
-                            <div id='fecha_firma2' name='fecha_firma2' class="date" style="display: none;">Fecha:
-                                dd/mm/yyyy</div>
-                            <p id='mensaje_firma2' name='mensaje_firma2' class="text-bottom" style="display: none;">
-                                Firmado digitalmente</p>
+                            <div id='fecha_firma2' name='fecha_firma2' class="date" style="display: none;">Fecha: dd/mm/yyyy</div>
+                            <p id='mensaje_firma2' name='mensaje_firma2' class="text-bottom" style="display: none;">Firmado digitalmente</p>
                             <p id='user_firma1' name='user_firma1' style="display: none;" style="display: none;"></p>
                         </div>
                     </div>
@@ -381,17 +374,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="modal-contentRechazo">
         <div class="spinner-border" role="status">
             <span class="sr-only"></span>
-
+            
         </div>
         <p>Procesando documento</p>
     </div>
 </div>
-
 </html>
 <script>
     var idAnalisisExterno_acta = null;
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         function downloadPDF(save) {
             document.getElementById('modalLoading').style.display = 'block';
             const {
@@ -465,9 +457,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     formData.append('id_solicitud', idAnalisisExterno);
 
                     fetch('./backend/calidad/add_documentos.php', {
-                        method: 'POST',
-                        body: formData
-                    })
+                            method: 'POST',
+                            body: formData
+                        })
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'success') {
@@ -491,14 +483,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         const uploadButton = document.getElementById('upload-pdf');
         if (uploadButton) {
-            uploadButton.addEventListener('click', function () {
+            uploadButton.addEventListener('click', function() {
                 downloadPDF(true);
             });
         }
 
         const downloadButton = document.getElementById('download-pdf');
         if (downloadButton) {
-            downloadButton.addEventListener('click', function () {
+            downloadButton.addEventListener('click', function() {
                 downloadPDF(false);
             });
         }
@@ -529,11 +521,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Cargar datos iniciales
         loadData();
 
-        $('#certificado_de_analisis_externo').on('change', function () {
+        $('#certificado_de_analisis_externo').on('change', function() {
             var fileName = $(this).val().split('\\').pop();
             $('#certificado_de_analisis_externo_label').text(fileName);
         });
@@ -560,7 +552,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 id_acta: idAnalisisExterno
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function (response) {
+            success: function(response) {
                 console.log("AJAX Success:", response);
 
                 // Suponiendo que la respuesta tiene dos partes principales
@@ -573,29 +565,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 const table = $('#analisis-solicitados');
                 const highlight = "<?php
-                $etapa = $_POST['etapa'];
-                if ($etapa == '0') {
-                    echo '';
-                } else {
-                    echo 'input-highlight';
-                }
-                ?>";
-        console.log("Valor de 'highlight':", highlight);
+                                    $etapa = $_POST['etapa'];
+                                    if ($etapa == '0') {
+                                        echo '';
+                                    } else {
+                                        echo 'input-highlight';
+                                    }
+                                    ?>";
+                console.log("Valor de 'highlight':", highlight);
 
-        analisisSolicitados.forEach(function (analisis, index) {
-            console.log(`Procesando analisisSolicitados[${index}]:`, analisis);
-            const row = `
+                analisisSolicitados.forEach(function(analisis, index) {
+                    console.log(`Procesando analisisSolicitados[${index}]:`, analisis);
+                    const row = `
                     <tr class="bordeAbajo checkLine" data-id="${analisis.anali_id_analisis}">
                         <td class="tituloTabla">${analisis.anali_descripcion_analisis}:</td>
                         <td class="Metod">${analisis.anali_metodologia}</td>
                         <td class="Espec">${analisis.anali_criterios_aceptacion}</td>
-                        <td class="resultados editable-div" style="background-color: rgb(244, 250, 194) !important; ${analisis.anali_resultado_laboratorio ? '' : highlight
-                }" contenteditable="${analisis.anali_resultado_laboratorio ? 'false' : 'true'}">${analisis.anali_resultado_laboratorio ? analisis.anali_resultado_laboratorio : ''}</td>
-                        <td class="revision ${analisis.anali_resultado_laboratorio ? '' : 'input-highlight'}" <?php
-                        $etapa = $_POST['etapa'];
-                        if ($etapa == '0') {
-                            echo 'style="visibility: hidden;height: 0;"';
-                        } ?>>
+                        <td class="resultados editable-div" style="background-color: rgb(244, 250, 194) !important; ${
+                            analisis.anali_resultado_laboratorio?'': highlight
+                        }" contenteditable="${analisis.anali_resultado_laboratorio?'false':'true'}">${analisis.anali_resultado_laboratorio?analisis.anali_resultado_laboratorio:''}</td>
+                        <td class="revision ${analisis.anali_resultado_laboratorio?'':'input-highlight'}" <?php
+                                                                                                            $etapa = $_POST['etapa'];
+                                                                                                            if ($etapa == '0') {
+                                                                                                                echo 'style="visibility: hidden;height: 0;"';
+                                                                                                            } ?>>
                             <div class="btn-group-vertical " role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check cumple" name="btn-check-${index}" id="btn-check-a-${index}" value="1" autocomplete="off">
                                 <label class="btn btn-outline-success verificadores" for="btn-check-a-${index}"><i class="fa-regular fa-circle-check"></i> Cumple</label>
@@ -604,215 +597,215 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </div>
                         </td>
                     </tr>`;
-            table.append(row);
-        });
+                    table.append(row);
+                });
 
-        if (analisis && analisis.length > 0) {
-            console.log("Analisis tiene datos.");
-            const primerAnalisis = analisis[0];
-            console.log("Datos de 'primerAnalisis':", primerAnalisis);
+                if (analisis && analisis.length > 0) {
+                    console.log("Analisis tiene datos.");
+                    const primerAnalisis = analisis[0];
+                    console.log("Datos de 'primerAnalisis':", primerAnalisis);
 
-            idAnalisisExterno_acta = primerAnalisis.id;
+                    idAnalisisExterno_acta = primerAnalisis.id;
 
-            // Actualizar los inputs con los datos del análisis
-            // TABLA HEADER
-            $('#numero_registro').text(primerAnalisis.numero_registro);
-            $('#version').text(primerAnalisis.version);
-            $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
-            $('#fecha_registro').text(primerAnalisis.fecha_registro);
+                    // Actualizar los inputs con los datos del análisis
+                    // TABLA HEADER
+                    $('#numero_registro').text(primerAnalisis.numero_registro);
+                    $('#version').text(primerAnalisis.version);
+                    $('#numero_solicitud').text(primerAnalisis.numero_solicitud);
+                    $('#fecha_registro').text(primerAnalisis.fecha_registro);
 
-            // Sumar los resultados de producto en un solo texto
-            var productoCompleto =
-                (primerAnalisis.prod_nombre_producto != null ? primerAnalisis.prod_nombre_producto : '') + ' ' +
-                (primerAnalisis.prod_concentracion != null ? primerAnalisis.prod_concentracion : '') + ' ' +
-                (primerAnalisis.prod_formato != null ? primerAnalisis.prod_formato : '');
-            console.log("Producto completo:", productoCompleto);
+                    // Sumar los resultados de producto en un solo texto
+                    var productoCompleto =
+                        (primerAnalisis.prod_nombre_producto != null ? primerAnalisis.prod_nombre_producto : '') + ' ' +
+                        (primerAnalisis.prod_concentracion != null ? primerAnalisis.prod_concentracion : '') + ' ' +
+                        (primerAnalisis.prod_formato != null ? primerAnalisis.prod_formato : '');
+                    console.log("Producto completo:", productoCompleto);
 
-            // Actualizar el elemento con el texto combinado
-            $('#nombre_producto').text(productoCompleto);
-            $('#nombre_producto2').text(productoCompleto);
+                    // Actualizar el elemento con el texto combinado
+                    $('#nombre_producto').text(productoCompleto);
+                    $('#nombre_producto2').text(productoCompleto);
 
-            // TÍTULO TABLA
-            $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
+                    // TÍTULO TABLA
+                    $('#Tipo_Producto').text(primerAnalisis.prod_tipo_producto);
 
-            // TABLA 1
-            $('#laboratorio').val(primerAnalisis.laboratorio);
-            $('#fecha_solicitud').val(moment(primerAnalisis.fecha_solicitud, 'YYYY-MM-DD').format('DD/MM/YYYY'));
-            $('#analisis_segun').val(primerAnalisis.analisis_segun);
-            $('#numero_documento').val(primerAnalisis.numero_documento);
-            $('#fecha_cotizacion').val(moment(primerAnalisis.fecha_cotizacion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
-            $('#estandar_segun').val(primerAnalisis.estandar_segun);
-            $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+                    // TABLA 1
+                    $('#laboratorio').val(primerAnalisis.laboratorio);
+                    $('#fecha_solicitud').val(moment(primerAnalisis.fecha_solicitud, 'YYYY-MM-DD').format('DD/MM/YYYY'));
+                    $('#analisis_segun').val(primerAnalisis.analisis_segun);
+                    $('#numero_documento').val(primerAnalisis.numero_documento);
+                    $('#fecha_cotizacion').val(moment(primerAnalisis.fecha_cotizacion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
+                    $('#estandar_segun').val(primerAnalisis.estandar_segun);
+                    $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
 
-            $('#hds_otro').val(primerAnalisis.hds_otro);
-            $('#fecha_entrega_estimada').val(moment(primerAnalisis.fecha_entrega_estimada, 'YYYY-MM-DD').format('DD/MM/YYYY'));
+                    $('#hds_otro').val(primerAnalisis.hds_otro);
+                    $('#fecha_entrega_estimada').val(moment(primerAnalisis.fecha_entrega_estimada, 'YYYY-MM-DD').format('DD/MM/YYYY'));
 
-            // TABLA 2
-            $('#formato').val(primerAnalisis.prod_formato);
-            $('#lote').val(primerAnalisis.lote);
-            $('#tamano_lote').val(primerAnalisis.tamano_lote);
-            $('#fecha_elaboracion').val(moment(primerAnalisis.fecha_elaboracion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
-            $('#fecha_vencimiento').val(moment(primerAnalisis.fecha_vencimiento, 'YYYY-MM-DD').format('DD/MM/YYYY'));
-            $('#registro_isp').text(primerAnalisis.registro_isp);
-            $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
-            $('#condicion_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
-            $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
-            $('#elaborado_por').val(primerAnalisis.elaborado_por);
-            $('#muestreado_por').val(primerAnalisis.nombre_muestreado_por);
-            $('#observaciones').text(primerAnalisis.observaciones);
-            $('#numero_pos').val(primerAnalisis.numero_pos);
-            $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
+                    // TABLA 2
+                    $('#formato').val(primerAnalisis.prod_formato);
+                    $('#lote').val(primerAnalisis.lote);
+                    $('#tamano_lote').val(primerAnalisis.tamano_lote);
+                    $('#fecha_elaboracion').val(moment(primerAnalisis.fecha_elaboracion, 'YYYY-MM-DD').format('DD/MM/YYYY'));
+                    $('#fecha_vencimiento').val(moment(primerAnalisis.fecha_vencimiento, 'YYYY-MM-DD').format('DD/MM/YYYY'));
+                    $('#registro_isp').text(primerAnalisis.registro_isp);
+                    $('#tamano_muestra').val(primerAnalisis.tamano_muestra);
+                    $('#condicion_almacenamiento').text(primerAnalisis.condicion_almacenamiento);
+                    $('#tamano_contramuestra').val(primerAnalisis.tamano_contramuestra);
+                    $('#elaborado_por').val(primerAnalisis.elaborado_por);
+                    $('#muestreado_por').val(primerAnalisis.nombre_muestreado_por);
+                    $('#observaciones').text(primerAnalisis.observaciones);
+                    $('#numero_pos').val(primerAnalisis.numero_pos);
+                    $('#codigo_mastersoft').val(primerAnalisis.codigo_mastersoft);
 
-            // Otros campos
-            $('#estado').val(primerAnalisis.estado);
-            $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
+                    // Otros campos
+                    $('#estado').val(primerAnalisis.estado);
+                    $('#tipo_analisis').val(primerAnalisis.tipo_analisis);
 
-            // III
-            if (primerAnalisis.estado !== "Pendiente ingreso resultados") {
-                console.log("El estado no es 'Pendiente ingreso resultados'.");
-                $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis);
-                $("#fecha_entrega").val(primerAnalisis.fecha_entrega);
-                $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis);
-                $("#certificado_de_analisis_externo_label")
-                    .attr("type", "text")
-                    .html(`<span>
+                    // III
+                    if (primerAnalisis.estado !== "Pendiente ingreso resultados") {
+                        console.log("El estado no es 'Pendiente ingreso resultados'.");
+                        $("#laboratorio_nro_analisis").val(primerAnalisis.laboratorio_nro_analisis);
+                        $("#fecha_entrega").val(primerAnalisis.fecha_entrega);
+                        $("#laboratorio_fecha_analisis").val(primerAnalisis.laboratorio_fecha_analisis);
+                        $("#certificado_de_analisis_externo_label")
+                            .attr("type", "text")
+                            .html(`<span>
                         <img src="../assets/images/especificaciones.svg" height="20px" width="20px" alt="file image">
                         </span> &nbsp; 
                         <a href="${primerAnalisis.url_certificado_de_analisis_externo}" target="_blank">Ver Certificado</a>`);
 
-                var resultList = primerAnalisis.resultados_analisis == null ? [] : JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
-                console.log('Lista de resultados:', resultList);
+                        var resultList = primerAnalisis.resultados_analisis == null ? [] : JSON.parse(primerAnalisis.resultados_analisis.replace(/^"|"$/g, ''));
+                        console.log('Lista de resultados:', resultList);
 
-                resultList.forEach((res, index) => {
-                    console.log(`Procesando resultList[${index}]:`, res);
-                    if (res === 1) {
-                        $(`#btn-check-a-${index}`).prop('checked', true);
-                    } else if (res === 0) {
-                        $(`#btn-check-b-${index}`).prop('checked', true);
-                    }
-                    $(`#btn-check-a-${index}`).prop('disabled', true);
-                    $(`#btn-check-b-${index}`).prop('disabled', true);
-                });
-
-                $("#laboratorio_nro_analisis").prop("readonly", true);
-                $("#certificado_de_analisis_externo_label").prop("readonly", true);
-                $("#fecha_entrega").prop("readonly", true);
-                $("#laboratorio_fecha_analisis").prop("readonly", true);
-
-                $("#download-pdf").show();
-                $("#revisar").hide();
-
-            } else {
-                console.log('Estado es "Pendiente ingreso resultados".');
-                console.log('No hay certificado disponible.');
-                console.log('Comparando primerAnalisis.revisado_por:', primerAnalisis.revisado_por, 'con usuario de sesión:', "<?php echo $_SESSION['usuario'] ?>");
-
-                if (primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>") {
-                    $("#revisar").show();
-                }
-            }
-
-            if (primerAnalisis.firmas) {
-                console.log('Datos de firmas:', primerAnalisis.firmas);
-                var soli = primerAnalisis.firmas.solicitado_por;
-                var revis = primerAnalisis.firmas.revisado_por;
-                console.log('Solicitado por:', soli);
-                console.log('Revisado por:', revis);
-
-                if (primerAnalisis.solicitado_por) {
-                    $("#fecha_firma1").text(primerAnalisis.fecha_firma_1).show();
-                    $("#mensaje_firma1").show();
-                    $("#solicitado_por_name").text(soli.nombre).show();
-                    $("#cargo_solicitador").text(soli.cargo).show();
-
-                    if (soli.qr_documento) {
-                        var qr = soli.qr_documento;
-                        console.log('QR del documento (solicitado_por):', qr);
-                        fetch(qr).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                            const reader = new FileReader();
-                            reader.onloadend = () => resolve(reader.result);
-                            reader.readAsDataURL(blob);
-                        })).then((data) => {
-                            console.log("Datos del QR (solicitado_por):", data);
-                            $("#solicitado_por_firma").attr("src", data);
+                        resultList.forEach((res, index) => {
+                            console.log(`Procesando resultList[${index}]:`, res);
+                            if (res === 1) {
+                                $(`#btn-check-a-${index}`).prop('checked', true);
+                            } else if (res === 0) {
+                                $(`#btn-check-b-${index}`).prop('checked', true);
+                            }
+                            $(`#btn-check-a-${index}`).prop('disabled', true);
+                            $(`#btn-check-b-${index}`).prop('disabled', true);
                         });
-                    }
-                    if (soli.qr_documento === null && soli.foto_firma) {
-                        console.log('Usando foto de firma (solicitado_por).');
-                        fetch(soli.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                            const reader = new FileReader();
-                            reader.onloadend = () => resolve(reader.result);
-                            reader.readAsDataURL(blob);
-                        })).then((data) => {
-                            console.log("Datos de la foto de firma (solicitado_por):", data);
-                            $("#solicitado_por_firma").attr("src", data);
-                        });
-                    }
-                }
-                if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
-                    $("#fecha_firma2").text(primerAnalisis.fecha_firma_2).show();
-                    $("#mensaje_firma2").show();
-                    $("#revisado_por_name").text(revis.nombre).show();
-                    $("#cargo_revisador").text(revis.cargo).show();
 
-                    if (revis.qr_documento) {
-                        console.log('QR del documento (revisado_por):', revis.qr_documento);
-                        fetch(revis.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                            const reader = new FileReader();
-                            reader.onloadend = () => resolve(reader.result);
-                            reader.readAsDataURL(blob);
-                        })).then((data) => {
-                            console.log("Datos del QR (revisado_por):", data);
-                            $("#revisado_por_firma").attr("src", data);
-                        });
+                        $("#laboratorio_nro_analisis").prop("readonly", true);
+                        $("#certificado_de_analisis_externo_label").prop("readonly", true);
+                        $("#fecha_entrega").prop("readonly", true);
+                        $("#laboratorio_fecha_analisis").prop("readonly", true);
+
+                        $("#download-pdf").show();
+                        $("#revisar").hide();
+
+                    } else {
+                        console.log('Estado es "Pendiente ingreso resultados".');
+                        console.log('No hay certificado disponible.');
+                        console.log('Comparando primerAnalisis.revisado_por:', primerAnalisis.revisado_por, 'con usuario de sesión:', "<?php echo $_SESSION['usuario'] ?>");
+
+                        if (primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>") {
+                            $("#revisar").show();
+                        }
                     }
-                    if (revis.qr_documento === null && revis.foto_firma) {
-                        console.log('Usando foto de firma (revisado_por).');
-                        fetch(revis.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
-                            const reader = new FileReader();
-                            reader.onloadend = () => resolve(reader.result);
-                            reader.readAsDataURL(blob);
-                        })).then((data) => {
-                            console.log("Datos de la foto de firma (revisado_por):", data);
-                            $("#revisado_por_firma").attr("src", data);
-                        });
+
+                    if (primerAnalisis.firmas) {
+                        console.log('Datos de firmas:', primerAnalisis.firmas);
+                        var soli = primerAnalisis.firmas.solicitado_por;
+                        var revis = primerAnalisis.firmas.revisado_por;
+                        console.log('Solicitado por:', soli);
+                        console.log('Revisado por:', revis);
+
+                        if (primerAnalisis.solicitado_por) {
+                            $("#fecha_firma1").text(primerAnalisis.fecha_firma_1).show();
+                            $("#mensaje_firma1").show();
+                            $("#solicitado_por_name").text(soli.nombre).show();
+                            $("#cargo_solicitador").text(soli.cargo).show();
+
+                            if (soli.qr_documento) {
+                                var qr = soli.qr_documento;
+                                console.log('QR del documento (solicitado_por):', qr);
+                                fetch(qr).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("Datos del QR (solicitado_por):", data);
+                                    $("#solicitado_por_firma").attr("src", data);
+                                });
+                            }
+                            if (soli.qr_documento === null && soli.foto_firma) {
+                                console.log('Usando foto de firma (solicitado_por).');
+                                fetch(soli.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("Datos de la foto de firma (solicitado_por):", data);
+                                    $("#solicitado_por_firma").attr("src", data);
+                                });
+                            }
+                        }
+                        if (primerAnalisis.revisado_por && primerAnalisis.laboratorio_fecha_analisis) {
+                            $("#fecha_firma2").text(primerAnalisis.fecha_firma_2).show();
+                            $("#mensaje_firma2").show();
+                            $("#revisado_por_name").text(revis.nombre).show();
+                            $("#cargo_revisador").text(revis.cargo).show();
+
+                            if (revis.qr_documento) {
+                                console.log('QR del documento (revisado_por):', revis.qr_documento);
+                                fetch(revis.qr_documento).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("Datos del QR (revisado_por):", data);
+                                    $("#revisado_por_firma").attr("src", data);
+                                });
+                            }
+                            if (revis.qr_documento === null && revis.foto_firma) {
+                                console.log('Usando foto de firma (revisado_por).');
+                                fetch(revis.foto_firma).then(resp => resp.blob()).then(blob => new Promise((resolve, _) => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(blob);
+                                })).then((data) => {
+                                    console.log("Datos de la foto de firma (revisado_por):", data);
+                                    $("#revisado_por_firma").attr("src", data);
+                                });
+                            }
+                        } else {
+                            var datosFirma2 = {
+                                fecha: primerAnalisis.laboratorio_fecha_analisis,
+                                nombre: revis.nombre,
+                                cargo: revis.cargo,
+                                firma: revis.qr_documento ? revis.qr_documento : revis.foto_firma
+                            };
+                            console.log("Datos para firma 2:", datosFirma2);
+                        }
                     }
                 } else {
-                    var datosFirma2 = {
-                        fecha: primerAnalisis.laboratorio_fecha_analisis,
-                        nombre: revis.nombre,
-                        cargo: revis.cargo,
-                        firma: revis.qr_documento ? revis.qr_documento : revis.foto_firma
-                    };
-                    console.log("Datos para firma 2:", datosFirma2);
+                    console.log("El array 'analisis' está vacío o es indefinido.");
                 }
+
+                // Manejo de Acta Muestreo
+                const actaMuestreo = response.Acta_Muestreo;
+                console.log("Datos de 'Acta_Muestreo':", actaMuestreo);
+
+                if (actaMuestreo && actaMuestreo.length > 0) {
+                    const ultimaActa = actaMuestreo[0];
+                    console.log("Última acta de muestreo:", ultimaActa);
+                    // Poblar campos adicionales de acta de muestreo si es necesario
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en AJAX:', error);
+                console.error('Estado:', status);
+                console.error('Respuesta completa:', xhr);
+                console.error('Respuesta del servidor:', xhr.responseText);
+                alert("Error en carga de datos. Revisa la consola para más detalles.");
             }
-        } else {
-            console.log("El array 'analisis' está vacío o es indefinido.");
-        }
-
-        // Manejo de Acta Muestreo
-        const actaMuestreo = response.Acta_Muestreo;
-        console.log("Datos de 'Acta_Muestreo':", actaMuestreo);
-
-        if (actaMuestreo && actaMuestreo.length > 0) {
-            const ultimaActa = actaMuestreo[0];
-            console.log("Última acta de muestreo:", ultimaActa);
-            // Poblar campos adicionales de acta de muestreo si es necesario
-        }
-    },
-    error: function(xhr, status, error) {
-        console.error('Error en AJAX:', error);
-        console.error('Estado:', status);
-        console.error('Respuesta completa:', xhr);
-        console.error('Respuesta del servidor:', xhr.responseText);
-        alert("Error en carga de datos. Revisa la consola para más detalles.");
-    }
         });
     }
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         function firma2Fn() {
             var now = new Date();
@@ -834,14 +827,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
 
 
-        $("#revisar").on("click", function () {
+        $("#revisar").on("click", function() {
             let cumple = true;
             let results = [];
             let resultadoTextos = [];
 
 
 
-            $(".checkLine").each(function () {
+            $(".checkLine").each(function() {
                 $(this).css("background-color", "transparent");
                 const resultadoText = $(this).find(".resultados").text().trim();
                 const idAnalisis = $(this).data('id');
@@ -893,9 +886,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             $("#revisar").hide();
             fetch("./backend/analisis/agnadir_revision.php?id_analisis=" + idAnalisisExterno, {
-                method: "POST",
-                body: formData
-            })
+                    method: "POST",
+                    body: formData
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.exito) {
