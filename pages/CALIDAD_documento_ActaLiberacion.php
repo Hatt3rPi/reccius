@@ -390,10 +390,10 @@ $link->close();
 
                     <tr>
                         <td class="titulo">7. Cantidad real Liberada:</td>
-                        <td><input type="text" id="cantidad_real" name="cantidad_real"  required></td>
+                        <td><input type="text" id="cantidad_real" name="cantidad_real" style="background-color: rgb(244, 250, 194)!important;" required></td>
                         <td class="titulo"> </td>
                         <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
-                        <td><input type="text" id="nro_traspaso" name="nro_traspaso"  required></td>
+                        <td><input type="text" id="nro_traspaso" name="nro_traspaso" style="background-color: rgb(244, 250, 194)!important;" required></td>
 
                     </tr>
                 </table>
