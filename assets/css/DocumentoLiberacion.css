@@ -356,7 +356,7 @@ textarea {
 }
 .editable-divO {
     width: 290px;
-    max-width: 290px;
+
     word-wrap: break-word;
     /* Permite que las palabras se ajusten si son muy largas */
     overflow-wrap: break-word;

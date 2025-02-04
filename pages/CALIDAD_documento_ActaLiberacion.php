@@ -254,7 +254,7 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea1" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important;"></div>
+                            <div id="form_textarea1" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important; width: 100%;"></div>
                         </td>
                         <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
