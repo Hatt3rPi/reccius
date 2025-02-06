@@ -927,69 +927,75 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
 
-    $('#editarGenerarVersion').on('click', function (event) {
-        event.preventDefault();
-        console.log("Editar Generar Version");
+    $(document).ready(function () {
+        $('#url_documento_adicional').on('change', function () {
+            var fileName = $(this).val().split('\\').pop();
+            $('#url_documento_adicional_label_text').text(fileName);
+        });
 
-        // Mostrar contenedor de observaciones originales
-        $('#contenedor_obsOriginal').css('visibility', 'visible');
+        function editarGenerarVersion(event) {
 
-        // Mostrar el botón "Guardar" y ocultar el botón "Editar/Generar Versión"
-        $("#guardar").show();
-        $("#editarGenerarVersion").hide();
-
-        // Actualizar versión y ruta
-        $("#version").val(newVersion);
-        $("#ruta").val('genera_version');
-
-        // Habilitar campos específicos según condiciones
-        var informacionFaltanteArr = [];
-
-        if ($("#informacion_faltante").length > 0) {
-            [
-                'analisis_segun',
-                'estandar_segun',
-                'fecha_cotizacion',
-                'fecha_entrega_estimada',
-                'fecha_solicitud',
-                'hds_otro',
-                'laboratorio',
-                'numero_documento',
-                'observaciones'
-            ].forEach(element => {
-                $("#" + element).prop('disabled', false);
-            });
-        } else {
-            // Lista de IDs que deben recibir la clase 'editable'
-            const editableIds = [
-                'numero_registro',
-                'numero_solicitud',
-                'fecha_registro',
-                'elaboradoPor',
-                'paisOrigen',
-                'lote',
-                'tamano_lote',
-                'fecha_elaboracion',
-                'fecha_vencimiento',
-                'tipo_analisis',
-                'condicion_almacenamiento',
-                'tamano_muestra',
-                'tamano_contramuestra',
-                'registro_isp',
-                'numero_pos',
-                'ejecutado_por',
-                'muestreado_por',
-                'am_verificado_por',
-                'form_observaciones'
-            ];
-
-            // Habilitar y agregar la clase 'editable' solo a los elementos específicos
-            editableIds.forEach(element => {
-                $("#" + element)
-                    .prop('disabled', false) // Habilitar el campo
-                    .addClass('editable');   // Agregar la clase 'editable'
-            });
         }
+
+        $('#editarGenerarVersion').on('click', function (event) {
+            event.preventDefault();
+            console.log("Editar Generar Version");
+            $('#contenedor_obsOriginal').css('visibility', 'visible');
+            $("#guardar").show();
+            $("#editarGenerarVersion").hide();
+            $("#version").val(newVersion);
+            $("#ruta").val('genera_version');
+
+
+            var informacionFaltanteArr = []
+
+
+            if ($("#informacion_faltante").length > 0) {
+                informacionFaltanteArr = [
+                    'analisis_segun',
+                    'estandar_segun',
+                    'fecha_cotizacion',
+                    'fecha_entrega_estimada',
+                    'fecha_solicitud',
+                    'hds_otro',
+                    'laboratorio',
+                    'numero_documento',
+                    'observaciones'
+                ].forEach(element => {
+                    $("#" + element).prop('disabled', false);
+                });
+            } else {
+                [
+                    // I. Analisis:
+                    'numero_registro',
+                    'numero_solicitud',
+                    'fecha_registro',
+                    // III. Identificacion de la muestra:
+                    'lote',
+                    'tamano_lote',
+                    'fecha_elaboracion',
+                    'fecha_vencimiento',
+                    'tipo_analisis',
+                    'condicion_almacenamiento',
+                    'tamano_muestra',
+                    'tamano_contramuestra',
+                    'registro_isp',
+                    'numero_pos',
+                    'ejecutado_por',
+                    'muestreado_por',
+                    'am_verificado_por',
+                    'form_observaciones'
+                ].forEach(element => {
+                    $("#" + element).prop('disabled', false);
+                });
+            }
+            
+            // Agregar la clase 'editable' a todos los input, textarea y select
+            $('input').addClass('editable');
+            $('textarea').addClass('editable');
+            $('select').addClass('editable');
+
+        });
 
         $('#formulario_analisis_externo').on('submit', formSubmit);
 
