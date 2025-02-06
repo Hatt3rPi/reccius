@@ -13,7 +13,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <title>Envío de solicitud a laboratorio</title>
-    <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="../assets/css/correos.css">
     <link rel="stylesheet" href="../assets/css/Botones.css">
     <script src="../assets/js/notify.js"></script>
 
