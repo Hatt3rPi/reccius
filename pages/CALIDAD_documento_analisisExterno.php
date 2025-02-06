@@ -238,8 +238,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             } else {
                                 echo 'input-highlight';
                             }
-                            ?>" id="laboratorio_nro_analisis"
-                                name="laboratorio_nro_analisis" editable required>
+                            ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" editable required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
@@ -273,22 +272,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             } else {
                                 echo 'input-highlight';
                             }
-                            ?>"
-                                placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                         <td class="titulo titulo-right">4. Fecha de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis"
-                                class="datepicker <?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                } else {
-                                    echo 'input-highlight';
-                                }
-                                ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>"
-                                required>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker <?php
+                            $etapa = $_POST['etapa'];
+                            $result = $_POST['resultados'];
+                            if ($etapa == '1' && $result == 'true') {
+                                echo '';
+                            } else {
+                                echo 'input-highlight';
+                            }
+                            ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                     </tr>
                 </table>
@@ -409,6 +405,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var revisarBtn = document.getElementById("revisar");
+
+        if (revisarBtn) {
+            // Observa cuando el botón 'Revisar' cambia de estado
+            let observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.target.style.display !== "none") {
+                        aplicarColorInputs();
+                    }
+                });
+            });
+
+            observer.observe(revisarBtn, { attributes: true, attributeFilter: ["style"] });
+        }
+    });
+
+    function aplicarColorInputs() {
+        let inputs = document.querySelectorAll("#laboratorio_nro_analisis, #fecha_entrega, #laboratorio_fecha_analisis, #certificado_de_analisis_externo_label");
+
+        inputs.forEach(input => {
+            input.classList.add("input-highlight");
+        });
+    }
+
     var idAnalisisExterno_acta = null;
 
     $(document).ready(function () {
