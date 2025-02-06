@@ -56,9 +56,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker "
-                            id="fecha_registro" placeholder="dd/mm/aaaa" type="text"
-                            value="<?php echo date('d/m/Y'); ?>">
+                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker " id="fecha_registro"
+                            placeholder="dd/mm/aaaa" type="text" value="<?php echo date('d/m/Y'); ?>">
                     </div>
                 </div>
             </fieldset>
@@ -494,6 +493,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     function informacionFaltante() {
         const identificacionInputs = [
             'fecha_registro',
+            'elaboradoPor',
+            'paisOrigen',
             'lote',
             'tamano_lote',
             'fecha_elaboracion',
