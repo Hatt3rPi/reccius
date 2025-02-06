@@ -440,11 +440,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 </html>
 <script>
 
-    document.getElementById('guardar').addEventListener('click', function(event) {
+    document.getElementById('guardar').addEventListener('click', function (event) {
         $.notify("Formulario enviado con éxito", "success");
     });
     //document.querySelectorAll('input, select, textarea').forEach((el)=>console.log({id:el.id, type: el.type}))
-    
+
 
     var idAnalisisExterno = <?php echo json_encode($_POST['analisisExterno'] ?? ''); ?>;
     var ruta_edicion = <?php echo json_encode($_POST['ruta_edicion'] ?? ''); ?>;
@@ -989,6 +989,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $("#" + element).prop('disabled', false);
                 });
             }
+            // Agregar la clase 'editable' a todos los input, textarea y select
+            $('input').addClass('editable');
+            $('textarea').addClass('editable');
+            $('select').addClass('editable');
 
         });
 
