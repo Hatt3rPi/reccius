@@ -17,6 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Añade aquí tus estilos o referencias a CSS -->
     <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
+    <link rel="stylesheet" href="../assets/css/botones.css">
     <script src="../assets/js/notify.js"></script>
     <script src="../assets/js/image.js"></script>
 </head>
@@ -125,7 +126,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <canvas style="display: none;"></canvas>
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
-                <button type="button" name="modificarPerfil" onclick="guardar()">Guardar Cambios</button>
+                <div class="button-container"></div>
+                <button class="botones ingControl" type="button" name="modificarPerfil" onclick="guardar()">Guardar Cambios</button>
             </form>
         </div>
     </div>
