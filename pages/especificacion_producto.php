@@ -628,10 +628,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                 // Ocultar el botón "Guardar especificación"
                 $('#guardar').hide();
                 $('#editarGenerarVersion').show();
-                // Quitar la clase 'editable' a todos los select
-                $('select').removeClass('editable');
-                // Quitar la clase 'editable' a todos los input
-                $('input').removeClass('editable');
+                // Quitar la clase 'editable' y agregar la clase 'no-editable' a los select
+                $('select').removeClass('editable').addClass('no-editable');
+
+                // Quitar la clase 'editable' y agregar la clase 'no-editable' a los input
+                $('input').removeClass('editable').addClass('no-editable');
             },
             error: function (xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
