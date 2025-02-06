@@ -49,7 +49,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </fieldset>
             <br>
             <fieldset>
-                <legend>II. Destinatarios</legend>
+                <legend>II. Destinatario</legend>
                 <br>
                 <div id="destinatarios-container-lab">
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
