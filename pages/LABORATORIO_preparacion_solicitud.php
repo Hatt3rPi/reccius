@@ -203,6 +203,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </select>
                     </div>
                 </div>
+                <legend>IV. Flujo de aprobación:</legend>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Muestreador:</label>
