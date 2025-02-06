@@ -989,214 +989,225 @@ while ($row = mysqli_fetch_assoc($result)) {
                     $("#" + element).prop('disabled', false);
                 });
             }
-            // Agregar la clase 'editable' a todos los input, textarea y select
-            $('input').addClass('editable');
-            $('textarea').addClass('editable');
-            $('select').addClass('editable');
-
-        });
-
-        $('#formulario_analisis_externo').on('submit', formSubmit);
-
-        function formSubmit(event) {
-
-            // Crear un nuevo objeto FormData
-            //formatear las fechas
-            event.preventDefault();
-            $('.datepicker').each(function () {
-                var dateValue = $(this).val();
-                if (dateValue) {
-                    var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
-                    $(this).val(formattedDate);
+            // Lista de IDs a excluir (nombres con guiones bajos)
+            const idsExcluidos = [
+                'tipo_producto',
+                'producto',
+                'formato',
+                'elaboradoPor',
+                'codigo_producto',
+                'concetracion',
+                'paisOrigen',
+            ];
+            // Agregar la clase 'editable' a todos los input, textarea y select, excepto los excluidos
+            $('input, textarea, select').each(function () {
+                const id = $(this).attr('id'); // Obtener el ID del elemento
+                if (!idsExcluidos.includes(id)) { // Verificar si el ID no está en la lista de excluidos
+                    $(this).addClass('editable');
                 }
             });
-            var formData = new FormData(this);
-            $('#guardar').prop('disabled', true);
 
+            $('#formulario_analisis_externo').on('submit', formSubmit);
 
-            var datosFormulario = $(this).serialize();
+            function formSubmit(event) {
 
-            console.log(' >M< ');
-            console.log(' >M< informacion_faltante', $("#informacion_faltante").length);
-            console.log(' >M< version', $("#version").val());
-            console.log(' >M< newVersion', newVersion);
-
-
-            //si es post firma
-            if ($("#informacion_faltante").length > 0) {
-                formData.append('id', idAnalisisExterno);
-
-                // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'
-                var fileInput = $('#url_documento_adicional')[0];
-                if (fileInput.files.length > 0) {
-                    formData.append('url_documento_adicional', fileInput.files[0]);
-                }
-            }
-
-            if ($('#laboratorio').val() === 'Otro') {
-                if ($('#otro_laboratorio').val() == '') {
-                    $.notify('Tiene que escribir el nombre del nuevo laboratorio', 'warn');
-                    $('#guardar').prop('disabled', false);
-                    return;
-                }
-            }
-            var ruta = $("#ruta").val();
-            var url = '';
-
-            // Verificar si la ruta es 'genera_version', si es así, cambiar la URL
-            if (ruta === 'genera_version') {
-                console.log('--- acceso a genera versión ---');
-                url = '../pages/backend/laboratorio/genera_version.php';
-            } else {
-                url = '../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php';
-            }
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(function (data) {
-                    if (data.exito) {
-                        $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
-                            obtenNotificaciones();
-                            carga_listado();
-                            console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
-                            $('#loading-spinner').hide();
-                            $('#dynamic-content').show();
-                        });
-                    } else {
-                        $.notify(data.mensaje, 'warn');
+                // Crear un nuevo objeto FormData
+                //formatear las fechas
+                event.preventDefault();
+                $('.datepicker').each(function () {
+                    var dateValue = $(this).val();
+                    if (dateValue) {
+                        var formattedDate = moment(dateValue, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                        $(this).val(formattedDate);
                     }
-
-
-                }).catch(function (error) {
-                    console.log("Error: " + error);
-                }).finally(function () {
-                    $('#guardar').prop('disabled', false);
-                })
-
-            $('.datepicker').each(function () {
-                var isoDate = $(this).val();
-                if (isoDate) {
-                    var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
-                    $(this).val(originalDate);
-                }
-            });
-        }
-
-        $('input[type="text"].datepicker').datepicker({
-            format: 'dd/mm/yyyy', // Formato global de fecha
-            language: 'es',
-            autoclose: true,
-            todayHighlight: true
-            //,startDate: new Date()
-        });
-
-
-    });
-
-    $(document).ready(function () {
-        function agregarDiasCalendario(fecha, dias) {
-            fecha.setDate(fecha.getDate() + dias); // Agregar días calendario
-            return fecha;
-        }
-
-        // Obtener la fecha actual
-        var fechaActual = new Date();
-
-        // Calcular la fecha de entrega estimada (21 días después de la fecha actual)
-        var fechaEntregaEstimada = agregarDiasCalendario(fechaActual, 21);
-
-        // Formatear la fecha a dd/mm/yyyy
-        var fechaEntregaEstimadaFormato = moment(fechaEntregaEstimada).format('DD/MM/YYYY');
-
-        // Establecer la fecha en el campo
-        $('#fecha_entrega_estimada').val(fechaEntregaEstimadaFormato);
-        document.getElementById('upload-pdf').addEventListener('click', function (event) {
-            event.preventDefault();
-            var {
-                jsPDF
-            } = window.jspdf;
-            var pdf = new jsPDF('p', 'mm', 'a4');
-
-            var elementToExport = document.querySelector('.form-container');
-            var buttonContainer = document.querySelector('.button-container');
-            var formControls = document.querySelectorAll('.form-control'); // Selecciona todos los controles del formulario
-
-            if (!elementToExport) {
-                console.error('El elemento no está en el DOM.');
-                return;
-            }
-
-            // Almacenar estilos originales
-            var originalStyles = [];
-            formControls.forEach(control => {
-                originalStyles.push({
-                    element: control,
-                    background: control.style.background,
-                    padding: control.style.padding
                 });
+                var formData = new FormData(this);
+                $('#guardar').prop('disabled', true);
 
-                // Aplicar nuevos estilos
-                control.style.background = 'transparent';
-                control.style.padding = '5px'; // Ejemplo de menos padding
-            });
 
-            // Asegurarse de que el elemento esté visible
-            elementToExport.style.border = 'none';
-            elementToExport.style.boxShadow = 'none';
-            buttonContainer.style.display = 'none';
+                var datosFormulario = $(this).serialize();
 
-            html2canvas(elementToExport, {
-                scale: 2
-            }).then(canvas => {
-                var imgData = canvas.toDataURL('image/jpeg', 1.0);
-                var imgWidth = 210; // A4 width in mm
-                var pageHeight = 297; // A4 height in mm
-                var imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 0;
+                console.log(' >M< ');
+                console.log(' >M< informacion_faltante', $("#informacion_faltante").length);
+                console.log(' >M< version', $("#version").val());
+                console.log(' >M< newVersion', newVersion);
 
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
 
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
+                //si es post firma
+                if ($("#informacion_faltante").length > 0) {
+                    formData.append('id', idAnalisisExterno);
+
+                    // Verificar si hay un archivo seleccionado en el campo 'url_documento_adicional'
+                    var fileInput = $('#url_documento_adicional')[0];
+                    if (fileInput.files.length > 0) {
+                        formData.append('url_documento_adicional', fileInput.files[0]);
+                    }
                 }
 
-                var blob = pdf.output('blob');
+                if ($('#laboratorio').val() === 'Otro') {
+                    if ($('#otro_laboratorio').val() == '') {
+                        $.notify('Tiene que escribir el nombre del nuevo laboratorio', 'warn');
+                        $('#guardar').prop('disabled', false);
+                        return;
+                    }
+                }
+                var ruta = $("#ruta").val();
+                var url = '';
 
-                var formData = new FormData();
-                formData.append('certificado', blob, 'documento.pdf');
-                formData.append('type', 'solicitud');
-                formData.append('id_solicitud', idAnalisisExterno);
-                return fetch('./backend/calidad/add_documentos.php', {
+                // Verificar si la ruta es 'genera_version', si es así, cambiar la URL
+                if (ruta === 'genera_version') {
+                    console.log('--- acceso a genera versión ---');
+                    url = '../pages/backend/laboratorio/genera_version.php';
+                } else {
+                    url = '../pages/backend/laboratorio/LABORATORIO_preparacion_solicitudBE.php';
+                }
+                fetch(url, {
                     method: 'POST',
                     body: formData
-                });
-            }).then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        $.notify("PDF subido con éxito", "success");
-                    } else {
-                        $.notify("Error al subir el PDF: " + data.message, "error");
+                })
+                    .then(response => response.json())
+                    .then(function (data) {
+                        if (data.exito) {
+                            $('#dynamic-content').load('LABORATORIO_listado_solicitudes.php', function (response, status, xhr) {
+                                obtenNotificaciones();
+                                carga_listado();
+                                console.log('Formulario cargado exitosamente.'); // Confirmar que la carga fue exitosa
+                                $('#loading-spinner').hide();
+                                $('#dynamic-content').show();
+                            });
+                        } else {
+                            $.notify(data.mensaje, 'warn');
+                        }
+
+
+                    }).catch(function (error) {
+                        console.log("Error: " + error);
+                    }).finally(function () {
+                        $('#guardar').prop('disabled', false);
+                    })
+
+                $('.datepicker').each(function () {
+                    var isoDate = $(this).val();
+                    if (isoDate) {
+                        var originalDate = moment(isoDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
+                        $(this).val(originalDate);
                     }
-                })
-                .catch(error => {
-                    console.error('Error al subir el PDF:', error);
-                    $.notify("Error al subir el PDF", "error");
-                })
-                .finally(() => {
-                    // Restaurar estilos originales
-                    originalStyles.forEach(style => {
-                        style.element.style.background = style.background;
-                        style.element.style.padding = style.padding;
-                    });
-                    buttonContainer.style.display = 'flex';
                 });
+            }
+
+            $('input[type="text"].datepicker').datepicker({
+                format: 'dd/mm/yyyy', // Formato global de fecha
+                language: 'es',
+                autoclose: true,
+                todayHighlight: true
+                //,startDate: new Date()
+            });
+
+
         });
-    });
+
+        $(document).ready(function () {
+            function agregarDiasCalendario(fecha, dias) {
+                fecha.setDate(fecha.getDate() + dias); // Agregar días calendario
+                return fecha;
+            }
+
+            // Obtener la fecha actual
+            var fechaActual = new Date();
+
+            // Calcular la fecha de entrega estimada (21 días después de la fecha actual)
+            var fechaEntregaEstimada = agregarDiasCalendario(fechaActual, 21);
+
+            // Formatear la fecha a dd/mm/yyyy
+            var fechaEntregaEstimadaFormato = moment(fechaEntregaEstimada).format('DD/MM/YYYY');
+
+            // Establecer la fecha en el campo
+            $('#fecha_entrega_estimada').val(fechaEntregaEstimadaFormato);
+            document.getElementById('upload-pdf').addEventListener('click', function (event) {
+                event.preventDefault();
+                var {
+                    jsPDF
+                } = window.jspdf;
+                var pdf = new jsPDF('p', 'mm', 'a4');
+
+                var elementToExport = document.querySelector('.form-container');
+                var buttonContainer = document.querySelector('.button-container');
+                var formControls = document.querySelectorAll('.form-control'); // Selecciona todos los controles del formulario
+
+                if (!elementToExport) {
+                    console.error('El elemento no está en el DOM.');
+                    return;
+                }
+
+                // Almacenar estilos originales
+                var originalStyles = [];
+                formControls.forEach(control => {
+                    originalStyles.push({
+                        element: control,
+                        background: control.style.background,
+                        padding: control.style.padding
+                    });
+
+                    // Aplicar nuevos estilos
+                    control.style.background = 'transparent';
+                    control.style.padding = '5px'; // Ejemplo de menos padding
+                });
+
+                // Asegurarse de que el elemento esté visible
+                elementToExport.style.border = 'none';
+                elementToExport.style.boxShadow = 'none';
+                buttonContainer.style.display = 'none';
+
+                html2canvas(elementToExport, {
+                    scale: 2
+                }).then(canvas => {
+                    var imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    var imgWidth = 210; // A4 width in mm
+                    var pageHeight = 297; // A4 height in mm
+                    var imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    var blob = pdf.output('blob');
+
+                    var formData = new FormData();
+                    formData.append('certificado', blob, 'documento.pdf');
+                    formData.append('type', 'solicitud');
+                    formData.append('id_solicitud', idAnalisisExterno);
+                    return fetch('./backend/calidad/add_documentos.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            $.notify("PDF subido con éxito", "success");
+                        } else {
+                            $.notify("Error al subir el PDF: " + data.message, "error");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al subir el PDF:', error);
+                        $.notify("Error al subir el PDF", "error");
+                    })
+                    .finally(() => {
+                        // Restaurar estilos originales
+                        originalStyles.forEach(style => {
+                            style.element.style.background = style.background;
+                            style.element.style.padding = style.padding;
+                        });
+                        buttonContainer.style.display = 'flex';
+                    });
+            });
+        });
 </script>
