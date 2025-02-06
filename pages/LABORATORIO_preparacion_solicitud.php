@@ -101,14 +101,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group" id="contenedor_dealer" name="contenedor_dealer" style="visibility: hidden;">
                         <label>Proveedor:</label>
-                        <input type="text" id="dealer" name="dealer" class="form-control mx-0 w-90 editable">
+                        <input type="text" id="dealer" name="dealer" class="form-control mx-0 w-90 ">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Elaborado por:</label>
                         <input type="text" name="elaboradoPor" id="elaboradoPor" Value="Reccius"
-                            class="form-control mx-0 w-90 editable" required>
+                            class="form-control mx-0 w-90 " required>
                     </div>
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
