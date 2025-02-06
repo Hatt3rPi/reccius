@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Añade aquí tus estilos o referencias a CSS -->
     <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
-    <link rel="stylesheet" href="../assets/css/botones.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
     <script src="../assets/js/notify.js"></script>
     <script src="../assets/js/image.js"></script>
 </head>
