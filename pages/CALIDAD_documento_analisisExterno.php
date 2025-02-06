@@ -230,8 +230,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
-                            <input type="text" class="<?php echo $highlightClass; ?>" id="laboratorio_nro_analisis"
-                                name="laboratorio_nro_analisis" editable required>
+                            <input type="text" class="<?php
+                            $etapa = $_POST['etapa'];
+                            $result = $_POST['resultados'];
+                            if ($etapa == '1' && $result == 'true') {
+                                echo '';
+                            } else {
+                                echo 'input-highlight';
+                            }
+                            ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" editable required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
@@ -265,22 +272,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             } else {
                                 echo 'input-highlight';
                             }
-                            ?>"
-                                placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                         <td class="titulo titulo-right">4. Fecha de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis"
-                                class="datepicker <?php
-                                $etapa = $_POST['etapa'];
-                                $result = $_POST['resultados'];
-                                if ($etapa == '1' && $result == 'true') {
-                                    echo '';
-                                } else {
-                                    echo 'input-highlight';
-                                }
-                                ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>"
-                                required>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker <?php
+                            $etapa = $_POST['etapa'];
+                            $result = $_POST['resultados'];
+                            if ($etapa == '1' && $result == 'true') {
+                                echo '';
+                            } else {
+                                echo 'input-highlight';
+                            }
+                            ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                     </tr>
                 </table>
@@ -375,7 +379,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <?php
     $etapa = $_POST['etapa'];
     $highlightClass = ($etapa != '0') ? 'input-highlight' : '';
-    
+
     if ($etapa == '0') {
         echo '  <button class="botones ana" id="upload-pdf">Guardar PDF</button>
                 <button class="botones ana" id="download-pdf">Descargar PDF</button>';
@@ -383,7 +387,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         echo '  <button class="botones ana" id="revisar" style="display: none;">Revisar</button>
                 <button class="botones ana" id="download-pdf" style="display: none;">Descargar PDF</button>';
     }
-?>
+    ?>
 
 </div>
 
@@ -722,6 +726,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                 if (primerAnalisis.revisado_por === "<?php echo $_SESSION['usuario'] ?>") {
                     $("#revisar").show();
+                    // Cambiar la clase del input con id="laboratorio"
+                    $('#laboratorio_nro_analisis').addClass('input-highlight');     // Agrega la nueva clase
                 }
             }
 
