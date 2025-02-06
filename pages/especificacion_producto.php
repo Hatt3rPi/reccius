@@ -241,7 +241,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             </div>
             <button type="button" id="boton_agrega_analisisMB">Agregar Análisis</button>
 
-            <div class="actions-container">
+            <div class="button-container">
                 <button type="button" id="guardar" name="guardar" data-accion='crear'
                     class="action-button ingControl">Guardar Especificación</button>
                 <button type="button" id="editarGenerarVersion" name="editarGenerarVersion"
