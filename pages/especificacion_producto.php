@@ -27,6 +27,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <!-- Asegúrate de incluir el CSS para estilizar tu formulario aquí -->
     <!-- CSS personalizado específico para esta página -->
     <link rel="stylesheet" href="../assets/css/calidad.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
 </head>
 
 <body>
@@ -478,7 +479,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             $.notify("Revisa que los datos estén correctamente ingresados", "warn");
         } else {
             guardar();
-            $.notify("Especificacion creada con exito", "success");
+            $.notify("Especificacion guardada con exito", "success");
         }
     });
 
