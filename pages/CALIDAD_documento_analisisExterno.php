@@ -728,6 +728,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $("#revisar").show();
                     // Cambiar la clase del input con id="laboratorio"
                     $('#laboratorio_nro_analisis').addClass('input-highlight');     // Agrega la nueva clase
+                    $('#certificado_de_analisis_externo_label').addClass('input-highlight');     // Agrega la nueva clase
+                    $('#fecha_entrega').addClass('input-highlight');     // Agrega la nueva clase
+                    $('#laboratorio_fecha_analisis').addClass('input-highlight');     // Agrega la nueva clase
                 }
             }
 
