@@ -965,6 +965,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                 'numero_registro',
                 'numero_solicitud',
                 'fecha_registro',
+                'elaboradoPor',
+                'paisOrigen',
                 'lote',
                 'tamano_lote',
                 'fecha_elaboracion',
