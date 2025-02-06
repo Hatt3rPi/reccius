@@ -820,6 +820,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         $('#analisisFQ tbody td select.select-style').css('background-color', 'rgb(244, 250, 194)');
         $('#analisisMB tbody td select.select-style').css('background-color', 'rgb(244, 250, 194)');
         $('#analisisMB tbody td textarea').css('background-color', 'rgb(244, 250, 194)');
+        // Agregar la clase 'editable' a todos los input y select
+        $('input').removeClass('no-editable').addClass('editable');
+        $('select').removeClass('no-editable').addClass('editable');
     });
 
     function habilitarEdicionAnalisis(tabla) {
