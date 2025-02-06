@@ -494,8 +494,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     function informacionFaltante() {
         const identificacionInputs = [
             'fecha_registro',
-            'elaboradoPor',
-            'paisOrigen',
             'lote',
             'tamano_lote',
             'fecha_elaboracion',
