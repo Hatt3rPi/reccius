@@ -230,15 +230,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <tr>
                         <td class="titulo">1. Numero de análisis:</td>
                         <td>
-                            <input type="text" class="<?php
-                            $etapa = $_POST['etapa'];
-                            $result = $_POST['resultados'];
-                            if ($etapa == '1' && $result == 'true') {
-                                echo '';
-                            } else {
-                                echo 'input-highlight';
-                            }
-                            ?>" id="laboratorio_nro_analisis" name="laboratorio_nro_analisis" editable required>
+                            <input type="text" class="<?php echo $highlightClass; ?>" id="laboratorio_nro_analisis"
+                                name="laboratorio_nro_analisis" editable required>
                         </td>
                         <td class="titulo titulo-right">2. Certificado de análisis:</td>
                         <td>
@@ -272,19 +265,22 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             } else {
                                 echo 'input-highlight';
                             }
-                            ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            ?>"
+                                placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
                         </td>
                         <td class="titulo titulo-right">4. Fecha de análisis:</td>
                         <td>
-                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis" class="datepicker <?php
-                            $etapa = $_POST['etapa'];
-                            $result = $_POST['resultados'];
-                            if ($etapa == '1' && $result == 'true') {
-                                echo '';
-                            } else {
-                                echo 'input-highlight';
-                            }
-                            ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>" required>
+                            <input type="text" id="laboratorio_fecha_analisis" name="laboratorio_fecha_analisis"
+                                class="datepicker <?php
+                                $etapa = $_POST['etapa'];
+                                $result = $_POST['resultados'];
+                                if ($etapa == '1' && $result == 'true') {
+                                    echo '';
+                                } else {
+                                    echo 'input-highlight';
+                                }
+                                ?>" placeholder="dd/mm/aaaa" value="<?php echo date('d/m/Y'); ?>"
+                                required>
                         </td>
                     </tr>
                 </table>
@@ -378,16 +374,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <div class="button-container" id="button-container">
     <?php
     $etapa = $_POST['etapa'];
+    $highlightClass = ($etapa != '0') ? 'input-highlight' : '';
+    
     if ($etapa == '0') {
-        echo '      <button class="botones ana" id="upload-pdf">Guardar PDF</button>
-                    <button class="botones ana" id="download-pdf" >Descargar PDF</button>';
+        echo '  <button class="botones ana" id="upload-pdf">Guardar PDF</button>
+                <button class="botones ana" id="download-pdf">Descargar PDF</button>';
     } else {
-        echo '
-                <button class="botones ana" id="revisar" style="display: none;">Revisar</button>
-                <button class="botones ana" id="download-pdf" style="display: none;">Descargar PDF</button>
-            ';
+        echo '  <button class="botones ana" id="revisar" style="display: none;">Revisar</button>
+                <button class="botones ana" id="download-pdf" style="display: none;">Descargar PDF</button>';
     }
-    ?>
+?>
+
 </div>
 
 <div id="notification" class="notification-container notify" style="display: none;">
@@ -405,31 +402,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 </html>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var revisarBtn = document.getElementById("revisar");
-
-        if (revisarBtn) {
-            // Observa cuando el botón 'Revisar' cambia de estado
-            let observer = new MutationObserver(function (mutations) {
-                mutations.forEach(function (mutation) {
-                    if (mutation.target.style.display !== "none") {
-                        aplicarColorInputs();
-                    }
-                });
-            });
-
-            observer.observe(revisarBtn, { attributes: true, attributeFilter: ["style"] });
-        }
-    });
-
-    function aplicarColorInputs() {
-        let inputs = document.querySelectorAll("#laboratorio_nro_analisis, #fecha_entrega, #laboratorio_fecha_analisis, #certificado_de_analisis_externo_label");
-
-        inputs.forEach(input => {
-            input.classList.add("input-highlight");
-        });
-    }
-
     var idAnalisisExterno_acta = null;
 
     $(document).ready(function () {
