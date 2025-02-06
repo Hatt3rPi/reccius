@@ -56,7 +56,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="divider"></div> <!-- Esta es la línea divisora -->
                     <div class="form-group">
                         <label>Fecha registro:</label>
-                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker editable"
+                        <input name="fecha_registro" class="form-control mx-0 w-90 datepicker "
                             id="fecha_registro" placeholder="dd/mm/aaaa" type="text"
                             value="<?php echo date('d/m/Y'); ?>">
                     </div>
@@ -114,7 +114,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <div class="form-group">
                         <label>País de origen:</label>
                         <input type="text" name="paisOrigen" id="paisOrigen" Value="Chile"
-                            class="form-control mx-0 w-90 editable" required>
+                            class="form-control mx-0 w-90 " required>
                     </div>
                 </div>
             </fieldset>
