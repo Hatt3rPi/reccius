@@ -464,7 +464,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
             if(bad.length > 0) {
                 bad[0].focus();
-                alert('Por favor, ingresa un correo electrónico y un nombre para todos los destinatarios.');
+                
+                $.notify("Por favor, ingresa un correo electrónico y un nombre para todos los destinatarios.", "warn");
                 if (enviar) enviar.disabled = false;
                 return false;
             }
@@ -495,16 +496,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(response => response.json())
                 .then(data => {
                     if (data.exito) {
-                        alert('Correo enviado con éxito');
+                        
                         $.notify("Correo enviado con éxito", "success");
                         $('#listado_solicitudes_analisis').click();
                     } else {
-                        alert('Error al enviar el correo: ' + data.mensaje);
+                        
+                        $.notify('Error al enviar el correo: ' + data.mensaje, "warn");
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Hubo un problema al procesar tu solicitud. Por favor, intenta de nuevo.');
+                    
+                    $.notify("Hubo un problema al procesar tu solicitud. Por favor, intenta de nuevo.", "warn");
                 }).finally(() => {
                     if (enviar) enviar.disabled = false;
                 });
