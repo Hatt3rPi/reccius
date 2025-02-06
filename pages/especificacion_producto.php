@@ -630,6 +630,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                 $('#editarGenerarVersion').show();
                 // Quitar la clase 'editable' a todos los select
                 $('select').removeClass('editable');
+                // Quitar la clase 'editable' a todos los input
+                $('input').removeClass('editable');
             },
             error: function (xhr, status, error) {
                 console.error("Error en la solicitud: ", status, error);
