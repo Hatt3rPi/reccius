@@ -247,7 +247,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             acciones += '<tr><td VALIGN="TOP">Acciones:</td><td>';
 
 
-            if (d.estado === "Pendiente Acta de Muestreo" || d.estado === "Pendiente completar análisis") {
+            if (d.estado === "Pendiente Acta de Muestreo") {
                 acciones += '<button class="accion-btn ingControl" title="Revisar Análisis Externo" type="button" id="' + d.id_analisisExterno + '" name="revisar" onclick="botones(this.id, this.name, \'laboratorio\', \'edicion\')"><i class="fas fa-search"></i> Revisar Solicitud</button><a> </a>';
             }
             
@@ -265,7 +265,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 
             }
             if (d.estado === "Pendiente envío a Laboratorio" ) {
-                //acciones += `<button class="accion-btn ingControl" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
+                acciones += `<button class="accion-btn ingControl" title="Revisar Documento" id="${d.id_analisisExterno}" name="generar_documento_pdf" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Revisar solicitud</button><a> </a>`;
                 if (d.enviado_lab_por === usuarioActual || usuarioActual === 'isumonte'){
                     acciones += `<button class="accion-btn ingControl" title="Enviar a Laboratorio" id="${d.id_analisisExterno}" name="enviarSolicitud_laboratorio" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fa fa-file-pdf-o"></i> Enviar Solicitud a Laboratorio</button><a> </a>`;
                 }
