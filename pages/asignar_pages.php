@@ -50,7 +50,7 @@
     };
 
     function onPageChange() {
-        document.getElementById('selectUsers').addEventListener('change', function(e) {
+        document.getElementById('rolSelect').addEventListener('change', function(e) {
             if (this.value) {
                 fetch('./backend/paginas/pagesBe.php?id_page=' + this.value)
                     .then(response => response.json())
