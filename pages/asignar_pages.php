@@ -155,8 +155,7 @@
         }
     }
 
-    // Inicializar al cargar la página
-    document.addEventListener('DOMContentLoaded', cargarUsuarios);
+    cargarUsuarios()
 </script>
 
 </html>
