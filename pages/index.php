@@ -154,214 +154,189 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <div class="container_fas">
         <aside class="sidebar c-scroll">
             <ul id="sidebarList">
-                <a id="home" href="#" data-breadcrumb="Home" class="">
+                <!-- Página de tipo General -->
+                <a id="home" href="#" urlPage="/home" data-breadcrumb="Home" class="">
                     <span>
-                        <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario" class="icono-usuario"
-                            height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                        <img src="../assets/images/agregar_usuario.svg" alt="Icono de Home" class="icono-usuario" height="24" width="24">
                     </span>
                     Home
                 </a>
+
+                <!-- Sección de Gestión de Usuarios -->
                 <li class="title">Gestión de Usuarios</li>
                 <li class="item" id="usuarios">
-                    <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral">
+                    <a href="#usuarios" class="btn_lateral breadcrumb-btn_lateral" urlPage="/usuarios_y_roles" data-breadcrumb="Home > Usuarios y Roles">
                         <span>
-                            <img src="../assets/images/usuario.svg" alt="Icono de usuario" class="icono-usuario"
-                                height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
-                        </span> Usuarios y Roles
+                            <img src="../assets/images/usuario.svg" alt="Icono de Usuarios y Roles" class="icono-usuario" height="24" width="24">
+                        </span>
+                        Usuarios y Roles
                     </a>
-                    <div class="smenu">
-                        <a id="crear-usuario" href="#" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario"
-                            class="con-borde-inferior">
+                    <div class="smenu" style="max-height: 169px;">
+                        <a id="crear-usuario" href="#" urlPage="/crear_usuario" data-breadcrumb="Home > Usuarios y Roles > Crear Usuario" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/agregar_usuario.svg" alt="Icono de usuario"
-                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/agregar_usuario.svg" alt="Icono de Crear Usuario" class="icono-usuario" height="24" width="24">
                             </span>
                             Crear Usuario
                         </a>
-                        <a id="asignar-roles" href="#" data-breadcrumb="Home > Usuarios y Roles > Asignar Roles">
+                        <a id="asignar-roles" href="#" urlPage="/asignar_roles" data-breadcrumb="Home > Usuarios y Roles > Asignar Roles">
                             <span>
-                                <img src="../assets/images/asignarrol.svg" alt="Icono de usuario" class="icono-usuario"
-                                    height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/asignarrol.svg" alt="Icono de Asignar Roles" class="icono-usuario" height="24" width="24">
                             </span>
                             Asignar Roles
                         </a>
+                        <a id="asignar-pages" href="#" urlPage="/accesos_paginas" data-breadcrumb="Home > Usuarios y Roles > Asignar Páginas">
+                            <span>
+                                <img src="../assets/images/asignarrol.svg" alt="Icono de Asignar" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Asignar Páginas
+                        </a>
                     </div>
                 </li>
+
+                <!-- Sección de Calidad -->
                 <li class="title">Calidad</li>
                 <li class="item" id="Especificaciones">
-                    <a href="#Especificaciones" class="btn_lateral">
+                    <a href="#Especificaciones" class="btn_lateral" urlPage="/crear_especificaciones" data-breadcrumb="Home > Especificaciones">
                         <span>
-                            <img src="../assets/images/especificaciones.svg" alt="Icono de usuario"
-                                class="icono-usuario" height="24" weight="24" /> <!-- Icono SVG agregado aquí -->
-                        </span> Especificaciones
+                            <img src="../assets/images/especificaciones.svg" alt="Icono de Especificaciones" class="icono-usuario" height="24" width="24">
+                        </span>
+                        Especificaciones
                     </a>
                     <div class="smenu">
-                        <a id="especificacion_producto" href="#"
-                            data-breadcrumb="Home > Especificaciones > Crear especificaciones de producto"
-                            class="con-borde-inferior">
+                        <a id="especificacion_producto" href="#" urlPage="/crear_especificaciones" data-breadcrumb="Home > Especificaciones > Crear especificaciones de producto" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/crear_especificaciones.svg" alt="Icono de usuario"
-                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/crear_especificaciones.svg" alt="Icono de Crear Especificaciones" class="icono-usuario" height="24" width="24">
                             </span>
                             Crear especificaciones de producto
                         </a>
-                        <a id="listado_especificacion_producto" href="#"
-                            data-breadcrumb="Home > Especificaciones > Listado de especificaciones de producto">
+                        <a id="listado_especificacion_producto" href="#" urlPage="/listado_especificaciones" data-breadcrumb="Home > Especificaciones > Listado de especificaciones de producto">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de usuario" class="icono-usuario"
-                                    height="24" width="24" /> <!-- Icono SVG agregado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de Listado de Especificaciones" class="icono-usuario" height="24" width="24">
                             </span>
                             Listado de especificaciones de producto
                         </a>
                     </div>
                 </li>
+
+                <!-- Sección de Solicitudes de Análisis -->
                 <li class="item" id="Solicitudes_de_Analisi">
-                    <a href="#Solicitudes_de_Analisi" class="btn_lateral">
+                    <a href="#Solicitudes_de_Analisi" class="btn_lateral" urlPage="/listado_solicitudes_analisis" data-breadcrumb="Home > Solicitudes de Análisis">
                         <span>
-                            <img src="../assets/images/analisis.svg" alt="Icono de solicitudes" class="icono-usuario"
-                                height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                            <img src="../assets/images/analisis.svg" alt="Icono de Solicitudes de Análisis" class="icono-usuario" height="24" width="24">
                         </span>
                         Solicitudes de Análisis
                     </a>
                     <div class="smenu">
-                        <a id="listado_solicitudes_analisis" href="#"
-                            data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis"
-                            class="con-borde-inferior">
+                        <a id="listado_solicitudes_analisis" href="#" urlPage="/listado_solicitudes_analisis" data-breadcrumb="Home > Solicitudes de Análisis > Listado de solicitudes de análisis" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de listado de análisis"
-                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de Listado de Análisis" class="icono-usuario" height="24" width="24">
                             </span>
                             Listado de solicitudes de análisis
                         </a>
-                        <a id="listado_acta_muestreo" href="#"
-                            data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo"
-                            class="con-borde-inferior">
+                        <a id="listado_acta_muestreo" href="#" urlPage="/listado_acta_muestreo" data-breadcrumb="Home > Solicitudes de Análisis > Listado de Actas de Muestreo" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Listado Acta de Muestreo"
-                                    class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                                <img src="../assets/images/listado.svg" alt="Icono de Actas de Muestreo" class="icono-usuario" height="24" width="24">
                             </span>
                             Listado de Actas de Muestreo
                         </a>
                     </div>
                 </li>
-                <a id="listado_productos_disponibles" href="#"
-                    data-breadcrumb="Home > Calidad > Listado de productos disponibles">
+
+                <!-- Producto en cuarentena y liberados -->
+                <a id="listado_productos_disponibles" href="#" urlPage="/productos_calidad" data-breadcrumb="Home > Calidad > Listado de productos disponibles">
                     <span>
-                        <img src="../assets/images/listado.svg" alt="Icono de productos disponibles"
-                            class="icono-usuario" height="24" width="24" /> <!-- Icono SVG actualizado aquí -->
+                        <img src="../assets/images/listado.svg" alt="Icono de Productos Disponibles" class="icono-usuario" height="24" width="24">
                     </span>
                     Productos en cuarentena y liberados
                 </a>
+
+                <!-- Sección de Recetario Magistral -->
                 <li class="title">Recetario magistral</li>
                 <li class="item" id="cotizador">
-                    <a href="#Cotizador" class="btn_lateral">
+                    <a href="#Cotizador" class="btn_lateral" urlPage="/cotizador" data-breadcrumb="Home > Cotizador">
                         <span>
-                            <img src="../assets/images/calculator.svg" alt="Icono de Acta Liberación o Rechazo"
-                                class="icono-usuario" height="24" width="24" />
+                            <img src="../assets/images/calculator.svg" alt="Icono de Cotizador" class="icono-usuario" height="24" width="24">
                         </span>
                         Cotizador
                     </a>
                     <div class="smenu">
-                        <a id="cotizador_ingreso" href="#" data-breadcrumb="Home > Cotizador > Ingreso"
-                            class="con-borde-inferior">
+                        <a id="cotizador_ingreso" href="#" urlPage="/cotizador_ingreso" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/liberacion.svg" alt="Icono de ingresar dentro de cotizador"
-                                    class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/liberacion.svg" alt="Icono de Ingreso en Cotizador" class="icono-usuario" height="24" width="24">
                             </span>
                             Ingreso
                         </a>
-                        <a id="cotizador_busqueda" href="#" data-breadcrumb="Home > Cotizador > Buscar"
-                            class="con-borde-inferior">
+                        <a id="cotizador_busqueda" href="#" urlPage="/cotizador_busqueda" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/search.svg" alt="Icono de buscar dentro de cotizador"
-                                    class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/search.svg" alt="Icono de Buscar en Cotizador" class="icono-usuario" height="24" width="24">
                             </span>
                             Buscar
                         </a>
                     </div>
                 </li>
-                <!-- ============================= -->
-                <!--          PRODUCCIÓN        -->
-                <!-- ============================= -->
+
+                <!-- Sección de Producción -->
                 <li class="title">Producción</li>
                 <li class="item" id="produccion">
-                    <a href="#Produccion" class="btn_lateral">
+                    <a href="#Produccion" class="btn_lateral" urlPage="/produccion" data-breadcrumb="Home > Producción">
                         <span>
-                            <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario"
-                                height="24" width="24" />
+                            <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario" height="24" width="24">
                         </span>
                         Producción
                     </a>
                     <div class="smenu">
-                        <a id="Ingreso_OC" href="#" data-breadcrumb="Home > Producción > Ingreso Orden de Compra"
-                            class="con-borde-inferior">
+                        <a id="Ingreso_OC" href="#" urlPage="/ingreso_oc" data-breadcrumb="Home > Producción > Ingreso Orden de Compra" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/search.svg" alt="Icono de Ingreso OC" class="icono-usuario"
-                                    height="24" width="24" />
+                                <img src="../assets/images/search.svg" alt="Icono de Ingreso Orden de Compra" class="icono-usuario" height="24" width="24">
                             </span>
                             Ingreso Ordenes de Compra
                         </a>
-                        <a id="Listado_OC" href="#" data-breadcrumb="Home > Producción > Listado Ordenes de Compra"
-                            class="con-borde-inferior">
+                        <a id="Listado_OC" href="#" urlPage="/listado_oc" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Ordenes de Compra"
-                                    class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/listado.svg" alt="Icono de Listado Ordenes de Compra" class="icono-usuario" height="24" width="24">
                             </span>
                             Listado de Ordenes de Compra
                         </a>
-                        <a id="Listado_Clientes" href="#" data-breadcrumb="Home > Producción > Listado Clientes"
-                            class="con-borde-inferior">
+                        <a id="Listado_Clientes" href="#" urlPage="/listado_clientes" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Listado Clientes"
-                                    class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/listado.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24">
                             </span>
                             Listado de Clientes
                         </a>
-
-                        <a id="Produccion" href="#" data-breadcrumb="Home > Producción > Pantalla 5 (Producción)"
-                            class="con-borde-inferior">
+                        <a id="Produccion" href="#" urlPage="/pantalla5" data-breadcrumb="Home > Producción > Pantalla 5 (Producción)" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Producción" class="icono-usuario"
-                                    height="24" width="24" />
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 5 (Producción)" class="icono-usuario" height="24" width="24">
                             </span>
                             Pantalla 5 (Producción)
                         </a>
-                        <a id="Facturacion" href="#" data-breadcrumb="Home > Producción > Pantalla 6 (Facturación)"
-                            class="con-borde-inferior">
+                        <a id="Facturacion" href="#" urlPage="/pantalla6" data-breadcrumb="Home > Producción > Pantalla 6 (Facturación)" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Facturación" class="icono-usuario"
-                                    height="24" width="24" />
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 6 (Facturación)" class="icono-usuario" height="24" width="24">
                             </span>
                             Pantalla 6 (Facturación)
                         </a>
-                        <a id="Despacho" href="#" data-breadcrumb="Home > Producción > Pantalla 7 (Despacho)"
-                            class="con-borde-inferior">
+                        <a id="Despacho" href="#" urlPage="/pantalla7" data-breadcrumb="Home > Producción > Pantalla 7 (Despacho)" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Despacho" class="icono-usuario"
-                                    height="24" width="24" />
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 7 (Despacho)" class="icono-usuario" height="24" width="24">
                             </span>
                             Pantalla 7 (Despacho)
                         </a>
-                        <a id="Cobranza" href="#" data-breadcrumb="Home > Producción > Pantalla 8 (Cobranza)"
-                            class="con-borde-inferior">
+                        <a id="Cobranza" href="#" urlPage="/pantalla8" data-breadcrumb="Home > Producción > Pantalla 8 (Cobranza)" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Cobranza" class="icono-usuario"
-                                    height="24" width="24" />
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 8 (Cobranza)" class="icono-usuario" height="24" width="24">
                             </span>
                             Pantalla 8 (Cobranza)
                         </a>
-                        <a id="Vista_General" href="#" data-breadcrumb="Home > Producción > Pantalla 9 (Vista General)"
-                            class="con-borde-inferior">
+                        <a id="Vista_General" href="#" urlPage="/pantalla9" data-breadcrumb="Home > Producción > Pantalla 9 (Vista General)" class="con-borde-inferior">
                             <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Vista General"
-                                    class="icono-usuario" height="24" width="24" />
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 9 (Vista General)" class="icono-usuario" height="24" width="24">
                             </span>
                             Pantalla 9 (Vista General)
                         </a>
                     </div>
                 </li>
-
             </ul>
+
         </aside>
         <main class="content">
             <div id="dynamic-content">
@@ -382,7 +357,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 </html>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#dynamic-content').load('index_administrador.php');
         $('[data-toggle="popover"]').popover({
             placement: 'bottom',
@@ -392,25 +367,25 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         // Si la firma no está ingresada, mostrar el popover automáticamente
         <?php if ($firma_no_ingresada): ?>
             $('[data-toggle="popover"]').popover('show');
-            $('[data-toggle="popover"]').on('shown.bs.popover', function () {
+            $('[data-toggle="popover"]').on('shown.bs.popover', function() {
                 var popover = $(this).next('.popover');
             });
         <?php endif; ?>
 
         // Cerrar el popover al hacer clic en el botón con clase dropbtn
-        $('.dropbtn').on('click', function () {
+        $('.dropbtn').on('click', function() {
             $('[data-toggle="popover"]').popover('hide');
         });
 
         // Cerrar el popover al hacer clic fuera del popover
-        $(document).on('click', function (e) {
+        $(document).on('click', function(e) {
             if (!$(e.target).closest('.popover').length && !$(e.target).closest('.dropbtn').length) {
                 $('[data-toggle="popover"]').popover('hide');
             }
         });
 
         // Cerrar el popover al hacer clic en el botón de cierre dentro del popover
-        $(document).on('click', '.popover .close', function () {
+        $(document).on('click', '.popover .close', function() {
             $('[data-toggle="popover"]').popover('hide');
         });
     });
@@ -452,7 +427,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     obtenNotificaciones();
     fetchUserInfo();
 
-    document.getElementById('toggle-sidebar-btn').addEventListener('click', function () {
+    document.getElementById('toggle-sidebar-btn').addEventListener('click', function() {
         var sidebar = document.querySelector('.sidebar');
         var content = document.querySelector('.content');
         var nav = document.querySelector('.breadcrumb-container');
@@ -463,7 +438,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         // Inicializa el breadcrumb al cargar la página
         inicializarBreadcrumb();
 
@@ -495,7 +470,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
         // Asigna el listener a cada enlace que afecte el breadcrumb
         breadcrumbLinks.forEach(link => {
-            link.addEventListener("click", function (e) {
+            link.addEventListener("click", function(e) {
                 e.preventDefault(); // Previene la acción por defecto
                 const path = this.getAttribute("data-breadcrumb");
                 updateBreadcrumb(path);
@@ -507,7 +482,7 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         $('#dynamic-content').hide();
         $('#loading-spinner').show();
         if (goTo == 'modificar_perfil.php') {
-            $('#dynamic-content').load(goTo, function () {
+            $('#dynamic-content').load(goTo, function() {
                 cargarInformacionExistente();
             });
 
@@ -515,5 +490,4 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             $('#dynamic-content').show();
         }
     });
-
 </script>

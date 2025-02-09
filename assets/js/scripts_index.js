@@ -122,10 +122,23 @@ $(document).ready(function () {
             featureNoDisponible();
         }
     });
-});
 
-$(document).ready(function () {
     $('#asignar-roles').click(function (event) {
+        if(AppConfig.FLAGS.asignarRoles){
+        event.preventDefault(); // Prevenir la navegación predeterminada
+         $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+        // Cargar el formulario de asignación de roles dentro del div #dynamic-content
+        obtenNotificaciones();
+        $('#dynamic-content').load('asignar_pages.php');
+        $('#loading-spinner').hide();
+        $('#dynamic-content').show();
+        } else {
+            featureNoDisponible();
+        }
+    });
+
+    $('#asignar-pages').click(function (event) {
         if(AppConfig.FLAGS.asignarRoles){
         event.preventDefault(); // Prevenir la navegación predeterminada
          $('#dynamic-content').hide();
@@ -139,7 +152,9 @@ $(document).ready(function () {
             featureNoDisponible();
         }
     });
+    
 });
+
 $(document).ready(function () {
     $('#configuracion').click(function (event) {
         if(AppConfig.FLAGS.configuracion_perfil){
