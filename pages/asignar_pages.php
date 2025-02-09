@@ -9,7 +9,7 @@
     <div class="form-container m-0">
         <h1>Administración / Gestión de Paginas </h1>
         <br><br>
-        <select id="rolSelect" class="form-select" name="rol" style="width: 100%;">
+        <select id="rolSelect" class="form-control" name="rol" style="width: 100%;">
             <option value="" selected>Selecciona una pagina</option>
         </select>
         <form id="selectUsers" class="container">
