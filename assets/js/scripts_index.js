@@ -130,7 +130,7 @@ $(document).ready(function () {
         $('#loading-spinner').show();
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
         obtenNotificaciones();
-        $('#dynamic-content').load('asignar_pages.php');
+        $('#dynamic-content').load('asignar_roles.php');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
         } else {
@@ -145,7 +145,7 @@ $(document).ready(function () {
         $('#loading-spinner').show();
         // Cargar el formulario de asignación de roles dentro del div #dynamic-content
         obtenNotificaciones();
-        $('#dynamic-content').load('asignar_roles.php');
+        $('#dynamic-content').load('asignar_pages.php');
         $('#loading-spinner').hide();
         $('#dynamic-content').show();
         } else {
