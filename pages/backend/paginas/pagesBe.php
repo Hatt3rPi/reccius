@@ -12,6 +12,13 @@ $model = new PaginaModel($link);
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $id_page = $_GET['id_page'] ?? null; //id de la pagina
+    if ($usuarios != null) {
+        $pages = $model->getUserPageRelationships($id_page);
+        echo json_encode($pages);
+        exit;
+    }
+
     $pages = $model->getPages();
     echo json_encode($pages);
     exit;

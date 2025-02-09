@@ -5,14 +5,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
-class PaginaModel {
+class PaginaModel
+{
     private $link;
-    public function __construct($link) {
+    public function __construct($link)
+    {
         global $link;
         $this->link = $link;
     }
 
-    public function getPages() {
+    public function getPages()
+    {
         $query = "SELECT p.*, tp.nombre AS tipo 
           FROM paginas AS p 
           JOIN tipos_paginas AS tp 
@@ -26,7 +29,8 @@ class PaginaModel {
     }
 
     // Obtiene una página por su ID
-    public function getPageById($id) {
+    public function getPageById($id)
+    {
         $query = "SELECT * FROM paginas WHERE id = ?";
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
@@ -39,7 +43,8 @@ class PaginaModel {
     }
 
     // Crea una nueva página
-    public function createPage($id_tipo_pagina, $nombre, $url_page) {
+    public function createPage($id_tipo_pagina, $nombre, $url_page)
+    {
         $query = "INSERT INTO paginas (id_tipo_pagina, nombre, url_page) VALUES (?, ?, ?)";
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
@@ -56,7 +61,8 @@ class PaginaModel {
     }
 
     // Elimina una página (física) de la tabla "paginas"
-    public function deletePage($id) {
+    public function deletePage($id)
+    {
         $query = "DELETE FROM paginas WHERE id = ?";
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
@@ -71,7 +77,8 @@ class PaginaModel {
     // ---------------------------
 
     // Obtiene las páginas asignadas a un usuario específico
-    public function getPagesForUser($usuario_id) {
+    public function getPagesForUser($usuario_id)
+    {
         $query = "SELECT p.* 
                   FROM paginas p 
                   JOIN usuarios_paginas up ON p.id = up.pagina_id 
@@ -90,7 +97,8 @@ class PaginaModel {
     }
 
     // Crea la relación entre un usuario y una página (asigna acceso)
-    public function createUserPage($usuario_id, $pagina_id) {
+    public function createUserPage($usuario_id, $pagina_id)
+    {
         $query = "INSERT INTO usuarios_paginas (usuario_id, pagina_id) VALUES (?, ?)";
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
@@ -107,7 +115,8 @@ class PaginaModel {
     }
 
     // Elimina la relación entre un usuario y una página (quita el acceso)
-    public function deleteUserPage($usuario_id, $pagina_id) {
+    public function deleteUserPage($usuario_id, $pagina_id)
+    {
         $query = "DELETE FROM usuarios_paginas WHERE usuario_id = ? AND pagina_id = ?";
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
@@ -122,9 +131,10 @@ class PaginaModel {
      *
      * @return array|false Un arreglo asociativo en el que la clave es el ID de la página y el valor es un arreglo con la información de la página y la lista de usuarios, o false en caso de error.
      */
-    public function getAllUserPageRelationships() {
-      // La consulta une las tres tablas: paginas, usuarios_paginas y usuarios
-      $query = "SELECT 
+    public function getAllUserPageRelationships()
+    {
+        // La consulta une las tres tablas: paginas, usuarios_paginas y usuarios
+        $query = "SELECT 
                     p.id AS pagina_id,
                     p.nombre AS pagina_nombre,
                     p.url_page,
@@ -136,33 +146,83 @@ class PaginaModel {
                 JOIN usuarios_paginas up ON p.id = up.pagina_id
                 JOIN usuarios u ON up.usuario_id = u.id
                 ORDER BY p.id, u.nombre";
-      
-      $result = mysqli_query($this->link, $query);
-      if (!$result) {
-          return false;
-      }
-      
-      $relationships = [];
-      while ($row = mysqli_fetch_assoc($result)) {
-          $pagina_id = $row['pagina_id'];
-          if (!isset($relationships[$pagina_id])) {
-              // Inicializamos la entrada para esta página
-              $relationships[$pagina_id] = [
-                  'pagina_nombre' => $row['pagina_nombre'],
-                  'url_page'       => $row['url_page'],
-                  'usuarios'       => []
-              ];
-          }
-          // Agregamos la información del usuario a la lista de usuarios para esta página
-          $relationships[$pagina_id]['usuarios'][] = [
-              'usuario_id'   => $row['usuario_id'],
-              'usuario'      => $row['usuario'],
-              'nombre'       => $row['usuario_nombre'],
-              'correo'       => $row['correo']
-          ];
-      }
-      
-      return $relationships;
-  }
+
+        $result = mysqli_query($this->link, $query);
+        if (!$result) {
+            return false;
+        }
+
+        $relationships = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $pagina_id = $row['pagina_id'];
+            if (!isset($relationships[$pagina_id])) {
+                // Inicializamos la entrada para esta página
+                $relationships[$pagina_id] = [
+                    'pagina_nombre' => $row['pagina_nombre'],
+                    'url_page'       => $row['url_page'],
+                    'usuarios'       => []
+                ];
+            }
+            // Agregamos la información del usuario a la lista de usuarios para esta página
+            $relationships[$pagina_id]['usuarios'][] = [
+                'usuario_id'   => $row['usuario_id'],
+                'usuario'      => $row['usuario'],
+                'nombre'       => $row['usuario_nombre'],
+                'correo'       => $row['correo']
+            ];
+        }
+
+        return $relationships;
+    }
+
+    public function getUserPageRelationships($id_page)
+    {
+        $query = "SELECT 
+                    u.id AS usuario_id,
+                    u.usuario,
+                    u.nombre AS usuario_nombre,
+                    u.correo,
+                    p.id AS pagina_id,
+                    p.nombre AS pagina_nombre,
+                    p.url_page
+                FROM paginas p
+                JOIN usuarios_paginas up ON p.id = up.pagina_id
+                JOIN usuarios u ON up.usuario_id = u.id
+                WHERE p.id = ?
+                ORDER BY u.nombre";
+
+        $stmt = mysqli_prepare($this->link, $query);
+        if (!$stmt) return false;
+        
+        mysqli_stmt_bind_param($stmt, 'i', $id_page);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        $page_info = null;
+        $users = [];
+        
+        while ($row = mysqli_fetch_assoc($result)) {
+            if (!$page_info) {
+                $page_info = [
+                    'pagina_id' => $row['pagina_id'],
+                    'pagina_nombre' => $row['pagina_nombre'],
+                    'url_page' => $row['url_page'],
+                ];
+            }
+            
+            $users[] = [
+                'usuario_id' => $row['usuario_id'],
+                'usuario' => $row['usuario'],
+                'nombre' => $row['usuario_nombre'],
+                'correo' => $row['correo']
+            ];
+        }
+        
+        mysqli_stmt_close($stmt);
+        
+        return [
+            'page' => $page_info,
+            'users' => $users
+        ];
+    }
 }
-?>

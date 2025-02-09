@@ -14,6 +14,16 @@
         .details-container summary::-webkit-details-marker {
             display: none;
         }
+
+        .details-container summary::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+        }
+
+        details[open] .details-container summary::before {
+            content: "V";
+        }
     </style>
 </head>
 
@@ -33,11 +43,28 @@
 </body>
 
 <script>
-    // Función auxiliar para agregar clases a un elemento (versión ES5)
-    function addClasses(element, classes) {
-        for (var i = 0; i < classes.length; i++) {
-            element.classList.add(classes[i]);
-        }
+    var roles, pages, users;
+
+    var addClasses = (element, classes) => {
+        classes.forEach(className => element.classList.add(className));
+    };
+
+    function onPageChange() {
+        document.getElementById('selectUsers').addEventListener('change', function(e) {
+            var target = e.target;
+            if (target.tagName !== 'SELECT') {
+                return;
+            }
+
+            fetch('./backend/paginas/pagesBe.php?id_page=' + target.value)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Datos:', data);
+                })
+                .catch(error => {
+                    console.error('Error al guardar:', error);
+                });
+        });
     }
 
     function setUsers(users) {
@@ -54,8 +81,7 @@
 
         form.innerHTML = '';
 
-        // Agrupar usuarios por rol
-        var usersByRole = users.reduce(function(groups, user) {
+        var usersByRole = users.reduce((groups, user) => {
             var role = user.rol || 'Sin Rol';
             if (!groups[role]) {
                 groups[role] = [];
@@ -64,49 +90,44 @@
             return groups;
         }, {});
 
-        // Obtener y ordenar los roles (keys) para iterar
-        var roles = Object.keys(usersByRole).sort();
-        roles.forEach(function(role, i) {
-            var roleUsers = usersByRole[role];
-
-            // Crear elementos para cada grupo de usuarios
+        Object.entries(usersByRole).sort().forEach(([role, roleUsers], i) => {
             var details = document.createElement('details');
             var summary = document.createElement('summary');
             var container = document.createElement('div');
+            var counter = document.createElement('span');
 
             addClasses(details, ['border', 'border-secondary', 'rounded-lg', 'mt-3', 'details-container']);
             summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
-            summary.classList.add('p-3');
+            addClasses(summary, ['px-3', 'py-2']);
+
+            counter.id = `counter_${role}`;
+            summary.appendChild(counter);
 
             // Contenedor para los botones a la derecha
             var btnContainer = document.createElement('span');
-            btnContainer.style.cssFloat = 'right'; // Para mayor compatibilidad con ES5, se usa cssFloat
+            btnContainer.style.float = 'right';
 
-            // Botón para seleccionar todos los usuarios
             var selectAllBtn = document.createElement('button');
             selectAllBtn.type = 'button';
             selectAllBtn.textContent = 'Seleccionar todo';
-            addClasses(selectAllBtn, ['btn', 'btn-sm', 'me-2', 'btn-dark']);
-            selectAllBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Selecciona todos los inputs que tengan data-role igual al rol actual
-                var inputs = details.querySelectorAll('input[data-role="' + role + '"]');
-                for (var j = 0; j < inputs.length; j++) {
-                    inputs[j].checked = true;
-                }
-            });
+            addClasses(selectAllBtn, ['btn', 'btn-sm', 'btn-dark', 'me-2']);
 
-            // Botón para deseleccionar todos los usuarios
             var deselectAllBtn = document.createElement('button');
             deselectAllBtn.type = 'button';
             deselectAllBtn.textContent = 'Deseleccionar todo';
-            deselectAllBtn.classList.add('btn', 'btn-sm', 'btn-dark');
-            deselectAllBtn.addEventListener('click', function(e) {
+            addClasses(deselectAllBtn, ['btn', 'btn-sm', 'btn-dark']);
+
+            selectAllBtn.addEventListener('click', e => {
                 e.preventDefault();
-                var inputs = details.querySelectorAll('input[data-role="' + role + '"]');
-                for (var j = 0; j < inputs.length; j++) {
-                    inputs[j].checked = false;
-                }
+                details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
+                    input.checked = true;
+                });
+            });
+            deselectAllBtn.addEventListener('click', e => {
+                e.preventDefault();
+                details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
+                    input.checked = false;
+                });
             });
 
             btnContainer.appendChild(selectAllBtn);
@@ -123,25 +144,22 @@
                 details.open = true;
             }
 
-            // Ordenar usuarios por nombre y crear un checkbox para cada uno
             roleUsers
-                .sort(function(a, b) {
-                    return a.nombre.localeCompare(b.nombre);
-                })
-                .forEach(function(user) {
+                .sort((a, b) => a.nombre.localeCompare(b.nombre))
+                .forEach(user => {
                     var label = document.createElement('label');
                     var input = document.createElement('input');
 
+                    // Add classes
                     addClasses(label, ['form-check', 'col-12', 'col-md-6', 'col-lg-4']);
                     input.type = 'checkbox';
                     input.className = 'usuario_check';
-                    // Para máxima compatibilidad, se usa setAttribute en lugar de dataset
-                    input.setAttribute('data-role', role);
+                    input.dataset.role = role;
                     input.value = user.id;
-                    input.id = 'user_' + user.id;
+                    input.id = `user_${user.id}`;
 
                     label.appendChild(input);
-                    label.appendChild(document.createTextNode(' ' + user.nombre + ' (' + user.usuario + ')'));
+                    label.appendChild(document.createTextNode(` ${user.nombre} (${user.usuario})`));
                     container.appendChild(label);
                 });
 
@@ -149,37 +167,94 @@
         });
     }
 
-    function cargarUsuarios() {
-        Promise.all([
+    function setPages(pages) {
+        if (!Array.isArray(pages) || pages.length === 0) {
+            console.error('No se proporcionaron páginas válidas');
+            return;
+        }
+
+        var selectElement = document.getElementById('rolSelect');
+        if (!selectElement) {
+            console.error('No se encontró el elemento select');
+            return;
+        }
+
+        // Mantener solo la opción por defecto
+        selectElement.innerHTML = '<option value="" selected>Selecciona una pagina</option>';
+
+        // Agrupar páginas por tipo
+        var pagesByType = pages.reduce((groups, page) => {
+            var type = page.tipo;
+            if (!groups[type]) {
+                groups[type] = [];
+            }
+            groups[type].push(page);
+            return groups;
+        }, {});
+
+        // Crear optgroups para cada tipo de página
+        Object.entries(pagesByType).sort().forEach(([type, typePages]) => {
+            var optgroup = document.createElement('optgroup');
+            optgroup.label = `Tipo ${type}`; // Puedes personalizar las etiquetas según necesites
+
+            // Agregar las páginas como opciones dentro del optgroup
+            typePages.forEach(page => {
+                var option = document.createElement('option');
+                option.value = page.id;
+                option.textContent = page.nombre;
+                optgroup.appendChild(option);
+            });
+
+            selectElement.appendChild(optgroup);
+        });
+
+        // Agregar evento de cambio
+        selectElement.addEventListener('change', function() {
+            var selectedPageId = this.value;
+            if (selectedPageId) {
+                // Aquí puedes agregar la lógica para cargar los usuarios 
+                // que tienen acceso a esta página
+                console.log('Página seleccionada:', selectedPageId);
+                // TODO: Implementar carga de usuarios por página
+            }
+        });
+    }
+
+    async function cargaInicial() {
+        try {
+            var [usuariosResponse, rolesResponse, pagesResponse] = await Promise.all([
                 fetch('./backend/administracion_usuarios/obtener_usuariosBE.php'),
                 fetch('./backend/administracion_usuarios/obtener_rolesBE.php'),
                 fetch('./backend/paginas/pagesBe.php')
-            ])
-            .then(function(responses) {
-                if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
-                    throw new Error('Error en una o más respuestas del servidor');
-                }
-                return Promise.all([
-                    responses[0].json(),
-                    responses[1].json(),
-                    responses[2].json()
-                ]);
-            })
-            .then(function(data) {
-                var usuarios = data[0],
-                    roles = data[1],
-                    pages = data[2];
+            ]);
 
-                setUsers(usuarios.data);
-                setPages(pages);
-            })
-            .catch(function(error) {
-                console.error('Error al cargar datos:', error);
+            if (!usuariosResponse.ok || !rolesResponse.ok || !pagesResponse.ok) {
+                throw new Error('Error en una o más respuestas del servidor');
+            }
+
+            [users, roles, pages] = await Promise.all([
+                usuariosResponse.json(),
+                rolesResponse.json(),
+                pagesResponse.json()
+            ]);
+
+            users = users.data || users;
+
+            setUsers(users);
+            setPages(pages);
+
+            console.log('Datos cargados:', {
+                users,
+                roles,
+                pages
             });
+
+        } catch (error) {
+            console.error('Error al cargar datos:', error);
+        }
     }
 
-
-    cargarUsuarios()
+    cargaInicial()
 </script>
 
 </html>
