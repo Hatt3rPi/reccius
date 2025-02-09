@@ -121,7 +121,7 @@ class PaginaModel
         $checkQuery = "SELECT id FROM usuarios_paginas WHERE usuario_id = ? AND pagina_id = ? LIMIT 1";
         $checkStmt = mysqli_prepare($this->link, $checkQuery);
         if (!$checkStmt) return false;
-        
+
         mysqli_stmt_bind_param($checkStmt, 'ii', $usuario_id, $pagina_id);
         mysqli_stmt_execute($checkStmt);
         mysqli_stmt_store_result($checkStmt);
@@ -137,11 +137,11 @@ class PaginaModel
         $query = "DELETE FROM usuarios_paginas WHERE usuario_id = ? AND pagina_id = ?";
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
-        
+
         mysqli_stmt_bind_param($stmt, 'ii', $usuario_id, $pagina_id);
         $success = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        
+
         return $success;
     }
 
@@ -197,58 +197,57 @@ class PaginaModel
     public function getUserPageRelationships($id_page)
     {
         $query = "SELECT 
+                    p.id AS pagina_id,
+                    p.nombre AS pagina_nombre,
+                    p.url_page,
                     u.id AS usuario_id,
                     u.usuario,
                     u.nombre AS usuario_nombre,
-                    u.correo,
-                    p.id AS pagina_id,
-                    p.nombre AS pagina_nombre,
-                    p.url_page
-                FROM paginas p
-                LEFT JOIN usuarios_paginas up ON p.id = up.pagina_id
-                LEFT JOIN usuarios u ON up.usuario_id = u.id
-                WHERE p.id = ?";
+                    u.correo
+                  FROM paginas p
+                  LEFT JOIN usuarios_paginas up ON p.id = up.pagina_id
+                  LEFT JOIN usuarios u ON up.usuario_id = u.id
+                  WHERE p.id = ?";
 
         $stmt = mysqli_prepare($this->link, $query);
-        if (!$stmt) return false;
-        
+        if (!$stmt) {
+            return false;
+        }
+
         mysqli_stmt_bind_param($stmt, 'i', $id_page);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-        
-        if (!$result) return false;
 
         $page_info = null;
         $users = [];
-        
+
         while ($row = mysqli_fetch_assoc($result)) {
-            if (!$page_info && $row['pagina_id']) {
+            if ($page_info === null) {
                 $page_info = [
-                    'pagina_id' => $row['pagina_id'],
+                    'pagina_id'     => $row['pagina_id'],
                     'pagina_nombre' => $row['pagina_nombre'],
-                    'url_page' => $row['url_page'],
+                    'url_page'      => $row['url_page']
                 ];
             }
-            
-            if ($row['usuario_id']) {
+
+            if (!empty($row['usuario_id'])) {
                 $users[] = [
                     'usuario_id' => $row['usuario_id'],
-                    'usuario' => $row['usuario'],
-                    'nombre' => $row['usuario_nombre'],
-                    'correo' => $row['correo']
+                    'usuario'    => $row['usuario'],
+                    'nombre'     => $row['usuario_nombre'],
+                    'correo'     => $row['correo']
                 ];
             }
         }
-        
+
         mysqli_stmt_close($stmt);
-        
-        // Si no encontramos la página, retornamos false
-        if (!$page_info) {
+
+        if ($page_info === null) {
             return false;
         }
-        
+
         return [
-            'page' => $page_info,
+            'page'  => $page_info,
             'users' => $users
         ];
     }

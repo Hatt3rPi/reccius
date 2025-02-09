@@ -15,15 +15,6 @@
             display: none;
         }
 
-        .details-container summary::before {
-            content: ">";
-            position: absolute;
-            left: 0;
-        }
-
-        details[open] .details-container summary::before {
-            content: "V";
-        }
     </style>
 </head>
 
