@@ -57,9 +57,9 @@
                         originalRelationships = data;
                         console.log({originalRelationships});
                         
-                        if (data.users && Array.isArray(data.users)) {
-                            data.users.forEach(user => {
-                                const checkbox = document.getElementById(`user_${user.usuario_id}`);
+                        if (data && Array.isArray(data)) {
+                            data.forEach(userCheck => {
+                                const checkbox = document.getElementById(`user_${userCheck.usuario_id}`);
                                 if (checkbox) {
                                     checkbox.checked = true;
                                 }
