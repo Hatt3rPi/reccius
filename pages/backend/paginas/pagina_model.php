@@ -13,7 +13,10 @@ class PaginaModel {
     }
 
     public function getPages() {
-        $query = "SELECT * FROM paginas";
+        $query = "SELECT p.*, tp.nombre AS tipo 
+          FROM paginas AS p 
+          JOIN tipos_paginas AS tp 
+            ON p.id_tipo_pagina = tp.id";
         $result = mysqli_query($this->link, $query);
         $pages = [];
         while ($row = mysqli_fetch_assoc($result)) {

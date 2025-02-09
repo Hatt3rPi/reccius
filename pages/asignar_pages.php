@@ -9,8 +9,7 @@
     <div class="form-container">
         <h1>Administración / Gestión de Paginas </h1>
         <br><br>
-        <h2 class="section-title">Listado de Usuarios y Roles:</h2>
-        <select id="rolSelect" name="rol" style="width: 100%;">
+        <select id="rolSelect" class="select-style" name="rol" style="width: 100%;">
             <option value="" selected >Selecciona una pagina</option>
         </select>
         <form id="selectUsers">
@@ -50,12 +49,14 @@
             const fieldset = document.createElement('fieldset');
             const legend = document.createElement('legend');
             legend.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLocaleLowerCase(); // Capitalizar primera letra
+            fieldset.classList.add('row');
             fieldset.appendChild(legend);
 
             // Crear checkboxes para cada usuario
             roleUsers.forEach(user => {
                 const label = document.createElement('label');
                 const input = document.createElement('input');
+                label.classList.add('col-12', 'col-md-6', 'col-lg-4');
 
                 input.type = 'checkbox';
                 input.className = 'usuario_check';
@@ -94,7 +95,7 @@
 
         // Agrupar páginas por tipo
         const pagesByType = pages.reduce((groups, page) => {
-            const type = page.id_tipo_pagina;
+            const type = page.tipo;
             if (!groups[type]) {
                 groups[type] = [];
             }
