@@ -31,9 +31,11 @@
     <div class="form-container m-0">
         <h1>Administración / Gestión de Paginas </h1>
         <br><br>
-        <select id="rolSelect" class="form-control" name="rol" style="width: 100%;">
-            <option value="" selected>Selecciona una pagina</option>
-        </select>
+        <div class="container">
+            <select id="rolSelect" class="form-control" name="rol" style="width: 100%;">
+                <option value="" selected>Selecciona una pagina</option>
+            </select>
+        </div>
         <form id="selectUsers" class="container">
         </form>
         <button type="submit" form="selectUsers" class="btn btn-primary mt-3">Guardar</button>
@@ -44,6 +46,7 @@
     const addClasses = (element, classes) => {
         classes.forEach(className => element.classList.add(className));
     };
+
     function setUsers(users) {
         if (!Array.isArray(users) || users.length === 0) {
             console.error('No se proporcionaron usuarios válidos');
@@ -72,7 +75,7 @@
             const summary = document.createElement('summary');
             const container = document.createElement('div');
 
-            addClasses(details , ['border', 'border-secondary', 'rounded-lg', 'mt-3', 'details-container']);
+            addClasses(details, ['border', 'border-secondary', 'rounded-lg', 'mt-3', 'details-container']);
             summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
             summary.classList.add('p-3');
 
@@ -83,7 +86,7 @@
             const selectAllBtn = document.createElement('button');
             selectAllBtn.type = 'button';
             selectAllBtn.textContent = 'Seleccionar todo';
-            addClasses(selectAllBtn, ['btn', 'btn-sm', 'btn-link' , 'me-2', 'btn-dark']);
+            addClasses(selectAllBtn, ['btn', 'btn-sm', 'btn-link', 'me-2', 'btn-dark']);
             selectAllBtn.addEventListener('click', e => {
                 e.preventDefault();
                 details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
@@ -123,7 +126,7 @@
                     const input = document.createElement('input');
 
                     // Add classes
-                    addClasses(label, ['form-check', 'form-check-inline','col-12', 'col-md-6', 'col-lg-4']);
+                    addClasses(label, ['form-check', 'col-12', 'col-md-6', 'col-lg-4']);
                     input.type = 'checkbox';
                     input.className = 'usuario_check';
                     input.dataset.role = role;
