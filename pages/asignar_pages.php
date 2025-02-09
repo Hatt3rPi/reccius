@@ -74,6 +74,36 @@
             
             summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
             summary.classList.add('p-3');
+
+            // Contenedor para los botones a la derecha
+            const btnContainer = document.createElement('span');
+            btnContainer.style.float = 'right';
+
+            const selectAllBtn = document.createElement('button');
+            selectAllBtn.type = 'button';
+            selectAllBtn.textContent = 'Seleccionar todo';
+            selectAllBtn.classList.add('btn', 'btn-sm', 'btn-link', 'me-2');
+            selectAllBtn.addEventListener('click', e => {
+                e.preventDefault();
+                details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
+                    input.checked = true;
+                });
+            });
+
+            const deselectAllBtn = document.createElement('button');
+            deselectAllBtn.type = 'button';
+            deselectAllBtn.textContent = 'Deseleccionar todo';
+            deselectAllBtn.classList.add('btn', 'btn-sm', 'btn-link');
+            deselectAllBtn.addEventListener('click', e => {
+                e.preventDefault();
+                details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
+                    input.checked = false;
+                });
+            });
+
+            btnContainer.appendChild(selectAllBtn);
+            btnContainer.appendChild(deselectAllBtn);
+            summary.appendChild(btnContainer);
             
             container.classList.add('row');
             container.classList.add('p-3');
@@ -99,6 +129,7 @@
 
                     input.type = 'checkbox';
                     input.className = 'usuario_check';
+                    input.dataset.role = role;
                     input.value = user.id;
                     input.id = `user_${user.id}`;
 
