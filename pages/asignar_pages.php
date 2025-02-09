@@ -60,7 +60,7 @@
         document.getElementById('rolSelect').addEventListener('change', function(e) {
             if (this.value) {
                 cleanAllChecks();
-                fetch('./backend/paginas/pagesBe.php?id_page=' + this.value)
+                fetch('./backend/paginas/pagesBe.php?id_pagina=' + this.value)
                     .then(response => response.json())
                     .then(data => {
                         originalRelationships = data;

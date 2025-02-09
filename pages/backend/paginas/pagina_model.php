@@ -205,10 +205,9 @@ class PaginaModel
                     p.nombre AS pagina_nombre,
                     p.url_page
                 FROM paginas p
-                JOIN usuarios_paginas up ON p.id = up.pagina_id
-                JOIN usuarios u ON up.usuario_id = u.id
-                WHERE p.id = ?
-                ORDER BY u.nombre";
+                LEFT JOIN usuarios_paginas up ON p.id = up.pagina_id
+                LEFT JOIN usuarios u ON up.usuario_id = u.id
+                WHERE p.id = ?";
 
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
@@ -217,11 +216,13 @@ class PaginaModel
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         
+        if (!$result) return false;
+
         $page_info = null;
         $users = [];
         
         while ($row = mysqli_fetch_assoc($result)) {
-            if (!$page_info) {
+            if (!$page_info && $row['pagina_id']) {
                 $page_info = [
                     'pagina_id' => $row['pagina_id'],
                     'pagina_nombre' => $row['pagina_nombre'],
@@ -229,15 +230,22 @@ class PaginaModel
                 ];
             }
             
-            $users[] = [
-                'usuario_id' => $row['usuario_id'],
-                'usuario' => $row['usuario'],
-                'nombre' => $row['usuario_nombre'],
-                'correo' => $row['correo']
-            ];
+            if ($row['usuario_id']) {
+                $users[] = [
+                    'usuario_id' => $row['usuario_id'],
+                    'usuario' => $row['usuario'],
+                    'nombre' => $row['usuario_nombre'],
+                    'correo' => $row['correo']
+                ];
+            }
         }
         
         mysqli_stmt_close($stmt);
+        
+        // Si no encontramos la página, retornamos false
+        if (!$page_info) {
+            return false;
+        }
         
         return [
             'page' => $page_info,
