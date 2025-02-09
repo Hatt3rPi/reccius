@@ -75,7 +75,6 @@
                     label.appendChild(document.createTextNode(` ${user.nombre} (${user.usuario})`));
                     container.appendChild(label);
                 });
-            });
 
             form.appendChild(details);
         });
