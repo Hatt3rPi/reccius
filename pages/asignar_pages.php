@@ -3,6 +3,25 @@
 
 <head>
     <link rel="stylesheet" href="../assets/css/Listados.css">
+    <style>
+        .details-container summary {
+            list-style: none;
+            cursor: pointer;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .details-container summary::-webkit-details-marker {
+            display: none;
+        }
+        .details-container summary::before {
+            content: "►";
+            position: absolute;
+            left: 0;
+        }
+        details[open] .details-container summary::before {
+            content: "▼";
+        }
+    </style>
 </head>
 
 <body>
@@ -14,10 +33,8 @@
         </select>
         <form id="selectUsers" class="container">
         </form>
-        <button type="submit" form="selectUsers" class="btn btn-primary">Guardar</button>
-
+        <button type="submit" form="selectUsers" class="btn btn-primary mt-3">Guardar</button>
     </div>
-
 </body>
 
 <script>
@@ -53,7 +70,9 @@
             const container = document.createElement('div');
             summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLocaleLowerCase(); // Capitalizar primera letra
             container.classList.add('row');
+            details.classList.add('border border-secondary mt-3 details-container');
             details.appendChild(summary);
+            details.appendChild(document.createElement('hr'));
             details.appendChild(container);
             if(i==0){
                 details.open = true;
