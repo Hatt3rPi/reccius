@@ -204,51 +204,27 @@ class PaginaModel
                     u.usuario,
                     u.nombre AS usuario_nombre,
                     u.correo
-                  FROM paginas p
-                  LEFT JOIN usuarios_paginas up ON p.id = up.pagina_id
-                  LEFT JOIN usuarios u ON up.usuario_id = u.id
+                  FROM usuarios_paginas AS up
+                  JOIN paginas AS p ON p.id = up.pagina_id
+                  JOIN usuarios AS u ON up.usuario_id = u.id
                   WHERE p.id = ?";
-
+    
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) {
             return false;
         }
-
+    
         mysqli_stmt_bind_param($stmt, 'i', $id_page);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-
-        $page_info = null;
-        $users = [];
-
+    
+        $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            if ($page_info === null) {
-                $page_info = [
-                    'pagina_id'     => $row['pagina_id'],
-                    'pagina_nombre' => $row['pagina_nombre'],
-                    'url_page'      => $row['url_page']
-                ];
-            }
-
-            if (!empty($row['usuario_id'])) {
-                $users[] = [
-                    'usuario_id' => $row['usuario_id'],
-                    'usuario'    => $row['usuario'],
-                    'nombre'     => $row['usuario_nombre'],
-                    'correo'     => $row['correo']
-                ];
-            }
+            $data[] = $row;
         }
-
+    
         mysqli_stmt_close($stmt);
-
-        if ($page_info === null) {
-            return false;
-        }
-
-        return [
-            'page'  => $page_info,
-            'users' => $users
-        ];
+        return $data;
     }
+    
 }
