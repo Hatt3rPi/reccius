@@ -56,7 +56,6 @@
         });
     };
 
-
     function onPageChange() {
         document.getElementById('rolSelect').addEventListener('change', function(e) {
             if (this.value) {
@@ -64,13 +63,20 @@
                 fetch('./backend/paginas/pagesBe.php?id_page=' + this.value)
                     .then(response => response.json())
                     .then(data => {
-                        orifinalRelationships = data;
-                        data.forEach(user => {
-                            document.getElementById(`user_${user.usuario_id}`).checked = true;
-                        });
+                        originalRelationships = data;
+                        console.log({originalRelationships});
+                        
+                        if (data.users && Array.isArray(data.users)) {
+                            data.users.forEach(user => {
+                                const checkbox = document.getElementById(`user_${user.usuario_id}`);
+                                if (checkbox) {
+                                    checkbox.checked = true;
+                                }
+                            });
+                        }
                     })
                     .catch(error => {
-                        console.error('Error al guardar:', error);
+                        console.error('Error al cargar relaciones:', error);
                     });
             }
         });
