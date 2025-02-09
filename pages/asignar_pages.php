@@ -9,12 +9,12 @@
     <div class="form-container m-0">
         <h1>Administración / Gestión de Paginas </h1>
         <br><br>
-        <select id="rolSelect" class="select-style" name="rol" style="width: 100%;">
+        <select id="rolSelect" class="form-select" name="rol" style="width: 100%;">
             <option value="" selected>Selecciona una pagina</option>
         </select>
         <form id="selectUsers" class="container">
         </form>
-        <button type="submit" form="selectUsers" class="">Guardar</button>
+        <button type="submit" form="selectUsers" class="btn btn-primary">Guardar</button>
 
     </div>
 
@@ -46,14 +46,16 @@
             return groups;
         }, {});
 
-        // Crear fieldsets para cada grupo de roles
-        Object.entries(usersByRole).forEach(([role, roleUsers]) => {
-            const fieldset = document.createElement('fieldset');
-            const legend = document.createElement('legend');
-            legend.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLocaleLowerCase(); // Capitalizar primera letra
-            fieldset.classList.add('row');
-            fieldset.appendChild(legend);
-
+        // Crear detailss para cada grupo de roles
+        Object.entries(usersByRole).sort().forEach(([role, roleUsers],i) => {
+            const details = document.createElement('details');
+            const summary = document.createElement('summary');
+            summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLocaleLowerCase(); // Capitalizar primera letra
+            details.classList.add('row');
+            details.appendChild(summary);
+            if(i==0){
+                details.open = true;
+            }
             // Crear checkboxes para cada usuario
             roleUsers.forEach(user => {
                 const label = document.createElement('label');
@@ -67,17 +69,11 @@
 
                 label.appendChild(input);
                 label.appendChild(document.createTextNode(` ${user.nombre} (${user.usuario})`));
-                fieldset.appendChild(label);
+                details.appendChild(label);
             });
 
-            form.appendChild(fieldset);
+            form.appendChild(details);
         });
-
-        // Agregar botón de guardar
-        const submitButton = document.createElement('button');
-        submitButton.type = 'submit';
-        submitButton.textContent = 'Guardar';
-        form.appendChild(submitButton);
     }
 
     function setPages(pages) {
@@ -106,7 +102,7 @@
         }, {});
 
         // Crear optgroups para cada tipo de página
-        Object.entries(pagesByType).forEach(([type, typePages]) => {
+        Object.entries(pagesByType).sort().forEach(([type, typePages]) => {
             const optgroup = document.createElement('optgroup');
             optgroup.label = `Tipo ${type}`; // Puedes personalizar las etiquetas según necesites
 
