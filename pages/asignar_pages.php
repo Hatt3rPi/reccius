@@ -73,7 +73,10 @@
             details.classList.add('details-container');
             
             summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
+            summary.classList.add('p-3');
+            
             container.classList.add('row');
+            container.classList.add('p-3');
             
             details.appendChild(summary);
             details.appendChild(document.createElement('hr'));
