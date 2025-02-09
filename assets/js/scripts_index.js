@@ -104,55 +104,43 @@ function inicializarFormularioCrearUsuario() {
 }
 
 $(document).ready(function () {
-    $('#crear-usuario').click(function (event) {
-        if(AppConfig.FLAGS.crear_usuario){
-            event.preventDefault();
-            $('#dynamic-content').hide();
-            $('#loading-spinner').show();
-            $('#dynamic-content').load('crear_usuario.php', function () {
-                // Llamar a la función de inicialización después de cargar el formulario
-                obtenNotificaciones();
-                inicializarFormularioCrearUsuario();
-                $('#loading-spinner').hide();
-                $('#dynamic-content').show();
-            });
-        }
-        else
-        {
-            featureNoDisponible();
-        }
-    });
-
-    $('#asignar-roles').click(function (event) {
-        if(AppConfig.FLAGS.asignarRoles){
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        // Cargar el formulario de asignación de roles dentro del div #dynamic-content
+  $("#crear-usuario").click(function (event) {
+    if (AppConfig.FLAGS.crear_usuario) {
+      event.preventDefault();
+      $("#dynamic-content").hide();
+      $("#loading-spinner").show();
+      $("#dynamic-content").load("crear_usuario.php", function () {
         obtenNotificaciones();
-        $('#dynamic-content').load('asignar_roles.php');
-        $('#loading-spinner').hide();
-        $('#dynamic-content').show();
-        } else {
-            featureNoDisponible();
-        }
-    });
+        inicializarFormularioCrearUsuario();
+        $("#loading-spinner").hide();
+        $("#dynamic-content").show();
+      });
+    } else featureNoDisponible();
+  });
 
-    $('#asignar-pages').click(function (event) {
-        if(AppConfig.FLAGS.asignarRoles){
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        // Cargar el formulario de asignación de roles dentro del div #dynamic-content
-        obtenNotificaciones();
-        $('#dynamic-content').load('asignar_pages.php');
-        $('#loading-spinner').hide();
-        $('#dynamic-content').show();
-        } else {
-            featureNoDisponible();
-        }
-    });
-    
+  $("#asignar-roles").click(function (event) {
+    if (AppConfig.FLAGS.asignarRoles) {
+      event.preventDefault();
+      $("#dynamic-content").hide();
+      $("#loading-spinner").show();
+      obtenNotificaciones();
+      $("#dynamic-content").load("asignar_roles.php");
+      $("#loading-spinner").hide();
+      $("#dynamic-content").show();
+    } else featureNoDisponible();
+  });
+
+  $("#asignar-pages").click(function (event) {
+    if (AppConfig.FLAGS.asignarRoles) {
+      event.preventDefault();
+      $("#dynamic-content").hide();
+      $("#loading-spinner").show();
+      obtenNotificaciones();
+      $("#dynamic-content").load("asignar_pages.php");
+      $("#loading-spinner").hide();
+      $("#dynamic-content").show();
+    } else featureNoDisponible();
+  });
 });
 
 $(document).ready(function () {
