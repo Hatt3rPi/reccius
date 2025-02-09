@@ -43,19 +43,31 @@
 </body>
 
 <script>
-    var roles, pages, users;
+    var roles, pages, users, orifinalRelationships;
 
     var addClasses = (element, classes) => {
         classes.forEach(className => element.classList.add(className));
     };
 
+    function cleanAllChecks() {
+        var checks = document.querySelectorAll('.usuario_check')
+        checks.forEach(input => {
+            input.checked = false;
+        });
+    };
+
+
     function onPageChange() {
         document.getElementById('rolSelect').addEventListener('change', function(e) {
             if (this.value) {
+                cleanAllChecks();
                 fetch('./backend/paginas/pagesBe.php?id_page=' + this.value)
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Datos:', data);
+                        orifinalRelationships = data;
+                        data.forEach(user => {
+                            document.getElementById(`user_${user.usuario_id}`).checked = true;
+                        });
                     })
                     .catch(error => {
                         console.error('Error al guardar:', error);
@@ -244,6 +256,16 @@
             console.error('Error al cargar datos:', error);
         }
     }
+
+    document.getElementById('selectUsers').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var pageIdSelected = document.getElementById('rolSelect').value
+        const selectedData = [...document.querySelectorAll('.usuario_check')].map(chk => ({
+            id_usuario: chk.value,
+            checked: chk.checked
+        }));
+        console.log({pageIdSelected,selectedData});
+    });
 
     cargaInicial()
 </script>
