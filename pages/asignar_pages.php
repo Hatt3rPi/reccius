@@ -47,21 +47,33 @@
         });
     };
 
+    function updateRoleCounter(role) {
+        const counter = document.getElementById(`counter_${role}`);
+        if (counter) {
+            const total = document.querySelectorAll(`input[data-role="${role}"]`).length;
+            const checkedCount = document.querySelectorAll(`input[data-role="${role}"]:checked`).length;
+            counter.textContent = ` (${checkedCount}/${total})`;
+        }
+    }
+
     function onPageChange() {
         document.getElementById('rolSelect').addEventListener('change', function(e) {
             if (this.value) {
                 cleanAllChecks();
+                const roles = new Set([...document.querySelectorAll('.usuario_check')].map(chk => chk.dataset.role));
+                roles.forEach(updateRoleCounter);
+
                 fetch('./backend/paginas/pagesBe.php?id_pagina=' + this.value)
                     .then(response => response.json())
                     .then(data => {
                         originalRelationships = data;
-                        console.log({originalRelationships});
                         
                         if (data && Array.isArray(data)) {
                             data.forEach(userCheck => {
                                 const checkbox = document.getElementById(`user_${userCheck.usuario_id}`);
                                 if (checkbox) {
                                     checkbox.checked = true;
+                                    updateRoleCounter(checkbox.dataset.role);
                                 }
                             });
                         }
@@ -109,14 +121,13 @@
             counter.id = `counter_${role}`;
             summary.appendChild(counter);
 
-            // Contenedor para los botones a la derecha
             var btnContainer = document.createElement('span');
             btnContainer.style.float = 'right';
 
             var selectAllBtn = document.createElement('button');
             selectAllBtn.type = 'button';
             selectAllBtn.textContent = 'Seleccionar';
-            addClasses(selectAllBtn, ['btn', 'btn-sm', 'btn-dark', 'mr-2']);
+            addClasses(selectAllBtn, ['btn', 'btn-sm', 'btn-dark']);
 
             var deselectAllBtn = document.createElement('button');
             deselectAllBtn.type = 'button';
@@ -128,12 +139,14 @@
                 details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
                     input.checked = true;
                 });
+                updateRoleCounter(role);
             });
             deselectAllBtn.addEventListener('click', e => {
                 e.preventDefault();
                 details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
                     input.checked = false;
                 });
+                updateRoleCounter(role);
             });
 
             btnContainer.appendChild(selectAllBtn);
@@ -156,7 +169,6 @@
                     var label = document.createElement('label');
                     var input = document.createElement('input');
 
-                    // Add classes
                     addClasses(label, ['form-check', 'col-12', 'col-md-6', 'col-lg-4']);
                     input.type = 'checkbox';
                     input.className = 'usuario_check';
@@ -170,6 +182,8 @@
                 });
 
             form.appendChild(details);
+
+            updateRoleCounter(role);
         });
     }
 
@@ -185,10 +199,8 @@
             return;
         }
 
-        // Mantener solo la opción por defecto
         selectElement.innerHTML = '<option value="" selected>Selecciona una pagina</option>';
 
-        // Agrupar páginas por tipo
         var pagesByType = pages.reduce((groups, page) => {
             var type = page.tipo;
             if (!groups[type]) {
@@ -201,9 +213,8 @@
         // Crear optgroups para cada tipo de página
         Object.entries(pagesByType).sort().forEach(([type, typePages]) => {
             var optgroup = document.createElement('optgroup');
-            optgroup.label = `Tipo ${type}`; // Puedes personalizar las etiquetas según necesites
+            optgroup.label = `Tipo ${type}`; 
 
-            // Agregar las páginas como opciones dentro del optgroup
             typePages.forEach(page => {
                 var option = document.createElement('option');
                 option.value = page.id;
@@ -253,7 +264,12 @@
             console.error('Error al cargar datos:', error);
         }
     }
-
+    document.getElementById('selectUsers').addEventListener('change', function(e) {
+        if (e.target.classList.contains('usuario_check')) {
+            updateRoleCounter(e.target.dataset.role);
+        }
+    });
+    
     document.getElementById('selectUsers').addEventListener('submit', function(e) {
         e.preventDefault();
         var pageIdSelected = document.getElementById('rolSelect').value
