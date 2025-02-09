@@ -50,9 +50,11 @@
         Object.entries(usersByRole).sort().forEach(([role, roleUsers],i) => {
             const details = document.createElement('details');
             const summary = document.createElement('summary');
+            const container = document.createElement('div');
             summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLocaleLowerCase(); // Capitalizar primera letra
-            details.classList.add('row');
+            container.classList.add('row');
             details.appendChild(summary);
+            details.appendChild(container);
             if(i==0){
                 details.open = true;
             }
@@ -69,7 +71,7 @@
 
                 label.appendChild(input);
                 label.appendChild(document.createTextNode(` ${user.nombre} (${user.usuario})`));
-                details.appendChild(label);
+                container.appendChild(label);
             });
 
             form.appendChild(details);
