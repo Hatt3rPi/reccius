@@ -229,7 +229,7 @@
 
             setUsers(users);
             setPages(pages);
-            role.unshift({
+            roles.unshift({
                 id: "-1",
                 nombre: "Sin Rol"
             });
