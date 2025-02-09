@@ -59,19 +59,22 @@
                 details.open = true;
             }
             // Crear checkboxes para cada usuario
-            roleUsers.forEach(user => {
-                const label = document.createElement('label');
-                const input = document.createElement('input');
-                label.classList.add('col-12', 'col-md-6', 'col-lg-4');
+            roleUsers
+                .sort((a, b) => a.nombre.localeCompare(b.nombre))
+                .forEach(user => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    label.classList.add('col-12', 'col-md-6', 'col-lg-4');
 
-                input.type = 'checkbox';
-                input.className = 'usuario_check';
-                input.value = user.id;
-                input.id = `user_${user.id}`;
+                    input.type = 'checkbox';
+                    input.className = 'usuario_check';
+                    input.value = user.id;
+                    input.id = `user_${user.id}`;
 
-                label.appendChild(input);
-                label.appendChild(document.createTextNode(` ${user.nombre} (${user.usuario})`));
-                container.appendChild(label);
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(` ${user.nombre} (${user.usuario})`));
+                    container.appendChild(label);
+                });
             });
 
             form.appendChild(details);
