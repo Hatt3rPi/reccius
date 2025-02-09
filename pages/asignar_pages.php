@@ -115,13 +115,13 @@
 
             var selectAllBtn = document.createElement('button');
             selectAllBtn.type = 'button';
-            selectAllBtn.textContent = 'Seleccionar todo';
+            selectAllBtn.textContent = 'Seleccionar';
             addClasses(selectAllBtn, ['btn', 'btn-sm', 'btn-dark', 'me-2']);
 
             var deselectAllBtn = document.createElement('button');
             deselectAllBtn.type = 'button';
-            deselectAllBtn.textContent = 'Deseleccionar todo';
-            addClasses(deselectAllBtn, ['btn', 'btn-sm', 'btn-dark']);
+            deselectAllBtn.textContent = 'Deseleccionar';
+            addClasses(deselectAllBtn, ['btn', 'btn-sm', 'btn-dark', 'ms-2']);
 
             selectAllBtn.addEventListener('click', e => {
                 e.preventDefault();
