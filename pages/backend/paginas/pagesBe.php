@@ -24,14 +24,40 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     exit;
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuarios = $_POST['usuarios'] ?? null;//array de usuarios
-    $pagina_id = $_POST['pagina_id'] ?? null; //pagina_id 
-    if( $usuarios == null || $pagina_id == null ){
+    // Decode JSON input
+    $data = json_decode(file_get_contents('php://input'), true);
+    $usuarios = $data['usuarios'] ?? null;
+    $pagina_id = $data['pagina_id'] ?? null;
+    
+    if ($usuarios === null || $pagina_id === null) {
         echo json_encode(['error' => 'Faltan datos']);
         exit;
     }
 
-}
+    $success = true;
+    $messages = [];
 
+    foreach ($usuarios as $usuario) {
+        if ($usuario['checked']) {
+            // Crear relación si está marcado
+            if (!$model->createUserPage($usuario['id_usuario'], $pagina_id)) {
+                $success = false;
+                $messages[] = "Error al crear relación para usuario {$usuario['id_usuario']}";
+            }
+        } else {
+            // Eliminar relación si no está marcado
+            if (!$model->deleteUserPage($usuario['id_usuario'], $pagina_id)) {
+                $success = false;
+                $messages[] = "Error al eliminar relación para usuario {$usuario['id_usuario']}";
+            }
+        }
+    }
+
+    echo json_encode([
+        'success' => $success,
+        'messages' => $messages
+    ]);
+    exit;
+}
 
 ?>

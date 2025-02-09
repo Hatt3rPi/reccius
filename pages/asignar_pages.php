@@ -271,6 +271,214 @@
             checked: chk.checked
         }));
         console.log({pageIdSelected,selectedData});
+        /*
+            {
+                "pageIdSelected": "6",
+                "selectedData": [
+                    {
+                        "id_usuario": "32",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "55",
+                        "checked": true
+                    },
+                    {
+                        "id_usuario": "56",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "68",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "48",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "53",
+                        "checked": true
+                    },
+                    {
+                        "id_usuario": "60",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "67",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "2",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "37",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "66",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "38",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "39",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "5",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "40",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "41",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "71",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "69",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "65",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "64",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "45",
+                        "checked": true
+                    },
+                    {
+                        "id_usuario": "8",
+                        "checked": true
+                    },
+                    {
+                        "id_usuario": "33",
+                        "checked": true
+                    },
+                    {
+                        "id_usuario": "47",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "70",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "63",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "73",
+                        "checked": true
+                    },
+                    {
+                        "id_usuario": "42",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "52",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "62",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "59",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "49",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "72",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "54",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "46",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "50",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "58",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "43",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "57",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "51",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "61",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "44",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "34",
+                        "checked": true
+                    },
+                    {
+                        "id_usuario": "36",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "35",
+                        "checked": false
+                    },
+                    {
+                        "id_usuario": "3",
+                        "checked": false
+                    }
+                ]
+            }
+        */
+        fetch('./backend/paginas/pagesBe.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    usuarios: selectedData,
+                    pagina_id: pageIdSelected
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+            })
+            .catch(error => {
+                console.error('Error al guardar relaciones:', error);
+            });
     });
 
     cargaInicial()

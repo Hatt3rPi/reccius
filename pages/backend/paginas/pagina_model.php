@@ -117,12 +117,31 @@ class PaginaModel
     // Elimina la relación entre un usuario y una página (quita el acceso)
     public function deleteUserPage($usuario_id, $pagina_id)
     {
+        // Primero verificamos si existe la relación
+        $checkQuery = "SELECT id FROM usuarios_paginas WHERE usuario_id = ? AND pagina_id = ? LIMIT 1";
+        $checkStmt = mysqli_prepare($this->link, $checkQuery);
+        if (!$checkStmt) return false;
+        
+        mysqli_stmt_bind_param($checkStmt, 'ii', $usuario_id, $pagina_id);
+        mysqli_stmt_execute($checkStmt);
+        mysqli_stmt_store_result($checkStmt);
+        $exists = mysqli_stmt_num_rows($checkStmt) > 0;
+        mysqli_stmt_close($checkStmt);
+
+        // Si no existe la relación, consideramos que ya está "eliminada"
+        if (!$exists) {
+            return true;
+        }
+
+        // Si existe, procedemos a eliminarla
         $query = "DELETE FROM usuarios_paginas WHERE usuario_id = ? AND pagina_id = ?";
         $stmt = mysqli_prepare($this->link, $query);
         if (!$stmt) return false;
+        
         mysqli_stmt_bind_param($stmt, 'ii', $usuario_id, $pagina_id);
         $success = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
+        
         return $success;
     }
 
