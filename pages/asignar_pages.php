@@ -65,10 +65,10 @@
             const details = document.createElement('details');
             const summary = document.createElement('summary');
             const container = document.createElement('div');
-            
-            
+
             details.classList.add('border');
             details.classList.add('border-secondary');
+            details.classList.add('rounded-3');
             details.classList.add('mt-3');
             details.classList.add('details-container');
             
