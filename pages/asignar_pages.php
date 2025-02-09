@@ -10,16 +10,19 @@
             padding-left: 1rem;
             position: relative;
         }
+
         .details-container summary::-webkit-details-marker {
             display: none;
         }
+
         .details-container summary::before {
-            content: "►";
+            content: ">";
             position: absolute;
             left: 0;
         }
+
         details[open] .details-container summary::before {
-            content: "▼";
+            content: "V";
         }
     </style>
 </head>
@@ -66,12 +69,8 @@
             const summary = document.createElement('summary');
             const container = document.createElement('div');
 
-            details.classList.add('border');
-            details.classList.add('border-secondary');
-            details.classList.add('rounded-3');
-            details.classList.add('mt-3');
-            details.classList.add('details-container');
-            
+            details.classList.add('border', 'border-secondary', 'rounded-lg', 'mt-3', 'details-container');
+
             summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
             summary.classList.add('p-3');
 
@@ -82,7 +81,7 @@
             const selectAllBtn = document.createElement('button');
             selectAllBtn.type = 'button';
             selectAllBtn.textContent = 'Seleccionar todo';
-            selectAllBtn.classList.add('btn', 'btn-sm', 'btn-link', 'me-2');
+            selectAllBtn.classList.add('btn', 'btn-sm', 'btn-link', 'me-2', 'btn btn-dark');
             selectAllBtn.addEventListener('click', e => {
                 e.preventDefault();
                 details.querySelectorAll(`input[data-role="${role}"]`).forEach(input => {
@@ -104,14 +103,13 @@
             btnContainer.appendChild(selectAllBtn);
             btnContainer.appendChild(deselectAllBtn);
             summary.appendChild(btnContainer);
-            
-            container.classList.add('row');
-            container.classList.add('p-3');
-            
+
+            container.classList.add('row', 'p-3');
+
             details.appendChild(summary);
             details.appendChild(document.createElement('hr'));
             details.appendChild(container);
-            
+
             if (i === 0) {
                 details.open = true;
             }
@@ -121,11 +119,9 @@
                 .forEach(user => {
                     const label = document.createElement('label');
                     const input = document.createElement('input');
-                    
+
                     // Add classes individually
-                    label.classList.add('col-12');
-                    label.classList.add('col-md-6');
-                    label.classList.add('col-lg-4');
+                    label.classList.add('col-12', 'col-md-6', 'col-lg-4');
 
                     input.type = 'checkbox';
                     input.className = 'usuario_check';
