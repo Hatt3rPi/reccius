@@ -50,10 +50,8 @@
             return;
         }
 
-        // Limpiar contenido existente
         form.innerHTML = '';
 
-        // Agrupar usuarios por rol
         const usersByRole = users.reduce((groups, user) => {
             const role = user.rol || 'Sin Rol';
             if (!groups[role]) {
@@ -63,27 +61,38 @@
             return groups;
         }, {});
 
-        // Crear detailss para cada grupo de roles
-        Object.entries(usersByRole).sort().forEach(([role, roleUsers],i) => {
+        Object.entries(usersByRole).sort().forEach(([role, roleUsers], i) => {
             const details = document.createElement('details');
             const summary = document.createElement('summary');
             const container = document.createElement('div');
-            summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLocaleLowerCase(); // Capitalizar primera letra
+            
+            
+            details.classList.add('border');
+            details.classList.add('border-secondary');
+            details.classList.add('mt-3');
+            details.classList.add('details-container');
+            
+            summary.textContent = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
             container.classList.add('row');
-            details.classList.add('border border-secondary mt-3 details-container');
+            
             details.appendChild(summary);
             details.appendChild(document.createElement('hr'));
             details.appendChild(container);
-            if(i==0){
+            
+            if (i === 0) {
                 details.open = true;
             }
-            // Crear checkboxes para cada usuario
+
             roleUsers
                 .sort((a, b) => a.nombre.localeCompare(b.nombre))
                 .forEach(user => {
                     const label = document.createElement('label');
                     const input = document.createElement('input');
-                    label.classList.add('col-12', 'col-md-6', 'col-lg-4');
+                    
+                    // Add classes individually
+                    label.classList.add('col-12');
+                    label.classList.add('col-md-6');
+                    label.classList.add('col-lg-4');
 
                     input.type = 'checkbox';
                     input.className = 'usuario_check';
