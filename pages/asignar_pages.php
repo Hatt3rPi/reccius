@@ -6,16 +6,18 @@
 </head>
 
 <body>
-    <div class="form-container">
+    <div class="form-container m-0">
         <h1>Administración / Gestión de Paginas </h1>
         <br><br>
         <select id="rolSelect" class="select-style" name="rol" style="width: 100%;">
-            <option value="" selected >Selecciona una pagina</option>
+            <option value="" selected>Selecciona una pagina</option>
         </select>
-        <form id="selectUsers">
-            <button type="submit" class="">Guardar</button>
+        <form id="selectUsers" class="container">
         </form>
+        <button type="submit" form="selectUsers" class="">Guardar</button>
+
     </div>
+
 </body>
 
 <script>
