@@ -51,19 +51,16 @@
 
     function onPageChange() {
         document.getElementById('selectUsers').addEventListener('change', function(e) {
-            var target = e.target;
-            if (target.tagName !== 'SELECT') {
-                return;
+            if (this.value) {
+                fetch('./backend/paginas/pagesBe.php?id_page=' + this.value)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Datos:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error al guardar:', error);
+                    });
             }
-
-            fetch('./backend/paginas/pagesBe.php?id_page=' + target.value)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Datos:', data);
-                })
-                .catch(error => {
-                    console.error('Error al guardar:', error);
-                });
         });
     }
 
@@ -207,17 +204,7 @@
 
             selectElement.appendChild(optgroup);
         });
-
-        // Agregar evento de cambio
-        selectElement.addEventListener('change', function() {
-            var selectedPageId = this.value;
-            if (selectedPageId) {
-                // Aquí puedes agregar la lógica para cargar los usuarios 
-                // que tienen acceso a esta página
-                console.log('Página seleccionada:', selectedPageId);
-                // TODO: Implementar carga de usuarios por página
-            }
-        });
+        onPageChange()
     }
 
     async function cargaInicial() {
@@ -242,6 +229,10 @@
 
             setUsers(users);
             setPages(pages);
+            role.unshift({
+                id: "-1",
+                nombre: "Sin Rol"
+            });
 
             console.log('Datos cargados:', {
                 users,
