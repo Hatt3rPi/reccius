@@ -68,6 +68,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>
     </div>
 </body>
+<div id="notification" class="notification-container notify" style="display: none;">
+    <p id="notification-message">Este es un mensaje de notificación.</p>
+</div>
 <div id="modalEliminar" class="modal">
   <div class="modal-content">
     <span class="close" onclick="cerrarModal()">&times;</span>
@@ -245,11 +248,13 @@ function botones_interno(id, accion, modulo) {
 }
 
 function abrirModal() {
-  document.getElementById("modalEliminar").style.display = "block";
+  document.getElementById("modalEliminar").style.display = "flex";
+  $.notify("Proceso de eliminacion iniciado.", "success");
 }
 
 function cerrarModal() {
   document.getElementById("modalEliminar").style.display = "none";
+  $.notify("Proceso de eliminacion cerrado .", "success");
 }
 
 function confirmarEliminacion() {
@@ -257,12 +262,12 @@ function confirmarEliminacion() {
   var motivoEliminacion = document.getElementById("motivoEliminacion").value;
 
   if (palabraConfirmacion !== 'eliminar') {
-    alert("Debe ingresar la palabra 'eliminar' para confirmar.");
+    $.notify("Debe ingresar la palabra 'eliminar' para confirmar.", "warn");
     return;
   }
 
   if (motivoEliminacion.trim() === "") {
-    alert("Debe ingresar un motivo de eliminación.");
+    $.notify("Debe ingresar un motivo de eliminación.", "warn");
     return;
   }
 
@@ -279,9 +284,9 @@ function confirmarEliminacion() {
     console.log(response);
     // Verificar si hubo algún error en el proceso
     if (response.error) {
-        alert("Hubo un error al eliminar el análisis externo: " + response.error);
+        $.notify("Hubo un error al eliminar el análisis externo: " + response.error);
     } else {
-        alert("El análisis externo ha sido eliminado con éxito.");
+        $.notify("Documento eliminado correctamente.", "success");
         location.reload(); // Recargar la página o refrescar la tabla
     }
 }, "json");
