@@ -138,6 +138,7 @@ th,td, thead {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -151,7 +152,10 @@ th,td, thead {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrado */
 }
 
 /* Botón de cerrar */
@@ -193,4 +197,20 @@ th,td, thead {
 #motivoEliminacion {
     resize: none;
     height: 80px;
+}
+
+/* Botón de confirmación */
+.modal-content button {
+    background-color: #d9534f; /* Rojo de alerta */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+    background-color: #c9302c; /* Oscurecer al pasar el cursor */
 }
