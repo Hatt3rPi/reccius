@@ -331,13 +331,19 @@ function botones_interno(id, accion, modulo) {
 }
 
 function abrirModal() {
-  document.getElementById("modalEliminar").style.display = "block";
+  document.getElementById("modalEliminar").style.display = "flex";
 }
 
 function cerrarModal() {
   document.getElementById("modalEliminar").style.display = "none";
 }
-
+// Cierra el modal si el usuario hace clic fuera de él
+window.onclick = function(event) {
+    let modal = document.getElementById("modalEliminar");
+    if (event.target === modal) {
+        cerrarModal();
+    }
+}
 function confirmarEliminacion() {
   var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
   var motivoEliminacion = document.getElementById("motivoEliminacion").value;
