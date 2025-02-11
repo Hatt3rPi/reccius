@@ -117,7 +117,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="contenido" style="display: flex;">
+                <div id="additionalContent" class="contenido" >
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section"
@@ -425,7 +425,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 document.getElementById('additionalContent').style.display = 'block';
             } else {
                 // Si hay menos de 8 filas, el contenido adicional debe mostrarse en la misma página
-                document.getElementById('additionalContent').style.display = 'inline-block';
+                document.getElementById('additionalContent').style.display = 'flex';
             }
         }
 
