@@ -153,9 +153,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;font-size: 8px">Firmado
-                            digitalmente</p>
+                        
                         <div id="fecha_Edicion" name="fecha_Edicion" class="date" style="font-size: 8px"></div>
+                        <p id="mensaje_creador" name="mensaje_creador" class="firma-bottom">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
                 <!-- Sección revisada por -->
@@ -172,9 +173,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;font-size: 8px">Firmado
-                            digitalmente</p>
+                        
                         <div id="fechaRevision" name="fechaRevision" class="date" style="font-size: 8px"></div>
+                        <p id="mensaje_revisor" name="mensaje_revisor" class="firma-bottom">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
                 <!-- Sección aprobada por -->
@@ -191,9 +193,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;font-size: 8px">Firmado
-                            digitalmente</p>
+                        
                         <div id="fechaAprobacion" name="fechaAprobacion" class="date" style="font-size: 8px"></div>
+                        <p id="mensaje_aprobador" name="mensaje_aprobador" class="firma-bottom">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
             </div>

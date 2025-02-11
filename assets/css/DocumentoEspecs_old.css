@@ -265,7 +265,17 @@ p {
     margin-top: auto !important;
     margin-bottom: auto !important;
 }
-
+.date{
+    text-align: center;
+    font-size: 10px;
+    margin-top: 5px;
+    height: 15px;
+    width: 100%;
+}
+.firma-bottom{
+    text-align: center;
+    font-size: 10px;
+}
 /* Caja de firmas */
 .firma-boxes {
     border: 1px solid #000;
