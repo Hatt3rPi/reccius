@@ -96,7 +96,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <div class="watermark" id="watermark"></div>
             <div id="contenido_main">
 
-                <div id="content" class="content">
+                <div id="content" class="contenido">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
                         <div class="analysis-section"
@@ -117,7 +117,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="content">
+                <div id="additionalContent" class="contenido">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section"
