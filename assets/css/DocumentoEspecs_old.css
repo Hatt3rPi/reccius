@@ -176,11 +176,6 @@ body {
     width: 404px;
 }
 
-/* Sección de Contenido Adicional */
-#additionalContent {
-    margin-top: 20px;
-    padding: 10px;
-}
 
 /* Compacta la tabla y ajusta tamaño */
 .compact {
@@ -265,6 +260,10 @@ th, td {
     margin-bottom: 5px;
     height: 21px;
     width: 100%;
+}
+p {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
 }
 
 /* Caja de firmas */
