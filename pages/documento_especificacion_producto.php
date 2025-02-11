@@ -117,7 +117,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="contenido">
+                <div id="additionalContent" class="contenido" style="display: flex;">
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
                         <div class="analysis-section"
