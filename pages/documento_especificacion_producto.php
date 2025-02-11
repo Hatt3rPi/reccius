@@ -39,8 +39,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <!-- Título Central -->
                     <div class="header-center">
-                        <h1 id="Tipo_Producto"></h1>
-                        <p id="producto"></p>
+                        <h1 id="Tipo_Producto" class="header-toptitle"></h1>
+                        <p id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
                         <hr>
                         <div class="header-subtitle">Dirección de Calidad</div>
                     </div>
@@ -79,13 +79,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <!-- Fila adicional debajo del encabezado -->
                 <div class="header-bottom">
                     <div class="header-bottom-left">
-                        <div class="sub-info">
+                        <div class="sub-info" style="text-align: left;">
                             Producto de recetario magistral <br>
                             Res. Ex. N° 2988/2018
                         </div>
                     </div>
                     <div class="header-bottom-right">
-                        <div class="sub-info">
+                        <div class="sub-info" style="text-align: right;">
                             RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
                         </div>
                     </div>
@@ -96,12 +96,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <div class="watermark" id="watermark"></div>
             <div id="contenido_main">
 
-                <h1 id="Tipo_Producto2" name="Tipo_Producto2"
-                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
-                </h1>
-                <p name="producto2" id="producto2"
-                    style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
-                </p>
                 <div id="content" class="content">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
