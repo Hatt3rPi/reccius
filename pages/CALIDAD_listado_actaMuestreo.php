@@ -14,6 +14,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <head>
     <link rel="stylesheet" href="../assets/css/Listados.css">
+    
 </head>
 
 <body>

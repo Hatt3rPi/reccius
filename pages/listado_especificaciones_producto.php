@@ -284,7 +284,7 @@ function confirmarEliminacion() {
     console.log(response);
     // Verificar si hubo algún error en el proceso
     if (response.error) {
-        $.notify("Hubo un error al eliminar el análisis externo: " + response.error);
+        alert("Hubo un error al eliminar el análisis externo: " + response.error);
     } else {
         $.notify("Documento eliminado correctamente.", "success");
         location.reload(); // Recargar la página o refrescar la tabla
