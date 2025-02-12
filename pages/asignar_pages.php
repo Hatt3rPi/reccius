@@ -29,7 +29,9 @@
         </div>
         <form id="selectUsers" class="container">
         </form>
-        <button type="submit" form="selectUsers" class="btn btn-primary mt-3">Guardar</button>
+        <div class="container">
+            <button type="submit" form="selectUsers" class="btn btn-primary mt-3">Guardar</button>
+        </div>
     </div>
 </body>
 
