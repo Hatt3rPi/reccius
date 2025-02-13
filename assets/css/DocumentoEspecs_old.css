@@ -1,4 +1,6 @@
 body {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh; /* Asegura que la página ocupe toda la pantalla */
     margin: 0;
     padding: 0;
@@ -7,7 +9,7 @@ body {
 
 #form-container {
     width: 1000px;
-    height: 1300px;
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura disponible */
     padding: 12px;
     box-sizing: border-box;
     background-color: #FFF;
@@ -15,12 +17,24 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 100px;
     position: relative;
-    flex: 1;
+    flex: 1; /* Permite que el contenido crezca y empuje el footer hacia abajo */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
-    flex-direction: column; /* Distribuir en columnas */
+    flex-direction: column;
     justify-content: space-between; /* Para que el footer quede abajo */
 }
+
+.footer-containerDIV {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f8f8f8; /* Ajusta según el diseño */
+    padding: 10px;
+    margin-top: auto; /* Empuja el footer hacia abajo si hay poco contenido */
+}
+
 
 #header-container {
     width: 100%;
@@ -234,15 +248,6 @@ th, td {
     .table-bordered th, .table-bordered td {
         padding: 4px;
     }
-}
-/* Estilos generales del footer */
-.footer-containerDIV {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    margin-top: auto;
-    width: 100%;
-    box-sizing: border-box;
 }
 
 /* Sección de cada firmante */
