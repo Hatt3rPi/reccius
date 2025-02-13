@@ -240,7 +240,7 @@ th, td {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-top: auto;
+    margin-top: 630px;
     width: 100%;
     box-sizing: border-box;
 }
