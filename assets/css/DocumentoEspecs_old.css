@@ -15,6 +15,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 100px;
     position: relative;
+    flex: 1;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
     flex-direction: column; /* Distribuir en columnas */
@@ -239,7 +240,7 @@ th, td {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-top: 1px;
+    margin-top: auto;
     width: 100%;
     box-sizing: border-box;
 }
