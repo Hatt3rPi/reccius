@@ -15,11 +15,18 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 100px;
     position: relative;
-    flex: 1;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
-    flex-direction: column; /* Distribuir en columnas */
-    justify-content: space-between; /* Para que el footer quede abajo */
+    flex-direction: column; /* Asegura que el contenido y el footer se distribuyan en columnas */
+    justify-content: space-between; /* Hace que el footer se mantenga abajo */
+    min-height: 100vh; /* Hace que el contenedor ocupe el 100% del alto de la pantalla */
+}
+
+#contenido_main {
+    flex-grow: 1; /* Empuja el footer hacia abajo */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #header-container {
@@ -237,12 +244,13 @@ th, td {
 }
 /* Estilos generales del footer */
 .footer-containerDIV {
+    width: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-top: 630px;
-    width: 100%;
+    margin-top: auto; /* Empuja el footer hacia abajo */
     box-sizing: border-box;
+    flex-shrink: 0; /* Evita que el footer se reduzca si hay poco contenido */
 }
 
 /* Sección de cada firmante */
