@@ -1,7 +1,7 @@
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que la página ocupa toda la altura disponible */
+    min-height: 100vh; /* Asegura que la página ocupe toda la pantalla */
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -9,20 +9,20 @@ body {
 
 #form-container {
     width: 1000px;
-    flex: 1; /* Permite que el contenido principal crezca y empuje el footer hacia abajo */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Se alinea el contenido arriba */
-    align-items: center; /* Centra el contenido */
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura disponible */
     padding: 12px;
     box-sizing: border-box;
     background-color: #FFF;
     border: 1px solid #000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: auto; /* Centrar en la pantalla */
+    margin-left: 100px;
+    position: relative;
+    flex: 1; /* Permite que el contenido crezca y empuje el footer hacia abajo */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Para que el footer quede abajo */
 }
-
 
 .footer-containerDIV {
     display: flex;
@@ -30,9 +30,9 @@ body {
     justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
-    background-color: #f8f8f8;
+    background-color: #f8f8f8; /* Ajusta según el diseño */
     padding: 10px;
-    margin-top: auto; /* Empuja el footer hacia abajo */
+    margin-top: auto; /* Empuja el footer hacia abajo si hay poco contenido */
 }
 
 
@@ -349,11 +349,10 @@ p {
     font-size: 8px;
 }
 #contenido {
-    flex: 1; /* Hace que el contenido ocupe el espacio restante */
-    width: 100%;
+    flex-grow: 1; /* Empuja el footer hacia abajo si hay poco contenido */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 /* Responsividad */
