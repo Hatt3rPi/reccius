@@ -36,7 +36,7 @@
 </body>
 
 <script>
-    var roles, pages, users, orifinalRelationships;
+    var roles, pages, users, modules, orifinalRelationships;
 
     var addClasses = (element, classes) => {
         classes.forEach(className => element.classList.add(className));
@@ -248,9 +248,10 @@
             ]);
 
             users = users.data || users;
+            modules = pages.modules || [];
 
             setUsers(users);
-            setPages(pages);
+            setPages(pages.pages);
             roles.unshift({
                 id: "-1",
                 nombre: "Sin Rol"

@@ -66,8 +66,6 @@ INSERT INTO paginas (id_tipo_pagina, nombre, url) VALUES
 (5, 'Pantalla 8 (Cobranza)', '/pantalla8'),
 (5, 'Pantalla 9 (Vista General)', '/pantalla9');
 
-
-
 -- ======================================
 -- Creación de la tabla para Relación Usuario-Página
 -- ======================================
@@ -91,5 +89,34 @@ CREATE TABLE `usuarios_paginas` (
 --  (2, 3), -- el usuario con id=2 tiene acceso a Reportes de Ventas
 --  (3, 4); -- el usuario con id=3 tiene acceso al Listado de Clientes
 
+-- ======================================
+-- Creación de la tabla para Roles de Página
+-- ======================================
+CREATE TABLE `roles_pagina` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(50) NOT NULL,
+  `descripcion` VARCHAR(255),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-```
+-- Insertar roles básicos
+INSERT INTO roles_pagina (id, nombre, descripcion) VALUES 
+( 1,'Admin', 'Control total sobre la página'),
+( 2,'Lectura', 'Solo puede ver la página'),
+( 3,'Escritura', 'Puede ver y modificar contenido');
+
+-- ======================================
+-- Creación de la tabla de Relación Usuario-Página-Rol
+-- ======================================
+CREATE TABLE `usuarios_paginas_roles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `usuario_pagina_id` INT NOT NULL,
+  `rol_pagina_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_upr_usuario_pagina_idx` (`usuario_pagina_id`),
+  KEY `fk_upr_rol_idx` (`rol_pagina_id`),
+  CONSTRAINT `fk_upr_usuario_pagina` FOREIGN KEY (`usuario_pagina_id`) REFERENCES `usuarios_paginas` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_upr_rol` FOREIGN KEY (`rol_pagina_id`) REFERENCES `roles_pagina` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
