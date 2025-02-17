@@ -27,6 +27,17 @@
                 <option value="" selected>Selecciona una pagina</option>
             </select>
         </div>
+        <div class="container">
+            <select id="moduleSelect" class="form-control" name="module" style="width: 100%;">
+                <option value="" selected>Selecciona una modulo</option>
+            </select>
+        </div>
+        <div class="container">
+            <input id="search" class="form-control" form="users"  name="search" type="search" style="width: 100%;"/>
+            <datalist id="users">
+
+            </datalist>
+        </div>
         <form id="selectUsers" class="container">
         </form>
         <div class="container">
@@ -36,7 +47,7 @@
 </body>
 
 <script>
-    var roles, pages, users, modules, orifinalRelationships;
+    var roles, pages, users, modules;
 
     var addClasses = (element, classes) => {
         classes.forEach(className => element.classList.add(className));
@@ -228,6 +239,42 @@
         });
         onPageChange()
     }
+    function modulesHandler() {
+        var selectElement = document.getElementById('moduleSelect');
+        if (!selectElement) {
+            console.error('No se encontró el elemento select');
+            return;
+        }
+
+        selectElement.addEventListener('change', function(e) {
+            if (this.value) {
+             console.log('Modulo seleccionado:', this.value);
+
+            }
+        });
+    }	
+    function setModules(modules) {
+        if (!Array.isArray(modules) || modules.length === 0) {
+            console.error('No se proporcionaron modulos válidos');
+            return;
+        }
+
+        var selectElement = document.getElementById('moduleSelect');
+        if (!selectElement) {
+            console.error('No se encontró el elemento select');
+            return;
+        }
+
+        selectElement.innerHTML = '<option value="" selected>Selecciona una modulo</option>';
+
+        modules.forEach(module => {
+            var option = document.createElement('option');
+            option.value = module.id;
+            option.textContent = module.nombre;
+            selectElement.appendChild(option);
+        });
+        modulesHandler()
+    }
 
     async function cargaInicial() {
         try {
@@ -297,6 +344,25 @@
             .catch(error => {
                 console.error('Error al guardar relaciones:', error);
             });
+    });
+    document.getElementById('search').addEventListener('input', function(e) {
+        var search = this.value;
+
+        fetch('./backend/usuario/getUser.php?nombre=' + search)
+            .then(response => response.json())
+            .then(data => {
+                var users = data;
+                var datalist = document.getElementById('users');
+                datalist.innerHTML = '';
+
+                users.forEach(user => {
+                    var option = document.createElement('option');
+                    option.value = JSON.stringify(user);
+                    option.innerHTML = `${user.nombre}`;
+                    datalist.appendChild(option);
+                });
+            });
+        
     });
 
     cargaInicial()
