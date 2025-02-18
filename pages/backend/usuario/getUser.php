@@ -13,7 +13,7 @@ if (!isset($_GET['nombre'])) {
     exit;
 }
 
-$query = "SELECT * FROM usuario WHERE nombre LIKE '%" . mysqli_real_escape_string($link, $_GET['nombre']) . "%'";
+$query = "SELECT * FROM usuarios WHERE nombre LIKE '%" . mysqli_real_escape_string($link, $_GET['nombre']) . "%'";
 $result = mysqli_query($link, $query);
 
 if ($result === false) {
