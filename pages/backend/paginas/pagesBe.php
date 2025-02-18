@@ -78,6 +78,32 @@ function cambioPorPaginaTipo($usuarios, $pagina_tipo_id, $model)
     exit;
 }
 
+function cambioPorModulo($usuarios, $modulo_id, $model)
+{
+    $success = true;
+    $messages = [];
+
+    foreach ($usuarios as $usuario) {
+        if ($usuario['checked']) {
+            if (!$model->createUserModule($usuario['id_usuario'], $modulo_id)) {
+                $success = false;
+                $messages[] = "Error al crear relación para usuario {$usuario['id_usuario']}";
+            }
+        } else {
+            if (!$model->deleteUserModule($usuario['id_usuario'], $modulo_id)) {
+                $success = false;
+                $messages[] = "Error al eliminar relación para usuario {$usuario['id_usuario']}";
+            }
+        }
+    }
+
+    echo json_encode([
+        'success' => $success,
+        'messages' => $messages
+    ]);
+    exit;
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Decode JSON input
@@ -85,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuarios = $data['usuarios'] ?? null;
     $pagina_id = $data['pagina_id'] ?? null;
     $pagina_tipo_id = $data['pagina_tipo_id'] ?? null;
+    $modulo_id = $data['modulo_id'] ?? null;
 
     if ($usuarios === null) {
         echo json_encode(['error' => 'Faltan datos de usuarios']);
@@ -95,8 +122,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         cambioPorPagina($usuarios, $pagina_id, $model);
     } else if ($pagina_tipo_id !== null) {
         cambioPorPaginaTipo($usuarios, $pagina_tipo_id, $model);
+    } else if ($modulo_id !== null) {
+        cambioPorModulo($usuarios, $modulo_id, $model);
     } else {
-        echo json_encode(['error' => 'Falta especificar pagina_id o pagina_tipo_id']);
+        echo json_encode(['error' => 'Falta especificar pagina_id, pagina_tipo_id o modulo_id']);
         exit;
     }
 }
@@ -105,6 +134,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $id_pagina = $_GET['id_pagina'] ?? null; //id de la pagina
     if ($id_pagina !== null) {
         $relationships = $model->getUserPageRelationships($id_pagina);
+        echo json_encode($relationships);
+        exit;
+    }
+
+    $modulo_id = $_GET['modulo_id'] ?? null;
+    if ($modulo_id !== null) {
+        $relationships = $model->getUserModuleRelationships($modulo_id);
         echo json_encode($relationships);
         exit;
     }

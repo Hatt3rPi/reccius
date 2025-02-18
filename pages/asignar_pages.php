@@ -323,32 +323,35 @@
     
     document.getElementById('selectUsers').addEventListener('submit', function(e) {
         e.preventDefault();
-        var pageIdSelected = document.getElementById('rolSelect').value
+        var moduleIdSelected = document.getElementById('moduleSelect').value;
         const selectedData = [...document.querySelectorAll('.usuario_check')].map(chk => ({
             id_usuario: chk.value,
             checked: chk.checked
         }));
+        
         fetch('./backend/paginas/pagesBe.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    usuarios: selectedData,
-                    pagina_id: pageIdSelected
-                })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                usuarios: selectedData,
+                modulo_id: moduleIdSelected
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Respuesta del servidor:', data);
-            })
-            .catch(error => {
-                console.error('Error al guardar relaciones:', error);
-            });
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Respuesta del servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al guardar relaciones:', error);
+        });
     });
+
     document.getElementById('search').addEventListener('input', function(e) {
         var search = this.value;
-
+        if (search.length < 3) return;
+        
         fetch('./backend/usuario/getUser.php?nombre=' + search)
             .then(response => response.json())
             .then(data => {
@@ -358,12 +361,12 @@
 
                 users.forEach(user => {
                     var option = document.createElement('option');
-                    option.value = JSON.stringify(user);
-                    option.innerHTML = `${user.nombre}`;
+                    option.value = `${user.nombre} (${user.cargo})`;
+                    option.setAttribute('data-id', user.id);
+                    option.setAttribute('data-rol', user.rol_id);
                     datalist.appendChild(option);
                 });
             });
-        
     });
 
     cargaInicial()
