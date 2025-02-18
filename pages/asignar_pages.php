@@ -299,6 +299,7 @@
 
             setUsers(users);
             setPages(pages.pages);
+            setModules(modules);
             roles.unshift({
                 id: "-1",
                 nombre: "Sin Rol"
