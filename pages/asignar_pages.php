@@ -1,3 +1,12 @@
+<?php
+// archivo: pages/asignar_pages.php
+session_start();
+require_once "/home/customw2/conexiones/config_reccius.php";
+if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
+    header("Location: login.html");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -14,29 +23,17 @@
         .details-container summary::-webkit-details-marker {
             display: none;
         }
-
     </style>
 </head>
 
 <body>
     <div class="form-container m-0">
-        <h1>Administración / Gestión de Paginas </h1>
+        <h1>Administración / Gestión de Módulos</h1>
         <br><br>
         <div class="container">
-            <select id="rolSelect" class="form-control" name="rol" style="width: 100%;">
-                <option value="" selected>Selecciona una pagina</option>
+            <select id="moduleSelect" class="form-control" name="modulo" style="width: 100%;">
+                <option value="" selected>Selecciona un módulo</option>
             </select>
-        </div>
-        <div class="container">
-            <select id="moduleSelect" class="form-control" name="module" style="width: 100%;">
-                <option value="" selected>Selecciona una modulo</option>
-            </select>
-        </div>
-        <div class="container">
-            <input id="search" class="form-control" form="users"  name="search" type="search" style="width: 100%;"/>
-            <datalist id="users">
-
-            </datalist>
         </div>
         <form id="selectUsers" class="container">
         </form>
@@ -47,14 +44,14 @@
 </body>
 
 <script>
-    var roles, pages, users, modules;
+    var roles, modules, users, originalRelationships;
 
     var addClasses = (element, classes) => {
         classes.forEach(className => element.classList.add(className));
     };
 
     function cleanAllChecks() {
-        var checks = document.querySelectorAll('.usuario_check')
+        var checks = document.querySelectorAll('.usuario_check');
         checks.forEach(input => {
             input.checked = false;
         });
@@ -69,21 +66,20 @@
         }
     }
 
-    function onPageChange() {
-        document.getElementById('rolSelect').addEventListener('change', function(e) {
+    function onModuleChange() {
+        document.getElementById('moduleSelect').addEventListener('change', function(e) {
             if (this.value) {
                 cleanAllChecks();
                 const roles = new Set([...document.querySelectorAll('.usuario_check')].map(chk => chk.dataset.role));
                 roles.forEach(updateRoleCounter);
 
-                fetch('./backend/paginas/pagesBe.php?id_pagina=' + this.value)
+                fetch('./backend/paginas/pagesBe.php?modulo_id=' + this.value)
                     .then(response => response.json())
                     .then(data => {
                         originalRelationships = data;
-                        
                         if (data && Array.isArray(data)) {
-                            data.forEach(userCheck => {
-                                const checkbox = document.getElementById(`user_${userCheck.usuario_id}`);
+                            data.forEach(userRel => {
+                                const checkbox = document.getElementById(`user_${userRel.usuario_id}`);
                                 if (checkbox) {
                                     checkbox.checked = true;
                                     updateRoleCounter(checkbox.dataset.role);
@@ -200,62 +196,9 @@
         });
     }
 
-    function setPages(pages) {
-        if (!Array.isArray(pages) || pages.length === 0) {
-            console.error('No se proporcionaron páginas válidas');
-            return;
-        }
-
-        var selectElement = document.getElementById('rolSelect');
-        if (!selectElement) {
-            console.error('No se encontró el elemento select');
-            return;
-        }
-
-        selectElement.innerHTML = '<option value="" selected>Selecciona una pagina</option>';
-
-        var pagesByType = pages.reduce((groups, page) => {
-            var type = page.tipo;
-            if (!groups[type]) {
-                groups[type] = [];
-            }
-            groups[type].push(page);
-            return groups;
-        }, {});
-
-        // Crear optgroups para cada tipo de página
-        Object.entries(pagesByType).sort().forEach(([type, typePages]) => {
-            var optgroup = document.createElement('optgroup');
-            optgroup.label = `Tipo ${type}`; 
-
-            typePages.forEach(page => {
-                var option = document.createElement('option');
-                option.value = page.id;
-                option.textContent = page.nombre;
-                optgroup.appendChild(option);
-            });
-
-            selectElement.appendChild(optgroup);
-        });
-        onPageChange()
-    }
-    function modulesHandler() {
-        var selectElement = document.getElementById('moduleSelect');
-        if (!selectElement) {
-            console.error('No se encontró el elemento select');
-            return;
-        }
-
-        selectElement.addEventListener('change', function(e) {
-            if (this.value) {
-             console.log('Modulo seleccionado:', this.value);
-
-            }
-        });
-    }	
     function setModules(modules) {
         if (!Array.isArray(modules) || modules.length === 0) {
-            console.error('No se proporcionaron modulos válidos');
+            console.error('No se proporcionaron módulos válidos');
             return;
         }
 
@@ -265,7 +208,7 @@
             return;
         }
 
-        selectElement.innerHTML = '<option value="" selected>Selecciona una modulo</option>';
+        selectElement.innerHTML = '<option value="" selected>Selecciona un módulo</option>';
 
         modules.forEach(module => {
             var option = document.createElement('option');
@@ -273,32 +216,33 @@
             option.textContent = module.nombre;
             selectElement.appendChild(option);
         });
-        modulesHandler()
+        onModuleChange();
     }
 
     async function cargaInicial() {
         try {
-            var [usuariosResponse, rolesResponse, pagesResponse] = await Promise.all([
+            var [usuariosResponse, rolesResponse, modulesResponse] = await Promise.all([
                 fetch('./backend/administracion_usuarios/obtener_usuariosBE.php'),
                 fetch('./backend/administracion_usuarios/obtener_rolesBE.php'),
                 fetch('./backend/paginas/pagesBe.php')
             ]);
 
-            if (!usuariosResponse.ok || !rolesResponse.ok || !pagesResponse.ok) {
+            if (!usuariosResponse.ok || !rolesResponse.ok || !modulesResponse.ok) {
                 throw new Error('Error en una o más respuestas del servidor');
             }
 
-            [users, roles, pages] = await Promise.all([
+            [users, roles, data] = await Promise.all([
                 usuariosResponse.json(),
                 rolesResponse.json(),
-                pagesResponse.json()
+                modulesResponse.json()
             ]);
 
+            // Suponiendo que el endpoint ahora retorna { modules: [...], pageRoles: [...] }
+            var modules = data.modules || [];
+
             users = users.data || users;
-            modules = pages.modules || [];
 
             setUsers(users);
-            setPages(pages.pages);
             setModules(modules);
             roles.unshift({
                 id: "-1",
@@ -308,19 +252,20 @@
             console.log('Datos cargados:', {
                 users,
                 roles,
-                pages
+                modules
             });
 
         } catch (error) {
             console.error('Error al cargar datos:', error);
         }
     }
+
     document.getElementById('selectUsers').addEventListener('change', function(e) {
         if (e.target.classList.contains('usuario_check')) {
             updateRoleCounter(e.target.dataset.role);
         }
     });
-    
+
     document.getElementById('selectUsers').addEventListener('submit', function(e) {
         e.preventDefault();
         var moduleIdSelected = document.getElementById('moduleSelect').value;
@@ -328,48 +273,26 @@
             id_usuario: chk.value,
             checked: chk.checked
         }));
-        
         fetch('./backend/paginas/pagesBe.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                usuarios: selectedData,
-                modulo_id: moduleIdSelected
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    usuarios: selectedData,
+                    modulo_id: moduleIdSelected
+                })
             })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Respuesta del servidor:', data);
-        })
-        .catch(error => {
-            console.error('Error al guardar relaciones:', error);
-        });
-    });
-
-    document.getElementById('search').addEventListener('input', function(e) {
-        var search = this.value;
-        if (search.length < 3) return;
-        
-        fetch('./backend/usuario/getUser.php?nombre=' + search)
             .then(response => response.json())
             .then(data => {
-                var users = data;
-                var datalist = document.getElementById('users');
-                datalist.innerHTML = '';
-
-                users.forEach(user => {
-                    var option = document.createElement('option');
-                    option.value = `${user.nombre} (${user.cargo})`;
-                    option.setAttribute('data-id', user.id);
-                    option.setAttribute('data-rol', user.rol_id);
-                    datalist.appendChild(option);
-                });
+                console.log('Respuesta del servidor:', data);
+            })
+            .catch(error => {
+                console.error('Error al guardar relaciones:', error);
             });
     });
 
-    cargaInicial()
+    cargaInicial();
 </script>
 
 </html>
