@@ -13,6 +13,9 @@ class PaginaModel
 
     public function __construct($link)
     {
+        if (!$link || !($link instanceof mysqli)) {
+            throw new Exception("Se requiere una conexión mysqli válida");
+        }
         $this->link = $link;
     }
 

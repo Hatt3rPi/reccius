@@ -2,13 +2,24 @@
 // archivo: pages/backend/paginas/pagesBe.php
 require_once "/home/customw2/conexiones/config_reccius.php";
 session_start();
+
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
+
 require_once "pagina_model.php";
 
-$model = new PaginaModel($pdo);
+// Asegurarse de que $link existe y es válido
+if (!isset($link) || !($link instanceof mysqli)) {
+    die(json_encode(['error' => 'Error de conexión a la base de datos']));
+}
+
+try {
+    $model = new PaginaModel($link);
+} catch (Exception $e) {
+    die(json_encode(['error' => $e->getMessage()]));
+}
 
 header('Content-Type: application/json; charset=utf-8');
 
