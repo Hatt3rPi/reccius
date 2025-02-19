@@ -153,3 +153,4 @@ CREATE TABLE `usuarios_modulos_roles` (
   CONSTRAINT `fk_umr_rol` FOREIGN KEY (`rol_pagina_id`) REFERENCES `roles_pagina` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
