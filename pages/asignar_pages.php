@@ -30,17 +30,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <div class="form-container m-0">
         <h1>Administración / Gestión de Módulos</h1>
         <br><br>
-        <div class="container">
+        <div class="container mb-3">
             <select id="moduleSelect" class="form-control" name="modulo" style="width: 100%;">
                 <option value="" selected>Selecciona un módulo</option>
             </select>
         </div>
-        <div class="container">
+        <div class="container mb-3">
             <div class="form-group" style="display: flex;gap: 4px;">
                 <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario">
                 <button class="btn btn-primary col-2" onclick="searchUsers()">Buscar</button>
             </div>
-            <div class="w-100 d-flex justify-content-center" id="tableAddUser" style="display: node;">
+        </div>
+        <div class="container mb-3">
+            <div class="w-100 d-flex justify-content-center" id="tableAddUser" style="display: none;">
                 <table>
                     <thead>
                         <tr>
@@ -55,6 +57,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
             </div>
         </div>
+
         <section class="container" id="details-container">
 
 
@@ -154,98 +157,52 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <td>${el.correo}</td>
                     <td>${el.cargo}</td>
                     <td>
-                        <input type="checkbox" class="usuario_check" value="${el.id}">
+                        <button onclick="addUser(${el})"> >
+                            +
                     </td>
                 </tr>
             `;
         });
     }
 
-    function setRelationships(relationships) {
-        var detailsContainer = document.getElementById('details-container');
-        detailsContainer.innerHTML = '';
-        relationships.forEach((relationship) => {
-            detailsContainer.innerHTML += `
-                <details class="details-container">
-                    <summary>${relationship.nombre}</summary>
-                    <main>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Cargo</th>
-                                    <th>Seleccionar</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableAddUserBody">
-                            </tbody>
-                        </table>
-                    </main>
-                </details>
-            `;
-        });
+
+
+    async function cargaInicial() {
+        try {
+            var [modulesResponse] = await Promise.all([
+                fetch('./backend/paginas/pagesBe.php')
+            ]);
+
+            if (!modulesResponse.ok) {
+                throw new Error('Error en una o más respuestas del servidor');
+            }
+
+            [dataModules] = await Promise.all([
+                modulesResponse.json()
+            ]);
+
+            modules = dataModules.modules || [];
+            pageRoles = dataModules.pageRoles || [];
+            setModules(modules);
+            setPageRoles(pageRoles);
+            console.log('Datos cargados:', {
+                modules
+            });
+
+        } catch (error) {
+            console.error('Error al cargar datos:', error);
+        }
     }
 
-    function setUsers(users) {
-        var tableAddUserBody = document.getElementById('tableAddUserBody');
-        tableAddUserBody.innerHTML = '';
-        users.forEach((el) => {
-                    tableAddUserBody.innerHTML += `
-                <tr>
-                    <td>${el.nombre}</td>
-                    <td>${el.correo}</td>
-                    <td>${el.cargo}</td>
-                    <td>
-                        <input type="checkbox" class="usuario_check" value="${el.id}">
-                    </td>
-                </
-` < details class = "details-container" >
-                        <
-                        summary > Usuarios < /summary> <
-                    main >
+    document.getElementById('moduleSelect').addEventListener('change', async function() {
+        var module_id = this.value;
+        if (!module_id) {
+            return;
+        }
+        console.log('Módulo seleccionado:', module_id);
+    });
 
-                        <
-                        /main> < /
-                    details > `
-                }
-
-                async function cargaInicial() {
-                    try {
-                        var [modulesResponse] = await Promise.all([
-                            fetch('./backend/paginas/pagesBe.php')
-                        ]);
-
-                        if (!modulesResponse.ok) {
-                            throw new Error('Error en una o más respuestas del servidor');
-                        }
-
-                        [dataModules] = await Promise.all([
-                            modulesResponse.json()
-                        ]);
-
-                        modules = dataModules.modules || [];
-                        pageRoles = dataModules.pageRoles || [];
-                        setModules(modules);
-
-                        console.log('Datos cargados:', {
-                            modules
-                        });
-
-                    } catch (error) {
-                        console.error('Error al cargar datos:', error);
-                    }
-                }
-
-                document.getElementById('moduleSelect').addEventListener('change', async function() {
-                    var module_id = this.value;
-                    if (!module_id) {
-                        return;
-                    }
-                    console.log('Módulo seleccionado:', module_id);
-                });
-
-                cargaInicial();
+    cargaInicial();
 </script>
 
 </html>
