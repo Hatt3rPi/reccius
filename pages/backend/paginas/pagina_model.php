@@ -69,6 +69,7 @@ class PaginaModel
     {
         return $this->fetchAll("SELECT * FROM paginas WHERE id = ?", [$id])[0] ?? null;
     }
+    
 
     public function createPage($id_tipo_pagina, $nombre, $url_page)
     {

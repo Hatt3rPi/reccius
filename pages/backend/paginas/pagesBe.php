@@ -127,9 +127,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 
     echo json_encode([
-        'pages' => $model->obtenerPaginas(),
-        'modules' => $model->obtenerModulos(),
-        'pageRoles' => $model->obtenerRolesPaginas()
+        'modules' => $model->getModules(),
+        'pageRoles' => $model->getRolPages(),
     ]);
     exit;
 }
