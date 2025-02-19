@@ -40,7 +40,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario">
                 <button class="btn btn-primary col-2" onclick="searchUsers()">Buscar</button>
             </div>
-            <div class="form-group"> id="tableAddUser" style="display: node;">
+            <div class="form-group" id="tableAddUser" style="display: node;">
                 <table>
                     <thead>
                         <tr>
