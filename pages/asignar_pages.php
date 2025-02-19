@@ -36,11 +36,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </select>
         </div>
         <div class="container">
-            <div class="form-group">
+            <div class="form-group" style="display: flex;gap: 4px;">
                 <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario">
                 <button class="btn btn-primary col-2" onclick="searchUsers()">Buscar</button>
             </div>
-            <div class="form-group" id="tableAddUser" style="display: node;">
+            <div class="w-100 d-flex justify-content-center" id="tableAddUser" style="display: node;">
                 <table>
                     <thead>
                         <tr>
@@ -203,11 +203,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 ` < details class = "details-container" >
                         <
                         summary > Usuarios < /summary> <
-                        main >
+                    main >
 
                         <
-                        /main> <
-                        /details>`
+                        /main> < /
+                    details > `
                 }
 
                 async function cargaInicial() {
