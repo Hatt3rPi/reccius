@@ -1,15 +1,15 @@
 <?php
 // archivo: pages/backend/paginas/pagesBe.php
 require_once "/home/customw2/conexiones/config_reccius.php";
+require_once "pagina_model.php";
+
 session_start();
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
-require_once "pagina_model.php";
 
-$model = new PaginaModel($link);
-
+$model = new PaginaModel($pdo);
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -20,24 +20,19 @@ function cambioPorPagina($usuarios, $pagina_id, $model)
 
     foreach ($usuarios as $usuario) {
         if ($usuario['checked']) {
-            // Crear relación si está marcado
-            if (!$model->createUserPage($usuario['id_usuario'], $pagina_id)) {
+            if (!$model->asignarUsuarioAPagina($usuario['id_usuario'], $pagina_id)) {
                 $success = false;
-                $messages[] = "Error al crear relación para usuario {$usuario['id_usuario']}";
+                $messages[] = "Error al asignar usuario {$usuario['id_usuario']} a la página";
             }
         } else {
-            // Eliminar relación si no está marcado
-            if (!$model->deleteUserPage($usuario['id_usuario'], $pagina_id)) {
+            if (!$model->eliminarUsuarioDePagina($usuario['id_usuario'], $pagina_id)) {
                 $success = false;
-                $messages[] = "Error al eliminar relación para usuario {$usuario['id_usuario']}";
+                $messages[] = "Error al eliminar usuario {$usuario['id_usuario']} de la página";
             }
         }
     }
 
-    echo json_encode([
-        'success' => $success,
-        'messages' => $messages
-    ]);
+    echo json_encode([ 'success' => $success, 'messages' => $messages ]);
     exit;
 }
 
@@ -49,11 +44,10 @@ function cambioPorPaginaTipo($usuarios, $pagina_tipo_id, $model)
 
     foreach ($usuarios as $usuario) {
         if ($usuario['checked']) {
-            // Crear relaciones para todas las páginas del tipo si está marcado
-            $result = $model->createUserTipoPage($usuario['id_usuario'], $pagina_tipo_id);
+            $result = $model->asignarUsuarioATipoPagina($usuario['id_usuario'], $pagina_tipo_id);
             if (!$result['success']) {
                 $success = false;
-                $messages[] = "Error al procesar usuario {$usuario['id_usuario']}: " . implode(', ', $result['errores']);
+                $messages[] = "Error en usuario {$usuario['id_usuario']}: " . implode(', ', $result['errores']);
             } else {
                 $resultados[] = [
                     'usuario_id' => $usuario['id_usuario'],
@@ -61,20 +55,15 @@ function cambioPorPaginaTipo($usuarios, $pagina_tipo_id, $model)
                 ];
             }
         } else {
-            // Obtener todas las páginas del tipo y eliminar accesos
-            $result = $model->deleteUserTipoPage($usuario['id_usuario'], $pagina_tipo_id);
+            $result = $model->eliminarUsuarioDeTipoPagina($usuario['id_usuario'], $pagina_tipo_id);
             if (!$result['success']) {
                 $success = false;
-                $messages[] = "Error al eliminar accesos del usuario {$usuario['id_usuario']}: " . implode(', ', $result['errores']);
+                $messages[] = "Error al eliminar accesos de usuario {$usuario['id_usuario']}: " . implode(', ', $result['errores']);
             }
         }
     }
 
-    echo json_encode([
-        'success' => $success,
-        'messages' => $messages,
-        'resultados' => $resultados
-    ]);
+    echo json_encode([ 'success' => $success, 'messages' => $messages, 'resultados' => $resultados ]);
     exit;
 }
 
@@ -85,28 +74,23 @@ function cambioPorModulo($usuarios, $modulo_id, $model)
 
     foreach ($usuarios as $usuario) {
         if ($usuario['checked']) {
-            if (!$model->createUserModule($usuario['id_usuario'], $modulo_id)) {
+            if (!$model->asignarUsuarioAModulo($usuario['id_usuario'], $modulo_id)) {
                 $success = false;
-                $messages[] = "Error al crear relación para usuario {$usuario['id_usuario']}";
+                $messages[] = "Error al asignar usuario {$usuario['id_usuario']} al módulo";
             }
         } else {
-            if (!$model->deleteUserModule($usuario['id_usuario'], $modulo_id)) {
+            if (!$model->eliminarUsuarioDeModulo($usuario['id_usuario'], $modulo_id)) {
                 $success = false;
-                $messages[] = "Error al eliminar relación para usuario {$usuario['id_usuario']}";
+                $messages[] = "Error al eliminar usuario {$usuario['id_usuario']} del módulo";
             }
         }
     }
 
-    echo json_encode([
-        'success' => $success,
-        'messages' => $messages
-    ]);
+    echo json_encode([ 'success' => $success, 'messages' => $messages ]);
     exit;
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Decode JSON input
     $data = json_decode(file_get_contents('php://input'), true);
     $usuarios = $data['usuarios'] ?? null;
     $pagina_id = $data['pagina_id'] ?? null;
@@ -131,29 +115,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $id_pagina = $_GET['id_pagina'] ?? null; //id de la pagina
+    $id_pagina = $_GET['id_pagina'] ?? null;
     if ($id_pagina !== null) {
-        $relationships = $model->getUserPageRelationships($id_pagina);
-        echo json_encode($relationships);
+        echo json_encode($model->obtenerRelacionesUsuariosPagina($id_pagina));
         exit;
     }
 
     $modulo_id = $_GET['modulo_id'] ?? null;
     if ($modulo_id !== null) {
-        $relationships = $model->getUserModuleRelationships($modulo_id);
-        echo json_encode($relationships);
+        echo json_encode($model->obtenerRelacionesUsuariosModulo($modulo_id));
         exit;
     }
 
-    $pages = $model->getPages();
-    $modules = $model->getModules();
-    $pageRoles = $model->getRolPages();
-    echo json_encode(
-        [
-            'pages' => $pages,
-            'modules' => $modules,
-            'pageRoles' => $pageRoles
-        ]
-    );
+    echo json_encode([
+        'pages' => $model->obtenerPaginas(),
+        'modules' => $model->obtenerModulos(),
+        'pageRoles' => $model->obtenerRolesPaginas()
+    ]);
     exit;
 }

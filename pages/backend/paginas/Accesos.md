@@ -120,3 +120,36 @@ CREATE TABLE `usuarios_paginas_roles` (
   CONSTRAINT `fk_upr_rol` FOREIGN KEY (`rol_pagina_id`) REFERENCES `roles_pagina` (`id`)
     ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- ======================================
+-- Creación de la tabla para Relación Usuario-Módulo (Tipos de Página)
+-- ======================================
+CREATE TABLE `usuarios_modulos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `usuario_id` INT NOT NULL,
+  `tipo_pagina_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_usuarios_modulos_usuario_idx` (`usuario_id`),
+  KEY `fk_usuarios_modulos_tipo_pagina_idx` (`tipo_pagina_id`),
+  CONSTRAINT `fk_usuarios_modulos_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_usuarios_modulos_tipo_pagina` FOREIGN KEY (`tipo_pagina_id`) REFERENCES `tipos_paginas` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ======================================
+-- Creación de la tabla para Relación Usuario-Módulo-Rol
+-- ======================================
+CREATE TABLE `usuarios_modulos_roles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `usuario_modulo_id` INT NOT NULL,
+  `rol_pagina_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_umr_usuario_modulo_idx` (`usuario_modulo_id`),
+  KEY `fk_umr_rol_idx` (`rol_pagina_id`),
+  CONSTRAINT `fk_umr_usuario_modulo` FOREIGN KEY (`usuario_modulo_id`) REFERENCES `usuarios_modulos` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_umr_rol` FOREIGN KEY (`rol_pagina_id`) REFERENCES `roles_pagina` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
