@@ -35,6 +35,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <option value="" selected>Selecciona un módulo</option>
             </select>
         </div>
+        <div class="container">
+            <div class="row">
+                <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario">
+                <button class="btn btn-primary col-2" onclick="searchUsers()">Buscar</button>
+            </div>
+            <div class="row" id="tableAddUser" style="display: node;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Cargo</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableAddUserBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <form id="selectUsers" class="container">
         </form>
         <div class="container">
@@ -57,15 +77,46 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     };
 
-    function updateRoleCounter(role) {
-        const counter = document.getElementById(`counter_${role}`);
-        if (counter) {
-            const total = document.querySelectorAll(`input[data-role="${role}"]`).length;
-            const checkedCount = document.querySelectorAll(`input[data-role="${role}"]:checked`).length;
-            counter.textContent = ` (${checkedCount}/${total})`;
-        }
+    function setModules(modules) {
+        var moduleSelect = document.getElementById('moduleSelect');
+        moduleSelect.innerHTML = '<option value="" selected disabled>Selecciona un módulo</option>';
+        modules.forEach(module => {
+            var option = document.createElement('option');
+            option.value = module.id;
+            option.textContent = module.nombre;
+            moduleSelect.appendChild(option);
+        });
     }
 
+    function searchUsers() {
+        var searchUser = document.getElementById('searchUser').value;
+        var tableAddUser = document.getElementById('tableAddUser');
+        var tableAddUserBody = document.getElementById('tableAddUserBody');
+
+        tableAddUser.style.display = 'none';
+        if (!searchUser) {
+            return;
+        }
+        fetch(`./backend/usuario/getUser.php?nombre=${searchUser}`)
+            .then(response => response.json())
+            .then((data) => {
+                tableAddUser.style.display = 'flex';
+                tableAddUserBody.innerHTML = '';
+                data.forEach((el) => {
+                    tableAddUserBody.innerHTML += `
+                        <tr>
+                            <td>${el.nombre}</td>
+                            <td>${el.correo}</td>
+                            <td>${el.cargo}</td>
+                            <td><input type="checkbox" class="usuario_check" value="${el.id}"></td>
+                        </tr>
+                    `;
+                })
+
+            });
+
+
+    }
 
 
     async function cargaInicial() {
@@ -95,6 +146,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
+    document.getElementById('moduleSelect').addEventListener('change', async function() {
+        var module_id = this.value;
+        if (!module_id) {
+            return;
+        }
+        console.log('Módulo seleccionado:', module_id);
+    });
 
     cargaInicial();
 </script>
