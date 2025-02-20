@@ -94,6 +94,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     var pageRoles, modules, users, searchHash, originalRelationships, gModuleId;
     var GEBI = (id) => document.getElementById(id);
+    var QSALL = (id) => document.querySelectorAll(id);
 
     var addClasses = (element, classes) => {
         classes.forEach(className => element.classList.add(className));
@@ -178,6 +179,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
+
+    function renderUserRoleSelector(user) {
+        var pageRolesOpts = pageRoles.map(role => 
+        `<option ${user.rol_id == role.id && 'selected'} value="${role.id}">${role.nombre}</option>`).join('');
+        return `
+            <select 
+                id="change-role-module-${user.usuario_id}"
+                data-user-id="${user.usuario_id}" 
+                class="form-control select-role-module" 
+                name="modulo" 
+                style="width: 100%;"
+            >
+                <option value="" selected disabled>
+                    Selecciona un módulo
+                </option>
+            </select>
+        `;
+    }
     function renderUserInRole(user) {
         return `
             <tr>
@@ -185,10 +204,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <td class="align-middle">${user.usuario_correo}</td>
                 <td class="align-middle">${user.usuario_cargo}</td>
                 <td class="align-middle text-center">
-                    <button onclick="removeUser(${user.usuario_id}, ${user.usuario_modulo_id})" 
-                            class="btn btn-danger btn-sm">
-                        <i class="fas fa-times"></i>
-                    </button>
+                    ${renderUserRoleSelector(user)}
                 </td>
             </tr>
         `;
@@ -223,6 +239,27 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     if (roleBody) {
                         roleBody.innerHTML += renderUserInRole(user);
                     }
+                });
+                QSALL(".select-role-module").forEach(select => {
+                    select.addEventListener('change', function() {
+                        const userId = this.dataset.userId;
+                        console.log({dataset:this.dataset});
+                        
+                        const rolId = this.value;
+                        fetch('./backend/paginas/pagesBe.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                fn: 'changeUserRole',
+                                userId,
+                                moduleId: gModuleId,
+                                rolId
+                            })
+                        }).finally(() =>
+                            getModuleRelationships(gModuleId))
+                    });
                 });
             });
     }

@@ -31,8 +31,6 @@ function addUserToModuleRel(){
     global $model;
     try {
         $jsonData = file_get_contents('php://input');
-        error_log("Datos recibidos: " . $jsonData);
-        
         $data = json_decode($jsonData, true);
         if (!$data) {
             throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
@@ -41,34 +39,59 @@ function addUserToModuleRel(){
         $userId = $data['userId'] ?? null;
         $moduleId = $data['moduleId'] ?? null;
         
-        error_log("Datos procesados - UserId: $userId, ModuleId: $moduleId");
         
         if($userId === null || $moduleId === null){
             throw new Exception('Parámetros requeridos: userId, moduleId');
         }
         
-        $result = $model->addUserToModuleRelationship($userId, $moduleId);
-        error_log("Resultado de addUserToModuleRelationship: " . json_encode($result));
+        $model->addUserToModuleRelationship($userId, $moduleId);
         
         echo json_encode(['success' => true]);
     } catch (Exception $e) {
-        error_log("Error en addUserToModuleRel: " . $e->getMessage());
         echo json_encode(['error' => $e->getMessage()]);
     }
     exit;
 }
+function changeUserRole(){
+    global $model;
+    try {
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+        if (!$data) {
+            throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
+        }
+        
+        $userId = $data['userId'] ?? null;
+        $moduleId = $data['moduleId'] ?? null;
+        $rolId = $data['rolId'] ?? null;
+
+        
+        if($userId === null || $moduleId === null || $rolId === null){
+            throw new Exception('Parámetros requeridos: userId, moduleId, rolId');
+        }
+        
+        $model->changeUserRole($userId, $moduleId, $rolId);
+        
+        echo json_encode(['success' => true]);
+    } catch (Exception $e) {
+        echo json_encode(['error' => $e->getMessage()]);
+    }
+    exit;
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jsonData = file_get_contents('php://input');
     $data = json_decode($jsonData, true);
     $fn = $data['fn'] ?? null;
     
-    error_log("Función recibida: '$fn'");
-    
     if($fn === 'addUserToModuleRelationship'){
-        error_log('Ejecutando addUserToModuleRel');
         addUserToModuleRel();
     }
+    if($fn === 'changeUserRole'){
+        changeUserRole();
+    }
+    
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {

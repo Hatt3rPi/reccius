@@ -82,20 +82,16 @@ class PaginaModel
 
     public function addUserToModuleRelationship($userId, $moduleId, $rolId = 2)
     {
-        error_log("Iniciando addUserToModuleRelationship - userId: $userId, moduleId: $moduleId, rolId: $rolId");
-        
         mysqli_begin_transaction($this->link);
         try {
             // Validar que el usuario y módulo existan
             $checkUser = $this->fetchAll("SELECT id FROM usuarios WHERE id = ?", [$userId]);
-            error_log("Resultado checkUser: " . json_encode($checkUser));
             
             if (empty($checkUser)) {
                 throw new Exception("Usuario no encontrado");
             }
 
             $checkModule = $this->fetchAll("SELECT id FROM tipos_paginas WHERE id = ?", [$moduleId]);
-            error_log("Resultado checkModule: " . json_encode($checkModule));
             
             if (empty($checkModule)) {
                 throw new Exception("Módulo no encontrado");
@@ -106,7 +102,6 @@ class PaginaModel
                 "SELECT id FROM usuarios_modulos WHERE usuario_id = ? AND tipo_pagina_id = ?",
                 [$userId, $moduleId]
             );
-            error_log("Resultado checkRelation: " . json_encode($checkRelation));
             
             if (!empty($checkRelation)) {
                 throw new Exception("La relación ya existe");
@@ -115,14 +110,12 @@ class PaginaModel
             // Insertar en usuarios_modulos
             $query1 = "INSERT INTO usuarios_modulos (usuario_id, tipo_pagina_id) VALUES (?, ?)";
             $result1 = $this->executeQuery($query1, [$userId, $moduleId]);
-            error_log("Resultado insert usuarios_modulos: " . json_encode($result1));
             
             if (!$result1) {
                 throw new Exception("Error al crear la relación usuario-módulo: " . mysqli_error($this->link));
             }
             
             $usuarioModuloId = mysqli_insert_id($this->link);
-            error_log("ID generado: " . $usuarioModuloId);
             
             if (!$usuarioModuloId) {
                 throw new Exception("Error al obtener el ID de la relación");
@@ -131,17 +124,55 @@ class PaginaModel
             // Insertar en usuarios_modulos_roles
             $query2 = "INSERT INTO usuarios_modulos_roles (usuario_modulo_id, rol_pagina_id) VALUES (?, ?)";
             $result2 = $this->executeQuery($query2, [$usuarioModuloId, $rolId]);
-            error_log("Resultado insert usuarios_modulos_roles: " . json_encode($result2));
             
             if (!$result2) {
                 throw new Exception("Error al asignar el rol: " . mysqli_error($this->link));
             }
 
             mysqli_commit($this->link);
-            error_log("Transacción completada exitosamente");
             return true;
         } catch (Exception $e) {
-            error_log("Error en la transacción: " . $e->getMessage());
+            mysqli_rollback($this->link);
+            throw $e;
+        }
+    }
+
+    public function changeUserRole($userId, $moduleId, $rolId)
+    {
+        mysqli_begin_transaction($this->link);
+        try {
+            // Validar que el usuario y módulo existan
+            $checkUser = $this->fetchAll("SELECT id FROM usuarios WHERE id = ?", [$userId]);
+            if (empty($checkUser)) {
+                throw new Exception("Usuario no encontrado");
+            }
+            $checkModule = $this->fetchAll("SELECT id FROM tipos_paginas WHERE id = ?", [$moduleId]);
+            if (empty($checkModule)) {
+                throw new Exception("Módulo no encontrado");
+            }
+
+            // Verificar que exista la relación en usuarios_modulos
+            $relation = $this->fetchAll(
+                "SELECT id FROM usuarios_modulos WHERE usuario_id = ? AND tipo_pagina_id = ?",
+                [$userId, $moduleId]
+            );
+            if (empty($relation)) {
+                throw new Exception("La relación usuario-módulo no existe");
+            }
+            $usuarioModuloId = $relation[0]['id'];
+
+            // Actualizar rol en usuarios_modulos_roles
+            $update = $this->executeQuery(
+                "UPDATE usuarios_modulos_roles SET rol_pagina_id = ? WHERE usuario_modulo_id = ?",
+                [$rolId, $usuarioModuloId]
+            );
+            if (!$update) {
+                throw new Exception("Error al actualizar el rol: " . mysqli_error($this->link));
+            }
+
+            mysqli_commit($this->link);
+            return true;
+        } catch (Exception $e) {
             mysqli_rollback($this->link);
             throw $e;
         }
