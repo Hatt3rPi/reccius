@@ -1,6 +1,13 @@
 <?php
 // archivo: pages/backend/paginas/pagesBe.php
 session_start();
+
+// Habilitar el logging de errores
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+error_reporting(E_ALL);
+ini_set('error_log', '/home/customw2/public_html/reccius/error.log');
+
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
@@ -28,17 +35,25 @@ header('Content-Type: application/json; charset=utf-8');
 
 function addUserToModuleRel(){
     global $model;
-
-    $userId = $_POST['userId'] ?? null;
-    $moduleId = $_POST['moduleId'] ?? null;
-    if($userId === null || $moduleId === null){
-        echo json_encode(['error' => 'Parámetros requeridos: userId, moduleId']);
-        exit;
+    try {
+        $userId = $_POST['userId'] ?? null;
+        $moduleId = $_POST['moduleId'] ?? null;
+        
+        error_log("Intentando añadir usuario. UserId: $userId, ModuleId: $moduleId");
+        
+        if($userId === null || $moduleId === null){
+            throw new Exception('Parámetros requeridos: userId, moduleId');
+        }
+        
+        $result = $model->addUserToModuleRelationship($userId, $moduleId);
+        error_log("Resultado de addUserToModuleRelationship: " . json_encode($result));
+        
+        echo json_encode(['success' => true]);
+    } catch (Exception $e) {
+        error_log("Error en addUserToModuleRel: " . $e->getMessage());
+        echo json_encode(['error' => $e->getMessage()]);
     }
-    $model->addUserToModuleRelationship($userId, $moduleId);
-    echo json_encode(['success' => true]);
     exit;
-
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
