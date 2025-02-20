@@ -125,15 +125,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $id_pagina = $_GET['id_pagina'] ?? null;
-    if ($id_pagina !== null) {
-        echo json_encode($model->obtenerRelacionesUsuariosPagina($id_pagina));
+    $modulo_id = $_GET['modulo_id'] ?? null;
+    if ($modulo_id !== null) {
+        echo json_encode($model->getModuleRelationships($modulo_id));
         exit;
     }
 
-    $modulo_id = $_GET['modulo_id'] ?? null;
-    if ($modulo_id !== null) {
-        echo json_encode($model->obtenerRelacionesUsuariosModulo($modulo_id));
+    $id_pagina = $_GET['id_pagina'] ?? null;
+    if ($id_pagina !== null) {
+        echo json_encode($model->obtenerRelacionesUsuariosPagina($id_pagina));
         exit;
     }
 

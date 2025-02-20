@@ -78,13 +78,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         classes.forEach(className => element.classList.add(className));
     };
 
-    function cleanAllChecks() {
-        var checks = document.querySelectorAll('.usuario_check');
-        checks.forEach(input => {
-            input.checked = false;
-        });
-    };
-
     function setModules(modules) {
         var moduleSelect = document.getElementById('moduleSelect');
         moduleSelect.innerHTML = '<option value="" selected disabled>Selecciona un módulo</option>';
@@ -157,7 +150,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     <td>${el.correo}</td>
                     <td>${el.cargo}</td>
                     <td>
-                        <button onclick="addUser(${el})"> >
+                        <button onclick="addUser(${el})" class="btn btn-primary">
                             +
                     </td>
                 </tr>
@@ -165,6 +158,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
+    function getModuleRelationships(module_id) {
+        fetch(`./backend/paginas/pagesBe.php?module_id=${module_id}`)
+            .then(response => response.json())
+            .then((data) => {
+                console.log();
+            });
+    }
 
 
     async function cargaInicial() {
@@ -199,7 +199,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         if (!module_id) {
             return;
         }
-        console.log('Módulo seleccionado:', module_id);
+        getModuleRelationships(module_id);
     });
 
     cargaInicial();

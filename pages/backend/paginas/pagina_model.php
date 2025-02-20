@@ -127,4 +127,23 @@ class PaginaModel
         $query = "DELETE FROM usuarios_paginas WHERE usuario_id = ? AND pagina_id = ?";
         return $this->executeQuery($query, [$usuario_id, $pagina_id]);
     }
+
+    public function getModuleRelationships($modulo_id) {
+        $query = "SELECT 
+            u.id as usuario_id,
+            u.nombre as usuario_nombre,
+            u.correo as usuario_correo,
+            u.cargo as usuario_cargo,
+            um.id as usuario_modulo_id,
+            rp.id as rol_id,
+            rp.nombre as rol_nombre,
+            rp.descripcion as rol_descripcion
+        FROM usuarios_modulos um
+        JOIN usuarios u ON u.id = um.usuario_id
+        JOIN usuarios_modulos_roles umr ON umr.usuario_modulo_id = um.id
+        JOIN roles_pagina rp ON rp.id = umr.rol_pagina_id
+        WHERE um.tipo_pagina_id = ?";
+        
+        return $this->fetchAll($query, [$modulo_id]);
+    }
 }
