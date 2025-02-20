@@ -85,18 +85,41 @@ class PaginaModel
     {
         mysqli_begin_transaction($this->link);
         try {
+            // Validar que el usuario y módulo existan
+            $checkUser = $this->fetchAll("SELECT id FROM usuarios WHERE id = ?", [$userId]);
+            if (empty($checkUser)) {
+                throw new Exception("Usuario no encontrado");
+            }
+
+            $checkModule = $this->fetchAll("SELECT id FROM tipos_paginas WHERE id = ?", [$moduleId]);
+            if (empty($checkModule)) {
+                throw new Exception("Módulo no encontrado");
+            }
+
+            // Verificar si ya existe la relación
+            $checkRelation = $this->fetchAll(
+                "SELECT id FROM usuarios_modulos WHERE usuario_id = ? AND tipo_pagina_id = ?",
+                [$userId, $moduleId]
+            );
+            if (!empty($checkRelation)) {
+                throw new Exception("La relación ya existe");
+            }
+
             // Insertar en usuarios_modulos
             $query1 = "INSERT INTO usuarios_modulos (usuario_id, tipo_pagina_id) VALUES (?, ?)";
             if (!$this->executeQuery($query1, [$userId, $moduleId])) {
-                throw new Exception("Error al crear la relación usuario-módulo");
+                throw new Exception("Error al crear la relación usuario-módulo: " . mysqli_error($this->link));
             }
             
             $usuarioModuloId = mysqli_insert_id($this->link);
+            if (!$usuarioModuloId) {
+                throw new Exception("Error al obtener el ID de la relación");
+            }
             
             // Insertar en usuarios_modulos_roles
             $query2 = "INSERT INTO usuarios_modulos_roles (usuario_modulo_id, rol_pagina_id) VALUES (?, ?)";
             if (!$this->executeQuery($query2, [$usuarioModuloId, $rolId])) {
-                throw new Exception("Error al asignar el rol");
+                throw new Exception("Error al asignar el rol: " . mysqli_error($this->link));
             }
 
             mysqli_commit($this->link);
