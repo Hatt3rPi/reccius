@@ -147,7 +147,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         pR.forEach((role) => {
             detailsContainer.innerHTML += `
                 <details class="details-container" id="detail-${role.id}">
-                    <summary>${role.nombre}</summary>
+                    <summary>${role.nombre.replaceAll('_',' ')}</summary>
                     <main id="detail-role-${role.id}">
                         
                     </main>
@@ -156,14 +156,53 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
+    function renderUserInRole(user) {
+        return `
+            <tr>
+                <td>${user.usuario_nombre}</td>
+                <td>${user.usuario_correo}</td>
+                <td>${user.usuario_cargo}</td>
+                <td>
+                    <button onclick="removeUser(${user.usuario_id}, ${user.usuario_modulo_id})" class="btn btn-danger">
+                        x
+                    </button>
+                </td>
+            </tr>
+        `;
+    }
+
     function getModuleRelationships(module_id) {
         fetch(`./backend/paginas/pagesBe.php?module_id=${module_id}`)
             .then(response => response.json())
             .then((data) => {
-                console.log();
+                // Limpiar todas las tablas de roles
+                pageRoles.forEach(role => {
+                    const detailRole = GEBI(`detail-role-${role.id}`);
+                    detailRole.innerHTML = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th>Cargo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="role-body-${role.id}">
+                            </tbody>
+                        </table>
+                    `;
+                });
+
+                // Distribuir usuarios según su rol
+                data.forEach(user => {
+                    const roleBody = GEBI(`role-body-${user.rol_id}`);
+                    if (roleBody) {
+                        roleBody.innerHTML += renderUserInRole(user);
+                    }
+                });
             });
     }
-
 
     async function cargaInicial() {
         try {
