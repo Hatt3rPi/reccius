@@ -1,18 +1,21 @@
 <?php
 // archivo: pages/backend/paginas/pagesBe.php
-require_once "/home/customw2/conexiones/config_reccius.php";
 session_start();
-
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
 
+require_once "/home/customw2/conexiones/config_reccius.php";
 require_once "pagina_model.php";
 
-// Asegurarse de que $link existe y es válido
-if (!isset($link) || !($link instanceof mysqli)) {
-    die(json_encode(['error' => 'Error de conexión a la base de datos']));
+// Verificar conexión explícitamente
+if (!isset($link)) {
+    die(json_encode(['error' => 'No se pudo establecer la conexión a la base de datos']));
+}
+
+if (!($link instanceof mysqli)) {
+    die(json_encode(['error' => 'La conexión no es válida']));
 }
 
 try {
@@ -32,18 +35,10 @@ function addUserToModuleRel(){
         echo json_encode(['error' => 'Parámetros requeridos: userId, moduleId']);
         exit;
     }
-    
-    try {
-        $result = $model->addUserToModuleRelationship($userId, $moduleId);
-        if ($result === true) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['error' => 'Error al crear la relación']);
-        }
-    } catch (Exception $e) {
-        echo json_encode(['error' => $e->getMessage()]);
-    }
+    $model->addUserToModuleRelationship($userId, $moduleId);
+    echo json_encode(['success' => true]);
     exit;
+
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
