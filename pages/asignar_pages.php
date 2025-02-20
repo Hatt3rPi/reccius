@@ -16,12 +16,32 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         .details-container summary {
             list-style: none;
             cursor: pointer;
-            padding-left: 1rem;
-            position: relative;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
         }
 
-        .details-container summary::-webkit-details-marker {
-            display: none;
+        .details-container summary:hover {
+            background-color: #e9ecef;
+        }
+
+        .details-container main {
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .details-container table {
+            width: 100%;
+        }
+
+        .details-container details[open] summary {
+            margin-bottom: 1rem;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
     </style>
 </head>
@@ -146,10 +166,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         detailsContainer.innerHTML = '';
         pR.forEach((role) => {
             detailsContainer.innerHTML += `
-                <details class="details-container" id="detail-${role.id}">
-                    <summary>${role.nombre.replaceAll('_',' ')}</summary>
-                    <main id="detail-role-${role.id}">
-                        
+                <details class="details-container shadow-sm mb-3" id="detail-${role.id}">
+                    <summary class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">${role.nombre.replaceAll('_',' ')}</span>
+                        <small class="text-muted">${role.descripcion || ''}</small>
+                    </summary>
+                    <main id="detail-role-${role.id}" class="bg-white">
                     </main>
                 </details>
             `;
@@ -159,12 +181,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     function renderUserInRole(user) {
         return `
             <tr>
-                <td>${user.usuario_nombre}</td>
-                <td>${user.usuario_correo}</td>
-                <td>${user.usuario_cargo}</td>
-                <td>
-                    <button onclick="removeUser(${user.usuario_id}, ${user.usuario_modulo_id})" class="btn btn-danger">
-                        x
+                <td class="align-middle">${user.usuario_nombre}</td>
+                <td class="align-middle">${user.usuario_correo}</td>
+                <td class="align-middle">${user.usuario_cargo}</td>
+                <td class="align-middle text-center">
+                    <button onclick="removeUser(${user.usuario_id}, ${user.usuario_modulo_id})" 
+                            class="btn btn-danger btn-sm">
+                        <i class="fas fa-times"></i>
                     </button>
                 </td>
             </tr>
@@ -175,26 +198,26 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         fetch(`./backend/paginas/pagesBe.php?module_id=${module_id}`)
             .then(response => response.json())
             .then((data) => {
-                // Limpiar todas las tablas de roles
                 pageRoles.forEach(role => {
                     const detailRole = GEBI(`detail-role-${role.id}`);
                     detailRole.innerHTML = `
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Cargo</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="role-body-${role.id}">
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Correo</th>
+                                        <th>Cargo</th>
+                                        <th class="text-center" style="width: 100px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="role-body-${role.id}">
+                                </tbody>
+                            </table>
+                        </div>
                     `;
                 });
 
-                // Distribuir usuarios según su rol
                 data.forEach(user => {
                     const roleBody = GEBI(`role-body-${user.rol_id}`);
                     if (roleBody) {
