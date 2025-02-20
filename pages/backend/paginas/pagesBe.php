@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    $modulo_id = $_GET['modulo_id'] ?? null;
+    $modulo_id = $_GET['module_id'] ?? null;
     if ($modulo_id !== null) {
         echo json_encode($model->getModuleRelationships($modulo_id));
         exit;
