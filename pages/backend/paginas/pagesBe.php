@@ -58,7 +58,9 @@ function addUserToModuleRel(){
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fn = $_POST['fn'] ?? null;
-    if($fn === 'addUserToModuleRelationship'){
+    error_log("Función: '$fn' ? 'addUserToModuleRelationship'");
+    if($fn === 'addUserToModuleRelationship' ){
+        error_log('In -> addUserToModuleRelationship');
         addUserToModuleRel();
     }
 }
