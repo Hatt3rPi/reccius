@@ -160,6 +160,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             })
         }).finally(() =>
             getModuleRelationships(gModuleId))
+            searchUsers();
     }
 
     function setPageRoles(pR) {
