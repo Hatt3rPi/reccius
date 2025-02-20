@@ -189,7 +189,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 data-user-id="${user.usuario_id}" 
                 class="form-control select-role-module" 
                 name="modulo" 
-                style="width: 100%;"
+                style="width: 100%;min-width: 150px;"
             >
                 <option value="" selected disabled>
                     Selecciona un módulo
