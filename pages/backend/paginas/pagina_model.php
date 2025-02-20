@@ -37,6 +37,21 @@ class PaginaModel
         return $data;
     }
 
+    private function executeQuery($query, $params = [])
+    {
+        $stmt = mysqli_prepare($this->link, $query);
+        if (!$stmt) return false;
+
+        if (!empty($params)) {
+            $types = str_repeat('s', count($params));
+            mysqli_stmt_bind_param($stmt, $types, ...$params);
+        }
+
+        $success = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $success;
+    }
+
     public function getModules()
     {
         return $this->fetchAll("SELECT * FROM tipos_paginas");
@@ -64,5 +79,31 @@ class PaginaModel
         WHERE um.tipo_pagina_id = ?";
         
         return $this->fetchAll($query, [$modulo_id]);
+    }
+
+    public function addUserToModuleRelationship($userId, $moduleId, $rolId = 2)
+    {
+        mysqli_begin_transaction($this->link);
+        try {
+            // Insertar en usuarios_modulos
+            $query1 = "INSERT INTO usuarios_modulos (usuario_id, tipo_pagina_id) VALUES (?, ?)";
+            if (!$this->executeQuery($query1, [$userId, $moduleId])) {
+                throw new Exception("Error al crear la relación usuario-módulo");
+            }
+            
+            $usuarioModuloId = mysqli_insert_id($this->link);
+            
+            // Insertar en usuarios_modulos_roles
+            $query2 = "INSERT INTO usuarios_modulos_roles (usuario_modulo_id, rol_pagina_id) VALUES (?, ?)";
+            if (!$this->executeQuery($query2, [$usuarioModuloId, $rolId])) {
+                throw new Exception("Error al asignar el rol");
+            }
+
+            mysqli_commit($this->link);
+            return true;
+        } catch (Exception $e) {
+            mysqli_rollback($this->link);
+            throw $e;
+        }
     }
 }

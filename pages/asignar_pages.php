@@ -37,8 +37,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
         <div class="container mb-3">
             <div class="form-group" style="display: flex;gap: 4px;">
-                <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario" disabled >
-                <button class="btn btn-primary col-2" onclick="searchUsers()" id="searchUserButton" disabled >Buscar</button>
+                <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario" disabled>
+                <button class="btn btn-primary col-2" onclick="searchUsers()" id="searchUserButton" disabled>Buscar</button>
             </div>
         </div>
         <div class="container mb-3" id="tableAddUserContainer" style="display: none;">
@@ -115,7 +115,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <td>${el.correo}</td>
                             <td>${el.cargo}</td>
                             <td>
-                                <button onclick="addUser(${el.id})">
+                                <button onclick="addUser(${el.id})" class="btn btn-primary">
                                     +
                                 </button>
                             </td>
@@ -127,8 +127,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function addUser(userId) {
-        console.log(searchHash[userId]);
-        getModuleRelationships(gModuleId);
+        fetch('./backend/paginas/pagesBe.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                fn: 'addUserToModuleRelationship',
+                userId,
+                moduleId: gModuleId
+            })
+        }).finally(() =>
+            getModuleRelationships(gModuleId))
     }
 
     function setPageRoles(pR) {
@@ -190,7 +200,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             GEBI("searchUser").disabled = false;
             GEBI("searchUserButton").disabled = false;
-            
+
             getModuleRelationships(gModuleId);
         });
 

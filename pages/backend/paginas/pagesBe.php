@@ -23,8 +23,26 @@ try {
 
 header('Content-Type: application/json; charset=utf-8');
 
+function addUserToModuleRelationship(){
+    global $model;
+
+    $userId = $_POST['userId'] ?? null;
+    $moduleId = $_POST['moduleId'] ?? null;
+    if($userId === null || $moduleId === null){
+        echo json_encode(['error' => 'Parámetros requeridos: userId, moduleId']);
+        exit;
+    }
+    $model->addUserToModuleRelationship($userId, $moduleId);
+    echo json_encode(['success' => true]);
+    exit;
+
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fn = $_POST['fn'] ?? null;
+    if($fn === 'addUserToModuleRelationship'){
+        addUserToModuleRelationship();
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
