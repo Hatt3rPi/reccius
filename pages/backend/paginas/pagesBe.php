@@ -6,7 +6,7 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 error_reporting(E_ALL);
-ini_set('error_log', '/home/customw2/public_html/reccius/error.log');
+ini_set('error_log', dirname(__FILE__) . '/debug.log');
 
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
