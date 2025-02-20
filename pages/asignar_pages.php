@@ -194,7 +194,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <option value="" selected disabled>
                     Selecciona un módulo
                 </option>
-                ${pageRolesOpts.join('') }
+                ${pageRolesOpts }
             </select>
         `;
     }
