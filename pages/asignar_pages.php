@@ -37,12 +37,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
         <div class="container mb-3">
             <div class="form-group" style="display: flex;gap: 4px;">
-                <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario">
-                <button class="btn btn-primary col-2" onclick="searchUsers()">Buscar</button>
+                <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario" disabled >
+                <button class="btn btn-primary col-2" onclick="searchUsers()" id="searchUserButton" disabled >Buscar</button>
             </div>
         </div>
-        <div class="container mb-3">
-            <div class="w-100 d-flex justify-content-center" id="tableAddUser" style="display: none;">
+        <div class="container mb-3" id="tableAddUserContainer" style="display: none;">
+            <div class="w-100 d-flex justify-content-center" id="tableAddUser">
                 <table>
                     <thead>
                         <tr>
@@ -72,14 +72,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 
 <script>
-    var pageRoles, modules, users, originalRelationships;
+    var pageRoles, modules, users, searchHash, originalRelationships, gModuleId;
+    var GEBI = (id) => document.getElementById(id);
 
     var addClasses = (element, classes) => {
         classes.forEach(className => element.classList.add(className));
     };
 
     function setModules(modules) {
-        var moduleSelect = document.getElementById('moduleSelect');
+        var moduleSelect = GEBI('moduleSelect');
         moduleSelect.innerHTML = '<option value="" selected disabled>Selecciona un módulo</option>';
         modules.forEach(module => {
             var option = document.createElement('option');
@@ -90,27 +91,31 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function searchUsers() {
-        var searchUser = document.getElementById('searchUser').value;
-        var tableAddUser = document.getElementById('tableAddUser');
-        var tableAddUserBody = document.getElementById('tableAddUserBody');
+        var tableAddUserContainer = GEBI('tableAddUserContainer');
+        tableAddUserContainer.style.display = 'block';
+        var searchUser = GEBI('searchUser').value;
+        var tableAddUser = GEBI('tableAddUser');
+        var tableAddUserBody = GEBI('tableAddUserBody');
 
         tableAddUser.style.display = 'none';
         if (!searchUser) {
             return;
         }
-        fetch(`./backend/usuario/getUser.php?nombre=${searchUser}`)
+        fetch(`./backend/usuario/getUser.php?nombre=${searchUser}&module_id=${gModuleId}`)
             .then(response => response.json())
             .then((data) => {
                 tableAddUser.style.display = 'flex';
                 tableAddUserBody.innerHTML = '';
+                searchHash = {};
                 data.forEach((el) => {
+                    searchHash[el.id] = el;
                     tableAddUserBody.innerHTML += `
                         <tr>
                             <td>${el.nombre}</td>
                             <td>${el.correo}</td>
                             <td>${el.cargo}</td>
                             <td>
-                                <button onclick="addUser(${el})"> >
+                                <button onclick="addUser(${el.id})">
                                     +
                                 </button>
                             </td>
@@ -121,12 +126,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
     }
 
-    function addUser(user) {
-        console.log(user);
+    function addUser(userId) {
+        console.log(searchHash[userId]);
+        getModuleRelationships(gModuleId);
     }
 
     function setPageRoles(pR) {
-        var detailsContainer = document.getElementById('details-container');
+        var detailsContainer = GEBI('details-container');
         detailsContainer.innerHTML = '';
         pR.forEach((role) => {
             detailsContainer.innerHTML += `
@@ -136,24 +142,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         
                     </main>
                 </details>
-            `;
-        });
-    }
-
-    function setUsers(users) {
-        var tableAddUserBody = document.getElementById('tableAddUserBody');
-        tableAddUserBody.innerHTML = '';
-        users.forEach((el) => {
-            tableAddUserBody.innerHTML += `
-                <tr>
-                    <td>${el.nombre}</td>
-                    <td>${el.correo}</td>
-                    <td>${el.cargo}</td>
-                    <td>
-                        <button onclick="addUser(${el})" class="btn btn-primary">
-                            +
-                    </td>
-                </tr>
             `;
         });
     }
@@ -194,13 +182,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         }
     }
 
-    document.getElementById('moduleSelect').addEventListener('change', async function() {
-        var module_id = this.value;
-        if (!module_id) {
-            return;
-        }
-        getModuleRelationships(module_id);
-    });
+    GEBI('moduleSelect').addEventListener('change',
+        async function() {
+            gModuleId = this.value;
+            if (!gModuleId) {
+                return;
+            }
+            GEBI("searchUser").disabled = false;
+            GEBI("searchUserButton").disabled = false;
+            
+            getModuleRelationships(gModuleId);
+        });
 
     cargaInicial();
 </script>

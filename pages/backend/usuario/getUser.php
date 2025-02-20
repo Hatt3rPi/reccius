@@ -1,4 +1,5 @@
 <?php
+// archivo: pages/backend/usuario/getUser.php
 require_once "/home/customw2/conexiones/config_reccius.php";
 session_start();
 if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
@@ -7,13 +8,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 }
 
 header('Content-Type: application/json; charset=utf-8');
-
-if (!isset($_GET['nombre'])) {
+$module_id = $_GET['module_id'] ?? null;
+$nombre = $_GET['nombre'] ?? null;
+if ( $nombre === null  ) {
     echo json_encode(['error' => 'Parameter "nombre" is required']);
     exit;
 }
 
-$query = "SELECT id, usuario, nombre, rol_id, cargo, correo FROM usuarios WHERE nombre LIKE '%" . mysqli_real_escape_string($link, $_GET['nombre']) . "%'";
+if ( $module_id === null  ) {
+    $query = "SELECT id, usuario, nombre, rol_id, cargo, correo FROM usuarios WHERE nombre LIKE '%" . mysqli_real_escape_string($link, $_GET['nombre']) . "%'";
+} else {
+    // Query para obtener usuarios que NO tienen relación con el módulo especificado
+    $query = "SELECT 
+                DISTINCT 
+                u.id, u.usuario, 
+                u.nombre, u.rol_id, 
+                u.cargo, u.correo 
+              FROM 
+                usuarios u 
+              WHERE 
+                u.nombre LIKE 
+                    '%" . mysqli_real_escape_string($link, $nombre) . "%' 
+              AND NOT EXISTS (
+                  SELECT 1 
+                  FROM usuarios_modulos um 
+                  WHERE um.usuario_id = u.id 
+                  AND um.tipo_pagina_id = " . mysqli_real_escape_string($link, $module_id) . "
+              )";
+}
+
 $result = mysqli_query($link, $query);
 
 if ($result === false) {
