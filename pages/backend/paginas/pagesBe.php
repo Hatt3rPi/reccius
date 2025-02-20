@@ -30,10 +30,18 @@ header('Content-Type: application/json; charset=utf-8');
 function addUserToModuleRel(){
     global $model;
     try {
-        $userId = $_POST['userId'] ?? null;
-        $moduleId = $_POST['moduleId'] ?? null;
+        $jsonData = file_get_contents('php://input');
+        error_log("Datos recibidos: " . $jsonData);
         
-        error_log("Intentando añadir usuario. UserId: $userId, ModuleId: $moduleId");
+        $data = json_decode($jsonData, true);
+        if (!$data) {
+            throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
+        }
+        
+        $userId = $data['userId'] ?? null;
+        $moduleId = $data['moduleId'] ?? null;
+        
+        error_log("Datos procesados - UserId: $userId, ModuleId: $moduleId");
         
         if($userId === null || $moduleId === null){
             throw new Exception('Parámetros requeridos: userId, moduleId');
@@ -51,10 +59,14 @@ function addUserToModuleRel(){
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fn = $_POST['fn'] ?? null;
-    error_log("Función: '$fn' ? 'addUserToModuleRelationship'");
-    if($fn === 'addUserToModuleRelationship' ){
-        error_log('In -> addUserToModuleRelationship');
+    $jsonData = file_get_contents('php://input');
+    $data = json_decode($jsonData, true);
+    $fn = $data['fn'] ?? null;
+    
+    error_log("Función recibida: '$fn'");
+    
+    if($fn === 'addUserToModuleRelationship'){
+        error_log('Ejecutando addUserToModuleRel');
         addUserToModuleRel();
     }
 }
