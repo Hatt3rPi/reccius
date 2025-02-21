@@ -168,7 +168,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         detailsContainer.innerHTML = '';
         pR.forEach((role) => {
             detailsContainer.innerHTML += `
-                <details class="details-container shadow-sm mb-3" id="detail-${role.id}">
+                <details class="details-container shadow-sm mb-3" open id="detail-${role.id}">
                     <summary class="d-flex justify-content-between align-items-center">
                         <span class="fw-bold">${role.nombre.replaceAll('_',' ')}</span>
                         <small class="text-muted">${role.descripcion || ''}</small>
@@ -179,7 +179,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             `;
         });
     }
-
 
     function renderUserRoleSelector(user) {
         var pageRolesOpts = pageRoles.map(role => 
@@ -199,6 +198,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </select>
         `;
     }
+
     function renderUserInRole(user) {
         return `
             <tr>
