@@ -55,6 +55,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <option value="" selected>Selecciona un módulo</option>
             </select>
         </div>
+        <h2> Administrar roles de acceso a paginas </h2>
+        <div class="container mb-3">
+            <div class="table-responsive w-100 d-flex justify-content-center" id="tablePageRolManaget">
+                <table class="table table-hover table-striped m-0">
+                    <thead class=table-light>
+                        <tr id="tableHeaderPageRolManaget">
+                        </tr>
+                    </thead>
+                    <tbody id="tableBodyPageRolManaget">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2> Añadir usuarios al modulo </h2>
         <div class="container mb-3">
             <div class="form-group d-flex justify-content-center" style="gap: 4px;">
                 <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario" disabled>
@@ -69,7 +83,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Cargo</th>
-                            <th class="text-center" >Añadir</th>
+                            <th class="text-center">Añadir</th>
                         </tr>
                     </thead>
                     <tbody id="tableAddUserBody">
@@ -77,12 +91,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
             </div>
         </div>
-
+        <h2> Administrar roles de usuario en modulo </h2>
         <section class="container" id="details-container">
-
-
-
-
         </section>
 
         <div class="container">
@@ -94,8 +104,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     // Variables globales
     var pageRoles, modules, users, searchHash, originalRelationships, gModuleId;
+    var tableBodyPageRolManaget, tableHeaderPageRolManaget, tablePageRolManaget;
     // Tabla de busqueda usuarios
     var tableAddUserContainer, searchUser, tableAddUser, tableAddUserBody;
+
 
     var GEBI = (id) => document.getElementById(id);
     var QSALL = (id) => document.querySelectorAll(id);
@@ -236,6 +248,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </div>`;
     }
 
+    function setPagesRolesManagement(pg, rel) {
+        tableBodyPageRolManaget.innerHTML = pg.map(page => {
+            return `
+                <tr>
+                    <td>${page.nombre}</td>
+                </tr>
+            `;
+        }).join('');
+    }
+
     function getModuleRelationships(module_id) {
         fetch(`./backend/paginas/pagesBe.php?module_id=${module_id}`)
             .then(response => response.json())
@@ -244,7 +266,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     const detailRole = GEBI(`detail-role-${role.id}`);
                     detailRole.innerHTML = renderTableInDetail(role.id);
                 });
-
+                setPagesRolesManagement(data.pages, data.rolePegeRelation)
                 data.users.forEach(user => {
                     const roleBody = GEBI(`role-body-${user.rol_id}`);
                     if (roleBody) {
@@ -277,6 +299,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
+    function setTablePageRolManaget(pR) {
+        tableHeaderPageRolManaget.innerHTML = `
+            <th>Pagina</th>
+            ${
+                pR.map(role => `<th>${role.nombre.replaceAll('_',' ')}</th>`).join('')
+            }
+        `;
+    }
+
     async function cargaInicial() {
         try {
             var [modulesResponse] = await Promise.all([
@@ -290,14 +321,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             [dataModules] = await Promise.all([
                 modulesResponse.json()
             ]);
+            
+            tablePageRolManaget = GEBI("tablePageRolManaget")
+            tableBodyPageRolManaget = GEBI("tableBodyPageRolManaget")
+            tableHeaderPageRolManaget = GEBI("tableHeaderPageRolManaget") 
 
             modules = dataModules.modules || [];
             pageRoles = dataModules.pageRoles || [];
             setModules(modules);
             setPageRoles(pageRoles);
-            console.log('Datos cargados:', {
-                modules
-            });
+            setTablePageRolManaget(pageRoles);
 
         } catch (error) {
             console.error('Error al cargar datos:', error);
@@ -312,6 +345,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             GEBI("searchUser").disabled = false;
             GEBI("searchUserButton").disabled = false;
+
+            
 
             getModuleRelationships(gModuleId);
         });
