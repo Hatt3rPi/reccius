@@ -61,7 +61,6 @@ class PaginaModel
         return $this->fetchAll("SELECT * FROM paginas_roles WHERE pagina_id IN
                                     (SELECT id FROM paginas WHERE id_tipo_pagina = ?) ", 
                                     [$modulo_id]);
-
     }
 
     public function getModules()

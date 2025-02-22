@@ -56,20 +56,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </select>
         </div>
         <div class="container mb-3">
-            <div class="form-group" style="display: flex;gap: 4px;">
+            <div class="form-group d-flex justify-content-center" style="gap: 4px;">
                 <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario" disabled>
                 <button class="btn btn-primary col-2" onclick="searchUsers()" id="searchUserButton" disabled>Buscar</button>
             </div>
         </div>
         <div class="container mb-3" id="tableAddUserContainer" style="display: none;">
-            <div class="w-100 d-flex justify-content-center" id="tableAddUser">
-                <table>
-                    <thead>
+            <div class="table-responsive w-100 d-flex justify-content-center" id="tableAddUser">
+                <table class="table table-hover table-striped m-0">
+                    <thead class=table-light>
                         <tr>
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Cargo</th>
-                            <th>Seleccionar</th>
+                            <th class="text-center" >Añadir</th>
                         </tr>
                     </thead>
                     <tbody id="tableAddUserBody">
@@ -251,31 +251,30 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         roleBody.innerHTML += renderUserInRole(user);
                     }
                 });
-                
-                QSALL(".select-role-module").forEach(select => {
-                    select.addEventListener('change', function() {
-                        const userId = this.dataset.userId;
-                        console.log({
-                            dataset: this.dataset
-                        });
-
-                        const rolId = this.value;
-                        fetch('./backend/paginas/pagesBe.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                fn: 'changeUserRole',
-                                userId,
-                                moduleId: gModuleId,
-                                rolId
-                            })
-                        }).finally(() =>
-                            getModuleRelationships(gModuleId))
-                    });
-                });
+                selectRoleModuleListener();
             });
+    }
+
+    function selectRoleModuleListener() {
+        QSALL(".select-role-module").forEach(select => {
+            select.addEventListener('change', function() {
+                const userId = this.dataset.userId;
+                const rolId = this.value;
+                fetch('./backend/paginas/pagesBe.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fn: 'changeUserRole',
+                        userId,
+                        moduleId: gModuleId,
+                        rolId
+                    })
+                }).finally(() =>
+                    getModuleRelationships(gModuleId))
+            });
+        });
     }
 
     async function cargaInicial() {
