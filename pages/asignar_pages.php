@@ -92,7 +92,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 </body>
 
 <script>
+    // Variables globales
     var pageRoles, modules, users, searchHash, originalRelationships, gModuleId;
+    // Tabla de busqueda usuarios
+    var tableAddUserContainer, searchUser, tableAddUser, tableAddUserBody;
+
     var GEBI = (id) => document.getElementById(id);
     var QSALL = (id) => document.querySelectorAll(id);
 
@@ -111,26 +115,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         });
     }
 
-    function searchUsers() {
-        var tableAddUserContainer = GEBI('tableAddUserContainer');
-        tableAddUserContainer.style.display = 'block';
-        var searchUser = GEBI('searchUser').value;
-        var tableAddUser = GEBI('tableAddUser');
-        var tableAddUserBody = GEBI('tableAddUserBody');
-
-        tableAddUser.style.display = 'none';
-        if (!searchUser) {
-            return;
-        }
-        fetch(`./backend/usuario/getUser.php?nombre=${searchUser}&module_id=${gModuleId}`)
-            .then(response => response.json())
-            .then((data) => {
-                tableAddUser.style.display = 'flex';
-                tableAddUserBody.innerHTML = '';
-                searchHash = {};
-                data.forEach((el) => {
-                    searchHash[el.id] = el;
-                    tableAddUserBody.innerHTML += `
+    function setSearchUsers(data) {
+        tableAddUser.style.display = 'flex';
+        tableAddUserBody.innerHTML = '';
+        searchHash = {};
+        data.forEach((el) => {
+            searchHash[el.id] = el;
+            tableAddUserBody.innerHTML += `
                         <tr>
                             <td>${el.nombre}</td>
                             <td>${el.correo}</td>
@@ -142,9 +133,24 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                             </td>
                         </tr>
                     `;
-                })
+        })
+    }
 
-            });
+    function searchUsers() {
+        tableAddUserContainer = GEBI('tableAddUserContainer');
+        tableAddUserContainer.style.display = 'block';
+        searchUser = GEBI('searchUser').value;
+        tableAddUser = GEBI('tableAddUser');
+        tableAddUserBody = GEBI('tableAddUserBody');
+
+        tableAddUser.style.display = 'none';
+        if (!searchUser) {
+            return;
+        }
+        fetch(`./backend/usuario/getUser.php?nombre=${searchUser}&module_id=${gModuleId}`)
+            .then(response => response.json())
+            .then((data) =>
+                setSearchUsers(data));
     }
 
     function addUser(userId) {
@@ -160,7 +166,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             })
         }).finally(() =>
             getModuleRelationships(gModuleId))
-            searchUsers();
+        searchUsers();
     }
 
     function setPageRoles(pR) {
@@ -181,8 +187,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function renderUserRoleSelector(user) {
-        var pageRolesOpts = pageRoles.map(role => 
-        `<option ${user.rol_id == role.id && 'selected'} value="${role.id}">${role.nombre}</option>`).join('');
+        var pageRolesOpts = pageRoles.map(role =>
+            `<option ${user.rol_id == role.id && 'selected'} value="${role.id}">${role.nombre}</option>`).join('');
         return `
             <select 
                 id="change-role-module-${user.usuario_id}"
@@ -212,41 +218,47 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         `;
     }
 
+    function renderTableInDetail(role) {
+        return `
+            <div class="table-responsive">
+                <table class="table table-hover table-striped m-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Cargo</th>
+                            <th class="text-center" style="width: 100px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="role-body-${role}">
+                    </tbody>
+                </table>
+            </div>`;
+    }
+
     function getModuleRelationships(module_id) {
         fetch(`./backend/paginas/pagesBe.php?module_id=${module_id}`)
             .then(response => response.json())
             .then((data) => {
                 pageRoles.forEach(role => {
                     const detailRole = GEBI(`detail-role-${role.id}`);
-                    detailRole.innerHTML = `
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Correo</th>
-                                        <th>Cargo</th>
-                                        <th class="text-center" style="width: 100px;">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="role-body-${role.id}">
-                                </tbody>
-                            </table>
-                        </div>
-                    `;
+                    detailRole.innerHTML = renderTableInDetail(role.id);
                 });
 
-                data.forEach(user => {
+                data.users.forEach(user => {
                     const roleBody = GEBI(`role-body-${user.rol_id}`);
                     if (roleBody) {
                         roleBody.innerHTML += renderUserInRole(user);
                     }
                 });
+                
                 QSALL(".select-role-module").forEach(select => {
                     select.addEventListener('change', function() {
                         const userId = this.dataset.userId;
-                        console.log({dataset:this.dataset});
-                        
+                        console.log({
+                            dataset: this.dataset
+                        });
+
                         const rolId = this.value;
                         fetch('./backend/paginas/pagesBe.php', {
                             method: 'POST',

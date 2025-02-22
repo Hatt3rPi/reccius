@@ -51,6 +51,19 @@ class PaginaModel
         return $success;
     }
 
+    public function getPagesByModule($modulo_id)
+    {
+        return $this->fetchAll("SELECT * FROM paginas WHERE id_tipo_pagina = ?", [$modulo_id]);
+    }
+
+    public function getPagesRolesShipByModule($modulo_id)
+    {
+        return $this->fetchAll("SELECT * FROM paginas_roles WHERE pagina_id IN
+                                    (SELECT id FROM paginas WHERE id_tipo_pagina = ?) ", 
+                                    [$modulo_id]);
+
+    }
+
     public function getModules()
     {
         return $this->fetchAll("SELECT * FROM tipos_paginas");

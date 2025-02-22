@@ -97,10 +97,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $modulo_id = $_GET['module_id'] ?? null;
     if ($modulo_id !== null) {
-        echo json_encode($model->getModuleRelationships($modulo_id));
+        echo json_encode([
+            'users' => $model->getModuleRelationships($modulo_id),
+            'pages' => $model->getPagesByModule($modulo_id),
+            'rolePegeRelation' => $model->getPagesRolesShipByModule($modulo_id),
+        ]);
         exit;
     }
-
     echo json_encode([
         'modules' => $model->getModules(),
         'pageRoles' => $model->getRolPages(),
