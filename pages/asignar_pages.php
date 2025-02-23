@@ -69,6 +69,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tbody>
                 </table>
             </div>
+            <button id="submitPageRolManaget" class="btn btn-primary mt-3">Guardar</button>
         </div>
         <div class="container">
             <h4> Añadir usuarios al modulo </h4>
@@ -384,6 +385,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             getModuleRelationships(gModuleId);
         });
 
+    GEBI('submitPageRolManaget').addEventListener('click',
+        async function() {
+            var checkboxes = QSALL('.checkbox-page-role');
+            var data = [];
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    data.push({
+                        page_id: checkbox.dataset.pageId,
+                        role_id: checkbox.dataset.roleId
+                    });
+                }
+            });
+            console.log(data);
+            /*
+                fetch('./backend/paginas/pagesBe.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fn: 'updatePageRole',
+                        data,
+                        moduleId: gModuleId
+                    })
+                }).finally(() =>
+                    getModuleRelationships(gModuleId)
+                );
+            */
+    });
     cargaInicial();
 </script>
 

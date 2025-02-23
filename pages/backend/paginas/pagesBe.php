@@ -78,7 +78,24 @@ function changeUserRole(){
     }
     exit;
 }
-
+function updatePageRole(){
+    global $model;
+    try {
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+        if (!$data) {
+            throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
+        }
+        
+        $moduleId = $data['moduleId'] ?? null;
+        $data = $data['data'] ?? null;
+        
+        echo json_encode(['success' => true]);
+    } catch (Exception $e) {
+        echo json_encode(['error' => $e->getMessage()]);
+    }
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jsonData = file_get_contents('php://input');
@@ -92,6 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         changeUserRole();
     }
     
+    if($fn === 'updatePageRole'){
+        updatePageRole();
+    }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
