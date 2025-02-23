@@ -367,7 +367,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 ...data,
                 nombre: data.nombre.replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase())
             })) || [];
-            pageRoles = dataModules.pageRoles.map((data) => ({
+            pageRoles = dataModules.pageRoles.sort((a,b)=> a.orden-b.orden ).map((data) => ({
                 ...data,
                 nombre: data.nombre.replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase())
             })) || [];
