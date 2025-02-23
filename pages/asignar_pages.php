@@ -69,7 +69,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     </tbody>
                 </table>
             </div>
-            <button id="submitPageRolManaget" class="btn btn-primary mt-3">Guardar</button>
+            <button id="submitPageRolManaget" disabled class="btn btn-primary mt-3">Guardar</button>
         </div>
         <div class="container">
             <h4> Añadir usuarios al modulo </h4>
@@ -111,7 +111,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <script>
     // Variables globales
     var pageRoles, modules, users, searchHash, originalRelationships, gModuleId;
-    var tableBodyPageRolManaget, tableHeaderPageRolManaget, tablePageRolManaget;
+    var tableBodyPageRolManaget, tableHeaderPageRolManaget, tablePageRolManaget, submitPageRolManaget;
     // Tabla de busqueda usuarios
     var tableAddUserContainer, searchUser, tableAddUser, tableAddUserBody;
 
@@ -254,8 +254,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
             </div>`;
     }
-
+    function changePageRole(checkChange) { 
+        submitPageRolManaget.disabled = false;
+     }
     function setPagesRolesManagement(pg, rel) {
+        submitPageRolManaget.disabled = true;
         let relHash = rel.reduce((acc, el) => {
             if (!acc[el.pagina_id]) {
                 acc[el.pagina_id] = {};
@@ -356,6 +359,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             tablePageRolManaget = GEBI("tablePageRolManaget")
             tableBodyPageRolManaget = GEBI("tableBodyPageRolManaget")
             tableHeaderPageRolManaget = GEBI("tableHeaderPageRolManaget")
+            submitPageRolManaget = GEBI("submitPageRolManaget")
 
             modules = dataModules.modules.map((data) => ({
                 ...data,
