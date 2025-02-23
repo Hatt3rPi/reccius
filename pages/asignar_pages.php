@@ -194,7 +194,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             detailsContainer.innerHTML += `
                 <details class="details-container shadow-sm mb-3" open id="detail-${role.id}">
                     <summary class="d-flex justify-content-between align-items-center">
-                        <span class="fw-bold">${role.nombre.replaceAll('_',' ')}</span>
+                        <span class="fw-bold">${role.nombre}</span>
                         <small class="text-muted">${role.descripcion || ''}</small>
                     </summary>
                     <main id="detail-role-${role.id}" class="bg-white">
@@ -333,7 +333,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         tableHeaderPageRolManaget.innerHTML = `
             <th>Pagina</th>
             ${
-                pR.map(role => `<th>${role.nombre.replaceAll('_',' ')}</th>`).join('')
+                pR.map(role => `<th>${role.nombre}</th>`).join('')
             }
         `;
     }
@@ -356,8 +356,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             tableBodyPageRolManaget = GEBI("tableBodyPageRolManaget")
             tableHeaderPageRolManaget = GEBI("tableHeaderPageRolManaget")
 
-            modules = dataModules.modules || [];
-            pageRoles = dataModules.pageRoles || [];
+            modules = dataModules.modules.map((data) => ({
+                ...data,
+                nombre: data.nombre.replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase())
+            })) || [];
+            pageRoles = dataModules.pageRoles.map((data) => ({
+                ...data,
+                nombre: data.nombre.replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase())
+            })) || [];
             setModules(modules);
             setPageRoles(pageRoles);
             setTablePageRolManaget(pageRoles);
@@ -375,9 +381,6 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
             GEBI("searchUser").disabled = false;
             GEBI("searchUserButton").disabled = false;
-
-
-
             getModuleRelationships(gModuleId);
         });
 
