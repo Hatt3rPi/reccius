@@ -92,17 +92,24 @@ INSERT INTO paginas (id_tipo_pagina, nombre, url) VALUES
 -- Creación de la tabla para Roles de Página
 -- ======================================
 CREATE TABLE `roles_pagina` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(50) NOT NULL,
-  `descripcion` VARCHAR(255),
-  PRIMARY KEY (`id`)
+  `id` int NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `orden` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE `roles_pagina`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `roles_pagina`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 
 -- Insertar roles básicos
 INSERT INTO roles_pagina (id, nombre, descripcion) VALUES 
-( 1,'Admin', 'Control total sobre la página'),
-( 2,'Lectura', 'Solo puede ver la página'),
-( 3,'Escritura', 'Puede ver y modificar contenido');
+( 1,'Administrador', 'Control total sobre la página'),
+( 3,'Usuario', 'Puede ver y modificar contenido'),
+( 2,'Visualizador', 'Solo puede ver la página');
 
 -- Nueva relación entre roles_pagina y paginas
 CREATE TABLE `paginas_roles` (
