@@ -55,7 +55,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <option value="" selected>Selecciona un módulo</option>
             </select>
         </div>
-        <h2> Administrar roles de acceso a paginas </h2>
+        <div class="container">
+            <h4> Administrar roles de acceso a paginas </h4>
+        </div>
         <div class="container mb-3">
             <div class="table-responsive w-100 d-flex justify-content-center" id="tablePageRolManaget">
                 <table class="table table-hover table-striped m-0">
@@ -68,7 +70,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
             </div>
         </div>
-        <h2> Añadir usuarios al modulo </h2>
+        <div class="container">
+            <h4> Añadir usuarios al modulo </h4>
+        </div>
         <div class="container mb-3">
             <div class="form-group d-flex justify-content-center" style="gap: 4px;">
                 <input type="text" class="form-control col-6" id="searchUser" placeholder="Buscar usuario" disabled>
@@ -91,7 +95,9 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
             </div>
         </div>
-        <h2> Administrar roles de usuario en modulo </h2>
+        <div class="container">
+            <h4> Administrar roles de usuario en modulo </h4>
+        </div>
         <section class="container" id="details-container">
         </section>
 
@@ -249,11 +255,35 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     }
 
     function setPagesRolesManagement(pg, rel) {
+        let relHash = rel.reduce((acc, el) => {
+            if (!acc[el.pagina_id]) {
+                acc[el.pagina_id] = {};
+            }
+            acc[el.pagina_id][el.rol_pagina_id] = true;
+            return acc;
+        }, {});
         tableBodyPageRolManaget.innerHTML = pg.map(page => {
             return `
                 <tr>
                     <td>${page.nombre}</td>
+                    ${
+                        pageRoles.map(role => {
+                            return `
+                                <td class="text-center">
+                                    <input 
+                                        type="checkbox" 
+                                        ${relHash[page.id] && relHash[page.id][role.id] && 'checked'}
+                                        data-page-id="${page.id}"
+                                        data-role-id="${role.id}"
+                                        onchange="changePageRole(this)"
+                                        class="checkbox-page-role"
+                                    >
+                                </td>
+                            `;
+                        }).join('')
+                    }
                 </tr>
+
             `;
         }).join('');
     }
@@ -321,10 +351,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             [dataModules] = await Promise.all([
                 modulesResponse.json()
             ]);
-            
+
             tablePageRolManaget = GEBI("tablePageRolManaget")
             tableBodyPageRolManaget = GEBI("tableBodyPageRolManaget")
-            tableHeaderPageRolManaget = GEBI("tableHeaderPageRolManaget") 
+            tableHeaderPageRolManaget = GEBI("tableHeaderPageRolManaget")
 
             modules = dataModules.modules || [];
             pageRoles = dataModules.pageRoles || [];
@@ -346,7 +376,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             GEBI("searchUser").disabled = false;
             GEBI("searchUserButton").disabled = false;
 
-            
+
 
             getModuleRelationships(gModuleId);
         });
