@@ -189,4 +189,45 @@ class PaginaModel
             throw $e;
         }
     }
+    public function updatePageRole($module_id, $data_changes)
+    {
+        if (!$module_id || !is_array($data_changes)) {
+            throw new Exception("Parámetros inválidos");
+        }
+
+        // Validar que el módulo existe
+        $checkModule = $this->fetchAll("SELECT id FROM tipos_paginas WHERE id = ?", [$module_id]);
+        if (empty($checkModule)) {
+            throw new Exception("Módulo no encontrado");
+        }
+
+        mysqli_begin_transaction($this->link);
+        try {
+            $query = "DELETE FROM paginas_roles WHERE pagina_id IN
+                        (SELECT id FROM paginas WHERE id_tipo_pagina = ?)";
+            $delete = $this->executeQuery($query, [$module_id]);
+            if (!$delete) {
+                throw new Exception("Error al eliminar los roles de la página: " . mysqli_error($this->link));
+            }
+            
+            foreach ($data_changes as $item) {
+                if (!isset($item['page_id']) || !isset($item['role_id'])) {
+                    throw new Exception("Datos de cambio inválidos");
+                }
+                $insert = $this->executeQuery(
+                    "INSERT INTO paginas_roles (pagina_id, rol_pagina_id) VALUES (?, ?)",
+                    [$item['page_id'], $item['role_id']]
+                );
+                if (!$insert) {
+                    throw new Exception("Error al insertar rol: " . mysqli_error($this->link));
+                }
+            }
+
+            mysqli_commit($this->link);
+            return true;
+        } catch (Exception $e) {
+            mysqli_rollback($this->link);
+            throw $e;
+        }
+    }
 }

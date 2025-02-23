@@ -88,7 +88,9 @@ function updatePageRole(){
         }
         
         $moduleId = $data['moduleId'] ?? null;
-        $data = $data['data'] ?? null;
+        $dataChanges = $data['data'] ?? null;
+
+        $model->updatePageRole($moduleId, $dataChanges);
         
         echo json_encode(['success' => true]);
     } catch (Exception $e) {

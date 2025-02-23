@@ -254,9 +254,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </table>
             </div>`;
     }
-    function changePageRole(checkChange) { 
+
+    function changePageRole(checkChange) {
         submitPageRolManaget.disabled = false;
-     }
+    }
+
     function setPagesRolesManagement(pg, rel) {
         submitPageRolManaget.disabled = true;
         let relHash = rel.reduce((acc, el) => {
@@ -389,6 +391,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             getModuleRelationships(gModuleId);
         });
 
+
     GEBI('submitPageRolManaget').addEventListener('click',
         async function() {
             var checkboxes = QSALL('.checkbox-page-role');
@@ -401,23 +404,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     });
                 }
             });
-            console.log(data);
-            /*
-                fetch('./backend/paginas/pagesBe.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        fn: 'updatePageRole',
-                        data,
-                        moduleId: gModuleId
-                    })
-                }).finally(() =>
-                    getModuleRelationships(gModuleId)
-                );
-            */
-    });
+            fetch('./backend/paginas/pagesBe.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fn: 'updatePageRole',
+                    data,
+                    moduleId: gModuleId
+                })
+            }).finally(() =>
+                getModuleRelationships(gModuleId)
+            );
+
+        });
     cargaInicial();
 </script>
 
