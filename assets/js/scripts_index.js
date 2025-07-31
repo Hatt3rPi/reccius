@@ -131,7 +131,7 @@ $(document).ready(function () {
   });
 
   $("#asignar-pages").click(function (event) {
-    if (AppConfig.FLAGS.asignarRoles) {
+    if (AppConfig.FLAGS.perfilamiento_ratapan) {
       event.preventDefault();
       $("#dynamic-content").hide();
       $("#loading-spinner").show();
