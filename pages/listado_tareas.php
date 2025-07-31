@@ -67,7 +67,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <span class="close">&times;</span>
             <h2 class="modal-title">Re-asignar Tarea</h2>
             <form id="formCambiarUsuario">
+
                 <!-- Campo oculto para el ID de la tarea -->
+
                 <input type="hidden" id="idTarea" name="idTarea">
                 
                 <!-- Ejecutor original -->
@@ -200,6 +202,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 //el siguiente botón debería ser visible solo para el usuario creador de la tarea o para el administrador
                 acciones += '<button class="accion-btn" title="Cambiar Usuario Ejecutor" id="' + d.id + '" name="cambiar_usuario"  data-usuario_ejecutor="' + d.usuario_ejecutor_usuario + '" ><i class="fas fa-user-edit"></i> Cambiar usuario ejecutor</button><a> </a>';
 
+
                 if (d.usuario_ejecutor === usuarioActual) {
                     acciones += '<button class="accion-btn ingControl" title="Finalizar Tarea" id="' + d.id_relacion + '" name="finalizar_tarea" onclick="botones(this.id, this.name, \'tareas\', \'' + d.tabla_relacion + '\', \'' + d.tipo + '\')"><i class="fas fa-check"></i>  Ir a finalizar tarea</button>';
                 }
@@ -208,6 +211,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             // Si la tarea está finalizada, muestra acciones diferentes o ninguna acción
             if (d.estado === 'Finalizada') {
                 acciones += 'No hay acciones disponibles para tareas finalizadas.';
+
             }
 
             acciones += '</td></tr></table>';
@@ -221,9 +225,11 @@ while ($row = mysqli_fetch_assoc($result)) {
             table.column(5).search("").draw();
         }
     }
+
     function filtrar_listado_usuario() {
         var table = $('#listado').DataTable();
         table.column(5).search(usuarioActual).draw(); // Asumiendo que la columna 1 es la de
+
     }
     $(document).on('click', 'button[name="cambiar_usuario"]', function () {
         var tareaId = $(this).attr('id');
@@ -241,6 +247,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $('.close').click(function () {
         $('#modalCambiarUsuario').hide();
     });
+
 
 
     // Cerrar el modal al hacer clic en el botón Cancelar
@@ -295,5 +302,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             });
         }
     });
+
 
 </script>
