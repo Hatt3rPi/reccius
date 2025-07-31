@@ -62,6 +62,10 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
 
     <script src="../assets/js/jquery.redirect.js"></script>
+    
+    <!-- Feature Flags Configuration -->
+    <script src="../assets/js/features_customware.js"></script>
+    
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
 
@@ -275,66 +279,72 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                     </div>
                 </li>
 
-                <!-- Sección de Producción -->
-                <li class="title">Producción</li>
-                <li class="item" id="produccion">
-                    <a href="#Produccion" class="btn_lateral" urlPage="/produccion" data-breadcrumb="Home > Producción">
-                        <span>
-                            <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario" height="24" width="24">
-                        </span>
-                        Producción
-                    </a>
-                    <div class="smenu">
-                        <a id="Ingreso_OC" href="#" urlPage="/ingreso_oc" data-breadcrumb="Home > Producción > Ingreso Orden de Compra" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/search.svg" alt="Icono de Ingreso Orden de Compra" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Ingreso Ordenes de Compra
-                        </a>
-                        <a id="Listado_OC" href="#" urlPage="/listado_oc" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Listado Ordenes de Compra" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Listado de Ordenes de Compra
-                        </a>
-                        <a id="Listado_Clientes" href="#" urlPage="/listado_clientes" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Listado de Clientes
-                        </a>
-                        <a id="Produccion" href="#" urlPage="/pantalla5" data-breadcrumb="Home > Producción > Pantalla 5 (Producción)" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 5 (Producción)" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Pantalla 5 (Producción)
-                        </a>
-                        <a id="Facturacion" href="#" urlPage="/pantalla6" data-breadcrumb="Home > Producción > Pantalla 6 (Facturación)" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 6 (Facturación)" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Pantalla 6 (Facturación)
-                        </a>
-                        <a id="Despacho" href="#" urlPage="/pantalla7" data-breadcrumb="Home > Producción > Pantalla 7 (Despacho)" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 7 (Despacho)" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Pantalla 7 (Despacho)
-                        </a>
-                        <a id="Cobranza" href="#" urlPage="/pantalla8" data-breadcrumb="Home > Producción > Pantalla 8 (Cobranza)" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 8 (Cobranza)" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Pantalla 8 (Cobranza)
-                        </a>
-                        <a id="Vista_General" href="#" urlPage="/pantalla9" data-breadcrumb="Home > Producción > Pantalla 9 (Vista General)" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 9 (Vista General)" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Pantalla 9 (Vista General)
-                        </a>
-                    </div>
-                </li>
+                <!-- Sección de Producción - Controlada por feature flag experimental_produccion -->
+                <script>
+                if (typeof AppConfig !== 'undefined' && AppConfig.FLAGS && AppConfig.FLAGS.experimental_produccion) {
+                    document.write(`
+                        <li class="title">Producción</li>
+                        <li class="item" id="produccion">
+                            <a href="#Produccion" class="btn_lateral" urlPage="/produccion" data-breadcrumb="Home > Producción">
+                                <span>
+                                    <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario" height="24" width="24">
+                                </span>
+                                Producción
+                            </a>
+                            <div class="smenu">
+                                <a id="Ingreso_OC" href="#" urlPage="/ingreso_oc" data-breadcrumb="Home > Producción > Ingreso Orden de Compra" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/search.svg" alt="Icono de Ingreso Orden de Compra" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Ingreso Ordenes de Compra
+                                </a>
+                                <a id="Listado_OC" href="#" urlPage="/listado_oc" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/listado.svg" alt="Icono de Listado Ordenes de Compra" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Listado de Ordenes de Compra
+                                </a>
+                                <a id="Listado_Clientes" href="#" urlPage="/listado_clientes" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/listado.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Listado de Clientes
+                                </a>
+                                <a id="Produccion" href="#" urlPage="/pantalla5" data-breadcrumb="Home > Producción > Pantalla 5 (Producción)" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 5 (Producción)" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Pantalla 5 (Producción)
+                                </a>
+                                <a id="Facturacion" href="#" urlPage="/pantalla6" data-breadcrumb="Home > Producción > Pantalla 6 (Facturación)" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 6 (Facturación)" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Pantalla 6 (Facturación)
+                                </a>
+                                <a id="Despacho" href="#" urlPage="/pantalla7" data-breadcrumb="Home > Producción > Pantalla 7 (Despacho)" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 7 (Despacho)" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Pantalla 7 (Despacho)
+                                </a>
+                                <a id="Cobranza" href="#" urlPage="/pantalla8" data-breadcrumb="Home > Producción > Pantalla 8 (Cobranza)" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 8 (Cobranza)" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Pantalla 8 (Cobranza)
+                                </a>
+                                <a id="Vista_General" href="#" urlPage="/pantalla9" data-breadcrumb="Home > Producción > Pantalla 9 (Vista General)" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 9 (Vista General)" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Pantalla 9 (Vista General)
+                                </a>
+                            </div>
+                        </li>
+                    `);
+                }
+                </script>
             </ul>
 
         </aside>
