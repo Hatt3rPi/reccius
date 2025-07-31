@@ -104,42 +104,45 @@ function inicializarFormularioCrearUsuario() {
 }
 
 $(document).ready(function () {
-    $('#crear-usuario').click(function (event) {
-        if(AppConfig.FLAGS.crear_usuario){
-            event.preventDefault();
-            $('#dynamic-content').hide();
-            $('#loading-spinner').show();
-            $('#dynamic-content').load('crear_usuario.php', function () {
-                // Llamar a la función de inicialización después de cargar el formulario
-                obtenNotificaciones();
-                inicializarFormularioCrearUsuario();
-                $('#loading-spinner').hide();
-                $('#dynamic-content').show();
-            });
-        }
-        else
-        {
-            featureNoDisponible();
-        }
-    });
+  $("#crear-usuario").click(function (event) {
+    if (AppConfig.FLAGS.crear_usuario) {
+      event.preventDefault();
+      $("#dynamic-content").hide();
+      $("#loading-spinner").show();
+      $("#dynamic-content").load("crear_usuario.php", function () {
+        obtenNotificaciones();
+        inicializarFormularioCrearUsuario();
+        $("#loading-spinner").hide();
+        $("#dynamic-content").show();
+      });
+    } else featureNoDisponible();
+  });
+
+  $("#asignar-roles").click(function (event) {
+    if (AppConfig.FLAGS.asignarRoles) {
+      event.preventDefault();
+      $("#dynamic-content").hide();
+      $("#loading-spinner").show();
+      obtenNotificaciones();
+      $("#dynamic-content").load("asignar_roles.php");
+      $("#loading-spinner").hide();
+      $("#dynamic-content").show();
+    } else featureNoDisponible();
+  });
+
+  $("#asignar-pages").click(function (event) {
+    if (AppConfig.FLAGS.perfilamiento_ratapan) {
+      event.preventDefault();
+      $("#dynamic-content").hide();
+      $("#loading-spinner").show();
+      obtenNotificaciones();
+      $("#dynamic-content").load("asignar_pages.php");
+      $("#loading-spinner").hide();
+      $("#dynamic-content").show();
+    } else featureNoDisponible();
+  });
 });
 
-$(document).ready(function () {
-    $('#asignar-roles').click(function (event) {
-        if(AppConfig.FLAGS.asignarRoles){
-        event.preventDefault(); // Prevenir la navegación predeterminada
-         $('#dynamic-content').hide();
-        $('#loading-spinner').show();
-        // Cargar el formulario de asignación de roles dentro del div #dynamic-content
-        obtenNotificaciones();
-        $('#dynamic-content').load('asignar_roles.php');
-        $('#loading-spinner').hide();
-        $('#dynamic-content').show();
-        } else {
-            featureNoDisponible();
-        }
-    });
-});
 $(document).ready(function () {
     $('#configuracion').click(function (event) {
         if(AppConfig.FLAGS.configuracion_perfil){
@@ -424,6 +427,173 @@ $(document).ready(function () {
         } else {
             featureNoDisponible();
         }
+    });
+});
+// ================================
+//       SECCIÓN: Producción
+// ================================
+
+$(document).ready(function () {
+    // Manejo de clic para "Listado de Clientes"
+    $('#Listado_Clientes').click(function (event) {
+        event.preventDefault(); // Prevenir la navegación predeterminada
+        $('#dynamic-content').hide(); // Ocultar contenido actual
+        $('#loading-spinner').show(); // Mostrar spinner
+
+        console.log('El enlace Listado de Clientes fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Listado_clientes.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Listado de Clientes: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones(); // Actualizar notificaciones
+               // carga_listado(); // Llamar a la función para manejar la lista
+                console.log('Listado de Clientes cargado exitosamente.');
+            }
+            $('#loading-spinner').hide(); // Ocultar spinner
+            $('#dynamic-content').show(); // Mostrar contenido
+        });
+    });
+
+    // Manejo de clic para "Listado OC"
+    $('#Listado_OC').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Listado OC fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Listado_OC.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Listado OC: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Listado OC cargado exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Ingreso OC"
+    $('#Ingreso_OC').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Ingreso OC fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Ingreso_OC.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Ingreso OC: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Ingreso OC cargado exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+
+    // Manejo de clic para "Pantalla 5 (Producción)"
+    $('#Produccion').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 5 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Produccion.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 5: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 5 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 6 (Facturación)"
+    $('#Facturacion').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 6 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Facturacion.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 6: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 6 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 7 (Despacho)"
+    $('#Despacho').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 7 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Despacho.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 7: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 7 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 8 (Cobranza)"
+    $('#Cobranza').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 8 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Cobranza.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 8: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 8 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
+    });
+
+    // Manejo de clic para "Pantalla 9 (Vista General)"
+    $('#Vista_General').click(function (event) {
+        event.preventDefault();
+        $('#dynamic-content').hide();
+        $('#loading-spinner').show();
+
+        console.log('El enlace Pantalla 9 fue clickeado.');
+
+        $('#dynamic-content').load('Produccion/Vista_General.php', function (response, status, xhr) {
+            if (status === "error") {
+                console.error("Error al cargar Pantalla 9: " + xhr.status + " " + xhr.statusText);
+            } else {
+                obtenNotificaciones();
+                console.log('Pantalla 9 cargada exitosamente.');
+            }
+            $('#loading-spinner').hide();
+            $('#dynamic-content').show();
+        });
     });
 });
 

@@ -329,26 +329,6 @@ p {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-#metodo_muestreo {
-    bottom: 30px !important;
-}
-
-#guardar {
-    bottom: 90px;
-}
-
-#firmar {
-    bottom: 160px;
-    background-color: #ff0000;
-}
-
-#download-pdf {
-    bottom: 20px;
-}
-
-#download-pdf:hover {
-    background-color: #003580;
-}
 
 .pdf-header {
     font-size: 12pt;

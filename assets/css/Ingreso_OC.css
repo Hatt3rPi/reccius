@@ -1,0 +1,210 @@
+/* ========================= */
+/* Estilo General */
+/* ========================= */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* ========================= */
+/* Contenedor Principal */
+/* ========================= */
+#form-container {
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    margin: 20px auto; /* Centrado horizontal */
+    padding: 20px; /* Espaciado interno */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+    border-radius: 8px; /* Esquinas redondeadas */
+}
+
+/* ========================= */
+/* Contenedor 1: Formulario Principal */
+/* ========================= */
+#container-1 {
+    display: flex; /* Flexbox para organizar columnas */
+    justify-content: space-between; /* Espaciado uniforme entre columnas */
+    gap: 20px; /* Espaciado entre columnas */
+    margin-bottom: 30px; /* Separación del siguiente bloque */
+}
+
+.column {
+    flex: 1; /* Cada columna ocupa el mismo espacio */
+    display: flex; /* Organizar elementos en columna */
+    flex-direction: column;
+    gap: 15px; /* Espaciado entre inputs */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px; /* Tamaño del texto de la etiqueta */
+    font-weight: bold; /* Texto en negrita */
+    color: #555; /* Color gris para el texto */
+    margin-bottom: 5px; /* Separación con el input */
+}
+
+.form-group input {
+    padding: 10px; /* Espaciado interno del campo */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Esquinas redondeadas */
+    background-color: #fff; /* Fondo blanco */
+    transition: border-color 0.3s ease; /* Transición suave en el enfoque */
+}
+
+.form-group input:focus {
+    border-color: #007bff; /* Borde azul en el enfoque */
+    outline: none; /* Quita el contorno predeterminado */
+}
+
+/* ========================= */
+/* Contenedor de Productos */
+/* ========================= */
+#products-container {
+    margin-top: 20px; /* Separación del bloque anterior */
+    background-color: #f9f9f9; /* Fondo gris claro */
+    padding: 20px; /* Espaciado interno */
+    border: 1px dashed #ccc; /* Borde punteado */
+    border-radius: 8px; /* Esquinas redondeadas */
+}
+
+#products-container h2 {
+    font-size: 18px; /* Tamaño del título */
+    color: #333; /* Color gris oscuro */
+    margin-bottom: 20px; /* Separación con los campos */
+}
+
+/* ========================= */
+/* Botones */
+/* ========================= */
+/* Botones dentro del contenedor de productos */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px; /* Separación del contenido anterior */
+}
+
+.button-container button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos específicos de botones */
+.btn-save {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+/* ========================= */
+/* Botón Agregar Producto */
+/* ========================= */
+.btn-add-product {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-product:hover {
+    background-color: #0056b3;
+}
+
+/* ========================= */
+/* Contenedor Dinámico de Productos */
+/* ========================= */
+.products-container {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+}
+
+.products-container h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+/* ========================= */
+/* Estilo para inputs deshabilitados */
+/* ========================= */
+.input-disabled {
+    background-color: #999999; /* Gris claro */
+    color: #6c757d; /* Texto gris */
+    border: 1px solid #ced4da; /* Borde gris */
+    cursor: not-allowed; /* Cursor no permitido */
+}
+
+/* ========================= */
+/* Estilo para el área de comentarios */
+/* ========================= */
+#comments-container {
+    margin-top: 20px;
+}
+
+#comments-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: none; /* No permitir cambiar el tamaño */
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+#comments-container textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+
+/* ========================= */
+/* Responsivo */
+/* ========================= */
+@media (max-width: 768px) {
+    #container-1 {
+        flex-direction: column; /* Apila las columnas verticalmente */
+    }
+
+    .button-container {
+        justify-content: center; /* Botones centrados */
+    }
+}

@@ -13,7 +13,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <title>Envío de solicitud a laboratorio</title>
-    <link rel="stylesheet" href="../assets/css/DocumentoAna.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="../assets/css/correos.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
+    <script src="../assets/js/notify.js"></script>
+
 </head>
 
 <body>
@@ -46,7 +49,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             </fieldset>
             <br>
             <fieldset>
-                <legend>II. Destinatarios</legend>
+                <legend>II. Destinatario</legend>
                 <br>
                 <div id="destinatarios-container-lab">
                     <div class="form-row destinatario-row justify-content-start align-items-center gap-2">
@@ -135,6 +138,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <input type="hidden" id="id_analisis_externo" name="id_analisis_externo">
             <div id="buttonContainer" class="button-container">
             </div>
+            <div id="notification" class="notification-container notify" style="display: none;"></div>
         </form>
         <div class="modal" id="modalInfo">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -250,7 +254,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         if (analisis.url_certificado_solicitud_analisis_externo && analisis.url_certificado_acta_de_muestreo) {
                             $('#modalInfo').hide();
                             $('#buttonContainer')
-                                .append('<button type="submit" class="botones" id="enviarCorreo">Enviar</button>');
+                                .append('<button type="submit" class="botones ingControl" id="enviarCorreo">Enviar</button>');
                         } else {
                             $('#modalInfo').show();
 
@@ -453,13 +457,15 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         email: email,
                         nombre: nombre
                     });
+                    
                 } else {
                     if(!validateEmail(email)) bad.push($(this).find('input[type="email"]'));
                 }
             });
             if(bad.length > 0) {
                 bad[0].focus();
-                alert('Por favor, ingresa un correo electrónico y un nombre para todos los destinatarios.');
+                
+                $.notify("Por favor, ingresa un correo electrónico y un nombre para todos los destinatarios.", "warn");
                 if (enviar) enviar.disabled = false;
                 return false;
             }
@@ -490,15 +496,18 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 .then(response => response.json())
                 .then(data => {
                     if (data.exito) {
-                        alert('Correo enviado con éxito');
+                        
+                        $.notify("Correo enviado con éxito", "success");
                         $('#listado_solicitudes_analisis').click();
                     } else {
-                        alert('Error al enviar el correo: ' + data.mensaje);
+                        
+                        $.notify('Error al enviar el correo: ' + data.mensaje, "warn");
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Hubo un problema al procesar tu solicitud. Por favor, intenta de nuevo.');
+                    
+                    $.notify("Hubo un problema al procesar tu solicitud. Por favor, intenta de nuevo.", "warn");
                 }).finally(() => {
                     if (enviar) enviar.disabled = false;
                 });

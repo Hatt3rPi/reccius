@@ -16,7 +16,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificación Producto Terminado</title>
-    <link rel="stylesheet" href="../assets/css/DocumentoEspecs.css">
+    <link rel="stylesheet" href="../assets/css/DocumentoEspecs_old.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -27,83 +28,79 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 <body>
     <div id="form-container" class="ContenedorP">
         <div id="Maincontainer">
-            <div id="header-container" style="width: 100%;">
-                <!-- Asegúrate de tener un contenedor para el header con display flex -->
-                <div id="header" class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
-
+            <!-- Contenedor Principal del Header -->
+            <div id="header-container" class="header-container">
+                <!-- Fila principal con logo, título y tabla informativa -->
+                <div id="header" class="header">
                     <!-- Logo e Información Izquierda -->
                     <div class="header-left">
-                        <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" style="height: 60px;" />
-                        <!-- Ajusta el tamaño según sea necesario -->
-                        <br>
+                        <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo" />
                     </div>
+
                     <!-- Título Central -->
-                    <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                        <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
-                        </h1>
-                        <p name="producto" id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
-                        <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
-                        <div style="position: relative; font-size: 11px; font-weight: bold; color: #000; margin-top: 2px;">
-                            Dirección de Calidad
-                        </div>
+                    <div class="header-center">
+                        <h1 id="Tipo_Producto" class="header-toptitle"></h1>
+                        <p id="producto" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;"></p>
+                        <hr>
+                        <div class="header-subtitle">Dirección de Calidad</div>
                     </div>
+
                     <!-- Información Derecha con Tabla -->
-                    <div class="header-right" style="font-size: 8px; font-family: 'Arial', sans-serif">
-                        <table style="width: 100%; border-collapse: collapse;">
+                    <div class="header-right">
+                        <table id="panel_informativo">
                             <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Doc. N°:</td>
-                                <td name="documento" id="documento" style="border: 1px solid rgb(56, 53, 255);text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Elab. por:</td>
-                                <td name="creadoPor" id="creadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td>Doc. N°:</td>
+                                <td id="documento"></td>
+                                <td>Elab. por:</td>
+                                <td id="creadoPor"></td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Edición:</td>
-                                <td name="edicion" id="edicion" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Rev.Por:</td>
-                                <td name="revisadoPor" id="revisadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td>Edición:</td>
+                                <td id="edicion"></td>
+                                <td>Rev. Por:</td>
+                                <td id="revisadoPor"></td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Versión:</td>
-                                <td name="version" id="version" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Aut.Por:</td>
-                                <td name="aprobadoPor" id="aprobadoPor" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td>Versión:</td>
+                                <td id="version"></td>
+                                <td>Aut. Por:</td>
+                                <td id="aprobadoPor"></td>
                             </tr>
                             <tr>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Vigencia:</td>
-                                <td name="vigencia" id="vigencia" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
-                                <td style="border: 1px solid rgb(56, 53, 255);">Página:</td>
-                                <td id="pagina-numero" class="pagina-numero" style="border: 1px solid rgb(56, 53, 255); text-align: center"></td>
+                                <td>Vigencia:</td>
+                                <td id="vigencia"></td>
+                                <td>Página:</td>
+                                <td id="pagina-numero"></td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                <!-- Fila adicional con dos columnas debajo del encabezado existente -->
-                <div class="header-bottom" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0 10px; box-sizing: border-box; font-family: 'Arial', sans-serif">
-                    <div class="header-bottom-left" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: left;">
-                        <div class="sub-info" style="font-size: 10px;text-align: left;">
+
+                <!-- Fila adicional debajo del encabezado -->
+                <div class="header-bottom">
+                    <div class="header-bottom-left">
+                        <div class="sub-info" style="text-align: left;">
                             Producto de recetario magistral <br>
                             Res. Ex. N° 2988/2018
                         </div>
                     </div>
-                    <div class="header-bottom-right" style="flex: 1; background-color: #ffffff; padding: 10px; box-sizing: border-box; text-align: right;">
-                        <div class="sub-info" style="font-size: 10px; text-align: right;">
+                    <div class="header-bottom-right">
+                        <div class="sub-info" style="text-align: right;">
                             RF XII 001/18: 1A, 1B, 2A, 2C, 3A, 3B, 3D, 4 y homeopático
                         </div>
                     </div>
                 </div>
             </div>
 
+
             <div class="watermark" id="watermark"></div>
             <div id="contenido_main">
 
-                <h1 id="Tipo_Producto2" name="Tipo_Producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; line-height: 1.2; text-decoration: underline; text-transform: uppercase; text-align: center;">
-                </h1>
-                <p name="producto2" id="producto2" style="margin: 0; font-size: 11px; font-weight: bold; color: #000; text-transform: uppercase; text-align: center;">
-                </p>
-                <div id="content" class="content">
+                <div id="content" class="contenido">
                     <!-- Resto del contenido del cuerpo igual al HTML original -->
                     <div class="table-section">
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 5px; padding-left: 50px;">
                             I. Análisis Generales
                         </div>
                         <table id="analisisFQ" class="compact table-bordered" style="width:100%; font-size: 10px">
@@ -120,14 +117,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         </table>
                     </div>
                 </div>
-                <div id="additionalContent" class="content">
+                <div id="additionalContent" class="contenido" >
                     <div class="table-section">
                         <!-- Sección de Análisis Microbiológico -->
-                        <div class="analysis-section" style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
+                        <div class="analysis-section"
+                            style="font-size: 10px; font-weight: bold; margin-top: 20px; padding-left: 50px;">
                             II. Análisis Microbiológico
                         </div>
                         <!-- Tabla de Análisis Microbiológico -->
-                        <table id="analisisMB" class="display compact table-bordered" style="width:100%; font-size: 10px">
+                        <table id="analisisMB" class="display compact table-bordered"
+                            style="width:100%; font-size: 10px">
                             <thead>
                                 <tr>
                                     <th style="width: 170px; text-align: center">Análisis</th>
@@ -147,13 +146,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id="creadoPor2" name="creadoPor2" class="bold"></p>
                         <p id="cargo_creador" name="cargo_creador" class="bold"></p>
                         <div class="signature" id="QRcreador" name="QRcreador">
-                            <img id="QRcreador" name="QRcreador" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
+                            <img id="QRcreador" name="QRcreador"
+                                src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
+                                class="firma">
                         </div>
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_creador" name="mensaje_creador" style="display: none;font-size: 8px">Firmado digitalmente</p>
+                        
                         <div id="fecha_Edicion" name="fecha_Edicion" class="date" style="font-size: 8px"></div>
+                        <p id="mensaje_creador" name="mensaje_creador" class="firma-bottom">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
                 <!-- Sección revisada por -->
@@ -163,13 +166,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id="revisadoPor2" name="revisadoPor2" class="bold"></p>
                         <p id="cargo_revisor" name="cargo_revisor" class="bold"></p>
                         <div class="signature" id="QRrevisor" name="QRrevisor">
-                            <img id="QRrevisor" name="QRrevisor" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
+                            <img id="QRrevisor" name="QRrevisor"
+                                src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
+                                class="firma">
                         </div>
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_revisor" name="mensaje_revisor" style="display: none;font-size: 8px">Firmado digitalmente</p>
+                        
                         <div id="fechaRevision" name="fechaRevision" class="date" style="font-size: 8px"></div>
+                        <p id="mensaje_revisor" name="mensaje_revisor" class="firma-bottom">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
                 <!-- Sección aprobada por -->
@@ -179,13 +186,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                         <p id="aprobadoPor2" name="aprobadoPor2" class="bold"></p>
                         <p id="cargo_aprobador" name="cargo_aprobador" class="bold"></p>
                         <div class="signature" id="QRaprobador" name="QRaprobador">
-                            <img id="QRaprobador" name="QRaprobador" src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma" class="firma">
+                            <img id="QRaprobador" name="QRaprobador"
+                                src="https://customware.fabarca212.workers.dev/assets/firma_null.webp" alt="Firma"
+                                class="firma">
                         </div>
 
                     </div>
                     <div class="date-container">
-                        <p id="mensaje_aprobador" name="mensaje_aprobador" style="display: none;font-size: 8px">Firmado digitalmente</p>
+                        
                         <div id="fechaAprobacion" name="fechaAprobacion" class="date" style="font-size: 8px"></div>
+                        <p id="mensaje_aprobador" name="mensaje_aprobador" class="firma-bottom">Firmado
+                            digitalmente</p>
                     </div>
                 </div>
             </div>
@@ -193,8 +204,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         </div>
     </div>
     <div class="button-container">
-        <button class="ingControl" id="sign-document" style="display: none;">Firmar Documento</button>
-        <button class="ingControl" id="download-pdf">Descargar PDF</button>
+        <button class="botones ingControl" id="sign-document" style="display: none;">Firmar Documento</button>
+        <button class="botones ingControl" id="download-pdf">Descargar PDF</button>
 
         <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
 
@@ -206,7 +217,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
         var usuarioNombre = "<?php echo $_SESSION['nombre']; ?>";
         var usuario = "<?php echo $_SESSION['usuario']; ?>";
 
-        document.getElementById('download-pdf').addEventListener('click', function() {
+        document.getElementById('download-pdf').addEventListener('click', function () {
             $.notify("Generando PDF", "warn");
 
             // Ocultar la sección de botones antes de capturar la pantalla
@@ -361,7 +372,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 data: {
                     id: id
                 },
-                success: function(response) {
+                success: function (response) {
                     // Procesar los datos recibidos
                     procesarDatosEspecificacion(response);
 
@@ -401,7 +412,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     // Ajustar las secciones según la cantidad de filas
                     ajustarSeccionesPorFilas();
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
                 }
             });
@@ -417,7 +428,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 document.getElementById('additionalContent').style.display = 'block';
             } else {
                 // Si hay menos de 8 filas, el contenido adicional debe mostrarse en la misma página
-                document.getElementById('additionalContent').style.display = 'inline-block';
+                document.getElementById('additionalContent').style.display = 'flex';
             }
         }
 
@@ -428,7 +439,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 return;
             }
 
-            response.productos.forEach(function(producto) {
+            response.productos.forEach(function (producto) {
                 poblarYDeshabilitarCamposProducto(producto);
                 let especificaciones = Object.values(producto.especificaciones || {});
                 if (especificaciones.length > 0) {
@@ -556,20 +567,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#analisisFQ').DataTable({
                         data: analisis,
                         columns: [{
-                                title: 'Análisis',
-                                data: 'descripcion_analisis',
-                                width: '170px'
-                            },
-                            {
-                                title: 'Metodología',
-                                data: 'metodologia',
-                                width: '106px'
-                            },
-                            {
-                                title: 'Criterio aceptación',
-                                data: 'criterios_aceptacion',
-                                width: '404px'
-                            }
+                            title: 'Análisis',
+                            data: 'descripcion_analisis',
+                            width: '170px'
+                        },
+                        {
+                            title: 'Metodología',
+                            data: 'metodologia',
+                            width: '106px'
+                        },
+                        {
+                            title: 'Criterio aceptación',
+                            data: 'criterios_aceptacion',
+                            width: '404px'
+                        }
                         ],
                         paging: false,
                         info: false,
@@ -596,20 +607,20 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $('#analisisMB').DataTable({
                         data: analisis,
                         columns: [{
-                                title: 'Análisis',
-                                data: 'descripcion_analisis',
-                                width: '170px'
-                            },
-                            {
-                                title: 'Metodología',
-                                data: 'metodologia',
-                                width: '106px'
-                            },
-                            {
-                                title: 'Criterio aceptación',
-                                data: 'criterios_aceptacion',
-                                width: '404px'
-                            }
+                            title: 'Análisis',
+                            data: 'descripcion_analisis',
+                            width: '170px'
+                        },
+                        {
+                            title: 'Metodología',
+                            data: 'metodologia',
+                            width: '106px'
+                        },
+                        {
+                            title: 'Criterio aceptación',
+                            data: 'criterios_aceptacion',
+                            width: '404px'
+                        }
                         ],
                         paging: false,
                         info: false,
@@ -627,7 +638,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             ajustarSeccionesPorFilas(); // Ajustar el contenido una vez se muestre
         }
 
-        document.getElementById('sign-document').addEventListener('click', function() {
+        document.getElementById('sign-document').addEventListener('click', function () {
             // Verifica si el documento está pendiente de firma y si el usuario es el revisor o aprobador
             var puedeFirmar = (esRevisorYFirmaPendiente() || esAprobadorYFirmaPendiente());
             if (puedeFirmar && confirm("¿Estás seguro que deseas firmar el documento?")) {
@@ -669,7 +680,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     idEspecificacion: idEspecificacion,
                     rolUsuario: rolUsuario
                 },
-                success: function(response) {
+                success: function (response) {
                     // Aquí manejas la respuesta del backend
                     console.log('Firma actualizada correctamente:', response);
                     // Actualiza el estado del documento en el frontend
@@ -679,7 +690,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     $.notify("Documento firmado con éxito.", "success");
                     $.notify("Tarea terminada con éxito", "success");
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error('Error al firmar documento:', status, error);
                     $.notify("Error al firmar documento:", "error");
                 }
@@ -806,7 +817,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
             var watermarks = document.querySelectorAll('.watermark');
 
-            watermarks.forEach(function(watermark) {
+            watermarks.forEach(function (watermark) {
                 if (creadorFirmado && revisorFirmado && aprobadorFirmado) {
                     watermark.textContent = 'CONFIDENCIAL';
                     watermark.classList.add('watermark');
@@ -817,7 +828,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             });
         }
 
-        window.onload = function() {
+        window.onload = function () {
             cargarDatosEspecificacion(id);
         };
     </script>

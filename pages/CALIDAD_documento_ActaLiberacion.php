@@ -21,11 +21,11 @@ if ($id) {
 left join calidad_analisis_externo as aex   on aex.id_cuarentena=pa.id WHERE pa.id_actaLiberacion=?");
     $stmt->bind_param("i", $id); // "i" indica que es un entero
     $stmt->execute();
-    
+
     // Vincular el resultado de la consulta a una variable
     $stmt->bind_result($fecha_liberacion);
     $stmt->fetch();
-    
+
     // Cerrar el statement
     $stmt->close();
 }
@@ -42,7 +42,9 @@ $link->close();
     <title>Acta de Muestreo Control de Calidad</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <!--
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
@@ -51,7 +53,7 @@ $link->close();
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
      <script src="../assets/js/notify.js"></script> -->
     <link rel="stylesheet" href="../assets/css/DocumentoLiberacion.css">
-    <link rel="stylesheet" href="../assets/css/components/buttonContainer.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
 
     <style>
 
@@ -65,24 +67,30 @@ $link->close();
     <div id="form-container" class="form-container formpadding">
         <div id="Maincontainer">
             <!-- Header -->
-            <div id="header-container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div id="header-container"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
 
                 <!-- Logo a la izquierda -->
                 <div class="header-left" style="flex: 1;">
-                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius" style="height: 100px;">
+                    <img src="../assets/images/logo_reccius_medicina_especializada.png" alt="Logo Reccius"
+                        style="height: 100px;">
                     <!-- Ajusta la altura según sea necesario -->
                 </div>
                 <!-- Título Central -->
-                <div class="header-center" style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
-                    <p name="pretitulo" id="pretitulo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
+                <div class="header-center"
+                    style="flex: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; height: 100%;">
+                    <p name="pretitulo" id="pretitulo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">Acta de Liberación / Rechazo
                     </p>
                     </p>
                     <!-- Pretitulo -->
                     </p>
-                    <h1 id="Tipo_Producto" name="Tipo_Producto" style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
+                    <h1 id="Tipo_Producto" name="Tipo_Producto"
+                        style="margin: 0; font-size: 11px; font-weight: normal; color: #000; line-height: 1.2;">
                         <!-- Título del documento -->
                     </h1>
-                    <p name="producto_completo" id="producto_completo" style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
+                    <p name="producto_completo" id="producto_completo"
+                        style="margin: 0; font-size: 11px; font-weight: bold; color: #000;">
                         <!-- Descripción del producto -->
                     </p>
                     <hr style="width:75%; margin-top: 2px; margin-bottom: 1px;">
@@ -91,8 +99,10 @@ $link->close();
                     </div>
                 </div>
                 <!-- Información Derecha con Tabla -->
-                <div class="header-right" style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
-                    <table id="panel_informativo" name="panel_informativo" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
+                <div class="header-right"
+                    style="font-size: 10px; font-family: 'Arial', sans-serif;flex: 2; text-align: right">
+                    <table id="panel_informativo" name="panel_informativo"
+                        style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
                         <tr>
                             <td>N° Registro:</td>
                             <td name="nro_registro" id="nro_registro"></td>
@@ -107,11 +117,12 @@ $link->close();
                         </tr>
                         <tr>
                             <td>Fecha Liberación:</td>
-                            <td>
+                            <td style="background-color: rgb(244, 250, 194)!important;">
                                 <?php if ($modo_edicion): ?>
                                     <!-- Modo de visualización -->
-                                    <div id="fecha_acta_lib" name="fecha_acta_lib" class="fecha-visualizacion"><?php echo $fecha_liberacion; ?></div>
-                                    
+                                    <div id="fecha_acta_lib" name="fecha_acta_lib" class="fecha-visualizacion">
+                                        <?php echo $fecha_liberacion; ?></div>
+
                                 <?php else: ?>
                                     <!-- Modo de creación -->
                                     <input type="date" name="fecha_acta_lib" id="fecha_acta_lib">
@@ -132,13 +143,15 @@ $link->close();
                     <tr>
                         <td class="titulo">1. Producto</td>
                         <td>
-                            <div id="producto_completoT1" name="producto_completoT1" class="editable-div border border-black" contenteditable="true"></div>
+                            <div id="producto_completoT1" name="producto_completoT1"
+                                class="editable-div border border-black" ></div>
                             <span> </span>
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Cond. Almacenamiento</td>
                         <td>
-                            <div id="cond_almacenamiento" name="cond_almacenamiento" class="editable-div border border-black" contenteditable="true"></div>
+                            <div id="cond_almacenamiento" name="cond_almacenamiento"
+                                class="editable-div border border-black" ></div>
                         </td>
 
 
@@ -231,8 +244,8 @@ $link->close();
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Planilla de fabricación</td>
-                        <td >
-                            <div class="toggle-container">
+                        <td>
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;" >
                                 <input type="radio" id="estado1_conforme" name="estado1" value="1">
                                 <label for="estado1_conforme">Conforme</label>
 
@@ -241,21 +254,25 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea1" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea1" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important; width: 100%;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1" id="revision_liberacion1b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion1b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1"
+                                    id="revision_liberacion1a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion1a"><i
+                                        class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion1"
+                                    id="revision_liberacion1b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion1b"><i
+                                        class="fa-regular fa-circle-xmark"></i> Rechazado</label>
                             </div>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Acta de Muestreo</td>
-                        <td >
-                            <div class="toggle-container">
+                        <td>
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;">
                                 <input type="radio" id="estado2_conforme" name="estado2" value="1">
                                 <label for="estado2_conforme">Conforme</label>
 
@@ -264,21 +281,25 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec  ">
-                            <div id="form_textarea2" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea2" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important; width: 100%;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="revision_liberacion2a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2" id="revision_liberacion2b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion2b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2"
+                                    id="revision_liberacion2a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion2a"><i
+                                        class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion2"
+                                    id="revision_liberacion2b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion2b"><i
+                                        class="fa-regular fa-circle-xmark"></i> Rechazado</label>
                             </div>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Solicitud de Análisis</td>
-                        <td >
-                            <div class="toggle-container">
+                        <td>
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;">
                                 <input type="radio" id="estado3_conforme" name="estado3" value="1">
                                 <label for="estado3_conforme">Conforme</label>
 
@@ -287,21 +308,25 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea3" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea3" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important; width: 100%;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="revision_liberacion3a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3" id="revision_liberacion3b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion3b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3"
+                                    id="revision_liberacion3a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion3a"><i
+                                        class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion3"
+                                    id="revision_liberacion3b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion3b"><i
+                                        class="fa-regular fa-circle-xmark"></i> Rechazado</label>
                             </div>
                         </td>
                     </tr>
                     <tr class="bordeAbajo">
                         <td class="tituloTabla">Certificado de Análisis</td>
-                        <td >
-                            <div class="toggle-container">
+                        <td>
+                            <div class="toggle-container" style="background-color: rgb(244, 250, 194)!important;">
                                 <input type="radio" id="estado4_conforme" name="estado4" value="1">
                                 <label for="estado4_conforme">Conforme</label>
 
@@ -310,21 +335,25 @@ $link->close();
                             </div>
                         </td>
                         <td class="Espec ">
-                            <div id="form_textarea4" class="editable-divO" contenteditable="true"></div>
+                            <div id="form_textarea4" class="editable-divO" contenteditable="true" style="background-color: rgb(244, 250, 194)!important; width: 100%;"></div>
                         </td>
-                        <td class="revision ">
+                        <td class="revision " style="background-color: rgb(244, 250, 194)!important;">
                             <div class="btn-group-vertical" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4a" value="1" autocomplete="off">
-                                <label class="btn btn-outline-success verificadores" for="revision_liberacion4a"><i class="fa-regular fa-circle-check"></i> Aprobado</label>
-                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4" id="revision_liberacion4b" value="0" autocomplete="off">
-                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion4b"><i class="fa-regular fa-circle-xmark"></i> Rechazado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4"
+                                    id="revision_liberacion4a" value="1" autocomplete="off">
+                                <label class="btn btn-outline-success verificadores" for="revision_liberacion4a"><i
+                                        class="fa-regular fa-circle-check"></i> Aprobado</label>
+                                <input type="radio" style="display: none;" class="btn-check" name="revision_liberacion4"
+                                    id="revision_liberacion4b" value="0" autocomplete="off">
+                                <label class="btn btn-outline-danger verificadores" for="revision_liberacion4b"><i
+                                        class="fa-regular fa-circle-xmark"></i> Rechazado</label>
                             </div>
                         </td>
                     </tr>
                 </table>
             </form>
-                        <!-- Sección II: MUESTREO -->
-                        <br>
+            <!-- Sección II: MUESTREO -->
+            <br>
             <form id="section4">
                 <table id="seccion4">
                     <tr>
@@ -332,38 +361,39 @@ $link->close();
                     </tr>
                     <tr>
                         <td class="titulo">1. N° Acta de Liberacion:</td>
-                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" readonly></td>
+                        <td><input type="text" id="nro_acta_liberacion" name="nro_acta_liberacion" readonly ></td>
                         <td class="titulo"> </td>
                         <td class="titulo">2. Fecha Liberacion:</td>
-                        <td><input type="text" id="fecha_lib" name="fecha_lib" readonly></td>
+                        <td><input type="text" id="fecha_lib" name="fecha_lib" readonly ></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">3. Producto</td>
                         <td>
-                            <div id="producto_completoT3" name="producto_completoT3" class="editable-div border border-black" ></div>
+                            <div id="producto_completoT3" name="producto_completoT3"
+                                class="editable-div border border-black"></div>
                             <span> </span>
                         </td>
                         <td class="titulo"> </td>
                         <td class="titulo">4. N° Lote:</td>
-                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly></td>
+                        <td><input type="text" id="nro_loteT3" name="nro_loteT3" readonly ></td>
 
                     </tr>
                     <tr>
                         <td class="titulo">5. Fecha de Elaboración:</td>
-                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" readonly></td>
+                        <td><input type="text" id="fecha_elabT3" name="fecha_elabT3" readonly ></td>
                         <td class="titulo"> </td>
                         <td class="titulo">6. Fecha de Vencimiento:</td>
-                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" readonly></td>
+                        <td><input type="text" id="fecha_vencT3" name="fecha_vencT3" readonly ></td>
 
                     </tr>
 
                     <tr>
                         <td class="titulo">7. Cantidad real Liberada:</td>
-                        <td><input  type="text" id="cantidad_real" name="cantidad_real" required></td>
+                        <td><input type="text" id="cantidad_real" name="cantidad_real" style="background-color: rgb(244, 250, 194)!important;" required></td>
                         <td class="titulo"> </td>
                         <td class="titulo">8. N° Parte de Ingreso/Traspaso:</td>
-                        <td><input  type="text" id="nro_traspaso" name="nro_traspaso" required></td>
+                        <td><input type="text" id="nro_traspaso" name="nro_traspaso" style="background-color: rgb(244, 250, 194)!important;" required></td>
 
                     </tr>
                 </table>
@@ -388,7 +418,8 @@ $link->close();
                                         rechazado: https://customware.fabarca212.workers.dev/assets/RECHAZADO_WS.webp
                                         pendiente: https://customware.fabarca212.workers.dev/assets/PENDIENTE_WS.webp
                                 -->
-                                <img src="" id="estado_liberacion" name="estado_liberacion" alt="Estado Final" class="firma">
+                                <img src="" id="estado_liberacion" name="estado_liberacion" alt="Estado Final"
+                                    class="firma">
 
                             </div>
 
@@ -414,7 +445,8 @@ $link->close();
                         </div>
                         <div class="date-container">
                             <div id='fecha_realizacion' name='fecha_realizacion' class="date"></div>
-                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom" style="display: none;">Firmado digitalmente</p>
+                            <p id='mensaje_realizador' name='mensaje_realizador' class="text-bottom"
+                                style="display: none;">Firmado digitalmente</p>
                         </div>
                     </div>
 
@@ -434,9 +466,12 @@ $link->close();
 
 </body>
 <div class="button-container">
-    <button class="botones ingControl" name="download-pdf" id="download-pdf" style="display: none;">Descargar PDF</button>
-    <button class="botones ingControl" name="firma" id="firma" onclick="resultado_liberacion()" style="display: none;">Firmar Documento</button>
-    <button class="botones ingControl" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar y Firmar Documento</button>
+    <button class="botones ingControl" name="download-pdf" id="download-pdf" style="display: none;">Descargar
+        PDF</button>
+    <button class="botones ingControl highlight" name="firma" id="firma" onclick="resultado_liberacion()"
+        style="display: none;">Firmar Documento</button>
+    <button class="botones ingControl" name="guardar" id="guardar" onclick="resultado_liberacion()">Guardar y Firmar
+        Documento</button>
     <p id='id_actaMuestreo' name='id_actaMuestreo' style="display: none;"></p>
     <p id='id_analisis_externo' name='id_analisis_externo' style="display: none;"></p>
     <p id='id_especificacion' name='id_especificacion' style="display: none;"></p>
@@ -461,11 +496,13 @@ $link->close();
                 <p>Seleccione el resultado de liberación:</p>
                 <div class="d-flex justify-content-around">
                     <div>
-                        <img src="https://customware.fabarca212.workers.dev/assets/APROBADO.webp" alt="Aprobado" id="aprobadoImg" style="cursor: pointer;">
+                        <img src="https://customware.fabarca212.workers.dev/assets/APROBADO.webp" alt="Aprobado"
+                            id="aprobadoImg" style="cursor: pointer;">
                         <p>Aprobado</p>
                     </div>
                     <div>
-                        <img src="https://customware.fabarca212.workers.dev/assets/RECHAZADO_WS.webp" alt="Rechazado" id="rechazadoImg" style="cursor: pointer;">
+                        <img src="https://customware.fabarca212.workers.dev/assets/RECHAZADO_WS.webp" alt="Rechazado"
+                            id="rechazadoImg" style="cursor: pointer;">
                         <p>Rechazado</p>
                     </div>
                 </div>
@@ -480,7 +517,7 @@ $link->close();
 
 </html>
 <script>
-    document.getElementById('download-pdf').addEventListener('click', function() {
+    document.getElementById('download-pdf').addEventListener('click', function () {
         const buttonContainer = document.querySelector('.button-container');
         const elementToExport = document.getElementById('form-container');
 
@@ -670,7 +707,7 @@ $link->close();
                 idAnalisisExterno: idAnalisisExterno
             },
             dataType: 'json', // Asegúrate de que la respuesta esperada es JSON
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     if (response.analisis && response.analisis.length > 0) {
                         const analisis = response.analisis; // Datos del análisis externo
@@ -683,7 +720,7 @@ $link->close();
                         // Concatenar solo las partes que no sean nulas o vacías
                         var productoCompleto = nombreProducto + concentracion + formato;
                         // Sumar los resultados de producto en un solo texto
-                        
+
                         var fecha_yoh = "<?php echo date('Y-m-d'); ?>";
                         // Actualizar el elemento con el texto combinado
                         $('#producto_completo').text(productoCompleto);
@@ -743,7 +780,7 @@ $link->close();
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -758,7 +795,7 @@ $link->close();
         var img = new Image();
         img.crossOrigin = 'Anonymous'; // Necesario para evitar problemas de CORS
         img.src = imgURL;
-        img.onload = function() {
+        img.onload = function () {
             var canvas = document.createElement('canvas');
             canvas.width = img.width;
             canvas.height = img.height;
@@ -770,7 +807,7 @@ $link->close();
             // Asignar la imagen convertida al elemento img
             imgElement.src = dataURL;
         };
-        img.onerror = function() {
+        img.onerror = function () {
             console.error('Error al cargar la imagen.');
         };
     }
@@ -784,13 +821,13 @@ $link->close();
                 id_actaLiberacion: id_actaLiberacion
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     const campos = response.campos[0]; // Accede al primer objeto en el array campos
                     if (campos) {
                         // Sumar los resultados de producto en un solo texto
                         var productoCompleto = campos.prod_nombre_producto + ' ' + campos.prod_concentracion + ' ' + campos.prod_formato;
-                        var productoCompleto = 
+                        var productoCompleto =
                             (campos.prod_nombre_producto != null ? campos.prod_nombre_producto : '') + ' ' +
                             (campos.prod_concentracion != null ? campos.prod_concentracion : '') + ' ' +
                             (campos.prod_formato != null ? campos.prod_formato : '');
@@ -883,7 +920,7 @@ $link->close();
                     alert("Error en carga de datos. Revisa la consola para más detalles.");
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error cargando los datos: ' + error);
                 console.error('AJAX error: ' + status + ' : ' + error);
                 alert("Error en carga de datos. Revisa la consola para más detalles.");
@@ -893,7 +930,7 @@ $link->close();
 
     function cargarResultadosGuardados(revisionResults, docConformeResults) {
         console.log("Resultados guardados:", revisionResults, docConformeResults);
-        
+
         // Asegúrate de que las cadenas tengan 4 caracteres
         if (revisionResults.length !== 4 || docConformeResults.length !== 4) {
             console.error("Los resultados deben tener exactamente 4 caracteres.");
@@ -901,7 +938,7 @@ $link->close();
         }
 
         // Seleccionar los inputs correspondientes para revisionResults
-        $('.revision input[type="radio"]').each(function(index) {
+        $('.revision input[type="radio"]').each(function (index) {
             // Obtener el grupo de inputs de radio para este índice
             let groupName = $(this).attr('name');
 
@@ -915,11 +952,11 @@ $link->close();
         });
 
         // Seleccionar los inputs correspondientes para docConformeResults
-        $('.toggle-container').each(function(index) {
+        $('.toggle-container').each(function (index) {
             var inputsDentroDeEsteDiv = $(this).find('input');
             var dataI = Number(docConformeResults[index]);
-            console.log({inputsDentroDeEsteDiv, dataI, docConformeResults: docConformeResults[index]});
-            inputsDentroDeEsteDiv[dataI=== 1 ? 0 : 1].checked = true;
+            console.log({ inputsDentroDeEsteDiv, dataI, docConformeResults: docConformeResults[index] });
+            inputsDentroDeEsteDiv[dataI === 1 ? 0 : 1].checked = true;
 
             /*
                 // Obtener el grupo de inputs de radio para este índice
@@ -936,12 +973,12 @@ $link->close();
 
     function resultado_liberacion() {
         let revisionResults = '';
-        $('.revision input[type="radio"]:checked').each(function() {
+        $('.revision input[type="radio"]:checked').each(function () {
             revisionResults += $(this).val();
         });
 
         let docConformeResults = '';
-        $('.toggle-container input[type="radio"]:checked').each(function() {
+        $('.toggle-container input[type="radio"]:checked').each(function () {
             docConformeResults += $(this).val();
         });
         console.log('docConformeResults:', docConformeResults);
@@ -954,11 +991,11 @@ $link->close();
         console.log(cantidad_real);
         console.log(nro_traspaso);
         if (revisionResults.length !== 4 || docConformeResults.length !== 4 || !cantidad_real || !nro_traspaso) {
-            $('.revision input[type="radio"]:checked').each(function() {
+            $('.revision input[type="radio"]:checked').each(function () {
                 if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
             });
 
-            $('.doc-conforme input[type="radio"]:checked').each(function() {
+            $('.doc-conforme input[type="radio"]:checked').each(function () {
                 if (!$(this).val()) $(this).closest('td').css('border-color', 'red');
             });
 
@@ -971,11 +1008,11 @@ $link->close();
 
         $('#resultadoModal').modal('show');
 
-        $('#aprobadoImg').off('click').on('click', function() {
+        $('#aprobadoImg').off('click').on('click', function () {
             firmayguarda('aprobado', revisionResults, docConformeResults);
         });
 
-        $('#rechazadoImg').off('click').on('click', function() {
+        $('#rechazadoImg').off('click').on('click', function () {
             firmayguarda('rechazado', revisionResults, docConformeResults);
         });
     }
@@ -1005,7 +1042,7 @@ $link->close();
         let obs3 = $('#form_textarea3').text();
         let obs4 = $('#form_textarea4').text();
 
-        
+
 
 
         let cant_real_liberada = $('#cantidad_real').val();
@@ -1040,7 +1077,7 @@ $link->close();
             type: 'POST',
             data: JSON.stringify(dataToSave),
             contentType: 'application/json; charset=utf-8',
-            success: function(response) {
+            success: function (response) {
                 let responseData = JSON.parse(response);
                 if (responseData.success) {
                     console.log('Firma guardada con éxito: ', responseData);
@@ -1057,11 +1094,10 @@ $link->close();
                     $.notify("Error al firmar documento: " + responseData.error, "error");
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Error al guardar la firma: ", status, error);
                 $.notify("Error al firmar documento", "error");
             }
         });
     }
 </script>
-

@@ -331,24 +331,35 @@ function botones_interno(id, accion, modulo) {
 }
 
 function abrirModal() {
-  document.getElementById("modalEliminar").style.display = "block";
+  document.getElementById("modalEliminar").style.display = "flex";
+  $.notify("Proceso de eliminacion iniciado.", "success");
 }
 
 function cerrarModal() {
   document.getElementById("modalEliminar").style.display = "none";
+  $.notify("Proceso de eliminacion iniciado.", "success");
 }
-
+// Cierra el modal si el usuario hace clic fuera de él
+window.onclick = function(event) {
+    let modal = document.getElementById("modalEliminar");
+    if (event.target === modal) {
+        cerrarModal();
+    }
+}
 function confirmarEliminacion() {
   var palabraConfirmacion = document.getElementById("confirmacionPalabra").value;
   var motivoEliminacion = document.getElementById("motivoEliminacion").value;
 
   if (palabraConfirmacion !== 'eliminar') {
-    alert("Debe ingresar la palabra 'eliminar' para confirmar.");
+    
+    $.notify("Debe ingresar la palabra 'eliminar' para confirmar.", "warn");
+    
     return;
   }
 
   if (motivoEliminacion.trim() === "") {
-    alert("Debe ingresar un motivo de eliminación.");
+    
+    $.notify("Debe ingresar un motivo de eliminación.", "warn");
     return;
   }
 
@@ -366,7 +377,7 @@ function confirmarEliminacion() {
     if (response.error) {
         alert("Hubo un error al eliminar el análisis externo: " + response.error);
     } else {
-        alert("El análisis externo ha sido eliminado con éxito.");
+        $.notify("El análisis externo ha sido eliminado con éxito.", "success");
         location.reload(); // Recargar la página o refrescar la tabla
     }
 }, "json");

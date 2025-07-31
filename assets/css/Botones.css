@@ -1,0 +1,34 @@
+/* Contenedor de botones a la derecha */
+.button-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 10px; /* Espacio alrededor del contenedor */
+    z-index: 9999; /* Z-index más alto */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinear los botones a la derecha */
+}
+
+/* Botones de control específicos */
+.button-container .botones.ingControl {
+    background-color: #0047b3; /* Azul predeterminado */
+    color: white;
+    width: 200px; /* Ancho fijo */
+    height: 50px; /* Alto fijo */
+    margin-bottom: 10px; /* Separación entre botones */
+}
+
+.button-container .botones.ingControl:hover {
+    background-color: #003580;
+}
+
+/* Botones de control específicos */
+.button-container .botones.ana {
+    background-color: #0047b3; /* Azul predeterminado */
+    color: white;
+    width: 200px; /* Ancho fijo */
+    height: 50px; /* Alto fijo */
+    margin-bottom: 10px; /* Separación entre botones */
+}
+

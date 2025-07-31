@@ -1,0 +1,125 @@
+/* Estilo general del modal */
+.modal {
+    display: none; /* Oculta el modal por defecto */
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    overflow: auto; /* Para manejar contenido largo */
+}
+
+/* Contenedor del contenido del modal */
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-family: Arial, sans-serif;
+}
+
+/* Título del modal */
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+/* Botón de cierre */
+.close {
+    color: #aaa;
+    font-size: 1.5rem;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Formulario y campos */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #555;
+}
+
+input[type="text"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+textarea {
+    resize: none; /* Evita el cambio de tamaño manual */
+}
+
+/* Botones de acción */
+.form-actions {
+    text-align: right;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btnAceptar {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#btnAceptar:hover {
+    background-color: #0056b3;
+}
+
+#btnCancelar {
+    background-color: #e0e0e0; /* Gris claro */
+    color: #333; /* Texto oscuro */
+    margin-left: 10px;
+}
+
+#btnCancelar:hover {
+    background-color: #d6d6d6; /* Gris oscuro */
+}
+
+/* Responsivo */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        width: 90%; /* Ajusta el ancho del modal en pantallas pequeñas */
+    }
+
+    button {
+        width: 100%; /* Botones más grandes en dispositivos móviles */
+        margin-top: 10px; /* Separación entre botones */
+    }
+}

@@ -17,9 +17,11 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     <!-- Añade aquí tus estilos o referencias a CSS -->
     <link rel="stylesheet" href="../assets/css/ModificacionPerfil.css">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
+    <link rel="stylesheet" href="../assets/css/Botones.css">
     <script src="../assets/js/notify.js"></script>
     <script src="../assets/js/image.js"></script>
 </head>
+
 <body>
     <div class="container">
         <div class="form-container">
@@ -31,36 +33,42 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <h3>Cambio de Contraseña</h3>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="switch_contrasena" onclick="toggleInputs('switch_contrasena')">
+                        <input class="form-check-input" type="checkbox" id="switch_contrasena"
+                            onclick="toggleInputs('switch_contrasena')">
                         <label class="form-check-label" for="switch_contrasena">Editar</label>
                         <input type="hidden" id="editarContrasena" name="editarContrasena" value="0">
                     </div>
                     <br>
                     <div>
                         <label for="passwordActual">Contraseña Actual:</label>
-                        <input class="switch_contrasena" type="password" id="passwordActual" name="passwordActual" disabled>
+                        <input class="switch_contrasena" type="password" id="passwordActual" name="passwordActual"
+                            disabled>
                     </div>
                     <div>
                         <label for="nuevaPassword">Nueva Contraseña:</label>
-                        <input class="switch_contrasena" type="password" id="nuevaPassword" name="nuevaPassword" disabled>
+                        <input class="switch_contrasena" type="password" id="nuevaPassword" name="nuevaPassword"
+                            disabled>
                     </div>
                     <div>
                         <label for="confirmarPassword">Confirmar Nueva Contraseña:</label>
-                        <input class="switch_contrasena" type="password" id="confirmarPassword" name="confirmarPassword" disabled>
+                        <input class="switch_contrasena" type="password" id="confirmarPassword" name="confirmarPassword"
+                            disabled>
                     </div>
 
                 </div>
                 <div class="seccion seccion-deshabilitada">
                     <h3>Cambio de Foto de Perfil</h3>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="switch_foto" onclick="toggleInputs('switch_foto')">
+                        <input class="form-check-input" type="checkbox" id="switch_foto"
+                            onclick="toggleInputs('switch_foto')">
                         <label class="form-check-label" for="switch_foto">Editar</label>
                         <input type="hidden" id="editarFoto" name="editarFoto" value="0">
                     </div>
                     <br>
                     <div>
                         <label for="fotoPerfil">Foto de Perfil:</label>
-                        <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" disabled onchange="handleImageUploadPerfil(event)">
+                        <input class="switch_foto" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*"
+                            disabled onchange="handleImageUploadPerfil(event)">
                         <div id="fotoPerfilPreview" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
@@ -70,7 +78,8 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 <div class="seccion seccion-deshabilitada">
                     <h3>Editar información de Usuario</h3>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="switch_info" onclick="toggleInputs('switch_info')">
+                        <input class="form-check-input" type="checkbox" id="switch_info"
+                            onclick="toggleInputs('switch_info')">
                         <label class="form-check-label" for="switch_info">Editar</label>
                         <input type="hidden" id="editarInfo" name="editarInfo" value="0">
                     </div>
@@ -92,14 +101,17 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <h3>Certificado Nacional de Prestadores Individuales de Salud</h3>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="switch_certificado" onclick="toggleInputs('switch_certificado')">
+                        <input class="form-check-input" type="checkbox" id="switch_certificado"
+                            onclick="toggleInputs('switch_certificado')">
                         <label class="form-check-label" for="switch_certificado">Editar</label>
                         <input type="hidden" id="editarCertificado" name="editarCertificado" value="0">
                     </div>
                     <br>
                     <div>
-                        <label for="certificado">Cargar Documento (extraído desde https://rnpi.superdesalud.gob.cl/):</label>
-                        <input class="switch_certificado" onChange="handleCertificado(event)" type="file" id="certificado" name="certificado" accept="application/pdf" disabled>
+                        <label for="certificado">Cargar Documento (extraído desde
+                            https://rnpi.superdesalud.gob.cl/):</label>
+                        <input class="switch_certificado" onChange="handleCertificado(event)" type="file"
+                            id="certificado" name="certificado" accept="application/pdf" disabled>
                         <div id="certificadoExistente" class="container-md d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
@@ -109,14 +121,16 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     <h3>Firma</h3>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="switch_firma" onclick="toggleInputs('switch_firma')">
+                        <input class="form-check-input" type="checkbox" id="switch_firma"
+                            onclick="toggleInputs('switch_firma')">
                         <label class="form-check-label" for="switch_firma">Editar</label>
                         <input type="hidden" id="editarfirma" name="editarfirma" value="0">
                     </div>
                     <br>
                     <div>
                         <label for="firma">Imagen de Firma:</label>
-                        <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled onChange="handleFirma(event)">
+                        <input class="switch_firma" type="file" id="firma" name="firma" accept="image/*" disabled
+                            onChange="handleFirma(event)">
                         <div id="firmaExistente" class="d-flex justify-content-center">
                             <!-- Aquí se mostrará el enlace al archivo existente -->
                         </div>
@@ -125,16 +139,19 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 </div>
                 <canvas style="display: none;"></canvas>
                 <input type="hidden" name="usuario" value="<?php echo $_SESSION['usuario']; ?>">
-                <button type="button" name="modificarPerfil" onclick="guardar()">Guardar Cambios</button>
+                
+
             </form>
         </div>
     </div>
+    <div class="button-container"><button class="botones ingControl" type="button" name="modificarPerfil"
+                        onclick="guardar()">Guardar Cambios</button></div>
     <script>
         function cargarInformacionExistente() {
             $.ajax({
                 url: './backend/usuario/modifica_perfilFETCH.php',
                 type: 'GET',
-                success: function(response) {
+                success: function (response) {
                     var usuario = response.usuario;
                     $('#nombre').val(usuario.nombre);
                     $('#nombre_corto').val(usuario.nombre_corto);
@@ -175,13 +192,13 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error("Error en la solicitud: ", status, error);
                 }
             });
         }
 
-        document.getElementById('formPerfil').addEventListener('submit', function(event) {
+        document.getElementById('formPerfil').addEventListener('submit', function (event) {
             var password = document.getElementById('nuevaPassword').value;
             var confirmPassword = document.getElementById('confirmarPassword').value;
 
@@ -202,7 +219,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function handleImageUploadPerfil(e) {
             if (e.target.files && e.target.files[0]) {
-                processImageSquare(e.target.files[0], function(error, result) {
+                processImageSquare(e.target.files[0], function (error, result) {
                     if (error) {
                         console.error(error);
                         return;
@@ -213,7 +230,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 }, 100);
             }
         }
-        fotoPerfilCancel.on('click', function(e) {
+        fotoPerfilCancel.on('click', function (e) {
             e.preventDefault();
             blobImgPerfil = null;
             fotoPerfilPreview.empty();
@@ -233,7 +250,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
         function handleFirma(e) {
             if (e.target.files && e.target.files[0]) {
-                processImageScale(e.target.files[0], function(error, result) {
+                processImageScale(e.target.files[0], function (error, result) {
                     if (error) {
                         console.error(error);
                         return;
@@ -245,7 +262,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             }
         }
 
-        cancelFirma.on('click', function(e) {
+        cancelFirma.on('click', function (e) {
             e.preventDefault();
             blobFirma = null;
             firmaExistente.empty();
@@ -256,7 +273,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if (event.target.files && event.target.files[0]) {
                 const file = event.target.files[0];
                 const reader = new FileReader();
-                reader.onload = function() {
+                reader.onload = function () {
                     const result = reader.result;
                     document.getElementById('certificadoExistente').innerHTML = `
                     <div class="d-flex justify-content-center flex-column w-100">
@@ -277,7 +294,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             // Encuentra la sección más cercana
             var seccion = inputs[0].closest('.seccion');
             // Alternar el estado de cada campo
-            inputs.forEach(function(input) {
+            inputs.forEach(function (input) {
                 input.disabled = !areDisabled;
             });
             // Alternar la clase de la sección y el valor del campo oculto
@@ -375,14 +392,14 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
+                success: function (response) {
                     var res = JSON.parse(response);
                     //reload and set session variables
                     location.reload();
 
 
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     console.error('Error en la solicitud: ', textStatus, errorThrown);
                 }
             });
