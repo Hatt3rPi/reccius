@@ -21,6 +21,16 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: FTP-Deploy-Action para Desarrollo (main)
+        if: github.ref == 'refs/heads/main' && github.repository == 'Hatt3rPi/reccius'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.customware.cl
+          username: git_controller@customware.cl
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          passive: true
+
       - name: Clonar y preparar el repositorio productivo
         if: github.ref == 'refs/heads/main' && github.repository == 'Hatt3rPi/reccius'
         run: |
