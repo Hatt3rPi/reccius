@@ -65,6 +65,9 @@ const customware_flags = {
 // DETECCIÓN AUTOMÁTICA DE AMBIENTE Y CONFIGURACIÓN
 // ==================================================================================
 (function() {
+    // Log inicial para verificar que el script se está cargando
+    console.log('📦 Cargando features_customware.js...', new Date().toLocaleTimeString());
+    
     const hostname = window.location.hostname;
     let selectedFlags;
     let environmentName;
@@ -80,6 +83,7 @@ const customware_flags = {
         // Fallback a configuración de desarrollo si no se puede determinar
         selectedFlags = customware_flags;
         environmentName = 'UNKNOWN (Fallback a desarrollo)';
+        console.warn('⚠️ Hostname no reconocido:', hostname, '- usando configuración de desarrollo');
     }
     
     // Configuración global (mantiene compatibilidad con código existente)
@@ -89,12 +93,13 @@ const customware_flags = {
         FLAGS: selectedFlags
     };
     
-    // Información de debugging (solo visible en ambiente de desarrollo)
+    // Log siempre visible para verificar que se ejecuta
+    console.log('🚀 Feature Flags inicializados para:', environmentName);
+    console.log('🌐 Hostname detectado:', hostname);
+    
+    // Información de debugging detallada (solo en desarrollo)
     if (hostname.includes('customware.cl') || hostname.includes('localhost') || hostname.includes('127.0.0.1')) {
         if (window.console && window.console.log) {
-            console.log('🚀 Feature Flags inicializados para:', environmentName);
-            console.log('🌐 Hostname detectado:', hostname);
-            
             // Separar flags activos e inactivos
             const activeFlags = Object.entries(selectedFlags).filter(([key, value]) => value === true);
             const inactiveFlags = Object.entries(selectedFlags).filter(([key, value]) => value === false);
@@ -102,6 +107,24 @@ const customware_flags = {
             console.log('✅ Flags ACTIVOS:', activeFlags.map(([key]) => key));
             console.log('❌ Flags INACTIVOS:', inactiveFlags.map(([key]) => key));
             console.log('🎛️ Configuración completa:', selectedFlags);
+            
+            // Verificar que recetario_magistral esté activo
+            if (selectedFlags.recetario_magistral) {
+                console.log('✨ RECETARIO MAGISTRAL está HABILITADO en desarrollo');
+            } else {
+                console.warn('⚠️ RECETARIO MAGISTRAL está DESHABILITADO en desarrollo');
+            }
+        }
+    } else {
+        // En producción solo mostrar el estado del recetario_magistral
+        if (selectedFlags.recetario_magistral) {
+            console.log('✨ RECETARIO MAGISTRAL está HABILITADO en producción');
+        } else {
+            console.log('🚫 RECETARIO MAGISTRAL está DESHABILITADO en producción');
         }
     }
+    
+    // Verificación adicional de que AppConfig se configuró correctamente
+    console.log('🔧 AppConfig configurado:', window.AppConfig ? '✅' : '❌');
+    
 })();
