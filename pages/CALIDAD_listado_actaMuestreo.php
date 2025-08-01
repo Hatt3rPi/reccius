@@ -40,6 +40,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             <button class="estado-filtro badge badge-insumo" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
             
         </div>
+        <div class="estado-filtros">
+            <label> </label>
+            <button class="estado-filtro badge" onclick="limpiar_filtros()">Limpiar Filtros</button>
+        </div>
         <br>
         <br>
         <div id="contenedor_listado">
@@ -72,22 +76,59 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
     function filtrar_listado(valor, filtro) {
         var table = $('#listado').DataTable();
+        
+        // Remover clase active de todos los filtros del mismo tipo
+        if(filtro == "estado") {
+            $('.estado-filtros').first().find('.estado-filtro').removeClass('active');
+        } else if(filtro == "tipo_producto") {
+            $('.estado-filtros').eq(1).find('.estado-filtro').removeClass('active');
+        }
+        
         if(filtro=="estado"){
             if (valor === '') {
                 // Eliminar todos los filtros
                 table.search('').columns().search('').draw();
             } else {
-                table.column(1).search(valor).draw(); // Asumiendo que la columna 1 es la de
+                table.column(1).search(valor).draw();
+                // Agregar clase active al botón clickeado
+                event.target.classList.add('active');
             }
         }else if(filtro=="tipo_producto"){
             if (valor === '') {
                 // Eliminar todos los filtros
                 table.search('').columns().search('').draw();
             } else {
-                table.column(6).search(valor).draw(); // Asumiendo que la columna 1 es la de
+                table.column(6).search(valor).draw();
+                // Agregar clase active al botón clickeado
+                event.target.classList.add('active');
             }
         }
         
+        // Actualizar estado del botón "Limpiar Filtros"
+        actualizarBotonLimpiarFiltros();
+    }
+    
+    function limpiar_filtros() {
+        var table = $('#listado').DataTable();
+        // Eliminar todos los filtros de DataTable
+        table.search('').columns().search('').draw();
+        
+        // Remover clase active de todos los filtros
+        $('.estado-filtro').removeClass('active');
+        
+        // Actualizar estado del botón "Limpiar Filtros"
+        actualizarBotonLimpiarFiltros();
+    }
+    
+    function actualizarBotonLimpiarFiltros() {
+        var hayFiltrosActivos = $('.estado-filtro.active').length > 0;
+        var botonLimpiar = $('button[onclick*="limpiar_filtros"]');
+        
+        if (hayFiltrosActivos) {
+            botonLimpiar.addClass('limpiar-filtros-activo');
+        } else {
+            botonLimpiar.removeClass('limpiar-filtros-activo');
+        }
     }
     function carga_listado() {
         var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";

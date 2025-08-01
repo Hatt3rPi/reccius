@@ -316,3 +316,94 @@ th,td, thead {
     cursor: pointer;
     user-select: none;
 }
+
+/* ========================================= */
+/* ESTADOS ACTIVOS PARA TODOS LOS FILTROS  */
+/* ========================================= */
+
+/* Estados activos para filtros de ESTADO */
+.badge-success.active {
+    background-color: #28a745 !important;
+    color: white !important;
+    border: 2px solid #1e7e34 !important;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+.badge-warning.active {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+    border: 2px solid #d39e00 !important;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+.badge-dark.active {
+    background-color: #343a40 !important;
+    color: white !important;
+    border: 2px solid #1d2124 !important;
+    box-shadow: 0 0 0 3px rgba(52, 58, 64, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+.badge.active {
+    background-color: #6c757d !important;
+    color: white !important;
+    border: 2px solid #545b62 !important;
+    box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+/* Estados activos para filtros de TIPO PRODUCTO (colores más saturados) */
+.badge-producto-terminado.active {
+    background-color: #4caf50 !important; /* Verde más saturado */
+    color: white !important;
+    border: 2px solid #2e7d32 !important;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+.badge-material-envase.active {
+    background-color: #2196f3 !important; /* Azul más saturado */
+    color: white !important;
+    border: 2px solid #1565c0 !important;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+.badge-materia-prima.active {
+    background-color: #e91e63 !important; /* Rosa más saturado */
+    color: white !important;
+    border: 2px solid #c2185b !important;
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+.badge-insumo.active {
+    background-color: #9c27b0 !important; /* Morado más saturado */
+    color: white !important;
+    border: 2px solid #7b1fa2 !important;
+    box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.25) !important;
+    font-weight: 600 !important;
+}
+
+/* Transiciones suaves para todos los estados */
+.estado-filtro {
+    transition: all 0.3s ease !important;
+}
+
+/* Indicador visual para botón Limpiar Filtros cuando hay filtros activos */
+.limpiar-filtros-activo {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: 2px solid #c82333 !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25) !important;
+    font-weight: 600 !important;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
