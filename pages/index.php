@@ -254,30 +254,36 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                     Productos en cuarentena y liberados
                 </a>
 
-                <!-- Sección de Recetario Magistral -->
-                <li class="title">Recetario magistral</li>
-                <li class="item" id="cotizador">
-                    <a href="#Cotizador" class="btn_lateral" urlPage="/cotizador" data-breadcrumb="Home > Cotizador">
-                        <span>
-                            <img src="../assets/images/calculator.svg" alt="Icono de Cotizador" class="icono-usuario" height="24" width="24">
-                        </span>
-                        Cotizador
-                    </a>
-                    <div class="smenu">
-                        <a id="cotizador_ingreso" href="#" urlPage="/cotizador_ingreso" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/liberacion.svg" alt="Icono de Ingreso en Cotizador" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Ingreso
-                        </a>
-                        <a id="cotizador_busqueda" href="#" urlPage="/cotizador_busqueda" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
-                            <span>
-                                <img src="../assets/images/search.svg" alt="Icono de Buscar en Cotizador" class="icono-usuario" height="24" width="24">
-                            </span>
-                            Buscar
-                        </a>
-                    </div>
-                </li>
+                <!-- Sección de Recetario Magistral - Controlada por feature flag recetario_magistral -->
+                <script>
+                if (typeof AppConfig !== 'undefined' && AppConfig.FLAGS && AppConfig.FLAGS.recetario_magistral) {
+                    document.write(`
+                        <li class="title">Recetario magistral</li>
+                        <li class="item" id="cotizador">
+                            <a href="#Cotizador" class="btn_lateral" urlPage="/cotizador" data-breadcrumb="Home > Cotizador">
+                                <span>
+                                    <img src="../assets/images/calculator.svg" alt="Icono de Cotizador" class="icono-usuario" height="24" width="24">
+                                </span>
+                                Cotizador
+                            </a>
+                            <div class="smenu">
+                                <a id="cotizador_ingreso" href="#" urlPage="/cotizador_ingreso" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/liberacion.svg" alt="Icono de Ingreso en Cotizador" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Ingreso
+                                </a>
+                                <a id="cotizador_busqueda" href="#" urlPage="/cotizador_busqueda" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
+                                    <span>
+                                        <img src="../assets/images/search.svg" alt="Icono de Buscar en Cotizador" class="icono-usuario" height="24" width="24">
+                                    </span>
+                                    Buscar
+                                </a>
+                            </div>
+                        </li>
+                    `);
+                }
+                </script>
 
                 <!-- Sección de Producción - Controlada por feature flag experimental_produccion -->
                 <script>
