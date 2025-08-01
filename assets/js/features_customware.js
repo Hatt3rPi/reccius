@@ -103,24 +103,24 @@ const customware_flags = {
             // Separar flags activos e inactivos
             const activeFlags = Object.entries(selectedFlags).filter(([key, value]) => value === true);
             const inactiveFlags = Object.entries(selectedFlags).filter(([key, value]) => value === false);
-            
+            console.log('customware');
             console.log('✅ Flags ACTIVOS:', activeFlags.map(([key]) => key));
             console.log('❌ Flags INACTIVOS:', inactiveFlags.map(([key]) => key));
             console.log('🎛️ Configuración completa:', selectedFlags);
             
-            // Verificar que recetario_magistral esté activo
-            if (selectedFlags.recetario_magistral) {
-                console.log('✨ RECETARIO MAGISTRAL está HABILITADO en desarrollo');
-            } else {
-                console.warn('⚠️ RECETARIO MAGISTRAL está DESHABILITADO en desarrollo');
-            }
+
         }
     } else {
-        // En producción solo mostrar el estado del recetario_magistral
-        if (selectedFlags.recetario_magistral) {
-            console.log('✨ RECETARIO MAGISTRAL está HABILITADO en producción');
-        } else {
-            console.log('🚫 RECETARIO MAGISTRAL está DESHABILITADO en producción');
+        if (window.console && window.console.log) {
+            // Separar flags activos e inactivos
+            const activeFlags = Object.entries(selectedFlags).filter(([key, value]) => value === true);
+            const inactiveFlags = Object.entries(selectedFlags).filter(([key, value]) => value === false);
+            console.log('reccius');
+            console.log('✅ Flags ACTIVOS:', activeFlags.map(([key]) => key));
+            console.log('❌ Flags INACTIVOS:', inactiveFlags.map(([key]) => key));
+            console.log('🎛️ Configuración completa:', selectedFlags);
+            
+
         }
     }
     
