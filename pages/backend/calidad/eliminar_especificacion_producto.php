@@ -6,6 +6,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     header("Location: https://customware.cl/reccius/pages/login.html");
     exit;
 }
+
+// Verificar que solo isumonte o isumonte@reccius.cl pueda ejecutar esta operación
+if ($_SESSION['usuario'] !== 'isumonte@reccius.cl' && $_SESSION['usuario'] !== 'isumonte') {
+    echo json_encode(['error' => 'No tienes permisos para realizar esta operación.']);
+    exit;
+}
 // Comprobar si el ID fue enviado por POST
 if (!isset($_POST['id_especificacionProducto'])) {
     echo json_encode(['error' => 'No se proporcionó el ID necesario.']);

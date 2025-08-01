@@ -253,7 +253,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     if (d.estado === 'Vigente') {
         acciones += '<button class="accion-btn ingControl" title="Generar Solicitud de Análisis externo" id="' + d.id_especificacion + '" name="prepararSolicitud" onclick="botones({analisisExterno:0, especificacion:this.id}, this.name, \'especificacion\')"><i class="fas fa-vial"></i> Generar Solicitud de análisis externo</button><a> </a>';
     }
-    acciones += '<button class="accion-btn ingControl" title="Eliminar Especificación de Producto" id="' + d.id_especificacion + '" name="eliminar_especificacion_producto" style="background-color: red; color: white;" onclick="botones_interno(this.id, this.name, \'laboratorio\')"><i class="fas fa-trash"></i> Eliminar Especificación de Producto</button><a> </a>';
+    // Solo mostrar botón de eliminación para isumonte o isumonte@reccius.cl
+    if ('<?php echo $_SESSION['usuario']; ?>' === 'isumonte@reccius.cl' || '<?php echo $_SESSION['usuario']; ?>' === 'isumonte') {
+        acciones += '<button class="accion-btn ingControl" title="Eliminar Especificación de Producto" id="' + d.id_especificacion + '" name="eliminar_especificacion_producto" style="background-color: red; color: white;" onclick="botones_interno(this.id, this.name, \'laboratorio\')"><i class="fas fa-trash"></i> Eliminar Especificación de Producto</button><a> </a>';
+    }
     acciones += '</td></tr></table>';
     return acciones;
 }
