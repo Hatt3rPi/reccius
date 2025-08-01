@@ -317,6 +317,75 @@ th,td, thead {
     user-select: none;
 }
 
+/* ============================================= */
+/* ESTILOS MEJORADOS PARA BOTONES DE ESTADO     */
+/* ============================================= */
+
+/* Estilos mejorados para badges de estado - manteniendo colores actuales */
+.badge-success {
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    border: 1px solid #1e7e34 !important;
+    transition: all 0.3s ease !important;
+}
+
+.badge-success:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    border-color: #155724 !important;
+}
+
+.badge-warning {
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    border: 1px solid #d39e00 !important;
+    transition: all 0.3s ease !important;
+}
+
+.badge-warning:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    border-color: #b7860a !important;
+}
+
+.badge-dark {
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    border: 1px solid #1d2124 !important;
+    transition: all 0.3s ease !important;
+}
+
+.badge-dark:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    border-color: #121416 !important;
+}
+
+/* Badge genérico (botón "Todos" y "Limpiar Filtros") */
+.badge {
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    border: 1px solid #6c757d !important;
+    transition: all 0.3s ease !important;
+    background-color: #6c757d !important;
+    color: white !important;
+}
+
+.badge:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    border-color: #545b62 !important;
+    background-color: #5a6268 !important;
+}
+
 /* ========================================= */
 /* ESTADOS ACTIVOS PARA TODOS LOS FILTROS  */
 /* ========================================= */
