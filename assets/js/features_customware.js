@@ -93,8 +93,15 @@ const customware_flags = {
     if (hostname.includes('customware.cl') || hostname.includes('localhost') || hostname.includes('127.0.0.1')) {
         if (window.console && window.console.log) {
             console.log('🚀 Feature Flags inicializados para:', environmentName);
-            console.log('🎛️ Configuración activa:', window.AppConfig.FLAGS);
             console.log('🌐 Hostname detectado:', hostname);
+            
+            // Separar flags activos e inactivos
+            const activeFlags = Object.entries(selectedFlags).filter(([key, value]) => value === true);
+            const inactiveFlags = Object.entries(selectedFlags).filter(([key, value]) => value === false);
+            
+            console.log('✅ Flags ACTIVOS:', activeFlags.map(([key]) => key));
+            console.log('❌ Flags INACTIVOS:', inactiveFlags.map(([key]) => key));
+            console.log('🎛️ Configuración completa:', selectedFlags);
         }
     }
 })();
