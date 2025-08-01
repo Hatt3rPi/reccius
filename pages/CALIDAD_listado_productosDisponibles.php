@@ -137,6 +137,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 </html>
 <script>
+    var usuarioActual = "<?php echo $_SESSION['usuario']; ?>";
+    
     function filtrar_listado(valor, filtro) {
         var table = $('#listado').DataTable();
         
@@ -694,7 +696,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <td>${fecha_carga.split('-').reverse().join('/')}</td>
                             <td>
                                 <a href="${url}" target="_blank">Ver</a>/
-                                <button class="btn btn-primary" onclick="eliminarAdjunto(${id}, ${id_productos_analizados})">Eliminar</button>
+                                ${(usuarioActual === 'isumonte@reccius.cl' || usuarioActual === 'isumonte') ? 
+                                    '<button class="btn btn-primary" onclick="eliminarAdjunto(' + id + ', ' + id_productos_analizados + ')">Eliminar</button>' : 
+                                    ''
+                                }
                             </td>
                         </tr>`
                     });

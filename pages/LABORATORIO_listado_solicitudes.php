@@ -337,7 +337,10 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
             if ( d.estado === "Pendiente liberación productos") {
             acciones += `<button class="accion-btn ingControl" title="Solicitud Liberacion" type="button" id="${d.id_analisisExterno}" name="Liberacion" onclick="botones(this.id, this.name, \'laboratorio\')"><i class="fas fa-search"></i> Emitir Acta de Liberación</button><a> </a>`;
             }
-            acciones += `<button class="accion-btn ingControl" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" style="background-color: red; color: white;" onclick="botones_interno(this.id, this.name, 'laboratorio')"> <i class="fas fa-trash"></i> Eliminar Análisis Externo</button><a> </a>`;
+            // Solo mostrar botón de eliminación para isumonte o isumonte@reccius.cl
+            if ('<?php echo $_SESSION['usuario']; ?>' === 'isumonte@reccius.cl' || '<?php echo $_SESSION['usuario']; ?>' === 'isumonte') {
+                acciones += `<button class="accion-btn ingControl" title="Eliminar Solicitud" type="button" id="${d.id_analisisExterno}" name="eliminar_analisis_externo" style="background-color: red; color: white;" onclick="botones_interno(this.id, this.name, 'laboratorio')"> <i class="fas fa-trash"></i> Eliminar Análisis Externo</button><a> </a>`;
+            }
             acciones += '</td></tr></table>';
 
             return acciones;

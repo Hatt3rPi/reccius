@@ -9,6 +9,12 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
     exit;
 }
 
+// Verificar que solo isumonte o isumonte@reccius.cl pueda ejecutar esta operación
+if ($_SESSION['usuario'] !== 'isumonte@reccius.cl' && $_SESSION['usuario'] !== 'isumonte') {
+    echo json_encode(['exito' => false, 'mensaje' => 'No tienes permisos para realizar esta operación.']);
+    exit;
+}
+
 header('Content-Type: application/json');
 
 // Validar que se haya proporcionado un ID de documento
