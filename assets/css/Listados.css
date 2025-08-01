@@ -329,12 +329,15 @@ th,td, thead {
     font-weight: 500 !important;
     border: 1px solid #1e7e34 !important;
     transition: all 0.3s ease !important;
+    background-color: #28a745 !important;
+    color: white !important;
 }
 
 .badge-success:hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     border-color: #155724 !important;
+    background-color: #218838 !important;
 }
 
 .badge-warning {
@@ -344,12 +347,15 @@ th,td, thead {
     font-weight: 500 !important;
     border: 1px solid #d39e00 !important;
     transition: all 0.3s ease !important;
+    background-color: #ffc107 !important;
+    color: #212529 !important;
 }
 
 .badge-warning:hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     border-color: #b7860a !important;
+    background-color: #e0a800 !important;
 }
 
 .badge-dark {
@@ -359,16 +365,19 @@ th,td, thead {
     font-weight: 500 !important;
     border: 1px solid #1d2124 !important;
     transition: all 0.3s ease !important;
+    background-color: #343a40 !important;
+    color: white !important;
 }
 
 .badge-dark:hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     border-color: #121416 !important;
+    background-color: #23272b !important;
 }
 
-/* Badge genérico (botón "Todos" y "Limpiar Filtros") */
-.badge {
+/* Badge genérico solo para botones sin clase específica */
+.estado-filtro.badge:not(.badge-success):not(.badge-warning):not(.badge-dark):not(.badge-producto-terminado):not(.badge-material-envase):not(.badge-materia-prima):not(.badge-insumo) {
     padding: 6px 12px !important;
     border-radius: 20px !important;
     font-size: 12px !important;
@@ -379,7 +388,7 @@ th,td, thead {
     color: white !important;
 }
 
-.badge:hover {
+.estado-filtro.badge:not(.badge-success):not(.badge-warning):not(.badge-dark):not(.badge-producto-terminado):not(.badge-material-envase):not(.badge-materia-prima):not(.badge-insumo):hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     border-color: #545b62 !important;
