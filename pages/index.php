@@ -251,103 +251,9 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                     Productos en cuarentena y liberados
                 </a>
 
-                <!-- Sección de Recetario Magistral - Controlada por feature flag recetario_magistral -->
-                <script>
-                if (typeof AppConfig !== 'undefined' && AppConfig.FLAGS && AppConfig.FLAGS.recetario_magistral) {
-                    document.write(`
-                        <li class="title">Recetario magistral</li>
-                        <li class="item" id="cotizador">
-                            <a href="#Cotizador" class="btn_lateral" urlPage="/cotizador" data-breadcrumb="Home > Cotizador">
-                                <span>
-                                    <img src="../assets/images/calculator.svg" alt="Icono de Cotizador" class="icono-usuario" height="24" width="24">
-                                </span>
-                                Cotizador
-                            </a>
-                            <div class="smenu">
-                                <a id="cotizador_ingreso" href="#" urlPage="/cotizador_ingreso" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/liberacion.svg" alt="Icono de Ingreso en Cotizador" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Ingreso
-                                </a>
-                                <a id="cotizador_busqueda" href="#" urlPage="/cotizador_busqueda" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/search.svg" alt="Icono de Buscar en Cotizador" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Buscar
-                                </a>
-                            </div>
-                        </li>
-                    `);
-                }
-                </script>
+                <!-- Sección de Recetario Magistral - Se insertará dinámicamente después de cargar AppConfig -->
 
-                <!-- Sección de Producción - Controlada por feature flag experimental_produccion -->
-                <script>
-                if (typeof AppConfig !== 'undefined' && AppConfig.FLAGS && AppConfig.FLAGS.experimental_produccion) {
-                    document.write(`
-                        <li class="title">Producción</li>
-                        <li class="item" id="produccion">
-                            <a href="#Produccion" class="btn_lateral" urlPage="/produccion" data-breadcrumb="Home > Producción">
-                                <span>
-                                    <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario" height="24" width="24">
-                                </span>
-                                Producción
-                            </a>
-                            <div class="smenu">
-                                <a id="Ingreso_OC" href="#" urlPage="/ingreso_oc" data-breadcrumb="Home > Producción > Ingreso Orden de Compra" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/search.svg" alt="Icono de Ingreso Orden de Compra" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Ingreso Ordenes de Compra
-                                </a>
-                                <a id="Listado_OC" href="#" urlPage="/listado_oc" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/listado.svg" alt="Icono de Listado Ordenes de Compra" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Listado de Ordenes de Compra
-                                </a>
-                                <a id="Listado_Clientes" href="#" urlPage="/listado_clientes" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/listado.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Listado de Clientes
-                                </a>
-                                <a id="Produccion" href="#" urlPage="/pantalla5" data-breadcrumb="Home > Producción > Pantalla 5 (Producción)" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 5 (Producción)" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Pantalla 5 (Producción)
-                                </a>
-                                <a id="Facturacion" href="#" urlPage="/pantalla6" data-breadcrumb="Home > Producción > Pantalla 6 (Facturación)" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 6 (Facturación)" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Pantalla 6 (Facturación)
-                                </a>
-                                <a id="Despacho" href="#" urlPage="/pantalla7" data-breadcrumb="Home > Producción > Pantalla 7 (Despacho)" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 7 (Despacho)" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Pantalla 7 (Despacho)
-                                </a>
-                                <a id="Cobranza" href="#" urlPage="/pantalla8" data-breadcrumb="Home > Producción > Pantalla 8 (Cobranza)" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 8 (Cobranza)" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Pantalla 8 (Cobranza)
-                                </a>
-                                <a id="Vista_General" href="#" urlPage="/pantalla9" data-breadcrumb="Home > Producción > Pantalla 9 (Vista General)" class="con-borde-inferior">
-                                    <span>
-                                        <img src="../assets/images/listado.svg" alt="Icono de Pantalla 9 (Vista General)" class="icono-usuario" height="24" width="24">
-                                    </span>
-                                    Pantalla 9 (Vista General)
-                                </a>
-                            </div>
-                        </li>
-                    `);
-                }
-                </script>
+                <!-- Sección de Producción - Se insertará dinámicamente después de cargar AppConfig -->
             </ul>
 
         </aside>
@@ -372,6 +278,110 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     if (typeof window.AppConfig !== 'undefined') {
         console.log('✅ Feature Flags cargados exitosamente desde index.php');
         console.log('🌍 Ambiente:', window.AppConfig.ENVIRONMENT);
+        
+        // Insertar secciones dinámicas basadas en feature flags
+        const sidebar = document.querySelector('aside ul');
+        
+        // Sección RECETARIO MAGISTRAL
+        if (window.AppConfig.FLAGS.recetario_magistral) {
+            console.log('📝 Insertando sección RECETARIO MAGISTRAL');
+            const recetarioHTML = `
+                <li class="title">Recetario magistral</li>
+                <li class="item" id="cotizador">
+                    <a href="#Cotizador" class="btn_lateral" urlPage="/cotizador" data-breadcrumb="Home > Cotizador">
+                        <span>
+                            <img src="../assets/images/calculator.svg" alt="Icono de Cotizador" class="icono-usuario" height="24" width="24">
+                        </span>
+                        Cotizador
+                    </a>
+                    <div class="smenu">
+                        <a id="cotizador_ingreso" href="#" urlPage="/cotizador_ingreso" data-breadcrumb="Home > Cotizador > Ingreso" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/liberacion.svg" alt="Icono de Ingreso en Cotizador" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Ingreso
+                        </a>
+                        <a id="cotizador_busqueda" href="#" urlPage="/cotizador_busqueda" data-breadcrumb="Home > Cotizador > Buscar" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/search.svg" alt="Icono de Buscar en Cotizador" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Buscar
+                        </a>
+                    </div>
+                </li>
+            `;
+            sidebar.insertAdjacentHTML('beforeend', recetarioHTML);
+        }
+        
+        // Sección PRODUCCIÓN
+        if (window.AppConfig.FLAGS.experimental_produccion) {
+            console.log('🏭 Insertando sección PRODUCCIÓN');
+            const produccionHTML = `
+                <li class="title">Producción</li>
+                <li class="item" id="produccion">
+                    <a href="#Produccion" class="btn_lateral" urlPage="/produccion" data-breadcrumb="Home > Producción">
+                        <span>
+                            <img src="../assets/images/calculator.svg" alt="Icono de Producción" class="icono-usuario" height="24" width="24">
+                        </span>
+                        Producción
+                    </a>
+                    <div class="smenu">
+                        <a id="Ingreso_OC" href="#" urlPage="/ingreso_oc" data-breadcrumb="Home > Producción > Ingreso Orden de Compra" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/search.svg" alt="Icono de Ingreso Orden de Compra" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Ingreso Ordenes de Compra
+                        </a>
+                        <a id="Listado_OC" href="#" urlPage="/listado_oc" data-breadcrumb="Home > Producción > Listado Ordenes de Compra" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Listado Ordenes de Compra" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Listado de Ordenes de Compra
+                        </a>
+                        <a id="Listado_Clientes" href="#" urlPage="/listado_clientes" data-breadcrumb="Home > Producción > Listado Clientes" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Listado Clientes" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Listado de Clientes
+                        </a>
+                        <a id="Produccion" href="#" urlPage="/pantalla5" data-breadcrumb="Home > Producción > Pantalla 5 (Producción)" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 5 (Producción)" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Pantalla 5 (Producción)
+                        </a>
+                        <a id="Facturacion" href="#" urlPage="/pantalla6" data-breadcrumb="Home > Producción > Pantalla 6 (Facturación)" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 6 (Facturación)" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Pantalla 6 (Facturación)
+                        </a>
+                        <a id="Despacho" href="#" urlPage="/pantalla7" data-breadcrumb="Home > Producción > Pantalla 7 (Despacho)" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 7 (Despacho)" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Pantalla 7 (Despacho)
+                        </a>
+                        <a id="Cobranza" href="#" urlPage="/pantalla8" data-breadcrumb="Home > Producción > Pantalla 8 (Cobranza)" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 8 (Cobranza)" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Pantalla 8 (Cobranza)
+                        </a>
+                        <a id="Vista_General" href="#" urlPage="/pantalla9" data-breadcrumb="Home > Producción > Pantalla 9 (Vista General)" class="con-borde-inferior">
+                            <span>
+                                <img src="../assets/images/listado.svg" alt="Icono de Pantalla 9 (Vista General)" class="icono-usuario" height="24" width="24">
+                            </span>
+                            Pantalla 9 (Vista General)
+                        </a>
+                    </div>
+                </li>
+            `;
+            sidebar.insertAdjacentHTML('beforeend', produccionHTML);
+        } else {
+            console.log('🚫 Sección PRODUCCIÓN está deshabilitada');
+        }
+        
     } else {
         console.error('❌ Error: Feature Flags no se cargaron correctamente');
         console.log('🔍 Verificando ruta del archivo desde pages/index.php...');
