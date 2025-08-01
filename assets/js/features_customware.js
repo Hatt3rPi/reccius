@@ -25,10 +25,10 @@ const reccius_flags = {
     productos_disponibles_listado: true,
     
     // Cotizador
-    recetario_magistral: false, // Más conservador en producción
+    recetario_magistral: false, 
     
     // Control de sección Producción
-    experimental_produccion: false, // Deshabilitado en producción hasta validación completa
+    experimental_produccion: false, 
 };
 
 // ==================================================================================
@@ -55,10 +55,10 @@ const customware_flags = {
     productos_disponibles_listado: true,
     
     // Cotizador
-    recetario_magistral: true, // Habilitado en desarrollo para testing
+    recetario_magistral: false, 
     
     // Control de sección Producción
-    experimental_produccion: false, // Deshabilitado hasta completar testing
+    experimental_produccion: false,
 };
 
 // ==================================================================================

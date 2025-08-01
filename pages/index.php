@@ -279,12 +279,55 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
         console.log('✅ Feature Flags cargados exitosamente desde index.php');
         console.log('🌍 Ambiente:', window.AppConfig.ENVIRONMENT);
         
-        // Insertar secciones dinámicas basadas en feature flags
+        // Control completo de visibilidad de secciones basado en feature flags
         const sidebar = document.querySelector('aside ul');
+        
+        // PASO 1: Limpiar cualquier sección existente que pudiera estar presente
+        console.log('🧹 Limpiando secciones existentes controladas por feature flags...');
+        
+        // Remover secciones de Recetario Magistral existentes
+        const recetarioExistente = sidebar.querySelector('#cotizador');
+        if (recetarioExistente) {
+            const recetarioParent = recetarioExistente.closest('li');
+            if (recetarioParent) {
+                recetarioParent.remove();
+                console.log('🗑️ Sección RECETARIO MAGISTRAL existente removida');
+            }
+        }
+        
+        // Remover títulos de Recetario Magistral
+        const tituloRecetario = Array.from(sidebar.querySelectorAll('.title')).find(title => 
+            title.textContent.trim().toLowerCase().includes('recetario magistral')
+        );
+        if (tituloRecetario) {
+            tituloRecetario.remove();
+            console.log('🗑️ Título RECETARIO MAGISTRAL removido');
+        }
+        
+        // Remover secciones de Producción existentes
+        const produccionExistente = sidebar.querySelector('#produccion');
+        if (produccionExistente) {
+            const produccionParent = produccionExistente.closest('li');
+            if (produccionParent) {
+                produccionParent.remove();
+                console.log('🗑️ Sección PRODUCCIÓN existente removida');
+            }
+        }
+        
+        // Remover títulos de Producción
+        const tituloProduccion = Array.from(sidebar.querySelectorAll('.title')).find(title => 
+            title.textContent.trim().toLowerCase().includes('producción')
+        );
+        if (tituloProduccion) {
+            tituloProduccion.remove();
+            console.log('🗑️ Título PRODUCCIÓN removido');
+        }
+        
+        // PASO 2: Insertar secciones SOLO si los flags están activos
         
         // Sección RECETARIO MAGISTRAL
         if (window.AppConfig.FLAGS.recetario_magistral) {
-            console.log('📝 Insertando sección RECETARIO MAGISTRAL');
+            console.log('📝 Insertando sección RECETARIO MAGISTRAL - Flag ACTIVO');
             const recetarioHTML = `
                 <li class="title">Recetario magistral</li>
                 <li class="item" id="cotizador">
@@ -311,11 +354,13 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
                 </li>
             `;
             sidebar.insertAdjacentHTML('beforeend', recetarioHTML);
+        } else {
+            console.log('🚫 Sección RECETARIO MAGISTRAL NO insertada - Flag INACTIVO');
         }
         
         // Sección PRODUCCIÓN
         if (window.AppConfig.FLAGS.experimental_produccion) {
-            console.log('🏭 Insertando sección PRODUCCIÓN');
+            console.log('🏭 Insertando sección PRODUCCIÓN - Flag ACTIVO');
             const produccionHTML = `
                 <li class="title">Producción</li>
                 <li class="item" id="produccion">
@@ -379,8 +424,16 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
             `;
             sidebar.insertAdjacentHTML('beforeend', produccionHTML);
         } else {
-            console.log('🚫 Sección PRODUCCIÓN está deshabilitada');
+            console.log('🚫 Sección PRODUCCIÓN NO insertada - Flag INACTIVO');
         }
+        
+        // PASO 3: Verificación final y logging
+        const sectionsAfter = sidebar.querySelectorAll('li.item').length;
+        console.log(`✅ Control de visibilidad completado. Secciones totales en sidebar: ${sectionsAfter}`);
+        console.log('🎯 Estado actual de feature flags:', {
+            recetario_magistral: window.AppConfig.FLAGS.recetario_magistral,
+            experimental_produccion: window.AppConfig.FLAGS.experimental_produccion
+        });
         
     } else {
         console.error('❌ Error: Feature Flags no se cargaron correctamente');
