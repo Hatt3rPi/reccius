@@ -46,10 +46,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <div class="estado-filtros">
             <label> Tipo de Producto </label>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Producto Terminado', 'tipo_producto')">Producto Terminado</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
-            <button class="estado-filtro badge badge-warning" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
+            <button class="estado-filtro badge badge-producto-terminado" onclick="filtrar_listado('Producto Terminado', 'tipo_producto')">Producto Terminado</button>
+            <button class="estado-filtro badge badge-material-envase" onclick="filtrar_listado('Material Envase y Empaque', 'tipo_producto')">Material Envase y Empaque</button>
+            <button class="estado-filtro badge badge-materia-prima" onclick="filtrar_listado('Materia Prima', 'tipo_producto')">Materia Prima</button>
+            <button class="estado-filtro badge badge-insumo" onclick="filtrar_listado('Insumo', 'tipo_producto')">Insumo</button>
 
         </div>
         <div class="estado-filtros">

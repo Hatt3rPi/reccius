@@ -213,3 +213,106 @@ th,td, thead {
 .modal-content button:hover {
     background-color: #c9302c; /* Oscurecer al pasar el cursor */
 }
+
+/* =========================================== */
+/* NUEVOS ESTILOS PARA FILTROS TIPO PRODUCTO */
+/* =========================================== */
+
+/* Estilos para filtros de tipo de producto con colores pasteles */
+.badge-producto-terminado {
+    background-color: #e8f5e8 !important; /* Verde pastel */
+    color: #2d5a2d !important;
+    border: 1px solid #a5d6a7;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.badge-producto-terminado:hover {
+    background-color: #c8e6c9 !important;
+    color: #1b5e20 !important;
+    border-color: #81c784;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge-material-envase {
+    background-color: #e3f2fd !important; /* Azul pastel */
+    color: #1565c0 !important;
+    border: 1px solid #90caf9;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.badge-material-envase:hover {
+    background-color: #bbdefb !important;
+    color: #0d47a1 !important;
+    border-color: #64b5f6;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge-materia-prima {
+    background-color: #fce4ec !important; /* Rosa pastel */
+    color: #c2185b !important;
+    border: 1px solid #f48fb1;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.badge-materia-prima:hover {
+    background-color: #f8bbd9 !important;
+    color: #ad1457 !important;
+    border-color: #f06292;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge-insumo {
+    background-color: #f3e5f5 !important; /* Morado pastel */
+    color: #7b1fa2 !important;
+    border: 1px solid #ce93d8;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.badge-insumo:hover {
+    background-color: #e1bee7 !important;
+    color: #6a1b9a !important;
+    border-color: #ba68c8;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ajuste específico para estado-filtros container */
+.estado-filtros {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.estado-filtros label {
+    margin-right: 10px;
+    font-weight: 600;
+    color: #333;
+    min-width: max-content;
+}
+
+/* Efecto de cursor pointer para todos los badges filtro */
+.estado-filtro {
+    cursor: pointer;
+    user-select: none;
+}
