@@ -63,9 +63,6 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
 
     <script src="../assets/js/jquery.redirect.js"></script>
     
-    <!-- Feature Flags Configuration -->
-    <script src="../assets/js/features_customware.js"></script>
-    
     <link rel="icon" type="image/x-icon" href="../assets/images/icons8-r-30.png">
     <link rel="stylesheet" href="../assets/css/Notificacion.css">
 
@@ -367,6 +364,19 @@ if (!isset($_SESSION['foto_firma']) || empty($_SESSION['foto_firma'])) {
     </div>
     <script src="../assets/js/scripts_index.js?<?php echo time(); ?>"></script>
     <script src="../assets/js/botones.js"></script>
+    
+    <!-- Feature Flags Configuration - Carga al final para asegurar DOM ready -->
+    <script src="../assets/js/features_customware.js"></script>
+    <script>
+    // Verificación de carga exitosa
+    if (typeof window.AppConfig !== 'undefined') {
+        console.log('✅ Feature Flags cargados exitosamente desde index.php');
+        console.log('🌍 Ambiente:', window.AppConfig.ENVIRONMENT);
+    } else {
+        console.error('❌ Error: Feature Flags no se cargaron correctamente');
+        console.log('🔍 Verificando ruta del archivo desde pages/index.php...');
+    }
+    </script>
 </body>
 
 </html>
