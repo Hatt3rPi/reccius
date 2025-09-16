@@ -143,7 +143,7 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         write_debug_log("EXITO - Proceso completado en {$total_time}ms");
 
         // Registrar en tabla de monitoreo
-        log_upload_attempt($link, $usuario, $idSolicitud, $file_size, true, null, null, $total_time);
+        log_upload_attempt($link, $usuario, $idSolicitud, $file_size, true, '', '', $total_time);
 
         $success_response = ['status' => 'success', 'message' => 'Archivo subido y base de datos actualizada correctamente', 'url' => $fileURL];
         write_debug_log("RESPONSE_SUCCESS - Enviando al frontend: " . json_encode($success_response));
@@ -175,6 +175,10 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
 
 // Función para registrar intentos de subida en BD
 function log_upload_attempt($link, $usuario, $id_solicitud, $tamaño_archivo, $exito, $error_msg, $error_type, $tiempo_respuesta) {
+    // Convertir NULLs a strings vacíos para evitar errores en bind_param
+    $error_msg = $error_msg ?? '';
+    $error_type = $error_type ?? '';
+
     // Verificar si la tabla existe antes de intentar insertar
     $check_table = "SHOW TABLES LIKE 'pdf_upload_log'";
     $result = mysqli_query($link, $check_table);
@@ -184,8 +188,16 @@ function log_upload_attempt($link, $usuario, $id_solicitud, $tamaño_archivo, $e
         $stmt = mysqli_prepare($link, $query);
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "siibssi", $usuario, $id_solicitud, $tamaño_archivo, $exito, $error_msg, $error_type, $tiempo_respuesta);
-            mysqli_stmt_execute($stmt);
+            $execute_result = mysqli_stmt_execute($stmt);
+
+            // Registrar errores de inserción si fallan
+            if (!$execute_result) {
+                write_debug_log("ERROR - Fallo al insertar en pdf_upload_log: " . mysqli_stmt_error($stmt));
+            }
+
             mysqli_stmt_close($stmt);
+        } else {
+            write_debug_log("ERROR - Fallo al preparar statement para pdf_upload_log: " . mysqli_error($link));
         }
     }
 }
