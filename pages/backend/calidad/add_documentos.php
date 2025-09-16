@@ -61,8 +61,11 @@ if (!isset($_FILES['certificado']) || $_FILES['certificado']['error'] !== UPLOAD
     $error_code = $_FILES['certificado']['error'] ?? 'FILE_NOT_SET';
     write_debug_log("ERROR - Validación archivo fallida. Error code: " . $error_code);
 
+    // Obtener el tamaño del archivo si está disponible
+    $file_size_error = $_FILES['certificado']['size'] ?? 0;
+
     // Registrar error de validación en tabla de monitoreo
-    log_upload_attempt($link, $usuario, $idSolicitud, 0, false, "Error de validación: " . $error_code, 'validation_error', round((microtime(true) - $start_time) * 1000, 2));
+    log_upload_attempt($link, $usuario, $idSolicitud, $file_size_error, false, "Error de validación: " . $error_code, 'validation_error', round((microtime(true) - $start_time) * 1000, 2));
 
     echo json_encode(['error' => 'Error al subir el archivo', 'error_code' => $error_code]);
     exit;
@@ -77,6 +80,10 @@ $mimeType = mime_content_type($certificado['tmp_name']);
 // Es un pdf?
 if ($mimeType !== 'application/pdf') {
     write_debug_log("ERROR - Tipo de archivo inválido: " . $mimeType);
+
+    // Registrar error de tipo MIME en tabla de monitoreo
+    log_upload_attempt($link, $usuario, $idSolicitud, $file_size, false, "Archivo no es PDF válido. Tipo: " . $mimeType, 'invalid_mime_type', round((microtime(true) - $start_time) * 1000, 2));
+
     echo json_encode(['error' => 'El archivo no es un PDF válido', 'mime_type' => $mimeType]);
     exit;
 }
@@ -138,14 +145,20 @@ if (isset($uploadResult['success']) && $uploadResult['success'] !== false) {
         // Registrar en tabla de monitoreo
         log_upload_attempt($link, $usuario, $idSolicitud, $file_size, true, null, null, $total_time);
 
-        echo json_encode(['status' => 'success', 'message' => 'Archivo subido y base de datos actualizada correctamente', 'url' => $fileURL]);
+        $success_response = ['status' => 'success', 'message' => 'Archivo subido y base de datos actualizada correctamente', 'url' => $fileURL];
+        write_debug_log("RESPONSE_SUCCESS - Enviando al frontend: " . json_encode($success_response));
+
+        echo json_encode($success_response);
     } else {
         write_debug_log("ERROR - Fallo al actualizar BD");
 
         // Registrar error en tabla de monitoreo
         log_upload_attempt($link, $usuario, $idSolicitud, $file_size, false, 'Fallo al actualizar BD', 'database_error', round((microtime(true) - $start_time) * 1000, 2));
 
-        echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la base de datos']);
+        $error_response = ['status' => 'error', 'message' => 'No se pudo actualizar la base de datos'];
+        write_debug_log("RESPONSE_ERROR_BD - Enviando al frontend: " . json_encode($error_response));
+
+        echo json_encode($error_response);
     }
 
     mysqli_stmt_close($stmt);

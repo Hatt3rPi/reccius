@@ -484,7 +484,7 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
                     fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
                         body: formData,
-                        signal: AbortSignal.timeout(45000) // timeout de 45 segundos
+                        signal: AbortSignal.timeout(90000) // timeout de 90 segundos
                     })
                         .then(response => {
                             // Log de respuesta para diagnóstico
