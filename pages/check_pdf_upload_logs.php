@@ -8,7 +8,7 @@ require_once "/home/customw2/conexiones/config_reccius.php";
 // Verificar que el usuario tiene permisos (solo administradores)
 $usuarios_permitidos = ['isumonte', 'isumonte@reccius.cl', 'fabarca212@gmail.com'];
 if (!isset($_SESSION['usuario']) || !in_array($_SESSION['usuario'], $usuarios_permitidos)) {
-    header("Location: https://customware.cl/reccius/pages/login.html");
+    header("Location: login.html");
     exit;
 }
 
