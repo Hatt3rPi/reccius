@@ -13,20 +13,11 @@ if (!isset($_SESSION['usuario']) || !in_array($_SESSION['usuario'], $usuarios_pe
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logs de Subida de PDF</title>
-    <link rel="stylesheet" href="../assets/css/Listados.css">
-    <style>
-        .error-row { background-color: #ffebee; }
-        .success-row { background-color: #e8f5e8; }
-        .stats { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px; }
-    </style>
-</head>
-<body>
+<style>
+    .error-row { background-color: #ffebee; }
+    .success-row { background-color: #e8f5e8; }
+    .stats { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px; }
+</style>
     <div class="form-container">
         <h1>Logs de Subida de PDF - Diagnóstico</h1>
 
@@ -135,5 +126,3 @@ if (!isset($_SESSION['usuario']) || !in_array($_SESSION['usuario'], $usuarios_pe
         ?>
 
     </div>
-</body>
-</html>
