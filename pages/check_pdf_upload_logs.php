@@ -2,15 +2,7 @@
 // Script para revisar logs de subida de PDF
 // Archivo: check_pdf_upload_logs.php
 
-session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
-
-// Verificar que el usuario tiene permisos (solo administradores)
-$usuarios_permitidos = ['isumonte', 'isumonte@reccius.cl', 'fabarca212@gmail.com'];
-if (!isset($_SESSION['usuario']) || !in_array($_SESSION['usuario'], $usuarios_permitidos)) {
-    header("Location: login.html");
-    exit;
-}
 
 ?>
 <style>
