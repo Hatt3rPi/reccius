@@ -483,21 +483,45 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
                     fetch('./backend/calidad/add_documentos.php', {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        signal: AbortSignal.timeout(45000) // timeout de 45 segundos
                     })
-                        .then(response => response.json())
+                        .then(response => {
+                            // Log de respuesta para diagnóstico
+                            console.log('Response status:', response.status);
+                            console.log('Response headers:', response.headers);
+
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
                         .then(data => {
+                            console.log('Upload response:', data);
                             if (data.status === 'success') {
                                 $.notify("PDF subido con éxito", "success");
                                 document.getElementById('modalLoading').style.display = 'none';
                             } else {
-                                $.notify("Error al subir el PDF: " + data.message, "error");
+                                let errorMsg = data.message || 'Error desconocido';
+                                if (data.error_type) {
+                                    errorMsg += ` (Tipo: ${data.error_type})`;
+                                }
+                                console.error('Upload error details:', data);
+                                $.notify("Error al subir el PDF: " + errorMsg, "error");
                                 document.getElementById('modalLoading').style.display = 'none';
                             }
                         })
                         .catch(error => {
                             console.error('Error al subir el PDF:', error);
-                            $.notify("Error al subir el PDF", "error");
+                            let errorMessage = "Error al subir el PDF";
+
+                            if (error.name === 'AbortError') {
+                                errorMessage = "La subida del PDF excedió el tiempo límite";
+                            } else if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+                                errorMessage = "Error de conexión. Verifique su internet e intente nuevamente";
+                            }
+
+                            $.notify(errorMessage, "error");
                             document.getElementById('modalLoading').style.display = 'none';
                         });
                 })

@@ -70,6 +70,7 @@ function setFile($params, $worker=false)
   $final_path = str_replace( ' ', '_', $folder . '/' . $fileName);
 
   try {
+    // Configurar timeout y reintentos para mejorar confiabilidad
     $result = $R2_client->putObject([
       'Bucket' => $bucket_name,
       'Key' => $final_path,
@@ -78,22 +79,43 @@ function setFile($params, $worker=false)
       'ACL' => 'public-read',
       'Metadata' => [
           'Access-Control-Allow-Origin' => '*'
+      ],
+      '@http' => [
+        'timeout' => 30, // timeout de 30 segundos
+        'connect_timeout' => 10 // timeout de conexión de 10 segundos
       ]
     ]);
+
     if ($worker==true){
       $objectURL = "$worker_url$final_path";
     } else {
       $objectURL = "$bucket_url$final_path";
     }
-    
 
     return json_encode(['success' => [
-      'ObjectURL' => $objectURL, 
-      'result' => $result, 
+      'ObjectURL' => $objectURL,
+      'result' => $result,
       'error' => false
     ]]);
   } catch (Aws\Exception\AwsException $e) {
-    return json_encode(['success' => false, 'error' => $e->getMessage()]);
+    $error_code = $e->getAwsErrorCode();
+    $error_message = $e->getMessage();
+
+    // Log específico para errores intermitentes
+    error_log("R2 Upload Error - Code: {$error_code}, Message: {$error_message}, File: {$final_path}");
+
+    // Clasificar tipos de error para mejor diagnóstico
+    if (strpos($error_message, 'timeout') !== false || strpos($error_message, 'timed out') !== false) {
+      return json_encode(['success' => false, 'error' => 'Timeout de conexión con R2', 'error_type' => 'timeout']);
+    } elseif (strpos($error_message, 'network') !== false || strpos($error_message, 'connection') !== false) {
+      return json_encode(['success' => false, 'error' => 'Error de red con R2', 'error_type' => 'network']);
+    } else {
+      return json_encode(['success' => false, 'error' => $error_message, 'error_type' => 'aws_error', 'aws_code' => $error_code]);
+    }
+  } catch (Exception $e) {
+    // Capturar otros errores no relacionados con AWS
+    error_log("R2 Upload General Error: " . $e->getMessage() . " - File: {$final_path}");
+    return json_encode(['success' => false, 'error' => 'Error general en subida: ' . $e->getMessage(), 'error_type' => 'general']);
   }
 }
 
