@@ -5,13 +5,12 @@
 session_start();
 require_once "/home/customw2/conexiones/config_reccius.php";
 
-// TEMPORAL: Comentado para debugging - restaurar después de detectar el error de sesión
 // Verificar que el usuario tiene permisos (solo administradores)
-// $usuarios_permitidos = ['isumonte', 'isumonte@reccius.cl', 'fabarca212@gmail.com'];
-// if (!isset($_SESSION['usuario']) || !in_array($_SESSION['usuario'], $usuarios_permitidos)) {
-//     header("Location: login.html");
-//     exit;
-// }
+$usuarios_permitidos = ['isumonte', 'isumonte@reccius.cl', 'fabarca212@gmail.com'];
+if (!isset($_SESSION['usuario']) || !in_array($_SESSION['usuario'], $usuarios_permitidos)) {
+    header("Location: login.html");
+    exit;
+}
 
 ?>
 <!DOCTYPE html>

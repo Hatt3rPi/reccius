@@ -17,7 +17,21 @@ if (!isset($_SESSION['usuario']) || empty($_SESSION['usuario'])) {
 
 <body>
     <div class="form-container">
-        <h1>TRAZABILIDAD</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1>TRAZABILIDAD</h1>
+            <?php
+            // Solo mostrar el botón para usuarios autorizados
+            $usuarios_permitidos = ['isumonte', 'isumonte@reccius.cl', 'fabarca212@gmail.com'];
+            if (isset($_SESSION['usuario']) && in_array($_SESSION['usuario'], $usuarios_permitidos)) {
+            ?>
+            <button onclick="window.open('check_pdf_upload_logs.php', '_blank')"
+                    class="btn btn-primary"
+                    title="Ver logs de diagnóstico de subida de PDF"
+                    style="background-color: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+                <i class="fas fa-chart-line"></i> Logs PDF
+            </button>
+            <?php } ?>
+        </div>
             <br>
             <br>
             <h2 class="section-title">Listado actividad reciente:</h2>
