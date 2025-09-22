@@ -187,7 +187,7 @@ function log_upload_attempt($link, $usuario, $id_solicitud, $tamaño_archivo, $e
         $query = "INSERT INTO pdf_upload_log (usuario, id_solicitud, tamaño_archivo, exito, error_msg, error_type, tiempo_respuesta_ms) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $query);
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "siibssi", $usuario, $id_solicitud, $tamaño_archivo, $exito, $error_msg, $error_type, $tiempo_respuesta);
+            mysqli_stmt_bind_param($stmt, "siiissi", $usuario, $id_solicitud, $tamaño_archivo, $exito, $error_msg, $error_type, $tiempo_respuesta);
             $execute_result = mysqli_stmt_execute($stmt);
 
             // Registrar errores de inserción si fallan
